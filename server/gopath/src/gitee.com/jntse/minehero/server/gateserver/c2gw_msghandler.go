@@ -68,8 +68,9 @@ func (this *C2GWMsgHandler) Init() {
 
 	// 游戏房间
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCreateRoom{}, on_C2GW_ReqCreateRoom)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqEnterRoom{}, on_C2GW_ReqEnterRoom)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqLeaveRoom{}, on_C2GW_ReqLeaveRoom)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqEnterRoom{},  on_C2GW_ReqEnterRoom)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqLeaveRoom{},  on_C2GW_ReqLeaveRoom)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqUserRoomInfo{},  on_C2GW_ReqUserRoomInfo)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTexasRoomList{}, on_C2GW_ReqTexasRoomList)
 }
 
@@ -198,6 +199,21 @@ func on_C2GW_ReqLeaveRoom(session network.IBaseNetSession, message interface{}) 
 	tmsg.Roomid, tmsg.Userid = pb.Int64(user.RoomId()), pb.Int64(user.Id())
 	user.SendRoomMsg(tmsg)
 }
+
+func on_C2GW_ReqUserRoomInfo(session network.IBaseNetSession, message interface{}) {
+	//tmsg := message.(*msg.C2GW_ReqUserRoomInfo)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+
+	// 通知客户端房间信息
+	send := &msg.GW2C_SendUserRoomInfo{Roomid:pb.Int64(u.RoomId()), Tid:pb.Int32(u.RoomTid()), Passwd:pb.String(u.RoomPwd())}
+	u.SendMsg(send)
+}
+
 
 func on_C2GW_ReqTexasRoomList(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_ReqTexasRoomList)

@@ -1,6 +1,7 @@
 package main
 import (
 	"fmt"
+	_"strconv"
 	"github.com/go-redis/redis"
 
 	"gitee.com/jntse/gotoolkit/log"
@@ -30,6 +31,7 @@ type UserRoomData struct {
 	seatpos		int32	// 座位号,0观战
 	passwd		string	// 房间密码
 	roomsid   	int
+	roomtid		int32	// 房间配置id
 	kind      	int32
 	creating   	bool
 	//tm_closing 	int64 	// 房间关闭超时
@@ -42,6 +44,7 @@ func (this *UserRoomData) Reset(u *GateUser) {
 	//this.tm_closing = 0
 	this.creating = false
 	this.passwd = ""
+	this.roomtid = 0
 	Redis().Del(fmt.Sprintf("userinroom_%d", u.Id()))
 }
 
@@ -68,21 +71,19 @@ func (this *UserRoomData) Online(u *GateUser) {
 		return
 	}
 
-	this.roomid = roomid
+	this.roomid  = roomid
 	this.roomsid = agent.Id()
-	this.kind = int32(kind)
-	this.passwd = Redis().HGet(keybrief, "passwd").Val()
-
-	// 通知客户端房间信息
-	send := &msg.GW2C_SendUserRoomInfo{Roomid:pb.Int64(roomid), Passwd:pb.String(this.passwd)}
-	u.SendMsg(send)
+	this.kind 	 = int32(kind)
+	this.roomtid = util.Atoi(Redis().HGet(keybrief, "roomtid").Val())
+	this.passwd  = Redis().HGet(keybrief, "passwd").Val()
 }
 
-func (this *GateUser) GameKind() int32 { return this.roomdata.kind }
-func (this *GateUser) RoomId() int64 { return this.roomdata.roomid }
-func (this *GateUser) RoomSid() int { return this.roomdata.roomsid }
-func (this *GateUser) RoomPwd() string { return this.roomdata.passwd }
-func (this *GateUser) IsInRoom() bool { return this.RoomId() != 0 }
+func (this *GateUser) GameKind() int32 	{ return this.roomdata.kind }
+func (this *GateUser) RoomId() int64 	{ return this.roomdata.roomid }
+func (this *GateUser) RoomSid() int 	{ return this.roomdata.roomsid }
+func (this *GateUser) RoomPwd() string 	{ return this.roomdata.passwd }
+func (this *GateUser) RoomTid() int32 	{ return this.roomdata.roomtid }
+func (this *GateUser) IsInRoom() bool 	{ return this.RoomId() != 0 }
 func (this *GateUser) IsRoomCreating() bool { return this.roomdata.creating }
 
 // 房间关闭中
@@ -156,7 +157,10 @@ func (this *GateUser) CreateRoomRemote(tmsg *msg.C2GW_ReqCreateRoom) (errcode st
 	// 请求创建房间
 	this.roomdata.kind = gamekind
 	this.roomdata.creating = true
-	if tmsg.Texas != nil { this.roomdata.passwd = tmsg.Texas.GetPwd() }
+	if gamekind == int32(msg.RoomKind_TexasPoker) {
+		this.roomdata.passwd = tmsg.Texas.GetPwd() 
+		this.roomdata.roomtid = tmsg.Texas.GetRoomId()
+	}
 
 	//
 	send := &msg.GW2MS_ReqCreateRoom{
