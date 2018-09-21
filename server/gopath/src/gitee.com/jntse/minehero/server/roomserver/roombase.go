@@ -2,7 +2,7 @@ package main
 import (
 	pb "github.com/gogo/protobuf/proto"
 
-	_"gitee.com/jntse/gotoolkit/util"
+	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/gotoolkit/net"
 
 	"gitee.com/jntse/minehero/pbmsg"
@@ -30,6 +30,7 @@ type IRoomBase interface {
 	BroadCastGateMsg(msg pb.Message, except ...int64)
 	BroadCastWatcherMsg(msg pb.Message, except ...int64)
 
+	Destory(delay int64)
 	IsDestory(now int64) bool
 	OnDestory(now int64)
 	IsGameStart() bool
@@ -60,7 +61,7 @@ type RoomBase struct {
 	owner			*RoomUser	// 房主
 	ownerid			int64		// 房主
 	members			map[int64]*RoomUser		// 正式，已坐下
-	watchmembers		map[int64]*RoomUser		// 观战，未坐下
+	watchmembers	map[int64]*RoomUser		// 观战，未坐下
 	passwd			string		// 房间密码
 	subkind			int32		// 房间子类型
 	close_reason	string		// 关闭房间的原因
@@ -71,7 +72,8 @@ func (r *RoomBase) Tid() int32 { return r.tid }
 func (r *RoomBase) Kind() int32 { return r.gamekind }
 func (r *RoomBase) IsGameStart() bool 	{ return r.tm_start != 0 }
 func (r *RoomBase) IsGameOver() bool 	{ return true }
-func (r *RoomBase) IsDestory(now int64) bool { return r.tm_destory != 0  }
+func (r *RoomBase) IsDestory(now int64) bool { return (r.tm_destory != 0 && now >= r.tm_destory) }
+func (r *RoomBase) Destory(delay int64) { r.tm_destory = util.CURTIME() + delay }
 func (r *RoomBase) Owner() *RoomUser { return r.owner }
 func (r *RoomBase) OwnerId() int64 { return r.ownerid }
 func (r *RoomBase) NumMembers() int32 { return int32(len(r.members)) }
@@ -80,8 +82,6 @@ func (r *RoomBase) SubKind() int32 { return r.subkind }
 func (r *RoomBase) IsFull() bool { return false }
 func (r *RoomBase) UserStandUp(u *RoomUser)	 {}
 func (r *RoomBase) UserSitDown(u *RoomUser, seat int32)	{}
-
-
 
 func (r *RoomBase) SendGateMsg(userid int64, m pb.Message) {
 	if u, find := r.members[userid]; find == true {

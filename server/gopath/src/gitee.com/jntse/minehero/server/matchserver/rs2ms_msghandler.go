@@ -54,7 +54,7 @@ func (this* RS2MSMsgHandler) Init() {
 func on_RS2MS_ReqRegist(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.RS2MS_ReqRegist)
 	name := tmsg.GetName()
-	if tmsg.GetAccount() != "room_account_123" || tmsg.GetPasswd() != "room_passwd_123" {
+	if tmsg.GetAccount() != "roomagent" || tmsg.GetPasswd() != "roomagentpwd" {
 		log.Info("Room[%s]验证失败，断开", name)
 		session.Close()
 		return

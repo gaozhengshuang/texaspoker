@@ -190,10 +190,10 @@ func (this *RoomManager) OnGateClose(sid int) {
 
 func (this *RoomManager) Shutdown() {
 	this.ticker1s.Stop()
-	//for id, room := range this.rooms {
-	//	room.OnDestory(util.CURTIMEMS())
-	//}
-	//this.rooms = make(map[int64]*IRoomBase)
+	for _, room := range this.rooms {
+		room.Destory(0)
+	}
+	this.rooms = make(map[int64]IRoomBase)
 }
 
 func NewTanTanLeRoom(ownerid, uid int64) *TanTanLe {

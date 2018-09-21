@@ -361,8 +361,8 @@ func (this *RoomServer) RegistToMatchServer() {
 	}
 
 	send := &msg.RS2MS_ReqRegist{
-		Account : pb.String("room_account_123"),
-		Passwd : pb.String("room_passwd_123"),
+		Account : pb.String("roomagent"),
+		Passwd : pb.String("roomagentpwd"),
 		Name : pb.String(this.Name()),
 	}
 	this.matchsvr.SendCmd(send)
@@ -371,8 +371,8 @@ func (this *RoomServer) RegistToMatchServer() {
 
 func (this *RoomServer) RegistToGateServer(session network.IBaseNetSession) {
 	send := &msg.RS2GW_ReqRegist {
-		Account : pb.String("room_account_123"),
-		Passwd : pb.String("room_passwd_123"),
+		Account : pb.String("roomagent"),
+		Passwd : pb.String("roomagentpwd"),
 		Agentname : pb.String(this.Name()),
 	}
 	session.SendCmd(send)
@@ -382,7 +382,7 @@ func (this *RoomServer) RegistToGateServer(session network.IBaseNetSession) {
 func (this *RoomServer) cleanRoom() {
 	key := def.RoomAgentLoadRedisKey(this.Name())
 	_, err := Redis().Del(key).Result()
-	log.Info("del key:%s result:%s", key, err)
+	log.Info("del key:%s result:%v", key, err)
 }
 
 // 通用公告

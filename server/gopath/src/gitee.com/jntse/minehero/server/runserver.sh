@@ -70,8 +70,8 @@ stopall() {
     sleep 1
     stopserver loginserver
     stopserver matchserver
-    stopserver gateserver
     stopserver roomserver
+    stopserver gateserver
     echo "关闭服务器完毕"
 }
 

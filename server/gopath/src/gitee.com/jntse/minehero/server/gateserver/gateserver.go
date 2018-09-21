@@ -253,8 +253,8 @@ func (this *GateServer) Handler1sTick(now int64) {
 func (this *GateServer) Handler100msTick(now int64) {
 	this.waitpool.Tick(now)
 
-	//
-	if this.gracefulquit && this.usermgr.Amount() == 0 {
+	// 所有玩家下线存盘
+	if this.gracefulquit && this.usermgr.Amount() == 0 {	
 		g_KeyBordInput.Push("quit")
 	}
 }

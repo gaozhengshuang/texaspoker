@@ -92,7 +92,7 @@ func (this *TanTanLe) IsDestory(now int64) bool {
 		return true
 	}
 
-	if ( this.tm_destory != 0)	{
+	if ( this.tm_destory != 0 && now >= this.tm_destory)	{
 		log.Info("房间[%d] 准备删除房间，玩家[%d]", this.id, this.ownerid)
 		return true
 	}
@@ -185,21 +185,21 @@ func (this *TanTanLe) UserEnter(u *RoomUser) {
 
 // 玩家正常离开
 func (this *TanTanLe) UserLeave(u *RoomUser) {
-	this.tm_destory = util.CURTIME()
+	this.Destory(0)
 	this.close_reason = "玩家退出房间"
 	log.Info("房间[%d] 玩家[%d]退出房间，同步money[%d]，准备删除房间", this.id, u.Id(), 0)
 }
 
 // 玩家断开连接
 func (this *TanTanLe) UserDisconnect(userid int64) {
-	this.tm_destory = util.CURTIME()
+	this.Destory(0)
 	this.close_reason = "玩家断开连接"
 	log.Info("房间[%d] 玩家[%d]断开连接，准备删除房间", this.id, userid)
 }
 
 // 网关断开
 func (this *TanTanLe) GateLeave(sid int) {
-	this.tm_destory = util.CURTIME()
+	this.Destory(0)
 	log.Info("房间[%d] Owner[%d] 网关断开连接Sid[%d]", this.id, this.ownerid, sid)
 }
 

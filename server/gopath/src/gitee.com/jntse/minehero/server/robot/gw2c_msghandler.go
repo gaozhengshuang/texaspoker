@@ -46,14 +46,17 @@ func (this* GW2CMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.GW2C_LuckyDrawHit{}, on_GW2C_LuckyDrawHit)
 	this.msgparser.RegistProtoMsg(msg.GW2C_SendDeliveryAddressList{}, on_GW2C_SendDeliveryAddressList)
 	this.msgparser.RegistProtoMsg(msg.GW2C_SendLuckyDrawRecord{}, on_GW2C_SendLuckyDrawRecord)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTexasRoomList{}, on_C2GW_ReqTexasRoomList)
+
+
+	// 房间
+	this.msgparser.RegistProtoMsg(msg.GW2C_RetTexasRoomList{}, on_GW2C_RetTexasRoomList)
+	this.msgparser.RegistProtoMsg(msg.GW2C_RetUserRoomInfo{}, on_GW2C_RetUserRoomInfo)
 
 
 	// 收room消息
-	this.msgparser.RegistProtoMsg(msg.BT_GameInit{}, on_BT_GameInit)
-	//this.msgparser.RegistProtoMsg(msg.BT_SendBattleUser{}, on_BT_SendBattleUser)
-	this.msgparser.RegistProtoMsg(msg.BT_GameStart{}, on_BT_GameStart)
-	this.msgparser.RegistProtoMsg(msg.BT_GameOver{}, on_BT_GameOver)
+	//this.msgparser.RegistProtoMsg(msg.BT_GameInit{}, on_BT_GameInit)
+	//this.msgparser.RegistProtoMsg(msg.BT_GameStart{}, on_BT_GameStart)
+	//this.msgparser.RegistProtoMsg(msg.BT_GameOver{}, on_BT_GameOver)
 }
 
 func on_GW2C_PushDiamondUpdate(session network.IBaseNetSession, message interface{}) {
@@ -203,9 +206,17 @@ func on_GW2C_PushItemPosUpdate(session network.IBaseNetSession, message interfac
 	log.Info("%+v", tmsg)
 }
 
-func on_C2GW_ReqTexasRoomList(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_ReqTexasRoomList)
+func on_GW2C_RetTexasRoomList(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2C_RetTexasRoomList)
 	//log.Info(reflect.TypeOf(tmsg).String())
 	log.Info("%+v", tmsg)
+}
+
+func on_GW2C_RetUserRoomInfo(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2C_RetUserRoomInfo)
+	//log.Info(reflect.TypeOf(tmsg).String())
+	log.Info("%+v", tmsg)
+	client, _ := session.UserDefData().(*User)
+	client.SendGateMsg(&msg.C2GW_ReqEnterRoom{Roomid:tmsg.Roomid, Userid:pb.Int64(client.Id()), Passwd:tmsg.Passwd})
 }
 

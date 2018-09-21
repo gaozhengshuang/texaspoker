@@ -1,7 +1,7 @@
 package main
 import (
 	"fmt"
-	//_"time"
+	"time"
 	//_"strings"
 	//_"strconv"
 	"gitee.com/jntse/gotoolkit/log"
@@ -17,15 +17,18 @@ import (
 // 房间销毁
 func (this *TexasPokerRoom) OnDestory(now int64) {
 
-
-
 	// 更新房间数量
 	loadkey := def.RoomAgentLoadRedisKey(RoomSvr().Name())
 	Redis().SRem(loadkey, this.Id())
 
-	// 通知网关房间销毁
-	msgdestory := &msg.RS2GW_PushRoomDestory{Roomid:pb.Int64(this.Id())}
-	this.BroadCastGateMsg(msgdestory)
+	// 回传玩家信息，通知网关房间销毁
+	for _, u := range this.members {
+		msgdestory := &msg.RS2GW_PushRoomDestory{Roomid:pb.Int64(this.Id()), Userid:pb.Int64(u.Id()), Bin:u.PackBin()}
+		u.SendMsg(msgdestory)
+	}
+
+	// 等待房间信息回传网关
+	time.Sleep(time.Millisecond)
 }
 
 // 单局游戏开始

@@ -297,6 +297,10 @@ func (this *User) LeaveRoom() {
 	this.SendGateMsg(&msg.C2GW_ReqLeaveRoom{Roomid:pb.Int64(this.roomid), Userid:pb.Int64(this.Id())})
 }
 
+func (this *User) ReqUserRoom() {
+	this.SendGateMsg(&msg.C2GW_ReqUserRoomInfo{})
+}
+
 //func (this *User) JumpStep() {
 //	this.SendGateMsg(&msg.BT_JumpPreCheck{})
 //}
@@ -361,6 +365,8 @@ func (this *User) DoInputCmd(cmd string) {
 		this.EnterRoom()
 	case "leave":
 		this.LeaveRoom()
+	case "myroot":
+		this.ReqUserRoom()
 	case "jump":
 		this.do_jump = !this.do_jump
 	case "buy":

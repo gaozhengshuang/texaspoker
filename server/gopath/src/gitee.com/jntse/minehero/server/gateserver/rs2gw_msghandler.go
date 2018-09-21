@@ -98,6 +98,14 @@ func on_GW2C_MsgNotify(session network.IBaseNetSession, message interface{}) {
 //}
 
 func on_RS2GW_PushRoomDestory(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.RS2GW_PushRoomDestory)
+	userid := tmsg.GetUserid()
+	user := UserMgr().FindById(userid)
+	if user == nil {
+		log.Error("RS2GW_PushRoomDestory 找不到玩家[%d]", userid)
+		return
+	}
+	user.OnDestoryRoom(tmsg.Bin)
 }
 
 // 离开房间
@@ -106,7 +114,7 @@ func on_RS2GW_UserLeaveRoom(session network.IBaseNetSession, message interface{}
 	userid := tmsg.GetUserid()
 	user := UserMgr().FindById(userid)
 	if user == nil {
-		log.Error(" RS2GW_UserLeaveRoom 找不到玩家[%d]", userid)
+		log.Error("RS2GW_UserLeaveRoom 找不到玩家[%d]", userid)
 		return
 	}
 	user.OnLeaveRoom(tmsg.Bin)
@@ -119,7 +127,7 @@ func on_RS2GW_RetUserDisconnect(session network.IBaseNetSession, message interfa
 	roomid, userid := tmsg.GetRoomid(), tmsg.GetUserid()
 	user := UserMgr().FindById(userid)
 	if user == nil {
-		log.Error(" RS2GW_RetUserDisconnect 找不到玩家[%d]", userid)
+		log.Error("RS2GW_RetUserDisconnect 找不到玩家[%d]", userid)
 		return
 	}
 

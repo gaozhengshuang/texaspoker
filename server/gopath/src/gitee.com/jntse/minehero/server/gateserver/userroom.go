@@ -195,7 +195,19 @@ func (this *GateUser) OnCreateRoom(errmsg, agentname string, roomid int64) {
 
 // 离开房间返回
 func (this *GateUser) OnLeaveRoom(bin *msg.Serialize) {
-	log.Info("玩家[%s %d] 回传房间个人数据 房间[%d]", this.Name(), this.Id(), this.RoomId())
+	log.Info("玩家[%s %d] 离开房间[%d] 回传房间个人数据", this.Name(), this.Id(), this.RoomId())
+	this.roomdata.Reset(this)
+	this.bin = pb.Clone(bin).(*msg.Serialize)		// 加载最新玩家数据
+	this.OnLoadDB("离开房间")
+	if this.IsOnline() {
+		this.SendMsg(&msg.GW2C_RetLeaveRoom{})
+		this.SendUserBase()
+	}
+}
+
+// 房间销毁
+func (this *GateUser) OnDestoryRoom(bin *msg.Serialize) {
+	log.Info("玩家[%s %d] 销毁房间[%d] 回传房间个人数据", this.Name(), this.Id(), this.RoomId())
 	this.roomdata.Reset(this)
 	this.bin = pb.Clone(bin).(*msg.Serialize)		// 加载最新玩家数据
 	this.OnLoadDB("离开房间")
