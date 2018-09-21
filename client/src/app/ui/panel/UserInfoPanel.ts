@@ -180,11 +180,11 @@ class UserInfoPanel extends BasePanel
 			case UserState.InGamePerson:
 			case UserState.InOmaha:
 			case UserState.InOmahaPerson:
-				let roomDef: RoomDefinition = RoomDefined.GetInstance().getDefinition(info.stateConfId);
+				let roomDef:table.ITexasRoomDefine = table.TexasRoomById[info.stateConfId];
 				if (roomDef)
 				{
-					let patternName: string = PlayingFieldManager.getPatternName(roomDef.type);
-					this.stateLabel.text = game.StringUtil.format("在{0}：{1}，{2}买入", patternName, PlayingFieldManager.roomIdAddZero(info.stateId), game.MathUtil.formatNum(roomDef.sBuyin));
+					let patternName: string = PlayingFieldManager.getPatternName(roomDef.Type);
+					this.stateLabel.text = game.StringUtil.format("在{0}：{1}，{2}买入", patternName, PlayingFieldManager.roomIdAddZero(info.stateId), game.MathUtil.formatNum(roomDef.SBuyin));
 				}
 				break;
 			case UserState.InMatch:

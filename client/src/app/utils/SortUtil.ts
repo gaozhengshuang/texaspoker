@@ -44,15 +44,15 @@ class SortUtil
 	*/
 	public static blindUpSort(a: PlayingFieldRoomInfo, b: PlayingFieldRoomInfo)
 	{
-		if (a.definition.sBuyin > b.definition.sBuyin)
+		if (a.definition.SBuyin > b.definition.SBuyin)
 		{
 			return 1;
 		}
-		if (a.definition.sBuyin < b.definition.sBuyin)
+		if (a.definition.SBuyin < b.definition.SBuyin)
 		{
 			return -1;
 		}
-		if (a.definition.sBuyin == b.definition.sBuyin)
+		if (a.definition.SBuyin == b.definition.SBuyin)
 		{
 			if (a.player > b.player)
 			{
@@ -81,15 +81,15 @@ class SortUtil
 	*/
 	public static blindDownSort(a: PlayingFieldRoomInfo, b: PlayingFieldRoomInfo)
 	{
-		if (a.definition.sBuyin > b.definition.sBuyin)
+		if (a.definition.SBuyin > b.definition.SBuyin)
 		{
 			return -1;
 		}
-		if (a.definition.sBuyin < b.definition.sBuyin)
+		if (a.definition.SBuyin < b.definition.SBuyin)
 		{
 			return 1;
 		}
-		if (a.definition.sBuyin == b.definition.sBuyin)
+		if (a.definition.SBuyin == b.definition.SBuyin)
 		{
 			if (a.player > b.player)
 			{

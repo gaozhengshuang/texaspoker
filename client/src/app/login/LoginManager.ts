@@ -21,7 +21,7 @@ module game
             gwResult = await LoginManager.connectLoginGW();
             if (gwResult.result == 1)
             {
-                NotificationCenter.once(LoginManager, (msg: msg.GW2C_SendUserInfo) =>
+                NotificationCenter.once(LoginManager, (msg: msg.GW2C_PushUserInfo) =>
                 {
                     UserManager.userInfo = <any>msg;
                     NotificationCenter.postNotification(LoginManager.LOGIN_STATE, true);

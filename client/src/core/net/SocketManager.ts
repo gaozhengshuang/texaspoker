@@ -4,7 +4,7 @@
 class SocketManager
 {
 	private static ResetRoleInfoErrorCode: number = 201;//重新获取角色数据错误码
-	private static HeartbeatInterval: number = 60000;//心跳包发送间隔时间，60秒
+	private static HeartbeatInterval: number = 3000;//心跳包发送间隔时间，60秒
 	private static _ignoreError: Array<number>;
 	private static _lastSendTime: number;
 	/**

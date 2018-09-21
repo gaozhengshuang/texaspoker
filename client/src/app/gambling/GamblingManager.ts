@@ -376,10 +376,10 @@ class GamblingManager
 			//设置计时奖励数据	
 			if (result.data.roomId)
 			{
-				let roomDef: RoomDefinition = RoomDefined.GetInstance().getDefinition(result.data.roomId);
+				let roomDef:table.ITexasRoomDefine = table.TexasRoomById[result.data.roomId];
 				if (roomDef)
 				{
-					this.timeAwardHandler.reqGetTimeAwardInfo(roomDef.type);
+					this.timeAwardHandler.reqGetTimeAwardInfo(roomDef.Type);
 				}
 			}
 			GamblingManager.gamblingReviewHandler.isNewRound = true;

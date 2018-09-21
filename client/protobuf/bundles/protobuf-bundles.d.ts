@@ -208,685 +208,859 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a BT_GameInit. */
-    interface IBT_GameInit {
+    /** Properties of an IpHost. */
+    interface IIpHost {
 
-        /** BT_GameInit roomid */
-        roomid?: (number|Long|null);
+        /** IpHost ip */
+        ip?: (string|null);
 
-        /** BT_GameInit ownerid */
-        ownerid?: (number|Long|null);
-
-        /** BT_GameInit gamekind */
-        gamekind?: (number|null);
+        /** IpHost port */
+        port?: (number|null);
     }
 
-    /** Represents a BT_GameInit. */
-    class BT_GameInit implements IBT_GameInit {
+    /** Represents an IpHost. */
+    class IpHost implements IIpHost {
 
         /**
-         * Constructs a new BT_GameInit.
+         * Constructs a new IpHost.
          * @param [properties] Properties to set
          */
-        constructor(properties?: msg.IBT_GameInit);
+        constructor(properties?: msg.IIpHost);
 
-        /** BT_GameInit roomid. */
-        public roomid: (number|Long);
+        /** IpHost ip. */
+        public ip: string;
 
-        /** BT_GameInit ownerid. */
-        public ownerid: (number|Long);
-
-        /** BT_GameInit gamekind. */
-        public gamekind: number;
+        /** IpHost port. */
+        public port: number;
 
         /**
-         * Creates a new BT_GameInit instance using the specified properties.
+         * Creates a new IpHost instance using the specified properties.
          * @param [properties] Properties to set
-         * @returns BT_GameInit instance
+         * @returns IpHost instance
          */
-        public static create(properties?: msg.IBT_GameInit): msg.BT_GameInit;
+        public static create(properties?: msg.IIpHost): msg.IpHost;
 
         /**
-         * Encodes the specified BT_GameInit message. Does not implicitly {@link msg.BT_GameInit.verify|verify} messages.
-         * @param message BT_GameInit message or plain object to encode
+         * Encodes the specified IpHost message. Does not implicitly {@link msg.IpHost.verify|verify} messages.
+         * @param message IpHost message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: msg.IBT_GameInit, writer?: protobuf.Writer): protobuf.Writer;
+        public static encode(message: msg.IIpHost, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Encodes the specified BT_GameInit message, length delimited. Does not implicitly {@link msg.BT_GameInit.verify|verify} messages.
-         * @param message BT_GameInit message or plain object to encode
+         * Encodes the specified IpHost message, length delimited. Does not implicitly {@link msg.IpHost.verify|verify} messages.
+         * @param message IpHost message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: msg.IBT_GameInit, writer?: protobuf.Writer): protobuf.Writer;
+        public static encodeDelimited(message: msg.IIpHost, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Decodes a BT_GameInit message from the specified reader or buffer.
+         * Decodes an IpHost message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns BT_GameInit
+         * @returns IpHost
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.BT_GameInit;
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.IpHost;
 
         /**
-         * Decodes a BT_GameInit message from the specified reader or buffer, length delimited.
+         * Decodes an IpHost message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns BT_GameInit
+         * @returns IpHost
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.BT_GameInit;
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.IpHost;
 
         /**
-         * Verifies a BT_GameInit message.
+         * Verifies an IpHost message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a BT_GameInit message from a plain object. Also converts values to their respective internal types.
+         * Creates an IpHost message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns BT_GameInit
+         * @returns IpHost
          */
-        public static fromObject(object: { [k: string]: any }): msg.BT_GameInit;
+        public static fromObject(object: { [k: string]: any }): msg.IpHost;
 
         /**
-         * Creates a plain object from a BT_GameInit message. Also converts values to other types if specified.
-         * @param message BT_GameInit
+         * Creates a plain object from an IpHost message. Also converts values to other types if specified.
+         * @param message IpHost
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: msg.BT_GameInit, options?: protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: msg.IpHost, options?: protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this BT_GameInit to JSON.
+         * Converts this IpHost to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a BT_RoomUser. */
-    interface IBT_RoomUser {
-
-        /** BT_RoomUser id */
-        id?: (number|Long|null);
-
-        /** BT_RoomUser name */
-        name?: (string|null);
-
-        /** BT_RoomUser head */
-        head?: (string|null);
-
-        /** BT_RoomUser seatno */
-        seatno?: (number|null);
+    /** ItemId enum. */
+    enum ItemId {
+        YuanBao = 60001,
+        Diamond = 60002,
+        Gold = 60003,
+        FreeStep = 60005,
+        Strength = 60006,
+        RedDiamond = 100001,
+        RedDiamondParts = 100002
     }
 
-    /** Represents a BT_RoomUser. */
-    class BT_RoomUser implements IBT_RoomUser {
+    /** ItemType enum. */
+    enum ItemType {
+        Normal = 0,
+        Digital = 1,
+        ShoppingCard = 2,
+        DailyUse = 3,
+        Toy = 4,
+        MobileCard = 5,
+        Currency = 6,
+        CarAccessory = 7,
+        Advertisement = 8,
+        Smallware = 9,
+        DiamondItem = 10,
+        ClothesParts = 11,
+        HouseParts = 12,
+        CarParts = 13,
+        MaidParts = 14,
+        ClothesItem = 15
+    }
+
+    /** Properties of a PairNumItem. */
+    interface IPairNumItem {
+
+        /** PairNumItem itemid */
+        itemid?: (number|null);
+
+        /** PairNumItem num */
+        num?: (number|null);
+    }
+
+    /** Represents a PairNumItem. */
+    class PairNumItem implements IPairNumItem {
 
         /**
-         * Constructs a new BT_RoomUser.
+         * Constructs a new PairNumItem.
          * @param [properties] Properties to set
          */
-        constructor(properties?: msg.IBT_RoomUser);
+        constructor(properties?: msg.IPairNumItem);
 
-        /** BT_RoomUser id. */
-        public id: (number|Long);
+        /** PairNumItem itemid. */
+        public itemid: number;
 
-        /** BT_RoomUser name. */
-        public name: string;
-
-        /** BT_RoomUser head. */
-        public head: string;
-
-        /** BT_RoomUser seatno. */
-        public seatno: number;
+        /** PairNumItem num. */
+        public num: number;
 
         /**
-         * Creates a new BT_RoomUser instance using the specified properties.
+         * Creates a new PairNumItem instance using the specified properties.
          * @param [properties] Properties to set
-         * @returns BT_RoomUser instance
+         * @returns PairNumItem instance
          */
-        public static create(properties?: msg.IBT_RoomUser): msg.BT_RoomUser;
+        public static create(properties?: msg.IPairNumItem): msg.PairNumItem;
 
         /**
-         * Encodes the specified BT_RoomUser message. Does not implicitly {@link msg.BT_RoomUser.verify|verify} messages.
-         * @param message BT_RoomUser message or plain object to encode
+         * Encodes the specified PairNumItem message. Does not implicitly {@link msg.PairNumItem.verify|verify} messages.
+         * @param message PairNumItem message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: msg.IBT_RoomUser, writer?: protobuf.Writer): protobuf.Writer;
+        public static encode(message: msg.IPairNumItem, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Encodes the specified BT_RoomUser message, length delimited. Does not implicitly {@link msg.BT_RoomUser.verify|verify} messages.
-         * @param message BT_RoomUser message or plain object to encode
+         * Encodes the specified PairNumItem message, length delimited. Does not implicitly {@link msg.PairNumItem.verify|verify} messages.
+         * @param message PairNumItem message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: msg.IBT_RoomUser, writer?: protobuf.Writer): protobuf.Writer;
+        public static encodeDelimited(message: msg.IPairNumItem, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Decodes a BT_RoomUser message from the specified reader or buffer.
+         * Decodes a PairNumItem message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns BT_RoomUser
+         * @returns PairNumItem
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.BT_RoomUser;
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.PairNumItem;
 
         /**
-         * Decodes a BT_RoomUser message from the specified reader or buffer, length delimited.
+         * Decodes a PairNumItem message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns BT_RoomUser
+         * @returns PairNumItem
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.BT_RoomUser;
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.PairNumItem;
 
         /**
-         * Verifies a BT_RoomUser message.
+         * Verifies a PairNumItem message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a BT_RoomUser message from a plain object. Also converts values to their respective internal types.
+         * Creates a PairNumItem message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns BT_RoomUser
+         * @returns PairNumItem
          */
-        public static fromObject(object: { [k: string]: any }): msg.BT_RoomUser;
+        public static fromObject(object: { [k: string]: any }): msg.PairNumItem;
 
         /**
-         * Creates a plain object from a BT_RoomUser message. Also converts values to other types if specified.
-         * @param message BT_RoomUser
+         * Creates a plain object from a PairNumItem message. Also converts values to other types if specified.
+         * @param message PairNumItem
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: msg.BT_RoomUser, options?: protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: msg.PairNumItem, options?: protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this BT_RoomUser to JSON.
+         * Converts this PairNumItem to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a BT_NewUserInRoom. */
-    interface IBT_NewUserInRoom {
-
-        /** BT_NewUserInRoom user */
-        user?: (msg.IBT_RoomUser|null);
+    /** TaskId enum. */
+    enum TaskId {
+        RegistAccount = 1001,
+        RegisterTopScore = 1002,
+        InviteeTopScore = 1003,
+        InviteRegist = 1004
     }
 
-    /** Represents a BT_NewUserInRoom. */
-    class BT_NewUserInRoom implements IBT_NewUserInRoom {
+    /** ItemPos enum. */
+    enum ItemPos {
+        Bag = 0,
+        Helmet = 1,
+        Clothes = 2,
+        Pants = 3,
+        Shoe = 4,
+        Hand = 5,
+        Wing = 6,
+        Suit = 7,
+        LongClothes = 8
+    }
+
+    /** MapEventType enum. */
+    enum MapEventType {
+        Game = 1,
+        Bonus = 2,
+        Building = 3
+    }
+
+    /** MapEventId enum. */
+    enum MapEventId {
+        GameTanTanLe = 1001,
+        GameSuperMarket = 1002,
+        GameFanFanLe = 1003,
+        BonusGold = 2001,
+        BonusStrength = 2002,
+        BuildingMaidShop = 3001,
+        BuildingCarShop = 3002,
+        BuildingHouseShop = 3003
+    }
+
+    /** Sex enum. */
+    enum Sex {
+        Unknow = 0,
+        Male = 1,
+        Female = 2,
+        Neutral = 3
+    }
+
+    /** MoneyType enum. */
+    enum MoneyType {
+        _Gold = 1,
+        _Diamond = 2,
+        _Strength = 3,
+        _Item = 4
+    }
+
+    /** UserInfoType enum. */
+    enum UserInfoType {
+        Name = 1,
+        UserSex = 2,
+        Age = 3,
+        Sign = 4,
+        Constellation = 5,
+        Face = 6,
+        Baseprovince = 7,
+        Basecity = 8,
+        Level = 9,
+        Exp = 10,
+        NewPlayerStep = 11
+    }
+
+    /** RoomKind enum. */
+    enum RoomKind {
+        TanTanLe = 1,
+        TexasPoker = 2
+    }
+
+    /** Properties of a C2GW_AddDeliveryAddress. */
+    interface IC2GW_AddDeliveryAddress {
+
+        /** C2GW_AddDeliveryAddress info */
+        info?: (msg.IUserAddress|null);
+    }
+
+    /** Represents a C2GW_AddDeliveryAddress. */
+    class C2GW_AddDeliveryAddress implements IC2GW_AddDeliveryAddress {
 
         /**
-         * Constructs a new BT_NewUserInRoom.
+         * Constructs a new C2GW_AddDeliveryAddress.
          * @param [properties] Properties to set
          */
-        constructor(properties?: msg.IBT_NewUserInRoom);
+        constructor(properties?: msg.IC2GW_AddDeliveryAddress);
 
-        /** BT_NewUserInRoom user. */
-        public user?: (msg.IBT_RoomUser|null);
+        /** C2GW_AddDeliveryAddress info. */
+        public info?: (msg.IUserAddress|null);
 
         /**
-         * Creates a new BT_NewUserInRoom instance using the specified properties.
+         * Creates a new C2GW_AddDeliveryAddress instance using the specified properties.
          * @param [properties] Properties to set
-         * @returns BT_NewUserInRoom instance
+         * @returns C2GW_AddDeliveryAddress instance
          */
-        public static create(properties?: msg.IBT_NewUserInRoom): msg.BT_NewUserInRoom;
+        public static create(properties?: msg.IC2GW_AddDeliveryAddress): msg.C2GW_AddDeliveryAddress;
 
         /**
-         * Encodes the specified BT_NewUserInRoom message. Does not implicitly {@link msg.BT_NewUserInRoom.verify|verify} messages.
-         * @param message BT_NewUserInRoom message or plain object to encode
+         * Encodes the specified C2GW_AddDeliveryAddress message. Does not implicitly {@link msg.C2GW_AddDeliveryAddress.verify|verify} messages.
+         * @param message C2GW_AddDeliveryAddress message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: msg.IBT_NewUserInRoom, writer?: protobuf.Writer): protobuf.Writer;
+        public static encode(message: msg.IC2GW_AddDeliveryAddress, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Encodes the specified BT_NewUserInRoom message, length delimited. Does not implicitly {@link msg.BT_NewUserInRoom.verify|verify} messages.
-         * @param message BT_NewUserInRoom message or plain object to encode
+         * Encodes the specified C2GW_AddDeliveryAddress message, length delimited. Does not implicitly {@link msg.C2GW_AddDeliveryAddress.verify|verify} messages.
+         * @param message C2GW_AddDeliveryAddress message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: msg.IBT_NewUserInRoom, writer?: protobuf.Writer): protobuf.Writer;
+        public static encodeDelimited(message: msg.IC2GW_AddDeliveryAddress, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Decodes a BT_NewUserInRoom message from the specified reader or buffer.
+         * Decodes a C2GW_AddDeliveryAddress message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns BT_NewUserInRoom
+         * @returns C2GW_AddDeliveryAddress
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.BT_NewUserInRoom;
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_AddDeliveryAddress;
 
         /**
-         * Decodes a BT_NewUserInRoom message from the specified reader or buffer, length delimited.
+         * Decodes a C2GW_AddDeliveryAddress message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns BT_NewUserInRoom
+         * @returns C2GW_AddDeliveryAddress
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.BT_NewUserInRoom;
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_AddDeliveryAddress;
 
         /**
-         * Verifies a BT_NewUserInRoom message.
+         * Verifies a C2GW_AddDeliveryAddress message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a BT_NewUserInRoom message from a plain object. Also converts values to their respective internal types.
+         * Creates a C2GW_AddDeliveryAddress message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns BT_NewUserInRoom
+         * @returns C2GW_AddDeliveryAddress
          */
-        public static fromObject(object: { [k: string]: any }): msg.BT_NewUserInRoom;
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_AddDeliveryAddress;
 
         /**
-         * Creates a plain object from a BT_NewUserInRoom message. Also converts values to other types if specified.
-         * @param message BT_NewUserInRoom
+         * Creates a plain object from a C2GW_AddDeliveryAddress message. Also converts values to other types if specified.
+         * @param message C2GW_AddDeliveryAddress
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: msg.BT_NewUserInRoom, options?: protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: msg.C2GW_AddDeliveryAddress, options?: protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this BT_NewUserInRoom to JSON.
+         * Converts this C2GW_AddDeliveryAddress to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a BT_SendRoomUser. */
-    interface IBT_SendRoomUser {
+    /** Properties of a C2GW_DelDeliveryAddress. */
+    interface IC2GW_DelDeliveryAddress {
 
-        /** BT_SendRoomUser users */
-        users?: (msg.IBT_RoomUser[]|null);
+        /** C2GW_DelDeliveryAddress index */
+        index?: (number|null);
     }
 
-    /** Represents a BT_SendRoomUser. */
-    class BT_SendRoomUser implements IBT_SendRoomUser {
+    /** Represents a C2GW_DelDeliveryAddress. */
+    class C2GW_DelDeliveryAddress implements IC2GW_DelDeliveryAddress {
 
         /**
-         * Constructs a new BT_SendRoomUser.
+         * Constructs a new C2GW_DelDeliveryAddress.
          * @param [properties] Properties to set
          */
-        constructor(properties?: msg.IBT_SendRoomUser);
+        constructor(properties?: msg.IC2GW_DelDeliveryAddress);
 
-        /** BT_SendRoomUser users. */
-        public users: msg.IBT_RoomUser[];
+        /** C2GW_DelDeliveryAddress index. */
+        public index: number;
 
         /**
-         * Creates a new BT_SendRoomUser instance using the specified properties.
+         * Creates a new C2GW_DelDeliveryAddress instance using the specified properties.
          * @param [properties] Properties to set
-         * @returns BT_SendRoomUser instance
+         * @returns C2GW_DelDeliveryAddress instance
          */
-        public static create(properties?: msg.IBT_SendRoomUser): msg.BT_SendRoomUser;
+        public static create(properties?: msg.IC2GW_DelDeliveryAddress): msg.C2GW_DelDeliveryAddress;
 
         /**
-         * Encodes the specified BT_SendRoomUser message. Does not implicitly {@link msg.BT_SendRoomUser.verify|verify} messages.
-         * @param message BT_SendRoomUser message or plain object to encode
+         * Encodes the specified C2GW_DelDeliveryAddress message. Does not implicitly {@link msg.C2GW_DelDeliveryAddress.verify|verify} messages.
+         * @param message C2GW_DelDeliveryAddress message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: msg.IBT_SendRoomUser, writer?: protobuf.Writer): protobuf.Writer;
+        public static encode(message: msg.IC2GW_DelDeliveryAddress, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Encodes the specified BT_SendRoomUser message, length delimited. Does not implicitly {@link msg.BT_SendRoomUser.verify|verify} messages.
-         * @param message BT_SendRoomUser message or plain object to encode
+         * Encodes the specified C2GW_DelDeliveryAddress message, length delimited. Does not implicitly {@link msg.C2GW_DelDeliveryAddress.verify|verify} messages.
+         * @param message C2GW_DelDeliveryAddress message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: msg.IBT_SendRoomUser, writer?: protobuf.Writer): protobuf.Writer;
+        public static encodeDelimited(message: msg.IC2GW_DelDeliveryAddress, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Decodes a BT_SendRoomUser message from the specified reader or buffer.
+         * Decodes a C2GW_DelDeliveryAddress message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns BT_SendRoomUser
+         * @returns C2GW_DelDeliveryAddress
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.BT_SendRoomUser;
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_DelDeliveryAddress;
 
         /**
-         * Decodes a BT_SendRoomUser message from the specified reader or buffer, length delimited.
+         * Decodes a C2GW_DelDeliveryAddress message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns BT_SendRoomUser
+         * @returns C2GW_DelDeliveryAddress
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.BT_SendRoomUser;
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_DelDeliveryAddress;
 
         /**
-         * Verifies a BT_SendRoomUser message.
+         * Verifies a C2GW_DelDeliveryAddress message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a BT_SendRoomUser message from a plain object. Also converts values to their respective internal types.
+         * Creates a C2GW_DelDeliveryAddress message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns BT_SendRoomUser
+         * @returns C2GW_DelDeliveryAddress
          */
-        public static fromObject(object: { [k: string]: any }): msg.BT_SendRoomUser;
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_DelDeliveryAddress;
 
         /**
-         * Creates a plain object from a BT_SendRoomUser message. Also converts values to other types if specified.
-         * @param message BT_SendRoomUser
+         * Creates a plain object from a C2GW_DelDeliveryAddress message. Also converts values to other types if specified.
+         * @param message C2GW_DelDeliveryAddress
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: msg.BT_SendRoomUser, options?: protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: msg.C2GW_DelDeliveryAddress, options?: protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this BT_SendRoomUser to JSON.
+         * Converts this C2GW_DelDeliveryAddress to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a BT_GameStart. */
-    interface IBT_GameStart {
+    /** Properties of a C2GW_ChangeDeliveryAddress. */
+    interface IC2GW_ChangeDeliveryAddress {
 
-        /** BT_GameStart roomid */
-        roomid?: (number|Long|null);
+        /** C2GW_ChangeDeliveryAddress index */
+        index?: (number|null);
 
-        /** BT_GameStart ownerid */
-        ownerid?: (number|Long|null);
+        /** C2GW_ChangeDeliveryAddress info */
+        info?: (msg.IUserAddress|null);
     }
 
-    /** Represents a BT_GameStart. */
-    class BT_GameStart implements IBT_GameStart {
+    /** Represents a C2GW_ChangeDeliveryAddress. */
+    class C2GW_ChangeDeliveryAddress implements IC2GW_ChangeDeliveryAddress {
 
         /**
-         * Constructs a new BT_GameStart.
+         * Constructs a new C2GW_ChangeDeliveryAddress.
          * @param [properties] Properties to set
          */
-        constructor(properties?: msg.IBT_GameStart);
+        constructor(properties?: msg.IC2GW_ChangeDeliveryAddress);
 
-        /** BT_GameStart roomid. */
-        public roomid: (number|Long);
+        /** C2GW_ChangeDeliveryAddress index. */
+        public index: number;
 
-        /** BT_GameStart ownerid. */
-        public ownerid: (number|Long);
+        /** C2GW_ChangeDeliveryAddress info. */
+        public info?: (msg.IUserAddress|null);
 
         /**
-         * Creates a new BT_GameStart instance using the specified properties.
+         * Creates a new C2GW_ChangeDeliveryAddress instance using the specified properties.
          * @param [properties] Properties to set
-         * @returns BT_GameStart instance
+         * @returns C2GW_ChangeDeliveryAddress instance
          */
-        public static create(properties?: msg.IBT_GameStart): msg.BT_GameStart;
+        public static create(properties?: msg.IC2GW_ChangeDeliveryAddress): msg.C2GW_ChangeDeliveryAddress;
 
         /**
-         * Encodes the specified BT_GameStart message. Does not implicitly {@link msg.BT_GameStart.verify|verify} messages.
-         * @param message BT_GameStart message or plain object to encode
+         * Encodes the specified C2GW_ChangeDeliveryAddress message. Does not implicitly {@link msg.C2GW_ChangeDeliveryAddress.verify|verify} messages.
+         * @param message C2GW_ChangeDeliveryAddress message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: msg.IBT_GameStart, writer?: protobuf.Writer): protobuf.Writer;
+        public static encode(message: msg.IC2GW_ChangeDeliveryAddress, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Encodes the specified BT_GameStart message, length delimited. Does not implicitly {@link msg.BT_GameStart.verify|verify} messages.
-         * @param message BT_GameStart message or plain object to encode
+         * Encodes the specified C2GW_ChangeDeliveryAddress message, length delimited. Does not implicitly {@link msg.C2GW_ChangeDeliveryAddress.verify|verify} messages.
+         * @param message C2GW_ChangeDeliveryAddress message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: msg.IBT_GameStart, writer?: protobuf.Writer): protobuf.Writer;
+        public static encodeDelimited(message: msg.IC2GW_ChangeDeliveryAddress, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Decodes a BT_GameStart message from the specified reader or buffer.
+         * Decodes a C2GW_ChangeDeliveryAddress message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns BT_GameStart
+         * @returns C2GW_ChangeDeliveryAddress
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.BT_GameStart;
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ChangeDeliveryAddress;
 
         /**
-         * Decodes a BT_GameStart message from the specified reader or buffer, length delimited.
+         * Decodes a C2GW_ChangeDeliveryAddress message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns BT_GameStart
+         * @returns C2GW_ChangeDeliveryAddress
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.BT_GameStart;
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ChangeDeliveryAddress;
 
         /**
-         * Verifies a BT_GameStart message.
+         * Verifies a C2GW_ChangeDeliveryAddress message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a BT_GameStart message from a plain object. Also converts values to their respective internal types.
+         * Creates a C2GW_ChangeDeliveryAddress message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns BT_GameStart
+         * @returns C2GW_ChangeDeliveryAddress
          */
-        public static fromObject(object: { [k: string]: any }): msg.BT_GameStart;
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ChangeDeliveryAddress;
 
         /**
-         * Creates a plain object from a BT_GameStart message. Also converts values to other types if specified.
-         * @param message BT_GameStart
+         * Creates a plain object from a C2GW_ChangeDeliveryAddress message. Also converts values to other types if specified.
+         * @param message C2GW_ChangeDeliveryAddress
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: msg.BT_GameStart, options?: protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: msg.C2GW_ChangeDeliveryAddress, options?: protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this BT_GameStart to JSON.
+         * Converts this C2GW_ChangeDeliveryAddress to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a BT_GameEnd. */
-    interface IBT_GameEnd {
+    /** Properties of a GW2C_SendDeliveryAddressList. */
+    interface IGW2C_SendDeliveryAddressList {
 
-        /** BT_GameEnd roomid */
-        roomid?: (number|Long|null);
-
-        /** BT_GameEnd ownerid */
-        ownerid?: (number|Long|null);
-
-        /** BT_GameEnd reason */
-        reason?: (string|null);
-
-        /** BT_GameEnd bin */
-        bin?: (msg.ISerialize|null);
+        /** GW2C_SendDeliveryAddressList list */
+        list?: (msg.IUserAddress[]|null);
     }
 
-    /** Represents a BT_GameEnd. */
-    class BT_GameEnd implements IBT_GameEnd {
+    /** Represents a GW2C_SendDeliveryAddressList. */
+    class GW2C_SendDeliveryAddressList implements IGW2C_SendDeliveryAddressList {
 
         /**
-         * Constructs a new BT_GameEnd.
+         * Constructs a new GW2C_SendDeliveryAddressList.
          * @param [properties] Properties to set
          */
-        constructor(properties?: msg.IBT_GameEnd);
+        constructor(properties?: msg.IGW2C_SendDeliveryAddressList);
 
-        /** BT_GameEnd roomid. */
-        public roomid: (number|Long);
-
-        /** BT_GameEnd ownerid. */
-        public ownerid: (number|Long);
-
-        /** BT_GameEnd reason. */
-        public reason: string;
-
-        /** BT_GameEnd bin. */
-        public bin?: (msg.ISerialize|null);
+        /** GW2C_SendDeliveryAddressList list. */
+        public list: msg.IUserAddress[];
 
         /**
-         * Creates a new BT_GameEnd instance using the specified properties.
+         * Creates a new GW2C_SendDeliveryAddressList instance using the specified properties.
          * @param [properties] Properties to set
-         * @returns BT_GameEnd instance
+         * @returns GW2C_SendDeliveryAddressList instance
          */
-        public static create(properties?: msg.IBT_GameEnd): msg.BT_GameEnd;
+        public static create(properties?: msg.IGW2C_SendDeliveryAddressList): msg.GW2C_SendDeliveryAddressList;
 
         /**
-         * Encodes the specified BT_GameEnd message. Does not implicitly {@link msg.BT_GameEnd.verify|verify} messages.
-         * @param message BT_GameEnd message or plain object to encode
+         * Encodes the specified GW2C_SendDeliveryAddressList message. Does not implicitly {@link msg.GW2C_SendDeliveryAddressList.verify|verify} messages.
+         * @param message GW2C_SendDeliveryAddressList message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: msg.IBT_GameEnd, writer?: protobuf.Writer): protobuf.Writer;
+        public static encode(message: msg.IGW2C_SendDeliveryAddressList, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Encodes the specified BT_GameEnd message, length delimited. Does not implicitly {@link msg.BT_GameEnd.verify|verify} messages.
-         * @param message BT_GameEnd message or plain object to encode
+         * Encodes the specified GW2C_SendDeliveryAddressList message, length delimited. Does not implicitly {@link msg.GW2C_SendDeliveryAddressList.verify|verify} messages.
+         * @param message GW2C_SendDeliveryAddressList message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: msg.IBT_GameEnd, writer?: protobuf.Writer): protobuf.Writer;
+        public static encodeDelimited(message: msg.IGW2C_SendDeliveryAddressList, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Decodes a BT_GameEnd message from the specified reader or buffer.
+         * Decodes a GW2C_SendDeliveryAddressList message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns BT_GameEnd
+         * @returns GW2C_SendDeliveryAddressList
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.BT_GameEnd;
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_SendDeliveryAddressList;
 
         /**
-         * Decodes a BT_GameEnd message from the specified reader or buffer, length delimited.
+         * Decodes a GW2C_SendDeliveryAddressList message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns BT_GameEnd
+         * @returns GW2C_SendDeliveryAddressList
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.BT_GameEnd;
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_SendDeliveryAddressList;
 
         /**
-         * Verifies a BT_GameEnd message.
+         * Verifies a GW2C_SendDeliveryAddressList message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a BT_GameEnd message from a plain object. Also converts values to their respective internal types.
+         * Creates a GW2C_SendDeliveryAddressList message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns BT_GameEnd
+         * @returns GW2C_SendDeliveryAddressList
          */
-        public static fromObject(object: { [k: string]: any }): msg.BT_GameEnd;
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_SendDeliveryAddressList;
 
         /**
-         * Creates a plain object from a BT_GameEnd message. Also converts values to other types if specified.
-         * @param message BT_GameEnd
+         * Creates a plain object from a GW2C_SendDeliveryAddressList message. Also converts values to other types if specified.
+         * @param message GW2C_SendDeliveryAddressList
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: msg.BT_GameEnd, options?: protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: msg.GW2C_SendDeliveryAddressList, options?: protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this BT_GameEnd to JSON.
+         * Converts this GW2C_SendDeliveryAddressList to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a BT_GameOver. */
-    interface IBT_GameOver {
+    /** Properties of a DeliveryGoods. */
+    interface IDeliveryGoods {
 
-        /** BT_GameOver roomid */
-        roomid?: (number|Long|null);
+        /** DeliveryGoods itemid */
+        itemid?: (number|null);
+
+        /** DeliveryGoods num */
+        num?: (number|null);
     }
 
-    /** Represents a BT_GameOver. */
-    class BT_GameOver implements IBT_GameOver {
+    /** Represents a DeliveryGoods. */
+    class DeliveryGoods implements IDeliveryGoods {
 
         /**
-         * Constructs a new BT_GameOver.
+         * Constructs a new DeliveryGoods.
          * @param [properties] Properties to set
          */
-        constructor(properties?: msg.IBT_GameOver);
+        constructor(properties?: msg.IDeliveryGoods);
 
-        /** BT_GameOver roomid. */
-        public roomid: (number|Long);
+        /** DeliveryGoods itemid. */
+        public itemid: number;
+
+        /** DeliveryGoods num. */
+        public num: number;
 
         /**
-         * Creates a new BT_GameOver instance using the specified properties.
+         * Creates a new DeliveryGoods instance using the specified properties.
          * @param [properties] Properties to set
-         * @returns BT_GameOver instance
+         * @returns DeliveryGoods instance
          */
-        public static create(properties?: msg.IBT_GameOver): msg.BT_GameOver;
+        public static create(properties?: msg.IDeliveryGoods): msg.DeliveryGoods;
 
         /**
-         * Encodes the specified BT_GameOver message. Does not implicitly {@link msg.BT_GameOver.verify|verify} messages.
-         * @param message BT_GameOver message or plain object to encode
+         * Encodes the specified DeliveryGoods message. Does not implicitly {@link msg.DeliveryGoods.verify|verify} messages.
+         * @param message DeliveryGoods message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: msg.IBT_GameOver, writer?: protobuf.Writer): protobuf.Writer;
+        public static encode(message: msg.IDeliveryGoods, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Encodes the specified BT_GameOver message, length delimited. Does not implicitly {@link msg.BT_GameOver.verify|verify} messages.
-         * @param message BT_GameOver message or plain object to encode
+         * Encodes the specified DeliveryGoods message, length delimited. Does not implicitly {@link msg.DeliveryGoods.verify|verify} messages.
+         * @param message DeliveryGoods message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: msg.IBT_GameOver, writer?: protobuf.Writer): protobuf.Writer;
+        public static encodeDelimited(message: msg.IDeliveryGoods, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Decodes a BT_GameOver message from the specified reader or buffer.
+         * Decodes a DeliveryGoods message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns BT_GameOver
+         * @returns DeliveryGoods
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.BT_GameOver;
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.DeliveryGoods;
 
         /**
-         * Decodes a BT_GameOver message from the specified reader or buffer, length delimited.
+         * Decodes a DeliveryGoods message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns BT_GameOver
+         * @returns DeliveryGoods
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.BT_GameOver;
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.DeliveryGoods;
 
         /**
-         * Verifies a BT_GameOver message.
+         * Verifies a DeliveryGoods message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a BT_GameOver message from a plain object. Also converts values to their respective internal types.
+         * Creates a DeliveryGoods message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns BT_GameOver
+         * @returns DeliveryGoods
          */
-        public static fromObject(object: { [k: string]: any }): msg.BT_GameOver;
+        public static fromObject(object: { [k: string]: any }): msg.DeliveryGoods;
 
         /**
-         * Creates a plain object from a BT_GameOver message. Also converts values to other types if specified.
-         * @param message BT_GameOver
+         * Creates a plain object from a DeliveryGoods message. Also converts values to other types if specified.
+         * @param message DeliveryGoods
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: msg.BT_GameOver, options?: protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: msg.DeliveryGoods, options?: protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this BT_GameOver to JSON.
+         * Converts this DeliveryGoods to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqDeliveryGoods. */
+    interface IC2GW_ReqDeliveryGoods {
+
+        /** C2GW_ReqDeliveryGoods list */
+        list?: (msg.IDeliveryGoods[]|null);
+
+        /** C2GW_ReqDeliveryGoods token */
+        token?: (string|null);
+    }
+
+    /** Represents a C2GW_ReqDeliveryGoods. */
+    class C2GW_ReqDeliveryGoods implements IC2GW_ReqDeliveryGoods {
+
+        /**
+         * Constructs a new C2GW_ReqDeliveryGoods.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqDeliveryGoods);
+
+        /** C2GW_ReqDeliveryGoods list. */
+        public list: msg.IDeliveryGoods[];
+
+        /** C2GW_ReqDeliveryGoods token. */
+        public token: string;
+
+        /**
+         * Creates a new C2GW_ReqDeliveryGoods instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqDeliveryGoods instance
+         */
+        public static create(properties?: msg.IC2GW_ReqDeliveryGoods): msg.C2GW_ReqDeliveryGoods;
+
+        /**
+         * Encodes the specified C2GW_ReqDeliveryGoods message. Does not implicitly {@link msg.C2GW_ReqDeliveryGoods.verify|verify} messages.
+         * @param message C2GW_ReqDeliveryGoods message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqDeliveryGoods, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqDeliveryGoods message, length delimited. Does not implicitly {@link msg.C2GW_ReqDeliveryGoods.verify|verify} messages.
+         * @param message C2GW_ReqDeliveryGoods message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqDeliveryGoods, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqDeliveryGoods message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqDeliveryGoods
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqDeliveryGoods;
+
+        /**
+         * Decodes a C2GW_ReqDeliveryGoods message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqDeliveryGoods
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqDeliveryGoods;
+
+        /**
+         * Verifies a C2GW_ReqDeliveryGoods message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqDeliveryGoods message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqDeliveryGoods
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqDeliveryGoods;
+
+        /**
+         * Creates a plain object from a C2GW_ReqDeliveryGoods message. Also converts values to other types if specified.
+         * @param message C2GW_ReqDeliveryGoods
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqDeliveryGoods, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqDeliveryGoods to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -2489,864 +2663,6 @@ declare namespace msg {
 
         /**
          * Converts this Serialize to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of an IpHost. */
-    interface IIpHost {
-
-        /** IpHost ip */
-        ip?: (string|null);
-
-        /** IpHost port */
-        port?: (number|null);
-    }
-
-    /** Represents an IpHost. */
-    class IpHost implements IIpHost {
-
-        /**
-         * Constructs a new IpHost.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IIpHost);
-
-        /** IpHost ip. */
-        public ip: string;
-
-        /** IpHost port. */
-        public port: number;
-
-        /**
-         * Creates a new IpHost instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns IpHost instance
-         */
-        public static create(properties?: msg.IIpHost): msg.IpHost;
-
-        /**
-         * Encodes the specified IpHost message. Does not implicitly {@link msg.IpHost.verify|verify} messages.
-         * @param message IpHost message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IIpHost, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified IpHost message, length delimited. Does not implicitly {@link msg.IpHost.verify|verify} messages.
-         * @param message IpHost message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IIpHost, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes an IpHost message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns IpHost
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.IpHost;
-
-        /**
-         * Decodes an IpHost message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns IpHost
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.IpHost;
-
-        /**
-         * Verifies an IpHost message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates an IpHost message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns IpHost
-         */
-        public static fromObject(object: { [k: string]: any }): msg.IpHost;
-
-        /**
-         * Creates a plain object from an IpHost message. Also converts values to other types if specified.
-         * @param message IpHost
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.IpHost, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this IpHost to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** ItemId enum. */
-    enum ItemId {
-        YuanBao = 60001,
-        Diamond = 60002,
-        Gold = 60003,
-        FreeStep = 60005,
-        Strength = 60006,
-        RedDiamond = 100001,
-        RedDiamondParts = 100002
-    }
-
-    /** ItemType enum. */
-    enum ItemType {
-        Normal = 0,
-        Digital = 1,
-        ShoppingCard = 2,
-        DailyUse = 3,
-        Toy = 4,
-        MobileCard = 5,
-        Currency = 6,
-        CarAccessory = 7,
-        Advertisement = 8,
-        Smallware = 9,
-        DiamondItem = 10,
-        ClothesParts = 11,
-        HouseParts = 12,
-        CarParts = 13,
-        MaidParts = 14,
-        ClothesItem = 15
-    }
-
-    /** Properties of a PairNumItem. */
-    interface IPairNumItem {
-
-        /** PairNumItem itemid */
-        itemid?: (number|null);
-
-        /** PairNumItem num */
-        num?: (number|null);
-    }
-
-    /** Represents a PairNumItem. */
-    class PairNumItem implements IPairNumItem {
-
-        /**
-         * Constructs a new PairNumItem.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IPairNumItem);
-
-        /** PairNumItem itemid. */
-        public itemid: number;
-
-        /** PairNumItem num. */
-        public num: number;
-
-        /**
-         * Creates a new PairNumItem instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns PairNumItem instance
-         */
-        public static create(properties?: msg.IPairNumItem): msg.PairNumItem;
-
-        /**
-         * Encodes the specified PairNumItem message. Does not implicitly {@link msg.PairNumItem.verify|verify} messages.
-         * @param message PairNumItem message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IPairNumItem, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified PairNumItem message, length delimited. Does not implicitly {@link msg.PairNumItem.verify|verify} messages.
-         * @param message PairNumItem message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IPairNumItem, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a PairNumItem message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns PairNumItem
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.PairNumItem;
-
-        /**
-         * Decodes a PairNumItem message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns PairNumItem
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.PairNumItem;
-
-        /**
-         * Verifies a PairNumItem message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a PairNumItem message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns PairNumItem
-         */
-        public static fromObject(object: { [k: string]: any }): msg.PairNumItem;
-
-        /**
-         * Creates a plain object from a PairNumItem message. Also converts values to other types if specified.
-         * @param message PairNumItem
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.PairNumItem, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this PairNumItem to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** TaskId enum. */
-    enum TaskId {
-        RegistAccount = 1001,
-        RegisterTopScore = 1002,
-        InviteeTopScore = 1003,
-        InviteRegist = 1004
-    }
-
-    /** ItemPos enum. */
-    enum ItemPos {
-        Bag = 0,
-        Helmet = 1,
-        Clothes = 2,
-        Pants = 3,
-        Shoe = 4,
-        Hand = 5,
-        Wing = 6,
-        Suit = 7,
-        LongClothes = 8
-    }
-
-    /** MapEventType enum. */
-    enum MapEventType {
-        Game = 1,
-        Bonus = 2,
-        Building = 3
-    }
-
-    /** MapEventId enum. */
-    enum MapEventId {
-        GameTanTanLe = 1001,
-        GameSuperMarket = 1002,
-        GameFanFanLe = 1003,
-        BonusGold = 2001,
-        BonusStrength = 2002,
-        BuildingMaidShop = 3001,
-        BuildingCarShop = 3002,
-        BuildingHouseShop = 3003
-    }
-
-    /** Sex enum. */
-    enum Sex {
-        Unknow = 0,
-        Male = 1,
-        Female = 2,
-        Neutral = 3
-    }
-
-    /** MoneyType enum. */
-    enum MoneyType {
-        _Gold = 1,
-        _Diamond = 2,
-        _Strength = 3,
-        _Item = 4
-    }
-
-    /** UserInfoType enum. */
-    enum UserInfoType {
-        Name = 1,
-        UserSex = 2,
-        Age = 3,
-        Sign = 4,
-        Constellation = 5,
-        Face = 6,
-        Baseprovince = 7,
-        Basecity = 8,
-        Level = 9,
-        Exp = 10,
-        NewPlayerStep = 11
-    }
-
-    /** RoomKind enum. */
-    enum RoomKind {
-        TanTanLe = 1,
-        TexasPoker = 2
-    }
-
-    /** Properties of a C2GW_AddDeliveryAddress. */
-    interface IC2GW_AddDeliveryAddress {
-
-        /** C2GW_AddDeliveryAddress info */
-        info?: (msg.IUserAddress|null);
-    }
-
-    /** Represents a C2GW_AddDeliveryAddress. */
-    class C2GW_AddDeliveryAddress implements IC2GW_AddDeliveryAddress {
-
-        /**
-         * Constructs a new C2GW_AddDeliveryAddress.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IC2GW_AddDeliveryAddress);
-
-        /** C2GW_AddDeliveryAddress info. */
-        public info?: (msg.IUserAddress|null);
-
-        /**
-         * Creates a new C2GW_AddDeliveryAddress instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns C2GW_AddDeliveryAddress instance
-         */
-        public static create(properties?: msg.IC2GW_AddDeliveryAddress): msg.C2GW_AddDeliveryAddress;
-
-        /**
-         * Encodes the specified C2GW_AddDeliveryAddress message. Does not implicitly {@link msg.C2GW_AddDeliveryAddress.verify|verify} messages.
-         * @param message C2GW_AddDeliveryAddress message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IC2GW_AddDeliveryAddress, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified C2GW_AddDeliveryAddress message, length delimited. Does not implicitly {@link msg.C2GW_AddDeliveryAddress.verify|verify} messages.
-         * @param message C2GW_AddDeliveryAddress message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IC2GW_AddDeliveryAddress, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a C2GW_AddDeliveryAddress message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns C2GW_AddDeliveryAddress
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_AddDeliveryAddress;
-
-        /**
-         * Decodes a C2GW_AddDeliveryAddress message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns C2GW_AddDeliveryAddress
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_AddDeliveryAddress;
-
-        /**
-         * Verifies a C2GW_AddDeliveryAddress message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a C2GW_AddDeliveryAddress message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns C2GW_AddDeliveryAddress
-         */
-        public static fromObject(object: { [k: string]: any }): msg.C2GW_AddDeliveryAddress;
-
-        /**
-         * Creates a plain object from a C2GW_AddDeliveryAddress message. Also converts values to other types if specified.
-         * @param message C2GW_AddDeliveryAddress
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.C2GW_AddDeliveryAddress, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this C2GW_AddDeliveryAddress to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a C2GW_DelDeliveryAddress. */
-    interface IC2GW_DelDeliveryAddress {
-
-        /** C2GW_DelDeliveryAddress index */
-        index?: (number|null);
-    }
-
-    /** Represents a C2GW_DelDeliveryAddress. */
-    class C2GW_DelDeliveryAddress implements IC2GW_DelDeliveryAddress {
-
-        /**
-         * Constructs a new C2GW_DelDeliveryAddress.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IC2GW_DelDeliveryAddress);
-
-        /** C2GW_DelDeliveryAddress index. */
-        public index: number;
-
-        /**
-         * Creates a new C2GW_DelDeliveryAddress instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns C2GW_DelDeliveryAddress instance
-         */
-        public static create(properties?: msg.IC2GW_DelDeliveryAddress): msg.C2GW_DelDeliveryAddress;
-
-        /**
-         * Encodes the specified C2GW_DelDeliveryAddress message. Does not implicitly {@link msg.C2GW_DelDeliveryAddress.verify|verify} messages.
-         * @param message C2GW_DelDeliveryAddress message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IC2GW_DelDeliveryAddress, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified C2GW_DelDeliveryAddress message, length delimited. Does not implicitly {@link msg.C2GW_DelDeliveryAddress.verify|verify} messages.
-         * @param message C2GW_DelDeliveryAddress message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IC2GW_DelDeliveryAddress, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a C2GW_DelDeliveryAddress message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns C2GW_DelDeliveryAddress
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_DelDeliveryAddress;
-
-        /**
-         * Decodes a C2GW_DelDeliveryAddress message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns C2GW_DelDeliveryAddress
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_DelDeliveryAddress;
-
-        /**
-         * Verifies a C2GW_DelDeliveryAddress message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a C2GW_DelDeliveryAddress message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns C2GW_DelDeliveryAddress
-         */
-        public static fromObject(object: { [k: string]: any }): msg.C2GW_DelDeliveryAddress;
-
-        /**
-         * Creates a plain object from a C2GW_DelDeliveryAddress message. Also converts values to other types if specified.
-         * @param message C2GW_DelDeliveryAddress
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.C2GW_DelDeliveryAddress, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this C2GW_DelDeliveryAddress to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a C2GW_ChangeDeliveryAddress. */
-    interface IC2GW_ChangeDeliveryAddress {
-
-        /** C2GW_ChangeDeliveryAddress index */
-        index?: (number|null);
-
-        /** C2GW_ChangeDeliveryAddress info */
-        info?: (msg.IUserAddress|null);
-    }
-
-    /** Represents a C2GW_ChangeDeliveryAddress. */
-    class C2GW_ChangeDeliveryAddress implements IC2GW_ChangeDeliveryAddress {
-
-        /**
-         * Constructs a new C2GW_ChangeDeliveryAddress.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IC2GW_ChangeDeliveryAddress);
-
-        /** C2GW_ChangeDeliveryAddress index. */
-        public index: number;
-
-        /** C2GW_ChangeDeliveryAddress info. */
-        public info?: (msg.IUserAddress|null);
-
-        /**
-         * Creates a new C2GW_ChangeDeliveryAddress instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns C2GW_ChangeDeliveryAddress instance
-         */
-        public static create(properties?: msg.IC2GW_ChangeDeliveryAddress): msg.C2GW_ChangeDeliveryAddress;
-
-        /**
-         * Encodes the specified C2GW_ChangeDeliveryAddress message. Does not implicitly {@link msg.C2GW_ChangeDeliveryAddress.verify|verify} messages.
-         * @param message C2GW_ChangeDeliveryAddress message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IC2GW_ChangeDeliveryAddress, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified C2GW_ChangeDeliveryAddress message, length delimited. Does not implicitly {@link msg.C2GW_ChangeDeliveryAddress.verify|verify} messages.
-         * @param message C2GW_ChangeDeliveryAddress message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IC2GW_ChangeDeliveryAddress, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a C2GW_ChangeDeliveryAddress message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns C2GW_ChangeDeliveryAddress
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ChangeDeliveryAddress;
-
-        /**
-         * Decodes a C2GW_ChangeDeliveryAddress message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns C2GW_ChangeDeliveryAddress
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ChangeDeliveryAddress;
-
-        /**
-         * Verifies a C2GW_ChangeDeliveryAddress message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a C2GW_ChangeDeliveryAddress message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns C2GW_ChangeDeliveryAddress
-         */
-        public static fromObject(object: { [k: string]: any }): msg.C2GW_ChangeDeliveryAddress;
-
-        /**
-         * Creates a plain object from a C2GW_ChangeDeliveryAddress message. Also converts values to other types if specified.
-         * @param message C2GW_ChangeDeliveryAddress
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.C2GW_ChangeDeliveryAddress, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this C2GW_ChangeDeliveryAddress to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a GW2C_SendDeliveryAddressList. */
-    interface IGW2C_SendDeliveryAddressList {
-
-        /** GW2C_SendDeliveryAddressList list */
-        list?: (msg.IUserAddress[]|null);
-    }
-
-    /** Represents a GW2C_SendDeliveryAddressList. */
-    class GW2C_SendDeliveryAddressList implements IGW2C_SendDeliveryAddressList {
-
-        /**
-         * Constructs a new GW2C_SendDeliveryAddressList.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IGW2C_SendDeliveryAddressList);
-
-        /** GW2C_SendDeliveryAddressList list. */
-        public list: msg.IUserAddress[];
-
-        /**
-         * Creates a new GW2C_SendDeliveryAddressList instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns GW2C_SendDeliveryAddressList instance
-         */
-        public static create(properties?: msg.IGW2C_SendDeliveryAddressList): msg.GW2C_SendDeliveryAddressList;
-
-        /**
-         * Encodes the specified GW2C_SendDeliveryAddressList message. Does not implicitly {@link msg.GW2C_SendDeliveryAddressList.verify|verify} messages.
-         * @param message GW2C_SendDeliveryAddressList message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IGW2C_SendDeliveryAddressList, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified GW2C_SendDeliveryAddressList message, length delimited. Does not implicitly {@link msg.GW2C_SendDeliveryAddressList.verify|verify} messages.
-         * @param message GW2C_SendDeliveryAddressList message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IGW2C_SendDeliveryAddressList, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a GW2C_SendDeliveryAddressList message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns GW2C_SendDeliveryAddressList
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_SendDeliveryAddressList;
-
-        /**
-         * Decodes a GW2C_SendDeliveryAddressList message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns GW2C_SendDeliveryAddressList
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_SendDeliveryAddressList;
-
-        /**
-         * Verifies a GW2C_SendDeliveryAddressList message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a GW2C_SendDeliveryAddressList message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns GW2C_SendDeliveryAddressList
-         */
-        public static fromObject(object: { [k: string]: any }): msg.GW2C_SendDeliveryAddressList;
-
-        /**
-         * Creates a plain object from a GW2C_SendDeliveryAddressList message. Also converts values to other types if specified.
-         * @param message GW2C_SendDeliveryAddressList
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.GW2C_SendDeliveryAddressList, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this GW2C_SendDeliveryAddressList to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a DeliveryGoods. */
-    interface IDeliveryGoods {
-
-        /** DeliveryGoods itemid */
-        itemid?: (number|null);
-
-        /** DeliveryGoods num */
-        num?: (number|null);
-    }
-
-    /** Represents a DeliveryGoods. */
-    class DeliveryGoods implements IDeliveryGoods {
-
-        /**
-         * Constructs a new DeliveryGoods.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IDeliveryGoods);
-
-        /** DeliveryGoods itemid. */
-        public itemid: number;
-
-        /** DeliveryGoods num. */
-        public num: number;
-
-        /**
-         * Creates a new DeliveryGoods instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns DeliveryGoods instance
-         */
-        public static create(properties?: msg.IDeliveryGoods): msg.DeliveryGoods;
-
-        /**
-         * Encodes the specified DeliveryGoods message. Does not implicitly {@link msg.DeliveryGoods.verify|verify} messages.
-         * @param message DeliveryGoods message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IDeliveryGoods, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified DeliveryGoods message, length delimited. Does not implicitly {@link msg.DeliveryGoods.verify|verify} messages.
-         * @param message DeliveryGoods message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IDeliveryGoods, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a DeliveryGoods message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns DeliveryGoods
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.DeliveryGoods;
-
-        /**
-         * Decodes a DeliveryGoods message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns DeliveryGoods
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.DeliveryGoods;
-
-        /**
-         * Verifies a DeliveryGoods message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a DeliveryGoods message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns DeliveryGoods
-         */
-        public static fromObject(object: { [k: string]: any }): msg.DeliveryGoods;
-
-        /**
-         * Creates a plain object from a DeliveryGoods message. Also converts values to other types if specified.
-         * @param message DeliveryGoods
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.DeliveryGoods, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this DeliveryGoods to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a C2GW_ReqDeliveryGoods. */
-    interface IC2GW_ReqDeliveryGoods {
-
-        /** C2GW_ReqDeliveryGoods list */
-        list?: (msg.IDeliveryGoods[]|null);
-
-        /** C2GW_ReqDeliveryGoods token */
-        token?: (string|null);
-    }
-
-    /** Represents a C2GW_ReqDeliveryGoods. */
-    class C2GW_ReqDeliveryGoods implements IC2GW_ReqDeliveryGoods {
-
-        /**
-         * Constructs a new C2GW_ReqDeliveryGoods.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IC2GW_ReqDeliveryGoods);
-
-        /** C2GW_ReqDeliveryGoods list. */
-        public list: msg.IDeliveryGoods[];
-
-        /** C2GW_ReqDeliveryGoods token. */
-        public token: string;
-
-        /**
-         * Creates a new C2GW_ReqDeliveryGoods instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns C2GW_ReqDeliveryGoods instance
-         */
-        public static create(properties?: msg.IC2GW_ReqDeliveryGoods): msg.C2GW_ReqDeliveryGoods;
-
-        /**
-         * Encodes the specified C2GW_ReqDeliveryGoods message. Does not implicitly {@link msg.C2GW_ReqDeliveryGoods.verify|verify} messages.
-         * @param message C2GW_ReqDeliveryGoods message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IC2GW_ReqDeliveryGoods, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified C2GW_ReqDeliveryGoods message, length delimited. Does not implicitly {@link msg.C2GW_ReqDeliveryGoods.verify|verify} messages.
-         * @param message C2GW_ReqDeliveryGoods message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IC2GW_ReqDeliveryGoods, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a C2GW_ReqDeliveryGoods message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns C2GW_ReqDeliveryGoods
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqDeliveryGoods;
-
-        /**
-         * Decodes a C2GW_ReqDeliveryGoods message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns C2GW_ReqDeliveryGoods
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqDeliveryGoods;
-
-        /**
-         * Verifies a C2GW_ReqDeliveryGoods message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a C2GW_ReqDeliveryGoods message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns C2GW_ReqDeliveryGoods
-         */
-        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqDeliveryGoods;
-
-        /**
-         * Creates a plain object from a C2GW_ReqDeliveryGoods message. Also converts values to other types if specified.
-         * @param message C2GW_ReqDeliveryGoods
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.C2GW_ReqDeliveryGoods, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this C2GW_ReqDeliveryGoods to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -8620,192 +7936,6 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a C2GW_ReqUserRoomInfo. */
-    interface IC2GW_ReqUserRoomInfo {
-    }
-
-    /** Represents a C2GW_ReqUserRoomInfo. */
-    class C2GW_ReqUserRoomInfo implements IC2GW_ReqUserRoomInfo {
-
-        /**
-         * Constructs a new C2GW_ReqUserRoomInfo.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IC2GW_ReqUserRoomInfo);
-
-        /**
-         * Creates a new C2GW_ReqUserRoomInfo instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns C2GW_ReqUserRoomInfo instance
-         */
-        public static create(properties?: msg.IC2GW_ReqUserRoomInfo): msg.C2GW_ReqUserRoomInfo;
-
-        /**
-         * Encodes the specified C2GW_ReqUserRoomInfo message. Does not implicitly {@link msg.C2GW_ReqUserRoomInfo.verify|verify} messages.
-         * @param message C2GW_ReqUserRoomInfo message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IC2GW_ReqUserRoomInfo, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified C2GW_ReqUserRoomInfo message, length delimited. Does not implicitly {@link msg.C2GW_ReqUserRoomInfo.verify|verify} messages.
-         * @param message C2GW_ReqUserRoomInfo message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IC2GW_ReqUserRoomInfo, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a C2GW_ReqUserRoomInfo message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns C2GW_ReqUserRoomInfo
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqUserRoomInfo;
-
-        /**
-         * Decodes a C2GW_ReqUserRoomInfo message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns C2GW_ReqUserRoomInfo
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqUserRoomInfo;
-
-        /**
-         * Verifies a C2GW_ReqUserRoomInfo message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a C2GW_ReqUserRoomInfo message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns C2GW_ReqUserRoomInfo
-         */
-        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqUserRoomInfo;
-
-        /**
-         * Creates a plain object from a C2GW_ReqUserRoomInfo message. Also converts values to other types if specified.
-         * @param message C2GW_ReqUserRoomInfo
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.C2GW_ReqUserRoomInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this C2GW_ReqUserRoomInfo to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a GW2C_RetUserRoomInfo. */
-    interface IGW2C_RetUserRoomInfo {
-
-        /** GW2C_RetUserRoomInfo roomid */
-        roomid?: (number|Long|null);
-
-        /** GW2C_RetUserRoomInfo tid */
-        tid?: (number|null);
-
-        /** GW2C_RetUserRoomInfo passwd */
-        passwd?: (string|null);
-    }
-
-    /** Represents a GW2C_RetUserRoomInfo. */
-    class GW2C_RetUserRoomInfo implements IGW2C_RetUserRoomInfo {
-
-        /**
-         * Constructs a new GW2C_RetUserRoomInfo.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IGW2C_RetUserRoomInfo);
-
-        /** GW2C_RetUserRoomInfo roomid. */
-        public roomid: (number|Long);
-
-        /** GW2C_RetUserRoomInfo tid. */
-        public tid: number;
-
-        /** GW2C_RetUserRoomInfo passwd. */
-        public passwd: string;
-
-        /**
-         * Creates a new GW2C_RetUserRoomInfo instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns GW2C_RetUserRoomInfo instance
-         */
-        public static create(properties?: msg.IGW2C_RetUserRoomInfo): msg.GW2C_RetUserRoomInfo;
-
-        /**
-         * Encodes the specified GW2C_RetUserRoomInfo message. Does not implicitly {@link msg.GW2C_RetUserRoomInfo.verify|verify} messages.
-         * @param message GW2C_RetUserRoomInfo message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IGW2C_RetUserRoomInfo, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified GW2C_RetUserRoomInfo message, length delimited. Does not implicitly {@link msg.GW2C_RetUserRoomInfo.verify|verify} messages.
-         * @param message GW2C_RetUserRoomInfo message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IGW2C_RetUserRoomInfo, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a GW2C_RetUserRoomInfo message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns GW2C_RetUserRoomInfo
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetUserRoomInfo;
-
-        /**
-         * Decodes a GW2C_RetUserRoomInfo message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns GW2C_RetUserRoomInfo
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetUserRoomInfo;
-
-        /**
-         * Verifies a GW2C_RetUserRoomInfo message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a GW2C_RetUserRoomInfo message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns GW2C_RetUserRoomInfo
-         */
-        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetUserRoomInfo;
-
-        /**
-         * Creates a plain object from a GW2C_RetUserRoomInfo message. Also converts values to other types if specified.
-         * @param message GW2C_RetUserRoomInfo
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.GW2C_RetUserRoomInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this GW2C_RetUserRoomInfo to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
     /** Properties of a C2GW_ReqEnterRoom. */
     interface IC2GW_ReqEnterRoom {
 
@@ -9088,91 +8218,181 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a C2GW_ReqTexasRoomList. */
-    interface IC2GW_ReqTexasRoomList {
+    /** Properties of a RS2GW_PushRoomDestory. */
+    interface IRS2GW_PushRoomDestory {
 
-        /** C2GW_ReqTexasRoomList type */
-        type?: (number|null);
+        /** RS2GW_PushRoomDestory roomid */
+        roomid?: (number|Long|null);
     }
 
-    /** Represents a C2GW_ReqTexasRoomList. */
-    class C2GW_ReqTexasRoomList implements IC2GW_ReqTexasRoomList {
+    /** Represents a RS2GW_PushRoomDestory. */
+    class RS2GW_PushRoomDestory implements IRS2GW_PushRoomDestory {
 
         /**
-         * Constructs a new C2GW_ReqTexasRoomList.
+         * Constructs a new RS2GW_PushRoomDestory.
          * @param [properties] Properties to set
          */
-        constructor(properties?: msg.IC2GW_ReqTexasRoomList);
+        constructor(properties?: msg.IRS2GW_PushRoomDestory);
 
-        /** C2GW_ReqTexasRoomList type. */
-        public type: number;
+        /** RS2GW_PushRoomDestory roomid. */
+        public roomid: (number|Long);
 
         /**
-         * Creates a new C2GW_ReqTexasRoomList instance using the specified properties.
+         * Creates a new RS2GW_PushRoomDestory instance using the specified properties.
          * @param [properties] Properties to set
-         * @returns C2GW_ReqTexasRoomList instance
+         * @returns RS2GW_PushRoomDestory instance
          */
-        public static create(properties?: msg.IC2GW_ReqTexasRoomList): msg.C2GW_ReqTexasRoomList;
+        public static create(properties?: msg.IRS2GW_PushRoomDestory): msg.RS2GW_PushRoomDestory;
 
         /**
-         * Encodes the specified C2GW_ReqTexasRoomList message. Does not implicitly {@link msg.C2GW_ReqTexasRoomList.verify|verify} messages.
-         * @param message C2GW_ReqTexasRoomList message or plain object to encode
+         * Encodes the specified RS2GW_PushRoomDestory message. Does not implicitly {@link msg.RS2GW_PushRoomDestory.verify|verify} messages.
+         * @param message RS2GW_PushRoomDestory message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: msg.IC2GW_ReqTexasRoomList, writer?: protobuf.Writer): protobuf.Writer;
+        public static encode(message: msg.IRS2GW_PushRoomDestory, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Encodes the specified C2GW_ReqTexasRoomList message, length delimited. Does not implicitly {@link msg.C2GW_ReqTexasRoomList.verify|verify} messages.
-         * @param message C2GW_ReqTexasRoomList message or plain object to encode
+         * Encodes the specified RS2GW_PushRoomDestory message, length delimited. Does not implicitly {@link msg.RS2GW_PushRoomDestory.verify|verify} messages.
+         * @param message RS2GW_PushRoomDestory message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: msg.IC2GW_ReqTexasRoomList, writer?: protobuf.Writer): protobuf.Writer;
+        public static encodeDelimited(message: msg.IRS2GW_PushRoomDestory, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Decodes a C2GW_ReqTexasRoomList message from the specified reader or buffer.
+         * Decodes a RS2GW_PushRoomDestory message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns C2GW_ReqTexasRoomList
+         * @returns RS2GW_PushRoomDestory
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqTexasRoomList;
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2GW_PushRoomDestory;
 
         /**
-         * Decodes a C2GW_ReqTexasRoomList message from the specified reader or buffer, length delimited.
+         * Decodes a RS2GW_PushRoomDestory message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns C2GW_ReqTexasRoomList
+         * @returns RS2GW_PushRoomDestory
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqTexasRoomList;
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2GW_PushRoomDestory;
 
         /**
-         * Verifies a C2GW_ReqTexasRoomList message.
+         * Verifies a RS2GW_PushRoomDestory message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a C2GW_ReqTexasRoomList message from a plain object. Also converts values to their respective internal types.
+         * Creates a RS2GW_PushRoomDestory message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns C2GW_ReqTexasRoomList
+         * @returns RS2GW_PushRoomDestory
          */
-        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqTexasRoomList;
+        public static fromObject(object: { [k: string]: any }): msg.RS2GW_PushRoomDestory;
 
         /**
-         * Creates a plain object from a C2GW_ReqTexasRoomList message. Also converts values to other types if specified.
-         * @param message C2GW_ReqTexasRoomList
+         * Creates a plain object from a RS2GW_PushRoomDestory message. Also converts values to other types if specified.
+         * @param message RS2GW_PushRoomDestory
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: msg.C2GW_ReqTexasRoomList, options?: protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: msg.RS2GW_PushRoomDestory, options?: protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this C2GW_ReqTexasRoomList to JSON.
+         * Converts this RS2GW_PushRoomDestory to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_PushRoomDestory. */
+    interface IGW2C_PushRoomDestory {
+
+        /** GW2C_PushRoomDestory roomid */
+        roomid?: (number|Long|null);
+    }
+
+    /** Represents a GW2C_PushRoomDestory. */
+    class GW2C_PushRoomDestory implements IGW2C_PushRoomDestory {
+
+        /**
+         * Constructs a new GW2C_PushRoomDestory.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_PushRoomDestory);
+
+        /** GW2C_PushRoomDestory roomid. */
+        public roomid: (number|Long);
+
+        /**
+         * Creates a new GW2C_PushRoomDestory instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_PushRoomDestory instance
+         */
+        public static create(properties?: msg.IGW2C_PushRoomDestory): msg.GW2C_PushRoomDestory;
+
+        /**
+         * Encodes the specified GW2C_PushRoomDestory message. Does not implicitly {@link msg.GW2C_PushRoomDestory.verify|verify} messages.
+         * @param message GW2C_PushRoomDestory message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_PushRoomDestory, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_PushRoomDestory message, length delimited. Does not implicitly {@link msg.GW2C_PushRoomDestory.verify|verify} messages.
+         * @param message GW2C_PushRoomDestory message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_PushRoomDestory, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_PushRoomDestory message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_PushRoomDestory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_PushRoomDestory;
+
+        /**
+         * Decodes a GW2C_PushRoomDestory message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_PushRoomDestory
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_PushRoomDestory;
+
+        /**
+         * Verifies a GW2C_PushRoomDestory message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_PushRoomDestory message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_PushRoomDestory
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_PushRoomDestory;
+
+        /**
+         * Creates a plain object from a GW2C_PushRoomDestory message. Also converts values to other types if specified.
+         * @param message GW2C_PushRoomDestory
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_PushRoomDestory, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_PushRoomDestory to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -9281,6 +8501,96 @@ declare namespace msg {
 
         /**
          * Converts this TexasRoomSimpleInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqTexasRoomList. */
+    interface IC2GW_ReqTexasRoomList {
+
+        /** C2GW_ReqTexasRoomList type */
+        type?: (number|null);
+    }
+
+    /** Represents a C2GW_ReqTexasRoomList. */
+    class C2GW_ReqTexasRoomList implements IC2GW_ReqTexasRoomList {
+
+        /**
+         * Constructs a new C2GW_ReqTexasRoomList.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqTexasRoomList);
+
+        /** C2GW_ReqTexasRoomList type. */
+        public type: number;
+
+        /**
+         * Creates a new C2GW_ReqTexasRoomList instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqTexasRoomList instance
+         */
+        public static create(properties?: msg.IC2GW_ReqTexasRoomList): msg.C2GW_ReqTexasRoomList;
+
+        /**
+         * Encodes the specified C2GW_ReqTexasRoomList message. Does not implicitly {@link msg.C2GW_ReqTexasRoomList.verify|verify} messages.
+         * @param message C2GW_ReqTexasRoomList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqTexasRoomList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqTexasRoomList message, length delimited. Does not implicitly {@link msg.C2GW_ReqTexasRoomList.verify|verify} messages.
+         * @param message C2GW_ReqTexasRoomList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqTexasRoomList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqTexasRoomList message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqTexasRoomList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqTexasRoomList;
+
+        /**
+         * Decodes a C2GW_ReqTexasRoomList message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqTexasRoomList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqTexasRoomList;
+
+        /**
+         * Verifies a C2GW_ReqTexasRoomList message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqTexasRoomList message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqTexasRoomList
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqTexasRoomList;
+
+        /**
+         * Creates a plain object from a C2GW_ReqTexasRoomList message. Also converts values to other types if specified.
+         * @param message C2GW_ReqTexasRoomList
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqTexasRoomList, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqTexasRoomList to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -9473,6 +8783,192 @@ declare namespace msg {
 
         /**
          * Converts this TexasPersonalRoom to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqUserRoomInfo. */
+    interface IC2GW_ReqUserRoomInfo {
+    }
+
+    /** Represents a C2GW_ReqUserRoomInfo. */
+    class C2GW_ReqUserRoomInfo implements IC2GW_ReqUserRoomInfo {
+
+        /**
+         * Constructs a new C2GW_ReqUserRoomInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqUserRoomInfo);
+
+        /**
+         * Creates a new C2GW_ReqUserRoomInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqUserRoomInfo instance
+         */
+        public static create(properties?: msg.IC2GW_ReqUserRoomInfo): msg.C2GW_ReqUserRoomInfo;
+
+        /**
+         * Encodes the specified C2GW_ReqUserRoomInfo message. Does not implicitly {@link msg.C2GW_ReqUserRoomInfo.verify|verify} messages.
+         * @param message C2GW_ReqUserRoomInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqUserRoomInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqUserRoomInfo message, length delimited. Does not implicitly {@link msg.C2GW_ReqUserRoomInfo.verify|verify} messages.
+         * @param message C2GW_ReqUserRoomInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqUserRoomInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqUserRoomInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqUserRoomInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqUserRoomInfo;
+
+        /**
+         * Decodes a C2GW_ReqUserRoomInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqUserRoomInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqUserRoomInfo;
+
+        /**
+         * Verifies a C2GW_ReqUserRoomInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqUserRoomInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqUserRoomInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqUserRoomInfo;
+
+        /**
+         * Creates a plain object from a C2GW_ReqUserRoomInfo message. Also converts values to other types if specified.
+         * @param message C2GW_ReqUserRoomInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqUserRoomInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqUserRoomInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetUserRoomInfo. */
+    interface IGW2C_RetUserRoomInfo {
+
+        /** GW2C_RetUserRoomInfo roomid */
+        roomid?: (number|Long|null);
+
+        /** GW2C_RetUserRoomInfo tid */
+        tid?: (number|null);
+
+        /** GW2C_RetUserRoomInfo passwd */
+        passwd?: (string|null);
+    }
+
+    /** Represents a GW2C_RetUserRoomInfo. */
+    class GW2C_RetUserRoomInfo implements IGW2C_RetUserRoomInfo {
+
+        /**
+         * Constructs a new GW2C_RetUserRoomInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetUserRoomInfo);
+
+        /** GW2C_RetUserRoomInfo roomid. */
+        public roomid: (number|Long);
+
+        /** GW2C_RetUserRoomInfo tid. */
+        public tid: number;
+
+        /** GW2C_RetUserRoomInfo passwd. */
+        public passwd: string;
+
+        /**
+         * Creates a new GW2C_RetUserRoomInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetUserRoomInfo instance
+         */
+        public static create(properties?: msg.IGW2C_RetUserRoomInfo): msg.GW2C_RetUserRoomInfo;
+
+        /**
+         * Encodes the specified GW2C_RetUserRoomInfo message. Does not implicitly {@link msg.GW2C_RetUserRoomInfo.verify|verify} messages.
+         * @param message GW2C_RetUserRoomInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetUserRoomInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetUserRoomInfo message, length delimited. Does not implicitly {@link msg.GW2C_RetUserRoomInfo.verify|verify} messages.
+         * @param message GW2C_RetUserRoomInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetUserRoomInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetUserRoomInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetUserRoomInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetUserRoomInfo;
+
+        /**
+         * Decodes a GW2C_RetUserRoomInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetUserRoomInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetUserRoomInfo;
+
+        /**
+         * Verifies a GW2C_RetUserRoomInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetUserRoomInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetUserRoomInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetUserRoomInfo;
+
+        /**
+         * Creates a plain object from a GW2C_RetUserRoomInfo message. Also converts values to other types if specified.
+         * @param message GW2C_RetUserRoomInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetUserRoomInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetUserRoomInfo to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };

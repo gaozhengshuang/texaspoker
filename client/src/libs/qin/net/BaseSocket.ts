@@ -345,12 +345,22 @@ module game
 			let protoData = table.ProtoIdById[mainId];
 			let msgName = protoData.Name;
 			let decoded = msg[msgName.slice(4)].decode(cmdDataBA.bytes);
-			if (msgName.indexOf("push") != -1) //推送协议
+			if (msgName.indexOf("Push") != -1) //推送协议
 			{
 				this.handleResponse(msgName, decoded, undefined, undefined);
 			}
 			else
 			{
+				let idx = msgName.indexOf("Ret");  //替换名字
+				let retName = msgName.substr(idx + 3);
+				for (let protoInfo of table.ProtoId)
+				{
+					if (msgName != protoInfo.Name && protoInfo.Name.indexOf(retName) != -1)
+					{
+						msgName = protoInfo.Name;
+						break;
+					}
+				}
 				this.handleRequest(msgName, decoded, undefined, undefined);
 			}
 			NotificationCenter.postNotification(msgName, decoded);

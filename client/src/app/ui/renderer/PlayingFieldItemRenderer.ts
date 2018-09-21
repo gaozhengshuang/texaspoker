@@ -75,16 +75,16 @@ class PlayingFieldItemRenderer extends BaseItemRenderer<PlayingFieldRoomInfo>{
             {
                 this.roomIdLabel.text = this.bindData.id.toString();
             }
-            this.blindLabel.text = game.MathUtil.formatNum(this.bindData.definition.sBlind) + "/" + game.MathUtil.formatNum(this.bindData.definition.bBlind);
-            if (this.bindData.definition.bBuyin)
+            this.blindLabel.text = game.MathUtil.formatNum(this.bindData.definition.SBlind) + "/" + game.MathUtil.formatNum(this.bindData.definition.BBlind);
+            if (this.bindData.definition.BBuyin)
             {
-                this.buyLabel.text = game.MathUtil.formatNum(this.bindData.definition.sBuyin) + "/" + game.MathUtil.formatNum(this.bindData.definition.bBuyin);
+                this.buyLabel.text = game.MathUtil.formatNum(this.bindData.definition.SBuyin) + "/" + game.MathUtil.formatNum(this.bindData.definition.BBuyin);
             } else
             {
-                this.buyLabel.text = game.MathUtil.formatNum(this.bindData.definition.sBuyin);
+                this.buyLabel.text = game.MathUtil.formatNum(this.bindData.definition.SBuyin);
             }
             this.setRoomPattern();
-            for (let i: number = 0; i < this.bindData.definition.seat; i++)
+            for (let i: number = 0; i < this.bindData.definition.Seat; i++)
             {
                 this["toggleBtn" + i].visible = true;
                 this["toggleBtn" + i].selected = false;
@@ -101,7 +101,7 @@ class PlayingFieldItemRenderer extends BaseItemRenderer<PlayingFieldRoomInfo>{
     */
     private setRoomPattern()
     {
-        switch (this.bindData.definition.pattern)
+        switch (this.bindData.definition.Pattern)
         {
             case GamblingPattern.AllIn:
                 this.patternImage.source = SheetSubName.AllInImg;
