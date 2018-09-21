@@ -182,6 +182,27 @@ func (this *User) SendGateMsg(msg pb.Message) bool {
 	return this.gate.SendCmd(msg)
 }
 
+func (this *User) SendRoomMsg(m pb.Message) bool {
+	if this.gate == nil || reflect.ValueOf(this.gate).IsNil() {
+		panic("User gatesession is nil")
+	}
+
+	name := pb.MessageName(m)
+	if name == "" {
+		log.Fatal("SendRoomMsg 获取proto名字失败[%s]", m)
+		return false
+	}
+	msgbuf, err := pb.Marshal(m)
+	if err != nil {
+		log.Fatal("SendRoomMsg 序列化proto失败[%s][%s]", name, err)
+		return false
+	}
+
+	send := &msg.C2RS_MsgTransfer{ Uid:pb.Int64(this.Id()), Name:pb.String(name), Buf:msgbuf }
+	return this.gate.SendCmd(send)
+}
+
+
 //  退出
 func (this *User) Quit() {
 	//this.ch_cmd <- "quit"
@@ -303,11 +324,13 @@ func (this *User) ReqUserRoom() {
 }
 
 func (this *User) ReqSitDown() {
-	this.SendGateMsg(&msg.C2RS_ReqSitDown{Userid:pb.Int64(this.Id()), Seat:pb.Int32(1)})
+	sitdown := &msg.C2RS_ReqSitDown{Userid:pb.Int64(this.Id()), Seat:pb.Int32(1)}
+	this.SendRoomMsg(sitdown)
 }
 
 func (this *User) ReqStandUp() {
-	this.SendGateMsg(&msg.C2RS_ReqStandUp{Userid:pb.Int64(this.Id())})
+	stand := &msg.C2RS_ReqStandUp{Userid:pb.Int64(this.Id())}
+	this.SendRoomMsg(stand)
 }
 
 //func (this *User) JumpStep() {

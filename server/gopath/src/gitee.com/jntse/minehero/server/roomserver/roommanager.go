@@ -59,19 +59,18 @@ func (this *RoomManager) Num() int {
 func (this *RoomManager) Add(room IRoomBase) {
 	id := room.Id()
 	this.rooms[id] = room
-	this.Cache(room)
+	room.DoCache()
 	if room.Kind() == int32(msg.RoomKind_TexasPoker) {
 		subkind := room.SubKind()
 		if this.texasrooms[subkind] == nil { this.texasrooms[subkind] = make([]IRoomBase, 0) }
 		this.texasrooms[subkind] = append(this.texasrooms[subkind], room)
 	}
-	log.Info("添加房间[%d]--当前房间数[%d]", id, len(this.rooms))
+	log.Info("添加房间[%d]------当前房间数[%d]", id, len(this.rooms))
 }
 
 func (this* RoomManager) Del(id int64) {
 	delete(this.rooms, id)
-	this.DelCache(id)
-	log.Info("删除房间[%d]--当前房间数[%d]", id, len(this.rooms))
+	log.Info("删除房间[%d]------当前房间数[%d]", id, len(this.rooms))
 }
 
 func (this* RoomManager) Find(id int64) IRoomBase {
@@ -98,44 +97,31 @@ func (this *RoomManager) Handler1sTick(now int64) {
 	this.TexasRoomAmountCheck()
 }
 
-func (this *RoomManager) Cache(room IRoomBase) {
+func (this *RoomManager) CleanCache() {
+	//
 	pipe := Redis().Pipeline()
-	key := fmt.Sprintf("roombrief_%d", room.Id())
-	pipe.HSet(key, "uid", room.Id())
-	pipe.HSet(key, "ownerid", room.OwnerId())
-	pipe.HSet(key, "tid", room.Tid())
-	pipe.HSet(key, "members", room.NumMembers())
-	pipe.HSet(key, "passwd", room.Passwd())
-	pipe.HSet(key, "agentname", RoomSvr().Name())
-	pipe.SAdd("roomlist", room.Id())
-	pipe.SAdd(fmt.Sprintf("roomlist_kind_%d_sub_%d", room.Kind(), room.SubKind()), room.Id())
+	tkey := fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TanTanLe), 0)
+	pipe.Del(tkey)
+	for _, v := range msg.PlayingFieldType_value {
+		pipe.Del(fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TexasPoker), v))
+	}
 	if _, err := pipe.Exec(); err != nil {
-		log.Error("[房间] 缓存房间信息失败 %s", err)
+		log.Error("[房间] 删除roomlist类型列表失败 %s", err)
 	}
 	pipe.Close()
-}
 
-func (this *RoomManager) DelCache(id int64) {
-	key := fmt.Sprintf("roombrief_%d", id)
-	Redis().Del(key)
-}
-
-func (this *RoomManager) CleanCache() {
-	tkey := fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TanTanLe), 0)
-	Redis().Del(tkey)
-	for _, v := range msg.PlayingFieldType_value {
-		Redis().Del(fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TexasPoker), v))
-	}
-
+	//
 	list, err := Redis().SMembers("roomlist").Result()
 	if err == redis.Nil {
 		return
 	}
 	if err != nil {
 		log.Error("[房间] 加载所有房间列表失败 %s", err)
+		return
 	}
 
-	pipe := Redis().Pipeline()
+	//
+	pipe = Redis().Pipeline()
 	for _, id := range list {
 		key := fmt.Sprintf("roombrief_%s", id)
 		pipe.Del(key)
@@ -143,6 +129,7 @@ func (this *RoomManager) CleanCache() {
 	if _, err := pipe.Exec(); err != nil {
 		log.Error("[房间] 删除roombrief失败 %s", err)
 	}
+	pipe.Close()
 
 	//
 	Redis().Del("roomlist")

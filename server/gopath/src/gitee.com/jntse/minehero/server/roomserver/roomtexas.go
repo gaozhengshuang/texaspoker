@@ -26,6 +26,9 @@ func (this *TexasPokerRoom) OnDestory(now int64) {
 		u.OnDestoryRoom()
 	}
 
+	// 删除缓存
+	this.RmCache()
+
 	// 等待房间信息回传网关
 	time.Sleep(time.Millisecond*10)
 	log.Info("[房间] 销毁房间[%d]", this.Id())
@@ -80,7 +83,7 @@ func (this *TexasPokerRoom) UserSitDown(u *RoomUser, pos int32) {
 
 	// 更新房间人数
 	Redis().HSet(fmt.Sprintf("roombrief_%d", this.Id()), "members", this.NumMembers())
-	log.Info("[房间] 玩家[%s %d] 坐下位置[%d] 等待下一局[%d]", u.Name(), u.Id(), pos, this.Id())
+	log.Info("[房间] 玩家[%s %d] 坐下房间[%d] 位置[%d] 等待下一局", u.Name(), u.Id(), this.Id(), pos)
 }
 
 
