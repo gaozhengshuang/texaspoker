@@ -577,9 +577,7 @@ func (this *GateUser) OnDisconnect() {
 	this.online = false
 	this.client = nil
 	this.tm_disconnect = util.CURTIMEMS()
-	if this.IsInRoom() == true {
-		this.SendRsUserDisconnect()
-	}
+	this.SendRsUserDisconnect()
 	this.AsynSave()
 	//this.PlatformPushUserOnlineTime()
 }
@@ -594,9 +592,7 @@ func (this *GateUser) KickOut(way string) {
 	this.client.Close()
 	this.client = nil
 	this.tm_disconnect = util.CURTIMEMS()
-	if this.IsInRoom() == true {
-		this.SendRsUserDisconnect()
-	}
+	this.SendRsUserDisconnect()
 	this.AsynSave()
 	//this.PlatformPushUserOnlineTime()
 }

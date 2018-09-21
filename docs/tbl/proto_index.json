@@ -141,10 +141,12 @@
 		{ "Id": 137, "Name": "msg.RS2C_PushOneRoundOver" },
 		{ "Id": 138, "Name": "msg.C2RS_ReqAction" },
 		{ "Id": 139, "Name": "msg.RS2C_RetAction" },
-		{ "Id": 140, "Name": "msg.C2RS_ReqStandUp" },
-		{ "Id": 141, "Name": "msg.RS2C_RetStandUp" },
-		{ "Id": 142, "Name": "msg.C2RS_ReqBrightCard" },
-		{ "Id": 143, "Name": "msg.RS2C_RetBrightCard" },
-		{ "Id": 144, "Name": "msg.C2RS_ReqAddCoin" },
-		{ "Id": 145, "Name": "msg.RS2C_RetAddCoin" }
+		{ "Id": 140, "Name": "msg.C2RS_ReqSitDown" },
+		{ "Id": 141, "Name": "msg.RS2C_RetSitDown" },
+		{ "Id": 142, "Name": "msg.C2RS_ReqStandUp" },
+		{ "Id": 143, "Name": "msg.RS2C_RetStandUp" },
+		{ "Id": 144, "Name": "msg.C2RS_ReqBrightCard" },
+		{ "Id": 145, "Name": "msg.RS2C_RetBrightCard" },
+		{ "Id": 146, "Name": "msg.C2RS_ReqAddCoin" },
+		{ "Id": 147, "Name": "msg.RS2C_RetAddCoin" }
 	]}

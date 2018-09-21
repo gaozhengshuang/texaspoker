@@ -1,6 +1,8 @@
 package main
 import (
+	"fmt"
 	pb"github.com/gogo/protobuf/proto"
+	"gitee.com/jntse/gotoolkit/log"
 	"gitee.com/jntse/minehero/pbmsg"
 )
 
@@ -24,15 +26,24 @@ func (u *RoomUser) OnGameOver() {
 
 func (u *RoomUser) OnDestoryRoom() {
 	u.Logout()
+	Redis().Del(fmt.Sprintf("userinroom_%d", u.Id()))
 	msgdestory := &msg.RS2GW_PushRoomDestory{Roomid:pb.Int64(u.RoomId()), Userid:pb.Int64(u.Id()), Bin:u.PackBin()}
 	u.SendMsg(msgdestory)
+	log.Trace("[房间] 销毁房间[%d] 回传玩家[%s %d]个人数据", u.RoomId(), u.Name(), u.Id()) 
 }
 
 // 离开房间
 func (u *RoomUser) OnLeaveRoom() {
 	u.Logout()
+	Redis().Del(fmt.Sprintf("userinroom_%d", u.Id()))
 	msgleave := &msg.RS2GW_UserLeaveRoom{Userid:pb.Int64(u.Id()), Bin:u.PackBin() }
 	u.SendMsg(msgleave)
+	log.Trace("[房间] 离开房间[%d] 回传玩家[%s %d]个人数据", u.RoomId(), u.Name(), u.Id()) 
+}
+
+// 进房间之前
+func (u *RoomUser) OnPreEnterRoom() {
+	Redis().Set(fmt.Sprintf("userinroom_%d", u.Id()), u.RoomId(), 0)
 }
 
 // 进入房间
@@ -40,10 +51,14 @@ func (u *RoomUser) OnEnterRoom() {
 }
 
 // 棋牌站起动作
-func (u *RoomUser) UserStandUp() {
+func (u *RoomUser) OnStandUp() {
+	send := &msg.RS2C_RetStandUp{}
+	u.SendClientMsg(send)
 }
 
 // 棋牌坐下动作
-func (u *RoomUser) UserSitDown() {
+func (u *RoomUser) OnSitDown(errmsg string) {
+	send := &msg.RS2C_RetSitDown{Errmsg:pb.String(errmsg)}
+	u.SendClientMsg(send)
 }
 

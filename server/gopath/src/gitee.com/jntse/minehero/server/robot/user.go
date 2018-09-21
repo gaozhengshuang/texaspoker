@@ -290,15 +290,24 @@ func (this *User) CreateRoom() {
 }
 
 func (this *User) EnterRoom() {
-	this.SendGateMsg(&msg.C2GW_ReqEnterRoom{Roomid:pb.Int64(this.roomid), Userid:pb.Int64(this.Id()), Passwd:pb.String("12345")})
+	this.SendGateMsg(&msg.C2GW_ReqEnterRoom{Roomid:pb.Int64(this.roomid), Userid:pb.Int64(this.Id()), Passwd:pb.String(this.roompwd)})
+	this.ReqSitDown()
 }
 
 func (this *User) LeaveRoom() {
-	this.SendGateMsg(&msg.C2GW_ReqLeaveRoom{Roomid:pb.Int64(this.roomid), Userid:pb.Int64(this.Id())})
+	this.SendGateMsg(&msg.C2GW_ReqLeaveRoom{Userid:pb.Int64(this.Id())})
 }
 
 func (this *User) ReqUserRoom() {
 	this.SendGateMsg(&msg.C2GW_ReqUserRoomInfo{})
+}
+
+func (this *User) ReqSitDown() {
+	this.SendGateMsg(&msg.C2RS_ReqSitDown{Userid:pb.Int64(this.Id()), Seat:pb.Int32(1)})
+}
+
+func (this *User) ReqStandUp() {
+	this.SendGateMsg(&msg.C2RS_ReqStandUp{Userid:pb.Int64(this.Id())})
 }
 
 //func (this *User) JumpStep() {

@@ -178,11 +178,6 @@ func (this *RoomUser) OnLevelUp() {
 	//升级拿元宝
 	lvlbase, ok := tbl.LevelBasee.TLevelById[this.Level()-1]
 	if ok == true { this.AddYuanbao(int32(lvlbase.Reward), "升级奖元宝") }
-
-	// 临时
-	//arglist := []interface{}{this.Account(), this.Token(), int64(this.Id()), int32(this.Level())}
-	//event := eventque.NewCommonEvent(arglist, def.HttpRequestUserLevelArglist, nil)
-	//this.AsynEventInsert(event)
 }
 
 // 打包二进制数据

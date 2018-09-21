@@ -192,10 +192,11 @@ func (this *RoomManager) OnGateClose(sid int) {
 
 func (this *RoomManager) Shutdown() {
 	this.ticker1s.Stop()
+	log.Info("[房间] 服务器准备关闭，即将销毁所有房间数量[%d]", this.Num())
 	for _, room := range this.rooms {
 		room.Destory(0)
 	}
-	this.rooms = make(map[int64]IRoomBase)
+	//this.rooms = make(map[int64]IRoomBase)
 }
 
 func NewTanTanLeRoom(ownerid, uid int64) *TanTanLe {

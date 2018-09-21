@@ -46,6 +46,7 @@ func (this *UserRoomData) Reset(u *GateUser) {
 	this.passwd = ""
 	this.roomtid = 0
 	Redis().Del(fmt.Sprintf("userinroom_%d", u.Id()))
+	log.Error("[房间] 玩家[%s %d] 重置房间数据", u.Name(), u.Id())
 }
 
 func (this *UserRoomData) Online(u *GateUser) {
@@ -65,8 +66,8 @@ func (this *UserRoomData) Online(u *GateUser) {
 	agentname := Redis().HGet(keybrief, "agentname").Val()
 	var agent *RoomAgent = RoomSvrMgr().FindByName(agentname)
 	if agent == nil {
-		this.Reset(u)
 		log.Error("[房间] 玩家[%s %d] 房间服务器[%s]未开启", u.Name(), u.Id(), agentname)
+		this.Reset(u)
 		return
 	}
 
@@ -94,6 +95,10 @@ func (this *GateUser) IsRoomCreating() bool { return this.roomdata.creating }
 func (this *GateUser) SendRsUserDisconnect() {
 	//if this.roomdata.tm_closing != 0 { return  }
 	//this.roomdata.tm_closing = util.CURTIMEMS()
+	if this.IsInRoom() == false {
+		return 
+	}
+
 	msgclose := &msg.GW2RS_UserDisconnect{Roomid: pb.Int64(this.roomdata.roomid), Userid: pb.Int64(this.Id())}
 	this.SendRoomMsg(msgclose)
 	log.Info("玩家[%d %s] 通知RoomServer关闭房间", this.Id(), this.Name())
@@ -210,7 +215,7 @@ func (this *GateUser) OnDestoryRoom(bin *msg.Serialize) {
 	log.Info("玩家[%s %d] 销毁房间[%d] 回传房间个人数据", this.Name(), this.Id(), this.RoomId())
 	this.roomdata.Reset(this)
 	this.bin = pb.Clone(bin).(*msg.Serialize)		// 加载最新玩家数据
-	this.OnLoadDB("离开房间")
+	this.OnLoadDB("房间销毁")
 	if this.IsOnline() {
 		this.SendMsg(&msg.GW2C_RetLeaveRoom{})
 		this.SendUserBase()

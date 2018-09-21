@@ -5,7 +5,7 @@ import (
 	"gitee.com/jntse/gotoolkit/net"
 	"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/minehero/server/tbl"
-	pb "github.com/gogo/protobuf/proto"
+	//pb "github.com/gogo/protobuf/proto"
 )
 
 
@@ -52,6 +52,8 @@ func (this* GW2CMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.GW2C_RetTexasRoomList{}, on_GW2C_RetTexasRoomList)
 	this.msgparser.RegistProtoMsg(msg.GW2C_RetUserRoomInfo{}, on_GW2C_RetUserRoomInfo)
 	this.msgparser.RegistProtoMsg(msg.GW2C_RetLeaveRoom{}, on_GW2C_RetLeaveRoom)
+	this.msgparser.RegistProtoMsg(msg.RS2C_RetSitDown{}, on_RS2C_RetSitDown)
+	this.msgparser.RegistProtoMsg(msg.RS2C_RetStandUp{}, on_RS2C_RetStandUp)
 
 
 	// 收room消息
@@ -195,7 +197,8 @@ func on_GW2C_RetUserRoomInfo(session network.IBaseNetSession, message interface{
 	//log.Info(reflect.TypeOf(tmsg).String())
 	log.Info("%+v", tmsg)
 	client, _ := session.UserDefData().(*User)
-	client.SendGateMsg(&msg.C2GW_ReqEnterRoom{Roomid:tmsg.Roomid, Userid:pb.Int64(client.Id()), Passwd:tmsg.Passwd})
+	client.roomid, client.roompwd = tmsg.GetRoomid(), tmsg.GetPasswd()
+	client.EnterRoom()
 }
 
 func on_GW2C_RetLeaveRoom(session network.IBaseNetSession, message interface{}) {
@@ -207,6 +210,17 @@ func on_GW2C_RetLeaveRoom(session network.IBaseNetSession, message interface{}) 
 	client.roompwd = ""
 }
 
+func on_RS2C_RetSitDown(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.RS2C_RetSitDown)
+	//log.Info(reflect.TypeOf(tmsg).String())
+	log.Info("%+v", tmsg)
+}
+
+func on_RS2C_RetStandUp(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.RS2C_RetStandUp)
+	//log.Info(reflect.TypeOf(tmsg).String())
+	log.Info("%+v", tmsg)
+}
 
 func on_GW2C_RetCreateRoom(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2C_RetCreateRoom)
@@ -224,9 +238,8 @@ func on_GW2C_RetCreateRoom(session network.IBaseNetSession, message interface{})
 		return
 	}
 	client.roomid, client.roompwd = roomid, passwd
+	client.EnterRoom()
 
-	sendmsg := &msg.C2GW_ReqEnterRoom{Roomid:pb.Int64(roomid),Passwd:pb.String(passwd), Userid:pb.Int64(client.Id())}
-	session.SendCmd(sendmsg)
 	log.Info("玩家[%s %d] 开启游戏成功，进入房间[%d]", name, id, roomid)
 
 }

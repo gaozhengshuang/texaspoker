@@ -37,10 +37,17 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.GW2RS_RetRegist{}, on_GW2RS_RetRegist)
 	this.msgparser.RegistProtoMsg(msg.GW2RS_UserDisconnect{}, on_GW2RS_UserDisconnect)
 	this.msgparser.RegistProtoMsg(msg.GW2RS_UploadUserBin{}, on_GW2RS_UploadUserBin)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqEnterRoom{}, on_C2GW_ReqEnterRoom)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqLeaveRoom{}, on_C2GW_ReqLeaveRoom)
 	this.msgparser.RegistProtoMsg(msg.C2GW_PlatformRechargeDone{}, on_C2GW_PlatformRechargeDone)
 	this.msgparser.RegistProtoMsg(msg.C2GW_GoldExchange{}, on_C2GW_GoldExchange)
+
+	//房间
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqEnterRoom{}, on_C2GW_ReqEnterRoom)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqLeaveRoom{}, on_C2GW_ReqLeaveRoom)
+
+	//客户端直接发送RS
+	this.msgparser.RegistProtoMsg(msg.C2RS_ReqSitDown{}, on_C2RS_ReqSitDown)
+	this.msgparser.RegistProtoMsg(msg.C2RS_ReqStandUp{}, on_C2RS_ReqStandUp)
+
 }
 
 func on_GW2RS_RetRegist(session network.IBaseNetSession, message interface{}) {
@@ -118,16 +125,17 @@ func on_C2GW_ReqEnterRoom(session network.IBaseNetSession, message interface{}) 
 
 func on_C2GW_ReqLeaveRoom(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_ReqLeaveRoom)
-	roomid, userid := tmsg.GetRoomid(), tmsg.GetUserid()
-	room := RoomMgr().Find(roomid)
-	if room == nil {
-		log.Error("on_C2GW_ReqLeaveRoom 游戏房间[%d]不存在 玩家[%d]", roomid, userid)
+	userid := tmsg.GetUserid()
+	user := UserMgr().FindUser(userid)
+	if user == nil {
+		log.Error("玩家[%d] 请求离开房间，但没有玩家实例", userid)
 		return
 	}
 
-	user := UserMgr().FindUser(userid)
-	if user == nil {
-		log.Error("玩家[%d] 请求离开房间[%d]，但没有玩家实例", userid, roomid)
+	roomid := user.RoomId()
+	room := RoomMgr().Find(roomid)
+	if room == nil {
+		log.Error("玩家[%d] 请求离开房间，找不到房间[%d]", userid, roomid)
 		return
 	}
 
@@ -175,4 +183,45 @@ func on_C2GW_GoldExchange(session network.IBaseNetSession, message interface{}) 
 	send := &msg.GW2C_RetGoldExchange{Gold:pb.Int32(gold)}
 	user.SendClientMsg(send)
 }
+
+// 坐下
+func on_C2RS_ReqSitDown(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2RS_ReqSitDown)
+	uid := tmsg.GetUserid()
+	u := UserMgr().FindUser(uid)
+	if u == nil { 
+		log.Error("[房间] 玩家[%d] 请求坐下但是没有在Room中", uid)
+		return 
+	}
+
+	roomid := u.RoomId()
+	room := RoomMgr().Find(roomid)
+	if room == nil {
+		log.Error("[房间] 玩家[%d] 请求坐下到无效的房间中 房间[%d]", uid, roomid)
+		return
+	}
+
+	room.UserSitDown(u, tmsg.GetSeat())
+}
+
+// 站起
+func on_C2RS_ReqStandUp(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2RS_ReqStandUp)
+	uid := tmsg.GetUserid()
+	u := UserMgr().FindUser(uid)
+	if u == nil { 
+		log.Error("[房间] 玩家[%d] 请求坐下但是没有在Room中", uid)
+		return 
+	}
+
+	roomid := u.RoomId()
+	room := RoomMgr().Find(roomid)
+	if room == nil {
+		log.Error("[房间] 玩家[%d] 请求坐下到无效的房间中 房间[%d]", uid, roomid)
+		return
+	}
+
+	room.UserStandUp(u)
+}
+
 

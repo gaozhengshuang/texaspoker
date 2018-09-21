@@ -27,7 +27,8 @@ func (this *TexasPokerRoom) OnDestory(now int64) {
 	}
 
 	// 等待房间信息回传网关
-	time.Sleep(time.Millisecond)
+	time.Sleep(time.Millisecond*10)
+	log.Info("[房间] 销毁房间[%d]", this.Id())
 }
 
 // 单局游戏开始
@@ -58,6 +59,7 @@ func (this *TexasPokerRoom) UserLeave(u *RoomUser) {
 func (this *TexasPokerRoom) UserStandUp(u *RoomUser) {
 	delete(this.members, u.Id())
 	this.watchmembers[u.Id()] = u
+	u.OnStandUp()
 	Redis().HSet(fmt.Sprintf("roombrief_%d", this.Id()), "members", this.NumMembers())
 	log.Info("[房间] 玩家[%s %d] 站起观战[%d]", u.Name(), u.Id(), this.Id())
 }
@@ -66,6 +68,15 @@ func (this *TexasPokerRoom) UserStandUp(u *RoomUser) {
 func (this *TexasPokerRoom) UserSitDown(u *RoomUser, pos int32) {
 	delete(this.watchmembers, u.Id())
 	this.members[u.Id()] = u
+
+	// 检查座位是否空着
+	if false {
+		u.OnSitDown("座位已经有人了")
+		return
+	}
+
+	//
+	u.OnSitDown("")
 
 	// 更新房间人数
 	Redis().HSet(fmt.Sprintf("roombrief_%d", this.Id()), "members", this.NumMembers())
@@ -82,6 +93,7 @@ func (this *TexasPokerRoom) UserLoad(tmsg *msg.GW2RS_UploadUserBin, gate network
 	}
 
 	u = UserMgr().CreateRoomUser(this.Id(), tmsg.Bin, gate, this.Kind())
+	u.OnPreEnterRoom()
 	this.watchmembers[u.Id()]= u
 	log.Info("[房间] 玩家[%s %d] 上传个人数据到房间[%d]", u.Name(), u.Id(), this.Id())
 }
