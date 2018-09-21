@@ -37,7 +37,10 @@ func (this* RS2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.RS2GW_RetUserDisconnect{}, on_RS2GW_RetUserDisconnect)
 	this.msgparser.RegistProtoMsg(msg.RS2GW_MsgTransfer{}, on_RS2GW_MsgTransfer)
 	this.msgparser.RegistProtoMsg(msg.GW2C_MsgNotify{}, on_GW2C_MsgNotify)
-	this.msgparser.RegistProtoMsg(msg.BT_GameEnd{}, on_BT_GameEnd)
+
+	// 房间
+	this.msgparser.RegistProtoMsg(msg.RS2GW_PushRoomDestory{}, on_RS2GW_PushRoomDestory)
+	this.msgparser.RegistProtoMsg(msg.RS2GW_UserLeaveRoom{}, on_RS2GW_UserLeaveRoom)
 }
 
 func on_RS2GW_ReqRegist(session network.IBaseNetSession, message interface{}) {
@@ -63,46 +66,52 @@ func on_GW2C_MsgNotify(session network.IBaseNetSession, message interface{}) {
 	}
 }
 
-func on_BT_GameInit(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.BT_GameInit)
-	user := UserMgr().FindById(tmsg.GetOwnerid())
-	if user == nil {
-		log.Error("房间[%d] BT_GameInit 找不到玩家[%d]", tmsg.GetRoomid(), tmsg.GetOwnerid())
-		return
-	}
-	user.SendMsg(tmsg)
-}
-
-//func on_BT_SendBattleUser(session network.IBaseNetSession, message interface{}) {
-//	tmsg := message.(*msg.BT_SendBattleUser)
+//func on_BT_GameInit(session network.IBaseNetSession, message interface{}) {
+//	tmsg := message.(*msg.BT_GameInit)
 //	user := UserMgr().FindById(tmsg.GetOwnerid())
 //	if user == nil {
-//		log.Error("BT_SendBattleUser 找不到玩家[%d]", tmsg.GetOwnerid())
+//		log.Error("房间[%d] BT_GameInit 找不到玩家[%d]", tmsg.GetRoomid(), tmsg.GetOwnerid())
 //		return
 //	}
 //	user.SendMsg(tmsg)
 //}
+//
+//func on_BT_GameStart(session network.IBaseNetSession, message interface{}) {
+//	tmsg := message.(*msg.BT_GameStart)
+//	user := UserMgr().FindById(tmsg.GetOwnerid())
+//	if user == nil {
+//		log.Error("房间[%d] BT_GameStart 找不到玩家[%d]", tmsg.GetRoomid(), tmsg.GetOwnerid())
+//		return
+//	}
+//	user.SendMsg(tmsg)
+//}
+//
+//func on_BT_GameEnd(session network.IBaseNetSession, message interface{}) {
+//	tmsg := message.(*msg.BT_GameEnd)
+//	user := UserMgr().FindById(tmsg.GetOwnerid())
+//	if user == nil {
+//		log.Error("房间[%d] BT_GameEnd 找不到玩家[%d]", tmsg.GetRoomid(), tmsg.GetOwnerid())
+//		return
+//	}
+//	user.OnGameEnd(tmsg.GetBin(), tmsg.GetReason())
+//	log.Info("房间[%d] BT_GameEnd 游戏结束，Owner[%d]", tmsg.GetRoomid(), tmsg.GetOwnerid())
+//}
 
-func on_BT_GameStart(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.BT_GameStart)
-	user := UserMgr().FindById(tmsg.GetOwnerid())
-	if user == nil {
-		log.Error("房间[%d] BT_GameStart 找不到玩家[%d]", tmsg.GetRoomid(), tmsg.GetOwnerid())
-		return
-	}
-	user.SendMsg(tmsg)
+func on_RS2GW_PushRoomDestory(session network.IBaseNetSession, message interface{}) {
 }
 
-func on_BT_GameEnd(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.BT_GameEnd)
-	user := UserMgr().FindById(tmsg.GetOwnerid())
+// 离开房间
+func on_RS2GW_UserLeaveRoom(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.RS2GW_UserLeaveRoom)
+	userid := tmsg.GetUserid()
+	user := UserMgr().FindById(userid)
 	if user == nil {
-		log.Error("房间[%d] BT_GameEnd 找不到玩家[%d]", tmsg.GetRoomid(), tmsg.GetOwnerid())
+		log.Error(" RS2GW_UserLeaveRoom 找不到玩家[%d]", userid)
 		return
 	}
-	user.OnGameEnd(tmsg.GetBin(), tmsg.GetReason())
-	log.Info("房间[%d] BT_GameEnd 游戏结束，Owner[%d]", tmsg.GetRoomid(), tmsg.GetOwnerid())
+	user.OnLeaveRoom(tmsg.Bin)
 }
+
 
 func on_RS2GW_RetUserDisconnect(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.RS2GW_RetUserDisconnect)

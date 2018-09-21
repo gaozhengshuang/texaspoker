@@ -16,8 +16,16 @@ import (
 
 // 房间销毁
 func (this *TexasPokerRoom) OnDestory(now int64) {
+
+
+
+	// 更新房间数量
 	loadkey := def.RoomAgentLoadRedisKey(RoomSvr().Name())
 	Redis().SRem(loadkey, this.Id())
+
+	// 通知网关房间销毁
+	msgdestory := &msg.RS2GW_PushRoomDestory{Roomid:pb.Int64(this.Id())}
+	this.BroadCastGateMsg(msgdestory)
 }
 
 // 单局游戏开始
@@ -79,7 +87,7 @@ func (this *TexasPokerRoom) UserLoad(tmsg *msg.GW2RS_UploadUserBin, gate network
 func (this *TexasPokerRoom) Tick(now int64) {
 }
 
-// 玩家断开连接
+// 玩家断开连接(托管/踢掉)
 func (this *TexasPokerRoom) UserDisconnect(userid int64) {
 	log.Info("[房间] 玩家[%d] 网络断开 房间[%d]", userid, this.Id())
 }
