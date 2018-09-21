@@ -371,12 +371,24 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 		// 初始元宝和金卷
 		gold := int32(tbl.Global.NewUser.Gold)
 		userinfo := &msg.Serialize{
-			Entity: &msg.EntityBase{Id: pb.Int64(userid), Name: pb.String(nickname), Head: pb.String("1"), Account: pb.String(account)},
-			Base:   &msg.UserBase{Gold: pb.Int32(gold), Invitationcode: pb.String(invitationcode), Yuanbao: pb.Int32(0), Level: pb.Int32(1)},
+			Entity: &msg.EntityBase{
+				Id: pb.Int64(userid),
+				Name: pb.String(nickname),
+				Head: pb.String("null"),
+				Account: pb.String(account),
+				Gold: pb.Int32(gold), 
+				Yuanbao: pb.Int32(0), 
+				Diamond: pb.Int32(0),
+				Level: pb.Int32(1),
+				Sex: pb.Int32(int32(msg.Sex_Female)),
+			},
+			Base: &msg.UserBase {
+				Misc: &msg.UserMiscData { Invitationcode: pb.String(invitationcode) },
+				Wechat: &msg.UserWechat{Openid: pb.String(openid)},
+			},
 			Item:   &msg.ItemBin{},
 		}
-		userinfo.Entity.Sex = pb.Int32(int32(msg.Sex_Female))
-		userinfo.Base.Wechat = &msg.UserWechat{Openid: pb.String(openid)}
+
 		userkey := fmt.Sprintf("userbin_%d", userid)
 		log.Info("userinfo=%v", userinfo)
 		if err := utredis.SetProtoBin(Redis(), userkey, userinfo); err != nil {
