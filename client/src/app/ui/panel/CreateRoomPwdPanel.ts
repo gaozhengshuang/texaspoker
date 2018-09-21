@@ -44,7 +44,7 @@ class CreateRoomPwdPanel extends EnterRoomPwdPanel
     /**
      * 最大携带数据列表 
     */
-    private _maxCarryList: Array<RoomDefinition>;
+    private _maxCarryList: Array<table.ITexasRoomDefine>;
 
     public constructor()
     {
@@ -111,23 +111,23 @@ class CreateRoomPwdPanel extends EnterRoomPwdPanel
     */
     private chooseBlind()
     {
-        let roomInfo: RoomDefinition = this._maxCarryList[this.blindHS.value];
-        this.blindLabel.text = game.MathUtil.formatNum(roomInfo.sBlind) + "/" + game.MathUtil.formatNum(roomInfo.bBlind);
-        this.sBuyLabel.text = game.MathUtil.formatNum(roomInfo.sBuyin);
-        this.setAnte(roomInfo.id);
+        let roomInfo: table.ITexasRoomDefine = this._maxCarryList[this.blindHS.value];
+        this.blindLabel.text = game.MathUtil.formatNum(roomInfo.SBlind) + "/" + game.MathUtil.formatNum(roomInfo.BBlind);
+        this.sBuyLabel.text = game.MathUtil.formatNum(roomInfo.SBuyin);
+        this.setAnte(roomInfo.Id);
     }
     /**
      * 设置前注数据
     */
     private setAnte(id: number)
     {
-        let roomDef: RoomDefinition = RoomDefined.GetInstance().getDefinition(id);
+        let roomDef: table.ITexasRoomDefine =  table.TexasRoomById[id];
         if (roomDef)
         {
-            this.ante1ToggleSwitch.label = game.MathUtil.formatNum(roomDef.ante[0]);
-            this.ante2ToggleSwitch.label = game.MathUtil.formatNum(roomDef.ante[1]);
-            this.ante3ToggleSwitch.label = game.MathUtil.formatNum(roomDef.ante[2]);
-            this.ante4ToggleSwitch.label = game.MathUtil.formatNum(roomDef.ante[3]);
+            this.ante1ToggleSwitch.label = game.MathUtil.formatNum(roomDef.Ante[0]);
+            this.ante2ToggleSwitch.label = game.MathUtil.formatNum(roomDef.Ante[1]);
+            this.ante3ToggleSwitch.label = game.MathUtil.formatNum(roomDef.Ante[2]);
+            this.ante4ToggleSwitch.label = game.MathUtil.formatNum(roomDef.Ante[3]);
         }
         this._ante = 0;
         if (this.selectedAnte)
@@ -145,11 +145,11 @@ class CreateRoomPwdPanel extends EnterRoomPwdPanel
     {
         if (this._maxCarryList)
         {
-            this._selectedId = this._maxCarryList[0].id;
-            this.ante1ToggleSwitch.label = game.MathUtil.formatNum(this._maxCarryList[0].ante[0]);
-            this.ante2ToggleSwitch.label = game.MathUtil.formatNum(this._maxCarryList[0].ante[1]);
-            this.ante3ToggleSwitch.label = game.MathUtil.formatNum(this._maxCarryList[0].ante[2]);
-            this.ante4ToggleSwitch.label = game.MathUtil.formatNum(this._maxCarryList[0].ante[3]);
+            this._selectedId = this._maxCarryList[0].Id;
+            this.ante1ToggleSwitch.label = game.MathUtil.formatNum(this._maxCarryList[0].Ante[0]);
+            this.ante2ToggleSwitch.label = game.MathUtil.formatNum(this._maxCarryList[0].Ante[1]);
+            this.ante3ToggleSwitch.label = game.MathUtil.formatNum(this._maxCarryList[0].Ante[2]);
+            this.ante4ToggleSwitch.label = game.MathUtil.formatNum(this._maxCarryList[0].Ante[3]);
         }
         if (this.selectedAnte)
         {
@@ -259,11 +259,11 @@ class CreateRoomPwdPanel extends EnterRoomPwdPanel
             this.reset();
             this.blindHS.maximum = this._maxCarryList.length - 1;
             this.blindHS.value = 0;
-            let roomInfo: RoomDefinition = new RoomDefinition();
+            let roomInfo: table.ITexasRoomDefine;
             roomInfo = this._maxCarryList[0];
-            this.setAnte(this._maxCarryList[0].id);
-            this.blindLabel.text = game.MathUtil.formatNum(roomInfo.sBlind) + "/" + game.MathUtil.formatNum(roomInfo.bBlind);
-            this.sBuyLabel.text = game.MathUtil.formatNum(roomInfo.sBuyin);
+            this.setAnte(this._maxCarryList[0].Id);
+            this.blindLabel.text = game.MathUtil.formatNum(roomInfo.SBlind) + "/" + game.MathUtil.formatNum(roomInfo.BBlind);
+            this.sBuyLabel.text = game.MathUtil.formatNum(roomInfo.SBuyin);
         }
     }
     /**
@@ -284,12 +284,12 @@ class CreateRoomPwdPanel extends EnterRoomPwdPanel
             return;
         } else if (this._selectedId != undefined)
         {
-            let roomInfo: RoomDefinition = RoomDefined.GetInstance().getDefinition(this._selectedId);
+            let roomInfo: table.ITexasRoomDefine =  table.TexasRoomById[this._selectedId];
             if (roomInfo)
             {
-                if (UserManager.userInfo.gold < roomInfo.sBuyin)
+                if (UserManager.userInfo.gold < roomInfo.SBuyin)
                 {
-                    AlertManager.showAlert("您的金币不足" + game.MathUtil.formatNum(roomInfo.sBuyin) + ",请补充金币或者选择较低场次。");
+                    AlertManager.showAlert("您的金币不足" + game.MathUtil.formatNum(roomInfo.SBuyin) + ",请补充金币或者选择较低场次。");
                     return;
                 }
             }

@@ -21,14 +21,16 @@ class PlayingFieldRoomInfo extends BaseServerValueInfo
     public set roomId(value: number)
     {
         this._roomId = value;
-        this._definition = RoomDefined.GetInstance().getDefinition(value);
-        if (this._definition && this._definition.ante && this._definition.ante.length > 0)
+        let roomDef:table.ITexasRoomDefine = table.TexasRoomById[value];
+
+        this._definition = table.TexasRoomById[value];
+        if (this._definition && this._definition.Ante && this._definition.Ante.length > 0)
         {
-            this._ante = this._definition.ante[0];
+            this._ante = this._definition.Ante[0];
         }
     }
-    private _definition: RoomDefinition
-    public get definition(): RoomDefinition
+    private _definition: table.ITexasRoomDefine
+    public get definition(): table.ITexasRoomDefine
     {
         return this._definition;
     }

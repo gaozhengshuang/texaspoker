@@ -72,17 +72,6 @@ message RS2GW_UserLeaveRoom {
     optional msg.Serialize bin = 2;
 }
 
-// 请求自己房间列表
-message C2GW_ReqUserRoomInfo {
-}
-
-// 返回玩家房间信息
-message GW2C_RetUserRoomInfo {
-    optional int64 roomid = 1;
-    optional int32 tid  = 2;
-    optional string passwd = 3;
-}
-
 // C2GW 进入房间
 message C2GW_ReqEnterRoom {
     optional int64 roomid = 1;      // 房间唯一id
@@ -98,5 +87,15 @@ message C2GW_ReqLeaveRoom {
 
 // GW2C 退出游戏房间
 message GW2C_RetLeaveRoom {
+}
+
+// 房间销毁
+message RS2GW_PushRoomDestory {
+    optional int64 roomid = 1;
+}
+
+// 房间销毁
+message GW2C_PushRoomDestory {
+    optional int64 roomid = 1;
 }
 

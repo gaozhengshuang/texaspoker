@@ -347,22 +347,22 @@ class PlayingFieldPanel extends BasePanel
             let backupRoomId: number;
             for (let roomInfo of PlayingFieldManager.roomList)
             {
-                if (roomInfo.definition.sBuyin < minbuy)
+                if (roomInfo.definition.SBuyin < minbuy)
                 {
-                    minbuy = roomInfo.definition.sBuyin;
+                    minbuy = roomInfo.definition.SBuyin;
                 }
-                if (roomInfo.definition.seat > roomInfo.player && roomInfo.player > 0)
+                if (roomInfo.definition.Seat > roomInfo.player && roomInfo.player > 0)
                 {
-                    if (Math.abs(UserManager.userInfo.gold - roomInfo.definition.bBuyin) < nearest)
+                    if (Math.abs(UserManager.userInfo.gold - roomInfo.definition.BBuyin) < nearest)
                     {
-                        nearest = Math.abs(UserManager.userInfo.gold - roomInfo.definition.bBuyin);
+                        nearest = Math.abs(UserManager.userInfo.gold - roomInfo.definition.BBuyin);
                         roomId = roomInfo.id;
                     }
                 } else
                 {
-                    if (Math.abs(UserManager.userInfo.gold - roomInfo.definition.bBuyin) < backupNearest)
+                    if (Math.abs(UserManager.userInfo.gold - roomInfo.definition.BBuyin) < backupNearest)
                     {
-                        backupNearest = Math.abs(UserManager.userInfo.gold - roomInfo.definition.bBuyin);
+                        backupNearest = Math.abs(UserManager.userInfo.gold - roomInfo.definition.BBuyin);
                         backupRoomId = roomInfo.id;
                     }
                 }
@@ -459,7 +459,7 @@ class PlayingFieldPanel extends BasePanel
         SoundManager.playEffect(MusicAction.buttonClick);
         if (this.list.selectedItem)
         {
-            if (UserManager.userInfo.gold >= this.list.selectedItem.definition.sBuyin)
+            if (UserManager.userInfo.gold >= this.list.selectedItem.definition.SBuyin)
             {
                 if ((this.list.selectedItem.definition.type == PlayingFieldType.PlayFieldPersonal || this.list.selectedItem.definition.type == PlayingFieldType.OmahaPersonal) && this.list.selectedItem.hasPwd)
                 {
@@ -471,7 +471,7 @@ class PlayingFieldPanel extends BasePanel
                 }
             } else
             {
-                let minNum: number = this.list.selectedItem.definition.sBuyin;
+                let minNum: number = this.list.selectedItem.definition.SBuyin;
                 UIManager.showPanel(UIModuleName.BuyAccessGamePanel, { minNum: minNum, isGoldInsufficient: true });
             }
         }
