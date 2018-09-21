@@ -101,13 +101,13 @@ func (this *GateUser) SendRsUserDisconnect() {
 
 	msgclose := &msg.GW2RS_UserDisconnect{Roomid: pb.Int64(this.roomdata.roomid), Userid: pb.Int64(this.Id())}
 	this.SendRoomMsg(msgclose)
-	log.Info("玩家[%d %s] 通知RoomServer关闭房间", this.Id(), this.Name())
+	log.Info("[房间] 玩家[%d %s] 通知RoomServer关闭房间", this.Id(), this.Name())
 }
 
 // 发送房间消息
 func (this *GateUser) SendRoomMsg(msg pb.Message) {
 	if this.IsInRoom() == false {
-		log.Error("玩家[%s %d]没有房间信息", this.Name(), this.Id())
+		log.Error("[房间] 玩家[%s %d]没有房间信息", this.Name(), this.Id())
 		return
 	}
 	RoomSvrMgr().SendMsg(this.roomdata.roomsid, msg)
@@ -124,7 +124,7 @@ func (this *GateUser) CreateRoomResponse(err string) {
 	send := &msg.GW2C_RetCreateRoom{Errcode: pb.String(err), Roomid: pb.Int64(this.RoomId()), Passwd:pb.String(this.RoomPwd())}
 	this.SendMsg(send)
 	if err != "" {
-		log.Info("玩家[%s %d] 开始游戏失败[%s]", this.Name(), this.Id(), err)
+		log.Info("[房间] 玩家[%s %d] 开始游戏失败[%s]", this.Name(), this.Id(), err)
 	}
 }
 
@@ -174,7 +174,7 @@ func (this *GateUser) CreateRoomRemote(tmsg *msg.C2GW_ReqCreateRoom) (errcode st
 		Texas: pb.Clone(tmsg.Texas).(*msg.TexasPersonalRoom),
 	}
 	Match().SendCmd(send)
-	log.Info("玩家[%s %d] 请求创建房间类型:%d ts[%d]", this.Name(), this.Id(), gamekind, util.CURTIMEMS())
+	log.Info("[房间] 玩家[%s %d] 请求创建房间类型:%d ts[%d]", this.Name(), this.Id(), gamekind, util.CURTIMEMS())
 	return
 }
 
@@ -185,7 +185,7 @@ func (this *GateUser) OnCreateRoom(errmsg, agentname string, roomid int64) {
 	}else {
 		var agent *RoomAgent = RoomSvrMgr().FindByName(agentname)
 		if agent == nil {
-			log.Error("玩家[%s %d] 创建房间成功，但找不到RoomServer[%s]", this.Name(), this.Id(), agentname)
+			log.Error("[房间] 玩家[%s %d] 创建房间成功，但找不到RoomServer[%s]", this.Name(), this.Id(), agentname)
 			return
 		}
 
@@ -193,7 +193,7 @@ func (this *GateUser) OnCreateRoom(errmsg, agentname string, roomid int64) {
 		this.roomdata.roomsid = agent.Id()
 		this.roomdata.creating = false
 		this.SendUserBinToRoom(agent.Id(), roomid)
-		log.Info("玩家[%s %d] 创建房间[%d]成功 ts[%d]", this.Name(), this.Id(), roomid, util.CURTIMEMS())
+		log.Info("[房间] 玩家[%s %d] 创建房间[%d]成功 ts[%d]", this.Name(), this.Id(), roomid, util.CURTIMEMS())
 	}
 	this.CreateRoomResponse(errmsg)
 }
