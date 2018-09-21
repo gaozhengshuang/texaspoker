@@ -64,7 +64,7 @@ class ChannelUtil
 	}
 	private static getWebPayUrl(serverId: number, orderId: string, price: number, productName: string, awardId: number): string
 	{
-		let url: string = ProjectDefined.GetInstance().getPayIndexUrl();
+		let url: string = ProjectDefined.getPayIndexUrl();
 		let appId: string = GameSetting.AppId;
 		let platform: string = game.RuntimeTypeName.getCurrentName();
 		let roleId: number = UserManager.userInfo.id;
@@ -112,7 +112,7 @@ class ChannelUtil
 	{
 		let appId: string = GameSetting.AppId;
 		let roleId: number = UserManager.userInfo.id;
-		let uourl: string = ProjectDefined.GetInstance().getWxpayUnifiedOrderUrl();
+		let uourl: string = ProjectDefined.getWxpayUnifiedOrderUrl();
 		let bagId: number = BundleManager.getBid();
 		let test: number = VersionManager.isServerTest ? 1 : 0;
 		let op: string = OperatePlatform.getCurrent();

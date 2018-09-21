@@ -48,11 +48,14 @@ class AchieveProcessManager
      */
     public static getAchieveProcessInfoByGroup(group: AchieveGroup): BaseAchieveProcessInfo
     {
-        for (let info of AchieveProcessManager._list)
+        if (AchieveProcessManager._list)
         {
-            if (info.group == group)
+            for (let info of AchieveProcessManager._list)
             {
-                return info;
+                if (info.group == group)
+                {
+                    return info;
+                }
             }
         }
         return null;

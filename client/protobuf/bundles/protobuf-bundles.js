@@ -34429,6 +34429,534 @@ $root.table = (function() {
         return TBallGiftDefine;
     })();
 
+    table.BundleBase = (function() {
+
+        /**
+         * Properties of a BundleBase.
+         * @memberof table
+         * @interface IBundleBase
+         * @property {Array.<table.IBundleDefine>|null} [Bundle] BundleBase Bundle
+         */
+
+        /**
+         * Constructs a new BundleBase.
+         * @memberof table
+         * @classdesc Represents a BundleBase.
+         * @implements IBundleBase
+         * @constructor
+         * @param {table.IBundleBase=} [properties] Properties to set
+         */
+        function BundleBase(properties) {
+            this.Bundle = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * BundleBase Bundle.
+         * @member {Array.<table.IBundleDefine>} Bundle
+         * @memberof table.BundleBase
+         * @instance
+         */
+        BundleBase.prototype.Bundle = $util.emptyArray;
+
+        /**
+         * Creates a new BundleBase instance using the specified properties.
+         * @function create
+         * @memberof table.BundleBase
+         * @static
+         * @param {table.IBundleBase=} [properties] Properties to set
+         * @returns {table.BundleBase} BundleBase instance
+         */
+        BundleBase.create = function create(properties) {
+            return new BundleBase(properties);
+        };
+
+        /**
+         * Encodes the specified BundleBase message. Does not implicitly {@link table.BundleBase.verify|verify} messages.
+         * @function encode
+         * @memberof table.BundleBase
+         * @static
+         * @param {table.IBundleBase} message BundleBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        BundleBase.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Bundle != null && message.Bundle.length)
+                for (var i = 0; i < message.Bundle.length; ++i)
+                    $root.table.BundleDefine.encode(message.Bundle[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified BundleBase message, length delimited. Does not implicitly {@link table.BundleBase.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.BundleBase
+         * @static
+         * @param {table.IBundleBase} message BundleBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        BundleBase.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a BundleBase message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.BundleBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.BundleBase} BundleBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        BundleBase.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.BundleBase();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.Bundle && message.Bundle.length))
+                        message.Bundle = [];
+                    message.Bundle.push($root.table.BundleDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a BundleBase message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.BundleBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.BundleBase} BundleBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        BundleBase.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a BundleBase message.
+         * @function verify
+         * @memberof table.BundleBase
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        BundleBase.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Bundle != null && message.hasOwnProperty("Bundle")) {
+                if (!Array.isArray(message.Bundle))
+                    return "Bundle: array expected";
+                for (var i = 0; i < message.Bundle.length; ++i) {
+                    var error = $root.table.BundleDefine.verify(message.Bundle[i]);
+                    if (error)
+                        return "Bundle." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a BundleBase message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.BundleBase
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.BundleBase} BundleBase
+         */
+        BundleBase.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.BundleBase)
+                return object;
+            var message = new $root.table.BundleBase();
+            if (object.Bundle) {
+                if (!Array.isArray(object.Bundle))
+                    throw TypeError(".table.BundleBase.Bundle: array expected");
+                message.Bundle = [];
+                for (var i = 0; i < object.Bundle.length; ++i) {
+                    if (typeof object.Bundle[i] !== "object")
+                        throw TypeError(".table.BundleBase.Bundle: object expected");
+                    message.Bundle[i] = $root.table.BundleDefine.fromObject(object.Bundle[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a BundleBase message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.BundleBase
+         * @static
+         * @param {table.BundleBase} message BundleBase
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        BundleBase.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.Bundle = [];
+            if (message.Bundle && message.Bundle.length) {
+                object.Bundle = [];
+                for (var j = 0; j < message.Bundle.length; ++j)
+                    object.Bundle[j] = $root.table.BundleDefine.toObject(message.Bundle[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this BundleBase to JSON.
+         * @function toJSON
+         * @memberof table.BundleBase
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        BundleBase.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return BundleBase;
+    })();
+
+    table.BundleDefine = (function() {
+
+        /**
+         * Properties of a BundleDefine.
+         * @memberof table
+         * @interface IBundleDefine
+         * @property {number|null} [Id] BundleDefine Id
+         * @property {string|null} [BundleId] BundleDefine BundleId
+         * @property {number|null} [Pay] BundleDefine Pay
+         * @property {string|null} [Owenr] BundleDefine Owenr
+         * @property {string|null} [Url] BundleDefine Url
+         * @property {number|null} [Ios] BundleDefine Ios
+         * @property {number|null} [Android] BundleDefine Android
+         */
+
+        /**
+         * Constructs a new BundleDefine.
+         * @memberof table
+         * @classdesc Represents a BundleDefine.
+         * @implements IBundleDefine
+         * @constructor
+         * @param {table.IBundleDefine=} [properties] Properties to set
+         */
+        function BundleDefine(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * BundleDefine Id.
+         * @member {number} Id
+         * @memberof table.BundleDefine
+         * @instance
+         */
+        BundleDefine.prototype.Id = 0;
+
+        /**
+         * BundleDefine BundleId.
+         * @member {string} BundleId
+         * @memberof table.BundleDefine
+         * @instance
+         */
+        BundleDefine.prototype.BundleId = "";
+
+        /**
+         * BundleDefine Pay.
+         * @member {number} Pay
+         * @memberof table.BundleDefine
+         * @instance
+         */
+        BundleDefine.prototype.Pay = 0;
+
+        /**
+         * BundleDefine Owenr.
+         * @member {string} Owenr
+         * @memberof table.BundleDefine
+         * @instance
+         */
+        BundleDefine.prototype.Owenr = "";
+
+        /**
+         * BundleDefine Url.
+         * @member {string} Url
+         * @memberof table.BundleDefine
+         * @instance
+         */
+        BundleDefine.prototype.Url = "";
+
+        /**
+         * BundleDefine Ios.
+         * @member {number} Ios
+         * @memberof table.BundleDefine
+         * @instance
+         */
+        BundleDefine.prototype.Ios = 0;
+
+        /**
+         * BundleDefine Android.
+         * @member {number} Android
+         * @memberof table.BundleDefine
+         * @instance
+         */
+        BundleDefine.prototype.Android = 0;
+
+        /**
+         * Creates a new BundleDefine instance using the specified properties.
+         * @function create
+         * @memberof table.BundleDefine
+         * @static
+         * @param {table.IBundleDefine=} [properties] Properties to set
+         * @returns {table.BundleDefine} BundleDefine instance
+         */
+        BundleDefine.create = function create(properties) {
+            return new BundleDefine(properties);
+        };
+
+        /**
+         * Encodes the specified BundleDefine message. Does not implicitly {@link table.BundleDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.BundleDefine
+         * @static
+         * @param {table.IBundleDefine} message BundleDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        BundleDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.Id);
+            if (message.BundleId != null && message.hasOwnProperty("BundleId"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.BundleId);
+            if (message.Pay != null && message.hasOwnProperty("Pay"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.Pay);
+            if (message.Owenr != null && message.hasOwnProperty("Owenr"))
+                writer.uint32(/* id 4, wireType 2 =*/34).string(message.Owenr);
+            if (message.Url != null && message.hasOwnProperty("Url"))
+                writer.uint32(/* id 5, wireType 2 =*/42).string(message.Url);
+            if (message.Ios != null && message.hasOwnProperty("Ios"))
+                writer.uint32(/* id 6, wireType 0 =*/48).int32(message.Ios);
+            if (message.Android != null && message.hasOwnProperty("Android"))
+                writer.uint32(/* id 7, wireType 0 =*/56).int32(message.Android);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified BundleDefine message, length delimited. Does not implicitly {@link table.BundleDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.BundleDefine
+         * @static
+         * @param {table.IBundleDefine} message BundleDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        BundleDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a BundleDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.BundleDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.BundleDefine} BundleDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        BundleDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.BundleDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.int32();
+                    break;
+                case 2:
+                    message.BundleId = reader.string();
+                    break;
+                case 3:
+                    message.Pay = reader.int32();
+                    break;
+                case 4:
+                    message.Owenr = reader.string();
+                    break;
+                case 5:
+                    message.Url = reader.string();
+                    break;
+                case 6:
+                    message.Ios = reader.int32();
+                    break;
+                case 7:
+                    message.Android = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a BundleDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.BundleDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.BundleDefine} BundleDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        BundleDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a BundleDefine message.
+         * @function verify
+         * @memberof table.BundleDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        BundleDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.BundleId != null && message.hasOwnProperty("BundleId"))
+                if (!$util.isString(message.BundleId))
+                    return "BundleId: string expected";
+            if (message.Pay != null && message.hasOwnProperty("Pay"))
+                if (!$util.isInteger(message.Pay))
+                    return "Pay: integer expected";
+            if (message.Owenr != null && message.hasOwnProperty("Owenr"))
+                if (!$util.isString(message.Owenr))
+                    return "Owenr: string expected";
+            if (message.Url != null && message.hasOwnProperty("Url"))
+                if (!$util.isString(message.Url))
+                    return "Url: string expected";
+            if (message.Ios != null && message.hasOwnProperty("Ios"))
+                if (!$util.isInteger(message.Ios))
+                    return "Ios: integer expected";
+            if (message.Android != null && message.hasOwnProperty("Android"))
+                if (!$util.isInteger(message.Android))
+                    return "Android: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a BundleDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.BundleDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.BundleDefine} BundleDefine
+         */
+        BundleDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.BundleDefine)
+                return object;
+            var message = new $root.table.BundleDefine();
+            if (object.Id != null)
+                message.Id = object.Id | 0;
+            if (object.BundleId != null)
+                message.BundleId = String(object.BundleId);
+            if (object.Pay != null)
+                message.Pay = object.Pay | 0;
+            if (object.Owenr != null)
+                message.Owenr = String(object.Owenr);
+            if (object.Url != null)
+                message.Url = String(object.Url);
+            if (object.Ios != null)
+                message.Ios = object.Ios | 0;
+            if (object.Android != null)
+                message.Android = object.Android | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a BundleDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.BundleDefine
+         * @static
+         * @param {table.BundleDefine} message BundleDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        BundleDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.Id = 0;
+                object.BundleId = "";
+                object.Pay = 0;
+                object.Owenr = "";
+                object.Url = "";
+                object.Ios = 0;
+                object.Android = 0;
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.BundleId != null && message.hasOwnProperty("BundleId"))
+                object.BundleId = message.BundleId;
+            if (message.Pay != null && message.hasOwnProperty("Pay"))
+                object.Pay = message.Pay;
+            if (message.Owenr != null && message.hasOwnProperty("Owenr"))
+                object.Owenr = message.Owenr;
+            if (message.Url != null && message.hasOwnProperty("Url"))
+                object.Url = message.Url;
+            if (message.Ios != null && message.hasOwnProperty("Ios"))
+                object.Ios = message.Ios;
+            if (message.Android != null && message.hasOwnProperty("Android"))
+                object.Android = message.Android;
+            return object;
+        };
+
+        /**
+         * Converts this BundleDefine to JSON.
+         * @function toJSON
+         * @memberof table.BundleDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        BundleDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return BundleDefine;
+    })();
+
     table.GiftProBase = (function() {
 
         /**
@@ -35940,6 +36468,424 @@ $root.table = (function() {
         };
 
         return TLevelDefine;
+    })();
+
+    table.LoadingTextBase = (function() {
+
+        /**
+         * Properties of a LoadingTextBase.
+         * @memberof table
+         * @interface ILoadingTextBase
+         * @property {Array.<table.ILoadingTextDefine>|null} [LoadingText] LoadingTextBase LoadingText
+         */
+
+        /**
+         * Constructs a new LoadingTextBase.
+         * @memberof table
+         * @classdesc Represents a LoadingTextBase.
+         * @implements ILoadingTextBase
+         * @constructor
+         * @param {table.ILoadingTextBase=} [properties] Properties to set
+         */
+        function LoadingTextBase(properties) {
+            this.LoadingText = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * LoadingTextBase LoadingText.
+         * @member {Array.<table.ILoadingTextDefine>} LoadingText
+         * @memberof table.LoadingTextBase
+         * @instance
+         */
+        LoadingTextBase.prototype.LoadingText = $util.emptyArray;
+
+        /**
+         * Creates a new LoadingTextBase instance using the specified properties.
+         * @function create
+         * @memberof table.LoadingTextBase
+         * @static
+         * @param {table.ILoadingTextBase=} [properties] Properties to set
+         * @returns {table.LoadingTextBase} LoadingTextBase instance
+         */
+        LoadingTextBase.create = function create(properties) {
+            return new LoadingTextBase(properties);
+        };
+
+        /**
+         * Encodes the specified LoadingTextBase message. Does not implicitly {@link table.LoadingTextBase.verify|verify} messages.
+         * @function encode
+         * @memberof table.LoadingTextBase
+         * @static
+         * @param {table.ILoadingTextBase} message LoadingTextBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        LoadingTextBase.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.LoadingText != null && message.LoadingText.length)
+                for (var i = 0; i < message.LoadingText.length; ++i)
+                    $root.table.LoadingTextDefine.encode(message.LoadingText[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified LoadingTextBase message, length delimited. Does not implicitly {@link table.LoadingTextBase.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.LoadingTextBase
+         * @static
+         * @param {table.ILoadingTextBase} message LoadingTextBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        LoadingTextBase.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a LoadingTextBase message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.LoadingTextBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.LoadingTextBase} LoadingTextBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        LoadingTextBase.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.LoadingTextBase();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.LoadingText && message.LoadingText.length))
+                        message.LoadingText = [];
+                    message.LoadingText.push($root.table.LoadingTextDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a LoadingTextBase message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.LoadingTextBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.LoadingTextBase} LoadingTextBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        LoadingTextBase.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a LoadingTextBase message.
+         * @function verify
+         * @memberof table.LoadingTextBase
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        LoadingTextBase.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.LoadingText != null && message.hasOwnProperty("LoadingText")) {
+                if (!Array.isArray(message.LoadingText))
+                    return "LoadingText: array expected";
+                for (var i = 0; i < message.LoadingText.length; ++i) {
+                    var error = $root.table.LoadingTextDefine.verify(message.LoadingText[i]);
+                    if (error)
+                        return "LoadingText." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a LoadingTextBase message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.LoadingTextBase
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.LoadingTextBase} LoadingTextBase
+         */
+        LoadingTextBase.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.LoadingTextBase)
+                return object;
+            var message = new $root.table.LoadingTextBase();
+            if (object.LoadingText) {
+                if (!Array.isArray(object.LoadingText))
+                    throw TypeError(".table.LoadingTextBase.LoadingText: array expected");
+                message.LoadingText = [];
+                for (var i = 0; i < object.LoadingText.length; ++i) {
+                    if (typeof object.LoadingText[i] !== "object")
+                        throw TypeError(".table.LoadingTextBase.LoadingText: object expected");
+                    message.LoadingText[i] = $root.table.LoadingTextDefine.fromObject(object.LoadingText[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a LoadingTextBase message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.LoadingTextBase
+         * @static
+         * @param {table.LoadingTextBase} message LoadingTextBase
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        LoadingTextBase.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.LoadingText = [];
+            if (message.LoadingText && message.LoadingText.length) {
+                object.LoadingText = [];
+                for (var j = 0; j < message.LoadingText.length; ++j)
+                    object.LoadingText[j] = $root.table.LoadingTextDefine.toObject(message.LoadingText[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this LoadingTextBase to JSON.
+         * @function toJSON
+         * @memberof table.LoadingTextBase
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        LoadingTextBase.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return LoadingTextBase;
+    })();
+
+    table.LoadingTextDefine = (function() {
+
+        /**
+         * Properties of a LoadingTextDefine.
+         * @memberof table
+         * @interface ILoadingTextDefine
+         * @property {number|null} [Id] LoadingTextDefine Id
+         * @property {string|null} [Desc] LoadingTextDefine Desc
+         */
+
+        /**
+         * Constructs a new LoadingTextDefine.
+         * @memberof table
+         * @classdesc Represents a LoadingTextDefine.
+         * @implements ILoadingTextDefine
+         * @constructor
+         * @param {table.ILoadingTextDefine=} [properties] Properties to set
+         */
+        function LoadingTextDefine(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * LoadingTextDefine Id.
+         * @member {number} Id
+         * @memberof table.LoadingTextDefine
+         * @instance
+         */
+        LoadingTextDefine.prototype.Id = 0;
+
+        /**
+         * LoadingTextDefine Desc.
+         * @member {string} Desc
+         * @memberof table.LoadingTextDefine
+         * @instance
+         */
+        LoadingTextDefine.prototype.Desc = "";
+
+        /**
+         * Creates a new LoadingTextDefine instance using the specified properties.
+         * @function create
+         * @memberof table.LoadingTextDefine
+         * @static
+         * @param {table.ILoadingTextDefine=} [properties] Properties to set
+         * @returns {table.LoadingTextDefine} LoadingTextDefine instance
+         */
+        LoadingTextDefine.create = function create(properties) {
+            return new LoadingTextDefine(properties);
+        };
+
+        /**
+         * Encodes the specified LoadingTextDefine message. Does not implicitly {@link table.LoadingTextDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.LoadingTextDefine
+         * @static
+         * @param {table.ILoadingTextDefine} message LoadingTextDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        LoadingTextDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.Id);
+            if (message.Desc != null && message.hasOwnProperty("Desc"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.Desc);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified LoadingTextDefine message, length delimited. Does not implicitly {@link table.LoadingTextDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.LoadingTextDefine
+         * @static
+         * @param {table.ILoadingTextDefine} message LoadingTextDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        LoadingTextDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a LoadingTextDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.LoadingTextDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.LoadingTextDefine} LoadingTextDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        LoadingTextDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.LoadingTextDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.int32();
+                    break;
+                case 2:
+                    message.Desc = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a LoadingTextDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.LoadingTextDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.LoadingTextDefine} LoadingTextDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        LoadingTextDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a LoadingTextDefine message.
+         * @function verify
+         * @memberof table.LoadingTextDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        LoadingTextDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.Desc != null && message.hasOwnProperty("Desc"))
+                if (!$util.isString(message.Desc))
+                    return "Desc: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a LoadingTextDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.LoadingTextDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.LoadingTextDefine} LoadingTextDefine
+         */
+        LoadingTextDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.LoadingTextDefine)
+                return object;
+            var message = new $root.table.LoadingTextDefine();
+            if (object.Id != null)
+                message.Id = object.Id | 0;
+            if (object.Desc != null)
+                message.Desc = String(object.Desc);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a LoadingTextDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.LoadingTextDefine
+         * @static
+         * @param {table.LoadingTextDefine} message LoadingTextDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        LoadingTextDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.Id = 0;
+                object.Desc = "";
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.Desc != null && message.hasOwnProperty("Desc"))
+                object.Desc = message.Desc;
+            return object;
+        };
+
+        /**
+         * Converts this LoadingTextDefine to JSON.
+         * @function toJSON
+         * @memberof table.LoadingTextDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        LoadingTextDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return LoadingTextDefine;
     })();
 
     table.MapEventBase = (function() {

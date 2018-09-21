@@ -88,7 +88,7 @@ class VersionManager
 	}
 	public static loadServerVersion()
 	{
-		let url: string = ProjectDefined.GetInstance().getVersionUrl(GameSetting.AppId);
+		let url: string = ProjectDefined.getVersionUrl(GameSetting.AppId);
 		RES.getResByUrl(url, VersionManager.onLoadVersionComplete, this, RES.ResourceItem.TYPE_JSON);
 	}
 	private static parsePackageVersion(serverVersion: string, serverVersionArray: number[], clientVersionArray: number[], callback: Function, errorCallback: Function, data?: any): void
@@ -137,7 +137,7 @@ class VersionManager
 	public static VerifyGameServer(gameServerVersion: string): boolean
 	{
 		let gsv: Array<number> = game.StringUtil.toIntArray(gameServerVersion, game.StringConstants.Dot);
-		let codeVersionArray: Array<number> = game.StringUtil.toIntArray(ProjectDefined.GetInstance().codeVersion, game.StringConstants.Dot);
+		let codeVersionArray: Array<number> = game.StringUtil.toIntArray(ProjectDefined.version, game.StringConstants.Dot);
 		if (codeVersionArray.length > 1)
 		{
 			if ((codeVersionArray[0] != gsv[0]) || (codeVersionArray[1] < gsv[1]))
@@ -153,7 +153,7 @@ class VersionManager
 	 */
 	private static async LoadMaintainTxt()
 	{
-		let url: string = ProjectDefined.GetInstance().getMaintainUrl(GameSetting.AppId);
+		let url: string = ProjectDefined.getMaintainUrl(GameSetting.AppId);
 		RES.getResByUrl(url, VersionManager.OnMaintainComplete, this, RES.ResourceItem.TYPE_TEXT);
 	}
 	private static OnMaintainComplete(text: string)
@@ -192,7 +192,7 @@ class VersionManager
 	 */
 	public static getVersionStr(): string
 	{
-		let vstr: string = "v" + ProjectDefined.GetInstance().codeVersion;
+		let vstr: string = "v" + ProjectDefined.version;
 		if (game.System.isMicro)
 		{
 			vstr = vstr + "(" + VersionManager._clientVersion + ")";

@@ -1,10 +1,10 @@
 class BundleManager
 {
-	private static _definition: BundleDefinition;
+	private static _definition: table.IBundleDefine;
     /**
      * 获取当前包配置
      */
-	private static getBundleDefinition(): BundleDefinition
+	private static getBundleDefinition(): table.IBundleDefine
 	{
 		if (BundleManager._definition == null)
 		{
@@ -26,7 +26,7 @@ class BundleManager
 				AlertManager.showAlertByString('没有配置包ID');
 				throw new Error('没有配置包ID');
 			}
-			if (game.StringUtil.isNullOrEmpty(BundleManager._definition.bundleId) == false && game.StringUtil.isNullOrEmpty(BundleManager._definition.url))
+			if (game.StringUtil.isNullOrEmpty(BundleManager._definition.BundleId) == false && game.StringUtil.isNullOrEmpty(BundleManager._definition.Url))
 			{
 				AlertManager.showAlertByString('安装包必须要配置包url');
 				throw new Error('安装包必须要配置包url');
@@ -42,7 +42,7 @@ class BundleManager
 		let def = BundleManager.getBundleDefinition();
 		if (def)
 		{
-			return def.id;
+			return def.Id;
 		}
 		return BundleDefined.DefaultID;
 	}
@@ -54,7 +54,7 @@ class BundleManager
 		let def = BundleManager.getBundleDefinition();
 		if (def)
 		{
-			return def.pay;
+			return def.Pay;
 		}
 		return PayState.Normal;
 	}
@@ -66,7 +66,7 @@ class BundleManager
 		let def = BundleManager.getBundleDefinition();
 		if (def)
 		{
-			return def.url;
+			return def.Url;
 		}
 		return game.StringConstants.Empty;
 	}
@@ -79,18 +79,18 @@ class BundleManager
 		if (def)
 		{
 			let os = game.RuntimeTypeName.getOSName();
-			let bundleDef: BundleDefinition;
+			let bundleDef: table.IBundleDefine;
 			if (os == game.RuntimeTypeName.Android)
 			{
-				bundleDef = BundleDefined.GetInstance().getDefinition(def.android);
+				bundleDef = table.BundleById[def.Android];
 			}
 			else if (os == game.RuntimeTypeName.Ios)
 			{
-				bundleDef = BundleDefined.GetInstance().getDefinition(def.ios);
+				bundleDef = table.BundleById[def.Ios];
 			}
 			if (bundleDef)
 			{
-				return bundleDef.url;
+				return bundleDef.Url;
 			}
 		}
 		return game.StringConstants.Empty;

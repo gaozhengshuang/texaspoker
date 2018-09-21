@@ -61,11 +61,11 @@ class InviteManager
             InviteManager.inviteAwardInfo.reset();
             if (result.data.getBean)
             {
-                result.data.getBean = result.data.getBean * ProjectDefined.GetInstance().finishSelf;
+                result.data.getBean = result.data.getBean * ProjectDefined.invite.finishSelf;
             }
             if (result.data.gotBean)
             {
-                result.data.gotBean = result.data.gotBean * ProjectDefined.GetInstance().finishSelf;
+                result.data.gotBean = result.data.gotBean * ProjectDefined.invite.finishSelf;
             }
             InviteManager.inviteAwardInfo.copyValueFrom(result.data);
             InviteManager.OnInviteAwardEvent.dispatch();
@@ -176,7 +176,7 @@ class InviteManager
 	*/
     public static get isInviteOpen(): boolean
     {
-        let inviteDef: any = ProjectDefined.GetInstance().invite;
+        let inviteDef: any = ProjectDefined.invite;
         if (inviteDef)
         {
             let dt: Date = TimeManager.GetServerLocalDateTime();

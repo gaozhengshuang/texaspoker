@@ -29,8 +29,13 @@ abstract class BaseScene
             RES.removeEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
             RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
             RES.removeEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, this.onItemLoadError, this);
+            this._isResLoaded = true;
+            this.onAllResLoadComplete();
         }
-        this._isResLoaded = true;
+    }
+    protected onAllResLoadComplete()
+    {
+
     }
     protected onResourceLoadComplete(event: RES.ResourceEvent)
     {
@@ -46,7 +51,10 @@ abstract class BaseScene
     }
     protected onResourceProgress(event: RES.ResourceEvent)
     {
-        game.Console.log("场景资源加载地址：" + event.resItem.url);
+        if (event.resItem)
+        {
+            game.Console.log("场景资源加载地址：" + event.resItem.url);
+        }
         SceneManager.updateSwitchProgress(event.itemsLoaded / event.itemsTotal);
     }
 }

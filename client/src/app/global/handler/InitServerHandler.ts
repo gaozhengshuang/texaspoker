@@ -126,12 +126,13 @@ class InitServerHandler
 	private reqGetInsideRoomIdList()
 	{
 		//拉取锦标赛赛事所在房间信息列表
-		SocketManager.ImplCall(Command.InsideRoomInfoList_Req_3614, null, this.onGetInsideRoomListInfo, null, this);
+		SocketManager.ImplCall(Command.C2GW_ReqUserRoomInfo, msg.C2GW_ReqUserRoomInfo.encode({}), this.onGetInsideRoomListInfo, null, this);
 	}
 	private onGetInsideRoomListInfo(result: game.SpRpcResult)
 	{
 		InsideRoomManager.initialize(result);
-		this.reqGetMTTListInfo();
+		this.requestNotice();
+		// this.reqGetMTTListInfo();
 	}
 	/**
 	 * 拉取锦标赛赛事列表信息

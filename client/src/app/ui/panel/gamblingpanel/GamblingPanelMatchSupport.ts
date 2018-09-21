@@ -21,7 +21,7 @@ class GamblingPanelMatchSupport extends BaseGamblingPanelSupport
         super.initialize();
         this._newsLogic.initialize();
 
-        this._intervalMinTime = ProjectDefined.GetInstance().mTTIntervalTime / 2;
+        this._intervalMinTime = ProjectDefined.mTTIntervalTime / 2;
         this._numTime = undefined;
 
         if (InfoUtil.checkAvailable(GamblingManager.matchRoomInfo) && InfoUtil.checkAvailable(GamblingManager.roomInfo))
@@ -52,7 +52,7 @@ class GamblingPanelMatchSupport extends BaseGamblingPanelSupport
             let time: number = TimeManager.GetServerUtcTimestamp() - GamblingManager.matchRoomInfo.startTime;
             if (time >= 0)
             {
-                let outTime: number = ProjectDefined.GetInstance().mTTIntervalTime - time % ProjectDefined.GetInstance().mTTIntervalTime;
+                let outTime: number = ProjectDefined.mTTIntervalTime - time % ProjectDefined.mTTIntervalTime;
                 if (outTime < 1)
                 {
                     outTime = 1;

@@ -6,7 +6,7 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 	public copyValueFrom(data: any)
 	{
 		super.copyValueFrom(data);
-		if (data["maxHand"])
+		if (data && data["maxHand"])
 		{
 			this.maxHandList = new Array<CardInfo>();
 			GamblingUtil.cardArr2CardInfoList(data["maxHand"], this.maxHandList);

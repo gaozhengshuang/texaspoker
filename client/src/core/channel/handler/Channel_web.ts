@@ -11,7 +11,7 @@ class Channel_web extends ChannelBase
 		{
 			if (this._isWxConfig == false)
 			{
-				let dUrl: string = ProjectDefined.GetInstance().getWxTicketUrl() + '?url=' + encodeURIComponent(window.location.href);
+				let dUrl: string = ProjectDefined.getWxTicketUrl() + '?url=' + encodeURIComponent(window.location.href);
 				URLLoader.downloadContent(dUrl, this, function (data: string)
 				{
 					let obj: Object = JSON.parse(data);
@@ -100,7 +100,7 @@ class Channel_web extends ChannelBase
 			else
 			{
 				//跳转到微信二维码登录
-				let url: string = ProjectDefined.GetInstance().getWxQrconnectUrl();
+				let url: string = ProjectDefined.getWxQrconnectUrl();
 				window.location.href = url + '?return_url=' + encodeURIComponent(window.location.href);
 			}
 		}
@@ -140,8 +140,8 @@ class Channel_web extends ChannelBase
 		{
 			this.setWxConfig(() =>
 			{
-				let url: string = ProjectDefined.GetInstance().getShareWebUrl(GameSetting.AppId, inviteCode);
-				let imgUrl: string = ProjectDefined.GetInstance().getWebAppRootUrl(GameSetting.AppId) + "/" + BundleManager.getAppIconPng();
+				let url: string = ProjectDefined.getShareWebUrl(GameSetting.AppId, inviteCode);
+				let imgUrl: string = ProjectDefined.getWebAppRootUrl(GameSetting.AppId) + "/" + BundleManager.getAppIconPng();
 				UIManager.showPanel(UIModuleName.ShareGamePromptPanel);
 				window['wx'].onMenuShareTimeline({
 					title: title,

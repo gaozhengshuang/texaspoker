@@ -23,11 +23,11 @@ class LoadingSwitchPanel extends BasePanel
 	public init(appendData: any)
 	{
 		super.init(appendData);
-		let randomId: number = game.MathUtil.getRandom(0, LoadingTextDefined.GetInstance().dataList.length - 1);
-		let loadingTextDef: LoadingTextDefinition = LoadingTextDefined.GetInstance().getDefinition(randomId);
+		let randomId: number = game.MathUtil.getRandom(0, table.LoadingText.length - 1);
+		let loadingTextDef: table.ILoadingTextDefine = table.LoadingTextById[randomId];
 		if (loadingTextDef)
 		{
-			this.textLabel.text = loadingTextDef.des;
+			this.textLabel.text = loadingTextDef.Desc;
 		}
 		this.loading.play();
 
@@ -55,7 +55,7 @@ class LoadingSwitchPanel extends BasePanel
 		if (this._allowTimeout && this._isOut == false)
 		{
 			let offsetTime = egret.getTimer() - this._time;
-			if (offsetTime >= ProjectDefined.GetInstance().getValue(ProjectDefined.onTimeOut))
+			if (offsetTime >= ProjectDefined.onTimeOut)
 			{
 				this._isOut = true;
 				UIManager.closePanel(UIModuleName.LoadingSwitchPanel);

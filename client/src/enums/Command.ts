@@ -422,7 +422,7 @@ class Command
     /**
      * 拉取所在房间列表
     */
-    public static readonly InsideRoomInfoList_Req_3614 = "c3614";
+    public static readonly C2GW_ReqUserRoomInfo = "msg.C2GW_ReqUserRoomInfo";
     /**
      * 拉取最近赛况列表信息
     */

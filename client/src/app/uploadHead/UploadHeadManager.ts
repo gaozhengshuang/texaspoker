@@ -30,7 +30,7 @@ class UploadHeadManager
 	 */
 	private static startLoad(sign: string, path: string, headData: string)
 	{
-		let headPath: string = ProjectDefined.GetInstance().getHeadUpLoadUrl();
+		let headPath: string = ProjectDefined.getHeadUpLoadUrl();
 		if (game.StringUtil.isNullOrEmpty(headPath) == false && game.StringUtil.isNullOrEmpty(headData) == false)
 		{
 			UpLoader.UpLoad(headPath, sign, headData, true, UploadHeadManager.upLoadComplete, UploadHeadManager.uploadError, this);

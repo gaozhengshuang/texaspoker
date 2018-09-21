@@ -6,7 +6,7 @@ class AccountHandler
 {
 	public Login(isAutoLogin: boolean)
 	{
-		AccountManager.Initialize(GameSetting.AppId, ChannelManager.channelType, ChannelManager.deviceId, ProjectDefined.GetInstance().getValue(ProjectDefined.usePhone));
+		AccountManager.Initialize(GameSetting.AppId, ChannelManager.channelType, ChannelManager.deviceId, false);
 		this.RemoveQinEvents();
 		AccountManager.OnLoginCancel.addListener(this.OnQinLoginCancel, this);
 		AccountManager.OnLoginSuccess.addListener(this.OnQinLoginSuccess, this);

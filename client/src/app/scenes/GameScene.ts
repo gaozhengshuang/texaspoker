@@ -16,9 +16,8 @@ class GameScene extends BaseScene
 	{
 		super.initialize();
 	}
-	protected onResourceLoadComplete(event: RES.ResourceEvent)
+	protected onAllResLoadComplete()
 	{
-		super.onResourceLoadComplete(event);
 		if (!ChannelManager.hasMicrophone)
 		{
 			ChannelManager.requestMicrophone();

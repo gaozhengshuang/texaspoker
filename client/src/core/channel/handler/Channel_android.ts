@@ -47,7 +47,7 @@ class Channel_android extends ChannelBase
 		data['type'] = type;
 		data['title'] = title;
 		data['message'] = message;
-		data['url'] = ProjectDefined.GetInstance().getShareWebUrl(GameSetting.AppId, inviteCode);
+		data['url'] = ProjectDefined.getShareWebUrl(GameSetting.AppId, inviteCode);
 		egret.ExternalInterface.call(ExtFuncName.Share, JSON.stringify(data));
 	}
 	public imageSelect(size: number, quality: number): void
