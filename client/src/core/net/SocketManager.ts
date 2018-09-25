@@ -208,33 +208,33 @@ class SocketManager
 	 * 同步发送
 	 * 发送多少次，就返回多少次（用于代码执行的、需要多次连续发送的）
 	 */
-	public static Send(cmdId: string, args: any = null)
+	public static Send(cmdId: string, args: any = null, subId?: string)
 	{
-		SocketManager.InvokeSend(false, false, cmdId, args, true);
+		SocketManager.InvokeSend(false, false, cmdId, args, true, undefined, undefined, undefined, subId);
 	}
 	/**
 	 * 同步发送，断线重连后会重发失败的数据
 	 * 发送多少次，就返回多少次（用于代码执行的、需要多次连续发送的）
 	 */
-	public static SendDiscRetry(cmdId: string, args: any = null)
+	public static SendDiscRetry(cmdId: string, args: any = null, subId?: string)
 	{
-		SocketManager.InvokeSend(false, true, cmdId, args, true);
+		SocketManager.InvokeSend(false, true, cmdId, args, true, undefined, undefined, undefined, subId);
 	}
 	/**
 	 * 同步隐式发送，不显示loading，不影响交互事件
 	 * 发送多少次，就返回多少次（用于代码执行的、需要多次连续发送的）
 	 */
-	public static ImplSend(cmdId: string, args: any = null)
+	public static ImplSend(cmdId: string, args: any = null, subId?: string)
 	{
-		SocketManager.InvokeSend(false, false, cmdId, args, false);
+		SocketManager.InvokeSend(false, false, cmdId, args, false, undefined, undefined, undefined, subId);
 	}
 	/**
 	 * 同步隐式发送，不显示loading，不影响交互事件,断线重连后会重发失败的数据
 	 * 发送多少次，就返回多少次（用于代码执行的、需要多次连续发送的）
 	 */
-	public static ImplSendDiscRetry(cmdId: string, args: any = null)
+	public static ImplSendDiscRetry(cmdId: string, args: any = null, subId?: string)
 	{
-		SocketManager.InvokeSend(false, true, cmdId, args, false);
+		SocketManager.InvokeSend(false, true, cmdId, args, false, undefined, undefined, undefined, subId);
 	}
 
 	//------------------------------------------------------------------
@@ -245,33 +245,33 @@ class SocketManager
 	 * 独占发送
 	 * 在与服务器通信的一个来回内，如果连续多次发送，会过滤掉第一条之后的发送(用于用户操作的、不能连续多次发送的)
 	 */
-	public static SendAsync(cmdId: string, args: any = null)
+	public static SendAsync(cmdId: string, args: any = null, subId?: string)
 	{
-		SocketManager.InvokeSend(true, false, cmdId, args, true);
+		SocketManager.InvokeSend(true, false, cmdId, args, true, undefined, undefined, undefined, subId);
 	}
 	/**
 	 * 独占发送，断线重连后会重发失败的数据
 	 * 在与服务器通信的一个来回内，如果连续多次发送，会过滤掉第一条之后的发送(用于用户操作的、不能连续多次发送的)
 	 */
-	public static SendAsyncDiscRetry(cmdId: string, args: any = null)
+	public static SendAsyncDiscRetry(cmdId: string, args: any = null, subId?: string)
 	{
-		SocketManager.InvokeSend(true, true, cmdId, args, true);
+		SocketManager.InvokeSend(true, true, cmdId, args, true, undefined, undefined, undefined, subId);
 	}
 	/**
 	 * 独占隐式发送，不显示loading，不影响交互事件
 	 * 在与服务器通信的一个来回内，如果连续多次发送，会过滤掉第一条之后的发送(用于用户操作的、不能连续多次发送的)
 	 */
-	public static ImplSendAsync(cmdId: string, args: any = null)
+	public static ImplSendAsync(cmdId: string, args: any = null, subId?: string)
 	{
-		SocketManager.InvokeSend(true, false, cmdId, args, false);
+		SocketManager.InvokeSend(true, false, cmdId, args, false, undefined, undefined, undefined, subId);
 	}
 	/**
 	 * 独占隐式发送，不显示loading，不影响交互事件,断线重连后会重发失败的数据
 	 * 在与服务器通信的一个来回内，如果连续多次发送，会过滤掉第一条之后的发送(用于用户操作的、不能连续多次发送的)
 	 */
-	public static ImplSendAsyncDiscRetry(cmdId: string, args: any = null)
+	public static ImplSendAsyncDiscRetry(cmdId: string, args: any = null, subId?: string)
 	{
-		SocketManager.InvokeSend(true, true, cmdId, args, false);
+		SocketManager.InvokeSend(true, true, cmdId, args, false, undefined, undefined, undefined, subId);
 	}
 
 	//------------------------------------------------------------------
@@ -324,36 +324,36 @@ class SocketManager
 	 * 发送多少次，就返回多少次（用于代码执行的、需要多次连续发送的）
 	 * 回调执行后会自动移除
 	 */
-	public static call(cmdId: string, args: any = null, onResult: Function, onError: Function, thisObject: any)
+	public static call(cmdId: string, args: any = null, onResult: Function, onError: Function, thisObject: any, subId?: string)
 	{
-		SocketManager.InvokeSend(false, false, cmdId, args, true, onResult, onError, thisObject);
+		SocketManager.InvokeSend(false, false, cmdId, args, true, onResult, onError, thisObject, subId);
 	}
 	/**
 	 * 同步发送，断线重连后会重发失败的数据
 	 * 发送多少次，就返回多少次（用于代码执行的、需要多次连续发送的）
 	 * 回调执行后会自动移除
 	 */
-	public static callDiscRetry(cmdId: string, args: any = null, onResult: Function, onError: Function, thisObject: any)
+	public static callDiscRetry(cmdId: string, args: any = null, onResult: Function, onError: Function, thisObject: any, subId?: string)
 	{
-		SocketManager.InvokeSend(false, true, cmdId, args, true, onResult, onError, thisObject);
+		SocketManager.InvokeSend(false, true, cmdId, args, true, onResult, onError, thisObject, subId);
 	}
 	/**
 	 * 同步隐式发送，不显示loading，不影响交互事件
 	 * 发送多少次，就返回多少次（用于代码执行的、需要多次连续发送的）
 	 * 回调执行后会自动移除
 	 */
-	public static ImplCall(cmdId: string, args: any = null, onResult: Function, onError: Function, thisObject: any)
+	public static ImplCall(cmdId: string, args: any = null, onResult: Function, onError: Function, thisObject: any, subId?: string)
 	{
-		SocketManager.InvokeSend(false, false, cmdId, args, false, onResult, onError, thisObject);
+		SocketManager.InvokeSend(false, false, cmdId, args, false, onResult, onError, thisObject, subId);
 	}
 	/**
 	 * 同步隐式发送，不显示loading，不影响交互事件,断线重连后会重发失败的数据
 	 * 发送多少次，就返回多少次（用于代码执行的、需要多次连续发送的）
 	 * 回调执行后会自动移除
 	 */
-	public static ImplCallDiscRetry(cmdId: string, args: any = null, onResult: Function, onError: Function, thisObject: any)
+	public static ImplCallDiscRetry(cmdId: string, args: any = null, onResult: Function, onError: Function, thisObject: any, subId?: string)
 	{
-		SocketManager.InvokeSend(false, true, cmdId, args, false, onResult, onError, thisObject);
+		SocketManager.InvokeSend(false, true, cmdId, args, false, onResult, onError, thisObject, subId);
 	}
 
 	/**
@@ -376,43 +376,43 @@ class SocketManager
 	 * 在与服务器通信的一个来回内，如果连续多次发送，会过滤掉第一条之后的发送(用于用户操作的、不能连续多次发送的)
 	 * 回调执行后会自动移除
 	 */
-	public static callAsync(cmdId: string, args: any = null, onResult: Function, onError: Function, thisObject: any)
+	public static callAsync(cmdId: string, args: any = null, onResult: Function, onError: Function, thisObject: any, subId?: string)
 	{
-		SocketManager.InvokeSend(true, false, cmdId, args, true, onResult, onError, thisObject);
+		SocketManager.InvokeSend(true, false, cmdId, args, true, onResult, onError, thisObject, subId);
 	}
 	/**
 	 * 独占发送，断线重连后会重发失败的数据
 	 * 在与服务器通信的一个来回内，如果连续多次发送，会过滤掉第一条之后的发送(用于用户操作的、不能连续多次发送的)
 	 * 回调执行后会自动移除
 	 */
-	public static callAsyncDiscRetry(cmdId: string, args: any = null, onResult: Function, onError: Function, thisObject: any)
+	public static callAsyncDiscRetry(cmdId: string, args: any = null, onResult: Function, onError: Function, thisObject: any, subId?: string)
 	{
-		SocketManager.InvokeSend(true, true, cmdId, args, true, onResult, onError, thisObject);
+		SocketManager.InvokeSend(true, true, cmdId, args, true, onResult, onError, thisObject, subId);
 	}
 	/**
 	 * 独占隐式发送，不显示loading，不影响交互事件
 	 * 在与服务器通信的一个来回内，如果连续多次发送，会过滤掉第一条之后的发送(用于用户操作的、不能连续多次发送的)
 	 * 回调执行后会自动移除
 	 */
-	public static ImplCallAsync(cmdId: string, args: any = null, onResult: Function, onError: Function, thisObject: any)
+	public static ImplCallAsync(cmdId: string, args: any = null, onResult: Function, onError: Function, thisObject: any, subId?: string)
 	{
-		SocketManager.InvokeSend(true, false, cmdId, args, false, onResult, onError, thisObject);
+		SocketManager.InvokeSend(true, false, cmdId, args, false, onResult, onError, thisObject, subId);
 	}
 	/**
 	 * 独占隐式发送，不显示loading，不影响交互事件,断线重连后会重发失败的数据
 	 * 在与服务器通信的一个来回内，如果连续多次发送，会过滤掉第一条之后的发送(用于用户操作的、不能连续多次发送的)
 	 * 回调执行后会自动移除
 	 */
-	public static ImplCallAsyncDiscRetry(cmdId: string, args: any = null, onResult: Function, onError: Function, thisObject: any)
+	public static ImplCallAsyncDiscRetry(cmdId: string, args: any = null, onResult: Function, onError: Function, thisObject: any, subId?: string)
 	{
-		SocketManager.InvokeSend(true, true, cmdId, args, false, onResult, onError, thisObject);
+		SocketManager.InvokeSend(true, true, cmdId, args, false, onResult, onError, thisObject, subId);
 	}
 
 	//------------------------------------------------------------------
 	// 
 	//------------------------------------------------------------------
 
-	private static InvokeSend(isSole: boolean, isDiscRetry: boolean, cmdId: string, args: any = null, isShowLoading: boolean, onResult?: Function, onError?: Function, thisObject?: any)
+	private static InvokeSend(isSole: boolean, isDiscRetry: boolean, cmdId: string, args: any = null, isShowLoading: boolean, onResult?: Function, onError?: Function, thisObject?: any, subId?: string)
 	{
 		if (SocketManager._socket)
 		{
@@ -428,7 +428,7 @@ class SocketManager
 				game.Console.log("禁止发送:" + cmdId);
 			}
 			SocketManager._lastSendTime = Date.now();
-			SocketManager._socket.InvokeSend(isSole, isDiscRetry, cmdId, args, onResult, onError, thisObject);
+			SocketManager._socket.InvokeSend(isSole, isDiscRetry, cmdId, args, onResult, onError, thisObject, subId);
 		}
 	}
 
