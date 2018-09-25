@@ -138,8 +138,9 @@ class LoginScene extends BaseScene
     }
     private ShowEnterLoginPanel()
     {
-        UIManager.addEventListener(UIModuleName.LoginPanel, UIModuleEvent.COMPLETE, this.OnEnterLoginSelect, this);
-        UIManager.showPanel(UIModuleName.LoginPanel, this._channelLoginList);
+        this.OnEnterLoginSelect(ChannelLoginType.IntranetAccount); //move todo
+        // UIManager.addEventListener(UIModuleName.LoginPanel, UIModuleEvent.COMPLETE, this.OnEnterLoginSelect, this);
+        // UIManager.showPanel(UIModuleName.LoginPanel, this._channelLoginList);
     }
     private HideEnterLoginPanel()
     {

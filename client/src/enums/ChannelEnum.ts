@@ -53,9 +53,9 @@ class ChannelType
 	 */
 	public static readonly guest = "guest";
 	/**
-	 * 沁游
+	 * 巨枫
 	 */
-	public static readonly qin = "qin";
+	public static readonly giantfun = "giantfun";
 }
 /**
  * 渠道登录类型
@@ -63,9 +63,9 @@ class ChannelType
 class ChannelLoginType
 {
 	/**
-	 * 沁游互动登录
+	 * 巨枫娱乐登录
 	 */
-	public static readonly Qin: string = "qin";
+	public static readonly GiantFun: string = "giantfun";
 	/**
 	 * 游客
 	 */
@@ -95,7 +95,7 @@ class ChannelLoginType
 	{
 		switch (loginType)
 		{
-			case ChannelLoginType.Qin:
+			case ChannelLoginType.GiantFun:
 			case ChannelLoginType.Guest:
 			case ChannelLoginType.Account:
 			case ChannelLoginType.IntranetGuest:
@@ -127,7 +127,7 @@ class ChannelLoginType
 			{
 				list.push(ChannelLoginType.Weixin);
 			}
-			list.push(ChannelLoginType.Qin);
+			list.push(ChannelLoginType.GiantFun);
 			list.push(ChannelLoginType.Account);
 			list.push(ChannelLoginType.Guest);
 			list.push(ChannelLoginType.IntranetAccount);
@@ -147,13 +147,13 @@ class ChannelLoginType
 				{
 					list.push(ChannelLoginType.Weixin);
 				}
-				list.push(ChannelLoginType.Qin);
+				list.push(ChannelLoginType.GiantFun);
 			}
 			else
 			{
 				//非安装包
 				list.push(ChannelLoginType.Weixin);
-				list.push(ChannelLoginType.Qin);
+				list.push(ChannelLoginType.GiantFun);
 			}
 		}
 		if (list.length <= 0)

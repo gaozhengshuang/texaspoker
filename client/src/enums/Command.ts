@@ -255,7 +255,7 @@ class Command
     /**
      * 请求游戏场房间列表信息
      */
-    public static readonly Req_RoomInfo_3002: string = "c3002";
+    public static readonly C2GW_ReqTexasRoomList: string = "msg.C2GW_ReqTexasRoomList";
     /**
      * 发送创建角色的请求
      */
@@ -307,7 +307,7 @@ class Command
     /**
      * 获取牌局信息
      */
-    public static readonly EnterRoomInfo_Req_3600 = "c3600";
+    public static readonly C2GW_ReqEnterRoom = "msg.C2GW_ReqEnterRoom";
     /**
      * 请求下一局开始
      */
@@ -319,11 +319,11 @@ class Command
     /**
      * 请求离开房间
      */
-    public static readonly LeaveRoom_Req_3603 = "c3603";
+    public static readonly C2GW_ReqLeaveRoom = "msg.C2GW_ReqLeaveRoom";
     /**
      * 请求买入游戏
      */
-    public static readonly BuyInGame_Req_3604 = "c3604";
+    public static readonly C2RS_ReqBuyInGame = "msg.C2RS_ReqBuyInGame";
     /**
      * 请求站起
      */

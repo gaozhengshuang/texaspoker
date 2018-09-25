@@ -12004,8 +12004,8 @@ declare namespace msg {
         /** C2RS_ReqBuyInGame num */
         num?: (number|null);
 
-        /** C2RS_ReqBuyInGame isAutoBuy */
-        isAutoBuy?: (boolean|null);
+        /** C2RS_ReqBuyInGame isautobuy */
+        isautobuy?: (boolean|null);
 
         /** C2RS_ReqBuyInGame pos */
         pos?: (number|null);
@@ -12023,8 +12023,8 @@ declare namespace msg {
         /** C2RS_ReqBuyInGame num. */
         public num: number;
 
-        /** C2RS_ReqBuyInGame isAutoBuy. */
-        public isAutoBuy: boolean;
+        /** C2RS_ReqBuyInGame isautobuy. */
+        public isautobuy: boolean;
 
         /** C2RS_ReqBuyInGame pos. */
         public pos: number;
@@ -12271,8 +12271,8 @@ declare namespace msg {
     /** Properties of a RS2C_PushSitOrStand. */
     interface IRS2C_PushSitOrStand {
 
-        /** RS2C_PushSitOrStand roleId */
-        roleId?: (number|Long|null);
+        /** RS2C_PushSitOrStand roleid */
+        roleid?: (number|Long|null);
 
         /** RS2C_PushSitOrStand pos */
         pos?: (number|null);
@@ -12293,8 +12293,8 @@ declare namespace msg {
          */
         constructor(properties?: msg.IRS2C_PushSitOrStand);
 
-        /** RS2C_PushSitOrStand roleId. */
-        public roleId: (number|Long);
+        /** RS2C_PushSitOrStand roleid. */
+        public roleid: (number|Long);
 
         /** RS2C_PushSitOrStand pos. */
         public pos: number;
@@ -12476,7 +12476,7 @@ declare namespace msg {
         gold?: (number|null);
 
         /** RS2C_RetFriendGetRoleInfo roleid */
-        roleid?: (number|null);
+        roleid?: (number|Long|null);
 
         /** RS2C_RetFriendGetRoleInfo name */
         name?: (string|null);
@@ -12588,7 +12588,7 @@ declare namespace msg {
         public gold: number;
 
         /** RS2C_RetFriendGetRoleInfo roleid. */
-        public roleid: number;
+        public roleid: (number|Long);
 
         /** RS2C_RetFriendGetRoleInfo name. */
         public name: string;
@@ -12757,11 +12757,11 @@ declare namespace msg {
     /** Properties of a RS2C_PushTimeAwardRefresh. */
     interface IRS2C_PushTimeAwardRefresh {
 
-        /** RS2C_PushTimeAwardRefresh secTime */
-        secTime?: (number|null);
+        /** RS2C_PushTimeAwardRefresh sectime */
+        sectime?: (number|null);
 
-        /** RS2C_PushTimeAwardRefresh startTime */
-        startTime?: (number|null);
+        /** RS2C_PushTimeAwardRefresh starttime */
+        starttime?: (number|null);
     }
 
     /** Represents a RS2C_PushTimeAwardRefresh. */
@@ -12773,11 +12773,11 @@ declare namespace msg {
          */
         constructor(properties?: msg.IRS2C_PushTimeAwardRefresh);
 
-        /** RS2C_PushTimeAwardRefresh secTime. */
-        public secTime: number;
+        /** RS2C_PushTimeAwardRefresh sectime. */
+        public sectime: number;
 
-        /** RS2C_PushTimeAwardRefresh startTime. */
-        public startTime: number;
+        /** RS2C_PushTimeAwardRefresh starttime. */
+        public starttime: number;
 
         /**
          * Creates a new RS2C_PushTimeAwardRefresh instance using the specified properties.
@@ -12850,23 +12850,191 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a C2RS_ReqNextRound. */
+    interface IC2RS_ReqNextRound {
+    }
+
+    /** Represents a C2RS_ReqNextRound. */
+    class C2RS_ReqNextRound implements IC2RS_ReqNextRound {
+
+        /**
+         * Constructs a new C2RS_ReqNextRound.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2RS_ReqNextRound);
+
+        /**
+         * Creates a new C2RS_ReqNextRound instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2RS_ReqNextRound instance
+         */
+        public static create(properties?: msg.IC2RS_ReqNextRound): msg.C2RS_ReqNextRound;
+
+        /**
+         * Encodes the specified C2RS_ReqNextRound message. Does not implicitly {@link msg.C2RS_ReqNextRound.verify|verify} messages.
+         * @param message C2RS_ReqNextRound message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2RS_ReqNextRound, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2RS_ReqNextRound message, length delimited. Does not implicitly {@link msg.C2RS_ReqNextRound.verify|verify} messages.
+         * @param message C2RS_ReqNextRound message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2RS_ReqNextRound, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2RS_ReqNextRound message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2RS_ReqNextRound
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2RS_ReqNextRound;
+
+        /**
+         * Decodes a C2RS_ReqNextRound message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2RS_ReqNextRound
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2RS_ReqNextRound;
+
+        /**
+         * Verifies a C2RS_ReqNextRound message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2RS_ReqNextRound message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2RS_ReqNextRound
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2RS_ReqNextRound;
+
+        /**
+         * Creates a plain object from a C2RS_ReqNextRound message. Also converts values to other types if specified.
+         * @param message C2RS_ReqNextRound
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2RS_ReqNextRound, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2RS_ReqNextRound to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RS2C_RetNextRound. */
+    interface IRS2C_RetNextRound {
+    }
+
+    /** Represents a RS2C_RetNextRound. */
+    class RS2C_RetNextRound implements IRS2C_RetNextRound {
+
+        /**
+         * Constructs a new RS2C_RetNextRound.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IRS2C_RetNextRound);
+
+        /**
+         * Creates a new RS2C_RetNextRound instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RS2C_RetNextRound instance
+         */
+        public static create(properties?: msg.IRS2C_RetNextRound): msg.RS2C_RetNextRound;
+
+        /**
+         * Encodes the specified RS2C_RetNextRound message. Does not implicitly {@link msg.RS2C_RetNextRound.verify|verify} messages.
+         * @param message RS2C_RetNextRound message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IRS2C_RetNextRound, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified RS2C_RetNextRound message, length delimited. Does not implicitly {@link msg.RS2C_RetNextRound.verify|verify} messages.
+         * @param message RS2C_RetNextRound message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IRS2C_RetNextRound, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a RS2C_RetNextRound message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RS2C_RetNextRound
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2C_RetNextRound;
+
+        /**
+         * Decodes a RS2C_RetNextRound message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RS2C_RetNextRound
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2C_RetNextRound;
+
+        /**
+         * Verifies a RS2C_RetNextRound message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RS2C_RetNextRound message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RS2C_RetNextRound
+         */
+        public static fromObject(object: { [k: string]: any }): msg.RS2C_RetNextRound;
+
+        /**
+         * Creates a plain object from a RS2C_RetNextRound message. Also converts values to other types if specified.
+         * @param message RS2C_RetNextRound
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.RS2C_RetNextRound, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RS2C_RetNextRound to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a RS2C_PushNextRoundStart. */
     interface IRS2C_PushNextRoundStart {
 
-        /** RS2C_PushNextRoundStart buttonPos */
-        buttonPos?: (number|null);
+        /** RS2C_PushNextRoundStart buttonpos */
+        buttonpos?: (number|null);
 
-        /** RS2C_PushNextRoundStart sBlindPos */
-        sBlindPos?: (number|null);
+        /** RS2C_PushNextRoundStart sblindpos */
+        sblindpos?: (number|null);
 
-        /** RS2C_PushNextRoundStart bBlindPos */
-        bBlindPos?: (number|null);
+        /** RS2C_PushNextRoundStart bblindpos */
+        bblindpos?: (number|null);
 
-        /** RS2C_PushNextRoundStart sBlind */
-        sBlind?: (number|null);
+        /** RS2C_PushNextRoundStart sblind */
+        sblind?: (number|null);
 
-        /** RS2C_PushNextRoundStart bBlind */
-        bBlind?: (number|null);
+        /** RS2C_PushNextRoundStart bblind */
+        bblind?: (number|null);
     }
 
     /** Represents a RS2C_PushNextRoundStart. */
@@ -12878,20 +13046,20 @@ declare namespace msg {
          */
         constructor(properties?: msg.IRS2C_PushNextRoundStart);
 
-        /** RS2C_PushNextRoundStart buttonPos. */
-        public buttonPos: number;
+        /** RS2C_PushNextRoundStart buttonpos. */
+        public buttonpos: number;
 
-        /** RS2C_PushNextRoundStart sBlindPos. */
-        public sBlindPos: number;
+        /** RS2C_PushNextRoundStart sblindpos. */
+        public sblindpos: number;
 
-        /** RS2C_PushNextRoundStart bBlindPos. */
-        public bBlindPos: number;
+        /** RS2C_PushNextRoundStart bblindpos. */
+        public bblindpos: number;
 
-        /** RS2C_PushNextRoundStart sBlind. */
-        public sBlind: number;
+        /** RS2C_PushNextRoundStart sblind. */
+        public sblind: number;
 
-        /** RS2C_PushNextRoundStart bBlind. */
-        public bBlind: number;
+        /** RS2C_PushNextRoundStart bblind. */
+        public bblind: number;
 
         /**
          * Creates a new RS2C_PushNextRoundStart instance using the specified properties.
@@ -12967,11 +13135,11 @@ declare namespace msg {
     /** Properties of a RS2C_PushChipsChange. */
     interface IRS2C_PushChipsChange {
 
-        /** RS2C_PushChipsChange roleId */
-        roleId?: (number|null);
+        /** RS2C_PushChipsChange roleid */
+        roleid?: (number|Long|null);
 
-        /** RS2C_PushChipsChange bankRoll */
-        bankRoll?: (number|null);
+        /** RS2C_PushChipsChange bankroll */
+        bankroll?: (number|null);
     }
 
     /** Represents a RS2C_PushChipsChange. */
@@ -12983,11 +13151,11 @@ declare namespace msg {
          */
         constructor(properties?: msg.IRS2C_PushChipsChange);
 
-        /** RS2C_PushChipsChange roleId. */
-        public roleId: number;
+        /** RS2C_PushChipsChange roleid. */
+        public roleid: (number|Long);
 
-        /** RS2C_PushChipsChange bankRoll. */
-        public bankRoll: number;
+        /** RS2C_PushChipsChange bankroll. */
+        public bankroll: number;
 
         /**
          * Creates a new RS2C_PushChipsChange instance using the specified properties.
@@ -13063,8 +13231,8 @@ declare namespace msg {
     /** Properties of a RS2C_PushPlayerStateChange. */
     interface IRS2C_PushPlayerStateChange {
 
-        /** RS2C_PushPlayerStateChange roleId */
-        roleId?: (number|null);
+        /** RS2C_PushPlayerStateChange roleid */
+        roleid?: (number|Long|null);
 
         /** RS2C_PushPlayerStateChange state */
         state?: (number|null);
@@ -13082,8 +13250,8 @@ declare namespace msg {
          */
         constructor(properties?: msg.IRS2C_PushPlayerStateChange);
 
-        /** RS2C_PushPlayerStateChange roleId. */
-        public roleId: number;
+        /** RS2C_PushPlayerStateChange roleid. */
+        public roleid: (number|Long);
 
         /** RS2C_PushPlayerStateChange state. */
         public state: number;
@@ -13454,7 +13622,7 @@ declare namespace msg {
         type?: (number|null);
 
         /** PotInfo roleid */
-        roleid?: (number[]|null);
+        roleid?: ((number|Long)[]|null);
     }
 
     /** Represents a PotInfo. */
@@ -13473,7 +13641,7 @@ declare namespace msg {
         public type: number;
 
         /** PotInfo roleid. */
-        public roleid: number[];
+        public roleid: (number|Long)[];
 
         /**
          * Creates a new PotInfo instance using the specified properties.
@@ -13549,8 +13717,8 @@ declare namespace msg {
     /** Properties of a HandCardInfo. */
     interface IHandCardInfo {
 
-        /** HandCardInfo roleId */
-        roleId?: (number|null);
+        /** HandCardInfo roleid */
+        roleid?: (number|Long|null);
 
         /** HandCardInfo card */
         card?: (number[]|null);
@@ -13565,8 +13733,8 @@ declare namespace msg {
          */
         constructor(properties?: msg.IHandCardInfo);
 
-        /** HandCardInfo roleId. */
-        public roleId: number;
+        /** HandCardInfo roleid. */
+        public roleid: (number|Long);
 
         /** HandCardInfo card. */
         public card: number[];
@@ -13645,11 +13813,11 @@ declare namespace msg {
     /** Properties of a RS2C_PushOneRoundOver. */
     interface IRS2C_PushOneRoundOver {
 
-        /** RS2C_PushOneRoundOver potList */
-        potList?: (msg.IPotInfo[]|null);
+        /** RS2C_PushOneRoundOver potlist */
+        potlist?: (msg.IPotInfo[]|null);
 
-        /** RS2C_PushOneRoundOver handCardList */
-        handCardList?: (msg.IHandCardInfo[]|null);
+        /** RS2C_PushOneRoundOver handcardlist */
+        handcardlist?: (msg.IHandCardInfo[]|null);
     }
 
     /** Represents a RS2C_PushOneRoundOver. */
@@ -13661,11 +13829,11 @@ declare namespace msg {
          */
         constructor(properties?: msg.IRS2C_PushOneRoundOver);
 
-        /** RS2C_PushOneRoundOver potList. */
-        public potList: msg.IPotInfo[];
+        /** RS2C_PushOneRoundOver potlist. */
+        public potlist: msg.IPotInfo[];
 
-        /** RS2C_PushOneRoundOver handCardList. */
-        public handCardList: msg.IHandCardInfo[];
+        /** RS2C_PushOneRoundOver handcardlist. */
+        public handcardlist: msg.IHandCardInfo[];
 
         /**
          * Creates a new RS2C_PushOneRoundOver instance using the specified properties.

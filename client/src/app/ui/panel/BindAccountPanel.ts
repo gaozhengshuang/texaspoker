@@ -74,7 +74,7 @@ class BindAccountPanel extends BasePanel
     private refreshQinBindState()
     {
         //手机账号绑定
-        if (BindAccountManager.getIsBinding(ChannelLoginType.Qin) || ChannelManager.loginType == ChannelLoginType.Qin)  //判断用户是否绑定了手机
+        if (BindAccountManager.getIsBinding(ChannelLoginType.GiantFun) || ChannelManager.loginType == ChannelLoginType.GiantFun)  //判断用户是否绑定了手机
         {
             this.bindPhoneBtn.visible = false;
             this.phoneImg.visible = true;
@@ -124,7 +124,7 @@ class BindAccountPanel extends BasePanel
     {
         switch (data)
         {
-            case ChannelLoginType.Qin:
+            case ChannelLoginType.GiantFun:
                 this.refreshQinBindState();
                 break;
             case ChannelLoginType.Weixin:
@@ -138,7 +138,7 @@ class BindAccountPanel extends BasePanel
     private bindPhoneHandler(event: egret.TouchEvent)
     {
         SoundManager.playButtonEffect(event.target);
-        if (!BindAccountManager.getIsBinding(ChannelLoginType.Qin))
+        if (!BindAccountManager.getIsBinding(ChannelLoginType.GiantFun))
         {
             BindAccountManager.startBindQin(UIModuleName.BindAccountPanel);
         }

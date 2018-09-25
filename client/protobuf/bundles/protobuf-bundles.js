@@ -27900,7 +27900,7 @@ $root.msg = (function() {
          * @memberof msg
          * @interface IC2RS_ReqBuyInGame
          * @property {number|null} [num] C2RS_ReqBuyInGame num
-         * @property {boolean|null} [isAutoBuy] C2RS_ReqBuyInGame isAutoBuy
+         * @property {boolean|null} [isautobuy] C2RS_ReqBuyInGame isautobuy
          * @property {number|null} [pos] C2RS_ReqBuyInGame pos
          */
 
@@ -27928,12 +27928,12 @@ $root.msg = (function() {
         C2RS_ReqBuyInGame.prototype.num = 0;
 
         /**
-         * C2RS_ReqBuyInGame isAutoBuy.
-         * @member {boolean} isAutoBuy
+         * C2RS_ReqBuyInGame isautobuy.
+         * @member {boolean} isautobuy
          * @memberof msg.C2RS_ReqBuyInGame
          * @instance
          */
-        C2RS_ReqBuyInGame.prototype.isAutoBuy = false;
+        C2RS_ReqBuyInGame.prototype.isautobuy = false;
 
         /**
          * C2RS_ReqBuyInGame pos.
@@ -27969,8 +27969,8 @@ $root.msg = (function() {
                 writer = $Writer.create();
             if (message.num != null && message.hasOwnProperty("num"))
                 writer.uint32(/* id 1, wireType 0 =*/8).int32(message.num);
-            if (message.isAutoBuy != null && message.hasOwnProperty("isAutoBuy"))
-                writer.uint32(/* id 2, wireType 0 =*/16).bool(message.isAutoBuy);
+            if (message.isautobuy != null && message.hasOwnProperty("isautobuy"))
+                writer.uint32(/* id 2, wireType 0 =*/16).bool(message.isautobuy);
             if (message.pos != null && message.hasOwnProperty("pos"))
                 writer.uint32(/* id 3, wireType 0 =*/24).int32(message.pos);
             return writer;
@@ -28011,7 +28011,7 @@ $root.msg = (function() {
                     message.num = reader.int32();
                     break;
                 case 2:
-                    message.isAutoBuy = reader.bool();
+                    message.isautobuy = reader.bool();
                     break;
                 case 3:
                     message.pos = reader.int32();
@@ -28054,9 +28054,9 @@ $root.msg = (function() {
             if (message.num != null && message.hasOwnProperty("num"))
                 if (!$util.isInteger(message.num))
                     return "num: integer expected";
-            if (message.isAutoBuy != null && message.hasOwnProperty("isAutoBuy"))
-                if (typeof message.isAutoBuy !== "boolean")
-                    return "isAutoBuy: boolean expected";
+            if (message.isautobuy != null && message.hasOwnProperty("isautobuy"))
+                if (typeof message.isautobuy !== "boolean")
+                    return "isautobuy: boolean expected";
             if (message.pos != null && message.hasOwnProperty("pos"))
                 if (!$util.isInteger(message.pos))
                     return "pos: integer expected";
@@ -28077,8 +28077,8 @@ $root.msg = (function() {
             var message = new $root.msg.C2RS_ReqBuyInGame();
             if (object.num != null)
                 message.num = object.num | 0;
-            if (object.isAutoBuy != null)
-                message.isAutoBuy = Boolean(object.isAutoBuy);
+            if (object.isautobuy != null)
+                message.isautobuy = Boolean(object.isautobuy);
             if (object.pos != null)
                 message.pos = object.pos | 0;
             return message;
@@ -28099,13 +28099,13 @@ $root.msg = (function() {
             var object = {};
             if (options.defaults) {
                 object.num = 0;
-                object.isAutoBuy = false;
+                object.isautobuy = false;
                 object.pos = 0;
             }
             if (message.num != null && message.hasOwnProperty("num"))
                 object.num = message.num;
-            if (message.isAutoBuy != null && message.hasOwnProperty("isAutoBuy"))
-                object.isAutoBuy = message.isAutoBuy;
+            if (message.isautobuy != null && message.hasOwnProperty("isautobuy"))
+                object.isautobuy = message.isautobuy;
             if (message.pos != null && message.hasOwnProperty("pos"))
                 object.pos = message.pos;
             return object;
@@ -28451,7 +28451,7 @@ $root.msg = (function() {
          * Properties of a RS2C_PushSitOrStand.
          * @memberof msg
          * @interface IRS2C_PushSitOrStand
-         * @property {number|Long|null} [roleId] RS2C_PushSitOrStand roleId
+         * @property {number|Long|null} [roleid] RS2C_PushSitOrStand roleid
          * @property {number|null} [pos] RS2C_PushSitOrStand pos
          * @property {number|null} [state] RS2C_PushSitOrStand state
          * @property {number|null} [bankRoll] RS2C_PushSitOrStand bankRoll
@@ -28473,12 +28473,12 @@ $root.msg = (function() {
         }
 
         /**
-         * RS2C_PushSitOrStand roleId.
-         * @member {number|Long} roleId
+         * RS2C_PushSitOrStand roleid.
+         * @member {number|Long} roleid
          * @memberof msg.RS2C_PushSitOrStand
          * @instance
          */
-        RS2C_PushSitOrStand.prototype.roleId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+        RS2C_PushSitOrStand.prototype.roleid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
          * RS2C_PushSitOrStand pos.
@@ -28528,8 +28528,8 @@ $root.msg = (function() {
         RS2C_PushSitOrStand.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
-            if (message.roleId != null && message.hasOwnProperty("roleId"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.roleId);
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.roleid);
             if (message.pos != null && message.hasOwnProperty("pos"))
                 writer.uint32(/* id 2, wireType 0 =*/16).int32(message.pos);
             if (message.state != null && message.hasOwnProperty("state"))
@@ -28571,7 +28571,7 @@ $root.msg = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.roleId = reader.int64();
+                    message.roleid = reader.int64();
                     break;
                 case 2:
                     message.pos = reader.int32();
@@ -28617,9 +28617,9 @@ $root.msg = (function() {
         RS2C_PushSitOrStand.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
-            if (message.roleId != null && message.hasOwnProperty("roleId"))
-                if (!$util.isInteger(message.roleId) && !(message.roleId && $util.isInteger(message.roleId.low) && $util.isInteger(message.roleId.high)))
-                    return "roleId: integer|Long expected";
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                if (!$util.isInteger(message.roleid) && !(message.roleid && $util.isInteger(message.roleid.low) && $util.isInteger(message.roleid.high)))
+                    return "roleid: integer|Long expected";
             if (message.pos != null && message.hasOwnProperty("pos"))
                 if (!$util.isInteger(message.pos))
                     return "pos: integer expected";
@@ -28644,15 +28644,15 @@ $root.msg = (function() {
             if (object instanceof $root.msg.RS2C_PushSitOrStand)
                 return object;
             var message = new $root.msg.RS2C_PushSitOrStand();
-            if (object.roleId != null)
+            if (object.roleid != null)
                 if ($util.Long)
-                    (message.roleId = $util.Long.fromValue(object.roleId)).unsigned = false;
-                else if (typeof object.roleId === "string")
-                    message.roleId = parseInt(object.roleId, 10);
-                else if (typeof object.roleId === "number")
-                    message.roleId = object.roleId;
-                else if (typeof object.roleId === "object")
-                    message.roleId = new $util.LongBits(object.roleId.low >>> 0, object.roleId.high >>> 0).toNumber();
+                    (message.roleid = $util.Long.fromValue(object.roleid)).unsigned = false;
+                else if (typeof object.roleid === "string")
+                    message.roleid = parseInt(object.roleid, 10);
+                else if (typeof object.roleid === "number")
+                    message.roleid = object.roleid;
+                else if (typeof object.roleid === "object")
+                    message.roleid = new $util.LongBits(object.roleid.low >>> 0, object.roleid.high >>> 0).toNumber();
             if (object.pos != null)
                 message.pos = object.pos | 0;
             if (object.state != null)
@@ -28678,18 +28678,18 @@ $root.msg = (function() {
             if (options.defaults) {
                 if ($util.Long) {
                     var long = new $util.Long(0, 0, false);
-                    object.roleId = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                    object.roleid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
-                    object.roleId = options.longs === String ? "0" : 0;
+                    object.roleid = options.longs === String ? "0" : 0;
                 object.pos = 0;
                 object.state = 0;
                 object.bankRoll = 0;
             }
-            if (message.roleId != null && message.hasOwnProperty("roleId"))
-                if (typeof message.roleId === "number")
-                    object.roleId = options.longs === String ? String(message.roleId) : message.roleId;
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                if (typeof message.roleid === "number")
+                    object.roleid = options.longs === String ? String(message.roleid) : message.roleid;
                 else
-                    object.roleId = options.longs === String ? $util.Long.prototype.toString.call(message.roleId) : options.longs === Number ? new $util.LongBits(message.roleId.low >>> 0, message.roleId.high >>> 0).toNumber() : message.roleId;
+                    object.roleid = options.longs === String ? $util.Long.prototype.toString.call(message.roleid) : options.longs === Number ? new $util.LongBits(message.roleid.low >>> 0, message.roleid.high >>> 0).toNumber() : message.roleid;
             if (message.pos != null && message.hasOwnProperty("pos"))
                 object.pos = message.pos;
             if (message.state != null && message.hasOwnProperty("state"))
@@ -28922,7 +28922,7 @@ $root.msg = (function() {
          * @interface IRS2C_RetFriendGetRoleInfo
          * @property {number|null} [diamond] RS2C_RetFriendGetRoleInfo diamond
          * @property {number|null} [gold] RS2C_RetFriendGetRoleInfo gold
-         * @property {number|null} [roleid] RS2C_RetFriendGetRoleInfo roleid
+         * @property {number|Long|null} [roleid] RS2C_RetFriendGetRoleInfo roleid
          * @property {string|null} [name] RS2C_RetFriendGetRoleInfo name
          * @property {string|null} [head] RS2C_RetFriendGetRoleInfo head
          * @property {number|null} [sex] RS2C_RetFriendGetRoleInfo sex
@@ -28990,11 +28990,11 @@ $root.msg = (function() {
 
         /**
          * RS2C_RetFriendGetRoleInfo roleid.
-         * @member {number} roleid
+         * @member {number|Long} roleid
          * @memberof msg.RS2C_RetFriendGetRoleInfo
          * @instance
          */
-        RS2C_RetFriendGetRoleInfo.prototype.roleid = 0;
+        RS2C_RetFriendGetRoleInfo.prototype.roleid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
          * RS2C_RetFriendGetRoleInfo name.
@@ -29273,7 +29273,7 @@ $root.msg = (function() {
             if (message.gold != null && message.hasOwnProperty("gold"))
                 writer.uint32(/* id 2, wireType 0 =*/16).int32(message.gold);
             if (message.roleid != null && message.hasOwnProperty("roleid"))
-                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.roleid);
+                writer.uint32(/* id 3, wireType 0 =*/24).int64(message.roleid);
             if (message.name != null && message.hasOwnProperty("name"))
                 writer.uint32(/* id 4, wireType 2 =*/34).string(message.name);
             if (message.head != null && message.hasOwnProperty("head"))
@@ -29378,7 +29378,7 @@ $root.msg = (function() {
                     message.gold = reader.int32();
                     break;
                 case 3:
-                    message.roleid = reader.int32();
+                    message.roleid = reader.int64();
                     break;
                 case 4:
                     message.name = reader.string();
@@ -29522,8 +29522,8 @@ $root.msg = (function() {
                 if (!$util.isInteger(message.gold))
                     return "gold: integer expected";
             if (message.roleid != null && message.hasOwnProperty("roleid"))
-                if (!$util.isInteger(message.roleid))
-                    return "roleid: integer expected";
+                if (!$util.isInteger(message.roleid) && !(message.roleid && $util.isInteger(message.roleid.low) && $util.isInteger(message.roleid.high)))
+                    return "roleid: integer|Long expected";
             if (message.name != null && message.hasOwnProperty("name"))
                 if (!$util.isString(message.name))
                     return "name: string expected";
@@ -29641,7 +29641,14 @@ $root.msg = (function() {
             if (object.gold != null)
                 message.gold = object.gold | 0;
             if (object.roleid != null)
-                message.roleid = object.roleid | 0;
+                if ($util.Long)
+                    (message.roleid = $util.Long.fromValue(object.roleid)).unsigned = false;
+                else if (typeof object.roleid === "string")
+                    message.roleid = parseInt(object.roleid, 10);
+                else if (typeof object.roleid === "number")
+                    message.roleid = object.roleid;
+                else if (typeof object.roleid === "object")
+                    message.roleid = new $util.LongBits(object.roleid.low >>> 0, object.roleid.high >>> 0).toNumber();
             if (object.name != null)
                 message.name = String(object.name);
             if (object.head != null)
@@ -29730,7 +29737,11 @@ $root.msg = (function() {
             if (options.defaults) {
                 object.diamond = 0;
                 object.gold = 0;
-                object.roleid = 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.roleid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.roleid = options.longs === String ? "0" : 0;
                 object.name = "";
                 object.head = "";
                 object.sex = 0;
@@ -29767,7 +29778,10 @@ $root.msg = (function() {
             if (message.gold != null && message.hasOwnProperty("gold"))
                 object.gold = message.gold;
             if (message.roleid != null && message.hasOwnProperty("roleid"))
-                object.roleid = message.roleid;
+                if (typeof message.roleid === "number")
+                    object.roleid = options.longs === String ? String(message.roleid) : message.roleid;
+                else
+                    object.roleid = options.longs === String ? $util.Long.prototype.toString.call(message.roleid) : options.longs === Number ? new $util.LongBits(message.roleid.low >>> 0, message.roleid.high >>> 0).toNumber() : message.roleid;
             if (message.name != null && message.hasOwnProperty("name"))
                 object.name = message.name;
             if (message.head != null && message.hasOwnProperty("head"))
@@ -29856,8 +29870,8 @@ $root.msg = (function() {
          * Properties of a RS2C_PushTimeAwardRefresh.
          * @memberof msg
          * @interface IRS2C_PushTimeAwardRefresh
-         * @property {number|null} [secTime] RS2C_PushTimeAwardRefresh secTime
-         * @property {number|null} [startTime] RS2C_PushTimeAwardRefresh startTime
+         * @property {number|null} [sectime] RS2C_PushTimeAwardRefresh sectime
+         * @property {number|null} [starttime] RS2C_PushTimeAwardRefresh starttime
          */
 
         /**
@@ -29876,20 +29890,20 @@ $root.msg = (function() {
         }
 
         /**
-         * RS2C_PushTimeAwardRefresh secTime.
-         * @member {number} secTime
+         * RS2C_PushTimeAwardRefresh sectime.
+         * @member {number} sectime
          * @memberof msg.RS2C_PushTimeAwardRefresh
          * @instance
          */
-        RS2C_PushTimeAwardRefresh.prototype.secTime = 0;
+        RS2C_PushTimeAwardRefresh.prototype.sectime = 0;
 
         /**
-         * RS2C_PushTimeAwardRefresh startTime.
-         * @member {number} startTime
+         * RS2C_PushTimeAwardRefresh starttime.
+         * @member {number} starttime
          * @memberof msg.RS2C_PushTimeAwardRefresh
          * @instance
          */
-        RS2C_PushTimeAwardRefresh.prototype.startTime = 0;
+        RS2C_PushTimeAwardRefresh.prototype.starttime = 0;
 
         /**
          * Creates a new RS2C_PushTimeAwardRefresh instance using the specified properties.
@@ -29915,10 +29929,10 @@ $root.msg = (function() {
         RS2C_PushTimeAwardRefresh.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
-            if (message.secTime != null && message.hasOwnProperty("secTime"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.secTime);
-            if (message.startTime != null && message.hasOwnProperty("startTime"))
-                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.startTime);
+            if (message.sectime != null && message.hasOwnProperty("sectime"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.sectime);
+            if (message.starttime != null && message.hasOwnProperty("starttime"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.starttime);
             return writer;
         };
 
@@ -29954,10 +29968,10 @@ $root.msg = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.secTime = reader.int32();
+                    message.sectime = reader.int32();
                     break;
                 case 2:
-                    message.startTime = reader.int32();
+                    message.starttime = reader.int32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -29994,12 +30008,12 @@ $root.msg = (function() {
         RS2C_PushTimeAwardRefresh.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
-            if (message.secTime != null && message.hasOwnProperty("secTime"))
-                if (!$util.isInteger(message.secTime))
-                    return "secTime: integer expected";
-            if (message.startTime != null && message.hasOwnProperty("startTime"))
-                if (!$util.isInteger(message.startTime))
-                    return "startTime: integer expected";
+            if (message.sectime != null && message.hasOwnProperty("sectime"))
+                if (!$util.isInteger(message.sectime))
+                    return "sectime: integer expected";
+            if (message.starttime != null && message.hasOwnProperty("starttime"))
+                if (!$util.isInteger(message.starttime))
+                    return "starttime: integer expected";
             return null;
         };
 
@@ -30015,10 +30029,10 @@ $root.msg = (function() {
             if (object instanceof $root.msg.RS2C_PushTimeAwardRefresh)
                 return object;
             var message = new $root.msg.RS2C_PushTimeAwardRefresh();
-            if (object.secTime != null)
-                message.secTime = object.secTime | 0;
-            if (object.startTime != null)
-                message.startTime = object.startTime | 0;
+            if (object.sectime != null)
+                message.sectime = object.sectime | 0;
+            if (object.starttime != null)
+                message.starttime = object.starttime | 0;
             return message;
         };
 
@@ -30036,13 +30050,13 @@ $root.msg = (function() {
                 options = {};
             var object = {};
             if (options.defaults) {
-                object.secTime = 0;
-                object.startTime = 0;
+                object.sectime = 0;
+                object.starttime = 0;
             }
-            if (message.secTime != null && message.hasOwnProperty("secTime"))
-                object.secTime = message.secTime;
-            if (message.startTime != null && message.hasOwnProperty("startTime"))
-                object.startTime = message.startTime;
+            if (message.sectime != null && message.hasOwnProperty("sectime"))
+                object.sectime = message.sectime;
+            if (message.starttime != null && message.hasOwnProperty("starttime"))
+                object.starttime = message.starttime;
             return object;
         };
 
@@ -30060,17 +30074,337 @@ $root.msg = (function() {
         return RS2C_PushTimeAwardRefresh;
     })();
 
+    msg.C2RS_ReqNextRound = (function() {
+
+        /**
+         * Properties of a C2RS_ReqNextRound.
+         * @memberof msg
+         * @interface IC2RS_ReqNextRound
+         */
+
+        /**
+         * Constructs a new C2RS_ReqNextRound.
+         * @memberof msg
+         * @classdesc Represents a C2RS_ReqNextRound.
+         * @implements IC2RS_ReqNextRound
+         * @constructor
+         * @param {msg.IC2RS_ReqNextRound=} [properties] Properties to set
+         */
+        function C2RS_ReqNextRound(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Creates a new C2RS_ReqNextRound instance using the specified properties.
+         * @function create
+         * @memberof msg.C2RS_ReqNextRound
+         * @static
+         * @param {msg.IC2RS_ReqNextRound=} [properties] Properties to set
+         * @returns {msg.C2RS_ReqNextRound} C2RS_ReqNextRound instance
+         */
+        C2RS_ReqNextRound.create = function create(properties) {
+            return new C2RS_ReqNextRound(properties);
+        };
+
+        /**
+         * Encodes the specified C2RS_ReqNextRound message. Does not implicitly {@link msg.C2RS_ReqNextRound.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2RS_ReqNextRound
+         * @static
+         * @param {msg.IC2RS_ReqNextRound} message C2RS_ReqNextRound message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2RS_ReqNextRound.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2RS_ReqNextRound message, length delimited. Does not implicitly {@link msg.C2RS_ReqNextRound.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2RS_ReqNextRound
+         * @static
+         * @param {msg.IC2RS_ReqNextRound} message C2RS_ReqNextRound message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2RS_ReqNextRound.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2RS_ReqNextRound message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2RS_ReqNextRound
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2RS_ReqNextRound} C2RS_ReqNextRound
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2RS_ReqNextRound.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2RS_ReqNextRound();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2RS_ReqNextRound message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2RS_ReqNextRound
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2RS_ReqNextRound} C2RS_ReqNextRound
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2RS_ReqNextRound.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2RS_ReqNextRound message.
+         * @function verify
+         * @memberof msg.C2RS_ReqNextRound
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2RS_ReqNextRound.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2RS_ReqNextRound message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2RS_ReqNextRound
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2RS_ReqNextRound} C2RS_ReqNextRound
+         */
+        C2RS_ReqNextRound.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2RS_ReqNextRound)
+                return object;
+            return new $root.msg.C2RS_ReqNextRound();
+        };
+
+        /**
+         * Creates a plain object from a C2RS_ReqNextRound message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2RS_ReqNextRound
+         * @static
+         * @param {msg.C2RS_ReqNextRound} message C2RS_ReqNextRound
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2RS_ReqNextRound.toObject = function toObject() {
+            return {};
+        };
+
+        /**
+         * Converts this C2RS_ReqNextRound to JSON.
+         * @function toJSON
+         * @memberof msg.C2RS_ReqNextRound
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2RS_ReqNextRound.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2RS_ReqNextRound;
+    })();
+
+    msg.RS2C_RetNextRound = (function() {
+
+        /**
+         * Properties of a RS2C_RetNextRound.
+         * @memberof msg
+         * @interface IRS2C_RetNextRound
+         */
+
+        /**
+         * Constructs a new RS2C_RetNextRound.
+         * @memberof msg
+         * @classdesc Represents a RS2C_RetNextRound.
+         * @implements IRS2C_RetNextRound
+         * @constructor
+         * @param {msg.IRS2C_RetNextRound=} [properties] Properties to set
+         */
+        function RS2C_RetNextRound(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Creates a new RS2C_RetNextRound instance using the specified properties.
+         * @function create
+         * @memberof msg.RS2C_RetNextRound
+         * @static
+         * @param {msg.IRS2C_RetNextRound=} [properties] Properties to set
+         * @returns {msg.RS2C_RetNextRound} RS2C_RetNextRound instance
+         */
+        RS2C_RetNextRound.create = function create(properties) {
+            return new RS2C_RetNextRound(properties);
+        };
+
+        /**
+         * Encodes the specified RS2C_RetNextRound message. Does not implicitly {@link msg.RS2C_RetNextRound.verify|verify} messages.
+         * @function encode
+         * @memberof msg.RS2C_RetNextRound
+         * @static
+         * @param {msg.IRS2C_RetNextRound} message RS2C_RetNextRound message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_RetNextRound.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified RS2C_RetNextRound message, length delimited. Does not implicitly {@link msg.RS2C_RetNextRound.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.RS2C_RetNextRound
+         * @static
+         * @param {msg.IRS2C_RetNextRound} message RS2C_RetNextRound message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_RetNextRound.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a RS2C_RetNextRound message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.RS2C_RetNextRound
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.RS2C_RetNextRound} RS2C_RetNextRound
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_RetNextRound.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.RS2C_RetNextRound();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a RS2C_RetNextRound message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.RS2C_RetNextRound
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.RS2C_RetNextRound} RS2C_RetNextRound
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_RetNextRound.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a RS2C_RetNextRound message.
+         * @function verify
+         * @memberof msg.RS2C_RetNextRound
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        RS2C_RetNextRound.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            return null;
+        };
+
+        /**
+         * Creates a RS2C_RetNextRound message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.RS2C_RetNextRound
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.RS2C_RetNextRound} RS2C_RetNextRound
+         */
+        RS2C_RetNextRound.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.RS2C_RetNextRound)
+                return object;
+            return new $root.msg.RS2C_RetNextRound();
+        };
+
+        /**
+         * Creates a plain object from a RS2C_RetNextRound message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.RS2C_RetNextRound
+         * @static
+         * @param {msg.RS2C_RetNextRound} message RS2C_RetNextRound
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        RS2C_RetNextRound.toObject = function toObject() {
+            return {};
+        };
+
+        /**
+         * Converts this RS2C_RetNextRound to JSON.
+         * @function toJSON
+         * @memberof msg.RS2C_RetNextRound
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        RS2C_RetNextRound.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return RS2C_RetNextRound;
+    })();
+
     msg.RS2C_PushNextRoundStart = (function() {
 
         /**
          * Properties of a RS2C_PushNextRoundStart.
          * @memberof msg
          * @interface IRS2C_PushNextRoundStart
-         * @property {number|null} [buttonPos] RS2C_PushNextRoundStart buttonPos
-         * @property {number|null} [sBlindPos] RS2C_PushNextRoundStart sBlindPos
-         * @property {number|null} [bBlindPos] RS2C_PushNextRoundStart bBlindPos
-         * @property {number|null} [sBlind] RS2C_PushNextRoundStart sBlind
-         * @property {number|null} [bBlind] RS2C_PushNextRoundStart bBlind
+         * @property {number|null} [buttonpos] RS2C_PushNextRoundStart buttonpos
+         * @property {number|null} [sblindpos] RS2C_PushNextRoundStart sblindpos
+         * @property {number|null} [bblindpos] RS2C_PushNextRoundStart bblindpos
+         * @property {number|null} [sblind] RS2C_PushNextRoundStart sblind
+         * @property {number|null} [bblind] RS2C_PushNextRoundStart bblind
          */
 
         /**
@@ -30089,44 +30423,44 @@ $root.msg = (function() {
         }
 
         /**
-         * RS2C_PushNextRoundStart buttonPos.
-         * @member {number} buttonPos
+         * RS2C_PushNextRoundStart buttonpos.
+         * @member {number} buttonpos
          * @memberof msg.RS2C_PushNextRoundStart
          * @instance
          */
-        RS2C_PushNextRoundStart.prototype.buttonPos = 0;
+        RS2C_PushNextRoundStart.prototype.buttonpos = 0;
 
         /**
-         * RS2C_PushNextRoundStart sBlindPos.
-         * @member {number} sBlindPos
+         * RS2C_PushNextRoundStart sblindpos.
+         * @member {number} sblindpos
          * @memberof msg.RS2C_PushNextRoundStart
          * @instance
          */
-        RS2C_PushNextRoundStart.prototype.sBlindPos = 0;
+        RS2C_PushNextRoundStart.prototype.sblindpos = 0;
 
         /**
-         * RS2C_PushNextRoundStart bBlindPos.
-         * @member {number} bBlindPos
+         * RS2C_PushNextRoundStart bblindpos.
+         * @member {number} bblindpos
          * @memberof msg.RS2C_PushNextRoundStart
          * @instance
          */
-        RS2C_PushNextRoundStart.prototype.bBlindPos = 0;
+        RS2C_PushNextRoundStart.prototype.bblindpos = 0;
 
         /**
-         * RS2C_PushNextRoundStart sBlind.
-         * @member {number} sBlind
+         * RS2C_PushNextRoundStart sblind.
+         * @member {number} sblind
          * @memberof msg.RS2C_PushNextRoundStart
          * @instance
          */
-        RS2C_PushNextRoundStart.prototype.sBlind = 0;
+        RS2C_PushNextRoundStart.prototype.sblind = 0;
 
         /**
-         * RS2C_PushNextRoundStart bBlind.
-         * @member {number} bBlind
+         * RS2C_PushNextRoundStart bblind.
+         * @member {number} bblind
          * @memberof msg.RS2C_PushNextRoundStart
          * @instance
          */
-        RS2C_PushNextRoundStart.prototype.bBlind = 0;
+        RS2C_PushNextRoundStart.prototype.bblind = 0;
 
         /**
          * Creates a new RS2C_PushNextRoundStart instance using the specified properties.
@@ -30152,16 +30486,16 @@ $root.msg = (function() {
         RS2C_PushNextRoundStart.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
-            if (message.buttonPos != null && message.hasOwnProperty("buttonPos"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.buttonPos);
-            if (message.sBlindPos != null && message.hasOwnProperty("sBlindPos"))
-                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.sBlindPos);
-            if (message.bBlindPos != null && message.hasOwnProperty("bBlindPos"))
-                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.bBlindPos);
-            if (message.sBlind != null && message.hasOwnProperty("sBlind"))
-                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.sBlind);
-            if (message.bBlind != null && message.hasOwnProperty("bBlind"))
-                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.bBlind);
+            if (message.buttonpos != null && message.hasOwnProperty("buttonpos"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.buttonpos);
+            if (message.sblindpos != null && message.hasOwnProperty("sblindpos"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.sblindpos);
+            if (message.bblindpos != null && message.hasOwnProperty("bblindpos"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.bblindpos);
+            if (message.sblind != null && message.hasOwnProperty("sblind"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.sblind);
+            if (message.bblind != null && message.hasOwnProperty("bblind"))
+                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.bblind);
             return writer;
         };
 
@@ -30197,19 +30531,19 @@ $root.msg = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.buttonPos = reader.int32();
+                    message.buttonpos = reader.int32();
                     break;
                 case 2:
-                    message.sBlindPos = reader.int32();
+                    message.sblindpos = reader.int32();
                     break;
                 case 3:
-                    message.bBlindPos = reader.int32();
+                    message.bblindpos = reader.int32();
                     break;
                 case 4:
-                    message.sBlind = reader.int32();
+                    message.sblind = reader.int32();
                     break;
                 case 5:
-                    message.bBlind = reader.int32();
+                    message.bblind = reader.int32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -30246,21 +30580,21 @@ $root.msg = (function() {
         RS2C_PushNextRoundStart.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
-            if (message.buttonPos != null && message.hasOwnProperty("buttonPos"))
-                if (!$util.isInteger(message.buttonPos))
-                    return "buttonPos: integer expected";
-            if (message.sBlindPos != null && message.hasOwnProperty("sBlindPos"))
-                if (!$util.isInteger(message.sBlindPos))
-                    return "sBlindPos: integer expected";
-            if (message.bBlindPos != null && message.hasOwnProperty("bBlindPos"))
-                if (!$util.isInteger(message.bBlindPos))
-                    return "bBlindPos: integer expected";
-            if (message.sBlind != null && message.hasOwnProperty("sBlind"))
-                if (!$util.isInteger(message.sBlind))
-                    return "sBlind: integer expected";
-            if (message.bBlind != null && message.hasOwnProperty("bBlind"))
-                if (!$util.isInteger(message.bBlind))
-                    return "bBlind: integer expected";
+            if (message.buttonpos != null && message.hasOwnProperty("buttonpos"))
+                if (!$util.isInteger(message.buttonpos))
+                    return "buttonpos: integer expected";
+            if (message.sblindpos != null && message.hasOwnProperty("sblindpos"))
+                if (!$util.isInteger(message.sblindpos))
+                    return "sblindpos: integer expected";
+            if (message.bblindpos != null && message.hasOwnProperty("bblindpos"))
+                if (!$util.isInteger(message.bblindpos))
+                    return "bblindpos: integer expected";
+            if (message.sblind != null && message.hasOwnProperty("sblind"))
+                if (!$util.isInteger(message.sblind))
+                    return "sblind: integer expected";
+            if (message.bblind != null && message.hasOwnProperty("bblind"))
+                if (!$util.isInteger(message.bblind))
+                    return "bblind: integer expected";
             return null;
         };
 
@@ -30276,16 +30610,16 @@ $root.msg = (function() {
             if (object instanceof $root.msg.RS2C_PushNextRoundStart)
                 return object;
             var message = new $root.msg.RS2C_PushNextRoundStart();
-            if (object.buttonPos != null)
-                message.buttonPos = object.buttonPos | 0;
-            if (object.sBlindPos != null)
-                message.sBlindPos = object.sBlindPos | 0;
-            if (object.bBlindPos != null)
-                message.bBlindPos = object.bBlindPos | 0;
-            if (object.sBlind != null)
-                message.sBlind = object.sBlind | 0;
-            if (object.bBlind != null)
-                message.bBlind = object.bBlind | 0;
+            if (object.buttonpos != null)
+                message.buttonpos = object.buttonpos | 0;
+            if (object.sblindpos != null)
+                message.sblindpos = object.sblindpos | 0;
+            if (object.bblindpos != null)
+                message.bblindpos = object.bblindpos | 0;
+            if (object.sblind != null)
+                message.sblind = object.sblind | 0;
+            if (object.bblind != null)
+                message.bblind = object.bblind | 0;
             return message;
         };
 
@@ -30303,22 +30637,22 @@ $root.msg = (function() {
                 options = {};
             var object = {};
             if (options.defaults) {
-                object.buttonPos = 0;
-                object.sBlindPos = 0;
-                object.bBlindPos = 0;
-                object.sBlind = 0;
-                object.bBlind = 0;
+                object.buttonpos = 0;
+                object.sblindpos = 0;
+                object.bblindpos = 0;
+                object.sblind = 0;
+                object.bblind = 0;
             }
-            if (message.buttonPos != null && message.hasOwnProperty("buttonPos"))
-                object.buttonPos = message.buttonPos;
-            if (message.sBlindPos != null && message.hasOwnProperty("sBlindPos"))
-                object.sBlindPos = message.sBlindPos;
-            if (message.bBlindPos != null && message.hasOwnProperty("bBlindPos"))
-                object.bBlindPos = message.bBlindPos;
-            if (message.sBlind != null && message.hasOwnProperty("sBlind"))
-                object.sBlind = message.sBlind;
-            if (message.bBlind != null && message.hasOwnProperty("bBlind"))
-                object.bBlind = message.bBlind;
+            if (message.buttonpos != null && message.hasOwnProperty("buttonpos"))
+                object.buttonpos = message.buttonpos;
+            if (message.sblindpos != null && message.hasOwnProperty("sblindpos"))
+                object.sblindpos = message.sblindpos;
+            if (message.bblindpos != null && message.hasOwnProperty("bblindpos"))
+                object.bblindpos = message.bblindpos;
+            if (message.sblind != null && message.hasOwnProperty("sblind"))
+                object.sblind = message.sblind;
+            if (message.bblind != null && message.hasOwnProperty("bblind"))
+                object.bblind = message.bblind;
             return object;
         };
 
@@ -30342,8 +30676,8 @@ $root.msg = (function() {
          * Properties of a RS2C_PushChipsChange.
          * @memberof msg
          * @interface IRS2C_PushChipsChange
-         * @property {number|null} [roleId] RS2C_PushChipsChange roleId
-         * @property {number|null} [bankRoll] RS2C_PushChipsChange bankRoll
+         * @property {number|Long|null} [roleid] RS2C_PushChipsChange roleid
+         * @property {number|null} [bankroll] RS2C_PushChipsChange bankroll
          */
 
         /**
@@ -30362,20 +30696,20 @@ $root.msg = (function() {
         }
 
         /**
-         * RS2C_PushChipsChange roleId.
-         * @member {number} roleId
+         * RS2C_PushChipsChange roleid.
+         * @member {number|Long} roleid
          * @memberof msg.RS2C_PushChipsChange
          * @instance
          */
-        RS2C_PushChipsChange.prototype.roleId = 0;
+        RS2C_PushChipsChange.prototype.roleid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
-         * RS2C_PushChipsChange bankRoll.
-         * @member {number} bankRoll
+         * RS2C_PushChipsChange bankroll.
+         * @member {number} bankroll
          * @memberof msg.RS2C_PushChipsChange
          * @instance
          */
-        RS2C_PushChipsChange.prototype.bankRoll = 0;
+        RS2C_PushChipsChange.prototype.bankroll = 0;
 
         /**
          * Creates a new RS2C_PushChipsChange instance using the specified properties.
@@ -30401,10 +30735,10 @@ $root.msg = (function() {
         RS2C_PushChipsChange.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
-            if (message.roleId != null && message.hasOwnProperty("roleId"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.roleId);
-            if (message.bankRoll != null && message.hasOwnProperty("bankRoll"))
-                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.bankRoll);
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.roleid);
+            if (message.bankroll != null && message.hasOwnProperty("bankroll"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.bankroll);
             return writer;
         };
 
@@ -30440,10 +30774,10 @@ $root.msg = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.roleId = reader.int32();
+                    message.roleid = reader.int64();
                     break;
                 case 2:
-                    message.bankRoll = reader.int32();
+                    message.bankroll = reader.int32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -30480,12 +30814,12 @@ $root.msg = (function() {
         RS2C_PushChipsChange.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
-            if (message.roleId != null && message.hasOwnProperty("roleId"))
-                if (!$util.isInteger(message.roleId))
-                    return "roleId: integer expected";
-            if (message.bankRoll != null && message.hasOwnProperty("bankRoll"))
-                if (!$util.isInteger(message.bankRoll))
-                    return "bankRoll: integer expected";
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                if (!$util.isInteger(message.roleid) && !(message.roleid && $util.isInteger(message.roleid.low) && $util.isInteger(message.roleid.high)))
+                    return "roleid: integer|Long expected";
+            if (message.bankroll != null && message.hasOwnProperty("bankroll"))
+                if (!$util.isInteger(message.bankroll))
+                    return "bankroll: integer expected";
             return null;
         };
 
@@ -30501,10 +30835,17 @@ $root.msg = (function() {
             if (object instanceof $root.msg.RS2C_PushChipsChange)
                 return object;
             var message = new $root.msg.RS2C_PushChipsChange();
-            if (object.roleId != null)
-                message.roleId = object.roleId | 0;
-            if (object.bankRoll != null)
-                message.bankRoll = object.bankRoll | 0;
+            if (object.roleid != null)
+                if ($util.Long)
+                    (message.roleid = $util.Long.fromValue(object.roleid)).unsigned = false;
+                else if (typeof object.roleid === "string")
+                    message.roleid = parseInt(object.roleid, 10);
+                else if (typeof object.roleid === "number")
+                    message.roleid = object.roleid;
+                else if (typeof object.roleid === "object")
+                    message.roleid = new $util.LongBits(object.roleid.low >>> 0, object.roleid.high >>> 0).toNumber();
+            if (object.bankroll != null)
+                message.bankroll = object.bankroll | 0;
             return message;
         };
 
@@ -30522,13 +30863,20 @@ $root.msg = (function() {
                 options = {};
             var object = {};
             if (options.defaults) {
-                object.roleId = 0;
-                object.bankRoll = 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.roleid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.roleid = options.longs === String ? "0" : 0;
+                object.bankroll = 0;
             }
-            if (message.roleId != null && message.hasOwnProperty("roleId"))
-                object.roleId = message.roleId;
-            if (message.bankRoll != null && message.hasOwnProperty("bankRoll"))
-                object.bankRoll = message.bankRoll;
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                if (typeof message.roleid === "number")
+                    object.roleid = options.longs === String ? String(message.roleid) : message.roleid;
+                else
+                    object.roleid = options.longs === String ? $util.Long.prototype.toString.call(message.roleid) : options.longs === Number ? new $util.LongBits(message.roleid.low >>> 0, message.roleid.high >>> 0).toNumber() : message.roleid;
+            if (message.bankroll != null && message.hasOwnProperty("bankroll"))
+                object.bankroll = message.bankroll;
             return object;
         };
 
@@ -30552,7 +30900,7 @@ $root.msg = (function() {
          * Properties of a RS2C_PushPlayerStateChange.
          * @memberof msg
          * @interface IRS2C_PushPlayerStateChange
-         * @property {number|null} [roleId] RS2C_PushPlayerStateChange roleId
+         * @property {number|Long|null} [roleid] RS2C_PushPlayerStateChange roleid
          * @property {number|null} [state] RS2C_PushPlayerStateChange state
          * @property {number|null} [num] RS2C_PushPlayerStateChange num
          */
@@ -30573,12 +30921,12 @@ $root.msg = (function() {
         }
 
         /**
-         * RS2C_PushPlayerStateChange roleId.
-         * @member {number} roleId
+         * RS2C_PushPlayerStateChange roleid.
+         * @member {number|Long} roleid
          * @memberof msg.RS2C_PushPlayerStateChange
          * @instance
          */
-        RS2C_PushPlayerStateChange.prototype.roleId = 0;
+        RS2C_PushPlayerStateChange.prototype.roleid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
          * RS2C_PushPlayerStateChange state.
@@ -30620,8 +30968,8 @@ $root.msg = (function() {
         RS2C_PushPlayerStateChange.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
-            if (message.roleId != null && message.hasOwnProperty("roleId"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.roleId);
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.roleid);
             if (message.state != null && message.hasOwnProperty("state"))
                 writer.uint32(/* id 2, wireType 0 =*/16).int32(message.state);
             if (message.num != null && message.hasOwnProperty("num"))
@@ -30661,7 +31009,7 @@ $root.msg = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.roleId = reader.int32();
+                    message.roleid = reader.int64();
                     break;
                 case 2:
                     message.state = reader.int32();
@@ -30704,9 +31052,9 @@ $root.msg = (function() {
         RS2C_PushPlayerStateChange.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
-            if (message.roleId != null && message.hasOwnProperty("roleId"))
-                if (!$util.isInteger(message.roleId))
-                    return "roleId: integer expected";
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                if (!$util.isInteger(message.roleid) && !(message.roleid && $util.isInteger(message.roleid.low) && $util.isInteger(message.roleid.high)))
+                    return "roleid: integer|Long expected";
             if (message.state != null && message.hasOwnProperty("state"))
                 if (!$util.isInteger(message.state))
                     return "state: integer expected";
@@ -30728,8 +31076,15 @@ $root.msg = (function() {
             if (object instanceof $root.msg.RS2C_PushPlayerStateChange)
                 return object;
             var message = new $root.msg.RS2C_PushPlayerStateChange();
-            if (object.roleId != null)
-                message.roleId = object.roleId | 0;
+            if (object.roleid != null)
+                if ($util.Long)
+                    (message.roleid = $util.Long.fromValue(object.roleid)).unsigned = false;
+                else if (typeof object.roleid === "string")
+                    message.roleid = parseInt(object.roleid, 10);
+                else if (typeof object.roleid === "number")
+                    message.roleid = object.roleid;
+                else if (typeof object.roleid === "object")
+                    message.roleid = new $util.LongBits(object.roleid.low >>> 0, object.roleid.high >>> 0).toNumber();
             if (object.state != null)
                 message.state = object.state | 0;
             if (object.num != null)
@@ -30751,12 +31106,19 @@ $root.msg = (function() {
                 options = {};
             var object = {};
             if (options.defaults) {
-                object.roleId = 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.roleid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.roleid = options.longs === String ? "0" : 0;
                 object.state = 0;
                 object.num = 0;
             }
-            if (message.roleId != null && message.hasOwnProperty("roleId"))
-                object.roleId = message.roleId;
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                if (typeof message.roleid === "number")
+                    object.roleid = options.longs === String ? String(message.roleid) : message.roleid;
+                else
+                    object.roleid = options.longs === String ? $util.Long.prototype.toString.call(message.roleid) : options.longs === Number ? new $util.LongBits(message.roleid.low >>> 0, message.roleid.high >>> 0).toNumber() : message.roleid;
             if (message.state != null && message.hasOwnProperty("state"))
                 object.state = message.state;
             if (message.num != null && message.hasOwnProperty("num"))
@@ -31456,7 +31818,7 @@ $root.msg = (function() {
          * @interface IPotInfo
          * @property {number|null} [num] PotInfo num
          * @property {number|null} [type] PotInfo type
-         * @property {Array.<number>|null} [roleid] PotInfo roleid
+         * @property {Array.<number|Long>|null} [roleid] PotInfo roleid
          */
 
         /**
@@ -31493,7 +31855,7 @@ $root.msg = (function() {
 
         /**
          * PotInfo roleid.
-         * @member {Array.<number>} roleid
+         * @member {Array.<number|Long>} roleid
          * @memberof msg.PotInfo
          * @instance
          */
@@ -31529,7 +31891,7 @@ $root.msg = (function() {
                 writer.uint32(/* id 2, wireType 0 =*/16).int32(message.type);
             if (message.roleid != null && message.roleid.length)
                 for (var i = 0; i < message.roleid.length; ++i)
-                    writer.uint32(/* id 3, wireType 0 =*/24).int32(message.roleid[i]);
+                    writer.uint32(/* id 3, wireType 0 =*/24).int64(message.roleid[i]);
             return writer;
         };
 
@@ -31576,9 +31938,9 @@ $root.msg = (function() {
                     if ((tag & 7) === 2) {
                         var end2 = reader.uint32() + reader.pos;
                         while (reader.pos < end2)
-                            message.roleid.push(reader.int32());
+                            message.roleid.push(reader.int64());
                     } else
-                        message.roleid.push(reader.int32());
+                        message.roleid.push(reader.int64());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -31625,8 +31987,8 @@ $root.msg = (function() {
                 if (!Array.isArray(message.roleid))
                     return "roleid: array expected";
                 for (var i = 0; i < message.roleid.length; ++i)
-                    if (!$util.isInteger(message.roleid[i]))
-                        return "roleid: integer[] expected";
+                    if (!$util.isInteger(message.roleid[i]) && !(message.roleid[i] && $util.isInteger(message.roleid[i].low) && $util.isInteger(message.roleid[i].high)))
+                        return "roleid: integer|Long[] expected";
             }
             return null;
         };
@@ -31652,7 +32014,14 @@ $root.msg = (function() {
                     throw TypeError(".msg.PotInfo.roleid: array expected");
                 message.roleid = [];
                 for (var i = 0; i < object.roleid.length; ++i)
-                    message.roleid[i] = object.roleid[i] | 0;
+                    if ($util.Long)
+                        (message.roleid[i] = $util.Long.fromValue(object.roleid[i])).unsigned = false;
+                    else if (typeof object.roleid[i] === "string")
+                        message.roleid[i] = parseInt(object.roleid[i], 10);
+                    else if (typeof object.roleid[i] === "number")
+                        message.roleid[i] = object.roleid[i];
+                    else if (typeof object.roleid[i] === "object")
+                        message.roleid[i] = new $util.LongBits(object.roleid[i].low >>> 0, object.roleid[i].high >>> 0).toNumber();
             }
             return message;
         };
@@ -31683,7 +32052,10 @@ $root.msg = (function() {
             if (message.roleid && message.roleid.length) {
                 object.roleid = [];
                 for (var j = 0; j < message.roleid.length; ++j)
-                    object.roleid[j] = message.roleid[j];
+                    if (typeof message.roleid[j] === "number")
+                        object.roleid[j] = options.longs === String ? String(message.roleid[j]) : message.roleid[j];
+                    else
+                        object.roleid[j] = options.longs === String ? $util.Long.prototype.toString.call(message.roleid[j]) : options.longs === Number ? new $util.LongBits(message.roleid[j].low >>> 0, message.roleid[j].high >>> 0).toNumber() : message.roleid[j];
             }
             return object;
         };
@@ -31708,7 +32080,7 @@ $root.msg = (function() {
          * Properties of a HandCardInfo.
          * @memberof msg
          * @interface IHandCardInfo
-         * @property {number|null} [roleId] HandCardInfo roleId
+         * @property {number|Long|null} [roleid] HandCardInfo roleid
          * @property {Array.<number>|null} [card] HandCardInfo card
          */
 
@@ -31729,12 +32101,12 @@ $root.msg = (function() {
         }
 
         /**
-         * HandCardInfo roleId.
-         * @member {number} roleId
+         * HandCardInfo roleid.
+         * @member {number|Long} roleid
          * @memberof msg.HandCardInfo
          * @instance
          */
-        HandCardInfo.prototype.roleId = 0;
+        HandCardInfo.prototype.roleid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
          * HandCardInfo card.
@@ -31768,8 +32140,8 @@ $root.msg = (function() {
         HandCardInfo.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
-            if (message.roleId != null && message.hasOwnProperty("roleId"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.roleId);
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.roleid);
             if (message.card != null && message.card.length)
                 for (var i = 0; i < message.card.length; ++i)
                     writer.uint32(/* id 2, wireType 0 =*/16).int32(message.card[i]);
@@ -31808,7 +32180,7 @@ $root.msg = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.roleId = reader.int32();
+                    message.roleid = reader.int64();
                     break;
                 case 2:
                     if (!(message.card && message.card.length))
@@ -31855,9 +32227,9 @@ $root.msg = (function() {
         HandCardInfo.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
-            if (message.roleId != null && message.hasOwnProperty("roleId"))
-                if (!$util.isInteger(message.roleId))
-                    return "roleId: integer expected";
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                if (!$util.isInteger(message.roleid) && !(message.roleid && $util.isInteger(message.roleid.low) && $util.isInteger(message.roleid.high)))
+                    return "roleid: integer|Long expected";
             if (message.card != null && message.hasOwnProperty("card")) {
                 if (!Array.isArray(message.card))
                     return "card: array expected";
@@ -31880,8 +32252,15 @@ $root.msg = (function() {
             if (object instanceof $root.msg.HandCardInfo)
                 return object;
             var message = new $root.msg.HandCardInfo();
-            if (object.roleId != null)
-                message.roleId = object.roleId | 0;
+            if (object.roleid != null)
+                if ($util.Long)
+                    (message.roleid = $util.Long.fromValue(object.roleid)).unsigned = false;
+                else if (typeof object.roleid === "string")
+                    message.roleid = parseInt(object.roleid, 10);
+                else if (typeof object.roleid === "number")
+                    message.roleid = object.roleid;
+                else if (typeof object.roleid === "object")
+                    message.roleid = new $util.LongBits(object.roleid.low >>> 0, object.roleid.high >>> 0).toNumber();
             if (object.card) {
                 if (!Array.isArray(object.card))
                     throw TypeError(".msg.HandCardInfo.card: array expected");
@@ -31908,9 +32287,16 @@ $root.msg = (function() {
             if (options.arrays || options.defaults)
                 object.card = [];
             if (options.defaults)
-                object.roleId = 0;
-            if (message.roleId != null && message.hasOwnProperty("roleId"))
-                object.roleId = message.roleId;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.roleid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.roleid = options.longs === String ? "0" : 0;
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                if (typeof message.roleid === "number")
+                    object.roleid = options.longs === String ? String(message.roleid) : message.roleid;
+                else
+                    object.roleid = options.longs === String ? $util.Long.prototype.toString.call(message.roleid) : options.longs === Number ? new $util.LongBits(message.roleid.low >>> 0, message.roleid.high >>> 0).toNumber() : message.roleid;
             if (message.card && message.card.length) {
                 object.card = [];
                 for (var j = 0; j < message.card.length; ++j)
@@ -31939,8 +32325,8 @@ $root.msg = (function() {
          * Properties of a RS2C_PushOneRoundOver.
          * @memberof msg
          * @interface IRS2C_PushOneRoundOver
-         * @property {Array.<msg.IPotInfo>|null} [potList] RS2C_PushOneRoundOver potList
-         * @property {Array.<msg.IHandCardInfo>|null} [handCardList] RS2C_PushOneRoundOver handCardList
+         * @property {Array.<msg.IPotInfo>|null} [potlist] RS2C_PushOneRoundOver potlist
+         * @property {Array.<msg.IHandCardInfo>|null} [handcardlist] RS2C_PushOneRoundOver handcardlist
          */
 
         /**
@@ -31952,8 +32338,8 @@ $root.msg = (function() {
          * @param {msg.IRS2C_PushOneRoundOver=} [properties] Properties to set
          */
         function RS2C_PushOneRoundOver(properties) {
-            this.potList = [];
-            this.handCardList = [];
+            this.potlist = [];
+            this.handcardlist = [];
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
@@ -31961,20 +32347,20 @@ $root.msg = (function() {
         }
 
         /**
-         * RS2C_PushOneRoundOver potList.
-         * @member {Array.<msg.IPotInfo>} potList
+         * RS2C_PushOneRoundOver potlist.
+         * @member {Array.<msg.IPotInfo>} potlist
          * @memberof msg.RS2C_PushOneRoundOver
          * @instance
          */
-        RS2C_PushOneRoundOver.prototype.potList = $util.emptyArray;
+        RS2C_PushOneRoundOver.prototype.potlist = $util.emptyArray;
 
         /**
-         * RS2C_PushOneRoundOver handCardList.
-         * @member {Array.<msg.IHandCardInfo>} handCardList
+         * RS2C_PushOneRoundOver handcardlist.
+         * @member {Array.<msg.IHandCardInfo>} handcardlist
          * @memberof msg.RS2C_PushOneRoundOver
          * @instance
          */
-        RS2C_PushOneRoundOver.prototype.handCardList = $util.emptyArray;
+        RS2C_PushOneRoundOver.prototype.handcardlist = $util.emptyArray;
 
         /**
          * Creates a new RS2C_PushOneRoundOver instance using the specified properties.
@@ -32000,12 +32386,12 @@ $root.msg = (function() {
         RS2C_PushOneRoundOver.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
-            if (message.potList != null && message.potList.length)
-                for (var i = 0; i < message.potList.length; ++i)
-                    $root.msg.PotInfo.encode(message.potList[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-            if (message.handCardList != null && message.handCardList.length)
-                for (var i = 0; i < message.handCardList.length; ++i)
-                    $root.msg.HandCardInfo.encode(message.handCardList[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+            if (message.potlist != null && message.potlist.length)
+                for (var i = 0; i < message.potlist.length; ++i)
+                    $root.msg.PotInfo.encode(message.potlist[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            if (message.handcardlist != null && message.handcardlist.length)
+                for (var i = 0; i < message.handcardlist.length; ++i)
+                    $root.msg.HandCardInfo.encode(message.handcardlist[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
             return writer;
         };
 
@@ -32041,14 +32427,14 @@ $root.msg = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    if (!(message.potList && message.potList.length))
-                        message.potList = [];
-                    message.potList.push($root.msg.PotInfo.decode(reader, reader.uint32()));
+                    if (!(message.potlist && message.potlist.length))
+                        message.potlist = [];
+                    message.potlist.push($root.msg.PotInfo.decode(reader, reader.uint32()));
                     break;
                 case 2:
-                    if (!(message.handCardList && message.handCardList.length))
-                        message.handCardList = [];
-                    message.handCardList.push($root.msg.HandCardInfo.decode(reader, reader.uint32()));
+                    if (!(message.handcardlist && message.handcardlist.length))
+                        message.handcardlist = [];
+                    message.handcardlist.push($root.msg.HandCardInfo.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -32085,22 +32471,22 @@ $root.msg = (function() {
         RS2C_PushOneRoundOver.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
-            if (message.potList != null && message.hasOwnProperty("potList")) {
-                if (!Array.isArray(message.potList))
-                    return "potList: array expected";
-                for (var i = 0; i < message.potList.length; ++i) {
-                    var error = $root.msg.PotInfo.verify(message.potList[i]);
+            if (message.potlist != null && message.hasOwnProperty("potlist")) {
+                if (!Array.isArray(message.potlist))
+                    return "potlist: array expected";
+                for (var i = 0; i < message.potlist.length; ++i) {
+                    var error = $root.msg.PotInfo.verify(message.potlist[i]);
                     if (error)
-                        return "potList." + error;
+                        return "potlist." + error;
                 }
             }
-            if (message.handCardList != null && message.hasOwnProperty("handCardList")) {
-                if (!Array.isArray(message.handCardList))
-                    return "handCardList: array expected";
-                for (var i = 0; i < message.handCardList.length; ++i) {
-                    var error = $root.msg.HandCardInfo.verify(message.handCardList[i]);
+            if (message.handcardlist != null && message.hasOwnProperty("handcardlist")) {
+                if (!Array.isArray(message.handcardlist))
+                    return "handcardlist: array expected";
+                for (var i = 0; i < message.handcardlist.length; ++i) {
+                    var error = $root.msg.HandCardInfo.verify(message.handcardlist[i]);
                     if (error)
-                        return "handCardList." + error;
+                        return "handcardlist." + error;
                 }
             }
             return null;
@@ -32118,24 +32504,24 @@ $root.msg = (function() {
             if (object instanceof $root.msg.RS2C_PushOneRoundOver)
                 return object;
             var message = new $root.msg.RS2C_PushOneRoundOver();
-            if (object.potList) {
-                if (!Array.isArray(object.potList))
-                    throw TypeError(".msg.RS2C_PushOneRoundOver.potList: array expected");
-                message.potList = [];
-                for (var i = 0; i < object.potList.length; ++i) {
-                    if (typeof object.potList[i] !== "object")
-                        throw TypeError(".msg.RS2C_PushOneRoundOver.potList: object expected");
-                    message.potList[i] = $root.msg.PotInfo.fromObject(object.potList[i]);
+            if (object.potlist) {
+                if (!Array.isArray(object.potlist))
+                    throw TypeError(".msg.RS2C_PushOneRoundOver.potlist: array expected");
+                message.potlist = [];
+                for (var i = 0; i < object.potlist.length; ++i) {
+                    if (typeof object.potlist[i] !== "object")
+                        throw TypeError(".msg.RS2C_PushOneRoundOver.potlist: object expected");
+                    message.potlist[i] = $root.msg.PotInfo.fromObject(object.potlist[i]);
                 }
             }
-            if (object.handCardList) {
-                if (!Array.isArray(object.handCardList))
-                    throw TypeError(".msg.RS2C_PushOneRoundOver.handCardList: array expected");
-                message.handCardList = [];
-                for (var i = 0; i < object.handCardList.length; ++i) {
-                    if (typeof object.handCardList[i] !== "object")
-                        throw TypeError(".msg.RS2C_PushOneRoundOver.handCardList: object expected");
-                    message.handCardList[i] = $root.msg.HandCardInfo.fromObject(object.handCardList[i]);
+            if (object.handcardlist) {
+                if (!Array.isArray(object.handcardlist))
+                    throw TypeError(".msg.RS2C_PushOneRoundOver.handcardlist: array expected");
+                message.handcardlist = [];
+                for (var i = 0; i < object.handcardlist.length; ++i) {
+                    if (typeof object.handcardlist[i] !== "object")
+                        throw TypeError(".msg.RS2C_PushOneRoundOver.handcardlist: object expected");
+                    message.handcardlist[i] = $root.msg.HandCardInfo.fromObject(object.handcardlist[i]);
                 }
             }
             return message;
@@ -32155,18 +32541,18 @@ $root.msg = (function() {
                 options = {};
             var object = {};
             if (options.arrays || options.defaults) {
-                object.potList = [];
-                object.handCardList = [];
+                object.potlist = [];
+                object.handcardlist = [];
             }
-            if (message.potList && message.potList.length) {
-                object.potList = [];
-                for (var j = 0; j < message.potList.length; ++j)
-                    object.potList[j] = $root.msg.PotInfo.toObject(message.potList[j], options);
+            if (message.potlist && message.potlist.length) {
+                object.potlist = [];
+                for (var j = 0; j < message.potlist.length; ++j)
+                    object.potlist[j] = $root.msg.PotInfo.toObject(message.potlist[j], options);
             }
-            if (message.handCardList && message.handCardList.length) {
-                object.handCardList = [];
-                for (var j = 0; j < message.handCardList.length; ++j)
-                    object.handCardList[j] = $root.msg.HandCardInfo.toObject(message.handCardList[j], options);
+            if (message.handcardlist && message.handcardlist.length) {
+                object.handcardlist = [];
+                for (var j = 0; j < message.handcardlist.length; ++j)
+                    object.handcardlist[j] = $root.msg.HandCardInfo.toObject(message.handcardlist[j], options);
             }
             return object;
         };

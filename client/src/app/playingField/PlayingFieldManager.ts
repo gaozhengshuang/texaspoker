@@ -13,18 +13,20 @@ class PlayingFieldManager
 	 */
     public static reqRoomListInfo(type: number)
     {
-        SocketManager.call(Command.Req_RoomInfo_3002, { "type": type }, PlayingFieldManager.RoomListInfoResponse, null, this);
+        SocketManager.call(Command.C2GW_ReqTexasRoomList, { "type": type }, PlayingFieldManager.RoomListInfoResponse, null, this);
     }
     public static RoomListInfoResponse(result: game.SpRpcResult)
     {
-        if (result.data && result.data["roomList"])
+        let data: msg.TexasRoomSimpleInfo[] = result.data;
+
+        if (data)
         {
             game.ArrayUtil.Clear(PlayingFieldManager.roomList);
             if (!PlayingFieldManager.roomList)
             {
                 PlayingFieldManager.roomList = new Array<PlayingFieldRoomInfo>();
             }
-            for (let roomInfo of result.data["roomList"])
+            for (let roomInfo of data)
             {
                 let info: PlayingFieldRoomInfo = new PlayingFieldRoomInfo();
                 info.copyValueFrom(roomInfo);

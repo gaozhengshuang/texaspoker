@@ -128,7 +128,7 @@ class GameHallPanel extends BasePanel
 		ChannelManager.checkUnFinishedPayList();
 		this._btnSupport.init();
 		// BindAccountManager.reqGetList();//move todo
-		this.inviteBtn.visible = InviteManager.isInviteOpen;
+		// this.inviteBtn.visible = InviteManager.isInviteOpen; //move todo
 	}
 
 	private updateRankList()

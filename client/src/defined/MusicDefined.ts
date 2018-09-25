@@ -1,10 +1,8 @@
 /**
  * 音乐音效配置表
  */
-class MusicDefined extends BaseDefined<MusicDefinition>
+class MusicDefined
 {
-	private static readonly musicConfig: string = "music";
-	private static _isParsed: boolean = false;
 	private static _instance: MusicDefined;
 	public static GetInstance(): MusicDefined
 	{
@@ -12,61 +10,30 @@ class MusicDefined extends BaseDefined<MusicDefinition>
 		{
 			MusicDefined._instance = new MusicDefined();
 		}
-
-		if (!MusicDefined._isParsed)
-		{
-			MusicDefined._isParsed = true;
-			MusicDefined._instance.initialize();
-		}
 		return MusicDefined._instance;
-	}
-	public getDefinition(id: number)
-	{
-		return new MusicDefinition();
-	}
-	private initialize()
-	{
-		// this.dataList = DefinedManager.GetData(MusicDefined.musicConfig) as Array<MusicDefinition>;
-		// if (this.dataList)
-		// {
-		// 	for (let def of this.dataList)
-		// 	{
-		// 		if (def.boy)
-		// 		{
-		// 			def.boy = def.boy.toString().split(game.StringConstants.Semicolon);
-		// 		}
-		// 		if (def.girl)
-		// 		{
-		// 			def.girl = def.girl.toString().split(game.StringConstants.Semicolon);
-		// 		}
-		// 	}
-		// }
 	}
 	/**
 	 * 根据性别、行为、牌、获取一个音效，随机
 	 */
 	public getSexMusicDefinition(sex: number, action: string, pai?: number): string
 	{
-		let def: MusicDefinition = this.getMusicDefinition(action, pai);
+		let def: table.IMusicDefine = this.getMusicDefinition(action, pai);
 		if (def)
 		{
 			let index: number = 0;
-			if (sex == Sex.Female && def.girl)
+			if (sex == Sex.Female && def.Girl)
 			{
-				index = game.MathUtil.getRandom(0, def.girl.length - 1);
-				return def.girl[index];
+				return def.Girl;
 			}
-			else if (sex == Sex.Male && def.boy)
+			else if (sex == Sex.Male && def.Boy)
 			{
-				index = game.MathUtil.getRandom(0, def.boy.length - 1);
-				return def.boy[index];
+				return def.Boy;
 			}
 			else
 			{
-				if (def.boy)
+				if (def.Boy)
 				{
-					index = game.MathUtil.getRandom(0, def.boy.length - 1);
-					return def.boy[index];
+					return def.Boy;
 				}
 			}
 		}
@@ -75,22 +42,16 @@ class MusicDefined extends BaseDefined<MusicDefinition>
 	/**
 	 * 获取音效定义 
 	 */
-	public getMusicDefinition(action: string, pai?: number): MusicDefinition
+	public getMusicDefinition(action: string, pai?: number): table.IMusicDefine
 	{
-		if (!this.dataList)
-		{
-			return null;
-		}
-		let len: number = this.dataList.length;
-		let def: MusicDefinition;
+		let def: table.IMusicDefine;
 		if (action == "any")//MusicAction.pai
 		{
 			if (pai != undefined)
 			{
-				for (let i: number = 0; i < len; i++)
+				for (let def of table.Music)
 				{
-					def = this.dataList[i];
-					if (def.pai == pai)
+					if (def.Id == pai)
 					{
 						return def;
 					}
@@ -99,38 +60,13 @@ class MusicDefined extends BaseDefined<MusicDefinition>
 		}
 		else
 		{
-			for (let i: number = 0; i < len; i++)
+			for (let def of table.Music)
 			{
-				def = this.dataList[i];
-				if (def.action == action)
+				if (def.Action == action)
 				{
 					return def;
 				}
 			}
 		}
 	}
-}
-/**
- * 错误码定义
- */
-class MusicDefinition implements IBaseDefintion
-{
-	/*id*/
-	public id: number;
-	/**
-	 * 行为
-	 */
-	public action: string;
-	/**
-	 * 牌id
-	 */
-	public pai: number;
-	/**
-	 * 男声
-	 */
-	public boy: Array<string>;
-	/**
-	 * 女声
-	 */
-	public girl: Array<string>;
 }
