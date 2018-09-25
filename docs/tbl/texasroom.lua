@@ -3,16 +3,16 @@
 
 module table {
 export var TexasRoom : table.ITexasRoomDefine[] = [
-		{ Id : 1001, Desc : "初级", Type : 1, SBlind : 10, BBlind : 20, SBuyin : 200, BBuyin : 2000, Tax : 1, Seat : 5, Pattern : 0, Cd : 20, ClientCd : 15, WaitingTime : 30, Ante : [  ], Timeout : 3, DelayPosTime : 5, Rbt : 4, KeepSeat : 1, Initrbt : 25 	},
-		{ Id : 1002, Desc : "初级", Type : 1, SBlind : 10, BBlind : 20, SBuyin : 200, BBuyin : 2000, Tax : 1, Seat : 5, Pattern : 0, Cd : 20, ClientCd : 15, WaitingTime : 30, Ante : [  ], Timeout : 3, DelayPosTime : 5, Rbt : 4, KeepSeat : 1, Initrbt : 25 	},
-		{ Id : 2001, Desc : "中级", Type : 2, SBlind : 50, BBlind : 100, SBuyin : 1000, BBuyin : 10000, Tax : 5, Seat : 5, Pattern : 0, Cd : 20, ClientCd : 15, WaitingTime : 30, Ante : [  ], Timeout : 3, DelayPosTime : 5, Rbt : 4, KeepSeat : 1, Initrbt : 21 	},
-		{ Id : 2002, Desc : "中级", Type : 2, SBlind : 50, BBlind : 100, SBuyin : 1000, BBuyin : 10000, Tax : 5, Seat : 5, Pattern : 0, Cd : 20, ClientCd : 15, WaitingTime : 30, Ante : [  ], Timeout : 3, DelayPosTime : 5, Rbt : 4, KeepSeat : 1, Initrbt : 21 	},
-		{ Id : 3001, Desc : "高级", Type : 3, SBlind : 200, BBlind : 400, SBuyin : 4000, BBuyin : 40000, Tax : 10, Seat : 9, Pattern : 0, Cd : 20, ClientCd : 15, WaitingTime : 30, Ante : [  ], Timeout : 3, DelayPosTime : 5, Rbt : 8, KeepSeat : 2, Initrbt : 22 	},
-		{ Id : 3002, Desc : "高级", Type : 3, SBlind : 200, BBlind : 400, SBuyin : 4000, BBuyin : 40000, Tax : 10, Seat : 9, Pattern : 0, Cd : 20, ClientCd : 15, WaitingTime : 30, Ante : [  ], Timeout : 3, DelayPosTime : 5, Rbt : 8, KeepSeat : 2, Initrbt : 22 	},
-		{ Id : 11001, Desc : "私人", Type : 11, SBlind : 1000, BBlind : 2000, SBuyin : 20000, BBuyin : 200000, Tax : 10, Seat : 9, Pattern : 0, Cd : 20, ClientCd : 15, WaitingTime : 30, Ante : [  ], Timeout : 3, DelayPosTime : 5, Rbt : 8, KeepSeat : 2, Initrbt : 22 	},
-		{ Id : 11002, Desc : "私人", Type : 11, SBlind : 2000, BBlind : 4000, SBuyin : 40000, BBuyin : 400000, Tax : 10, Seat : 9, Pattern : 0, Cd : 20, ClientCd : 15, WaitingTime : 30, Ante : [  ], Timeout : 3, DelayPosTime : 5, Rbt : 8, KeepSeat : 2, Initrbt : 22 	},
-		{ Id : 11003, Desc : "私人", Type : 11, SBlind : 3000, BBlind : 6000, SBuyin : 60000, BBuyin : 600000, Tax : 10, Seat : 9, Pattern : 0, Cd : 20, ClientCd : 15, WaitingTime : 30, Ante : [  ], Timeout : 3, DelayPosTime : 5, Rbt : 8, KeepSeat : 2, Initrbt : 22 	},
-		{ Id : 11004, Desc : "私人", Type : 11, SBlind : 4000, BBlind : 8000, SBuyin : 80000, BBuyin : 800000, Tax : 10, Seat : 9, Pattern : 0, Cd : 20, ClientCd : 15, WaitingTime : 30, Ante : [  ], Timeout : 3, DelayPosTime : 5, Rbt : 8, KeepSeat : 2, Initrbt : 22 	}
+		{ Id : 1001, Desc : "初级", Type : 1, SBlind : 10, BBlind : 20, SBuyin : 200, BBuyin : 2000, Tax : 1, Seat : 5, Pattern : 0, Cd : 20, ClientCd : 15, WaitingTime : 30, Ante : [ 1 ], Timeout : 3, DelayPosTime : 5, Rbt : 4, KeepSeat : 1, Initrbt : 25 	},
+		{ Id : 1002, Desc : "初级", Type : 1, SBlind : 10, BBlind : 20, SBuyin : 200, BBuyin : 2000, Tax : 1, Seat : 5, Pattern : 0, Cd : 20, ClientCd : 15, WaitingTime : 30, Ante : [ 2 ], Timeout : 3, DelayPosTime : 5, Rbt : 4, KeepSeat : 1, Initrbt : 25 	},
+		{ Id : 2001, Desc : "中级", Type : 2, SBlind : 50, BBlind : 100, SBuyin : 1000, BBuyin : 10000, Tax : 5, Seat : 5, Pattern : 0, Cd : 20, ClientCd : 15, WaitingTime : 30, Ante : [ 3 ], Timeout : 3, DelayPosTime : 5, Rbt : 4, KeepSeat : 1, Initrbt : 21 	},
+		{ Id : 2002, Desc : "中级", Type : 2, SBlind : 50, BBlind : 100, SBuyin : 1000, BBuyin : 10000, Tax : 5, Seat : 5, Pattern : 0, Cd : 20, ClientCd : 15, WaitingTime : 30, Ante : [ 4 ], Timeout : 3, DelayPosTime : 5, Rbt : 4, KeepSeat : 1, Initrbt : 21 	},
+		{ Id : 3001, Desc : "高级", Type : 3, SBlind : 200, BBlind : 400, SBuyin : 4000, BBuyin : 40000, Tax : 10, Seat : 9, Pattern : 0, Cd : 20, ClientCd : 15, WaitingTime : 30, Ante : [ 5 ], Timeout : 3, DelayPosTime : 5, Rbt : 8, KeepSeat : 2, Initrbt : 22 	},
+		{ Id : 3002, Desc : "高级", Type : 3, SBlind : 200, BBlind : 400, SBuyin : 4000, BBuyin : 40000, Tax : 10, Seat : 9, Pattern : 0, Cd : 20, ClientCd : 15, WaitingTime : 30, Ante : [ 6 ], Timeout : 3, DelayPosTime : 5, Rbt : 8, KeepSeat : 2, Initrbt : 22 	},
+		{ Id : 11001, Desc : "私人", Type : 11, SBlind : 1000, BBlind : 2000, SBuyin : 20000, BBuyin : 200000, Tax : 10, Seat : 9, Pattern : 0, Cd : 20, ClientCd : 15, WaitingTime : 30, Ante : [ 7 ], Timeout : 3, DelayPosTime : 5, Rbt : 8, KeepSeat : 2, Initrbt : 22 	},
+		{ Id : 11002, Desc : "私人", Type : 11, SBlind : 2000, BBlind : 4000, SBuyin : 40000, BBuyin : 400000, Tax : 10, Seat : 9, Pattern : 0, Cd : 20, ClientCd : 15, WaitingTime : 30, Ante : [ 8 ], Timeout : 3, DelayPosTime : 5, Rbt : 8, KeepSeat : 2, Initrbt : 22 	},
+		{ Id : 11003, Desc : "私人", Type : 11, SBlind : 3000, BBlind : 6000, SBuyin : 60000, BBuyin : 600000, Tax : 10, Seat : 9, Pattern : 0, Cd : 20, ClientCd : 15, WaitingTime : 30, Ante : [ 9 ], Timeout : 3, DelayPosTime : 5, Rbt : 8, KeepSeat : 2, Initrbt : 22 	},
+		{ Id : 11004, Desc : "私人", Type : 11, SBlind : 4000, BBlind : 8000, SBuyin : 80000, BBuyin : 800000, Tax : 10, Seat : 9, Pattern : 0, Cd : 20, ClientCd : 15, WaitingTime : 30, Ante : [ 10 ], Timeout : 3, DelayPosTime : 5, Rbt : 8, KeepSeat : 2, Initrbt : 22 	}
 	]
 
 
