@@ -353,10 +353,6 @@ class Command
      */
     public static readonly BlindChange_Push_2100 = "c2100";
     /**
-     * 推送底池变化
-     */
-    public static readonly PotChipsChange_Push_2101 = "c2101";
-    /**
      * 推送一轮押注结束
      */
     public static readonly RS2C_PushOneLoopOver = "msg.RS2C_PushOneLoopOver";
@@ -376,6 +372,10 @@ class Command
      * 推送手牌
      */
     public static readonly RS2C_PushHandCard = "msg.RS2C_PushHandCard";
+    /**
+     * 请求立即亮牌
+     */
+    public static readonly C2RS_ReqBrightInTime = "msg.C2RS_ReqBrightInTime";
     /**
      * 推送亮牌
      */

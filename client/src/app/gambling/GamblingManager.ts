@@ -948,7 +948,7 @@ class GamblingManager
 		}
 		else
 		{
-			MsgTransferSend.sendRoomProto(Command.C2RS_ReqAction, { state: state, num:0 }, callBack, null, this);
+			MsgTransferSend.sendRoomProto(Command.C2RS_ReqAction, { state: state, num: 0 }, callBack, null, this);
 		}
 	}
 	/**
@@ -1110,19 +1110,26 @@ class GamblingManager
 		MsgTransferSend.sendRoomProto(Command.C2RS_ReqStandUp, {}, callBack, null, this);
 	}
 	/**
-	 * 请求亮牌
+	 * 请求结束时亮牌
 	 */
 	public static reqBrightCard()
 	{
-		let callBack: Function = function (result: game.SpRpcResult)
+		MsgTransferSend.sendRoomProto(Command.C2RS_ReqBrightCard, {}, GamblingManager.brightCardResult, null, this);
+	}
+	/**
+	 * 请求立即亮牌
+	 */
+	public static reqImmediatelyBrightCard()
+	{
+		MsgTransferSend.sendRoomProto(Command.C2RS_ReqBrightInTime, {}, GamblingManager.brightCardResult, null, this);
+	}
+	private static brightCardResult(result: game.SpRpcResult)
+	{
+		if (GamblingManager.roomInfo)
 		{
-			if (GamblingManager.roomInfo)
-			{
-				GamblingManager.roomInfo.isShowCard = !GamblingManager.roomInfo.isShowCard;
-			}
-			GamblingManager.BrightCardFlagEvent.dispatch();
-		};
-		MsgTransferSend.sendRoomProto(Command.C2RS_ReqBrightCard, {}, callBack, null, this);
+			GamblingManager.roomInfo.isShowCard = !GamblingManager.roomInfo.isShowCard;
+		}
+		GamblingManager.BrightCardFlagEvent.dispatch();
 	}
 	/**
 	 * 请求增加金币

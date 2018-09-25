@@ -6706,6 +6706,492 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a C2RS_ReqFriendGetRoleInfo. */
+    interface IC2RS_ReqFriendGetRoleInfo {
+
+        /** C2RS_ReqFriendGetRoleInfo roleid */
+        roleid?: (number|Long|null);
+    }
+
+    /** Represents a C2RS_ReqFriendGetRoleInfo. */
+    class C2RS_ReqFriendGetRoleInfo implements IC2RS_ReqFriendGetRoleInfo {
+
+        /**
+         * Constructs a new C2RS_ReqFriendGetRoleInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2RS_ReqFriendGetRoleInfo);
+
+        /** C2RS_ReqFriendGetRoleInfo roleid. */
+        public roleid: (number|Long);
+
+        /**
+         * Creates a new C2RS_ReqFriendGetRoleInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2RS_ReqFriendGetRoleInfo instance
+         */
+        public static create(properties?: msg.IC2RS_ReqFriendGetRoleInfo): msg.C2RS_ReqFriendGetRoleInfo;
+
+        /**
+         * Encodes the specified C2RS_ReqFriendGetRoleInfo message. Does not implicitly {@link msg.C2RS_ReqFriendGetRoleInfo.verify|verify} messages.
+         * @param message C2RS_ReqFriendGetRoleInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2RS_ReqFriendGetRoleInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2RS_ReqFriendGetRoleInfo message, length delimited. Does not implicitly {@link msg.C2RS_ReqFriendGetRoleInfo.verify|verify} messages.
+         * @param message C2RS_ReqFriendGetRoleInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2RS_ReqFriendGetRoleInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2RS_ReqFriendGetRoleInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2RS_ReqFriendGetRoleInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2RS_ReqFriendGetRoleInfo;
+
+        /**
+         * Decodes a C2RS_ReqFriendGetRoleInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2RS_ReqFriendGetRoleInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2RS_ReqFriendGetRoleInfo;
+
+        /**
+         * Verifies a C2RS_ReqFriendGetRoleInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2RS_ReqFriendGetRoleInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2RS_ReqFriendGetRoleInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2RS_ReqFriendGetRoleInfo;
+
+        /**
+         * Creates a plain object from a C2RS_ReqFriendGetRoleInfo message. Also converts values to other types if specified.
+         * @param message C2RS_ReqFriendGetRoleInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2RS_ReqFriendGetRoleInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2RS_ReqFriendGetRoleInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RS2C_RetFriendGetRoleInfo. */
+    interface IRS2C_RetFriendGetRoleInfo {
+
+        /** RS2C_RetFriendGetRoleInfo diamond */
+        diamond?: (number|null);
+
+        /** RS2C_RetFriendGetRoleInfo gold */
+        gold?: (number|null);
+
+        /** RS2C_RetFriendGetRoleInfo roleid */
+        roleid?: (number|Long|null);
+
+        /** RS2C_RetFriendGetRoleInfo name */
+        name?: (string|null);
+
+        /** RS2C_RetFriendGetRoleInfo head */
+        head?: (string|null);
+
+        /** RS2C_RetFriendGetRoleInfo sex */
+        sex?: (number|null);
+
+        /** RS2C_RetFriendGetRoleInfo level */
+        level?: (number|null);
+
+        /** RS2C_RetFriendGetRoleInfo exp */
+        exp?: (number|null);
+
+        /** RS2C_RetFriendGetRoleInfo ip */
+        ip?: (string|null);
+
+        /** RS2C_RetFriendGetRoleInfo sign */
+        sign?: (string|null);
+
+        /** RS2C_RetFriendGetRoleInfo age */
+        age?: (number|null);
+
+        /** RS2C_RetFriendGetRoleInfo maxgold */
+        maxgold?: (number|null);
+
+        /** RS2C_RetFriendGetRoleInfo maxgoldonetimes */
+        maxgoldonetimes?: (number|null);
+
+        /** RS2C_RetFriendGetRoleInfo friendnum */
+        friendnum?: (number|null);
+
+        /** RS2C_RetFriendGetRoleInfo gametimes */
+        gametimes?: (number|null);
+
+        /** RS2C_RetFriendGetRoleInfo wintimes */
+        wintimes?: (number|null);
+
+        /** RS2C_RetFriendGetRoleInfo maxhand */
+        maxhand?: (number[]|null);
+
+        /** RS2C_RetFriendGetRoleInfo championtimes */
+        championtimes?: (number|null);
+
+        /** RS2C_RetFriendGetRoleInfo vipexp */
+        vipexp?: (number|null);
+
+        /** RS2C_RetFriendGetRoleInfo viptime */
+        viptime?: (number|null);
+
+        /** RS2C_RetFriendGetRoleInfo yearviptime */
+        yearviptime?: (number|null);
+
+        /** RS2C_RetFriendGetRoleInfo viplevel */
+        viplevel?: (number|null);
+
+        /** RS2C_RetFriendGetRoleInfo createdtime */
+        createdtime?: (number|null);
+
+        /** RS2C_RetFriendGetRoleInfo isoffline */
+        isoffline?: (number|null);
+
+        /** RS2C_RetFriendGetRoleInfo stateid */
+        stateid?: (number|null);
+
+        /** RS2C_RetFriendGetRoleInfo stateconfid */
+        stateconfid?: (number|null);
+
+        /** RS2C_RetFriendGetRoleInfo entrytimes */
+        entrytimes?: (number|null);
+
+        /** RS2C_RetFriendGetRoleInfo showdowntimes */
+        showdowntimes?: (number|null);
+
+        /** RS2C_RetFriendGetRoleInfo mttjointimes */
+        mttjointimes?: (number|null);
+
+        /** RS2C_RetFriendGetRoleInfo mttprizetimes */
+        mttprizetimes?: (number|null);
+
+        /** RS2C_RetFriendGetRoleInfo gametimes2 */
+        gametimes2?: (number|null);
+
+        /** RS2C_RetFriendGetRoleInfo wintimes2 */
+        wintimes2?: (number|null);
+
+        /** RS2C_RetFriendGetRoleInfo entrytimes2 */
+        entrytimes2?: (number|null);
+
+        /** RS2C_RetFriendGetRoleInfo showdowntimes2 */
+        showdowntimes2?: (number|null);
+
+        /** RS2C_RetFriendGetRoleInfo errcode */
+        errcode?: (string|null);
+    }
+
+    /** Represents a RS2C_RetFriendGetRoleInfo. */
+    class RS2C_RetFriendGetRoleInfo implements IRS2C_RetFriendGetRoleInfo {
+
+        /**
+         * Constructs a new RS2C_RetFriendGetRoleInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IRS2C_RetFriendGetRoleInfo);
+
+        /** RS2C_RetFriendGetRoleInfo diamond. */
+        public diamond: number;
+
+        /** RS2C_RetFriendGetRoleInfo gold. */
+        public gold: number;
+
+        /** RS2C_RetFriendGetRoleInfo roleid. */
+        public roleid: (number|Long);
+
+        /** RS2C_RetFriendGetRoleInfo name. */
+        public name: string;
+
+        /** RS2C_RetFriendGetRoleInfo head. */
+        public head: string;
+
+        /** RS2C_RetFriendGetRoleInfo sex. */
+        public sex: number;
+
+        /** RS2C_RetFriendGetRoleInfo level. */
+        public level: number;
+
+        /** RS2C_RetFriendGetRoleInfo exp. */
+        public exp: number;
+
+        /** RS2C_RetFriendGetRoleInfo ip. */
+        public ip: string;
+
+        /** RS2C_RetFriendGetRoleInfo sign. */
+        public sign: string;
+
+        /** RS2C_RetFriendGetRoleInfo age. */
+        public age: number;
+
+        /** RS2C_RetFriendGetRoleInfo maxgold. */
+        public maxgold: number;
+
+        /** RS2C_RetFriendGetRoleInfo maxgoldonetimes. */
+        public maxgoldonetimes: number;
+
+        /** RS2C_RetFriendGetRoleInfo friendnum. */
+        public friendnum: number;
+
+        /** RS2C_RetFriendGetRoleInfo gametimes. */
+        public gametimes: number;
+
+        /** RS2C_RetFriendGetRoleInfo wintimes. */
+        public wintimes: number;
+
+        /** RS2C_RetFriendGetRoleInfo maxhand. */
+        public maxhand: number[];
+
+        /** RS2C_RetFriendGetRoleInfo championtimes. */
+        public championtimes: number;
+
+        /** RS2C_RetFriendGetRoleInfo vipexp. */
+        public vipexp: number;
+
+        /** RS2C_RetFriendGetRoleInfo viptime. */
+        public viptime: number;
+
+        /** RS2C_RetFriendGetRoleInfo yearviptime. */
+        public yearviptime: number;
+
+        /** RS2C_RetFriendGetRoleInfo viplevel. */
+        public viplevel: number;
+
+        /** RS2C_RetFriendGetRoleInfo createdtime. */
+        public createdtime: number;
+
+        /** RS2C_RetFriendGetRoleInfo isoffline. */
+        public isoffline: number;
+
+        /** RS2C_RetFriendGetRoleInfo stateid. */
+        public stateid: number;
+
+        /** RS2C_RetFriendGetRoleInfo stateconfid. */
+        public stateconfid: number;
+
+        /** RS2C_RetFriendGetRoleInfo entrytimes. */
+        public entrytimes: number;
+
+        /** RS2C_RetFriendGetRoleInfo showdowntimes. */
+        public showdowntimes: number;
+
+        /** RS2C_RetFriendGetRoleInfo mttjointimes. */
+        public mttjointimes: number;
+
+        /** RS2C_RetFriendGetRoleInfo mttprizetimes. */
+        public mttprizetimes: number;
+
+        /** RS2C_RetFriendGetRoleInfo gametimes2. */
+        public gametimes2: number;
+
+        /** RS2C_RetFriendGetRoleInfo wintimes2. */
+        public wintimes2: number;
+
+        /** RS2C_RetFriendGetRoleInfo entrytimes2. */
+        public entrytimes2: number;
+
+        /** RS2C_RetFriendGetRoleInfo showdowntimes2. */
+        public showdowntimes2: number;
+
+        /** RS2C_RetFriendGetRoleInfo errcode. */
+        public errcode: string;
+
+        /**
+         * Creates a new RS2C_RetFriendGetRoleInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RS2C_RetFriendGetRoleInfo instance
+         */
+        public static create(properties?: msg.IRS2C_RetFriendGetRoleInfo): msg.RS2C_RetFriendGetRoleInfo;
+
+        /**
+         * Encodes the specified RS2C_RetFriendGetRoleInfo message. Does not implicitly {@link msg.RS2C_RetFriendGetRoleInfo.verify|verify} messages.
+         * @param message RS2C_RetFriendGetRoleInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IRS2C_RetFriendGetRoleInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified RS2C_RetFriendGetRoleInfo message, length delimited. Does not implicitly {@link msg.RS2C_RetFriendGetRoleInfo.verify|verify} messages.
+         * @param message RS2C_RetFriendGetRoleInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IRS2C_RetFriendGetRoleInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a RS2C_RetFriendGetRoleInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RS2C_RetFriendGetRoleInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2C_RetFriendGetRoleInfo;
+
+        /**
+         * Decodes a RS2C_RetFriendGetRoleInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RS2C_RetFriendGetRoleInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2C_RetFriendGetRoleInfo;
+
+        /**
+         * Verifies a RS2C_RetFriendGetRoleInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RS2C_RetFriendGetRoleInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RS2C_RetFriendGetRoleInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.RS2C_RetFriendGetRoleInfo;
+
+        /**
+         * Creates a plain object from a RS2C_RetFriendGetRoleInfo message. Also converts values to other types if specified.
+         * @param message RS2C_RetFriendGetRoleInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.RS2C_RetFriendGetRoleInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RS2C_RetFriendGetRoleInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RS2C_RolePushPropertyChange. */
+    interface IRS2C_RolePushPropertyChange {
+
+        /** RS2C_RolePushPropertyChange diamond */
+        diamond?: (number|null);
+
+        /** RS2C_RolePushPropertyChange gold */
+        gold?: (number|null);
+
+        /** RS2C_RolePushPropertyChange safegold */
+        safegold?: (number|null);
+    }
+
+    /** Represents a RS2C_RolePushPropertyChange. */
+    class RS2C_RolePushPropertyChange implements IRS2C_RolePushPropertyChange {
+
+        /**
+         * Constructs a new RS2C_RolePushPropertyChange.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IRS2C_RolePushPropertyChange);
+
+        /** RS2C_RolePushPropertyChange diamond. */
+        public diamond: number;
+
+        /** RS2C_RolePushPropertyChange gold. */
+        public gold: number;
+
+        /** RS2C_RolePushPropertyChange safegold. */
+        public safegold: number;
+
+        /**
+         * Creates a new RS2C_RolePushPropertyChange instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RS2C_RolePushPropertyChange instance
+         */
+        public static create(properties?: msg.IRS2C_RolePushPropertyChange): msg.RS2C_RolePushPropertyChange;
+
+        /**
+         * Encodes the specified RS2C_RolePushPropertyChange message. Does not implicitly {@link msg.RS2C_RolePushPropertyChange.verify|verify} messages.
+         * @param message RS2C_RolePushPropertyChange message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IRS2C_RolePushPropertyChange, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified RS2C_RolePushPropertyChange message, length delimited. Does not implicitly {@link msg.RS2C_RolePushPropertyChange.verify|verify} messages.
+         * @param message RS2C_RolePushPropertyChange message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IRS2C_RolePushPropertyChange, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a RS2C_RolePushPropertyChange message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RS2C_RolePushPropertyChange
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2C_RolePushPropertyChange;
+
+        /**
+         * Decodes a RS2C_RolePushPropertyChange message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RS2C_RolePushPropertyChange
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2C_RolePushPropertyChange;
+
+        /**
+         * Verifies a RS2C_RolePushPropertyChange message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RS2C_RolePushPropertyChange message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RS2C_RolePushPropertyChange
+         */
+        public static fromObject(object: { [k: string]: any }): msg.RS2C_RolePushPropertyChange;
+
+        /**
+         * Creates a plain object from a RS2C_RolePushPropertyChange message. Also converts values to other types if specified.
+         * @param message RS2C_RolePushPropertyChange
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.RS2C_RolePushPropertyChange, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RS2C_RolePushPropertyChange to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a GW2C_MsgNotify. */
     interface IGW2C_MsgNotify {
 
@@ -11745,6 +12231,9 @@ declare namespace msg {
 
         /** RS2C_RetEnterRoomInfo join */
         join?: (number|null);
+
+        /** RS2C_RetEnterRoomInfo errcode */
+        errcode?: (string|null);
     }
 
     /** Represents a RS2C_RetEnterRoomInfo. */
@@ -11831,6 +12320,9 @@ declare namespace msg {
         /** RS2C_RetEnterRoomInfo join. */
         public join: number;
 
+        /** RS2C_RetEnterRoomInfo errcode. */
+        public errcode: string;
+
         /**
          * Creates a new RS2C_RetEnterRoomInfo instance using the specified properties.
          * @param [properties] Properties to set
@@ -11904,6 +12396,9 @@ declare namespace msg {
 
     /** Properties of a C2RS_ReqTimeAwardInfo. */
     interface IC2RS_ReqTimeAwardInfo {
+
+        /** C2RS_ReqTimeAwardInfo roomtype */
+        roomtype?: (number|null);
     }
 
     /** Represents a C2RS_ReqTimeAwardInfo. */
@@ -11914,6 +12409,9 @@ declare namespace msg {
          * @param [properties] Properties to set
          */
         constructor(properties?: msg.IC2RS_ReqTimeAwardInfo);
+
+        /** C2RS_ReqTimeAwardInfo roomtype. */
+        public roomtype: number;
 
         /**
          * Creates a new C2RS_ReqTimeAwardInfo instance using the specified properties.
@@ -11989,8 +12487,17 @@ declare namespace msg {
     /** Properties of a RS2C_RetTimeAwardInfo. */
     interface IRS2C_RetTimeAwardInfo {
 
-        /** RS2C_RetTimeAwardInfo roomtype */
-        roomtype?: (number|null);
+        /** RS2C_RetTimeAwardInfo round */
+        round?: (number|null);
+
+        /** RS2C_RetTimeAwardInfo sectime */
+        sectime?: (number|null);
+
+        /** RS2C_RetTimeAwardInfo starttime */
+        starttime?: (number|null);
+
+        /** RS2C_RetTimeAwardInfo errcode */
+        errcode?: (string|null);
     }
 
     /** Represents a RS2C_RetTimeAwardInfo. */
@@ -12002,8 +12509,17 @@ declare namespace msg {
          */
         constructor(properties?: msg.IRS2C_RetTimeAwardInfo);
 
-        /** RS2C_RetTimeAwardInfo roomtype. */
-        public roomtype: number;
+        /** RS2C_RetTimeAwardInfo round. */
+        public round: number;
+
+        /** RS2C_RetTimeAwardInfo sectime. */
+        public sectime: number;
+
+        /** RS2C_RetTimeAwardInfo starttime. */
+        public starttime: number;
+
+        /** RS2C_RetTimeAwardInfo errcode. */
+        public errcode: string;
 
         /**
          * Creates a new RS2C_RetTimeAwardInfo instance using the specified properties.
@@ -12180,6 +12696,9 @@ declare namespace msg {
 
     /** Properties of a RS2C_RetBuyInGame. */
     interface IRS2C_RetBuyInGame {
+
+        /** RS2C_RetBuyInGame errcode */
+        errcode?: (string|null);
     }
 
     /** Represents a RS2C_RetBuyInGame. */
@@ -12190,6 +12709,9 @@ declare namespace msg {
          * @param [properties] Properties to set
          */
         constructor(properties?: msg.IRS2C_RetBuyInGame);
+
+        /** RS2C_RetBuyInGame errcode. */
+        public errcode: string;
 
         /**
          * Creates a new RS2C_RetBuyInGame instance using the specified properties.
@@ -12262,90 +12784,6 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a RS2C_RolePushPropertyChange. */
-    interface IRS2C_RolePushPropertyChange {
-    }
-
-    /** Represents a RS2C_RolePushPropertyChange. */
-    class RS2C_RolePushPropertyChange implements IRS2C_RolePushPropertyChange {
-
-        /**
-         * Constructs a new RS2C_RolePushPropertyChange.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IRS2C_RolePushPropertyChange);
-
-        /**
-         * Creates a new RS2C_RolePushPropertyChange instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns RS2C_RolePushPropertyChange instance
-         */
-        public static create(properties?: msg.IRS2C_RolePushPropertyChange): msg.RS2C_RolePushPropertyChange;
-
-        /**
-         * Encodes the specified RS2C_RolePushPropertyChange message. Does not implicitly {@link msg.RS2C_RolePushPropertyChange.verify|verify} messages.
-         * @param message RS2C_RolePushPropertyChange message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IRS2C_RolePushPropertyChange, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified RS2C_RolePushPropertyChange message, length delimited. Does not implicitly {@link msg.RS2C_RolePushPropertyChange.verify|verify} messages.
-         * @param message RS2C_RolePushPropertyChange message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IRS2C_RolePushPropertyChange, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a RS2C_RolePushPropertyChange message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns RS2C_RolePushPropertyChange
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2C_RolePushPropertyChange;
-
-        /**
-         * Decodes a RS2C_RolePushPropertyChange message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns RS2C_RolePushPropertyChange
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2C_RolePushPropertyChange;
-
-        /**
-         * Verifies a RS2C_RolePushPropertyChange message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a RS2C_RolePushPropertyChange message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns RS2C_RolePushPropertyChange
-         */
-        public static fromObject(object: { [k: string]: any }): msg.RS2C_RolePushPropertyChange;
-
-        /**
-         * Creates a plain object from a RS2C_RolePushPropertyChange message. Also converts values to other types if specified.
-         * @param message RS2C_RolePushPropertyChange
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.RS2C_RolePushPropertyChange, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this RS2C_RolePushPropertyChange to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
     /** Properties of a RS2C_PushSitOrStand. */
     interface IRS2C_PushSitOrStand {
 
@@ -12358,8 +12796,8 @@ declare namespace msg {
         /** RS2C_PushSitOrStand state */
         state?: (number|null);
 
-        /** RS2C_PushSitOrStand bankRoll */
-        bankRoll?: (number|null);
+        /** RS2C_PushSitOrStand bankroll */
+        bankroll?: (number|null);
     }
 
     /** Represents a RS2C_PushSitOrStand. */
@@ -12380,8 +12818,8 @@ declare namespace msg {
         /** RS2C_PushSitOrStand state. */
         public state: number;
 
-        /** RS2C_PushSitOrStand bankRoll. */
-        public bankRoll: number;
+        /** RS2C_PushSitOrStand bankroll. */
+        public bankroll: number;
 
         /**
          * Creates a new RS2C_PushSitOrStand instance using the specified properties.
@@ -12449,384 +12887,6 @@ declare namespace msg {
 
         /**
          * Converts this RS2C_PushSitOrStand to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a C2RS_ReqFriendGetRoleInfo. */
-    interface IC2RS_ReqFriendGetRoleInfo {
-
-        /** C2RS_ReqFriendGetRoleInfo roleid */
-        roleid?: (number|Long|null);
-    }
-
-    /** Represents a C2RS_ReqFriendGetRoleInfo. */
-    class C2RS_ReqFriendGetRoleInfo implements IC2RS_ReqFriendGetRoleInfo {
-
-        /**
-         * Constructs a new C2RS_ReqFriendGetRoleInfo.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IC2RS_ReqFriendGetRoleInfo);
-
-        /** C2RS_ReqFriendGetRoleInfo roleid. */
-        public roleid: (number|Long);
-
-        /**
-         * Creates a new C2RS_ReqFriendGetRoleInfo instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns C2RS_ReqFriendGetRoleInfo instance
-         */
-        public static create(properties?: msg.IC2RS_ReqFriendGetRoleInfo): msg.C2RS_ReqFriendGetRoleInfo;
-
-        /**
-         * Encodes the specified C2RS_ReqFriendGetRoleInfo message. Does not implicitly {@link msg.C2RS_ReqFriendGetRoleInfo.verify|verify} messages.
-         * @param message C2RS_ReqFriendGetRoleInfo message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IC2RS_ReqFriendGetRoleInfo, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified C2RS_ReqFriendGetRoleInfo message, length delimited. Does not implicitly {@link msg.C2RS_ReqFriendGetRoleInfo.verify|verify} messages.
-         * @param message C2RS_ReqFriendGetRoleInfo message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IC2RS_ReqFriendGetRoleInfo, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a C2RS_ReqFriendGetRoleInfo message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns C2RS_ReqFriendGetRoleInfo
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2RS_ReqFriendGetRoleInfo;
-
-        /**
-         * Decodes a C2RS_ReqFriendGetRoleInfo message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns C2RS_ReqFriendGetRoleInfo
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2RS_ReqFriendGetRoleInfo;
-
-        /**
-         * Verifies a C2RS_ReqFriendGetRoleInfo message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a C2RS_ReqFriendGetRoleInfo message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns C2RS_ReqFriendGetRoleInfo
-         */
-        public static fromObject(object: { [k: string]: any }): msg.C2RS_ReqFriendGetRoleInfo;
-
-        /**
-         * Creates a plain object from a C2RS_ReqFriendGetRoleInfo message. Also converts values to other types if specified.
-         * @param message C2RS_ReqFriendGetRoleInfo
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.C2RS_ReqFriendGetRoleInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this C2RS_ReqFriendGetRoleInfo to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a RS2C_RetFriendGetRoleInfo. */
-    interface IRS2C_RetFriendGetRoleInfo {
-
-        /** RS2C_RetFriendGetRoleInfo diamond */
-        diamond?: (number|null);
-
-        /** RS2C_RetFriendGetRoleInfo gold */
-        gold?: (number|null);
-
-        /** RS2C_RetFriendGetRoleInfo roleid */
-        roleid?: (number|Long|null);
-
-        /** RS2C_RetFriendGetRoleInfo name */
-        name?: (string|null);
-
-        /** RS2C_RetFriendGetRoleInfo head */
-        head?: (string|null);
-
-        /** RS2C_RetFriendGetRoleInfo sex */
-        sex?: (number|null);
-
-        /** RS2C_RetFriendGetRoleInfo level */
-        level?: (number|null);
-
-        /** RS2C_RetFriendGetRoleInfo exp */
-        exp?: (number|null);
-
-        /** RS2C_RetFriendGetRoleInfo ip */
-        ip?: (string|null);
-
-        /** RS2C_RetFriendGetRoleInfo sign */
-        sign?: (string|null);
-
-        /** RS2C_RetFriendGetRoleInfo age */
-        age?: (number|null);
-
-        /** RS2C_RetFriendGetRoleInfo maxgold */
-        maxgold?: (number|null);
-
-        /** RS2C_RetFriendGetRoleInfo maxgoldonetimes */
-        maxgoldonetimes?: (number|null);
-
-        /** RS2C_RetFriendGetRoleInfo friendnum */
-        friendnum?: (number|null);
-
-        /** RS2C_RetFriendGetRoleInfo gametimes */
-        gametimes?: (number|null);
-
-        /** RS2C_RetFriendGetRoleInfo wintimes */
-        wintimes?: (number|null);
-
-        /** RS2C_RetFriendGetRoleInfo maxhand */
-        maxhand?: (number[]|null);
-
-        /** RS2C_RetFriendGetRoleInfo championtimes */
-        championtimes?: (number|null);
-
-        /** RS2C_RetFriendGetRoleInfo vipexp */
-        vipexp?: (number|null);
-
-        /** RS2C_RetFriendGetRoleInfo viptime */
-        viptime?: (number|null);
-
-        /** RS2C_RetFriendGetRoleInfo yearviptime */
-        yearviptime?: (number|null);
-
-        /** RS2C_RetFriendGetRoleInfo viplevel */
-        viplevel?: (number|null);
-
-        /** RS2C_RetFriendGetRoleInfo createdtime */
-        createdtime?: (number|null);
-
-        /** RS2C_RetFriendGetRoleInfo isoffline */
-        isoffline?: (number|null);
-
-        /** RS2C_RetFriendGetRoleInfo stateid */
-        stateid?: (number|null);
-
-        /** RS2C_RetFriendGetRoleInfo stateconfid */
-        stateconfid?: (number|null);
-
-        /** RS2C_RetFriendGetRoleInfo entrytimes */
-        entrytimes?: (number|null);
-
-        /** RS2C_RetFriendGetRoleInfo showdowntimes */
-        showdowntimes?: (number|null);
-
-        /** RS2C_RetFriendGetRoleInfo mttjointimes */
-        mttjointimes?: (number|null);
-
-        /** RS2C_RetFriendGetRoleInfo mttprizetimes */
-        mttprizetimes?: (number|null);
-
-        /** RS2C_RetFriendGetRoleInfo gametimes2 */
-        gametimes2?: (number|null);
-
-        /** RS2C_RetFriendGetRoleInfo wintimes2 */
-        wintimes2?: (number|null);
-
-        /** RS2C_RetFriendGetRoleInfo entrytimes2 */
-        entrytimes2?: (number|null);
-
-        /** RS2C_RetFriendGetRoleInfo showdowntimes2 */
-        showdowntimes2?: (number|null);
-    }
-
-    /** Represents a RS2C_RetFriendGetRoleInfo. */
-    class RS2C_RetFriendGetRoleInfo implements IRS2C_RetFriendGetRoleInfo {
-
-        /**
-         * Constructs a new RS2C_RetFriendGetRoleInfo.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IRS2C_RetFriendGetRoleInfo);
-
-        /** RS2C_RetFriendGetRoleInfo diamond. */
-        public diamond: number;
-
-        /** RS2C_RetFriendGetRoleInfo gold. */
-        public gold: number;
-
-        /** RS2C_RetFriendGetRoleInfo roleid. */
-        public roleid: (number|Long);
-
-        /** RS2C_RetFriendGetRoleInfo name. */
-        public name: string;
-
-        /** RS2C_RetFriendGetRoleInfo head. */
-        public head: string;
-
-        /** RS2C_RetFriendGetRoleInfo sex. */
-        public sex: number;
-
-        /** RS2C_RetFriendGetRoleInfo level. */
-        public level: number;
-
-        /** RS2C_RetFriendGetRoleInfo exp. */
-        public exp: number;
-
-        /** RS2C_RetFriendGetRoleInfo ip. */
-        public ip: string;
-
-        /** RS2C_RetFriendGetRoleInfo sign. */
-        public sign: string;
-
-        /** RS2C_RetFriendGetRoleInfo age. */
-        public age: number;
-
-        /** RS2C_RetFriendGetRoleInfo maxgold. */
-        public maxgold: number;
-
-        /** RS2C_RetFriendGetRoleInfo maxgoldonetimes. */
-        public maxgoldonetimes: number;
-
-        /** RS2C_RetFriendGetRoleInfo friendnum. */
-        public friendnum: number;
-
-        /** RS2C_RetFriendGetRoleInfo gametimes. */
-        public gametimes: number;
-
-        /** RS2C_RetFriendGetRoleInfo wintimes. */
-        public wintimes: number;
-
-        /** RS2C_RetFriendGetRoleInfo maxhand. */
-        public maxhand: number[];
-
-        /** RS2C_RetFriendGetRoleInfo championtimes. */
-        public championtimes: number;
-
-        /** RS2C_RetFriendGetRoleInfo vipexp. */
-        public vipexp: number;
-
-        /** RS2C_RetFriendGetRoleInfo viptime. */
-        public viptime: number;
-
-        /** RS2C_RetFriendGetRoleInfo yearviptime. */
-        public yearviptime: number;
-
-        /** RS2C_RetFriendGetRoleInfo viplevel. */
-        public viplevel: number;
-
-        /** RS2C_RetFriendGetRoleInfo createdtime. */
-        public createdtime: number;
-
-        /** RS2C_RetFriendGetRoleInfo isoffline. */
-        public isoffline: number;
-
-        /** RS2C_RetFriendGetRoleInfo stateid. */
-        public stateid: number;
-
-        /** RS2C_RetFriendGetRoleInfo stateconfid. */
-        public stateconfid: number;
-
-        /** RS2C_RetFriendGetRoleInfo entrytimes. */
-        public entrytimes: number;
-
-        /** RS2C_RetFriendGetRoleInfo showdowntimes. */
-        public showdowntimes: number;
-
-        /** RS2C_RetFriendGetRoleInfo mttjointimes. */
-        public mttjointimes: number;
-
-        /** RS2C_RetFriendGetRoleInfo mttprizetimes. */
-        public mttprizetimes: number;
-
-        /** RS2C_RetFriendGetRoleInfo gametimes2. */
-        public gametimes2: number;
-
-        /** RS2C_RetFriendGetRoleInfo wintimes2. */
-        public wintimes2: number;
-
-        /** RS2C_RetFriendGetRoleInfo entrytimes2. */
-        public entrytimes2: number;
-
-        /** RS2C_RetFriendGetRoleInfo showdowntimes2. */
-        public showdowntimes2: number;
-
-        /**
-         * Creates a new RS2C_RetFriendGetRoleInfo instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns RS2C_RetFriendGetRoleInfo instance
-         */
-        public static create(properties?: msg.IRS2C_RetFriendGetRoleInfo): msg.RS2C_RetFriendGetRoleInfo;
-
-        /**
-         * Encodes the specified RS2C_RetFriendGetRoleInfo message. Does not implicitly {@link msg.RS2C_RetFriendGetRoleInfo.verify|verify} messages.
-         * @param message RS2C_RetFriendGetRoleInfo message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IRS2C_RetFriendGetRoleInfo, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified RS2C_RetFriendGetRoleInfo message, length delimited. Does not implicitly {@link msg.RS2C_RetFriendGetRoleInfo.verify|verify} messages.
-         * @param message RS2C_RetFriendGetRoleInfo message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IRS2C_RetFriendGetRoleInfo, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a RS2C_RetFriendGetRoleInfo message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns RS2C_RetFriendGetRoleInfo
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2C_RetFriendGetRoleInfo;
-
-        /**
-         * Decodes a RS2C_RetFriendGetRoleInfo message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns RS2C_RetFriendGetRoleInfo
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2C_RetFriendGetRoleInfo;
-
-        /**
-         * Verifies a RS2C_RetFriendGetRoleInfo message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a RS2C_RetFriendGetRoleInfo message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns RS2C_RetFriendGetRoleInfo
-         */
-        public static fromObject(object: { [k: string]: any }): msg.RS2C_RetFriendGetRoleInfo;
-
-        /**
-         * Creates a plain object from a RS2C_RetFriendGetRoleInfo message. Also converts values to other types if specified.
-         * @param message RS2C_RetFriendGetRoleInfo
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.RS2C_RetFriendGetRoleInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this RS2C_RetFriendGetRoleInfo to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -13014,6 +13074,9 @@ declare namespace msg {
 
     /** Properties of a RS2C_RetNextRound. */
     interface IRS2C_RetNextRound {
+
+        /** RS2C_RetNextRound errcode */
+        errcode?: (string|null);
     }
 
     /** Represents a RS2C_RetNextRound. */
@@ -13024,6 +13087,9 @@ declare namespace msg {
          * @param [properties] Properties to set
          */
         constructor(properties?: msg.IRS2C_RetNextRound);
+
+        /** RS2C_RetNextRound errcode. */
+        public errcode: string;
 
         /**
          * Creates a new RS2C_RetNextRound instance using the specified properties.
@@ -14082,6 +14148,9 @@ declare namespace msg {
 
     /** Properties of a RS2C_RetAction. */
     interface IRS2C_RetAction {
+
+        /** RS2C_RetAction errcode */
+        errcode?: (string|null);
     }
 
     /** Represents a RS2C_RetAction. */
@@ -14092,6 +14161,9 @@ declare namespace msg {
          * @param [properties] Properties to set
          */
         constructor(properties?: msg.IRS2C_RetAction);
+
+        /** RS2C_RetAction errcode. */
+        public errcode: string;
 
         /**
          * Creates a new RS2C_RetAction instance using the specified properties.
@@ -14263,8 +14335,8 @@ declare namespace msg {
     /** Properties of a RS2C_RetSitDown. */
     interface IRS2C_RetSitDown {
 
-        /** RS2C_RetSitDown errmsg */
-        errmsg?: (string|null);
+        /** RS2C_RetSitDown errcode */
+        errcode?: (string|null);
     }
 
     /** Represents a RS2C_RetSitDown. */
@@ -14276,8 +14348,8 @@ declare namespace msg {
          */
         constructor(properties?: msg.IRS2C_RetSitDown);
 
-        /** RS2C_RetSitDown errmsg. */
-        public errmsg: string;
+        /** RS2C_RetSitDown errcode. */
+        public errcode: string;
 
         /**
          * Creates a new RS2C_RetSitDown instance using the specified properties.
@@ -14442,6 +14514,9 @@ declare namespace msg {
 
     /** Properties of a RS2C_RetStandUp. */
     interface IRS2C_RetStandUp {
+
+        /** RS2C_RetStandUp errcode */
+        errcode?: (string|null);
     }
 
     /** Represents a RS2C_RetStandUp. */
@@ -14452,6 +14527,9 @@ declare namespace msg {
          * @param [properties] Properties to set
          */
         constructor(properties?: msg.IRS2C_RetStandUp);
+
+        /** RS2C_RetStandUp errcode. */
+        public errcode: string;
 
         /**
          * Creates a new RS2C_RetStandUp instance using the specified properties.
@@ -14610,6 +14688,9 @@ declare namespace msg {
 
     /** Properties of a RS2C_RetBrightCard. */
     interface IRS2C_RetBrightCard {
+
+        /** RS2C_RetBrightCard errcode */
+        errcode?: (string|null);
     }
 
     /** Represents a RS2C_RetBrightCard. */
@@ -14620,6 +14701,9 @@ declare namespace msg {
          * @param [properties] Properties to set
          */
         constructor(properties?: msg.IRS2C_RetBrightCard);
+
+        /** RS2C_RetBrightCard errcode. */
+        public errcode: string;
 
         /**
          * Creates a new RS2C_RetBrightCard instance using the specified properties.
@@ -14687,6 +14771,270 @@ declare namespace msg {
 
         /**
          * Converts this RS2C_RetBrightCard to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2RS_ReqBrightInTime. */
+    interface IC2RS_ReqBrightInTime {
+    }
+
+    /** Represents a C2RS_ReqBrightInTime. */
+    class C2RS_ReqBrightInTime implements IC2RS_ReqBrightInTime {
+
+        /**
+         * Constructs a new C2RS_ReqBrightInTime.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2RS_ReqBrightInTime);
+
+        /**
+         * Creates a new C2RS_ReqBrightInTime instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2RS_ReqBrightInTime instance
+         */
+        public static create(properties?: msg.IC2RS_ReqBrightInTime): msg.C2RS_ReqBrightInTime;
+
+        /**
+         * Encodes the specified C2RS_ReqBrightInTime message. Does not implicitly {@link msg.C2RS_ReqBrightInTime.verify|verify} messages.
+         * @param message C2RS_ReqBrightInTime message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2RS_ReqBrightInTime, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2RS_ReqBrightInTime message, length delimited. Does not implicitly {@link msg.C2RS_ReqBrightInTime.verify|verify} messages.
+         * @param message C2RS_ReqBrightInTime message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2RS_ReqBrightInTime, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2RS_ReqBrightInTime message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2RS_ReqBrightInTime
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2RS_ReqBrightInTime;
+
+        /**
+         * Decodes a C2RS_ReqBrightInTime message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2RS_ReqBrightInTime
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2RS_ReqBrightInTime;
+
+        /**
+         * Verifies a C2RS_ReqBrightInTime message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2RS_ReqBrightInTime message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2RS_ReqBrightInTime
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2RS_ReqBrightInTime;
+
+        /**
+         * Creates a plain object from a C2RS_ReqBrightInTime message. Also converts values to other types if specified.
+         * @param message C2RS_ReqBrightInTime
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2RS_ReqBrightInTime, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2RS_ReqBrightInTime to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RS2C_RetBrightInTime. */
+    interface IRS2C_RetBrightInTime {
+    }
+
+    /** Represents a RS2C_RetBrightInTime. */
+    class RS2C_RetBrightInTime implements IRS2C_RetBrightInTime {
+
+        /**
+         * Constructs a new RS2C_RetBrightInTime.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IRS2C_RetBrightInTime);
+
+        /**
+         * Creates a new RS2C_RetBrightInTime instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RS2C_RetBrightInTime instance
+         */
+        public static create(properties?: msg.IRS2C_RetBrightInTime): msg.RS2C_RetBrightInTime;
+
+        /**
+         * Encodes the specified RS2C_RetBrightInTime message. Does not implicitly {@link msg.RS2C_RetBrightInTime.verify|verify} messages.
+         * @param message RS2C_RetBrightInTime message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IRS2C_RetBrightInTime, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified RS2C_RetBrightInTime message, length delimited. Does not implicitly {@link msg.RS2C_RetBrightInTime.verify|verify} messages.
+         * @param message RS2C_RetBrightInTime message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IRS2C_RetBrightInTime, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a RS2C_RetBrightInTime message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RS2C_RetBrightInTime
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2C_RetBrightInTime;
+
+        /**
+         * Decodes a RS2C_RetBrightInTime message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RS2C_RetBrightInTime
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2C_RetBrightInTime;
+
+        /**
+         * Verifies a RS2C_RetBrightInTime message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RS2C_RetBrightInTime message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RS2C_RetBrightInTime
+         */
+        public static fromObject(object: { [k: string]: any }): msg.RS2C_RetBrightInTime;
+
+        /**
+         * Creates a plain object from a RS2C_RetBrightInTime message. Also converts values to other types if specified.
+         * @param message RS2C_RetBrightInTime
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.RS2C_RetBrightInTime, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RS2C_RetBrightInTime to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RS2C_PushBrightCard. */
+    interface IRS2C_PushBrightCard {
+
+        /** RS2C_PushBrightCard roleid */
+        roleid?: (number|null);
+
+        /** RS2C_PushBrightCard card */
+        card?: (number[]|null);
+    }
+
+    /** Represents a RS2C_PushBrightCard. */
+    class RS2C_PushBrightCard implements IRS2C_PushBrightCard {
+
+        /**
+         * Constructs a new RS2C_PushBrightCard.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IRS2C_PushBrightCard);
+
+        /** RS2C_PushBrightCard roleid. */
+        public roleid: number;
+
+        /** RS2C_PushBrightCard card. */
+        public card: number[];
+
+        /**
+         * Creates a new RS2C_PushBrightCard instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RS2C_PushBrightCard instance
+         */
+        public static create(properties?: msg.IRS2C_PushBrightCard): msg.RS2C_PushBrightCard;
+
+        /**
+         * Encodes the specified RS2C_PushBrightCard message. Does not implicitly {@link msg.RS2C_PushBrightCard.verify|verify} messages.
+         * @param message RS2C_PushBrightCard message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IRS2C_PushBrightCard, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified RS2C_PushBrightCard message, length delimited. Does not implicitly {@link msg.RS2C_PushBrightCard.verify|verify} messages.
+         * @param message RS2C_PushBrightCard message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IRS2C_PushBrightCard, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a RS2C_PushBrightCard message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RS2C_PushBrightCard
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2C_PushBrightCard;
+
+        /**
+         * Decodes a RS2C_PushBrightCard message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RS2C_PushBrightCard
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2C_PushBrightCard;
+
+        /**
+         * Verifies a RS2C_PushBrightCard message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RS2C_PushBrightCard message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RS2C_PushBrightCard
+         */
+        public static fromObject(object: { [k: string]: any }): msg.RS2C_PushBrightCard;
+
+        /**
+         * Creates a plain object from a RS2C_PushBrightCard message. Also converts values to other types if specified.
+         * @param message RS2C_PushBrightCard
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.RS2C_PushBrightCard, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RS2C_PushBrightCard to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -14784,6 +15132,9 @@ declare namespace msg {
 
     /** Properties of a RS2C_RetAddCoin. */
     interface IRS2C_RetAddCoin {
+
+        /** RS2C_RetAddCoin errcode */
+        errcode?: (string|null);
     }
 
     /** Represents a RS2C_RetAddCoin. */
@@ -14794,6 +15145,9 @@ declare namespace msg {
          * @param [properties] Properties to set
          */
         constructor(properties?: msg.IRS2C_RetAddCoin);
+
+        /** RS2C_RetAddCoin errcode. */
+        public errcode: string;
 
         /**
          * Creates a new RS2C_RetAddCoin instance using the specified properties.
