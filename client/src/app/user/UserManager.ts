@@ -55,7 +55,7 @@ class UserManager
 		}
 		UserManager.playerNameOper(UserManager.userInfo);
 		SocketManager.AddCommandListener(Command.Role_Push_ExpChange_2028, UserManager.onExpChangeResult, this);
-		SocketManager.AddCommandListener(Command.Role_Push_PropertyChange_2000, UserManager.onPropetyChangeHandler, this);
+		SocketManager.AddCommandListener(Command.RS2C_RolePushPropertyChange, UserManager.onPropetyChangeHandler, this);
 		SocketManager.AddCommandListener(Command.Role_Push_HeadReviewPass_2120, UserManager.onHeadReviewPass, this);
 		UserManager.setIsFirstLoginToday();
 	}

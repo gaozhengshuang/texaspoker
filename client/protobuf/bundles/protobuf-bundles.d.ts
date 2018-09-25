@@ -2107,8 +2107,8 @@ declare namespace msg {
     /** Properties of a UserSignIn. */
     interface IUserSignIn {
 
-        /** UserSignIn signreward */
-        signreward?: (number|null);
+        /** UserSignIn signdays */
+        signdays?: (number|null);
 
         /** UserSignIn signtime */
         signtime?: (number|null);
@@ -2123,8 +2123,8 @@ declare namespace msg {
          */
         constructor(properties?: msg.IUserSignIn);
 
-        /** UserSignIn signreward. */
-        public signreward: number;
+        /** UserSignIn signdays. */
+        public signdays: number;
 
         /** UserSignIn signtime. */
         public signtime: number;
@@ -10429,9 +10429,6 @@ declare namespace msg {
     /** Properties of a GW2RS_UserDisconnect. */
     interface IGW2RS_UserDisconnect {
 
-        /** GW2RS_UserDisconnect roomid */
-        roomid?: (number|Long|null);
-
         /** GW2RS_UserDisconnect userid */
         userid?: (number|Long|null);
     }
@@ -10444,9 +10441,6 @@ declare namespace msg {
          * @param [properties] Properties to set
          */
         constructor(properties?: msg.IGW2RS_UserDisconnect);
-
-        /** GW2RS_UserDisconnect roomid. */
-        public roomid: (number|Long);
 
         /** GW2RS_UserDisconnect userid. */
         public userid: (number|Long);
@@ -10525,9 +10519,6 @@ declare namespace msg {
     /** Properties of a RS2GW_RetUserDisconnect. */
     interface IRS2GW_RetUserDisconnect {
 
-        /** RS2GW_RetUserDisconnect roomid */
-        roomid?: (number|Long|null);
-
         /** RS2GW_RetUserDisconnect userid */
         userid?: (number|Long|null);
 
@@ -10543,9 +10534,6 @@ declare namespace msg {
          * @param [properties] Properties to set
          */
         constructor(properties?: msg.IRS2GW_RetUserDisconnect);
-
-        /** RS2GW_RetUserDisconnect roomid. */
-        public roomid: (number|Long);
 
         /** RS2GW_RetUserDisconnect userid. */
         public userid: (number|Long);
@@ -10619,6 +10607,96 @@ declare namespace msg {
 
         /**
          * Converts this RS2GW_RetUserDisconnect to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2RS_UserOnline. */
+    interface IGW2RS_UserOnline {
+
+        /** GW2RS_UserOnline userid */
+        userid?: (number|Long|null);
+    }
+
+    /** Represents a GW2RS_UserOnline. */
+    class GW2RS_UserOnline implements IGW2RS_UserOnline {
+
+        /**
+         * Constructs a new GW2RS_UserOnline.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2RS_UserOnline);
+
+        /** GW2RS_UserOnline userid. */
+        public userid: (number|Long);
+
+        /**
+         * Creates a new GW2RS_UserOnline instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2RS_UserOnline instance
+         */
+        public static create(properties?: msg.IGW2RS_UserOnline): msg.GW2RS_UserOnline;
+
+        /**
+         * Encodes the specified GW2RS_UserOnline message. Does not implicitly {@link msg.GW2RS_UserOnline.verify|verify} messages.
+         * @param message GW2RS_UserOnline message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2RS_UserOnline, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2RS_UserOnline message, length delimited. Does not implicitly {@link msg.GW2RS_UserOnline.verify|verify} messages.
+         * @param message GW2RS_UserOnline message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2RS_UserOnline, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2RS_UserOnline message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2RS_UserOnline
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2RS_UserOnline;
+
+        /**
+         * Decodes a GW2RS_UserOnline message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2RS_UserOnline
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2RS_UserOnline;
+
+        /**
+         * Verifies a GW2RS_UserOnline message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2RS_UserOnline message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2RS_UserOnline
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2RS_UserOnline;
+
+        /**
+         * Creates a plain object from a GW2RS_UserOnline message. Also converts values to other types if specified.
+         * @param message GW2RS_UserOnline
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2RS_UserOnline, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2RS_UserOnline to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -14923,6 +15001,756 @@ declare namespace msg {
 /** Namespace table. */
 declare namespace table {
 
+    /** Properties of an Activity_listBase. */
+    interface IActivity_listBase {
+
+        /** Activity_listBase ActivityList */
+        ActivityList?: (table.IActivity_listDefine[]|null);
+    }
+
+    /** Represents an Activity_listBase. */
+    class Activity_listBase implements IActivity_listBase {
+
+        /**
+         * Constructs a new Activity_listBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IActivity_listBase);
+
+        /** Activity_listBase ActivityList. */
+        public ActivityList: table.IActivity_listDefine[];
+
+        /**
+         * Creates a new Activity_listBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns Activity_listBase instance
+         */
+        public static create(properties?: table.IActivity_listBase): table.Activity_listBase;
+
+        /**
+         * Encodes the specified Activity_listBase message. Does not implicitly {@link table.Activity_listBase.verify|verify} messages.
+         * @param message Activity_listBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IActivity_listBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified Activity_listBase message, length delimited. Does not implicitly {@link table.Activity_listBase.verify|verify} messages.
+         * @param message Activity_listBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IActivity_listBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes an Activity_listBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns Activity_listBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.Activity_listBase;
+
+        /**
+         * Decodes an Activity_listBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns Activity_listBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.Activity_listBase;
+
+        /**
+         * Verifies an Activity_listBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an Activity_listBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns Activity_listBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.Activity_listBase;
+
+        /**
+         * Creates a plain object from an Activity_listBase message. Also converts values to other types if specified.
+         * @param message Activity_listBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.Activity_listBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this Activity_listBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an Activity_listDefine. */
+    interface IActivity_listDefine {
+
+        /** Activity_listDefine Id */
+        Id?: (number|null);
+
+        /** Activity_listDefine Type */
+        Type?: (string|null);
+
+        /** Activity_listDefine Name */
+        Name?: (string|null);
+
+        /** Activity_listDefine ClearType */
+        ClearType?: (number|null);
+
+        /** Activity_listDefine ClearType2 */
+        ClearType2?: (number|null);
+
+        /** Activity_listDefine ResGroup */
+        ResGroup?: (string|null);
+
+        /** Activity_listDefine KeepDayEnd */
+        KeepDayEnd?: (number|null);
+
+        /** Activity_listDefine StartTime */
+        StartTime?: (number[]|null);
+
+        /** Activity_listDefine EndTime */
+        EndTime?: (number[]|null);
+
+        /** Activity_listDefine Des */
+        Des?: (string|null);
+
+        /** Activity_listDefine Icon */
+        Icon?: (string|null);
+
+        /** Activity_listDefine ImgId */
+        ImgId?: (string|null);
+
+        /** Activity_listDefine PanelName */
+        PanelName?: (string|null);
+
+        /** Activity_listDefine UnInShowPanel */
+        UnInShowPanel?: (number|null);
+
+        /** Activity_listDefine SubType */
+        SubType?: (string|null);
+
+        /** Activity_listDefine Trigger */
+        Trigger?: (string|null);
+
+        /** Activity_listDefine TriggerType */
+        TriggerType?: (number|null);
+    }
+
+    /** Represents an Activity_listDefine. */
+    class Activity_listDefine implements IActivity_listDefine {
+
+        /**
+         * Constructs a new Activity_listDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IActivity_listDefine);
+
+        /** Activity_listDefine Id. */
+        public Id: number;
+
+        /** Activity_listDefine Type. */
+        public Type: string;
+
+        /** Activity_listDefine Name. */
+        public Name: string;
+
+        /** Activity_listDefine ClearType. */
+        public ClearType: number;
+
+        /** Activity_listDefine ClearType2. */
+        public ClearType2: number;
+
+        /** Activity_listDefine ResGroup. */
+        public ResGroup: string;
+
+        /** Activity_listDefine KeepDayEnd. */
+        public KeepDayEnd: number;
+
+        /** Activity_listDefine StartTime. */
+        public StartTime: number[];
+
+        /** Activity_listDefine EndTime. */
+        public EndTime: number[];
+
+        /** Activity_listDefine Des. */
+        public Des: string;
+
+        /** Activity_listDefine Icon. */
+        public Icon: string;
+
+        /** Activity_listDefine ImgId. */
+        public ImgId: string;
+
+        /** Activity_listDefine PanelName. */
+        public PanelName: string;
+
+        /** Activity_listDefine UnInShowPanel. */
+        public UnInShowPanel: number;
+
+        /** Activity_listDefine SubType. */
+        public SubType: string;
+
+        /** Activity_listDefine Trigger. */
+        public Trigger: string;
+
+        /** Activity_listDefine TriggerType. */
+        public TriggerType: number;
+
+        /**
+         * Creates a new Activity_listDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns Activity_listDefine instance
+         */
+        public static create(properties?: table.IActivity_listDefine): table.Activity_listDefine;
+
+        /**
+         * Encodes the specified Activity_listDefine message. Does not implicitly {@link table.Activity_listDefine.verify|verify} messages.
+         * @param message Activity_listDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IActivity_listDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified Activity_listDefine message, length delimited. Does not implicitly {@link table.Activity_listDefine.verify|verify} messages.
+         * @param message Activity_listDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IActivity_listDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes an Activity_listDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns Activity_listDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.Activity_listDefine;
+
+        /**
+         * Decodes an Activity_listDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns Activity_listDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.Activity_listDefine;
+
+        /**
+         * Verifies an Activity_listDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an Activity_listDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns Activity_listDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.Activity_listDefine;
+
+        /**
+         * Creates a plain object from an Activity_listDefine message. Also converts values to other types if specified.
+         * @param message Activity_listDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.Activity_listDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this Activity_listDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an Activity_signinBase. */
+    interface IActivity_signinBase {
+
+        /** Activity_signinBase ActivitySignin */
+        ActivitySignin?: (table.IActivity_signinDefine[]|null);
+    }
+
+    /** Represents an Activity_signinBase. */
+    class Activity_signinBase implements IActivity_signinBase {
+
+        /**
+         * Constructs a new Activity_signinBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IActivity_signinBase);
+
+        /** Activity_signinBase ActivitySignin. */
+        public ActivitySignin: table.IActivity_signinDefine[];
+
+        /**
+         * Creates a new Activity_signinBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns Activity_signinBase instance
+         */
+        public static create(properties?: table.IActivity_signinBase): table.Activity_signinBase;
+
+        /**
+         * Encodes the specified Activity_signinBase message. Does not implicitly {@link table.Activity_signinBase.verify|verify} messages.
+         * @param message Activity_signinBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IActivity_signinBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified Activity_signinBase message, length delimited. Does not implicitly {@link table.Activity_signinBase.verify|verify} messages.
+         * @param message Activity_signinBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IActivity_signinBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes an Activity_signinBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns Activity_signinBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.Activity_signinBase;
+
+        /**
+         * Decodes an Activity_signinBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns Activity_signinBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.Activity_signinBase;
+
+        /**
+         * Verifies an Activity_signinBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an Activity_signinBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns Activity_signinBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.Activity_signinBase;
+
+        /**
+         * Creates a plain object from an Activity_signinBase message. Also converts values to other types if specified.
+         * @param message Activity_signinBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.Activity_signinBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this Activity_signinBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an Activity_signinDefine. */
+    interface IActivity_signinDefine {
+
+        /** Activity_signinDefine Id */
+        Id?: (number|null);
+
+        /** Activity_signinDefine ActivityId */
+        ActivityId?: (number|null);
+
+        /** Activity_signinDefine SubId */
+        SubId?: (number|null);
+
+        /** Activity_signinDefine Day */
+        Day?: (number|null);
+
+        /** Activity_signinDefine AwardId */
+        AwardId?: (number|null);
+
+        /** Activity_signinDefine PilePrize */
+        PilePrize?: (number|null);
+    }
+
+    /** Represents an Activity_signinDefine. */
+    class Activity_signinDefine implements IActivity_signinDefine {
+
+        /**
+         * Constructs a new Activity_signinDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IActivity_signinDefine);
+
+        /** Activity_signinDefine Id. */
+        public Id: number;
+
+        /** Activity_signinDefine ActivityId. */
+        public ActivityId: number;
+
+        /** Activity_signinDefine SubId. */
+        public SubId: number;
+
+        /** Activity_signinDefine Day. */
+        public Day: number;
+
+        /** Activity_signinDefine AwardId. */
+        public AwardId: number;
+
+        /** Activity_signinDefine PilePrize. */
+        public PilePrize: number;
+
+        /**
+         * Creates a new Activity_signinDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns Activity_signinDefine instance
+         */
+        public static create(properties?: table.IActivity_signinDefine): table.Activity_signinDefine;
+
+        /**
+         * Encodes the specified Activity_signinDefine message. Does not implicitly {@link table.Activity_signinDefine.verify|verify} messages.
+         * @param message Activity_signinDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IActivity_signinDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified Activity_signinDefine message, length delimited. Does not implicitly {@link table.Activity_signinDefine.verify|verify} messages.
+         * @param message Activity_signinDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IActivity_signinDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes an Activity_signinDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns Activity_signinDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.Activity_signinDefine;
+
+        /**
+         * Decodes an Activity_signinDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns Activity_signinDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.Activity_signinDefine;
+
+        /**
+         * Verifies an Activity_signinDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an Activity_signinDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns Activity_signinDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.Activity_signinDefine;
+
+        /**
+         * Creates a plain object from an Activity_signinDefine message. Also converts values to other types if specified.
+         * @param message Activity_signinDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.Activity_signinDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this Activity_signinDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an AwardBase. */
+    interface IAwardBase {
+
+        /** AwardBase Award */
+        Award?: (table.IAwardDefine[]|null);
+    }
+
+    /** Represents an AwardBase. */
+    class AwardBase implements IAwardBase {
+
+        /**
+         * Constructs a new AwardBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IAwardBase);
+
+        /** AwardBase Award. */
+        public Award: table.IAwardDefine[];
+
+        /**
+         * Creates a new AwardBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns AwardBase instance
+         */
+        public static create(properties?: table.IAwardBase): table.AwardBase;
+
+        /**
+         * Encodes the specified AwardBase message. Does not implicitly {@link table.AwardBase.verify|verify} messages.
+         * @param message AwardBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IAwardBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified AwardBase message, length delimited. Does not implicitly {@link table.AwardBase.verify|verify} messages.
+         * @param message AwardBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IAwardBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes an AwardBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns AwardBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.AwardBase;
+
+        /**
+         * Decodes an AwardBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns AwardBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.AwardBase;
+
+        /**
+         * Verifies an AwardBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an AwardBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns AwardBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.AwardBase;
+
+        /**
+         * Creates a plain object from an AwardBase message. Also converts values to other types if specified.
+         * @param message AwardBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.AwardBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this AwardBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an AwardDefine. */
+    interface IAwardDefine {
+
+        /** AwardDefine Id */
+        Id?: (number|null);
+
+        /** AwardDefine Type */
+        Type?: (number|null);
+
+        /** AwardDefine CostType */
+        CostType?: (number|null);
+
+        /** AwardDefine CostId */
+        CostId?: (number|null);
+
+        /** AwardDefine CostNum */
+        CostNum?: (number|null);
+
+        /** AwardDefine RewardType */
+        RewardType?: (number[]|null);
+
+        /** AwardDefine RewardId */
+        RewardId?: (number[]|null);
+
+        /** AwardDefine RewardNum */
+        RewardNum?: (number[]|null);
+
+        /** AwardDefine PreId */
+        PreId?: (number|null);
+
+        /** AwardDefine LogId */
+        LogId?: (number|null);
+
+        /** AwardDefine Name */
+        Name?: (string|null);
+
+        /** AwardDefine Des */
+        Des?: (string|null);
+
+        /** AwardDefine Limit */
+        Limit?: (number|null);
+
+        /** AwardDefine Nacr */
+        Nacr?: (number|null);
+
+        /** AwardDefine MailId */
+        MailId?: (number|null);
+    }
+
+    /** Represents an AwardDefine. */
+    class AwardDefine implements IAwardDefine {
+
+        /**
+         * Constructs a new AwardDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IAwardDefine);
+
+        /** AwardDefine Id. */
+        public Id: number;
+
+        /** AwardDefine Type. */
+        public Type: number;
+
+        /** AwardDefine CostType. */
+        public CostType: number;
+
+        /** AwardDefine CostId. */
+        public CostId: number;
+
+        /** AwardDefine CostNum. */
+        public CostNum: number;
+
+        /** AwardDefine RewardType. */
+        public RewardType: number[];
+
+        /** AwardDefine RewardId. */
+        public RewardId: number[];
+
+        /** AwardDefine RewardNum. */
+        public RewardNum: number[];
+
+        /** AwardDefine PreId. */
+        public PreId: number;
+
+        /** AwardDefine LogId. */
+        public LogId: number;
+
+        /** AwardDefine Name. */
+        public Name: string;
+
+        /** AwardDefine Des. */
+        public Des: string;
+
+        /** AwardDefine Limit. */
+        public Limit: number;
+
+        /** AwardDefine Nacr. */
+        public Nacr: number;
+
+        /** AwardDefine MailId. */
+        public MailId: number;
+
+        /**
+         * Creates a new AwardDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns AwardDefine instance
+         */
+        public static create(properties?: table.IAwardDefine): table.AwardDefine;
+
+        /**
+         * Encodes the specified AwardDefine message. Does not implicitly {@link table.AwardDefine.verify|verify} messages.
+         * @param message AwardDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IAwardDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified AwardDefine message, length delimited. Does not implicitly {@link table.AwardDefine.verify|verify} messages.
+         * @param message AwardDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IAwardDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes an AwardDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns AwardDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.AwardDefine;
+
+        /**
+         * Decodes an AwardDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns AwardDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.AwardDefine;
+
+        /**
+         * Verifies an AwardDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an AwardDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns AwardDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.AwardDefine;
+
+        /**
+         * Creates a plain object from an AwardDefine message. Also converts values to other types if specified.
+         * @param message AwardDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.AwardDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this AwardDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a TBallGiftbase. */
     interface ITBallGiftbase {
 
@@ -18158,198 +18986,6 @@ declare namespace table {
 
         /**
          * Converts this TShopDefine to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a SignBase. */
-    interface ISignBase {
-
-        /** SignBase TSign */
-        TSign?: (table.ITSignDefine[]|null);
-    }
-
-    /** Represents a SignBase. */
-    class SignBase implements ISignBase {
-
-        /**
-         * Constructs a new SignBase.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: table.ISignBase);
-
-        /** SignBase TSign. */
-        public TSign: table.ITSignDefine[];
-
-        /**
-         * Creates a new SignBase instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns SignBase instance
-         */
-        public static create(properties?: table.ISignBase): table.SignBase;
-
-        /**
-         * Encodes the specified SignBase message. Does not implicitly {@link table.SignBase.verify|verify} messages.
-         * @param message SignBase message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: table.ISignBase, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified SignBase message, length delimited. Does not implicitly {@link table.SignBase.verify|verify} messages.
-         * @param message SignBase message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: table.ISignBase, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a SignBase message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns SignBase
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.SignBase;
-
-        /**
-         * Decodes a SignBase message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns SignBase
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.SignBase;
-
-        /**
-         * Verifies a SignBase message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a SignBase message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns SignBase
-         */
-        public static fromObject(object: { [k: string]: any }): table.SignBase;
-
-        /**
-         * Creates a plain object from a SignBase message. Also converts values to other types if specified.
-         * @param message SignBase
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: table.SignBase, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this SignBase to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a TSignDefine. */
-    interface ITSignDefine {
-
-        /** TSignDefine Id */
-        Id?: (number|null);
-
-        /** TSignDefine CostId */
-        CostId?: (number|null);
-
-        /** TSignDefine Num */
-        Num?: (number|null);
-    }
-
-    /** Represents a TSignDefine. */
-    class TSignDefine implements ITSignDefine {
-
-        /**
-         * Constructs a new TSignDefine.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: table.ITSignDefine);
-
-        /** TSignDefine Id. */
-        public Id: number;
-
-        /** TSignDefine CostId. */
-        public CostId: number;
-
-        /** TSignDefine Num. */
-        public Num: number;
-
-        /**
-         * Creates a new TSignDefine instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns TSignDefine instance
-         */
-        public static create(properties?: table.ITSignDefine): table.TSignDefine;
-
-        /**
-         * Encodes the specified TSignDefine message. Does not implicitly {@link table.TSignDefine.verify|verify} messages.
-         * @param message TSignDefine message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: table.ITSignDefine, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified TSignDefine message, length delimited. Does not implicitly {@link table.TSignDefine.verify|verify} messages.
-         * @param message TSignDefine message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: table.ITSignDefine, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a TSignDefine message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns TSignDefine
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TSignDefine;
-
-        /**
-         * Decodes a TSignDefine message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns TSignDefine
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TSignDefine;
-
-        /**
-         * Verifies a TSignDefine message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a TSignDefine message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns TSignDefine
-         */
-        public static fromObject(object: { [k: string]: any }): table.TSignDefine;
-
-        /**
-         * Creates a plain object from a TSignDefine message. Also converts values to other types if specified.
-         * @param message TSignDefine
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: table.TSignDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this TSignDefine to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };

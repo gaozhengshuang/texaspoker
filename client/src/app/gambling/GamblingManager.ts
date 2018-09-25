@@ -252,16 +252,16 @@ class GamblingManager
 	private static addPushListener()
 	{
 		// GamblingManager.roomDataPushHandler.initialize();
-		SocketManager.AddCommandListener(Command.NextRoundStart_Push_2107, GamblingManager.pushNextRoundStart, this);
+		SocketManager.AddCommandListener(Command.RS2C_PushNextRoundStart, GamblingManager.pushNextRoundStart, this);
 		SocketManager.AddCommandListener(Command.BlindChange_Push_2100, GamblingManager.pushBlindChange, this);
 		// SocketManager.AddCommandListener(Command.Push_PotChipsChange_2101, GamblingManager.pushPotChipsChange);
-		SocketManager.AddCommandListener(Command.OneLoopOver_Push_2102, GamblingManager.pushOneLoopOver, this);
-		SocketManager.AddCommandListener(Command.SitOrStand_Push_2103, GamblingManager.pushSitOrStand, this);
-		SocketManager.AddCommandListener(Command.PlayerStateChange_Push_2104, GamblingManager.pushStateChange, this);
-		SocketManager.AddCommandListener(Command.ActionPosChange_Push_2105, GamblingManager.pushActionPosChange, this);
-		SocketManager.AddCommandListener(Command.OneRoundOver_Push_2106, GamblingManager.pushOneRoundOver, this);
-		SocketManager.AddCommandListener(Command.HandCard_Push_2108, GamblingManager.pushHandCard, this);
-		SocketManager.AddCommandListener(Command.ChipsChange_Push_2110, GamblingManager.pushChipsChange, this);
+		SocketManager.AddCommandListener(Command.RS2C_PushOneLoopOver, GamblingManager.pushOneLoopOver, this);
+		SocketManager.AddCommandListener(Command.RS2C_PushSitOrStand, GamblingManager.pushSitOrStand, this);
+		SocketManager.AddCommandListener(Command.RS2C_PushPlayerStateChange, GamblingManager.pushStateChange, this);
+		SocketManager.AddCommandListener(Command.RS2C_PushActionPosChange, GamblingManager.pushActionPosChange, this);
+		SocketManager.AddCommandListener(Command.RS2C_PushOneRoundOver, GamblingManager.pushOneRoundOver, this);
+		SocketManager.AddCommandListener(Command.RS2C_PushHandCard, GamblingManager.pushHandCard, this);
+		SocketManager.AddCommandListener(Command.RS2C_PushChipsChange, GamblingManager.pushChipsChange, this);
 		SocketManager.AddCommandListener(Command.InTrusteeship_Push_2119, GamblingManager.pushInTrusteeship, this);
 		SocketManager.AddCommandListener(Command.OutRoom_Push_2128, GamblingManager.pushExitRoom, this);
 		SocketManager.AddCommandListener(Command.BrightCard_Push_2109, GamblingManager.pushImmediatelyBirhgtCard, this);
@@ -403,12 +403,14 @@ class GamblingManager
 		// GamblingManager.roomDataPushHandler.writeResult(Command.NextRoundStart_Push_2107, result);
 		if (result.data && GamblingManager.roomInfo)
 		{
+			let data: msg.RS2C_PushNextRoundStart = result.data;
 			GamblingManager.roomInfo.publicCard = undefined;
 			GamblingManager.roundOverInfo = undefined;
 			GamblingManager.clearPlayerTotalNum();
 			GamblingManager.roomInfo.isShowCard = false;
 			GamblingManager.oneLoopClear();
-			GamblingManager.roomInfo.copyValueFrom(result.data);
+
+			game.CopyUtil.copy(data, GamblingManager.roomInfo.data);
 			GamblingManager.roomInfo.potChips = undefined;
 			GamblingManager.roomInfo.startTime = TimeManager.GetServerUtcTimestamp();
 			GamblingManager.roomInfo.isFlopCardOver = false;
@@ -497,12 +499,13 @@ class GamblingManager
 			// 		pInfo.num = 0;
 			// 	}
 			// }
+			let data: msg.RS2C_PushOneLoopOver = result.data;
 			if (!GamblingManager.roomInfo.publicCard)
 			{
 				// game.CopyUtil.supCopyList(GamblingManager.roomInfo, result.data, "cardList", CardInfo);
 				GamblingManager.roomInfo.publicCard = new Array<CardInfo>();
 			}
-			GamblingUtil.cardArr2CardInfoList(result.data["card"], GamblingManager.roomInfo.publicCard);
+			GamblingUtil.cardArr2CardInfoList(data.card, GamblingManager.roomInfo.publicCard);
 			if (GamblingManager.roomInfo.publicCard.length == 0)
 			{
 				GamblingManager.roomInfo.publicCard = undefined;
@@ -519,7 +522,7 @@ class GamblingManager
 			}
 			GamblingManager.oneLoopClear();
 			GamblingManager.roomInfo.minRaiseNum = GamblingManager.roomInfo.bBlind; //一轮押注圈结束 下注金额最低最1*大盲
-			GamblingManager.roomInfo.potChips = result.data["potChips"];
+			GamblingManager.roomInfo.potChips = data.potchips;
 			GamblingManager.roomInfo.maxAnte = 0;
 			GamblingManager.OneLoopOverEvent.dispatch([cardList, publicCardList]);
 		}
@@ -532,13 +535,14 @@ class GamblingManager
 		// GamblingManager.roomDataPushHandler.writeResult(Command.SitOrStand_Push_2103, result);
 		if (result.data)
 		{
-			let state: number = result.data["state"];
+			let data: msg.RS2C_PushSitOrStand = result.data;
+			let state: number = data.state;
 			if (state == BuyInGameState.Sit)
 			{
 				let playerInfo: PlayerInfo = new PlayerInfo();
-				playerInfo.roleId = result.data["roleId"];
-				playerInfo.pos = result.data["pos"];
-				playerInfo.bankRoll = result.data["bankRoll"];
+				playerInfo.roleId = game.longToNumber(data.roleid);
+				playerInfo.pos = data.pos;
+				playerInfo.bankRoll = data.bankroll;
 				playerInfo.state = PlayerState.WaitNext; //刚坐下来 处于空状态
 
 				GamblingManager.addPlayer(playerInfo);
@@ -571,14 +575,15 @@ class GamblingManager
 		// GamblingManager.roomDataPushHandler.writeResult(Command.PlayerStateChange_Push_2104, result);
 		if (result.data)
 		{
-			let roleId: number = result.data["roleId"];
+			let data: msg.RS2C_PushPlayerStateChange = result.data;
+			let roleId: number = game.longToNumber(data.roleid);
 			if (roleId == UserManager.userInfo.id)
 			{
 				GamblingManager.isCallAny = false;
 				GamblingManager.isCheckOrFold = false;
 			}
-			let state: PlayerState = <PlayerState>result.data["state"];
-			let num: number = result.data["num"];
+			let state: PlayerState = <PlayerState>data.state;
+			let num: number = data.num;
 			if (num == undefined)
 			{
 				num = 0;
@@ -686,7 +691,9 @@ class GamblingManager
 		// GamblingManager.roomDataPushHandler.writeResult(Command.ActionPosChange_Push_2105, result);
 		if (result.data && GamblingManager.roomInfo)
 		{
-			GamblingManager.roomInfo.copyValueFrom(result.data);
+			let data: msg.RS2C_PushActionPosChange = result.data;
+			game.CopyUtil.copy(data, GamblingManager.roomInfo.data);
+			// GamblingManager.roomInfo.copyValueFrom(result.data);
 			GamblingManager.ActionPosChangeEvent.dispatch(GamblingManager.roomInfo.handCard);
 		}
 	}
@@ -698,6 +705,7 @@ class GamblingManager
 		// GamblingManager.roomDataPushHandler.writeResult(Command.OneRoundOver_Push_2106, result);
 		if (result.data)
 		{
+			let data: msg.RS2C_PushOneRoundOver = result.data;
 			if (!GamblingManager.roundOverInfo)
 			{
 				GamblingManager.roundOverInfo = new RoundOverInfo();
@@ -708,7 +716,7 @@ class GamblingManager
 				handCard = GamblingManager.roomInfo.handCard.concat();
 			}
 			GamblingManager.roundOverClear();
-			GamblingManager.roundOverInfo.copyValueFrom(result.data);
+			GamblingManager.roundOverInfo.data = data;
 			if (GamblingManager.roomInfo)
 			{
 				GamblingManager.roomInfo.endTime = TimeManager.GetServerUtcTimestamp();
@@ -733,15 +741,16 @@ class GamblingManager
 		// GamblingManager.roomDataPushHandler.writeResult(Command.HandCard_Push_2108, result);
 		if (result.data && GamblingManager.self)
 		{
+			let data: msg.RS2C_PushHandCard = result.data;
 			if (!GamblingManager.roomInfo.handCard)
 			{
 				GamblingManager.roomInfo.handCard = new Array<CardInfo>();
 			}
 			GamblingManager.roomInfo.handCard.length = 0;
 			let cardInfo: CardInfo;
-			if (result.data["card"])
+			if (data.card)
 			{
-				GamblingUtil.cardArr2CardInfoList(result.data["card"], GamblingManager.roomInfo.handCard);
+				GamblingUtil.cardArr2CardInfoList(data.card, GamblingManager.roomInfo.handCard);
 				if (GamblingManager.roomInfo.handCard.length == 0)
 				{
 					GamblingManager.roomInfo.handCard = undefined;
@@ -768,8 +777,9 @@ class GamblingManager
 		// GamblingManager.roomDataPushHandler.writeResult(Command.ChipsChange_Push_2110, result);
 		if (result.data)
 		{
-			let roleId: number = result.data["roleId"];
-			let br: number = result.data["bankRoll"];
+			let data: msg.RS2C_PushChipsChange = result.data;
+			let roleId: number = game.longToNumber(data.roleid);
+			let br: number = data.bankroll;
 			let pInfo: PlayerInfo = GamblingManager.getPlayerInfo(roleId);
 			if (pInfo)
 			{
@@ -890,17 +900,14 @@ class GamblingManager
 	}
 	private static sendNextRoundStart()
 	{
-		SocketManager.AddCommandListener(Command.NextRound_Req_3601, GamblingManager.onNextRoundStart, this);
-		SocketManager.Send(Command.NextRound_Req_3601);
-	}
-
-	private static onNextRoundStart(result: game.SpRpcResult)
-	{
-		SocketManager.RemoveCommandListener(Command.NextRound_Req_3601, GamblingManager.onNextRoundStart, this);
-		if (GamblingManager.roomInfo)
+		let callBack = function (result: game.SpRpcResult)
 		{
-			GamblingManager.ReadyStateChangeEvent.dispatch();
-		}
+			if (GamblingManager.roomInfo)
+			{
+				GamblingManager.ReadyStateChangeEvent.dispatch();
+			}
+		};
+		MsgTransferSend.sendRoomProto(Command.C2RS_ReqNextRound, {}, callBack, null, this);
 	}
 	public static cancelTrusteeship()
 	{
@@ -922,18 +929,26 @@ class GamblingManager
 				{
 					GamblingManager.roomInfo.isTrusteeship = false;
 				}
-				SocketManager.RemoveCommandListener(Command.Action_Req_3602, callBack, this);
 				GamblingManager.ActionOverEvent.dispatch(state);
 			}
 		};
-		SocketManager.AddCommandListener(Command.Action_Req_3602, callBack, this);
-		if (num != 0)
+		switch (state)
 		{
-			SocketManager.Send(Command.Action_Req_3602, { state: state, num: num });
+			case PlayerState.Fold:
+				num = -1;
+				break;
+			case PlayerState.Trusteeship:
+			case PlayerState.Check:
+				num = 0;
+				break;
+		}
+		if (num != undefined)
+		{
+			MsgTransferSend.sendRoomProto(Command.C2RS_ReqAction, { state: state, num: num }, callBack, null, this);
 		}
 		else
 		{
-			SocketManager.Send(Command.Action_Req_3602, { state: state });
+			MsgTransferSend.sendRoomProto(Command.C2RS_ReqAction, { state: state, num:0 }, callBack, null, this);
 		}
 	}
 	/**
@@ -1033,7 +1048,7 @@ class GamblingManager
 	{
 		let callBack: Function = function (result: game.SpRpcResult)
 		{
-			SocketManager.RemoveCommandListener(Command.C2RS_ReqBuyInGame, callBack, this);
+			// SocketManager.RemoveCommandListener(Command.C2RS_ReqBuyInGame, callBack, this);
 			GamblingManager._isOnSeat = true;
 			if (GamblingManager.roomInfo)
 			{
@@ -1044,8 +1059,8 @@ class GamblingManager
 				GamblingManager.BuyInGameEvent.dispatch();
 			}
 		};
-		SocketManager.AddCommandListener(Command.C2RS_ReqBuyInGame, callBack, this);
-		SocketManager.Send(Command.C2RS_ReqBuyInGame, msg.C2RS_ReqBuyInGame.encode({ num: num, isautobuy: isAutoBuy, pos: pos }));
+		// SocketManager.AddCommandListener(Command.C2RS_ReqBuyInGame, callBack, this);
+		MsgTransferSend.sendRoomProto(Command.C2RS_ReqBuyInGame, { num: num, isautobuy: isAutoBuy, pos: pos }, callBack, null, this);
 	}
 	/**
 	 * 快速开始游戏
@@ -1090,11 +1105,9 @@ class GamblingManager
 	{
 		let callBack: Function = function (result: game.SpRpcResult)
 		{
-			SocketManager.RemoveCommandListener(Command.StandUp_Req_3605, callBack, this);
 			GamblingManager.StandUpEvent.dispatch();
 		};
-		SocketManager.AddCommandListener(Command.StandUp_Req_3605, callBack, this);
-		SocketManager.Send(Command.StandUp_Req_3605);
+		MsgTransferSend.sendRoomProto(Command.C2RS_ReqStandUp, {}, callBack, null, this);
 	}
 	/**
 	 * 请求亮牌
@@ -1103,15 +1116,13 @@ class GamblingManager
 	{
 		let callBack: Function = function (result: game.SpRpcResult)
 		{
-			SocketManager.RemoveCommandListener(Command.BrightCard_Req_3606, callBack, this);
 			if (GamblingManager.roomInfo)
 			{
 				GamblingManager.roomInfo.isShowCard = !GamblingManager.roomInfo.isShowCard;
 			}
 			GamblingManager.BrightCardFlagEvent.dispatch();
 		};
-		SocketManager.AddCommandListener(Command.BrightCard_Req_3606, callBack, this);
-		SocketManager.Send(Command.BrightCard_Req_3606);
+		MsgTransferSend.sendRoomProto(Command.C2RS_ReqBrightCard, {}, callBack, null, this);
 	}
 	/**
 	 * 请求增加金币
@@ -1122,11 +1133,9 @@ class GamblingManager
 		{
 			let callBack: Function = function (result: game.SpRpcResult)
 			{
-				SocketManager.RemoveCommandListener(Command.AddCoin_Req_3607, callBack, this);
 				GamblingManager.AddCoinEvent.dispatch();
 			};
-			SocketManager.AddCommandListener(Command.AddCoin_Req_3607, callBack, this);
-			SocketManager.Send(Command.AddCoin_Req_3607, { num: num });
+			MsgTransferSend.sendRoomProto(Command.C2RS_ReqAddCoin, { num: num }, callBack, null, this);
 		}
 		else
 		{

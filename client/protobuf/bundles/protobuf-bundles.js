@@ -4971,7 +4971,7 @@ $root.msg = (function() {
          * Properties of a UserSignIn.
          * @memberof msg
          * @interface IUserSignIn
-         * @property {number|null} [signreward] UserSignIn signreward
+         * @property {number|null} [signdays] UserSignIn signdays
          * @property {number|null} [signtime] UserSignIn signtime
          */
 
@@ -4991,12 +4991,12 @@ $root.msg = (function() {
         }
 
         /**
-         * UserSignIn signreward.
-         * @member {number} signreward
+         * UserSignIn signdays.
+         * @member {number} signdays
          * @memberof msg.UserSignIn
          * @instance
          */
-        UserSignIn.prototype.signreward = 0;
+        UserSignIn.prototype.signdays = 0;
 
         /**
          * UserSignIn signtime.
@@ -5030,8 +5030,8 @@ $root.msg = (function() {
         UserSignIn.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
-            if (message.signreward != null && message.hasOwnProperty("signreward"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.signreward);
+            if (message.signdays != null && message.hasOwnProperty("signdays"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.signdays);
             if (message.signtime != null && message.hasOwnProperty("signtime"))
                 writer.uint32(/* id 2, wireType 0 =*/16).int32(message.signtime);
             return writer;
@@ -5069,7 +5069,7 @@ $root.msg = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.signreward = reader.int32();
+                    message.signdays = reader.int32();
                     break;
                 case 2:
                     message.signtime = reader.int32();
@@ -5109,9 +5109,9 @@ $root.msg = (function() {
         UserSignIn.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
-            if (message.signreward != null && message.hasOwnProperty("signreward"))
-                if (!$util.isInteger(message.signreward))
-                    return "signreward: integer expected";
+            if (message.signdays != null && message.hasOwnProperty("signdays"))
+                if (!$util.isInteger(message.signdays))
+                    return "signdays: integer expected";
             if (message.signtime != null && message.hasOwnProperty("signtime"))
                 if (!$util.isInteger(message.signtime))
                     return "signtime: integer expected";
@@ -5130,8 +5130,8 @@ $root.msg = (function() {
             if (object instanceof $root.msg.UserSignIn)
                 return object;
             var message = new $root.msg.UserSignIn();
-            if (object.signreward != null)
-                message.signreward = object.signreward | 0;
+            if (object.signdays != null)
+                message.signdays = object.signdays | 0;
             if (object.signtime != null)
                 message.signtime = object.signtime | 0;
             return message;
@@ -5151,11 +5151,11 @@ $root.msg = (function() {
                 options = {};
             var object = {};
             if (options.defaults) {
-                object.signreward = 0;
+                object.signdays = 0;
                 object.signtime = 0;
             }
-            if (message.signreward != null && message.hasOwnProperty("signreward"))
-                object.signreward = message.signreward;
+            if (message.signdays != null && message.hasOwnProperty("signdays"))
+                object.signdays = message.signdays;
             if (message.signtime != null && message.hasOwnProperty("signtime"))
                 object.signtime = message.signtime;
             return object;
@@ -24045,7 +24045,6 @@ $root.msg = (function() {
          * Properties of a GW2RS_UserDisconnect.
          * @memberof msg
          * @interface IGW2RS_UserDisconnect
-         * @property {number|Long|null} [roomid] GW2RS_UserDisconnect roomid
          * @property {number|Long|null} [userid] GW2RS_UserDisconnect userid
          */
 
@@ -24063,14 +24062,6 @@ $root.msg = (function() {
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
-
-        /**
-         * GW2RS_UserDisconnect roomid.
-         * @member {number|Long} roomid
-         * @memberof msg.GW2RS_UserDisconnect
-         * @instance
-         */
-        GW2RS_UserDisconnect.prototype.roomid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
          * GW2RS_UserDisconnect userid.
@@ -24104,10 +24095,8 @@ $root.msg = (function() {
         GW2RS_UserDisconnect.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
-            if (message.roomid != null && message.hasOwnProperty("roomid"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.roomid);
             if (message.userid != null && message.hasOwnProperty("userid"))
-                writer.uint32(/* id 2, wireType 0 =*/16).int64(message.userid);
+                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.userid);
             return writer;
         };
 
@@ -24143,9 +24132,6 @@ $root.msg = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.roomid = reader.int64();
-                    break;
-                case 2:
                     message.userid = reader.int64();
                     break;
                 default:
@@ -24183,9 +24169,6 @@ $root.msg = (function() {
         GW2RS_UserDisconnect.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
-            if (message.roomid != null && message.hasOwnProperty("roomid"))
-                if (!$util.isInteger(message.roomid) && !(message.roomid && $util.isInteger(message.roomid.low) && $util.isInteger(message.roomid.high)))
-                    return "roomid: integer|Long expected";
             if (message.userid != null && message.hasOwnProperty("userid"))
                 if (!$util.isInteger(message.userid) && !(message.userid && $util.isInteger(message.userid.low) && $util.isInteger(message.userid.high)))
                     return "userid: integer|Long expected";
@@ -24204,15 +24187,6 @@ $root.msg = (function() {
             if (object instanceof $root.msg.GW2RS_UserDisconnect)
                 return object;
             var message = new $root.msg.GW2RS_UserDisconnect();
-            if (object.roomid != null)
-                if ($util.Long)
-                    (message.roomid = $util.Long.fromValue(object.roomid)).unsigned = false;
-                else if (typeof object.roomid === "string")
-                    message.roomid = parseInt(object.roomid, 10);
-                else if (typeof object.roomid === "number")
-                    message.roomid = object.roomid;
-                else if (typeof object.roomid === "object")
-                    message.roomid = new $util.LongBits(object.roomid.low >>> 0, object.roomid.high >>> 0).toNumber();
             if (object.userid != null)
                 if ($util.Long)
                     (message.userid = $util.Long.fromValue(object.userid)).unsigned = false;
@@ -24238,23 +24212,12 @@ $root.msg = (function() {
             if (!options)
                 options = {};
             var object = {};
-            if (options.defaults) {
-                if ($util.Long) {
-                    var long = new $util.Long(0, 0, false);
-                    object.roomid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.roomid = options.longs === String ? "0" : 0;
+            if (options.defaults)
                 if ($util.Long) {
                     var long = new $util.Long(0, 0, false);
                     object.userid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.userid = options.longs === String ? "0" : 0;
-            }
-            if (message.roomid != null && message.hasOwnProperty("roomid"))
-                if (typeof message.roomid === "number")
-                    object.roomid = options.longs === String ? String(message.roomid) : message.roomid;
-                else
-                    object.roomid = options.longs === String ? $util.Long.prototype.toString.call(message.roomid) : options.longs === Number ? new $util.LongBits(message.roomid.low >>> 0, message.roomid.high >>> 0).toNumber() : message.roomid;
             if (message.userid != null && message.hasOwnProperty("userid"))
                 if (typeof message.userid === "number")
                     object.userid = options.longs === String ? String(message.userid) : message.userid;
@@ -24283,7 +24246,6 @@ $root.msg = (function() {
          * Properties of a RS2GW_RetUserDisconnect.
          * @memberof msg
          * @interface IRS2GW_RetUserDisconnect
-         * @property {number|Long|null} [roomid] RS2GW_RetUserDisconnect roomid
          * @property {number|Long|null} [userid] RS2GW_RetUserDisconnect userid
          * @property {string|null} [errcode] RS2GW_RetUserDisconnect errcode
          */
@@ -24302,14 +24264,6 @@ $root.msg = (function() {
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
-
-        /**
-         * RS2GW_RetUserDisconnect roomid.
-         * @member {number|Long} roomid
-         * @memberof msg.RS2GW_RetUserDisconnect
-         * @instance
-         */
-        RS2GW_RetUserDisconnect.prototype.roomid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
          * RS2GW_RetUserDisconnect userid.
@@ -24351,12 +24305,10 @@ $root.msg = (function() {
         RS2GW_RetUserDisconnect.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
-            if (message.roomid != null && message.hasOwnProperty("roomid"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.roomid);
             if (message.userid != null && message.hasOwnProperty("userid"))
-                writer.uint32(/* id 2, wireType 0 =*/16).int64(message.userid);
+                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.userid);
             if (message.errcode != null && message.hasOwnProperty("errcode"))
-                writer.uint32(/* id 3, wireType 2 =*/26).string(message.errcode);
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.errcode);
             return writer;
         };
 
@@ -24392,12 +24344,9 @@ $root.msg = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.roomid = reader.int64();
-                    break;
-                case 2:
                     message.userid = reader.int64();
                     break;
-                case 3:
+                case 2:
                     message.errcode = reader.string();
                     break;
                 default:
@@ -24435,9 +24384,6 @@ $root.msg = (function() {
         RS2GW_RetUserDisconnect.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
-            if (message.roomid != null && message.hasOwnProperty("roomid"))
-                if (!$util.isInteger(message.roomid) && !(message.roomid && $util.isInteger(message.roomid.low) && $util.isInteger(message.roomid.high)))
-                    return "roomid: integer|Long expected";
             if (message.userid != null && message.hasOwnProperty("userid"))
                 if (!$util.isInteger(message.userid) && !(message.userid && $util.isInteger(message.userid.low) && $util.isInteger(message.userid.high)))
                     return "userid: integer|Long expected";
@@ -24459,15 +24405,6 @@ $root.msg = (function() {
             if (object instanceof $root.msg.RS2GW_RetUserDisconnect)
                 return object;
             var message = new $root.msg.RS2GW_RetUserDisconnect();
-            if (object.roomid != null)
-                if ($util.Long)
-                    (message.roomid = $util.Long.fromValue(object.roomid)).unsigned = false;
-                else if (typeof object.roomid === "string")
-                    message.roomid = parseInt(object.roomid, 10);
-                else if (typeof object.roomid === "number")
-                    message.roomid = object.roomid;
-                else if (typeof object.roomid === "object")
-                    message.roomid = new $util.LongBits(object.roomid.low >>> 0, object.roomid.high >>> 0).toNumber();
             if (object.userid != null)
                 if ($util.Long)
                     (message.userid = $util.Long.fromValue(object.userid)).unsigned = false;
@@ -24498,21 +24435,11 @@ $root.msg = (function() {
             if (options.defaults) {
                 if ($util.Long) {
                     var long = new $util.Long(0, 0, false);
-                    object.roomid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.roomid = options.longs === String ? "0" : 0;
-                if ($util.Long) {
-                    var long = new $util.Long(0, 0, false);
                     object.userid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.userid = options.longs === String ? "0" : 0;
                 object.errcode = "";
             }
-            if (message.roomid != null && message.hasOwnProperty("roomid"))
-                if (typeof message.roomid === "number")
-                    object.roomid = options.longs === String ? String(message.roomid) : message.roomid;
-                else
-                    object.roomid = options.longs === String ? $util.Long.prototype.toString.call(message.roomid) : options.longs === Number ? new $util.LongBits(message.roomid.low >>> 0, message.roomid.high >>> 0).toNumber() : message.roomid;
             if (message.userid != null && message.hasOwnProperty("userid"))
                 if (typeof message.userid === "number")
                     object.userid = options.longs === String ? String(message.userid) : message.userid;
@@ -24535,6 +24462,207 @@ $root.msg = (function() {
         };
 
         return RS2GW_RetUserDisconnect;
+    })();
+
+    msg.GW2RS_UserOnline = (function() {
+
+        /**
+         * Properties of a GW2RS_UserOnline.
+         * @memberof msg
+         * @interface IGW2RS_UserOnline
+         * @property {number|Long|null} [userid] GW2RS_UserOnline userid
+         */
+
+        /**
+         * Constructs a new GW2RS_UserOnline.
+         * @memberof msg
+         * @classdesc Represents a GW2RS_UserOnline.
+         * @implements IGW2RS_UserOnline
+         * @constructor
+         * @param {msg.IGW2RS_UserOnline=} [properties] Properties to set
+         */
+        function GW2RS_UserOnline(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2RS_UserOnline userid.
+         * @member {number|Long} userid
+         * @memberof msg.GW2RS_UserOnline
+         * @instance
+         */
+        GW2RS_UserOnline.prototype.userid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * Creates a new GW2RS_UserOnline instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2RS_UserOnline
+         * @static
+         * @param {msg.IGW2RS_UserOnline=} [properties] Properties to set
+         * @returns {msg.GW2RS_UserOnline} GW2RS_UserOnline instance
+         */
+        GW2RS_UserOnline.create = function create(properties) {
+            return new GW2RS_UserOnline(properties);
+        };
+
+        /**
+         * Encodes the specified GW2RS_UserOnline message. Does not implicitly {@link msg.GW2RS_UserOnline.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2RS_UserOnline
+         * @static
+         * @param {msg.IGW2RS_UserOnline} message GW2RS_UserOnline message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2RS_UserOnline.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.userid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2RS_UserOnline message, length delimited. Does not implicitly {@link msg.GW2RS_UserOnline.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2RS_UserOnline
+         * @static
+         * @param {msg.IGW2RS_UserOnline} message GW2RS_UserOnline message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2RS_UserOnline.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2RS_UserOnline message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2RS_UserOnline
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2RS_UserOnline} GW2RS_UserOnline
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2RS_UserOnline.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2RS_UserOnline();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.userid = reader.int64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2RS_UserOnline message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2RS_UserOnline
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2RS_UserOnline} GW2RS_UserOnline
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2RS_UserOnline.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2RS_UserOnline message.
+         * @function verify
+         * @memberof msg.GW2RS_UserOnline
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2RS_UserOnline.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (!$util.isInteger(message.userid) && !(message.userid && $util.isInteger(message.userid.low) && $util.isInteger(message.userid.high)))
+                    return "userid: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a GW2RS_UserOnline message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2RS_UserOnline
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2RS_UserOnline} GW2RS_UserOnline
+         */
+        GW2RS_UserOnline.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2RS_UserOnline)
+                return object;
+            var message = new $root.msg.GW2RS_UserOnline();
+            if (object.userid != null)
+                if ($util.Long)
+                    (message.userid = $util.Long.fromValue(object.userid)).unsigned = false;
+                else if (typeof object.userid === "string")
+                    message.userid = parseInt(object.userid, 10);
+                else if (typeof object.userid === "number")
+                    message.userid = object.userid;
+                else if (typeof object.userid === "object")
+                    message.userid = new $util.LongBits(object.userid.low >>> 0, object.userid.high >>> 0).toNumber();
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2RS_UserOnline message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2RS_UserOnline
+         * @static
+         * @param {msg.GW2RS_UserOnline} message GW2RS_UserOnline
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2RS_UserOnline.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.userid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.userid = options.longs === String ? "0" : 0;
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (typeof message.userid === "number")
+                    object.userid = options.longs === String ? String(message.userid) : message.userid;
+                else
+                    object.userid = options.longs === String ? $util.Long.prototype.toString.call(message.userid) : options.longs === Number ? new $util.LongBits(message.userid.low >>> 0, message.userid.high >>> 0).toNumber() : message.userid;
+            return object;
+        };
+
+        /**
+         * Converts this GW2RS_UserOnline to JSON.
+         * @function toJSON
+         * @memberof msg.GW2RS_UserOnline
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2RS_UserOnline.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2RS_UserOnline;
     })();
 
     msg.C2RS_MsgTransfer = (function() {
@@ -34680,6 +34808,2073 @@ $root.table = (function() {
      */
     var table = {};
 
+    table.Activity_listBase = (function() {
+
+        /**
+         * Properties of an Activity_listBase.
+         * @memberof table
+         * @interface IActivity_listBase
+         * @property {Array.<table.IActivity_listDefine>|null} [ActivityList] Activity_listBase ActivityList
+         */
+
+        /**
+         * Constructs a new Activity_listBase.
+         * @memberof table
+         * @classdesc Represents an Activity_listBase.
+         * @implements IActivity_listBase
+         * @constructor
+         * @param {table.IActivity_listBase=} [properties] Properties to set
+         */
+        function Activity_listBase(properties) {
+            this.ActivityList = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Activity_listBase ActivityList.
+         * @member {Array.<table.IActivity_listDefine>} ActivityList
+         * @memberof table.Activity_listBase
+         * @instance
+         */
+        Activity_listBase.prototype.ActivityList = $util.emptyArray;
+
+        /**
+         * Creates a new Activity_listBase instance using the specified properties.
+         * @function create
+         * @memberof table.Activity_listBase
+         * @static
+         * @param {table.IActivity_listBase=} [properties] Properties to set
+         * @returns {table.Activity_listBase} Activity_listBase instance
+         */
+        Activity_listBase.create = function create(properties) {
+            return new Activity_listBase(properties);
+        };
+
+        /**
+         * Encodes the specified Activity_listBase message. Does not implicitly {@link table.Activity_listBase.verify|verify} messages.
+         * @function encode
+         * @memberof table.Activity_listBase
+         * @static
+         * @param {table.IActivity_listBase} message Activity_listBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Activity_listBase.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.ActivityList != null && message.ActivityList.length)
+                for (var i = 0; i < message.ActivityList.length; ++i)
+                    $root.table.Activity_listDefine.encode(message.ActivityList[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified Activity_listBase message, length delimited. Does not implicitly {@link table.Activity_listBase.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.Activity_listBase
+         * @static
+         * @param {table.IActivity_listBase} message Activity_listBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Activity_listBase.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an Activity_listBase message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.Activity_listBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.Activity_listBase} Activity_listBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Activity_listBase.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.Activity_listBase();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.ActivityList && message.ActivityList.length))
+                        message.ActivityList = [];
+                    message.ActivityList.push($root.table.Activity_listDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an Activity_listBase message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.Activity_listBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.Activity_listBase} Activity_listBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Activity_listBase.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an Activity_listBase message.
+         * @function verify
+         * @memberof table.Activity_listBase
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        Activity_listBase.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.ActivityList != null && message.hasOwnProperty("ActivityList")) {
+                if (!Array.isArray(message.ActivityList))
+                    return "ActivityList: array expected";
+                for (var i = 0; i < message.ActivityList.length; ++i) {
+                    var error = $root.table.Activity_listDefine.verify(message.ActivityList[i]);
+                    if (error)
+                        return "ActivityList." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates an Activity_listBase message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.Activity_listBase
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.Activity_listBase} Activity_listBase
+         */
+        Activity_listBase.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.Activity_listBase)
+                return object;
+            var message = new $root.table.Activity_listBase();
+            if (object.ActivityList) {
+                if (!Array.isArray(object.ActivityList))
+                    throw TypeError(".table.Activity_listBase.ActivityList: array expected");
+                message.ActivityList = [];
+                for (var i = 0; i < object.ActivityList.length; ++i) {
+                    if (typeof object.ActivityList[i] !== "object")
+                        throw TypeError(".table.Activity_listBase.ActivityList: object expected");
+                    message.ActivityList[i] = $root.table.Activity_listDefine.fromObject(object.ActivityList[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an Activity_listBase message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.Activity_listBase
+         * @static
+         * @param {table.Activity_listBase} message Activity_listBase
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        Activity_listBase.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.ActivityList = [];
+            if (message.ActivityList && message.ActivityList.length) {
+                object.ActivityList = [];
+                for (var j = 0; j < message.ActivityList.length; ++j)
+                    object.ActivityList[j] = $root.table.Activity_listDefine.toObject(message.ActivityList[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this Activity_listBase to JSON.
+         * @function toJSON
+         * @memberof table.Activity_listBase
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        Activity_listBase.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return Activity_listBase;
+    })();
+
+    table.Activity_listDefine = (function() {
+
+        /**
+         * Properties of an Activity_listDefine.
+         * @memberof table
+         * @interface IActivity_listDefine
+         * @property {number|null} [Id] Activity_listDefine Id
+         * @property {string|null} [Type] Activity_listDefine Type
+         * @property {string|null} [Name] Activity_listDefine Name
+         * @property {number|null} [ClearType] Activity_listDefine ClearType
+         * @property {number|null} [ClearType2] Activity_listDefine ClearType2
+         * @property {string|null} [ResGroup] Activity_listDefine ResGroup
+         * @property {number|null} [KeepDayEnd] Activity_listDefine KeepDayEnd
+         * @property {Array.<number>|null} [StartTime] Activity_listDefine StartTime
+         * @property {Array.<number>|null} [EndTime] Activity_listDefine EndTime
+         * @property {string|null} [Des] Activity_listDefine Des
+         * @property {string|null} [Icon] Activity_listDefine Icon
+         * @property {string|null} [ImgId] Activity_listDefine ImgId
+         * @property {string|null} [PanelName] Activity_listDefine PanelName
+         * @property {number|null} [UnInShowPanel] Activity_listDefine UnInShowPanel
+         * @property {string|null} [SubType] Activity_listDefine SubType
+         * @property {string|null} [Trigger] Activity_listDefine Trigger
+         * @property {number|null} [TriggerType] Activity_listDefine TriggerType
+         */
+
+        /**
+         * Constructs a new Activity_listDefine.
+         * @memberof table
+         * @classdesc Represents an Activity_listDefine.
+         * @implements IActivity_listDefine
+         * @constructor
+         * @param {table.IActivity_listDefine=} [properties] Properties to set
+         */
+        function Activity_listDefine(properties) {
+            this.StartTime = [];
+            this.EndTime = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Activity_listDefine Id.
+         * @member {number} Id
+         * @memberof table.Activity_listDefine
+         * @instance
+         */
+        Activity_listDefine.prototype.Id = 0;
+
+        /**
+         * Activity_listDefine Type.
+         * @member {string} Type
+         * @memberof table.Activity_listDefine
+         * @instance
+         */
+        Activity_listDefine.prototype.Type = "";
+
+        /**
+         * Activity_listDefine Name.
+         * @member {string} Name
+         * @memberof table.Activity_listDefine
+         * @instance
+         */
+        Activity_listDefine.prototype.Name = "";
+
+        /**
+         * Activity_listDefine ClearType.
+         * @member {number} ClearType
+         * @memberof table.Activity_listDefine
+         * @instance
+         */
+        Activity_listDefine.prototype.ClearType = 0;
+
+        /**
+         * Activity_listDefine ClearType2.
+         * @member {number} ClearType2
+         * @memberof table.Activity_listDefine
+         * @instance
+         */
+        Activity_listDefine.prototype.ClearType2 = 0;
+
+        /**
+         * Activity_listDefine ResGroup.
+         * @member {string} ResGroup
+         * @memberof table.Activity_listDefine
+         * @instance
+         */
+        Activity_listDefine.prototype.ResGroup = "";
+
+        /**
+         * Activity_listDefine KeepDayEnd.
+         * @member {number} KeepDayEnd
+         * @memberof table.Activity_listDefine
+         * @instance
+         */
+        Activity_listDefine.prototype.KeepDayEnd = 0;
+
+        /**
+         * Activity_listDefine StartTime.
+         * @member {Array.<number>} StartTime
+         * @memberof table.Activity_listDefine
+         * @instance
+         */
+        Activity_listDefine.prototype.StartTime = $util.emptyArray;
+
+        /**
+         * Activity_listDefine EndTime.
+         * @member {Array.<number>} EndTime
+         * @memberof table.Activity_listDefine
+         * @instance
+         */
+        Activity_listDefine.prototype.EndTime = $util.emptyArray;
+
+        /**
+         * Activity_listDefine Des.
+         * @member {string} Des
+         * @memberof table.Activity_listDefine
+         * @instance
+         */
+        Activity_listDefine.prototype.Des = "";
+
+        /**
+         * Activity_listDefine Icon.
+         * @member {string} Icon
+         * @memberof table.Activity_listDefine
+         * @instance
+         */
+        Activity_listDefine.prototype.Icon = "";
+
+        /**
+         * Activity_listDefine ImgId.
+         * @member {string} ImgId
+         * @memberof table.Activity_listDefine
+         * @instance
+         */
+        Activity_listDefine.prototype.ImgId = "";
+
+        /**
+         * Activity_listDefine PanelName.
+         * @member {string} PanelName
+         * @memberof table.Activity_listDefine
+         * @instance
+         */
+        Activity_listDefine.prototype.PanelName = "";
+
+        /**
+         * Activity_listDefine UnInShowPanel.
+         * @member {number} UnInShowPanel
+         * @memberof table.Activity_listDefine
+         * @instance
+         */
+        Activity_listDefine.prototype.UnInShowPanel = 0;
+
+        /**
+         * Activity_listDefine SubType.
+         * @member {string} SubType
+         * @memberof table.Activity_listDefine
+         * @instance
+         */
+        Activity_listDefine.prototype.SubType = "";
+
+        /**
+         * Activity_listDefine Trigger.
+         * @member {string} Trigger
+         * @memberof table.Activity_listDefine
+         * @instance
+         */
+        Activity_listDefine.prototype.Trigger = "";
+
+        /**
+         * Activity_listDefine TriggerType.
+         * @member {number} TriggerType
+         * @memberof table.Activity_listDefine
+         * @instance
+         */
+        Activity_listDefine.prototype.TriggerType = 0;
+
+        /**
+         * Creates a new Activity_listDefine instance using the specified properties.
+         * @function create
+         * @memberof table.Activity_listDefine
+         * @static
+         * @param {table.IActivity_listDefine=} [properties] Properties to set
+         * @returns {table.Activity_listDefine} Activity_listDefine instance
+         */
+        Activity_listDefine.create = function create(properties) {
+            return new Activity_listDefine(properties);
+        };
+
+        /**
+         * Encodes the specified Activity_listDefine message. Does not implicitly {@link table.Activity_listDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.Activity_listDefine
+         * @static
+         * @param {table.IActivity_listDefine} message Activity_listDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Activity_listDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.Id);
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.Type);
+            if (message.Name != null && message.hasOwnProperty("Name"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.Name);
+            if (message.ClearType != null && message.hasOwnProperty("ClearType"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.ClearType);
+            if (message.ClearType2 != null && message.hasOwnProperty("ClearType2"))
+                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.ClearType2);
+            if (message.ResGroup != null && message.hasOwnProperty("ResGroup"))
+                writer.uint32(/* id 6, wireType 2 =*/50).string(message.ResGroup);
+            if (message.KeepDayEnd != null && message.hasOwnProperty("KeepDayEnd"))
+                writer.uint32(/* id 7, wireType 0 =*/56).int32(message.KeepDayEnd);
+            if (message.StartTime != null && message.StartTime.length)
+                for (var i = 0; i < message.StartTime.length; ++i)
+                    writer.uint32(/* id 8, wireType 0 =*/64).int32(message.StartTime[i]);
+            if (message.EndTime != null && message.EndTime.length)
+                for (var i = 0; i < message.EndTime.length; ++i)
+                    writer.uint32(/* id 9, wireType 0 =*/72).int32(message.EndTime[i]);
+            if (message.Des != null && message.hasOwnProperty("Des"))
+                writer.uint32(/* id 10, wireType 2 =*/82).string(message.Des);
+            if (message.Icon != null && message.hasOwnProperty("Icon"))
+                writer.uint32(/* id 11, wireType 2 =*/90).string(message.Icon);
+            if (message.ImgId != null && message.hasOwnProperty("ImgId"))
+                writer.uint32(/* id 12, wireType 2 =*/98).string(message.ImgId);
+            if (message.PanelName != null && message.hasOwnProperty("PanelName"))
+                writer.uint32(/* id 13, wireType 2 =*/106).string(message.PanelName);
+            if (message.UnInShowPanel != null && message.hasOwnProperty("UnInShowPanel"))
+                writer.uint32(/* id 14, wireType 0 =*/112).int32(message.UnInShowPanel);
+            if (message.SubType != null && message.hasOwnProperty("SubType"))
+                writer.uint32(/* id 15, wireType 2 =*/122).string(message.SubType);
+            if (message.Trigger != null && message.hasOwnProperty("Trigger"))
+                writer.uint32(/* id 16, wireType 2 =*/130).string(message.Trigger);
+            if (message.TriggerType != null && message.hasOwnProperty("TriggerType"))
+                writer.uint32(/* id 17, wireType 0 =*/136).int32(message.TriggerType);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified Activity_listDefine message, length delimited. Does not implicitly {@link table.Activity_listDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.Activity_listDefine
+         * @static
+         * @param {table.IActivity_listDefine} message Activity_listDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Activity_listDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an Activity_listDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.Activity_listDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.Activity_listDefine} Activity_listDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Activity_listDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.Activity_listDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.int32();
+                    break;
+                case 2:
+                    message.Type = reader.string();
+                    break;
+                case 3:
+                    message.Name = reader.string();
+                    break;
+                case 4:
+                    message.ClearType = reader.int32();
+                    break;
+                case 5:
+                    message.ClearType2 = reader.int32();
+                    break;
+                case 6:
+                    message.ResGroup = reader.string();
+                    break;
+                case 7:
+                    message.KeepDayEnd = reader.int32();
+                    break;
+                case 8:
+                    if (!(message.StartTime && message.StartTime.length))
+                        message.StartTime = [];
+                    if ((tag & 7) === 2) {
+                        var end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2)
+                            message.StartTime.push(reader.int32());
+                    } else
+                        message.StartTime.push(reader.int32());
+                    break;
+                case 9:
+                    if (!(message.EndTime && message.EndTime.length))
+                        message.EndTime = [];
+                    if ((tag & 7) === 2) {
+                        var end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2)
+                            message.EndTime.push(reader.int32());
+                    } else
+                        message.EndTime.push(reader.int32());
+                    break;
+                case 10:
+                    message.Des = reader.string();
+                    break;
+                case 11:
+                    message.Icon = reader.string();
+                    break;
+                case 12:
+                    message.ImgId = reader.string();
+                    break;
+                case 13:
+                    message.PanelName = reader.string();
+                    break;
+                case 14:
+                    message.UnInShowPanel = reader.int32();
+                    break;
+                case 15:
+                    message.SubType = reader.string();
+                    break;
+                case 16:
+                    message.Trigger = reader.string();
+                    break;
+                case 17:
+                    message.TriggerType = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an Activity_listDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.Activity_listDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.Activity_listDefine} Activity_listDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Activity_listDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an Activity_listDefine message.
+         * @function verify
+         * @memberof table.Activity_listDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        Activity_listDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                if (!$util.isString(message.Type))
+                    return "Type: string expected";
+            if (message.Name != null && message.hasOwnProperty("Name"))
+                if (!$util.isString(message.Name))
+                    return "Name: string expected";
+            if (message.ClearType != null && message.hasOwnProperty("ClearType"))
+                if (!$util.isInteger(message.ClearType))
+                    return "ClearType: integer expected";
+            if (message.ClearType2 != null && message.hasOwnProperty("ClearType2"))
+                if (!$util.isInteger(message.ClearType2))
+                    return "ClearType2: integer expected";
+            if (message.ResGroup != null && message.hasOwnProperty("ResGroup"))
+                if (!$util.isString(message.ResGroup))
+                    return "ResGroup: string expected";
+            if (message.KeepDayEnd != null && message.hasOwnProperty("KeepDayEnd"))
+                if (!$util.isInteger(message.KeepDayEnd))
+                    return "KeepDayEnd: integer expected";
+            if (message.StartTime != null && message.hasOwnProperty("StartTime")) {
+                if (!Array.isArray(message.StartTime))
+                    return "StartTime: array expected";
+                for (var i = 0; i < message.StartTime.length; ++i)
+                    if (!$util.isInteger(message.StartTime[i]))
+                        return "StartTime: integer[] expected";
+            }
+            if (message.EndTime != null && message.hasOwnProperty("EndTime")) {
+                if (!Array.isArray(message.EndTime))
+                    return "EndTime: array expected";
+                for (var i = 0; i < message.EndTime.length; ++i)
+                    if (!$util.isInteger(message.EndTime[i]))
+                        return "EndTime: integer[] expected";
+            }
+            if (message.Des != null && message.hasOwnProperty("Des"))
+                if (!$util.isString(message.Des))
+                    return "Des: string expected";
+            if (message.Icon != null && message.hasOwnProperty("Icon"))
+                if (!$util.isString(message.Icon))
+                    return "Icon: string expected";
+            if (message.ImgId != null && message.hasOwnProperty("ImgId"))
+                if (!$util.isString(message.ImgId))
+                    return "ImgId: string expected";
+            if (message.PanelName != null && message.hasOwnProperty("PanelName"))
+                if (!$util.isString(message.PanelName))
+                    return "PanelName: string expected";
+            if (message.UnInShowPanel != null && message.hasOwnProperty("UnInShowPanel"))
+                if (!$util.isInteger(message.UnInShowPanel))
+                    return "UnInShowPanel: integer expected";
+            if (message.SubType != null && message.hasOwnProperty("SubType"))
+                if (!$util.isString(message.SubType))
+                    return "SubType: string expected";
+            if (message.Trigger != null && message.hasOwnProperty("Trigger"))
+                if (!$util.isString(message.Trigger))
+                    return "Trigger: string expected";
+            if (message.TriggerType != null && message.hasOwnProperty("TriggerType"))
+                if (!$util.isInteger(message.TriggerType))
+                    return "TriggerType: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates an Activity_listDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.Activity_listDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.Activity_listDefine} Activity_listDefine
+         */
+        Activity_listDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.Activity_listDefine)
+                return object;
+            var message = new $root.table.Activity_listDefine();
+            if (object.Id != null)
+                message.Id = object.Id | 0;
+            if (object.Type != null)
+                message.Type = String(object.Type);
+            if (object.Name != null)
+                message.Name = String(object.Name);
+            if (object.ClearType != null)
+                message.ClearType = object.ClearType | 0;
+            if (object.ClearType2 != null)
+                message.ClearType2 = object.ClearType2 | 0;
+            if (object.ResGroup != null)
+                message.ResGroup = String(object.ResGroup);
+            if (object.KeepDayEnd != null)
+                message.KeepDayEnd = object.KeepDayEnd | 0;
+            if (object.StartTime) {
+                if (!Array.isArray(object.StartTime))
+                    throw TypeError(".table.Activity_listDefine.StartTime: array expected");
+                message.StartTime = [];
+                for (var i = 0; i < object.StartTime.length; ++i)
+                    message.StartTime[i] = object.StartTime[i] | 0;
+            }
+            if (object.EndTime) {
+                if (!Array.isArray(object.EndTime))
+                    throw TypeError(".table.Activity_listDefine.EndTime: array expected");
+                message.EndTime = [];
+                for (var i = 0; i < object.EndTime.length; ++i)
+                    message.EndTime[i] = object.EndTime[i] | 0;
+            }
+            if (object.Des != null)
+                message.Des = String(object.Des);
+            if (object.Icon != null)
+                message.Icon = String(object.Icon);
+            if (object.ImgId != null)
+                message.ImgId = String(object.ImgId);
+            if (object.PanelName != null)
+                message.PanelName = String(object.PanelName);
+            if (object.UnInShowPanel != null)
+                message.UnInShowPanel = object.UnInShowPanel | 0;
+            if (object.SubType != null)
+                message.SubType = String(object.SubType);
+            if (object.Trigger != null)
+                message.Trigger = String(object.Trigger);
+            if (object.TriggerType != null)
+                message.TriggerType = object.TriggerType | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an Activity_listDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.Activity_listDefine
+         * @static
+         * @param {table.Activity_listDefine} message Activity_listDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        Activity_listDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults) {
+                object.StartTime = [];
+                object.EndTime = [];
+            }
+            if (options.defaults) {
+                object.Id = 0;
+                object.Type = "";
+                object.Name = "";
+                object.ClearType = 0;
+                object.ClearType2 = 0;
+                object.ResGroup = "";
+                object.KeepDayEnd = 0;
+                object.Des = "";
+                object.Icon = "";
+                object.ImgId = "";
+                object.PanelName = "";
+                object.UnInShowPanel = 0;
+                object.SubType = "";
+                object.Trigger = "";
+                object.TriggerType = 0;
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                object.Type = message.Type;
+            if (message.Name != null && message.hasOwnProperty("Name"))
+                object.Name = message.Name;
+            if (message.ClearType != null && message.hasOwnProperty("ClearType"))
+                object.ClearType = message.ClearType;
+            if (message.ClearType2 != null && message.hasOwnProperty("ClearType2"))
+                object.ClearType2 = message.ClearType2;
+            if (message.ResGroup != null && message.hasOwnProperty("ResGroup"))
+                object.ResGroup = message.ResGroup;
+            if (message.KeepDayEnd != null && message.hasOwnProperty("KeepDayEnd"))
+                object.KeepDayEnd = message.KeepDayEnd;
+            if (message.StartTime && message.StartTime.length) {
+                object.StartTime = [];
+                for (var j = 0; j < message.StartTime.length; ++j)
+                    object.StartTime[j] = message.StartTime[j];
+            }
+            if (message.EndTime && message.EndTime.length) {
+                object.EndTime = [];
+                for (var j = 0; j < message.EndTime.length; ++j)
+                    object.EndTime[j] = message.EndTime[j];
+            }
+            if (message.Des != null && message.hasOwnProperty("Des"))
+                object.Des = message.Des;
+            if (message.Icon != null && message.hasOwnProperty("Icon"))
+                object.Icon = message.Icon;
+            if (message.ImgId != null && message.hasOwnProperty("ImgId"))
+                object.ImgId = message.ImgId;
+            if (message.PanelName != null && message.hasOwnProperty("PanelName"))
+                object.PanelName = message.PanelName;
+            if (message.UnInShowPanel != null && message.hasOwnProperty("UnInShowPanel"))
+                object.UnInShowPanel = message.UnInShowPanel;
+            if (message.SubType != null && message.hasOwnProperty("SubType"))
+                object.SubType = message.SubType;
+            if (message.Trigger != null && message.hasOwnProperty("Trigger"))
+                object.Trigger = message.Trigger;
+            if (message.TriggerType != null && message.hasOwnProperty("TriggerType"))
+                object.TriggerType = message.TriggerType;
+            return object;
+        };
+
+        /**
+         * Converts this Activity_listDefine to JSON.
+         * @function toJSON
+         * @memberof table.Activity_listDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        Activity_listDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return Activity_listDefine;
+    })();
+
+    table.Activity_signinBase = (function() {
+
+        /**
+         * Properties of an Activity_signinBase.
+         * @memberof table
+         * @interface IActivity_signinBase
+         * @property {Array.<table.IActivity_signinDefine>|null} [ActivitySignin] Activity_signinBase ActivitySignin
+         */
+
+        /**
+         * Constructs a new Activity_signinBase.
+         * @memberof table
+         * @classdesc Represents an Activity_signinBase.
+         * @implements IActivity_signinBase
+         * @constructor
+         * @param {table.IActivity_signinBase=} [properties] Properties to set
+         */
+        function Activity_signinBase(properties) {
+            this.ActivitySignin = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Activity_signinBase ActivitySignin.
+         * @member {Array.<table.IActivity_signinDefine>} ActivitySignin
+         * @memberof table.Activity_signinBase
+         * @instance
+         */
+        Activity_signinBase.prototype.ActivitySignin = $util.emptyArray;
+
+        /**
+         * Creates a new Activity_signinBase instance using the specified properties.
+         * @function create
+         * @memberof table.Activity_signinBase
+         * @static
+         * @param {table.IActivity_signinBase=} [properties] Properties to set
+         * @returns {table.Activity_signinBase} Activity_signinBase instance
+         */
+        Activity_signinBase.create = function create(properties) {
+            return new Activity_signinBase(properties);
+        };
+
+        /**
+         * Encodes the specified Activity_signinBase message. Does not implicitly {@link table.Activity_signinBase.verify|verify} messages.
+         * @function encode
+         * @memberof table.Activity_signinBase
+         * @static
+         * @param {table.IActivity_signinBase} message Activity_signinBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Activity_signinBase.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.ActivitySignin != null && message.ActivitySignin.length)
+                for (var i = 0; i < message.ActivitySignin.length; ++i)
+                    $root.table.Activity_signinDefine.encode(message.ActivitySignin[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified Activity_signinBase message, length delimited. Does not implicitly {@link table.Activity_signinBase.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.Activity_signinBase
+         * @static
+         * @param {table.IActivity_signinBase} message Activity_signinBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Activity_signinBase.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an Activity_signinBase message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.Activity_signinBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.Activity_signinBase} Activity_signinBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Activity_signinBase.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.Activity_signinBase();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.ActivitySignin && message.ActivitySignin.length))
+                        message.ActivitySignin = [];
+                    message.ActivitySignin.push($root.table.Activity_signinDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an Activity_signinBase message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.Activity_signinBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.Activity_signinBase} Activity_signinBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Activity_signinBase.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an Activity_signinBase message.
+         * @function verify
+         * @memberof table.Activity_signinBase
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        Activity_signinBase.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.ActivitySignin != null && message.hasOwnProperty("ActivitySignin")) {
+                if (!Array.isArray(message.ActivitySignin))
+                    return "ActivitySignin: array expected";
+                for (var i = 0; i < message.ActivitySignin.length; ++i) {
+                    var error = $root.table.Activity_signinDefine.verify(message.ActivitySignin[i]);
+                    if (error)
+                        return "ActivitySignin." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates an Activity_signinBase message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.Activity_signinBase
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.Activity_signinBase} Activity_signinBase
+         */
+        Activity_signinBase.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.Activity_signinBase)
+                return object;
+            var message = new $root.table.Activity_signinBase();
+            if (object.ActivitySignin) {
+                if (!Array.isArray(object.ActivitySignin))
+                    throw TypeError(".table.Activity_signinBase.ActivitySignin: array expected");
+                message.ActivitySignin = [];
+                for (var i = 0; i < object.ActivitySignin.length; ++i) {
+                    if (typeof object.ActivitySignin[i] !== "object")
+                        throw TypeError(".table.Activity_signinBase.ActivitySignin: object expected");
+                    message.ActivitySignin[i] = $root.table.Activity_signinDefine.fromObject(object.ActivitySignin[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an Activity_signinBase message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.Activity_signinBase
+         * @static
+         * @param {table.Activity_signinBase} message Activity_signinBase
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        Activity_signinBase.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.ActivitySignin = [];
+            if (message.ActivitySignin && message.ActivitySignin.length) {
+                object.ActivitySignin = [];
+                for (var j = 0; j < message.ActivitySignin.length; ++j)
+                    object.ActivitySignin[j] = $root.table.Activity_signinDefine.toObject(message.ActivitySignin[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this Activity_signinBase to JSON.
+         * @function toJSON
+         * @memberof table.Activity_signinBase
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        Activity_signinBase.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return Activity_signinBase;
+    })();
+
+    table.Activity_signinDefine = (function() {
+
+        /**
+         * Properties of an Activity_signinDefine.
+         * @memberof table
+         * @interface IActivity_signinDefine
+         * @property {number|null} [Id] Activity_signinDefine Id
+         * @property {number|null} [ActivityId] Activity_signinDefine ActivityId
+         * @property {number|null} [SubId] Activity_signinDefine SubId
+         * @property {number|null} [Day] Activity_signinDefine Day
+         * @property {number|null} [AwardId] Activity_signinDefine AwardId
+         * @property {number|null} [PilePrize] Activity_signinDefine PilePrize
+         */
+
+        /**
+         * Constructs a new Activity_signinDefine.
+         * @memberof table
+         * @classdesc Represents an Activity_signinDefine.
+         * @implements IActivity_signinDefine
+         * @constructor
+         * @param {table.IActivity_signinDefine=} [properties] Properties to set
+         */
+        function Activity_signinDefine(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Activity_signinDefine Id.
+         * @member {number} Id
+         * @memberof table.Activity_signinDefine
+         * @instance
+         */
+        Activity_signinDefine.prototype.Id = 0;
+
+        /**
+         * Activity_signinDefine ActivityId.
+         * @member {number} ActivityId
+         * @memberof table.Activity_signinDefine
+         * @instance
+         */
+        Activity_signinDefine.prototype.ActivityId = 0;
+
+        /**
+         * Activity_signinDefine SubId.
+         * @member {number} SubId
+         * @memberof table.Activity_signinDefine
+         * @instance
+         */
+        Activity_signinDefine.prototype.SubId = 0;
+
+        /**
+         * Activity_signinDefine Day.
+         * @member {number} Day
+         * @memberof table.Activity_signinDefine
+         * @instance
+         */
+        Activity_signinDefine.prototype.Day = 0;
+
+        /**
+         * Activity_signinDefine AwardId.
+         * @member {number} AwardId
+         * @memberof table.Activity_signinDefine
+         * @instance
+         */
+        Activity_signinDefine.prototype.AwardId = 0;
+
+        /**
+         * Activity_signinDefine PilePrize.
+         * @member {number} PilePrize
+         * @memberof table.Activity_signinDefine
+         * @instance
+         */
+        Activity_signinDefine.prototype.PilePrize = 0;
+
+        /**
+         * Creates a new Activity_signinDefine instance using the specified properties.
+         * @function create
+         * @memberof table.Activity_signinDefine
+         * @static
+         * @param {table.IActivity_signinDefine=} [properties] Properties to set
+         * @returns {table.Activity_signinDefine} Activity_signinDefine instance
+         */
+        Activity_signinDefine.create = function create(properties) {
+            return new Activity_signinDefine(properties);
+        };
+
+        /**
+         * Encodes the specified Activity_signinDefine message. Does not implicitly {@link table.Activity_signinDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.Activity_signinDefine
+         * @static
+         * @param {table.IActivity_signinDefine} message Activity_signinDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Activity_signinDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.Id);
+            if (message.ActivityId != null && message.hasOwnProperty("ActivityId"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.ActivityId);
+            if (message.SubId != null && message.hasOwnProperty("SubId"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.SubId);
+            if (message.Day != null && message.hasOwnProperty("Day"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.Day);
+            if (message.AwardId != null && message.hasOwnProperty("AwardId"))
+                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.AwardId);
+            if (message.PilePrize != null && message.hasOwnProperty("PilePrize"))
+                writer.uint32(/* id 6, wireType 0 =*/48).int32(message.PilePrize);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified Activity_signinDefine message, length delimited. Does not implicitly {@link table.Activity_signinDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.Activity_signinDefine
+         * @static
+         * @param {table.IActivity_signinDefine} message Activity_signinDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Activity_signinDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an Activity_signinDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.Activity_signinDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.Activity_signinDefine} Activity_signinDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Activity_signinDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.Activity_signinDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.int32();
+                    break;
+                case 2:
+                    message.ActivityId = reader.int32();
+                    break;
+                case 3:
+                    message.SubId = reader.int32();
+                    break;
+                case 4:
+                    message.Day = reader.int32();
+                    break;
+                case 5:
+                    message.AwardId = reader.int32();
+                    break;
+                case 6:
+                    message.PilePrize = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an Activity_signinDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.Activity_signinDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.Activity_signinDefine} Activity_signinDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Activity_signinDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an Activity_signinDefine message.
+         * @function verify
+         * @memberof table.Activity_signinDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        Activity_signinDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.ActivityId != null && message.hasOwnProperty("ActivityId"))
+                if (!$util.isInteger(message.ActivityId))
+                    return "ActivityId: integer expected";
+            if (message.SubId != null && message.hasOwnProperty("SubId"))
+                if (!$util.isInteger(message.SubId))
+                    return "SubId: integer expected";
+            if (message.Day != null && message.hasOwnProperty("Day"))
+                if (!$util.isInteger(message.Day))
+                    return "Day: integer expected";
+            if (message.AwardId != null && message.hasOwnProperty("AwardId"))
+                if (!$util.isInteger(message.AwardId))
+                    return "AwardId: integer expected";
+            if (message.PilePrize != null && message.hasOwnProperty("PilePrize"))
+                if (!$util.isInteger(message.PilePrize))
+                    return "PilePrize: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates an Activity_signinDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.Activity_signinDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.Activity_signinDefine} Activity_signinDefine
+         */
+        Activity_signinDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.Activity_signinDefine)
+                return object;
+            var message = new $root.table.Activity_signinDefine();
+            if (object.Id != null)
+                message.Id = object.Id | 0;
+            if (object.ActivityId != null)
+                message.ActivityId = object.ActivityId | 0;
+            if (object.SubId != null)
+                message.SubId = object.SubId | 0;
+            if (object.Day != null)
+                message.Day = object.Day | 0;
+            if (object.AwardId != null)
+                message.AwardId = object.AwardId | 0;
+            if (object.PilePrize != null)
+                message.PilePrize = object.PilePrize | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an Activity_signinDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.Activity_signinDefine
+         * @static
+         * @param {table.Activity_signinDefine} message Activity_signinDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        Activity_signinDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.Id = 0;
+                object.ActivityId = 0;
+                object.SubId = 0;
+                object.Day = 0;
+                object.AwardId = 0;
+                object.PilePrize = 0;
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.ActivityId != null && message.hasOwnProperty("ActivityId"))
+                object.ActivityId = message.ActivityId;
+            if (message.SubId != null && message.hasOwnProperty("SubId"))
+                object.SubId = message.SubId;
+            if (message.Day != null && message.hasOwnProperty("Day"))
+                object.Day = message.Day;
+            if (message.AwardId != null && message.hasOwnProperty("AwardId"))
+                object.AwardId = message.AwardId;
+            if (message.PilePrize != null && message.hasOwnProperty("PilePrize"))
+                object.PilePrize = message.PilePrize;
+            return object;
+        };
+
+        /**
+         * Converts this Activity_signinDefine to JSON.
+         * @function toJSON
+         * @memberof table.Activity_signinDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        Activity_signinDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return Activity_signinDefine;
+    })();
+
+    table.AwardBase = (function() {
+
+        /**
+         * Properties of an AwardBase.
+         * @memberof table
+         * @interface IAwardBase
+         * @property {Array.<table.IAwardDefine>|null} [Award] AwardBase Award
+         */
+
+        /**
+         * Constructs a new AwardBase.
+         * @memberof table
+         * @classdesc Represents an AwardBase.
+         * @implements IAwardBase
+         * @constructor
+         * @param {table.IAwardBase=} [properties] Properties to set
+         */
+        function AwardBase(properties) {
+            this.Award = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * AwardBase Award.
+         * @member {Array.<table.IAwardDefine>} Award
+         * @memberof table.AwardBase
+         * @instance
+         */
+        AwardBase.prototype.Award = $util.emptyArray;
+
+        /**
+         * Creates a new AwardBase instance using the specified properties.
+         * @function create
+         * @memberof table.AwardBase
+         * @static
+         * @param {table.IAwardBase=} [properties] Properties to set
+         * @returns {table.AwardBase} AwardBase instance
+         */
+        AwardBase.create = function create(properties) {
+            return new AwardBase(properties);
+        };
+
+        /**
+         * Encodes the specified AwardBase message. Does not implicitly {@link table.AwardBase.verify|verify} messages.
+         * @function encode
+         * @memberof table.AwardBase
+         * @static
+         * @param {table.IAwardBase} message AwardBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AwardBase.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Award != null && message.Award.length)
+                for (var i = 0; i < message.Award.length; ++i)
+                    $root.table.AwardDefine.encode(message.Award[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified AwardBase message, length delimited. Does not implicitly {@link table.AwardBase.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.AwardBase
+         * @static
+         * @param {table.IAwardBase} message AwardBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AwardBase.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an AwardBase message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.AwardBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.AwardBase} AwardBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AwardBase.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.AwardBase();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.Award && message.Award.length))
+                        message.Award = [];
+                    message.Award.push($root.table.AwardDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an AwardBase message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.AwardBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.AwardBase} AwardBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AwardBase.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an AwardBase message.
+         * @function verify
+         * @memberof table.AwardBase
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        AwardBase.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Award != null && message.hasOwnProperty("Award")) {
+                if (!Array.isArray(message.Award))
+                    return "Award: array expected";
+                for (var i = 0; i < message.Award.length; ++i) {
+                    var error = $root.table.AwardDefine.verify(message.Award[i]);
+                    if (error)
+                        return "Award." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates an AwardBase message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.AwardBase
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.AwardBase} AwardBase
+         */
+        AwardBase.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.AwardBase)
+                return object;
+            var message = new $root.table.AwardBase();
+            if (object.Award) {
+                if (!Array.isArray(object.Award))
+                    throw TypeError(".table.AwardBase.Award: array expected");
+                message.Award = [];
+                for (var i = 0; i < object.Award.length; ++i) {
+                    if (typeof object.Award[i] !== "object")
+                        throw TypeError(".table.AwardBase.Award: object expected");
+                    message.Award[i] = $root.table.AwardDefine.fromObject(object.Award[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an AwardBase message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.AwardBase
+         * @static
+         * @param {table.AwardBase} message AwardBase
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        AwardBase.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.Award = [];
+            if (message.Award && message.Award.length) {
+                object.Award = [];
+                for (var j = 0; j < message.Award.length; ++j)
+                    object.Award[j] = $root.table.AwardDefine.toObject(message.Award[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this AwardBase to JSON.
+         * @function toJSON
+         * @memberof table.AwardBase
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        AwardBase.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return AwardBase;
+    })();
+
+    table.AwardDefine = (function() {
+
+        /**
+         * Properties of an AwardDefine.
+         * @memberof table
+         * @interface IAwardDefine
+         * @property {number|null} [Id] AwardDefine Id
+         * @property {number|null} [Type] AwardDefine Type
+         * @property {number|null} [CostType] AwardDefine CostType
+         * @property {number|null} [CostId] AwardDefine CostId
+         * @property {number|null} [CostNum] AwardDefine CostNum
+         * @property {Array.<number>|null} [RewardType] AwardDefine RewardType
+         * @property {Array.<number>|null} [RewardId] AwardDefine RewardId
+         * @property {Array.<number>|null} [RewardNum] AwardDefine RewardNum
+         * @property {number|null} [PreId] AwardDefine PreId
+         * @property {number|null} [LogId] AwardDefine LogId
+         * @property {string|null} [Name] AwardDefine Name
+         * @property {string|null} [Des] AwardDefine Des
+         * @property {number|null} [Limit] AwardDefine Limit
+         * @property {number|null} [Nacr] AwardDefine Nacr
+         * @property {number|null} [MailId] AwardDefine MailId
+         */
+
+        /**
+         * Constructs a new AwardDefine.
+         * @memberof table
+         * @classdesc Represents an AwardDefine.
+         * @implements IAwardDefine
+         * @constructor
+         * @param {table.IAwardDefine=} [properties] Properties to set
+         */
+        function AwardDefine(properties) {
+            this.RewardType = [];
+            this.RewardId = [];
+            this.RewardNum = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * AwardDefine Id.
+         * @member {number} Id
+         * @memberof table.AwardDefine
+         * @instance
+         */
+        AwardDefine.prototype.Id = 0;
+
+        /**
+         * AwardDefine Type.
+         * @member {number} Type
+         * @memberof table.AwardDefine
+         * @instance
+         */
+        AwardDefine.prototype.Type = 0;
+
+        /**
+         * AwardDefine CostType.
+         * @member {number} CostType
+         * @memberof table.AwardDefine
+         * @instance
+         */
+        AwardDefine.prototype.CostType = 0;
+
+        /**
+         * AwardDefine CostId.
+         * @member {number} CostId
+         * @memberof table.AwardDefine
+         * @instance
+         */
+        AwardDefine.prototype.CostId = 0;
+
+        /**
+         * AwardDefine CostNum.
+         * @member {number} CostNum
+         * @memberof table.AwardDefine
+         * @instance
+         */
+        AwardDefine.prototype.CostNum = 0;
+
+        /**
+         * AwardDefine RewardType.
+         * @member {Array.<number>} RewardType
+         * @memberof table.AwardDefine
+         * @instance
+         */
+        AwardDefine.prototype.RewardType = $util.emptyArray;
+
+        /**
+         * AwardDefine RewardId.
+         * @member {Array.<number>} RewardId
+         * @memberof table.AwardDefine
+         * @instance
+         */
+        AwardDefine.prototype.RewardId = $util.emptyArray;
+
+        /**
+         * AwardDefine RewardNum.
+         * @member {Array.<number>} RewardNum
+         * @memberof table.AwardDefine
+         * @instance
+         */
+        AwardDefine.prototype.RewardNum = $util.emptyArray;
+
+        /**
+         * AwardDefine PreId.
+         * @member {number} PreId
+         * @memberof table.AwardDefine
+         * @instance
+         */
+        AwardDefine.prototype.PreId = 0;
+
+        /**
+         * AwardDefine LogId.
+         * @member {number} LogId
+         * @memberof table.AwardDefine
+         * @instance
+         */
+        AwardDefine.prototype.LogId = 0;
+
+        /**
+         * AwardDefine Name.
+         * @member {string} Name
+         * @memberof table.AwardDefine
+         * @instance
+         */
+        AwardDefine.prototype.Name = "";
+
+        /**
+         * AwardDefine Des.
+         * @member {string} Des
+         * @memberof table.AwardDefine
+         * @instance
+         */
+        AwardDefine.prototype.Des = "";
+
+        /**
+         * AwardDefine Limit.
+         * @member {number} Limit
+         * @memberof table.AwardDefine
+         * @instance
+         */
+        AwardDefine.prototype.Limit = 0;
+
+        /**
+         * AwardDefine Nacr.
+         * @member {number} Nacr
+         * @memberof table.AwardDefine
+         * @instance
+         */
+        AwardDefine.prototype.Nacr = 0;
+
+        /**
+         * AwardDefine MailId.
+         * @member {number} MailId
+         * @memberof table.AwardDefine
+         * @instance
+         */
+        AwardDefine.prototype.MailId = 0;
+
+        /**
+         * Creates a new AwardDefine instance using the specified properties.
+         * @function create
+         * @memberof table.AwardDefine
+         * @static
+         * @param {table.IAwardDefine=} [properties] Properties to set
+         * @returns {table.AwardDefine} AwardDefine instance
+         */
+        AwardDefine.create = function create(properties) {
+            return new AwardDefine(properties);
+        };
+
+        /**
+         * Encodes the specified AwardDefine message. Does not implicitly {@link table.AwardDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.AwardDefine
+         * @static
+         * @param {table.IAwardDefine} message AwardDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AwardDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.Id);
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.Type);
+            if (message.CostType != null && message.hasOwnProperty("CostType"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.CostType);
+            if (message.CostId != null && message.hasOwnProperty("CostId"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.CostId);
+            if (message.CostNum != null && message.hasOwnProperty("CostNum"))
+                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.CostNum);
+            if (message.RewardType != null && message.RewardType.length)
+                for (var i = 0; i < message.RewardType.length; ++i)
+                    writer.uint32(/* id 6, wireType 0 =*/48).int32(message.RewardType[i]);
+            if (message.RewardId != null && message.RewardId.length)
+                for (var i = 0; i < message.RewardId.length; ++i)
+                    writer.uint32(/* id 7, wireType 0 =*/56).int32(message.RewardId[i]);
+            if (message.RewardNum != null && message.RewardNum.length)
+                for (var i = 0; i < message.RewardNum.length; ++i)
+                    writer.uint32(/* id 8, wireType 0 =*/64).int32(message.RewardNum[i]);
+            if (message.PreId != null && message.hasOwnProperty("PreId"))
+                writer.uint32(/* id 9, wireType 0 =*/72).int32(message.PreId);
+            if (message.LogId != null && message.hasOwnProperty("LogId"))
+                writer.uint32(/* id 10, wireType 0 =*/80).int32(message.LogId);
+            if (message.Name != null && message.hasOwnProperty("Name"))
+                writer.uint32(/* id 11, wireType 2 =*/90).string(message.Name);
+            if (message.Des != null && message.hasOwnProperty("Des"))
+                writer.uint32(/* id 12, wireType 2 =*/98).string(message.Des);
+            if (message.Limit != null && message.hasOwnProperty("Limit"))
+                writer.uint32(/* id 13, wireType 0 =*/104).int32(message.Limit);
+            if (message.Nacr != null && message.hasOwnProperty("Nacr"))
+                writer.uint32(/* id 14, wireType 0 =*/112).int32(message.Nacr);
+            if (message.MailId != null && message.hasOwnProperty("MailId"))
+                writer.uint32(/* id 15, wireType 0 =*/120).int32(message.MailId);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified AwardDefine message, length delimited. Does not implicitly {@link table.AwardDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.AwardDefine
+         * @static
+         * @param {table.IAwardDefine} message AwardDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AwardDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an AwardDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.AwardDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.AwardDefine} AwardDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AwardDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.AwardDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.int32();
+                    break;
+                case 2:
+                    message.Type = reader.int32();
+                    break;
+                case 3:
+                    message.CostType = reader.int32();
+                    break;
+                case 4:
+                    message.CostId = reader.int32();
+                    break;
+                case 5:
+                    message.CostNum = reader.int32();
+                    break;
+                case 6:
+                    if (!(message.RewardType && message.RewardType.length))
+                        message.RewardType = [];
+                    if ((tag & 7) === 2) {
+                        var end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2)
+                            message.RewardType.push(reader.int32());
+                    } else
+                        message.RewardType.push(reader.int32());
+                    break;
+                case 7:
+                    if (!(message.RewardId && message.RewardId.length))
+                        message.RewardId = [];
+                    if ((tag & 7) === 2) {
+                        var end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2)
+                            message.RewardId.push(reader.int32());
+                    } else
+                        message.RewardId.push(reader.int32());
+                    break;
+                case 8:
+                    if (!(message.RewardNum && message.RewardNum.length))
+                        message.RewardNum = [];
+                    if ((tag & 7) === 2) {
+                        var end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2)
+                            message.RewardNum.push(reader.int32());
+                    } else
+                        message.RewardNum.push(reader.int32());
+                    break;
+                case 9:
+                    message.PreId = reader.int32();
+                    break;
+                case 10:
+                    message.LogId = reader.int32();
+                    break;
+                case 11:
+                    message.Name = reader.string();
+                    break;
+                case 12:
+                    message.Des = reader.string();
+                    break;
+                case 13:
+                    message.Limit = reader.int32();
+                    break;
+                case 14:
+                    message.Nacr = reader.int32();
+                    break;
+                case 15:
+                    message.MailId = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an AwardDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.AwardDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.AwardDefine} AwardDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AwardDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an AwardDefine message.
+         * @function verify
+         * @memberof table.AwardDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        AwardDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                if (!$util.isInteger(message.Type))
+                    return "Type: integer expected";
+            if (message.CostType != null && message.hasOwnProperty("CostType"))
+                if (!$util.isInteger(message.CostType))
+                    return "CostType: integer expected";
+            if (message.CostId != null && message.hasOwnProperty("CostId"))
+                if (!$util.isInteger(message.CostId))
+                    return "CostId: integer expected";
+            if (message.CostNum != null && message.hasOwnProperty("CostNum"))
+                if (!$util.isInteger(message.CostNum))
+                    return "CostNum: integer expected";
+            if (message.RewardType != null && message.hasOwnProperty("RewardType")) {
+                if (!Array.isArray(message.RewardType))
+                    return "RewardType: array expected";
+                for (var i = 0; i < message.RewardType.length; ++i)
+                    if (!$util.isInteger(message.RewardType[i]))
+                        return "RewardType: integer[] expected";
+            }
+            if (message.RewardId != null && message.hasOwnProperty("RewardId")) {
+                if (!Array.isArray(message.RewardId))
+                    return "RewardId: array expected";
+                for (var i = 0; i < message.RewardId.length; ++i)
+                    if (!$util.isInteger(message.RewardId[i]))
+                        return "RewardId: integer[] expected";
+            }
+            if (message.RewardNum != null && message.hasOwnProperty("RewardNum")) {
+                if (!Array.isArray(message.RewardNum))
+                    return "RewardNum: array expected";
+                for (var i = 0; i < message.RewardNum.length; ++i)
+                    if (!$util.isInteger(message.RewardNum[i]))
+                        return "RewardNum: integer[] expected";
+            }
+            if (message.PreId != null && message.hasOwnProperty("PreId"))
+                if (!$util.isInteger(message.PreId))
+                    return "PreId: integer expected";
+            if (message.LogId != null && message.hasOwnProperty("LogId"))
+                if (!$util.isInteger(message.LogId))
+                    return "LogId: integer expected";
+            if (message.Name != null && message.hasOwnProperty("Name"))
+                if (!$util.isString(message.Name))
+                    return "Name: string expected";
+            if (message.Des != null && message.hasOwnProperty("Des"))
+                if (!$util.isString(message.Des))
+                    return "Des: string expected";
+            if (message.Limit != null && message.hasOwnProperty("Limit"))
+                if (!$util.isInteger(message.Limit))
+                    return "Limit: integer expected";
+            if (message.Nacr != null && message.hasOwnProperty("Nacr"))
+                if (!$util.isInteger(message.Nacr))
+                    return "Nacr: integer expected";
+            if (message.MailId != null && message.hasOwnProperty("MailId"))
+                if (!$util.isInteger(message.MailId))
+                    return "MailId: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates an AwardDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.AwardDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.AwardDefine} AwardDefine
+         */
+        AwardDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.AwardDefine)
+                return object;
+            var message = new $root.table.AwardDefine();
+            if (object.Id != null)
+                message.Id = object.Id | 0;
+            if (object.Type != null)
+                message.Type = object.Type | 0;
+            if (object.CostType != null)
+                message.CostType = object.CostType | 0;
+            if (object.CostId != null)
+                message.CostId = object.CostId | 0;
+            if (object.CostNum != null)
+                message.CostNum = object.CostNum | 0;
+            if (object.RewardType) {
+                if (!Array.isArray(object.RewardType))
+                    throw TypeError(".table.AwardDefine.RewardType: array expected");
+                message.RewardType = [];
+                for (var i = 0; i < object.RewardType.length; ++i)
+                    message.RewardType[i] = object.RewardType[i] | 0;
+            }
+            if (object.RewardId) {
+                if (!Array.isArray(object.RewardId))
+                    throw TypeError(".table.AwardDefine.RewardId: array expected");
+                message.RewardId = [];
+                for (var i = 0; i < object.RewardId.length; ++i)
+                    message.RewardId[i] = object.RewardId[i] | 0;
+            }
+            if (object.RewardNum) {
+                if (!Array.isArray(object.RewardNum))
+                    throw TypeError(".table.AwardDefine.RewardNum: array expected");
+                message.RewardNum = [];
+                for (var i = 0; i < object.RewardNum.length; ++i)
+                    message.RewardNum[i] = object.RewardNum[i] | 0;
+            }
+            if (object.PreId != null)
+                message.PreId = object.PreId | 0;
+            if (object.LogId != null)
+                message.LogId = object.LogId | 0;
+            if (object.Name != null)
+                message.Name = String(object.Name);
+            if (object.Des != null)
+                message.Des = String(object.Des);
+            if (object.Limit != null)
+                message.Limit = object.Limit | 0;
+            if (object.Nacr != null)
+                message.Nacr = object.Nacr | 0;
+            if (object.MailId != null)
+                message.MailId = object.MailId | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an AwardDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.AwardDefine
+         * @static
+         * @param {table.AwardDefine} message AwardDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        AwardDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults) {
+                object.RewardType = [];
+                object.RewardId = [];
+                object.RewardNum = [];
+            }
+            if (options.defaults) {
+                object.Id = 0;
+                object.Type = 0;
+                object.CostType = 0;
+                object.CostId = 0;
+                object.CostNum = 0;
+                object.PreId = 0;
+                object.LogId = 0;
+                object.Name = "";
+                object.Des = "";
+                object.Limit = 0;
+                object.Nacr = 0;
+                object.MailId = 0;
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                object.Type = message.Type;
+            if (message.CostType != null && message.hasOwnProperty("CostType"))
+                object.CostType = message.CostType;
+            if (message.CostId != null && message.hasOwnProperty("CostId"))
+                object.CostId = message.CostId;
+            if (message.CostNum != null && message.hasOwnProperty("CostNum"))
+                object.CostNum = message.CostNum;
+            if (message.RewardType && message.RewardType.length) {
+                object.RewardType = [];
+                for (var j = 0; j < message.RewardType.length; ++j)
+                    object.RewardType[j] = message.RewardType[j];
+            }
+            if (message.RewardId && message.RewardId.length) {
+                object.RewardId = [];
+                for (var j = 0; j < message.RewardId.length; ++j)
+                    object.RewardId[j] = message.RewardId[j];
+            }
+            if (message.RewardNum && message.RewardNum.length) {
+                object.RewardNum = [];
+                for (var j = 0; j < message.RewardNum.length; ++j)
+                    object.RewardNum[j] = message.RewardNum[j];
+            }
+            if (message.PreId != null && message.hasOwnProperty("PreId"))
+                object.PreId = message.PreId;
+            if (message.LogId != null && message.hasOwnProperty("LogId"))
+                object.LogId = message.LogId;
+            if (message.Name != null && message.hasOwnProperty("Name"))
+                object.Name = message.Name;
+            if (message.Des != null && message.hasOwnProperty("Des"))
+                object.Des = message.Des;
+            if (message.Limit != null && message.hasOwnProperty("Limit"))
+                object.Limit = message.Limit;
+            if (message.Nacr != null && message.hasOwnProperty("Nacr"))
+                object.Nacr = message.Nacr;
+            if (message.MailId != null && message.hasOwnProperty("MailId"))
+                object.MailId = message.MailId;
+            return object;
+        };
+
+        /**
+         * Converts this AwardDefine to JSON.
+         * @function toJSON
+         * @memberof table.AwardDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        AwardDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return AwardDefine;
+    })();
+
     table.TBallGiftbase = (function() {
 
         /**
@@ -42385,446 +44580,6 @@ $root.table = (function() {
         };
 
         return TShopDefine;
-    })();
-
-    table.SignBase = (function() {
-
-        /**
-         * Properties of a SignBase.
-         * @memberof table
-         * @interface ISignBase
-         * @property {Array.<table.ITSignDefine>|null} [TSign] SignBase TSign
-         */
-
-        /**
-         * Constructs a new SignBase.
-         * @memberof table
-         * @classdesc Represents a SignBase.
-         * @implements ISignBase
-         * @constructor
-         * @param {table.ISignBase=} [properties] Properties to set
-         */
-        function SignBase(properties) {
-            this.TSign = [];
-            if (properties)
-                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * SignBase TSign.
-         * @member {Array.<table.ITSignDefine>} TSign
-         * @memberof table.SignBase
-         * @instance
-         */
-        SignBase.prototype.TSign = $util.emptyArray;
-
-        /**
-         * Creates a new SignBase instance using the specified properties.
-         * @function create
-         * @memberof table.SignBase
-         * @static
-         * @param {table.ISignBase=} [properties] Properties to set
-         * @returns {table.SignBase} SignBase instance
-         */
-        SignBase.create = function create(properties) {
-            return new SignBase(properties);
-        };
-
-        /**
-         * Encodes the specified SignBase message. Does not implicitly {@link table.SignBase.verify|verify} messages.
-         * @function encode
-         * @memberof table.SignBase
-         * @static
-         * @param {table.ISignBase} message SignBase message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        SignBase.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.TSign != null && message.TSign.length)
-                for (var i = 0; i < message.TSign.length; ++i)
-                    $root.table.TSignDefine.encode(message.TSign[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-            return writer;
-        };
-
-        /**
-         * Encodes the specified SignBase message, length delimited. Does not implicitly {@link table.SignBase.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof table.SignBase
-         * @static
-         * @param {table.ISignBase} message SignBase message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        SignBase.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a SignBase message from the specified reader or buffer.
-         * @function decode
-         * @memberof table.SignBase
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {table.SignBase} SignBase
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        SignBase.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.SignBase();
-            while (reader.pos < end) {
-                var tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 1:
-                    if (!(message.TSign && message.TSign.length))
-                        message.TSign = [];
-                    message.TSign.push($root.table.TSignDefine.decode(reader, reader.uint32()));
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a SignBase message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof table.SignBase
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {table.SignBase} SignBase
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        SignBase.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a SignBase message.
-         * @function verify
-         * @memberof table.SignBase
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        SignBase.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.TSign != null && message.hasOwnProperty("TSign")) {
-                if (!Array.isArray(message.TSign))
-                    return "TSign: array expected";
-                for (var i = 0; i < message.TSign.length; ++i) {
-                    var error = $root.table.TSignDefine.verify(message.TSign[i]);
-                    if (error)
-                        return "TSign." + error;
-                }
-            }
-            return null;
-        };
-
-        /**
-         * Creates a SignBase message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof table.SignBase
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {table.SignBase} SignBase
-         */
-        SignBase.fromObject = function fromObject(object) {
-            if (object instanceof $root.table.SignBase)
-                return object;
-            var message = new $root.table.SignBase();
-            if (object.TSign) {
-                if (!Array.isArray(object.TSign))
-                    throw TypeError(".table.SignBase.TSign: array expected");
-                message.TSign = [];
-                for (var i = 0; i < object.TSign.length; ++i) {
-                    if (typeof object.TSign[i] !== "object")
-                        throw TypeError(".table.SignBase.TSign: object expected");
-                    message.TSign[i] = $root.table.TSignDefine.fromObject(object.TSign[i]);
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Creates a plain object from a SignBase message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof table.SignBase
-         * @static
-         * @param {table.SignBase} message SignBase
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        SignBase.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            var object = {};
-            if (options.arrays || options.defaults)
-                object.TSign = [];
-            if (message.TSign && message.TSign.length) {
-                object.TSign = [];
-                for (var j = 0; j < message.TSign.length; ++j)
-                    object.TSign[j] = $root.table.TSignDefine.toObject(message.TSign[j], options);
-            }
-            return object;
-        };
-
-        /**
-         * Converts this SignBase to JSON.
-         * @function toJSON
-         * @memberof table.SignBase
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        SignBase.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return SignBase;
-    })();
-
-    table.TSignDefine = (function() {
-
-        /**
-         * Properties of a TSignDefine.
-         * @memberof table
-         * @interface ITSignDefine
-         * @property {number|null} [Id] TSignDefine Id
-         * @property {number|null} [CostId] TSignDefine CostId
-         * @property {number|null} [Num] TSignDefine Num
-         */
-
-        /**
-         * Constructs a new TSignDefine.
-         * @memberof table
-         * @classdesc Represents a TSignDefine.
-         * @implements ITSignDefine
-         * @constructor
-         * @param {table.ITSignDefine=} [properties] Properties to set
-         */
-        function TSignDefine(properties) {
-            if (properties)
-                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * TSignDefine Id.
-         * @member {number} Id
-         * @memberof table.TSignDefine
-         * @instance
-         */
-        TSignDefine.prototype.Id = 0;
-
-        /**
-         * TSignDefine CostId.
-         * @member {number} CostId
-         * @memberof table.TSignDefine
-         * @instance
-         */
-        TSignDefine.prototype.CostId = 0;
-
-        /**
-         * TSignDefine Num.
-         * @member {number} Num
-         * @memberof table.TSignDefine
-         * @instance
-         */
-        TSignDefine.prototype.Num = 0;
-
-        /**
-         * Creates a new TSignDefine instance using the specified properties.
-         * @function create
-         * @memberof table.TSignDefine
-         * @static
-         * @param {table.ITSignDefine=} [properties] Properties to set
-         * @returns {table.TSignDefine} TSignDefine instance
-         */
-        TSignDefine.create = function create(properties) {
-            return new TSignDefine(properties);
-        };
-
-        /**
-         * Encodes the specified TSignDefine message. Does not implicitly {@link table.TSignDefine.verify|verify} messages.
-         * @function encode
-         * @memberof table.TSignDefine
-         * @static
-         * @param {table.ITSignDefine} message TSignDefine message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        TSignDefine.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.Id != null && message.hasOwnProperty("Id"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.Id);
-            if (message.CostId != null && message.hasOwnProperty("CostId"))
-                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.CostId);
-            if (message.Num != null && message.hasOwnProperty("Num"))
-                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.Num);
-            return writer;
-        };
-
-        /**
-         * Encodes the specified TSignDefine message, length delimited. Does not implicitly {@link table.TSignDefine.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof table.TSignDefine
-         * @static
-         * @param {table.ITSignDefine} message TSignDefine message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        TSignDefine.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a TSignDefine message from the specified reader or buffer.
-         * @function decode
-         * @memberof table.TSignDefine
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {table.TSignDefine} TSignDefine
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        TSignDefine.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TSignDefine();
-            while (reader.pos < end) {
-                var tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 1:
-                    message.Id = reader.int32();
-                    break;
-                case 2:
-                    message.CostId = reader.int32();
-                    break;
-                case 3:
-                    message.Num = reader.int32();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a TSignDefine message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof table.TSignDefine
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {table.TSignDefine} TSignDefine
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        TSignDefine.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a TSignDefine message.
-         * @function verify
-         * @memberof table.TSignDefine
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        TSignDefine.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.Id != null && message.hasOwnProperty("Id"))
-                if (!$util.isInteger(message.Id))
-                    return "Id: integer expected";
-            if (message.CostId != null && message.hasOwnProperty("CostId"))
-                if (!$util.isInteger(message.CostId))
-                    return "CostId: integer expected";
-            if (message.Num != null && message.hasOwnProperty("Num"))
-                if (!$util.isInteger(message.Num))
-                    return "Num: integer expected";
-            return null;
-        };
-
-        /**
-         * Creates a TSignDefine message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof table.TSignDefine
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {table.TSignDefine} TSignDefine
-         */
-        TSignDefine.fromObject = function fromObject(object) {
-            if (object instanceof $root.table.TSignDefine)
-                return object;
-            var message = new $root.table.TSignDefine();
-            if (object.Id != null)
-                message.Id = object.Id | 0;
-            if (object.CostId != null)
-                message.CostId = object.CostId | 0;
-            if (object.Num != null)
-                message.Num = object.Num | 0;
-            return message;
-        };
-
-        /**
-         * Creates a plain object from a TSignDefine message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof table.TSignDefine
-         * @static
-         * @param {table.TSignDefine} message TSignDefine
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        TSignDefine.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            var object = {};
-            if (options.defaults) {
-                object.Id = 0;
-                object.CostId = 0;
-                object.Num = 0;
-            }
-            if (message.Id != null && message.hasOwnProperty("Id"))
-                object.Id = message.Id;
-            if (message.CostId != null && message.hasOwnProperty("CostId"))
-                object.CostId = message.CostId;
-            if (message.Num != null && message.hasOwnProperty("Num"))
-                object.Num = message.Num;
-            return object;
-        };
-
-        /**
-         * Converts this TSignDefine to JSON.
-         * @function toJSON
-         * @memberof table.TSignDefine
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        TSignDefine.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return TSignDefine;
     })();
 
     table.TaskBase = (function() {

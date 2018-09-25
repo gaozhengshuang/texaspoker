@@ -191,7 +191,7 @@ module game
 			{
 				// this.onConnectClose();
 				// this.onSocketClose();
-				// NetFailed.getInstance().show();
+				// NetFailed.getInstance().show(); //move todo
 			});
 		}
 		/**
