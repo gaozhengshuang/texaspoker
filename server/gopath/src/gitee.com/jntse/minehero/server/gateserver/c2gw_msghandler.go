@@ -11,8 +11,8 @@ import (
 	"gitee.com/jntse/minehero/server/tbl"
 	_ "github.com/go-redis/redis"
 	pb "github.com/gogo/protobuf/proto"
-	"reflect"
-	_ "strconv"
+	_"reflect"
+	_"strconv"
 )
 
 //func init() {
