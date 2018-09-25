@@ -45,7 +45,7 @@ class SceneManager
 	/**
 	 * 场景缓存列表
 	 */
-	public static cacheSceneList: game.Map<SceneType, BaseScene>;
+	public static cacheSceneList: game.Map<SceneType, BaseScene> = new game.Map<SceneType, BaseScene>();
 	/**
 	 * 当前场景
 	 */
@@ -77,10 +77,6 @@ class SceneManager
 		}
 		if (!SceneManager._currentScene || (SceneManager._currentScene && SceneManager._currentScene.isResLoaded))
 		{
-			if (!SceneManager.cacheSceneList)
-			{
-				SceneManager.cacheSceneList = new game.Map<SceneType, BaseScene>();
-			}
 			if (SceneManager._currentScene)
 			{
 				SceneManager._currentScene.LoadCompleteEvent.removeListener(SceneManager.switchComplete, this);
@@ -117,8 +113,8 @@ class SceneManager
 			if (scene)
 			{
 				SceneManager._currentScene = scene;
-				scene.LoadCompleteEvent.addListener(SceneManager.switchComplete, this);
 				SceneManager.showSwitchPanel();
+				scene.LoadCompleteEvent.addListener(SceneManager.switchComplete, this);
 				if (!scene.sceneInfo)
 				{
 					scene.sceneInfo = new SceneInfo(type, extendData);
@@ -161,19 +157,24 @@ class SceneManager
 	 */
 	private static switchComplete(scene: BaseScene)
 	{
+		UIManager.panelDict.foreach(SceneManager.closeChildPanel, this);  //关闭不相关的面板
+
 		if (SceneManager._lastScene)
 		{
 			SceneManager._lastScene.clear();
 		}
 		scene.LoadCompleteEvent.removeListener(SceneManager.switchComplete, this);
 		SoundManager.playBgMusic();
+		SceneManager.closeSwitchPanel()
 		if (SceneManager._isLogout)
 		{
 			SceneManager._isLogout = false;
 			GameManager.reload();
 		}
-		SceneManager.closeSwitchPanel()
-		SceneManager.onSwitchCompleteEvent.dispatch();
+		else
+		{
+			SceneManager.onSwitchCompleteEvent.dispatch();
+		}
 	}
 	/**
 	 * 获取场景
@@ -185,10 +186,6 @@ class SceneManager
 			return SceneManager.cacheSceneList.getValue(type);
 		}
 		return null;
-	}
-	public static switchClosePanels()
-	{
-		UIManager.panelDict.foreach(SceneManager.closeChildPanel, this);
 	}
 	private static closeChildPanel(name: string, panel: BasePanel)
 	{

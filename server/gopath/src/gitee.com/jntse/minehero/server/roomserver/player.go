@@ -4,14 +4,18 @@ import (
 		//"fmt"
 	"gitee.com/jntse/minehero/pbmsg"
 	pb "github.com/gogo/protobuf/proto"
+	"gitee.com/jntse/gotoolkit/util"
 )
 
 const (
-	GSNone int32 = iota
-	GSWaitNext
-	GSGame
-	GSFold
-	GSAllIn
+	GSWaitNext int32 = 0	//等待下一局
+	GSFold int32 = 1		//弃牌
+	GSCheck int32 = 2		//过牌
+	GSRaise int32 = 3		//加注
+	GSAllIn int32 = 4		//AllIn
+	GSCall int32 = 5		//跟注
+	GSBlind int32 = 6		//盲注
+	GSWaitAction int32 = 7	//等待说话
 )
 
 type TexasPlayer struct{
@@ -27,6 +31,7 @@ type TexasPlayer struct{
 	onebet int32
 	isshowcard bool
 	bankroll int32
+	bettime int32
 }
 
 type TexasPlayers []*TexasPlayer
@@ -66,12 +71,15 @@ func (this *TexasPlayer) IsAllIn() bool {
 	return false
 }
 
-func (this *TexasPlayer) GetChip() int32{
-	return 0
-}
-
 func (this *TexasPlayer) BetStart() {
 	//发送开始压注消息
+	if this.bettime == 0 {
+		this.bettime = 10
+		send := &msg.RS2C_PushActionPosChange{}
+		send.Pos = pb.Int32(this.pos)
+		send.Postime = pb.Int32(this.bettime+int32(util.CURTIME()))
+		this.room.BroadCastUserMsg(send)
+	}
 }
 
 func (this *TexasPlayer) Betting(num int32) {
@@ -80,27 +88,44 @@ func (this *TexasPlayer) Betting(num int32) {
 		this.hand.Init()
 		num = 0
 		this.betover = true
-		this.gamestate = GSFold
 		this.room.remain--
+		this.ChangeState(GSFold)
 	} else if num == 0 { // 让牌
 		this.betover = true
-	} else if num + this.curbet <= this.room.curbet { // 跟注 或者 allin  table.Bet保持不变
-		//扣钱
-		this.RemoveChip(num)
+		this.ChangeState(GSCheck)
+	} else if num + this.curbet < this.room.curbet { // 跟注 或者 allin  table.Bet保持不变
+		if num == this.GetBankRoll() {
+			this.ChangeState(GSAllIn)
+			this.room.allin++
+		}else{
+			this.Betting(-1)
+			return
+		}
+		this.RemoveBankRoll(num)
 		this.curbet += num
 		this.betover = true
 		this.room.chips[this.pos] += num
+		this.ChangeState(GSCall)
+	} else if num + this.curbet == this.room.curbet	{
+		this.RemoveBankRoll(num)
+		this.curbet += num
+		this.betover = true
+		this.room.chips[this.pos] += num
+		this.ChangeState(GSCall)
 	} else { // 加注
-		this.RemoveChip(num)
+		this.RemoveBankRoll(num)
 		this.curbet += num
 		this.room.curbet = this.curbet
 		this.room.chips[this.pos] += num
 		this.room.ClearBetOver()//清除所有人的下注成功
 		this.betover = true
+		this.ChangeState(GSRaise)
 	}
-	if this.GetChip() == 0 {
-		this.gamestate = GSAllIn
-		this.room.allin++
+	if !this.room.AllBetOver() {
+		player := this.Next()
+		if player != nil {
+			player.BetStart()
+		}
 	}
 	return
 }
@@ -129,6 +154,9 @@ func (this *TexasPlayer)SetHole(c1 *Card, c2 *Card){
 	this.hole[1] = c2
 	this.hand.SetCard(c1)
 	this.hand.SetCard(c2)
+	send := &msg.RS2C_PushHandCard{}
+	send.Card = this.ToHandCard()
+	this.owner.SendClientMsg(send)
 }
 
 func (this *TexasPlayer)SetFlop(c1 *Card, c2 *Card, c3 *Card){
@@ -145,14 +173,41 @@ func (this *TexasPlayer)SetRiver(c1 *Card){
 	this.hand.SetCard(c1)
 }
 
-func (this *TexasPlayer)AddChip(num int32){
-	//this.owner.AddYuanbao(num)
+func (this *TexasPlayer) GetBankRoll() int32{
+	return this.bankroll
 }
 
-func (this *TexasPlayer)RemoveChip(num int32){
+func (this *TexasPlayer)AddBankRoll(num int32){
+	this.bankroll += num
+	send := &msg.RS2C_PushChipsChange{}
+	send.Roleid = pb.Int64(this.owner.Id())
+	send.Bankroll = pb.Int32(this.bankroll)
+	this.room.BroadCastUserMsg(send)
 }
 
-func (this *TexasPlayer)Tick(){
+func (this *TexasPlayer)RemoveBankRoll(num int32) bool{
+	if num < this.bankroll {
+		return false
+	}
+	this.bankroll -= num
+	send := &msg.RS2C_PushChipsChange{}
+	send.Roleid = pb.Int64(this.owner.Id())
+	send.Bankroll = pb.Int32(this.bankroll)
+	this.room.BroadCastUserMsg(send)
+	return true
+}
+
+func (this *TexasPlayer) Tick (){
+	if this.bettime > 0 {
+		this.bettime--
+		if this.bettime == 0 {
+			if this.curbet >= this.room.curbet {
+				this.Betting(0)
+			} else {
+				this.Betting(-1)
+			}
+		}
+	}
 }
 
 func (this *TexasPlayer) SitDown(pos int32) {
@@ -162,6 +217,57 @@ func (this *TexasPlayer) SitDown(pos int32) {
 		if this.room.IsGameStart() {
 			this.gamestate = 0
 		}  
+	}
+}
+
+func (this *TexasPlayer) NextRound() {
+	send := &msg.RS2C_RetNextRound{}
+	this.owner.SendClientMsg(send)
+}
+
+func (this *TexasPlayer) AntePay(num int32) {
+	this.RemoveBankRoll(num)
+}
+
+func (this *TexasPlayer) BlindPay(num int32) {
+	this.RemoveBankRoll(num)
+}
+
+func (this *TexasPlayer) ChangeState(state int32) {
+	this.gamestate = state
+	send := &msg.RS2C_PushPlayerStateChange{}
+	send.Roleid = pb.Int64(this.owner.Id())
+	send.State = pb.Int32(this.gamestate)
+	send.Num = pb.Int32(this.onebet)
+	this.room.BroadCastUserMsg(send)
+}
+
+func (this *TexasPlayer) BuyInGame(rev *msg.C2RS_ReqBuyInGame) {
+	if !this.room.CheckPos(rev.GetPos()-1) {
+		return
+	}
+	this.SitDown(rev.GetPos()-1)
+	this.AddBankRoll(rev.GetNum())
+	this.gamestate = GSFold
+	{
+		send := &msg.RS2C_PushSitOrStand{}
+		send.Roleid = pb.Int64(this.owner.Id())
+		send.Pos = pb.Int32(this.pos)
+		send.State = pb.Int32(this.gamestate)
+		send.BankRoll = pb.Int32(this.GetBankRoll())
+		this.room.BroadCastUserMsg(send)
+	}
+	{
+		send := &msg.RS2C_RetBuyInGame{}
+		this.owner.SendClientMsg(send)
+	}
+}
+
+func (this *TexasPlayer) ReqUserInfo(rev *msg.C2RS_ReqFriendGetRoleInfo) {
+	user := UserMgr().FindUser(rev.GetRoleid())
+	if user != nil {
+		send := user.ToRoleInfo()
+		this.owner.SendClientMsg(send)
 	}
 }
 

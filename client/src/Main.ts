@@ -109,6 +109,7 @@ class Main extends eui.UILayer
         GameManager.initialize(this.stage, this);
         UIManager.initialize(this.stage);
         game.Tick.initialize(this.stage);
+        SceneManager.initialize();
 
         ChannelManager.OnInitComplete.addListener(this.OnChannelInitComplete, this);
         ChannelManager.initialize();

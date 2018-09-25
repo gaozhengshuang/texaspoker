@@ -94,14 +94,14 @@ class GameHallPanel extends BasePanel
 	protected onAwake(event: eui.UIEvent)
 	{
 		super.onAwake(event);
-		this.addRedPoint();
+		// this.addRedPoint(); //move todo
 		this.moreGroup.visible = false;
 		this.dealerImg.source = BundleManager.getResNameByBundle(ResFixedFileName.Dealer_Png);
 		UIManager.pushResizeGroup(this.panelBottom);
 		this._buttonAnime = new GameHallButtonAnime(this);
 		this._panelAnime = new GameHallPanelAnime(this);
 		this._btnSupport = new GameHallBtnSupport(this);
-		this._rankListInfo = RankManager.getRankListInfo(RankType.FriendGold);
+		// this._rankListInfo = RankManager.getRankListInfo(RankType.FriendGold); //move todo
 		VersionManager.setComponentVisibleBySafe(this.firstpayBtn, this.activityBtn, this.matchBtn, this.ranking, this.safeBoxBtn, this.bindBtn, this.vipGroup, this.awardsBtn);
 	}
 
@@ -121,13 +121,13 @@ class GameHallPanel extends BasePanel
 	public init(appendData: any)
 	{
 		super.init(appendData);
-		this.updateRankList();
+		// this.updateRankList(); //move todo
 		this.refreshUserInfoUI();
 		this.resetFreeGoldTime();
 
 		ChannelManager.checkUnFinishedPayList();
 		this._btnSupport.init();
-		BindAccountManager.reqGetList();
+		// BindAccountManager.reqGetList();//move todo
 		this.inviteBtn.visible = InviteManager.isInviteOpen;
 	}
 
@@ -173,9 +173,9 @@ class GameHallPanel extends BasePanel
 	{
 		this.userNameLabel.text = UserManager.userInfo.name.toString();
 		this.userHeadComp.init(UserManager.userInfo, 120);
-		if (VipManager.isVip())
+		if (false &&  VipManager.isVip())
 		{
-			this.vipLevelLabel.text = "VIP" + UserManager.userInfo.vipLevel;
+			this.vipLevelLabel.text = "VIP" + UserManager.userInfo.vipLevel; //move todo
 			this.vipGroup.visible = true;
 		}
 		else
@@ -202,9 +202,9 @@ class GameHallPanel extends BasePanel
 		this._panelAnime.onEnable();
 		this._btnSupport.onEnable();
 		this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onClickHandler, this);
-		VipManager.vipUpgradeEvent.addListener(this.refreshUserInfoUI, this);
+		// VipManager.vipUpgradeEvent.addListener(this.refreshUserInfoUI, this); //move todo
 		UserManager.propertyChangeEvent.addListener(this.refreshGold, this);
-		RankManager.getRankListEvent.addListener(this.getRankList, this);
+		// RankManager.getRankListEvent.addListener(this.getRankList, this);//move todo
 		UserManager.onCreateRoleEvent.addListener(this.refreshUserInfoUI, this);
 		UserManager.onSetUserInfoComplete.addListener(this.refreshUserInfoUI, this);
 		UserManager.headImageUpdateEvent.addListener(this.refreshUserInfoUI, this);
@@ -219,9 +219,9 @@ class GameHallPanel extends BasePanel
 		this._panelAnime.onDisable();
 		this._btnSupport.onDisable();
 		this.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onClickHandler, this);
-		VipManager.vipUpgradeEvent.removeListener(this.refreshUserInfoUI, this);
+		// VipManager.vipUpgradeEvent.removeListener(this.refreshUserInfoUI, this);//move todo
 		UserManager.propertyChangeEvent.removeListener(this.refreshGold, this);
-		RankManager.getRankListEvent.removeListener(this.getRankList, this);
+		// RankManager.getRankListEvent.removeListener(this.getRankList, this);//move todo
 		UserManager.onCreateRoleEvent.removeListener(this.refreshUserInfoUI, this);
 		UserManager.onSetUserInfoComplete.removeListener(this.refreshUserInfoUI, this);
 		UserManager.headImageUpdateEvent.removeListener(this.refreshUserInfoUI, this);
