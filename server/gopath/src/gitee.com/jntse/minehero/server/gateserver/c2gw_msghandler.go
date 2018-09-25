@@ -7,11 +7,11 @@ import (
 	"gitee.com/jntse/gotoolkit/net"
 	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/minehero/pbmsg"
-	_"gitee.com/jntse/minehero/server/def"
+	_ "gitee.com/jntse/minehero/server/def"
 	"gitee.com/jntse/minehero/server/tbl"
 	_ "github.com/go-redis/redis"
 	pb "github.com/gogo/protobuf/proto"
-	"reflect"
+	_ "reflect"
 	_ "strconv"
 )
 
@@ -68,9 +68,9 @@ func (this *C2GWMsgHandler) Init() {
 
 	// 游戏房间
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCreateRoom{}, on_C2GW_ReqCreateRoom)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqEnterRoom{},  on_C2GW_ReqEnterRoom)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqLeaveRoom{},  on_C2GW_ReqLeaveRoom)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqUserRoomInfo{},  on_C2GW_ReqUserRoomInfo)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqEnterRoom{}, on_C2GW_ReqEnterRoom)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqLeaveRoom{}, on_C2GW_ReqLeaveRoom)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqUserRoomInfo{}, on_C2GW_ReqUserRoomInfo)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTexasRoomList{}, on_C2GW_ReqTexasRoomList)
 }
 
@@ -122,23 +122,23 @@ func on_C2RS_MsgTransfer(session network.IBaseNetSession, message interface{}) {
 
 	//u := UserMgr().FindById(tmsg.GetUid())
 	//if u == nil { return }
-	//if u.IsInRoom() == false { 
+	//if u.IsInRoom() == false {
 	//	log.Warn("消息转发失败，玩家[%s %d]没有在任何房间中", u.Name(), u.Id())
-	//	return 
+	//	return
 	//}
 	//u.SendRoomMsg(protomsg.(pb.Message))
 
 	// 不做解析转发到RoomServer
 	u := UserMgr().FindById(tmsg.GetUid())
-	if u == nil { return }
-	if u.IsInRoom() == false { 
+	if u == nil {
+		return
+	}
+	if u.IsInRoom() == false {
 		log.Warn("消息转发失败，玩家[%s %d]没有在任何房间中", u.Name(), u.Id())
-		return 
+		return
 	}
 	u.SendRoomMsg(tmsg)
 }
-
-
 
 func on_C2GW_Get7DayReward(session network.IBaseNetSession, message interface{}) {
 	u := ExtractSessionUser(session)
@@ -148,7 +148,7 @@ func on_C2GW_Get7DayReward(session network.IBaseNetSession, message interface{})
 		return
 	}
 
-	u.GetSignReward()
+	//u.GetSignReward()
 }
 
 func on_C2GW_ReqCreateRoom(session network.IBaseNetSession, message interface{}) {
@@ -222,10 +222,9 @@ func on_C2GW_ReqUserRoomInfo(session network.IBaseNetSession, message interface{
 	}
 
 	// 通知客户端房间信息
-	send := &msg.GW2C_RetUserRoomInfo{Roomid:pb.Int64(u.RoomId()), Tid:pb.Int32(u.RoomTid()), Passwd:pb.String(u.RoomPwd())}
+	send := &msg.GW2C_RetUserRoomInfo{Roomid: pb.Int64(u.RoomId()), Tid: pb.Int32(u.RoomTid()), Passwd: pb.String(u.RoomPwd())}
 	u.SendMsg(send)
 }
-
 
 func on_C2GW_ReqTexasRoomList(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_ReqTexasRoomList)
@@ -255,7 +254,7 @@ func on_C2GW_ReqLogin(session network.IBaseNetSession, message interface{}) {
 			if errmsg = UserMgr().LoginByCache(session, u); errmsg != "" {
 				break
 			}
-		}else {
+		} else {
 			wAccount := WaitPool().Find(account)
 			if wAccount == nil {
 				errmsg = "非法登陆网关"
@@ -268,7 +267,7 @@ func on_C2GW_ReqLogin(session network.IBaseNetSession, message interface{}) {
 				break
 			}
 
-			u, errmsg = UserMgr().CreateNewUser(session, account, verifykey, token, face)	// 构造u指针 from redis db
+			u, errmsg = UserMgr().CreateNewUser(session, account, verifykey, token, face) // 构造u指针 from redis db
 			if errmsg != "" || u == nil {
 				break
 			}
