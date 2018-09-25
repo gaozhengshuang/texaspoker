@@ -300,7 +300,7 @@ class GamblingManager
 	/**
 	 * 请求进入房间
 	 */
-	public static reqEnterRoom(id: number = 0, password?: string, isQuicklyEnter?: boolean, isReconnect?: boolean)
+	public static reqEnterRoom(id: number | Long = 0, password?: string, isQuicklyEnter?: boolean, isReconnect?: boolean)
 	{
 		// game.QinLog.log("gamlbingmanager进入房间：reqEnterRoom" + id);
 		// GamblingManager.roomDataPushHandler.reset();

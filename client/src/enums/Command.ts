@@ -295,7 +295,7 @@ class Command
     /**
      * 创建私人房
     */
-    public static readonly Req_CreatePersonalRoom_3610: string = "c3610";
+    public static readonly C2GW_ReqCreateRoom: string = "msg.C2GW_ReqCreateRoom";
     /**
      * 请求领取免费金币
      */

@@ -293,6 +293,10 @@ class CreateRoomPwdPanel extends EnterRoomPwdPanel
                     return;
                 }
             }
+            if(this._ante == undefined)
+            {
+                this._ante = 0;
+            }
             PlayingFieldManager.reqCreatePersonalRoom(this._selectedId, str, this._ante);
         } else
         {
