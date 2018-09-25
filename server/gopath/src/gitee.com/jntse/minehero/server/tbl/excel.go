@@ -13,23 +13,26 @@ type IBaseExcel interface {
 // --------------------------------------------------------------------------
 /// @brief 为excel config 实例取一个别名
 // --------------------------------------------------------------------------
-var GiftProBase = table.InsGiftProBaseTable
-var RechargeBase = table.InsRechargeBaseTable
-var LevelBasee = table.InsLevelBaseeTable
-var MapEventBase = table.InsMapEventBaseTable
-var SignBase = table.InsSignBaseTable
-var LoadingTextBase = table.InsLoadingTextBaseTable
-var ProtoMsgIndex = table.InsProtoMsgIndexTable
-var TaskBase = table.InsTaskBaseTable
-var NameBase = table.InsNameBaseTable
 var MusicBase = table.InsMusicBaseTable
-var BundleBase = table.InsBundleBaseTable
-var CardBase = table.InsCardBaseTable
+var LevelBasee = table.InsLevelBaseeTable
+var LoadingTextBase = table.InsLoadingTextBaseTable
+var Activity_signinBase = table.InsActivity_signinBaseTable
+var Activity_listBase = table.InsActivity_listBaseTable
+var GiftProBase = table.InsGiftProBaseTable
+var ProtoMsgIndex = table.InsProtoMsgIndexTable
 var TBallGiftbase = table.InsTBallGiftbaseTable
 var NoticeBase = table.InsNoticeBaseTable
+var RechargeBase = table.InsRechargeBaseTable
+var MapEventBase = table.InsMapEventBaseTable
+var SignBase = table.InsSignBaseTable
+var AwardBase = table.InsAwardBaseTable
+var NameBase = table.InsNameBaseTable
 var ChipsBase = table.InsChipsBaseTable
+var MapEventRefreshBase = table.InsMapEventRefreshBaseTable
+var TaskBase = table.InsTaskBaseTable
+var BundleBase = table.InsBundleBaseTable
+var CardBase = table.InsCardBaseTable
 var ShopBase = table.InsShopBaseTable
 var TexasRoomBase = table.InsTexasRoomBaseTable
 var ItemBase = table.InsItemBaseTable
-var MapEventRefreshBase = table.InsMapEventRefreshBaseTable
 

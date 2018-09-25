@@ -77,25 +77,28 @@ func (this *TblLoader) ReloadJson() {
 func (this *TblLoader) Init() {
 
 	// load excels
-    this.LoadExcel(GiftProBase, "giftprobase.json")
-	this.LoadExcel(RechargeBase, "recharge.json")
+    this.LoadExcel(MusicBase, "music.json")
 	this.LoadExcel(LevelBasee, "levelbase.json")
-	this.LoadExcel(MapEventBase, "mapevent.json")
-	this.LoadExcel(SignBase, "signbase.json")
 	this.LoadExcel(LoadingTextBase, "loadingtext.json")
+	this.LoadExcel(Activity_signinBase, "activity_signinbase.json")
+	this.LoadExcel(Activity_listBase, "activity_listbase.json")
+	this.LoadExcel(GiftProBase, "giftprobase.json")
 	this.LoadExcel(ProtoMsgIndex, "proto_index.json")
-	this.LoadExcel(TaskBase, "taskbase.json")
-	this.LoadExcel(NameBase, "namebase.json")
-	this.LoadExcel(MusicBase, "music.json")
-	this.LoadExcel(BundleBase, "bundle.json")
-	this.LoadExcel(CardBase, "card.json")
 	this.LoadExcel(TBallGiftbase, "ballgiftbase.json")
 	this.LoadExcel(NoticeBase, "noticebase.json")
+	this.LoadExcel(RechargeBase, "recharge.json")
+	this.LoadExcel(MapEventBase, "mapevent.json")
+	this.LoadExcel(SignBase, "signbase.json")
+	this.LoadExcel(AwardBase, "awardbase.json")
+	this.LoadExcel(NameBase, "namebase.json")
 	this.LoadExcel(ChipsBase, "chips.json")
+	this.LoadExcel(MapEventRefreshBase, "mapeventrefresh.json")
+	this.LoadExcel(TaskBase, "taskbase.json")
+	this.LoadExcel(BundleBase, "bundle.json")
+	this.LoadExcel(CardBase, "card.json")
 	this.LoadExcel(ShopBase, "shopbase.json")
 	this.LoadExcel(TexasRoomBase, "texasroom.json")
 	this.LoadExcel(ItemBase, "itembase.json")
-	this.LoadExcel(MapEventRefreshBase, "mapeventrefresh.json")
 	
 
 	// load jsons
