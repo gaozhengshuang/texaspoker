@@ -203,7 +203,7 @@ gen = TblGenerator(TBL_EXCEL, TBL_JSON, OUT_TBL_EXCEL_SERVER, OUT_TBL_EXCEL_CLIE
 gen.maketbl_excel('ProtoMsgIndex', 'proto_index', 'proto_index.xlsx')
 gen.maketbl_excel('ItemBase', 'itembase', 'TItem.xlsx')
 gen.maketbl_excel('ShopBase', 'shopbase', 'TShop.xlsx')
-gen.maketbl_excel('SignBase', 'signbase', 'TSign.xlsx')
+#gen.maketbl_excel('SignBase', 'signbase', 'TSign.xlsx')
 gen.maketbl_excel('RechargeBase', 'recharge', 'TRecharge.xlsx')
 gen.maketbl_excel('NoticeBase', 'noticebase', 'TNotice.xlsx')
 gen.maketbl_excel('LevelBasee', 'levelbase', 'TLevel.xlsx')
