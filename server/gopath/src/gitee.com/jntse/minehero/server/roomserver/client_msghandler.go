@@ -14,7 +14,7 @@ import (
 /// @brief 转发客户端消息Handler
 /// @return 
 // --------------------------------------------------------------------------
-type ClientMsgFunHandler func(session network.IBaseNetSession, message interface{}, uid int64)
+type ClientMsgFunHandler func(session network.IBaseNetSession, message interface{}, u *RoomUser)
 type ClientMsgHandler struct {
 	msghandler map[string]ClientMsgFunHandler
 }
@@ -48,7 +48,14 @@ func (this *ClientMsgHandler) Handler(session network.IBaseNetSession, message i
 		log.Error("ClientMsgHandler 未注册消息%s", name)
 		return
 	}
-	fn(session, message, uid)
+
+	u := UserMgr().FindUser(uid)
+	if u == nil { 
+		log.Error("[房间] 玩家[%d] 在RoomServer中不存在", uid)
+		return 
+	}
+
+	fn(session, message, u)
 }
 
 //func on_C2GW_StartLuckyDraw(session network.IBaseNetSession, message interface{}, uid int64) {
@@ -62,18 +69,12 @@ func (this *ClientMsgHandler) Handler(session network.IBaseNetSession, message i
 //}
 
 // 坐下
-func on_C2RS_ReqSitDown(session network.IBaseNetSession, message interface{}, uid int64) {
+func on_C2RS_ReqSitDown(session network.IBaseNetSession, message interface{}, u *RoomUser) {
 	tmsg := message.(*msg.C2RS_ReqSitDown)
-	u := UserMgr().FindUser(uid)
-	if u == nil { 
-		log.Error("[房间] 玩家[%d] 请求坐下但是没有在Room中", uid)
-		return 
-	}
-
 	roomid := u.RoomId()
 	room := RoomMgr().Find(roomid)
 	if room == nil {
-		log.Error("[房间] 玩家[%d] 请求坐下到无效的房间中 房间[%d]", uid, roomid)
+		log.Error("[房间] 玩家[%s %d] 请求坐下到无效的房间中 房间[%d]", u.Name(), u.Id(), roomid)
 		return
 	}
 
@@ -81,18 +82,12 @@ func on_C2RS_ReqSitDown(session network.IBaseNetSession, message interface{}, ui
 }
 
 // 站起
-func on_C2RS_ReqStandUp(session network.IBaseNetSession, message interface{}, uid int64) {
+func on_C2RS_ReqStandUp(session network.IBaseNetSession, message interface{}, u *RoomUser) {
 	//tmsg := message.(*msg.C2RS_ReqStandUp)
-	u := UserMgr().FindUser(uid)
-	if u == nil { 
-		log.Error("[房间] 玩家[%d] 请求坐下但是没有在Room中", uid)
-		return 
-	}
-
 	roomid := u.RoomId()
 	room := RoomMgr().Find(roomid)
 	if room == nil {
-		log.Error("[房间] 玩家[%d] 请求坐下到无效的房间中 房间[%d]", uid, roomid)
+		log.Error("[房间] 玩家[%s %d] 请求坐下到无效的房间中 房间[%d]", u.Name(), u.Id(), roomid)
 		return
 	}
 
