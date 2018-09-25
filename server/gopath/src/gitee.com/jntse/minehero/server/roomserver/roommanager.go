@@ -81,6 +81,19 @@ func (this* RoomManager) Find(id int64) IRoomBase {
 	return room
 }
 
+func (this* RoomManager) FindTexas(id int64) *TexasPokerRoom {
+	room, ok := this.rooms[id]
+	if ok == false {
+		return nil
+	}
+	ptr, ok := room.(*TexasPokerRoom)
+	if ok == false {
+		return nil
+	}
+	return ptr
+}
+
+
 func (this *RoomManager) Tick(now int64) {
 	this.ticker1s.Run(now)
 	for id, room := range this.rooms {
@@ -171,7 +184,7 @@ func (this *RoomManager) AutoIncTexasRoomAmount(subtype int32) bool {
 func (this *RoomManager) OnGateClose(sid int) {
 	//for _, v := range this.rooms {
 	//	if v.owner == nil { continue; }
-	//	if v.owner.SidGate() == sid {
+	//	if v.owner.AgentId() == sid {
 	//		v.GateLeave(sid)
 	//	}
 	//}
