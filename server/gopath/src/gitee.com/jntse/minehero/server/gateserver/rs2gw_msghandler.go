@@ -122,20 +122,19 @@ func on_RS2GW_UserLeaveRoom(session network.IBaseNetSession, message interface{}
 
 
 func on_RS2GW_RetUserDisconnect(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.RS2GW_RetUserDisconnect)
-	//log.Info(reflect.TypeOf(tmsg).String())
-	roomid, userid := tmsg.GetRoomid(), tmsg.GetUserid()
-	user := UserMgr().FindById(userid)
-	if user == nil {
-		log.Error("RS2GW_RetUserDisconnect 找不到玩家[%d]", userid)
-		return
-	}
+	//tmsg := message.(*msg.RS2GW_RetUserDisconnect)
+	//roomid, userid := tmsg.GetRoomid(), tmsg.GetUserid()
+	//user := UserMgr().FindById(userid)
+	//if user == nil {
+	//	log.Error("RS2GW_RetUserDisconnect 找不到玩家[%d]", userid)
+	//	return
+	//}
 
-	// RS关闭房间失败，直接下线玩家
-	if tmsg.GetErrcode() != "" {
-		log.Info("房间[%d] 玩家[%d] GW通知RS玩家断开连接，处理报错，原因[%s]", roomid, userid, tmsg.GetErrcode())
-		user.Logout()
-	}
+	//// RS关闭房间失败，直接下线玩家
+	//if tmsg.GetErrcode() != "" {
+	//	log.Info("房间[%d] 玩家[%d] GW通知RS玩家断开连接，处理报错，原因[%s]", roomid, userid, tmsg.GetErrcode())
+	//	user.Logout()
+	//}
 }
 
 func on_RS2GW_MsgTransfer(session network.IBaseNetSession, message interface{}) {

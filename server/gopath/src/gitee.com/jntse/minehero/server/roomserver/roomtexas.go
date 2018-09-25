@@ -114,8 +114,8 @@ func (this *TexasPokerRoom) Tick(now int64) {
 }
 
 // 玩家断开连接(托管/踢掉)
-func (this *TexasPokerRoom) UserDisconnect(userid int64) {
-	log.Info("[房间] 玩家[%d] 网络断开 房间[%d]", userid, this.Id())
+func (this *TexasPokerRoom) UserDisconnect(u *RoomUser) {
+	log.Info("[房间] 玩家[%s %d] 网络断开 房间[%d]", u.Name(), u.Id(), this.Id())
 }
 
 // 网关断开

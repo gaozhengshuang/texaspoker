@@ -243,10 +243,20 @@ func (u *RoomUser) SendClientMsg(m pb.Message) bool {
 	return u.SendMsg(send)
 }
 
-func (u *RoomUser) SidGate() int {
+func (u *RoomUser) AgentId() int {
 	return u.agentid
 }
 
+func (u *RoomUser) AgentName() string {
+	return u.agentname
+}
+
+func (u *RoomUser) UpdateGateAgent(agent network.IBaseNetSession) {
+	u.agentid = agent.Id()
+	u.agentname = agent.Name()
+	log.Info("玩家[%s %d] 上线更新GateAgent[%s %d]信息", u.Name(), u.Id(), agent.Name(), agent.Id())
+}
+ 
 func (u *RoomUser) GetGold() int32 {
 	return u.Entity().GetGold()
 }
