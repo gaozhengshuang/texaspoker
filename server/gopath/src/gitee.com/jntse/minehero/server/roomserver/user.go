@@ -69,6 +69,10 @@ func (this *RoomUser) Name() string {
 	return this.Entity().GetName()
 }
 
+func (this *RoomUser) Face() string {
+	return this.Entity().GetHead()
+}
+
 func (this *RoomUser) Account() string {
 	return this.Entity().GetAccount()
 }
@@ -367,6 +371,16 @@ func (this *RoomUser) Handler1sTick(now int64) {
 	// 充值，异步事件队列
 	//event := NewRechargeCheckEvent(this, this.HaveRechargeOrders, this.CheckRechargeOrders)
 	//this.AsynEventInsert(event)
+}
+
+func (this *RoomUser) ToRoleInfo() *msg.RS2C_RetFriendGetRoleInfo {
+	return &msg.RS2C_RetFriendGetRoleInfo{
+		Diamond : pb.Int32(0),
+		Gold : pb.Int32(0),
+		Roleid : pb.Int64(this.Id()),
+		Name : pb.String(this.Name()),
+		Head : pb.String(this.Face()),
+	}
 }
 
 // 检查是否有充值订单
