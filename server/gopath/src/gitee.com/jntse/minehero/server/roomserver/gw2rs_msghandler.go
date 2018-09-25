@@ -66,7 +66,7 @@ func on_GW2RS_RetRegist(session network.IBaseNetSession, message interface{}) {
 
 	// 添加gate
 	GateMgr().AddNew(session, name, ip, port)
-	log.Info("注册房间服[%s]到Gate[%s][%s:%d]成功", RoomSvr().Name(), session.Name(), ip, port)
+	log.Info("注册房间服[%s]到Gate[%s][%s:%d]成功", RoomSvr().Name(), name, ip, port)
 }
 
 func on_GW2RS_UserDisconnect(session network.IBaseNetSession, message interface{}) {

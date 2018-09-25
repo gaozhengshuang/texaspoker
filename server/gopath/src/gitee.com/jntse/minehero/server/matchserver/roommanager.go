@@ -34,7 +34,6 @@ func (s SliceRoom) Less(i, j int) bool {
 type RoomAgent struct {
 	session network.IBaseNetSession
 	name	string
-	gates	map[string]*GateAgent
 	roomsize int64			// 房间数，FindLowLoadRoom 时计算
 	ticker10ms  *util.GameTicker
 	asynev  eventque.AsynEventQueue
@@ -42,7 +41,6 @@ type RoomAgent struct {
 
 func NewRoomAgent(s network.IBaseNetSession, name string) *RoomAgent {
 	agent := &RoomAgent{session:s, name:name} 
-	agent.gates = make(map[string]*GateAgent)
 	return agent
 }
 
@@ -82,10 +80,6 @@ func (this *RoomAgent) Name() string {
 
 func (this *RoomAgent) Addr() string {
 	return this.session.LocalIp();
-}
-
-func (this *RoomAgent) AddGate(gate *GateAgent) {
-	this.gates[gate.HostKey()] = gate
 }
 
 func (this *RoomAgent) RoomSize() int64 {
@@ -199,17 +193,13 @@ func (this *RoomSvrManager) AddNewSession(session network.IBaseNetSession, name 
 	log.Info("注册房间服 id=%d [%s][%s] 当前总数:%d", agent.Id(), agent.name, agent.Addr(), RoomSvrMgr().Num())
 
 	//将已经连接的Gate通知这个Room
-	GateSvrMgr().SendGateToRoom(agent)
+	GateSvrMgr().NewRoomOnline(agent)
 }
 
-func (this *RoomSvrManager) SendGateToRoom(gate *GateAgent) {
-	for _, v := range this.agents {
-		v.AddGate(gate)
-	}
+func (this *RoomSvrManager) NewGateOnline(gate *GateAgent) {
 	send := &msg.MS2RS_GateInfo{Gates:make([]*msg.GateSimpleInfo, 0)}
 	gateinfo := &msg.GateSimpleInfo{Name:pb.String(gate.Name()), Host:&msg.IpHost{Ip:pb.String(gate.ip), Port:pb.Int(gate.port)}}
 	send.Gates = append(send.Gates, gateinfo)
-
 	this.BroadCast(send)
 }
 

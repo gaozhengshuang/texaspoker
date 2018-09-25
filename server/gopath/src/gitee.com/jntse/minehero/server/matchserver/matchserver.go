@@ -146,6 +146,7 @@ func (this *MatchServer) OnConnect(session network.IBaseNetSession) {
 		//log.Trace("OnConnect gatesession:%+v", session)
 		//session.SetUserDefdata(this)
 	case "TaskRoom":
+		//
 	default:
 		log.Error("not regist client OnConnect session:%+v", session)
 		session.Close()

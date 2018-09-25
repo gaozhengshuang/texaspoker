@@ -123,13 +123,12 @@ func (this *GateManager) AddNewSession(session network.IBaseNetSession, name, ip
 	log.Info("注册网关服 id=%d [%s][%s:%d] 当前总数:%d", agent.Id(), agent.Name(), agent.ip, agent.port, this.Num())
 
 	// 将Gate信息通知所有Room
-	RoomSvrMgr().SendGateToRoom(agent)
+	RoomSvrMgr().NewGateOnline(agent)
 }
 
-func (this *GateManager) SendGateToRoom(room *RoomAgent) {
+func (this *GateManager) NewRoomOnline(room *RoomAgent) {
 	send := &msg.MS2RS_GateInfo{Gates:make([]*msg.GateSimpleInfo, 0)}
 	for _, gate := range this.gates {
-		room.AddGate(gate)
 		gateinfo := &msg.GateSimpleInfo{Name:pb.String(gate.Name()), Host:&msg.IpHost{Ip:pb.String(gate.ip), Port:pb.Int(gate.port)}}
 		send.Gates = append(send.Gates, gateinfo)
 	}
