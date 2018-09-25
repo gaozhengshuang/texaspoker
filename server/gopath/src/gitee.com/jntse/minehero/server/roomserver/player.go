@@ -229,9 +229,17 @@ func (this *TexasPlayer) SitDown(pos int32) {
 	}
 }
 
-func (this *TexasPlayer) NextRound() {
+func (this *TexasPlayer) NextRound(rev *msg.C2RS_ReqNextRound) {
+	this.isready = true
 	send := &msg.RS2C_RetNextRound{}
 	this.owner.SendClientMsg(send)
+}
+
+func (this *TexasPlayer) BrightCard() {
+	this.isshowcard = true
+}
+
+func (this *TexasPlayer) AddCoin() {
 }
 
 func (this *TexasPlayer) AntePay(num int32) {
