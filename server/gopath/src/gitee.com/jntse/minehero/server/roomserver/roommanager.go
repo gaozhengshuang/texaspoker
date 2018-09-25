@@ -65,12 +65,12 @@ func (this *RoomManager) Add(room IRoomBase) {
 		if this.texasrooms[subkind] == nil { this.texasrooms[subkind] = make([]IRoomBase, 0) }
 		this.texasrooms[subkind] = append(this.texasrooms[subkind], room)
 	}
-	log.Info("添加房间[%d]------当前房间数[%d]", id, len(this.rooms))
+	log.Info("[房间] 添加房间[%d]----------当前房间数[%d]", id, len(this.rooms))
 }
 
 func (this* RoomManager) Del(id int64) {
 	delete(this.rooms, id)
-	log.Info("删除房间[%d]------当前房间数[%d]", id, len(this.rooms))
+	log.Info("[房间] 删除房间[%d]----------当前房间数[%d]", id, len(this.rooms))
 }
 
 func (this* RoomManager) Find(id int64) IRoomBase {

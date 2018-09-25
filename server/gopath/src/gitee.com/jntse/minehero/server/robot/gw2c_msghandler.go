@@ -198,7 +198,9 @@ func on_GW2C_RetUserRoomInfo(session network.IBaseNetSession, message interface{
 	log.Info("%+v", tmsg)
 	client, _ := session.UserDefData().(*User)
 	client.roomid, client.roompwd = tmsg.GetRoomid(), tmsg.GetPasswd()
-	client.EnterRoom()
+	if client.roomid != 0 {
+		client.EnterRoom()
+	}
 }
 
 func on_GW2C_RetLeaveRoom(session network.IBaseNetSession, message interface{}) {
