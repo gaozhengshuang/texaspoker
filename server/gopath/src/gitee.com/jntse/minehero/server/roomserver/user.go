@@ -20,10 +20,8 @@ import (
 /// @brief 玩家信息
 // --------------------------------------------------------------------------
 type RoomUser struct {
-	gamekind  	int32
-	roomid    	int64	// 房间id
-	seatpos 	int32	// 座位号
-	sid_gate  	int
+	agentname	string
+	agentid 	int
 	bin 		*msg.Serialize
 	bag 		UserBag
 	task       	UserTask
@@ -37,10 +35,14 @@ type RoomUser struct {
 	energy		int64
 	save_amt	int64
 	maxenergy	int64
+	gamekind  	int32
+	roomid    	int64	// 房间id
+	seatpos 	int32	// 座位号
+
 }
 
 func NewRoomUser(rid int64, b *msg.Serialize, gate network.IBaseNetSession, gamekind int32) *RoomUser {
-	user := &RoomUser{roomid:rid, bin:b, sid_gate:gate.Id(), gamekind:gamekind}
+	user := &RoomUser{roomid:rid, bin:b, agentid:gate.Id(), gamekind:gamekind}
 	user.ticker1s = util.NewGameTicker(1 * time.Second, user.Handler1sTick)
 	user.ticker10ms = util.NewGameTicker(10 * time.Millisecond, user.Handler10msTick)
 	user.ticker1s.Start()
@@ -211,7 +213,7 @@ func (this *RoomUser) PackBin() *msg.Serialize {
 }
 
 func (this *RoomUser) SendMsg(m pb.Message) bool {
-	return RoomSvr().SendMsg(this.sid_gate , m)
+	return RoomSvr().SendMsg(this.agentid , m)
 }
 
 // 转发消息到gate
@@ -232,7 +234,7 @@ func (this *RoomUser) SendClientMsg(m pb.Message) bool {
 }
 
 func (this *RoomUser) SidGate() int {
-	return this.sid_gate
+	return this.agentid
 }
 
 func (this *RoomUser) GetGold() int32 {
