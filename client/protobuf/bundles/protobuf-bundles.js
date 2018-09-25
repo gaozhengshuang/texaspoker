@@ -12578,26 +12578,26 @@ $root.msg = (function() {
         return GW2C_PushUserInfo;
     })();
 
-    msg.C2GW_HeartBeat = (function() {
+    msg.C2GW_ReqHeartBeat = (function() {
 
         /**
-         * Properties of a C2GW_HeartBeat.
+         * Properties of a C2GW_ReqHeartBeat.
          * @memberof msg
-         * @interface IC2GW_HeartBeat
-         * @property {number|Long|null} [uid] C2GW_HeartBeat uid
-         * @property {number|Long|null} [time] C2GW_HeartBeat time
-         * @property {Array.<string>|null} [test] C2GW_HeartBeat test
+         * @interface IC2GW_ReqHeartBeat
+         * @property {number|Long|null} [uid] C2GW_ReqHeartBeat uid
+         * @property {number|Long|null} [time] C2GW_ReqHeartBeat time
+         * @property {Array.<string>|null} [test] C2GW_ReqHeartBeat test
          */
 
         /**
-         * Constructs a new C2GW_HeartBeat.
+         * Constructs a new C2GW_ReqHeartBeat.
          * @memberof msg
-         * @classdesc Represents a C2GW_HeartBeat.
-         * @implements IC2GW_HeartBeat
+         * @classdesc Represents a C2GW_ReqHeartBeat.
+         * @implements IC2GW_ReqHeartBeat
          * @constructor
-         * @param {msg.IC2GW_HeartBeat=} [properties] Properties to set
+         * @param {msg.IC2GW_ReqHeartBeat=} [properties] Properties to set
          */
-        function C2GW_HeartBeat(properties) {
+        function C2GW_ReqHeartBeat(properties) {
             this.test = [];
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
@@ -12606,51 +12606,51 @@ $root.msg = (function() {
         }
 
         /**
-         * C2GW_HeartBeat uid.
+         * C2GW_ReqHeartBeat uid.
          * @member {number|Long} uid
-         * @memberof msg.C2GW_HeartBeat
+         * @memberof msg.C2GW_ReqHeartBeat
          * @instance
          */
-        C2GW_HeartBeat.prototype.uid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+        C2GW_ReqHeartBeat.prototype.uid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
-         * C2GW_HeartBeat time.
+         * C2GW_ReqHeartBeat time.
          * @member {number|Long} time
-         * @memberof msg.C2GW_HeartBeat
+         * @memberof msg.C2GW_ReqHeartBeat
          * @instance
          */
-        C2GW_HeartBeat.prototype.time = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+        C2GW_ReqHeartBeat.prototype.time = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
-         * C2GW_HeartBeat test.
+         * C2GW_ReqHeartBeat test.
          * @member {Array.<string>} test
-         * @memberof msg.C2GW_HeartBeat
+         * @memberof msg.C2GW_ReqHeartBeat
          * @instance
          */
-        C2GW_HeartBeat.prototype.test = $util.emptyArray;
+        C2GW_ReqHeartBeat.prototype.test = $util.emptyArray;
 
         /**
-         * Creates a new C2GW_HeartBeat instance using the specified properties.
+         * Creates a new C2GW_ReqHeartBeat instance using the specified properties.
          * @function create
-         * @memberof msg.C2GW_HeartBeat
+         * @memberof msg.C2GW_ReqHeartBeat
          * @static
-         * @param {msg.IC2GW_HeartBeat=} [properties] Properties to set
-         * @returns {msg.C2GW_HeartBeat} C2GW_HeartBeat instance
+         * @param {msg.IC2GW_ReqHeartBeat=} [properties] Properties to set
+         * @returns {msg.C2GW_ReqHeartBeat} C2GW_ReqHeartBeat instance
          */
-        C2GW_HeartBeat.create = function create(properties) {
-            return new C2GW_HeartBeat(properties);
+        C2GW_ReqHeartBeat.create = function create(properties) {
+            return new C2GW_ReqHeartBeat(properties);
         };
 
         /**
-         * Encodes the specified C2GW_HeartBeat message. Does not implicitly {@link msg.C2GW_HeartBeat.verify|verify} messages.
+         * Encodes the specified C2GW_ReqHeartBeat message. Does not implicitly {@link msg.C2GW_ReqHeartBeat.verify|verify} messages.
          * @function encode
-         * @memberof msg.C2GW_HeartBeat
+         * @memberof msg.C2GW_ReqHeartBeat
          * @static
-         * @param {msg.IC2GW_HeartBeat} message C2GW_HeartBeat message or plain object to encode
+         * @param {msg.IC2GW_ReqHeartBeat} message C2GW_ReqHeartBeat message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        C2GW_HeartBeat.encode = function encode(message, writer) {
+        C2GW_ReqHeartBeat.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
             if (message.uid != null && message.hasOwnProperty("uid"))
@@ -12664,33 +12664,33 @@ $root.msg = (function() {
         };
 
         /**
-         * Encodes the specified C2GW_HeartBeat message, length delimited. Does not implicitly {@link msg.C2GW_HeartBeat.verify|verify} messages.
+         * Encodes the specified C2GW_ReqHeartBeat message, length delimited. Does not implicitly {@link msg.C2GW_ReqHeartBeat.verify|verify} messages.
          * @function encodeDelimited
-         * @memberof msg.C2GW_HeartBeat
+         * @memberof msg.C2GW_ReqHeartBeat
          * @static
-         * @param {msg.IC2GW_HeartBeat} message C2GW_HeartBeat message or plain object to encode
+         * @param {msg.IC2GW_ReqHeartBeat} message C2GW_ReqHeartBeat message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        C2GW_HeartBeat.encodeDelimited = function encodeDelimited(message, writer) {
+        C2GW_ReqHeartBeat.encodeDelimited = function encodeDelimited(message, writer) {
             return this.encode(message, writer).ldelim();
         };
 
         /**
-         * Decodes a C2GW_HeartBeat message from the specified reader or buffer.
+         * Decodes a C2GW_ReqHeartBeat message from the specified reader or buffer.
          * @function decode
-         * @memberof msg.C2GW_HeartBeat
+         * @memberof msg.C2GW_ReqHeartBeat
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
          * @param {number} [length] Message length if known beforehand
-         * @returns {msg.C2GW_HeartBeat} C2GW_HeartBeat
+         * @returns {msg.C2GW_ReqHeartBeat} C2GW_ReqHeartBeat
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        C2GW_HeartBeat.decode = function decode(reader, length) {
+        C2GW_ReqHeartBeat.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_HeartBeat();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqHeartBeat();
             while (reader.pos < end) {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
@@ -12714,30 +12714,30 @@ $root.msg = (function() {
         };
 
         /**
-         * Decodes a C2GW_HeartBeat message from the specified reader or buffer, length delimited.
+         * Decodes a C2GW_ReqHeartBeat message from the specified reader or buffer, length delimited.
          * @function decodeDelimited
-         * @memberof msg.C2GW_HeartBeat
+         * @memberof msg.C2GW_ReqHeartBeat
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.C2GW_HeartBeat} C2GW_HeartBeat
+         * @returns {msg.C2GW_ReqHeartBeat} C2GW_ReqHeartBeat
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        C2GW_HeartBeat.decodeDelimited = function decodeDelimited(reader) {
+        C2GW_ReqHeartBeat.decodeDelimited = function decodeDelimited(reader) {
             if (!(reader instanceof $Reader))
                 reader = new $Reader(reader);
             return this.decode(reader, reader.uint32());
         };
 
         /**
-         * Verifies a C2GW_HeartBeat message.
+         * Verifies a C2GW_ReqHeartBeat message.
          * @function verify
-         * @memberof msg.C2GW_HeartBeat
+         * @memberof msg.C2GW_ReqHeartBeat
          * @static
          * @param {Object.<string,*>} message Plain object to verify
          * @returns {string|null} `null` if valid, otherwise the reason why it is not
          */
-        C2GW_HeartBeat.verify = function verify(message) {
+        C2GW_ReqHeartBeat.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
             if (message.uid != null && message.hasOwnProperty("uid"))
@@ -12757,17 +12757,17 @@ $root.msg = (function() {
         };
 
         /**
-         * Creates a C2GW_HeartBeat message from a plain object. Also converts values to their respective internal types.
+         * Creates a C2GW_ReqHeartBeat message from a plain object. Also converts values to their respective internal types.
          * @function fromObject
-         * @memberof msg.C2GW_HeartBeat
+         * @memberof msg.C2GW_ReqHeartBeat
          * @static
          * @param {Object.<string,*>} object Plain object
-         * @returns {msg.C2GW_HeartBeat} C2GW_HeartBeat
+         * @returns {msg.C2GW_ReqHeartBeat} C2GW_ReqHeartBeat
          */
-        C2GW_HeartBeat.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.C2GW_HeartBeat)
+        C2GW_ReqHeartBeat.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_ReqHeartBeat)
                 return object;
-            var message = new $root.msg.C2GW_HeartBeat();
+            var message = new $root.msg.C2GW_ReqHeartBeat();
             if (object.uid != null)
                 if ($util.Long)
                     (message.uid = $util.Long.fromValue(object.uid)).unsigned = false;
@@ -12788,7 +12788,7 @@ $root.msg = (function() {
                     message.time = new $util.LongBits(object.time.low >>> 0, object.time.high >>> 0).toNumber();
             if (object.test) {
                 if (!Array.isArray(object.test))
-                    throw TypeError(".msg.C2GW_HeartBeat.test: array expected");
+                    throw TypeError(".msg.C2GW_ReqHeartBeat.test: array expected");
                 message.test = [];
                 for (var i = 0; i < object.test.length; ++i)
                     message.test[i] = String(object.test[i]);
@@ -12797,15 +12797,15 @@ $root.msg = (function() {
         };
 
         /**
-         * Creates a plain object from a C2GW_HeartBeat message. Also converts values to other types if specified.
+         * Creates a plain object from a C2GW_ReqHeartBeat message. Also converts values to other types if specified.
          * @function toObject
-         * @memberof msg.C2GW_HeartBeat
+         * @memberof msg.C2GW_ReqHeartBeat
          * @static
-         * @param {msg.C2GW_HeartBeat} message C2GW_HeartBeat
+         * @param {msg.C2GW_ReqHeartBeat} message C2GW_ReqHeartBeat
          * @param {$protobuf.IConversionOptions} [options] Conversion options
          * @returns {Object.<string,*>} Plain object
          */
-        C2GW_HeartBeat.toObject = function toObject(message, options) {
+        C2GW_ReqHeartBeat.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
             var object = {};
@@ -12842,39 +12842,39 @@ $root.msg = (function() {
         };
 
         /**
-         * Converts this C2GW_HeartBeat to JSON.
+         * Converts this C2GW_ReqHeartBeat to JSON.
          * @function toJSON
-         * @memberof msg.C2GW_HeartBeat
+         * @memberof msg.C2GW_ReqHeartBeat
          * @instance
          * @returns {Object.<string,*>} JSON object
          */
-        C2GW_HeartBeat.prototype.toJSON = function toJSON() {
+        C2GW_ReqHeartBeat.prototype.toJSON = function toJSON() {
             return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
         };
 
-        return C2GW_HeartBeat;
+        return C2GW_ReqHeartBeat;
     })();
 
-    msg.GW2C_HeartBeat = (function() {
+    msg.GW2C_RetHeartBeat = (function() {
 
         /**
-         * Properties of a GW2C_HeartBeat.
+         * Properties of a GW2C_RetHeartBeat.
          * @memberof msg
-         * @interface IGW2C_HeartBeat
-         * @property {number|Long|null} [uid] GW2C_HeartBeat uid
-         * @property {number|Long|null} [time] GW2C_HeartBeat time
-         * @property {Array.<string>|null} [test] GW2C_HeartBeat test
+         * @interface IGW2C_RetHeartBeat
+         * @property {number|Long|null} [uid] GW2C_RetHeartBeat uid
+         * @property {number|Long|null} [time] GW2C_RetHeartBeat time
+         * @property {Array.<string>|null} [test] GW2C_RetHeartBeat test
          */
 
         /**
-         * Constructs a new GW2C_HeartBeat.
+         * Constructs a new GW2C_RetHeartBeat.
          * @memberof msg
-         * @classdesc Represents a GW2C_HeartBeat.
-         * @implements IGW2C_HeartBeat
+         * @classdesc Represents a GW2C_RetHeartBeat.
+         * @implements IGW2C_RetHeartBeat
          * @constructor
-         * @param {msg.IGW2C_HeartBeat=} [properties] Properties to set
+         * @param {msg.IGW2C_RetHeartBeat=} [properties] Properties to set
          */
-        function GW2C_HeartBeat(properties) {
+        function GW2C_RetHeartBeat(properties) {
             this.test = [];
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
@@ -12883,51 +12883,51 @@ $root.msg = (function() {
         }
 
         /**
-         * GW2C_HeartBeat uid.
+         * GW2C_RetHeartBeat uid.
          * @member {number|Long} uid
-         * @memberof msg.GW2C_HeartBeat
+         * @memberof msg.GW2C_RetHeartBeat
          * @instance
          */
-        GW2C_HeartBeat.prototype.uid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+        GW2C_RetHeartBeat.prototype.uid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
-         * GW2C_HeartBeat time.
+         * GW2C_RetHeartBeat time.
          * @member {number|Long} time
-         * @memberof msg.GW2C_HeartBeat
+         * @memberof msg.GW2C_RetHeartBeat
          * @instance
          */
-        GW2C_HeartBeat.prototype.time = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+        GW2C_RetHeartBeat.prototype.time = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
-         * GW2C_HeartBeat test.
+         * GW2C_RetHeartBeat test.
          * @member {Array.<string>} test
-         * @memberof msg.GW2C_HeartBeat
+         * @memberof msg.GW2C_RetHeartBeat
          * @instance
          */
-        GW2C_HeartBeat.prototype.test = $util.emptyArray;
+        GW2C_RetHeartBeat.prototype.test = $util.emptyArray;
 
         /**
-         * Creates a new GW2C_HeartBeat instance using the specified properties.
+         * Creates a new GW2C_RetHeartBeat instance using the specified properties.
          * @function create
-         * @memberof msg.GW2C_HeartBeat
+         * @memberof msg.GW2C_RetHeartBeat
          * @static
-         * @param {msg.IGW2C_HeartBeat=} [properties] Properties to set
-         * @returns {msg.GW2C_HeartBeat} GW2C_HeartBeat instance
+         * @param {msg.IGW2C_RetHeartBeat=} [properties] Properties to set
+         * @returns {msg.GW2C_RetHeartBeat} GW2C_RetHeartBeat instance
          */
-        GW2C_HeartBeat.create = function create(properties) {
-            return new GW2C_HeartBeat(properties);
+        GW2C_RetHeartBeat.create = function create(properties) {
+            return new GW2C_RetHeartBeat(properties);
         };
 
         /**
-         * Encodes the specified GW2C_HeartBeat message. Does not implicitly {@link msg.GW2C_HeartBeat.verify|verify} messages.
+         * Encodes the specified GW2C_RetHeartBeat message. Does not implicitly {@link msg.GW2C_RetHeartBeat.verify|verify} messages.
          * @function encode
-         * @memberof msg.GW2C_HeartBeat
+         * @memberof msg.GW2C_RetHeartBeat
          * @static
-         * @param {msg.IGW2C_HeartBeat} message GW2C_HeartBeat message or plain object to encode
+         * @param {msg.IGW2C_RetHeartBeat} message GW2C_RetHeartBeat message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        GW2C_HeartBeat.encode = function encode(message, writer) {
+        GW2C_RetHeartBeat.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
             if (message.uid != null && message.hasOwnProperty("uid"))
@@ -12941,33 +12941,33 @@ $root.msg = (function() {
         };
 
         /**
-         * Encodes the specified GW2C_HeartBeat message, length delimited. Does not implicitly {@link msg.GW2C_HeartBeat.verify|verify} messages.
+         * Encodes the specified GW2C_RetHeartBeat message, length delimited. Does not implicitly {@link msg.GW2C_RetHeartBeat.verify|verify} messages.
          * @function encodeDelimited
-         * @memberof msg.GW2C_HeartBeat
+         * @memberof msg.GW2C_RetHeartBeat
          * @static
-         * @param {msg.IGW2C_HeartBeat} message GW2C_HeartBeat message or plain object to encode
+         * @param {msg.IGW2C_RetHeartBeat} message GW2C_RetHeartBeat message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        GW2C_HeartBeat.encodeDelimited = function encodeDelimited(message, writer) {
+        GW2C_RetHeartBeat.encodeDelimited = function encodeDelimited(message, writer) {
             return this.encode(message, writer).ldelim();
         };
 
         /**
-         * Decodes a GW2C_HeartBeat message from the specified reader or buffer.
+         * Decodes a GW2C_RetHeartBeat message from the specified reader or buffer.
          * @function decode
-         * @memberof msg.GW2C_HeartBeat
+         * @memberof msg.GW2C_RetHeartBeat
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
          * @param {number} [length] Message length if known beforehand
-         * @returns {msg.GW2C_HeartBeat} GW2C_HeartBeat
+         * @returns {msg.GW2C_RetHeartBeat} GW2C_RetHeartBeat
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        GW2C_HeartBeat.decode = function decode(reader, length) {
+        GW2C_RetHeartBeat.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_HeartBeat();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RetHeartBeat();
             while (reader.pos < end) {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
@@ -12991,30 +12991,30 @@ $root.msg = (function() {
         };
 
         /**
-         * Decodes a GW2C_HeartBeat message from the specified reader or buffer, length delimited.
+         * Decodes a GW2C_RetHeartBeat message from the specified reader or buffer, length delimited.
          * @function decodeDelimited
-         * @memberof msg.GW2C_HeartBeat
+         * @memberof msg.GW2C_RetHeartBeat
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.GW2C_HeartBeat} GW2C_HeartBeat
+         * @returns {msg.GW2C_RetHeartBeat} GW2C_RetHeartBeat
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        GW2C_HeartBeat.decodeDelimited = function decodeDelimited(reader) {
+        GW2C_RetHeartBeat.decodeDelimited = function decodeDelimited(reader) {
             if (!(reader instanceof $Reader))
                 reader = new $Reader(reader);
             return this.decode(reader, reader.uint32());
         };
 
         /**
-         * Verifies a GW2C_HeartBeat message.
+         * Verifies a GW2C_RetHeartBeat message.
          * @function verify
-         * @memberof msg.GW2C_HeartBeat
+         * @memberof msg.GW2C_RetHeartBeat
          * @static
          * @param {Object.<string,*>} message Plain object to verify
          * @returns {string|null} `null` if valid, otherwise the reason why it is not
          */
-        GW2C_HeartBeat.verify = function verify(message) {
+        GW2C_RetHeartBeat.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
             if (message.uid != null && message.hasOwnProperty("uid"))
@@ -13034,17 +13034,17 @@ $root.msg = (function() {
         };
 
         /**
-         * Creates a GW2C_HeartBeat message from a plain object. Also converts values to their respective internal types.
+         * Creates a GW2C_RetHeartBeat message from a plain object. Also converts values to their respective internal types.
          * @function fromObject
-         * @memberof msg.GW2C_HeartBeat
+         * @memberof msg.GW2C_RetHeartBeat
          * @static
          * @param {Object.<string,*>} object Plain object
-         * @returns {msg.GW2C_HeartBeat} GW2C_HeartBeat
+         * @returns {msg.GW2C_RetHeartBeat} GW2C_RetHeartBeat
          */
-        GW2C_HeartBeat.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.GW2C_HeartBeat)
+        GW2C_RetHeartBeat.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_RetHeartBeat)
                 return object;
-            var message = new $root.msg.GW2C_HeartBeat();
+            var message = new $root.msg.GW2C_RetHeartBeat();
             if (object.uid != null)
                 if ($util.Long)
                     (message.uid = $util.Long.fromValue(object.uid)).unsigned = false;
@@ -13065,7 +13065,7 @@ $root.msg = (function() {
                     message.time = new $util.LongBits(object.time.low >>> 0, object.time.high >>> 0).toNumber();
             if (object.test) {
                 if (!Array.isArray(object.test))
-                    throw TypeError(".msg.GW2C_HeartBeat.test: array expected");
+                    throw TypeError(".msg.GW2C_RetHeartBeat.test: array expected");
                 message.test = [];
                 for (var i = 0; i < object.test.length; ++i)
                     message.test[i] = String(object.test[i]);
@@ -13074,15 +13074,15 @@ $root.msg = (function() {
         };
 
         /**
-         * Creates a plain object from a GW2C_HeartBeat message. Also converts values to other types if specified.
+         * Creates a plain object from a GW2C_RetHeartBeat message. Also converts values to other types if specified.
          * @function toObject
-         * @memberof msg.GW2C_HeartBeat
+         * @memberof msg.GW2C_RetHeartBeat
          * @static
-         * @param {msg.GW2C_HeartBeat} message GW2C_HeartBeat
+         * @param {msg.GW2C_RetHeartBeat} message GW2C_RetHeartBeat
          * @param {$protobuf.IConversionOptions} [options] Conversion options
          * @returns {Object.<string,*>} Plain object
          */
-        GW2C_HeartBeat.toObject = function toObject(message, options) {
+        GW2C_RetHeartBeat.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
             var object = {};
@@ -13119,17 +13119,17 @@ $root.msg = (function() {
         };
 
         /**
-         * Converts this GW2C_HeartBeat to JSON.
+         * Converts this GW2C_RetHeartBeat to JSON.
          * @function toJSON
-         * @memberof msg.GW2C_HeartBeat
+         * @memberof msg.GW2C_RetHeartBeat
          * @instance
          * @returns {Object.<string,*>} JSON object
          */
-        GW2C_HeartBeat.prototype.toJSON = function toJSON() {
+        GW2C_RetHeartBeat.prototype.toJSON = function toJSON() {
             return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
         };
 
-        return GW2C_HeartBeat;
+        return GW2C_RetHeartBeat;
     })();
 
     msg.C2GW_ReqRechargeMoney = (function() {

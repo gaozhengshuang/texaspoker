@@ -5422,205 +5422,205 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a C2GW_HeartBeat. */
-    interface IC2GW_HeartBeat {
+    /** Properties of a C2GW_ReqHeartBeat. */
+    interface IC2GW_ReqHeartBeat {
 
-        /** C2GW_HeartBeat uid */
+        /** C2GW_ReqHeartBeat uid */
         uid?: (number|Long|null);
 
-        /** C2GW_HeartBeat time */
+        /** C2GW_ReqHeartBeat time */
         time?: (number|Long|null);
 
-        /** C2GW_HeartBeat test */
+        /** C2GW_ReqHeartBeat test */
         test?: (string[]|null);
     }
 
-    /** Represents a C2GW_HeartBeat. */
-    class C2GW_HeartBeat implements IC2GW_HeartBeat {
+    /** Represents a C2GW_ReqHeartBeat. */
+    class C2GW_ReqHeartBeat implements IC2GW_ReqHeartBeat {
 
         /**
-         * Constructs a new C2GW_HeartBeat.
+         * Constructs a new C2GW_ReqHeartBeat.
          * @param [properties] Properties to set
          */
-        constructor(properties?: msg.IC2GW_HeartBeat);
+        constructor(properties?: msg.IC2GW_ReqHeartBeat);
 
-        /** C2GW_HeartBeat uid. */
+        /** C2GW_ReqHeartBeat uid. */
         public uid: (number|Long);
 
-        /** C2GW_HeartBeat time. */
+        /** C2GW_ReqHeartBeat time. */
         public time: (number|Long);
 
-        /** C2GW_HeartBeat test. */
+        /** C2GW_ReqHeartBeat test. */
         public test: string[];
 
         /**
-         * Creates a new C2GW_HeartBeat instance using the specified properties.
+         * Creates a new C2GW_ReqHeartBeat instance using the specified properties.
          * @param [properties] Properties to set
-         * @returns C2GW_HeartBeat instance
+         * @returns C2GW_ReqHeartBeat instance
          */
-        public static create(properties?: msg.IC2GW_HeartBeat): msg.C2GW_HeartBeat;
+        public static create(properties?: msg.IC2GW_ReqHeartBeat): msg.C2GW_ReqHeartBeat;
 
         /**
-         * Encodes the specified C2GW_HeartBeat message. Does not implicitly {@link msg.C2GW_HeartBeat.verify|verify} messages.
-         * @param message C2GW_HeartBeat message or plain object to encode
+         * Encodes the specified C2GW_ReqHeartBeat message. Does not implicitly {@link msg.C2GW_ReqHeartBeat.verify|verify} messages.
+         * @param message C2GW_ReqHeartBeat message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: msg.IC2GW_HeartBeat, writer?: protobuf.Writer): protobuf.Writer;
+        public static encode(message: msg.IC2GW_ReqHeartBeat, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Encodes the specified C2GW_HeartBeat message, length delimited. Does not implicitly {@link msg.C2GW_HeartBeat.verify|verify} messages.
-         * @param message C2GW_HeartBeat message or plain object to encode
+         * Encodes the specified C2GW_ReqHeartBeat message, length delimited. Does not implicitly {@link msg.C2GW_ReqHeartBeat.verify|verify} messages.
+         * @param message C2GW_ReqHeartBeat message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: msg.IC2GW_HeartBeat, writer?: protobuf.Writer): protobuf.Writer;
+        public static encodeDelimited(message: msg.IC2GW_ReqHeartBeat, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Decodes a C2GW_HeartBeat message from the specified reader or buffer.
+         * Decodes a C2GW_ReqHeartBeat message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns C2GW_HeartBeat
+         * @returns C2GW_ReqHeartBeat
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_HeartBeat;
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqHeartBeat;
 
         /**
-         * Decodes a C2GW_HeartBeat message from the specified reader or buffer, length delimited.
+         * Decodes a C2GW_ReqHeartBeat message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns C2GW_HeartBeat
+         * @returns C2GW_ReqHeartBeat
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_HeartBeat;
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqHeartBeat;
 
         /**
-         * Verifies a C2GW_HeartBeat message.
+         * Verifies a C2GW_ReqHeartBeat message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a C2GW_HeartBeat message from a plain object. Also converts values to their respective internal types.
+         * Creates a C2GW_ReqHeartBeat message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns C2GW_HeartBeat
+         * @returns C2GW_ReqHeartBeat
          */
-        public static fromObject(object: { [k: string]: any }): msg.C2GW_HeartBeat;
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqHeartBeat;
 
         /**
-         * Creates a plain object from a C2GW_HeartBeat message. Also converts values to other types if specified.
-         * @param message C2GW_HeartBeat
+         * Creates a plain object from a C2GW_ReqHeartBeat message. Also converts values to other types if specified.
+         * @param message C2GW_ReqHeartBeat
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: msg.C2GW_HeartBeat, options?: protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: msg.C2GW_ReqHeartBeat, options?: protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this C2GW_HeartBeat to JSON.
+         * Converts this C2GW_ReqHeartBeat to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a GW2C_HeartBeat. */
-    interface IGW2C_HeartBeat {
+    /** Properties of a GW2C_RetHeartBeat. */
+    interface IGW2C_RetHeartBeat {
 
-        /** GW2C_HeartBeat uid */
+        /** GW2C_RetHeartBeat uid */
         uid?: (number|Long|null);
 
-        /** GW2C_HeartBeat time */
+        /** GW2C_RetHeartBeat time */
         time?: (number|Long|null);
 
-        /** GW2C_HeartBeat test */
+        /** GW2C_RetHeartBeat test */
         test?: (string[]|null);
     }
 
-    /** Represents a GW2C_HeartBeat. */
-    class GW2C_HeartBeat implements IGW2C_HeartBeat {
+    /** Represents a GW2C_RetHeartBeat. */
+    class GW2C_RetHeartBeat implements IGW2C_RetHeartBeat {
 
         /**
-         * Constructs a new GW2C_HeartBeat.
+         * Constructs a new GW2C_RetHeartBeat.
          * @param [properties] Properties to set
          */
-        constructor(properties?: msg.IGW2C_HeartBeat);
+        constructor(properties?: msg.IGW2C_RetHeartBeat);
 
-        /** GW2C_HeartBeat uid. */
+        /** GW2C_RetHeartBeat uid. */
         public uid: (number|Long);
 
-        /** GW2C_HeartBeat time. */
+        /** GW2C_RetHeartBeat time. */
         public time: (number|Long);
 
-        /** GW2C_HeartBeat test. */
+        /** GW2C_RetHeartBeat test. */
         public test: string[];
 
         /**
-         * Creates a new GW2C_HeartBeat instance using the specified properties.
+         * Creates a new GW2C_RetHeartBeat instance using the specified properties.
          * @param [properties] Properties to set
-         * @returns GW2C_HeartBeat instance
+         * @returns GW2C_RetHeartBeat instance
          */
-        public static create(properties?: msg.IGW2C_HeartBeat): msg.GW2C_HeartBeat;
+        public static create(properties?: msg.IGW2C_RetHeartBeat): msg.GW2C_RetHeartBeat;
 
         /**
-         * Encodes the specified GW2C_HeartBeat message. Does not implicitly {@link msg.GW2C_HeartBeat.verify|verify} messages.
-         * @param message GW2C_HeartBeat message or plain object to encode
+         * Encodes the specified GW2C_RetHeartBeat message. Does not implicitly {@link msg.GW2C_RetHeartBeat.verify|verify} messages.
+         * @param message GW2C_RetHeartBeat message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: msg.IGW2C_HeartBeat, writer?: protobuf.Writer): protobuf.Writer;
+        public static encode(message: msg.IGW2C_RetHeartBeat, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Encodes the specified GW2C_HeartBeat message, length delimited. Does not implicitly {@link msg.GW2C_HeartBeat.verify|verify} messages.
-         * @param message GW2C_HeartBeat message or plain object to encode
+         * Encodes the specified GW2C_RetHeartBeat message, length delimited. Does not implicitly {@link msg.GW2C_RetHeartBeat.verify|verify} messages.
+         * @param message GW2C_RetHeartBeat message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: msg.IGW2C_HeartBeat, writer?: protobuf.Writer): protobuf.Writer;
+        public static encodeDelimited(message: msg.IGW2C_RetHeartBeat, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Decodes a GW2C_HeartBeat message from the specified reader or buffer.
+         * Decodes a GW2C_RetHeartBeat message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns GW2C_HeartBeat
+         * @returns GW2C_RetHeartBeat
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_HeartBeat;
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetHeartBeat;
 
         /**
-         * Decodes a GW2C_HeartBeat message from the specified reader or buffer, length delimited.
+         * Decodes a GW2C_RetHeartBeat message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns GW2C_HeartBeat
+         * @returns GW2C_RetHeartBeat
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_HeartBeat;
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetHeartBeat;
 
         /**
-         * Verifies a GW2C_HeartBeat message.
+         * Verifies a GW2C_RetHeartBeat message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a GW2C_HeartBeat message from a plain object. Also converts values to their respective internal types.
+         * Creates a GW2C_RetHeartBeat message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns GW2C_HeartBeat
+         * @returns GW2C_RetHeartBeat
          */
-        public static fromObject(object: { [k: string]: any }): msg.GW2C_HeartBeat;
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetHeartBeat;
 
         /**
-         * Creates a plain object from a GW2C_HeartBeat message. Also converts values to other types if specified.
-         * @param message GW2C_HeartBeat
+         * Creates a plain object from a GW2C_RetHeartBeat message. Also converts values to other types if specified.
+         * @param message GW2C_RetHeartBeat
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: msg.GW2C_HeartBeat, options?: protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: msg.GW2C_RetHeartBeat, options?: protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this GW2C_HeartBeat to JSON.
+         * Converts this GW2C_RetHeartBeat to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
