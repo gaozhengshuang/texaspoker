@@ -30,7 +30,7 @@ type IRoomBase interface {
 	SendGateMsg(userid int64, msg pb.Message)
 	BroadCastMemberGateMsg(msg pb.Message, except ...int64)
 	BroadCastMemberMsg(msg pb.Message, except ...int64)
-	BroadCastWatcherMsg(msg pb.Message, except ...int64)
+	//BroadCastWatcherMsg(msg pb.Message, except ...int64)
 	BroadCastRoomMsg(msg pb.Message, except ...int64)
 
 	DoCache()
@@ -46,7 +46,7 @@ type IRoomBase interface {
 	UserLoad(tmsg *msg.GW2RS_UploadUserBin, session network.IBaseNetSession)
 	UserEnter(u *RoomUser)
 	UserLeave(u *RoomUser)
-	UserDisconnect(userid int64)
+	UserDisconnect(u *RoomUser)
 	//UserStandUp(u *RoomUser)				// 棋牌类站起
 	//UserSitDown(u *RoomUser, seat int32)	// 棋牌类坐下
 }

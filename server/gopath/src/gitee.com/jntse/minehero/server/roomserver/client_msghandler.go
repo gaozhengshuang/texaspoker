@@ -107,7 +107,7 @@ func on_C2RS_ReqTimeAwardInfo(session network.IBaseNetSession, message interface
 
 func on_C2RS_ReqBuyInGame(session network.IBaseNetSession, message interface{}, u *RoomUser) {
 	tmsg := message.(*msg.C2RS_ReqBuyInGame)
-	room := RoomMgr().Find(u.RoomId())
+	room := RoomMgr().FindTexas(u.RoomId())
 	if room == nil {
 		log.Error("[房间] 玩家[%s %d] 无效房间 房间[%d]", u.Name(), u.Id(), u.RoomId())
 		return
@@ -117,7 +117,7 @@ func on_C2RS_ReqBuyInGame(session network.IBaseNetSession, message interface{}, 
 
 func on_C2RS_ReqFriendGetRoleInfo(session network.IBaseNetSession, message interface{}, u *RoomUser) {
 	tmsg := message.(*msg.C2RS_ReqFriendGetRoleInfo)
-	room := RoomMgr().Find(u.RoomId())
+	room := RoomMgr().FindTexas(u.RoomId())
 	if room == nil {
 		log.Error("[房间] 玩家[%s %d] 无效房间 房间[%d]", u.Name(), u.Id(), u.RoomId())
 		return
@@ -127,7 +127,7 @@ func on_C2RS_ReqFriendGetRoleInfo(session network.IBaseNetSession, message inter
 
 func on_C2RS_ReqNextRound(session network.IBaseNetSession, message interface{}, u *RoomUser) {
 	tmsg := message.(*msg.C2RS_ReqNextRound)
-	room := RoomMgr().Find(u.RoomId())
+	room := RoomMgr().FindTexas(u.RoomId())
 	if room == nil {
 		log.Error("[房间] 玩家[%s %d] 无效房间 房间[%d]", u.Name(), u.Id(), u.RoomId())
 		return
@@ -137,7 +137,7 @@ func on_C2RS_ReqNextRound(session network.IBaseNetSession, message interface{}, 
 
 func on_C2RS_ReqAction(session network.IBaseNetSession, message interface{}, u *RoomUser) {
 	tmsg := message.(*msg.C2RS_ReqAction)
-	room := RoomMgr().Find(u.RoomId())
+	room := RoomMgr().FindTexas(u.RoomId())
 	if room == nil {
 		log.Error("[房间] 玩家[%s %d] 无效房间 房间[%d]", u.Name(), u.Id(), u.RoomId())
 		return
@@ -147,7 +147,7 @@ func on_C2RS_ReqAction(session network.IBaseNetSession, message interface{}, u *
 
 func on_C2RS_ReqBrightCard(session network.IBaseNetSession, message interface{}, u *RoomUser) {
 	tmsg := message.(*msg.C2RS_ReqBrightCard)
-	room := RoomMgr().Find(u.RoomId())
+	room := RoomMgr().FindTexas(u.RoomId())
 	if room == nil {
 		log.Error("[房间] 玩家[%s %d] 无效房间 房间[%d]", u.Name(), u.Id(), u.RoomId())
 		return
@@ -157,7 +157,7 @@ func on_C2RS_ReqBrightCard(session network.IBaseNetSession, message interface{},
 
 func on_C2RS_ReqAddCoin(session network.IBaseNetSession, message interface{}, u *RoomUser) {
 	tmsg := message.(*msg.C2RS_ReqAddCoin)
-	room := RoomMgr().Find(u.RoomId())
+	room := RoomMgr().FindTexas(u.RoomId())
 	if room == nil {
 		log.Error("[房间] 玩家[%s %d] 无效房间 房间[%d]", u.Name(), u.Id(), u.RoomId())
 		return

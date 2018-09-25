@@ -260,8 +260,14 @@ func (this *TexasPlayer) ChangeState(state int32) {
 }
 
 func (this *TexasPlayer) BuyInGame(rev *msg.C2RS_ReqBuyInGame) {
+	strerr := ""
 	if !this.room.CheckPos(rev.GetPos()-1) {
-		return
+		strerr = "位置已经被占用"
+		goto doerror
+	}
+	if !this.owner.RemoveGold(rev.GetNum(), "金币兑换筹码", true) {
+		strerr = "金币不足"
+		goto doerror
 	}
 	this.SitDown(rev.GetPos()-1)
 	this.AddBankRoll(rev.GetNum())
@@ -273,9 +279,13 @@ func (this *TexasPlayer) BuyInGame(rev *msg.C2RS_ReqBuyInGame) {
 		send.State = pb.Int32(1)
 		send.BankRoll = pb.Int32(this.GetBankRoll())
 		this.room.BroadCastRoomMsg(send)
+
+        send1 := &msg.RS2C_RetBuyInGame{}
+		this.owner.SendClientMsg(send1)
 	}
+	doerror :
 	{
-		send := &msg.RS2C_RetBuyInGame{}
+		send := &msg.RS2C_RetBuyInGame{Errcode : pb.String(strerr)}
 		this.owner.SendClientMsg(send)
 	}
 }

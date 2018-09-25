@@ -46,12 +46,12 @@ func (this *TexasPokerRoom) OnGameOver() {
 func (this *TexasPokerRoom) UserEnter(u *RoomUser) {
 	log.Info("[房间] 玩家[%s %d] 进入房间[%d]", u.Name(), u.Id(), this.Id())
 	this.members[u.Id()] = u
-	player := this.FindPlayerByID(user.Id())
+	player := this.FindPlayerByID(u.Id())
 	if player != nil {
-		this.ReEnterRoom(user)
+		//this.ReEnterRoom(user)
 		return
 	}
-	player = NewTexasPlayer(user)
+	player = NewTexasPlayer(u)
 	player.Init()
 	this.AddWatcher(player)
 	this.SendRoomInfo(player)
@@ -59,12 +59,12 @@ func (this *TexasPokerRoom) UserEnter(u *RoomUser) {
 
 // 玩家离开房间
 func (this *TexasPokerRoom) UserLeave(u *RoomUser) {
-	player := this.FindPlayerByID(user.Id())
+	player := this.FindPlayerByID(u.Id())
 	if player == nil {
 		return
 	}
 	if this.InGame(player) {
-		this.DelPlayer(player)
+		this.DelPlayer(player.pos)
 	}else {
 		this.DelWatcher(player)
 	}
@@ -75,7 +75,7 @@ func (this *TexasPokerRoom) UserLeave(u *RoomUser) {
 	log.Info("[房间] 玩家[%s %d] 离开房间[%d]", u.Name(), u.Id(), this.Id())
 
 	// 如果是私人房间，全部人离开解散
-	if IsTexasRoomPrivateType(this.SubKind()) && len(this.members) == 0 && len(this.watchmembers) == 0 {
+	if IsTexasRoomPrivateType(this.SubKind()) && len(this.members) == 0 {
 		this.Destory(0)
 	}
 }
@@ -123,7 +123,7 @@ func (this *TexasPokerRoom) UserLoad(tmsg *msg.GW2RS_UploadUserBin, gate network
 
 	u = UserMgr().CreateRoomUser(this.Id(), tmsg.Bin, gate, this.Kind())
 	u.OnPreEnterRoom()
-	this.watchmembers[u.Id()]= u
+	//this.watchmembers[u.Id()]= u
 	log.Info("[房间] 玩家[%s %d] 上传个人数据到房间[%d]", u.Name(), u.Id(), this.Id())
 }
 
@@ -132,8 +132,8 @@ func (this *TexasPokerRoom) Tick(now int64) {
 }
 
 // 玩家断开连接(托管/踢掉)
-func (this *TexasPokerRoom) UserDisconnect(userid int64) {
-	log.Info("[房间] 玩家[%d] 网络断开 房间[%d]", userid, this.Id())
+func (this *TexasPokerRoom) UserDisconnect(u *RoomUser) {
+	log.Info("[房间] 玩家[%s %d] 网络断开 房间[%d]", u.Name(), u.Id(), this.Id())
 }
 
 // 网关断开

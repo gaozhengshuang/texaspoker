@@ -47,12 +47,15 @@ message RS2C_RetEnterRoomInfo
 //拉取计时奖励信息
 message C2RS_ReqTimeAwardInfo
 {    
+    optional int32 roomtype = 1;    
 }
 
 message RS2C_RetTimeAwardInfo
 {
-    optional int32 roomtype = 1;
-    optional string errcode = 2;
+    optional int32 round = 1;
+    optional int32 sectime = 2;
+    optional int32 starttime = 3;    
+    optional string errcode = 4;
 }
 
 //请求购买游戏币
@@ -66,11 +69,6 @@ message C2RS_ReqBuyInGame
 message RS2C_RetBuyInGame
 {
     optional string errcode = 1;
-}
-
-//服务器推送玩家资产
-message RS2C_RolePushPropertyChange
-{
 }
 
 //服务器推送位置

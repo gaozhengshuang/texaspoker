@@ -36,6 +36,14 @@ func (this *GateUser) AddItem(item int32, num int32, reason string, syn bool) {
 	RCounter().IncrByDate("item_add", int32(item), num)
 }
 
+func (u *GateUser) SendPropertyChange() {
+	send := &msg.RS2C_RolePushPropertyChange{}
+	send.Diamond = pb.Int32(u.diamond)
+	send.Gold = pb.Int32(u.gold)
+	send.Safegold = pb.Int32(0)
+	u.SendMsg(send)
+}
+
 // 扣除道具
 func (this *GateUser) RemoveItem(item int32, num int32, reason string) bool {
 	return this.bag.RemoveItem(item, num, reason)
@@ -46,8 +54,7 @@ func (this *GateUser) GetGold() int32 { return this.gold }
 func (this *GateUser) AddGold(gold int32, reason string, syn bool) {
 	this.gold = this.GetGold() + gold
 	if syn {
-		send := &msg.GW2C_PushGoldUpdate{Num: pb.Int32(this.GetGold())}
-		this.SendMsg(send)
+		this.SendPropertyChange()
 	}
 	log.Info("玩家[%d] 添加金币[%d] 库存[%d] 原因[%s]", this.Id(), gold, this.GetGold(), reason)
 }
@@ -55,8 +62,7 @@ func (this *GateUser) RemoveGold(gold int32, reason string, syn bool) bool {
 	if this.GetGold() >= gold {
 		this.gold = this.GetGold() - gold
 		if syn {
-			send := &msg.GW2C_PushGoldUpdate{Num: pb.Int32(this.GetGold())}
-			this.SendMsg(send)
+			this.SendPropertyChange()
 		}
 		log.Info("玩家[%d] 扣除金币[%d] 库存[%d] 原因[%s]", this.Id(), gold, this.GetGold(), reason)
 		RCounter().IncrByDate("item_remove", int32(msg.ItemId_Gold), gold)
@@ -98,8 +104,7 @@ func (this *GateUser) AddDiamond(num int32, reason string, syn bool) {
 	this.diamond = this.GetDiamond() + num
 	//this.SynAddMidsMoney(int64(num), reason)
 	if syn {
-		send := &msg.GW2C_PushDiamondUpdate{Num: pb.Int32(this.GetDiamond())}
-		this.SendMsg(send)
+		this.SendPropertyChange()
 	}
 	log.Info("玩家[%d] 添加钻石[%d] 库存[%d] 原因[%s]", this.Id(), num, this.GetDiamond(), reason)
 }
@@ -108,8 +113,7 @@ func (this *GateUser) RemoveDiamond(num int32, reason string, syn bool) bool {
 		this.diamond = this.GetDiamond() - num
 		//this.SynRemoveMidsMoney(int64(num), reason)
 		if syn {
-			send := &msg.GW2C_PushDiamondUpdate{Num: pb.Int32(this.GetDiamond())}
-			this.SendMsg(send)
+			this.SendPropertyChange()
 		}
 		log.Info("玩家[%d] 添加钻石[%d] 库存[%d] 原因[%s]", this.Id(), num, this.GetDiamond(), reason)
 		RCounter().IncrByDate("item_remove", int32(msg.ItemId_Diamond), num)

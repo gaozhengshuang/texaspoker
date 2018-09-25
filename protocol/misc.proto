@@ -106,3 +106,11 @@ message RS2C_RetFriendGetRoleInfo
     optional string errcode = 35;
 }
 
+//服务器推送玩家资产
+message RS2C_RolePushPropertyChange
+{
+    optional int32 diamond = 1;
+    optional int32 gold = 2;
+    optional int32 safegold = 3;    
+}
+
