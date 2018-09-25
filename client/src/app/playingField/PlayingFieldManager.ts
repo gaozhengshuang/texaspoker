@@ -42,19 +42,28 @@ class PlayingFieldManager
     {
         let callback: Function = function (result: game.SpRpcResult)
         {
-            if (result.data && result.data["id"] > 0)
+            let data: msg.GW2C_RetCreateRoom = result.data;
+            if (game.StringUtil.isNullOrEmpty(data.errcode))
             {
-                UIManager.closePanel(UIModuleName.CreateRoomPwdPanel);
-                UIManager.closePanel(UIModuleName.KeyBoardPanel);
-                GamblingManager.reqEnterRoom(result.data["id"], pwd, true);
+                if (data && data.roomid > 0)
+                {
+                    UIManager.closePanel(UIModuleName.CreateRoomPwdPanel);
+                    UIManager.closePanel(UIModuleName.KeyBoardPanel);
+                    GamblingManager.reqEnterRoom(data.roomid, pwd, true);
+                }
             }
+            else
+            {
+                AlertManager.showAlertByString(data.errcode);
+            }
+
         };
         if (pwd)
         {
-            SocketManager.call(Command.Req_CreatePersonalRoom_3610, { roomId: roomId, pwd: pwd, ante: ante }, callback, null, this);
+            SocketManager.call(Command.C2GW_ReqCreateRoom, msg.C2GW_ReqCreateRoom.encode({ gamekind: msg.RoomKind.TexasPoker, texas: { roomId: roomId, pwd: pwd, ante: ante } }), callback, null, this);
         } else
         {
-            SocketManager.call(Command.Req_CreatePersonalRoom_3610, { roomId: roomId, ante: ante }, callback, null, this);
+            SocketManager.call(Command.C2GW_ReqCreateRoom, msg.C2GW_ReqCreateRoom.encode({ gamekind: msg.RoomKind.TexasPoker, texas: { roomId: roomId, ante: ante, pwd: game.StringConstants.Empty } }), callback, null, this);
         }
     }
 

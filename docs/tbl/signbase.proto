@@ -22,10 +22,10 @@ message TSignDefine
 	optional int32 Id = 1; // 签到ID
 	
 	
-	optional int32 CostId = 2; // 花费ID
+	optional int32 Gold = 2; // 签到当天的奖励
 	
 	
-	optional int32 Num = 3; // 数量
+	optional int32 GoldEx = 3; // 累计签到额外奖励
 
 }
 
