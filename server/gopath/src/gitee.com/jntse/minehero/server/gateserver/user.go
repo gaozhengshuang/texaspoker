@@ -23,7 +23,6 @@ import (
 //	GamePlaying  = 4	// 游戏中
 //	)
 
-
 // --------------------------------------------------------------------------
 /// @brief db数据管理
 // --------------------------------------------------------------------------
@@ -38,7 +37,7 @@ type DBUserData struct {
 	exp            int32
 	continuelogin  int32
 	nocountlogin   int32
-	signreward     int32
+	signdays       int32
 	signtime       int32
 	addrlist       []*msg.UserAddress
 	wechatopenid   string
@@ -55,28 +54,28 @@ type DBUserData struct {
 // --------------------------------------------------------------------------
 type UserBaseData struct {
 	DBUserData
-	client          network.IBaseNetSession
-	account         string
-	verifykey       string
-	online          bool
-	tickers         UserTicker
-	bag             UserBag   // 背包
-	cleanup         bool                    // 清理标记
-	tm_disconnect   int64
-	tm_heartbeat    int64                   // 心跳时间
-	tm_asynsave     int64                   // 异步存盘超时
-	asynev          eventque.AsynEventQueue // 异步事件处理
+	client        network.IBaseNetSession
+	account       string
+	verifykey     string
+	online        bool
+	tickers       UserTicker
+	bag           UserBag // 背包
+	cleanup       bool    // 清理标记
+	tm_disconnect int64
+	tm_heartbeat  int64                   // 心跳时间
+	tm_asynsave   int64                   // 异步存盘超时
+	asynev        eventque.AsynEventQueue // 异步事件处理
 }
 
 type GateUser struct {
 	UserBaseData
 	task            UserTask
-	cartflag		bool
-	roomdata        UserRoomData            // 房间信息
-	token           string                  // token
-	broadcastbuffer []int64                // 广播消息缓存
-	synbalance      bool                    // 充值中
-	events			UserMapEvent			// 地图事件
+	cartflag        bool
+	roomdata        UserRoomData // 房间信息
+	token           string       // token
+	broadcastbuffer []int64      // 广播消息缓存
+	synbalance      bool         // 充值中
+	events          UserMapEvent // 地图事件
 }
 
 func NewGateUser(account, key, token string) *GateUser {
@@ -127,7 +126,7 @@ func (this *GateUser) SetName(nickname string) bool {
 		this.SendNotify("昵称不能含有标点和特殊字符")
 		return false
 	}
-	
+
 	// 昵称是否重复
 	keynickname := fmt.Sprintf("accounts_nickname")
 	keyvalue, err := Redis().SIsMember(keynickname, nickname).Result()
@@ -143,19 +142,19 @@ func (this *GateUser) SetName(nickname string) bool {
 	}
 	//新名字加入集合
 	_, erradd := Redis().SAdd(keynickname, nickname).Result()
-	if erradd != nil{
+	if erradd != nil {
 		log.Error("改名保存全局新昵称 Redis错误:%s", erradd)
-		return false	
+		return false
 	}
-	
+
 	//原名从集合中移除
 	_, errrem := Redis().SRem(keynickname, this.Name()).Result()
 	if errrem != nil {
-		log.Error("改名移除玩家原来名字失败 oldname:%s , err: %s", this.Name(), errrem) 
+		log.Error("改名移除玩家原来名字失败 oldname:%s , err: %s", this.Name(), errrem)
 	}
 
 	this.EntityBase().Name = pb.String(nickname)
-	log.Info("玩家[%d] 设置昵称[%s] 成功", this.Id(),nickname)
+	log.Info("玩家[%d] 设置昵称[%s] 成功", this.Id(), nickname)
 	return true
 }
 
@@ -163,8 +162,8 @@ func (this *GateUser) Head() string {
 	return this.EntityBase().GetHead()
 }
 
-func (this *GateUser) SetHead(f string, bsync bool)  {
-	log.Info("玩家[%d] 设置头像 [%s]",this.Id(), f)
+func (this *GateUser) SetHead(f string, bsync bool) {
+	log.Info("玩家[%d] 设置头像 [%s]", this.Id(), f)
 	this.EntityBase().Head = pb.String(f)
 }
 
@@ -177,7 +176,7 @@ func (this *GateUser) Sex() int32 {
 }
 
 func (this *GateUser) SetSex(sex int32) {
-	log.Info("玩家[%d] 设置性别 [%d]",this.Id(), sex)
+	log.Info("玩家[%d] 设置性别 [%d]", this.Id(), sex)
 	this.EntityBase().Sex = pb.Int32(sex)
 }
 
@@ -311,7 +310,7 @@ func (this *GateUser) IsCleanUp() bool {
 	return this.cleanup
 }
 
-func (this *GateUser) GetUserPos() (float32, float32){
+func (this *GateUser) GetUserPos() (float32, float32) {
 	return 0, 0
 }
 
@@ -378,15 +377,33 @@ func (this *GateUser) OnLoadDB(way string) {
 	}
 
 	// proto对象变量初始化
-	if this.bin.Base == nil { this.bin.Base = &msg.UserBase{} }
-	if this.bin.Base.Misc == nil { this.bin.Base.Misc = &msg.UserMiscData{} }
-	if this.bin.Base.Statics == nil { this.bin.Base.Statics = &msg.UserStatistics{} }
-	if this.bin.Base.Sign == nil { this.bin.Base.Sign = &msg.UserSignIn{} }
-	if this.bin.Base.Wechat == nil { this.bin.Base.Wechat = &msg.UserWechat{} }
-	if this.bin.Item == nil { this.bin.Item = &msg.ItemBin{} }
-	if this.bin.Base.Addrlist == nil { this.bin.Base.Addrlist = make([]*msg.UserAddress, 0) }
-	if this.bin.Base.Task == nil { this.bin.Base.Task = &msg.UserTask{} }
-	if this.bin.Base.Luckydraw == nil { this.bin.Base.Luckydraw = &msg.LuckyDrawRecord{Drawlist: make([]*msg.LuckyDrawItem, 0)} }
+	if this.bin.Base == nil {
+		this.bin.Base = &msg.UserBase{}
+	}
+	if this.bin.Base.Misc == nil {
+		this.bin.Base.Misc = &msg.UserMiscData{}
+	}
+	if this.bin.Base.Statics == nil {
+		this.bin.Base.Statics = &msg.UserStatistics{}
+	}
+	if this.bin.Base.Sign == nil {
+		this.bin.Base.Sign = &msg.UserSignIn{}
+	}
+	if this.bin.Base.Wechat == nil {
+		this.bin.Base.Wechat = &msg.UserWechat{}
+	}
+	if this.bin.Item == nil {
+		this.bin.Item = &msg.ItemBin{}
+	}
+	if this.bin.Base.Addrlist == nil {
+		this.bin.Base.Addrlist = make([]*msg.UserAddress, 0)
+	}
+	if this.bin.Base.Task == nil {
+		this.bin.Base.Task = &msg.UserTask{}
+	}
+	if this.bin.Base.Luckydraw == nil {
+		this.bin.Base.Luckydraw = &msg.LuckyDrawRecord{Drawlist: make([]*msg.LuckyDrawItem, 0)}
+	}
 	//if this.bin.Base.Images == nil { this.bin.Base.Images = &msg.PersonalImage{Lists: make([]*msg.ImageData, 0)} }
 
 	// 加载二进制
@@ -419,14 +436,13 @@ func (this *GateUser) PackBin() *msg.Serialize {
 	entity.Level = pb.Int32(this.level)
 	entity.Exp = pb.Int32(this.exp)
 
-
 	userbase := bin.GetBase()
 	userbase.Statics.Tmlogin = pb.Int64(this.tm_login)
 	userbase.Statics.Tmlogout = pb.Int64(this.tm_logout)
 	userbase.Statics.Continuelogin = pb.Int32(this.continuelogin)
 	userbase.Statics.Nocountlogin = pb.Int32(this.nocountlogin)
 	userbase.Statics.Totalrecharge = pb.Int32(this.totalrecharge)
-	userbase.Sign.Signreward = pb.Int32(this.signreward)
+	userbase.Sign.Signdays = pb.Int32(this.signdays)
 	userbase.Sign.Signtime = pb.Int32(this.signtime)
 	userbase.Misc.Invitationcode = pb.String(this.invitationcode)
 
@@ -468,7 +484,7 @@ func (this *GateUser) LoadBin() {
 	this.nocountlogin = userbase.Statics.GetNocountlogin()
 	this.totalrecharge = userbase.Statics.GetTotalrecharge()
 
-	this.signreward = userbase.Sign.GetSignreward()
+	this.signdays = userbase.Sign.GetSigndays()
 	this.signtime = userbase.Sign.GetSigntime()
 	this.invitationcode = userbase.Misc.GetInvitationcode()
 
@@ -561,12 +577,11 @@ func (this *GateUser) Syn() {
 	//this.TestItem()
 }
 
-func (this *GateUser) TestItem (){
+func (this *GateUser) TestItem() {
 	for k, _ := range tbl.ItemBase.ItemBaseDataById {
 		this.AddItem(k, 100, "测试", true)
 	}
 }
-
 
 // 断开连接回调
 func (this *GateUser) OnDisconnect() {
@@ -648,7 +663,6 @@ func (this *GateUser) SendNotify(text string) {
 	this.SendMsg(send)
 }
 
-
 // 插入新异步事件
 func (this *GateUser) AsynEventInsert(event eventque.IEvent) {
 	this.asynev.Push(event)
@@ -679,5 +693,3 @@ func (this *GateUser) OnlineTaskCheck() {
 	}
 
 }
-
-

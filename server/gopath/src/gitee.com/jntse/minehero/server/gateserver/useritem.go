@@ -339,12 +339,15 @@ func (this *GateUser) GetSignReward() {
 	}
 }
 */
+
 func (this *GateUser) SendSign() {
 	if util.IsSameDay(int64(this.signtime), util.CURTIME()) {
 		return
 	}
-	send := &msg.GW2C_Ret7DayReward{Day: pb.Int32(this.signreward + 1)}
-	this.SendMsg(send)
+	/*
+		send := &msg.GW2C_Ret7DayReward{Day: pb.Int32(this.signreward + 1)}
+		this.SendMsg(send)
+	*/
 }
 
 // TODO: 获得补偿
