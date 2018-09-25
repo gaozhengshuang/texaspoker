@@ -18,14 +18,13 @@ class NotifyManager
 	/**
 	 * 通知管理
 	 */
-	private static _notifyMap: game.Map<NotifyType, BaseNotifyHandle>;
+	private static _notifyMap: game.Map<NotifyType, BaseNotifyHandle> = new game.Map<NotifyType, BaseNotifyHandle>();
 
 	/**
 	 * 初始化
 	 */
 	public static initialize()
 	{
-		NotifyManager._notifyMap = new game.Map<NotifyType, BaseNotifyHandle>();
 		NotifyManager._notifyMap.add(NotifyType.Mtt_HaveJoinedList, new MttHaveJoinedListHandler(NotifyType.Mtt_HaveJoinedList));
 		NotifyManager._notifyMap.add(NotifyType.Mail_HaveNewSystem, new NewMailNotifyHandler(NotifyType.Mail_HaveNewSystem));
 		NotifyManager._notifyMap.add(NotifyType.Mail_HaveNewPlayer, new NewMailNotifyHandler(NotifyType.Mail_HaveNewPlayer));

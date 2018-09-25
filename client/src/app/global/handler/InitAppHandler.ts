@@ -14,9 +14,9 @@ class InitAppHandler
 		{
 			//第一次登录初始化一次
 			this._isAppComplete = true;
-			NotifyManager.initialize();
+			// NotifyManager.initialize();
 			UploadHeadManager.initialize();
-			SceneManager.initialize();
+			//SceneManager.initialize();
 		}
 		else
 		{

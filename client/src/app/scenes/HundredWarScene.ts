@@ -18,7 +18,6 @@ class HundredWarScene extends BaseScene
     }
     protected onAllResLoadComplete()
     {
-        SceneManager.switchClosePanels();
         UIManager.showPanel(UIModuleName.HundredWarRoomPanel);
         this.LoadCompleteEvent.dispatch(this);
     }

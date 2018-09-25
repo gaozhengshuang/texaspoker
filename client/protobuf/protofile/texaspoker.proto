@@ -206,13 +206,22 @@ message RS2C_RetAction
 {
 }
 
-//请求站起
-message C2RS_ReqStandUp
-{
+// 请求坐下
+message C2RS_ReqSitDown {
+    optional int64 userid = 1;
+    optional int32 seat = 2;
 }
 
-message RS2C_RetStandUp
-{
+message RS2C_RetSitDown {
+    optional string errmsg = 1;     // 错误信息(座位被他人坐下)
+}
+
+//请求站起
+message C2RS_ReqStandUp {
+    optional int64 userid = 1;
+}
+
+message RS2C_RetStandUp {
 }
 
 //请求亮牌

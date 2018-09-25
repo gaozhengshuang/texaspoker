@@ -164,7 +164,7 @@ class SocketManager
 		egret.log("socket重连");
 		if (SocketManager._connectHandler.port != undefined)
 		{
-			SocketManager._socket.Connect(SocketManager._connectHandler.port, SocketManager._connectHandler.address);
+			SocketManager._socket.Connect(SocketManager._connectHandler.port, SocketManager._connectHandler.initAdress);
 		}
 		else
 		{

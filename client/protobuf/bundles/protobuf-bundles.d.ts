@@ -8209,14 +8209,14 @@ declare namespace msg {
     /** Properties of a C2GW_ReqEnterRoom. */
     interface IC2GW_ReqEnterRoom {
 
+        /** C2GW_ReqEnterRoom userid */
+        userid?: (number|Long|null);
+
         /** C2GW_ReqEnterRoom roomid */
         roomid?: (number|Long|null);
 
         /** C2GW_ReqEnterRoom passwd */
         passwd?: (string|null);
-
-        /** C2GW_ReqEnterRoom userid */
-        userid?: (number|Long|null);
     }
 
     /** Represents a C2GW_ReqEnterRoom. */
@@ -8228,14 +8228,14 @@ declare namespace msg {
          */
         constructor(properties?: msg.IC2GW_ReqEnterRoom);
 
+        /** C2GW_ReqEnterRoom userid. */
+        public userid: (number|Long);
+
         /** C2GW_ReqEnterRoom roomid. */
         public roomid: (number|Long);
 
         /** C2GW_ReqEnterRoom passwd. */
         public passwd: string;
-
-        /** C2GW_ReqEnterRoom userid. */
-        public userid: (number|Long);
 
         /**
          * Creates a new C2GW_ReqEnterRoom instance using the specified properties.
@@ -8311,9 +8311,6 @@ declare namespace msg {
     /** Properties of a C2GW_ReqLeaveRoom. */
     interface IC2GW_ReqLeaveRoom {
 
-        /** C2GW_ReqLeaveRoom roomid */
-        roomid?: (number|Long|null);
-
         /** C2GW_ReqLeaveRoom userid */
         userid?: (number|Long|null);
     }
@@ -8326,9 +8323,6 @@ declare namespace msg {
          * @param [properties] Properties to set
          */
         constructor(properties?: msg.IC2GW_ReqLeaveRoom);
-
-        /** C2GW_ReqLeaveRoom roomid. */
-        public roomid: (number|Long);
 
         /** C2GW_ReqLeaveRoom userid. */
         public userid: (number|Long);
@@ -13924,8 +13918,197 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a C2RS_ReqSitDown. */
+    interface IC2RS_ReqSitDown {
+
+        /** C2RS_ReqSitDown userid */
+        userid?: (number|Long|null);
+
+        /** C2RS_ReqSitDown seat */
+        seat?: (number|null);
+    }
+
+    /** Represents a C2RS_ReqSitDown. */
+    class C2RS_ReqSitDown implements IC2RS_ReqSitDown {
+
+        /**
+         * Constructs a new C2RS_ReqSitDown.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2RS_ReqSitDown);
+
+        /** C2RS_ReqSitDown userid. */
+        public userid: (number|Long);
+
+        /** C2RS_ReqSitDown seat. */
+        public seat: number;
+
+        /**
+         * Creates a new C2RS_ReqSitDown instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2RS_ReqSitDown instance
+         */
+        public static create(properties?: msg.IC2RS_ReqSitDown): msg.C2RS_ReqSitDown;
+
+        /**
+         * Encodes the specified C2RS_ReqSitDown message. Does not implicitly {@link msg.C2RS_ReqSitDown.verify|verify} messages.
+         * @param message C2RS_ReqSitDown message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2RS_ReqSitDown, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2RS_ReqSitDown message, length delimited. Does not implicitly {@link msg.C2RS_ReqSitDown.verify|verify} messages.
+         * @param message C2RS_ReqSitDown message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2RS_ReqSitDown, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2RS_ReqSitDown message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2RS_ReqSitDown
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2RS_ReqSitDown;
+
+        /**
+         * Decodes a C2RS_ReqSitDown message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2RS_ReqSitDown
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2RS_ReqSitDown;
+
+        /**
+         * Verifies a C2RS_ReqSitDown message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2RS_ReqSitDown message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2RS_ReqSitDown
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2RS_ReqSitDown;
+
+        /**
+         * Creates a plain object from a C2RS_ReqSitDown message. Also converts values to other types if specified.
+         * @param message C2RS_ReqSitDown
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2RS_ReqSitDown, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2RS_ReqSitDown to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RS2C_RetSitDown. */
+    interface IRS2C_RetSitDown {
+
+        /** RS2C_RetSitDown errmsg */
+        errmsg?: (string|null);
+    }
+
+    /** Represents a RS2C_RetSitDown. */
+    class RS2C_RetSitDown implements IRS2C_RetSitDown {
+
+        /**
+         * Constructs a new RS2C_RetSitDown.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IRS2C_RetSitDown);
+
+        /** RS2C_RetSitDown errmsg. */
+        public errmsg: string;
+
+        /**
+         * Creates a new RS2C_RetSitDown instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RS2C_RetSitDown instance
+         */
+        public static create(properties?: msg.IRS2C_RetSitDown): msg.RS2C_RetSitDown;
+
+        /**
+         * Encodes the specified RS2C_RetSitDown message. Does not implicitly {@link msg.RS2C_RetSitDown.verify|verify} messages.
+         * @param message RS2C_RetSitDown message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IRS2C_RetSitDown, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified RS2C_RetSitDown message, length delimited. Does not implicitly {@link msg.RS2C_RetSitDown.verify|verify} messages.
+         * @param message RS2C_RetSitDown message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IRS2C_RetSitDown, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a RS2C_RetSitDown message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RS2C_RetSitDown
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2C_RetSitDown;
+
+        /**
+         * Decodes a RS2C_RetSitDown message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RS2C_RetSitDown
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2C_RetSitDown;
+
+        /**
+         * Verifies a RS2C_RetSitDown message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RS2C_RetSitDown message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RS2C_RetSitDown
+         */
+        public static fromObject(object: { [k: string]: any }): msg.RS2C_RetSitDown;
+
+        /**
+         * Creates a plain object from a RS2C_RetSitDown message. Also converts values to other types if specified.
+         * @param message RS2C_RetSitDown
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.RS2C_RetSitDown, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RS2C_RetSitDown to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a C2RS_ReqStandUp. */
     interface IC2RS_ReqStandUp {
+
+        /** C2RS_ReqStandUp userid */
+        userid?: (number|Long|null);
     }
 
     /** Represents a C2RS_ReqStandUp. */
@@ -13936,6 +14119,9 @@ declare namespace msg {
          * @param [properties] Properties to set
          */
         constructor(properties?: msg.IC2RS_ReqStandUp);
+
+        /** C2RS_ReqStandUp userid. */
+        public userid: (number|Long);
 
         /**
          * Creates a new C2RS_ReqStandUp instance using the specified properties.
@@ -15002,6 +15188,390 @@ declare namespace table {
 
         /**
          * Converts this BundleDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a CardBase. */
+    interface ICardBase {
+
+        /** CardBase Card */
+        Card?: (table.ICardDefine[]|null);
+    }
+
+    /** Represents a CardBase. */
+    class CardBase implements ICardBase {
+
+        /**
+         * Constructs a new CardBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ICardBase);
+
+        /** CardBase Card. */
+        public Card: table.ICardDefine[];
+
+        /**
+         * Creates a new CardBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns CardBase instance
+         */
+        public static create(properties?: table.ICardBase): table.CardBase;
+
+        /**
+         * Encodes the specified CardBase message. Does not implicitly {@link table.CardBase.verify|verify} messages.
+         * @param message CardBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ICardBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified CardBase message, length delimited. Does not implicitly {@link table.CardBase.verify|verify} messages.
+         * @param message CardBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ICardBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a CardBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns CardBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.CardBase;
+
+        /**
+         * Decodes a CardBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns CardBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.CardBase;
+
+        /**
+         * Verifies a CardBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a CardBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns CardBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.CardBase;
+
+        /**
+         * Creates a plain object from a CardBase message. Also converts values to other types if specified.
+         * @param message CardBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.CardBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this CardBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a CardDefine. */
+    interface ICardDefine {
+
+        /** CardDefine Id */
+        Id?: (number|null);
+
+        /** CardDefine Type */
+        Type?: (number|null);
+
+        /** CardDefine Index */
+        Index?: (number|null);
+    }
+
+    /** Represents a CardDefine. */
+    class CardDefine implements ICardDefine {
+
+        /**
+         * Constructs a new CardDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ICardDefine);
+
+        /** CardDefine Id. */
+        public Id: number;
+
+        /** CardDefine Type. */
+        public Type: number;
+
+        /** CardDefine Index. */
+        public Index: number;
+
+        /**
+         * Creates a new CardDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns CardDefine instance
+         */
+        public static create(properties?: table.ICardDefine): table.CardDefine;
+
+        /**
+         * Encodes the specified CardDefine message. Does not implicitly {@link table.CardDefine.verify|verify} messages.
+         * @param message CardDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ICardDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified CardDefine message, length delimited. Does not implicitly {@link table.CardDefine.verify|verify} messages.
+         * @param message CardDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ICardDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a CardDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns CardDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.CardDefine;
+
+        /**
+         * Decodes a CardDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns CardDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.CardDefine;
+
+        /**
+         * Verifies a CardDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a CardDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns CardDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.CardDefine;
+
+        /**
+         * Creates a plain object from a CardDefine message. Also converts values to other types if specified.
+         * @param message CardDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.CardDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this CardDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a ChipsBase. */
+    interface IChipsBase {
+
+        /** ChipsBase Chips */
+        Chips?: (table.IChipsDefine[]|null);
+    }
+
+    /** Represents a ChipsBase. */
+    class ChipsBase implements IChipsBase {
+
+        /**
+         * Constructs a new ChipsBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IChipsBase);
+
+        /** ChipsBase Chips. */
+        public Chips: table.IChipsDefine[];
+
+        /**
+         * Creates a new ChipsBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns ChipsBase instance
+         */
+        public static create(properties?: table.IChipsBase): table.ChipsBase;
+
+        /**
+         * Encodes the specified ChipsBase message. Does not implicitly {@link table.ChipsBase.verify|verify} messages.
+         * @param message ChipsBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IChipsBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified ChipsBase message, length delimited. Does not implicitly {@link table.ChipsBase.verify|verify} messages.
+         * @param message ChipsBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IChipsBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a ChipsBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns ChipsBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.ChipsBase;
+
+        /**
+         * Decodes a ChipsBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns ChipsBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.ChipsBase;
+
+        /**
+         * Verifies a ChipsBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a ChipsBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns ChipsBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.ChipsBase;
+
+        /**
+         * Creates a plain object from a ChipsBase message. Also converts values to other types if specified.
+         * @param message ChipsBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.ChipsBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this ChipsBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a ChipsDefine. */
+    interface IChipsDefine {
+
+        /** ChipsDefine Id */
+        Id?: (number|null);
+
+        /** ChipsDefine Phase */
+        Phase?: (number|null);
+
+        /** ChipsDefine Img */
+        Img?: (string|null);
+    }
+
+    /** Represents a ChipsDefine. */
+    class ChipsDefine implements IChipsDefine {
+
+        /**
+         * Constructs a new ChipsDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IChipsDefine);
+
+        /** ChipsDefine Id. */
+        public Id: number;
+
+        /** ChipsDefine Phase. */
+        public Phase: number;
+
+        /** ChipsDefine Img. */
+        public Img: string;
+
+        /**
+         * Creates a new ChipsDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns ChipsDefine instance
+         */
+        public static create(properties?: table.IChipsDefine): table.ChipsDefine;
+
+        /**
+         * Encodes the specified ChipsDefine message. Does not implicitly {@link table.ChipsDefine.verify|verify} messages.
+         * @param message ChipsDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IChipsDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified ChipsDefine message, length delimited. Does not implicitly {@link table.ChipsDefine.verify|verify} messages.
+         * @param message ChipsDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IChipsDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a ChipsDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns ChipsDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.ChipsDefine;
+
+        /**
+         * Decodes a ChipsDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns ChipsDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.ChipsDefine;
+
+        /**
+         * Verifies a ChipsDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a ChipsDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns ChipsDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.ChipsDefine;
+
+        /**
+         * Creates a plain object from a ChipsDefine message. Also converts values to other types if specified.
+         * @param message ChipsDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.ChipsDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this ChipsDefine to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -16238,6 +16808,210 @@ declare namespace table {
 
         /**
          * Converts this TMapEventRefreshDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a MusicBase. */
+    interface IMusicBase {
+
+        /** MusicBase Music */
+        Music?: (table.IMusicDefine[]|null);
+    }
+
+    /** Represents a MusicBase. */
+    class MusicBase implements IMusicBase {
+
+        /**
+         * Constructs a new MusicBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IMusicBase);
+
+        /** MusicBase Music. */
+        public Music: table.IMusicDefine[];
+
+        /**
+         * Creates a new MusicBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MusicBase instance
+         */
+        public static create(properties?: table.IMusicBase): table.MusicBase;
+
+        /**
+         * Encodes the specified MusicBase message. Does not implicitly {@link table.MusicBase.verify|verify} messages.
+         * @param message MusicBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IMusicBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified MusicBase message, length delimited. Does not implicitly {@link table.MusicBase.verify|verify} messages.
+         * @param message MusicBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IMusicBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a MusicBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MusicBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.MusicBase;
+
+        /**
+         * Decodes a MusicBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MusicBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.MusicBase;
+
+        /**
+         * Verifies a MusicBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MusicBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MusicBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.MusicBase;
+
+        /**
+         * Creates a plain object from a MusicBase message. Also converts values to other types if specified.
+         * @param message MusicBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.MusicBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MusicBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a MusicDefine. */
+    interface IMusicDefine {
+
+        /** MusicDefine Id */
+        Id?: (number|null);
+
+        /** MusicDefine Action */
+        Action?: (string|null);
+
+        /** MusicDefine Des */
+        Des?: (string|null);
+
+        /** MusicDefine Boy */
+        Boy?: (string|null);
+
+        /** MusicDefine Girl */
+        Girl?: (string|null);
+    }
+
+    /** Represents a MusicDefine. */
+    class MusicDefine implements IMusicDefine {
+
+        /**
+         * Constructs a new MusicDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IMusicDefine);
+
+        /** MusicDefine Id. */
+        public Id: number;
+
+        /** MusicDefine Action. */
+        public Action: string;
+
+        /** MusicDefine Des. */
+        public Des: string;
+
+        /** MusicDefine Boy. */
+        public Boy: string;
+
+        /** MusicDefine Girl. */
+        public Girl: string;
+
+        /**
+         * Creates a new MusicDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MusicDefine instance
+         */
+        public static create(properties?: table.IMusicDefine): table.MusicDefine;
+
+        /**
+         * Encodes the specified MusicDefine message. Does not implicitly {@link table.MusicDefine.verify|verify} messages.
+         * @param message MusicDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IMusicDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified MusicDefine message, length delimited. Does not implicitly {@link table.MusicDefine.verify|verify} messages.
+         * @param message MusicDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IMusicDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a MusicDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MusicDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.MusicDefine;
+
+        /**
+         * Decodes a MusicDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MusicDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.MusicDefine;
+
+        /**
+         * Verifies a MusicDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MusicDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MusicDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.MusicDefine;
+
+        /**
+         * Creates a plain object from a MusicDefine message. Also converts values to other types if specified.
+         * @param message MusicDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.MusicDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MusicDefine to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
