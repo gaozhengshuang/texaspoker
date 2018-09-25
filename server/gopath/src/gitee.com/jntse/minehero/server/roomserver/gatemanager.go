@@ -59,10 +59,12 @@ func (this *GateAgent) SendMsg(msg pb.Message) bool {
 // --------------------------------------------------------------------------
 type GateManager struct {
 	gates map[int]*GateAgent
+	gatenames map[string]*GateAgent
 }
 
 func (this *GateManager) Init() {
 	this.gates = make(map[int]*GateAgent)
+	this.gatenames = make(map[string]*GateAgent)
 }
 
 func (this *GateManager) Num() int {
@@ -85,6 +87,15 @@ func (this* GateManager) FindGate(id int) *GateAgent {
 	}
 	return agent
 }
+
+func (this* GateManager) FindGateByName(n string) *GateAgent {
+	agent, ok := this.gatenames[n]
+	if ok == false {
+		return nil
+	}
+	return agent
+}
+
 
 func (this *GateManager) IsRegisted(ip string, port int) bool {
 	host := fmt.Sprintf("%s:%d", ip, port)
