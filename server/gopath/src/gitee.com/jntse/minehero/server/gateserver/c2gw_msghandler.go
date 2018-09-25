@@ -127,9 +127,13 @@ func on_C2RS_MsgTransfer(session network.IBaseNetSession, message interface{}) {
 	//	return 
 	//}
 	//u.SendRoomMsg(protomsg.(pb.Message))
+	u := ExtractSessionUser(session)
+	if u.Id() != tmsg.GetUid() {
+		log.Error("玩家[%s %d] 消息转发只能带自己的玩家Id", u.Name(), u.Id())
+		return
+	}
 
 	// 不做解析转发到RoomServer
-	u := UserMgr().FindById(tmsg.GetUid())
 	if u == nil { return }
 	if u.IsInRoom() == false { 
 		log.Warn("消息转发失败，玩家[%s %d]没有在任何房间中", u.Name(), u.Id())
