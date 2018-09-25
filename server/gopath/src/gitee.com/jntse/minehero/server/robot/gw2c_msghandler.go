@@ -239,6 +239,7 @@ func on_GW2C_RetCreateRoom(session network.IBaseNetSession, message interface{})
 	}
 	client.roomid, client.roompwd = roomid, passwd
 	client.EnterRoom()
+	client.ReqSitDown()
 
 	log.Info("玩家[%s %d] 开启游戏成功，进入房间[%d]", name, id, roomid)
 
