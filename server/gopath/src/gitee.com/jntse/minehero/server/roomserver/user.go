@@ -214,12 +214,8 @@ func (u *RoomUser) PackBin() *msg.Serialize {
 
 func (u *RoomUser) SendMsg(m pb.Message) bool {
 	if u.agentid == 0 {
-		if agent := GateMgr().FindGateByName(u.agentname); agent == nil {
-			log.Error("玩家[%s %d]找不到他的网关服务器[%s]", u.Name(), u.Id(), u.agentname)
-			return false
-		}else {
-			u.agentid = agent.Id()
-		}
+		log.Fatal("SendMsg", m)
+		return false
 	}
 
 	return RoomSvr().SendMsg(u.agentid , m)
@@ -254,7 +250,7 @@ func (u *RoomUser) AgentName() string {
 func (u *RoomUser) UpdateGateAgent(agent network.IBaseNetSession) {
 	u.agentid = agent.Id()
 	u.agentname = agent.Name()
-	log.Info("玩家[%s %d] 上线更新GateAgent[%s %d]信息", u.Name(), u.Id(), agent.Name(), agent.Id())
+	log.Info("玩家[%s %d] 上线更新GateAgent信息[%s %d]", u.Name(), u.Id(), agent.Name(), agent.Id())
 }
  
 func (u *RoomUser) GetGold() int32 {

@@ -67,7 +67,7 @@ func on_GW2RS_RetRegist(session network.IBaseNetSession, message interface{}) {
 		return
 	}
 
-	// TODO: 重复注册服务器为了第一时间发现问题使用了panic
+	// 重复注册检查
 	if GateMgr().IsRegisted(ip, port) == true {
 		log.Fatal(fmt.Sprintf("已经注册过网关房间服务器 [%s:%d]", ip, port))
 		return
