@@ -48,6 +48,15 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2RS_ReqSitDown{}, on_C2RS_ReqSitDown)
 	this.msgparser.RegistProtoMsg(msg.C2RS_ReqStandUp{}, on_C2RS_ReqStandUp)
 
+	//德州房间内消息
+	this.msgparser.RegistProtoMsg(msg.C2RS_ReqTimeAwardInfo{}, on_C2RS_ReqTimeAwardInfo)
+	this.msgparser.RegistProtoMsg(msg.C2RS_ReqBuyInGame{}, on_C2RS_ReqBuyInGame)
+	this.msgparser.RegistProtoMsg(msg.C2RS_ReqFriendGetRoleInfo{}, on_C2RS_ReqFriendGetRoleInfo)
+	this.msgparser.RegistProtoMsg(msg.C2RS_ReqNextRound{}, on_C2RS_ReqNextRound)
+	this.msgparser.RegistProtoMsg(msg.C2RS_ReqAction{}, on_C2RS_ReqAction)
+	this.msgparser.RegistProtoMsg(msg.C2RS_ReqBrightCard{}, on_C2RS_ReqBrightCard)
+	this.msgparser.RegistProtoMsg(msg.C2RS_ReqAddCoin{}, on_C2RS_ReqAddCoin)
+	this.msgparser.RegistProtoMsg(msg.C2RS_ReqStandUp{}, on_C2RS_ReqStandUp)	
 }
 
 func on_GW2RS_RetRegist(session network.IBaseNetSession, message interface{}) {
@@ -223,5 +232,43 @@ func on_C2RS_ReqStandUp(session network.IBaseNetSession, message interface{}) {
 
 	room.UserStandUp(u)
 }
+
+func on_C2RS_ReqTimeAwardInfo(session network.IBaseNetSession, message interface{}) {
+	//tmsg := message.(*msg.C2RS_ReqTimeAwardInfo)
+	//uid := tmsg.GetUserid()
+	//u := UserMgr().FindUser(uid)
+	//if u == nil {
+	//	log.Error("[房间] 玩家[%d] 无效", uid)
+	//	return
+	//}
+
+	//roomid := u.RoomId()
+	//room := RoomMgr().Find(roomid)
+	//if room == nil {
+	//	log.Error("[房间] 玩家[%d] 房间无效 [%d]", uid, roomid)
+	//	return
+	//}
+	
+
+}
+
+func on_C2RS_ReqBuyInGame(session network.IBaseNetSession, message interface{}) {
+}
+
+func on_C2RS_ReqFriendGetRoleInfo(session network.IBaseNetSession, message interface{}) {
+}
+
+func on_C2RS_ReqNextRound(session network.IBaseNetSession, message interface{}) {
+}
+
+func on_C2RS_ReqAction(session network.IBaseNetSession, message interface{}) {
+}
+
+func on_C2RS_ReqBrightCard(session network.IBaseNetSession, message interface{}) {
+}
+
+func on_C2RS_ReqAddCoin(session network.IBaseNetSession, message interface{}) {
+}
+
 
 

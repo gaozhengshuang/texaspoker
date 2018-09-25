@@ -204,7 +204,7 @@ func (this *TexasPokerRoom) SendStartGame() {
 	send.Bblindpos = pb.Int32(this.bigblinder.pos)
 	send.Sblind = pb.Int32(this.smallblindnum)
 	send.Bblind = pb.Int32(this.bigblindnum)
-	this.BroadCastUserMsg(send)
+	this.BroadCastRoomMsg(send)
 }
 
 func (this *TexasPokerRoom) AnteBet() {
@@ -272,7 +272,7 @@ func (this *TexasPokerRoom) OneLoopOver() {
 	send := &msg.RS2C_PushOneLoopOver{}
 	send.Card = this.publiccard
 	send.Potchips = this.pot
-	this.BroadCastUserMsg(send)
+	this.BroadCastRoomMsg(send)
 }
 
 func (this *TexasPokerRoom) PreFlopBet() int32{
@@ -474,7 +474,7 @@ func (this *TexasPokerRoom) ShowDown() int32{
 			Card : player.ToHandCard(),
 		})
 	}
-	this.BroadCastUserMsg(send)
+	this.BroadCastRoomMsg(send)
 	return TPRestart
 }
 

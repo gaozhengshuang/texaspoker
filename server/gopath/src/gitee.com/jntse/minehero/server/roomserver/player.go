@@ -78,7 +78,7 @@ func (this *TexasPlayer) BetStart() {
 		send := &msg.RS2C_PushActionPosChange{}
 		send.Pos = pb.Int32(this.pos)
 		send.Postime = pb.Int32(this.bettime+int32(util.CURTIME()))
-		this.room.BroadCastUserMsg(send)
+		this.room.BroadCastRoomMsg(send)
 	}
 }
 
@@ -182,7 +182,7 @@ func (this *TexasPlayer)AddBankRoll(num int32){
 	send := &msg.RS2C_PushChipsChange{}
 	send.Roleid = pb.Int64(this.owner.Id())
 	send.Bankroll = pb.Int32(this.bankroll)
-	this.room.BroadCastUserMsg(send)
+	this.room.BroadCastRoomMsg(send)
 }
 
 func (this *TexasPlayer)RemoveBankRoll(num int32) bool{
@@ -193,7 +193,7 @@ func (this *TexasPlayer)RemoveBankRoll(num int32) bool{
 	send := &msg.RS2C_PushChipsChange{}
 	send.Roleid = pb.Int64(this.owner.Id())
 	send.Bankroll = pb.Int32(this.bankroll)
-	this.room.BroadCastUserMsg(send)
+	this.room.BroadCastRoomMsg(send)
 	return true
 }
 
@@ -239,7 +239,7 @@ func (this *TexasPlayer) ChangeState(state int32) {
 	send.Roleid = pb.Int64(this.owner.Id())
 	send.State = pb.Int32(this.gamestate)
 	send.Num = pb.Int32(this.onebet)
-	this.room.BroadCastUserMsg(send)
+	this.room.BroadCastRoomMsg(send)
 }
 
 func (this *TexasPlayer) BuyInGame(rev *msg.C2RS_ReqBuyInGame) {
@@ -255,7 +255,7 @@ func (this *TexasPlayer) BuyInGame(rev *msg.C2RS_ReqBuyInGame) {
 		send.Pos = pb.Int32(this.pos)
 		send.State = pb.Int32(this.gamestate)
 		send.BankRoll = pb.Int32(this.GetBankRoll())
-		this.room.BroadCastUserMsg(send)
+		this.room.BroadCastRoomMsg(send)
 	}
 	{
 		send := &msg.RS2C_RetBuyInGame{}
