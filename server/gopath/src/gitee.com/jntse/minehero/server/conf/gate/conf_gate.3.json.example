@@ -1,5 +1,5 @@
 {
-	"name": "GateServer000",
+	"name": "GateServer03",
     "tblpath": {
         "excel":"../tbl/excel/",
         "json":"../tbl/json/",
@@ -35,7 +35,7 @@
 			"name": "RoomListener",
 			"parser": "RS2GW_MsgParser",
 			"host": {
-				"ip": "192.168.30.203", "port": 6001
+				"ip": "192.168.30.203", "port": 6004
 			},
             "verify": 0,
             "svrchannel":true,
@@ -47,7 +47,7 @@
 			"name": "ClientListener",
 			"parser": "C2GW_MsgParser",
 			"host": {
-				"ip": "192.168.30.203", "port": 6101
+				"ip": "192.168.30.203", "port": 6104
 			},
             "verify": 1,
             "svrchannel":false,

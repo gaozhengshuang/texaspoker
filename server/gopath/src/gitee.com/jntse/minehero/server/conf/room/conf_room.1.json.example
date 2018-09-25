@@ -1,5 +1,5 @@
 {
-	"name": "RoomServer001",
+	"name": "RoomServer01",
     "tblpath": {
         "excel":"../tbl/excel/",
         "json":"../tbl/json/",
