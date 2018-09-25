@@ -201,7 +201,7 @@ class ChannelManager
 			ChannelManager._channelType = data['channelType'];
 			if (game.StringUtil.isNullOrEmpty(ChannelManager._channelType))
 			{
-				ChannelManager._channelType = ChannelType.qin;
+				ChannelManager._channelType = ChannelType.giantfun;
 			}
 			ChannelManager._appName = data['appName'];
 			ChannelManager._deviceId = data['deviceId'];
@@ -219,7 +219,7 @@ class ChannelManager
 		ChannelManager._channelType = URLOption.getString(URLOption.Channel);
 		if (game.StringUtil.isNullOrEmpty(ChannelManager._channelType))
 		{
-			ChannelManager._channelType = ChannelType.qin;
+			ChannelManager._channelType = ChannelType.giantfun;
 		}
 		ChannelManager._appName = window.document.title;
 		ChannelManager.OnInitComplete.dispatch();
@@ -229,7 +229,7 @@ class ChannelManager
 	 */
 	public static login(loginType: string, isAutoLogin: boolean = false)
 	{
-		if (loginType == ChannelLoginType.Qin)
+		if (loginType == ChannelLoginType.GiantFun)
 		{
 			ChannelManager._accountHandler.Login(isAutoLogin);
 		}
@@ -243,7 +243,7 @@ class ChannelManager
 	 */
 	public static logout()
 	{
-		if (ChannelManager.loginType == ChannelLoginType.Qin)
+		if (ChannelManager.loginType == ChannelLoginType.GiantFun)
 		{
 			ChannelManager._accountHandler.Logout();
 		}

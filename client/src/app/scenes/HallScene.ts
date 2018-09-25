@@ -21,7 +21,6 @@ class HallScene extends BaseScene
 	}
 	protected onAllResLoadComplete()
 	{
-		SceneManager.switchClosePanels();
 		if (this.sceneInfo.extendData)
 		{
 			if (this.sceneInfo.extendData.action == SceneSwitchAction.RepleacePanel)

@@ -94,9 +94,9 @@ class GameHallBtnSupport
     private setIsShowBindPhoneAwardBtn()
     {
         let bringAwardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(this.bindPhoneAwardId);
-        if (ChannelManager.loginType != ChannelLoginType.Qin)
+        if (ChannelManager.loginType != ChannelLoginType.GiantFun)
         {
-            if (BindAccountManager.getIsBinding(ChannelLoginType.Qin) && AwardManager.isToLimit(bringAwardDef))
+            if (BindAccountManager.getIsBinding(ChannelLoginType.GiantFun) && AwardManager.isToLimit(bringAwardDef))
             {
                 this.changeActivityBtn(this.target.bindPhoneAwardBtn, false);
             }

@@ -39,7 +39,7 @@ class LoginPanel extends BasePanel
 		this.telLoginBtn.visible = false;
 		for (let val of loginTypeList)
 		{
-			if (val == ChannelLoginType.Qin)
+			if (val == ChannelLoginType.GiantFun)
 			{
 				this.telLoginBtn.visible = true;
 				this.telLoginBtn.includeInLayout = true;
@@ -118,7 +118,7 @@ class LoginPanel extends BasePanel
 		SoundManager.playButtonEffect(event.target);
 		if (this.isAgreeUserAgreement())
 		{
-			UIManager.dispatchEvent(UIModuleName.LoginPanel, UIModuleEvent.COMPLETE, ChannelLoginType.Qin);
+			UIManager.dispatchEvent(UIModuleName.LoginPanel, UIModuleEvent.COMPLETE, ChannelLoginType.GiantFun);
 		}
 	}
 	private intranetAccountClickHandler(event: egret.TouchEvent): void

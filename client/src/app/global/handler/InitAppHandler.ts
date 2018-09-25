@@ -14,9 +14,8 @@ class InitAppHandler
 		{
 			//第一次登录初始化一次
 			this._isAppComplete = true;
-			NotifyManager.initialize();
+			// NotifyManager.initialize(); //move todo
 			UploadHeadManager.initialize();
-			SceneManager.initialize();
 		}
 		else
 		{
@@ -24,12 +23,12 @@ class InitAppHandler
 			//重登录,做了数据缓存的都清除
 		}
 		//每次登录都执行
-		// ShopManager.initialize();
-		// VipManager.initialize();
-		// NotifyManager.initByReLogin();
+		// ShopManager.initialize(); //move todo
+		// VipManager.initialize(); //move todo
+		// NotifyManager.initByReLogin(); //move todo
 		UploadHeadManager.clearAllData();
-		// BindAccountManager.clear();
-		// RankManager.initialize();
-		PopupManager.initialize();
+		// BindAccountManager.clear(); //move todo
+		// RankManager.initialize(); //move todo
+		// PopupManager.initialize(); //move todo
 	}
 }

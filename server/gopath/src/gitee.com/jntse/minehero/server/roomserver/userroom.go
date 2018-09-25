@@ -54,11 +54,15 @@ func (u *RoomUser) OnEnterRoom() {
 func (u *RoomUser) OnStandUp() {
 	send := &msg.RS2C_RetStandUp{}
 	u.SendClientMsg(send)
+	u.seatpos = 0
 }
 
 // 棋牌坐下动作
-func (u *RoomUser) OnSitDown(errmsg string) {
+func (u *RoomUser) OnSitDown(seat int32, errmsg string) {
 	send := &msg.RS2C_RetSitDown{Errmsg:pb.String(errmsg)}
 	u.SendClientMsg(send)
+	if errmsg == "" {
+		u.seatpos = seat
+	}
 }
 

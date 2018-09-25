@@ -23,6 +23,8 @@ module game
             {
                 NotificationCenter.once(LoginManager, (msg: msg.GW2C_PushUserInfo) =>
                 {
+                    PrefsManager.setValue(PrefsManager.Login_Account, LoginManager.loginUserInfo.account);
+                    PrefsManager.setValue(PrefsManager.Login_Password, LoginManager.loginUserInfo.passwd);
                     if (!UserManager.userInfo)
                     {
                         UserManager.userInfo = new UserInfo();
@@ -42,7 +44,8 @@ module game
                 let loginResult: msg.IGW2C_RetLogin = await LoginManager.connectLoginGate(gwResult, LoginManager.loginUserInfo.account);
                 if (loginResult.errcode == "")
                 {
-
+                    PrefsManager.setValue(PrefsManager.Login_Account, LoginManager.loginUserInfo.account);
+                    PrefsManager.setValue(PrefsManager.Login_Password, LoginManager.loginUserInfo.passwd);
                 } else
                 {
                     NotificationCenter.removeObserver(LoginManager, "msg.GW2C_PushUserInfo");

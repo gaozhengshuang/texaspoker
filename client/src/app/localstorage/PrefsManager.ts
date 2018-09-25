@@ -112,7 +112,7 @@ class PrefsManager
 	}
 	private static getUserId(): string
 	{
-		if (UserManager.userInfo.id)
+		if (UserManager.userInfo && UserManager.userInfo.id)
 		{
 			return UserManager.userInfo.id.toString();
 		}

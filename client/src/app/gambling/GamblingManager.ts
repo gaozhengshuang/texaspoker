@@ -306,7 +306,7 @@ class GamblingManager
 		// GamblingManager.roomDataPushHandler.reset();
 		let callback: Function = function (result: game.SpRpcResult)
 		{
-			SocketManager.RemoveCommandListener(Command.EnterRoomInfo_Req_3600, callback, this);
+			SocketManager.RemoveCommandListener(Command.C2GW_ReqEnterRoom, callback, this);
 			GamblingManager.isQuicklyEnter = isQuicklyEnter;
 			GamblingManager.initialize(result, isReconnect);
 			if (!GamblingManager._isInitialize)
@@ -315,24 +315,25 @@ class GamblingManager
 				GamblingManager.addPushListener();
 			}
 		};
-		SocketManager.AddCommandListener(Command.EnterRoomInfo_Req_3600, callback, this);
+		SocketManager.AddCommandListener(Command.C2GW_ReqEnterRoom, callback, this);
 		if (password != undefined && id > 0)
 		{
-			SocketManager.Send(Command.EnterRoomInfo_Req_3600, { id: id, password: password });
+			SocketManager.Send(Command.C2GW_ReqEnterRoom, msg.C2GW_ReqEnterRoom.encode({ userid: UserManager.userInfo.id, roomid: id, passwd: password }));
 		}
 		else if (id > 0)
 		{
-			SocketManager.Send(Command.EnterRoomInfo_Req_3600, { id: id });
+			SocketManager.Send(Command.C2GW_ReqEnterRoom, msg.C2GW_ReqEnterRoom.encode({ userid: UserManager.userInfo.id, roomid: id }));
 		}
 		else
 		{
-			SocketManager.Send(Command.EnterRoomInfo_Req_3600);
+			SocketManager.Send(Command.C2GW_ReqEnterRoom, msg.C2GW_ReqEnterRoom.encode({ userid: UserManager.userInfo.id }));
 		}
 	}
 	public static initialize(result: game.SpRpcResult, isReconnect?: boolean)
 	{
 		GamblingManager.reset();
-		if (result.data && result.data["id"])
+		let data: msg.RS2C_RetEnterRoomInfo = result.data;
+		if (data && data["id"] > 0)
 		{
 			GamblingManager.roomInfo = new RoomInfo();
 			GamblingManager.roomInfo.data = result.data;
@@ -341,14 +342,14 @@ class GamblingManager
 			GamblingManager.roomInfo.isFlopCardOver = true;
 			GamblingManager.championshipHandler.initializeRoomInfo(result);
 			GamblingManager.roomInfo.handCard = new Array<CardInfo>();
-			GamblingUtil.cardArr2CardInfoList(result.data["handCard"], GamblingManager.roomInfo.handCard);
+			GamblingUtil.cardArr2CardInfoList(result.data["handcard"], GamblingManager.roomInfo.handCard);
 			if (GamblingManager.roomInfo.handCard.length == 0)
 			{
 				GamblingManager.roomInfo.handCard = undefined;
 			}
 
 			GamblingManager.roomInfo.publicCard = new Array<CardInfo>();
-			GamblingUtil.cardArr2CardInfoList(result.data["publicCard"], GamblingManager.roomInfo.publicCard);
+			GamblingUtil.cardArr2CardInfoList(result.data["publiccard"], GamblingManager.roomInfo.publicCard);
 			if (GamblingManager.roomInfo.publicCard.length == 0)
 			{
 				GamblingManager.roomInfo.publicCard = undefined;
@@ -376,7 +377,7 @@ class GamblingManager
 			//设置计时奖励数据	
 			if (result.data.roomId)
 			{
-				let roomDef:table.ITexasRoomDefine = table.TexasRoomById[result.data.roomId];
+				let roomDef: table.ITexasRoomDefine = table.TexasRoomById[result.data.roomId];
 				if (roomDef)
 				{
 					this.timeAwardHandler.reqGetTimeAwardInfo(roomDef.Type);
@@ -961,8 +962,8 @@ class GamblingManager
 			{
 				type = GamblingManager.roomInfo.gamblingType;
 			}
-			SocketManager.RemoveCommandListener(Command.LeaveRoom_Req_3603, callBack, this);
-			SocketManager.RemoveErrorListener(Command.LeaveRoom_Req_3603, callBackError, this);
+			SocketManager.RemoveCommandListener(Command.C2GW_ReqLeaveRoom, callBack, this);
+			SocketManager.RemoveErrorListener(Command.C2GW_ReqLeaveRoom, callBackError, this);
 			if (GamblingManager.roomInfo.gamblingType == GamblingType.Match && GamblingManager.roomInfo.isMatchOut)
 			{
 				GamblingManager.roomInfo.isMatchOut = undefined;
@@ -978,8 +979,8 @@ class GamblingManager
 				type = GamblingManager.roomInfo.gamblingType;
 			}
 
-			SocketManager.RemoveCommandListener(Command.LeaveRoom_Req_3603, callBack, this);
-			SocketManager.RemoveErrorListener(Command.LeaveRoom_Req_3603, callBackError, this);
+			SocketManager.RemoveCommandListener(Command.C2GW_ReqLeaveRoom, callBack, this);
+			SocketManager.RemoveErrorListener(Command.C2GW_ReqLeaveRoom, callBackError, this);
 			if (GamblingManager.roomInfo.gamblingType == GamblingType.Match && GamblingManager.roomInfo.isMatchOut)
 			{
 				GamblingManager.roomInfo.isMatchOut = undefined;
@@ -1013,9 +1014,9 @@ class GamblingManager
 		// }
 		// else
 		// {
-		SocketManager.AddCommandListener(Command.LeaveRoom_Req_3603, callBack, this);
-		SocketManager.AddErrorListener(Command.LeaveRoom_Req_3603, callBackError, this);
-		SocketManager.Send(Command.LeaveRoom_Req_3603);
+		SocketManager.AddCommandListener(Command.C2GW_ReqLeaveRoom, callBack, this);
+		SocketManager.AddErrorListener(Command.C2GW_ReqLeaveRoom, callBackError, this);
+		SocketManager.Send(Command.C2GW_ReqLeaveRoom, msg.C2GW_ReqLeaveRoom.encode({}));
 		// }
 	}
 	private static leaveRoom()
@@ -1032,7 +1033,7 @@ class GamblingManager
 	{
 		let callBack: Function = function (result: game.SpRpcResult)
 		{
-			SocketManager.RemoveCommandListener(Command.BuyInGame_Req_3604, callBack, this);
+			SocketManager.RemoveCommandListener(Command.C2RS_ReqBuyInGame, callBack, this);
 			GamblingManager._isOnSeat = true;
 			if (GamblingManager.roomInfo)
 			{
@@ -1043,8 +1044,8 @@ class GamblingManager
 				GamblingManager.BuyInGameEvent.dispatch();
 			}
 		};
-		SocketManager.AddCommandListener(Command.BuyInGame_Req_3604, callBack, this);
-		SocketManager.Send(Command.BuyInGame_Req_3604, { num: num, isAutoBuy: isAutoBuy, pos: pos });
+		SocketManager.AddCommandListener(Command.C2RS_ReqBuyInGame, callBack, this);
+		SocketManager.Send(Command.C2RS_ReqBuyInGame, msg.C2RS_ReqBuyInGame.encode({ num: num, isautobuy: isAutoBuy, pos: pos }));
 	}
 	/**
 	 * 快速开始游戏

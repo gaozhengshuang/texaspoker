@@ -57,7 +57,7 @@ message RS2C_RetTimeAwardInfo
 message C2RS_ReqBuyInGame
 {
     optional int32 num = 1;
-    optional bool isAutoBuy = 2;
+    optional bool isautobuy = 2;
     optional int32 pos = 3;   
 }
 
@@ -73,7 +73,7 @@ message RS2C_RolePushPropertyChange
 //服务器推送位置
 message RS2C_PushSitOrStand
 {
-    optional int64 roleId = 1;              //玩家id
+    optional int64 roleid = 1;              //玩家id
     optional int32 pos = 2;                 //玩家位置
     optional int32 state = 3;               //玩家状态
     optional int32 bankRoll = 4;            //玩家筹码
@@ -89,7 +89,7 @@ message RS2C_RetFriendGetRoleInfo
 {
     optional int32 diamond = 1;
     optional int32 gold = 2;
-    optional int32 roleid = 3;
+    optional int64 roleid = 3;
     optional string name = 4;
     optional string head = 5;
     optional int32 sex = 6;
@@ -126,31 +126,40 @@ message RS2C_RetFriendGetRoleInfo
 //服务器推送时间奖励
 message RS2C_PushTimeAwardRefresh
 {
-    optional int32 secTime = 1;
-    optional int32 startTime = 2;    
+    optional int32 sectime = 1;
+    optional int32 starttime = 2;    
+}
+
+//请求加入下一局
+message C2RS_ReqNextRound
+{
+}
+
+message RS2C_RetNextRound
+{
 }
 
 //服务器推送下局开始
 message RS2C_PushNextRoundStart
 {
-    optional int32 buttonPos = 1;       //庄家位
-    optional int32 sBlindPos = 2;       //小盲位
-    optional int32 bBlindPos = 3;       //大盲位
-    optional int32 sBlind = 4;          //小盲注
-    optional int32 bBlind = 5;          //大盲注
+    optional int32 buttonpos = 1;       //庄家位
+    optional int32 sblindpos = 2;       //小盲位
+    optional int32 bblindpos = 3;       //大盲位
+    optional int32 sblind = 4;          //小盲注
+    optional int32 bblind = 5;          //大盲注
 }
 
 //服务器推送玩家筹码变化
 message RS2C_PushChipsChange
 {
-    optional int32 roleId = 1;          //玩家角色id
-    optional int32 bankRoll = 2;        //玩家筹码
+    optional int64 roleid = 1;          //玩家角色id
+    optional int32 bankroll = 2;        //玩家筹码
 }
 
 //服务器推送玩家状态变化
 message RS2C_PushPlayerStateChange
 {
-    optional int32 roleId = 1;          //玩家角色id
+    optional int64 roleid = 1;          //玩家角色id
     optional int32 state = 2;           //玩家状态
     optional int32 num = 3;             //玩家面前筹码
 }
@@ -175,24 +184,26 @@ message RS2C_PushOneLoopOver
     repeated int32 potchips = 2;
 }
 
+//奖池信息
 message PotInfo 
 {
     optional int32 num = 1;
-    optional int32 type = 2;
-    repeated int32 roleid = 3;
+    optional int32 type = 2;            //主池0 边池从1递增
+    repeated int64 roleid = 3;
 }
 
+//手牌信息
 message HandCardInfo
 {    
-    optional int32 roleId = 1;
+    optional int64 roleid = 1;          //
     repeated int32 card = 2;
 }
 
 //推送牌局结束
 message RS2C_PushOneRoundOver
 {
-    repeated PotInfo potList = 1;
-    repeated HandCardInfo handCardList = 2;    
+    repeated PotInfo potlist = 1;
+    repeated HandCardInfo handcardlist = 2;    
 }
 
 //请求行动 （加注 放弃 让牌）
@@ -206,13 +217,22 @@ message RS2C_RetAction
 {
 }
 
-//请求站起
-message C2RS_ReqStandUp
-{
+// 请求坐下
+message C2RS_ReqSitDown {
+    optional int64 userid = 1;
+    optional int32 seat = 2;
 }
 
-message RS2C_RetStandUp
-{
+message RS2C_RetSitDown {
+    optional string errmsg = 1;     // 错误信息(座位被他人坐下)
+}
+
+//请求站起
+message C2RS_ReqStandUp {
+    optional int64 userid = 1;
+}
+
+message RS2C_RetStandUp {
 }
 
 //请求亮牌

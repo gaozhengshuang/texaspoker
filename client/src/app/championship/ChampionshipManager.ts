@@ -603,7 +603,7 @@ class ChampionshipManager
     */
     public static MTTOverErrorDispose(result: game.SpRpcResult)
     {
-        if (result.cmdId == Command.MTTOutsInfo_Req_3617 || result.cmdId == Command.EnterRoomInfo_Req_3600)
+        if (result.cmdId == Command.MTTOutsInfo_Req_3617 || result.cmdId == Command.C2GW_ReqEnterRoom)
         {
             UIManager.closePanel(UIModuleName.ChampionshipInfoPanel);
             AlertManager.showAlert("该赛事已经结束。", ChampionshipManager.reqGetMTTListInfo);

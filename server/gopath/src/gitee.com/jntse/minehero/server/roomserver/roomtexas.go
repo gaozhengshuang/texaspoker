@@ -72,14 +72,18 @@ func (this *TexasPokerRoom) UserSitDown(u *RoomUser, pos int32) {
 	delete(this.watchmembers, u.Id())
 	this.members[u.Id()] = u
 
+	// 检查位置是否有效
+
 	// 检查座位是否空着
-	if false {
-		u.OnSitDown("座位已经有人了")
-		return
+	for _, u := range this.members {
+		if u.Seat() == pos {
+			u.OnSitDown(0, "座位已经有人了")
+			return
+		}
 	}
 
 	//
-	u.OnSitDown("")
+	u.OnSitDown(pos, "")
 
 	// 更新房间人数
 	Redis().HSet(fmt.Sprintf("roombrief_%d", this.Id()), "members", this.NumMembers())

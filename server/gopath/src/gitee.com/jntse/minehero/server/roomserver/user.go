@@ -21,7 +21,8 @@ import (
 // --------------------------------------------------------------------------
 type RoomUser struct {
 	gamekind  	int32
-	roomid    	int64
+	roomid    	int64	// 房间id
+	seatpos 	int32	// 座位号
 	sid_gate  	int
 	bin 		*msg.Serialize
 	bag 		UserBag
@@ -95,6 +96,10 @@ func (this *RoomUser) MaxEnergy() int64 {
 
 func (this *RoomUser) RoomId() int64 {
 	return this.roomid
+}
+
+func (this *RoomUser) Seat() int32 {
+	return this.seatpos
 }
 
 func (this *RoomUser) OpenId() string {

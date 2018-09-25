@@ -31,7 +31,6 @@ class GameScene extends BaseScene
 	private panelInitialzeComplete()
 	{
 		UIManager.removeEventListener(UIModuleName.GamblingPanel, UIModuleEvent.COMPLETE, this.panelInitialzeComplete, this);
-		SceneManager.switchClosePanels();
 		this.LoadCompleteEvent.dispatch(this);
 	}
 }

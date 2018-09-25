@@ -47,7 +47,7 @@ class BindAccountManager
 
 			switch (logintype)
 			{
-				case ChannelLoginType.Qin:
+				case ChannelLoginType.GiantFun:
 					AlertManager.showAlert("您的手机账号绑定成功，请牢记您的账号和登录密码，如有遗忘，可通过“忘记密码”找回。");
 					break;
 				case ChannelLoginType.Weixin:
@@ -100,7 +100,7 @@ class BindAccountManager
 	{
 		BindAccountManager.RemoveQinEvents();
 
-		BindAccountManager.reqBind(data.token, ChannelLoginType.Qin);
+		BindAccountManager.reqBind(data.token, ChannelLoginType.GiantFun);
 	}
 	private static OnQinLoginCancel()
 	{
@@ -113,7 +113,7 @@ class BindAccountManager
 		{
 			return false;
 		}
-		else if (channelList.indexOf(ChannelLoginType.Qin) != -1)
+		else if (channelList.indexOf(ChannelLoginType.GiantFun) != -1)
 		{
 			return true;
 		}

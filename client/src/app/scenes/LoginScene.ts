@@ -27,18 +27,13 @@ class LoginScene extends BaseScene
         this.RemoveLoginBarEvents();
         // LoginManager.Dispose();
     }
-    protected onResourceLoadComplete(event: RES.ResourceEvent)
+    protected onAllResLoadComplete()
     {
-        super.onResourceLoadComplete(event);
-        if (this._isResLoaded)
-        {
-            SceneManager.switchClosePanels();
-            this.LoadCompleteEvent.dispatch(this);
-        }
+        this.LoadCompleteEvent.dispatch(this);
     }
     public async initialize()
     {
-        super.initialize();
+        await super.initialize();
         UIManager.showPanel(UIModuleName.LoginSceneBgPanel);
         VersionManager.Initialize(this.onVersionInitComplete, this);
     }
@@ -143,8 +138,9 @@ class LoginScene extends BaseScene
     }
     private ShowEnterLoginPanel()
     {
-        UIManager.addEventListener(UIModuleName.LoginPanel, UIModuleEvent.COMPLETE, this.OnEnterLoginSelect, this);
-        UIManager.showPanel(UIModuleName.LoginPanel, this._channelLoginList);
+        this.OnEnterLoginSelect(ChannelLoginType.IntranetAccount); //move todo
+        // UIManager.addEventListener(UIModuleName.LoginPanel, UIModuleEvent.COMPLETE, this.OnEnterLoginSelect, this);
+        // UIManager.showPanel(UIModuleName.LoginPanel, this._channelLoginList);
     }
     private HideEnterLoginPanel()
     {
