@@ -49,7 +49,7 @@ func (this *C2GWMsgHandler) Init() {
 
 	// 收
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqLogin{}, on_C2GW_ReqLogin)
-	this.msgparser.RegistProtoMsg(msg.C2GW_HeartBeat{}, on_C2GW_HeartBeat)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqHeartBeat{}, on_C2GW_ReqHeartBeat)
 	this.msgparser.RegistProtoMsg(msg.C2RS_MsgTransfer{}, on_C2RS_MsgTransfer)
 	this.msgparser.RegistProtoMsg(msg.C2GW_BuyItem{}, on_C2GW_BuyItem)
 	this.msgparser.RegistProtoMsg(msg.C2GW_Get7DayReward{}, on_C2GW_Get7DayReward)
@@ -75,8 +75,8 @@ func (this *C2GWMsgHandler) Init() {
 }
 
 // 客户端心跳
-func on_C2GW_HeartBeat(session network.IBaseNetSession, message interface{}) {
-	//tmsg := message.(*msg.C2GW_HeartBeat)
+func on_C2GW_ReqHeartBeat(session network.IBaseNetSession, message interface{}) {
+	//tmsg := message.(*msg.C2GW_ReqHeartBeat)
 	//log.Info(reflect.TypeOf(tmsg).String())
 
 	//account, ok := session.UserDefData().(string)
@@ -100,33 +100,42 @@ func on_C2GW_HeartBeat(session network.IBaseNetSession, message interface{}) {
 	u.SetHeartBeat(util.CURTIMEMS())
 	curtime := util.CURTIME()
 	//log.Info("receive heart beat msg now=%d", curtime)
-	u.SendMsg(&msg.GW2C_HeartBeat{
+	u.SendMsg(&msg.GW2C_RetHeartBeat{
 		Time: pb.Int64(curtime),
 	})
 }
 
 func on_C2RS_MsgTransfer(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2RS_MsgTransfer)
-	msg_type := pb.MessageType(tmsg.GetName())
-	if msg_type == nil {
-		log.Fatal("消息转发解析失败，找不到proto msg=%s" , tmsg.GetName())
-		return
-	}
+	//msg_type := pb.MessageType(tmsg.GetName())
+	//if msg_type == nil {
+	//	log.Fatal("消息转发解析失败，找不到proto msg=%s" , tmsg.GetName())
+	//	return
+	//}
 
-	protomsg := reflect.New(msg_type.Elem()).Interface()
-	err := pb.Unmarshal(tmsg.GetBuf(), protomsg.(pb.Message))
-	if err != nil {
-		log.Fatal("消息转发解析失败，Unmarshal失败 msg=%s" , tmsg.GetName())
-		return
-	}
+	//protomsg := reflect.New(msg_type.Elem()).Interface()
+	//err := pb.Unmarshal(tmsg.GetBuf(), protomsg.(pb.Message))
+	//if err != nil {
+	//	log.Fatal("消息转发解析失败，Unmarshal失败 msg=%s" , tmsg.GetName())
+	//	return
+	//}
 
+	//u := UserMgr().FindById(tmsg.GetUid())
+	//if u == nil { return }
+	//if u.IsInRoom() == false { 
+	//	log.Warn("消息转发失败，玩家[%s %d]没有在任何房间中", u.Name(), u.Id())
+	//	return 
+	//}
+	//u.SendRoomMsg(protomsg.(pb.Message))
+
+	// 不做解析转发到RoomServer
 	u := UserMgr().FindById(tmsg.GetUid())
 	if u == nil { return }
 	if u.IsInRoom() == false { 
 		log.Warn("消息转发失败，玩家[%s %d]没有在任何房间中", u.Name(), u.Id())
 		return 
 	}
-	u.SendRoomMsg(protomsg.(pb.Message))
+	u.SendRoomMsg(tmsg)
 }
 
 

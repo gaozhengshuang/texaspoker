@@ -37,6 +37,9 @@ func (this* C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.GW2RS_RetRegist{}, on_GW2RS_RetRegist)
 	this.msgparser.RegistProtoMsg(msg.GW2RS_UserDisconnect{}, on_GW2RS_UserDisconnect)
 	this.msgparser.RegistProtoMsg(msg.GW2RS_UploadUserBin{}, on_GW2RS_UploadUserBin)
+	this.msgparser.RegistProtoMsg(msg.C2RS_MsgTransfer{}, on_C2RS_MsgTransfer)
+
+	// 功能
 	this.msgparser.RegistProtoMsg(msg.C2GW_PlatformRechargeDone{}, on_C2GW_PlatformRechargeDone)
 	this.msgparser.RegistProtoMsg(msg.C2GW_GoldExchange{}, on_C2GW_GoldExchange)
 
@@ -108,6 +111,10 @@ func on_GW2RS_UploadUserBin(session network.IBaseNetSession, message interface{}
 
 	room.UserLoad(tmsg, session)
 }
+
+func on_C2RS_MsgTransfer(session network.IBaseNetSession, message interface{}) {
+}
+
 
 func on_C2GW_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_ReqEnterRoom)

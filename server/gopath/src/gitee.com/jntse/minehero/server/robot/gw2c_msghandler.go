@@ -33,7 +33,7 @@ func (this* GW2CMsgHandler) Init() {
 	// 收Gate消息
 	this.msgparser.RegistProtoMsg(msg.GW2C_RetLogin{}, on_GW2C_RetLogin)
 	this.msgparser.RegistProtoMsg(msg.GW2C_PushUserInfo{}, on_GW2C_PushUserInfo)
-	this.msgparser.RegistProtoMsg(msg.GW2C_HeartBeat{}, on_GW2C_HeartBeat)
+	this.msgparser.RegistProtoMsg(msg.GW2C_RetHeartBeat{}, on_GW2C_RetHeartBeat)
 	this.msgparser.RegistProtoMsg(msg.GW2C_MsgNotify{}, on_GW2C_MsgNotify)
 	this.msgparser.RegistProtoMsg(msg.GW2C_MsgNotice{}, on_GW2C_MsgNotice)
 	this.msgparser.RegistProtoMsg(msg.GW2C_PushPackageItemAdd{}, on_GW2C_PushPackageItemAdd)
@@ -104,8 +104,8 @@ func on_GW2C_MsgNotice(session network.IBaseNetSession, message interface{}) {
 	//log.Info("%+v", tmsg)
 }
 
-func on_GW2C_HeartBeat(session network.IBaseNetSession, message interface{}) {
-	//tmsg := message.(*msg.GW2C_HeartBeat)
+func on_GW2C_RetHeartBeat(session network.IBaseNetSession, message interface{}) {
+	//tmsg := message.(*msg.GW2C_RetHeartBeat)
 	//log.Info(reflect.TypeOf(tmsg).String())
 
 	//client, ok := session.UserDefData().(*User)
@@ -113,7 +113,7 @@ func on_GW2C_HeartBeat(session network.IBaseNetSession, message interface{}) {
 	//	panic("没有为Session设置UserDefData")
 	//}
 	//if client.Id() == 1000001 {
-	//	log.Info("%s on_GW2C_HeartBeat", client.Name())	// for test
+	//	log.Info("%s on_GW2C_RetHeartBeat", client.Name())	// for test
 	//}
 }
 

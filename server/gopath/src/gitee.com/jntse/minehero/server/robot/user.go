@@ -251,7 +251,7 @@ func (this *User) OnTicker100ms(now int64) {
 
 func (this *User) OnTicker1s(now int64) {
 	if this.gate != nil  && this.do_heart {
-		heartmsg := &msg.C2GW_HeartBeat{ Uid: pb.Int64(0), Time: pb.Int64(util.CURTIMEUS()) }
+		heartmsg := &msg.C2GW_ReqHeartBeat{ Uid: pb.Int64(0), Time: pb.Int64(util.CURTIMEUS()) }
 		//for i:=0; i < 42; i++ { heartmsg.Test = append(heartmsg.Test, "this is heart msg test") }	// 大约1024字节 测试
 		this.SendGateMsg(heartmsg)
 	}
