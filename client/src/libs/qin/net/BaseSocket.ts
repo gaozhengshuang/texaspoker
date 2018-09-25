@@ -234,27 +234,27 @@ module game
 		/**
 		 * 简单正常发送，没有断线重发，不能重复连续发送相同的命令
 		 */
-		public SimpleSend(cmdId: string, args: any = null)
+		public SimpleSend(cmdId: string, args: any = null, subId?:string)
 		{
-			this.InvokeSend(true, false, cmdId, args, undefined, undefined, undefined);
+			this.InvokeSend(true, false, cmdId, args, undefined, undefined, undefined, subId);
 		}
 		/**
 		 * 简单正常发送，没有断线重发，不能重复连续发送相同的命令
 		 */
-		public SimpleCall(cmdId: string, args: any = null, onResult: Function, onError: Function, thisObject: any)
+		public SimpleCall(cmdId: string, args: any = null, onResult: Function, onError: Function, thisObject: any, subId?:string)
 		{
-			this.InvokeSend(true, false, cmdId, args, onResult, onError, thisObject);
+			this.InvokeSend(true, false, cmdId, args, onResult, onError, thisObject, subId);
 		}
 		/**
 		 * 调用发送，如果没有连接继续执行发送，抛出异常,兼容重连
 		 * <param name="isSole">一样的命令和回调是否独占发送，(如果是，当还没接收到上一个包的时候，再次发包，会忽略掉)</param>
 		 * <param name="isDiscRetry">断线重发</param>
 		 */
-		public InvokeSend(isSole: boolean, isDiscRetry: boolean, cmdId: string, msg: protobuf.Writer, onResult: Function, onError: Function, thisObject: any)
+		public InvokeSend(isSole: boolean, isDiscRetry: boolean, cmdId: string, msg: protobuf.Writer, onResult: Function, onError: Function, thisObject: any, subId?:string)
 		{
 			if (this._enabledSend)
 			{
-				let info: SocketInfo = this.AddSocketInfo(isSole, isDiscRetry, cmdId, msg, onResult, onError, thisObject);
+				let info: SocketInfo = this.AddSocketInfo(isSole, isDiscRetry, cmdId, msg, onResult, onError, thisObject, subId);
 				if (info != null)
 				{
 					this.SendObject(info);
@@ -264,7 +264,7 @@ module game
 			{
 				if (isDiscRetry)
 				{
-					this.AddSocketInfo(isSole, isDiscRetry, cmdId, msg, onResult, onError, thisObject);
+					this.AddSocketInfo(isSole, isDiscRetry, cmdId, msg, onResult, onError, thisObject, subId);
 				}
 			}
 		}
@@ -468,7 +468,7 @@ module game
 				}
 			}
 		}
-		private AddSocketInfo(isSole: boolean, isDiscRetry: boolean, cmdId: string, msg: protobuf.Writer, onResult: Function, onError: Function, thisObject: any): SocketInfo
+		private AddSocketInfo(isSole: boolean, isDiscRetry: boolean, cmdId: string, msg: protobuf.Writer, onResult: Function, onError: Function, thisObject: any, subId:string): SocketInfo
 		{
 			if (this._infoList != null)
 			{
@@ -495,6 +495,7 @@ module game
 				info.onResult = onResult;
 				info.onError = onError;
 				info.thisObject = thisObject;
+				info.subId = subId;
 				this._infoList.push(info);
 				return info;
 			}
@@ -507,7 +508,7 @@ module game
 				for (let i: number = 0; i < this._infoList.length; i++)
 				{
 					let info: SocketInfo = this._infoList[i];
-					if (info.cmdId == msgName)
+					if (info.cmdId == msgName || info.subId != undefined && info.subId == msgName)
 					{
 						this._infoList.splice(i, 1);
 						return info;

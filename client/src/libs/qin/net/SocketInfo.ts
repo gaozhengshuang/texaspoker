@@ -25,5 +25,9 @@ module game
 		public onResult: Function;
 		public onError: Function;
 		public thisObject: any;
+		/**
+		 * 包裹一层的子协议 由于服务器有网关到特定的服务器的数据交互导致的.发送的是包裹协议号，返回的是子协议号
+		 */
+		public subId:string;
 	}
 }
