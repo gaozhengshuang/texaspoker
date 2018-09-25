@@ -72,8 +72,8 @@ message UserMapEvent {
 
 // 签到
 message UserSignIn {
-    optional int32 signreward  = 1;    // 签到
-    optional int32 signtime    = 2;    // 签到时间
+    optional int32 signdays    = 1;    // 已经签了几天
+    optional int32 signtime    = 2;    // 上次签到时间
 }
 
 // 个人统计
