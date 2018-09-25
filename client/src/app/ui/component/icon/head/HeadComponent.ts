@@ -57,7 +57,7 @@ class HeadComponent extends BaseComponent<IBaseHead>
         }
         else
         {
-            let result: string = ProjectDefined.GetInstance().getStorageHost() + head;
+            let result: string = ProjectDefined.storage_host + head;
             let cache = ResCacheManager.getRes(ResCacheType.Head, result);
             if (cache)
             {

@@ -276,6 +276,10 @@ class LoginScene extends BaseScene
             UIManager.closePanel(UIModuleName.RegisterPanel);
             this.OnLoginBarComplete();
         }
+        else
+        {
+            //todo 处理登录失败的原因
+        }
         //
         // let tdgaUid: string = game.StringUtil.format("{0}_{1}_{2}", OperatePlatform.getCurrent(), ChannelManager.channelType, game.LoginManager.loginInfo.userid.toString());
         // TalkingDataManager.setAccount(tdgaUid);

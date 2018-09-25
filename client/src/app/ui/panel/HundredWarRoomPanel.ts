@@ -336,7 +336,7 @@ class HundredWarRoomPanel extends BasePanel
      */
     private showOverPanel()
     {
-        if ((HundredWarManager.getPlayerBetTotalNum() > 0 && HundredWarManager.isBanker(UserManager.userInfo.roleId)) || HundredWarManager.getThisBetGold() > 0)
+        if ((HundredWarManager.getPlayerBetTotalNum() > 0 && HundredWarManager.isBanker(UserManager.userInfo.id)) || HundredWarManager.getThisBetGold() > 0)
         {
             JumpUtil.JumpToHundredWarOver();
         }

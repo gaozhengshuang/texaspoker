@@ -14,7 +14,7 @@ class Command
     /**
      * 心跳
      */
-    public static readonly System_Heartbeat_3016: string = "c3016";
+    public static readonly C2GW_HeartBeat: string = "msg.C2GW_HeartBeat";
     /**
      * 请求服务器推送
      */
@@ -422,7 +422,7 @@ class Command
     /**
      * 拉取所在房间列表
     */
-    public static readonly InsideRoomInfoList_Req_3614 = "c3614";
+    public static readonly C2GW_ReqUserRoomInfo = "msg.C2GW_ReqUserRoomInfo";
     /**
      * 拉取最近赛况列表信息
     */

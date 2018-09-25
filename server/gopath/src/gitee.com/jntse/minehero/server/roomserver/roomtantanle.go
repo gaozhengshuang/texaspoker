@@ -107,7 +107,7 @@ func (this *TanTanLe) OnDestory(now int64) {
 
 	//// 序列化玩家个人数据
 	//if this.owner != nil { 
-	//	this.owner.OnGameEnd(now) 
+	//	this.owner.OnGameOver() 
 	//}
 
 	//// 通知Gate删除房间，回传个人数据

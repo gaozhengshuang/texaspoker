@@ -6,7 +6,7 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 	public copyValueFrom(data: any)
 	{
 		super.copyValueFrom(data);
-		if (data["maxHand"])
+		if (data && data["maxHand"])
 		{
 			this.maxHandList = new Array<CardInfo>();
 			GamblingUtil.cardArr2CardInfoList(data["maxHand"], this.maxHandList);
@@ -21,7 +21,7 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 		this._saveGold = 0;
 		this.timestamp = 0;
 		this.timezone = 0;
-		this.roleId = 0;
+		this.id = 0;
 		this.name = game.StringConstants.Empty;
 		this.head = null;
 		this.sex = 0;
@@ -129,7 +129,7 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 	/**
 	 * 角色ID
 	 */
-	public roleId: number;
+	public id: number;
 	/**
 	 * 昵称
 	 */
@@ -142,6 +142,11 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 	 * 审核中的头像
 	 */
 	private _verifyHead: string;
+
+	/**
+	 * 账号
+	 */
+	public account:string;
 
 	public get verifyHead(): string
 	{
@@ -237,7 +242,7 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 	private _friendNum: number;
 	public get friendNum(): number
 	{
-		if (this.roleId == UserManager.userInfo.roleId && FriendManager.friendList)
+		if (this.id == UserManager.userInfo.id && FriendManager.friendList)
 		{
 			return FriendManager.friendList.length;
 		}

@@ -172,7 +172,7 @@ class GamblingPanelFuncSupport extends BaseGamblingPanelSupport
 	}
 	private sitOrStandHandler(obj: any)
 	{
-		if (obj.pInfo.roleId == UserManager.userInfo.roleId)
+		if (obj.pInfo.roleId == UserManager.userInfo.id)
 		{
 			if (obj.state == BuyInGameState.Sit)
 			{

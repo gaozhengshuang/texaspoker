@@ -3,7 +3,7 @@ import (
 	"reflect"
 	"gitee.com/jntse/gotoolkit/log"
 	"gitee.com/jntse/gotoolkit/net"
-	_"gitee.com/jntse/minehero/pbmsg"
+	//"gitee.com/jntse/minehero/pbmsg"
 	//"gitee.com/jntse/minehero/server/tbl"
 	pb "github.com/gogo/protobuf/proto"
 	_"github.com/go-redis/redis"

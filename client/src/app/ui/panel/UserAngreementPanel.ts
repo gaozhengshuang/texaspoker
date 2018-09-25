@@ -84,7 +84,7 @@ class UserAngreementPanel extends BasePanel
 		if (!this._angreeText || (this._angreeText && this.isOver == false))
 		{
 			UIManager.showPanel(UIModuleName.LoadingPanel);
-			RES.getResByUrl(ProjectDefined.GetInstance().userAgreementUrl + "?" + Date.now().toString() + Math.random().toString(), this.setUserAgreeInfo, this, RES.ResourceItem.TYPE_TEXT);
+			RES.getResByUrl(ProjectDefined.userAgreementUrl + "?" + Date.now().toString() + Math.random().toString(), this.setUserAgreeInfo, this, RES.ResourceItem.TYPE_TEXT);
 		}
 	}
 	private setUserAgreeInfo(text: string)

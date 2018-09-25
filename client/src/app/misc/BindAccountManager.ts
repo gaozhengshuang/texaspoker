@@ -85,7 +85,7 @@ class BindAccountManager
 	//--------------沁游内置账号绑定-------------
 	public static startBindQin(prevPanelName:string)
 	{
-		AccountManager.Initialize(GameSetting.AppId, ChannelManager.channelType, ChannelManager.deviceId, ProjectDefined.GetInstance().getValue(ProjectDefined.usePhone));
+		AccountManager.Initialize(GameSetting.AppId, ChannelManager.channelType, ChannelManager.deviceId, false);
 		BindAccountManager.RemoveQinEvents();
 		AccountManager.OnLoginCancel.addListener(BindAccountManager.OnQinLoginCancel, this);
 		AccountManager.OnLoginSuccess.addListener(BindAccountManager.OnQinLoginSuccess, this);

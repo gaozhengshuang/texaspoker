@@ -110,7 +110,7 @@ class HWPanelSitDownAndChooseCoinSupport extends BaseHWPanelSupport
     {
         if (HundredWarManager.roomInfo)
         {
-            if (HundredWarManager.roomInfo.state == HWState.Bet && !HundredWarManager.isBanker(UserManager.userInfo.roleId))
+            if (HundredWarManager.roomInfo.state == HWState.Bet && !HundredWarManager.isBanker(UserManager.userInfo.id))
             {
                 this.resetRepetBtn();
                 this.resetDbBtn();
@@ -179,7 +179,7 @@ class HWPanelSitDownAndChooseCoinSupport extends BaseHWPanelSupport
     */
     private onPosChange(data: any) 
     {
-        if (data.roleId && data.roleId == UserManager.userInfo.roleId)
+        if (data.roleId && data.roleId == UserManager.userInfo.id)
         {
             if (HundredWarManager.isBanker(data.roleId))
             {
@@ -441,7 +441,7 @@ class HWPanelSitDownAndChooseCoinSupport extends BaseHWPanelSupport
                 if (headComponent.bindData == null)
                 {
                     let hwPlayerInfo: HWHundredWarRoomPlayerInfo;
-                    hwPlayerInfo = HundredWarManager.getPlayerInfo(UserManager.userInfo.roleId);
+                    hwPlayerInfo = HundredWarManager.getPlayerInfo(UserManager.userInfo.id);
                     if (hwPlayerInfo && hwPlayerInfo.pos != undefined)
                     {
                         return;
@@ -486,7 +486,7 @@ class HWPanelSitDownAndChooseCoinSupport extends BaseHWPanelSupport
             game.Console.log("异步不显示自己的手牌");
             return;
         }
-        let com: HWHeadComponent = this.target.getHeadComponentByRole(UserManager.userInfo.roleId);
+        let com: HWHeadComponent = this.target.getHeadComponentByRole(UserManager.userInfo.id);
         if (com)
         {
             this.target.showDownEffect(com.playerGroup);

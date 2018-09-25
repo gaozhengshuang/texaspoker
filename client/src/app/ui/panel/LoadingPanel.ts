@@ -63,7 +63,7 @@ class LoadingPanel extends BasePanel
 		if (this._allowTimeout && this._isOut == false && this.container.parent)
 		{
 			let offsetTime = egret.getTimer() - this._time;
-			if (offsetTime >= ProjectDefined.GetInstance().getValue(ProjectDefined.onTimeOut))
+			if (offsetTime >= ProjectDefined.onTimeOut)
 			{
 				this._isOut = true;
 				UIManager.closePanel(UIModuleName.LoadingPanel);

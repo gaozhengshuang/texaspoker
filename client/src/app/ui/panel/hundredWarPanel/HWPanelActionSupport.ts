@@ -31,7 +31,7 @@ class HWPanelActionSupport extends BaseHWPanelSupport
     {
         if (data.roleId && data.pos == 0)
         {
-            if (data.roleId == UserManager.userInfo.roleId)
+            if (data.roleId == UserManager.userInfo.id)
             {
                 this.target.outBankerBtn.visible = true;
                 this.target.goBankerBtn.visible = false;
@@ -48,7 +48,7 @@ class HWPanelActionSupport extends BaseHWPanelSupport
     */
     private initBankerBtn()
     {
-        if (HundredWarManager.isBanker(UserManager.userInfo.roleId))
+        if (HundredWarManager.isBanker(UserManager.userInfo.id))
         {
             this.target.outBankerBtn.visible = true;
             this.target.goBankerBtn.visible = false;

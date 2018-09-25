@@ -42,7 +42,7 @@ class GamblingHeadOnActionState extends BaseGamblingHeadState
 					}
 				}
 			}
-			if (this.context.bindData && this.context.bindData.roleId == UserManager.userInfo.roleId)
+			if (this.context.bindData && this.context.bindData.roleId == UserManager.userInfo.id)
 			{
 				if (this.context.cardFace1.visible == false || this.context.cardFace2.visible == false)
 				{

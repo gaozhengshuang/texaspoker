@@ -182,6 +182,27 @@ func (this *User) SendGateMsg(msg pb.Message) bool {
 	return this.gate.SendCmd(msg)
 }
 
+func (this *User) SendRoomMsg(m pb.Message) bool {
+	if this.gate == nil || reflect.ValueOf(this.gate).IsNil() {
+		panic("User gatesession is nil")
+	}
+
+	name := pb.MessageName(m)
+	if name == "" {
+		log.Fatal("SendRoomMsg 获取proto名字失败[%s]", m)
+		return false
+	}
+	msgbuf, err := pb.Marshal(m)
+	if err != nil {
+		log.Fatal("SendRoomMsg 序列化proto失败[%s][%s]", name, err)
+		return false
+	}
+
+	send := &msg.C2RS_MsgTransfer{ Uid:pb.Int64(this.Id()), Name:pb.String(name), Buf:msgbuf }
+	return this.gate.SendCmd(send)
+}
+
+
 //  退出
 func (this *User) Quit() {
 	//this.ch_cmd <- "quit"
@@ -290,15 +311,26 @@ func (this *User) CreateRoom() {
 }
 
 func (this *User) EnterRoom() {
-	this.SendGateMsg(&msg.C2GW_ReqEnterRoom{Roomid:pb.Int64(this.roomid), Userid:pb.Int64(this.Id()), Passwd:pb.String("12345")})
+	this.SendGateMsg(&msg.C2GW_ReqEnterRoom{Roomid:pb.Int64(this.roomid), Userid:pb.Int64(this.Id()), Passwd:pb.String(this.roompwd)})
+	this.ReqSitDown()
 }
 
 func (this *User) LeaveRoom() {
-	this.SendGateMsg(&msg.C2GW_ReqLeaveRoom{Roomid:pb.Int64(this.roomid), Userid:pb.Int64(this.Id())})
+	this.SendGateMsg(&msg.C2GW_ReqLeaveRoom{Userid:pb.Int64(this.Id())})
 }
 
 func (this *User) ReqUserRoom() {
 	this.SendGateMsg(&msg.C2GW_ReqUserRoomInfo{})
+}
+
+func (this *User) ReqSitDown() {
+	sitdown := &msg.C2RS_ReqSitDown{Userid:pb.Int64(this.Id()), Seat:pb.Int32(1)}
+	this.SendRoomMsg(sitdown)
+}
+
+func (this *User) ReqStandUp() {
+	stand := &msg.C2RS_ReqStandUp{Userid:pb.Int64(this.Id())}
+	this.SendRoomMsg(stand)
 }
 
 //func (this *User) JumpStep() {
@@ -365,7 +397,7 @@ func (this *User) DoInputCmd(cmd string) {
 		this.EnterRoom()
 	case "leave":
 		this.LeaveRoom()
-	case "myroot":
+	case "myroom":
 		this.ReqUserRoom()
 	case "jump":
 		this.do_jump = !this.do_jump

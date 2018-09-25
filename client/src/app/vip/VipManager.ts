@@ -56,7 +56,7 @@ class VipManager
         }
         //UserManager.userInfo.vipLevel = VipManager.getVipLevel(UserManager.userInfo.vipExp);
         UserManager.userInfo.vipType = VipManager.getVipType(UserManager.userInfo.vipTime, UserManager.userInfo.yearVipTime);
-        UserManager.userInfo.vipSpeed = ProjectDefined.GetInstance().getVipSpeedDefinition(UserManager.userInfo.vipType).speed;
+        UserManager.userInfo.vipSpeed = ProjectDefined.getVipSpeedDefinition(UserManager.userInfo.vipType).speed;
         if (flag == false && VipManager.isVip() && !UserManager.userInfo.isSafePwd)
         {
             let goSavePanel: Function = function ()
@@ -71,7 +71,7 @@ class VipManager
     private static refreshVipInfo()
     {
         UserManager.userInfo.vipType = VipManager.getVipType(UserManager.userInfo.vipTime, UserManager.userInfo.yearVipTime);
-        UserManager.userInfo.vipSpeed = ProjectDefined.GetInstance().getVipSpeedDefinition(UserManager.userInfo.vipType).speed;
+        UserManager.userInfo.vipSpeed = ProjectDefined.getVipSpeedDefinition(UserManager.userInfo.vipType).speed;
     }
 
     public static isVip(info?: UserInfo): boolean

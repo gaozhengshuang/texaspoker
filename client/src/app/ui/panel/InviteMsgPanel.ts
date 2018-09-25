@@ -28,14 +28,14 @@ class InviteMsgPanel extends BasePanel
 		this.roomBuyLabel.text = "";
 		if (info && appendData.roomId && appendData.roomId != 0)
 		{
-			let def: RoomDefinition = RoomDefined.GetInstance().getDefinition(appendData.roomId);
+			let def: table.ITexasRoomDefine = table.TexasRoomById[appendData.roomId];
 			this.inviteMsgLable.text = "你的好友" + info.name + "现在邀请您一起游戏！";
 			this.omahaInviteLable.text = "你的好友" + info.name + "现在邀请您一起进行";
 			this.headComp.init(info, 120);
 			if (def)
 			{
-				this.roomBuyLabel.text = game.MathUtil.formatNum(def.sBuyin) + "买入";
-				if (def.type == PlayingFieldType.OmahaPrimary || def.type == PlayingFieldType.OmahaMiddle || def.type == PlayingFieldType.OmahaHigh || def.type == PlayingFieldType.OmahaPersonal)
+				this.roomBuyLabel.text = game.MathUtil.formatNum(def.SBuyin) + "买入";
+				if (def.Type == PlayingFieldType.OmahaPrimary || def.Type == PlayingFieldType.OmahaMiddle || def.Type == PlayingFieldType.OmahaHigh || def.Type == PlayingFieldType.OmahaPersonal)
 				{
 					this.inviteMsgLable.visible = false;
 					this.omahaGroup.visible = true;

@@ -277,7 +277,7 @@ module game
 			}
 			try
 			{
-				Console.log("Socket.Send-----------> cmdId:" + info.cmdId + "params:", JSON.stringify(info.msg), "- >session:" + info.session);
+				Console.log("Socket.Send-----------> cmdId:" + info.cmdId + "------params:", JSON.stringify(info.msg), "- >session:" + info.session);
 
 				let msgId = this.findMsgId(info.cmdId);
 				if (msgId == 0)
@@ -293,6 +293,7 @@ module game
 				sendMsg.writeShort(msgId); //消息ID
 				sendMsg.writeBytes(dataMsg);
 				this._socket.writeBytes(sendMsg);
+				this._socket.flush();
 			}
 			catch (e)
 			{
@@ -345,13 +346,23 @@ module game
 			let protoData = table.ProtoIdById[mainId];
 			let msgName = protoData.Name;
 			let decoded = msg[msgName.slice(4)].decode(cmdDataBA.bytes);
-			if (msgName.indexOf("push") != -1) //推送协议
+			if (msgName.indexOf("Push") != -1) //推送协议
 			{
-				this.handleResponse(msgName, decoded, undefined, undefined);
+				this.handleRequest(msgName, decoded, undefined, undefined);
 			}
 			else
 			{
-				this.handleRequest(msgName, decoded, undefined, undefined);
+				let idx = msgName.indexOf("Ret");  //替换名字
+				let retName = msgName.substr(idx + 3);
+				for (let protoInfo of table.ProtoId)
+				{
+					if (msgName != protoInfo.Name && protoInfo.Name.indexOf(retName) != -1)
+					{
+						msgName = protoInfo.Name;
+						break;
+					}
+				}
+				this.handleResponse(msgName, decoded, undefined, undefined);
 			}
 			NotificationCenter.postNotification(msgName, decoded);
 		}

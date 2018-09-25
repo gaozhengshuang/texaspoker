@@ -22,12 +22,12 @@ import (
 
 // 提取Session User指针
 func ExtractSessionUser(session network.IBaseNetSession) *GateUser {
-	user, ok := session.UserDefData().(*GateUser)
+	u, ok := session.UserDefData().(*GateUser)
 	if ok == false {
 		log.Fatal("网络会话Sid[%d]中没有绑定User指针", session.Id())
 		return nil
 	}
-	return user
+	return u
 }
 
 type C2GWMsgHandler struct {
@@ -85,22 +85,22 @@ func on_C2GW_HeartBeat(session network.IBaseNetSession, message interface{}) {
 	//	return
 	//}
 
-	//user := UserMgr().FindByAccount(account)
-	//if user == nil {
+	//u := UserMgr().FindByAccount(account)
+	//if u == nil {
 	//	log.Error("收到账户[%s]心跳，但玩家不在线", account)
 	//	return
 	//}
 
-	user := ExtractSessionUser(session)
-	if user == nil {
+	u := ExtractSessionUser(session)
+	if u == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
-	user.SetHeartBeat(util.CURTIMEMS())
+	u.SetHeartBeat(util.CURTIMEMS())
 	curtime := util.CURTIME()
 	//log.Info("receive heart beat msg now=%d", curtime)
-	user.SendMsg(&msg.GW2C_HeartBeat{
+	u.SendMsg(&msg.GW2C_HeartBeat{
 		Time: pb.Int64(curtime),
 	})
 }
@@ -120,43 +120,47 @@ func on_C2RS_MsgTransfer(session network.IBaseNetSession, message interface{}) {
 		return
 	}
 
-	user := UserMgr().FindById(tmsg.GetUid())
-	if user == nil { return }
-	user.SendRoomMsg(protomsg.(pb.Message))
+	u := UserMgr().FindById(tmsg.GetUid())
+	if u == nil { return }
+	if u.IsInRoom() == false { 
+		log.Warn("消息转发失败，玩家[%s %d]没有在任何房间中", u.Name(), u.Id())
+		return 
+	}
+	u.SendRoomMsg(protomsg.(pb.Message))
 }
 
 
 
 func on_C2GW_Get7DayReward(session network.IBaseNetSession, message interface{}) {
-	user := ExtractSessionUser(session)
-	if user == nil {
+	u := ExtractSessionUser(session)
+	if u == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
 
-	user.GetSignReward()
+	u.GetSignReward()
 }
 
 func on_C2GW_ReqCreateRoom(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_ReqCreateRoom)
 	//log.Info(reflect.TypeOf(tmsg).String())
-	user := ExtractSessionUser(session)
-	if user == nil {
+	u := ExtractSessionUser(session)
+	if u == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
-	if errcode := user.CreateRoomRemote(tmsg); errcode != "" {
-		user.CreateRoomResponse(errcode)
+	if errcode := u.CreateRoomRemote(tmsg); errcode != "" {
+		u.CreateRoomResponse(errcode)
 	}
 }
 
 func on_C2GW_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_ReqEnterRoom)
 	//log.Info(reflect.TypeOf(tmsg).String())
-	user := ExtractSessionUser(session)
-	if user == nil {
+	u := ExtractSessionUser(session)
+	if u == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
@@ -164,23 +168,23 @@ func on_C2GW_ReqEnterRoom(session network.IBaseNetSession, message interface{}) 
 
 	roomid := tmsg.GetRoomid()
 	if roomid == 0 {
-		log.Error("[房间] 玩家[%s %d]请求进入无效的房间[%d]", user.Name(), user.Id(), roomid)
+		log.Error("[房间] 玩家[%s %d]请求进入无效的房间[%d]", u.Name(), u.Id(), roomid)
 		return
 	}
 
 	sid := GetRoomSid(roomid)
 	if sid == 0 {
-		log.Error("[房间] 玩家[%s %d]请求进入的房间[%d]已经销毁", user.Name(), user.Id(), roomid)
+		log.Error("[房间] 玩家[%s %d]请求进入的房间[%d]已经销毁", u.Name(), u.Id(), roomid)
 		return
 	}
 
 	// 重新进入房间，不需要上传玩家二进制数据
-	if user.RoomId() != roomid {
-		user.SendUserBinToRoom(sid, roomid)
+	if u.RoomId() != roomid {
+		u.SendUserBinToRoom(sid, roomid)
 	}
 
 	// 进入游戏房间
-	log.Info("玩家[%d] 请求进入房间[%d] ts[%d]", user.Id(), tmsg.GetRoomid(), util.CURTIMEMS())
+	log.Info("玩家[%d] 请求进入房间[%d] ts[%d]", u.Id(), tmsg.GetRoomid(), util.CURTIMEMS())
 	RoomSvrMgr().SendMsg(sid, tmsg)
 }
 
@@ -188,16 +192,15 @@ func on_C2GW_ReqLeaveRoom(session network.IBaseNetSession, message interface{}) 
 	tmsg := message.(*msg.C2GW_ReqLeaveRoom)
 	//log.Info(reflect.TypeOf(tmsg).String())
 
-	user := ExtractSessionUser(session)
-	if user == nil {
+	u := ExtractSessionUser(session)
+	if u == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
 
 	// 离开游戏房间
-	tmsg.Roomid, tmsg.Userid = pb.Int64(user.RoomId()), pb.Int64(user.Id())
-	user.SendRoomMsg(tmsg)
+	u.SendRoomMsg(tmsg)
 }
 
 func on_C2GW_ReqUserRoomInfo(session network.IBaseNetSession, message interface{}) {
@@ -217,13 +220,13 @@ func on_C2GW_ReqUserRoomInfo(session network.IBaseNetSession, message interface{
 
 func on_C2GW_ReqTexasRoomList(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_ReqTexasRoomList)
-	user := ExtractSessionUser(session)
-	if user == nil {
+	u := ExtractSessionUser(session)
+	if u == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
-	user.SendTexasRoomList(tmsg.GetType())
+	u.SendTexasRoomList(tmsg.GetType())
 }
 
 func on_C2GW_ReqLogin(session network.IBaseNetSession, message interface{}) {
@@ -233,14 +236,14 @@ func on_C2GW_ReqLogin(session network.IBaseNetSession, message interface{}) {
 
 	switch {
 	default:
-		user := UserMgr().FindByAccount(account)
-		if user != nil {
-			if user.IsOnline() {
+		u := UserMgr().FindByAccount(account)
+		if u != nil {
+			if u.IsOnline() {
 				islogin, errmsg = true, "玩家已经登陆了"
 				break
 			}
 
-			if errmsg = UserMgr().LoginByCache(session, user); errmsg != "" {
+			if errmsg = UserMgr().LoginByCache(session, u); errmsg != "" {
 				break
 			}
 		}else {
@@ -256,13 +259,13 @@ func on_C2GW_ReqLogin(session network.IBaseNetSession, message interface{}) {
 				break
 			}
 
-			user, errmsg = UserMgr().CreateNewUser(session, account, verifykey, token, face)	// 构造user指针 from redis db
-			if errmsg != "" || user == nil {
+			u, errmsg = UserMgr().CreateNewUser(session, account, verifykey, token, face)	// 构造u指针 from redis db
+			if errmsg != "" || u == nil {
 				break
 			}
 		}
 
-		session.SetUserDefData(user) // TODO: 登陆成功才绑定账户到会话
+		session.SetUserDefData(u) // TODO: 登陆成功才绑定账户到会话
 		return
 	}
 
@@ -282,59 +285,59 @@ func on_C2GW_ReqLogin(session network.IBaseNetSession, message interface{}) {
 func on_C2GW_BuyItem(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_BuyItem)
 
-	user := ExtractSessionUser(session)
-	if user == nil {
+	u := ExtractSessionUser(session)
+	if u == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
 
-	if user.IsOnline() == false {
-		log.Error("玩家[%s %d]没有登陆Gate成功", user.Name(), user.Id())
+	if u.IsOnline() == false {
+		log.Error("玩家[%s %d]没有登陆Gate成功", u.Name(), u.Id())
 		session.Close()
 		return
 	}
 
-	user.BuyItem(tmsg.GetProductid(), tmsg.GetNum())
+	u.BuyItem(tmsg.GetProductid(), tmsg.GetNum())
 }
 
 func on_C2GW_ReqDeliveryGoods(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_ReqDeliveryGoods)
 
-	user := ExtractSessionUser(session)
-	if user == nil {
+	u := ExtractSessionUser(session)
+	if u == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
 
-	if user.IsOnline() == false {
-		log.Error("玩家[%s %d] 没有登陆Gate成功", user.Name(), user.Id())
+	if u.IsOnline() == false {
+		log.Error("玩家[%s %d] 没有登陆Gate成功", u.Name(), u.Id())
 		session.Close()
 		return
 	}
 
 	// 发货
 	if tbl.Global.IntranetFlag {
-		user.SendNotify("本版本暂不可用")
+		u.SendNotify("本版本暂不可用")
 		return
 	} else {
-		event := NewDeliveryGoodsEvent(tmsg.GetList(), tmsg.GetToken(), user.DeliveryGoods)
-		user.AsynEventInsert(event)
+		event := NewDeliveryGoodsEvent(tmsg.GetList(), tmsg.GetToken(), u.DeliveryGoods)
+		u.AsynEventInsert(event)
 	}
 }
 
 func on_C2GW_ReqUseBagItem(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_ReqUseBagItem)
 
-	user := ExtractSessionUser(session)
-	if user == nil {
+	u := ExtractSessionUser(session)
+	if u == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
 
-	user.UseItem(tmsg.GetItemid(), tmsg.GetNum())
+	u.UseItem(tmsg.GetItemid(), tmsg.GetNum())
 }
 
 func on_C2GW_ReqRechargeMoney(session network.IBaseNetSession, message interface{}) {
@@ -342,47 +345,47 @@ func on_C2GW_ReqRechargeMoney(session network.IBaseNetSession, message interface
 	//log.Trace("%v", tmsg)
 
 	//
-	user := ExtractSessionUser(session)
-	if user == nil {
+	u := ExtractSessionUser(session)
+	if u == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
 
 	// 充值
-	event := NewUserRechargeEvent(user, user.Account(), tmsg.GetToken(), tmsg.GetAmount(), RequestRecharge)
-	user.AsynEventInsert(event)
+	event := NewUserRechargeEvent(u, u.Account(), tmsg.GetToken(), tmsg.GetAmount(), RequestRecharge)
+	u.AsynEventInsert(event)
 }
 
 // 玩家充值完成(大厅和房间都自己获取金币返回)
 func on_C2GW_PlatformRechargeDone(session network.IBaseNetSession, message interface{}) {
 	//tmsg := message.(*msg.C2GW_PlatformRechargeDone)
-	user := ExtractSessionUser(session)
-	if user == nil {
+	u := ExtractSessionUser(session)
+	if u == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
 
 	// 游戏中
-	//if user.IsInRoom() {
-	//	user.SendRoomMsg(tmsg)
+	//if u.IsInRoom() {
+	//	u.SendRoomMsg(tmsg)
 	//	return
 	//}
-	//log.Error("玩家[%s %d]收到充值完成通知但玩家不在房间中", user.Name(), user.Id())
-	//user.SynMidasBalance()
+	//log.Error("玩家[%s %d]收到充值完成通知但玩家不在房间中", u.Name(), u.Id())
+	//u.SynMidasBalance()
 }
 
 // 绑定微信openid
 func on_C2GW_SendWechatAuthCode(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_SendWechatAuthCode)
-	user := ExtractSessionUser(session)
-	if user == nil {
+	u := ExtractSessionUser(session)
+	if u == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
-	log.Info("玩家[%d] 获取access_token 微信授权code[%s]", user.Id(), tmsg.GetCode())
+	log.Info("玩家[%d] 获取access_token 微信授权code[%s]", u.Id(), tmsg.GetCode())
 
 	//获取用户access_token 和 openid
 	appid, secret, code := tbl.Global.Wechat.AppID, tbl.Global.Wechat.AppSecret, tmsg.GetCode()
@@ -390,7 +393,7 @@ func on_C2GW_SendWechatAuthCode(session network.IBaseNetSession, message interfa
 		appid, secret, code)
 	resp, errcode := network.HttpGet(url)
 	if errcode != nil || resp == nil {
-		log.Error("玩家[%d] 获取access_token失败 HttpGet失败[%s]", user.Id(), errcode)
+		log.Error("玩家[%d] 获取access_token失败 HttpGet失败[%s]", u.Id(), errcode)
 		return
 	}
 
@@ -401,12 +404,12 @@ func on_C2GW_SendWechatAuthCode(session network.IBaseNetSession, message interfa
 	var respfail RespFail
 	unerror := json.Unmarshal(resp.Body, &respfail)
 	if unerror != nil {
-		log.Info("玩家[%d] 获取access_token失败 json.Unmarshal Object Fail[%s] ", user.Id(), unerror)
+		log.Info("玩家[%d] 获取access_token失败 json.Unmarshal Object Fail[%s] ", u.Id(), unerror)
 		return
 	}
 
 	if respfail.Errcode != 0 && respfail.Errmsg != "" {
-		log.Error("玩家[%d] 获取access_token失败， resp.errcode=%d resp.errmsg=%s", user.Id(), respfail.Errcode, respfail.Errmsg)
+		log.Error("玩家[%d] 获取access_token失败， resp.errcode=%d resp.errmsg=%s", u.Id(), respfail.Errcode, respfail.Errmsg)
 		return
 	}
 
@@ -421,46 +424,46 @@ func on_C2GW_SendWechatAuthCode(session network.IBaseNetSession, message interfa
 	var respok RespOk
 	unerror = json.Unmarshal(resp.Body, &respok)
 	if unerror != nil {
-		log.Info("玩家[%d] 获取access_token失败 json.Unmarshal Object Fail[%s] ", user.Id(), unerror)
+		log.Info("玩家[%d] 获取access_token失败 json.Unmarshal Object Fail[%s] ", u.Id(), unerror)
 		return
 	}
-	log.Info("玩家[%d] 获取access_token成功, respok=%#v", user.Id(), respok)
+	log.Info("玩家[%d] 获取access_token成功, respok=%#v", u.Id(), respok)
 
 	//
-	if user.OpenId() == "" {
-		if _, errset := Redis().Set(fmt.Sprintf("user_%d_wechat_openid", user.Id()), respok.Openid, 0).Result(); errset != nil {
-			log.Info("玩家[%d] 设置wechat openid到redis失败", user.Id())
+	if u.OpenId() == "" {
+		if _, errset := Redis().Set(fmt.Sprintf("user_%d_wechat_openid", u.Id()), respok.Openid, 0).Result(); errset != nil {
+			log.Info("玩家[%d] 设置wechat openid到redis失败", u.Id())
 			return
 		}
-		user.SetOpenId(respok.Openid)
+		u.SetOpenId(respok.Openid)
 		send := &msg.GW2C_SendWechatInfo{Openid: pb.String(respok.Openid)}
-		user.SendMsg(send)
+		u.SendMsg(send)
 
 		// 转账给新用户
 		//def.HttpWechatCompanyPay(respok.Openid, 1, "绑定微信奖励")
 
 		// 完成任务
-		log.Info("玩家[%d] 绑定wechat openid[%s]", user.Id(), respok.Openid)
+		log.Info("玩家[%d] 绑定wechat openid[%s]", u.Id(), respok.Openid)
 	}
 }
 
 // 抽奖
 func on_C2GW_StartLuckyDraw(session network.IBaseNetSession, message interface{}) {
 	//tmsg := message.(*msg.C2GW_StartLuckyDraw)
-	user := ExtractSessionUser(session)
-	if user == nil {
+	u := ExtractSessionUser(session)
+	if u == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
 
-	if user.IsInRoom() {
-		//user.SendRoomMsg(tmsg)
-		user.SendNotify("游戏中不能抽奖")
+	if u.IsInRoom() {
+		//u.SendRoomMsg(tmsg)
+		u.SendNotify("游戏中不能抽奖")
 		return
 	}
 
-	user.LuckyDraw()
+	u.LuckyDraw()
 }
 
 // --------------------------------------------------------------------------
@@ -469,92 +472,92 @@ func on_C2GW_StartLuckyDraw(session network.IBaseNetSession, message interface{}
 // --------------------------------------------------------------------------
 func on_C2GW_ChangeDeliveryAddress(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_ChangeDeliveryAddress)
-	user := ExtractSessionUser(session)
-	if user == nil {
+	u := ExtractSessionUser(session)
+	if u == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
 
-	user.ClearAddress()
+	u.ClearAddress()
 	Addr := tmsg.GetInfo()
-	user.AddAddress(Addr.GetReceiver(), Addr.GetPhone(), Addr.GetAddress())
-	user.SendAddress()
-	user.SendNotify("设置成功")
-	log.Info("玩家[%s %d] 修改收货地址，新地址[%s %s %s]", user.Name(), user.Id(), Addr.GetReceiver(), Addr.GetPhone(), Addr.GetAddress())
+	u.AddAddress(Addr.GetReceiver(), Addr.GetPhone(), Addr.GetAddress())
+	u.SendAddress()
+	u.SendNotify("设置成功")
+	log.Info("玩家[%s %d] 修改收货地址，新地址[%s %s %s]", u.Name(), u.Id(), Addr.GetReceiver(), Addr.GetPhone(), Addr.GetAddress())
 }
 
 func on_C2GW_GoldExchange(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_GoldExchange)
-	user := ExtractSessionUser(session)
-	if user == nil {
+	u := ExtractSessionUser(session)
+	if u == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
 
-	//if user.IsInRoom() {
-	//	user.SendRoomMsg(tmsg)
+	//if u.IsInRoom() {
+	//	u.SendRoomMsg(tmsg)
 	//	return
 	//}
 
 	// 兑换
 	diamonds := tmsg.GetDiamonds()
 	if diamonds < 0 {
-		user.SendNotify("钻石数量不能是0")
+		u.SendNotify("钻石数量不能是0")
 		return
 	}
 
-	if user.GetDiamond() < diamonds {
-		user.SendNotify("钻石不足")
+	if u.GetDiamond() < diamonds {
+		u.SendNotify("钻石不足")
 		return
 	}
 
 	gold := int32(tbl.Game.DiamondToCoins) * diamonds
-	user.RemoveDiamond(diamonds, "钻石兑换金币", true)
-	user.AddGold(gold, "钻石兑换金币", false)
+	u.RemoveDiamond(diamonds, "钻石兑换金币", true)
+	u.AddGold(gold, "钻石兑换金币", false)
 
 	send := &msg.GW2C_RetGoldExchange{Gold: pb.Int32(gold)}
-	user.SendMsg(send)
+	u.SendMsg(send)
 
 }
 
 // 请求激活事件
 func on_C2GW_ReqEnterEvents(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_ReqEnterEvents)
-	user := ExtractSessionUser(session)
-	if user == nil {
+	u := ExtractSessionUser(session)
+	if u == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
-	user.events.EnterEvent(tmsg.GetUid())
+	u.events.EnterEvent(tmsg.GetUid())
 }
 
 // 请求激活事件
 func on_C2GW_LeaveEvent(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_LeaveEvent)
-	user := ExtractSessionUser(session)
-	if user == nil {
+	u := ExtractSessionUser(session)
+	if u == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
-	user.events.LeaveEvent(tmsg.GetUid())
+	u.events.LeaveEvent(tmsg.GetUid())
 }
 
 func on_C2GW_ReqTaskList(session network.IBaseNetSession, message interface{}) {
 	//tmsg := message.(*msg.C2GW_ReqTaskList)
-	user := ExtractSessionUser(session)
-	if user == nil {
+	u := ExtractSessionUser(session)
+	if u == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
 
-	//if user.IsInRoom() {
-	//	user.SendNotify("正在游戏中")
+	//if u.IsInRoom() {
+	//	u.SendNotify("正在游戏中")
 	//	return
 	//}
-	user.task.SendTaskList()
+	u.task.SendTaskList()
 }

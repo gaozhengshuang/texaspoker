@@ -378,27 +378,16 @@ func (this *GateUser) OnLoadDB(way string) {
 	}
 
 	// proto对象变量初始化
-	if this.bin.Base == nil {
-		this.bin.Base = &msg.UserBase{}
-	}
-	if this.bin.Base.Wechat == nil {
-		this.bin.Base.Wechat = &msg.UserWechat{}
-	}
-	if this.bin.Item == nil {
-		this.bin.Item = &msg.ItemBin{}
-	}
-	if this.bin.Base.Addrlist == nil {
-		this.bin.Base.Addrlist = make([]*msg.UserAddress, 0)
-	}
-	if this.bin.Base.Task == nil {
-		this.bin.Base.Task = &msg.UserTask{}
-	}
-	if this.bin.Base.Luckydraw == nil {
-		this.bin.Base.Luckydraw = &msg.LuckyDrawRecord{Drawlist: make([]*msg.LuckyDrawItem, 0)}
-	}
-	//if this.bin.Base.Images == nil {
-	//	this.bin.Base.Images = &msg.PersonalImage{Lists: make([]*msg.ImageData, 0)}
-	//}
+	if this.bin.Base == nil { this.bin.Base = &msg.UserBase{} }
+	if this.bin.Base.Misc == nil { this.bin.Base.Misc = &msg.UserMiscData{} }
+	if this.bin.Base.Statics == nil { this.bin.Base.Statics = &msg.UserStatistics{} }
+	if this.bin.Base.Sign == nil { this.bin.Base.Sign = &msg.UserSignIn{} }
+	if this.bin.Base.Wechat == nil { this.bin.Base.Wechat = &msg.UserWechat{} }
+	if this.bin.Item == nil { this.bin.Item = &msg.ItemBin{} }
+	if this.bin.Base.Addrlist == nil { this.bin.Base.Addrlist = make([]*msg.UserAddress, 0) }
+	if this.bin.Base.Task == nil { this.bin.Base.Task = &msg.UserTask{} }
+	if this.bin.Base.Luckydraw == nil { this.bin.Base.Luckydraw = &msg.LuckyDrawRecord{Drawlist: make([]*msg.LuckyDrawItem, 0)} }
+	//if this.bin.Base.Images == nil { this.bin.Base.Images = &msg.PersonalImage{Lists: make([]*msg.ImageData, 0)} }
 
 	// 加载二进制
 	this.LoadBin()
@@ -423,22 +412,26 @@ func (this *GateUser) PackBin() *msg.Serialize {
 	//bin.Base.Wechat = &msg.UserWechat{}
 	//bin.Base.Addrlist = make([]*msg.UserAddress,0)
 
+	entity := bin.Entity
+	entity.Gold = pb.Int32(this.gold)
+	entity.Diamond = pb.Int32(this.diamond)
+	entity.Yuanbao = pb.Int32(this.yuanbao)
+	entity.Level = pb.Int32(this.level)
+	entity.Exp = pb.Int32(this.exp)
+
+
 	userbase := bin.GetBase()
-	userbase.Tmlogin = pb.Int64(this.tm_login)
-	userbase.Tmlogout = pb.Int64(this.tm_logout)
-	userbase.Gold = pb.Int32(this.gold)
-	userbase.Diamond = pb.Int32(this.diamond)
-	userbase.Yuanbao = pb.Int32(this.yuanbao)
-	userbase.Level = pb.Int32(this.level)
-	userbase.Exp = pb.Int32(this.exp)
-	userbase.Continuelogin = pb.Int32(this.continuelogin)
-	userbase.Nocountlogin = pb.Int32(this.nocountlogin)
-	userbase.Signreward = pb.Int32(this.signreward)
-	userbase.Signtime = pb.Int32(this.signtime)
+	userbase.Statics.Tmlogin = pb.Int64(this.tm_login)
+	userbase.Statics.Tmlogout = pb.Int64(this.tm_logout)
+	userbase.Statics.Continuelogin = pb.Int32(this.continuelogin)
+	userbase.Statics.Nocountlogin = pb.Int32(this.nocountlogin)
+	userbase.Statics.Totalrecharge = pb.Int32(this.totalrecharge)
+	userbase.Sign.Signreward = pb.Int32(this.signreward)
+	userbase.Sign.Signtime = pb.Int32(this.signtime)
+	userbase.Misc.Invitationcode = pb.String(this.invitationcode)
+
 	userbase.Addrlist = this.addrlist[:]
 	userbase.Wechat.Openid = pb.String(this.wechatopenid)
-	userbase.Invitationcode = pb.String(this.invitationcode)
-	userbase.TotalRecharge = pb.Int32(this.totalrecharge)
 	// 幸运抽奖
 	userbase.Luckydraw.Drawlist = make([]*msg.LuckyDrawItem, 0)
 	userbase.Luckydraw.Totalvalue = pb.Int64(this.luckydrawtotal)
@@ -462,22 +455,25 @@ func (this *GateUser) LoadBin() {
 	// 基础信息
 
 	// 玩家信息
-	userbase := this.bin.GetBase()
-	this.tm_login = userbase.GetTmlogin()
-	this.tm_logout = userbase.GetTmlogout()
-	this.gold = userbase.GetGold()
-	this.diamond = userbase.GetDiamond()
-	this.yuanbao = userbase.GetYuanbao()
-	this.level = userbase.GetLevel()
-	this.exp = userbase.GetExp()
-	this.continuelogin = userbase.GetContinuelogin()
-	this.nocountlogin = userbase.GetNocountlogin()
-	this.signreward = userbase.GetSignreward()
-	this.signtime = userbase.GetSigntime()
+	userbase, entity := this.bin.GetBase(), this.bin.GetEntity()
+	this.gold = entity.GetGold()
+	this.diamond = entity.GetDiamond()
+	this.yuanbao = entity.GetYuanbao()
+	this.level = entity.GetLevel()
+	this.exp = entity.GetExp()
+
+	this.tm_login = userbase.Statics.GetTmlogin()
+	this.tm_logout = userbase.Statics.GetTmlogout()
+	this.continuelogin = userbase.Statics.GetContinuelogin()
+	this.nocountlogin = userbase.Statics.GetNocountlogin()
+	this.totalrecharge = userbase.Statics.GetTotalrecharge()
+
+	this.signreward = userbase.Sign.GetSignreward()
+	this.signtime = userbase.Sign.GetSigntime()
+	this.invitationcode = userbase.Misc.GetInvitationcode()
+
 	this.addrlist = userbase.GetAddrlist()[:]
 	this.wechatopenid = userbase.GetWechat().GetOpenid()
-	this.invitationcode = userbase.GetInvitationcode()
-	this.totalrecharge = userbase.GetTotalRecharge()
 	// 幸运抽奖
 	this.luckydraw = make([]*msg.LuckyDrawItem, 0)
 	this.luckydrawtotal = userbase.Luckydraw.GetTotalvalue()
@@ -581,9 +577,7 @@ func (this *GateUser) OnDisconnect() {
 	this.online = false
 	this.client = nil
 	this.tm_disconnect = util.CURTIMEMS()
-	if this.IsInRoom() == true {
-		this.SendRsUserDisconnect()
-	}
+	this.SendRsUserDisconnect()
 	this.AsynSave()
 	//this.PlatformPushUserOnlineTime()
 }
@@ -598,9 +592,7 @@ func (this *GateUser) KickOut(way string) {
 	this.client.Close()
 	this.client = nil
 	this.tm_disconnect = util.CURTIMEMS()
-	if this.IsInRoom() == true {
-		this.SendRsUserDisconnect()
-	}
+	this.SendRsUserDisconnect()
 	this.AsynSave()
 	//this.PlatformPushUserOnlineTime()
 }

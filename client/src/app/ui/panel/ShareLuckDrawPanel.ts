@@ -144,7 +144,7 @@ class ShareLuckDrawPanel extends BaseActivityPanel
     */
     private reqResultInfo()
     {
-        ActivityManager.reqActionRecord(this.activityInfo.id, ProjectDefined.GetInstance().shareResultNumLimit, 0);
+        ActivityManager.reqActionRecord(this.activityInfo.id, ProjectDefined.shareResultNumLimit, 0);
     }
     /**
      * 请求中奖结果成功
@@ -324,9 +324,9 @@ class ShareLuckDrawPanel extends BaseActivityPanel
     {
         if (this.resultList)
         {
-            if (this.resultList.length >= ProjectDefined.GetInstance().shareResultNumLimit)
+            if (this.resultList.length >= ProjectDefined.shareResultNumLimit)
             {
-                this.resultList.splice(ProjectDefined.GetInstance().shareResultNumLimit - 1, 1);
+                this.resultList.splice(ProjectDefined.shareResultNumLimit - 1, 1);
             }
         } else
         {

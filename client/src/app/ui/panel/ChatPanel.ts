@@ -87,7 +87,7 @@ class ChatPanel extends BasePanel
     protected onRender(event: egret.Event)
     {
         super.onRender(event);
-        if ((SceneManager.sceneType == SceneType.Game && GamblingManager.self) || (SceneManager.sceneType == SceneType.HundredWar && HundredWarManager.getPlayerInfo(UserManager.userInfo.roleId)))
+        if ((SceneManager.sceneType == SceneType.Game && GamblingManager.self) || (SceneManager.sceneType == SceneType.HundredWar && HundredWarManager.getPlayerInfo(UserManager.userInfo.id)))
         {
             this.disGroup.visible = false;
         } else
@@ -311,7 +311,7 @@ class ChatPanel extends BasePanel
         this.fastEnterTB.selected = false;
         this.resetHorn();
         //判断玩家是否处于坐下状态
-        if ((SceneManager.sceneType == SceneType.Game && GamblingManager.self) || (SceneManager.sceneType == SceneType.HundredWar && HundredWarManager.getPlayerInfo(UserManager.userInfo.roleId))) 
+        if ((SceneManager.sceneType == SceneType.Game && GamblingManager.self) || (SceneManager.sceneType == SceneType.HundredWar && HundredWarManager.getPlayerInfo(UserManager.userInfo.id))) 
         {
             this.disGroup.visible = false;
         } else

@@ -2,11 +2,16 @@ syntax = "proto2";
 package msg;
 
 message EntityBase {
-    optional int64 id       = 1;
+    optional int64  id      = 1;
     optional string name    = 2;
     optional string head    = 3;
     optional int32  sex     = 4;
     optional string account = 5;
+    optional int32  level   = 6;
+    optional int32  exp     = 7;
+    optional int32  gold    = 8;        // 金币
+    optional int32  diamond = 9;        // 钻石
+    optional int32  yuanbao = 10;       // 元宝
 }
 
 // 简单计数器
@@ -65,27 +70,36 @@ message UserMapEvent {
     optional int64 tmrefresh = 2;   // 刷新时间(服务器使用)
 }
 
-message UserBase {
-    optional int32      level   = 1;
-    optional int32      exp     = 2;
-    optional int32      gold    = 3;        // 金币
-    optional int32      diamond = 4;        // 钻石
-    optional int32      yuanbao = 5;        // 元宝
-    optional int64      tmlogin  = 6;       // 登陆时间
-    optional int64      tmlogout = 7;       // 离线时间
-    optional int32      continuelogin = 8;  // 连续登陆
-    optional int32      nocountlogin = 9;   // 不统计
-    optional int32      signreward  = 10;   // 签到
-    optional int32      signtime    = 11;   // 签到时间
-    optional string     invitationcode = 12;    // 邀请码
-    optional int32      total_recharge = 13;    // 总充值
+// 签到
+message UserSignIn {
+    optional int32 signreward  = 1;    // 签到
+    optional int32 signtime    = 2;    // 签到时间
+}
 
-    repeated UserAddress addrlist   = 31;   // 地址列表
-    optional SimpleCounter scounter = 32;   // 简单计数器
-    optional UserWechat wechat = 33;        //
-    optional UserTask   task = 34;              // 任务
-    optional LuckyDrawRecord luckydraw = 35;    // 抽奖
-    optional UserMapEvent mapevent = 36;        // 地图事件
+// 个人统计
+message UserStatistics {
+    optional int64 tmlogin  = 1;       // 登陆时间
+    optional int64 tmlogout = 2;       // 离线时间
+    optional int32 continuelogin = 3;  // 连续登陆
+    optional int32 nocountlogin = 4;   // 不统计
+    optional int32 totalrecharge = 5;  // 总充值
+}
+
+// 杂项数据
+message UserMiscData {
+    optional string invitationcode = 3; // 邀请码
+}
+
+message UserBase {
+    optional UserMiscData misc = 1;
+    optional UserStatistics statics = 2;
+    optional UserSignIn sign = 3;
+    repeated UserAddress addrlist   = 4;   // 地址列表
+    optional SimpleCounter scounter = 5;   // 简单计数器
+    optional UserWechat wechat = 6;        // 微信
+    optional UserTask task = 7;            // 任务
+    optional LuckyDrawRecord luckydraw = 8;// 抽奖
+    optional UserMapEvent mapevent = 9;    // 地图事件
 }
 
 message UserAddress {

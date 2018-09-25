@@ -75,7 +75,7 @@ class PollingRequest
 	public changeAdressIndex()
 	{
 		this._addressIndex++;
-		if (this._addressIndex > ProjectDefined.GetInstance().pollingLimit)
+		if (this._addressIndex > ProjectDefined.pollingLimit)
 		{
 			this._addressIndex = 0;
 		}
@@ -86,7 +86,7 @@ class PollingRequest
 		{
 			this.changeAdressIndex();
 			this._connectTimes++;
-			if (this._connectTimes > ProjectDefined.GetInstance().pollingLimit)
+			if (this._connectTimes > ProjectDefined.pollingLimit)
 			{
 				this._connectTimes = 0;
 				this.isTimeout = true;

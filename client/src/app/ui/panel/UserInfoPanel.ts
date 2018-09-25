@@ -114,7 +114,7 @@ class UserInfoPanel extends BasePanel
 	{
 		super.onRender(event);
 		let otherUserInfo: UserInfo = UserManager.otherUserInfo;
-		if (otherUserInfo == null || otherUserInfo.roleId == UserManager.userInfo.roleId)
+		if (otherUserInfo == null || otherUserInfo.id == UserManager.userInfo.id)
 		{
 			if (otherUserInfo == null)
 			{
@@ -155,7 +155,7 @@ class UserInfoPanel extends BasePanel
 		this.goldNumLabel.text = game.MathUtil.numAddSpace(info.gold);
 		this.refreshUserInfo(info);
 		this.refreshOtherVipInfo(info);
-		this.userIdLabel.text = info.roleId.toString();
+		this.userIdLabel.text = info.id.toString();
 		this.levelLabel.text = info.level.toString();
 		this.titleLabel.text = UserUtil.getTitle(info.level);
 		this.levelProgressImg.width = 340;
@@ -180,11 +180,11 @@ class UserInfoPanel extends BasePanel
 			case UserState.InGamePerson:
 			case UserState.InOmaha:
 			case UserState.InOmahaPerson:
-				let roomDef: RoomDefinition = RoomDefined.GetInstance().getDefinition(info.stateConfId);
+				let roomDef:table.ITexasRoomDefine = table.TexasRoomById[info.stateConfId];
 				if (roomDef)
 				{
-					let patternName: string = PlayingFieldManager.getPatternName(roomDef.type);
-					this.stateLabel.text = game.StringUtil.format("在{0}：{1}，{2}买入", patternName, PlayingFieldManager.roomIdAddZero(info.stateId), game.MathUtil.formatNum(roomDef.sBuyin));
+					let patternName: string = PlayingFieldManager.getPatternName(roomDef.Type);
+					this.stateLabel.text = game.StringUtil.format("在{0}：{1}，{2}买入", patternName, PlayingFieldManager.roomIdAddZero(info.stateId), game.MathUtil.formatNum(roomDef.SBuyin));
 				}
 				break;
 			case UserState.InMatch:
@@ -364,13 +364,13 @@ class UserInfoPanel extends BasePanel
 				SoundManager.playButtonEffect(event.target);
 				if (UserManager.otherUserInfo)
 				{
-					FriendManager.reqAddPlayer(UserManager.otherUserInfo.roleId);
+					FriendManager.reqAddPlayer(UserManager.otherUserInfo.id);
 				}
 				this.requestBtn.enabled = false;
 				break;
 			case this.closeButton:
 				SoundManager.playButtonEffect(event.target);
-				if (this.userinfo.roleId == UserManager.userInfo.roleId)
+				if (this.userinfo.id == UserManager.userInfo.id)
 				{
 					this.reqSaveSign();
 				}
@@ -393,7 +393,7 @@ class UserInfoPanel extends BasePanel
 	{
 		if (UserManager.otherUserInfo)
 		{
-			FriendManager.reqRemovePlayer(UserManager.otherUserInfo.roleId);
+			FriendManager.reqRemovePlayer(UserManager.otherUserInfo.id);
 		}
 	}
 
@@ -431,7 +431,7 @@ class UserInfoPanel extends BasePanel
 			this.buyUserGiftBtn.label = this.buyGiftBtn.label = "赠送礼物";
 			this.buyUserItemBtn.label = "赠送道具";
 			this.buyVipBtn.label = "赠送VIP";
-			if (FriendManager.isFriend(UserManager.otherUserInfo.roleId))
+			if (FriendManager.isFriend(UserManager.otherUserInfo.id))
 			{
 				this.myPrizeBtn.visible = false;
 				this.deleteFriendBtn.visible = true;

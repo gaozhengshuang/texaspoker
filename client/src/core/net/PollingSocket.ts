@@ -9,6 +9,11 @@ class PollingSocket
 	private _type: number;
 	private _initAdress: string;
 
+	public get initAdress():string
+	{
+		return this._initAdress;
+	}
+
 	public address: string;
 	public port: number;
 	public get isTimeout(): boolean
@@ -88,7 +93,7 @@ class PollingSocket
 	 */
 	private setLoginAdressPort()
 	{
-		this.address = ProjectDefined.GetInstance().getLoginAddress(this._pollingRequest.isIntranet);
+		this.address = ProjectDefined.getLoginAddress(this._pollingRequest.isIntranet);
 		if (this._pollingRequest.isPolling)
 		{
 			let index: number = this._pollingRequest.addressIndex;
@@ -99,14 +104,14 @@ class PollingSocket
 			}
 			this.address = this.address.replace(game.StringConstants.Asterisk, repStr);
 		}
-		this.port = ProjectDefined.GetInstance().getLoginPort(this._pollingRequest.isIntranet, VersionManager.isServerTest);
+		this.port = ProjectDefined.getLoginPort(this._pollingRequest.isIntranet, VersionManager.isServerTest);
 	}
 	/**
 	 * 设置游戏地址
 	 */
 	private setGameAdress()
 	{
-		this.address = ProjectDefined.GetInstance().getLoginAddress(this._pollingRequest.isIntranet);
+		this.address = ProjectDefined.getLoginAddress(this._pollingRequest.isIntranet);
 		if (this._pollingRequest.isPolling)
 		{
 			let index: number = this._pollingRequest.addressIndex;

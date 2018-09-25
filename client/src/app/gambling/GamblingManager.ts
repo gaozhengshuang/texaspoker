@@ -120,7 +120,7 @@ class GamblingManager
 		{
 			for (let i: number = 0; i < GamblingManager.roomInfo.playerList.length; i++)
 			{
-				if (GamblingManager.roomInfo.playerList[i].roleId == UserManager.userInfo.roleId)
+				if (GamblingManager.roomInfo.playerList[i].roleId == UserManager.userInfo.id)
 				{
 					return true;
 				}
@@ -362,7 +362,7 @@ class GamblingManager
 			{
 				for (let pInfo of GamblingManager.roomInfo.playerList)
 				{
-					if (pInfo.roleId == UserManager.userInfo.roleId)
+					if (pInfo.roleId == UserManager.userInfo.id)
 					{
 						GamblingManager._isOnSeat = true;
 					}
@@ -376,10 +376,10 @@ class GamblingManager
 			//设置计时奖励数据	
 			if (result.data.roomId)
 			{
-				let roomDef: RoomDefinition = RoomDefined.GetInstance().getDefinition(result.data.roomId);
+				let roomDef:table.ITexasRoomDefine = table.TexasRoomById[result.data.roomId];
 				if (roomDef)
 				{
-					this.timeAwardHandler.reqGetTimeAwardInfo(roomDef.type);
+					this.timeAwardHandler.reqGetTimeAwardInfo(roomDef.Type);
 				}
 			}
 			GamblingManager.gamblingReviewHandler.isNewRound = true;
@@ -552,7 +552,7 @@ class GamblingManager
 
 				if (playerInfo)
 				{
-					if (playerInfo.roleId == UserManager.userInfo.roleId) //站起需要清空自己的信息
+					if (playerInfo.roleId == UserManager.userInfo.id) //站起需要清空自己的信息
 					{
 						GamblingManager.standClear();
 					}
@@ -571,7 +571,7 @@ class GamblingManager
 		if (result.data)
 		{
 			let roleId: number = result.data["roleId"];
-			if (roleId == UserManager.userInfo.roleId)
+			if (roleId == UserManager.userInfo.id)
 			{
 				GamblingManager.isCallAny = false;
 				GamblingManager.isCheckOrFold = false;
@@ -1177,7 +1177,7 @@ class GamblingManager
 			{
 				GamblingManager._isOnGetUserInfo = false;
 				GamblingManager._getUserInfoQueue[0].userInfo = new UserInfo(result.data);
-				GamblingManager.OnGetRoomUserInfoEvent.dispatch(GamblingManager._getUserInfoQueue[0].userInfo.roleId);
+				GamblingManager.OnGetRoomUserInfoEvent.dispatch(GamblingManager._getUserInfoQueue[0].userInfo.id);
 
 				GamblingManager._getUserInfoQueue.shift();
 				if (result.data)
@@ -1246,7 +1246,7 @@ class GamblingManager
 	{
 		if (!GamblingManager._self)
 		{
-			GamblingManager._self = GamblingManager.getPlayerInfo(UserManager.userInfo.roleId);
+			GamblingManager._self = GamblingManager.getPlayerInfo(UserManager.userInfo.id);
 		}
 		return GamblingManager._self;
 	}

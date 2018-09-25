@@ -131,7 +131,7 @@ class UserManager
 				else
 				{
 					UserManager.otherUserInfo.vipType = VipManager.getVipType(UserManager.otherUserInfo.vipTime, UserManager.otherUserInfo.yearVipTime);
-					UserManager.otherUserInfo.vipSpeed = ProjectDefined.GetInstance().getVipSpeedDefinition(UserManager.otherUserInfo.vipType).speed;
+					UserManager.otherUserInfo.vipSpeed = ProjectDefined.getVipSpeedDefinition(UserManager.otherUserInfo.vipType).speed;
 					UserManager.getOtherUserInfoEa.dispatch();
 				}
 			}
@@ -149,10 +149,10 @@ class UserManager
 				UserManager.otherUserInfo.copyValueFrom(result.data);
 				AchievementManager.reqUserAchieveList(UserManager.otherUserInfo);
 				UserManager.otherUserInfo.vipType = VipManager.getVipType(UserManager.otherUserInfo.vipTime, UserManager.otherUserInfo.yearVipTime);
-				UserManager.otherUserInfo.vipSpeed = ProjectDefined.GetInstance().getVipSpeedDefinition(UserManager.otherUserInfo.vipType).speed;
+				UserManager.otherUserInfo.vipSpeed = ProjectDefined.getVipSpeedDefinition(UserManager.otherUserInfo.vipType).speed;
 				UserManager.getOtherUserInfoEa.dispatch();
 			}
-			if (FriendManager.isFriend(UserManager.otherUserInfo.roleId))
+			if (FriendManager.isFriend(UserManager.otherUserInfo.id))
 			{
 				UIManager.showPanel(UIModuleName.UserInfoPanel);
 			}

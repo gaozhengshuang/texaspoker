@@ -4,7 +4,7 @@
 class SocketManager
 {
 	private static ResetRoleInfoErrorCode: number = 201;//重新获取角色数据错误码
-	private static HeartbeatInterval: number = 60000;//心跳包发送间隔时间，60秒
+	private static HeartbeatInterval: number = 3000;//心跳包发送间隔时间，60秒
 	private static _ignoreError: Array<number>;
 	private static _lastSendTime: number;
 	/**
@@ -64,7 +64,7 @@ class SocketManager
 	private static _autoReconnect: boolean = false;//是自动重连
 	private static _delayId: number = undefined;
 
-	public static Initialize(userId: number, roleId: number, serverId: number, secret: string, session: number, msgType: string = egret.WebSocket.TYPE_BINARY)
+	private static Initialize(msgType: string = egret.WebSocket.TYPE_BINARY)
 	{
 		SocketManager._isReconnecting = false;
 		if (!SocketManager._socket)
@@ -72,7 +72,7 @@ class SocketManager
 			SocketManager._socket = new game.GameSocket();
 			SocketManager._socket.enabledErrorCode = (SocketManager._isEntering == false);
 			SocketManager._socket.addNormalError(SocketManager.ResetRoleInfoErrorCode);
-			SocketManager._socket.initialize(userId, roleId, serverId, secret, session, msgType);
+			SocketManager._socket.initialize(msgType);
 			SocketManager._socket.AddMessageListener(SocketManager.OnMessage, this);
 		}
 		game.Tick.AddSecondsInvoke(SocketManager.tickHnadler, this);
@@ -81,7 +81,7 @@ class SocketManager
 	{
 		if (SocketManager._lastSendTime != undefined)
 		{
-			let out: number = ProjectDefined.GetInstance().getValue(ProjectDefined.onTimeOut);
+			let out: number = ProjectDefined.onTimeOut;
 			if (out == undefined || out <= 0)
 			{
 				out = 15000;
@@ -93,13 +93,6 @@ class SocketManager
 				SocketManager.OnLoadingTimeout();
 			}
 		}
-	}
-	/// <summary>
-	/// 角色id(是在握手包返回的，从这里取)
-	/// </summary>
-	public static get roleId(): number
-	{
-		return SocketManager._socket.roleId;
 	}
 	/**
  	* 获取服务器推送的最大session
@@ -144,6 +137,7 @@ class SocketManager
 	 */
 	public static pollingConnect(adress: string, port?: number, isShowLoading: boolean = true)
 	{
+		this.Initialize();
 		if (!SocketManager._connectHandler)
 		{
 			SocketManager._connectHandler = new PollingSocket(2, game.Delegate.getOut(SocketManager.Connect, this), game.Delegate.getOut(SocketManager.OnLoadingTimeout, this));
@@ -174,7 +168,7 @@ class SocketManager
 		}
 		else
 		{
-			SocketManager._socket.Connect(SocketManager._connectHandler.address);
+			SocketManager._socket.Connect(SocketManager._connectHandler.initAdress); //不用轮训 todo
 		}
 	}
 	/// <summary>
@@ -466,7 +460,7 @@ class SocketManager
 		if (result.op == game.SpRpcOp.Response)
 		{
 			//客户端请求的返回
-			SocketManager._heartbeatTime = egret.getTimer();
+			// SocketManager._heartbeatTime = egret.getTimer(); //move todo
 			UIManager.closePanel(UIModuleName.LoadingPanel);
 			if (result.error != 0)
 			{
@@ -666,16 +660,17 @@ class SocketManager
 	{
 		game.Tick.RemoveSecondsInvoke(SocketManager.OnTickHeartbeat, this);
 	}
-	private static OnTickHeartbeat(delta: number)
+	private static OnTickHeartbeat()
 	{
 		if (egret.getTimer() - SocketManager._heartbeatTime >= SocketManager.HeartbeatInterval)
 		{
 			SocketManager._heartbeatTime = egret.getTimer();
-			SocketManager._socket.SimpleCall(Command.System_Heartbeat_3016, { sessionId: SocketManager._socket.requestSessionMax }, SocketManager.OnHeartbeatServer, null, this);
+			SocketManager._socket.SimpleCall("msg.C2GW_HeartBeat", msg.C2GW_HeartBeat.encode({}), SocketManager.OnHeartbeatServer, null, this);
+			// SocketManager._socket.SimpleCall(Command.C2GW_HeartBeat, { sessionId: SocketManager._socket.requestSessionMax }, SocketManager.OnHeartbeatServer, null, this);
 		}
 	}
 	private static OnHeartbeatServer(result: game.SpRpcResult)
 	{
-		TimeManager.SetServerTimestamp(result.data);
+		TimeManager.SetServerTimestamp((result.data as msg.GW2C_HeartBeat).time);
 	}
 }

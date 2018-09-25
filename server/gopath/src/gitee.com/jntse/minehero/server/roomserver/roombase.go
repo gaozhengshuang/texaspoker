@@ -1,9 +1,11 @@
 package main
 import (
+	"fmt"
 	pb "github.com/gogo/protobuf/proto"
 
 	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/gotoolkit/net"
+	"gitee.com/jntse/gotoolkit/log"
 
 	"gitee.com/jntse/minehero/pbmsg"
 )
@@ -26,10 +28,13 @@ type IRoomBase interface {
 
 	SendUserMsg(userid int64, msg pb.Message)
 	SendGateMsg(userid int64, msg pb.Message)
-	BroadCastUserMsg(msg pb.Message, except ...int64)
-	BroadCastGateMsg(msg pb.Message, except ...int64)
+	BroadCastMemberGateMsg(msg pb.Message, except ...int64)
+	BroadCastMemberMsg(msg pb.Message, except ...int64)
 	BroadCastWatcherMsg(msg pb.Message, except ...int64)
+	BroadCastRoomMsg(msg pb.Message, except ...int64)
 
+	DoCache()
+	RmCache()
 	Destory(delay int64)
 	IsDestory(now int64) bool
 	OnDestory(now int64)
@@ -95,7 +100,7 @@ func (r *RoomBase) SendUserMsg(userid int64, m pb.Message) {
 	}
 }
 
-func (r *RoomBase) BroadCastGateMsg(m pb.Message, except ...int64) {
+func (r *RoomBase) BroadCastMemberGateMsg(m pb.Message, except ...int64) {
 	memloop:
 	for id, u := range r.members {
 		for _, exc := range except {
@@ -105,7 +110,7 @@ func (r *RoomBase) BroadCastGateMsg(m pb.Message, except ...int64) {
 	}
 }
 
-func (r *RoomBase) BroadCastUserMsg(m pb.Message, except ...int64) {
+func (r *RoomBase) BroadCastMemberMsg(m pb.Message, except ...int64) {
 	memloop:
 	for id, u := range r.members {
 		for _, exc := range except {
@@ -124,6 +129,42 @@ func (r *RoomBase) BroadCastWatcherMsg(m pb.Message, except ...int64) {
 		u.SendClientMsg(m)
 	}
 }
+
+func (r *RoomBase) BroadCastRoomMsg(msg pb.Message, except ...int64) {
+	r.BroadCastMemberMsg(msg, except...)
+	r.BroadCastWatcherMsg(msg, except...)
+}
+
+// 缓存
+func (room *RoomBase) DoCache() {
+	pipe := Redis().Pipeline()
+	key := fmt.Sprintf("roombrief_%d", room.Id())
+	pipe.HSet(key, "uid", room.Id())
+	pipe.HSet(key, "ownerid", room.OwnerId())
+	pipe.HSet(key, "tid", room.Tid())
+	pipe.HSet(key, "members", room.NumMembers())
+	pipe.HSet(key, "passwd", room.Passwd())
+	pipe.HSet(key, "agentname", RoomSvr().Name())
+	pipe.SAdd("roomlist", room.Id())
+	pipe.SAdd(fmt.Sprintf("roomlist_kind_%d_sub_%d", room.Kind(), room.SubKind()), room.Id())
+	if _, err := pipe.Exec(); err != nil {
+		log.Error("[房间] 缓存房间[%d]信息失败 %s", room.Id(), err)
+	}
+	pipe.Close()
+}
+
+// 删除缓存
+func (room *RoomBase) RmCache() {
+	pipe := Redis().Pipeline()
+	pipe.Del(fmt.Sprintf("roombrief_%d", room.Id()))
+	pipe.SRem("roomlist", room.Id())
+	pipe.SRem(fmt.Sprintf("roomlist_kind_%d_sub_%d", room.Kind(), room.SubKind()), room.Id())
+	if _, err := pipe.Exec(); err != nil {
+		log.Error("[房间] 删除房间[%d]缓存信息失败 %s", room.Id(), err)
+	}
+	pipe.Close()
+}
+
 
 func IsTexasRoomBaseType(subkind int32) bool {
 	switch msg.PlayingFieldType(subkind) {

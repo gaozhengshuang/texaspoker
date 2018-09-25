@@ -316,7 +316,7 @@ class GamblingUtil
 		let maxBankRoll: number = 0;
 		for (let pInfo of GamblingManager.roomInfo.playerList)
 		{
-			if (pInfo.roleId != UserManager.userInfo.roleId && pInfo.bankRoll + pInfo.num > maxBankRoll) 
+			if (pInfo.roleId != UserManager.userInfo.id && pInfo.bankRoll + pInfo.num > maxBankRoll) 
 			{
 				maxBankRoll = pInfo.bankRoll + pInfo.num;
 			}
@@ -508,8 +508,8 @@ class GamblingUtil
 	{
 		if (InfoUtil.checkAvailable(info))
 		{
-			let roomDef: RoomDefinition = RoomDefined.GetInstance().getDefinition(info.definition.roomId);
-			if (roomDef && roomDef.seat && Math.ceil(info.definition.bNum / roomDef.seat) == 1)
+			let roomDef: table.ITexasRoomDefine = table.TexasRoomById[info.definition.roomId];
+			if (roomDef && roomDef.Seat && Math.ceil(info.definition.bNum / roomDef.Seat) == 1)
 			{
 				return true;
 			}

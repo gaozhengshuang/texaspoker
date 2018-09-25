@@ -280,7 +280,7 @@ class GameHallPanel extends BasePanel
 		{
 			case this.userHeadComp:
 				SoundManager.playEffect(MusicAction.buttonClick);
-				UserManager.reqShowOtherUserInfoPanel(UserManager.userInfo.roleId);
+				UserManager.reqShowOtherUserInfoPanel(UserManager.userInfo.id);
 				break;
 			case this.addDiamondBtn:
 				SoundManager.playEffect(MusicAction.buttonClick);
@@ -430,7 +430,7 @@ class GameHallPanel extends BasePanel
 	 */
 	private refreshFreeGoldTime()
 	{
-		if (TimeManager.GetServerUtcTimestamp() - UserManager.userInfo.lastGoldTime >= ProjectDefined.GetInstance().getValue(ProjectDefined.freeGoldTime))
+		if (TimeManager.GetServerUtcTimestamp() - UserManager.userInfo.lastGoldTime >= ProjectDefined.freeGoldTime)
 		{
 			this.freeGoldTimeLabel.visible = false;
 			this.freeGoldBtn["getFreeGoldImg"].visible = true;
@@ -450,7 +450,7 @@ class GameHallPanel extends BasePanel
 		}
 		else
 		{
-			let left: number = Math.floor(UserManager.userInfo.lastGoldTime + ProjectDefined.GetInstance().getValue(ProjectDefined.freeGoldTime) - TimeManager.GetServerUtcTimestamp());
+			let left: number = Math.floor(UserManager.userInfo.lastGoldTime + ProjectDefined.freeGoldTime - TimeManager.GetServerUtcTimestamp());
 			this.freeGoldTimeLabel.text = game.DateTimeUtil.countDownFormat(left, false);
 		}
 	}
@@ -460,7 +460,7 @@ class GameHallPanel extends BasePanel
 	private resetFreeGoldTime()
 	{
 		this.refreshFreeGoldTime();
-		if (TimeManager.GetServerUtcTimestamp() - UserManager.userInfo.lastGoldTime < ProjectDefined.GetInstance().getValue(ProjectDefined.freeGoldTime))
+		if (TimeManager.GetServerUtcTimestamp() - UserManager.userInfo.lastGoldTime < ProjectDefined.freeGoldTime)
 		{
 			this.freeGoldTimeLabel.visible = true;
 			this.freeGoldBtn["getFreeGoldImg"].visible = false;

@@ -48,11 +48,14 @@ class AchieveProcessManager
      */
     public static getAchieveProcessInfoByGroup(group: AchieveGroup): BaseAchieveProcessInfo
     {
-        for (let info of AchieveProcessManager._list)
+        if (AchieveProcessManager._list)
         {
-            if (info.group == group)
+            for (let info of AchieveProcessManager._list)
             {
-                return info;
+                if (info.group == group)
+                {
+                    return info;
+                }
             }
         }
         return null;
@@ -286,7 +289,7 @@ class AchieveProcessManager
      */
     public static onWinOfCardType(processInfo: BaseAchieveProcessInfo, type: CardType)
     {
-        if (GamblingUtil.isWin(UserManager.userInfo.roleId))
+        if (GamblingUtil.isWin(UserManager.userInfo.id))
         {
             let cardInfoList: CardInfo[] = GamblingManager.roomInfo.handCard;
             if (cardInfoList)

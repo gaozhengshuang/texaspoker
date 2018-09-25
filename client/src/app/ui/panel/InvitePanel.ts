@@ -63,14 +63,14 @@ class InvitePanel extends BasePanel
         this.maskAlpha = 0;
         let array: Array<eui.Group> = new Array<eui.Group>();
         this.bindGroup.visible = false;
-        if (!UserManager.userInfo.bindRoleId && UserManager.userInfo.level < ProjectDefined.GetInstance().bindICodeLevelLimit)
+        if (!UserManager.userInfo.bindRoleId && UserManager.userInfo.level < ProjectDefined.invite.levelLimit)
         {
             array.push(this.bindGroup);
         }
         array.push(this.inviteIdGroup);
         array.push(this.imazamoxGroup);
         array.push(this.goldGroup);
-        if (!UserManager.userInfo.bindRoleId && UserManager.userInfo.level < ProjectDefined.GetInstance().bindICodeLevelLimit)
+        if (!UserManager.userInfo.bindRoleId && UserManager.userInfo.level < ProjectDefined.invite.levelLimit)
         {
             this.tabCom.build(TabComponent.CreatData(["绑定邀请码", "邀请好友", "领取金豆", "领取金币"], array, TabButtonType.InviteSmallOf4));
         } else
@@ -143,14 +143,14 @@ class InvitePanel extends BasePanel
     {
         let array: Array<eui.Group> = new Array<eui.Group>();
         this.bindGroup.visible = false;
-        if (!UserManager.userInfo.bindRoleId && UserManager.userInfo.level < ProjectDefined.GetInstance().bindICodeLevelLimit)
+        if (!UserManager.userInfo.bindRoleId && UserManager.userInfo.level < ProjectDefined.invite.levelLimit)
         {
             array.push(this.bindGroup);
         }
         array.push(this.inviteIdGroup);
         array.push(this.imazamoxGroup);
         array.push(this.goldGroup);
-        if (!UserManager.userInfo.bindRoleId && UserManager.userInfo.level < ProjectDefined.GetInstance().bindICodeLevelLimit)
+        if (!UserManager.userInfo.bindRoleId && UserManager.userInfo.level < ProjectDefined.invite.levelLimit)
         {
             this.tabCom.update(TabComponent.CreatData(["绑定邀请码", "邀请好友", "领取金豆", "领取金币"], array, TabButtonType.InviteSmallOf4));
         } else
@@ -205,7 +205,7 @@ class InvitePanel extends BasePanel
     private setAwardInfo()
     {
         let inviteList: Array<InviteItemInfo> = new Array<InviteItemInfo>();
-        let inviteDef: Object = ProjectDefined.GetInstance().invite;
+        let inviteDef: Object = ProjectDefined.invite;
 
         let def1: InviteItemInfo = new InviteItemInfo();
         def1.des = "好友绑定您的邀请码";
@@ -233,10 +233,10 @@ class InvitePanel extends BasePanel
     {
         //领取金豆奖励数据设置
         this.hasGetImazamoxLabel.text = game.MathUtil.formatNum(InviteManager.inviteAwardInfo.gotBean) + ",";
-        this.canGetImazamoxLabel.text = game.MathUtil.formatNum(ProjectDefined.GetInstance().goldBeanLimit - InviteManager.inviteAwardInfo.gotBean);
-        if ((InviteManager.inviteAwardInfo.getBean + InviteManager.inviteAwardInfo.gotBean) > ProjectDefined.GetInstance().goldBeanLimit)
+        this.canGetImazamoxLabel.text = game.MathUtil.formatNum(ProjectDefined.invite.goldBeanLimit - InviteManager.inviteAwardInfo.gotBean);
+        if ((InviteManager.inviteAwardInfo.getBean + InviteManager.inviteAwardInfo.gotBean) > ProjectDefined.invite.goldBeanLimit)
         {
-            this.canBringImazamoxLabel.text = game.MathUtil.formatNum(ProjectDefined.GetInstance().goldBeanLimit - InviteManager.inviteAwardInfo.gotBean);
+            this.canBringImazamoxLabel.text = game.MathUtil.formatNum(ProjectDefined.invite.goldBeanLimit - InviteManager.inviteAwardInfo.gotBean);
         } else
         {
             this.canBringImazamoxLabel.text = game.MathUtil.formatNum(InviteManager.inviteAwardInfo.getBean);
@@ -355,7 +355,7 @@ class InvitePanel extends BasePanel
     {
         this.setTab();
         this.setIsBindShow();
-        let inviteDef: Object = ProjectDefined.GetInstance().invite;
+        let inviteDef: Object = ProjectDefined.invite;
         if (inviteDef)
         {
             UIManager.showPanel(UIModuleName.BringAwardComPanel, { itemId: ItemFixedId.gold, itemCount: inviteDef["bindFriend"], des: "绑定邀请码成功，你获得：", thisObj: this });
@@ -421,7 +421,7 @@ class InvitePanel extends BasePanel
     */
     private onTabClickHandler(index: number): void
     {
-        if (!UserManager.userInfo.bindRoleId && UserManager.userInfo.level < ProjectDefined.GetInstance().bindICodeLevelLimit)
+        if (!UserManager.userInfo.bindRoleId && UserManager.userInfo.level < ProjectDefined.invite.levelLimit)
         {
             if (index == 2)
             {

@@ -41,7 +41,7 @@ class TextNotifyHandler
 		}
 		if (!this._textNotify || Date.now() - this._textNotifyTime.getTime() > this.ReloadThreshold)
 		{
-			let url: string = ProjectDefined.GetInstance().getNoticeUrl(GameSetting.AppId);
+			let url: string = ProjectDefined.getNoticeUrl(GameSetting.AppId);
 			RES.getResByUrl(url, this.OnTextNotifyComplete, this, RES.ResourceItem.TYPE_TEXT);
 		}
 		else
@@ -86,7 +86,7 @@ class TextNotifyHandler
 			game.FuncUtil.invoke(this._checkNextCallBack, this._checkNextThisObj);
 			return false;
 		}
-		let url: string = ProjectDefined.GetInstance().getNoticeUrl(GameSetting.AppId);
+		let url: string = ProjectDefined.getNoticeUrl(GameSetting.AppId);
 		RES.getResByUrl(url, this.onLoginNotifyComplete, this, RES.ResourceItem.TYPE_TEXT);
 	}
 	private onLoginNotifyComplete(data: string)
