@@ -11,8 +11,8 @@ import (
 	"gitee.com/jntse/minehero/server/tbl"
 	_ "github.com/go-redis/redis"
 	pb "github.com/gogo/protobuf/proto"
-	_"reflect"
-	_"strconv"
+	_ "reflect"
+	_ "strconv"
 )
 
 //func init() {
@@ -52,7 +52,6 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqHeartBeat{}, on_C2GW_ReqHeartBeat)
 	this.msgparser.RegistProtoMsg(msg.C2RS_MsgTransfer{}, on_C2RS_MsgTransfer)
 	this.msgparser.RegistProtoMsg(msg.C2GW_BuyItem{}, on_C2GW_BuyItem)
-	this.msgparser.RegistProtoMsg(msg.C2GW_Get7DayReward{}, on_C2GW_Get7DayReward)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqDeliveryGoods{}, on_C2GW_ReqDeliveryGoods)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqUseBagItem{}, on_C2GW_ReqUseBagItem)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqRechargeMoney{}, on_C2GW_ReqRechargeMoney)
@@ -134,23 +133,14 @@ func on_C2RS_MsgTransfer(session network.IBaseNetSession, message interface{}) {
 	}
 
 	// 不做解析转发到RoomServer
-	if u == nil { return }
-	if u.IsInRoom() == false { 
+	if u == nil {
+		return
+	}
+	if u.IsInRoom() == false {
 		log.Warn("消息转发失败，玩家[%s %d]没有在任何房间中", u.Name(), u.Id())
 		return
 	}
 	u.SendRoomMsg(tmsg)
-}
-
-func on_C2GW_Get7DayReward(session network.IBaseNetSession, message interface{}) {
-	u := ExtractSessionUser(session)
-	if u == nil {
-		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-		session.Close()
-		return
-	}
-
-	//u.GetSignReward()
 }
 
 func on_C2GW_ReqCreateRoom(session network.IBaseNetSession, message interface{}) {

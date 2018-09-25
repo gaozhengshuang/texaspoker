@@ -191,10 +191,10 @@ func (this *TanTanLe) UserLeave(u *RoomUser) {
 }
 
 // 玩家断开连接
-func (this *TanTanLe) UserDisconnect(userid int64) {
+func (this *TanTanLe) UserDisconnect(u *RoomUser) {
 	this.Destory(0)
 	this.close_reason = "玩家断开连接"
-	log.Info("房间[%d] 玩家[%d]断开连接，准备删除房间", this.id, userid)
+	log.Info("房间[%d] 玩家[%d]断开连接，准备删除房间", this.id, u.Id())
 }
 
 // 网关断开

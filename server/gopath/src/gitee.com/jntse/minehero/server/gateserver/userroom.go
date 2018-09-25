@@ -77,6 +77,10 @@ func (this *UserRoomData) Online(u *GateUser) {
 	this.roomtid = util.Atoi(Redis().HGet(keybrief, "tid").Val())
 	this.passwd  = Redis().HGet(keybrief, "passwd").Val()
 	log.Info("[房间] 玩家[%s %d] 获取房间信息[%v]", u.Name(), u.Id(), *this)
+
+	// 对应RoomUser更新Gate SessionInfo(Gate重启/家重连)
+	msgonline := &msg.GW2RS_UserOnline{Userid:pb.Int64(u.Id())}
+	this.SendRoomMsg(msgonline)
 }
 
 func (this *GateUser) GameKind() int32 	{ return this.roomdata.kind }
@@ -99,7 +103,7 @@ func (this *GateUser) SendRsUserDisconnect() {
 		return 
 	}
 
-	msgclose := &msg.GW2RS_UserDisconnect{Roomid: pb.Int64(this.roomdata.roomid), Userid: pb.Int64(this.Id())}
+	msgclose := &msg.GW2RS_UserDisconnect{Userid: pb.Int64(this.Id())}
 	this.SendRoomMsg(msgclose)
 	log.Info("[房间] 玩家[%d %s] 通知RoomServer关闭房间", this.Id(), this.Name())
 }
