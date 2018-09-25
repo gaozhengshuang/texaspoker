@@ -165,7 +165,7 @@ func (this *TexasPlayer)SetHole(c1 *Card, c2 *Card){
 	this.hand.SetCard(c2)
 	send := &msg.RS2C_PushHandCard{}
 	send.Card = this.ToHandCard()
-	this.owner.SendClientMsg(send)
+	this.room.BroadCastRoomMsg(send)
 }
 
 func (this *TexasPlayer)SetFlop(c1 *Card, c2 *Card, c3 *Card){
@@ -186,12 +186,17 @@ func (this *TexasPlayer) GetBankRoll() int32{
 	return this.bankroll
 }
 
-func (this *TexasPlayer)AddBankRoll(num int32){
+func (this *TexasPlayer) AddBankRoll(num int32){
 	this.bankroll += num
 	send := &msg.RS2C_PushChipsChange{}
 	send.Roleid = pb.Int64(this.owner.Id())
 	send.Bankroll = pb.Int32(this.bankroll)
 	this.room.BroadCastRoomMsg(send)
+}
+
+func (this *TexasPlayer) ReqTimeAwardInfo(rev *msg.C2RS_ReqTimeAwardInfo) {
+	send := &msg.RS2C_RetTimeAwardInfo{}
+	this.owner.SendClientMsg(send)
 }
 
 func (this *TexasPlayer)RemoveBankRoll(num int32) bool{
@@ -237,6 +242,8 @@ func (this *TexasPlayer) NextRound(rev *msg.C2RS_ReqNextRound) {
 
 func (this *TexasPlayer) BrightCard() {
 	this.isshowcard = true
+	send := &msg.RS2C_RetBrightCard{}
+	this.owner.SendClientMsg(send)
 }
 
 func (this *TexasPlayer) AddCoin() {
@@ -271,7 +278,7 @@ func (this *TexasPlayer) BuyInGame(rev *msg.C2RS_ReqBuyInGame) {
 	}
 	this.SitDown(rev.GetPos()-1)
 	this.AddBankRoll(rev.GetNum())
-	this.gamestate = GSFold
+	this.gamestate = GSWaitNext
 	{
 		send := &msg.RS2C_PushSitOrStand{}
 		send.Roleid = pb.Int64(this.owner.Id())
@@ -284,10 +291,8 @@ func (this *TexasPlayer) BuyInGame(rev *msg.C2RS_ReqBuyInGame) {
 		this.owner.SendClientMsg(send1)
 	}
 	doerror :
-	{
 		send := &msg.RS2C_RetBuyInGame{Errcode : pb.String(strerr)}
 		this.owner.SendClientMsg(send)
-	}
 }
 
 func (this *TexasPlayer) ReqUserInfo(rev *msg.C2RS_ReqFriendGetRoleInfo) {
@@ -296,6 +301,16 @@ func (this *TexasPlayer) ReqUserInfo(rev *msg.C2RS_ReqFriendGetRoleInfo) {
 		send := user.ToRoleInfo()
 		this.owner.SendClientMsg(send)
 	}
+}
+
+func (this *TexasPlayer) BrightCardInTime() {
+	send := &msg.RS2C_RetBrightInTime{}
+	this.owner.SendClientMsg(send)
+
+	send1 := &msg.RS2C_PushBrightCard{}
+	send1.Roleid = pb.Int64(this.owner.Id())
+	send1.Card = this.ToHandCard()
+	this.room.BroadCastRoomMsg(send1)
 }
 
 func (this *TexasPlayer) ToProto() *msg.TexasPlayer {

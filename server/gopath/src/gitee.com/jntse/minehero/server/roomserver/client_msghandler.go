@@ -41,6 +41,7 @@ func (this *ClientMsgHandler) Init() {
 	this.RegistProtoMsg(msg.C2RS_ReqAction{}, on_C2RS_ReqAction)
 	this.RegistProtoMsg(msg.C2RS_ReqBrightCard{}, on_C2RS_ReqBrightCard)
 	this.RegistProtoMsg(msg.C2RS_ReqAddCoin{}, on_C2RS_ReqAddCoin)
+	this.RegistProtoMsg(msg.C2RS_ReqBrightInTime{}, on_C2RS_ReqBrightInTime)
 }
 
 func (this *ClientMsgHandler) RegistProtoMsg(message interface{} , fn ClientMsgFunHandler) {
@@ -102,7 +103,23 @@ func (this *ClientMsgHandler) Handler(session network.IBaseNetSession, message i
 //	room.UserStandUp(u)
 //}
 
+func on_C2RS_ReqBrightInTime(session network.IBaseNetSession, message interface{}, u *RoomUser) {
+	room := RoomMgr().FindTexas(u.RoomId())
+	if room == nil {
+		log.Error("[房间] 玩家[%s %d] 无效房间 房间[%d]", u.Name(), u.Id(), u.RoomId())
+		return
+	}
+	room.BrightCardInTime(u.Id())
+}
+
 func on_C2RS_ReqTimeAwardInfo(session network.IBaseNetSession, message interface{}, u *RoomUser) {
+	tmsg := message.(*msg.C2RS_ReqTimeAwardInfo)
+	room := RoomMgr().FindTexas(u.RoomId())
+	if room == nil {
+		log.Error("[房间] 玩家[%s %d] 无效房间 房间[%d]", u.Name(), u.Id(), u.RoomId())
+		return
+	}
+	room.ReqTimeAwardInfo(u.Id(), tmsg)
 }
 
 func on_C2RS_ReqBuyInGame(session network.IBaseNetSession, message interface{}, u *RoomUser) {

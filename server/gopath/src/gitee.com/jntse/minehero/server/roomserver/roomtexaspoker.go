@@ -170,14 +170,28 @@ func (this *TexasPokerRoom) ForEachPlayer(start int32, f func(p *TexasPlayer) bo
 	end := (this.PlayersNum() + start - 1) % this.PlayersNum()
 	i := start
 	for ; i != end; i = (i + 1) % this.PlayersNum() {
-		if this.players[i] != nil && !this.players[i].IsFold() && !this.players[i].IsWait() && !f(this.players[i]) {
+		if this.players[i] != nil && !this.players[i].IsFold()&& 
+			!this.players[i].IsWait() && 
+			!this.players[i].IsAllIn() && 
+			!f(this.players[i]) {
 			return
 		}
 	}
 	// end
-	if this.players[i] != nil && !this.players[i].IsFold() && !this.players[i].IsWait(){
+	if this.players[i] != nil && !this.players[i].IsFold() && 
+		!this.players[i].IsWait() && 
+		!this.players[i].IsAllIn() {
 		f(this.players[i])
 	}
+}
+
+func (this *TexasPokerRoom) CanStart() bool {
+	for _, p := range this.players {
+		if p != nil && p.isready == false {
+			return false
+		}   
+	}
+	return true
 }
 
 func (this *TexasPokerRoom) StartGame() int32 {
@@ -193,8 +207,12 @@ func (this *TexasPokerRoom) StartGame() int32 {
 	if !this.SetBigBlind() {
 		return TPWait
 	}
+	if !this.CanStart() {
+		return TPWait
+	}
 	this.ForEachPlayer(0, func(p *TexasPlayer) bool {
 		this.remain++
+		p.isready = false
 		return true
 	})
 	this.SendStartGame()
@@ -677,4 +695,17 @@ func (this *TexasPokerRoom) ReqAddCoin(uid int64, rev *msg.C2RS_ReqAddCoin) {
 	}
 }
 
+func (this *TexasPokerRoom) BrightCardInTime(uid int64) {
+	player := this.FindAllByID(uid)
+	if player != nil {
+		player.BrightCardInTime()
+	}
+}
+
+func (this *TexasPokerRoom) ReqTimeAwardInfo(uid int64, rev *msg.C2RS_ReqTimeAwardInfo) {
+	player := this.FindAllByID(uid)
+	if player != nil {
+		player.ReqTimeAwardInfo(rev)
+	}
+}
 
