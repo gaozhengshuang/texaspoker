@@ -32,6 +32,7 @@ type TexasPlayer struct{
 	isshowcard bool
 	bankroll int32
 	bettime int32
+	isready bool
 }
 
 type TexasPlayers []*TexasPlayer
@@ -69,6 +70,14 @@ func (this *TexasPlayer) IsAllIn() bool {
 		return true
 	}
 	return false
+}
+
+func (this *TexasPlayer) IsReady() bool {
+	return this.isready
+}
+
+func (this *TexasPlayer) SetReady(flag bool) {
+	this.isready = flag
 }
 
 func (this *TexasPlayer) BetStart() {
@@ -215,7 +224,7 @@ func (this *TexasPlayer) SitDown(pos int32) {
 		this.pos = pos
 		this.room.DelWatcher(this)
 		if this.room.IsGameStart() {
-			this.gamestate = 0
+			this.gamestate = GSWaitNext
 		}  
 	}
 }
@@ -253,7 +262,7 @@ func (this *TexasPlayer) BuyInGame(rev *msg.C2RS_ReqBuyInGame) {
 		send := &msg.RS2C_PushSitOrStand{}
 		send.Roleid = pb.Int64(this.owner.Id())
 		send.Pos = pb.Int32(this.pos)
-		send.State = pb.Int32(this.gamestate)
+		send.State = pb.Int32(1)
 		send.BankRoll = pb.Int32(this.GetBankRoll())
 		this.room.BroadCastRoomMsg(send)
 	}

@@ -33,6 +33,14 @@ func (this *ClientMsgHandler) Init() {
 	this.RegistProtoMsg(msg.C2RS_ReqSitDown{}, on_C2RS_ReqSitDown)
 	this.RegistProtoMsg(msg.C2RS_ReqStandUp{}, on_C2RS_ReqStandUp)
 
+	//德州房间内消息
+	this.msgparser.RegistProtoMsg(msg.C2RS_ReqTimeAwardInfo{}, on_C2RS_ReqTimeAwardInfo)
+	this.msgparser.RegistProtoMsg(msg.C2RS_ReqBuyInGame{}, on_C2RS_ReqBuyInGame)
+	this.msgparser.RegistProtoMsg(msg.C2RS_ReqFriendGetRoleInfo{}, on_C2RS_ReqFriendGetRoleInfo)
+	this.msgparser.RegistProtoMsg(msg.C2RS_ReqNextRound{}, on_C2RS_ReqNextRound)
+	this.msgparser.RegistProtoMsg(msg.C2RS_ReqAction{}, on_C2RS_ReqAction)
+	this.msgparser.RegistProtoMsg(msg.C2RS_ReqBrightCard{}, on_C2RS_ReqBrightCard)
+	this.msgparser.RegistProtoMsg(msg.C2RS_ReqAddCoin{}, on_C2RS_ReqAddCoin)
 }
 
 func (this *ClientMsgHandler) RegistProtoMsg(message interface{} , fn ClientMsgFunHandler) {
@@ -97,5 +105,28 @@ func on_C2RS_ReqStandUp(session network.IBaseNetSession, message interface{}, ui
 	}
 
 	room.UserStandUp(u)
+}
+
+func on_C2RS_ReqBuyInGame(session network.IBaseNetSession, message interface{}, uid int64) {
+	u := UserMgr().FindUser(uid)
+	if u == nil {
+		log.Error("[房间] 玩家[%d] 请求坐下但是没有在Room中", uid)
+		return
+	}
+}
+
+func on_C2RS_ReqFriendGetRoleInfo(session network.IBaseNetSession, message interface{}, uid int64) {
+}
+
+func on_C2RS_ReqNextRound(session network.IBaseNetSession, message interface{}, uid int64) {
+}
+
+func on_C2RS_ReqAction(session network.IBaseNetSession, message interface{}, uid int64) {
+}
+
+func on_C2RS_ReqBrightCard(session network.IBaseNetSession, message interface{}, uid int64) {
+}
+
+func on_C2RS_ReqAddCoin(session network.IBaseNetSession, message interface{}, uid int64) {
 }
 
