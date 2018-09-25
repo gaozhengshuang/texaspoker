@@ -79,8 +79,8 @@ func (this *UserRoomData) Online(u *GateUser) {
 	log.Info("[房间] 玩家[%s %d] 获取房间信息[%v]", u.Name(), u.Id(), *this)
 
 	// 对应RoomUser更新Gate SessionInfo(Gate重启/家重连)
-	;
-
+	msgonline := &msg.GW2RS_UserOnline{Userid:pb.Int64(u.Id())}
+	this.SendRoomMsg(msgonline)
 }
 
 func (this *GateUser) GameKind() int32 	{ return this.roomdata.kind }
