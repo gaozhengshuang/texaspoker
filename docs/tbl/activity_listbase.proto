@@ -40,10 +40,10 @@ message Activity_listDefine
 	optional int32 KeepDayEnd = 7; 
 	
 	
-	optional string StartTime = 8; 
+	repeated int32 StartTime = 8; 
 	
 	
-	optional string EndTime = 9; 
+	repeated int32 EndTime = 9; 
 	
 	
 	optional string Des = 10; 

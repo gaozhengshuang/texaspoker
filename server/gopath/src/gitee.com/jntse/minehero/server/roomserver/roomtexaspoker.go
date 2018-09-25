@@ -79,6 +79,15 @@ func (this *TexasPokerRoom) CheckPos(pos int32) bool {
 	return true
 }
 
+func (this *TexasPokerRoom) InGame(player *TexasPlayer) bool {
+	for _, p := range this.players {
+		if p == player {
+			return true
+		}
+	}
+	return false
+}
+
 /*
 初始化牌组
 对于花色：0代表黑桃、1代表红桃、2代表梅花、3代表方块，详见card包
@@ -552,21 +561,6 @@ func (this *TexasPokerRoom) Handler1sTick(now int64) {
 	}
 }
 
-func (this *TexasPokerRoom) EnterRoom(user *RoomUser) {
-	player := this.FindPlayerByID(user.Id())
-	if player != nil {
-		this.ReEnterRoom(user)
-		return
-	}
-	player = NewTexasPlayer(user)
-	player.Init()
-	this.AddWatcher(player)
-	this.SendRoomInfo(player)
-}
-
-func (this *TexasPokerRoom) ReEnterRoom(user *RoomUser) {
-}
-
 func (this *TexasPokerRoom) FindAllByID(userid int64) *TexasPlayer {
 	for _, player := range this.players {
 		if player.owner.Id() == userid {
@@ -639,6 +633,48 @@ func (this *TexasPokerRoom) SendRoomInfo(player *TexasPlayer) {
 	send.Isshowcard = pb.Bool(player.isshowcard)
 	send.Handcard = player.ToHandCard()
 	player.owner.SendClientMsg(send)
+}
+
+func (this *TexasPokerRoom) BuyInGame(uid int64, rev *msg.C2RS_ReqBuyInGame){
+	player := this.FindAllByID(uid)
+	if player != nil {
+		player.BuyInGame(rev)
+	}
+}
+
+func (this *TexasPokerRoom) ReqFriendGetRoleInfo(uid int64, rev *msg.C2RS_ReqFriendGetRoleInfo){
+	player := this.FindAllByID(uid)
+	if player != nil {
+		player.ReqUserInfo(rev)
+	}
+}
+
+func (this *TexasPokerRoom) ReqNextRound(uid int64, rev *msg.C2RS_ReqNextRound) {
+	player := this.FindAllByID(uid)
+	if player != nil {
+		player.NextRound(rev)
+	}
+}
+
+func (this *TexasPokerRoom) ReqAction(uid int64, rev *msg.C2RS_ReqAction) {
+	player := this.FindAllByID(uid)
+	if player != nil {
+		player.Betting(rev.GetNum())
+	}
+}
+
+func (this *TexasPokerRoom) ReqBrightCard(uid int64, rev *msg.C2RS_ReqBrightCard) {
+	player := this.FindAllByID(uid)
+	if player != nil {
+		player.BrightCard()
+	}
+}
+
+func (this *TexasPokerRoom) ReqAddCoin(uid int64, rev *msg.C2RS_ReqAddCoin) {
+	player := this.FindAllByID(uid)
+	if player != nil {
+		player.AddCoin()
+	}
 }
 
 

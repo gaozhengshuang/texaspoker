@@ -30,7 +30,7 @@ type IRoomBase interface {
 	SendGateMsg(userid int64, msg pb.Message)
 	BroadCastMemberGateMsg(msg pb.Message, except ...int64)
 	BroadCastMemberMsg(msg pb.Message, except ...int64)
-	BroadCastWatcherMsg(msg pb.Message, except ...int64)
+	//BroadCastWatcherMsg(msg pb.Message, except ...int64)
 	BroadCastRoomMsg(msg pb.Message, except ...int64)
 
 	DoCache()
@@ -47,8 +47,8 @@ type IRoomBase interface {
 	UserEnter(u *RoomUser)
 	UserLeave(u *RoomUser)
 	UserDisconnect(u *RoomUser)
-	UserStandUp(u *RoomUser)				// 棋牌类站起
-	UserSitDown(u *RoomUser, seat int32)	// 棋牌类坐下
+	//UserStandUp(u *RoomUser)				// 棋牌类站起
+	//UserSitDown(u *RoomUser, seat int32)	// 棋牌类坐下
 }
 
 
@@ -66,7 +66,7 @@ type RoomBase struct {
 	owner			*RoomUser	// 房主
 	ownerid			int64		// 房主
 	members			map[int64]*RoomUser		// 正式，已坐下
-	watchmembers	map[int64]*RoomUser		// 观战，未坐下
+	//watchmembers	map[int64]*RoomUser		// 观战，未坐下
 	passwd			string		// 房间密码
 	subkind			int32		// 房间子类型
 	close_reason	string		// 关闭房间的原因
@@ -85,8 +85,8 @@ func (r *RoomBase) NumMembers() int32 { return int32(len(r.members)) }
 func (r *RoomBase) Passwd() string { return r.passwd }
 func (r *RoomBase) SubKind() int32 { return r.subkind }
 func (r *RoomBase) IsFull() bool { return false }
-func (r *RoomBase) UserStandUp(u *RoomUser)	 {}
-func (r *RoomBase) UserSitDown(u *RoomUser, seat int32)	{}
+//func (r *RoomBase) UserStandUp(u *RoomUser)	 {}
+//func (r *RoomBase) UserSitDown(u *RoomUser, seat int32)	{}
 
 func (r *RoomBase) SendGateMsg(userid int64, m pb.Message) {
 	if u, find := r.members[userid]; find == true {
@@ -120,19 +120,19 @@ func (r *RoomBase) BroadCastMemberMsg(m pb.Message, except ...int64) {
 	}
 }
 
-func (r *RoomBase) BroadCastWatcherMsg(m pb.Message, except ...int64) {
-	memloop:
-	for id, u := range r.watchmembers {
-		for _, exc := range except {
-			if id == exc { continue memloop }
-		}
-		u.SendClientMsg(m)
-	}
-}
+//func (r *RoomBase) BroadCastWatcherMsg(m pb.Message, except ...int64) {
+//	memloop:
+//	for id, u := range r.watchmembers {
+//		for _, exc := range except {
+//			if id == exc { continue memloop }
+//		}
+//		u.SendClientMsg(m)
+//	}
+//}
 
 func (r *RoomBase) BroadCastRoomMsg(msg pb.Message, except ...int64) {
 	r.BroadCastMemberMsg(msg, except...)
-	r.BroadCastWatcherMsg(msg, except...)
+	//r.BroadCastWatcherMsg(msg, except...)
 }
 
 // 缓存

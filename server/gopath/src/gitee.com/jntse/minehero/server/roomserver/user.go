@@ -274,14 +274,14 @@ func (u *RoomUser) RemoveGold(gold int32, reason string, syn bool) bool {
 func (u *RoomUser) AddGold(gold int32, reason string, syn bool) {
 	entity := u.Entity()
 	entity.Gold = pb.Int32(u.GetGold() + gold)
-	if syn { u.SendGold() }
+	if syn { u.SendPropertyChange() }
 	log.Info("玩家[%d] 添加金币[%d] 库存[%d] 原因[%s]", u.Id(), gold, u.GetGold(), reason)
 }
 
 func (u *RoomUser) SetGold(gold int32, reason string, syn bool) {
 	entity := u.Entity()
 	entity.Gold = pb.Int32(gold)
-	if syn { u.SendGold() }
+	if syn { u.SendPropertyChange() }
 	log.Info("玩家[%d] 设置金币[%d] 库存[%d] 原因[%s]", u.Id(), gold, u.GetGold(), reason)
 }
 
@@ -332,7 +332,7 @@ func (u *RoomUser) RemoveDiamond(num int32, reason string, syn bool) bool {
 	entity := u.Entity()
 	if ( entity.GetDiamond() >= num ) {
 		entity.Diamond = pb.Int32(entity.GetDiamond() - num)
-		if syn { u.SendDiamond() }
+		if syn { u.SendPropertyChange() }
 		log.Info("玩家[%d] 扣除金卷[%d] 库存[%d] 原因[%s]", u.Id(), num, entity.GetDiamond(), reason)
 		RCounter().IncrByDate("item_remove", int32(msg.ItemId_Diamond), num)
 		return true
@@ -346,8 +346,16 @@ func (u *RoomUser) AddDiamond(num int32, reason string, syn bool) {
 	entity := u.Entity()
 	entity.Diamond = pb.Int32(entity.GetDiamond() + num)
 	//u.SynAddMidsMoney(int64(num), reason)
-	if syn { u.SendDiamond() }
+	if syn { u.SendPropertyChange() }
 	log.Info("玩家[%d] 添加钻石[%d] 库存[%d] 原因[%s]", u.Id(), num, entity.GetDiamond(), reason)
+}
+
+func (u *RoomUser) SendPropertyChange() {
+	send := &msg.RS2C_RolePushPropertyChange{}
+	send.Diamond = pb.Int32(u.Entity().GetDiamond())
+	send.Gold = pb.Int32(u.Entity().GetGold())
+	send.Safegold = pb.Int32(0)
+	u.SendClientMsg(send)
 }
 
 // 添加道具
