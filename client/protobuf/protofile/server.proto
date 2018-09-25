@@ -92,16 +92,20 @@ message GW2RS_RetRegist {
 
 // 通知RS玩家断开连接清理房间
 message GW2RS_UserDisconnect {
-    optional int64 roomid = 1;
-    optional int64 userid = 2;
+    optional int64 userid = 1;
 }
 
 // 通知RS玩家断开连接清理房间,返回
 message RS2GW_RetUserDisconnect {
-    optional int64 roomid = 1;
-    optional int64 userid = 2;
-    optional string errcode = 3;
+    optional int64 userid = 1;
+    optional string errcode = 2;
 }
+
+// 通知RS玩家上线了
+message GW2RS_UserOnline {
+    optional int64 userid = 1;
+}
+
 
 // Client消息转发到Room
 message C2RS_MsgTransfer {
@@ -116,7 +120,6 @@ message RS2GW_MsgTransfer {
     optional string name = 2;
     optional bytes buf = 3;
 }
-
 
 
 // --------------------------------------------------------------------------

@@ -34,7 +34,7 @@ class Command
     /**
      * 资产变更推送
      */
-    public static readonly Role_Push_PropertyChange_2000: string = "c2000";
+    public static readonly RS2C_RolePushPropertyChange: string = "msg.RS2C_RolePushPropertyChange";
     /**
      * 请求购买房卡（测试专用）
      */
@@ -311,11 +311,11 @@ class Command
     /**
      * 请求下一局开始
      */
-    public static readonly NextRound_Req_3601 = "c3601";
+    public static readonly C2RS_ReqNextRound = "msg.C2RS_ReqNextRound";
     /**
      * 请求说话
      */
-    public static readonly Action_Req_3602 = "c3602";
+    public static readonly C2RS_ReqAction = "msg.C2RS_ReqAction";
     /**
      * 请求离开房间
      */
@@ -327,15 +327,15 @@ class Command
     /**
      * 请求站起
      */
-    public static readonly StandUp_Req_3605 = "c3605";
+    public static readonly C2RS_ReqStandUp = "msg.C2RS_ReqStandUp";
     /**
      * 请求亮牌
      */
-    public static readonly BrightCard_Req_3606 = "c3606";
+    public static readonly C2RS_ReqBrightCard = "msg.C2RS_ReqBrightCard";
     /**
      * 请求增加金币
      */
-    public static readonly AddCoin_Req_3607 = "c3607";
+    public static readonly C2RS_ReqAddCoin = "msg.C2RS_ReqAddCoin";
     /**
      * 1为重购，2为增购
      */
@@ -343,39 +343,39 @@ class Command
     /**
      * 推送牌局结束
      */
-    public static readonly OneRoundOver_Push_2106 = "c2106";
+    public static readonly RS2C_PushOneRoundOver = "msg.RS2C_PushOneRoundOver";
     /**
      * 推送下一局开始
      */
-    public static readonly NextRoundStart_Push_2107 = "c2107";
+    public static readonly RS2C_PushNextRoundStart = "msg.RS2C_PushNextRoundStart";
     /**
      * 推送盲注前注变化
      */
     public static readonly BlindChange_Push_2100 = "c2100";
     /**
-     * 推送底池变化
-     */
-    public static readonly PotChipsChange_Push_2101 = "c2101";
-    /**
      * 推送一轮押注结束
      */
-    public static readonly OneLoopOver_Push_2102 = "c2102";
+    public static readonly RS2C_PushOneLoopOver = "msg.RS2C_PushOneLoopOver";
     /**
      * 推送玩家坐下/站起
      */
-    public static readonly SitOrStand_Push_2103 = "c2103";
+    public static readonly RS2C_PushSitOrStand = "msg.RS2C_PushSitOrStand";
     /**
      * 推送玩家状态变更
      */
-    public static readonly PlayerStateChange_Push_2104 = "c2104";
+    public static readonly RS2C_PushPlayerStateChange = "msg.RS2C_PushPlayerStateChange";
     /**
      * 推送说话位置变更
      */
-    public static readonly ActionPosChange_Push_2105 = "c2105";
+    public static readonly RS2C_PushActionPosChange = "msg.RS2C_PushActionPosChange";
     /**
      * 推送手牌
      */
-    public static readonly HandCard_Push_2108 = "c2108";
+    public static readonly RS2C_PushHandCard = "msg.RS2C_PushHandCard";
+    /**
+     * 请求立即亮牌
+     */
+    public static readonly C2RS_ReqBrightInTime = "msg.C2RS_ReqBrightInTime";
     /**
      * 推送亮牌
      */
@@ -383,7 +383,7 @@ class Command
     /**
      * 推送玩家筹码变化
      */
-    public static readonly ChipsChange_Push_2110 = "c2110";
+    public static readonly RS2C_PushChipsChange = "msg.RS2C_PushChipsChange";
     /**
      * 推送等待操作的玩家列表
      */
@@ -472,7 +472,7 @@ class Command
     /**
      * 拉取计时奖励信息
     */
-    public static readonly TimeAwardInfo_Req_3620 = "c3620";
+    public static readonly C2RS_ReqTimeAwardInfo = "msg.C2RS_ReqTimeAwardInfo";
     /**
      * 领取计时奖励
     */
@@ -480,7 +480,7 @@ class Command
     /**
      * 时间更新推送
     */
-    public static readonly TimeAwardRefresh_Push_2122 = "c2122";
+    public static readonly RS2C_PushTimeAwardRefresh = "msg.RS2C_PushTimeAwardRefresh";
     //--------------------------------------------------------------
     // 计时奖励 end
     //--------------------------------------------------------------
@@ -659,6 +659,11 @@ class Command
     /**
      * 赠送礼物
      */
-    public static readonly SendGift_Req_3716 = "c3716"
+    public static readonly SendGift_Req_3716 = "c3716";
+    //-------------------------client消息转发到Room-------------------------
+    /**
+     * client消息转发到Room
+     */
+    public static readonly C2RS_MsgTransfer = "msg.C2RS_MsgTransfer";
 }
 

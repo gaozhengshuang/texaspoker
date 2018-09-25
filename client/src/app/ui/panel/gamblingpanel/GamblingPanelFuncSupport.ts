@@ -260,9 +260,12 @@ class GamblingPanelFuncSupport extends BaseGamblingPanelSupport
 		switch (event.target)
 		{
 			case this.target.actionGroup.brightCardBtn: //结束时亮牌
-			case this.target.actionGroup.immediatelyBrightCardBtn: //立即亮牌
 				SoundManager.playEffect(MusicAction.buttonClick);
 				GamblingManager.reqBrightCard();
+				break;
+			case this.target.actionGroup.immediatelyBrightCardBtn: //立即亮牌
+				SoundManager.playEffect(MusicAction.buttonClick);
+				GamblingManager.reqImmediatelyBrightCard();
 				break;
 			case this.target.actionGroup.checkOrDropBtn: //过或弃
 				GamblingManager.isCheckOrFold = !GamblingManager.isCheckOrFold;

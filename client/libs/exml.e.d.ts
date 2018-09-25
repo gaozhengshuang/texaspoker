@@ -544,12 +544,6 @@ declare class GamblingMatchWaitComponentSkin extends eui.Skin{
 }
 declare class OmahaCardTypeBtnComponentSkin extends eui.Skin{
 }
-declare class guessAnteBuyRadioButtonSkin extends eui.Skin{
-}
-declare class guessAnteToggleSwitchSkin extends eui.Skin{
-}
-declare class guessSelBtnSkin extends eui.Skin{
-}
 declare class GuidePromptComponentSkin extends eui.Skin{
 }
 declare class guideQuestionRadioBtnSkin extends eui.Skin{
@@ -611,6 +605,12 @@ declare class loginWXBtnSkin extends eui.Skin{
 declare class enterBlueSkin extends eui.Skin{
 }
 declare class zkTSSkin extends eui.Skin{
+}
+declare class guessAnteBuyRadioButtonSkin extends eui.Skin{
+}
+declare class guessAnteToggleSwitchSkin extends eui.Skin{
+}
+declare class guessSelBtnSkin extends eui.Skin{
 }
 declare class playfieldAnteTSSkin extends eui.Skin{
 }
