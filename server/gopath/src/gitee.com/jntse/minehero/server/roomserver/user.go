@@ -214,12 +214,8 @@ func (u *RoomUser) PackBin() *msg.Serialize {
 
 func (u *RoomUser) SendMsg(m pb.Message) bool {
 	if u.agentid == 0 {
-		if agent := GateMgr().FindGateByName(u.agentname); agent == nil {
-			log.Error("玩家[%s %d]找不到他的网关服务器[%s]", u.Name(), u.Id(), u.agentname)
-			return false
-		}else {
-			u.agentid = agent.Id()
-		}
+		log.Fatal("SendMsg", m)
+		return false
 	}
 
 	return RoomSvr().SendMsg(u.agentid , m)
@@ -254,7 +250,7 @@ func (u *RoomUser) AgentName() string {
 func (u *RoomUser) UpdateGateAgent(agent network.IBaseNetSession) {
 	u.agentid = agent.Id()
 	u.agentname = agent.Name()
-	log.Info("玩家[%s %d] 上线更新GateAgent[%s %d]信息", u.Name(), u.Id(), agent.Name(), agent.Id())
+	log.Info("玩家[%s %d] 上线更新GateAgent信息[%s %d]", u.Name(), u.Id(), agent.Name(), agent.Id())
 }
  
 func (u *RoomUser) GetGold() int32 {
@@ -278,14 +274,14 @@ func (u *RoomUser) RemoveGold(gold int32, reason string, syn bool) bool {
 func (u *RoomUser) AddGold(gold int32, reason string, syn bool) {
 	entity := u.Entity()
 	entity.Gold = pb.Int32(u.GetGold() + gold)
-	if syn { u.SendGold() }
+	if syn { u.SendPropertyChange() }
 	log.Info("玩家[%d] 添加金币[%d] 库存[%d] 原因[%s]", u.Id(), gold, u.GetGold(), reason)
 }
 
 func (u *RoomUser) SetGold(gold int32, reason string, syn bool) {
 	entity := u.Entity()
 	entity.Gold = pb.Int32(gold)
-	if syn { u.SendGold() }
+	if syn { u.SendPropertyChange() }
 	log.Info("玩家[%d] 设置金币[%d] 库存[%d] 原因[%s]", u.Id(), gold, u.GetGold(), reason)
 }
 
@@ -336,7 +332,7 @@ func (u *RoomUser) RemoveDiamond(num int32, reason string, syn bool) bool {
 	entity := u.Entity()
 	if ( entity.GetDiamond() >= num ) {
 		entity.Diamond = pb.Int32(entity.GetDiamond() - num)
-		if syn { u.SendDiamond() }
+		if syn { u.SendPropertyChange() }
 		log.Info("玩家[%d] 扣除金卷[%d] 库存[%d] 原因[%s]", u.Id(), num, entity.GetDiamond(), reason)
 		RCounter().IncrByDate("item_remove", int32(msg.ItemId_Diamond), num)
 		return true
@@ -350,8 +346,16 @@ func (u *RoomUser) AddDiamond(num int32, reason string, syn bool) {
 	entity := u.Entity()
 	entity.Diamond = pb.Int32(entity.GetDiamond() + num)
 	//u.SynAddMidsMoney(int64(num), reason)
-	if syn { u.SendDiamond() }
+	if syn { u.SendPropertyChange() }
 	log.Info("玩家[%d] 添加钻石[%d] 库存[%d] 原因[%s]", u.Id(), num, entity.GetDiamond(), reason)
+}
+
+func (u *RoomUser) SendPropertyChange() {
+	send := &msg.RS2C_RolePushPropertyChange{}
+	send.Diamond = pb.Int32(u.Entity().GetDiamond())
+	send.Gold = pb.Int32(u.Entity().GetGold())
+	send.Safegold = pb.Int32(0)
+	u.SendClientMsg(send)
 }
 
 // 添加道具

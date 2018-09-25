@@ -59,7 +59,7 @@ func (u *RoomUser) OnStandUp() {
 
 // 棋牌坐下动作
 func (u *RoomUser) OnSitDown(seat int32, errmsg string) {
-	u.SendClientMsg(&msg.RS2C_RetSitDown{Errmsg:pb.String(errmsg)})
+	u.SendClientMsg(&msg.RS2C_RetSitDown{Errcode:pb.String(errmsg)})
 	if errmsg != "" {
 		log.Info("[房间] 玩家[%s %d] 坐下房间[%d] 位置[%d] 错误[%s] ", u.Name(), u.Id(), u.RoomId(), seat, errmsg)
 		return

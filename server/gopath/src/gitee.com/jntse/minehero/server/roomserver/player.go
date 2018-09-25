@@ -32,6 +32,7 @@ type TexasPlayer struct{
 	isshowcard bool
 	bankroll int32
 	bettime int32
+	isready bool
 }
 
 type TexasPlayers []*TexasPlayer
@@ -69,6 +70,14 @@ func (this *TexasPlayer) IsAllIn() bool {
 		return true
 	}
 	return false
+}
+
+func (this *TexasPlayer) IsReady() bool {
+	return this.isready
+}
+
+func (this *TexasPlayer) SetReady(flag bool) {
+	this.isready = flag
 }
 
 func (this *TexasPlayer) BetStart() {
@@ -215,14 +224,22 @@ func (this *TexasPlayer) SitDown(pos int32) {
 		this.pos = pos
 		this.room.DelWatcher(this)
 		if this.room.IsGameStart() {
-			this.gamestate = 0
+			this.gamestate = GSWaitNext
 		}  
 	}
 }
 
-func (this *TexasPlayer) NextRound() {
+func (this *TexasPlayer) NextRound(rev *msg.C2RS_ReqNextRound) {
+	this.isready = true
 	send := &msg.RS2C_RetNextRound{}
 	this.owner.SendClientMsg(send)
+}
+
+func (this *TexasPlayer) BrightCard() {
+	this.isshowcard = true
+}
+
+func (this *TexasPlayer) AddCoin() {
 }
 
 func (this *TexasPlayer) AntePay(num int32) {
@@ -243,8 +260,14 @@ func (this *TexasPlayer) ChangeState(state int32) {
 }
 
 func (this *TexasPlayer) BuyInGame(rev *msg.C2RS_ReqBuyInGame) {
+	strerr := ""
 	if !this.room.CheckPos(rev.GetPos()-1) {
-		return
+		strerr = "位置已经被占用"
+		goto doerror
+	}
+	if !this.owner.RemoveGold(rev.GetNum(), "金币兑换筹码", true) {
+		strerr = "金币不足"
+		goto doerror
 	}
 	this.SitDown(rev.GetPos()-1)
 	this.AddBankRoll(rev.GetNum())
@@ -253,12 +276,16 @@ func (this *TexasPlayer) BuyInGame(rev *msg.C2RS_ReqBuyInGame) {
 		send := &msg.RS2C_PushSitOrStand{}
 		send.Roleid = pb.Int64(this.owner.Id())
 		send.Pos = pb.Int32(this.pos)
-		send.State = pb.Int32(this.gamestate)
-		send.BankRoll = pb.Int32(this.GetBankRoll())
+		send.State = pb.Int32(1)
+		send.Bankroll = pb.Int32(this.GetBankRoll())
 		this.room.BroadCastRoomMsg(send)
+
+        send1 := &msg.RS2C_RetBuyInGame{}
+		this.owner.SendClientMsg(send1)
 	}
+	doerror :
 	{
-		send := &msg.RS2C_RetBuyInGame{}
+		send := &msg.RS2C_RetBuyInGame{Errcode : pb.String(strerr)}
 		this.owner.SendClientMsg(send)
 	}
 }

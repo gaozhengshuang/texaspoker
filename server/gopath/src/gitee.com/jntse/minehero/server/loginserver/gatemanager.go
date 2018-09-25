@@ -198,10 +198,9 @@ func (this *GateManager) IsRegisted(ip string, port int) bool {
 	return false
 }
 
-func (this *GateManager) IsRegistedByName(name string, ip string, port int) bool {
-	host := fmt.Sprintf("%s:%d", ip, port)
+func (this *GateManager) IsRegistedByName(name string) bool {
 	for _, v := range this.gates {
-		if v.Host() == host || v.Name() == name { 
+		if v.Name() == name { 
 			return true 
 		}
 	}
@@ -220,7 +219,7 @@ func (this *GateManager) AddNew(session network.IBaseNetSession, ip string ,port
 	agent := NewGateAgent(session, ip, port)
 	agent.Init()
 	this.AddGate(agent)
-	log.Info("注册网关 id=%d [%s:%d] 当前总数:%d", agent.Id(), agent.ip, agent.port, this.Num())
+	log.Info("注册网关 id=%d [%s][%s:%d] 当前总数:%d", agent.Id(), agent.Name(), agent.ip, agent.port, this.Num())
 }
 
 

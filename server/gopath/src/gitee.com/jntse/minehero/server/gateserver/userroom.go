@@ -80,7 +80,7 @@ func (this *UserRoomData) Online(u *GateUser) {
 
 	// 对应RoomUser更新Gate SessionInfo(Gate重启/家重连)
 	msgonline := &msg.GW2RS_UserOnline{Userid:pb.Int64(u.Id())}
-	this.SendRoomMsg(msgonline)
+	u.SendRoomMsg(msgonline)
 }
 
 func (this *GateUser) GameKind() int32 	{ return this.roomdata.kind }

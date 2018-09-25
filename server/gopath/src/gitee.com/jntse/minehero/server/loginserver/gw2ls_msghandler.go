@@ -61,10 +61,8 @@ func on_GW2L_ReqRegist(session network.IBaseNetSession, message interface{}) {
 		return
 	}
 
-
-	// TODO: 重复注册服务器为了第一时间发现问题使用了panic
-	//if GateMgr().IsRegisted(ip, port) == true {
-	if GateMgr().IsRegistedByName(tmsg.GetName(), ip, port) == true {
+	// 重复注册检查
+	if GateMgr().IsRegisted(ip, port) == true || GateMgr().IsRegistedByName(tmsg.GetName()) == true {
 		log.Fatal(fmt.Sprintf("重复注册网关服务器 %s:%d", ip, port))
 		session.SendCmd(&msg.L2GW_RetRegist{Errocde:pb.String("重复注册网关服务器"), Host:tmsg.Host})
 		return
