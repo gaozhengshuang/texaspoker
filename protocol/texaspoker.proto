@@ -77,7 +77,7 @@ message RS2C_PushSitOrStand
     optional int64 roleid = 1;              //玩家id
     optional int32 pos = 2;                 //玩家位置
     optional int32 state = 3;               //玩家状态
-    optional int32 bankRoll = 4;            //玩家筹码
+    optional int32 bankroll = 4;            //玩家筹码
 }
 
 //服务器推送时间奖励
@@ -203,6 +203,21 @@ message C2RS_ReqBrightCard
 message RS2C_RetBrightCard
 {
     optional string errcode = 1;
+}
+
+//及时亮牌
+message C2RS_ReqBrightInTime
+{
+}
+
+message RS2C_RetBrightInTime
+{
+}
+
+message RS2C_PushBrightCard
+{
+    optional int32 roleid = 1;
+    repeated int32 card = 2;    
 }
 
 //请求增加金币

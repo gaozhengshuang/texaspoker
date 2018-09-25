@@ -277,7 +277,7 @@ func (this *TexasPlayer) BuyInGame(rev *msg.C2RS_ReqBuyInGame) {
 		send.Roleid = pb.Int64(this.owner.Id())
 		send.Pos = pb.Int32(this.pos)
 		send.State = pb.Int32(1)
-		send.BankRoll = pb.Int32(this.GetBankRoll())
+		send.Bankroll = pb.Int32(this.GetBankRoll())
 		this.room.BroadCastRoomMsg(send)
 
         send1 := &msg.RS2C_RetBuyInGame{}
