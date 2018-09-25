@@ -665,12 +665,12 @@ class SocketManager
 		if (egret.getTimer() - SocketManager._heartbeatTime >= SocketManager.HeartbeatInterval)
 		{
 			SocketManager._heartbeatTime = egret.getTimer();
-			SocketManager._socket.SimpleCall("msg.C2GW_HeartBeat", msg.C2GW_HeartBeat.encode({}), SocketManager.OnHeartbeatServer, null, this);
-			// SocketManager._socket.SimpleCall(Command.C2GW_HeartBeat, { sessionId: SocketManager._socket.requestSessionMax }, SocketManager.OnHeartbeatServer, null, this);
+			SocketManager._socket.SimpleCall(Command.C2GW_ReqHeartBeat, msg.C2GW_ReqHeartBeat.encode({}), SocketManager.OnHeartbeatServer, null, this);
+			// SocketManager._socket.SimpleCall(Command.GW2C_RetHeartBeat, { sessionId: SocketManager._socket.requestSessionMax }, SocketManager.OnHeartbeatServer, null, this);
 		}
 	}
 	private static OnHeartbeatServer(result: game.SpRpcResult)
 	{
-		TimeManager.SetServerTimestamp((result.data as msg.GW2C_HeartBeat).time);
+		TimeManager.SetServerTimestamp((result.data as msg.GW2C_RetHeartBeat).time);
 	}
 }

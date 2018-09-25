@@ -14,7 +14,7 @@ class Command
     /**
      * 心跳
      */
-    public static readonly C2GW_HeartBeat: string = "msg.C2GW_HeartBeat";
+    public static readonly C2GW_ReqHeartBeat: string = "msg.C2GW_ReqHeartBeat";
     /**
      * 请求服务器推送
      */

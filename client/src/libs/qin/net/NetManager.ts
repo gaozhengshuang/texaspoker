@@ -24,13 +24,13 @@ module game
     // export var $gameNetIp: string = "ws://192.168.30.202:{gamePort}/ws_handler";
 
     //谢建服务器
-    // export var $registIp: string = "http://192.168.30.203:27003";
-    // export var $netIp: string = "ws://192.168.30.203:27002/ws_handler";
-    // export var $gameNetIp: string = "ws://192.168.30.203:{gamePort}/ws_handler"
+    export var $registIp: string = "http://192.168.30.203:27003";
+    export var $netIp: string = "ws://192.168.30.203:27002/ws_handler";
+    export var $gameNetIp: string = "ws://192.168.30.203:{gamePort}/ws_handler"
     //谢建2号
-    export var $registIp: string = "http://192.168.30.203:37003";
-    export var $netIp: string = "ws://192.168.30.203:37002/ws_handler";
-    export var $gameNetIp: string = "ws://192.168.30.203:{gamePort}/ws_handler";
+    // export var $registIp: string = "http://192.168.30.203:37003";
+    // export var $netIp: string = "ws://192.168.30.203:37002/ws_handler";
+    // export var $gameNetIp: string = "ws://192.168.30.203:{gamePort}/ws_handler";
 
     //毕强服务器
     // export var $registIp: string = "http://192.168.30.205:7003";

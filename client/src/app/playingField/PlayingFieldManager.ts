@@ -13,11 +13,11 @@ class PlayingFieldManager
 	 */
     public static reqRoomListInfo(type: number)
     {
-        SocketManager.call(Command.C2GW_ReqTexasRoomList, { "type": type }, PlayingFieldManager.RoomListInfoResponse, null, this);
+        SocketManager.call(Command.C2GW_ReqTexasRoomList, msg.C2GW_ReqTexasRoomList.encode({ "type": type }), PlayingFieldManager.RoomListInfoResponse, null, this);
     }
     public static RoomListInfoResponse(result: game.SpRpcResult)
     {
-        let data: msg.TexasRoomSimpleInfo[] = result.data;
+        let data: msg.GW2C_RetTexasRoomList = result.data;
 
         if (data)
         {
@@ -26,7 +26,7 @@ class PlayingFieldManager
             {
                 PlayingFieldManager.roomList = new Array<PlayingFieldRoomInfo>();
             }
-            for (let roomInfo of data)
+            for (let roomInfo of data.list)
             {
                 let info: PlayingFieldRoomInfo = new PlayingFieldRoomInfo();
                 info.copyValueFrom(roomInfo);

@@ -123,10 +123,11 @@ class PlayingFieldPanel extends BasePanel
             {
                 PlayingFieldManager.reqRoomListInfo(this.panelData.enterIndex + 1);
             }
-        } else
+        }
+        else
         {
-            this.playingFieldTabCompontent.setSelectIndex(0);
-            this.reqPrimaryRoom();
+            // this.playingFieldTabCompontent.setSelectIndex(0); //move modified 默认已经发送，这里是多余发送
+            // this.reqPrimaryRoom();
         }
     }
 
@@ -398,7 +399,7 @@ class PlayingFieldPanel extends BasePanel
         //     AlertManager.showConfirm("私人房仅对VIP开放，您现在还不是VIP，是否马上开通？", this.openShoppingPanel, null, type, null, null, "立即开通VIP");
         // } else
         // {
-            UIManager.showPanel(UIModuleName.CreateRoomPwdPanel, { playWay: this._playWay });
+        UIManager.showPanel(UIModuleName.CreateRoomPwdPanel, { playWay: this._playWay });
         // }
     }
     /**

@@ -80,14 +80,14 @@ message GW2C_PushUserInfo {
 }
 
 // 心跳
-message C2GW_HeartBeat {
+message C2GW_ReqHeartBeat {
     optional int64 uid  = 1;
     optional int64 time = 2;
     repeated string test = 3;
     //optional string token = 4;
 }
 
-message GW2C_HeartBeat {
+message GW2C_RetHeartBeat {
     optional int64 uid  = 1;
     optional int64 time = 2;
     repeated string test = 3;
