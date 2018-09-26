@@ -111,7 +111,7 @@ func (this *GateUser) SendRsUserDisconnect() {
 // 发送房间消息
 func (this *GateUser) SendRoomMsg(msg pb.Message) {
 	if this.IsInRoom() == false {
-		log.Error("[房间] 玩家[%s %d]没有房间信息", this.Name(), this.Id())
+		log.Error("[房间] 玩家[%s %d]没有房间，发送房间消息失败", this.Name(), this.Id())
 		return
 	}
 	RoomSvrMgr().SendMsg(this.roomdata.roomsid, msg)
