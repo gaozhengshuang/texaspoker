@@ -1,0 +1,38 @@
+// --------------------------------------------------------------------------
+/// @brief 活动相关协议
+// --------------------------------------------------------------------------
+syntax = "proto2";
+package msg;
+
+//请求活动信息
+message C2GW_ReqActivityInfo {
+	optional int32 id  = 1;
+}
+
+message ActivityInfo {
+	optional string type = 1;
+	optional int32 id = 2;
+	optional int32 step = 3;
+	optional string gotjson = 4;
+	optional string json = 5;
+	optional int32 starttime = 6;
+	optional int32 endtime = 7;
+}
+
+//返回活动信息
+message GW2C_AckActivityInfo {
+	repeated ActivityInfo array = 1;
+}
+
+//请求领取活动奖励
+message C2GW_ReqGetActivityReward {
+	optional int32 subid = 1;
+	optional int32 id = 2;
+}
+
+//返回领取活动奖励
+message GW2C_AckGetActivityRewardRet {
+	optional int32 subid = 1;
+	optional int32 id = 2;
+	optional int32 ret = 3;
+}
