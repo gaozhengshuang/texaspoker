@@ -66,17 +66,19 @@ message GW2RS_UploadUserBin   {
     optional msg.Serialize bin = 3;     // TODO: 玩家数据没必要全部发送
 }
 
-// RS2GW 离开房间，下发玩家个人数据到网关
-message RS2GW_UserLeaveRoom {
-    optional int64 userid = 1;
-    optional msg.Serialize bin = 2;
-}
-
 // C2GW 进入房间
 message C2GW_ReqEnterRoom {
     optional int64 userid = 1;      // 玩家uid
     optional int64 roomid = 2;      // 房间唯一id
     optional string passwd = 3;     // 密码
+}
+
+// RS2GW 进入房间返回
+message RS2GW_RetEnterRoom {
+    optional int64 userid = 1;      // 玩家uid
+    optional int64 roomid = 2;      // 房间唯一id
+    optional string passwd = 3;     // 密码
+    optional string errcode = 4;    //
 }
 
 // C2GW 退出游戏房间
@@ -86,6 +88,12 @@ message C2GW_ReqLeaveRoom {
 
 // GW2C 退出游戏房间
 message GW2C_RetLeaveRoom {
+}
+
+// RS2GW 离开房间，下发玩家个人数据到网关
+message RS2GW_UserLeaveRoom {
+    optional int64 userid = 1;
+    optional msg.Serialize bin = 2;
 }
 
 // 房间销毁

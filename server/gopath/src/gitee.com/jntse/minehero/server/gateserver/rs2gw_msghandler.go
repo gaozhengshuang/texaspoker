@@ -41,6 +41,7 @@ func (this* RS2GWMsgHandler) Init() {
 	// 房间
 	this.msgparser.RegistProtoMsg(msg.RS2GW_PushRoomDestory{}, on_RS2GW_PushRoomDestory)
 	this.msgparser.RegistProtoMsg(msg.RS2GW_UserLeaveRoom{}, on_RS2GW_UserLeaveRoom)
+	this.msgparser.RegistProtoMsg(msg.RS2GW_RetEnterRoom{}, on_RS2GW_RetEnterRoom)
 }
 
 func on_RS2GW_ReqRegist(session network.IBaseNetSession, message interface{}) {
@@ -119,6 +120,19 @@ func on_RS2GW_UserLeaveRoom(session network.IBaseNetSession, message interface{}
 	}
 	user.OnLeaveRoom(tmsg.Bin)
 }
+
+// 进入房间
+func on_RS2GW_RetEnterRoom(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.RS2GW_RetEnterRoom)
+	userid := tmsg.GetUserid()
+	user := UserMgr().FindById(userid)
+	if user == nil {
+		log.Error("RS2GW_RetEnterRoom 找不到玩家[%d]", userid)
+		return
+	}
+	user.OnEnterRoom(session.Id(), tmsg.GetRoomid(), tmsg.GetPasswd())
+}
+
 
 
 func on_RS2GW_RetUserDisconnect(session network.IBaseNetSession, message interface{}) {

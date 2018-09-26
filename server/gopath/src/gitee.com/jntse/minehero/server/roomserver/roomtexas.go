@@ -45,6 +45,7 @@ func (this *TexasPokerRoom) OnGameOver() {
 // 玩家进入房间，首次/断线重进
 func (this *TexasPokerRoom) UserEnter(u *RoomUser) {
 	log.Info("[房间] 玩家[%s %d] 进入房间[%d]", u.Name(), u.Id(), this.Id())
+	u.OnEnterRoom()
 	player := this.FindAllByID(u.Id())
 	if player != nil {
 		this.SendRoomInfo(player)
@@ -59,18 +60,6 @@ func (this *TexasPokerRoom) UserEnter(u *RoomUser) {
 
 // 玩家离开房间
 func (this *TexasPokerRoom) UserLeave(u *RoomUser) {
-	delete(this.members, u.Id())
-	//delete(this.watchmembers, u.Id())
-	Redis().HSet(fmt.Sprintf("roombrief_%d", this.Id()), "members", this.PlayersNum())
-	u.OnLeaveRoom()
-	log.Info("[房间] 玩家[%s %d] 离开房间[%d]", u.Name(), u.Id(), this.Id())
-
-	// 如果是私人房间，全部人离开解散
-	if IsTexasRoomPrivateType(this.SubKind()) && len(this.members) == 0 {
-		this.Destory(0)
-	}
-
-	//
 	player := this.FindAllByID(u.Id())
 	if player == nil {
 		return
@@ -80,6 +69,17 @@ func (this *TexasPokerRoom) UserLeave(u *RoomUser) {
 		this.DelPlayer(player.pos)
 	}else {
 		this.DelWatcher(player)
+	}
+
+	delete(this.members, u.Id())
+	//delete(this.watchmembers, u.Id())
+	Redis().HSet(fmt.Sprintf("roombrief_%d", this.Id()), "members", this.PlayersNum())
+	u.OnLeaveRoom()
+	log.Info("[房间] 玩家[%s %d] 离开房间[%d]", u.Name(), u.Id(), this.Id())
+
+	// 如果是私人房间，全部人离开解散
+	if IsTexasRoomPrivateType(this.SubKind()) && len(this.members) == 0 {
+		this.Destory(0)
 	}
 }
 

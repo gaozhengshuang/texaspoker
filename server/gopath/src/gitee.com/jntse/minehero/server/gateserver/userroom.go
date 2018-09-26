@@ -214,6 +214,14 @@ func (this *GateUser) OnLeaveRoom(bin *msg.Serialize) {
 	}
 }
 
+// 进入房间
+func (this *GateUser) OnEnterRoom(agentid int, roomid int64, passwd string) {
+	log.Info("玩家[%s %d] 进入房间确认[%d] 密码[%s]", this.Name(), this.Id(), roomid, passwd)
+	this.roomdata.roomid = roomid
+	this.roomdata.passwd = passwd
+	this.roomdata.roomsid = agentid
+}
+
 // 房间销毁
 func (this *GateUser) OnDestoryRoom(bin *msg.Serialize) {
 	log.Info("玩家[%s %d] 销毁房间[%d] 回传房间个人数据", this.Name(), this.Id(), this.RoomId())
