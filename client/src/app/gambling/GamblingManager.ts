@@ -831,7 +831,7 @@ class GamblingManager
 			let data: msg.RS2C_PushBrightCard = result.data;
 			let info: HandCardInfo = new HandCardInfo();
 			info.data = new msg.HandCardInfo();
-			info.roleId = data.roleid;
+			info.roleId = game.longToNumber(data.roleid);
 			info.cardList = [];
 			GamblingUtil.cardArr2CardInfoList(data.card, info.cardList);
 			GamblingManager.SomeBodyBrightCardEvent.dispatch(info);

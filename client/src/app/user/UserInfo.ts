@@ -25,21 +25,24 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 			for (let key in self)
 			{
 				let lowerKey = key.toLowerCase();
-				let property: any = self[lowerKey];
-				if (data[lowerKey] == undefined)
+				let property: any = this[key];
+				if (!(property instanceof Function)) //函数属性不拷贝
 				{
-					if (typeof self[key] === "number")
+					if (data[lowerKey] == undefined)
 					{
-						self[key] = 0;
+						if (typeof self[key] === "number")
+						{
+							self[key] = 0;
+						}
+						else if (typeof self[key] === "string")
+						{
+							self[key] = game.StringConstants.Empty;
+						}
 					}
-					else if (typeof self[key] === "string")
+					else
 					{
-						self[key] = game.StringConstants.Empty;
+						self[key] = data[lowerKey];
 					}
-				}
-				else
-				{
-					self[key] = data[lowerKey];
 				}
 			}
 		}
