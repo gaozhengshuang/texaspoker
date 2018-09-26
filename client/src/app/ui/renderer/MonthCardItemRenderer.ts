@@ -42,11 +42,11 @@ class MonthCardItemRenderer extends BaseItemRenderer<ShopInfo>
     /**
      * 领取的award信息
     */
-    private _bringAwardDef: AwardDefinition;
+    private _bringAwardDef: any; // move todo
     /**
      * 月卡的定义信息
     */
-    private _monthCardDefinition: AwardDefinition;
+    private _monthCardDefinition: any; //move todo
 
     public constructor()
     {
@@ -59,23 +59,23 @@ class MonthCardItemRenderer extends BaseItemRenderer<ShopInfo>
         if (InfoUtil.checkAvailable(this.bindData))
         {
             this.iconImg.source = this.bindData.definition.iconName + ResSuffixName.PNG;
-            this._monthCardDefinition = AwardDefined.GetInstance().getDefinition(this.bindData.definition.awardId);
-            if (this._monthCardDefinition)
-            {
-                if (this._monthCardDefinition.costList)
-                {
-                    this.costLabel.text = this._monthCardDefinition.costList[0].count / 100 + this.getDesByCostType(this._monthCardDefinition.costList[0].type);
-                }
-                this._bringAwardDef = AwardDefined.GetInstance().getAwardInfoByPreId(this._monthCardDefinition.id);
-                if (this._bringAwardDef)
-                {
-                    if (this._bringAwardDef.rewardList)
-                    {
-                        this.goldNumDesLabel.text = this._bringAwardDef.rewardList[0].count + "金币";
-                        this.goldNumLabel.text = this._bringAwardDef.rewardList[0].count.toString();
-                    }
-                }
-            }
+            // this._monthCardDefinition = AwardDefined.GetInstance().getDefinition(this.bindData.definition.awardId);  //move todo
+            // if (this._monthCardDefinition)
+            // {
+            //     if (this._monthCardDefinition.costList)
+            //     {
+            //         this.costLabel.text = this._monthCardDefinition.costList[0].count / 100 + this.getDesByCostType(this._monthCardDefinition.costList[0].type);
+            //     }
+            //     this._bringAwardDef = AwardDefined.GetInstance().getAwardInfoByPreId(this._monthCardDefinition.id);
+            //     if (this._bringAwardDef)
+            //     {
+            //         if (this._bringAwardDef.rewardList)
+            //         {
+            //             this.goldNumDesLabel.text = this._bringAwardDef.rewardList[0].count + "金币";
+            //             this.goldNumLabel.text = this._bringAwardDef.rewardList[0].count.toString();
+            //         }
+            //     }
+            // }
             this.setRendererInfo();
             this.addEventListener(egret.Event.REMOVED_FROM_STAGE, this.onDisable, this);
             this.buyBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onBuyBtnClick, this);

@@ -17,7 +17,7 @@
 		         x="216" y="196" />
 		<e:Label id="pwdLabel" text="Label11111111111111" x="231" wordWrap="false" anchorOffsetX="0" width="310"
 		         textAlign="left" size="24" height="40" verticalAlign="middle" y="204" maxChars="30"  displayAsPassword="true"/>
-		<ns1:ShadowButton id="closeButton" label="Button" x="600" y="65" scaleY="1" anchorOffsetY="27" anchorOffsetX="27" scaleX="1" skinName="closeButtonSkin"/>
+		<ns1:ShadowButton id="closeButton" label="Button" x="600" y="65" scaleY="1" anchorOffsetY="27" anchorOffsetX="27" scaleX="1" skinName="closeButtonSkin" visible="false"/>
 		<e:Group y="285" horizontalCenter="0">
 			<ns1:ShadowButton id="loginBtn" label="登录" y="0" x="260.6" skinName="commonButtonY2Skin" />
 			<ns1:ShadowButton id="registerBtn" label="注册" y="0" x="0" skinName="commonButtonY2Skin" />

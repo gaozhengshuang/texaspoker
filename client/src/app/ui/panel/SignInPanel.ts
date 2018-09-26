@@ -54,16 +54,16 @@ class SignInPanel extends BaseActivityPanel
 		let signinDef: SignInDefinition = SignInDefined.GetInstance().getDefinitionbySubId(day);
 		if (signinDef)
 		{
-			let awardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(signinDef.pilePrize);
-			if (awardDef && awardDef.rewardList)
-			{
-				prizeLabel.text = ActivityManager.signInHandler.getAwardDes(awardDef);
-				let itemDef: ItemDefinition = ItemDefined.GetInstance().getDefinition(awardDef.rewardList[0].id);
-				if (itemDef)
-				{
-					prizeIcon.source = itemDef.icon + ResSuffixName.PNG;
-				}
-			}
+			// let awardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(signinDef.pilePrize);  //move todo
+			// if (awardDef && awardDef.rewardList)
+			// {
+			// 	prizeLabel.text = ActivityManager.signInHandler.getAwardDes(awardDef);
+			// 	let itemDef: ItemDefinition = ItemDefined.GetInstance().getDefinition(awardDef.rewardList[0].id);
+			// 	if (itemDef)
+			// 	{
+			// 		prizeIcon.source = itemDef.icon + ResSuffixName.PNG;
+			// 	}
+			// }
 		}
 	}
 	protected onEnable(event: eui.UIEvent): void

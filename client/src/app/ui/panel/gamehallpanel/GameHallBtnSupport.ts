@@ -93,22 +93,22 @@ class GameHallBtnSupport
     */
     private setIsShowBindPhoneAwardBtn()
     {
-        let bringAwardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(this.bindPhoneAwardId);
-        if (ChannelManager.loginType != ChannelLoginType.GiantFun)
-        {
-            if (BindAccountManager.getIsBinding(ChannelLoginType.GiantFun) && AwardManager.isToLimit(bringAwardDef))
-            {
-                this.changeActivityBtn(this.target.bindPhoneAwardBtn, false);
-            }
-            else
-            {
-                this.changeActivityBtn(this.target.bindPhoneAwardBtn, true);
-            }
-        }
-        else
-        {
-            this.changeActivityBtn(this.target.bindPhoneAwardBtn, false);
-        }
+        // let bringAwardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(this.bindPhoneAwardId);  //move todo
+        // if (ChannelManager.loginType != ChannelLoginType.GiantFun)
+        // {
+        //     if (BindAccountManager.getIsBinding(ChannelLoginType.GiantFun) && AwardManager.isToLimit(bringAwardDef))
+        //     {
+        //         this.changeActivityBtn(this.target.bindPhoneAwardBtn, false);
+        //     }
+        //     else
+        //     {
+        //         this.changeActivityBtn(this.target.bindPhoneAwardBtn, true);
+        //     }
+        // }
+        // else
+        // {
+        //     this.changeActivityBtn(this.target.bindPhoneAwardBtn, false);
+        // }
     }
 
     /**

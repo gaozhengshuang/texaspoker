@@ -10,7 +10,7 @@ class CommonIcon extends BaseComponent<any>
 
     public init(sourse: string, size?: number, bg?: string, isHighLight?: boolean, hideBg?: boolean);
     public init(itemId: number, size?: number, bg?: string, isHighLight?: boolean, hideBg?: boolean);
-    public init(awardDef: AwardDefinition, size?: number, bg?: string, isHighLight?: boolean, hideBg?: boolean);
+    public init(awardDef: table.IAwardDefine, size?: number, bg?: string, isHighLight?: boolean, hideBg?: boolean);
     public init(item: any, size?: number, bg?: string, isHighLight?: boolean, hideBg?: boolean)
     {
         if (typeof item == "string")
@@ -25,9 +25,9 @@ class CommonIcon extends BaseComponent<any>
                 this.itemImg.source = def.icon + ResSuffixName.PNG;
             }
         }
-        else if (item && item.rewardList)
+        else if (item && (item as table.IAwardDefine).RewardId)
         {
-            let id: number = item.rewardList[0].id;
+            let id: number = item.RewardId[0];
             let def: ItemDefinition = ItemDefined.GetInstance().getDefinition(id);
             if (def)
             {

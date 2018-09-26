@@ -5,11 +5,11 @@ class HappyGiftItemInfo extends BaseActivitySubInfo<ActivityHappyGiftDefintion>
         super.trySetDefinition();
         this._definition = ActivityHappyGiftDefined.GetInstance().getSubDefinition(this._id, this._subId);
     }
-    public get awardInfoDef(): AwardDefinition
+    public get awardInfoDef(): table.IAwardDefine
     {
         if (this.definition)
         {
-            let awardDef = AwardDefined.GetInstance().getDefinition(this.definition.awardId);
+            let awardDef = table.AwardById[this.definition.awardId];
             if (awardDef)
             {
                 return awardDef;

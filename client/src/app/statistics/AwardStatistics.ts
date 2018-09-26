@@ -8,7 +8,7 @@ class AwardStatistics
 		try
 		{
 			//充值
-			let def: AwardDefinition = AwardDefined.GetInstance().getDefinition(info.id);
+			let def: any ={}; //move todo
 			let isCostCurrency: boolean = false;
 			if (def.costList)
 			{

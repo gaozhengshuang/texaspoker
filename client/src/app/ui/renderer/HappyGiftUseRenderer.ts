@@ -22,15 +22,15 @@ class HappyGiftUseRenderer extends BaseItemRenderer<HappyGiftItemInfo>
     {
         if (this.bindData)
         {
-            let awardDef = this.bindData.awardInfoDef;
-            if (awardDef && awardDef.rewardList)
-            {
-                let itemDef = ItemDefined.GetInstance().getDefinition(awardDef.rewardList[0].id);
-                if (itemDef)
-                {
-                    this.nameLabel.text = itemDef.name;
-                }
-            }
+            // let awardDef = this.bindData.awardInfoDef;  //move todo
+            // if (awardDef && awardDef.rewardList)
+            // {
+            //     let itemDef = ItemDefined.GetInstance().getDefinition(awardDef.rewardList[0].id);
+            //     if (itemDef)
+            //     {
+            //         this.nameLabel.text = itemDef.name;
+            //     }
+            // }
             this.countLabel.text = this.bindData.buyTime.toString();
         }
     }

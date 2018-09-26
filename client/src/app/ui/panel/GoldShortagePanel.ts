@@ -59,21 +59,21 @@ class GoldShortagePanel extends BasePanel
     {
         if (this._shopInfo && this._shopInfo.definition)
         {
-            let awardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(this._shopInfo.definition.awardId);
-            if (awardDef)
-            {
-                let def: AwardInfoDefinition;
-                for (let cost of awardDef.costList)
-                {
-                    if (cost.type == CostType.RMB)
-                    {
-                        def = cost;
-                    }
-                }
-                AwardManager.OnExchanged.removeListener(this.onExchanged, this);
-                AwardManager.OnExchanged.addListener(this.onExchanged, this);
-                ChannelManager.PaySend(this._shopInfo.id);
-            }
+            // let awardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(this._shopInfo.definition.awardId);  // move todo
+            // if (awardDef)
+            // {
+            //     let def: AwardInfoDefinition;
+            //     for (let cost of awardDef.costList)
+            //     {
+            //         if (cost.type == CostType.RMB)
+            //         {
+            //             def = cost;
+            //         }
+            //     }
+            //     AwardManager.OnExchanged.removeListener(this.onExchanged, this);
+            //     AwardManager.OnExchanged.addListener(this.onExchanged, this);
+            //     ChannelManager.PaySend(this._shopInfo.id);
+            // }
         }
     }
     private onExchanged(id: number)
@@ -94,30 +94,30 @@ class GoldShortagePanel extends BasePanel
     private unEnoughGoldHandle()
     {
         this._shopInfo = null;
-        let awardDef: AwardDefinition;
-        if (ShopManager.goldList.length > 0)
-        {
-            for (let i: number = 0; i < ShopManager.goldList.length; i++)
-            {
-                let info: ShopInfo = ShopManager.goldList[i];
-                if (info && info.definition)
-                {
-                    awardDef = AwardDefined.GetInstance().getDefinition(info.definition.awardId);
-                    if (awardDef && this.panelData.goldShortage <= awardDef.rewardList[0].count || i == ShopManager.goldList.length - 1)
-                    {
-                        this._shopInfo = info;
-                        break;
-                    }
-                }
-            }
-            if (this._shopInfo && awardDef)
-            {
-                if (awardDef.costList && awardDef.costList.length > 0)
-                {
-                    this.priceLabel.text = "仅需" + awardDef.costList[0].count / 100 + "元";
-                }
-                this.goldLabel.text = awardDef.name;
-            }
-        }
+        // let awardDef: AwardDefinition; //move todo
+        // if (ShopManager.goldList.length > 0)
+        // {
+        //     for (let i: number = 0; i < ShopManager.goldList.length; i++)
+        //     {
+        //         let info: ShopInfo = ShopManager.goldList[i];
+        //         if (info && info.definition)
+        //         {
+        //             awardDef = AwardDefined.GetInstance().getDefinition(info.definition.awardId);
+        //             if (awardDef && this.panelData.goldShortage <= awardDef.rewardList[0].count || i == ShopManager.goldList.length - 1)
+        //             {
+        //                 this._shopInfo = info;
+        //                 break;
+        //             }
+        //         }
+        //     }
+        //     if (this._shopInfo && awardDef)
+        //     {
+        //         if (awardDef.costList && awardDef.costList.length > 0)
+        //         {
+        //             this.priceLabel.text = "仅需" + awardDef.costList[0].count / 100 + "元";
+        //         }
+        //         this.goldLabel.text = awardDef.name;
+        //     }
+        // }
     }
 }

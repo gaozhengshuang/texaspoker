@@ -8596,102 +8596,6 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a RS2GW_UserLeaveRoom. */
-    interface IRS2GW_UserLeaveRoom {
-
-        /** RS2GW_UserLeaveRoom userid */
-        userid?: (number|Long|null);
-
-        /** RS2GW_UserLeaveRoom bin */
-        bin?: (msg.ISerialize|null);
-    }
-
-    /** Represents a RS2GW_UserLeaveRoom. */
-    class RS2GW_UserLeaveRoom implements IRS2GW_UserLeaveRoom {
-
-        /**
-         * Constructs a new RS2GW_UserLeaveRoom.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IRS2GW_UserLeaveRoom);
-
-        /** RS2GW_UserLeaveRoom userid. */
-        public userid: (number|Long);
-
-        /** RS2GW_UserLeaveRoom bin. */
-        public bin?: (msg.ISerialize|null);
-
-        /**
-         * Creates a new RS2GW_UserLeaveRoom instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns RS2GW_UserLeaveRoom instance
-         */
-        public static create(properties?: msg.IRS2GW_UserLeaveRoom): msg.RS2GW_UserLeaveRoom;
-
-        /**
-         * Encodes the specified RS2GW_UserLeaveRoom message. Does not implicitly {@link msg.RS2GW_UserLeaveRoom.verify|verify} messages.
-         * @param message RS2GW_UserLeaveRoom message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IRS2GW_UserLeaveRoom, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified RS2GW_UserLeaveRoom message, length delimited. Does not implicitly {@link msg.RS2GW_UserLeaveRoom.verify|verify} messages.
-         * @param message RS2GW_UserLeaveRoom message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IRS2GW_UserLeaveRoom, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a RS2GW_UserLeaveRoom message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns RS2GW_UserLeaveRoom
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2GW_UserLeaveRoom;
-
-        /**
-         * Decodes a RS2GW_UserLeaveRoom message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns RS2GW_UserLeaveRoom
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2GW_UserLeaveRoom;
-
-        /**
-         * Verifies a RS2GW_UserLeaveRoom message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a RS2GW_UserLeaveRoom message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns RS2GW_UserLeaveRoom
-         */
-        public static fromObject(object: { [k: string]: any }): msg.RS2GW_UserLeaveRoom;
-
-        /**
-         * Creates a plain object from a RS2GW_UserLeaveRoom message. Also converts values to other types if specified.
-         * @param message RS2GW_UserLeaveRoom
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.RS2GW_UserLeaveRoom, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this RS2GW_UserLeaveRoom to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
     /** Properties of a C2GW_ReqEnterRoom. */
     interface IC2GW_ReqEnterRoom {
 
@@ -8789,6 +8693,114 @@ declare namespace msg {
 
         /**
          * Converts this C2GW_ReqEnterRoom to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RS2GW_RetEnterRoom. */
+    interface IRS2GW_RetEnterRoom {
+
+        /** RS2GW_RetEnterRoom userid */
+        userid?: (number|Long|null);
+
+        /** RS2GW_RetEnterRoom roomid */
+        roomid?: (number|Long|null);
+
+        /** RS2GW_RetEnterRoom passwd */
+        passwd?: (string|null);
+
+        /** RS2GW_RetEnterRoom errcode */
+        errcode?: (string|null);
+    }
+
+    /** Represents a RS2GW_RetEnterRoom. */
+    class RS2GW_RetEnterRoom implements IRS2GW_RetEnterRoom {
+
+        /**
+         * Constructs a new RS2GW_RetEnterRoom.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IRS2GW_RetEnterRoom);
+
+        /** RS2GW_RetEnterRoom userid. */
+        public userid: (number|Long);
+
+        /** RS2GW_RetEnterRoom roomid. */
+        public roomid: (number|Long);
+
+        /** RS2GW_RetEnterRoom passwd. */
+        public passwd: string;
+
+        /** RS2GW_RetEnterRoom errcode. */
+        public errcode: string;
+
+        /**
+         * Creates a new RS2GW_RetEnterRoom instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RS2GW_RetEnterRoom instance
+         */
+        public static create(properties?: msg.IRS2GW_RetEnterRoom): msg.RS2GW_RetEnterRoom;
+
+        /**
+         * Encodes the specified RS2GW_RetEnterRoom message. Does not implicitly {@link msg.RS2GW_RetEnterRoom.verify|verify} messages.
+         * @param message RS2GW_RetEnterRoom message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IRS2GW_RetEnterRoom, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified RS2GW_RetEnterRoom message, length delimited. Does not implicitly {@link msg.RS2GW_RetEnterRoom.verify|verify} messages.
+         * @param message RS2GW_RetEnterRoom message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IRS2GW_RetEnterRoom, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a RS2GW_RetEnterRoom message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RS2GW_RetEnterRoom
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2GW_RetEnterRoom;
+
+        /**
+         * Decodes a RS2GW_RetEnterRoom message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RS2GW_RetEnterRoom
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2GW_RetEnterRoom;
+
+        /**
+         * Verifies a RS2GW_RetEnterRoom message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RS2GW_RetEnterRoom message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RS2GW_RetEnterRoom
+         */
+        public static fromObject(object: { [k: string]: any }): msg.RS2GW_RetEnterRoom;
+
+        /**
+         * Creates a plain object from a RS2GW_RetEnterRoom message. Also converts values to other types if specified.
+         * @param message RS2GW_RetEnterRoom
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.RS2GW_RetEnterRoom, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RS2GW_RetEnterRoom to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -8963,6 +8975,102 @@ declare namespace msg {
 
         /**
          * Converts this GW2C_RetLeaveRoom to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RS2GW_UserLeaveRoom. */
+    interface IRS2GW_UserLeaveRoom {
+
+        /** RS2GW_UserLeaveRoom userid */
+        userid?: (number|Long|null);
+
+        /** RS2GW_UserLeaveRoom bin */
+        bin?: (msg.ISerialize|null);
+    }
+
+    /** Represents a RS2GW_UserLeaveRoom. */
+    class RS2GW_UserLeaveRoom implements IRS2GW_UserLeaveRoom {
+
+        /**
+         * Constructs a new RS2GW_UserLeaveRoom.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IRS2GW_UserLeaveRoom);
+
+        /** RS2GW_UserLeaveRoom userid. */
+        public userid: (number|Long);
+
+        /** RS2GW_UserLeaveRoom bin. */
+        public bin?: (msg.ISerialize|null);
+
+        /**
+         * Creates a new RS2GW_UserLeaveRoom instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RS2GW_UserLeaveRoom instance
+         */
+        public static create(properties?: msg.IRS2GW_UserLeaveRoom): msg.RS2GW_UserLeaveRoom;
+
+        /**
+         * Encodes the specified RS2GW_UserLeaveRoom message. Does not implicitly {@link msg.RS2GW_UserLeaveRoom.verify|verify} messages.
+         * @param message RS2GW_UserLeaveRoom message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IRS2GW_UserLeaveRoom, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified RS2GW_UserLeaveRoom message, length delimited. Does not implicitly {@link msg.RS2GW_UserLeaveRoom.verify|verify} messages.
+         * @param message RS2GW_UserLeaveRoom message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IRS2GW_UserLeaveRoom, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a RS2GW_UserLeaveRoom message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RS2GW_UserLeaveRoom
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2GW_UserLeaveRoom;
+
+        /**
+         * Decodes a RS2GW_UserLeaveRoom message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RS2GW_UserLeaveRoom
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2GW_UserLeaveRoom;
+
+        /**
+         * Verifies a RS2GW_UserLeaveRoom message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RS2GW_UserLeaveRoom message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RS2GW_UserLeaveRoom
+         */
+        public static fromObject(object: { [k: string]: any }): msg.RS2GW_UserLeaveRoom;
+
+        /**
+         * Creates a plain object from a RS2GW_UserLeaveRoom message. Also converts values to other types if specified.
+         * @param message RS2GW_UserLeaveRoom
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.RS2GW_UserLeaveRoom, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RS2GW_UserLeaveRoom to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };

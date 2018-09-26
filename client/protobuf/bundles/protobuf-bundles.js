@@ -20195,235 +20195,6 @@ $root.msg = (function() {
         return GW2RS_UploadUserBin;
     })();
 
-    msg.RS2GW_UserLeaveRoom = (function() {
-
-        /**
-         * Properties of a RS2GW_UserLeaveRoom.
-         * @memberof msg
-         * @interface IRS2GW_UserLeaveRoom
-         * @property {number|Long|null} [userid] RS2GW_UserLeaveRoom userid
-         * @property {msg.ISerialize|null} [bin] RS2GW_UserLeaveRoom bin
-         */
-
-        /**
-         * Constructs a new RS2GW_UserLeaveRoom.
-         * @memberof msg
-         * @classdesc Represents a RS2GW_UserLeaveRoom.
-         * @implements IRS2GW_UserLeaveRoom
-         * @constructor
-         * @param {msg.IRS2GW_UserLeaveRoom=} [properties] Properties to set
-         */
-        function RS2GW_UserLeaveRoom(properties) {
-            if (properties)
-                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * RS2GW_UserLeaveRoom userid.
-         * @member {number|Long} userid
-         * @memberof msg.RS2GW_UserLeaveRoom
-         * @instance
-         */
-        RS2GW_UserLeaveRoom.prototype.userid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
-
-        /**
-         * RS2GW_UserLeaveRoom bin.
-         * @member {msg.ISerialize|null|undefined} bin
-         * @memberof msg.RS2GW_UserLeaveRoom
-         * @instance
-         */
-        RS2GW_UserLeaveRoom.prototype.bin = null;
-
-        /**
-         * Creates a new RS2GW_UserLeaveRoom instance using the specified properties.
-         * @function create
-         * @memberof msg.RS2GW_UserLeaveRoom
-         * @static
-         * @param {msg.IRS2GW_UserLeaveRoom=} [properties] Properties to set
-         * @returns {msg.RS2GW_UserLeaveRoom} RS2GW_UserLeaveRoom instance
-         */
-        RS2GW_UserLeaveRoom.create = function create(properties) {
-            return new RS2GW_UserLeaveRoom(properties);
-        };
-
-        /**
-         * Encodes the specified RS2GW_UserLeaveRoom message. Does not implicitly {@link msg.RS2GW_UserLeaveRoom.verify|verify} messages.
-         * @function encode
-         * @memberof msg.RS2GW_UserLeaveRoom
-         * @static
-         * @param {msg.IRS2GW_UserLeaveRoom} message RS2GW_UserLeaveRoom message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        RS2GW_UserLeaveRoom.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.userid != null && message.hasOwnProperty("userid"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.userid);
-            if (message.bin != null && message.hasOwnProperty("bin"))
-                $root.msg.Serialize.encode(message.bin, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
-            return writer;
-        };
-
-        /**
-         * Encodes the specified RS2GW_UserLeaveRoom message, length delimited. Does not implicitly {@link msg.RS2GW_UserLeaveRoom.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof msg.RS2GW_UserLeaveRoom
-         * @static
-         * @param {msg.IRS2GW_UserLeaveRoom} message RS2GW_UserLeaveRoom message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        RS2GW_UserLeaveRoom.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a RS2GW_UserLeaveRoom message from the specified reader or buffer.
-         * @function decode
-         * @memberof msg.RS2GW_UserLeaveRoom
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {msg.RS2GW_UserLeaveRoom} RS2GW_UserLeaveRoom
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        RS2GW_UserLeaveRoom.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.RS2GW_UserLeaveRoom();
-            while (reader.pos < end) {
-                var tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 1:
-                    message.userid = reader.int64();
-                    break;
-                case 2:
-                    message.bin = $root.msg.Serialize.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a RS2GW_UserLeaveRoom message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof msg.RS2GW_UserLeaveRoom
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.RS2GW_UserLeaveRoom} RS2GW_UserLeaveRoom
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        RS2GW_UserLeaveRoom.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a RS2GW_UserLeaveRoom message.
-         * @function verify
-         * @memberof msg.RS2GW_UserLeaveRoom
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        RS2GW_UserLeaveRoom.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.userid != null && message.hasOwnProperty("userid"))
-                if (!$util.isInteger(message.userid) && !(message.userid && $util.isInteger(message.userid.low) && $util.isInteger(message.userid.high)))
-                    return "userid: integer|Long expected";
-            if (message.bin != null && message.hasOwnProperty("bin")) {
-                var error = $root.msg.Serialize.verify(message.bin);
-                if (error)
-                    return "bin." + error;
-            }
-            return null;
-        };
-
-        /**
-         * Creates a RS2GW_UserLeaveRoom message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof msg.RS2GW_UserLeaveRoom
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {msg.RS2GW_UserLeaveRoom} RS2GW_UserLeaveRoom
-         */
-        RS2GW_UserLeaveRoom.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.RS2GW_UserLeaveRoom)
-                return object;
-            var message = new $root.msg.RS2GW_UserLeaveRoom();
-            if (object.userid != null)
-                if ($util.Long)
-                    (message.userid = $util.Long.fromValue(object.userid)).unsigned = false;
-                else if (typeof object.userid === "string")
-                    message.userid = parseInt(object.userid, 10);
-                else if (typeof object.userid === "number")
-                    message.userid = object.userid;
-                else if (typeof object.userid === "object")
-                    message.userid = new $util.LongBits(object.userid.low >>> 0, object.userid.high >>> 0).toNumber();
-            if (object.bin != null) {
-                if (typeof object.bin !== "object")
-                    throw TypeError(".msg.RS2GW_UserLeaveRoom.bin: object expected");
-                message.bin = $root.msg.Serialize.fromObject(object.bin);
-            }
-            return message;
-        };
-
-        /**
-         * Creates a plain object from a RS2GW_UserLeaveRoom message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof msg.RS2GW_UserLeaveRoom
-         * @static
-         * @param {msg.RS2GW_UserLeaveRoom} message RS2GW_UserLeaveRoom
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        RS2GW_UserLeaveRoom.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            var object = {};
-            if (options.defaults) {
-                if ($util.Long) {
-                    var long = new $util.Long(0, 0, false);
-                    object.userid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.userid = options.longs === String ? "0" : 0;
-                object.bin = null;
-            }
-            if (message.userid != null && message.hasOwnProperty("userid"))
-                if (typeof message.userid === "number")
-                    object.userid = options.longs === String ? String(message.userid) : message.userid;
-                else
-                    object.userid = options.longs === String ? $util.Long.prototype.toString.call(message.userid) : options.longs === Number ? new $util.LongBits(message.userid.low >>> 0, message.userid.high >>> 0).toNumber() : message.userid;
-            if (message.bin != null && message.hasOwnProperty("bin"))
-                object.bin = $root.msg.Serialize.toObject(message.bin, options);
-            return object;
-        };
-
-        /**
-         * Converts this RS2GW_UserLeaveRoom to JSON.
-         * @function toJSON
-         * @memberof msg.RS2GW_UserLeaveRoom
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        RS2GW_UserLeaveRoom.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return RS2GW_UserLeaveRoom;
-    })();
-
     msg.C2GW_ReqEnterRoom = (function() {
 
         /**
@@ -20682,6 +20453,288 @@ $root.msg = (function() {
         };
 
         return C2GW_ReqEnterRoom;
+    })();
+
+    msg.RS2GW_RetEnterRoom = (function() {
+
+        /**
+         * Properties of a RS2GW_RetEnterRoom.
+         * @memberof msg
+         * @interface IRS2GW_RetEnterRoom
+         * @property {number|Long|null} [userid] RS2GW_RetEnterRoom userid
+         * @property {number|Long|null} [roomid] RS2GW_RetEnterRoom roomid
+         * @property {string|null} [passwd] RS2GW_RetEnterRoom passwd
+         * @property {string|null} [errcode] RS2GW_RetEnterRoom errcode
+         */
+
+        /**
+         * Constructs a new RS2GW_RetEnterRoom.
+         * @memberof msg
+         * @classdesc Represents a RS2GW_RetEnterRoom.
+         * @implements IRS2GW_RetEnterRoom
+         * @constructor
+         * @param {msg.IRS2GW_RetEnterRoom=} [properties] Properties to set
+         */
+        function RS2GW_RetEnterRoom(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * RS2GW_RetEnterRoom userid.
+         * @member {number|Long} userid
+         * @memberof msg.RS2GW_RetEnterRoom
+         * @instance
+         */
+        RS2GW_RetEnterRoom.prototype.userid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * RS2GW_RetEnterRoom roomid.
+         * @member {number|Long} roomid
+         * @memberof msg.RS2GW_RetEnterRoom
+         * @instance
+         */
+        RS2GW_RetEnterRoom.prototype.roomid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * RS2GW_RetEnterRoom passwd.
+         * @member {string} passwd
+         * @memberof msg.RS2GW_RetEnterRoom
+         * @instance
+         */
+        RS2GW_RetEnterRoom.prototype.passwd = "";
+
+        /**
+         * RS2GW_RetEnterRoom errcode.
+         * @member {string} errcode
+         * @memberof msg.RS2GW_RetEnterRoom
+         * @instance
+         */
+        RS2GW_RetEnterRoom.prototype.errcode = "";
+
+        /**
+         * Creates a new RS2GW_RetEnterRoom instance using the specified properties.
+         * @function create
+         * @memberof msg.RS2GW_RetEnterRoom
+         * @static
+         * @param {msg.IRS2GW_RetEnterRoom=} [properties] Properties to set
+         * @returns {msg.RS2GW_RetEnterRoom} RS2GW_RetEnterRoom instance
+         */
+        RS2GW_RetEnterRoom.create = function create(properties) {
+            return new RS2GW_RetEnterRoom(properties);
+        };
+
+        /**
+         * Encodes the specified RS2GW_RetEnterRoom message. Does not implicitly {@link msg.RS2GW_RetEnterRoom.verify|verify} messages.
+         * @function encode
+         * @memberof msg.RS2GW_RetEnterRoom
+         * @static
+         * @param {msg.IRS2GW_RetEnterRoom} message RS2GW_RetEnterRoom message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2GW_RetEnterRoom.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.userid);
+            if (message.roomid != null && message.hasOwnProperty("roomid"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int64(message.roomid);
+            if (message.passwd != null && message.hasOwnProperty("passwd"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.passwd);
+            if (message.errcode != null && message.hasOwnProperty("errcode"))
+                writer.uint32(/* id 4, wireType 2 =*/34).string(message.errcode);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified RS2GW_RetEnterRoom message, length delimited. Does not implicitly {@link msg.RS2GW_RetEnterRoom.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.RS2GW_RetEnterRoom
+         * @static
+         * @param {msg.IRS2GW_RetEnterRoom} message RS2GW_RetEnterRoom message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2GW_RetEnterRoom.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a RS2GW_RetEnterRoom message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.RS2GW_RetEnterRoom
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.RS2GW_RetEnterRoom} RS2GW_RetEnterRoom
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2GW_RetEnterRoom.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.RS2GW_RetEnterRoom();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.userid = reader.int64();
+                    break;
+                case 2:
+                    message.roomid = reader.int64();
+                    break;
+                case 3:
+                    message.passwd = reader.string();
+                    break;
+                case 4:
+                    message.errcode = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a RS2GW_RetEnterRoom message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.RS2GW_RetEnterRoom
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.RS2GW_RetEnterRoom} RS2GW_RetEnterRoom
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2GW_RetEnterRoom.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a RS2GW_RetEnterRoom message.
+         * @function verify
+         * @memberof msg.RS2GW_RetEnterRoom
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        RS2GW_RetEnterRoom.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (!$util.isInteger(message.userid) && !(message.userid && $util.isInteger(message.userid.low) && $util.isInteger(message.userid.high)))
+                    return "userid: integer|Long expected";
+            if (message.roomid != null && message.hasOwnProperty("roomid"))
+                if (!$util.isInteger(message.roomid) && !(message.roomid && $util.isInteger(message.roomid.low) && $util.isInteger(message.roomid.high)))
+                    return "roomid: integer|Long expected";
+            if (message.passwd != null && message.hasOwnProperty("passwd"))
+                if (!$util.isString(message.passwd))
+                    return "passwd: string expected";
+            if (message.errcode != null && message.hasOwnProperty("errcode"))
+                if (!$util.isString(message.errcode))
+                    return "errcode: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a RS2GW_RetEnterRoom message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.RS2GW_RetEnterRoom
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.RS2GW_RetEnterRoom} RS2GW_RetEnterRoom
+         */
+        RS2GW_RetEnterRoom.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.RS2GW_RetEnterRoom)
+                return object;
+            var message = new $root.msg.RS2GW_RetEnterRoom();
+            if (object.userid != null)
+                if ($util.Long)
+                    (message.userid = $util.Long.fromValue(object.userid)).unsigned = false;
+                else if (typeof object.userid === "string")
+                    message.userid = parseInt(object.userid, 10);
+                else if (typeof object.userid === "number")
+                    message.userid = object.userid;
+                else if (typeof object.userid === "object")
+                    message.userid = new $util.LongBits(object.userid.low >>> 0, object.userid.high >>> 0).toNumber();
+            if (object.roomid != null)
+                if ($util.Long)
+                    (message.roomid = $util.Long.fromValue(object.roomid)).unsigned = false;
+                else if (typeof object.roomid === "string")
+                    message.roomid = parseInt(object.roomid, 10);
+                else if (typeof object.roomid === "number")
+                    message.roomid = object.roomid;
+                else if (typeof object.roomid === "object")
+                    message.roomid = new $util.LongBits(object.roomid.low >>> 0, object.roomid.high >>> 0).toNumber();
+            if (object.passwd != null)
+                message.passwd = String(object.passwd);
+            if (object.errcode != null)
+                message.errcode = String(object.errcode);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a RS2GW_RetEnterRoom message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.RS2GW_RetEnterRoom
+         * @static
+         * @param {msg.RS2GW_RetEnterRoom} message RS2GW_RetEnterRoom
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        RS2GW_RetEnterRoom.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.userid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.userid = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.roomid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.roomid = options.longs === String ? "0" : 0;
+                object.passwd = "";
+                object.errcode = "";
+            }
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (typeof message.userid === "number")
+                    object.userid = options.longs === String ? String(message.userid) : message.userid;
+                else
+                    object.userid = options.longs === String ? $util.Long.prototype.toString.call(message.userid) : options.longs === Number ? new $util.LongBits(message.userid.low >>> 0, message.userid.high >>> 0).toNumber() : message.userid;
+            if (message.roomid != null && message.hasOwnProperty("roomid"))
+                if (typeof message.roomid === "number")
+                    object.roomid = options.longs === String ? String(message.roomid) : message.roomid;
+                else
+                    object.roomid = options.longs === String ? $util.Long.prototype.toString.call(message.roomid) : options.longs === Number ? new $util.LongBits(message.roomid.low >>> 0, message.roomid.high >>> 0).toNumber() : message.roomid;
+            if (message.passwd != null && message.hasOwnProperty("passwd"))
+                object.passwd = message.passwd;
+            if (message.errcode != null && message.hasOwnProperty("errcode"))
+                object.errcode = message.errcode;
+            return object;
+        };
+
+        /**
+         * Converts this RS2GW_RetEnterRoom to JSON.
+         * @function toJSON
+         * @memberof msg.RS2GW_RetEnterRoom
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        RS2GW_RetEnterRoom.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return RS2GW_RetEnterRoom;
     })();
 
     msg.C2GW_ReqLeaveRoom = (function() {
@@ -21043,6 +21096,235 @@ $root.msg = (function() {
         };
 
         return GW2C_RetLeaveRoom;
+    })();
+
+    msg.RS2GW_UserLeaveRoom = (function() {
+
+        /**
+         * Properties of a RS2GW_UserLeaveRoom.
+         * @memberof msg
+         * @interface IRS2GW_UserLeaveRoom
+         * @property {number|Long|null} [userid] RS2GW_UserLeaveRoom userid
+         * @property {msg.ISerialize|null} [bin] RS2GW_UserLeaveRoom bin
+         */
+
+        /**
+         * Constructs a new RS2GW_UserLeaveRoom.
+         * @memberof msg
+         * @classdesc Represents a RS2GW_UserLeaveRoom.
+         * @implements IRS2GW_UserLeaveRoom
+         * @constructor
+         * @param {msg.IRS2GW_UserLeaveRoom=} [properties] Properties to set
+         */
+        function RS2GW_UserLeaveRoom(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * RS2GW_UserLeaveRoom userid.
+         * @member {number|Long} userid
+         * @memberof msg.RS2GW_UserLeaveRoom
+         * @instance
+         */
+        RS2GW_UserLeaveRoom.prototype.userid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * RS2GW_UserLeaveRoom bin.
+         * @member {msg.ISerialize|null|undefined} bin
+         * @memberof msg.RS2GW_UserLeaveRoom
+         * @instance
+         */
+        RS2GW_UserLeaveRoom.prototype.bin = null;
+
+        /**
+         * Creates a new RS2GW_UserLeaveRoom instance using the specified properties.
+         * @function create
+         * @memberof msg.RS2GW_UserLeaveRoom
+         * @static
+         * @param {msg.IRS2GW_UserLeaveRoom=} [properties] Properties to set
+         * @returns {msg.RS2GW_UserLeaveRoom} RS2GW_UserLeaveRoom instance
+         */
+        RS2GW_UserLeaveRoom.create = function create(properties) {
+            return new RS2GW_UserLeaveRoom(properties);
+        };
+
+        /**
+         * Encodes the specified RS2GW_UserLeaveRoom message. Does not implicitly {@link msg.RS2GW_UserLeaveRoom.verify|verify} messages.
+         * @function encode
+         * @memberof msg.RS2GW_UserLeaveRoom
+         * @static
+         * @param {msg.IRS2GW_UserLeaveRoom} message RS2GW_UserLeaveRoom message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2GW_UserLeaveRoom.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.userid);
+            if (message.bin != null && message.hasOwnProperty("bin"))
+                $root.msg.Serialize.encode(message.bin, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified RS2GW_UserLeaveRoom message, length delimited. Does not implicitly {@link msg.RS2GW_UserLeaveRoom.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.RS2GW_UserLeaveRoom
+         * @static
+         * @param {msg.IRS2GW_UserLeaveRoom} message RS2GW_UserLeaveRoom message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2GW_UserLeaveRoom.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a RS2GW_UserLeaveRoom message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.RS2GW_UserLeaveRoom
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.RS2GW_UserLeaveRoom} RS2GW_UserLeaveRoom
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2GW_UserLeaveRoom.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.RS2GW_UserLeaveRoom();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.userid = reader.int64();
+                    break;
+                case 2:
+                    message.bin = $root.msg.Serialize.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a RS2GW_UserLeaveRoom message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.RS2GW_UserLeaveRoom
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.RS2GW_UserLeaveRoom} RS2GW_UserLeaveRoom
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2GW_UserLeaveRoom.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a RS2GW_UserLeaveRoom message.
+         * @function verify
+         * @memberof msg.RS2GW_UserLeaveRoom
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        RS2GW_UserLeaveRoom.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (!$util.isInteger(message.userid) && !(message.userid && $util.isInteger(message.userid.low) && $util.isInteger(message.userid.high)))
+                    return "userid: integer|Long expected";
+            if (message.bin != null && message.hasOwnProperty("bin")) {
+                var error = $root.msg.Serialize.verify(message.bin);
+                if (error)
+                    return "bin." + error;
+            }
+            return null;
+        };
+
+        /**
+         * Creates a RS2GW_UserLeaveRoom message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.RS2GW_UserLeaveRoom
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.RS2GW_UserLeaveRoom} RS2GW_UserLeaveRoom
+         */
+        RS2GW_UserLeaveRoom.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.RS2GW_UserLeaveRoom)
+                return object;
+            var message = new $root.msg.RS2GW_UserLeaveRoom();
+            if (object.userid != null)
+                if ($util.Long)
+                    (message.userid = $util.Long.fromValue(object.userid)).unsigned = false;
+                else if (typeof object.userid === "string")
+                    message.userid = parseInt(object.userid, 10);
+                else if (typeof object.userid === "number")
+                    message.userid = object.userid;
+                else if (typeof object.userid === "object")
+                    message.userid = new $util.LongBits(object.userid.low >>> 0, object.userid.high >>> 0).toNumber();
+            if (object.bin != null) {
+                if (typeof object.bin !== "object")
+                    throw TypeError(".msg.RS2GW_UserLeaveRoom.bin: object expected");
+                message.bin = $root.msg.Serialize.fromObject(object.bin);
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a RS2GW_UserLeaveRoom message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.RS2GW_UserLeaveRoom
+         * @static
+         * @param {msg.RS2GW_UserLeaveRoom} message RS2GW_UserLeaveRoom
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        RS2GW_UserLeaveRoom.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.userid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.userid = options.longs === String ? "0" : 0;
+                object.bin = null;
+            }
+            if (message.userid != null && message.hasOwnProperty("userid"))
+                if (typeof message.userid === "number")
+                    object.userid = options.longs === String ? String(message.userid) : message.userid;
+                else
+                    object.userid = options.longs === String ? $util.Long.prototype.toString.call(message.userid) : options.longs === Number ? new $util.LongBits(message.userid.low >>> 0, message.userid.high >>> 0).toNumber() : message.userid;
+            if (message.bin != null && message.hasOwnProperty("bin"))
+                object.bin = $root.msg.Serialize.toObject(message.bin, options);
+            return object;
+        };
+
+        /**
+         * Converts this RS2GW_UserLeaveRoom to JSON.
+         * @function toJSON
+         * @memberof msg.RS2GW_UserLeaveRoom
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        RS2GW_UserLeaveRoom.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return RS2GW_UserLeaveRoom;
     })();
 
     msg.RS2GW_PushRoomDestory = (function() {

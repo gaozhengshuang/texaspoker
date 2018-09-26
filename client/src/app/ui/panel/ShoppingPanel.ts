@@ -151,30 +151,30 @@ class ShoppingPanel extends BasePanel
      */
     private payByDiamond(selectedItem: any)
     {
-        let awardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(selectedItem.definition.awardId);
-        if (awardDef && awardDef.costList)
-        {
-            let costInfo: AwardInfoDefinition;
-            for (let i: number = 0; i < awardDef.costList.length; i++)
-            {
-                if (awardDef.costList[i].type == CostType.Diamond)
-                {
-                    costInfo = awardDef.costList[i];
-                    break;
-                }
-            }
-            if (costInfo)
-            {
-                if (UserManager.userInfo.diamond >= costInfo.count)
-                {
-                    AlertManager.showConfirm(game.StringUtil.format("是否花费{0}钻石，购买{1}？", costInfo.count, awardDef.name), this.tryPay, null, selectedItem);
-                }
-                else
-                {
-                    CostManager.showBuyDiamond(this.goDiamondGp.bind(this));
-                }
-            }
-        }
+        // let awardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(selectedItem.definition.awardId);  //move todo
+        // if (awardDef && awardDef.costList)
+        // {
+        //     let costInfo: AwardInfoDefinition;
+        //     for (let i: number = 0; i < awardDef.costList.length; i++)
+        //     {
+        //         if (awardDef.costList[i].type == CostType.Diamond)
+        //         {
+        //             costInfo = awardDef.costList[i];
+        //             break;
+        //         }
+        //     }
+        //     if (costInfo)
+        //     {
+        //         if (UserManager.userInfo.diamond >= costInfo.count)
+        //         {
+        //             AlertManager.showConfirm(game.StringUtil.format("是否花费{0}钻石，购买{1}？", costInfo.count, awardDef.name), this.tryPay, null, selectedItem);
+        //         }
+        //         else
+        //         {
+        //             CostManager.showBuyDiamond(this.goDiamondGp.bind(this));
+        //         }
+        //     }
+        // }
     }
 
     protected showPrePanelName()

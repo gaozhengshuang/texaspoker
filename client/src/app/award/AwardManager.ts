@@ -47,18 +47,18 @@ class AwardManager
     {
         if (data)
         {
-            if (AwardManager._map.containsKey(data.Id))
+            let info: AwardTimesInfo = AwardManager._map.getValue(data.Id);
+            if (!info)
             {
-                let info: AwardTimesInfo = AwardManager._map.getValue(data.Id);
+                info = new AwardTimesInfo();
+                info.id = data.Id;
                 info.times = parseInt(data.Count);
-                if (data.Time != null)
-                {
-                    info.lastTime = parseInt(data.Time);
-                }
-                else
+                info.lastTime = parseInt(data.Time);
+                if (info.lastTime == undefined)
                 {
                     info.lastTime = 0;
                 }
+                AwardManager._map.add(info.id, info);
             }
         }
     }
@@ -111,14 +111,14 @@ class AwardManager
                 result = result | AwardExchangeErrorType.OverTimes;
             }
             let serverTime: Date = TimeManager.GetServerLocalDateTime();
-            if (info.definition.level > UserManager.userInfo.level) //用户等级不满足
-            {
-                result = result | AwardExchangeErrorType.LevelNotEnough;
-            }
+            // if (info.definition.level > UserManager.userInfo.level) //用户等级不满足 //move todo
+            // {
+            //     result = result | AwardExchangeErrorType.LevelNotEnough;
+            // }
             if (!AwardDefined.GetInstance().getPrevIdIsNull(id))
             {
-                let preInfo: AwardTimesInfo = AwardManager.GetExchangeInfo(info.definition.preId);
-                limit = AwardManager.GetAwardLimit(info.definition.preId);
+                let preInfo: AwardTimesInfo = AwardManager.GetExchangeInfo(info.definition.PreId);
+                limit = AwardManager.GetAwardLimit(info.definition.PreId);
                 if (preInfo.times < limit) //前置未完成
                 {
                     result = result | AwardExchangeErrorType.PreNotComplete;
@@ -162,14 +162,14 @@ class AwardManager
     }
     public static GetAwardLimit(awardId: number): number
     {
-        let def: AwardDefinition = AwardDefined.GetInstance().getDefinition(awardId);
+        let def: table.IAwardDefine = table.AwardById[awardId];
         if (def)
         {
-            if (game.StringUtil.isNullOrEmpty(def.costName))
-            {
-                return def.limit;
-            }
-            return 0;
+            // if (game.StringUtil.isNullOrEmpty(def.costName))  //move todo
+            // {
+            return def.Limit;
+            // } //move todo
+            // return 0; //move todo
         }
     }
     /**
@@ -199,12 +199,12 @@ class AwardManager
     /**
      * 判断某个奖励是否达到限制次数上限
     */
-    public static isToLimit(awardDef: AwardDefinition): boolean
+    public static isToLimit(awardDef: table.IAwardDefine): boolean
     {
         if (awardDef)
         {
-            let info: AwardTimesInfo = AwardManager.GetExchangeInfo(awardDef.id);
-            if (info && info.times >= awardDef.limit)
+            let info: AwardTimesInfo = AwardManager.GetExchangeInfo(awardDef.Id);
+            if (info && info.times >= awardDef.Limit)
             {
                 return true;
             }
@@ -215,17 +215,6 @@ class AwardManager
     private static Reset()
     {
         AwardManager._map.clear();
-        let defDic: game.Map<number, AwardDefinition> = AwardDefined.GetInstance().awardDefinitionDic;
-        let keys: Array<number> = defDic.getKeys();
-        for (let i: number = 0; i < keys.length; i++)
-        {
-            let key = keys[i];
-            let info: AwardTimesInfo = new AwardTimesInfo();
-            info.id = key;
-            info.times = 0;
-            info.lastTime = TimeManager.Utc1970.getTime();
-            AwardManager._map.add(info.id, info);
-        }
     }
 
     /**
