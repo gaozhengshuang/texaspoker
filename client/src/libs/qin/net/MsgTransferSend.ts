@@ -24,7 +24,7 @@ class MsgTransferSend
 				}
 				else
 				{
-					SocketManager.call(Command.C2RS_MsgTransfer, msg.C2RS_MsgTransfer.encode(data), onResult, onError, thisObj);
+					SocketManager.call(Command.C2RS_MsgTransfer, msg.C2RS_MsgTransfer.encode(data), onResult, onError, thisObj, cmdId);
 				}
 			}
 			else

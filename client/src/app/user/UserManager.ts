@@ -121,8 +121,8 @@ class UserManager
 			}
 			if (result.data)
 			{
-				UserManager.playerNameOper(result.data);
-				UserManager.otherUserInfo.copyValueFrom(result.data);
+				UserManager.otherUserInfo.copyValueFromIgnoreCase(result.data);
+				UserManager.playerNameOper(UserManager.otherUserInfo);
 				AchievementManager.reqUserAchieveList(UserManager.otherUserInfo);
 				if (flag == FriendUIType.FriendList || flag == FriendUIType.GiftList)
 				{
@@ -146,7 +146,7 @@ class UserManager
 			if (result.data)
 			{
 				UserManager.playerNameOper(result.data);
-				UserManager.otherUserInfo.copyValueFrom(result.data);
+				UserManager.otherUserInfo.copyValueFromIgnoreCase(result.data);
 				AchievementManager.reqUserAchieveList(UserManager.otherUserInfo);
 				UserManager.otherUserInfo.vipType = VipManager.getVipType(UserManager.otherUserInfo.vipTime, UserManager.otherUserInfo.yearVipTime);
 				UserManager.otherUserInfo.vipSpeed = ProjectDefined.getVipSpeedDefinition(UserManager.otherUserInfo.vipType).speed;
@@ -169,7 +169,7 @@ class UserManager
 	 */
 	public static sendGetUserInfo(roleId: number, callback: Function, errorCallBack?: Function)
 	{
-		SocketManager.call(Command.Friend_GetRoleInfo_3023, { "roleId": roleId }, callback, errorCallBack, this);
+		SocketManager.call(Command.C2RS_ReqFriendGetRoleInfo, msg.C2RS_ReqFriendGetRoleInfo.encode({ roleid: roleId }), callback, errorCallBack, this);
 	}
 
 	public static reqSimpleUserInfo(roleId: number)

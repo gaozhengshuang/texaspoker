@@ -264,7 +264,7 @@ class GamblingManager
 		SocketManager.AddCommandListener(Command.RS2C_PushChipsChange, GamblingManager.pushChipsChange, this);
 		SocketManager.AddCommandListener(Command.InTrusteeship_Push_2119, GamblingManager.pushInTrusteeship, this);
 		SocketManager.AddCommandListener(Command.OutRoom_Push_2128, GamblingManager.pushExitRoom, this);
-		SocketManager.AddCommandListener(Command.BrightCard_Push_2109, GamblingManager.pushImmediatelyBirhgtCard, this);
+		SocketManager.AddCommandListener(Command.RS2C_PushBrightCard, GamblingManager.pushImmediatelyBirhgtCard, this);
 		GamblingManager.timeAwardHandler.addPushListener();
 
 		SocketManager.OnReconnectSynchronize.addListener(GamblingManager.onReconnectHandler, this);
@@ -828,7 +828,12 @@ class GamblingManager
 	{
 		if (InfoUtil.checkAvailable(GamblingManager.roomInfo) && result.data)
 		{
-			let info: HandCardInfo = new HandCardInfo(result.data);
+			let data: msg.RS2C_PushBrightCard = result.data;
+			let info: HandCardInfo = new HandCardInfo();
+			info.data = new msg.HandCardInfo();
+			info.roleId = data.roleid;
+			info.cardList = [];
+			GamblingUtil.cardArr2CardInfoList(data.card, info.cardList);
 			GamblingManager.SomeBodyBrightCardEvent.dispatch(info);
 		}
 	}
@@ -1105,9 +1110,17 @@ class GamblingManager
 	{
 		let callBack: Function = function (result: game.SpRpcResult)
 		{
-			GamblingManager.StandUpEvent.dispatch();
+			let data: msg.RS2C_RetStandUp = result.data;
+			if (game.StringUtil.isNullOrEmpty(data.errcode))
+			{
+				GamblingManager.StandUpEvent.dispatch();
+			}
+			else
+			{
+				AlertManager.showAlertByString(data.errcode);
+			}
 		};
-		MsgTransferSend.sendRoomProto(Command.C2RS_ReqStandUp, {}, callBack, null, this);
+		MsgTransferSend.sendRoomProto(Command.C2RS_ReqStandUp, { }, callBack, null, this);
 	}
 	/**
 	 * 请求结束时亮牌
@@ -1193,7 +1206,9 @@ class GamblingManager
 			let callBack: Function = function (result: game.SpRpcResult)
 			{
 				GamblingManager._isOnGetUserInfo = false;
-				GamblingManager._getUserInfoQueue[0].userInfo = new UserInfo(result.data);
+				let userInfo = new UserInfo();
+				userInfo.copyValueFromIgnoreCase(result.data);
+				GamblingManager._getUserInfoQueue[0].userInfo = userInfo;
 				GamblingManager.OnGetRoomUserInfoEvent.dispatch(GamblingManager._getUserInfoQueue[0].userInfo.id);
 
 				GamblingManager._getUserInfoQueue.shift();

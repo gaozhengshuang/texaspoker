@@ -33777,7 +33777,6 @@ $root.msg = (function() {
          * Properties of a C2RS_ReqStandUp.
          * @memberof msg
          * @interface IC2RS_ReqStandUp
-         * @property {number|Long|null} [userid] C2RS_ReqStandUp userid
          */
 
         /**
@@ -33794,14 +33793,6 @@ $root.msg = (function() {
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
-
-        /**
-         * C2RS_ReqStandUp userid.
-         * @member {number|Long} userid
-         * @memberof msg.C2RS_ReqStandUp
-         * @instance
-         */
-        C2RS_ReqStandUp.prototype.userid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
          * Creates a new C2RS_ReqStandUp instance using the specified properties.
@@ -33827,8 +33818,6 @@ $root.msg = (function() {
         C2RS_ReqStandUp.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
-            if (message.userid != null && message.hasOwnProperty("userid"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.userid);
             return writer;
         };
 
@@ -33863,9 +33852,6 @@ $root.msg = (function() {
             while (reader.pos < end) {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
-                case 1:
-                    message.userid = reader.int64();
-                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -33901,9 +33887,6 @@ $root.msg = (function() {
         C2RS_ReqStandUp.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
-            if (message.userid != null && message.hasOwnProperty("userid"))
-                if (!$util.isInteger(message.userid) && !(message.userid && $util.isInteger(message.userid.low) && $util.isInteger(message.userid.high)))
-                    return "userid: integer|Long expected";
             return null;
         };
 
@@ -33918,17 +33901,7 @@ $root.msg = (function() {
         C2RS_ReqStandUp.fromObject = function fromObject(object) {
             if (object instanceof $root.msg.C2RS_ReqStandUp)
                 return object;
-            var message = new $root.msg.C2RS_ReqStandUp();
-            if (object.userid != null)
-                if ($util.Long)
-                    (message.userid = $util.Long.fromValue(object.userid)).unsigned = false;
-                else if (typeof object.userid === "string")
-                    message.userid = parseInt(object.userid, 10);
-                else if (typeof object.userid === "number")
-                    message.userid = object.userid;
-                else if (typeof object.userid === "object")
-                    message.userid = new $util.LongBits(object.userid.low >>> 0, object.userid.high >>> 0).toNumber();
-            return message;
+            return new $root.msg.C2RS_ReqStandUp();
         };
 
         /**
@@ -33940,22 +33913,8 @@ $root.msg = (function() {
          * @param {$protobuf.IConversionOptions} [options] Conversion options
          * @returns {Object.<string,*>} Plain object
          */
-        C2RS_ReqStandUp.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            var object = {};
-            if (options.defaults)
-                if ($util.Long) {
-                    var long = new $util.Long(0, 0, false);
-                    object.userid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.userid = options.longs === String ? "0" : 0;
-            if (message.userid != null && message.hasOwnProperty("userid"))
-                if (typeof message.userid === "number")
-                    object.userid = options.longs === String ? String(message.userid) : message.userid;
-                else
-                    object.userid = options.longs === String ? $util.Long.prototype.toString.call(message.userid) : options.longs === Number ? new $util.LongBits(message.userid.low >>> 0, message.userid.high >>> 0).toNumber() : message.userid;
-            return object;
+        C2RS_ReqStandUp.toObject = function toObject() {
+            return {};
         };
 
         /**
@@ -34672,6 +34631,7 @@ $root.msg = (function() {
          * Properties of a RS2C_RetBrightInTime.
          * @memberof msg
          * @interface IRS2C_RetBrightInTime
+         * @property {string|null} [errcode] RS2C_RetBrightInTime errcode
          */
 
         /**
@@ -34688,6 +34648,14 @@ $root.msg = (function() {
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
+
+        /**
+         * RS2C_RetBrightInTime errcode.
+         * @member {string} errcode
+         * @memberof msg.RS2C_RetBrightInTime
+         * @instance
+         */
+        RS2C_RetBrightInTime.prototype.errcode = "";
 
         /**
          * Creates a new RS2C_RetBrightInTime instance using the specified properties.
@@ -34713,6 +34681,8 @@ $root.msg = (function() {
         RS2C_RetBrightInTime.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
+            if (message.errcode != null && message.hasOwnProperty("errcode"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.errcode);
             return writer;
         };
 
@@ -34747,6 +34717,9 @@ $root.msg = (function() {
             while (reader.pos < end) {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
+                case 1:
+                    message.errcode = reader.string();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -34782,6 +34755,9 @@ $root.msg = (function() {
         RS2C_RetBrightInTime.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
+            if (message.errcode != null && message.hasOwnProperty("errcode"))
+                if (!$util.isString(message.errcode))
+                    return "errcode: string expected";
             return null;
         };
 
@@ -34796,7 +34772,10 @@ $root.msg = (function() {
         RS2C_RetBrightInTime.fromObject = function fromObject(object) {
             if (object instanceof $root.msg.RS2C_RetBrightInTime)
                 return object;
-            return new $root.msg.RS2C_RetBrightInTime();
+            var message = new $root.msg.RS2C_RetBrightInTime();
+            if (object.errcode != null)
+                message.errcode = String(object.errcode);
+            return message;
         };
 
         /**
@@ -34808,8 +34787,15 @@ $root.msg = (function() {
          * @param {$protobuf.IConversionOptions} [options] Conversion options
          * @returns {Object.<string,*>} Plain object
          */
-        RS2C_RetBrightInTime.toObject = function toObject() {
-            return {};
+        RS2C_RetBrightInTime.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.errcode = "";
+            if (message.errcode != null && message.hasOwnProperty("errcode"))
+                object.errcode = message.errcode;
+            return object;
         };
 
         /**
@@ -34832,7 +34818,7 @@ $root.msg = (function() {
          * Properties of a RS2C_PushBrightCard.
          * @memberof msg
          * @interface IRS2C_PushBrightCard
-         * @property {number|null} [roleid] RS2C_PushBrightCard roleid
+         * @property {number|Long|null} [roleid] RS2C_PushBrightCard roleid
          * @property {Array.<number>|null} [card] RS2C_PushBrightCard card
          */
 
@@ -34854,11 +34840,11 @@ $root.msg = (function() {
 
         /**
          * RS2C_PushBrightCard roleid.
-         * @member {number} roleid
+         * @member {number|Long} roleid
          * @memberof msg.RS2C_PushBrightCard
          * @instance
          */
-        RS2C_PushBrightCard.prototype.roleid = 0;
+        RS2C_PushBrightCard.prototype.roleid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
          * RS2C_PushBrightCard card.
@@ -34893,7 +34879,7 @@ $root.msg = (function() {
             if (!writer)
                 writer = $Writer.create();
             if (message.roleid != null && message.hasOwnProperty("roleid"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.roleid);
+                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.roleid);
             if (message.card != null && message.card.length)
                 for (var i = 0; i < message.card.length; ++i)
                     writer.uint32(/* id 2, wireType 0 =*/16).int32(message.card[i]);
@@ -34932,7 +34918,7 @@ $root.msg = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.roleid = reader.int32();
+                    message.roleid = reader.int64();
                     break;
                 case 2:
                     if (!(message.card && message.card.length))
@@ -34980,8 +34966,8 @@ $root.msg = (function() {
             if (typeof message !== "object" || message === null)
                 return "object expected";
             if (message.roleid != null && message.hasOwnProperty("roleid"))
-                if (!$util.isInteger(message.roleid))
-                    return "roleid: integer expected";
+                if (!$util.isInteger(message.roleid) && !(message.roleid && $util.isInteger(message.roleid.low) && $util.isInteger(message.roleid.high)))
+                    return "roleid: integer|Long expected";
             if (message.card != null && message.hasOwnProperty("card")) {
                 if (!Array.isArray(message.card))
                     return "card: array expected";
@@ -35005,7 +34991,14 @@ $root.msg = (function() {
                 return object;
             var message = new $root.msg.RS2C_PushBrightCard();
             if (object.roleid != null)
-                message.roleid = object.roleid | 0;
+                if ($util.Long)
+                    (message.roleid = $util.Long.fromValue(object.roleid)).unsigned = false;
+                else if (typeof object.roleid === "string")
+                    message.roleid = parseInt(object.roleid, 10);
+                else if (typeof object.roleid === "number")
+                    message.roleid = object.roleid;
+                else if (typeof object.roleid === "object")
+                    message.roleid = new $util.LongBits(object.roleid.low >>> 0, object.roleid.high >>> 0).toNumber();
             if (object.card) {
                 if (!Array.isArray(object.card))
                     throw TypeError(".msg.RS2C_PushBrightCard.card: array expected");
@@ -35032,9 +35025,16 @@ $root.msg = (function() {
             if (options.arrays || options.defaults)
                 object.card = [];
             if (options.defaults)
-                object.roleid = 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.roleid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.roleid = options.longs === String ? "0" : 0;
             if (message.roleid != null && message.hasOwnProperty("roleid"))
-                object.roleid = message.roleid;
+                if (typeof message.roleid === "number")
+                    object.roleid = options.longs === String ? String(message.roleid) : message.roleid;
+                else
+                    object.roleid = options.longs === String ? $util.Long.prototype.toString.call(message.roleid) : options.longs === Number ? new $util.LongBits(message.roleid.low >>> 0, message.roleid.high >>> 0).toNumber() : message.roleid;
             if (message.card && message.card.length) {
                 object.card = [];
                 for (var j = 0; j < message.card.length; ++j)

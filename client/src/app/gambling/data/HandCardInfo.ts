@@ -41,10 +41,18 @@ class HandCardInfo extends BaseServerValueInfo
 			this.data.roleid = value;
 		}
 	}
+	private _cardList: CardInfo[];
 	/**
 	 * 手牌列表
 	 */
-	public cardList: Array<CardInfo>;
+	public get cardList(): Array<CardInfo>
+	{
+		return this._cardList;
+	}
+	public set cardList(value: CardInfo[])
+	{
+		this._cardList = value;
+	}
 	public reset()
 	{
 		this.roleId = 0;
