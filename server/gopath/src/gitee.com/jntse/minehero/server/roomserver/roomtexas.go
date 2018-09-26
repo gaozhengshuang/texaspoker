@@ -45,7 +45,7 @@ func (this *TexasPokerRoom) OnGameOver() {
 // 玩家进入房间，首次/断线重进
 func (this *TexasPokerRoom) UserEnter(u *RoomUser) {
 	log.Info("[房间] 玩家[%s %d] 进入房间[%d]", u.Name(), u.Id(), this.Id())
-	player := this.FindPlayerByID(u.Id())
+	player := this.FindAllByID(u.Id())
 	if player != nil {
 		this.SendRoomInfo(player)
 		return
@@ -71,11 +71,12 @@ func (this *TexasPokerRoom) UserLeave(u *RoomUser) {
 	}
 
 	//
-	player := this.FindPlayerByID(u.Id())
+	player := this.FindAllByID(u.Id())
 	if player == nil {
 		return
 	}
 	if this.InGame(player) {
+		player.LeaveRoom()
 		this.DelPlayer(player.pos)
 	}else {
 		this.DelWatcher(player)
