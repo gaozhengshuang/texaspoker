@@ -234,14 +234,14 @@ module game
 		/**
 		 * 简单正常发送，没有断线重发，不能重复连续发送相同的命令
 		 */
-		public SimpleSend(cmdId: string, args: any = null, subId?:string)
+		public SimpleSend(cmdId: string, args: any = null, subId?: string)
 		{
 			this.InvokeSend(true, false, cmdId, args, undefined, undefined, undefined, subId);
 		}
 		/**
 		 * 简单正常发送，没有断线重发，不能重复连续发送相同的命令
 		 */
-		public SimpleCall(cmdId: string, args: any = null, onResult: Function, onError: Function, thisObject: any, subId?:string)
+		public SimpleCall(cmdId: string, args: any = null, onResult: Function, onError: Function, thisObject: any, subId?: string)
 		{
 			this.InvokeSend(true, false, cmdId, args, onResult, onError, thisObject, subId);
 		}
@@ -250,7 +250,7 @@ module game
 		 * <param name="isSole">一样的命令和回调是否独占发送，(如果是，当还没接收到上一个包的时候，再次发包，会忽略掉)</param>
 		 * <param name="isDiscRetry">断线重发</param>
 		 */
-		public InvokeSend(isSole: boolean, isDiscRetry: boolean, cmdId: string, msg: protobuf.Writer, onResult: Function, onError: Function, thisObject: any, subId?:string)
+		public InvokeSend(isSole: boolean, isDiscRetry: boolean, cmdId: string, msg: protobuf.Writer, onResult: Function, onError: Function, thisObject: any, subId?: string)
 		{
 			if (this._enabledSend)
 			{
@@ -277,7 +277,10 @@ module game
 			}
 			try
 			{
-				Console.log("Socket.Send-----------> cmdId:" + info.cmdId + "------params:", JSON.stringify(info.msg), "- >session:" + info.session);
+				if (info.cmdId.indexOf("HeartBeat") != -1)
+				{
+					Console.log("Socket.Send-----------> cmdId:" + info.cmdId + "------params:", JSON.stringify(info.msg), "- >session:" + info.session);
+				}
 
 				let msgId = this.findMsgId(info.cmdId);
 				if (msgId == 0)
@@ -335,8 +338,6 @@ module game
 			_arr.readBytes(cmdDataBA);
 
 			this.onNotifyMessage(mainId, cmdDataBA);
-			Console.log("receive server message" + " size:" + _arr.length);
-
 			// this.handleRequest.bind(this), this.handleResponse.bind(this)
 		}
 
@@ -409,7 +410,10 @@ module game
 			{
 				error = 0;
 			}
-			Console.log("client receive ------------> cmdId:" + name + "-> session:" + session, "-> error:" + error);
+			if (name.indexOf("HeartBeat") != -1)
+			{
+				Console.log("client receive ------------> cmdId:" + name + "-> session:" + session, "-> error:" + error);
+			}
 			let info: SocketInfo = this.RemoveSocketInfo(name);
 			// let info: SocketInfo = this.RemoveSocketInfo(session);
 			let spRpcResult: SpRpcResult = new SpRpcResult();
@@ -468,7 +472,7 @@ module game
 				}
 			}
 		}
-		private AddSocketInfo(isSole: boolean, isDiscRetry: boolean, cmdId: string, msg: protobuf.Writer, onResult: Function, onError: Function, thisObject: any, subId:string): SocketInfo
+		private AddSocketInfo(isSole: boolean, isDiscRetry: boolean, cmdId: string, msg: protobuf.Writer, onResult: Function, onError: Function, thisObject: any, subId: string): SocketInfo
 		{
 			if (this._infoList != null)
 			{

@@ -5,6 +5,7 @@ import (
 	"gitee.com/jntse/minehero/pbmsg"
 	pb "github.com/gogo/protobuf/proto"
 	"gitee.com/jntse/gotoolkit/util"
+	"gitee.com/jntse/gotoolkit/log"
 )
 
 const (
@@ -89,6 +90,7 @@ func (this *TexasPlayer) BetStart() {
 		send.Pos = pb.Int32(this.pos)
 		send.Postime = pb.Int32(this.bettime+int32(util.CURTIME()))
 		this.room.BroadCastRoomMsg(send)
+		log.Info("玩家%d 开始下注", this.owner.Id())
 	}
 }
 
@@ -237,6 +239,7 @@ func (this *TexasPlayer) SitDown(pos int32) {
 
 func (this *TexasPlayer) NextRound(rev *msg.C2RS_ReqNextRound) {
 	this.isready = true
+	log.Info("玩家%d 准备好了", this.owner.Id())
 	send := &msg.RS2C_RetNextRound{}
 	this.owner.SendClientMsg(send)
 }
@@ -292,6 +295,7 @@ func (this *TexasPlayer) BuyInGame(rev *msg.C2RS_ReqBuyInGame) bool {
 
 		send1 := &msg.RS2C_RetBuyInGame{}
 		this.owner.SendClientMsg(send1)
+		log.Info("玩家坐下成功")
 		return true
 	}
 
@@ -331,6 +335,7 @@ func (this *TexasPlayer) ReqStandUp() bool{
 }
 
 func (this *TexasPlayer) LeaveRoom() {
+	this.owner.AddGold(this.bankroll, "离开房间", true)
 }
 
 func (this *TexasPlayer) ToProto() *msg.TexasPlayer {

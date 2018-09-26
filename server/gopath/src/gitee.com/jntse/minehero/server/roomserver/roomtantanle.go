@@ -26,7 +26,7 @@ type TanTanLe struct {
 	totalcost	int64	// 本局游戏总消耗
 }
 
-func (this *TanTanLe) NumMembers() int32 { return int32(len(this.members)) }
+func (this *TanTanLe) MembersNum() int32 { return int32(len(this.members)) }
 
 func (this *TanTanLe) Tick(now int64) { if this.owner != nil { this.owner.Tick(now) } }
 func (this *TanTanLe) SendMsg(userid int64, msg pb.Message) {
