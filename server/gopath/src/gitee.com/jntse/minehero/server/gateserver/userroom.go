@@ -28,7 +28,6 @@ func GetRoomSid(roomid int64) int {
 // --------------------------------------------------------------------------
 type UserRoomData struct {
 	roomid     	int64	// 房间uid
-	seatpos		int32	// 座位号,0观战
 	passwd		string	// 房间密码
 	roomsid   	int
 	roomtid		int32	// 房间配置id
