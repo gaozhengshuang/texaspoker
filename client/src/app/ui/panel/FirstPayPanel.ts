@@ -26,19 +26,19 @@ class FirstPayPanel extends BaseActivityPanel
 			let subItem: ActivityPayPrizeDefintion = this.activityInfo.subList[0].definition as ActivityPayPrizeDefintion;
 			if (subItem)
 			{
-				let awardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(subItem.awardId);
-				if (awardDef && awardDef.rewardList)
-				{
-					for (let itemInfo of awardDef.rewardList)
-					{
-						let itemComp: FirstPayItemComponent = new FirstPayItemComponent(UIComponentSkinName.FirstPayItemComponent);
-						itemComp.init(itemInfo);
-						if (this.itemGroup)
-						{
-							this.itemGroup.addChild(itemComp);
-						}
-					}
-				}
+				// let awardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(subItem.awardId); //move todo
+				// if (awardDef && awardDef.rewardList)
+				// {
+				// 	for (let itemInfo of awardDef.rewardList)
+				// 	{
+				// 		let itemComp: FirstPayItemComponent = new FirstPayItemComponent(UIComponentSkinName.FirstPayItemComponent);
+				// 		itemComp.init(itemInfo);
+				// 		if (this.itemGroup)
+				// 		{
+				// 			this.itemGroup.addChild(itemComp);
+				// 		}
+				// 	}
+				// }
 				this.deslabel2.text = subItem.des;
 			}
 			this.deslabel1.textFlow = game.TextUtil.parse(this.activityInfo.definition.des);

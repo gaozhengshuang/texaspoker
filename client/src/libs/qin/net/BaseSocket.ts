@@ -26,7 +26,7 @@ module game
 		private _commandDispatcher: CallDispatcher<SpRpcResult> = new CallDispatcher<SpRpcResult>();
 		private _errorDispatcher: CallDispatcher<SpRpcResult> = new CallDispatcher<SpRpcResult>();
 		//
-		private _normalErrorSet: HashSet<number> = new HashSet<number>(); 	//有错误码的包也正常解析
+		private _normalErrorSet: HashSet<string> = new HashSet<string>(); 	//有错误码的包也正常解析
 		//
 		private _enabledSend: boolean = false; //close的时候，是否还允许发送
 		//
@@ -56,17 +56,17 @@ module game
 		/// 添加正常解析的错误码包（命令事件正常执行，而不是执行错误事件）
 		/// </summary>
 		/// <param name="error"></param>
-		public addNormalError(error: number)
+		public addNormalError(cmdId: string)
 		{
-			this._normalErrorSet.add(error);
+			this._normalErrorSet.add(cmdId);
 		}
 		/// <summary>
 		/// 移除正常解析的错误码包
 		/// </summary>
 		/// <param name="error"></param>
-		public removeNormalError(error: number)
+		public removeNormalError(cmdId: string)
 		{
-			this._normalErrorSet.remove(error);
+			this._normalErrorSet.remove(cmdId);
 		}
 		public get address(): string
 		{
@@ -277,7 +277,7 @@ module game
 			}
 			try
 			{
-				if (info.cmdId.indexOf("HeartBeat") != -1)
+				if (info.cmdId.indexOf("HeartBeat") == -1)
 				{
 					Console.log("Socket.Send-----------> cmdId:" + info.cmdId + "------params:", JSON.stringify(info.msg), "- >session:" + info.session);
 				}
@@ -391,7 +391,7 @@ module game
 			else
 			{
 				this.DispatchResult(spRpcResult);
-				if (spRpcResult.error == 0 || this._normalErrorSet.contains(spRpcResult.error))
+				if (spRpcResult.error == 0) // || this._normalErrorSet.contains(spRpcResult.error)
 				{
 					this.DispatchCommand(name, spRpcResult);
 				}
@@ -410,7 +410,7 @@ module game
 			{
 				error = 0;
 			}
-			if (name.indexOf("HeartBeat") != -1)
+			if (name.indexOf("HeartBeat") == -1)
 			{
 				Console.log("client receive ------------> cmdId:" + name + "-> session:" + session, "-> error:" + error);
 			}
@@ -429,7 +429,36 @@ module game
 			else
 			{
 				this.DispatchResult(spRpcResult);
-				if (spRpcResult.error == 0 || this._normalErrorSet.contains(spRpcResult.error))
+
+				if (data.hasOwnProperty("errcode"))
+				{
+					if (game.StringUtil.isNullOrEmpty(data["errcode"]) || this._normalErrorSet.contains(name))
+					{
+						if (info && info.onResult)
+						{
+							FuncUtil.invoke(info.onResult, info.thisObject, spRpcResult);
+						}
+						else
+						{
+							this.DispatchCommand(name, spRpcResult);
+						}
+					}
+					else 
+					{
+						if (this.enabledErrorCode)
+						{
+							if (info && info.onError)
+							{
+								FuncUtil.invoke(info.onError, info.thisObject, spRpcResult);
+							}
+							else
+							{
+								this.DispatchError(name, spRpcResult);
+							}
+						}
+					}
+				}
+				else
 				{
 					if (info && info.onResult)
 					{
@@ -438,20 +467,6 @@ module game
 					else
 					{
 						this.DispatchCommand(name, spRpcResult);
-					}
-				}
-				else
-				{
-					if (this.enabledErrorCode)
-					{
-						if (info && info.onError)
-						{
-							FuncUtil.invoke(info.onError, info.thisObject, spRpcResult);
-						}
-						else
-						{
-							this.DispatchError(name, spRpcResult);
-						}
 					}
 				}
 			}

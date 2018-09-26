@@ -23,24 +23,24 @@ class GoldenBeanAwardItemRenderer extends BaseItemRenderer<GoldenBeanAwardDefini
         this.awardBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onAward, this);
         if (this.bindData)
         {
-            let awardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(this.bindData.awardId);
-            if (awardDef)
-            {
-                this.icon.init(awardDef);
-                if (awardDef.rewardList && awardDef.rewardList.length > 0)
-                {
-                    let itemDef: ItemDefinition = ItemDefined.GetInstance().getDefinition(awardDef.rewardList[0].id);
-                    if (itemDef)
-                    {
-                        this.nameLabel.text = itemDef.name;
-                    }
-                }
-                if (awardDef.costList && awardDef.costList.length > 0)
-                {
-                    this._cost = awardDef.costList[0].count;
-                    this.goldenBeanLabel.text = this._cost.toString();
-                }
-            }
+            // let awardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(this.bindData.awardId); //move todo
+            // if (awardDef)
+            // {
+            //     this.icon.init(awardDef);
+            //     if (awardDef.rewardList && awardDef.rewardList.length > 0)
+            //     {
+            //         let itemDef: ItemDefinition = ItemDefined.GetInstance().getDefinition(awardDef.rewardList[0].id);
+            //         if (itemDef)
+            //         {
+            //             this.nameLabel.text = itemDef.name;
+            //         }
+            //     }
+            //     if (awardDef.costList && awardDef.costList.length > 0)
+            //     {
+            //         this._cost = awardDef.costList[0].count;
+            //         this.goldenBeanLabel.text = this._cost.toString();
+            //     }
+            // }
         }
     }
     private onDisable(event: egret.Event)

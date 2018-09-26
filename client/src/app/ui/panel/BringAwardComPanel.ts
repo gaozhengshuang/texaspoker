@@ -8,7 +8,7 @@ class BringAwardComPanel extends BasePanel
     public goldNumLabel: eui.Label;
     public titleLabel: eui.Label;
 
-    private _awardDef: AwardDefinition;
+    private _awardDef: table.IAwardDefine;
     private _callback: Function;
     private _thisObj: any;
     private _iconSize: number = 48;
@@ -31,7 +31,7 @@ class BringAwardComPanel extends BasePanel
         {
             if (appendData.awardId)
             {
-                let awardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(appendData.awardId);
+                let awardDef: table.IAwardDefine = table.AwardById[appendData.awardId];
                 this._awardDef = awardDef;
             }
             if (appendData.des)
@@ -59,10 +59,10 @@ class BringAwardComPanel extends BasePanel
                 this._itemCount = appendData.itemCount;
             }
         }
-        if (this._awardDef && this._awardDef.rewardList.length > 0)
+        if (this._awardDef && this._awardDef.RewardId.length > 0)
         {
             this.iconImg.init(this._awardDef, this._iconSize, null, false, true);
-            this.goldNumLabel.text = this._awardDef.rewardList[0].count.toString();
+            this.goldNumLabel.text = this._awardDef.RewardNum[0].toString();
         }
         if (this._itemDef && this._itemCount)
         {

@@ -18,22 +18,22 @@ class GoldenBeanRecordItemRenderer extends BaseItemRenderer<AwardRecordInfo>
         if (this.bindData)
         {
             this.timeLabel.text = game.DateTimeUtil.formatTimestamp(this.bindData.time, game.DateTimeUtil.Format_Standard_NoSecondAndYear);
-            let awardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(this.bindData.awardId);
-            if (awardDef)
-            {
-                if (awardDef.rewardList && awardDef.rewardList.length > 0)
-                {
-                    let itemDef: ItemDefinition = ItemDefined.GetInstance().getDefinition(awardDef.rewardList[0].id);
-                    if (itemDef)
-                    {
-                        this.nameLabel.text = itemDef.name;
-                    }
-                }
-                if (awardDef.costList && awardDef.costList.length > 0)
-                {
-                    this.goldenBeanLabel.text = awardDef.costList[0].count.toString();
-                }
-            }
+            // let awardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(this.bindData.awardId);  //move todo
+            // if (awardDef)
+            // {
+            //     if (awardDef.rewardList && awardDef.rewardList.length > 0)
+            //     {
+            //         let itemDef: ItemDefinition = ItemDefined.GetInstance().getDefinition(awardDef.rewardList[0].id);
+            //         if (itemDef)
+            //         {
+            //             this.nameLabel.text = itemDef.name;
+            //         }
+            //     }
+            //     if (awardDef.costList && awardDef.costList.length > 0)
+            //     {
+            //         this.goldenBeanLabel.text = awardDef.costList[0].count.toString();
+            //     }
+            // }
         }
     }
 }

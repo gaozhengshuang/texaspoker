@@ -175,40 +175,40 @@ class VipManager
     */
     public static isBringMonthCardAward()
     {
-        let bringAwardDef: AwardDefinition;
-        let activiteMonthCardList: Array<ShopInfo> = VipManager.getActiveMonthCard();
-        if (activiteMonthCardList)
-        {
-            for (let monthCard of activiteMonthCardList)
-            {
-                if (monthCard.definition)
-                {
-                    let info: AwardTimesInfo = AwardManager.GetExchangeInfo(monthCard.definition.awardId);
-                    if (info)
-                    {
-                        bringAwardDef = AwardDefined.GetInstance().getAwardInfoByPreId(info.id);
-                        if (bringAwardDef)
-                        {
-                            let info1: AwardTimesInfo = AwardManager.GetExchangeInfo(bringAwardDef.id);
-                            if (!info1)
-                            {
-                                return false;
-                            } else
-                            {
-                                if (info1.times < bringAwardDef.limit)
-                                {
-                                    return false;
-                                }
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    game.Console.log("月卡配置异常！");
-                }
-            }
-        }
+        // let bringAwardDef: AwardDefinition;  //move todo
+        // let activiteMonthCardList: Array<ShopInfo> = VipManager.getActiveMonthCard();
+        // if (activiteMonthCardList)
+        // {
+        //     for (let monthCard of activiteMonthCardList)
+        //     {
+        //         if (monthCard.definition)
+        //         {
+        //             let info: AwardTimesInfo = AwardManager.GetExchangeInfo(monthCard.definition.awardId);
+        //             if (info)
+        //             {
+        //                 bringAwardDef = AwardDefined.GetInstance().getAwardInfoByPreId(info.id);
+        //                 if (bringAwardDef)
+        //                 {
+        //                     let info1: AwardTimesInfo = AwardManager.GetExchangeInfo(bringAwardDef.id);
+        //                     if (!info1)
+        //                     {
+        //                         return false;
+        //                     } else
+        //                     {
+        //                         if (info1.times < bringAwardDef.limit)
+        //                         {
+        //                             return false;
+        //                         }
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //         else
+        //         {
+        //             game.Console.log("月卡配置异常！");
+        //         }
+        //     }
+        // }
         return true;
     }
 }

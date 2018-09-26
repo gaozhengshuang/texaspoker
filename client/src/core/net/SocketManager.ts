@@ -71,7 +71,7 @@ class SocketManager
 		{
 			SocketManager._socket = new game.GameSocket();
 			SocketManager._socket.enabledErrorCode = (SocketManager._isEntering == false);
-			SocketManager._socket.addNormalError(SocketManager.ResetRoleInfoErrorCode);
+			// SocketManager._socket.addNormalError(SocketManager.ResetRoleInfoErrorCode); //move todo
 			SocketManager._socket.initialize(msgType);
 			SocketManager._socket.AddMessageListener(SocketManager.OnMessage, this);
 		}

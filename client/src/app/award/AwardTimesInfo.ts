@@ -12,12 +12,12 @@ class AwardTimesInfo implements IHaveDefintionInfo
     public set id(value: number)
     {
         this._id = value;
-        this._definition = AwardDefined.GetInstance().getDefinition(this._id);
+        this._definition = table.AwardById[this._id];
     }
 
-    private _definition: AwardDefinition;
+    private _definition: table.IAwardDefine;
 
-    public get definition(): AwardDefinition
+    public get definition(): table.IAwardDefine
     {
         return this._definition;
     }

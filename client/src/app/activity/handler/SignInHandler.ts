@@ -77,15 +77,15 @@ class SignInHandler extends BaseActivitySubHandler<SignInInfo>
 	/**
 	 * 生成获得物品的描述
 	 */
-	public getAwardDes(awardDef: AwardDefinition): string
+	public getAwardDes(awardDef: table.IAwardDefine): string
 	{
 		let result: string = game.StringConstants.Empty;
-		if (awardDef && awardDef.rewardList)
+		if (awardDef && awardDef.RewardId)
 		{
-			for (let i: number = 0; i < awardDef.rewardList.length; i++)
+			for (let i: number = 0; i < awardDef.RewardId.length; i++)
 			{
-				result += ItemDefined.GetInstance().getDefinition(awardDef.rewardList[i].id).name + "*" + awardDef.rewardList[i].count;
-				if (i < awardDef.rewardList.length - 1)
+				result += ItemDefined.GetInstance().getDefinition(awardDef.RewardId[i]).name + "*" + awardDef.RewardNum[i];
+				if (i < awardDef.RewardId.length - 1)
 				{
 					result += ",";
 				}
