@@ -48,7 +48,7 @@ func (this *TexasPokerRoom) UserEnter(u *RoomUser) {
 	this.members[u.Id()] = u
 	player := this.FindPlayerByID(u.Id())
 	if player != nil {
-		//this.ReEnterRoom(user)
+		this.SendRoomInfo(player)
 		return
 	}
 	player = NewTexasPlayer(u)

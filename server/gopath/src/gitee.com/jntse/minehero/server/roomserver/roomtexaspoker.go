@@ -643,7 +643,7 @@ func (this *TexasPokerRoom) DelWatcher(player *TexasPlayer) {
 }
 
 func (this *TexasPokerRoom) SendRoomInfo(player *TexasPlayer) {
-	send := &msg.RS2C_RetEnterRoomInfo{}
+	send := &msg.RS2C_RetEnterRoom{}
 	send.Id = pb.Int64(this.Id())
 	send.Buttonpos = pb.Int32(this.dealerpos+1)
 	send.Potchips = this.pot

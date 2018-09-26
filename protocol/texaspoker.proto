@@ -14,7 +14,7 @@ message TexasPlayer
 }
 
 //返回房间信息
-message RS2C_RetEnterRoomInfo
+message RS2C_RetEnterRoom
 {
     optional int64 id = 1;                  //房间id
     optional int32 buttonpos = 2;           //庄家位置
