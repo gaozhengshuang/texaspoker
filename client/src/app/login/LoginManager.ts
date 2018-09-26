@@ -62,7 +62,7 @@ module game
         {
             AlertManager.showAlertByString("登录失败！" + reason);
         }
-        private static connectLoginGate(gwResult: msg.IL2C_RetLogin, account: string = "")
+        private static async connectLoginGate(gwResult: msg.IL2C_RetLogin, account: string = "")
         {
             let d = defer();
             NotificationCenter.once(LoginManager, () =>

@@ -332,7 +332,7 @@ class GamblingManager
 	public static initialize(result: game.SpRpcResult, isReconnect?: boolean)
 	{
 		GamblingManager.reset();
-		let data: msg.RS2C_RetEnterRoomInfo = result.data;
+		let data: msg.RS2C_RetEnterRoom = result.data;
 		if (data && data["id"] > 0)
 		{
 			GamblingManager.roomInfo = new RoomInfo();
@@ -1054,14 +1054,22 @@ class GamblingManager
 		let callBack: Function = function (result: game.SpRpcResult)
 		{
 			// SocketManager.RemoveCommandListener(Command.C2RS_ReqBuyInGame, callBack, this);
-			GamblingManager._isOnSeat = true;
-			if (GamblingManager.roomInfo)
+			let data: msg.IRS2C_RetBuyInGame = result.data;
+			if (game.StringUtil.isNullOrEmpty(data.errcode))
 			{
-				GamblingManager.roomInfo.isAutoBuy = isAutoBuy;
+				GamblingManager._isOnSeat = true;
+				if (GamblingManager.roomInfo)
+				{
+					GamblingManager.roomInfo.isAutoBuy = isAutoBuy;
+				}
+				if (result.data)
+				{
+					GamblingManager.BuyInGameEvent.dispatch();
+				}
 			}
-			if (result.data)
+			else
 			{
-				GamblingManager.BuyInGameEvent.dispatch();
+				AlertManager.showAlertByString(data.errcode);
 			}
 		};
 		// SocketManager.AddCommandListener(Command.C2RS_ReqBuyInGame, callBack, this);
@@ -1120,7 +1128,7 @@ class GamblingManager
 				AlertManager.showAlertByString(data.errcode);
 			}
 		};
-		MsgTransferSend.sendRoomProto(Command.C2RS_ReqStandUp, { }, callBack, null, this);
+		MsgTransferSend.sendRoomProto(Command.C2RS_ReqStandUp, {}, callBack, null, this);
 	}
 	/**
 	 * 请求结束时亮牌

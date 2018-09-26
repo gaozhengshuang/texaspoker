@@ -17,7 +17,7 @@ class GuideCreateRoomStepProcess extends BaseGuideStepProcess
 			{
 				GamblingManager.reset();
 				GamblingManager.roomInfo = new RoomInfo();
-				GamblingManager.roomInfo.data = new msg.RS2C_RetEnterRoomInfo();
+				GamblingManager.roomInfo.data = new msg.RS2C_RetEnterRoom();
 				GamblingManager.roomInfo.copyValueFrom(GamblingManager.roomInfo);
 
 				let pInfo: PlayerInfo = GamblingManager.getPlayerInfoByPos(GuideGamblingProcess.self);

@@ -3,15 +3,18 @@
  */
 class RoomInfo extends BaseServerValueInfo implements IHaveDefintionInfo
 {
-    private _data: msg.IRS2C_RetEnterRoomInfo;
-    public get data(): msg.IRS2C_RetEnterRoomInfo
+    private _data: msg.IRS2C_RetEnterRoom;
+    public get data(): msg.IRS2C_RetEnterRoom
     {
         return this._data;
     }
-    public set data(value: msg.IRS2C_RetEnterRoomInfo)
+    public set data(value: msg.IRS2C_RetEnterRoom)
     {
         this._data = value;
-        this._definition = table.TexasRoomById[value.roomid];
+        if (value)
+        {
+            this._definition = table.TexasRoomById[value.roomid];
+        }
     }
 	/**
 	 * 房间号
