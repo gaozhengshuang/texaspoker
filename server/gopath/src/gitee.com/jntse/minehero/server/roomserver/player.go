@@ -32,15 +32,17 @@ type TexasPlayer struct{
 	isshowcard bool
 	bankroll int32
 	bettime int32
+	isready bool
 }
 
 type TexasPlayers []*TexasPlayer
 
-func NewTexasPlayer(user *RoomUser) *TexasPlayer{
+func NewTexasPlayer(user *RoomUser, room *TexasPokerRoom) *TexasPlayer{
 	player := new(TexasPlayer)
 	player.hand = GetHand()
 	player.hole = make(Cards, 2, 2)
 	player.owner = user
+	player.room = room
 	return player
 }
 
@@ -69,6 +71,14 @@ func (this *TexasPlayer) IsAllIn() bool {
 		return true
 	}
 	return false
+}
+
+func (this *TexasPlayer) IsReady() bool {
+	return this.isready
+}
+
+func (this *TexasPlayer) SetReady(flag bool) {
+	this.isready = flag
 }
 
 func (this *TexasPlayer) BetStart() {
@@ -156,7 +166,7 @@ func (this *TexasPlayer)SetHole(c1 *Card, c2 *Card){
 	this.hand.SetCard(c2)
 	send := &msg.RS2C_PushHandCard{}
 	send.Card = this.ToHandCard()
-	this.owner.SendClientMsg(send)
+	this.room.BroadCastRoomMsg(send)
 }
 
 func (this *TexasPlayer)SetFlop(c1 *Card, c2 *Card, c3 *Card){
@@ -177,12 +187,17 @@ func (this *TexasPlayer) GetBankRoll() int32{
 	return this.bankroll
 }
 
-func (this *TexasPlayer)AddBankRoll(num int32){
+func (this *TexasPlayer) AddBankRoll(num int32){
 	this.bankroll += num
 	send := &msg.RS2C_PushChipsChange{}
 	send.Roleid = pb.Int64(this.owner.Id())
 	send.Bankroll = pb.Int32(this.bankroll)
 	this.room.BroadCastRoomMsg(send)
+}
+
+func (this *TexasPlayer) ReqTimeAwardInfo(rev *msg.C2RS_ReqTimeAwardInfo) {
+	send := &msg.RS2C_RetTimeAwardInfo{}
+	this.owner.SendClientMsg(send)
 }
 
 func (this *TexasPlayer)RemoveBankRoll(num int32) bool{
@@ -215,14 +230,24 @@ func (this *TexasPlayer) SitDown(pos int32) {
 		this.pos = pos
 		this.room.DelWatcher(this)
 		if this.room.IsGameStart() {
-			this.gamestate = 0
+			this.gamestate = GSWaitNext
 		}  
 	}
 }
 
-func (this *TexasPlayer) NextRound() {
+func (this *TexasPlayer) NextRound(rev *msg.C2RS_ReqNextRound) {
+	this.isready = true
 	send := &msg.RS2C_RetNextRound{}
 	this.owner.SendClientMsg(send)
+}
+
+func (this *TexasPlayer) BrightCard() {
+	this.isshowcard = true
+	send := &msg.RS2C_RetBrightCard{}
+	this.owner.SendClientMsg(send)
+}
+
+func (this *TexasPlayer) AddCoin() {
 }
 
 func (this *TexasPlayer) AntePay(num int32) {
@@ -242,25 +267,37 @@ func (this *TexasPlayer) ChangeState(state int32) {
 	this.room.BroadCastRoomMsg(send)
 }
 
-func (this *TexasPlayer) BuyInGame(rev *msg.C2RS_ReqBuyInGame) {
-	if !this.room.CheckPos(rev.GetPos()-1) {
-		return
-	}
-	this.SitDown(rev.GetPos()-1)
-	this.AddBankRoll(rev.GetNum())
-	this.gamestate = GSFold
-	{
+func (this *TexasPlayer) BuyInGame(rev *msg.C2RS_ReqBuyInGame) bool {
+	strerr := ""
+	switch {
+	default:
+		if !this.room.CheckPos(rev.GetPos()-1) {
+			strerr = "位置已经被占用"
+			break
+		}
+		if !this.owner.RemoveGold(rev.GetNum(), "金币兑换筹码", true) {
+			strerr = "金币不足"
+			break
+		}
+		this.SitDown(rev.GetPos()-1)
+		this.AddBankRoll(rev.GetNum())
+		this.gamestate = GSWaitNext
+
 		send := &msg.RS2C_PushSitOrStand{}
 		send.Roleid = pb.Int64(this.owner.Id())
 		send.Pos = pb.Int32(this.pos)
-		send.State = pb.Int32(this.gamestate)
-		send.BankRoll = pb.Int32(this.GetBankRoll())
+		send.State = pb.Int32(1)
+		send.Bankroll = pb.Int32(this.GetBankRoll())
 		this.room.BroadCastRoomMsg(send)
+
+		send1 := &msg.RS2C_RetBuyInGame{}
+		this.owner.SendClientMsg(send1)
+		return true
 	}
-	{
-		send := &msg.RS2C_RetBuyInGame{}
-		this.owner.SendClientMsg(send)
-	}
+
+	send := &msg.RS2C_RetBuyInGame{Errcode : pb.String(strerr)}
+	this.owner.SendClientMsg(send)
+	return false
 }
 
 func (this *TexasPlayer) ReqUserInfo(rev *msg.C2RS_ReqFriendGetRoleInfo) {
@@ -269,6 +306,31 @@ func (this *TexasPlayer) ReqUserInfo(rev *msg.C2RS_ReqFriendGetRoleInfo) {
 		send := user.ToRoleInfo()
 		this.owner.SendClientMsg(send)
 	}
+}
+
+func (this *TexasPlayer) BrightCardInTime() {
+	send := &msg.RS2C_RetBrightInTime{}
+	this.owner.SendClientMsg(send)
+
+	send1 := &msg.RS2C_PushBrightCard{}
+	send1.Roleid = pb.Int64(this.owner.Id())
+	send1.Card = this.ToHandCard()
+	this.room.BroadCastRoomMsg(send1)
+}
+
+func (this *TexasPlayer) ReqStandUp() bool{
+	send := &msg.RS2C_RetStandUp{}
+	this.owner.SendClientMsg(send)
+	if this.room.InGame(this) {
+		this.room.DelPlayer(this.pos)
+		this.Init()
+		this.room.AddWatcher(this)
+		return true
+	}
+	return false
+}
+
+func (this *TexasPlayer) LeaveRoom() {
 }
 
 func (this *TexasPlayer) ToProto() *msg.TexasPlayer {

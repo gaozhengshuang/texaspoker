@@ -42,58 +42,75 @@ func (this *TexasPokerRoom) OnGameStart() {
 func (this *TexasPokerRoom) OnGameOver() {
 }
 
-
+// 玩家进入房间，首次/断线重进
 func (this *TexasPokerRoom) UserEnter(u *RoomUser) {
 	log.Info("[房间] 玩家[%s %d] 进入房间[%d]", u.Name(), u.Id(), this.Id())
-
-	// 检查之前是坐下还是站起的
+	this.members[u.Id()] = u
+	player := this.FindPlayerByID(u.Id())
+	if player != nil {
+		this.SendRoomInfo(player)
+		return
+	}
+	player = NewTexasPlayer(u, this)
+	player.Init()
+	this.AddWatcher(player)
+	this.SendRoomInfo(player)
 }
 
 // 玩家离开房间
 func (this *TexasPokerRoom) UserLeave(u *RoomUser) {
+	player := this.FindPlayerByID(u.Id())
+	if player == nil {
+		return
+	}
+	if this.InGame(player) {
+		this.DelPlayer(player.pos)
+	}else {
+		this.DelWatcher(player)
+	}
 	delete(this.members, u.Id())
-	delete(this.watchmembers, u.Id())
+	//delete(this.watchmembers, u.Id())
 	Redis().HSet(fmt.Sprintf("roombrief_%d", this.Id()), "members", this.NumMembers())
 	u.OnLeaveRoom()
 	log.Info("[房间] 玩家[%s %d] 离开房间[%d]", u.Name(), u.Id(), this.Id())
 
 	// 如果是私人房间，全部人离开解散
-	if IsTexasRoomPrivateType(this.SubKind()) && len(this.members) == 0 && len(this.watchmembers) == 0 {
+	if IsTexasRoomPrivateType(this.SubKind()) && len(this.members) == 0 {
 		this.Destory(0)
 	}
 }
 
 // 棋牌类站起
-func (this *TexasPokerRoom) UserStandUp(u *RoomUser) {
-	delete(this.members, u.Id())
-	this.watchmembers[u.Id()] = u
-	u.OnStandUp()
-	Redis().HSet(fmt.Sprintf("roombrief_%d", this.Id()), "members", this.NumMembers())
-	log.Info("[房间] 玩家[%s %d] 站起观战[%d]", u.Name(), u.Id(), this.Id())
-}
+//func (this *TexasPokerRoom) UserStandUp(u *RoomUser) {
+//	delete(this.members, u.Id())
+//	this.watchmembers[u.Id()] = u
+//	u.OnStandUp()
+//	Redis().HSet(fmt.Sprintf("roombrief_%d", this.Id()), "members", this.NumMembers())
+//	log.Info("[房间] 玩家[%s %d] 站起观战[%d]", u.Name(), u.Id(), this.Id())
+//}
 
 // 棋牌类坐下
-func (this *TexasPokerRoom) UserSitDown(u *RoomUser, pos int32) {
-	delete(this.watchmembers, u.Id())
-	this.members[u.Id()] = u
-
-	// 检查位置是否有效
-
-	// 检查座位是否空着
-	for _, u := range this.members {
-		if u.Seat() == pos {
-			u.OnSitDown(0, "座位已经有人了")
-			return
-		}
-	}
-
-	//
-	u.OnSitDown(pos, "")
-
-	// 更新房间人数
-	Redis().HSet(fmt.Sprintf("roombrief_%d", this.Id()), "members", this.NumMembers())
-	log.Info("[房间] 玩家[%s %d] 坐下房间[%d] 位置[%d] 等待下一局", u.Name(), u.Id(), this.Id(), pos)
-}
+//func (this *TexasPokerRoom) UserSitDown(u *RoomUser, pos int32) {
+//	delete(this.watchmembers, u.Id())
+//	this.members[u.Id()] = u
+//
+//	// 检查位置是否有效
+//
+//	// 检查座位是否空着
+//	for _, u := range this.members {
+//		if u.Seat() == pos {
+//			u.OnSitDown(0, "座位已经有人了")
+//			return
+//		}
+//	}
+//
+//	//
+//	u.OnSitDown(pos, "")
+//
+//	// 更新房间人数
+//	Redis().HSet(fmt.Sprintf("roombrief_%d", this.Id()), "members", this.NumMembers())
+//	log.Info("[房间] 玩家[%s %d] 坐下房间[%d] 位置[%d] 等待下一局", u.Name(), u.Id(), this.Id(), pos)
+//}
 
 
 // 加载玩家
@@ -106,11 +123,12 @@ func (this *TexasPokerRoom) UserLoad(tmsg *msg.GW2RS_UploadUserBin, gate network
 
 	u = UserMgr().CreateRoomUser(this.Id(), tmsg.Bin, gate, this.Kind())
 	u.OnPreEnterRoom()
-	this.watchmembers[u.Id()]= u
+	//this.watchmembers[u.Id()]= u
 	log.Info("[房间] 玩家[%s %d] 上传个人数据到房间[%d]", u.Name(), u.Id(), this.Id())
 }
 
 func (this *TexasPokerRoom) Tick(now int64) {
+	this.ticker1s.Run(now)
 }
 
 // 玩家断开连接(托管/踢掉)

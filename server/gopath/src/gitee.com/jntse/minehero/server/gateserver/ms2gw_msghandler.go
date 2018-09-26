@@ -48,7 +48,7 @@ func (this *MS2GWMsgHandler) Init() {
 func on_MS2GW_RetRegist(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.MS2GW_RetRegist)
 	if tmsg.GetErrcode() != "" {
-		panic(fmt.Sprintf("Matach服务器通知注册失败 原因：%s", tmsg.GetErrcode()))
+		panic(fmt.Sprintf("Matach服务器返回注册失败 原因：%s", tmsg.GetErrcode()))
 		return
 	}
 

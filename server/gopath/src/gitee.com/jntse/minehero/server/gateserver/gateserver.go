@@ -162,7 +162,9 @@ func (this *GateServer) OnConnect(session network.IBaseNetSession) {
 	//log.Trace("OnConnect session:%+v", session)
 	switch session.Name() {
 	case "TaskClient":
+		break
 	case "TaskRoom":
+		break
 	case "LoginConnector":
 		this.loginsvr = session.(network.IBaseNetSession)
 		this.RegistToLoginServer()
