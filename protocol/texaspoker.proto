@@ -188,7 +188,6 @@ message RS2C_RetSitDown {
 
 //请求站起
 message C2RS_ReqStandUp {
-    optional int64 userid = 1;
 }
 
 message RS2C_RetStandUp {

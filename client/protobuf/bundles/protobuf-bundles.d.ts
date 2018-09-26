@@ -14424,9 +14424,6 @@ declare namespace msg {
 
     /** Properties of a C2RS_ReqStandUp. */
     interface IC2RS_ReqStandUp {
-
-        /** C2RS_ReqStandUp userid */
-        userid?: (number|Long|null);
     }
 
     /** Represents a C2RS_ReqStandUp. */
@@ -14437,9 +14434,6 @@ declare namespace msg {
          * @param [properties] Properties to set
          */
         constructor(properties?: msg.IC2RS_ReqStandUp);
-
-        /** C2RS_ReqStandUp userid. */
-        public userid: (number|Long);
 
         /**
          * Creates a new C2RS_ReqStandUp instance using the specified properties.
@@ -14862,6 +14856,9 @@ declare namespace msg {
 
     /** Properties of a RS2C_RetBrightInTime. */
     interface IRS2C_RetBrightInTime {
+
+        /** RS2C_RetBrightInTime errcode */
+        errcode?: (string|null);
     }
 
     /** Represents a RS2C_RetBrightInTime. */
@@ -14872,6 +14869,9 @@ declare namespace msg {
          * @param [properties] Properties to set
          */
         constructor(properties?: msg.IRS2C_RetBrightInTime);
+
+        /** RS2C_RetBrightInTime errcode. */
+        public errcode: string;
 
         /**
          * Creates a new RS2C_RetBrightInTime instance using the specified properties.
@@ -14948,7 +14948,7 @@ declare namespace msg {
     interface IRS2C_PushBrightCard {
 
         /** RS2C_PushBrightCard roleid */
-        roleid?: (number|null);
+        roleid?: (number|Long|null);
 
         /** RS2C_PushBrightCard card */
         card?: (number[]|null);
@@ -14964,7 +14964,7 @@ declare namespace msg {
         constructor(properties?: msg.IRS2C_PushBrightCard);
 
         /** RS2C_PushBrightCard roleid. */
-        public roleid: number;
+        public roleid: (number|Long);
 
         /** RS2C_PushBrightCard card. */
         public card: number[];

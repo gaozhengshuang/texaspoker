@@ -52,9 +52,9 @@ message C2RS_ReqTimeAwardInfo
 
 message RS2C_RetTimeAwardInfo
 {
-    optional int32 round = 1;
-    optional int32 sectime = 2;
-    optional int32 starttime = 3;    
+    optional int32 round = 1;               //总轮
+    optional int32 sectime = 2;             //剩余几秒
+    optional int32 starttime = 3;           //开始时间
     optional string errcode = 4;
 }
 
@@ -188,7 +188,6 @@ message RS2C_RetSitDown {
 
 //请求站起
 message C2RS_ReqStandUp {
-    optional int64 userid = 1;
 }
 
 message RS2C_RetStandUp {
@@ -212,11 +211,12 @@ message C2RS_ReqBrightInTime
 
 message RS2C_RetBrightInTime
 {
+    optional string errcode = 1;
 }
 
 message RS2C_PushBrightCard
 {
-    optional int32 roleid = 1;
+    optional int64 roleid = 1;
     repeated int32 card = 2;    
 }
 

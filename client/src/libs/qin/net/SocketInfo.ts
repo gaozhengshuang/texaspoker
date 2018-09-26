@@ -26,7 +26,7 @@ module game
 		public onError: Function;
 		public thisObject: any;
 		/**
-		 * 包裹一层的子协议 由于服务器有网关到特定的服务器的数据交互导致的.发送的是包裹协议号，返回的是子协议号
+		 * 包裹一层的子协议 由于服务器有网关到特定的服务器的数据交互导致的.发送的是包裹协议号，返回的是子协议号. 子协议暂不支持AddCommandListener的形式回调，支持call
 		 */
 		public subId:string;
 	}
