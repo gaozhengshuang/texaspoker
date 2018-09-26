@@ -266,7 +266,7 @@ func (this *TexasPlayer) ChangeState(state int32) {
 	this.room.BroadCastRoomMsg(send)
 }
 
-func (this *TexasPlayer) BuyInGame(rev *msg.C2RS_ReqBuyInGame) {
+func (this *TexasPlayer) BuyInGame(rev *msg.C2RS_ReqBuyInGame) bool {
 	strerr := ""
 	switch {
 	default:
@@ -291,11 +291,12 @@ func (this *TexasPlayer) BuyInGame(rev *msg.C2RS_ReqBuyInGame) {
 
 		send1 := &msg.RS2C_RetBuyInGame{}
 		this.owner.SendClientMsg(send1)
-		return
+		return true
 	}
 
 	send := &msg.RS2C_RetBuyInGame{Errcode : pb.String(strerr)}
 	this.owner.SendClientMsg(send)
+	return false
 }
 
 func (this *TexasPlayer) ReqUserInfo(rev *msg.C2RS_ReqFriendGetRoleInfo) {
@@ -316,14 +317,16 @@ func (this *TexasPlayer) BrightCardInTime() {
 	this.room.BroadCastRoomMsg(send1)
 }
 
-func (this *TexasPlayer) ReqStandUp() {
+func (this *TexasPlayer) ReqStandUp() bool{
 	send := &msg.RS2C_RetStandUp{}
 	this.owner.SendClientMsg(send)
 	if this.room.InGame(this) {
 		this.room.DelPlayer(this.pos)
 		this.Init()
 		this.room.AddWatcher(this)
+		return true
 	}
+	return false
 }
 
 func (this *TexasPlayer) LeaveRoom() {

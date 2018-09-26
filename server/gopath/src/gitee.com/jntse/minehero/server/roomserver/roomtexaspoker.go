@@ -2,6 +2,7 @@
 package main
 
 import (
+	"fmt"
 	"time"
 	"errors"
 	"math/rand"
@@ -662,6 +663,7 @@ func (this *TexasPokerRoom) SendRoomInfo(player *TexasPlayer) {
 func (this *TexasPokerRoom) BuyInGame(uid int64, rev *msg.C2RS_ReqBuyInGame){
 	player := this.FindAllByID(uid)
 	if player != nil && player.BuyInGame(rev) {
+		// 更新房间人数
 		Redis().HSet(fmt.Sprintf("roombrief_%d", this.Id()), "members", this.PlayersNum())
 	}
 }
@@ -717,8 +719,9 @@ func (this *TexasPokerRoom) ReqTimeAwardInfo(uid int64, rev *msg.C2RS_ReqTimeAwa
 
 func (this *TexasPokerRoom) ReqStandUp(uid int64) {
 	player := this.FindAllByID(uid)
-	if player != nil {
-		player.ReqStandUp()
+	if player != nil && player.ReqStandUp(){
+		// 更新房间人数
+		Redis().HSet(fmt.Sprintf("roombrief_%d", this.Id()), "members", this.PlayersNum())
 	}
 }
 
