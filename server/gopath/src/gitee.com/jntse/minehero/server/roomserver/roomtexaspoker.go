@@ -66,7 +66,13 @@ func (this *TexasPokerRoom) Id() int64 { return this.id }
 func (this *TexasPokerRoom) Kind() int32 { return this.gamekind }
 
 func (this *TexasPokerRoom) PlayersNum() int32{
-	return int32(len(this.players))
+	var count int32 = 0
+	for _, p := range this.players {
+		if p != nil {
+			count++
+		}
+	}
+	return count
 }
 
 func (this *TexasPokerRoom) CheckPos(pos int32) bool {
@@ -581,12 +587,12 @@ func (this *TexasPokerRoom) Handler1sTick(now int64) {
 
 func (this *TexasPokerRoom) FindAllByID(userid int64) *TexasPlayer {
 	for _, player := range this.players {
-		if player.owner.Id() == userid {
+		if player != nil && player.owner.Id() == userid {
 			return player
 		}
 	}
 	for _, player := range this.watchers {
-		if player.owner.Id() == userid {
+		if player != nil && player.owner.Id() == userid {
 			return player
 		}
 	}
@@ -595,7 +601,7 @@ func (this *TexasPokerRoom) FindAllByID(userid int64) *TexasPlayer {
 
 func (this *TexasPokerRoom) FindPlayerByID(userid int64) *TexasPlayer {
 	for _, player := range this.players {
-		if player.owner.Id() == userid {
+		if player != nil && player.owner.Id() == userid {
 			return player
 		}
 	}
@@ -655,8 +661,8 @@ func (this *TexasPokerRoom) SendRoomInfo(player *TexasPlayer) {
 
 func (this *TexasPokerRoom) BuyInGame(uid int64, rev *msg.C2RS_ReqBuyInGame){
 	player := this.FindAllByID(uid)
-	if player != nil {
-		player.BuyInGame(rev)
+	if player != nil && player.BuyInGame(rev) {
+		Redis().HSet(fmt.Sprintf("roombrief_%d", this.Id()), "members", this.PlayersNum())
 	}
 }
 
@@ -706,6 +712,13 @@ func (this *TexasPokerRoom) ReqTimeAwardInfo(uid int64, rev *msg.C2RS_ReqTimeAwa
 	player := this.FindAllByID(uid)
 	if player != nil {
 		player.ReqTimeAwardInfo(rev)
+	}
+}
+
+func (this *TexasPokerRoom) ReqStandUp(uid int64) {
+	player := this.FindAllByID(uid)
+	if player != nil {
+		player.ReqStandUp()
 	}
 }
 

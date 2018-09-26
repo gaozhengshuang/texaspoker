@@ -42,6 +42,7 @@ func (this *ClientMsgHandler) Init() {
 	this.RegistProtoMsg(msg.C2RS_ReqBrightCard{}, on_C2RS_ReqBrightCard)
 	this.RegistProtoMsg(msg.C2RS_ReqAddCoin{}, on_C2RS_ReqAddCoin)
 	this.RegistProtoMsg(msg.C2RS_ReqBrightInTime{}, on_C2RS_ReqBrightInTime)
+	this.RegistProtoMsg(msg.C2RS_ReqStandUp{}, on_C2RS_ReqStandUp)
 }
 
 func (this *ClientMsgHandler) RegistProtoMsg(message interface{} , fn ClientMsgFunHandler) {
@@ -180,5 +181,14 @@ func on_C2RS_ReqAddCoin(session network.IBaseNetSession, message interface{}, u 
 		return
 	}
 	room.ReqAddCoin(u.Id(), tmsg)
+}
+
+func on_C2RS_ReqStandUp(session network.IBaseNetSession, message interface{}, u *RoomUser) {
+	room := RoomMgr().FindTexas(u.RoomId())
+	if room == nil {
+		log.Error("[房间] 玩家[%s %d] 无效房间 房间[%d]", u.Name(), u.Id(), u.RoomId())
+		return
+	}
+	room.ReqStandUp(u.Id())
 }
 

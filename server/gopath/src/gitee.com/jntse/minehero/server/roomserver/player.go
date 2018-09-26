@@ -313,6 +313,19 @@ func (this *TexasPlayer) BrightCardInTime() {
 	this.room.BroadCastRoomMsg(send1)
 }
 
+func (this *TexasPlayer) ReqStandUp() {
+	send := &msg.RS2C_RetStandUp{}
+	this.owner.SendClientMsg(send)
+	if this.room.InGame(this) {
+		this.room.DelPlayer(this.pos)
+		this.Init()
+		this.room.AddWatcher(this)
+	}
+}
+
+func (this *TexasPlayer) LeaveRoom() {
+}
+
 func (this *TexasPlayer) ToProto() *msg.TexasPlayer {
 	return &msg.TexasPlayer{
 		Roleid : pb.Int64(this.owner.Id()),
