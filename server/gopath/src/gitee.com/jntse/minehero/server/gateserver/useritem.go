@@ -38,7 +38,15 @@ func (this *GateUser) AddItem(item int32, num int32, reason string, syn bool) {
 
 // 扣除道具
 func (this *GateUser) RemoveItem(item int32, num int32, reason string) bool {
-	return this.bag.RemoveItem(item, num, reason)
+	if item == int32(msg.ItemId_YuanBao) {
+		return this.RemoveYuanbao(num, reason, true)
+	} else if item == int32(msg.ItemId_Gold) {
+		return this.RemoveGold(num, reason, true)
+	} else if item == int32(msg.ItemId_Diamond) {
+		return this.RemoveDiamond(num, reason, true)
+	} else {
+		return this.bag.RemoveItem(item, num, reason)
+	}
 }
 
 // 金币
