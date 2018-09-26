@@ -125,7 +125,7 @@ export var ProtoId : table.IProtoIdDefine[] = [
 		{ Id : 120, Name : "msg.C2GW_ReqUserRoomInfo" 	},
 		{ Id : 121, Name : "msg.GW2C_RetUserRoomInfo" 	},
 		{ Id : 122, Name : "msg.TexasPlayer" 	},
-		{ Id : 123, Name : "msg.RS2C_RetEnterRoomInfo" 	},
+		{ Id : 123, Name : "msg.RS2C_RetEnterRoom" 	},
 		{ Id : 124, Name : "msg.C2RS_ReqTimeAwardInfo" 	},
 		{ Id : 125, Name : "msg.RS2C_RetTimeAwardInfo" 	},
 		{ Id : 126, Name : "msg.C2RS_ReqBuyInGame" 	},

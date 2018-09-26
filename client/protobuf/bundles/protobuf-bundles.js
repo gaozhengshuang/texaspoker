@@ -28263,49 +28263,49 @@ $root.msg = (function() {
         return TexasPlayer;
     })();
 
-    msg.RS2C_RetEnterRoomInfo = (function() {
+    msg.RS2C_RetEnterRoom = (function() {
 
         /**
-         * Properties of a RS2C_RetEnterRoomInfo.
+         * Properties of a RS2C_RetEnterRoom.
          * @memberof msg
-         * @interface IRS2C_RetEnterRoomInfo
-         * @property {number|Long|null} [id] RS2C_RetEnterRoomInfo id
-         * @property {number|null} [buttonpos] RS2C_RetEnterRoomInfo buttonpos
-         * @property {Array.<number>|null} [potchips] RS2C_RetEnterRoomInfo potchips
-         * @property {number|null} [roomid] RS2C_RetEnterRoomInfo roomid
-         * @property {number|null} [ante] RS2C_RetEnterRoomInfo ante
-         * @property {number|null} [sblind] RS2C_RetEnterRoomInfo sblind
-         * @property {number|null} [bblind] RS2C_RetEnterRoomInfo bblind
-         * @property {number|null} [pos] RS2C_RetEnterRoomInfo pos
-         * @property {number|null} [postime] RS2C_RetEnterRoomInfo postime
-         * @property {number|null} [starttime] RS2C_RetEnterRoomInfo starttime
-         * @property {Array.<number>|null} [publiccard] RS2C_RetEnterRoomInfo publiccard
-         * @property {Array.<msg.ITexasPlayer>|null} [playerlist] RS2C_RetEnterRoomInfo playerlist
-         * @property {boolean|null} [isshowcard] RS2C_RetEnterRoomInfo isshowcard
-         * @property {Array.<number>|null} [handcard] RS2C_RetEnterRoomInfo handcard
-         * @property {number|null} [maxante] RS2C_RetEnterRoomInfo maxante
-         * @property {number|null} [minraisenum] RS2C_RetEnterRoomInfo minraisenum
-         * @property {number|null} [masterid] RS2C_RetEnterRoomInfo masterid
-         * @property {number|null} [blindlevel] RS2C_RetEnterRoomInfo blindlevel
-         * @property {number|null} [blindtime] RS2C_RetEnterRoomInfo blindtime
-         * @property {number|null} [rebuytimes] RS2C_RetEnterRoomInfo rebuytimes
-         * @property {number|null} [addontimes] RS2C_RetEnterRoomInfo addontimes
-         * @property {number|null} [addbuy] RS2C_RetEnterRoomInfo addbuy
-         * @property {number|null} [rank] RS2C_RetEnterRoomInfo rank
-         * @property {number|null} [avgchips] RS2C_RetEnterRoomInfo avgchips
-         * @property {number|null} [join] RS2C_RetEnterRoomInfo join
-         * @property {string|null} [errcode] RS2C_RetEnterRoomInfo errcode
+         * @interface IRS2C_RetEnterRoom
+         * @property {number|Long|null} [id] RS2C_RetEnterRoom id
+         * @property {number|null} [buttonpos] RS2C_RetEnterRoom buttonpos
+         * @property {Array.<number>|null} [potchips] RS2C_RetEnterRoom potchips
+         * @property {number|null} [roomid] RS2C_RetEnterRoom roomid
+         * @property {number|null} [ante] RS2C_RetEnterRoom ante
+         * @property {number|null} [sblind] RS2C_RetEnterRoom sblind
+         * @property {number|null} [bblind] RS2C_RetEnterRoom bblind
+         * @property {number|null} [pos] RS2C_RetEnterRoom pos
+         * @property {number|null} [postime] RS2C_RetEnterRoom postime
+         * @property {number|null} [starttime] RS2C_RetEnterRoom starttime
+         * @property {Array.<number>|null} [publiccard] RS2C_RetEnterRoom publiccard
+         * @property {Array.<msg.ITexasPlayer>|null} [playerlist] RS2C_RetEnterRoom playerlist
+         * @property {boolean|null} [isshowcard] RS2C_RetEnterRoom isshowcard
+         * @property {Array.<number>|null} [handcard] RS2C_RetEnterRoom handcard
+         * @property {number|null} [maxante] RS2C_RetEnterRoom maxante
+         * @property {number|null} [minraisenum] RS2C_RetEnterRoom minraisenum
+         * @property {number|null} [masterid] RS2C_RetEnterRoom masterid
+         * @property {number|null} [blindlevel] RS2C_RetEnterRoom blindlevel
+         * @property {number|null} [blindtime] RS2C_RetEnterRoom blindtime
+         * @property {number|null} [rebuytimes] RS2C_RetEnterRoom rebuytimes
+         * @property {number|null} [addontimes] RS2C_RetEnterRoom addontimes
+         * @property {number|null} [addbuy] RS2C_RetEnterRoom addbuy
+         * @property {number|null} [rank] RS2C_RetEnterRoom rank
+         * @property {number|null} [avgchips] RS2C_RetEnterRoom avgchips
+         * @property {number|null} [join] RS2C_RetEnterRoom join
+         * @property {string|null} [errcode] RS2C_RetEnterRoom errcode
          */
 
         /**
-         * Constructs a new RS2C_RetEnterRoomInfo.
+         * Constructs a new RS2C_RetEnterRoom.
          * @memberof msg
-         * @classdesc Represents a RS2C_RetEnterRoomInfo.
-         * @implements IRS2C_RetEnterRoomInfo
+         * @classdesc Represents a RS2C_RetEnterRoom.
+         * @implements IRS2C_RetEnterRoom
          * @constructor
-         * @param {msg.IRS2C_RetEnterRoomInfo=} [properties] Properties to set
+         * @param {msg.IRS2C_RetEnterRoom=} [properties] Properties to set
          */
-        function RS2C_RetEnterRoomInfo(properties) {
+        function RS2C_RetEnterRoom(properties) {
             this.potchips = [];
             this.publiccard = [];
             this.playerlist = [];
@@ -28317,235 +28317,235 @@ $root.msg = (function() {
         }
 
         /**
-         * RS2C_RetEnterRoomInfo id.
+         * RS2C_RetEnterRoom id.
          * @member {number|Long} id
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @instance
          */
-        RS2C_RetEnterRoomInfo.prototype.id = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+        RS2C_RetEnterRoom.prototype.id = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
-         * RS2C_RetEnterRoomInfo buttonpos.
+         * RS2C_RetEnterRoom buttonpos.
          * @member {number} buttonpos
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @instance
          */
-        RS2C_RetEnterRoomInfo.prototype.buttonpos = 0;
+        RS2C_RetEnterRoom.prototype.buttonpos = 0;
 
         /**
-         * RS2C_RetEnterRoomInfo potchips.
+         * RS2C_RetEnterRoom potchips.
          * @member {Array.<number>} potchips
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @instance
          */
-        RS2C_RetEnterRoomInfo.prototype.potchips = $util.emptyArray;
+        RS2C_RetEnterRoom.prototype.potchips = $util.emptyArray;
 
         /**
-         * RS2C_RetEnterRoomInfo roomid.
+         * RS2C_RetEnterRoom roomid.
          * @member {number} roomid
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @instance
          */
-        RS2C_RetEnterRoomInfo.prototype.roomid = 0;
+        RS2C_RetEnterRoom.prototype.roomid = 0;
 
         /**
-         * RS2C_RetEnterRoomInfo ante.
+         * RS2C_RetEnterRoom ante.
          * @member {number} ante
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @instance
          */
-        RS2C_RetEnterRoomInfo.prototype.ante = 0;
+        RS2C_RetEnterRoom.prototype.ante = 0;
 
         /**
-         * RS2C_RetEnterRoomInfo sblind.
+         * RS2C_RetEnterRoom sblind.
          * @member {number} sblind
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @instance
          */
-        RS2C_RetEnterRoomInfo.prototype.sblind = 0;
+        RS2C_RetEnterRoom.prototype.sblind = 0;
 
         /**
-         * RS2C_RetEnterRoomInfo bblind.
+         * RS2C_RetEnterRoom bblind.
          * @member {number} bblind
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @instance
          */
-        RS2C_RetEnterRoomInfo.prototype.bblind = 0;
+        RS2C_RetEnterRoom.prototype.bblind = 0;
 
         /**
-         * RS2C_RetEnterRoomInfo pos.
+         * RS2C_RetEnterRoom pos.
          * @member {number} pos
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @instance
          */
-        RS2C_RetEnterRoomInfo.prototype.pos = 0;
+        RS2C_RetEnterRoom.prototype.pos = 0;
 
         /**
-         * RS2C_RetEnterRoomInfo postime.
+         * RS2C_RetEnterRoom postime.
          * @member {number} postime
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @instance
          */
-        RS2C_RetEnterRoomInfo.prototype.postime = 0;
+        RS2C_RetEnterRoom.prototype.postime = 0;
 
         /**
-         * RS2C_RetEnterRoomInfo starttime.
+         * RS2C_RetEnterRoom starttime.
          * @member {number} starttime
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @instance
          */
-        RS2C_RetEnterRoomInfo.prototype.starttime = 0;
+        RS2C_RetEnterRoom.prototype.starttime = 0;
 
         /**
-         * RS2C_RetEnterRoomInfo publiccard.
+         * RS2C_RetEnterRoom publiccard.
          * @member {Array.<number>} publiccard
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @instance
          */
-        RS2C_RetEnterRoomInfo.prototype.publiccard = $util.emptyArray;
+        RS2C_RetEnterRoom.prototype.publiccard = $util.emptyArray;
 
         /**
-         * RS2C_RetEnterRoomInfo playerlist.
+         * RS2C_RetEnterRoom playerlist.
          * @member {Array.<msg.ITexasPlayer>} playerlist
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @instance
          */
-        RS2C_RetEnterRoomInfo.prototype.playerlist = $util.emptyArray;
+        RS2C_RetEnterRoom.prototype.playerlist = $util.emptyArray;
 
         /**
-         * RS2C_RetEnterRoomInfo isshowcard.
+         * RS2C_RetEnterRoom isshowcard.
          * @member {boolean} isshowcard
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @instance
          */
-        RS2C_RetEnterRoomInfo.prototype.isshowcard = false;
+        RS2C_RetEnterRoom.prototype.isshowcard = false;
 
         /**
-         * RS2C_RetEnterRoomInfo handcard.
+         * RS2C_RetEnterRoom handcard.
          * @member {Array.<number>} handcard
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @instance
          */
-        RS2C_RetEnterRoomInfo.prototype.handcard = $util.emptyArray;
+        RS2C_RetEnterRoom.prototype.handcard = $util.emptyArray;
 
         /**
-         * RS2C_RetEnterRoomInfo maxante.
+         * RS2C_RetEnterRoom maxante.
          * @member {number} maxante
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @instance
          */
-        RS2C_RetEnterRoomInfo.prototype.maxante = 0;
+        RS2C_RetEnterRoom.prototype.maxante = 0;
 
         /**
-         * RS2C_RetEnterRoomInfo minraisenum.
+         * RS2C_RetEnterRoom minraisenum.
          * @member {number} minraisenum
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @instance
          */
-        RS2C_RetEnterRoomInfo.prototype.minraisenum = 0;
+        RS2C_RetEnterRoom.prototype.minraisenum = 0;
 
         /**
-         * RS2C_RetEnterRoomInfo masterid.
+         * RS2C_RetEnterRoom masterid.
          * @member {number} masterid
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @instance
          */
-        RS2C_RetEnterRoomInfo.prototype.masterid = 0;
+        RS2C_RetEnterRoom.prototype.masterid = 0;
 
         /**
-         * RS2C_RetEnterRoomInfo blindlevel.
+         * RS2C_RetEnterRoom blindlevel.
          * @member {number} blindlevel
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @instance
          */
-        RS2C_RetEnterRoomInfo.prototype.blindlevel = 0;
+        RS2C_RetEnterRoom.prototype.blindlevel = 0;
 
         /**
-         * RS2C_RetEnterRoomInfo blindtime.
+         * RS2C_RetEnterRoom blindtime.
          * @member {number} blindtime
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @instance
          */
-        RS2C_RetEnterRoomInfo.prototype.blindtime = 0;
+        RS2C_RetEnterRoom.prototype.blindtime = 0;
 
         /**
-         * RS2C_RetEnterRoomInfo rebuytimes.
+         * RS2C_RetEnterRoom rebuytimes.
          * @member {number} rebuytimes
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @instance
          */
-        RS2C_RetEnterRoomInfo.prototype.rebuytimes = 0;
+        RS2C_RetEnterRoom.prototype.rebuytimes = 0;
 
         /**
-         * RS2C_RetEnterRoomInfo addontimes.
+         * RS2C_RetEnterRoom addontimes.
          * @member {number} addontimes
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @instance
          */
-        RS2C_RetEnterRoomInfo.prototype.addontimes = 0;
+        RS2C_RetEnterRoom.prototype.addontimes = 0;
 
         /**
-         * RS2C_RetEnterRoomInfo addbuy.
+         * RS2C_RetEnterRoom addbuy.
          * @member {number} addbuy
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @instance
          */
-        RS2C_RetEnterRoomInfo.prototype.addbuy = 0;
+        RS2C_RetEnterRoom.prototype.addbuy = 0;
 
         /**
-         * RS2C_RetEnterRoomInfo rank.
+         * RS2C_RetEnterRoom rank.
          * @member {number} rank
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @instance
          */
-        RS2C_RetEnterRoomInfo.prototype.rank = 0;
+        RS2C_RetEnterRoom.prototype.rank = 0;
 
         /**
-         * RS2C_RetEnterRoomInfo avgchips.
+         * RS2C_RetEnterRoom avgchips.
          * @member {number} avgchips
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @instance
          */
-        RS2C_RetEnterRoomInfo.prototype.avgchips = 0;
+        RS2C_RetEnterRoom.prototype.avgchips = 0;
 
         /**
-         * RS2C_RetEnterRoomInfo join.
+         * RS2C_RetEnterRoom join.
          * @member {number} join
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @instance
          */
-        RS2C_RetEnterRoomInfo.prototype.join = 0;
+        RS2C_RetEnterRoom.prototype.join = 0;
 
         /**
-         * RS2C_RetEnterRoomInfo errcode.
+         * RS2C_RetEnterRoom errcode.
          * @member {string} errcode
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @instance
          */
-        RS2C_RetEnterRoomInfo.prototype.errcode = "";
+        RS2C_RetEnterRoom.prototype.errcode = "";
 
         /**
-         * Creates a new RS2C_RetEnterRoomInfo instance using the specified properties.
+         * Creates a new RS2C_RetEnterRoom instance using the specified properties.
          * @function create
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @static
-         * @param {msg.IRS2C_RetEnterRoomInfo=} [properties] Properties to set
-         * @returns {msg.RS2C_RetEnterRoomInfo} RS2C_RetEnterRoomInfo instance
+         * @param {msg.IRS2C_RetEnterRoom=} [properties] Properties to set
+         * @returns {msg.RS2C_RetEnterRoom} RS2C_RetEnterRoom instance
          */
-        RS2C_RetEnterRoomInfo.create = function create(properties) {
-            return new RS2C_RetEnterRoomInfo(properties);
+        RS2C_RetEnterRoom.create = function create(properties) {
+            return new RS2C_RetEnterRoom(properties);
         };
 
         /**
-         * Encodes the specified RS2C_RetEnterRoomInfo message. Does not implicitly {@link msg.RS2C_RetEnterRoomInfo.verify|verify} messages.
+         * Encodes the specified RS2C_RetEnterRoom message. Does not implicitly {@link msg.RS2C_RetEnterRoom.verify|verify} messages.
          * @function encode
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @static
-         * @param {msg.IRS2C_RetEnterRoomInfo} message RS2C_RetEnterRoomInfo message or plain object to encode
+         * @param {msg.IRS2C_RetEnterRoom} message RS2C_RetEnterRoom message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        RS2C_RetEnterRoomInfo.encode = function encode(message, writer) {
+        RS2C_RetEnterRoom.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
             if (message.id != null && message.hasOwnProperty("id"))
@@ -28608,33 +28608,33 @@ $root.msg = (function() {
         };
 
         /**
-         * Encodes the specified RS2C_RetEnterRoomInfo message, length delimited. Does not implicitly {@link msg.RS2C_RetEnterRoomInfo.verify|verify} messages.
+         * Encodes the specified RS2C_RetEnterRoom message, length delimited. Does not implicitly {@link msg.RS2C_RetEnterRoom.verify|verify} messages.
          * @function encodeDelimited
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @static
-         * @param {msg.IRS2C_RetEnterRoomInfo} message RS2C_RetEnterRoomInfo message or plain object to encode
+         * @param {msg.IRS2C_RetEnterRoom} message RS2C_RetEnterRoom message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        RS2C_RetEnterRoomInfo.encodeDelimited = function encodeDelimited(message, writer) {
+        RS2C_RetEnterRoom.encodeDelimited = function encodeDelimited(message, writer) {
             return this.encode(message, writer).ldelim();
         };
 
         /**
-         * Decodes a RS2C_RetEnterRoomInfo message from the specified reader or buffer.
+         * Decodes a RS2C_RetEnterRoom message from the specified reader or buffer.
          * @function decode
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
          * @param {number} [length] Message length if known beforehand
-         * @returns {msg.RS2C_RetEnterRoomInfo} RS2C_RetEnterRoomInfo
+         * @returns {msg.RS2C_RetEnterRoom} RS2C_RetEnterRoom
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        RS2C_RetEnterRoomInfo.decode = function decode(reader, length) {
+        RS2C_RetEnterRoom.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.RS2C_RetEnterRoomInfo();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.RS2C_RetEnterRoom();
             while (reader.pos < end) {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
@@ -28748,30 +28748,30 @@ $root.msg = (function() {
         };
 
         /**
-         * Decodes a RS2C_RetEnterRoomInfo message from the specified reader or buffer, length delimited.
+         * Decodes a RS2C_RetEnterRoom message from the specified reader or buffer, length delimited.
          * @function decodeDelimited
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.RS2C_RetEnterRoomInfo} RS2C_RetEnterRoomInfo
+         * @returns {msg.RS2C_RetEnterRoom} RS2C_RetEnterRoom
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        RS2C_RetEnterRoomInfo.decodeDelimited = function decodeDelimited(reader) {
+        RS2C_RetEnterRoom.decodeDelimited = function decodeDelimited(reader) {
             if (!(reader instanceof $Reader))
                 reader = new $Reader(reader);
             return this.decode(reader, reader.uint32());
         };
 
         /**
-         * Verifies a RS2C_RetEnterRoomInfo message.
+         * Verifies a RS2C_RetEnterRoom message.
          * @function verify
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @static
          * @param {Object.<string,*>} message Plain object to verify
          * @returns {string|null} `null` if valid, otherwise the reason why it is not
          */
-        RS2C_RetEnterRoomInfo.verify = function verify(message) {
+        RS2C_RetEnterRoom.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
             if (message.id != null && message.hasOwnProperty("id"))
@@ -28874,17 +28874,17 @@ $root.msg = (function() {
         };
 
         /**
-         * Creates a RS2C_RetEnterRoomInfo message from a plain object. Also converts values to their respective internal types.
+         * Creates a RS2C_RetEnterRoom message from a plain object. Also converts values to their respective internal types.
          * @function fromObject
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @static
          * @param {Object.<string,*>} object Plain object
-         * @returns {msg.RS2C_RetEnterRoomInfo} RS2C_RetEnterRoomInfo
+         * @returns {msg.RS2C_RetEnterRoom} RS2C_RetEnterRoom
          */
-        RS2C_RetEnterRoomInfo.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.RS2C_RetEnterRoomInfo)
+        RS2C_RetEnterRoom.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.RS2C_RetEnterRoom)
                 return object;
-            var message = new $root.msg.RS2C_RetEnterRoomInfo();
+            var message = new $root.msg.RS2C_RetEnterRoom();
             if (object.id != null)
                 if ($util.Long)
                     (message.id = $util.Long.fromValue(object.id)).unsigned = false;
@@ -28898,7 +28898,7 @@ $root.msg = (function() {
                 message.buttonpos = object.buttonpos | 0;
             if (object.potchips) {
                 if (!Array.isArray(object.potchips))
-                    throw TypeError(".msg.RS2C_RetEnterRoomInfo.potchips: array expected");
+                    throw TypeError(".msg.RS2C_RetEnterRoom.potchips: array expected");
                 message.potchips = [];
                 for (var i = 0; i < object.potchips.length; ++i)
                     message.potchips[i] = object.potchips[i] | 0;
@@ -28919,18 +28919,18 @@ $root.msg = (function() {
                 message.starttime = object.starttime | 0;
             if (object.publiccard) {
                 if (!Array.isArray(object.publiccard))
-                    throw TypeError(".msg.RS2C_RetEnterRoomInfo.publiccard: array expected");
+                    throw TypeError(".msg.RS2C_RetEnterRoom.publiccard: array expected");
                 message.publiccard = [];
                 for (var i = 0; i < object.publiccard.length; ++i)
                     message.publiccard[i] = object.publiccard[i] | 0;
             }
             if (object.playerlist) {
                 if (!Array.isArray(object.playerlist))
-                    throw TypeError(".msg.RS2C_RetEnterRoomInfo.playerlist: array expected");
+                    throw TypeError(".msg.RS2C_RetEnterRoom.playerlist: array expected");
                 message.playerlist = [];
                 for (var i = 0; i < object.playerlist.length; ++i) {
                     if (typeof object.playerlist[i] !== "object")
-                        throw TypeError(".msg.RS2C_RetEnterRoomInfo.playerlist: object expected");
+                        throw TypeError(".msg.RS2C_RetEnterRoom.playerlist: object expected");
                     message.playerlist[i] = $root.msg.TexasPlayer.fromObject(object.playerlist[i]);
                 }
             }
@@ -28938,7 +28938,7 @@ $root.msg = (function() {
                 message.isshowcard = Boolean(object.isshowcard);
             if (object.handcard) {
                 if (!Array.isArray(object.handcard))
-                    throw TypeError(".msg.RS2C_RetEnterRoomInfo.handcard: array expected");
+                    throw TypeError(".msg.RS2C_RetEnterRoom.handcard: array expected");
                 message.handcard = [];
                 for (var i = 0; i < object.handcard.length; ++i)
                     message.handcard[i] = object.handcard[i] | 0;
@@ -28971,15 +28971,15 @@ $root.msg = (function() {
         };
 
         /**
-         * Creates a plain object from a RS2C_RetEnterRoomInfo message. Also converts values to other types if specified.
+         * Creates a plain object from a RS2C_RetEnterRoom message. Also converts values to other types if specified.
          * @function toObject
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @static
-         * @param {msg.RS2C_RetEnterRoomInfo} message RS2C_RetEnterRoomInfo
+         * @param {msg.RS2C_RetEnterRoom} message RS2C_RetEnterRoom
          * @param {$protobuf.IConversionOptions} [options] Conversion options
          * @returns {Object.<string,*>} Plain object
          */
-        RS2C_RetEnterRoomInfo.toObject = function toObject(message, options) {
+        RS2C_RetEnterRoom.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
             var object = {};
@@ -29088,17 +29088,17 @@ $root.msg = (function() {
         };
 
         /**
-         * Converts this RS2C_RetEnterRoomInfo to JSON.
+         * Converts this RS2C_RetEnterRoom to JSON.
          * @function toJSON
-         * @memberof msg.RS2C_RetEnterRoomInfo
+         * @memberof msg.RS2C_RetEnterRoom
          * @instance
          * @returns {Object.<string,*>} JSON object
          */
-        RS2C_RetEnterRoomInfo.prototype.toJSON = function toJSON() {
+        RS2C_RetEnterRoom.prototype.toJSON = function toJSON() {
             return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
         };
 
-        return RS2C_RetEnterRoomInfo;
+        return RS2C_RetEnterRoom;
     })();
 
     msg.C2RS_ReqTimeAwardInfo = (function() {

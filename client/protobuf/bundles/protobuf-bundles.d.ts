@@ -12154,241 +12154,241 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a RS2C_RetEnterRoomInfo. */
-    interface IRS2C_RetEnterRoomInfo {
+    /** Properties of a RS2C_RetEnterRoom. */
+    interface IRS2C_RetEnterRoom {
 
-        /** RS2C_RetEnterRoomInfo id */
+        /** RS2C_RetEnterRoom id */
         id?: (number|Long|null);
 
-        /** RS2C_RetEnterRoomInfo buttonpos */
+        /** RS2C_RetEnterRoom buttonpos */
         buttonpos?: (number|null);
 
-        /** RS2C_RetEnterRoomInfo potchips */
+        /** RS2C_RetEnterRoom potchips */
         potchips?: (number[]|null);
 
-        /** RS2C_RetEnterRoomInfo roomid */
+        /** RS2C_RetEnterRoom roomid */
         roomid?: (number|null);
 
-        /** RS2C_RetEnterRoomInfo ante */
+        /** RS2C_RetEnterRoom ante */
         ante?: (number|null);
 
-        /** RS2C_RetEnterRoomInfo sblind */
+        /** RS2C_RetEnterRoom sblind */
         sblind?: (number|null);
 
-        /** RS2C_RetEnterRoomInfo bblind */
+        /** RS2C_RetEnterRoom bblind */
         bblind?: (number|null);
 
-        /** RS2C_RetEnterRoomInfo pos */
+        /** RS2C_RetEnterRoom pos */
         pos?: (number|null);
 
-        /** RS2C_RetEnterRoomInfo postime */
+        /** RS2C_RetEnterRoom postime */
         postime?: (number|null);
 
-        /** RS2C_RetEnterRoomInfo starttime */
+        /** RS2C_RetEnterRoom starttime */
         starttime?: (number|null);
 
-        /** RS2C_RetEnterRoomInfo publiccard */
+        /** RS2C_RetEnterRoom publiccard */
         publiccard?: (number[]|null);
 
-        /** RS2C_RetEnterRoomInfo playerlist */
+        /** RS2C_RetEnterRoom playerlist */
         playerlist?: (msg.ITexasPlayer[]|null);
 
-        /** RS2C_RetEnterRoomInfo isshowcard */
+        /** RS2C_RetEnterRoom isshowcard */
         isshowcard?: (boolean|null);
 
-        /** RS2C_RetEnterRoomInfo handcard */
+        /** RS2C_RetEnterRoom handcard */
         handcard?: (number[]|null);
 
-        /** RS2C_RetEnterRoomInfo maxante */
+        /** RS2C_RetEnterRoom maxante */
         maxante?: (number|null);
 
-        /** RS2C_RetEnterRoomInfo minraisenum */
+        /** RS2C_RetEnterRoom minraisenum */
         minraisenum?: (number|null);
 
-        /** RS2C_RetEnterRoomInfo masterid */
+        /** RS2C_RetEnterRoom masterid */
         masterid?: (number|null);
 
-        /** RS2C_RetEnterRoomInfo blindlevel */
+        /** RS2C_RetEnterRoom blindlevel */
         blindlevel?: (number|null);
 
-        /** RS2C_RetEnterRoomInfo blindtime */
+        /** RS2C_RetEnterRoom blindtime */
         blindtime?: (number|null);
 
-        /** RS2C_RetEnterRoomInfo rebuytimes */
+        /** RS2C_RetEnterRoom rebuytimes */
         rebuytimes?: (number|null);
 
-        /** RS2C_RetEnterRoomInfo addontimes */
+        /** RS2C_RetEnterRoom addontimes */
         addontimes?: (number|null);
 
-        /** RS2C_RetEnterRoomInfo addbuy */
+        /** RS2C_RetEnterRoom addbuy */
         addbuy?: (number|null);
 
-        /** RS2C_RetEnterRoomInfo rank */
+        /** RS2C_RetEnterRoom rank */
         rank?: (number|null);
 
-        /** RS2C_RetEnterRoomInfo avgchips */
+        /** RS2C_RetEnterRoom avgchips */
         avgchips?: (number|null);
 
-        /** RS2C_RetEnterRoomInfo join */
+        /** RS2C_RetEnterRoom join */
         join?: (number|null);
 
-        /** RS2C_RetEnterRoomInfo errcode */
+        /** RS2C_RetEnterRoom errcode */
         errcode?: (string|null);
     }
 
-    /** Represents a RS2C_RetEnterRoomInfo. */
-    class RS2C_RetEnterRoomInfo implements IRS2C_RetEnterRoomInfo {
+    /** Represents a RS2C_RetEnterRoom. */
+    class RS2C_RetEnterRoom implements IRS2C_RetEnterRoom {
 
         /**
-         * Constructs a new RS2C_RetEnterRoomInfo.
+         * Constructs a new RS2C_RetEnterRoom.
          * @param [properties] Properties to set
          */
-        constructor(properties?: msg.IRS2C_RetEnterRoomInfo);
+        constructor(properties?: msg.IRS2C_RetEnterRoom);
 
-        /** RS2C_RetEnterRoomInfo id. */
+        /** RS2C_RetEnterRoom id. */
         public id: (number|Long);
 
-        /** RS2C_RetEnterRoomInfo buttonpos. */
+        /** RS2C_RetEnterRoom buttonpos. */
         public buttonpos: number;
 
-        /** RS2C_RetEnterRoomInfo potchips. */
+        /** RS2C_RetEnterRoom potchips. */
         public potchips: number[];
 
-        /** RS2C_RetEnterRoomInfo roomid. */
+        /** RS2C_RetEnterRoom roomid. */
         public roomid: number;
 
-        /** RS2C_RetEnterRoomInfo ante. */
+        /** RS2C_RetEnterRoom ante. */
         public ante: number;
 
-        /** RS2C_RetEnterRoomInfo sblind. */
+        /** RS2C_RetEnterRoom sblind. */
         public sblind: number;
 
-        /** RS2C_RetEnterRoomInfo bblind. */
+        /** RS2C_RetEnterRoom bblind. */
         public bblind: number;
 
-        /** RS2C_RetEnterRoomInfo pos. */
+        /** RS2C_RetEnterRoom pos. */
         public pos: number;
 
-        /** RS2C_RetEnterRoomInfo postime. */
+        /** RS2C_RetEnterRoom postime. */
         public postime: number;
 
-        /** RS2C_RetEnterRoomInfo starttime. */
+        /** RS2C_RetEnterRoom starttime. */
         public starttime: number;
 
-        /** RS2C_RetEnterRoomInfo publiccard. */
+        /** RS2C_RetEnterRoom publiccard. */
         public publiccard: number[];
 
-        /** RS2C_RetEnterRoomInfo playerlist. */
+        /** RS2C_RetEnterRoom playerlist. */
         public playerlist: msg.ITexasPlayer[];
 
-        /** RS2C_RetEnterRoomInfo isshowcard. */
+        /** RS2C_RetEnterRoom isshowcard. */
         public isshowcard: boolean;
 
-        /** RS2C_RetEnterRoomInfo handcard. */
+        /** RS2C_RetEnterRoom handcard. */
         public handcard: number[];
 
-        /** RS2C_RetEnterRoomInfo maxante. */
+        /** RS2C_RetEnterRoom maxante. */
         public maxante: number;
 
-        /** RS2C_RetEnterRoomInfo minraisenum. */
+        /** RS2C_RetEnterRoom minraisenum. */
         public minraisenum: number;
 
-        /** RS2C_RetEnterRoomInfo masterid. */
+        /** RS2C_RetEnterRoom masterid. */
         public masterid: number;
 
-        /** RS2C_RetEnterRoomInfo blindlevel. */
+        /** RS2C_RetEnterRoom blindlevel. */
         public blindlevel: number;
 
-        /** RS2C_RetEnterRoomInfo blindtime. */
+        /** RS2C_RetEnterRoom blindtime. */
         public blindtime: number;
 
-        /** RS2C_RetEnterRoomInfo rebuytimes. */
+        /** RS2C_RetEnterRoom rebuytimes. */
         public rebuytimes: number;
 
-        /** RS2C_RetEnterRoomInfo addontimes. */
+        /** RS2C_RetEnterRoom addontimes. */
         public addontimes: number;
 
-        /** RS2C_RetEnterRoomInfo addbuy. */
+        /** RS2C_RetEnterRoom addbuy. */
         public addbuy: number;
 
-        /** RS2C_RetEnterRoomInfo rank. */
+        /** RS2C_RetEnterRoom rank. */
         public rank: number;
 
-        /** RS2C_RetEnterRoomInfo avgchips. */
+        /** RS2C_RetEnterRoom avgchips. */
         public avgchips: number;
 
-        /** RS2C_RetEnterRoomInfo join. */
+        /** RS2C_RetEnterRoom join. */
         public join: number;
 
-        /** RS2C_RetEnterRoomInfo errcode. */
+        /** RS2C_RetEnterRoom errcode. */
         public errcode: string;
 
         /**
-         * Creates a new RS2C_RetEnterRoomInfo instance using the specified properties.
+         * Creates a new RS2C_RetEnterRoom instance using the specified properties.
          * @param [properties] Properties to set
-         * @returns RS2C_RetEnterRoomInfo instance
+         * @returns RS2C_RetEnterRoom instance
          */
-        public static create(properties?: msg.IRS2C_RetEnterRoomInfo): msg.RS2C_RetEnterRoomInfo;
+        public static create(properties?: msg.IRS2C_RetEnterRoom): msg.RS2C_RetEnterRoom;
 
         /**
-         * Encodes the specified RS2C_RetEnterRoomInfo message. Does not implicitly {@link msg.RS2C_RetEnterRoomInfo.verify|verify} messages.
-         * @param message RS2C_RetEnterRoomInfo message or plain object to encode
+         * Encodes the specified RS2C_RetEnterRoom message. Does not implicitly {@link msg.RS2C_RetEnterRoom.verify|verify} messages.
+         * @param message RS2C_RetEnterRoom message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: msg.IRS2C_RetEnterRoomInfo, writer?: protobuf.Writer): protobuf.Writer;
+        public static encode(message: msg.IRS2C_RetEnterRoom, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Encodes the specified RS2C_RetEnterRoomInfo message, length delimited. Does not implicitly {@link msg.RS2C_RetEnterRoomInfo.verify|verify} messages.
-         * @param message RS2C_RetEnterRoomInfo message or plain object to encode
+         * Encodes the specified RS2C_RetEnterRoom message, length delimited. Does not implicitly {@link msg.RS2C_RetEnterRoom.verify|verify} messages.
+         * @param message RS2C_RetEnterRoom message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: msg.IRS2C_RetEnterRoomInfo, writer?: protobuf.Writer): protobuf.Writer;
+        public static encodeDelimited(message: msg.IRS2C_RetEnterRoom, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Decodes a RS2C_RetEnterRoomInfo message from the specified reader or buffer.
+         * Decodes a RS2C_RetEnterRoom message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns RS2C_RetEnterRoomInfo
+         * @returns RS2C_RetEnterRoom
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2C_RetEnterRoomInfo;
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2C_RetEnterRoom;
 
         /**
-         * Decodes a RS2C_RetEnterRoomInfo message from the specified reader or buffer, length delimited.
+         * Decodes a RS2C_RetEnterRoom message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns RS2C_RetEnterRoomInfo
+         * @returns RS2C_RetEnterRoom
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2C_RetEnterRoomInfo;
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2C_RetEnterRoom;
 
         /**
-         * Verifies a RS2C_RetEnterRoomInfo message.
+         * Verifies a RS2C_RetEnterRoom message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a RS2C_RetEnterRoomInfo message from a plain object. Also converts values to their respective internal types.
+         * Creates a RS2C_RetEnterRoom message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns RS2C_RetEnterRoomInfo
+         * @returns RS2C_RetEnterRoom
          */
-        public static fromObject(object: { [k: string]: any }): msg.RS2C_RetEnterRoomInfo;
+        public static fromObject(object: { [k: string]: any }): msg.RS2C_RetEnterRoom;
 
         /**
-         * Creates a plain object from a RS2C_RetEnterRoomInfo message. Also converts values to other types if specified.
-         * @param message RS2C_RetEnterRoomInfo
+         * Creates a plain object from a RS2C_RetEnterRoom message. Also converts values to other types if specified.
+         * @param message RS2C_RetEnterRoom
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: msg.RS2C_RetEnterRoomInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: msg.RS2C_RetEnterRoom, options?: protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this RS2C_RetEnterRoomInfo to JSON.
+         * Converts this RS2C_RetEnterRoom to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };

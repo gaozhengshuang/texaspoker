@@ -16,7 +16,9 @@ class MsgTransferSend
 			let cmdBody = egret.getDefinitionByName(cmdId);
 			if (cmdBody)
 			{
-				data.buf = cmdBody.encode(args);
+				let writer:protobuf.Writer = cmdBody.encode(args);
+				let buffer = writer.finish();
+				data.buf = buffer;
 				data.uid = UserManager.userInfo.id;
 				if (sendFunc)
 				{
