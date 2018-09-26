@@ -392,6 +392,7 @@ func (this *GateUser) LoginStatistics() {
 		this.continuelogin = 1
 		return
 	}
+	diffday := false
 	if util.IsNextDay(this.tm_login, util.CURTIME()) {
 		this.continuelogin += 1
 		if this.nocountlogin == 0 {
@@ -400,13 +401,23 @@ func (this *GateUser) LoginStatistics() {
 		}
 		key2 := fmt.Sprintf("%s_loginsum", datetime)
 		Redis().Incr(key2)
+		diffday = true
 	} else {
 		if !util.IsSameDay(this.tm_login, util.CURTIME()) {
 			this.continuelogin = 1
 			this.nocountlogin = 1
 			key := fmt.Sprintf("%s_loginsum", datetime)
 			Redis().Incr(key)
+			diffday = true
 		}
+	}
+
+	if diffday {
+		this.ActivityResetByDay()
+	}
+
+	if !util.IsSameWeek(this.tm_login, util.CURTIME()) {
+		this.ActivityResetByWeek()
 	}
 }
 

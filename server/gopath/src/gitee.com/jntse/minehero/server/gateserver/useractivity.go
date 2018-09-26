@@ -5,7 +5,7 @@ import (
 	"gitee.com/jntse/gotoolkit/log"
 	_ "gitee.com/jntse/gotoolkit/net"
 	"gitee.com/jntse/gotoolkit/util"
-	_ "gitee.com/jntse/minehero/pbmsg"
+	"gitee.com/jntse/minehero/pbmsg"
 	_ "gitee.com/jntse/minehero/server/def"
 	"gitee.com/jntse/minehero/server/tbl"
 	_ "net/http"
@@ -41,7 +41,7 @@ func (this *GateUser) GetActivityAwardByAwardId(awardid int32, reason string) bo
 
 //签到
 func (this *GateUser) DailySign() {
-	if !this.CheckActivityTimeEnable(3) {
+	if !this.CheckActivityTimeEnable(int32(msg.ActivityType_DailySign)) {
 		log.Error("玩家[%d %s] 签到失败 不在活动开启时间", this.Id(), this.Name())
 		return
 	}
@@ -62,4 +62,20 @@ func (this *GateUser) DailySign() {
 	}
 
 	log.Error("玩家[%d %s] 签到失败 签到配置出错 第%d天", this.Id(), this.Name(), this.signdays+1)
+}
+
+//签到重置
+func (this *GateUser) ResetDailySign() {
+	this.signdays = 0
+}
+
+//跨天重置的活动
+func (this *GateUser) ActivityResetByDay() {
+
+}
+
+//跨周重置的活动
+func (this *GateUser) ActivityResetByWeek() {
+	//签到
+	this.ResetDailySign()
 }
