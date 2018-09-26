@@ -118,3 +118,10 @@ enum RoomKind {
     TanTanLe = 1;
     TexasPoker = 2;
 }
+
+// 邮件类型
+enum MailType {
+    System = 0;     // 系统
+    Notify = 1;     // 通知
+    Personal = 2;   // 个人
+}
