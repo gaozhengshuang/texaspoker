@@ -54,7 +54,9 @@ func (this *GateUser) DailySign() {
 			awardId := v.AwardId
 			awardExId := v.PilePrize
 			this.GetActivityAwardByAwardId(awardId, "日常签到")
-			this.GetActivityAwardByAwardId(awardExId, "日常签到累计")
+			if awardExId > 0 {
+				this.GetActivityAwardByAwardId(awardExId, "日常签到累计")
+			}
 			this.signdays = this.signdays + 1
 			this.signtime = int32(util.CURTIME())
 			return
