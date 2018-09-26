@@ -503,6 +503,9 @@ func (this *TexasPokerRoom) ShowDown() int32{
 	}
 
 	for _, player := range this.players {
+		if player == nil {
+			continue
+		}
 		send.Handcardlist = append(send.Handcardlist, &msg.HandCardInfo{
 			Roleid : pb.Int64(player.owner.Id()),
 			Card : player.ToHandCard(),
@@ -653,6 +656,9 @@ func (this *TexasPokerRoom) SendRoomInfo(player *TexasPlayer) {
 	send.Starttime = pb.Int32(this.starttime)
 	send.Publiccard = this.publiccard
 	for _, p := range this.players {
+		if p == nil {
+			continue
+		}
 		send.Playerlist = append(send.Playerlist, p.ToProto())
 	}
 	send.Isshowcard = pb.Bool(player.isshowcard)

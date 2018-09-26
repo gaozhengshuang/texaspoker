@@ -1,5 +1,5 @@
 {
-	"name": "GateServer02",
+	"name": "GateServer000",
     "tblpath": {
         "excel":"../tbl/excel/",
         "json":"../tbl/json/",
@@ -15,8 +15,7 @@
 			},
             "interval": 3,
             "svrchannel":true,
-            "disable": 0,
-            "disable_eventqueue": false
+            "disable": 0
 		},
 		{
 			"name": "MatchConnector",
@@ -26,8 +25,7 @@
 			},
             "interval": 3,
             "svrchannel":true,
-            "disable": 0,
-            "disable_eventqueue": false
+            "disable": 0
 		}
 	],
 	"listens": [
@@ -35,11 +33,10 @@
 			"name": "RoomListener",
 			"parser": "RS2GW_MsgParser",
 			"host": {
-				"ip": "192.168.30.203", "port": 6003
+				"ip": "192.168.30.203", "port": 6001
 			},
             "verify": 0,
-            "svrchannel":true,
-            "disable_eventqueue": false
+            "svrchannel":true
 		}
     ],
 	"wslistens": [
@@ -47,14 +44,13 @@
 			"name": "ClientListener",
 			"parser": "C2GW_MsgParser",
 			"host": {
-				"ip": "192.168.30.203", "port": 6103
+				"ip": "192.168.30.203", "port": 6101
 			},
             "verify": 1,
             "svrchannel":false,
             "https": false,
             "cert":"../cert/https/https-server-214801457430415.pem",
-            "certkey":"../cert/https/https-server-214801457430415.key",
-            "disable_eventqueue": false
+            "certkey":"../cert/https/https-server-214801457430415.key"
 		}
     ],
     "redis": {
