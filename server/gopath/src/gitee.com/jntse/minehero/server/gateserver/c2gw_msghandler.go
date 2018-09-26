@@ -185,7 +185,7 @@ func on_C2GW_ReqEnterRoom(session network.IBaseNetSession, message interface{}) 
 	}
 
 	// 进入游戏房间
-	log.Info("玩家[%d] 请求进入房间[%d] ts[%d]", u.Id(), tmsg.GetRoomid(), util.CURTIMEMS())
+	log.Info("玩家[%s %d] 请求进入房间[%d] ts[%d]", u.Name(), u.Id(), tmsg.GetRoomid(), util.CURTIMEMS())
 	RoomSvrMgr().SendMsg(sid, tmsg)
 }
 

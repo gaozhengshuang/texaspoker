@@ -76,9 +76,11 @@ message C2GW_ReqEnterRoom {
 // RS2GW 进入房间返回
 message RS2GW_RetEnterRoom {
     optional int64 userid = 1;      // 玩家uid
-    optional int64 roomid = 2;      // 房间唯一id
-    optional string passwd = 3;     // 密码
-    optional string errcode = 4;    //
+    optional int32 kind = 2;        // 游戏kind
+    optional int64 roomid = 3;      // 房间唯一id
+    optional int32 roomtid = 4;     // tid
+    optional string passwd = 5;     // 密码
+    optional string errcode = 6;    //
 }
 
 // C2GW 退出游戏房间

@@ -47,9 +47,16 @@ func (u *RoomUser) OnPreEnterRoom() {
 }
 
 // 进入房间
-func (u *RoomUser) OnEnterRoom() {
-	send := &msg.RS2GW_RetEnterRoom{Userid:pb.Int64(u.Id()), Roomid:pb.Int64(u.RoomId()), Errcode:pb.String("")}
-	u.SendClientMsg(send)
+func (u *RoomUser) OnEnterRoom(room IRoomBase) {
+	send := &msg.RS2GW_RetEnterRoom{
+		Userid:pb.Int64(u.Id()), 
+		Kind:pb.Int32(room.Kind()),
+		Roomid:pb.Int64(room.Id()), 
+		Roomtid:pb.Int32(room.Tid()),
+		Passwd:pb.String(room.Passwd()),
+		Errcode:pb.String(""),
+	}
+	u.SendMsg(send)
 }
 
 // 棋牌站起动作

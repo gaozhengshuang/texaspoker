@@ -130,11 +130,10 @@ func on_RS2GW_RetEnterRoom(session network.IBaseNetSession, message interface{})
 		log.Error("RS2GW_RetEnterRoom 找不到玩家[%d]", userid)
 		return
 	}
-	user.OnEnterRoom(session.Id(), tmsg.GetRoomid(), tmsg.GetPasswd())
+	user.OnEnterRoom(session.Id(), tmsg)
 }
 
-
-
+// 玩家断开连接
 func on_RS2GW_RetUserDisconnect(session network.IBaseNetSession, message interface{}) {
 	//tmsg := message.(*msg.RS2GW_RetUserDisconnect)
 	//roomid, userid := tmsg.GetRoomid(), tmsg.GetUserid()
@@ -151,6 +150,7 @@ func on_RS2GW_RetUserDisconnect(session network.IBaseNetSession, message interfa
 	//}
 }
 
+// 消息转发
 func on_RS2GW_MsgTransfer(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.RS2GW_MsgTransfer)
 	msg_type := pb.MessageType(tmsg.GetName())

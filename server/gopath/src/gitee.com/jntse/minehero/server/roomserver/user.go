@@ -37,7 +37,6 @@ type RoomUser struct {
 	maxenergy	int64
 	gamekind  	int32
 	roomid    	int64	// 房间id
-	seatpos 	int32	// 座位号
 
 }
 
@@ -98,10 +97,6 @@ func (u *RoomUser) MaxEnergy() int64 {
 
 func (u *RoomUser) RoomId() int64 {
 	return u.roomid
-}
-
-func (u *RoomUser) Seat() int32 {
-	return u.seatpos
 }
 
 func (u *RoomUser) OpenId() string {
@@ -214,10 +209,9 @@ func (u *RoomUser) PackBin() *msg.Serialize {
 
 func (u *RoomUser) SendMsg(m pb.Message) bool {
 	if u.agentid == 0 {
-		log.Fatal("SendMsg", m)
+		log.Fatal("玩家[%s %d] 没有网关agentid，不能发送消息", u.Name(), u.Id())
 		return false
 	}
-
 	return RoomSvr().SendMsg(u.agentid , m)
 }
 
