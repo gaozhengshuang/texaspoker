@@ -14,6 +14,16 @@ import (
 	_ "time"
 )
 
+//处理活动信息请求
+func (this *GateUser) OnReqActivityInfo(id int32) {
+
+}
+
+//处理活动领奖请求
+func (this *GateUser) OnReqGetActivityReward(id, subid int32) {
+
+}
+
 //检查某项活动是否在开启时间之内
 func (this *GateUser) CheckActivityTimeEnable(activityid int32) bool {
 	return true

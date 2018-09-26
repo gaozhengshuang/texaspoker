@@ -71,6 +71,10 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqLeaveRoom{}, on_C2GW_ReqLeaveRoom)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqUserRoomInfo{}, on_C2GW_ReqUserRoomInfo)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTexasRoomList{}, on_C2GW_ReqTexasRoomList)
+
+	//活动
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqActivityInfo{}, on_C2GW_ReqActivityInfo)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqGetActivityReward{}, on_C2GW_ReqGetActivityReward)
 }
 
 // 客户端心跳
@@ -560,4 +564,29 @@ func on_C2GW_ReqTaskList(session network.IBaseNetSession, message interface{}) {
 	//	return
 	//}
 	u.task.SendTaskList()
+}
+
+func on_C2GW_ReqActivityInfo(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqActivityInfo)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	id := tmsg.GetId()
+	u.OnReqActivityInfo(id)
+}
+
+func on_C2GW_ReqGetActivityReward(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqGetActivityReward)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	id := tmsg.GetId()
+	subid := tmsg.GetSubid()
+	u.OnReqGetActivityReward(id, subid)
 }
