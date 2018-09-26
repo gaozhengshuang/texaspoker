@@ -37,11 +37,12 @@ type TexasPlayer struct{
 
 type TexasPlayers []*TexasPlayer
 
-func NewTexasPlayer(user *RoomUser) *TexasPlayer{
+func NewTexasPlayer(user *RoomUser, room *TexasPokerRoom) *TexasPlayer{
 	player := new(TexasPlayer)
 	player.hand = GetHand()
 	player.hole = make(Cards, 2, 2)
 	player.owner = user
+	player.room = room
 	return player
 }
 

@@ -51,7 +51,7 @@ func (this *TexasPokerRoom) UserEnter(u *RoomUser) {
 		this.SendRoomInfo(player)
 		return
 	}
-	player = NewTexasPlayer(u)
+	player = NewTexasPlayer(u, this)
 	player.Init()
 	this.AddWatcher(player)
 	this.SendRoomInfo(player)
