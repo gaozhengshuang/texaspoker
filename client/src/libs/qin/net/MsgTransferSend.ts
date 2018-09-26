@@ -20,11 +20,11 @@ class MsgTransferSend
 				data.uid = UserManager.userInfo.id;
 				if (sendFunc)
 				{
-					sendFunc(Command.C2RS_MsgTransfer, msg.C2RS_MsgTransfer.encode(data), onResult, onError, thisObj);
+					sendFunc(Command.C2RS_MsgTransfer, msg.C2RS_MsgTransfer.encode(data), onResult, onError, thisObj, cmdId);
 				}
 				else
 				{
-					SocketManager.call(Command.C2RS_MsgTransfer, msg.C2RS_MsgTransfer.encode(data), onResult, onError, thisObj);
+					SocketManager.call(Command.C2RS_MsgTransfer, msg.C2RS_MsgTransfer.encode(data), onResult, onError, thisObj, cmdId);
 				}
 			}
 			else

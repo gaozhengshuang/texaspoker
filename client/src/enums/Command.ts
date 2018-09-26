@@ -114,7 +114,7 @@ class Command
     /**
      * 请求获取好友详细信息
      */
-    public static readonly Friend_GetRoleInfo_3023: string = "c3023";
+    public static readonly C2RS_ReqFriendGetRoleInfo: string = "msg.C2RS_ReqFriendGetRoleInfo";
     /**
      * 请求领取好友赠送的金币
      */
@@ -379,7 +379,7 @@ class Command
     /**
      * 推送亮牌
      */
-    public static readonly BrightCard_Push_2109 = "c2109";
+    public static readonly RS2C_PushBrightCard = "RS2C_PushBrightCard";
     /**
      * 推送玩家筹码变化
      */

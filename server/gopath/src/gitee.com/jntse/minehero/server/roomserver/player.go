@@ -268,18 +268,20 @@ func (this *TexasPlayer) ChangeState(state int32) {
 
 func (this *TexasPlayer) BuyInGame(rev *msg.C2RS_ReqBuyInGame) {
 	strerr := ""
-	if !this.room.CheckPos(rev.GetPos()-1) {
-		strerr = "位置已经被占用"
-		goto doerror
-	}
-	if !this.owner.RemoveGold(rev.GetNum(), "金币兑换筹码", true) {
-		strerr = "金币不足"
-		goto doerror
-	}
-	this.SitDown(rev.GetPos()-1)
-	this.AddBankRoll(rev.GetNum())
-	this.gamestate = GSWaitNext
-	{
+	switch {
+	default:
+		if !this.room.CheckPos(rev.GetPos()-1) {
+			strerr = "位置已经被占用"
+			break
+		}
+		if !this.owner.RemoveGold(rev.GetNum(), "金币兑换筹码", true) {
+			strerr = "金币不足"
+			break
+		}
+		this.SitDown(rev.GetPos()-1)
+		this.AddBankRoll(rev.GetNum())
+		this.gamestate = GSWaitNext
+
 		send := &msg.RS2C_PushSitOrStand{}
 		send.Roleid = pb.Int64(this.owner.Id())
 		send.Pos = pb.Int32(this.pos)
@@ -287,12 +289,13 @@ func (this *TexasPlayer) BuyInGame(rev *msg.C2RS_ReqBuyInGame) {
 		send.Bankroll = pb.Int32(this.GetBankRoll())
 		this.room.BroadCastRoomMsg(send)
 
-        send1 := &msg.RS2C_RetBuyInGame{}
+		send1 := &msg.RS2C_RetBuyInGame{}
 		this.owner.SendClientMsg(send1)
+		return
 	}
-	doerror :
-		send := &msg.RS2C_RetBuyInGame{Errcode : pb.String(strerr)}
-		this.owner.SendClientMsg(send)
+
+	send := &msg.RS2C_RetBuyInGame{Errcode : pb.String(strerr)}
+	this.owner.SendClientMsg(send)
 }
 
 func (this *TexasPlayer) ReqUserInfo(rev *msg.C2RS_ReqFriendGetRoleInfo) {
