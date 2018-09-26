@@ -1149,6 +1149,18 @@ $root.msg = (function() {
         return values;
     })();
 
+    /**
+     * ActivityType enum.
+     * @name msg.ActivityType
+     * @enum {string}
+     * @property {number} DailySign=3 DailySign value
+     */
+    msg.ActivityType = (function() {
+        var valuesById = {}, values = Object.create(valuesById);
+        values[valuesById[3] = "DailySign"] = 3;
+        return values;
+    })();
+
     msg.C2GW_AddDeliveryAddress = (function() {
 
         /**
@@ -20462,7 +20474,9 @@ $root.msg = (function() {
          * @memberof msg
          * @interface IRS2GW_RetEnterRoom
          * @property {number|Long|null} [userid] RS2GW_RetEnterRoom userid
+         * @property {number|null} [kind] RS2GW_RetEnterRoom kind
          * @property {number|Long|null} [roomid] RS2GW_RetEnterRoom roomid
+         * @property {number|null} [roomtid] RS2GW_RetEnterRoom roomtid
          * @property {string|null} [passwd] RS2GW_RetEnterRoom passwd
          * @property {string|null} [errcode] RS2GW_RetEnterRoom errcode
          */
@@ -20491,12 +20505,28 @@ $root.msg = (function() {
         RS2GW_RetEnterRoom.prototype.userid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
+         * RS2GW_RetEnterRoom kind.
+         * @member {number} kind
+         * @memberof msg.RS2GW_RetEnterRoom
+         * @instance
+         */
+        RS2GW_RetEnterRoom.prototype.kind = 0;
+
+        /**
          * RS2GW_RetEnterRoom roomid.
          * @member {number|Long} roomid
          * @memberof msg.RS2GW_RetEnterRoom
          * @instance
          */
         RS2GW_RetEnterRoom.prototype.roomid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * RS2GW_RetEnterRoom roomtid.
+         * @member {number} roomtid
+         * @memberof msg.RS2GW_RetEnterRoom
+         * @instance
+         */
+        RS2GW_RetEnterRoom.prototype.roomtid = 0;
 
         /**
          * RS2GW_RetEnterRoom passwd.
@@ -20540,12 +20570,16 @@ $root.msg = (function() {
                 writer = $Writer.create();
             if (message.userid != null && message.hasOwnProperty("userid"))
                 writer.uint32(/* id 1, wireType 0 =*/8).int64(message.userid);
+            if (message.kind != null && message.hasOwnProperty("kind"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.kind);
             if (message.roomid != null && message.hasOwnProperty("roomid"))
-                writer.uint32(/* id 2, wireType 0 =*/16).int64(message.roomid);
+                writer.uint32(/* id 3, wireType 0 =*/24).int64(message.roomid);
+            if (message.roomtid != null && message.hasOwnProperty("roomtid"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.roomtid);
             if (message.passwd != null && message.hasOwnProperty("passwd"))
-                writer.uint32(/* id 3, wireType 2 =*/26).string(message.passwd);
+                writer.uint32(/* id 5, wireType 2 =*/42).string(message.passwd);
             if (message.errcode != null && message.hasOwnProperty("errcode"))
-                writer.uint32(/* id 4, wireType 2 =*/34).string(message.errcode);
+                writer.uint32(/* id 6, wireType 2 =*/50).string(message.errcode);
             return writer;
         };
 
@@ -20584,12 +20618,18 @@ $root.msg = (function() {
                     message.userid = reader.int64();
                     break;
                 case 2:
-                    message.roomid = reader.int64();
+                    message.kind = reader.int32();
                     break;
                 case 3:
-                    message.passwd = reader.string();
+                    message.roomid = reader.int64();
                     break;
                 case 4:
+                    message.roomtid = reader.int32();
+                    break;
+                case 5:
+                    message.passwd = reader.string();
+                    break;
+                case 6:
                     message.errcode = reader.string();
                     break;
                 default:
@@ -20630,9 +20670,15 @@ $root.msg = (function() {
             if (message.userid != null && message.hasOwnProperty("userid"))
                 if (!$util.isInteger(message.userid) && !(message.userid && $util.isInteger(message.userid.low) && $util.isInteger(message.userid.high)))
                     return "userid: integer|Long expected";
+            if (message.kind != null && message.hasOwnProperty("kind"))
+                if (!$util.isInteger(message.kind))
+                    return "kind: integer expected";
             if (message.roomid != null && message.hasOwnProperty("roomid"))
                 if (!$util.isInteger(message.roomid) && !(message.roomid && $util.isInteger(message.roomid.low) && $util.isInteger(message.roomid.high)))
                     return "roomid: integer|Long expected";
+            if (message.roomtid != null && message.hasOwnProperty("roomtid"))
+                if (!$util.isInteger(message.roomtid))
+                    return "roomtid: integer expected";
             if (message.passwd != null && message.hasOwnProperty("passwd"))
                 if (!$util.isString(message.passwd))
                     return "passwd: string expected";
@@ -20663,6 +20709,8 @@ $root.msg = (function() {
                     message.userid = object.userid;
                 else if (typeof object.userid === "object")
                     message.userid = new $util.LongBits(object.userid.low >>> 0, object.userid.high >>> 0).toNumber();
+            if (object.kind != null)
+                message.kind = object.kind | 0;
             if (object.roomid != null)
                 if ($util.Long)
                     (message.roomid = $util.Long.fromValue(object.roomid)).unsigned = false;
@@ -20672,6 +20720,8 @@ $root.msg = (function() {
                     message.roomid = object.roomid;
                 else if (typeof object.roomid === "object")
                     message.roomid = new $util.LongBits(object.roomid.low >>> 0, object.roomid.high >>> 0).toNumber();
+            if (object.roomtid != null)
+                message.roomtid = object.roomtid | 0;
             if (object.passwd != null)
                 message.passwd = String(object.passwd);
             if (object.errcode != null)
@@ -20698,11 +20748,13 @@ $root.msg = (function() {
                     object.userid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.userid = options.longs === String ? "0" : 0;
+                object.kind = 0;
                 if ($util.Long) {
                     var long = new $util.Long(0, 0, false);
                     object.roomid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.roomid = options.longs === String ? "0" : 0;
+                object.roomtid = 0;
                 object.passwd = "";
                 object.errcode = "";
             }
@@ -20711,11 +20763,15 @@ $root.msg = (function() {
                     object.userid = options.longs === String ? String(message.userid) : message.userid;
                 else
                     object.userid = options.longs === String ? $util.Long.prototype.toString.call(message.userid) : options.longs === Number ? new $util.LongBits(message.userid.low >>> 0, message.userid.high >>> 0).toNumber() : message.userid;
+            if (message.kind != null && message.hasOwnProperty("kind"))
+                object.kind = message.kind;
             if (message.roomid != null && message.hasOwnProperty("roomid"))
                 if (typeof message.roomid === "number")
                     object.roomid = options.longs === String ? String(message.roomid) : message.roomid;
                 else
                     object.roomid = options.longs === String ? $util.Long.prototype.toString.call(message.roomid) : options.longs === Number ? new $util.LongBits(message.roomid.low >>> 0, message.roomid.high >>> 0).toNumber() : message.roomid;
+            if (message.roomtid != null && message.hasOwnProperty("roomtid"))
+                object.roomtid = message.roomtid;
             if (message.passwd != null && message.hasOwnProperty("passwd"))
                 object.passwd = message.passwd;
             if (message.errcode != null && message.hasOwnProperty("errcode"))
@@ -37527,9 +37583,9 @@ $root.table = (function() {
          * @interface IAwardDefine
          * @property {number|null} [Id] AwardDefine Id
          * @property {number|null} [Type] AwardDefine Type
-         * @property {number|null} [CostType] AwardDefine CostType
-         * @property {number|null} [CostId] AwardDefine CostId
-         * @property {number|null} [CostNum] AwardDefine CostNum
+         * @property {Array.<number>|null} [CostType] AwardDefine CostType
+         * @property {Array.<number>|null} [CostId] AwardDefine CostId
+         * @property {Array.<number>|null} [CostNum] AwardDefine CostNum
          * @property {Array.<number>|null} [RewardType] AwardDefine RewardType
          * @property {Array.<number>|null} [RewardId] AwardDefine RewardId
          * @property {Array.<number>|null} [RewardNum] AwardDefine RewardNum
@@ -37551,6 +37607,9 @@ $root.table = (function() {
          * @param {table.IAwardDefine=} [properties] Properties to set
          */
         function AwardDefine(properties) {
+            this.CostType = [];
+            this.CostId = [];
+            this.CostNum = [];
             this.RewardType = [];
             this.RewardId = [];
             this.RewardNum = [];
@@ -37578,27 +37637,27 @@ $root.table = (function() {
 
         /**
          * AwardDefine CostType.
-         * @member {number} CostType
+         * @member {Array.<number>} CostType
          * @memberof table.AwardDefine
          * @instance
          */
-        AwardDefine.prototype.CostType = 0;
+        AwardDefine.prototype.CostType = $util.emptyArray;
 
         /**
          * AwardDefine CostId.
-         * @member {number} CostId
+         * @member {Array.<number>} CostId
          * @memberof table.AwardDefine
          * @instance
          */
-        AwardDefine.prototype.CostId = 0;
+        AwardDefine.prototype.CostId = $util.emptyArray;
 
         /**
          * AwardDefine CostNum.
-         * @member {number} CostNum
+         * @member {Array.<number>} CostNum
          * @memberof table.AwardDefine
          * @instance
          */
-        AwardDefine.prototype.CostNum = 0;
+        AwardDefine.prototype.CostNum = $util.emptyArray;
 
         /**
          * AwardDefine RewardType.
@@ -37708,12 +37767,15 @@ $root.table = (function() {
                 writer.uint32(/* id 1, wireType 0 =*/8).int32(message.Id);
             if (message.Type != null && message.hasOwnProperty("Type"))
                 writer.uint32(/* id 2, wireType 0 =*/16).int32(message.Type);
-            if (message.CostType != null && message.hasOwnProperty("CostType"))
-                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.CostType);
-            if (message.CostId != null && message.hasOwnProperty("CostId"))
-                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.CostId);
-            if (message.CostNum != null && message.hasOwnProperty("CostNum"))
-                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.CostNum);
+            if (message.CostType != null && message.CostType.length)
+                for (var i = 0; i < message.CostType.length; ++i)
+                    writer.uint32(/* id 3, wireType 0 =*/24).int32(message.CostType[i]);
+            if (message.CostId != null && message.CostId.length)
+                for (var i = 0; i < message.CostId.length; ++i)
+                    writer.uint32(/* id 4, wireType 0 =*/32).int32(message.CostId[i]);
+            if (message.CostNum != null && message.CostNum.length)
+                for (var i = 0; i < message.CostNum.length; ++i)
+                    writer.uint32(/* id 5, wireType 0 =*/40).int32(message.CostNum[i]);
             if (message.RewardType != null && message.RewardType.length)
                 for (var i = 0; i < message.RewardType.length; ++i)
                     writer.uint32(/* id 6, wireType 0 =*/48).int32(message.RewardType[i]);
@@ -37778,13 +37840,34 @@ $root.table = (function() {
                     message.Type = reader.int32();
                     break;
                 case 3:
-                    message.CostType = reader.int32();
+                    if (!(message.CostType && message.CostType.length))
+                        message.CostType = [];
+                    if ((tag & 7) === 2) {
+                        var end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2)
+                            message.CostType.push(reader.int32());
+                    } else
+                        message.CostType.push(reader.int32());
                     break;
                 case 4:
-                    message.CostId = reader.int32();
+                    if (!(message.CostId && message.CostId.length))
+                        message.CostId = [];
+                    if ((tag & 7) === 2) {
+                        var end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2)
+                            message.CostId.push(reader.int32());
+                    } else
+                        message.CostId.push(reader.int32());
                     break;
                 case 5:
-                    message.CostNum = reader.int32();
+                    if (!(message.CostNum && message.CostNum.length))
+                        message.CostNum = [];
+                    if ((tag & 7) === 2) {
+                        var end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2)
+                            message.CostNum.push(reader.int32());
+                    } else
+                        message.CostNum.push(reader.int32());
                     break;
                 case 6:
                     if (!(message.RewardType && message.RewardType.length))
@@ -37878,15 +37961,27 @@ $root.table = (function() {
             if (message.Type != null && message.hasOwnProperty("Type"))
                 if (!$util.isInteger(message.Type))
                     return "Type: integer expected";
-            if (message.CostType != null && message.hasOwnProperty("CostType"))
-                if (!$util.isInteger(message.CostType))
-                    return "CostType: integer expected";
-            if (message.CostId != null && message.hasOwnProperty("CostId"))
-                if (!$util.isInteger(message.CostId))
-                    return "CostId: integer expected";
-            if (message.CostNum != null && message.hasOwnProperty("CostNum"))
-                if (!$util.isInteger(message.CostNum))
-                    return "CostNum: integer expected";
+            if (message.CostType != null && message.hasOwnProperty("CostType")) {
+                if (!Array.isArray(message.CostType))
+                    return "CostType: array expected";
+                for (var i = 0; i < message.CostType.length; ++i)
+                    if (!$util.isInteger(message.CostType[i]))
+                        return "CostType: integer[] expected";
+            }
+            if (message.CostId != null && message.hasOwnProperty("CostId")) {
+                if (!Array.isArray(message.CostId))
+                    return "CostId: array expected";
+                for (var i = 0; i < message.CostId.length; ++i)
+                    if (!$util.isInteger(message.CostId[i]))
+                        return "CostId: integer[] expected";
+            }
+            if (message.CostNum != null && message.hasOwnProperty("CostNum")) {
+                if (!Array.isArray(message.CostNum))
+                    return "CostNum: array expected";
+                for (var i = 0; i < message.CostNum.length; ++i)
+                    if (!$util.isInteger(message.CostNum[i]))
+                        return "CostNum: integer[] expected";
+            }
             if (message.RewardType != null && message.hasOwnProperty("RewardType")) {
                 if (!Array.isArray(message.RewardType))
                     return "RewardType: array expected";
@@ -37948,12 +38043,27 @@ $root.table = (function() {
                 message.Id = object.Id | 0;
             if (object.Type != null)
                 message.Type = object.Type | 0;
-            if (object.CostType != null)
-                message.CostType = object.CostType | 0;
-            if (object.CostId != null)
-                message.CostId = object.CostId | 0;
-            if (object.CostNum != null)
-                message.CostNum = object.CostNum | 0;
+            if (object.CostType) {
+                if (!Array.isArray(object.CostType))
+                    throw TypeError(".table.AwardDefine.CostType: array expected");
+                message.CostType = [];
+                for (var i = 0; i < object.CostType.length; ++i)
+                    message.CostType[i] = object.CostType[i] | 0;
+            }
+            if (object.CostId) {
+                if (!Array.isArray(object.CostId))
+                    throw TypeError(".table.AwardDefine.CostId: array expected");
+                message.CostId = [];
+                for (var i = 0; i < object.CostId.length; ++i)
+                    message.CostId[i] = object.CostId[i] | 0;
+            }
+            if (object.CostNum) {
+                if (!Array.isArray(object.CostNum))
+                    throw TypeError(".table.AwardDefine.CostNum: array expected");
+                message.CostNum = [];
+                for (var i = 0; i < object.CostNum.length; ++i)
+                    message.CostNum[i] = object.CostNum[i] | 0;
+            }
             if (object.RewardType) {
                 if (!Array.isArray(object.RewardType))
                     throw TypeError(".table.AwardDefine.RewardType: array expected");
@@ -38006,6 +38116,9 @@ $root.table = (function() {
                 options = {};
             var object = {};
             if (options.arrays || options.defaults) {
+                object.CostType = [];
+                object.CostId = [];
+                object.CostNum = [];
                 object.RewardType = [];
                 object.RewardId = [];
                 object.RewardNum = [];
@@ -38013,9 +38126,6 @@ $root.table = (function() {
             if (options.defaults) {
                 object.Id = 0;
                 object.Type = 0;
-                object.CostType = 0;
-                object.CostId = 0;
-                object.CostNum = 0;
                 object.PreId = 0;
                 object.LogId = 0;
                 object.Name = "";
@@ -38028,12 +38138,21 @@ $root.table = (function() {
                 object.Id = message.Id;
             if (message.Type != null && message.hasOwnProperty("Type"))
                 object.Type = message.Type;
-            if (message.CostType != null && message.hasOwnProperty("CostType"))
-                object.CostType = message.CostType;
-            if (message.CostId != null && message.hasOwnProperty("CostId"))
-                object.CostId = message.CostId;
-            if (message.CostNum != null && message.hasOwnProperty("CostNum"))
-                object.CostNum = message.CostNum;
+            if (message.CostType && message.CostType.length) {
+                object.CostType = [];
+                for (var j = 0; j < message.CostType.length; ++j)
+                    object.CostType[j] = message.CostType[j];
+            }
+            if (message.CostId && message.CostId.length) {
+                object.CostId = [];
+                for (var j = 0; j < message.CostId.length; ++j)
+                    object.CostId[j] = message.CostId[j];
+            }
+            if (message.CostNum && message.CostNum.length) {
+                object.CostNum = [];
+                for (var j = 0; j < message.CostNum.length; ++j)
+                    object.CostNum[j] = message.CostNum[j];
+            }
             if (message.RewardType && message.RewardType.length) {
                 object.RewardType = [];
                 for (var j = 0; j < message.RewardType.length; ++j)

@@ -37,7 +37,7 @@ class HundredWarManager
         SocketManager.AddCommandListener(Command.HWCards_Push_2124, HundredWarManager.onCardPush, this);
         SocketManager.AddCommandListener(Command.OutRoom_Push_2128, HundredWarManager.onOutRoomPush, this);
 
-        SocketManager.AddIgnoreError(ErrorCode.HundredWarOverFlow);
+        // SocketManager.AddIgnoreError(ErrorCode.HundredWarOverFlow); //move todo
     }
 
     public static removePushListener()
@@ -48,7 +48,7 @@ class HundredWarManager
         SocketManager.RemoveCommandListener(Command.HWCards_Push_2124, HundredWarManager.onCardPush, this);
         SocketManager.RemoveCommandListener(Command.OutRoom_Push_2128, HundredWarManager.onOutRoomPush, this);
 
-        SocketManager.RemoveIgnoreError(ErrorCode.HundredWarOverFlow);
+        // SocketManager.RemoveIgnoreError(ErrorCode.HundredWarOverFlow); //move todo
         HundredWarManager.onBankerChangeEvent.removeListener(HundredWarManager.onBankerChange, this);
     }
 
@@ -321,7 +321,7 @@ class HundredWarManager
         };
         let errorCallback: Function = function (result: game.SpRpcResult)
         {
-            if (result.error == ErrorCode.HundredWarOverFlow)
+            if (result.error == "ErrorCode.HundredWarOverFlow") //move todo
             {
                 UIManager.showFloatTips("当前下注金币数已达庄家金币上限");
             }

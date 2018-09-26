@@ -151,30 +151,26 @@ class ShoppingPanel extends BasePanel
      */
     private payByDiamond(selectedItem: any)
     {
-        // let awardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(selectedItem.definition.awardId);  //move todo
-        // if (awardDef && awardDef.costList)
-        // {
-        //     let costInfo: AwardInfoDefinition;
-        //     for (let i: number = 0; i < awardDef.costList.length; i++)
-        //     {
-        //         if (awardDef.costList[i].type == CostType.Diamond)
-        //         {
-        //             costInfo = awardDef.costList[i];
-        //             break;
-        //         }
-        //     }
-        //     if (costInfo)
-        //     {
-        //         if (UserManager.userInfo.diamond >= costInfo.count)
-        //         {
-        //             AlertManager.showConfirm(game.StringUtil.format("是否花费{0}钻石，购买{1}？", costInfo.count, awardDef.name), this.tryPay, null, selectedItem);
-        //         }
-        //         else
-        //         {
-        //             CostManager.showBuyDiamond(this.goDiamondGp.bind(this));
-        //         }
-        //     }
-        // }
+        let awardDef: table.IAwardDefine = table.AwardById[selectedItem.definition.awardId];
+        if (awardDef && awardDef.CostType)
+        {
+            for (let i: number = 0; i < awardDef.CostType.length; i++)
+            {
+                if (awardDef.CostType[i] == CostType.Diamond)
+                {
+                    let count = awardDef.CostNum[i];
+                    if (UserManager.userInfo.diamond >= count)
+                    {
+                        AlertManager.showConfirm(game.StringUtil.format("是否花费{0}钻石，购买{1}？", count, awardDef.Name), this.tryPay, null, selectedItem);
+                    }
+                    else
+                    {
+                        CostManager.showBuyDiamond(this.goDiamondGp.bind(this));
+                    }
+                    break;
+                }
+            }
+        }
     }
 
     protected showPrePanelName()

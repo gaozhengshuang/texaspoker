@@ -30,16 +30,16 @@ class SignInGoldItemRenderer extends BaseItemRenderer<SignInInfo>{
                 this.signInBg.visible = true;
             }
 
-            // let awardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(this.bindData.definition.awardId); //move todo
-            // if (awardDef && awardDef.rewardList)
-            // {
-            //     this.signInGoldLabel.text = ActivityManager.signInHandler.getAwardDes(awardDef);
-            //     let itemDef: ItemDefinition = ItemDefined.GetInstance().getDefinition(awardDef.rewardList[0].id);
-            //     if (itemDef)
-            //     {
-            //         this.prizeImg.source = itemDef.icon + ResSuffixName.PNG;
-            //     }
-            // }
+            let awardDef: table.IAwardDefine = table.AwardById[this.bindData.definition.awardId];
+            if (awardDef && awardDef.RewardId)
+            {
+                this.signInGoldLabel.text = ActivityManager.signInHandler.getAwardDes(awardDef);
+                let itemDef: ItemDefinition = ItemDefined.GetInstance().getDefinition(awardDef.RewardId[0]);
+                if (itemDef)
+                {
+                    this.prizeImg.source = itemDef.icon + ResSuffixName.PNG;
+                }
+            }
             this.signInDayLabel.text = "第" + this.bindData.definition.day.toString() + "天";
         }
     }

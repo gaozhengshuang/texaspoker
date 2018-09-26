@@ -7,6 +7,8 @@ class AwardManager
     public static OnAwardValueChanged: game.DelegateDispatcher = new game.DelegateDispatcher();
 
     private static _map: game.Map<number, AwardTimesInfo> = new game.Map<number, AwardTimesInfo>();
+    private static _awardInfoMap: game.Map<number, AwardInfoDefinition[]> = new game.Map<number, AwardInfoDefinition[]>();
+    private static _costInfoMap: game.Map<number, AwardInfoDefinition[]> = new game.Map<number, AwardInfoDefinition[]>();
 
     public static Initialize(data: game.SpRpcResult)
     {
@@ -20,6 +22,35 @@ class AwardManager
             {
                 data = objs[i];
                 this.refreshMapInfo(data);
+            }
+        }
+        for (let def of table.Award)
+        {
+            if (def.RewardId)
+            {
+                let list = [];
+                for (let i: number = 0; i < def.RewardId.length; i++)
+                {
+                    let awInfo = new AwardInfoDefinition();
+                    awInfo.id = def.RewardId[i];
+                    awInfo.count = def.RewardNum[i];
+                    awInfo.type = def.RewardType[i];
+                    list[i] = awInfo;
+                }
+                AwardManager._awardInfoMap.add(def.Id, list);
+            }
+            if (def.CostId)
+            {
+                let list = [];
+                for (let i: number = 0; i < def.CostId.length; i++)
+                {
+                    let awInfo = new AwardInfoDefinition();
+                    awInfo.id = def.CostId[i];
+                    awInfo.count = def.CostNum[i];
+                    awInfo.type = def.CostType[i];
+                    list[i] = awInfo;
+                }
+                AwardManager._costInfoMap.add(def.Id, list);
             }
         }
         AwardManager.getExChangeInfoEa.dispatch();
@@ -214,6 +245,8 @@ class AwardManager
 
     private static Reset()
     {
+        AwardManager._awardInfoMap.clear();
+        AwardManager._costInfoMap.clear();
         AwardManager._map.clear();
     }
 
@@ -237,6 +270,15 @@ class AwardManager
             AwardManager.getAwardRecordEvent.dispatch(recordList);
         }
         SocketManager.call(Command.Award_Record_3713, { "logId": logId, "startId": startId, "count": count }, callback, null, this);
+    }
+
+    public static getAwardInfoDefinitionList(id: number):AwardInfoDefinition[]
+    {
+        return this._awardInfoMap.getValue(id);
+    }
+    public static getCostInfoDefinitionList(id: number):AwardInfoDefinition[]
+    {
+        return this._costInfoMap.getValue(id);
     }
 
     /**

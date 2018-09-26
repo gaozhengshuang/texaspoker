@@ -94,30 +94,30 @@ class GoldShortagePanel extends BasePanel
     private unEnoughGoldHandle()
     {
         this._shopInfo = null;
-        // let awardDef: AwardDefinition; //move todo
-        // if (ShopManager.goldList.length > 0)
-        // {
-        //     for (let i: number = 0; i < ShopManager.goldList.length; i++)
-        //     {
-        //         let info: ShopInfo = ShopManager.goldList[i];
-        //         if (info && info.definition)
-        //         {
-        //             awardDef = AwardDefined.GetInstance().getDefinition(info.definition.awardId);
-        //             if (awardDef && this.panelData.goldShortage <= awardDef.rewardList[0].count || i == ShopManager.goldList.length - 1)
-        //             {
-        //                 this._shopInfo = info;
-        //                 break;
-        //             }
-        //         }
-        //     }
-        //     if (this._shopInfo && awardDef)
-        //     {
-        //         if (awardDef.costList && awardDef.costList.length > 0)
-        //         {
-        //             this.priceLabel.text = "仅需" + awardDef.costList[0].count / 100 + "元";
-        //         }
-        //         this.goldLabel.text = awardDef.name;
-        //     }
-        // }
+        let awardDef: table.IAwardDefine;
+        if (ShopManager.goldList.length > 0)
+        {
+            for (let i: number = 0; i < ShopManager.goldList.length; i++)
+            {
+                let info: ShopInfo = ShopManager.goldList[i];
+                if (info && info.definition)
+                {
+                    awardDef = table.AwardById[info.definition.awardId];
+                    if (awardDef && this.panelData.goldShortage <= awardDef.RewardNum[0] || i == ShopManager.goldList.length - 1)
+                    {
+                        this._shopInfo = info;
+                        break;
+                    }
+                }
+            }
+            if (this._shopInfo && awardDef)
+            {
+                if (awardDef.CostNum && awardDef.CostNum.length > 0)
+                {
+                    this.priceLabel.text = "仅需" + awardDef.CostNum[0] / 100 + "元";
+                }
+                this.goldLabel.text = awardDef.Name;
+            }
+        }
     }
 }

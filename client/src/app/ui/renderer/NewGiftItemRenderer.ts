@@ -33,17 +33,16 @@ class NewGiftItemRenderer extends BaseItemRenderer<PilePrizeItemInfo>
         this.icon.init(this.bindData.definition.icon + ResSuffixName.PNG, 82, null, false, true);
         this.titleLabel.text = this.bindData.definition.textDescription;
         this.processLabel.text = this.bindData.process + "/" + this.bindData.definition.para1;
-        // let awardDef: AwardDefinition = this.bindData.awardInfoDef;  //move todo
-        // if (awardDef && awardDef.rewardList)
-        // {
-        //     let awardInfo: AwardInfoDefinition = awardDef.rewardList[0];
-        //     let itemDef: ItemDefinition = ItemDefined.GetInstance().getDefinition(awardInfo.id);
-        //     if (itemDef)
-        //     {
-        //         this.itemImg.source = itemDef.icon + ResSuffixName.PNG;
-        //     }
-        //     this.numLabel.text = awardInfo.count.toString();
-        // }
+        let awardDef: table.IAwardDefine = this.bindData.awardInfoDef;
+        if (awardDef && awardDef.RewardId)
+        {
+            let itemDef: ItemDefinition = ItemDefined.GetInstance().getDefinition(awardDef.RewardId[0]);
+            if (itemDef)
+            {
+                this.itemImg.source = itemDef.icon + ResSuffixName.PNG;
+            }
+            this.numLabel.text = awardDef.RewardNum[0].toString();
+        }
         this.completeImg.visible = this.bindData.isTaken;
         this.takeBtn.visible = !this.bindData.isTaken;
         if (this.bindData.isCanTake)

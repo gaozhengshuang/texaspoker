@@ -118,3 +118,8 @@ enum RoomKind {
     TanTanLe = 1;
     TexasPoker = 2;
 }
+
+//活动类别
+enum ActivityType {
+	DailySign = 3;
+}

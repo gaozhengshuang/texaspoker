@@ -540,6 +540,7 @@ class GamblingManager
 			if (state == BuyInGameState.Sit)
 			{
 				let playerInfo: PlayerInfo = new PlayerInfo();
+				playerInfo.data = new msg.TexasPlayer();
 				playerInfo.roleId = game.longToNumber(data.roleid);
 				playerInfo.pos = data.pos;
 				playerInfo.bankRoll = data.bankroll;
@@ -552,7 +553,7 @@ class GamblingManager
 			}
 			else if (state == BuyInGameState.Stand)
 			{
-				let roleId: number = result.data["roleId"];
+				let roleId: number = result.data["roleid"];
 				let playerInfo: PlayerInfo = GamblingManager.getPlayerInfo(roleId);
 
 				if (playerInfo)
@@ -795,7 +796,7 @@ class GamblingManager
 	{
 		if (result.data)
 		{
-			let list: Array<number> = result.data["roleId"];
+			let list: Array<number> = result.data["roleid"];
 			let state: PlayerState = result.data["state"];
 			if (list && state != undefined)
 			{
@@ -1186,7 +1187,7 @@ class GamblingManager
 	/**
  	* 拉取玩家的用户信息
  	*/
-	public static reqGetPlayerUserInfo(playerInfo: PlayerInfo)
+	private static reqGetPlayerUserInfo(playerInfo: PlayerInfo)
 	{
 		if (!playerInfo)
 		{

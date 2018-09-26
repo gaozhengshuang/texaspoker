@@ -17,30 +17,30 @@ class VipListItemRenderer extends BaseItemRenderer<ShopInfo>{
         super.dataChanged();
         if (InfoUtil.checkAvailable(this.bindData) && this.vipImg != null)
         {
-            // let awardDef = AwardDefined.GetInstance().getDefinition(this.bindData.definition.awardId);  //move todo
-            // this.vipImg.source = this.bindData.definition.iconName + ResSuffixName.PNG;
-            // if (awardDef)
-            // {
-            //     if (this.bindData.definition.type == ShopType.Prop)
-            //     {
-            //         this.desVip.text = awardDef.des;
-            //     }
-            //     else if (awardDef.rewardList)
-            //     {
-            //         this.desVip.text = ItemDefined.GetInstance().getDefinition(awardDef.rewardList[0].id).des;
-            //     }
-            //     this.monthVip.text = awardDef.name;
-            //     if (awardDef.costList)
-            //     {
-            //         for (let def of awardDef.costList)
-            //         {
-            //             if (def.type == CostType.Diamond)
-            //             {
-            //                 this.vipCountBtn.label = def.count.toString();
-            //             }
-            //         }
-            //     }
-            // }
+            let awardDef = table.AwardById[this.bindData.definition.awardId];
+            this.vipImg.source = this.bindData.definition.iconName + ResSuffixName.PNG;
+            if (awardDef)
+            {
+                if (this.bindData.definition.type == ShopType.Prop)
+                {
+                    this.desVip.text = awardDef.Des;
+                }
+                else if (awardDef.RewardId)
+                {
+                    this.desVip.text = ItemDefined.GetInstance().getDefinition(awardDef.RewardId[0]).des;
+                }
+                this.monthVip.text = awardDef.Name;
+                if (awardDef.CostType)
+                {
+                    for (let i: number = 0; i < awardDef.CostType.length; i++)
+                    {
+                        if (awardDef.CostType[i] == CostType.Diamond)
+                        {
+                            this.vipCountBtn.label = awardDef.CostNum[i].toString();
+                        }
+                    }
+                }
+            }
         }
     }
 }

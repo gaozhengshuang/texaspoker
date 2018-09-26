@@ -512,6 +512,12 @@ declare class chatHornSkin extends eui.Skin{
 }
 declare class chatSendSkin extends eui.Skin{
 }
+declare class friendGiveGoldBtnSkin extends eui.Skin{
+}
+declare class friendIsOnlineTB extends eui.Skin{
+}
+declare class friendKSLQButtonSkin extends eui.Skin{
+}
 declare class CardFaceComponentSkin extends eui.Skin{
 }
 declare class ChipsShowComponentSkin extends eui.Skin{
@@ -538,23 +544,17 @@ declare class GamblingMatchWaitComponentSkin extends eui.Skin{
 }
 declare class OmahaCardTypeBtnComponentSkin extends eui.Skin{
 }
-declare class friendGiveGoldBtnSkin extends eui.Skin{
+declare class guessAnteBuyRadioButtonSkin extends eui.Skin{
 }
-declare class friendIsOnlineTB extends eui.Skin{
+declare class guessAnteToggleSwitchSkin extends eui.Skin{
 }
-declare class friendKSLQButtonSkin extends eui.Skin{
+declare class guessSelBtnSkin extends eui.Skin{
 }
 declare class GuidePromptComponentSkin extends eui.Skin{
 }
 declare class guideQuestionRadioBtnSkin extends eui.Skin{
 }
 declare class GuideTipsComponentSkin extends eui.Skin{
-}
-declare class guessAnteBuyRadioButtonSkin extends eui.Skin{
-}
-declare class guessAnteToggleSwitchSkin extends eui.Skin{
-}
-declare class guessSelBtnSkin extends eui.Skin{
 }
 declare class hundredWarAchieveButtonSkin extends eui.Skin{
 }

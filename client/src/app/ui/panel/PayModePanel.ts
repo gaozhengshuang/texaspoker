@@ -23,18 +23,18 @@ class PayModePanel extends BasePanel
 	public init(appendData: any)
 	{
 		super.init(appendData);
-		// let awardDef = AwardDefined.GetInstance().getDefinition(appendData.awardId); //move todo
-		// if (awardDef)
-		// {
-		// 	this.goldLabel.text = awardDef.name;
-		// 	for (let def of awardDef.costList)
-		// 	{
-		// 		if (def.type == CostType.RMB)
-		// 		{
-		// 			this.moneyLabel.text = def.count / 100 + "元";
-		// 		}
-		// 	}
-		// }
+		let awardDef: table.IAwardDefine = table.AwardById[appendData.awardId];
+		if (awardDef)
+		{
+			this.goldLabel.text = awardDef.Name;
+			for (let i: number = 0; i < awardDef.CostType.length; i++)
+			{
+				if (awardDef.CostType[i] == CostType.RMB)
+				{
+					this.moneyLabel.text = awardDef.CostNum[i] / 100 + "元";
+				}
+			}
+		}
 	}
 	protected onEnable(event: eui.UIEvent): void
 	{

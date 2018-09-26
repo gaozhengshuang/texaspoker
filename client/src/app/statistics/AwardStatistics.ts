@@ -8,11 +8,13 @@ class AwardStatistics
 		try
 		{
 			//充值
-			let def: any ={}; //move todo
+			let def: table.IAwardDefine = table.AwardById[info.id];
+			let costList = AwardManager.getCostInfoDefinitionList(info.id);
+			let rewardList = AwardManager.getAwardInfoDefinitionList(info.id);
 			let isCostCurrency: boolean = false;
-			if (def.costList)
+			if (costList)
 			{
-				for (let costDef of def.costList)
+				for (let costDef of costList)
 				{
 					if (costDef.type == CostType.RMB)
 					{
@@ -27,12 +29,12 @@ class AwardStatistics
 				for (let i: number = 0; i < payList.length; i++)
 				{
 					let payDef: ShopDefinition = payList[i];
-					if (def != null && def.costList != null && def.costList.length > 0
-						&& def.rewardList != null && def.rewardList.length > 0 && payDef.awardId == def.id)
+					if (def && costList != null && costList.length > 0
+						&& rewardList != null && rewardList.length > 0 && payDef.awardId == info.id)
 					{
-						let orderId: string = ChannelUtil.GenerateOrder(def.id, VersionManager.isServerTest);//订单id
-						let price: number = def.costList[0].count / 100;//消耗的RMB,单位：元
-						TalkingDataManager.onVirtualCurrencyChargeRequest(orderId, def.name, price, def.rewardList[0].count, ChannelManager.channelType);
+						let orderId: string = ChannelUtil.GenerateOrder(info.id, VersionManager.isServerTest);//订单id
+						let price: number = costList[0].count / 100;//消耗的RMB,单位：元
+						TalkingDataManager.onVirtualCurrencyChargeRequest(orderId, def.Name, price, rewardList[0].count, ChannelManager.channelType);
 						TalkingDataManager.onVirtualCurrencyChargeSuccess(orderId);
 
 						// ChannelManager.PaySuccessFromServer(price, orderId);
@@ -43,13 +45,13 @@ class AwardStatistics
 				}
 			}
 			//消耗
-			if (def != null && def.costList != null)
+			if (costList != null)
 			{
-				for (let i: number = 0; i < def.costList.length; i++)
+				for (let i: number = 0; i < costList.length; i++)
 				{
-					if (def.costList[i].type == CostType.Diamond)
+					if (costList[i].type == CostType.Diamond)
 					{
-						TalkingDataManager.onItemPurchase("Award:" + def.id.toString(), info.times, def.costList[i].count);
+						TalkingDataManager.onItemPurchase("Award:" + info.id.toString(), info.times, costList[i].count);
 					}
 				}
 			}

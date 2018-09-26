@@ -25,13 +25,13 @@ message AwardDefine
 	optional int32 Type = 2; 
 	
 	
-	optional int32 CostType = 3; 
+	repeated int32 CostType = 3; 
 	
 	
-	optional int32 CostId = 4; 
+	repeated int32 CostId = 4; 
 	
 	
-	optional int32 CostNum = 5; 
+	repeated int32 CostNum = 5; 
 	
 	
 	repeated int32 RewardType = 6; 

@@ -508,6 +508,11 @@ declare namespace msg {
         TexasPoker = 2
     }
 
+    /** ActivityType enum. */
+    enum ActivityType {
+        DailySign = 3
+    }
+
     /** Properties of a C2GW_AddDeliveryAddress. */
     interface IC2GW_AddDeliveryAddress {
 
@@ -8704,8 +8709,14 @@ declare namespace msg {
         /** RS2GW_RetEnterRoom userid */
         userid?: (number|Long|null);
 
+        /** RS2GW_RetEnterRoom kind */
+        kind?: (number|null);
+
         /** RS2GW_RetEnterRoom roomid */
         roomid?: (number|Long|null);
+
+        /** RS2GW_RetEnterRoom roomtid */
+        roomtid?: (number|null);
 
         /** RS2GW_RetEnterRoom passwd */
         passwd?: (string|null);
@@ -8726,8 +8737,14 @@ declare namespace msg {
         /** RS2GW_RetEnterRoom userid. */
         public userid: (number|Long);
 
+        /** RS2GW_RetEnterRoom kind. */
+        public kind: number;
+
         /** RS2GW_RetEnterRoom roomid. */
         public roomid: (number|Long);
+
+        /** RS2GW_RetEnterRoom roomtid. */
+        public roomtid: number;
 
         /** RS2GW_RetEnterRoom passwd. */
         public passwd: string;
@@ -16049,13 +16066,13 @@ declare namespace table {
         Type?: (number|null);
 
         /** AwardDefine CostType */
-        CostType?: (number|null);
+        CostType?: (number[]|null);
 
         /** AwardDefine CostId */
-        CostId?: (number|null);
+        CostId?: (number[]|null);
 
         /** AwardDefine CostNum */
-        CostNum?: (number|null);
+        CostNum?: (number[]|null);
 
         /** AwardDefine RewardType */
         RewardType?: (number[]|null);
@@ -16104,13 +16121,13 @@ declare namespace table {
         public Type: number;
 
         /** AwardDefine CostType. */
-        public CostType: number;
+        public CostType: number[];
 
         /** AwardDefine CostId. */
-        public CostId: number;
+        public CostId: number[];
 
         /** AwardDefine CostNum. */
-        public CostNum: number;
+        public CostNum: number[];
 
         /** AwardDefine RewardType. */
         public RewardType: number[];

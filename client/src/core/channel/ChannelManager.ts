@@ -267,29 +267,29 @@ class ChannelManager
 		let payDef: ShopDefinition = ShopDefined.GetInstance().getDefinition(shopId);
 		if (payDef)
 		{
-			// let awardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(payDef.awardId);  //move todo
-			// if (awardDef)
-			// {
-			// 	let payState: number = BundleManager.getPayState();
-			// 	if (payState == PayState.Close)
-			// 	{
-			// 		AlertManager.showAlertByString('支付已关闭，无法支付');
-			// 		return;
-			// 	}
-			// 	if (awardDef.costList && awardDef.costList.length > 0 && awardDef.costList[0].type == CostType.RMB)//消耗为rmb时调用支付
-			// 	{
-			// 		let price: number = awardDef.costList[0].count;
-			// 		if (price > 0)
-			// 		{
-			// 			let orderId: string = ChannelUtil.GenerateOrder(payDef.awardId, VersionManager.isServerTest);//订单id		
-			// 			// ChannelManager._channel.PaySend(payState, payDef.awardId, UserManager.serverInfo.id, orderId, price, awardDef.name);
-			// 		}
-			// 		else
-			// 		{
-			// 			game.Console.log("支付异常");
-			// 		}
-			// 	}
-			// }
+			let costList = AwardManager.getCostInfoDefinitionList(payDef.awardId);
+			if (costList)
+			{
+				let payState: number = BundleManager.getPayState();
+				if (payState == PayState.Close)
+				{
+					AlertManager.showAlertByString('支付已关闭，无法支付');
+					return;
+				}
+				if (costList.length > 0 && costList[0].type == CostType.RMB)//消耗为rmb时调用支付
+				{
+					let price: number = costList[0].count;
+					if (price > 0)
+					{
+						let orderId: string = ChannelUtil.GenerateOrder(payDef.awardId, VersionManager.isServerTest);//订单id		
+						// ChannelManager._channel.PaySend(payState, payDef.awardId, UserManager.serverInfo.id, orderId, price, awardDef.name);
+					}
+					else
+					{
+						game.Console.log("支付异常");
+					}
+				}
+			}
 		}
 	}
 	/**

@@ -250,7 +250,7 @@ class ChampionshipHandler
         {
             SocketManager.RemoveCommandListener(Command.MTTRebuyOrAddon_3619, callback, this);
             SocketManager.RemoveErrorListener(Command.MTTRebuyOrAddon_3619, callbackError, this);
-            if (result.error == 3012)
+            if (result.error == "3012") //move todo
             {
                 if (type == ChampionshipBuyType.Rebuy)
                 {

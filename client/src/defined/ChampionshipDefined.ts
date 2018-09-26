@@ -11,10 +11,10 @@ class ChampionshipDefined extends BaseDefined<ChampionshipDefinition>
         {
             ChampionshipDefined._instance = new ChampionshipDefined();
         }
-        if (DefinedManager.IsParsed(ChampionshipDefined.championshipConfig) == false)
-        {
-            ChampionshipDefined._instance.initialize();
-        }
+        // if (DefinedManager.IsParsed(ChampionshipDefined.championshipConfig) == false) //movetodo
+        // {
+        //     ChampionshipDefined._instance.initialize();
+        // }
         return ChampionshipDefined._instance;
     }
     private initialize()
