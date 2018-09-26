@@ -45,7 +45,7 @@ class TimeAwardHandler
         /**
          * 计时奖励时间更新推送
         */
-        SocketManager.AddCommandListener(Command.TimeAwardRefresh_Push_2122, this.refreshTimeAwardTime, this);
+        SocketManager.AddCommandListener(Command.RS2C_PushTimeAwardRefresh, this.refreshTimeAwardTime, this);
     }
     /**
      * 初始化
@@ -64,18 +64,19 @@ class TimeAwardHandler
     {
         if (result.data)
         {
-            if (result.data.startTime)  //一局开始
+            let data: msg.RS2C_PushTimeAwardRefresh = result.data;
+            if (data.starttime)  //一局开始
             {
                 this.isEffectTime = true;
-                if (result.data.secTime)
+                if (data.sectime)
                 {
-                    this.setInitInfo(this.round, result.data.secTime, result.data.startTime);
+                    this.setInitInfo(this.round, data.sectime, data.starttime);
                 }
                 if (GamblingManager.timeAwardHandler.startTimeFlag && GamblingManager.self && !GamblingManager.timeAwardHandler.isGetTimeAward)
                 {
                     GamblingManager.timeAwardHandler.startCountDown();
                 }
-            } else if (result.data.secTime)  //一局结束
+            } else if (data.sectime)  //一局结束
             {
                 this.isEffectTime = false;
                 GamblingManager.timeAwardHandler.stopCountDown();
@@ -91,6 +92,7 @@ class TimeAwardHandler
         {
             if (result.data)
             {
+                let data: msg.C2RS_ReqTimeAwardInfo = result.data;
                 if (result.data.round == undefined)
                 {
                     result.data.round = 0;
@@ -114,7 +116,7 @@ class TimeAwardHandler
         {
             roomFieldType = PlayingFieldType.High;
         }
-        SocketManager.call(Command.TimeAwardInfo_Req_3620, { roomType: roomFieldType }, callback, null, this);
+        MsgTransferSend.sendRoomProto(Command.C2RS_ReqTimeAwardInfo, { roomtype: roomFieldType }, callback, null, this);
     }
     /**
      * 设置计时奖励数据

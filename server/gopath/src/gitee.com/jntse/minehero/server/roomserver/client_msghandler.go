@@ -30,9 +30,19 @@ func (this *ClientMsgHandler) Init() {
 
 	// 消息注册
 	//this.RegistProtoMsg(msg.C2GW_StartLuckyDraw{}, on_C2GW_StartLuckyDraw)
-	this.RegistProtoMsg(msg.C2RS_ReqSitDown{}, on_C2RS_ReqSitDown)
-	this.RegistProtoMsg(msg.C2RS_ReqStandUp{}, on_C2RS_ReqStandUp)
+	//this.RegistProtoMsg(msg.C2RS_ReqSitDown{}, on_C2RS_ReqSitDown)
+	//this.RegistProtoMsg(msg.C2RS_ReqStandUp{}, on_C2RS_ReqStandUp)
 
+	//德州房间内消息
+	this.RegistProtoMsg(msg.C2RS_ReqTimeAwardInfo{}, on_C2RS_ReqTimeAwardInfo)
+	this.RegistProtoMsg(msg.C2RS_ReqBuyInGame{}, on_C2RS_ReqBuyInGame)
+	this.RegistProtoMsg(msg.C2RS_ReqFriendGetRoleInfo{}, on_C2RS_ReqFriendGetRoleInfo)
+	this.RegistProtoMsg(msg.C2RS_ReqNextRound{}, on_C2RS_ReqNextRound)
+	this.RegistProtoMsg(msg.C2RS_ReqAction{}, on_C2RS_ReqAction)
+	this.RegistProtoMsg(msg.C2RS_ReqBrightCard{}, on_C2RS_ReqBrightCard)
+	this.RegistProtoMsg(msg.C2RS_ReqAddCoin{}, on_C2RS_ReqAddCoin)
+	this.RegistProtoMsg(msg.C2RS_ReqBrightInTime{}, on_C2RS_ReqBrightInTime)
+	this.RegistProtoMsg(msg.C2RS_ReqStandUp{}, on_C2RS_ReqStandUp)
 }
 
 func (this *ClientMsgHandler) RegistProtoMsg(message interface{} , fn ClientMsgFunHandler) {
@@ -69,28 +79,116 @@ func (this *ClientMsgHandler) Handler(session network.IBaseNetSession, message i
 //}
 
 // 坐下
-func on_C2RS_ReqSitDown(session network.IBaseNetSession, message interface{}, u *RoomUser) {
-	tmsg := message.(*msg.C2RS_ReqSitDown)
-	roomid := u.RoomId()
-	room := RoomMgr().Find(roomid)
-	if room == nil {
-		log.Error("[房间] 玩家[%s %d] 请求坐下到无效的房间中 房间[%d]", u.Name(), u.Id(), roomid)
-		return
-	}
-
-	room.UserSitDown(u, tmsg.GetSeat())
-}
+//func on_C2RS_ReqSitDown(session network.IBaseNetSession, message interface{}, u *RoomUser) {
+//	tmsg := message.(*msg.C2RS_ReqSitDown)
+//	roomid := u.RoomId()
+//	room := RoomMgr().Find(roomid)
+//	if room == nil {
+//		log.Error("[房间] 玩家[%s %d] 请求坐下到无效的房间中 房间[%d]", u.Name(), u.Id(), roomid)
+//		return
+//	}
+//
+//	room.UserSitDown(u, tmsg.GetSeat())
+//}
 
 // 站起
-func on_C2RS_ReqStandUp(session network.IBaseNetSession, message interface{}, u *RoomUser) {
-	//tmsg := message.(*msg.C2RS_ReqStandUp)
-	roomid := u.RoomId()
-	room := RoomMgr().Find(roomid)
+//func on_C2RS_ReqStandUp(session network.IBaseNetSession, message interface{}, u *RoomUser) {
+//	//tmsg := message.(*msg.C2RS_ReqStandUp)
+//	roomid := u.RoomId()
+//	room := RoomMgr().Find(roomid)
+//	if room == nil {
+//		log.Error("[房间] 玩家[%s %d] 请求坐下到无效的房间中 房间[%d]", u.Name(), u.Id(), roomid)
+//		return
+//	}
+//
+//	room.UserStandUp(u)
+//}
+
+func on_C2RS_ReqBrightInTime(session network.IBaseNetSession, message interface{}, u *RoomUser) {
+	room := RoomMgr().FindTexas(u.RoomId())
 	if room == nil {
-		log.Error("[房间] 玩家[%s %d] 请求坐下到无效的房间中 房间[%d]", u.Name(), u.Id(), roomid)
+		log.Error("[房间] 玩家[%s %d] 无效房间 房间[%d]", u.Name(), u.Id(), u.RoomId())
 		return
 	}
+	room.BrightCardInTime(u.Id())
+}
 
-	room.UserStandUp(u)
+func on_C2RS_ReqTimeAwardInfo(session network.IBaseNetSession, message interface{}, u *RoomUser) {
+	tmsg := message.(*msg.C2RS_ReqTimeAwardInfo)
+	room := RoomMgr().FindTexas(u.RoomId())
+	if room == nil {
+		log.Error("[房间] 玩家[%s %d] 无效房间 房间[%d]", u.Name(), u.Id(), u.RoomId())
+		return
+	}
+	room.ReqTimeAwardInfo(u.Id(), tmsg)
+}
+
+func on_C2RS_ReqBuyInGame(session network.IBaseNetSession, message interface{}, u *RoomUser) {
+	tmsg := message.(*msg.C2RS_ReqBuyInGame)
+	room := RoomMgr().FindTexas(u.RoomId())
+	if room == nil {
+		log.Error("[房间] 玩家[%s %d] 无效房间 房间[%d]", u.Name(), u.Id(), u.RoomId())
+		return
+	}
+	room.BuyInGame(u.Id(), tmsg)
+}
+
+func on_C2RS_ReqFriendGetRoleInfo(session network.IBaseNetSession, message interface{}, u *RoomUser) {
+	tmsg := message.(*msg.C2RS_ReqFriendGetRoleInfo)
+	room := RoomMgr().FindTexas(u.RoomId())
+	if room == nil {
+		log.Error("[房间] 玩家[%s %d] 无效房间 房间[%d]", u.Name(), u.Id(), u.RoomId())
+		return
+	}
+	room.ReqFriendGetRoleInfo(u.Id(), tmsg)
+}
+
+func on_C2RS_ReqNextRound(session network.IBaseNetSession, message interface{}, u *RoomUser) {
+	tmsg := message.(*msg.C2RS_ReqNextRound)
+	room := RoomMgr().FindTexas(u.RoomId())
+	if room == nil {
+		log.Error("[房间] 玩家[%s %d] 无效房间 房间[%d]", u.Name(), u.Id(), u.RoomId())
+		return
+	}
+	room.ReqNextRound(u.Id(), tmsg)
+}
+
+func on_C2RS_ReqAction(session network.IBaseNetSession, message interface{}, u *RoomUser) {
+	tmsg := message.(*msg.C2RS_ReqAction)
+	room := RoomMgr().FindTexas(u.RoomId())
+	if room == nil {
+		log.Error("[房间] 玩家[%s %d] 无效房间 房间[%d]", u.Name(), u.Id(), u.RoomId())
+		return
+	}
+	room.ReqAction(u.Id(), tmsg)
+}
+
+func on_C2RS_ReqBrightCard(session network.IBaseNetSession, message interface{}, u *RoomUser) {
+	tmsg := message.(*msg.C2RS_ReqBrightCard)
+	room := RoomMgr().FindTexas(u.RoomId())
+	if room == nil {
+		log.Error("[房间] 玩家[%s %d] 无效房间 房间[%d]", u.Name(), u.Id(), u.RoomId())
+		return
+	}
+	room.ReqBrightCard(u.Id(), tmsg)
+}
+
+func on_C2RS_ReqAddCoin(session network.IBaseNetSession, message interface{}, u *RoomUser) {
+	tmsg := message.(*msg.C2RS_ReqAddCoin)
+	room := RoomMgr().FindTexas(u.RoomId())
+	if room == nil {
+		log.Error("[房间] 玩家[%s %d] 无效房间 房间[%d]", u.Name(), u.Id(), u.RoomId())
+		return
+	}
+	room.ReqAddCoin(u.Id(), tmsg)
+}
+
+func on_C2RS_ReqStandUp(session network.IBaseNetSession, message interface{}, u *RoomUser) {
+	room := RoomMgr().FindTexas(u.RoomId())
+	if room == nil {
+		log.Error("[房间] 玩家[%s %d] 无效房间 房间[%d]", u.Name(), u.Id(), u.RoomId())
+		return
+	}
+	room.ReqStandUp(u.Id())
 }
 

@@ -33,5 +33,22 @@ module game
 				(targetData[propertyName] as T).copyValueFrom(sourceData[propertyName]);
 			}
 		}
+		/**
+		 * 浅复制 一维拷贝
+		 */
+		public static copy(source: any, target: any)
+		{
+			if (source && target)
+			{
+				for (let key in source)
+				{
+					target[key] = source[key];
+				}
+			}
+			else
+			{
+				Console.log("copy参数异常：source", source, "target:", target);
+			}
+		}
 	}
 }

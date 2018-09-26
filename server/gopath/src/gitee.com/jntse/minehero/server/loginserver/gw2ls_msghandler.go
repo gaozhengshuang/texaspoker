@@ -48,7 +48,7 @@ func (this* GW2LMsgHandler) Init() {
 
 func on_GW2L_ReqRegist(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2L_ReqRegist)
-	host := tmsg.GetHost()
+	name, host := tmsg.GetName(), tmsg.GetHost()
 	if host == nil {
 		log.Error("Gate注册IP端口失败, Host is nil")
 		return
@@ -61,17 +61,15 @@ func on_GW2L_ReqRegist(session network.IBaseNetSession, message interface{}) {
 		return
 	}
 
-
-	// TODO: 重复注册服务器为了第一时间发现问题使用了panic
-	//if GateMgr().IsRegisted(ip, port) == true {
-	if GateMgr().IsRegistedByName(tmsg.GetName(), ip, port) == true {
+	// 重复注册检查
+	if GateMgr().IsRegisted(ip, port) == true || GateMgr().IsRegistedByName(name) == true {
 		log.Fatal(fmt.Sprintf("重复注册网关服务器 %s:%d", ip, port))
 		session.SendCmd(&msg.L2GW_RetRegist{Errocde:pb.String("重复注册网关服务器"), Host:tmsg.Host})
 		return
 	}
 	
 	// 添加gate
-	GateMgr().AddNew(session, ip, port)
+	GateMgr().AddNew(session, name, ip, port)
 	session.SendCmd(&msg.L2GW_RetRegist{Host:tmsg.Host})
 }
 

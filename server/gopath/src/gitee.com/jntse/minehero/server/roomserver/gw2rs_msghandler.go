@@ -47,15 +47,6 @@ func (this* C2GWMsgHandler) Init() {
 	//房间
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqEnterRoom{}, on_C2GW_ReqEnterRoom)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqLeaveRoom{}, on_C2GW_ReqLeaveRoom)
-
-	//德州房间内消息
-	this.msgparser.RegistProtoMsg(msg.C2RS_ReqTimeAwardInfo{}, on_C2RS_ReqTimeAwardInfo)
-	this.msgparser.RegistProtoMsg(msg.C2RS_ReqBuyInGame{}, on_C2RS_ReqBuyInGame)
-	this.msgparser.RegistProtoMsg(msg.C2RS_ReqFriendGetRoleInfo{}, on_C2RS_ReqFriendGetRoleInfo)
-	this.msgparser.RegistProtoMsg(msg.C2RS_ReqNextRound{}, on_C2RS_ReqNextRound)
-	this.msgparser.RegistProtoMsg(msg.C2RS_ReqAction{}, on_C2RS_ReqAction)
-	this.msgparser.RegistProtoMsg(msg.C2RS_ReqBrightCard{}, on_C2RS_ReqBrightCard)
-	this.msgparser.RegistProtoMsg(msg.C2RS_ReqAddCoin{}, on_C2RS_ReqAddCoin)
 }
 
 func on_GW2RS_RetRegist(session network.IBaseNetSession, message interface{}) {
@@ -67,7 +58,7 @@ func on_GW2RS_RetRegist(session network.IBaseNetSession, message interface{}) {
 		return
 	}
 
-	// TODO: 重复注册服务器为了第一时间发现问题使用了panic
+	// 重复注册检查
 	if GateMgr().IsRegisted(ip, port) == true {
 		log.Fatal(fmt.Sprintf("已经注册过网关房间服务器 [%s:%d]", ip, port))
 		return
@@ -75,7 +66,7 @@ func on_GW2RS_RetRegist(session network.IBaseNetSession, message interface{}) {
 
 	// 添加gate
 	GateMgr().AddNew(session, name, ip, port)
-	log.Info("注册房间服[%s]到Gate[%s][%s:%d]成功", RoomSvr().Name(), session.Name(), ip, port)
+	log.Info("注册房间服[%s]到Gate[%s][%s:%d]成功", RoomSvr().Name(), name, ip, port)
 }
 
 func on_GW2RS_UserDisconnect(session network.IBaseNetSession, message interface{}) {
@@ -240,42 +231,6 @@ func on_C2GW_GoldExchange(session network.IBaseNetSession, message interface{}) 
 	u.SendClientMsg(send)
 }
 
-func on_C2RS_ReqTimeAwardInfo(session network.IBaseNetSession, message interface{}) {
-	//tmsg := message.(*msg.C2RS_ReqTimeAwardInfo)
-	//uid := tmsg.GetUserid()
-	//u := UserMgr().FindUser(uid)
-	//if u == nil {
-	//	log.Error("[房间] 玩家[%d] 无效", uid)
-	//	return
-	//}
-
-	//roomid := u.RoomId()
-	//room := RoomMgr().Find(roomid)
-	//if room == nil {
-	//	log.Error("[房间] 玩家[%d] 房间无效 [%d]", uid, roomid)
-	//	return
-	//}
-	
-
-}
-
-func on_C2RS_ReqBuyInGame(session network.IBaseNetSession, message interface{}) {
-}
-
-func on_C2RS_ReqFriendGetRoleInfo(session network.IBaseNetSession, message interface{}) {
-}
-
-func on_C2RS_ReqNextRound(session network.IBaseNetSession, message interface{}) {
-}
-
-func on_C2RS_ReqAction(session network.IBaseNetSession, message interface{}) {
-}
-
-func on_C2RS_ReqBrightCard(session network.IBaseNetSession, message interface{}) {
-}
-
-func on_C2RS_ReqAddCoin(session network.IBaseNetSession, message interface{}) {
-}
 
 
 

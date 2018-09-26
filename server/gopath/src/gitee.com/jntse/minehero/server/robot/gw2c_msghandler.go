@@ -54,6 +54,7 @@ func (this* GW2CMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.GW2C_RetLeaveRoom{}, on_GW2C_RetLeaveRoom)
 	this.msgparser.RegistProtoMsg(msg.RS2C_RetSitDown{}, on_RS2C_RetSitDown)
 	this.msgparser.RegistProtoMsg(msg.RS2C_RetStandUp{}, on_RS2C_RetStandUp)
+	this.msgparser.RegistProtoMsg(msg.RS2C_RetEnterRoom{}, on_RS2C_RetEnterRoom)
 
 
 	// 收room消息
@@ -220,6 +221,12 @@ func on_RS2C_RetSitDown(session network.IBaseNetSession, message interface{}) {
 
 func on_RS2C_RetStandUp(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.RS2C_RetStandUp)
+	//log.Info(reflect.TypeOf(tmsg).String())
+	log.Info("%+v", tmsg)
+}
+
+func on_RS2C_RetEnterRoom(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.RS2C_RetEnterRoom)
 	//log.Info(reflect.TypeOf(tmsg).String())
 	log.Info("%+v", tmsg)
 }

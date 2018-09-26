@@ -33,3 +33,4 @@ git
 /client/bin-debug
 /client/bin-publish
 /client/bin-release
+/client/src/libs/qin/net/NetManager.ts

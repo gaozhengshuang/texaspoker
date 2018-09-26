@@ -40,17 +40,22 @@ message RS2C_RetEnterRoomInfo
     optional int32 addbuy = 22;
     optional int32 rank = 23;
     optional int32 avgchips = 24;
-    optional int32 join = 25;    
+    optional int32 join = 25;
+    optional string errcode = 26;    
 }
 
 //拉取计时奖励信息
 message C2RS_ReqTimeAwardInfo
 {    
+    optional int32 roomtype = 1;    
 }
 
 message RS2C_RetTimeAwardInfo
 {
-    optional int32 roomtype = 1;
+    optional int32 round = 1;               //总轮
+    optional int32 sectime = 2;             //剩余几秒
+    optional int32 starttime = 3;           //开始时间
+    optional string errcode = 4;
 }
 
 //请求购买游戏币
@@ -63,11 +68,7 @@ message C2RS_ReqBuyInGame
 
 message RS2C_RetBuyInGame
 {
-}
-
-//服务器推送玩家资产
-message RS2C_RolePushPropertyChange
-{
+    optional string errcode = 1;
 }
 
 //服务器推送位置
@@ -76,51 +77,7 @@ message RS2C_PushSitOrStand
     optional int64 roleid = 1;              //玩家id
     optional int32 pos = 2;                 //玩家位置
     optional int32 state = 3;               //玩家状态
-    optional int32 bankRoll = 4;            //玩家筹码
-}
-
-//请求个人数据
-message C2RS_ReqFriendGetRoleInfo
-{
-    optional int64 roleid = 1;
-}
-
-message RS2C_RetFriendGetRoleInfo
-{
-    optional int32 diamond = 1;
-    optional int32 gold = 2;
-    optional int64 roleid = 3;
-    optional string name = 4;
-    optional string head = 5;
-    optional int32 sex = 6;
-    optional int32 level = 7;
-    optional int32 exp = 8;
-    optional string ip = 9;
-    optional string sign = 10;
-    optional int32 age = 11;
-    optional int32 maxgold = 12;
-    optional int32 maxgoldonetimes = 13;
-    optional int32 friendnum = 14;
-    optional int32 gametimes = 15;
-    optional int32 wintimes = 16;
-    repeated int32 maxhand = 17;
-    optional int32 championtimes = 18;
-    optional int32 vipexp = 19;
-    optional int32 viptime = 20;
-    optional int32 yearviptime = 21;
-    optional int32 viplevel = 22;
-    optional int32 createdtime = 23;
-    optional int32 isoffline = 24;
-    optional int32 stateid = 25;
-    optional int32 stateconfid = 26;
-    optional int32 entrytimes = 27;
-    optional int32 showdowntimes = 28;
-    optional int32 mttjointimes = 29;
-    optional int32 mttprizetimes = 30;
-    optional int32 gametimes2 = 31;
-    optional int32 wintimes2 = 32;
-    optional int32 entrytimes2 = 33;
-    optional int32 showdowntimes2 = 34;    
+    optional int32 bankroll = 4;            //玩家筹码
 }
 
 //服务器推送时间奖励
@@ -137,6 +94,7 @@ message C2RS_ReqNextRound
 
 message RS2C_RetNextRound
 {
+    optional string errcode = 2;
 }
 
 //服务器推送下局开始
@@ -215,6 +173,7 @@ message C2RS_ReqAction
 
 message RS2C_RetAction
 {
+    optional string errcode = 1;
 }
 
 // 请求坐下
@@ -224,15 +183,15 @@ message C2RS_ReqSitDown {
 }
 
 message RS2C_RetSitDown {
-    optional string errmsg = 1;     // 错误信息(座位被他人坐下)
+    optional string errcode = 1;     // 错误信息(座位被他人坐下)
 }
 
 //请求站起
 message C2RS_ReqStandUp {
-    optional int64 userid = 1;
 }
 
 message RS2C_RetStandUp {
+    optional string errcode = 1;
 }
 
 //请求亮牌
@@ -242,6 +201,23 @@ message C2RS_ReqBrightCard
 
 message RS2C_RetBrightCard
 {
+    optional string errcode = 1;
+}
+
+//及时亮牌
+message C2RS_ReqBrightInTime
+{
+}
+
+message RS2C_RetBrightInTime
+{
+    optional string errcode = 1;
+}
+
+message RS2C_PushBrightCard
+{
+    optional int64 roleid = 1;
+    repeated int32 card = 2;    
 }
 
 //请求增加金币
@@ -252,6 +228,7 @@ message C2RS_ReqAddCoin
 
 message RS2C_RetAddCoin
 {
+    optional string errcode = 1;
 }
 
 

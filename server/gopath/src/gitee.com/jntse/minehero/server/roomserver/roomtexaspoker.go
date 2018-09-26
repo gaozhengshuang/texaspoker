@@ -2,6 +2,7 @@
 package main
 
 import (
+	"fmt"
 	"time"
 	"errors"
 	"math/rand"
@@ -66,7 +67,13 @@ func (this *TexasPokerRoom) Id() int64 { return this.id }
 func (this *TexasPokerRoom) Kind() int32 { return this.gamekind }
 
 func (this *TexasPokerRoom) PlayersNum() int32{
-	return int32(len(this.players))
+	var count int32 = 0
+	for _, p := range this.players {
+		if p != nil {
+			count++
+		}
+	}
+	return count
 }
 
 func (this *TexasPokerRoom) CheckPos(pos int32) bool {
@@ -77,6 +84,15 @@ func (this *TexasPokerRoom) CheckPos(pos int32) bool {
 		return false
 	}
 	return true
+}
+
+func (this *TexasPokerRoom) InGame(player *TexasPlayer) bool {
+	for _, p := range this.players {
+		if p == player {
+			return true
+		}
+	}
+	return false
 }
 
 /*
@@ -161,14 +177,28 @@ func (this *TexasPokerRoom) ForEachPlayer(start int32, f func(p *TexasPlayer) bo
 	end := (this.PlayersNum() + start - 1) % this.PlayersNum()
 	i := start
 	for ; i != end; i = (i + 1) % this.PlayersNum() {
-		if this.players[i] != nil && !this.players[i].IsFold() && !this.players[i].IsWait() && !f(this.players[i]) {
+		if this.players[i] != nil && !this.players[i].IsFold()&& 
+			!this.players[i].IsWait() && 
+			!this.players[i].IsAllIn() && 
+			!f(this.players[i]) {
 			return
 		}
 	}
 	// end
-	if this.players[i] != nil && !this.players[i].IsFold() && !this.players[i].IsWait(){
+	if this.players[i] != nil && !this.players[i].IsFold() && 
+		!this.players[i].IsWait() && 
+		!this.players[i].IsAllIn() {
 		f(this.players[i])
 	}
+}
+
+func (this *TexasPokerRoom) CanStart() bool {
+	for _, p := range this.players {
+		if p != nil && p.isready == false {
+			return false
+		}   
+	}
+	return true
 }
 
 func (this *TexasPokerRoom) StartGame() int32 {
@@ -184,8 +214,12 @@ func (this *TexasPokerRoom) StartGame() int32 {
 	if !this.SetBigBlind() {
 		return TPWait
 	}
+	if !this.CanStart() {
+		return TPWait
+	}
 	this.ForEachPlayer(0, func(p *TexasPlayer) bool {
 		this.remain++
+		p.isready = false
 		return true
 	})
 	this.SendStartGame()
@@ -469,6 +503,9 @@ func (this *TexasPokerRoom) ShowDown() int32{
 	}
 
 	for _, player := range this.players {
+		if player == nil {
+			continue
+		}
 		send.Handcardlist = append(send.Handcardlist, &msg.HandCardInfo{
 			Roleid : pb.Int64(player.owner.Id()),
 			Card : player.ToHandCard(),
@@ -552,29 +589,14 @@ func (this *TexasPokerRoom) Handler1sTick(now int64) {
 	}
 }
 
-func (this *TexasPokerRoom) EnterRoom(user *RoomUser) {
-	player := this.FindPlayerByID(user.Id())
-	if player != nil {
-		this.ReEnterRoom(user)
-		return
-	}
-	player = NewTexasPlayer(user)
-	player.Init()
-	this.AddWatcher(player)
-	this.SendRoomInfo(player)
-}
-
-func (this *TexasPokerRoom) ReEnterRoom(user *RoomUser) {
-}
-
 func (this *TexasPokerRoom) FindAllByID(userid int64) *TexasPlayer {
 	for _, player := range this.players {
-		if player.owner.Id() == userid {
+		if player != nil && player.owner.Id() == userid {
 			return player
 		}
 	}
 	for _, player := range this.watchers {
-		if player.owner.Id() == userid {
+		if player != nil && player.owner.Id() == userid {
 			return player
 		}
 	}
@@ -583,7 +605,7 @@ func (this *TexasPokerRoom) FindAllByID(userid int64) *TexasPlayer {
 
 func (this *TexasPokerRoom) FindPlayerByID(userid int64) *TexasPlayer {
 	for _, player := range this.players {
-		if player.owner.Id() == userid {
+		if player != nil && player.owner.Id() == userid {
 			return player
 		}
 	}
@@ -621,7 +643,7 @@ func (this *TexasPokerRoom) DelWatcher(player *TexasPlayer) {
 }
 
 func (this *TexasPokerRoom) SendRoomInfo(player *TexasPlayer) {
-	send := &msg.RS2C_RetEnterRoomInfo{}
+	send := &msg.RS2C_RetEnterRoom{}
 	send.Id = pb.Int64(this.Id())
 	send.Buttonpos = pb.Int32(this.dealerpos+1)
 	send.Potchips = this.pot
@@ -634,6 +656,9 @@ func (this *TexasPokerRoom) SendRoomInfo(player *TexasPlayer) {
 	send.Starttime = pb.Int32(this.starttime)
 	send.Publiccard = this.publiccard
 	for _, p := range this.players {
+		if p == nil {
+			continue
+		}
 		send.Playerlist = append(send.Playerlist, p.ToProto())
 	}
 	send.Isshowcard = pb.Bool(player.isshowcard)
@@ -641,4 +666,68 @@ func (this *TexasPokerRoom) SendRoomInfo(player *TexasPlayer) {
 	player.owner.SendClientMsg(send)
 }
 
+func (this *TexasPokerRoom) BuyInGame(uid int64, rev *msg.C2RS_ReqBuyInGame){
+	player := this.FindAllByID(uid)
+	if player != nil && player.BuyInGame(rev) {
+		// 更新房间人数
+		Redis().HSet(fmt.Sprintf("roombrief_%d", this.Id()), "members", this.PlayersNum())
+	}
+}
+
+func (this *TexasPokerRoom) ReqFriendGetRoleInfo(uid int64, rev *msg.C2RS_ReqFriendGetRoleInfo){
+	player := this.FindAllByID(uid)
+	if player != nil {
+		player.ReqUserInfo(rev)
+	}
+}
+
+func (this *TexasPokerRoom) ReqNextRound(uid int64, rev *msg.C2RS_ReqNextRound) {
+	player := this.FindAllByID(uid)
+	if player != nil {
+		player.NextRound(rev)
+	}
+}
+
+func (this *TexasPokerRoom) ReqAction(uid int64, rev *msg.C2RS_ReqAction) {
+	player := this.FindAllByID(uid)
+	if player != nil {
+		player.Betting(rev.GetNum())
+	}
+}
+
+func (this *TexasPokerRoom) ReqBrightCard(uid int64, rev *msg.C2RS_ReqBrightCard) {
+	player := this.FindAllByID(uid)
+	if player != nil {
+		player.BrightCard()
+	}
+}
+
+func (this *TexasPokerRoom) ReqAddCoin(uid int64, rev *msg.C2RS_ReqAddCoin) {
+	player := this.FindAllByID(uid)
+	if player != nil {
+		player.AddCoin()
+	}
+}
+
+func (this *TexasPokerRoom) BrightCardInTime(uid int64) {
+	player := this.FindAllByID(uid)
+	if player != nil {
+		player.BrightCardInTime()
+	}
+}
+
+func (this *TexasPokerRoom) ReqTimeAwardInfo(uid int64, rev *msg.C2RS_ReqTimeAwardInfo) {
+	player := this.FindAllByID(uid)
+	if player != nil {
+		player.ReqTimeAwardInfo(rev)
+	}
+}
+
+func (this *TexasPokerRoom) ReqStandUp(uid int64) {
+	player := this.FindAllByID(uid)
+	if player != nil && player.ReqStandUp(){
+		// 更新房间人数
+		Redis().HSet(fmt.Sprintf("roombrief_%d", this.Id()), "members", this.PlayersNum())
+	}
+}
 

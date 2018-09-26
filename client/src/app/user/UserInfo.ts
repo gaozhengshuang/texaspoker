@@ -14,6 +14,46 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 			this.maxHandName = CardTypeMatchUtil.getCardDes(CardTypeMatchUtil.cardType);
 		}
 	}
+	/**
+	 * 适配服务器序列化不能大写的问题
+	 */
+	public copyValueFromIgnoreCase(data: msg.RS2C_RetFriendGetRoleInfo)
+	{
+		if (data)
+		{
+			let self: any = this;
+			for (let key in self)
+			{
+				let lowerKey = key.toLowerCase();
+				let property: any = this[key];
+				if (!(property instanceof Function)) //函数属性不拷贝
+				{
+					if (data[lowerKey] == undefined)
+					{
+						if (typeof self[key] === "number")
+						{
+							self[key] = 0;
+						}
+						else if (typeof self[key] === "string")
+						{
+							self[key] = game.StringConstants.Empty;
+						}
+					}
+					else
+					{
+						self[key] = data[lowerKey];
+					}
+				}
+			}
+		}
+		if (data && data.maxhand)
+		{
+			this.maxHandList = new Array<CardInfo>();
+			GamblingUtil.cardArr2CardInfoList(data.maxhand, this.maxHandList);
+			CardTypeMatchUtil.matchCardType(this.maxHandList);
+			this.maxHandName = CardTypeMatchUtil.getCardDes(CardTypeMatchUtil.cardType);
+		}
+	}
 	public reset()
 	{
 		this._diamond = 0;
@@ -146,7 +186,7 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 	/**
 	 * 账号
 	 */
-	public account:string;
+	public account: string;
 
 	public get verifyHead(): string
 	{

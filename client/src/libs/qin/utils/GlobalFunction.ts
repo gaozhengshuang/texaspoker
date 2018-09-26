@@ -204,9 +204,22 @@ module game
         return Number(val);
     }
 
-    export function longToNumber(val:number|Long):number
+    export function longToNumber(val: number | Long): number
     {
         return Number(val);
+    }
+    export function longToNumberList(val: (number | Long)[])
+    {
+        if (val)
+        {
+            let res = [];
+			let len = val.length;
+            for (let i: number = 0; i < len; i++)
+            {
+                res[i] = Number(val[i])
+            }
+            return res;
+        }
     }
 
     export let DarkRectPool: ObjectPool<eui.Rect> = new ObjectPool<eui.Rect>(eui.Rect);

@@ -36,12 +36,13 @@ type GateAgent struct {
 	port 	int
 	usernum	int64
 	host	string
+	name 	string
 	asynev  eventque.AsynEventQueue
 	ticker10ms  *util.GameTicker
 }
 
-func NewGateAgent(s network.IBaseNetSession, ip string ,port int) *GateAgent {
-	gate := &GateAgent{session:s, ip:ip, port:port, usernum:0}
+func NewGateAgent(s network.IBaseNetSession, name, ip string ,port int) *GateAgent {
+	gate := &GateAgent{session:s, ip:ip, port:port, name:name, usernum:0}
 	gate.host = fmt.Sprintf("%s:%d", ip, port)
 	return gate
 }
@@ -57,7 +58,8 @@ func (this *GateAgent) Id() int {
 }
 
 func (this *GateAgent) Name() string {
-	return this.session.Name()
+	//return this.session.Name()
+	return this.name
 }
 
 //func (this *GateAgent) AddUserNum(n int) {
@@ -198,10 +200,9 @@ func (this *GateManager) IsRegisted(ip string, port int) bool {
 	return false
 }
 
-func (this *GateManager) IsRegistedByName(name string, ip string, port int) bool {
-	host := fmt.Sprintf("%s:%d", ip, port)
+func (this *GateManager) IsRegistedByName(name string) bool {
 	for _, v := range this.gates {
-		if v.Host() == host || v.Name() == name { 
+		if v.Name() == name { 
 			return true 
 		}
 	}
@@ -216,11 +217,11 @@ func (this *GateManager) OnClose(sid int) {
 	log.Info("网关离线 id=%d [%v] 当前总数:%d", sid, agent.Host(), this.Num())
 }
 
-func (this *GateManager) AddNew(session network.IBaseNetSession, ip string ,port int) {
-	agent := NewGateAgent(session, ip, port)
+func (this *GateManager) AddNew(session network.IBaseNetSession, name, ip string ,port int) {
+	agent := NewGateAgent(session, name, ip, port)
 	agent.Init()
 	this.AddGate(agent)
-	log.Info("注册网关 id=%d [%s:%d] 当前总数:%d", agent.Id(), agent.ip, agent.port, this.Num())
+	log.Info("注册网关 id=%d [%s][%s:%d] 当前总数:%d", agent.Id(), agent.Name(), agent.ip, agent.port, this.Num())
 }
 
 

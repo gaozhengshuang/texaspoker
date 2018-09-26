@@ -323,12 +323,13 @@ func (this *User) ReqUserRoom() {
 }
 
 func (this *User) ReqSitDown() {
-	sitdown := &msg.C2RS_ReqSitDown{Userid:pb.Int64(this.Id()), Seat:pb.Int32(1)}
+	//sitdown := &msg.C2RS_ReqSitDown{Userid:pb.Int64(this.Id()), Seat:pb.Int32(1)}
+	sitdown := &msg.C2RS_ReqBuyInGame{Num:pb.Int32(this.GetGold()), Isautobuy:pb.Bool(true), Pos:pb.Int32(1)}
 	this.SendRoomMsg(sitdown)
 }
 
 func (this *User) ReqStandUp() {
-	stand := &msg.C2RS_ReqStandUp{Userid:pb.Int64(this.Id())}
+	stand := &msg.C2RS_ReqStandUp{}
 	this.SendRoomMsg(stand)
 }
 
