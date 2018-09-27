@@ -377,30 +377,14 @@ func (this *GateUser) OnLoadDB(way string) {
 	}
 
 	// proto对象变量初始化
-	if this.bin.Base == nil {
-		this.bin.Base = &msg.UserBase{}
-	}
-	if this.bin.Base.Misc == nil {
-		this.bin.Base.Misc = &msg.UserMiscData{}
-	}
-	if this.bin.Base.Statics == nil {
-		this.bin.Base.Statics = &msg.UserStatistics{}
-	}
-	if this.bin.Base.Sign == nil {
-		this.bin.Base.Sign = &msg.UserSignIn{}
-	}
-	if this.bin.Base.Wechat == nil {
-		this.bin.Base.Wechat = &msg.UserWechat{}
-	}
-	if this.bin.Item == nil {
-		this.bin.Item = &msg.ItemBin{}
-	}
-	if this.bin.Base.Addrlist == nil {
-		this.bin.Base.Addrlist = make([]*msg.UserAddress, 0)
-	}
-	if this.bin.Base.Task == nil {
-		this.bin.Base.Task = &msg.UserTask{}
-	}
+	if this.bin.Base == nil { this.bin.Base = &msg.UserBase{} }
+	if this.bin.Base.Misc == nil { this.bin.Base.Misc = &msg.UserMiscData{} }
+	if this.bin.Base.Statics == nil { this.bin.Base.Statics = &msg.UserStatistics{} }
+	if this.bin.Base.Sign == nil { this.bin.Base.Sign = &msg.UserSignIn{} }
+	if this.bin.Base.Wechat == nil { this.bin.Base.Wechat = &msg.UserWechat{} }
+	if this.bin.Item == nil { this.bin.Item = &msg.ItemBin{} }
+	if this.bin.Base.Addrlist == nil { this.bin.Base.Addrlist = make([]*msg.UserAddress, 0) }
+	if this.bin.Base.Task == nil { this.bin.Base.Task = &msg.UserTask{} }
 	if this.bin.Base.Luckydraw == nil {
 		this.bin.Base.Luckydraw = &msg.LuckyDrawRecord{Drawlist: make([]*msg.LuckyDrawItem, 0)}
 	}

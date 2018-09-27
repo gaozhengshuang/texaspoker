@@ -384,7 +384,7 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 			},
 			Base: &msg.UserBase {
 				Misc: &msg.UserMiscData { Invitationcode: pb.String(invitationcode) },
-				Wechat: &msg.UserWechat{Openid: pb.String(openid)},
+				//Wechat: &msg.UserWechat{Openid: pb.String(openid)},
 			},
 			Item:   &msg.ItemBin{},
 		}
@@ -399,10 +399,7 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 
 		// 缓存简单信息
 		SaveUserSimpleInfo(userinfo)
-
-		// 关联userid和openid
-		setopenidkey := fmt.Sprintf("user_%d_wechat_openid", userid)
-		Redis().Set(setopenidkey, openid, 0).Result()
+		//SaveUserWechatOpenId(userid, openid)
 
 		log.Info("账户[%s] UserId[%d] 创建新用户成功", account, userid)
 		//ProcessInvitationUser(userid, invitationcode)
@@ -443,6 +440,12 @@ func SaveUserSimpleInfo(bin *msg.Serialize) {
 		return
 	}
 	log.Info("缓存玩家[%s %d]简单信息成功", bin.Entity.GetName(), uid)
+}
+
+// 关联 UserId 和 OpenId
+func SaveUserWechatOpenId(userid int64, openid string) {
+	setopenidkey := fmt.Sprintf("user_%d_wechat_openid", userid)
+	Redis().Set(setopenidkey, openid, 0).Result()
 }
 
 
