@@ -54,7 +54,7 @@ class SignInPanel extends BaseActivityPanel
 		let signinDef: table.IActivity_signinDefine = SignInDefined.GetInstance().getDefinitionbySubId(day);
 		if (signinDef)
 		{
-			let awardDef: table.IAwardDefine = table.AwardById[signinDef.pilePrize];
+			let awardDef: table.IAwardDefine = table.AwardById[signinDef.PilePrize];
 			if (awardDef && awardDef.RewardId)
 			{
 				prizeLabel.text = ActivityManager.signInHandler.getAwardDes(awardDef);

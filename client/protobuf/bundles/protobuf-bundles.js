@@ -1000,24 +1000,24 @@ $root.msg = (function() {
         return ActivityInfo;
     })();
 
-    msg.GW2C_AckActivityInfo = (function() {
+    msg.GW2C_RetActivityInfo = (function() {
 
         /**
-         * Properties of a GW2C_AckActivityInfo.
+         * Properties of a GW2C_RetActivityInfo.
          * @memberof msg
-         * @interface IGW2C_AckActivityInfo
-         * @property {Array.<msg.IActivityInfo>|null} [array] GW2C_AckActivityInfo array
+         * @interface IGW2C_RetActivityInfo
+         * @property {Array.<msg.IActivityInfo>|null} [array] GW2C_RetActivityInfo array
          */
 
         /**
-         * Constructs a new GW2C_AckActivityInfo.
+         * Constructs a new GW2C_RetActivityInfo.
          * @memberof msg
-         * @classdesc Represents a GW2C_AckActivityInfo.
-         * @implements IGW2C_AckActivityInfo
+         * @classdesc Represents a GW2C_RetActivityInfo.
+         * @implements IGW2C_RetActivityInfo
          * @constructor
-         * @param {msg.IGW2C_AckActivityInfo=} [properties] Properties to set
+         * @param {msg.IGW2C_RetActivityInfo=} [properties] Properties to set
          */
-        function GW2C_AckActivityInfo(properties) {
+        function GW2C_RetActivityInfo(properties) {
             this.array = [];
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
@@ -1026,35 +1026,35 @@ $root.msg = (function() {
         }
 
         /**
-         * GW2C_AckActivityInfo array.
+         * GW2C_RetActivityInfo array.
          * @member {Array.<msg.IActivityInfo>} array
-         * @memberof msg.GW2C_AckActivityInfo
+         * @memberof msg.GW2C_RetActivityInfo
          * @instance
          */
-        GW2C_AckActivityInfo.prototype.array = $util.emptyArray;
+        GW2C_RetActivityInfo.prototype.array = $util.emptyArray;
 
         /**
-         * Creates a new GW2C_AckActivityInfo instance using the specified properties.
+         * Creates a new GW2C_RetActivityInfo instance using the specified properties.
          * @function create
-         * @memberof msg.GW2C_AckActivityInfo
+         * @memberof msg.GW2C_RetActivityInfo
          * @static
-         * @param {msg.IGW2C_AckActivityInfo=} [properties] Properties to set
-         * @returns {msg.GW2C_AckActivityInfo} GW2C_AckActivityInfo instance
+         * @param {msg.IGW2C_RetActivityInfo=} [properties] Properties to set
+         * @returns {msg.GW2C_RetActivityInfo} GW2C_RetActivityInfo instance
          */
-        GW2C_AckActivityInfo.create = function create(properties) {
-            return new GW2C_AckActivityInfo(properties);
+        GW2C_RetActivityInfo.create = function create(properties) {
+            return new GW2C_RetActivityInfo(properties);
         };
 
         /**
-         * Encodes the specified GW2C_AckActivityInfo message. Does not implicitly {@link msg.GW2C_AckActivityInfo.verify|verify} messages.
+         * Encodes the specified GW2C_RetActivityInfo message. Does not implicitly {@link msg.GW2C_RetActivityInfo.verify|verify} messages.
          * @function encode
-         * @memberof msg.GW2C_AckActivityInfo
+         * @memberof msg.GW2C_RetActivityInfo
          * @static
-         * @param {msg.IGW2C_AckActivityInfo} message GW2C_AckActivityInfo message or plain object to encode
+         * @param {msg.IGW2C_RetActivityInfo} message GW2C_RetActivityInfo message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        GW2C_AckActivityInfo.encode = function encode(message, writer) {
+        GW2C_RetActivityInfo.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
             if (message.array != null && message.array.length)
@@ -1064,33 +1064,33 @@ $root.msg = (function() {
         };
 
         /**
-         * Encodes the specified GW2C_AckActivityInfo message, length delimited. Does not implicitly {@link msg.GW2C_AckActivityInfo.verify|verify} messages.
+         * Encodes the specified GW2C_RetActivityInfo message, length delimited. Does not implicitly {@link msg.GW2C_RetActivityInfo.verify|verify} messages.
          * @function encodeDelimited
-         * @memberof msg.GW2C_AckActivityInfo
+         * @memberof msg.GW2C_RetActivityInfo
          * @static
-         * @param {msg.IGW2C_AckActivityInfo} message GW2C_AckActivityInfo message or plain object to encode
+         * @param {msg.IGW2C_RetActivityInfo} message GW2C_RetActivityInfo message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        GW2C_AckActivityInfo.encodeDelimited = function encodeDelimited(message, writer) {
+        GW2C_RetActivityInfo.encodeDelimited = function encodeDelimited(message, writer) {
             return this.encode(message, writer).ldelim();
         };
 
         /**
-         * Decodes a GW2C_AckActivityInfo message from the specified reader or buffer.
+         * Decodes a GW2C_RetActivityInfo message from the specified reader or buffer.
          * @function decode
-         * @memberof msg.GW2C_AckActivityInfo
+         * @memberof msg.GW2C_RetActivityInfo
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
          * @param {number} [length] Message length if known beforehand
-         * @returns {msg.GW2C_AckActivityInfo} GW2C_AckActivityInfo
+         * @returns {msg.GW2C_RetActivityInfo} GW2C_RetActivityInfo
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        GW2C_AckActivityInfo.decode = function decode(reader, length) {
+        GW2C_RetActivityInfo.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_AckActivityInfo();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RetActivityInfo();
             while (reader.pos < end) {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
@@ -1108,30 +1108,30 @@ $root.msg = (function() {
         };
 
         /**
-         * Decodes a GW2C_AckActivityInfo message from the specified reader or buffer, length delimited.
+         * Decodes a GW2C_RetActivityInfo message from the specified reader or buffer, length delimited.
          * @function decodeDelimited
-         * @memberof msg.GW2C_AckActivityInfo
+         * @memberof msg.GW2C_RetActivityInfo
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.GW2C_AckActivityInfo} GW2C_AckActivityInfo
+         * @returns {msg.GW2C_RetActivityInfo} GW2C_RetActivityInfo
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        GW2C_AckActivityInfo.decodeDelimited = function decodeDelimited(reader) {
+        GW2C_RetActivityInfo.decodeDelimited = function decodeDelimited(reader) {
             if (!(reader instanceof $Reader))
                 reader = new $Reader(reader);
             return this.decode(reader, reader.uint32());
         };
 
         /**
-         * Verifies a GW2C_AckActivityInfo message.
+         * Verifies a GW2C_RetActivityInfo message.
          * @function verify
-         * @memberof msg.GW2C_AckActivityInfo
+         * @memberof msg.GW2C_RetActivityInfo
          * @static
          * @param {Object.<string,*>} message Plain object to verify
          * @returns {string|null} `null` if valid, otherwise the reason why it is not
          */
-        GW2C_AckActivityInfo.verify = function verify(message) {
+        GW2C_RetActivityInfo.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
             if (message.array != null && message.hasOwnProperty("array")) {
@@ -1147,24 +1147,24 @@ $root.msg = (function() {
         };
 
         /**
-         * Creates a GW2C_AckActivityInfo message from a plain object. Also converts values to their respective internal types.
+         * Creates a GW2C_RetActivityInfo message from a plain object. Also converts values to their respective internal types.
          * @function fromObject
-         * @memberof msg.GW2C_AckActivityInfo
+         * @memberof msg.GW2C_RetActivityInfo
          * @static
          * @param {Object.<string,*>} object Plain object
-         * @returns {msg.GW2C_AckActivityInfo} GW2C_AckActivityInfo
+         * @returns {msg.GW2C_RetActivityInfo} GW2C_RetActivityInfo
          */
-        GW2C_AckActivityInfo.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.GW2C_AckActivityInfo)
+        GW2C_RetActivityInfo.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_RetActivityInfo)
                 return object;
-            var message = new $root.msg.GW2C_AckActivityInfo();
+            var message = new $root.msg.GW2C_RetActivityInfo();
             if (object.array) {
                 if (!Array.isArray(object.array))
-                    throw TypeError(".msg.GW2C_AckActivityInfo.array: array expected");
+                    throw TypeError(".msg.GW2C_RetActivityInfo.array: array expected");
                 message.array = [];
                 for (var i = 0; i < object.array.length; ++i) {
                     if (typeof object.array[i] !== "object")
-                        throw TypeError(".msg.GW2C_AckActivityInfo.array: object expected");
+                        throw TypeError(".msg.GW2C_RetActivityInfo.array: object expected");
                     message.array[i] = $root.msg.ActivityInfo.fromObject(object.array[i]);
                 }
             }
@@ -1172,15 +1172,15 @@ $root.msg = (function() {
         };
 
         /**
-         * Creates a plain object from a GW2C_AckActivityInfo message. Also converts values to other types if specified.
+         * Creates a plain object from a GW2C_RetActivityInfo message. Also converts values to other types if specified.
          * @function toObject
-         * @memberof msg.GW2C_AckActivityInfo
+         * @memberof msg.GW2C_RetActivityInfo
          * @static
-         * @param {msg.GW2C_AckActivityInfo} message GW2C_AckActivityInfo
+         * @param {msg.GW2C_RetActivityInfo} message GW2C_RetActivityInfo
          * @param {$protobuf.IConversionOptions} [options] Conversion options
          * @returns {Object.<string,*>} Plain object
          */
-        GW2C_AckActivityInfo.toObject = function toObject(message, options) {
+        GW2C_RetActivityInfo.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
             var object = {};
@@ -1195,17 +1195,17 @@ $root.msg = (function() {
         };
 
         /**
-         * Converts this GW2C_AckActivityInfo to JSON.
+         * Converts this GW2C_RetActivityInfo to JSON.
          * @function toJSON
-         * @memberof msg.GW2C_AckActivityInfo
+         * @memberof msg.GW2C_RetActivityInfo
          * @instance
          * @returns {Object.<string,*>} JSON object
          */
-        GW2C_AckActivityInfo.prototype.toJSON = function toJSON() {
+        GW2C_RetActivityInfo.prototype.toJSON = function toJSON() {
             return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
         };
 
-        return GW2C_AckActivityInfo;
+        return GW2C_RetActivityInfo;
     })();
 
     msg.C2GW_ReqGetActivityReward = (function() {
@@ -1418,26 +1418,26 @@ $root.msg = (function() {
         return C2GW_ReqGetActivityReward;
     })();
 
-    msg.GW2C_AckGetActivityRewardRet = (function() {
+    msg.GW2C_RetGetActivityReward = (function() {
 
         /**
-         * Properties of a GW2C_AckGetActivityRewardRet.
+         * Properties of a GW2C_RetGetActivityReward.
          * @memberof msg
-         * @interface IGW2C_AckGetActivityRewardRet
-         * @property {number|null} [subid] GW2C_AckGetActivityRewardRet subid
-         * @property {number|null} [id] GW2C_AckGetActivityRewardRet id
-         * @property {number|null} [ret] GW2C_AckGetActivityRewardRet ret
+         * @interface IGW2C_RetGetActivityReward
+         * @property {number|null} [subid] GW2C_RetGetActivityReward subid
+         * @property {number|null} [id] GW2C_RetGetActivityReward id
+         * @property {number|null} [ret] GW2C_RetGetActivityReward ret
          */
 
         /**
-         * Constructs a new GW2C_AckGetActivityRewardRet.
+         * Constructs a new GW2C_RetGetActivityReward.
          * @memberof msg
-         * @classdesc Represents a GW2C_AckGetActivityRewardRet.
-         * @implements IGW2C_AckGetActivityRewardRet
+         * @classdesc Represents a GW2C_RetGetActivityReward.
+         * @implements IGW2C_RetGetActivityReward
          * @constructor
-         * @param {msg.IGW2C_AckGetActivityRewardRet=} [properties] Properties to set
+         * @param {msg.IGW2C_RetGetActivityReward=} [properties] Properties to set
          */
-        function GW2C_AckGetActivityRewardRet(properties) {
+        function GW2C_RetGetActivityReward(properties) {
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
@@ -1445,51 +1445,51 @@ $root.msg = (function() {
         }
 
         /**
-         * GW2C_AckGetActivityRewardRet subid.
+         * GW2C_RetGetActivityReward subid.
          * @member {number} subid
-         * @memberof msg.GW2C_AckGetActivityRewardRet
+         * @memberof msg.GW2C_RetGetActivityReward
          * @instance
          */
-        GW2C_AckGetActivityRewardRet.prototype.subid = 0;
+        GW2C_RetGetActivityReward.prototype.subid = 0;
 
         /**
-         * GW2C_AckGetActivityRewardRet id.
+         * GW2C_RetGetActivityReward id.
          * @member {number} id
-         * @memberof msg.GW2C_AckGetActivityRewardRet
+         * @memberof msg.GW2C_RetGetActivityReward
          * @instance
          */
-        GW2C_AckGetActivityRewardRet.prototype.id = 0;
+        GW2C_RetGetActivityReward.prototype.id = 0;
 
         /**
-         * GW2C_AckGetActivityRewardRet ret.
+         * GW2C_RetGetActivityReward ret.
          * @member {number} ret
-         * @memberof msg.GW2C_AckGetActivityRewardRet
+         * @memberof msg.GW2C_RetGetActivityReward
          * @instance
          */
-        GW2C_AckGetActivityRewardRet.prototype.ret = 0;
+        GW2C_RetGetActivityReward.prototype.ret = 0;
 
         /**
-         * Creates a new GW2C_AckGetActivityRewardRet instance using the specified properties.
+         * Creates a new GW2C_RetGetActivityReward instance using the specified properties.
          * @function create
-         * @memberof msg.GW2C_AckGetActivityRewardRet
+         * @memberof msg.GW2C_RetGetActivityReward
          * @static
-         * @param {msg.IGW2C_AckGetActivityRewardRet=} [properties] Properties to set
-         * @returns {msg.GW2C_AckGetActivityRewardRet} GW2C_AckGetActivityRewardRet instance
+         * @param {msg.IGW2C_RetGetActivityReward=} [properties] Properties to set
+         * @returns {msg.GW2C_RetGetActivityReward} GW2C_RetGetActivityReward instance
          */
-        GW2C_AckGetActivityRewardRet.create = function create(properties) {
-            return new GW2C_AckGetActivityRewardRet(properties);
+        GW2C_RetGetActivityReward.create = function create(properties) {
+            return new GW2C_RetGetActivityReward(properties);
         };
 
         /**
-         * Encodes the specified GW2C_AckGetActivityRewardRet message. Does not implicitly {@link msg.GW2C_AckGetActivityRewardRet.verify|verify} messages.
+         * Encodes the specified GW2C_RetGetActivityReward message. Does not implicitly {@link msg.GW2C_RetGetActivityReward.verify|verify} messages.
          * @function encode
-         * @memberof msg.GW2C_AckGetActivityRewardRet
+         * @memberof msg.GW2C_RetGetActivityReward
          * @static
-         * @param {msg.IGW2C_AckGetActivityRewardRet} message GW2C_AckGetActivityRewardRet message or plain object to encode
+         * @param {msg.IGW2C_RetGetActivityReward} message GW2C_RetGetActivityReward message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        GW2C_AckGetActivityRewardRet.encode = function encode(message, writer) {
+        GW2C_RetGetActivityReward.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
             if (message.subid != null && message.hasOwnProperty("subid"))
@@ -1502,33 +1502,33 @@ $root.msg = (function() {
         };
 
         /**
-         * Encodes the specified GW2C_AckGetActivityRewardRet message, length delimited. Does not implicitly {@link msg.GW2C_AckGetActivityRewardRet.verify|verify} messages.
+         * Encodes the specified GW2C_RetGetActivityReward message, length delimited. Does not implicitly {@link msg.GW2C_RetGetActivityReward.verify|verify} messages.
          * @function encodeDelimited
-         * @memberof msg.GW2C_AckGetActivityRewardRet
+         * @memberof msg.GW2C_RetGetActivityReward
          * @static
-         * @param {msg.IGW2C_AckGetActivityRewardRet} message GW2C_AckGetActivityRewardRet message or plain object to encode
+         * @param {msg.IGW2C_RetGetActivityReward} message GW2C_RetGetActivityReward message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        GW2C_AckGetActivityRewardRet.encodeDelimited = function encodeDelimited(message, writer) {
+        GW2C_RetGetActivityReward.encodeDelimited = function encodeDelimited(message, writer) {
             return this.encode(message, writer).ldelim();
         };
 
         /**
-         * Decodes a GW2C_AckGetActivityRewardRet message from the specified reader or buffer.
+         * Decodes a GW2C_RetGetActivityReward message from the specified reader or buffer.
          * @function decode
-         * @memberof msg.GW2C_AckGetActivityRewardRet
+         * @memberof msg.GW2C_RetGetActivityReward
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
          * @param {number} [length] Message length if known beforehand
-         * @returns {msg.GW2C_AckGetActivityRewardRet} GW2C_AckGetActivityRewardRet
+         * @returns {msg.GW2C_RetGetActivityReward} GW2C_RetGetActivityReward
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        GW2C_AckGetActivityRewardRet.decode = function decode(reader, length) {
+        GW2C_RetGetActivityReward.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_AckGetActivityRewardRet();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RetGetActivityReward();
             while (reader.pos < end) {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
@@ -1550,30 +1550,30 @@ $root.msg = (function() {
         };
 
         /**
-         * Decodes a GW2C_AckGetActivityRewardRet message from the specified reader or buffer, length delimited.
+         * Decodes a GW2C_RetGetActivityReward message from the specified reader or buffer, length delimited.
          * @function decodeDelimited
-         * @memberof msg.GW2C_AckGetActivityRewardRet
+         * @memberof msg.GW2C_RetGetActivityReward
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.GW2C_AckGetActivityRewardRet} GW2C_AckGetActivityRewardRet
+         * @returns {msg.GW2C_RetGetActivityReward} GW2C_RetGetActivityReward
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        GW2C_AckGetActivityRewardRet.decodeDelimited = function decodeDelimited(reader) {
+        GW2C_RetGetActivityReward.decodeDelimited = function decodeDelimited(reader) {
             if (!(reader instanceof $Reader))
                 reader = new $Reader(reader);
             return this.decode(reader, reader.uint32());
         };
 
         /**
-         * Verifies a GW2C_AckGetActivityRewardRet message.
+         * Verifies a GW2C_RetGetActivityReward message.
          * @function verify
-         * @memberof msg.GW2C_AckGetActivityRewardRet
+         * @memberof msg.GW2C_RetGetActivityReward
          * @static
          * @param {Object.<string,*>} message Plain object to verify
          * @returns {string|null} `null` if valid, otherwise the reason why it is not
          */
-        GW2C_AckGetActivityRewardRet.verify = function verify(message) {
+        GW2C_RetGetActivityReward.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
             if (message.subid != null && message.hasOwnProperty("subid"))
@@ -1589,17 +1589,17 @@ $root.msg = (function() {
         };
 
         /**
-         * Creates a GW2C_AckGetActivityRewardRet message from a plain object. Also converts values to their respective internal types.
+         * Creates a GW2C_RetGetActivityReward message from a plain object. Also converts values to their respective internal types.
          * @function fromObject
-         * @memberof msg.GW2C_AckGetActivityRewardRet
+         * @memberof msg.GW2C_RetGetActivityReward
          * @static
          * @param {Object.<string,*>} object Plain object
-         * @returns {msg.GW2C_AckGetActivityRewardRet} GW2C_AckGetActivityRewardRet
+         * @returns {msg.GW2C_RetGetActivityReward} GW2C_RetGetActivityReward
          */
-        GW2C_AckGetActivityRewardRet.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.GW2C_AckGetActivityRewardRet)
+        GW2C_RetGetActivityReward.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_RetGetActivityReward)
                 return object;
-            var message = new $root.msg.GW2C_AckGetActivityRewardRet();
+            var message = new $root.msg.GW2C_RetGetActivityReward();
             if (object.subid != null)
                 message.subid = object.subid | 0;
             if (object.id != null)
@@ -1610,15 +1610,15 @@ $root.msg = (function() {
         };
 
         /**
-         * Creates a plain object from a GW2C_AckGetActivityRewardRet message. Also converts values to other types if specified.
+         * Creates a plain object from a GW2C_RetGetActivityReward message. Also converts values to other types if specified.
          * @function toObject
-         * @memberof msg.GW2C_AckGetActivityRewardRet
+         * @memberof msg.GW2C_RetGetActivityReward
          * @static
-         * @param {msg.GW2C_AckGetActivityRewardRet} message GW2C_AckGetActivityRewardRet
+         * @param {msg.GW2C_RetGetActivityReward} message GW2C_RetGetActivityReward
          * @param {$protobuf.IConversionOptions} [options] Conversion options
          * @returns {Object.<string,*>} Plain object
          */
-        GW2C_AckGetActivityRewardRet.toObject = function toObject(message, options) {
+        GW2C_RetGetActivityReward.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
             var object = {};
@@ -1637,17 +1637,17 @@ $root.msg = (function() {
         };
 
         /**
-         * Converts this GW2C_AckGetActivityRewardRet to JSON.
+         * Converts this GW2C_RetGetActivityReward to JSON.
          * @function toJSON
-         * @memberof msg.GW2C_AckGetActivityRewardRet
+         * @memberof msg.GW2C_RetGetActivityReward
          * @instance
          * @returns {Object.<string,*>} JSON object
          */
-        GW2C_AckGetActivityRewardRet.prototype.toJSON = function toJSON() {
+        GW2C_RetGetActivityReward.prototype.toJSON = function toJSON() {
             return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
         };
 
-        return GW2C_AckGetActivityRewardRet;
+        return GW2C_RetGetActivityReward;
     })();
 
     msg.IpHost = (function() {
@@ -39132,7 +39132,7 @@ $root.table = (function() {
          * @property {string|null} [PanelName] Activity_listDefine PanelName
          * @property {number|null} [UnInShowPanel] Activity_listDefine UnInShowPanel
          * @property {string|null} [SubType] Activity_listDefine SubType
-         * @property {string|null} [Trigger] Activity_listDefine Trigger
+         * @property {Array.<string>|null} [Trigger] Activity_listDefine Trigger
          * @property {number|null} [TriggerType] Activity_listDefine TriggerType
          */
 
@@ -39147,6 +39147,7 @@ $root.table = (function() {
         function Activity_listDefine(properties) {
             this.StartTime = [];
             this.EndTime = [];
+            this.Trigger = [];
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
@@ -39275,11 +39276,11 @@ $root.table = (function() {
 
         /**
          * Activity_listDefine Trigger.
-         * @member {string} Trigger
+         * @member {Array.<string>} Trigger
          * @memberof table.Activity_listDefine
          * @instance
          */
-        Activity_listDefine.prototype.Trigger = "";
+        Activity_listDefine.prototype.Trigger = $util.emptyArray;
 
         /**
          * Activity_listDefine TriggerType.
@@ -39345,8 +39346,9 @@ $root.table = (function() {
                 writer.uint32(/* id 14, wireType 0 =*/112).int32(message.UnInShowPanel);
             if (message.SubType != null && message.hasOwnProperty("SubType"))
                 writer.uint32(/* id 15, wireType 2 =*/122).string(message.SubType);
-            if (message.Trigger != null && message.hasOwnProperty("Trigger"))
-                writer.uint32(/* id 16, wireType 2 =*/130).string(message.Trigger);
+            if (message.Trigger != null && message.Trigger.length)
+                for (var i = 0; i < message.Trigger.length; ++i)
+                    writer.uint32(/* id 16, wireType 2 =*/130).string(message.Trigger[i]);
             if (message.TriggerType != null && message.hasOwnProperty("TriggerType"))
                 writer.uint32(/* id 17, wireType 0 =*/136).int32(message.TriggerType);
             return writer;
@@ -39443,7 +39445,9 @@ $root.table = (function() {
                     message.SubType = reader.string();
                     break;
                 case 16:
-                    message.Trigger = reader.string();
+                    if (!(message.Trigger && message.Trigger.length))
+                        message.Trigger = [];
+                    message.Trigger.push(reader.string());
                     break;
                 case 17:
                     message.TriggerType = reader.int32();
@@ -39536,9 +39540,13 @@ $root.table = (function() {
             if (message.SubType != null && message.hasOwnProperty("SubType"))
                 if (!$util.isString(message.SubType))
                     return "SubType: string expected";
-            if (message.Trigger != null && message.hasOwnProperty("Trigger"))
-                if (!$util.isString(message.Trigger))
-                    return "Trigger: string expected";
+            if (message.Trigger != null && message.hasOwnProperty("Trigger")) {
+                if (!Array.isArray(message.Trigger))
+                    return "Trigger: array expected";
+                for (var i = 0; i < message.Trigger.length; ++i)
+                    if (!$util.isString(message.Trigger[i]))
+                        return "Trigger: string[] expected";
+            }
             if (message.TriggerType != null && message.hasOwnProperty("TriggerType"))
                 if (!$util.isInteger(message.TriggerType))
                     return "TriggerType: integer expected";
@@ -39597,8 +39605,13 @@ $root.table = (function() {
                 message.UnInShowPanel = object.UnInShowPanel | 0;
             if (object.SubType != null)
                 message.SubType = String(object.SubType);
-            if (object.Trigger != null)
-                message.Trigger = String(object.Trigger);
+            if (object.Trigger) {
+                if (!Array.isArray(object.Trigger))
+                    throw TypeError(".table.Activity_listDefine.Trigger: array expected");
+                message.Trigger = [];
+                for (var i = 0; i < object.Trigger.length; ++i)
+                    message.Trigger[i] = String(object.Trigger[i]);
+            }
             if (object.TriggerType != null)
                 message.TriggerType = object.TriggerType | 0;
             return message;
@@ -39620,6 +39633,7 @@ $root.table = (function() {
             if (options.arrays || options.defaults) {
                 object.StartTime = [];
                 object.EndTime = [];
+                object.Trigger = [];
             }
             if (options.defaults) {
                 object.Id = 0;
@@ -39635,7 +39649,6 @@ $root.table = (function() {
                 object.PanelName = "";
                 object.UnInShowPanel = 0;
                 object.SubType = "";
-                object.Trigger = "";
                 object.TriggerType = 0;
             }
             if (message.Id != null && message.hasOwnProperty("Id"))
@@ -39674,8 +39687,11 @@ $root.table = (function() {
                 object.UnInShowPanel = message.UnInShowPanel;
             if (message.SubType != null && message.hasOwnProperty("SubType"))
                 object.SubType = message.SubType;
-            if (message.Trigger != null && message.hasOwnProperty("Trigger"))
-                object.Trigger = message.Trigger;
+            if (message.Trigger && message.Trigger.length) {
+                object.Trigger = [];
+                for (var j = 0; j < message.Trigger.length; ++j)
+                    object.Trigger[j] = message.Trigger[j];
+            }
             if (message.TriggerType != null && message.hasOwnProperty("TriggerType"))
                 object.TriggerType = message.TriggerType;
             return object;
