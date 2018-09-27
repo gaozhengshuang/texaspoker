@@ -384,7 +384,7 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 			},
 			Base: &msg.UserBase {
 				Misc: &msg.UserMiscData { Invitationcode: pb.String(invitationcode) },
-				Wechat: &msg.UserWechat{Openid: pb.String(openid)},
+				//Wechat: &msg.UserWechat{Openid: pb.String(openid)},
 			},
 			Item:   &msg.ItemBin{},
 		}
@@ -397,9 +397,9 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 			break
 		}
 
-		// 关联userid和openid
-		setopenidkey := fmt.Sprintf("user_%d_wechat_openid", userid)
-		Redis().Set(setopenidkey, openid, 0).Result()
+		// 缓存简单信息
+		SaveUserSimpleInfo(userinfo)
+		//SaveUserWechatOpenId(userid, openid)
 
 		log.Info("账户[%s] UserId[%d] 创建新用户成功", account, userid)
 		//ProcessInvitationUser(userid, invitationcode)
@@ -424,3 +424,28 @@ func DirectRegistAccount(account, passwd string) (errcode string) {
 
 	return RegistAccount(account, passwd, "", account, "", "")
 }
+
+// 缓存玩家简单信息
+func SaveUserSimpleInfo(bin *msg.Serialize) {
+	uid := bin.Entity.GetId()
+	pipe := Redis().Pipeline()
+	defer pipe.Close()
+
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "name", bin.Entity.GetName())
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "face", bin.Entity.GetHead())
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "sex",  bin.Entity.GetSex())
+	_, err := pipe.Exec()
+	if err != nil {
+		log.Error("缓存玩家[%s %d]简单信息失败 %s", bin.Entity.GetName(), uid, err)
+		return
+	}
+	log.Info("缓存玩家[%s %d]简单信息成功", bin.Entity.GetName(), uid)
+}
+
+// 关联 UserId 和 OpenId
+func SaveUserWechatOpenId(userid int64, openid string) {
+	setopenidkey := fmt.Sprintf("user_%d_wechat_openid", userid)
+	Redis().Set(setopenidkey, openid, 0).Result()
+}
+
+

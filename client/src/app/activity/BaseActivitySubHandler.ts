@@ -1,7 +1,7 @@
 /**
  * 活动处理交互基类
  */
-abstract class BaseActivitySubHandler<T extends BaseActivitySubInfo<BaseActivitySubDefnition>>
+abstract class BaseActivitySubHandler<T extends BaseActivitySubInfo<IBaseActivitySubDefnition>>
 {
 	/**
 	 * 活动类型
@@ -43,19 +43,19 @@ abstract class BaseActivitySubHandler<T extends BaseActivitySubInfo<BaseActivity
 	/**
 	 * 创建子信息
 	 */
-	protected addSubInfo(info: ActivityInfo, cls: { new (): T; }, def: BaseActivitySubDefnition): T
+	protected addSubInfo(info: ActivityInfo, cls: { new (): T; }, def: IBaseActivitySubDefnition): T
 	{
-		if (def.id == info.id)
+		if (def.Id == info.id)
 		{
 			let instance = new cls();
-			instance.id = def.id;
-			instance.subId = def.subId;
+			instance.id = def.Id;
+			instance.subId = def.SubId;
 
 			if (!info.subList)
 			{
 				info.subList = new Array<T>();
 			}
-			if (ActivityUtil.isExistSubInfo(info, def.subId) == false)
+			if (ActivityUtil.isExistSubInfo(info, def.SubId) == false)
 			{
 				info.subList.push(instance);
 			}

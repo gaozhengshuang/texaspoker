@@ -42,7 +42,7 @@ class ActivityManager
     /**
      *邀请活动管理
      */
-    private static _subHandlerList: game.Map<string, BaseActivitySubHandler<BaseActivitySubInfo<BaseActivitySubDefnition>>> = new game.Map<string, BaseActivitySubHandler<BaseActivitySubInfo<BaseActivitySubDefnition>>>();
+    private static _subHandlerList: game.Map<string, BaseActivitySubHandler<BaseActivitySubInfo<IBaseActivitySubDefnition>>> = new game.Map<string, BaseActivitySubHandler<BaseActivitySubInfo<IBaseActivitySubDefnition>>>();
     /**
      * 活动列表
      */
@@ -70,12 +70,12 @@ class ActivityManager
 
         TimeManager.resetTime0Event.addListener(ActivityManager.onTimeReset, this);
         SocketManager.AddCommandListener(Command.Activity_Push_2088, ActivityManager.pushActivityInfo, this);
-
-        if (result.data && result.data.Array)
+        let data: msg.GW2C_RetActivityInfo = result.data;
+        if (data && data.array)
         {
-            for (let i: number = 0; i < result.data.Array.length; i++)
+            for (let i: number = 0; i < data.array.length; i++)
             {
-                ActivityManager.setActivityInfo(result.data.Array[i]);
+                ActivityManager.setActivityInfo(data.array[i]);
             }
         }
         ActivityManager.checkCompleteHide();
@@ -86,13 +86,13 @@ class ActivityManager
         if (ActivityManager._subHandlerList.count == 0)
         {
             ActivityManager._subHandlerList.add(ActivityType.Signin, ActivityManager.signInHandler); //此处添加各个活动的子handler
-            ActivityManager._subHandlerList.add(ActivityType.PayPrize, ActivityManager.payPrizeHandler);
-            ActivityManager._subHandlerList.add(ActivityType.HappyGift, ActivityManager.happyGiftHandler);
-            ActivityManager._subHandlerList.add(ActivityType.LaBa, ActivityManager.shimTaeYoonHandler);
-            ActivityManager._subHandlerList.add(ActivityType.BankruptSubsidy, ActivityManager.bankruptSubsidyHandler);
-            ActivityManager._subHandlerList.add(ActivityType.PilePrize, ActivityManager.pilePrizeHandler);
-            ActivityManager._subHandlerList.add(ActivityType.BindChannel, ActivityManager.bindPhoneAwardHandler);
-            ActivityManager._subHandlerList.add(ActivityType.Share, ActivityManager.shareLuckDrawHandler);
+            // ActivityManager._subHandlerList.add(ActivityType.PayPrize, ActivityManager.payPrizeHandler);
+            // ActivityManager._subHandlerList.add(ActivityType.HappyGift, ActivityManager.happyGiftHandler);
+            // ActivityManager._subHandlerList.add(ActivityType.LaBa, ActivityManager.shimTaeYoonHandler);
+            // ActivityManager._subHandlerList.add(ActivityType.BankruptSubsidy, ActivityManager.bankruptSubsidyHandler);
+            // ActivityManager._subHandlerList.add(ActivityType.PilePrize, ActivityManager.pilePrizeHandler);
+            // ActivityManager._subHandlerList.add(ActivityType.BindChannel, ActivityManager.bindPhoneAwardHandler);
+            // ActivityManager._subHandlerList.add(ActivityType.Share, ActivityManager.shareLuckDrawHandler);
         }
     }
     /**
@@ -160,7 +160,7 @@ class ActivityManager
     {
         if (activityInfo.definition)
         {
-            UIManager.showPanel(activityInfo.definition.panelName, { prevPanelName: UIModuleName.ActivityPanel, info: activityInfo });
+            UIManager.showPanel(activityInfo.definition.PanelName, { prevPanelName: UIModuleName.ActivityPanel, info: activityInfo });
         }
     }
     /**
@@ -185,7 +185,7 @@ class ActivityManager
         for (let info of ActivityManager.list)
         {
             let state: ActivityOpenState = ActivityUtil.getActivityOpenState(info);
-            if (info.definition && info.definition.type == type && state == ActivityOpenState.Open)
+            if (info.definition && info.definition.Type == type && state == ActivityOpenState.Open)
             {
                 return info;
             }
@@ -197,24 +197,24 @@ class ActivityManager
     {
         game.ArrayUtil.Clear(ActivityManager.list);
         ActivityManager._subHandlerList.foreach((k, v) => { v.clear(); }, this);
-        for (let info of ActivityDefined.GetInstance().dataList)
+        for (let info of table.Activity_list)
         {
             let activityInfo: ActivityInfo = new ActivityInfo();
-            activityInfo.id = info.id;
+            activityInfo.id = info.Id;
             activityInfo.step = 0;
             activityInfo.jsonObj = {};
             activityInfo.gotJsonObj = {};
             ActivityUtil.setStartTime(activityInfo);
             ActivityUtil.setEndTime(activityInfo);
-            let handler: BaseActivitySubHandler<BaseActivitySubInfo<BaseActivitySubDefnition>>;
-            handler = ActivityManager._subHandlerList.getValue(activityInfo.definition.type);
+            let handler: BaseActivitySubHandler<BaseActivitySubInfo<IBaseActivitySubDefnition>>;
+            handler = ActivityManager._subHandlerList.getValue(activityInfo.definition.Type);
             if (handler)
             {
                 handler.initialize(activityInfo);
             }
             else
             {
-                game.Console.log("处理活动类型子逻辑异常！TYPE：" + activityInfo.definition.type);
+                game.Console.log("处理活动类型子逻辑异常！TYPE：" + activityInfo.definition.Type);
             }
             ActivityManager.triggerHandler.register(activityInfo);
             ActivityManager.list.push(activityInfo);
@@ -228,15 +228,15 @@ class ActivityManager
         game.ArrayUtil.Clear(ActivityManager.showList);
         for (let info of ActivityManager.list)
         {
-            if (!info.definition.unInShowPanel) //在面板里面显示
+            if (!info.definition.UnInShowPanel) //在面板里面显示
             {
                 let state: ActivityOpenState = ActivityUtil.getActivityOpenState(info);
                 if (state == ActivityOpenState.End)
                 {
-                    if (info.definition.showFinish == true) //完成了也显示
-                    {
-                        ActivityManager.showList.push(info);
-                    }
+                    // if (info.definition.ShowFinish == true) //完成了也显示  move todo
+                    // {
+                    //     ActivityManager.showList.push(info);
+                    // }
                 }
                 else if (state == ActivityOpenState.Open) //正在进行中的活动
                 {
@@ -250,57 +250,57 @@ class ActivityManager
      */
     private static onTimeReset()
     {
-        SocketManager.call(Command.Activity_GetList_3233, null, ActivityManager.initialize, null, this);
+        SocketManager.call(Command.C2GW_ReqActivityInfo, null, ActivityManager.initialize, null, this);
     }
     /**
      * 设置活动信息
      */
-    private static setActivityInfo(data: any)
+    private static setActivityInfo(data: msg.IActivityInfo)
     {
         if (data)
         {
-            let activityInfo: ActivityInfo = ActivityManager.getActivityInfo(data["Id"]);
+            let activityInfo: ActivityInfo = ActivityManager.getActivityInfo(data.id);
             if (activityInfo)
             {
-                activityInfo.step = data["Step"];
-                activityInfo.pubStep = data["PubStep"];
-                activityInfo.severStartDateTime = data["StartTime"];
-                activityInfo.severEndDateTime = data["EndTime"];
+                activityInfo.step = data.step; //   ["Step"];
+                // activityInfo.pubStep = data["PubStep"];  //move todo
+                activityInfo.severStartDateTime = new Date(data.starttime * 1000);// ["StartTime"];
+                activityInfo.severEndDateTime = new Date(data.endtime * 1000);// ["EndTime"];
                 try
                 {
-                    if (data["Json"])
+                    if (data.json)
                     {
-                        let jsonObj: any = JSON.parse(data["Json"]);
+                        let jsonObj: any = JSON.parse(data.json);
                         activityInfo.jsonObj = jsonObj;
                     }
                     if (!activityInfo.jsonObj)
                     {
                         activityInfo.jsonObj = {};
                     }
-                    if (data["GotJson"])
+                    if (data.gotjson)
                     {
-                        let gotJsonObj: any = JSON.parse(data["GotJson"]); //处理已经领取的奖励信息
+                        let gotJsonObj: any = JSON.parse(data.gotjson); //处理已经领取的奖励信息
                         activityInfo.gotJsonObj = gotJsonObj;
                     }
                     if (!activityInfo.gotJsonObj)
                     {
                         activityInfo.gotJsonObj = {};
                     }
-                    let handler: BaseActivitySubHandler<BaseActivitySubInfo<BaseActivitySubDefnition>>;
-                    handler = ActivityManager._subHandlerList.getValue(activityInfo.definition.type);
+                    let handler: BaseActivitySubHandler<BaseActivitySubInfo<IBaseActivitySubDefnition>>;
+                    handler = ActivityManager._subHandlerList.getValue(activityInfo.definition.Type);
                     if (handler)
                     {
                         handler.setJson(activityInfo);
                     }
                     else
                     {
-                        game.Console.log("处理活动类型子逻辑异常！TYPE：" + activityInfo.definition.type);
+                        game.Console.log("处理活动类型子逻辑异常！TYPE：" + activityInfo.definition.Type);
                     }
                 }
                 catch (e)
                 {
-                    game.Console.log("解析活动协议出错 Json：" + data["Json"]);
-                    game.Console.log("解析活动协议出错 GotJson：" + data["GotJson"]);
+                    game.Console.log("解析活动协议出错 Json：" + data.json);
+                    game.Console.log("解析活动协议出错 GotJson：" + data.gotjson);
                 }
             }
         }
@@ -329,7 +329,7 @@ class ActivityManager
                 ActivityManager.onReqSingleActivityEvent.dispatch(id);
             }
         }
-        SocketManager.call(Command.Activity_GetList_3233, { "Id": id }, callback, null, this);
+        SocketManager.call(Command.C2GW_ReqActivityInfo, msg.C2GW_ReqActivityInfo.encode({ "id": id }), callback, null, this);
     }
 
     /**
@@ -366,7 +366,7 @@ class ActivityManager
         {
             PropertyManager.OpenGet();
         }
-        SocketManager.call(Command.Activity_GetPrize_3202, { "Id": activityId, "SubId": subId }, callback, null, this);
+        SocketManager.call(Command.C2GW_ReqGetActivityReward, msg.C2GW_ReqGetActivityReward.encode({ "id": activityId, "subid": subId }), callback, null, this);
     }
 
     /**
@@ -391,18 +391,18 @@ class ActivityManager
 
     public static getAwardResult(id: number, subId: number)
     {
-        let def: ActivityDefintion = ActivityDefined.GetInstance().getDefinition(id);
+        let def: table.IActivity_listDefine = table.Activity_listById[id];
         let info: ActivityInfo = ActivityManager.getActivityInfo(id);
         if (def && info)
         {
-            let handler: BaseActivitySubHandler<BaseActivitySubInfo<BaseActivitySubDefnition>> = ActivityManager._subHandlerList.getValue(def.type);
+            let handler: BaseActivitySubHandler<BaseActivitySubInfo<IBaseActivitySubDefnition>> = ActivityManager._subHandlerList.getValue(def.Type);
             if (handler)
             {
                 handler.onGetAwardComplete(id, subId);
             }
             else
             {
-                game.Console.log("参加活动结果返回 获取子活动handler异常！" + def.type);
+                game.Console.log("参加活动结果返回 获取子活动handler异常！" + def.Type);
             }
         }
     }

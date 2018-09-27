@@ -1,7 +1,7 @@
 /**
  * 累充活动管理
  */
-class PilePrizeHandler extends BaseActivitySubHandler<PilePrizeItemInfo>
+class PilePrizeHandler extends BaseActivitySubHandler<any>
 {
     public clear()
     {
@@ -16,16 +16,16 @@ class PilePrizeHandler extends BaseActivitySubHandler<PilePrizeItemInfo>
         ChampionshipManager.OnMTTOverPushEvent.addListener(this.updateMttProcess, this);
         let def: ActivityPilePrizeDefintion;
         let pInfo: PilePrizeItemInfo;
-        for (let i: number = 0; i < ActivityPilePrizeDefined.GetInstance().dataList.length; i++) //填充子列表信息
-        {
-            def = ActivityPilePrizeDefined.GetInstance().dataList[i];
-            pInfo = this.addSubInfo(info, PilePrizeItemInfo, def);
-            if (pInfo)
-            {
-                pInfo.process = 0
-                pInfo.isTaken = false;
-            }
-        };
+        // for (let i: number = 0; i < ActivityPilePrizeDefined.GetInstance().dataList.length; i++) //填充子列表信息 move todo
+        // {
+        //     def = ActivityPilePrizeDefined.GetInstance().dataList[i];
+        //     pInfo = this.addSubInfo(info, PilePrizeItemInfo, def);
+        //     if (pInfo)
+        //     {
+        //         pInfo.process = 0
+        //         pInfo.isTaken = false;
+        //     }
+        // };
         this.setProcess(info);
     }
 	/**
@@ -35,7 +35,7 @@ class PilePrizeHandler extends BaseActivitySubHandler<PilePrizeItemInfo>
     {
         super.refreshActivityInfo(id);
         let info = this.getInfo(id);
-        if (InfoUtil.checkAvailable(info) && info.definition.type == ActivityType.HappyGift)
+        if (InfoUtil.checkAvailable(info) && info.definition.Type == ActivityType.HappyGift)
         {
             this.setJson(info);
         }
@@ -111,7 +111,7 @@ class PilePrizeHandler extends BaseActivitySubHandler<PilePrizeItemInfo>
     {
         for (let info of this._list)
         {
-            if (InfoUtil.checkAvailable(info) && info.definition.subType == subType)
+            if (InfoUtil.checkAvailable(info) && info.definition.SubType == subType)
             {
                 return info;
             }

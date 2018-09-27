@@ -15,11 +15,11 @@ class ActivityInfo extends BaseServerValueInfo implements IHaveDefintionInfo
     public set id(value: number)
     {
         this._id = value;
-        this._definition = ActivityDefined.GetInstance().getDefinition(this._id);
+        this._definition = table.Activity_listById[value];
     }
 
-    private _definition: ActivityDefintion;
-    public get definition(): ActivityDefintion
+    private _definition: table.IActivity_listDefine;
+    public get definition(): table.IActivity_listDefine
     {
         return this._definition;
     }
@@ -79,5 +79,5 @@ class ActivityInfo extends BaseServerValueInfo implements IHaveDefintionInfo
     /**
      * 子活动列表
      */
-    public subList: Array<BaseActivitySubInfo<BaseActivitySubDefnition>>;
+    public subList: Array<BaseActivitySubInfo<IBaseActivitySubDefnition>>;
 }

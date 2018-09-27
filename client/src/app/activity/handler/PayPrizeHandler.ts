@@ -1,7 +1,7 @@
 /**
  * 充值活动管理
  */
-class PayPrizeHandler extends BaseActivitySubHandler<PayPrizeInfo>
+class PayPrizeHandler extends BaseActivitySubHandler<any>
 {
     /**
      * 判断是否充值过
@@ -34,7 +34,7 @@ class PayPrizeHandler extends BaseActivitySubHandler<PayPrizeInfo>
     {
         for (let info of this.list)
         {
-            if (info.definition.subType == subType)
+            if (info.definition.SubType == subType)
             {
                 return info;
             }
@@ -47,11 +47,12 @@ class PayPrizeHandler extends BaseActivitySubHandler<PayPrizeInfo>
         super.initialize(info);
         let def: ActivityPayPrizeDefintion;
         let pInfo: PayPrizeInfo;
-        for (let i: number = 0; i < ActivityPayPrizeDefined.GetInstance().dataList.length; i++) //填充子列表信息
-        {
-            def = ActivityPayPrizeDefined.GetInstance().dataList[i];
-            pInfo = this.addSubInfo(info, PayPrizeInfo, def);
-        };
+        //move todo
+        // for (let i: number = 0; i < ActivityPayPrizeDefined.GetInstance().dataList.length; i++) //填充子列表信息
+        // {
+        //     def = ActivityPayPrizeDefined.GetInstance().dataList[i];
+        //     pInfo = this.addSubInfo(info, PayPrizeInfo, def);
+        // };
     }
     /**
 	 * 领取奖励完成回调

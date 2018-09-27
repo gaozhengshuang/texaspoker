@@ -204,6 +204,7 @@ class GamblingManager
 		GamblingManager.showPotChips = 0;
 		if (GamblingManager.roomInfo)
 		{
+			GamblingManager.roomInfo.pos = undefined; //move todo
 			GamblingManager.roomInfo.maxAnte = 0;
 			// GamblingManager.roomInfo.minRaiseNum = 0;
 		}
@@ -1037,7 +1038,7 @@ class GamblingManager
 		// {
 		SocketManager.AddCommandListener(Command.C2GW_ReqLeaveRoom, callBack, this);
 		SocketManager.AddErrorListener(Command.C2GW_ReqLeaveRoom, callBackError, this);
-		SocketManager.Send(Command.C2GW_ReqLeaveRoom, msg.C2GW_ReqLeaveRoom.encode({userid:UserManager.userInfo.roleId}));
+		SocketManager.Send(Command.C2GW_ReqLeaveRoom, msg.C2GW_ReqLeaveRoom.encode({ userid: UserManager.userInfo.roleId }));
 		// }
 	}
 	private static leaveRoom()

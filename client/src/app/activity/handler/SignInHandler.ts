@@ -12,10 +12,10 @@ class SignInHandler extends BaseActivitySubHandler<SignInInfo>
 	{
 		super.initialize(info);
 
-		let def: SignInDefinition;
-		for (let i: number = 0; i < SignInDefined.GetInstance().dataList.length; i++) //填充子列表信息
+		let def: table.IActivity_signinDefine;
+		for (let i: number = 0; i < table.Activity_signin.length; i++) //填充子列表信息
 		{
-			def = SignInDefined.GetInstance().dataList[i];
+			def = table.Activity_signin[i];
 			this.addSubInfo(info, SignInInfo, def);
 		};
 	}

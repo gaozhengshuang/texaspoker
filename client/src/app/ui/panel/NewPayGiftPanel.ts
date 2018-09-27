@@ -27,7 +27,7 @@ class NewPayGiftPanel extends BaseActivityPanel
 		if (InfoUtil.checkAvailable(this.activityInfo) && !this._isOpen)
 		{
 			this._isOpen = true;
-			this.desLabel.text = this.activityInfo.definition.des;
+			this.desLabel.text = this.activityInfo.definition.Des;
 			let subInfo: PayPrizeInfo = this.activityInfo.subList[0] as PayPrizeInfo;
 			if (InfoUtil.checkAvailable(subInfo))
 			{

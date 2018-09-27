@@ -75,7 +75,7 @@ func (this *TexasPokerRoom) UserLeave(u *RoomUser) {
 	//delete(this.watchmembers, u.Id())
 	//Redis().HSet(fmt.Sprintf("roombrief_%d", this.Id()), "members", this.PlayersNum())
 	u.OnLeaveRoom()
-	log.Info("[房间] 玩家[%s %d] 离开房间[%d]", u.Name(), u.Id(), this.Id())
+	//log.Info("[房间] 玩家[%s %d] 离开房间[%d]", u.Name(), u.Id(), this.Id())
 
 	// 如果是私人房间，全部人离开解散
 	if IsTexasRoomPrivateType(this.SubKind()) && len(this.members) == 0 {

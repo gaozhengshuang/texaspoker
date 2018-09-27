@@ -1,9 +1,9 @@
-class HappyGiftItemInfo extends BaseActivitySubInfo<ActivityHappyGiftDefintion>
+class HappyGiftItemInfo extends BaseActivitySubInfo<any>
 {
     protected trySetDefinition()
     {
         super.trySetDefinition();
-        this._definition = ActivityHappyGiftDefined.GetInstance().getSubDefinition(this._id, this._subId);
+        // this._definition = ActivityHappyGiftDefined.GetInstance().getSubDefinition(this._id, this._subId);
     }
     public get awardInfoDef(): table.IAwardDefine
     {
