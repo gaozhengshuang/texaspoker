@@ -64,7 +64,7 @@ message Activity_listDefine
 	optional string SubType = 15; 
 	
 	
-	optional string Trigger = 16; 
+	repeated string Trigger = 16; 
 	
 	
 	optional int32 TriggerType = 17; 
