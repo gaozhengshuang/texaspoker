@@ -34,5 +34,5 @@ message C2GW_ReqGetActivityReward {
 message GW2C_RetGetActivityReward {
 	optional int32 subid = 1;
 	optional int32 id = 2;
-	optional int32 ret = 3;
+	optional string errcode = 3;
 }
