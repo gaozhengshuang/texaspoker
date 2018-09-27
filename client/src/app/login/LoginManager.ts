@@ -35,9 +35,9 @@ module game
                     }
                     for (let key in msg.base)
                     {
-                        UserManager.userInfo.copyValueFrom(msg.base[key]);
+                        UserManager.userInfo.copyValueFromIgnoreCase(msg.base[key]);
                     }
-                    UserManager.userInfo.copyValueFrom(msg.entity);
+                    UserManager.userInfo.copyValueFromIgnoreCase(msg.entity);
                     TimeManager.initialize(msg.base.statics);
                     NotificationCenter.postNotification(LoginManager.LOGIN_STATE, true);
                 }, "msg.GW2C_PushUserInfo");

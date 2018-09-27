@@ -57,6 +57,7 @@ class InitServerHandler
 			UIManager.showPanel(UIModuleName.LoadingSwitchPanel);
 		}
 		game.Console.roleId = UserManager.userInfo.roleId;
+		UserManager.initialize();
 		// this.reqAwardInfo();
 		this.reqGetInsideRoomIdList();
 	}

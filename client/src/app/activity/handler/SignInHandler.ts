@@ -62,7 +62,7 @@ class SignInHandler extends BaseActivitySubHandler<SignInInfo>
 			}
 			let now: Date = TimeManager.GetServerLocalDateTime();
 			let today: Date = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-			let signTime: Date = new Date(info.jsonObj.SignTime * 1000);
+			let signTime: Date = new Date(parseInt(info.jsonObj.SignTime) * 1000);
 			if (signTime < today)
 			{
 				return false;
@@ -84,7 +84,8 @@ class SignInHandler extends BaseActivitySubHandler<SignInInfo>
 		{
 			for (let i: number = 0; i < awardDef.RewardId.length; i++)
 			{
-				result += ItemDefined.GetInstance().getDefinition(awardDef.RewardId[i]).name + "*" + awardDef.RewardNum[i];
+				result += awardDef.Name + "*" + awardDef.RewardNum[i];
+				// result += ItemDefined.GetInstance().getDefinition(awardDef.RewardId[i]).name + "*" + awardDef.RewardNum[i];
 				if (i < awardDef.RewardId.length - 1)
 				{
 					result += ",";

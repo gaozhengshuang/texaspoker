@@ -11,4 +11,8 @@ interface IBaseActivitySubDefnition
 	 * 子id
 	 */
 	SubId?:(number|null);
+	/**
+	 * 子表里面的活动ID
+	 */
+	ActivityId?:(number|null);
 }

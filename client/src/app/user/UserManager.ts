@@ -44,14 +44,15 @@ class UserManager
 			UserManager.otherUserInfo.reset();
 		}
 	}
-	public static initialize(roleId: number, data: any)
+	public static initialize()
 	{
 		UserManager.otherUserInfoClear();
 		// UserManager.userInfo = new UserInfo();
 		// UserManager.userInfo.copyValueFrom(data); //move todo
-		if (data["lastGoldTime"] == undefined && data["createdTime"])
+
+		if (UserManager.userInfo.lastGoldTime == undefined) //move todo
 		{
-			UserManager.userInfo.lastGoldTime = data["createdTime"];
+			UserManager.userInfo.lastGoldTime = UserManager.userInfo.tmlogin;
 		}
 		UserManager.playerNameOper(UserManager.userInfo);
 		SocketManager.AddCommandListener(Command.Role_Push_ExpChange_2028, UserManager.onExpChangeResult, this);

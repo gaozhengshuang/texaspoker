@@ -12,7 +12,7 @@ abstract class BaseActivitySubDefined<T extends IBaseActivitySubDefnition>
 		{
 			for (let def of targetList)
 			{
-				if (def.Id == id && def.SubId == subId)
+				if (def.ActivityId == id && def.SubId == subId)
 				{
 					return def;
 				}

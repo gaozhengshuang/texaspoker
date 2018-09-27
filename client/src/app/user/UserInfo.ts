@@ -157,6 +157,10 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 		this.shareId = undefined;
 	}
 	/**
+	 * 登录时间
+	 */
+	public tmlogin:number;
+	/**
 	 * 钻石数量
 	 */
 	private _diamond: number;

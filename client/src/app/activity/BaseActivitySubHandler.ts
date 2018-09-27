@@ -45,10 +45,10 @@ abstract class BaseActivitySubHandler<T extends BaseActivitySubInfo<IBaseActivit
 	 */
 	protected addSubInfo(info: ActivityInfo, cls: { new (): T; }, def: IBaseActivitySubDefnition): T
 	{
-		if (def.Id == info.id)
+		if (def.ActivityId == info.id)
 		{
 			let instance = new cls();
-			instance.id = def.Id;
+			instance.id = def.ActivityId;
 			instance.subId = def.SubId;
 
 			if (!info.subList)
