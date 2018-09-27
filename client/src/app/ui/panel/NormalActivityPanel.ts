@@ -31,7 +31,7 @@ class NormalActivityPanel extends BaseActivityPanel
         if (InfoUtil.checkAvailable(this.activityInfo))
         {
             //this.activityImg.source = this.info.definition.imgId
-            this.titleLabel.text = this.activityInfo.definition.name;
+            this.titleLabel.text = this.activityInfo.definition.Name;
             // this.desLabel.text = this.info.definition.des2;
         }
     }

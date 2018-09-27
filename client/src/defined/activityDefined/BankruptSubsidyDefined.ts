@@ -1,7 +1,7 @@
 /**
  * 破产补助活动配置
  */
-class BankruptSubsidyDefined extends BaseActivitySubDefined<BankruptSubsidyDefintion>
+class BankruptSubsidyDefined extends BaseActivitySubDefined<any>
 {
     private static readonly config: string = "activity_bankruptSubsidy";
     private static _instance: BankruptSubsidyDefined;
@@ -20,13 +20,13 @@ class BankruptSubsidyDefined extends BaseActivitySubDefined<BankruptSubsidyDefin
 
     public initialize()
     {
-        this.dataList = DefinedManager.GetData(BankruptSubsidyDefined.config) as Array<BankruptSubsidyDefintion>;
+        // this.dataList = DefinedManager.GetData(BankruptSubsidyDefined.config) as Array<BankruptSubsidyDefintion>; //move todo
     }
 }
 /**
  * 破产补助配置
  */
-class BankruptSubsidyDefintion extends BaseActivitySubDefnition
+class BankruptSubsidyDefintion
 {
     /**
      * 奖励id

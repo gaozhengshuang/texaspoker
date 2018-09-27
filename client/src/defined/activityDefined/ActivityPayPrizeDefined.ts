@@ -1,7 +1,7 @@
 /**
  * 充值活动配置
  */
-class ActivityPayPrizeDefined extends BaseActivitySubDefined<ActivityPayPrizeDefintion>
+class ActivityPayPrizeDefined extends BaseActivitySubDefined<any>
 {
     private static readonly config: string = "activity_payPrize";
     private static _instance: ActivityPayPrizeDefined;
@@ -20,13 +20,13 @@ class ActivityPayPrizeDefined extends BaseActivitySubDefined<ActivityPayPrizeDef
 
     public initialize()
     {
-        this.dataList = DefinedManager.GetData(ActivityPayPrizeDefined.config) as Array<ActivityPayPrizeDefintion>;
+        // this.dataList = DefinedManager.GetData(ActivityPayPrizeDefined.config) as Array<ActivityPayPrizeDefintion>;  //move todo
     }
 }
 /**
  * 充值活动配置
  */
-class ActivityPayPrizeDefintion extends BaseActivitySubDefnition
+class ActivityPayPrizeDefintion
 {
     /**
      * 充值金额（单位：分）

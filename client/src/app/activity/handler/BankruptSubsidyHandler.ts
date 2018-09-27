@@ -1,7 +1,7 @@
 /**
  * 破产补助活动管理
  */
-class BankruptSubsidyHandler extends BaseActivitySubHandler<BankruptSubsidyInfo>
+class BankruptSubsidyHandler extends BaseActivitySubHandler<any>
 {
 
     public initialize(info: ActivityInfo)
@@ -9,11 +9,11 @@ class BankruptSubsidyHandler extends BaseActivitySubHandler<BankruptSubsidyInfo>
         super.initialize(info);
         let def: BankruptSubsidyDefintion;
         let pInfo: BankruptSubsidyInfo;
-        for (let i: number = 0; i < BankruptSubsidyDefined.GetInstance().dataList.length; i++) //填充子列表信息
-        {
-            def = BankruptSubsidyDefined.GetInstance().dataList[i];
-            pInfo = this.addSubInfo(info, BankruptSubsidyInfo, def);
-        };
+        // for (let i: number = 0; i < BankruptSubsidyDefined.GetInstance().dataList.length; i++) //填充子列表信息
+        // {
+        //     def = BankruptSubsidyDefined.GetInstance().dataList[i];
+        //     pInfo = this.addSubInfo(info, BankruptSubsidyInfo, def);
+        // };
         GamblingManager.SitOrStandEvent.addListener(this.onBust, this);
     }
     /**
@@ -117,11 +117,11 @@ class BankruptSubsidyHandler extends BaseActivitySubHandler<BankruptSubsidyInfo>
 /**
  * 破产补助信息
  */
-class BankruptSubsidyInfo extends BaseActivitySubInfo<BankruptSubsidyDefintion>
+class BankruptSubsidyInfo extends BaseActivitySubInfo<any>
 {
     protected trySetDefinition()
     {
         super.trySetDefinition();
-        this._definition = BankruptSubsidyDefined.GetInstance().getSubDefinition(this._id, this._subId);
+        // this._definition = BankruptSubsidyDefined.GetInstance().getSubDefinition(this._id, this._subId);
     }
 }

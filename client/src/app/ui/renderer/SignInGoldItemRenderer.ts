@@ -19,7 +19,7 @@ class SignInGoldItemRenderer extends BaseItemRenderer<SignInInfo>{
         if (InfoUtil.checkAvailable(this.bindData))
         {
             let info: ActivityInfo = ActivityManager.getActivityInfo(this.bindData.id);
-            if (info && info.step < this.bindData.definition.day)
+            if (info && info.step < this.bindData.definition.Day)
             {
                 this.signInCheck.visible = false;
                 this.signInBg.visible = false;
@@ -40,7 +40,7 @@ class SignInGoldItemRenderer extends BaseItemRenderer<SignInInfo>{
             //         this.prizeImg.source = itemDef.icon + ResSuffixName.PNG;
             //     }
             // }
-            this.signInDayLabel.text = "第" + this.bindData.definition.day.toString() + "天";
+            this.signInDayLabel.text = "第" + this.bindData.definition.Day.toString() + "天";
         }
     }
 }

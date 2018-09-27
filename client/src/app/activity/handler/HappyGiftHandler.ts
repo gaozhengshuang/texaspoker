@@ -1,7 +1,7 @@
 /**
  * 欢乐豪礼管理
  */
-class HappyGiftHandler extends BaseActivitySubHandler<HappyGiftItemInfo>
+class HappyGiftHandler extends BaseActivitySubHandler<any>
 {
 
     /**
@@ -21,15 +21,15 @@ class HappyGiftHandler extends BaseActivitySubHandler<HappyGiftItemInfo>
         ActivityManager.onReqSingleActivityEvent.addListener(this.refreshActivityInfo, this);
         let def: ActivityHappyGiftDefintion;
         let pInfo: HappyGiftItemInfo;
-        for (let i: number = 0; i < ActivityHappyGiftDefined.GetInstance().dataList.length; i++) //填充子列表信息
-        {
-            def = ActivityHappyGiftDefined.GetInstance().dataList[i];
-            pInfo = this.addSubInfo(info, HappyGiftItemInfo, def);
-            if (pInfo)
-            {
-                pInfo.buyTime = 0
-            }
-        };
+        // for (let i: number = 0; i < ActivityHappyGiftDefined.GetInstance().dataList.length; i++) //填充子列表信息
+        // {
+        //     def = ActivityHappyGiftDefined.GetInstance().dataList[i];
+        //     pInfo = this.addSubInfo(info, HappyGiftItemInfo, def);
+        //     if (pInfo)
+        //     {
+        //         pInfo.buyTime = 0
+        //     }
+        // };
     }
 	/**
 	 * 拉取单个活动信息后，刷新操作
@@ -38,7 +38,7 @@ class HappyGiftHandler extends BaseActivitySubHandler<HappyGiftItemInfo>
     {
         super.refreshActivityInfo(id);
         let info = this.getInfo(id);
-        if (InfoUtil.checkAvailable(info) && info.definition.type == ActivityType.HappyGift)
+        if (InfoUtil.checkAvailable(info) && info.definition.Type == ActivityType.HappyGift)
         {
             this.setJson(info);
         }

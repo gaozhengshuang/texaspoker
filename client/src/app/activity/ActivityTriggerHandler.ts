@@ -15,7 +15,7 @@ class ActivityTriggerHandler
  	*/
 	public register(info: ActivityInfo)
 	{
-		if (InfoUtil.checkAvailable(info) && info.definition.triggerType != ActivityTriggerType.None)
+		if (InfoUtil.checkAvailable(info) && info.definition.TriggerType != ActivityTriggerType.None)
 		{
 			for (let childInfo of this._registerList)
 			{
@@ -48,17 +48,17 @@ class ActivityTriggerHandler
 	{
 		for (let info of this._registerList)
 		{
-			if (info.definition && info.definition.triggerType == ActivityTriggerType.Click && info.definition.triggerParams)
+			if (info.definition && info.definition.TriggerType == ActivityTriggerType.Click && info.definition.Trigger)
 			{
-				if (info.definition.triggerParams.length > 0)
+				if (info.definition.Trigger.length > 0)
 				{
-					let triggerPanelName: string = info.definition.triggerParams[0];
+					let triggerPanelName: string = info.definition.Trigger[0];
 					if (triggerPanelName == panelName)
 					{
 						let panel: BasePanel = UIManager.getPanel(triggerPanelName);
 						if (panel)
 						{
-							let params: Array<string> = info.definition.triggerParams.concat();
+							let params: Array<string> = info.definition.Trigger.concat();
 							params.shift();
 
 							let prop: egret.DisplayObject = game.ObjectUtil.getTreeProperty(panel, params);
@@ -74,7 +74,7 @@ class ActivityTriggerHandler
 						}
 						else
 						{
-							game.Console.log("活动触发配置clik类型参数异常！面板未找到" + info.definition.trigger);
+							game.Console.log("活动触发配置clik类型参数异常！面板未找到" + info.definition.Trigger);
 						}
 					}
 				}
@@ -85,17 +85,17 @@ class ActivityTriggerHandler
 	{
 		for (let info of this._registerList)
 		{
-			if (info.definition && info.definition.triggerType == ActivityTriggerType.Click && info.definition.triggerParams)
+			if (info.definition && info.definition.TriggerType == ActivityTriggerType.Click && info.definition.Trigger)
 			{
-				if (info.definition.triggerParams.length > 0)
+				if (info.definition.Trigger.length > 0)
 				{
-					let triggerPanelName: string = info.definition.triggerParams[0];
+					let triggerPanelName: string = info.definition.Trigger[0];
 					if (triggerPanelName == panelName)
 					{
 						let panel: BasePanel = UIManager.getPanel(triggerPanelName);
 						if (panel)
 						{
-							let params: Array<string> = info.definition.triggerParams.concat();
+							let params: Array<string> = info.definition.Trigger.concat();
 							params.shift();
 
 							let prop: egret.DisplayObject = game.ObjectUtil.getTreeProperty(panel, params);
@@ -111,7 +111,7 @@ class ActivityTriggerHandler
 						}
 						else
 						{
-							game.Console.log("活动触发配置clik类型参数异常！面板未找到" + info.definition.trigger);
+							game.Console.log("活动触发配置clik类型参数异常！面板未找到" + info.definition.Trigger);
 						}
 					}
 				}
@@ -123,14 +123,14 @@ class ActivityTriggerHandler
 		let info: ActivityInfo = this._propMap.getValue(event.currentTarget);
 		if (InfoUtil.checkAvailable(info))
 		{
-			if (info.definition.panelName)
+			if (info.definition.PanelName)
 			{
 				ActivityPanelJumpManager.JumpToPanel(info);
 				//UIManager.showPanel(info.definition.panelName, { info: info });
 			}
 			else
 			{
-				game.Console.log("活动面板绑定异常！" + info.definition.panelName);
+				game.Console.log("活动面板绑定异常！" + info.definition.PanelName);
 			}
 		}
 	}

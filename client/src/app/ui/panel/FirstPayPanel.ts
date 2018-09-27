@@ -41,7 +41,7 @@ class FirstPayPanel extends BaseActivityPanel
 				// }
 				this.deslabel2.text = subItem.des;
 			}
-			this.deslabel1.textFlow = game.TextUtil.parse(this.activityInfo.definition.des);
+			this.deslabel1.textFlow = game.TextUtil.parse(this.activityInfo.definition.Des);
 		}
 	}
 

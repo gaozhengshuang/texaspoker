@@ -1,7 +1,7 @@
 /**
  * 累充活动配置
  */
-class ActivityPilePrizeDefined extends BaseActivitySubDefined<ActivityPilePrizeDefintion>
+class ActivityPilePrizeDefined extends BaseActivitySubDefined<any>
 {
     private static readonly activityConfig: string = "activity_pilePrize";
     private static _instance: ActivityPilePrizeDefined;
@@ -20,13 +20,13 @@ class ActivityPilePrizeDefined extends BaseActivitySubDefined<ActivityPilePrizeD
 
     public initialize()
     {
-        this.dataList = DefinedManager.GetData(ActivityPilePrizeDefined.activityConfig) as Array<ActivityPilePrizeDefintion>;
+        // this.dataList = DefinedManager.GetData(ActivityPilePrizeDefined.activityConfig) as Array<ActivityPilePrizeDefintion>;  //move todo
     }
 }
 /**
  * 累充活动配置
  */
-class ActivityPilePrizeDefintion extends BaseActivitySubDefnition
+class ActivityPilePrizeDefintion
 {
     /**
      *任务名称

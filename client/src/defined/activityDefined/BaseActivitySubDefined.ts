@@ -1,18 +1,18 @@
 /**
  * 子活动定义
  */
-abstract class BaseActivitySubDefined<T extends BaseActivitySubDefnition> extends BaseDefined<T>
+abstract class BaseActivitySubDefined<T extends IBaseActivitySubDefnition>
 {
 	/**
 	 * 获取
 	 */
-	public getSubDefinition(id: number, subId: number): T
+	public getSubDefinition(id: number, subId: number, targetList: IBaseActivitySubDefnition[]): IBaseActivitySubDefnition
 	{
-		if (this.dataList)
+		if (targetList)
 		{
-			for (let def of this.dataList)
+			for (let def of targetList)
 			{
-				if (def.id == id && def.subId == subId)
+				if (def.Id == id && def.SubId == subId)
 				{
 					return def;
 				}
