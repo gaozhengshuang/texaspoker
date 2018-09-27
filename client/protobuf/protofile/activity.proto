@@ -20,7 +20,7 @@ message ActivityInfo {
 }
 
 //返回活动信息
-message GW2C_AckActivityInfo {
+message GW2C_RetActivityInfo {
 	repeated ActivityInfo array = 1;
 }
 
@@ -31,7 +31,7 @@ message C2GW_ReqGetActivityReward {
 }
 
 //返回领取活动奖励
-message GW2C_AckGetActivityRewardRet {
+message GW2C_RetGetActivityReward {
 	optional int32 subid = 1;
 	optional int32 id = 2;
 	optional int32 ret = 3;

@@ -424,91 +424,91 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a GW2C_AckActivityInfo. */
-    interface IGW2C_AckActivityInfo {
+    /** Properties of a GW2C_RetActivityInfo. */
+    interface IGW2C_RetActivityInfo {
 
-        /** GW2C_AckActivityInfo array */
+        /** GW2C_RetActivityInfo array */
         array?: (msg.IActivityInfo[]|null);
     }
 
-    /** Represents a GW2C_AckActivityInfo. */
-    class GW2C_AckActivityInfo implements IGW2C_AckActivityInfo {
+    /** Represents a GW2C_RetActivityInfo. */
+    class GW2C_RetActivityInfo implements IGW2C_RetActivityInfo {
 
         /**
-         * Constructs a new GW2C_AckActivityInfo.
+         * Constructs a new GW2C_RetActivityInfo.
          * @param [properties] Properties to set
          */
-        constructor(properties?: msg.IGW2C_AckActivityInfo);
+        constructor(properties?: msg.IGW2C_RetActivityInfo);
 
-        /** GW2C_AckActivityInfo array. */
+        /** GW2C_RetActivityInfo array. */
         public array: msg.IActivityInfo[];
 
         /**
-         * Creates a new GW2C_AckActivityInfo instance using the specified properties.
+         * Creates a new GW2C_RetActivityInfo instance using the specified properties.
          * @param [properties] Properties to set
-         * @returns GW2C_AckActivityInfo instance
+         * @returns GW2C_RetActivityInfo instance
          */
-        public static create(properties?: msg.IGW2C_AckActivityInfo): msg.GW2C_AckActivityInfo;
+        public static create(properties?: msg.IGW2C_RetActivityInfo): msg.GW2C_RetActivityInfo;
 
         /**
-         * Encodes the specified GW2C_AckActivityInfo message. Does not implicitly {@link msg.GW2C_AckActivityInfo.verify|verify} messages.
-         * @param message GW2C_AckActivityInfo message or plain object to encode
+         * Encodes the specified GW2C_RetActivityInfo message. Does not implicitly {@link msg.GW2C_RetActivityInfo.verify|verify} messages.
+         * @param message GW2C_RetActivityInfo message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: msg.IGW2C_AckActivityInfo, writer?: protobuf.Writer): protobuf.Writer;
+        public static encode(message: msg.IGW2C_RetActivityInfo, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Encodes the specified GW2C_AckActivityInfo message, length delimited. Does not implicitly {@link msg.GW2C_AckActivityInfo.verify|verify} messages.
-         * @param message GW2C_AckActivityInfo message or plain object to encode
+         * Encodes the specified GW2C_RetActivityInfo message, length delimited. Does not implicitly {@link msg.GW2C_RetActivityInfo.verify|verify} messages.
+         * @param message GW2C_RetActivityInfo message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: msg.IGW2C_AckActivityInfo, writer?: protobuf.Writer): protobuf.Writer;
+        public static encodeDelimited(message: msg.IGW2C_RetActivityInfo, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Decodes a GW2C_AckActivityInfo message from the specified reader or buffer.
+         * Decodes a GW2C_RetActivityInfo message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns GW2C_AckActivityInfo
+         * @returns GW2C_RetActivityInfo
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_AckActivityInfo;
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetActivityInfo;
 
         /**
-         * Decodes a GW2C_AckActivityInfo message from the specified reader or buffer, length delimited.
+         * Decodes a GW2C_RetActivityInfo message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns GW2C_AckActivityInfo
+         * @returns GW2C_RetActivityInfo
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_AckActivityInfo;
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetActivityInfo;
 
         /**
-         * Verifies a GW2C_AckActivityInfo message.
+         * Verifies a GW2C_RetActivityInfo message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a GW2C_AckActivityInfo message from a plain object. Also converts values to their respective internal types.
+         * Creates a GW2C_RetActivityInfo message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns GW2C_AckActivityInfo
+         * @returns GW2C_RetActivityInfo
          */
-        public static fromObject(object: { [k: string]: any }): msg.GW2C_AckActivityInfo;
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetActivityInfo;
 
         /**
-         * Creates a plain object from a GW2C_AckActivityInfo message. Also converts values to other types if specified.
-         * @param message GW2C_AckActivityInfo
+         * Creates a plain object from a GW2C_RetActivityInfo message. Also converts values to other types if specified.
+         * @param message GW2C_RetActivityInfo
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: msg.GW2C_AckActivityInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: msg.GW2C_RetActivityInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this GW2C_AckActivityInfo to JSON.
+         * Converts this GW2C_RetActivityInfo to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -610,103 +610,103 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a GW2C_AckGetActivityRewardRet. */
-    interface IGW2C_AckGetActivityRewardRet {
+    /** Properties of a GW2C_RetGetActivityReward. */
+    interface IGW2C_RetGetActivityReward {
 
-        /** GW2C_AckGetActivityRewardRet subid */
+        /** GW2C_RetGetActivityReward subid */
         subid?: (number|null);
 
-        /** GW2C_AckGetActivityRewardRet id */
+        /** GW2C_RetGetActivityReward id */
         id?: (number|null);
 
-        /** GW2C_AckGetActivityRewardRet ret */
+        /** GW2C_RetGetActivityReward ret */
         ret?: (number|null);
     }
 
-    /** Represents a GW2C_AckGetActivityRewardRet. */
-    class GW2C_AckGetActivityRewardRet implements IGW2C_AckGetActivityRewardRet {
+    /** Represents a GW2C_RetGetActivityReward. */
+    class GW2C_RetGetActivityReward implements IGW2C_RetGetActivityReward {
 
         /**
-         * Constructs a new GW2C_AckGetActivityRewardRet.
+         * Constructs a new GW2C_RetGetActivityReward.
          * @param [properties] Properties to set
          */
-        constructor(properties?: msg.IGW2C_AckGetActivityRewardRet);
+        constructor(properties?: msg.IGW2C_RetGetActivityReward);
 
-        /** GW2C_AckGetActivityRewardRet subid. */
+        /** GW2C_RetGetActivityReward subid. */
         public subid: number;
 
-        /** GW2C_AckGetActivityRewardRet id. */
+        /** GW2C_RetGetActivityReward id. */
         public id: number;
 
-        /** GW2C_AckGetActivityRewardRet ret. */
+        /** GW2C_RetGetActivityReward ret. */
         public ret: number;
 
         /**
-         * Creates a new GW2C_AckGetActivityRewardRet instance using the specified properties.
+         * Creates a new GW2C_RetGetActivityReward instance using the specified properties.
          * @param [properties] Properties to set
-         * @returns GW2C_AckGetActivityRewardRet instance
+         * @returns GW2C_RetGetActivityReward instance
          */
-        public static create(properties?: msg.IGW2C_AckGetActivityRewardRet): msg.GW2C_AckGetActivityRewardRet;
+        public static create(properties?: msg.IGW2C_RetGetActivityReward): msg.GW2C_RetGetActivityReward;
 
         /**
-         * Encodes the specified GW2C_AckGetActivityRewardRet message. Does not implicitly {@link msg.GW2C_AckGetActivityRewardRet.verify|verify} messages.
-         * @param message GW2C_AckGetActivityRewardRet message or plain object to encode
+         * Encodes the specified GW2C_RetGetActivityReward message. Does not implicitly {@link msg.GW2C_RetGetActivityReward.verify|verify} messages.
+         * @param message GW2C_RetGetActivityReward message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: msg.IGW2C_AckGetActivityRewardRet, writer?: protobuf.Writer): protobuf.Writer;
+        public static encode(message: msg.IGW2C_RetGetActivityReward, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Encodes the specified GW2C_AckGetActivityRewardRet message, length delimited. Does not implicitly {@link msg.GW2C_AckGetActivityRewardRet.verify|verify} messages.
-         * @param message GW2C_AckGetActivityRewardRet message or plain object to encode
+         * Encodes the specified GW2C_RetGetActivityReward message, length delimited. Does not implicitly {@link msg.GW2C_RetGetActivityReward.verify|verify} messages.
+         * @param message GW2C_RetGetActivityReward message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: msg.IGW2C_AckGetActivityRewardRet, writer?: protobuf.Writer): protobuf.Writer;
+        public static encodeDelimited(message: msg.IGW2C_RetGetActivityReward, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Decodes a GW2C_AckGetActivityRewardRet message from the specified reader or buffer.
+         * Decodes a GW2C_RetGetActivityReward message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns GW2C_AckGetActivityRewardRet
+         * @returns GW2C_RetGetActivityReward
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_AckGetActivityRewardRet;
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetGetActivityReward;
 
         /**
-         * Decodes a GW2C_AckGetActivityRewardRet message from the specified reader or buffer, length delimited.
+         * Decodes a GW2C_RetGetActivityReward message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns GW2C_AckGetActivityRewardRet
+         * @returns GW2C_RetGetActivityReward
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_AckGetActivityRewardRet;
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetGetActivityReward;
 
         /**
-         * Verifies a GW2C_AckGetActivityRewardRet message.
+         * Verifies a GW2C_RetGetActivityReward message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a GW2C_AckGetActivityRewardRet message from a plain object. Also converts values to their respective internal types.
+         * Creates a GW2C_RetGetActivityReward message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns GW2C_AckGetActivityRewardRet
+         * @returns GW2C_RetGetActivityReward
          */
-        public static fromObject(object: { [k: string]: any }): msg.GW2C_AckGetActivityRewardRet;
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetGetActivityReward;
 
         /**
-         * Creates a plain object from a GW2C_AckGetActivityRewardRet message. Also converts values to other types if specified.
-         * @param message GW2C_AckGetActivityRewardRet
+         * Creates a plain object from a GW2C_RetGetActivityReward message. Also converts values to other types if specified.
+         * @param message GW2C_RetGetActivityReward
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: msg.GW2C_AckGetActivityRewardRet, options?: protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: msg.GW2C_RetGetActivityReward, options?: protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this GW2C_AckGetActivityRewardRet to JSON.
+         * Converts this GW2C_RetGetActivityReward to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -16838,7 +16838,7 @@ declare namespace table {
         SubType?: (string|null);
 
         /** Activity_listDefine Trigger */
-        Trigger?: (string|null);
+        Trigger?: (string[]|null);
 
         /** Activity_listDefine TriggerType */
         TriggerType?: (number|null);
@@ -16899,7 +16899,7 @@ declare namespace table {
         public SubType: string;
 
         /** Activity_listDefine Trigger. */
-        public Trigger: string;
+        public Trigger: string[];
 
         /** Activity_listDefine TriggerType. */
         public TriggerType: number;

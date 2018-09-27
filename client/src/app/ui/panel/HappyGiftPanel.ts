@@ -99,21 +99,21 @@ class HappyGiftPanel extends BaseActivityPanel
 
     private refreshUI()
     {
-        this.titleLabel.text = this.activityInfo.definition.name;
+        this.titleLabel.text = this.activityInfo.definition.Name;
         this.ticketNumLabel.text = "您的欢乐券：" + game.MathUtil.numAddSpace(this.activityInfo.step);
         if (ActivityUtil.isInJoinTime(this.activityInfo))
         {
             let startTime: number = Math.round(this.activityInfo.startDateTime.getTime() / 1000);
             let endTime: number = Math.round(this.activityInfo.endDateTime.getTime() / 1000);
             let leftTime: number;
-            if (this.activityInfo.definition.joinTime)
-            {
-                leftTime = startTime + this.activityInfo.definition.joinTime - TimeManager.GetServerUtcTimestamp();
-            }
-            else
-            {
-                leftTime = endTime - TimeManager.GetServerUtcTimestamp();
-            }
+            // if (this.activityInfo.definition.JoinTime)  //move todo
+            // {
+            //     leftTime = startTime + this.activityInfo.definition.JoinTime - TimeManager.GetServerUtcTimestamp();
+            // }
+            // else
+            // {
+            //     leftTime = endTime - TimeManager.GetServerUtcTimestamp();
+            // }
             game.DateTimeUtil.GetLefttimeText(leftTime, false, false);
             this.leftTimeLabel.text = "距离结束还有：" + game.DateTimeUtil.GetLefttimeText(leftTime);
         }

@@ -1,7 +1,7 @@
 /**
  * 绑定手机奖励活动配置
  */
-class ActivityPhoneDefined extends BaseActivitySubDefined<ActivityPhoneDefintion>
+class ActivityPhoneDefined extends BaseActivitySubDefined<any>
 {
     private static readonly config: string = "activity_bindChannel";
     private static _instance: ActivityPhoneDefined;
@@ -20,13 +20,13 @@ class ActivityPhoneDefined extends BaseActivitySubDefined<ActivityPhoneDefintion
 
     public initialize()
     {
-        this.dataList = DefinedManager.GetData(ActivityPhoneDefined.config) as Array<ActivityPhoneDefintion>;
+        // this.dataList = DefinedManager.GetData(ActivityPhoneDefined.config) as Array<ActivityPhoneDefintion>; //move todo
     }
 }
 /**
  * 绑定手机奖励活动配置
  */
-class ActivityPhoneDefintion extends BaseActivitySubDefnition
+class ActivityPhoneDefintion
 {
     /**
      * 奖励id

@@ -61,11 +61,11 @@ class ActivityPanelJumpManager
             return;
         }
         ActivityPanelJumpManager._currentActivityInfo = activityInfo;
-        if (InfoUtil.checkAvailable(activityInfo) && activityInfo.definition.resGroup && ActivityPanelJumpManager._loadedList.indexOf(activityInfo.definition.resGroup) == -1)
+        if (InfoUtil.checkAvailable(activityInfo) && activityInfo.definition.ResGroup && ActivityPanelJumpManager._loadedList.indexOf(activityInfo.definition.ResGroup) == -1)
         {
             RES.addEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
             RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
-            ActivityPanelJumpManager._loadingName = activityInfo.definition.resGroup;
+            ActivityPanelJumpManager._loadingName = activityInfo.definition.ResGroup;
             ActivityPanelJumpManager._isLoading = true;
             ActivityPanelJumpManager.showSwitchPanel();
             if (!ActivityPanelJumpManager._isLoadCommon)
@@ -74,8 +74,8 @@ class ActivityPanelJumpManager
                 ActivityPanelJumpManager._isLoadCommon = true;
                 ActivityPanelJumpManager._loadedList.push(ResGroupName.ActivityCommon);
             }
-            await RES.loadGroup(activityInfo.definition.resGroup, 0);
-            ActivityPanelJumpManager._loadedList = ActivityPanelJumpManager._loadedList.concat(activityInfo.definition.resGroup);
+            await RES.loadGroup(activityInfo.definition.ResGroup, 0);
+            ActivityPanelJumpManager._loadedList = ActivityPanelJumpManager._loadedList.concat(activityInfo.definition.ResGroup);
             RES.removeEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
             RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
             ActivityPanelJumpManager._isLoading = false;
@@ -111,7 +111,7 @@ class ActivityPanelJumpManager
         }
         else
         {
-            UIManager.showPanel(info.definition.panelName, { info: info });
+            UIManager.showPanel(info.definition.PanelName, { info: info });
         }
     }
 }

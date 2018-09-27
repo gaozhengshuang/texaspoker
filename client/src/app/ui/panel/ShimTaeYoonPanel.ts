@@ -503,11 +503,11 @@ class ShimTaeYoonPanel extends BaseActivityPanel
         {
             if (data.ResultList)
             {
-                let def: LaBaDefinition = LaBaDefined.GetInstance().getSubDefinition(this._activityInfo.id, data.ResultList[0].SubId);
-                if (def)
-                {
-                    this._type = def.type;
-                }
+                // let def: LaBaDefinition = LaBaDefined.GetInstance().getSubDefinition(this._activityInfo.id, data.ResultList[0].SubId);  //move todo
+                // if (def)
+                // {
+                //     this._type = def.type;
+                // }
             }
             if (data.AwardList)
             {
@@ -877,8 +877,8 @@ class ShimTaeYoonPanel extends BaseActivityPanel
         let subId: number;
         if (def)
         {
-            id = def.id;
-            subId = def.subId;
+            // id = def.Id;
+            // subId = def.SubId;  //move todo
             ActivityManager.reqJoinActivity(id, subId);
         }
     }

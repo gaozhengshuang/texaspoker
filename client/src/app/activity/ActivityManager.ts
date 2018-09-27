@@ -42,7 +42,7 @@ class ActivityManager
     /**
      *邀请活动管理
      */
-    private static _subHandlerList: game.Map<string, BaseActivitySubHandler<BaseActivitySubInfo<BaseActivitySubDefnition>>> = new game.Map<string, BaseActivitySubHandler<BaseActivitySubInfo<BaseActivitySubDefnition>>>();
+    private static _subHandlerList: game.Map<string, BaseActivitySubHandler<BaseActivitySubInfo<IBaseActivitySubDefnition>>> = new game.Map<string, BaseActivitySubHandler<BaseActivitySubInfo<IBaseActivitySubDefnition>>>();
     /**
      * 活动列表
      */
@@ -86,13 +86,13 @@ class ActivityManager
         if (ActivityManager._subHandlerList.count == 0)
         {
             ActivityManager._subHandlerList.add(ActivityType.Signin, ActivityManager.signInHandler); //此处添加各个活动的子handler
-            ActivityManager._subHandlerList.add(ActivityType.PayPrize, ActivityManager.payPrizeHandler);
-            ActivityManager._subHandlerList.add(ActivityType.HappyGift, ActivityManager.happyGiftHandler);
-            ActivityManager._subHandlerList.add(ActivityType.LaBa, ActivityManager.shimTaeYoonHandler);
-            ActivityManager._subHandlerList.add(ActivityType.BankruptSubsidy, ActivityManager.bankruptSubsidyHandler);
-            ActivityManager._subHandlerList.add(ActivityType.PilePrize, ActivityManager.pilePrizeHandler);
-            ActivityManager._subHandlerList.add(ActivityType.BindChannel, ActivityManager.bindPhoneAwardHandler);
-            ActivityManager._subHandlerList.add(ActivityType.Share, ActivityManager.shareLuckDrawHandler);
+            // ActivityManager._subHandlerList.add(ActivityType.PayPrize, ActivityManager.payPrizeHandler);
+            // ActivityManager._subHandlerList.add(ActivityType.HappyGift, ActivityManager.happyGiftHandler);
+            // ActivityManager._subHandlerList.add(ActivityType.LaBa, ActivityManager.shimTaeYoonHandler);
+            // ActivityManager._subHandlerList.add(ActivityType.BankruptSubsidy, ActivityManager.bankruptSubsidyHandler);
+            // ActivityManager._subHandlerList.add(ActivityType.PilePrize, ActivityManager.pilePrizeHandler);
+            // ActivityManager._subHandlerList.add(ActivityType.BindChannel, ActivityManager.bindPhoneAwardHandler);
+            // ActivityManager._subHandlerList.add(ActivityType.Share, ActivityManager.shareLuckDrawHandler);
         }
     }
     /**
@@ -160,7 +160,7 @@ class ActivityManager
     {
         if (activityInfo.definition)
         {
-            UIManager.showPanel(activityInfo.definition.panelName, { prevPanelName: UIModuleName.ActivityPanel, info: activityInfo });
+            UIManager.showPanel(activityInfo.definition.PanelName, { prevPanelName: UIModuleName.ActivityPanel, info: activityInfo });
         }
     }
     /**
@@ -185,7 +185,7 @@ class ActivityManager
         for (let info of ActivityManager.list)
         {
             let state: ActivityOpenState = ActivityUtil.getActivityOpenState(info);
-            if (info.definition && info.definition.type == type && state == ActivityOpenState.Open)
+            if (info.definition && info.definition.Type == type && state == ActivityOpenState.Open)
             {
                 return info;
             }
@@ -197,24 +197,24 @@ class ActivityManager
     {
         game.ArrayUtil.Clear(ActivityManager.list);
         ActivityManager._subHandlerList.foreach((k, v) => { v.clear(); }, this);
-        for (let info of ActivityDefined.GetInstance().dataList)
+        for (let info of table.Activity_list)
         {
             let activityInfo: ActivityInfo = new ActivityInfo();
-            activityInfo.id = info.id;
+            activityInfo.id = info.Id;
             activityInfo.step = 0;
             activityInfo.jsonObj = {};
             activityInfo.gotJsonObj = {};
             ActivityUtil.setStartTime(activityInfo);
             ActivityUtil.setEndTime(activityInfo);
-            let handler: BaseActivitySubHandler<BaseActivitySubInfo<BaseActivitySubDefnition>>;
-            handler = ActivityManager._subHandlerList.getValue(activityInfo.definition.type);
+            let handler: BaseActivitySubHandler<BaseActivitySubInfo<IBaseActivitySubDefnition>>;
+            handler = ActivityManager._subHandlerList.getValue(activityInfo.definition.Type);
             if (handler)
             {
                 handler.initialize(activityInfo);
             }
             else
             {
-                game.Console.log("处理活动类型子逻辑异常！TYPE：" + activityInfo.definition.type);
+                game.Console.log("处理活动类型子逻辑异常！TYPE：" + activityInfo.definition.Type);
             }
             ActivityManager.triggerHandler.register(activityInfo);
             ActivityManager.list.push(activityInfo);
@@ -228,15 +228,15 @@ class ActivityManager
         game.ArrayUtil.Clear(ActivityManager.showList);
         for (let info of ActivityManager.list)
         {
-            if (!info.definition.unInShowPanel) //在面板里面显示
+            if (!info.definition.UnInShowPanel) //在面板里面显示
             {
                 let state: ActivityOpenState = ActivityUtil.getActivityOpenState(info);
                 if (state == ActivityOpenState.End)
                 {
-                    if (info.definition.showFinish == true) //完成了也显示
-                    {
-                        ActivityManager.showList.push(info);
-                    }
+                    // if (info.definition.ShowFinish == true) //完成了也显示  move todo
+                    // {
+                    //     ActivityManager.showList.push(info);
+                    // }
                 }
                 else if (state == ActivityOpenState.Open) //正在进行中的活动
                 {
@@ -286,15 +286,15 @@ class ActivityManager
                     {
                         activityInfo.gotJsonObj = {};
                     }
-                    let handler: BaseActivitySubHandler<BaseActivitySubInfo<BaseActivitySubDefnition>>;
-                    handler = ActivityManager._subHandlerList.getValue(activityInfo.definition.type);
+                    let handler: BaseActivitySubHandler<BaseActivitySubInfo<IBaseActivitySubDefnition>>;
+                    handler = ActivityManager._subHandlerList.getValue(activityInfo.definition.Type);
                     if (handler)
                     {
                         handler.setJson(activityInfo);
                     }
                     else
                     {
-                        game.Console.log("处理活动类型子逻辑异常！TYPE：" + activityInfo.definition.type);
+                        game.Console.log("处理活动类型子逻辑异常！TYPE：" + activityInfo.definition.Type);
                     }
                 }
                 catch (e)
@@ -391,18 +391,18 @@ class ActivityManager
 
     public static getAwardResult(id: number, subId: number)
     {
-        let def: ActivityDefintion = ActivityDefined.GetInstance().getDefinition(id);
+        let def: table.IActivity_listDefine = table.Activity_listById[id];
         let info: ActivityInfo = ActivityManager.getActivityInfo(id);
         if (def && info)
         {
-            let handler: BaseActivitySubHandler<BaseActivitySubInfo<BaseActivitySubDefnition>> = ActivityManager._subHandlerList.getValue(def.type);
+            let handler: BaseActivitySubHandler<BaseActivitySubInfo<IBaseActivitySubDefnition>> = ActivityManager._subHandlerList.getValue(def.Type);
             if (handler)
             {
                 handler.onGetAwardComplete(id, subId);
             }
             else
             {
-                game.Console.log("参加活动结果返回 获取子活动handler异常！" + def.type);
+                game.Console.log("参加活动结果返回 获取子活动handler异常！" + def.Type);
             }
         }
     }

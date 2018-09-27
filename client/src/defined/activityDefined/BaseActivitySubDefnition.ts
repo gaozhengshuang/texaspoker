@@ -1,14 +1,14 @@
 /**
  * 活动子表基类定义
  */
-abstract class BaseActivitySubDefnition implements IBaseDefintion
+interface IBaseActivitySubDefnition
 {
 	/**
 	 * 活动id
 	 */
-	public id:number;
+	Id?:(number|null);
 	/**
 	 * 子id
 	 */
-	public subId:number;
+	SubId?:(number|null);
 }

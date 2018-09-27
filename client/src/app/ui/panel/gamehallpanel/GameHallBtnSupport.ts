@@ -64,7 +64,7 @@ class GameHallBtnSupport
     private onGetPayPrizeAward(id: number)
     {
         let info: ActivityInfo = ActivityManager.getActivityInfo(id);
-        if (InfoUtil.checkAvailable(info) && info.definition.subType == ActivitySubType.NewGift)
+        if (InfoUtil.checkAvailable(info) && info.definition.SubType == ActivitySubType.NewGift)
         {
             this.refreshNewGift();
         }

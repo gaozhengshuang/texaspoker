@@ -1,9 +1,9 @@
-class PilePrizeItemInfo extends BaseActivitySubInfo<ActivityPilePrizeDefintion>
+class PilePrizeItemInfo extends BaseActivitySubInfo<any>
 {
     protected trySetDefinition()
     {
         super.trySetDefinition();
-        this._definition = ActivityPilePrizeDefined.GetInstance().getSubDefinition(this._id, this._subId);
+        // this._definition = ActivityPilePrizeDefined.GetInstance().getSubDefinition(this._id, this._subId);
     }
      public get awardInfoDef(): table.IAwardDefine
     {

@@ -91,8 +91,8 @@ class BindPhoneAwardPanel extends BaseActivityPanel
     private bringAward()
     {
         SoundManager.playEffect(MusicAction.buttonClick);
-        let subInfo: BaseActivitySubDefnition = this.activityInfo.subList[0];
-        ActivityManager.ReqGetActivityAward(subInfo.id, subInfo.subId);
+        let subInfo: any = this.activityInfo.subList[0]; //move todo
+        ActivityManager.ReqGetActivityAward(subInfo.Id, subInfo.SubId);
     }
     /**
      * 领取成功

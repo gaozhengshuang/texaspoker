@@ -1,4 +1,4 @@
-class ShimTaeYoonInfo extends BaseActivitySubInfo<LaBaDefinition>
+class ShimTaeYoonInfo extends BaseActivitySubInfo<any>
 {
     /**
      * 获得的奖励
@@ -12,6 +12,6 @@ class ShimTaeYoonInfo extends BaseActivitySubInfo<LaBaDefinition>
     protected trySetDefinition()
     {
         super.trySetDefinition();
-        this._definition = LaBaDefined.GetInstance().getSubDefinition(this._id, this._subId);
+        // this._definition = LaBaDefined.GetInstance().getSubDefinition(this._id, this._subId);
     }
 }
