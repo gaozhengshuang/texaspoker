@@ -126,6 +126,10 @@ func (this *TexasPlayer) Betting(num int32) {
 	}
 	this.bettime = 0
 	if num < 0 { // 弃牌
+		if this.room.remain == 1 {
+			this.owner.SendClientMsg(send)
+			return
+		}
 		this.hole = nil
 		this.hand.Init()
 		num = 0
@@ -445,6 +449,10 @@ func (this *TexasPlayer) CheckLeave() bool{
 func (this *TexasPlayer) StandUp() bool {
 	if this.room.InGame(this) {
 		this.owner.AddGold(this.bankroll, "离开房间", true)
+		if !this.IsWait() {
+			this.room.remain--
+			this.room.playerstate[this.pos] = GSFold
+		}
 		this.room.DelPlayer(this.pos)
 		this.Init()
 		this.room.AddWatcher(this)

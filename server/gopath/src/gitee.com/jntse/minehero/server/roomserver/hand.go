@@ -62,6 +62,7 @@ import (
 		"errors"
 		//"fmt"
 		"sort"
+		"gitee.com/jntse/gotoolkit/log"
 )
 
 //每个花色所在二进制区间，详见判断同花逻辑
@@ -266,11 +267,12 @@ func (h *Hand)AnalyseHand() error{
 
 //将手牌转化成整数形式
 func turnToValue(cards Cards) int32{
-	//我是升序排的，所以反着来
+	//我是降序排的
 	var res int32 = 0
-	for i:=len(cards)-1; i>=2; i--{
+	for i:=0; i<len(cards)-2; i++{
 		res *= 10
 		res += cards[i].Value
+		log.Info("手牌%d  牌%d", res, cards[i].Value)
 	}
 	return res
 }

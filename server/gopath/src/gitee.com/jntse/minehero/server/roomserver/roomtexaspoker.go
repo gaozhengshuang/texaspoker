@@ -202,13 +202,13 @@ func (this *TexasPokerRoom) ForStartPlayer(start int32, f func(p *TexasPlayer) b
 	end := (this.maxplayer + start - 1) % this.maxplayer
 	i := start % this.maxplayer
 	for ; i != end; i = (i + 1) % this.maxplayer {
-		if this.players[i] != nil && this.players[i].isready &&
+		if this.players[i] != nil && this.players[i].IsWait() &&
 		!f(this.players[i]) {
 			return
 		}
 	}
 	// end
-	if this.players[i] != nil && this.players[i].isready {
+	if this.players[i] != nil && this.players[i].IsWait() {
 		f(this.players[i])
 	}
 }
@@ -337,6 +337,9 @@ func (this *TexasPokerRoom) BetStart(pos int32){
 		return
 	}
 	this.ForEachPlayer(pos, func(player *TexasPlayer) bool {
+		if player.IsAllIn() {
+			return true
+		}
 		player.BetStart()
 		return false
 	})
@@ -500,39 +503,6 @@ func (this *TexasPokerRoom) ShowDown() int32{
 		this.chips[i] = 0
 	}
 
-	// 有一人在的情况
-	if this.remain == 1 {
-		var winner int64 = 0
-		this.ForEachPlayer(0, func(player *TexasPlayer) bool {
-			winner = player.owner.Id()
-			return false
-		})
-		send := &msg.RS2C_PushOneRoundOver{}
-		for k, pot := range pots { // 遍历奖池
-			potplayer := make([]int64, 0)
-			potplayer = append(potplayer, winner)
-			send.Potlist = append(send.Potlist, &msg.PotInfo{
-				Num : pb.Int32(int32(pot.Pot)),
-				Type : pb.Int32(int32(k)),
-				Roleid : potplayer,
-			})
-		}
-		for _, player := range this.players {
-			if player == nil {
-				continue
-			}
-			if player.isshowcard == false {
-				continue
-			}
-			send.Handcardlist = append(send.Handcardlist, &msg.HandCardInfo{
-				Roleid : pb.Int64(player.owner.Id()),
-				Card : player.ToHandCard(),
-			})
-		}
-		this.BroadCastRoomMsg(send)
-		return TPRestart
-	}
-
 	this.ForEachPlayer(0, func(player *TexasPlayer) bool {
 		player.hand.AnalyseHand()
 		return true
@@ -564,8 +534,8 @@ func (this *TexasPokerRoom) ShowDown() int32{
 			}
 		}
 		if len(winners) == 0 {
-			//fmt.Println("!!!no winners!!!")
-			return TPShutDown
+			log.Info("房间%d  没有赢家", this.Id())
+			return TPRestart
 		}
 		var onepot int32 = 0
 		potplayer := make([]int64, 0)
@@ -590,7 +560,7 @@ func (this *TexasPokerRoom) ShowDown() int32{
 	for i := range this.chips {
 		if this.players[i] != nil {
 			this.players[i].AddBankRoll(this.chips[i])
-			log.Info("房间%d 玩家%d 获得筹码%d 手牌%v 等级%d", this.Id(), this.players[i].owner.Id(), this.chips[i], this.players[i].hand.ToAllCard(), this.players[i].hand.level)
+			log.Info("房间%d 玩家%d 获得筹码%d 手牌%v 等级%d 牌力%d", this.Id(), this.players[i].owner.Id(), this.chips[i], this.players[i].hand.ToAllCard(), this.players[i].hand.level, this.players[i].hand.finalvalue)
 		}
 	}
 
