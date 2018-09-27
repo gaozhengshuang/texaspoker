@@ -211,7 +211,7 @@ class SoundManager
 		let url: string = MusicDefined.GetInstance().getSexMusicDefinition(sex, action, pai);
 		if (!url)
 		{
-			game.Console.logError("获取音效地址异常！" + "sex:" + sex + "action:" + action + "pai:" + pai);
+			// game.Console.logError("获取音效地址异常！" + "sex:" + sex + "action:" + action + "pai:" + pai); //move todo
 			return;
 		}
 		url = ResPrefixPathName.Sound + url;
