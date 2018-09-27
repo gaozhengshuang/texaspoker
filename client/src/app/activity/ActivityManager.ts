@@ -70,12 +70,12 @@ class ActivityManager
 
         TimeManager.resetTime0Event.addListener(ActivityManager.onTimeReset, this);
         SocketManager.AddCommandListener(Command.Activity_Push_2088, ActivityManager.pushActivityInfo, this);
-
-        if (result.data && result.data.Array)
+        let data: msg.GW2C_RetActivityInfo = result.data;
+        if (data && data.array)
         {
-            for (let i: number = 0; i < result.data.Array.length; i++)
+            for (let i: number = 0; i < data.array.length; i++)
             {
-                ActivityManager.setActivityInfo(result.data.Array[i]);
+                ActivityManager.setActivityInfo(data.array[i]);
             }
         }
         ActivityManager.checkCompleteHide();
@@ -250,36 +250,36 @@ class ActivityManager
      */
     private static onTimeReset()
     {
-        SocketManager.call(Command.Activity_GetList_3233, null, ActivityManager.initialize, null, this);
+        SocketManager.call(Command.C2GW_ReqActivityInfo, null, ActivityManager.initialize, null, this);
     }
     /**
      * 设置活动信息
      */
-    private static setActivityInfo(data: any)
+    private static setActivityInfo(data: msg.IActivityInfo)
     {
         if (data)
         {
-            let activityInfo: ActivityInfo = ActivityManager.getActivityInfo(data["Id"]);
+            let activityInfo: ActivityInfo = ActivityManager.getActivityInfo(data.id);
             if (activityInfo)
             {
-                activityInfo.step = data["Step"];
-                activityInfo.pubStep = data["PubStep"];
-                activityInfo.severStartDateTime = data["StartTime"];
-                activityInfo.severEndDateTime = data["EndTime"];
+                activityInfo.step = data.step; //   ["Step"];
+                // activityInfo.pubStep = data["PubStep"];  //move todo
+                activityInfo.severStartDateTime = new Date(data.starttime * 1000);// ["StartTime"];
+                activityInfo.severEndDateTime = new Date(data.endtime * 1000);// ["EndTime"];
                 try
                 {
-                    if (data["Json"])
+                    if (data.json)
                     {
-                        let jsonObj: any = JSON.parse(data["Json"]);
+                        let jsonObj: any = JSON.parse(data.json);
                         activityInfo.jsonObj = jsonObj;
                     }
                     if (!activityInfo.jsonObj)
                     {
                         activityInfo.jsonObj = {};
                     }
-                    if (data["GotJson"])
+                    if (data.gotjson)
                     {
-                        let gotJsonObj: any = JSON.parse(data["GotJson"]); //处理已经领取的奖励信息
+                        let gotJsonObj: any = JSON.parse(data.gotjson); //处理已经领取的奖励信息
                         activityInfo.gotJsonObj = gotJsonObj;
                     }
                     if (!activityInfo.gotJsonObj)
@@ -299,8 +299,8 @@ class ActivityManager
                 }
                 catch (e)
                 {
-                    game.Console.log("解析活动协议出错 Json：" + data["Json"]);
-                    game.Console.log("解析活动协议出错 GotJson：" + data["GotJson"]);
+                    game.Console.log("解析活动协议出错 Json：" + data.json);
+                    game.Console.log("解析活动协议出错 GotJson：" + data.gotjson);
                 }
             }
         }
@@ -329,7 +329,7 @@ class ActivityManager
                 ActivityManager.onReqSingleActivityEvent.dispatch(id);
             }
         }
-        SocketManager.call(Command.Activity_GetList_3233, { "Id": id }, callback, null, this);
+        SocketManager.call(Command.C2GW_ReqActivityInfo, msg.C2GW_ReqActivityInfo.encode({ "id": id }), callback, null, this);
     }
 
     /**
@@ -366,7 +366,7 @@ class ActivityManager
         {
             PropertyManager.OpenGet();
         }
-        SocketManager.call(Command.Activity_GetPrize_3202, { "Id": activityId, "SubId": subId }, callback, null, this);
+        SocketManager.call(Command.C2GW_ReqGetActivityReward, msg.C2GW_ReqGetActivityReward.encode({ "id": activityId, "subid": subId }), callback, null, this);
     }
 
     /**

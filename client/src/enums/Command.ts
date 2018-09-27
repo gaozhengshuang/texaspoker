@@ -205,7 +205,7 @@ class Command
     /**
      * 拉取活动列表
      */
-    public static readonly Activity_GetList_3233: string = "c3233";
+    public static readonly C2GW_ReqActivityInfo: string = "msg.C2GW_ReqActivityInfo";
     /**
      * 推送活动
      */
@@ -213,7 +213,7 @@ class Command
     /**
      * 请求领取活动奖励
      */
-    public static readonly Activity_GetPrize_3202: string = "c3202";
+    public static readonly C2GW_ReqGetActivityReward: string = "msg.C2GW_ReqGetActivityReward";
     /**
      * 请求参与活动
     */

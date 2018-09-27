@@ -619,8 +619,8 @@ declare namespace msg {
         /** GW2C_RetGetActivityReward id */
         id?: (number|null);
 
-        /** GW2C_RetGetActivityReward ret */
-        ret?: (number|null);
+        /** GW2C_RetGetActivityReward errcode */
+        errcode?: (string|null);
     }
 
     /** Represents a GW2C_RetGetActivityReward. */
@@ -638,8 +638,8 @@ declare namespace msg {
         /** GW2C_RetGetActivityReward id. */
         public id: number;
 
-        /** GW2C_RetGetActivityReward ret. */
-        public ret: number;
+        /** GW2C_RetGetActivityReward errcode. */
+        public errcode: string;
 
         /**
          * Creates a new GW2C_RetGetActivityReward instance using the specified properties.

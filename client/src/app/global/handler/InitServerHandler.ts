@@ -131,7 +131,8 @@ class InitServerHandler
 	private onGetInsideRoomListInfo(result: game.SpRpcResult)
 	{
 		InsideRoomManager.initialize(result);
-		this.requestNotice();
+		//活动列表数据 move todo 不应该在这边拉，活动的数据需要最后拉去
+		this.reqGetActivityList();
 		// this.reqGetMTTListInfo();
 	}
 	/**

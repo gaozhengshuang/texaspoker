@@ -1426,7 +1426,7 @@ $root.msg = (function() {
          * @interface IGW2C_RetGetActivityReward
          * @property {number|null} [subid] GW2C_RetGetActivityReward subid
          * @property {number|null} [id] GW2C_RetGetActivityReward id
-         * @property {number|null} [ret] GW2C_RetGetActivityReward ret
+         * @property {string|null} [errcode] GW2C_RetGetActivityReward errcode
          */
 
         /**
@@ -1461,12 +1461,12 @@ $root.msg = (function() {
         GW2C_RetGetActivityReward.prototype.id = 0;
 
         /**
-         * GW2C_RetGetActivityReward ret.
-         * @member {number} ret
+         * GW2C_RetGetActivityReward errcode.
+         * @member {string} errcode
          * @memberof msg.GW2C_RetGetActivityReward
          * @instance
          */
-        GW2C_RetGetActivityReward.prototype.ret = 0;
+        GW2C_RetGetActivityReward.prototype.errcode = "";
 
         /**
          * Creates a new GW2C_RetGetActivityReward instance using the specified properties.
@@ -1496,8 +1496,8 @@ $root.msg = (function() {
                 writer.uint32(/* id 1, wireType 0 =*/8).int32(message.subid);
             if (message.id != null && message.hasOwnProperty("id"))
                 writer.uint32(/* id 2, wireType 0 =*/16).int32(message.id);
-            if (message.ret != null && message.hasOwnProperty("ret"))
-                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.ret);
+            if (message.errcode != null && message.hasOwnProperty("errcode"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.errcode);
             return writer;
         };
 
@@ -1539,7 +1539,7 @@ $root.msg = (function() {
                     message.id = reader.int32();
                     break;
                 case 3:
-                    message.ret = reader.int32();
+                    message.errcode = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -1582,9 +1582,9 @@ $root.msg = (function() {
             if (message.id != null && message.hasOwnProperty("id"))
                 if (!$util.isInteger(message.id))
                     return "id: integer expected";
-            if (message.ret != null && message.hasOwnProperty("ret"))
-                if (!$util.isInteger(message.ret))
-                    return "ret: integer expected";
+            if (message.errcode != null && message.hasOwnProperty("errcode"))
+                if (!$util.isString(message.errcode))
+                    return "errcode: string expected";
             return null;
         };
 
@@ -1604,8 +1604,8 @@ $root.msg = (function() {
                 message.subid = object.subid | 0;
             if (object.id != null)
                 message.id = object.id | 0;
-            if (object.ret != null)
-                message.ret = object.ret | 0;
+            if (object.errcode != null)
+                message.errcode = String(object.errcode);
             return message;
         };
 
@@ -1625,14 +1625,14 @@ $root.msg = (function() {
             if (options.defaults) {
                 object.subid = 0;
                 object.id = 0;
-                object.ret = 0;
+                object.errcode = "";
             }
             if (message.subid != null && message.hasOwnProperty("subid"))
                 object.subid = message.subid;
             if (message.id != null && message.hasOwnProperty("id"))
                 object.id = message.id;
-            if (message.ret != null && message.hasOwnProperty("ret"))
-                object.ret = message.ret;
+            if (message.errcode != null && message.hasOwnProperty("errcode"))
+                object.errcode = message.errcode;
             return object;
         };
 
