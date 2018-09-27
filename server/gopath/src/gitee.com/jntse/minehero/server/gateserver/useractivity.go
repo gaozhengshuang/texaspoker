@@ -109,7 +109,7 @@ func (this *GateUser) ResetDailySign() {
 //签到信息封装消息
 func (this *GateUser) DailySignInfoToMsg(bin *msg.GW2C_RetActivityInfo) {
 	data := make(map[string]string)
-	data["timestamp"] = strconv.Itoa(int(this.signtime))
+	data["signtime"] = strconv.Itoa(int(this.signtime))
 	jsonbody, jsonerr := json.Marshal(data)
 	if jsonerr != nil {
 		log.Error("DailySignInfoToMsg json.Marshal err[%s]", jsonerr)
@@ -120,8 +120,8 @@ func (this *GateUser) DailySignInfoToMsg(bin *msg.GW2C_RetActivityInfo) {
 	//info.Type = pb.String("")
 	info.Id = pb.Int32(int32(msg.ActivityType_DailySign))
 	info.Step = pb.Int32(this.signdays)
-	info.Gotjson = pb.String(util.BytesToString(jsonbody))
-	//info.Json = pb.String("")
+	//info.Gotjson = pb.String("")
+	info.Json = pb.String(util.BytesToString(jsonbody))
 	bin.Array = append(bin.Array, info)
 }
 
