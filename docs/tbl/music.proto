@@ -28,10 +28,10 @@ message MusicDefine
 	optional string Des = 3; 
 	
 	
-	optional string Boy = 4; 
+	repeated string Boy = 4; 
 	
 	
-	optional string Girl = 5; 
+	repeated string Girl = 5; 
 
 }
 

@@ -311,8 +311,8 @@ func (this *User) CreateRoom() {
 }
 
 func (this *User) EnterRoom() {
-	//this.SendGateMsg(&msg.C2GW_ReqEnterRoom{Roomid:pb.Int64(this.roomid), Userid:pb.Int64(this.Id()), Passwd:pb.String(this.roompwd)})
-	this.SendGateMsg(&msg.C2GW_ReqEnterRoom{Roomid:pb.Int64(463), Userid:pb.Int64(this.Id()), Passwd:pb.String(this.roompwd)})
+	this.SendGateMsg(&msg.C2GW_ReqEnterRoom{Roomid:pb.Int64(this.roomid), Userid:pb.Int64(this.Id()), Passwd:pb.String(this.roompwd)})
+	//this.SendGateMsg(&msg.C2GW_ReqEnterRoom{Roomid:pb.Int64(463), Userid:pb.Int64(this.Id()), Passwd:pb.String(this.roompwd)})
 }
 
 func (this *User) LeaveRoom() {
