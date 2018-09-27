@@ -404,7 +404,7 @@ func (u *RoomUser) ToRoleInfo() *msg.RS2C_RetFriendGetRoleInfo {
 		Gold : pb.Int32(0),
 		Roleid : pb.Int64(u.Id()),
 		Name : pb.String(u.Name()),
-		Head : pb.String(u.Face()),
+		Head : pb.String(""),
 	}
 }
 
