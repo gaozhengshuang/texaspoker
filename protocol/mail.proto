@@ -19,7 +19,7 @@ message MailItem {
 //}
 
 message MailDetail {
-    optional int32 id = 1;          // 邮件uuid
+    optional int64 id = 1;          // 邮件uuid
     optional int32 type = 2;        // 邮件类型
     optional string content = 3;    // 内容
     optional string title = 4;      // 标题
@@ -48,7 +48,7 @@ message C2GW_ReqTakeMailItem {
 }
 
 message GW2C_RetTakeMailItem {
-    optional int32 uid = 1;
+    optional int64 uid = 1;
     optional string errcode = 2;
 }
 
