@@ -370,7 +370,7 @@ module game
 		}
 		private handleRequest(name: string, data: any, session: number)
 		{
-			Console.log("server-push-----> cmdId:" + name, "-> session:" + session);
+			Console.log("server-push-----> cmdId:" + name, "-> data:" + JSON.stringify(data));
 			let spRpcResult: SpRpcResult = new SpRpcResult();
 			spRpcResult.cmdId = name;
 			spRpcResult.data = data;
@@ -406,7 +406,7 @@ module game
 			let error:string = data["errcode"];
 			if (name.indexOf("HeartBeat") == -1)
 			{
-				Console.log("client receive ------------> cmdId:" + name + "-> session:" + session, "-> error:" + error);
+				Console.log("client receive ------------> cmdId:" + name + "-> data:" + JSON.stringify(data), "-> error:" + error);
 			}
 			let info: SocketInfo = this.RemoveSocketInfo(name);
 			// let info: SocketInfo = this.RemoveSocketInfo(session);
