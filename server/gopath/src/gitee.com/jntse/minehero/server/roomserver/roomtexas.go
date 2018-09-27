@@ -67,11 +67,9 @@ func (this *TexasPokerRoom) UserLeave(u *RoomUser) {
 		return
 	}
 	if this.InGame(player) {
-		player.LeaveRoom()
-		this.DelPlayer(player.pos)
-	}else {
-		this.DelWatcher(player)
+		player.StandUp()
 	}
+	this.DelWatcher(player)
 
 	delete(this.members, u.Id())
 	//delete(this.watchmembers, u.Id())

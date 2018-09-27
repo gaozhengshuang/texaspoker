@@ -131,11 +131,13 @@ func (this *TexasPlayer) Betting(num int32) {
 		num = 0
 		this.betover = true
 		this.room.remain--
+		this.room.playerstate[this.pos] = GSFold
 		this.ChangeState(GSFold)
-		log.Info("玩家%d 弃牌 房间人数%d", this.owner.Id(), this.room.remain)
+		log.Info("玩家%d 弃牌 筹码%d 房间人数%d", this.owner.Id(), this.GetBankRoll(),this.room.remain)
 	} else if num == 0 { // 让牌
 		this.betover = true
 		this.ChangeState(GSCheck)
+		log.Info("玩家%d 让牌 筹码%d 房间人数%d", this.owner.Id(), this.GetBankRoll(),this.room.remain)
 	} else if num + this.curbet < this.room.curbet { // 跟注 或者 allin  table.Bet保持不变
 		if !this.RemoveBankRoll(num) {
 			send.Errcode = pb.String("筹码不足")
@@ -148,8 +150,7 @@ func (this *TexasPlayer) Betting(num int32) {
 		if this.GetBankRoll() == 0 {
 			this.ChangeState(GSAllIn)
 			this.room.allin++
-		} else {
-			this.ChangeState(GSCall)
+			log.Info("玩家%d 全压%d 筹码%d 房间人数%d", this.owner.Id(), this.curbet, this.GetBankRoll(),this.room.remain)
 		}
 	} else if num + this.curbet == this.room.curbet	{
 		if !this.RemoveBankRoll(num) {
@@ -163,8 +164,10 @@ func (this *TexasPlayer) Betting(num int32) {
 		if this.GetBankRoll() == 0 {
 			this.ChangeState(GSAllIn)
 			this.room.allin++
+			log.Info("玩家%d 全压%d 筹码%d 房间人数%d", this.owner.Id(), this.curbet, this.GetBankRoll(),this.room.remain)
 		} else {
 			this.ChangeState(GSCall)
+			log.Info("玩家%d 跟注%d 筹码%d 房间人数%d", this.owner.Id(), this.curbet, this.GetBankRoll(),this.room.remain)
 		}
 	} else { // 加注
 		if !this.RemoveBankRoll(num) {
@@ -178,14 +181,19 @@ func (this *TexasPlayer) Betting(num int32) {
 		if this.GetBankRoll() == 0 {
 			this.ChangeState(GSAllIn)
 			this.room.allin++
+			log.Info("玩家%d 全压%d 筹码%d 房间人数%d", this.owner.Id(), this.curbet, this.GetBankRoll(),this.room.remain)
 		} else {
 			this.ChangeState(GSRaise)
+			log.Info("玩家%d 加注%d 筹码%d 房间人数%d", this.owner.Id(), this.curbet, this.GetBankRoll(),this.room.remain)
 		}
 		this.room.ClearBetOver(false)//清除所有人的下注成功
 		this.betover = true
 	}
 	this.owner.SendClientMsg(send)
-	if !this.room.AllBetOver() && this.room.remain != 1{
+	if this.room.remain <= 1 {
+		return
+	}
+	if !this.room.AllBetOver(){
 		player := this.Next()
 		if player != nil {
 			player.BetStart()
@@ -353,6 +361,9 @@ func (this *TexasPlayer) ChangeState(state int32) {
 	send.State = pb.Int32(this.gamestate)
 	send.Num = pb.Int32(this.curbet)
 	this.room.BroadCastRoomMsg(send)
+	if state == GSAllIn {
+		this.isshowcard = true
+	}
 }
 
 func (this *TexasPlayer) AutoBuy() {
@@ -416,7 +427,7 @@ func (this *TexasPlayer) ReqUserInfo(rev *msg.C2RS_ReqFriendGetRoleInfo) {
 func (this *TexasPlayer) BrightCardInTime() {
 	send := &msg.RS2C_RetBrightInTime{}
 	this.owner.SendClientMsg(send)
-
+	this.isshowcard = true
 	send1 := &msg.RS2C_PushBrightCard{}
 	send1.Roleid = pb.Int64(this.owner.Id())
 	send1.Card = this.ToHandCard()
@@ -433,6 +444,7 @@ func (this *TexasPlayer) CheckLeave() bool{
 
 func (this *TexasPlayer) StandUp() bool {
 	if this.room.InGame(this) {
+		this.owner.AddGold(this.bankroll, "离开房间", true)
 		this.room.DelPlayer(this.pos)
 		this.Init()
 		this.room.AddWatcher(this)
@@ -440,6 +452,7 @@ func (this *TexasPlayer) StandUp() bool {
 		send1.Roleid = pb.Int64(this.owner.Id())
 		send1.State = pb.Int32(2)
 		this.room.BroadCastRoomMsg(send1)
+		this.room.UpdateMember()
 		return true
 	}
 	return false
@@ -449,10 +462,6 @@ func (this *TexasPlayer) ReqStandUp() bool{
 	send := &msg.RS2C_RetStandUp{}
 	this.owner.SendClientMsg(send)
 	return this.StandUp()
-}
-
-func (this *TexasPlayer) LeaveRoom() {
-	this.owner.AddGold(this.bankroll, "离开房间", true)
 }
 
 func (this *TexasPlayer) ToProto() *msg.TexasPlayer {

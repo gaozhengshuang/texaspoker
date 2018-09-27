@@ -2,6 +2,7 @@
 package main
 
 import (
+	"sort"
 	"fmt"
 	"time"
 	"errors"
@@ -63,6 +64,7 @@ type TexasPokerRoom struct {
 	bettime int32						//当前下注时间
 	maxplayer int32
 	overflag bool
+	playerstate []int32
 }
 
 func (this *TexasPokerRoom) Id() int64 { return this.id }
@@ -123,6 +125,7 @@ func (this *TexasPokerRoom) Init() string {
 	this.maxplayer = 5
 	this.players = make([]*TexasPlayer, this.maxplayer, this.maxplayer)
 	this.chips = make([]int32, this.maxplayer, this.maxplayer)
+	this.playerstate = make([]int32, this.maxplayer, this.maxplayer)
 	this.topCardIndex = 0
 	this.initilized = true
 	this.bigblindnum = 20
@@ -326,6 +329,11 @@ func (this *TexasPokerRoom) SetHoleCard() {
 
 func (this *TexasPokerRoom) BetStart(pos int32){
 	if this.allin + 1 >= this.remain {
+		log.Info("房间%d allin人数足够 不在下注", this.Id())
+		return
+	}
+	if this.remain <= 1 {
+		log.Info("房间%d remain人数足够 不在下注", this.Id())
 		return
 	}
 	this.ForEachPlayer(pos, func(player *TexasPlayer) bool {
@@ -513,6 +521,9 @@ func (this *TexasPokerRoom) ShowDown() int32{
 			if player == nil {
 				continue
 			}
+			if player.isshowcard == false {
+				continue
+			}
 			send.Handcardlist = append(send.Handcardlist, &msg.HandCardInfo{
 				Roleid : pb.Int64(player.owner.Id()),
 				Card : player.ToHandCard(),
@@ -587,6 +598,9 @@ func (this *TexasPokerRoom) ShowDown() int32{
 		if player == nil {
 			continue
 		}
+		if player.isshowcard == false {
+			continue
+		}
 		send.Handcardlist = append(send.Handcardlist, &msg.HandCardInfo{
 			Roleid : pb.Int64(player.owner.Id()),
 			Card : player.ToHandCard(),
@@ -611,6 +625,7 @@ func (this *TexasPokerRoom) RestartGame() int32{
 		this.curbet = 0
 		this.pot = make([]int32, 0)
 		this.chips = make([]int32, this.maxplayer, this.maxplayer)
+		this.playerstate = make([]int32, this.maxplayer, this.maxplayer)
 		this.allin = 0
 		this.remain = 0
 		this.overflag = false
@@ -639,23 +654,38 @@ func (this *TexasPokerRoom) ShutDown() {
 
 // 计算奖池
 func (this *TexasPokerRoom) CalcGambPool() []handPot {
-	pots := CalcPot(this.chips)
-	this.pot = make([]int32, 0)
-	if this.overflag == true {
-		var sum int32 = 0
-		for _, pot := range pots {
-			sum += int32(pot.Pot)
+	obs := make([]handBet,0)
+	pots := make([]handPot,0)
+
+	for i, bet := range this.chips{
+		if bet > 0 {
+			obs = append(obs, handBet{Pos: i, Bet: int(bet)})
 		}
-		this.pot = append(this.pot, sum)
-		pots = make([]handPot, 0)
-		pots = append(pots, handPot{Pot:int(sum)})
-		log.Info("池子%v", pots)
-	} else {
-		for _, pot := range pots {
-			this.pot = append(this.pot, int32(pot.Pot))
-		}
-		log.Info("2池子%v", pots)
 	}
+	sort.Sort(handBets(obs))
+
+	var tmpsum int = 0
+	for i, ob := range obs {
+		if this.playerstate[ob.Pos] == GSFold {
+			tmpsum += ob.Bet
+			continue
+		}
+		if ob.Bet > 0 {
+			s := obs[i:]
+			hpot := handPot{Pot: ob.Bet * len(s) + tmpsum}
+			tmpsum = 0
+			for j := range s {
+				s[j].Bet -= ob.Bet
+				hpot.OPos = append(hpot.OPos, s[j].Pos)
+			}
+			pots = append(pots, hpot)
+		}
+	}
+	this.pot = make([]int32, 0) 
+	for _, pot := range pots {
+		this.pot = append(this.pot, int32(pot.Pot))
+	}
+	log.Info("房间%d 奖池%v", this.Id(), this.pot)
 	return pots
 }
 
@@ -765,11 +795,15 @@ func (this *TexasPokerRoom) SendRoomInfo(player *TexasPlayer) {
 	player.owner.SendClientMsg(send)
 }
 
+func (this *TexasPokerRoom) UpdateMember() {
+	Redis().HSet(fmt.Sprintf("roombrief_%d", this.Id()), "members", this.PlayersNum())
+}
+
 func (this *TexasPokerRoom) BuyInGame(uid int64, rev *msg.C2RS_ReqBuyInGame){
 	player := this.FindAllByID(uid)
 	if player != nil && player.BuyInGame(rev) {
 		// 更新房间人数
-		Redis().HSet(fmt.Sprintf("roombrief_%d", this.Id()), "members", this.PlayersNum())
+		this.UpdateMember()
 	}
 }
 
@@ -824,9 +858,8 @@ func (this *TexasPokerRoom) ReqTimeAwardInfo(uid int64, rev *msg.C2RS_ReqTimeAwa
 
 func (this *TexasPokerRoom) ReqStandUp(uid int64) {
 	player := this.FindAllByID(uid)
-	if player != nil && player.ReqStandUp(){
-		// 更新房间人数
-		Redis().HSet(fmt.Sprintf("roombrief_%d", this.Id()), "members", this.PlayersNum())
+	if player != nil {
+		player.ReqStandUp()
 	}
 }
 

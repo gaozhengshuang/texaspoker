@@ -268,7 +268,7 @@ func (h *Hand)AnalyseHand() error{
 func turnToValue(cards Cards) int32{
 	//我是升序排的，所以反着来
 	var res int32 = 0
-	for i:=len(cards)-1; i>=0; i--{
+	for i:=len(cards)-1; i>=2; i--{
 		res *= 10
 		res += cards[i].Value
 	}
