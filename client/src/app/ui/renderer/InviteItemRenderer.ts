@@ -20,7 +20,7 @@ class InviteItemRenderer extends BaseItemRenderer<InviteItemInfo>
         if (this.bindData)
         {
             this.titleLabel.text = this.bindData.des;
-            let itemDef: ItemDefinition = ItemDefined.GetInstance().getDefinition(this.bindData.rewardId);
+            let itemDef: table.IItemBaseDataDefine = table.ItemBaseDataById[this.bindData.rewardId);
             if (itemDef)
             {
                 this.iconImg0.source = this.iconImg1.source = itemDef.icon + ResSuffixName.PNG;

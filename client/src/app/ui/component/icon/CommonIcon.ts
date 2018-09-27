@@ -19,7 +19,7 @@ class CommonIcon extends BaseComponent<any>
         }
         else if (typeof item == "number")
         {
-            let def: ItemDefinition = ItemDefined.GetInstance().getDefinition(item);
+            let def: table.IItemBaseDataDefine = table.ItemBaseDataById[item);
             if (def)
             {
                 this.itemImg.source = def.icon + ResSuffixName.PNG;
@@ -28,7 +28,7 @@ class CommonIcon extends BaseComponent<any>
         else if (item && (item as table.IAwardDefine).RewardId)
         {
             let id: number = item.RewardId[0];
-            let def: ItemDefinition = ItemDefined.GetInstance().getDefinition(id);
+            let def: table.IItemBaseDataDefine = table.ItemBaseDataById[id);
             if (def)
             {
                 this.itemImg.source = def.icon + ResSuffixName.PNG;

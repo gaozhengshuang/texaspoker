@@ -23,7 +23,7 @@ class AchieveInGameItemRenderer extends BaseItemRenderer<AchievementInfo>
             this.commonItem.init(this.bindData.definition.icon + ResSuffixName.PNG, 77);
             this.desLabel.text = this.bindData.definition.name;
             this.rewardLabel.text = this.bindData.definition.rewardNum.toString();
-            let def: ItemDefinition = ItemDefined.GetInstance().getDefinition(this.bindData.definition.rewardId);
+            let def: table.IItemBaseDataDefine = table.ItemBaseDataById[this.bindData.definition.rewardId);
             if (def)
             {
                 this.rewardImg.source = def.icon + ResSuffixName.PNG;

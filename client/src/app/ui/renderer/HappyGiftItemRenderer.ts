@@ -31,7 +31,7 @@ class HappyGiftItemRenderer extends BaseItemRenderer<HappyGiftItemInfo>
                 let rewardList:number[] = this.bindData.awardInfoDef.RewardId;
                 if (rewardList.length > 0)
                 {
-                    let itemDef = ItemDefined.GetInstance().getDefinition(rewardList[0]);
+                    let itemDef = table.ItemBaseDataById[rewardList[0]);
                     if (itemDef)
                     {
                         if (itemDef.id == ItemFixedId.gold)

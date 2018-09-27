@@ -58,11 +58,19 @@ class SignInPanel extends BaseActivityPanel
 			if (awardDef && awardDef.RewardId)
 			{
 				prizeLabel.text = ActivityManager.signInHandler.getAwardDes(awardDef);
+<<<<<<< Updated upstream
 				// let itemDef: ItemDefinition = ItemDefined.GetInstance().getDefinition(awardDef.RewardId[0]); //move todo
 				// if (itemDef)
 				// {
 				// 	prizeIcon.source = itemDef.icon + ResSuffixName.PNG;
 				// }
+=======
+				let itemDef: table.IItemBaseDataDefine = table.ItemBaseDataById[awardDef.RewardId[0]);
+				if (itemDef)
+				{
+					prizeIcon.source = itemDef.icon + ResSuffixName.PNG;
+				}
+>>>>>>> Stashed changes
 			}
 		}
 	}

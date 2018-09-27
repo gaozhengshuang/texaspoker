@@ -118,10 +118,10 @@ class ItemManager
             let callback: Function = function ()
             {
                 // UIManager.showFloatTips(game.StringUtil.format("使用了{0} * {1}", iteminfo.definition.name, count))
-                let def: ItemDefinition = ItemDefined.GetInstance().getDefinition(id);
+                let def: table.IItemBaseDataDefine = table.ItemBaseDataById[id];
                 if (def)
                 {
-                    TalkingDataManager.onItemUse(def.name, count);
+                    TalkingDataManager.onItemUse(def.Name, count);
                 }
             }
 

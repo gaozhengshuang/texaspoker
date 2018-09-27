@@ -12,7 +12,7 @@ class BringAwardComPanel extends BasePanel
     private _callback: Function;
     private _thisObj: any;
     private _iconSize: number = 48;
-    private _itemDef: ItemDefinition;
+    private _itemDef: table.IItemBaseDataDefine;
     private _itemCount: number;
     public constructor()
     {
@@ -52,7 +52,7 @@ class BringAwardComPanel extends BasePanel
             }
             if (appendData.itemId)
             {
-                this._itemDef = ItemDefined.GetInstance().getDefinition(appendData.itemId);
+                this._itemDef = table.ItemBaseDataById[appendData.itemId);
             }
             if (appendData.itemCount)
             {

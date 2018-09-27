@@ -162,7 +162,7 @@ class ShareLuckDrawPanel extends BaseActivityPanel
                 // if (def)
                 // {
                 //     let rewardInfo: AwardInfoDefinition = def.rewardList[0];
-                //     resultInfo.award = ItemDefined.GetInstance().getDefinition(rewardInfo.id).name + "*" + rewardInfo.count;
+                //     resultInfo.award = table.ItemBaseDataById[rewardInfo.id).name + "*" + rewardInfo.count;
                 //     this.resultList.push(resultInfo);
                 // }
             }
@@ -467,7 +467,7 @@ class ShareLuckDrawPanel extends BaseActivityPanel
             //         let result: ChampionshipRankInfo = new ChampionshipRankInfo();
             //         let rewardInfo: AwardInfoDefinition = def.rewardList[0];
             //         result.name = UserManager.userInfo.name;
-            //         result.award = ItemDefined.GetInstance().getDefinition(rewardInfo.id).name + "*" + rewardInfo.count;
+            //         result.award = table.ItemBaseDataById[rewardInfo.id).name + "*" + rewardInfo.count;
             //         this.refreshResultInfo(result);
             //     }
             // }

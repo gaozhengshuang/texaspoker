@@ -27,7 +27,7 @@ class VipListItemRenderer extends BaseItemRenderer<ShopInfo>{
                 }
                 else if (awardDef.RewardId)
                 {
-                    this.desVip.text = ItemDefined.GetInstance().getDefinition(awardDef.RewardId[0]).des;
+                    this.desVip.text = table.ItemBaseDataById[awardDef.RewardId[0]).des;
                 }
                 this.monthVip.text = awardDef.Name;
                 if (awardDef.CostType)

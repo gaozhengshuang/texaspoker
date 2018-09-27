@@ -29,7 +29,7 @@ class GoldenBeanAwardItemRenderer extends BaseItemRenderer<GoldenBeanAwardDefini
                 this.icon.init(awardDef);
                 if (awardDef.RewardId && awardDef.RewardId.length > 0)
                 {
-                    let itemDef: ItemDefinition = ItemDefined.GetInstance().getDefinition(awardDef.RewardId[0]);
+                    let itemDef: table.IItemBaseDataDefine = table.ItemBaseDataById[awardDef.RewardId[0]);
                     if (itemDef)
                     {
                         this.nameLabel.text = itemDef.name;

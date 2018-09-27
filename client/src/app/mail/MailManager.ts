@@ -67,8 +67,8 @@ class MailManager
                         {
                             if (mail.attaList && mail.attaList.length > 0)
                             {
-                                let itemDef: ItemDefinition = ItemDefined.GetInstance().getDefinition(mail.attaList[0].id);
-                                content = content.replace("{" + 0 + "}", itemDef.name);
+                                let itemDef: table.IItemBaseDataDefine = table.ItemBaseDataById[mail.attaList[0].id];
+                                content = content.replace("{" + 0 + "}", itemDef.Name);
                             }
                         }
                         else if (def.type == MailResolveType.RosolveServer)
@@ -100,9 +100,9 @@ class MailManager
                                 }
                                 else
                                 {
-                                    let itemDef: ItemDefinition = ItemDefined.GetInstance().getDefinition(mail.attaList[0].id);
+                                    let itemDef: table.IItemBaseDataDefine = table.ItemBaseDataById[mail.attaList[0].id];
                                     let itemDes: string = " * " + mail.attaList[0].count;
-                                    content = content.replace("{" + 0 + "}", itemDef.name + itemDes);
+                                    content = content.replace("{" + 0 + "}", itemDef.Name + itemDes);
                                 }
                             }
                             if (mail.Content)

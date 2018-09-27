@@ -14,11 +14,11 @@ class ItemInfo implements IHaveDefintionInfo
     public set id(value: number)
     {
         this._id = value;
-        this._definition = ItemDefined.GetInstance().getDefinition(this.id);
+        this._definition = table.ItemBaseDataById[this.id];
     }
 
-    private _definition: ItemDefinition;
-    public get definition(): ItemDefinition
+    private _definition: table.IItemBaseDataDefine;
+    public get definition(): table.IItemBaseDataDefine
     {
         return this._definition;
     }

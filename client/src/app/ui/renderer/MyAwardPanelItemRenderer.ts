@@ -9,7 +9,7 @@ class MyAwardPanelItemRenderer extends BaseItemRenderer<PrizeInfo>
     public takeDesLabel: eui.Label//奖品状态
     public takeErrorLabel: eui.Label//奖品返还提醒
 
-    private _itemDef: ItemDefinition;
+    private _itemDef: table.IItemBaseDataDefine;
     public comItemIcon: CommonIcon;
 
     public constructor()
@@ -22,7 +22,7 @@ class MyAwardPanelItemRenderer extends BaseItemRenderer<PrizeInfo>
         super.dataChanged();
         if (this.bindData)
         {
-            this._itemDef = ItemDefined.GetInstance().getDefinition(this.bindData.itemId);
+            this._itemDef = table.ItemBaseDataById[this.bindData.itemId);
             if (this._itemDef)
             {
                 this.bindData.effectType = this._itemDef.effectType;

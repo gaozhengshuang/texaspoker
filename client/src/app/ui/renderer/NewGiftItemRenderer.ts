@@ -36,7 +36,7 @@ class NewGiftItemRenderer extends BaseItemRenderer<PilePrizeItemInfo>
         let awardDef: table.IAwardDefine = this.bindData.awardInfoDef;
         if (awardDef && awardDef.RewardId)
         {
-            let itemDef: ItemDefinition = ItemDefined.GetInstance().getDefinition(awardDef.RewardId[0]);
+            let itemDef: table.IItemBaseDataDefine = table.ItemBaseDataById[awardDef.RewardId[0]);
             if (itemDef)
             {
                 this.itemImg.source = itemDef.icon + ResSuffixName.PNG;

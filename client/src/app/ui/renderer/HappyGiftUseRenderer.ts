@@ -25,7 +25,7 @@ class HappyGiftUseRenderer extends BaseItemRenderer<HappyGiftItemInfo>
             let awardDef = this.bindData.awardInfoDef;
             if (awardDef && awardDef.RewardId)
             {
-                let itemDef = ItemDefined.GetInstance().getDefinition(awardDef.RewardId[0]);
+                let itemDef = table.ItemBaseDataById[awardDef.RewardId[0]);
                 if (itemDef)
                 {
                     this.nameLabel.text = itemDef.name;
