@@ -76,7 +76,7 @@ message RS2C_PushSitOrStand
 {
     optional int64 roleid = 1;              //玩家id
     optional int32 pos = 2;                 //玩家位置
-    optional int32 state = 3;               //玩家状态
+    optional int32 state = 3;               //玩家状态 1坐下2站起
     optional int32 bankroll = 4;            //玩家筹码
 }
 

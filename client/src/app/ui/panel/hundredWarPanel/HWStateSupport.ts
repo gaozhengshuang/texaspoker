@@ -51,7 +51,7 @@ class HWStateSupport extends BaseHWPanelSupport
         }
         if (HundredWarManager.roomInfo.state == HWState.WaitNext)
         {
-            if ((data.playerNum == 1 && HundredWarManager.isBanker(HundredWarManager.sysBanker.roleId) && HundredWarManager.roomInfo.playerList.length == 1) || (data.playerNum == 0 && HundredWarManager.isBanker(UserManager.userInfo.id) && HundredWarManager.roomInfo.playerList.length == 1))
+            if ((data.playerNum == 1 && HundredWarManager.isBanker(HundredWarManager.sysBanker.roleId) && HundredWarManager.roomInfo.playerList.length == 1) || (data.playerNum == 0 && HundredWarManager.isBanker(UserManager.userInfo.roleId) && HundredWarManager.roomInfo.playerList.length == 1))
             {
                 HundredWarManager.reqNextRoundStart();
             } else
@@ -127,7 +127,7 @@ class HWStateSupport extends BaseHWPanelSupport
         if (this._betCountDownTime >= 0)
         {
             let headCom: HWHeadComponent = this.target.getHeadComponent(0);
-            if (headCom && headCom.bindData && headCom.bindData.roleId == UserManager.userInfo.id)
+            if (headCom && headCom.bindData && headCom.bindData.roleId == UserManager.userInfo.roleId)
             {
                 this.target.alertLabel.text = "等待其他玩家下注..." + this._betCountDownTime;
             } else

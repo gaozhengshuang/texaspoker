@@ -289,7 +289,7 @@ class AchieveProcessManager
      */
     public static onWinOfCardType(processInfo: BaseAchieveProcessInfo, type: CardType)
     {
-        if (GamblingUtil.isWin(UserManager.userInfo.id))
+        if (GamblingUtil.isWin(UserManager.userInfo.roleId))
         {
             let cardInfoList: CardInfo[] = GamblingManager.roomInfo.handCard;
             if (cardInfoList)

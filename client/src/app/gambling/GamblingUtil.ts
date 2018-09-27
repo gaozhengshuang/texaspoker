@@ -316,7 +316,7 @@ class GamblingUtil
 		let maxBankRoll: number = 0;
 		for (let pInfo of GamblingManager.roomInfo.playerList)
 		{
-			if (pInfo.roleId != UserManager.userInfo.id && pInfo.bankRoll + pInfo.num > maxBankRoll) 
+			if (pInfo.roleId != UserManager.userInfo.roleId && pInfo.bankRoll + pInfo.num > maxBankRoll) 
 			{
 				maxBankRoll = pInfo.bankRoll + pInfo.num;
 			}

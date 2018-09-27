@@ -210,7 +210,7 @@ class GamblingPanelActionSupport extends BaseGamblingPanelSupport
 				}
 			}
 		}
-		if (obj.roleId == UserManager.userInfo.id)
+		if (obj.roleId == UserManager.userInfo.roleId)
 		{
 			if (obj.state == PlayerState.WaitNext)
 			{
@@ -374,7 +374,7 @@ class GamblingPanelActionSupport extends BaseGamblingPanelSupport
 	{
 		this.target.hideDownEffect();
 		let pInfo: PlayerInfo = obj.pInfo;
-		if (pInfo.roleId == UserManager.userInfo.id)
+		if (pInfo.roleId == UserManager.userInfo.roleId)
 		{
 			if (obj.state == BuyInGameState.Stand)
 			{
@@ -503,7 +503,7 @@ class GamblingPanelActionSupport extends BaseGamblingPanelSupport
 					{
 						if (GamblingManager.self.state != PlayerState.Fold)
 						{
-							if (GamblingManager.self.roleId == UserManager.userInfo.id)
+							if (GamblingManager.self.roleId == UserManager.userInfo.roleId)
 							{
 								isThanCard = true;
 								break; //参与了比牌，不显示点击亮牌

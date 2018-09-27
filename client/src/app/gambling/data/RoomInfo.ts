@@ -14,6 +14,8 @@ class RoomInfo extends BaseServerValueInfo implements IHaveDefintionInfo
         if (value)
         {
             this._definition = table.TexasRoomById[value.roomid];
+            this.handCard = GamblingUtil.cardArr2CardInfoList(value.handcard);
+            this.publicCard = GamblingUtil.cardArr2CardInfoList(value.publiccard);
         }
     }
 	/**
@@ -149,16 +151,17 @@ class RoomInfo extends BaseServerValueInfo implements IHaveDefintionInfo
      */
     public endTime: number;
 
+    private _publicCard: Array<CardInfo>;
 	/**
 	 * 公共牌列表
 	 */
     public get publicCard(): Array<CardInfo>
     {
-        return GamblingUtil.cardArr2CardInfoList(this.data.publiccard);
+        return this._publicCard;
     }
     public set publicCard(value: Array<CardInfo>)
     {
-        this.data.publiccard = GamblingUtil.cardInfoList2Arr(value);
+        this._publicCard = value;
     }
     private _playerList: PlayerInfo[];
 	/**
@@ -194,16 +197,17 @@ class RoomInfo extends BaseServerValueInfo implements IHaveDefintionInfo
     {
         this.data.isshowcard = value;
     }
+    private _handCard:Array<CardInfo>;
 	/**
 	 * 手牌列表
 	 */
     public get handCard(): Array<CardInfo>
     {
-        return GamblingUtil.cardArr2CardInfoList(this.data.handcard);
+        return this._handCard;
     }
     public set handCard(value: Array<CardInfo>)
     {
-        this.data.handcard = GamblingUtil.cardInfoList2Arr(value);
+        this._handCard = value;
     }
 	/**
 	 * 是否自动买入

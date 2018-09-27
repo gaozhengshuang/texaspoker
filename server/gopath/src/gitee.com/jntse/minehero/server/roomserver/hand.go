@@ -307,3 +307,15 @@ func (h *Hand)analyCards(){
 	}
 }
 
+func (h *Hand)ToAllCard() []int32{
+	tmpcard := make([]int32, 0)
+	for _, v := range h.cards {
+		if v == nil {
+			continue
+		}
+		tmpcard = append(tmpcard, v.Suit+1)
+		tmpcard = append(tmpcard, v.Value+2)
+	}
+	return tmpcard
+}
+

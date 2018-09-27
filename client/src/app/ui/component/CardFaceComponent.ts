@@ -39,13 +39,18 @@ class CardFaceComponent extends BaseComponent<CardInfo>
 		{
 			let numRes: string = game.StringConstants.Empty;
 			let bigRes: string = game.StringConstants.Empty;
+			let cardIdx = this.bindData.card[1];
+			if(cardIdx == 14)
+			{
+				cardIdx = 1;
+			}
 			if (this.bindData.card[0] > 2)
 			{
-				numRes = ResPrefixName.card + ResPrefixName.FlushBlack + this.bindData.card[1] + ResSuffixName.PNG;
+				numRes = ResPrefixName.card + ResPrefixName.FlushBlack + cardIdx + ResSuffixName.PNG;
 			}
 			else
 			{
-				numRes = ResPrefixName.card + ResPrefixName.FlushRed + this.bindData.card[1] + ResSuffixName.PNG;
+				numRes = ResPrefixName.card + ResPrefixName.FlushRed + cardIdx + ResSuffixName.PNG;
 			}
 
 			this.numImg.source = numRes;
@@ -54,7 +59,7 @@ class CardFaceComponent extends BaseComponent<CardInfo>
 			this.flushBigImg1.visible = false;
 			this.flushBigImg.visible = false;
 			//大于10，小于A
-			if (this.bindData.card[1] > GamblingManager.FlushSplitIndex && this.bindData.card[1] < CardTypeMatchUtil.maxIndex)
+			if (this.bindData.card[1] > GamblingManager.FlushSplitIndex && this.bindData.card[1] < CardTypeMatchUtil.minIndex)
 			{
 				bigRes = ResPrefixName.card + this.bindData.card[0] + "_" + this.bindData.card[1] + ResSuffixName.PNG;
 				this.flushBigImg1.source = bigRes;

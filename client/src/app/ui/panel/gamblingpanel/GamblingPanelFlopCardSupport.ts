@@ -206,7 +206,7 @@ class GamblingPanelFlopCardSupport extends BaseGamblingPanelSupport
 		if (GamblingManager.self)
 		{
 			let headComponent: GamblingHeadComponent = this.target.getHeadComponent(GamblingManager.self.pos);
-			if (headComponent && headComponent.bindData.roleId == UserManager.userInfo.id && this._cardList && this._cardList.length > 1)
+			if (headComponent && headComponent.bindData.roleId == UserManager.userInfo.roleId && this._cardList && this._cardList.length > 1)
 			{
 				headComponent.showHaveCardImg(false); //显示自己的手牌
 				headComponent.cardFace1.init(this._cardList[0]);
