@@ -18,7 +18,7 @@ import (
 
 //处理活动信息请求
 func (this *GateUser) OnReqActivityInfo(id int32) {
-	send := &msg.GW2C_AckActivityInfo{}
+	send := &msg.GW2C_RetActivityInfo{}
 	if id == 0 {
 		this.DailySignInfoToMsg(send)
 	} else {
@@ -31,13 +31,13 @@ func (this *GateUser) OnReqActivityInfo(id int32) {
 
 //处理活动领奖请求
 func (this *GateUser) OnReqGetActivityReward(id, subid int32) {
-	send := &msg.GW2C_AckGetActivityRewardRet{}
+	send := &msg.GW2C_RetGetActivityReward{}
 	send.Id = pb.Int32(id)
 	send.Subid = pb.Int32(subid)
-	ret := 0
+	ret := 1
 	if id == int32(msg.ActivityType_DailySign) {
 		if !this.DailySign() {
-			ret = 1
+			ret = 0
 		}
 	} else {
 		return
@@ -86,12 +86,13 @@ func (this *GateUser) DailySign() bool {
 		if v.ActivityId == 3 && v.Day == int32(this.signdays+1) {
 			awardId := v.AwardId
 			awardExId := v.PilePrize
-			this.GetActivityAwardByAwardId(awardId, "日常签到")
-			if awardExId > 0 {
-				this.GetActivityAwardByAwardId(awardExId, "日常签到累计")
+			if this.GetActivityAwardByAwardId(awardId, "日常签到") {
+				if awardExId > 0 {
+					this.GetActivityAwardByAwardId(awardExId, "日常签到累计")
+				}
+				this.signdays = this.signdays + 1
+				this.signtime = int32(util.CURTIME())
 			}
-			this.signdays = this.signdays + 1
-			this.signtime = int32(util.CURTIME())
 			return true
 		}
 	}
@@ -106,7 +107,7 @@ func (this *GateUser) ResetDailySign() {
 }
 
 //签到信息封装消息
-func (this *GateUser) DailySignInfoToMsg(bin *msg.GW2C_AckActivityInfo) {
+func (this *GateUser) DailySignInfoToMsg(bin *msg.GW2C_RetActivityInfo) {
 	data := make(map[string]string)
 	data["timestamp"] = strconv.Itoa(int(this.signtime))
 	jsonbody, jsonerr := json.Marshal(data)
