@@ -114,11 +114,7 @@ class BindPhoneAwardPanel extends BaseActivityPanel
             let phoneDef: ActivityPhoneDefintion = this.activityInfo.subList[0].definition as ActivityPhoneDefintion;
             if (phoneDef)
             {
-                let awardDef: table.IAwardDefine = table.AwardById[phoneDef.awardId];
-                if (awardDef)
-                {
-                    // this._awardList = awardDef.rewardList; //move todo
-                }
+                this._awardList = AwardManager.getAwardInfoDefinitionList(phoneDef.awardId);
             }
         }
     }

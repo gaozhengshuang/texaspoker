@@ -32,6 +32,10 @@ abstract class BaseScene
             this._isResLoaded = true;
             this.onAllResLoadComplete();
         }
+        else
+        {
+            this.onAllResLoadComplete();
+        }
     }
     protected onAllResLoadComplete()
     {

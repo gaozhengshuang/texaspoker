@@ -44,7 +44,7 @@ class AchievementManager
      */
     public static reqUserAchieveList(info: UserInfo)
     {
-        if (info.id == UserManager.userInfo.id)
+        if (info.roleId == UserManager.userInfo.roleId)
         {
             info.allAchieveList = UserManager.userInfo.allAchieveList;
             return;
@@ -56,7 +56,7 @@ class AchievementManager
             // AchievementManager.setAchieveInfoByGroupInfo(info, AchieveGroup.FriendGroup, info.friendNum);
             // AchievementManager.setAchieveInfoByGroupInfo(info, AchieveGroup.LevelGroup, info.level);
         }
-        SocketManager.call(Command.Achievement_GetList_3090, { "roleId": info.id }, callback, null, this);
+        SocketManager.call(Command.Achievement_GetList_3090, { "roleId": info.roleId }, callback, null, this);
     }
     /**
      * 设置某用户已解锁的成就信息
@@ -86,7 +86,7 @@ class AchievementManager
                         completeInfo.id = achieveInfo.id;
                         completeInfo.isTake = false;
                         completeInfo.isComplete = true;
-                        completeInfo.isOther = info.id != UserManager.userInfo.id;
+                        completeInfo.isOther = info.roleId != UserManager.userInfo.roleId;
                         list.push(completeInfo);
                     }
                 }
@@ -144,7 +144,7 @@ class AchievementManager
                     resultInfo.id = info.id;
                     resultInfo.isTake = false;
                     resultInfo.isComplete = false;
-                    resultInfo.isOther = userInfo.id != UserManager.userInfo.id;
+                    resultInfo.isOther = userInfo.roleId != UserManager.userInfo.roleId;
                 }
             }
             result.push(resultInfo);

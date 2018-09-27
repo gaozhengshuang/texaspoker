@@ -56,7 +56,7 @@ class InitServerHandler
 		{
 			UIManager.showPanel(UIModuleName.LoadingSwitchPanel);
 		}
-		game.Console.roleId = UserManager.userInfo.id;
+		game.Console.roleId = UserManager.userInfo.roleId;
 		// this.reqAwardInfo();
 		this.reqGetInsideRoomIdList();
 	}
@@ -114,7 +114,7 @@ class InitServerHandler
 	 */
 	private reqAchievementList()
 	{
-		SocketManager.ImplCall(Command.Achievement_GetList_3090, { "roleId": UserManager.userInfo.id }, this.OnAchievementListInfo, null, this);
+		SocketManager.ImplCall(Command.Achievement_GetList_3090, { "roleId": UserManager.userInfo.roleId }, this.OnAchievementListInfo, null, this);
 	}
 
 	private OnAchievementListInfo(result: game.SpRpcResult)

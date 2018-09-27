@@ -5,7 +5,38 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 {
 	public copyValueFrom(data: any)
 	{
-		super.copyValueFrom(data);
+		if (data)
+		{
+			for (let key in data)
+			{
+				if (key == "id")
+				{
+					this.roleId = data.id;
+				}
+				else
+				{
+					let property: any = this[key];
+					if (!(property instanceof Function)) //函数属性不拷贝
+					{
+						if (data[key] == undefined)
+						{
+							if (typeof this[key] == "number")
+							{
+								this[key] = 0;
+							}
+							else if (typeof this[key] == "string")
+							{
+								this[key] = game.StringConstants.Empty;
+							}
+						}
+						else
+						{
+							this[key] = data[key];
+						}
+					}
+				}
+			}
+		}
 		if (data && data["maxHand"])
 		{
 			this.maxHandList = new Array<CardInfo>();
@@ -17,31 +48,38 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 	/**
 	 * 适配服务器序列化不能大写的问题
 	 */
-	public copyValueFromIgnoreCase(data: msg.RS2C_RetFriendGetRoleInfo)
+	public copyValueFromIgnoreCase(data: any)
 	{
 		if (data)
 		{
 			let self: any = this;
 			for (let key in self)
 			{
-				let lowerKey = key.toLowerCase();
-				let property: any = this[key];
-				if (!(property instanceof Function)) //函数属性不拷贝
+				if (key == "id")
 				{
-					if (data[lowerKey] == undefined)
+					this.roleId = data.id;
+				}
+				else
+				{
+					let lowerKey = key.toLowerCase();
+					let property: any = this[key];
+					if (!(property instanceof Function)) //函数属性不拷贝
 					{
-						if (typeof self[key] === "number")
+						if (data[lowerKey] == undefined)
 						{
-							self[key] = 0;
+							if (typeof self[key] === "number")
+							{
+								self[key] = 0;
+							}
+							else if (typeof self[key] === "string")
+							{
+								self[key] = game.StringConstants.Empty;
+							}
 						}
-						else if (typeof self[key] === "string")
+						else
 						{
-							self[key] = game.StringConstants.Empty;
+							self[key] = data[lowerKey];
 						}
-					}
-					else
-					{
-						self[key] = data[lowerKey];
 					}
 				}
 			}
@@ -61,7 +99,7 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 		this._saveGold = 0;
 		this.timestamp = 0;
 		this.timezone = 0;
-		this.id = 0;
+		this.roleId = 0;
 		this.name = game.StringConstants.Empty;
 		this.head = null;
 		this.sex = 0;
@@ -169,7 +207,7 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 	/**
 	 * 角色ID
 	 */
-	public id: number;
+	public roleId: number;
 	/**
 	 * 昵称
 	 */
@@ -282,7 +320,7 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 	private _friendNum: number;
 	public get friendNum(): number
 	{
-		if (this.id == UserManager.userInfo.id && FriendManager.friendList)
+		if (this.roleId == UserManager.userInfo.roleId && FriendManager.friendList)
 		{
 			return FriendManager.friendList.length;
 		}

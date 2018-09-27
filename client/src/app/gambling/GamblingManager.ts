@@ -120,7 +120,7 @@ class GamblingManager
 		{
 			for (let i: number = 0; i < GamblingManager.roomInfo.playerList.length; i++)
 			{
-				if (GamblingManager.roomInfo.playerList[i].roleId == UserManager.userInfo.id)
+				if (GamblingManager.roomInfo.playerList[i].roleId == UserManager.userInfo.roleId)
 				{
 					return true;
 				}
@@ -204,6 +204,7 @@ class GamblingManager
 		GamblingManager.showPotChips = 0;
 		if (GamblingManager.roomInfo)
 		{
+			GamblingManager.roomInfo.pos = undefined; //move todo
 			GamblingManager.roomInfo.maxAnte = 0;
 			// GamblingManager.roomInfo.minRaiseNum = 0;
 		}
@@ -318,15 +319,15 @@ class GamblingManager
 		SocketManager.AddCommandListener(Command.C2GW_ReqEnterRoom, callback, this);
 		if (password != undefined && id > 0)
 		{
-			SocketManager.Send(Command.C2GW_ReqEnterRoom, msg.C2GW_ReqEnterRoom.encode({ userid: UserManager.userInfo.id, roomid: id, passwd: password }));
+			SocketManager.Send(Command.C2GW_ReqEnterRoom, msg.C2GW_ReqEnterRoom.encode({ userid: UserManager.userInfo.roleId, roomid: id, passwd: password }));
 		}
 		else if (id > 0)
 		{
-			SocketManager.Send(Command.C2GW_ReqEnterRoom, msg.C2GW_ReqEnterRoom.encode({ userid: UserManager.userInfo.id, roomid: id }));
+			SocketManager.Send(Command.C2GW_ReqEnterRoom, msg.C2GW_ReqEnterRoom.encode({ userid: UserManager.userInfo.roleId, roomid: id }));
 		}
 		else
 		{
-			SocketManager.Send(Command.C2GW_ReqEnterRoom, msg.C2GW_ReqEnterRoom.encode({ userid: UserManager.userInfo.id }));
+			SocketManager.Send(Command.C2GW_ReqEnterRoom, msg.C2GW_ReqEnterRoom.encode({ userid: UserManager.userInfo.roleId }));
 		}
 	}
 	public static initialize(result: game.SpRpcResult, isReconnect?: boolean)
@@ -363,7 +364,7 @@ class GamblingManager
 			{
 				for (let pInfo of GamblingManager.roomInfo.playerList)
 				{
-					if (pInfo.roleId == UserManager.userInfo.id)
+					if (pInfo.roleId == UserManager.userInfo.roleId)
 					{
 						GamblingManager._isOnSeat = true;
 					}
@@ -540,6 +541,7 @@ class GamblingManager
 			if (state == BuyInGameState.Sit)
 			{
 				let playerInfo: PlayerInfo = new PlayerInfo();
+				playerInfo.data = new msg.TexasPlayer();
 				playerInfo.roleId = game.longToNumber(data.roleid);
 				playerInfo.pos = data.pos;
 				playerInfo.bankRoll = data.bankroll;
@@ -552,12 +554,12 @@ class GamblingManager
 			}
 			else if (state == BuyInGameState.Stand)
 			{
-				let roleId: number = result.data["roleId"];
+				let roleId: number = result.data["roleid"];
 				let playerInfo: PlayerInfo = GamblingManager.getPlayerInfo(roleId);
 
 				if (playerInfo)
 				{
-					if (playerInfo.roleId == UserManager.userInfo.id) //站起需要清空自己的信息
+					if (playerInfo.roleId == UserManager.userInfo.roleId) //站起需要清空自己的信息
 					{
 						GamblingManager.standClear();
 					}
@@ -577,7 +579,7 @@ class GamblingManager
 		{
 			let data: msg.RS2C_PushPlayerStateChange = result.data;
 			let roleId: number = game.longToNumber(data.roleid);
-			if (roleId == UserManager.userInfo.id)
+			if (roleId == UserManager.userInfo.roleId)
 			{
 				GamblingManager.isCallAny = false;
 				GamblingManager.isCheckOrFold = false;
@@ -795,7 +797,7 @@ class GamblingManager
 	{
 		if (result.data)
 		{
-			let list: Array<number> = result.data["roleId"];
+			let list: Array<number> = result.data["roleid"];
 			let state: PlayerState = result.data["state"];
 			if (list && state != undefined)
 			{
@@ -1036,7 +1038,7 @@ class GamblingManager
 		// {
 		SocketManager.AddCommandListener(Command.C2GW_ReqLeaveRoom, callBack, this);
 		SocketManager.AddErrorListener(Command.C2GW_ReqLeaveRoom, callBackError, this);
-		SocketManager.Send(Command.C2GW_ReqLeaveRoom, msg.C2GW_ReqLeaveRoom.encode({}));
+		SocketManager.Send(Command.C2GW_ReqLeaveRoom, msg.C2GW_ReqLeaveRoom.encode({ userid: UserManager.userInfo.roleId }));
 		// }
 	}
 	private static leaveRoom()
@@ -1186,7 +1188,7 @@ class GamblingManager
 	/**
  	* 拉取玩家的用户信息
  	*/
-	public static reqGetPlayerUserInfo(playerInfo: PlayerInfo)
+	private static reqGetPlayerUserInfo(playerInfo: PlayerInfo)
 	{
 		if (!playerInfo)
 		{
@@ -1217,7 +1219,7 @@ class GamblingManager
 				let userInfo = new UserInfo();
 				userInfo.copyValueFromIgnoreCase(result.data);
 				GamblingManager._getUserInfoQueue[0].userInfo = userInfo;
-				GamblingManager.OnGetRoomUserInfoEvent.dispatch(GamblingManager._getUserInfoQueue[0].userInfo.id);
+				GamblingManager.OnGetRoomUserInfoEvent.dispatch(GamblingManager._getUserInfoQueue[0].userInfo.roleId);
 
 				GamblingManager._getUserInfoQueue.shift();
 				if (result.data)
@@ -1286,7 +1288,7 @@ class GamblingManager
 	{
 		if (!GamblingManager._self)
 		{
-			GamblingManager._self = GamblingManager.getPlayerInfo(UserManager.userInfo.id);
+			GamblingManager._self = GamblingManager.getPlayerInfo(UserManager.userInfo.roleId);
 		}
 		return GamblingManager._self;
 	}

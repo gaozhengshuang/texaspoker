@@ -59,7 +59,7 @@ func (this *RoomManager) Num() int {
 func (this *RoomManager) Add(room IRoomBase) {
 	id := room.Id()
 	this.rooms[id] = room
-	room.DoCache()
+	room.InitCache()
 	if room.Kind() == int32(msg.RoomKind_TexasPoker) {
 		subkind := room.SubKind()
 		if this.texasrooms[subkind] == nil { this.texasrooms[subkind] = make([]IRoomBase, 0) }

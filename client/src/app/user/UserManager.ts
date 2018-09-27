@@ -47,8 +47,8 @@ class UserManager
 	public static initialize(roleId: number, data: any)
 	{
 		UserManager.otherUserInfoClear();
-		UserManager.userInfo = new UserInfo();
-		UserManager.userInfo.copyValueFrom(data);
+		// UserManager.userInfo = new UserInfo();
+		// UserManager.userInfo.copyValueFrom(data); //move todo
 		if (data["lastGoldTime"] == undefined && data["createdTime"])
 		{
 			UserManager.userInfo.lastGoldTime = data["createdTime"];
@@ -152,7 +152,7 @@ class UserManager
 				UserManager.otherUserInfo.vipSpeed = ProjectDefined.getVipSpeedDefinition(UserManager.otherUserInfo.vipType).speed;
 				UserManager.getOtherUserInfoEa.dispatch();
 			}
-			if (FriendManager.isFriend(UserManager.otherUserInfo.id))
+			if (FriendManager.isFriend(UserManager.otherUserInfo.roleId))
 			{
 				UIManager.showPanel(UIModuleName.UserInfoPanel);
 			}
@@ -169,7 +169,7 @@ class UserManager
 	 */
 	public static sendGetUserInfo(roleId: number, callback: Function, errorCallBack?: Function)
 	{
-		SocketManager.call(Command.C2RS_ReqFriendGetRoleInfo, msg.C2RS_ReqFriendGetRoleInfo.encode({ roleid: roleId }), callback, errorCallBack, this);
+		MsgTransferSend.sendRoomProto(Command.C2RS_ReqFriendGetRoleInfo, { roleid: roleId }, callback, errorCallBack, this);
 	}
 
 	public static reqSimpleUserInfo(roleId: number)

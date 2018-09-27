@@ -101,7 +101,7 @@ class ChampionshipHandler
         {
             if (type == ChampionshipBuyType.Rebuy)
             {
-                let pInfo: PlayerInfo = GamblingManager.getPlayerInfo(UserManager.userInfo.id);
+                let pInfo: PlayerInfo = GamblingManager.getPlayerInfo(UserManager.userInfo.roleId);
                 if (pInfo && (pInfo.initbankRoll <= GamblingManager.matchRoomInfo.definition.initialChips || !pInfo.initbankRoll))
                 {
                     let def: ChampionshipBlindDefinition = ChampionshipBlindDefined.GetInstance().getBlindInfoByLevel(GamblingManager.roomInfo.nowBlindLevel, GamblingManager.matchRoomInfo.definition.blindType);
@@ -250,7 +250,7 @@ class ChampionshipHandler
         {
             SocketManager.RemoveCommandListener(Command.MTTRebuyOrAddon_3619, callback, this);
             SocketManager.RemoveErrorListener(Command.MTTRebuyOrAddon_3619, callbackError, this);
-            if (result.error == 3012)
+            if (result.error == "3012") //move todo
             {
                 if (type == ChampionshipBuyType.Rebuy)
                 {

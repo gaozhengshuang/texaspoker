@@ -34,7 +34,7 @@ class HappyGiftRankRenderer extends BaseItemRenderer<RankInfo>
 
     private setColor()
     {
-        if (this.bindData.roleId == UserManager.userInfo.id)
+        if (this.bindData.roleId == UserManager.userInfo.roleId)
         {
             this.rankLabel.textColor = ColorEnum.Golden;
             this.userNameLabel.textColor = ColorEnum.Golden;

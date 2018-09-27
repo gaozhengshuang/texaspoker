@@ -349,7 +349,7 @@ module game
 			let decoded = msg[msgName.slice(4)].decode(cmdDataBA.bytes);
 			if (msgName.indexOf("Push") != -1) //推送协议
 			{
-				this.handleRequest(msgName, decoded, undefined, undefined);
+				this.handleRequest(msgName, decoded, undefined);
 			}
 			else
 			{
@@ -357,27 +357,24 @@ module game
 				let retName = msgName.substr(idx + 3);
 				for (let protoInfo of table.ProtoId)
 				{
-					if (msgName != protoInfo.Name && protoInfo.Name.indexOf(retName) != -1)
+					let idx = protoInfo.Name.indexOf(retName);
+					if (msgName != protoInfo.Name && protoInfo.Name.substr(idx) == retName)
 					{
 						msgName = protoInfo.Name;
 						break;
 					}
 				}
-				this.handleResponse(msgName, decoded, undefined, undefined);
+				this.handleResponse(msgName, decoded, undefined);
 			}
 			NotificationCenter.postNotification(msgName, decoded);
 		}
-		private handleRequest(name: string, data: any, session: number, error: number)
+		private handleRequest(name: string, data: any, session: number)
 		{
-			if (error == undefined)
-			{
-				error = 0;
-			}
-			Console.log("server-push-----> cmdId:" + name, "-> session:" + session, "-> error:" + error);
+			Console.log("server-push-----> cmdId:" + name, "-> data:" + JSON.stringify(data));
 			let spRpcResult: SpRpcResult = new SpRpcResult();
 			spRpcResult.cmdId = name;
 			spRpcResult.data = data;
-			spRpcResult.error = error;
+			spRpcResult.error = game.StringConstants.Empty;
 			spRpcResult.op = SpRpcOp.Request;
 			spRpcResult.session = session;
 			if (this._requestSessionMax < session)
@@ -391,7 +388,7 @@ module game
 			else
 			{
 				this.DispatchResult(spRpcResult);
-				if (spRpcResult.error == 0) // || this._normalErrorSet.contains(spRpcResult.error)
+				if (game.StringUtil.isNullOrEmpty(spRpcResult.error)) // || this._normalErrorSet.contains(spRpcResult.error)
 				{
 					this.DispatchCommand(name, spRpcResult);
 				}
@@ -404,15 +401,12 @@ module game
 				}
 			}
 		}
-		private handleResponse(name: string, data: any, session: number, error: number)
+		private handleResponse(name: string, data: any, session: number)
 		{
-			if (error == undefined)
-			{
-				error = 0;
-			}
+			let error:string = data["errcode"];
 			if (name.indexOf("HeartBeat") == -1)
 			{
-				Console.log("client receive ------------> cmdId:" + name + "-> session:" + session, "-> error:" + error);
+				Console.log("client receive ------------> cmdId:" + name + "-> data:" + JSON.stringify(data), "-> error:" + error);
 			}
 			let info: SocketInfo = this.RemoveSocketInfo(name);
 			// let info: SocketInfo = this.RemoveSocketInfo(session);
@@ -430,9 +424,9 @@ module game
 			{
 				this.DispatchResult(spRpcResult);
 
-				if (data.hasOwnProperty("errcode"))
+				if (error != undefined)
 				{
-					if (game.StringUtil.isNullOrEmpty(data["errcode"]) || this._normalErrorSet.contains(name))
+					if (game.StringUtil.isNullOrEmpty(error) || this._normalErrorSet.contains(name))
 					{
 						if (info && info.onResult)
 						{

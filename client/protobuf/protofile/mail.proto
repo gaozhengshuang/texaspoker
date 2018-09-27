@@ -1,0 +1,61 @@
+syntax = "proto2";
+package msg;
+
+message MailItem {
+    optional int32 item = 1;
+    optional int32 num = 2;
+}
+
+//message MailDetail {
+//    optional int64 id = 1;          // 邮件uuid
+//    optional string title = 2;      // 标题
+//    optional string content = 3;    // 内容
+//    optional int32 type = 4;        // 邮件类型
+//    optional int32 date = 5;        // 邮件创建日期
+//    optional int64 sid= 6;          // 发件人id
+//    optional string sname = 7;      // 发件人
+//    optional bool read = 8;        // 已读标记
+//    optional bool accept = 9;      // 附件领取标记
+//}
+
+message MailDetail {
+    optional int32 id = 1;          // 邮件uuid
+    optional int32 type = 2;        // 邮件类型
+    optional string content = 3;    // 内容
+    optional string title = 4;      // 标题
+    optional int32 subtype = 5;     // 子类型
+    optional int32 date = 6;        // 邮件创建日期
+    optional string sender = 7;     // 发件人
+    optional int32 senderid = 8;    // 发件人id
+    optional bool isread = 10;      // 已读标记
+    optional bool isgot = 11;       // 附件领取标记
+    repeated MailItem items = 9;    // 附件列表
+}
+
+// 请求邮件列表
+message C2GW_ReqMailList {
+    optional int32 startid = 1;
+    optional int32 count = 2;
+}
+
+message GW2C_RetMailList {
+    repeated MailDetail maillist = 1;
+}
+
+// 请求领取附件
+message C2GW_ReqTakeMailItem {
+    optional int64 uid = 1;
+}
+
+message GW2C_RetTakeMailItem {
+    optional int32 uid = 1;
+    optional string errcode = 2;
+}
+
+// 新邮件推送
+message GW2C_PushNewMail {
+    optional MailDetail mail = 1;
+}
+
+
+

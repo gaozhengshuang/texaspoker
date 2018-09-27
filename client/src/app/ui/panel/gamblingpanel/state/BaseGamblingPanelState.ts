@@ -141,7 +141,7 @@ abstract class BaseGamblingPanelState
 		}
 		else
 		{
-			game.Console.logError("牌局切换状态，移除对象显示失败：" + target);
+			// game.Console.logError("牌局切换状态，移除对象显示失败：" + target); //move todo
 		}
 	}
 	/**

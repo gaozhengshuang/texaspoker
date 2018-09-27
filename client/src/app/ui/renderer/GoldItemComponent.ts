@@ -25,20 +25,20 @@ class GoldItemComponent extends BaseComponent<ShopInfo>{
         if (InfoUtil.checkAvailable(info))
         {
             this._info = info;
-            // this._awardDef = AwardDefined.GetInstance().getDefinition(info.definition.awardId);  //move todo
-            // if (this._awardDef && this._awardDef.costList)
-            // {
-            //     this.goldImg.source = info.definition.iconName + ResSuffixName.PNG;
-            //     this.goldNum.text = this._awardDef.name;
-            //     this.goldCount.text = this._awardDef.des;
-            //     for (let def of this._awardDef.costList)
-            //     {
-            //         if (def.type == CostType.RMB)
-            //         {
-            //             this.goldBtn.label = def.count / 100 + "元";
-            //         }
-            //     }
-            // }
+            this._awardDef = table.AwardById[info.definition.awardId];
+            if (this._awardDef && this._awardDef.CostId)
+            {
+                this.goldImg.source = info.definition.iconName + ResSuffixName.PNG;
+                this.goldNum.text = this._awardDef.Name;
+                this.goldCount.text = this._awardDef.Des;
+                for (let i: number = 0; i < this._awardDef.CostType.length; i++)
+                {
+                    if (this._awardDef.CostType[i] == CostType.RMB)
+                    {
+                        this.goldBtn.label = this._awardDef.CostNum[i] / 100 + "元";
+                    }
+                }
+            }
         }
     }
 

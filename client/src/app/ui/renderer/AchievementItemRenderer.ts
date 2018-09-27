@@ -38,7 +38,7 @@ class AchievementItemRenderer extends BaseItemRenderer<AchievementInfo>
 	private refreshiUI()
 	{
 		let userInfo: UserInfo;
-		if (UserManager.otherUserInfo == null || UserManager.otherUserInfo.id == UserManager.userInfo.id)
+		if (UserManager.otherUserInfo == null || UserManager.otherUserInfo.roleId == UserManager.userInfo.roleId)
 		{
 			userInfo = UserManager.userInfo;
 		}

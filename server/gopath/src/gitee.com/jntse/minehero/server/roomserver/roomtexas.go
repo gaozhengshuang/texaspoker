@@ -1,6 +1,6 @@
 package main
 import (
-	"fmt"
+	//"fmt"
 	"time"
 	//_"strings"
 	//_"strconv"
@@ -16,6 +16,7 @@ import (
 
 // 房间销毁
 func (this *TexasPokerRoom) OnDestory(now int64) {
+	this.ticker1s.Stop()
 
 	// 更新房间数量
 	loadkey := def.RoomAgentLoadRedisKey(RoomSvr().Name())
@@ -60,6 +61,7 @@ func (this *TexasPokerRoom) UserEnter(u *RoomUser) {
 
 // 玩家离开房间
 func (this *TexasPokerRoom) UserLeave(u *RoomUser) {
+	log.Info("[房间]离开")
 	player := this.FindAllByID(u.Id())
 	if player == nil {
 		return
@@ -73,7 +75,7 @@ func (this *TexasPokerRoom) UserLeave(u *RoomUser) {
 
 	delete(this.members, u.Id())
 	//delete(this.watchmembers, u.Id())
-	Redis().HSet(fmt.Sprintf("roombrief_%d", this.Id()), "members", this.PlayersNum())
+	//Redis().HSet(fmt.Sprintf("roombrief_%d", this.Id()), "members", this.PlayersNum())
 	u.OnLeaveRoom()
 	log.Info("[房间] 玩家[%s %d] 离开房间[%d]", u.Name(), u.Id(), this.Id())
 

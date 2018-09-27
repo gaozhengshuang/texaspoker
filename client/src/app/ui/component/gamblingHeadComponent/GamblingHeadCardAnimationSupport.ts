@@ -56,7 +56,7 @@ class GamblingHeadCardAnimationSupport
 	{
 		if (GamblingUtil.isOmaha)
 		{
-			if (roleId == UserManager.userInfo.id)
+			if (roleId == UserManager.userInfo.roleId)
 			{
 				this.startRunBrightCard(this.context.cardFace1, 0, 0, 38, 98, null, null, 1);
 				this.startRunBrightCard(this.context.cardFace2, 0, 0, 58, 98, null, null, 2);

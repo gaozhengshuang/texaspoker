@@ -130,7 +130,7 @@ class GamblingReviewItemRenderer extends BaseItemRenderer<PlayerReviewInfo>
                 }
             }
 
-            if ((GamblingManager.gamblingReviewHandler.isCompare() && !flodStep) || this.bindData.isShowCard || this.bindData.roleId == UserManager.userInfo.id)
+            if ((GamblingManager.gamblingReviewHandler.isCompare() && !flodStep) || this.bindData.isShowCard || this.bindData.roleId == UserManager.userInfo.roleId)
             {
                 this.card0.initElementsShow2();
                 this.card1.initElementsShow2();

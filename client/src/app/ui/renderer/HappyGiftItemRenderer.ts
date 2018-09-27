@@ -28,15 +28,15 @@ class HappyGiftItemRenderer extends BaseItemRenderer<HappyGiftItemInfo>
             this.costLabel.text = game.MathUtil.numAddSpace(this.bindData.definition.cost) + "欢乐券";
             if (this.bindData.awardInfoDef)
             {
-                let rewardList:any = {};// this.bindData.awardInfoDef.rewardList; //move todo
+                let rewardList:number[] = this.bindData.awardInfoDef.RewardId;
                 if (rewardList.length > 0)
                 {
-                    let itemDef = ItemDefined.GetInstance().getDefinition(rewardList[0].id);
+                    let itemDef = ItemDefined.GetInstance().getDefinition(rewardList[0]);
                     if (itemDef)
                     {
                         if (itemDef.id == ItemFixedId.gold)
                         {
-                            this.nameLabel.text = itemDef.name + " * " + game.MathUtil.formatNum(rewardList[0].count);
+                            this.nameLabel.text = itemDef.name + " * " + game.MathUtil.formatNum(this.bindData.awardInfoDef.RewardNum[0]);
                         }
                         else
                         {
