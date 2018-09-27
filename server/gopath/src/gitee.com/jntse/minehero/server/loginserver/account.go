@@ -397,6 +397,9 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 			break
 		}
 
+		// 缓存简单信息
+		SaveUserSimpleInfo(userinfo)
+
 		// 关联userid和openid
 		setopenidkey := fmt.Sprintf("user_%d_wechat_openid", userid)
 		Redis().Set(setopenidkey, openid, 0).Result()
@@ -424,3 +427,22 @@ func DirectRegistAccount(account, passwd string) (errcode string) {
 
 	return RegistAccount(account, passwd, "", account, "", "")
 }
+
+// 缓存玩家简单信息
+func SaveUserSimpleInfo(bin *msg.Serialize) {
+	uid := bin.Entity.GetId()
+	pipe := Redis().Pipeline()
+	defer pipe.Close()
+
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "name", bin.Entity.GetName())
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "face", bin.Entity.GetHead())
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "sex",  bin.Entity.GetSex())
+	_, err := pipe.Exec()
+	if err != nil {
+		log.Error("缓存玩家[%s %d]简单信息失败 %s", bin.Entity.GetName(), uid, err)
+		return
+	}
+	log.Info("缓存玩家[%s %d]简单信息成功", bin.Entity.GetName(), uid)
+}
+
+
