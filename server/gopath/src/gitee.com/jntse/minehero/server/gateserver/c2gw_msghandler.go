@@ -72,6 +72,10 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqUserRoomInfo{}, on_C2GW_ReqUserRoomInfo)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTexasRoomList{}, on_C2GW_ReqTexasRoomList)
 
+	// 邮件
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqMailList{}, on_C2GW_ReqMailList)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTakeMailItem{}, on_C2GW_ReqTakeMailItem)
+
 	//活动
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqActivityInfo{}, on_C2GW_ReqActivityInfo)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqGetActivityReward{}, on_C2GW_ReqGetActivityReward)
@@ -558,6 +562,21 @@ func on_C2GW_LeaveEvent(session network.IBaseNetSession, message interface{}) {
 		return
 	}
 	u.events.LeaveEvent(tmsg.GetUid())
+}
+
+// 个人邮件列表
+func on_C2GW_ReqMailList(session network.IBaseNetSession, message interface{}) {
+	//tmsg := message.(*msg.C2GW_ReqMailList)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+}
+
+
+func on_C2GW_ReqTakeMailItem(session network.IBaseNetSession, message interface{}) {
 }
 
 func on_C2GW_ReqTaskList(session network.IBaseNetSession, message interface{}) {
