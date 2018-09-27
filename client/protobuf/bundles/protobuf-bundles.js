@@ -1865,8 +1865,8 @@ $root.msg = (function() {
      * @name msg.ItemId
      * @enum {string}
      * @property {number} YuanBao=60001 YuanBao value
-     * @property {number} Diamond=60002 Diamond value
-     * @property {number} Gold=60003 Gold value
+     * @property {number} Diamond=2 Diamond value
+     * @property {number} Gold=1 Gold value
      * @property {number} FreeStep=60005 FreeStep value
      * @property {number} Strength=60006 Strength value
      * @property {number} RedDiamond=100001 RedDiamond value
@@ -1875,8 +1875,8 @@ $root.msg = (function() {
     msg.ItemId = (function() {
         var valuesById = {}, values = Object.create(valuesById);
         values[valuesById[60001] = "YuanBao"] = 60001;
-        values[valuesById[60002] = "Diamond"] = 60002;
-        values[valuesById[60003] = "Gold"] = 60003;
+        values[valuesById[2] = "Diamond"] = 2;
+        values[valuesById[1] = "Gold"] = 1;
         values[valuesById[60005] = "FreeStep"] = 60005;
         values[valuesById[60006] = "Strength"] = 60006;
         values[valuesById[100001] = "RedDiamond"] = 100001;
@@ -43701,15 +43701,14 @@ $root.table = (function() {
          * @memberof table
          * @interface IItemBaseDataDefine
          * @property {number|null} [Id] ItemBaseDataDefine Id
-         * @property {number|null} [Type] ItemBaseDataDefine Type
-         * @property {number|null} [SubType] ItemBaseDataDefine SubType
-         * @property {number|null} [Color] ItemBaseDataDefine Color
-         * @property {number|null} [ImageId] ItemBaseDataDefine ImageId
          * @property {string|null} [Name] ItemBaseDataDefine Name
-         * @property {string|null} [Desc] ItemBaseDataDefine Desc
-         * @property {number|null} [Clothes] ItemBaseDataDefine Clothes
+         * @property {number|null} [Type] ItemBaseDataDefine Type
          * @property {string|null} [TypeDes] ItemBaseDataDefine TypeDes
-         * @property {number|null} [Tradable] ItemBaseDataDefine Tradable
+         * @property {number|null} [EffectType] ItemBaseDataDefine EffectType
+         * @property {string|null} [Des] ItemBaseDataDefine Des
+         * @property {string|null} [Icon] ItemBaseDataDefine Icon
+         * @property {number|null} [PileNum] ItemBaseDataDefine PileNum
+         * @property {string|null} [Extern] ItemBaseDataDefine Extern
          */
 
         /**
@@ -43736,38 +43735,6 @@ $root.table = (function() {
         ItemBaseDataDefine.prototype.Id = 0;
 
         /**
-         * ItemBaseDataDefine Type.
-         * @member {number} Type
-         * @memberof table.ItemBaseDataDefine
-         * @instance
-         */
-        ItemBaseDataDefine.prototype.Type = 0;
-
-        /**
-         * ItemBaseDataDefine SubType.
-         * @member {number} SubType
-         * @memberof table.ItemBaseDataDefine
-         * @instance
-         */
-        ItemBaseDataDefine.prototype.SubType = 0;
-
-        /**
-         * ItemBaseDataDefine Color.
-         * @member {number} Color
-         * @memberof table.ItemBaseDataDefine
-         * @instance
-         */
-        ItemBaseDataDefine.prototype.Color = 0;
-
-        /**
-         * ItemBaseDataDefine ImageId.
-         * @member {number} ImageId
-         * @memberof table.ItemBaseDataDefine
-         * @instance
-         */
-        ItemBaseDataDefine.prototype.ImageId = 0;
-
-        /**
          * ItemBaseDataDefine Name.
          * @member {string} Name
          * @memberof table.ItemBaseDataDefine
@@ -43776,20 +43743,12 @@ $root.table = (function() {
         ItemBaseDataDefine.prototype.Name = "";
 
         /**
-         * ItemBaseDataDefine Desc.
-         * @member {string} Desc
+         * ItemBaseDataDefine Type.
+         * @member {number} Type
          * @memberof table.ItemBaseDataDefine
          * @instance
          */
-        ItemBaseDataDefine.prototype.Desc = "";
-
-        /**
-         * ItemBaseDataDefine Clothes.
-         * @member {number} Clothes
-         * @memberof table.ItemBaseDataDefine
-         * @instance
-         */
-        ItemBaseDataDefine.prototype.Clothes = 0;
+        ItemBaseDataDefine.prototype.Type = 0;
 
         /**
          * ItemBaseDataDefine TypeDes.
@@ -43800,12 +43759,44 @@ $root.table = (function() {
         ItemBaseDataDefine.prototype.TypeDes = "";
 
         /**
-         * ItemBaseDataDefine Tradable.
-         * @member {number} Tradable
+         * ItemBaseDataDefine EffectType.
+         * @member {number} EffectType
          * @memberof table.ItemBaseDataDefine
          * @instance
          */
-        ItemBaseDataDefine.prototype.Tradable = 0;
+        ItemBaseDataDefine.prototype.EffectType = 0;
+
+        /**
+         * ItemBaseDataDefine Des.
+         * @member {string} Des
+         * @memberof table.ItemBaseDataDefine
+         * @instance
+         */
+        ItemBaseDataDefine.prototype.Des = "";
+
+        /**
+         * ItemBaseDataDefine Icon.
+         * @member {string} Icon
+         * @memberof table.ItemBaseDataDefine
+         * @instance
+         */
+        ItemBaseDataDefine.prototype.Icon = "";
+
+        /**
+         * ItemBaseDataDefine PileNum.
+         * @member {number} PileNum
+         * @memberof table.ItemBaseDataDefine
+         * @instance
+         */
+        ItemBaseDataDefine.prototype.PileNum = 0;
+
+        /**
+         * ItemBaseDataDefine Extern.
+         * @member {string} Extern
+         * @memberof table.ItemBaseDataDefine
+         * @instance
+         */
+        ItemBaseDataDefine.prototype.Extern = "";
 
         /**
          * Creates a new ItemBaseDataDefine instance using the specified properties.
@@ -43833,24 +43824,22 @@ $root.table = (function() {
                 writer = $Writer.create();
             if (message.Id != null && message.hasOwnProperty("Id"))
                 writer.uint32(/* id 1, wireType 0 =*/8).int32(message.Id);
-            if (message.Type != null && message.hasOwnProperty("Type"))
-                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.Type);
-            if (message.SubType != null && message.hasOwnProperty("SubType"))
-                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.SubType);
-            if (message.Color != null && message.hasOwnProperty("Color"))
-                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.Color);
-            if (message.ImageId != null && message.hasOwnProperty("ImageId"))
-                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.ImageId);
             if (message.Name != null && message.hasOwnProperty("Name"))
-                writer.uint32(/* id 6, wireType 2 =*/50).string(message.Name);
-            if (message.Desc != null && message.hasOwnProperty("Desc"))
-                writer.uint32(/* id 7, wireType 2 =*/58).string(message.Desc);
-            if (message.Clothes != null && message.hasOwnProperty("Clothes"))
-                writer.uint32(/* id 8, wireType 0 =*/64).int32(message.Clothes);
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.Name);
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.Type);
             if (message.TypeDes != null && message.hasOwnProperty("TypeDes"))
-                writer.uint32(/* id 9, wireType 2 =*/74).string(message.TypeDes);
-            if (message.Tradable != null && message.hasOwnProperty("Tradable"))
-                writer.uint32(/* id 10, wireType 0 =*/80).int32(message.Tradable);
+                writer.uint32(/* id 4, wireType 2 =*/34).string(message.TypeDes);
+            if (message.EffectType != null && message.hasOwnProperty("EffectType"))
+                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.EffectType);
+            if (message.Des != null && message.hasOwnProperty("Des"))
+                writer.uint32(/* id 6, wireType 2 =*/50).string(message.Des);
+            if (message.Icon != null && message.hasOwnProperty("Icon"))
+                writer.uint32(/* id 7, wireType 2 =*/58).string(message.Icon);
+            if (message.PileNum != null && message.hasOwnProperty("PileNum"))
+                writer.uint32(/* id 8, wireType 0 =*/64).int32(message.PileNum);
+            if (message.Extern != null && message.hasOwnProperty("Extern"))
+                writer.uint32(/* id 9, wireType 2 =*/74).string(message.Extern);
             return writer;
         };
 
@@ -43889,31 +43878,28 @@ $root.table = (function() {
                     message.Id = reader.int32();
                     break;
                 case 2:
-                    message.Type = reader.int32();
-                    break;
-                case 3:
-                    message.SubType = reader.int32();
-                    break;
-                case 4:
-                    message.Color = reader.int32();
-                    break;
-                case 5:
-                    message.ImageId = reader.int32();
-                    break;
-                case 6:
                     message.Name = reader.string();
                     break;
-                case 7:
-                    message.Desc = reader.string();
+                case 3:
+                    message.Type = reader.int32();
                     break;
-                case 8:
-                    message.Clothes = reader.int32();
-                    break;
-                case 9:
+                case 4:
                     message.TypeDes = reader.string();
                     break;
-                case 10:
-                    message.Tradable = reader.int32();
+                case 5:
+                    message.EffectType = reader.int32();
+                    break;
+                case 6:
+                    message.Des = reader.string();
+                    break;
+                case 7:
+                    message.Icon = reader.string();
+                    break;
+                case 8:
+                    message.PileNum = reader.int32();
+                    break;
+                case 9:
+                    message.Extern = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -43953,33 +43939,30 @@ $root.table = (function() {
             if (message.Id != null && message.hasOwnProperty("Id"))
                 if (!$util.isInteger(message.Id))
                     return "Id: integer expected";
-            if (message.Type != null && message.hasOwnProperty("Type"))
-                if (!$util.isInteger(message.Type))
-                    return "Type: integer expected";
-            if (message.SubType != null && message.hasOwnProperty("SubType"))
-                if (!$util.isInteger(message.SubType))
-                    return "SubType: integer expected";
-            if (message.Color != null && message.hasOwnProperty("Color"))
-                if (!$util.isInteger(message.Color))
-                    return "Color: integer expected";
-            if (message.ImageId != null && message.hasOwnProperty("ImageId"))
-                if (!$util.isInteger(message.ImageId))
-                    return "ImageId: integer expected";
             if (message.Name != null && message.hasOwnProperty("Name"))
                 if (!$util.isString(message.Name))
                     return "Name: string expected";
-            if (message.Desc != null && message.hasOwnProperty("Desc"))
-                if (!$util.isString(message.Desc))
-                    return "Desc: string expected";
-            if (message.Clothes != null && message.hasOwnProperty("Clothes"))
-                if (!$util.isInteger(message.Clothes))
-                    return "Clothes: integer expected";
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                if (!$util.isInteger(message.Type))
+                    return "Type: integer expected";
             if (message.TypeDes != null && message.hasOwnProperty("TypeDes"))
                 if (!$util.isString(message.TypeDes))
                     return "TypeDes: string expected";
-            if (message.Tradable != null && message.hasOwnProperty("Tradable"))
-                if (!$util.isInteger(message.Tradable))
-                    return "Tradable: integer expected";
+            if (message.EffectType != null && message.hasOwnProperty("EffectType"))
+                if (!$util.isInteger(message.EffectType))
+                    return "EffectType: integer expected";
+            if (message.Des != null && message.hasOwnProperty("Des"))
+                if (!$util.isString(message.Des))
+                    return "Des: string expected";
+            if (message.Icon != null && message.hasOwnProperty("Icon"))
+                if (!$util.isString(message.Icon))
+                    return "Icon: string expected";
+            if (message.PileNum != null && message.hasOwnProperty("PileNum"))
+                if (!$util.isInteger(message.PileNum))
+                    return "PileNum: integer expected";
+            if (message.Extern != null && message.hasOwnProperty("Extern"))
+                if (!$util.isString(message.Extern))
+                    return "Extern: string expected";
             return null;
         };
 
@@ -43997,24 +43980,22 @@ $root.table = (function() {
             var message = new $root.table.ItemBaseDataDefine();
             if (object.Id != null)
                 message.Id = object.Id | 0;
-            if (object.Type != null)
-                message.Type = object.Type | 0;
-            if (object.SubType != null)
-                message.SubType = object.SubType | 0;
-            if (object.Color != null)
-                message.Color = object.Color | 0;
-            if (object.ImageId != null)
-                message.ImageId = object.ImageId | 0;
             if (object.Name != null)
                 message.Name = String(object.Name);
-            if (object.Desc != null)
-                message.Desc = String(object.Desc);
-            if (object.Clothes != null)
-                message.Clothes = object.Clothes | 0;
+            if (object.Type != null)
+                message.Type = object.Type | 0;
             if (object.TypeDes != null)
                 message.TypeDes = String(object.TypeDes);
-            if (object.Tradable != null)
-                message.Tradable = object.Tradable | 0;
+            if (object.EffectType != null)
+                message.EffectType = object.EffectType | 0;
+            if (object.Des != null)
+                message.Des = String(object.Des);
+            if (object.Icon != null)
+                message.Icon = String(object.Icon);
+            if (object.PileNum != null)
+                message.PileNum = object.PileNum | 0;
+            if (object.Extern != null)
+                message.Extern = String(object.Extern);
             return message;
         };
 
@@ -44033,36 +44014,33 @@ $root.table = (function() {
             var object = {};
             if (options.defaults) {
                 object.Id = 0;
-                object.Type = 0;
-                object.SubType = 0;
-                object.Color = 0;
-                object.ImageId = 0;
                 object.Name = "";
-                object.Desc = "";
-                object.Clothes = 0;
+                object.Type = 0;
                 object.TypeDes = "";
-                object.Tradable = 0;
+                object.EffectType = 0;
+                object.Des = "";
+                object.Icon = "";
+                object.PileNum = 0;
+                object.Extern = "";
             }
             if (message.Id != null && message.hasOwnProperty("Id"))
                 object.Id = message.Id;
-            if (message.Type != null && message.hasOwnProperty("Type"))
-                object.Type = message.Type;
-            if (message.SubType != null && message.hasOwnProperty("SubType"))
-                object.SubType = message.SubType;
-            if (message.Color != null && message.hasOwnProperty("Color"))
-                object.Color = message.Color;
-            if (message.ImageId != null && message.hasOwnProperty("ImageId"))
-                object.ImageId = message.ImageId;
             if (message.Name != null && message.hasOwnProperty("Name"))
                 object.Name = message.Name;
-            if (message.Desc != null && message.hasOwnProperty("Desc"))
-                object.Desc = message.Desc;
-            if (message.Clothes != null && message.hasOwnProperty("Clothes"))
-                object.Clothes = message.Clothes;
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                object.Type = message.Type;
             if (message.TypeDes != null && message.hasOwnProperty("TypeDes"))
                 object.TypeDes = message.TypeDes;
-            if (message.Tradable != null && message.hasOwnProperty("Tradable"))
-                object.Tradable = message.Tradable;
+            if (message.EffectType != null && message.hasOwnProperty("EffectType"))
+                object.EffectType = message.EffectType;
+            if (message.Des != null && message.hasOwnProperty("Des"))
+                object.Des = message.Des;
+            if (message.Icon != null && message.hasOwnProperty("Icon"))
+                object.Icon = message.Icon;
+            if (message.PileNum != null && message.hasOwnProperty("PileNum"))
+                object.PileNum = message.PileNum;
+            if (message.Extern != null && message.hasOwnProperty("Extern"))
+                object.Extern = message.Extern;
             return object;
         };
 

@@ -154,7 +154,7 @@ class ItemManager
         let result: Array<ItemInfo> = new Array<ItemInfo>();
         for (let info of ItemManager.itemList)
         {
-            if (info.definition.type == type)
+            if (info.definition.Type == type)
             {
                 result.push(info);
             }

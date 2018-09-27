@@ -36,11 +36,11 @@ class AwardDefined
 			let str: string = "";
 			for (let i: number = 0; i < len; i++)
 			{
-				let itemDef: table.IItemBaseDataDefine = table.ItemBaseDataById[award.RewardId[i])
+				let itemDef: table.IItemBaseDataDefine = table.ItemBaseDataById[award.RewardId[i]];
 				let name: string;
 				if (itemDef)
 				{
-					name = itemDef.name;
+					name = itemDef.Name;
 				}
 				let count: number = award.RewardNum[i];
 				if (name && count)

@@ -52,7 +52,7 @@ class BringAwardComPanel extends BasePanel
             }
             if (appendData.itemId)
             {
-                this._itemDef = table.ItemBaseDataById[appendData.itemId);
+                this._itemDef = table.ItemBaseDataById[appendData.itemId];
             }
             if (appendData.itemCount)
             {
@@ -66,7 +66,7 @@ class BringAwardComPanel extends BasePanel
         }
         if (this._itemDef && this._itemCount)
         {
-            this.iconImg.init(this._itemDef.id, this._iconSize, null, false, true);
+            this.iconImg.init(this._itemDef.Id, this._iconSize, null, false, true);
             this.goldNumLabel.text = this._itemCount.toString();
         }
     }

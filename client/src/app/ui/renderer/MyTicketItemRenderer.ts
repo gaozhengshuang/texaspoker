@@ -30,9 +30,9 @@ class MyTicketItemRenderer extends BaseItemRenderer<ItemInfo>
         super.dataChanged();
         if (InfoUtil.checkAvailable(this.bindData))
         {
-            this.commonItem.init(this.bindData.definition.icon + ResSuffixName.PNG, 100);
-            this.nameLabel.text = this.bindData.definition.name;
-            this.desLabel.text = this.bindData.definition.des;
+            this.commonItem.init(this.bindData.definition.Icon + ResSuffixName.PNG, 100);
+            this.nameLabel.text = this.bindData.definition.Name;
+            this.desLabel.text = this.bindData.definition.Des;
             this.numLabel.text = this.bindData.count.toString();
         }
     }

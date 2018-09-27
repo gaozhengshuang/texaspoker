@@ -39,7 +39,7 @@ class ItemGetInfo
         info.id = item.id;
         if (InfoUtil.checkAvailable(item))
         {
-            info.type = item.definition.type;
+            info.type = item.definition.Type;
         }
         info.count = item.count;
         return info;

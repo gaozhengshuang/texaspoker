@@ -29,29 +29,16 @@ class SignInGoldItemRenderer extends BaseItemRenderer<SignInInfo>{
                 this.signInCheck.visible = true;
                 this.signInBg.visible = true;
             }
-<<<<<<< Updated upstream
             let awardDef: table.IAwardDefine = table.AwardById[this.bindData.definition.AwardId];
             if (awardDef && awardDef.RewardId)
             {
                 this.signInGoldLabel.text = ActivityManager.signInHandler.getAwardDes(awardDef);
-                // let itemDef: ItemDefinition = ItemDefined.GetInstance().getDefinition(awardDef.RewardId[0]);
-                // if (itemDef)
-                // {
-                //     this.prizeImg.source = itemDef.icon + ResSuffixName.PNG;
-                // }
+                let itemDef: table.IItemBaseDataDefine = table.ItemBaseDataById[awardDef.RewardId[0]];
+                if (itemDef)
+                {
+                    this.prizeImg.source = itemDef.Icon + ResSuffixName.PNG;
+                }
             }
-=======
-            // let awardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(this.bindData.definition.awardId); //move todo
-            // if (awardDef && awardDef.rewardList)
-            // {
-            //     this.signInGoldLabel.text = ActivityManager.signInHandler.getAwardDes(awardDef);
-            //     let itemDef: table.IItemBaseDataDefine = table.ItemBaseDataById[awardDef.rewardList[0].id);
-            //     if (itemDef)
-            //     {
-            //         this.prizeImg.source = itemDef.icon + ResSuffixName.PNG;
-            //     }
-            // }
->>>>>>> Stashed changes
             this.signInDayLabel.text = "第" + this.bindData.definition.Day.toString() + "天";
         }
     }

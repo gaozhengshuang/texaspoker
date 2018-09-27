@@ -20,10 +20,10 @@ class InviteItemRenderer extends BaseItemRenderer<InviteItemInfo>
         if (this.bindData)
         {
             this.titleLabel.text = this.bindData.des;
-            let itemDef: table.IItemBaseDataDefine = table.ItemBaseDataById[this.bindData.rewardId);
+            let itemDef: table.IItemBaseDataDefine = table.ItemBaseDataById[this.bindData.rewardId];
             if (itemDef)
             {
-                this.iconImg0.source = this.iconImg1.source = itemDef.icon + ResSuffixName.PNG;
+                this.iconImg0.source = this.iconImg1.source = itemDef.Icon + ResSuffixName.PNG;
                 if (this.bindData.rewardId == ItemFixedId.gold)
                 {
                     this.iconImg0.scaleX = this.iconImg0.scaleY = this.iconImg1.scaleX = this.iconImg1.scaleY = 0.7;

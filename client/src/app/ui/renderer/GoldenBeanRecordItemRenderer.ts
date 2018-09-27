@@ -23,10 +23,10 @@ class GoldenBeanRecordItemRenderer extends BaseItemRenderer<AwardRecordInfo>
             {
                 if (awardDef.RewardId && awardDef.RewardId.length > 0)
                 {
-                    let itemDef: table.IItemBaseDataDefine = table.ItemBaseDataById[awardDef.RewardId[0]);
+                    let itemDef: table.IItemBaseDataDefine = table.ItemBaseDataById[awardDef.RewardId[0]];
                     if (itemDef)
                     {
-                        this.nameLabel.text = itemDef.name;
+                        this.nameLabel.text = itemDef.Name;
                     }
                 }
                 if (awardDef.CostNum && awardDef.CostNum.length > 0)

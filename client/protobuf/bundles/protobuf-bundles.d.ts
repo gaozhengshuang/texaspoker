@@ -811,8 +811,8 @@ declare namespace msg {
     /** ItemId enum. */
     enum ItemId {
         YuanBao = 60001,
-        Diamond = 60002,
-        Gold = 60003,
+        Diamond = 2,
+        Gold = 1,
         FreeStep = 60005,
         Strength = 60006,
         RedDiamond = 100001,
@@ -18565,32 +18565,29 @@ declare namespace table {
         /** ItemBaseDataDefine Id */
         Id?: (number|null);
 
-        /** ItemBaseDataDefine Type */
-        Type?: (number|null);
-
-        /** ItemBaseDataDefine SubType */
-        SubType?: (number|null);
-
-        /** ItemBaseDataDefine Color */
-        Color?: (number|null);
-
-        /** ItemBaseDataDefine ImageId */
-        ImageId?: (number|null);
-
         /** ItemBaseDataDefine Name */
         Name?: (string|null);
 
-        /** ItemBaseDataDefine Desc */
-        Desc?: (string|null);
-
-        /** ItemBaseDataDefine Clothes */
-        Clothes?: (number|null);
+        /** ItemBaseDataDefine Type */
+        Type?: (number|null);
 
         /** ItemBaseDataDefine TypeDes */
         TypeDes?: (string|null);
 
-        /** ItemBaseDataDefine Tradable */
-        Tradable?: (number|null);
+        /** ItemBaseDataDefine EffectType */
+        EffectType?: (number|null);
+
+        /** ItemBaseDataDefine Des */
+        Des?: (string|null);
+
+        /** ItemBaseDataDefine Icon */
+        Icon?: (string|null);
+
+        /** ItemBaseDataDefine PileNum */
+        PileNum?: (number|null);
+
+        /** ItemBaseDataDefine Extern */
+        Extern?: (string|null);
     }
 
     /** Represents an ItemBaseDataDefine. */
@@ -18605,32 +18602,29 @@ declare namespace table {
         /** ItemBaseDataDefine Id. */
         public Id: number;
 
-        /** ItemBaseDataDefine Type. */
-        public Type: number;
-
-        /** ItemBaseDataDefine SubType. */
-        public SubType: number;
-
-        /** ItemBaseDataDefine Color. */
-        public Color: number;
-
-        /** ItemBaseDataDefine ImageId. */
-        public ImageId: number;
-
         /** ItemBaseDataDefine Name. */
         public Name: string;
 
-        /** ItemBaseDataDefine Desc. */
-        public Desc: string;
-
-        /** ItemBaseDataDefine Clothes. */
-        public Clothes: number;
+        /** ItemBaseDataDefine Type. */
+        public Type: number;
 
         /** ItemBaseDataDefine TypeDes. */
         public TypeDes: string;
 
-        /** ItemBaseDataDefine Tradable. */
-        public Tradable: number;
+        /** ItemBaseDataDefine EffectType. */
+        public EffectType: number;
+
+        /** ItemBaseDataDefine Des. */
+        public Des: string;
+
+        /** ItemBaseDataDefine Icon. */
+        public Icon: string;
+
+        /** ItemBaseDataDefine PileNum. */
+        public PileNum: number;
+
+        /** ItemBaseDataDefine Extern. */
+        public Extern: string;
 
         /**
          * Creates a new ItemBaseDataDefine instance using the specified properties.

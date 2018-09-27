@@ -26,10 +26,10 @@ class AssignmentItemRenderer extends BaseItemRenderer<AchievementInfo>
             this.itemComp.init(this.bindData.definition.icon + ResSuffixName.PNG, 100);
             this.desLabel.text = this.bindData.definition.name;
             this.rewardLabel.text = this.bindData.definition.rewardNum.toString();
-            let def: table.IItemBaseDataDefine = table.ItemBaseDataById[this.bindData.definition.rewardId);
+            let def: table.IItemBaseDataDefine = table.ItemBaseDataById[this.bindData.definition.rewardId];
             if (def)
             {
-                this.rewardImg.source = def.icon + ResSuffixName.PNG;
+                this.rewardImg.source = def.Icon + ResSuffixName.PNG;
             }
 
             this.refreshiUI();

@@ -15,8 +15,8 @@ message IpHost {
 // 道具id规则 = 类型 * 10000 + 顺序号
 enum ItemId {
     YuanBao = 60001;            // 元宝
-    Diamond = 60002;            // 钻石
-    Gold = 60003;               // 金币
+    Diamond = 2;            // 钻石
+    Gold = 1;               // 金币
     FreeStep = 60005;           // 免费步数
     Strength = 60006;           // 体力
     RedDiamond = 100001;        // 红包钻石

@@ -19,19 +19,19 @@ class CommonIcon extends BaseComponent<any>
         }
         else if (typeof item == "number")
         {
-            let def: table.IItemBaseDataDefine = table.ItemBaseDataById[item);
+            let def: table.IItemBaseDataDefine = table.ItemBaseDataById[item];
             if (def)
             {
-                this.itemImg.source = def.icon + ResSuffixName.PNG;
+                this.itemImg.source = def.Icon + ResSuffixName.PNG;
             }
         }
         else if (item && (item as table.IAwardDefine).RewardId)
         {
             let id: number = item.RewardId[0];
-            let def: table.IItemBaseDataDefine = table.ItemBaseDataById[id);
+            let def: table.IItemBaseDataDefine = table.ItemBaseDataById[id];
             if (def)
             {
-                this.itemImg.source = def.icon + ResSuffixName.PNG;
+                this.itemImg.source = def.Icon + ResSuffixName.PNG;
             }
         }
         if (size != undefined)
