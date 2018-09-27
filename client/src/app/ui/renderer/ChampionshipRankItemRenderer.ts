@@ -46,7 +46,7 @@ class ChampionshipRankItemRenderer extends BaseItemRenderer<ChampionshipRankInfo
             this.headComponent.init(this.bindData, 50);
             this.nameLabel.text = this.bindData.name;
             this.numLabel.text = game.MathUtil.formatNum(this.bindData.chips);
-            if (this.bindData.roleId == UserManager.userInfo.id)
+            if (this.bindData.roleId == UserManager.userInfo.roleId)
             {
                 if (this.bindData.rank > 3)
                 {

@@ -280,7 +280,7 @@ class GameHallPanel extends BasePanel
 		{
 			case this.userHeadComp:
 				SoundManager.playEffect(MusicAction.buttonClick);
-				UserManager.reqShowOtherUserInfoPanel(UserManager.userInfo.id);
+				UserManager.reqShowOtherUserInfoPanel(UserManager.userInfo.roleId);
 				break;
 			case this.addDiamondBtn:
 				SoundManager.playEffect(MusicAction.buttonClick);

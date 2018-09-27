@@ -195,7 +195,7 @@ class BuyAccessGamePanel extends BasePanel
 	}
 	private sitOrStandHandler(obj: any)
 	{
-		if (obj.pInfo.roleId == UserManager.userInfo.id && (!this.panelData || !this.panelData.isGoldInsufficient))
+		if (obj.pInfo.roleId == UserManager.userInfo.roleId && (!this.panelData || !this.panelData.isGoldInsufficient))
 		{
 			this.onCloseBtnClickHandler(null);
 		}

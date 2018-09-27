@@ -67,7 +67,7 @@ class ChannelUtil
 		let url: string = ProjectDefined.getPayIndexUrl();
 		let appId: string = GameSetting.AppId;
 		let platform: string = game.RuntimeTypeName.getCurrentName();
-		let roleId: number = UserManager.userInfo.id;
+		let roleId: number = UserManager.userInfo.roleId;
 		let roleName: string = encodeURIComponent(UserManager.userInfo.name);
 		let appName: string = encodeURIComponent(ChannelManager.appName);
 		productName = encodeURIComponent(productName);
@@ -111,7 +111,7 @@ class ChannelUtil
 	public static wxUnifiedOrder(func: Function, thisObject: any, openId: string, serverId: number, price: number, productName: string, awardId: number, tradeType: string = ''): void
 	{
 		let appId: string = GameSetting.AppId;
-		let roleId: number = UserManager.userInfo.id;
+		let roleId: number = UserManager.userInfo.roleId;
 		let uourl: string = ProjectDefined.getWxpayUnifiedOrderUrl();
 		let bagId: number = BundleManager.getBid();
 		let test: number = VersionManager.isServerTest ? 1 : 0;

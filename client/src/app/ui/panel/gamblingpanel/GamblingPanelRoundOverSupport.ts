@@ -67,7 +67,7 @@ class GamblingPanelRoundOverSupport extends BaseGamblingPanelSupport
 	private nextRoundStartHandler(cardList: Array<CardInfo>)
 	{
 		this._isNextRoundStart = true;
-		
+
 		if (GamblingManager.self && GamblingManager.self.state != PlayerState.WaitNext) //兼容异常处理
 		{
 			this.target.actionGroup.showImmediatelyBrightCardBtn(false);
@@ -160,14 +160,14 @@ class GamblingPanelRoundOverSupport extends BaseGamblingPanelSupport
 					{
 						if (GamblingUtil.isWin(roleId))
 						{
-							if (roleId == UserManager.userInfo.id)
+							if (roleId == UserManager.userInfo.roleId)
 							{
 								SoundManager.playEffect(MusicAction.win);
 							}
 							headComponent.chipsLabel.text = "赢";
 							headComponent.showCardTypeBgFilter(2);
 							headComponent.showWinEffect();
-							if (roleId == UserManager.userInfo.id)
+							if (roleId == UserManager.userInfo.roleId)
 							{
 								this.target.winAnimeGroup.visible = true;
 								this.showWinAnime();
@@ -260,7 +260,10 @@ class GamblingPanelRoundOverSupport extends BaseGamblingPanelSupport
 						if (headComponent.bindData && headComponent.bindData.bankRoll > 0)
 						{
 							// headComponent.chipsLabel.text = game.MathUtil.formatNum(headComponent.bindData.bankRoll);
-							game.Console.log("结算结束显示筹码" + headComponent.bindData.bankRoll + headComponent.bindData.userInfo.name);
+							if (headComponent.bindData.userInfo)
+							{
+								game.Console.log("结算结束显示筹码" + headComponent.bindData.bankRoll + headComponent.bindData.userInfo.name);
+							}
 						}
 					}
 				}
@@ -388,7 +391,7 @@ class GamblingPanelRoundOverSupport extends BaseGamblingPanelSupport
 					if (GamblingUtil.isWin(cardInfo.roleId))
 					{
 						headComponent.showWinEffect();
-						if (cardInfo.roleId == UserManager.userInfo.id)
+						if (cardInfo.roleId == UserManager.userInfo.roleId)
 						{
 							this.target.winAnimeGroup.visible = true;
 							this.showWinAnime();
@@ -412,7 +415,7 @@ class GamblingPanelRoundOverSupport extends BaseGamblingPanelSupport
 		}
 		if (!matchResult)
 		{
-			if (GamblingUtil.isWin(UserManager.userInfo.id))
+			if (GamblingUtil.isWin(UserManager.userInfo.roleId))
 			{
 				SoundManager.playEffect(MusicAction.win);
 				headComponent.showWinEffect();
@@ -422,7 +425,7 @@ class GamblingPanelRoundOverSupport extends BaseGamblingPanelSupport
 			}
 			return;
 		}
-		if (GamblingUtil.isWin(UserManager.userInfo.id))
+		if (GamblingUtil.isWin(UserManager.userInfo.roleId))
 		{
 			SoundManager.playWinSoundEffect(CardTypeMatchUtil.cardType);
 		}

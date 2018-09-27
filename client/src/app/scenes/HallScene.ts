@@ -15,12 +15,9 @@ class HallScene extends BaseScene
 		UIManager.closePanel(UIModuleName.ChampionshipPanel);
 		UIManager.closePanel(UIModuleName.HundredWarPanel);
 	}
-	public async initialize()
-	{
-		super.initialize();
-	}
 	protected onAllResLoadComplete()
 	{
+		this.LoadCompleteEvent.dispatch(this);
 		if (this.sceneInfo.extendData)
 		{
 			if (this.sceneInfo.extendData.action == SceneSwitchAction.RepleacePanel)
@@ -36,6 +33,5 @@ class HallScene extends BaseScene
 		{
 			UIManager.showPanel(UIModuleName.GameHallPanel);
 		}
-		this.LoadCompleteEvent.dispatch(this);
 	}
 }

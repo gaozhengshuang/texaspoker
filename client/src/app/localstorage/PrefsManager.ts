@@ -112,9 +112,9 @@ class PrefsManager
 	}
 	private static getUserId(): string
 	{
-		if (UserManager.userInfo && UserManager.userInfo.id)
+		if (UserManager.userInfo && UserManager.userInfo.roleId)
 		{
-			return UserManager.userInfo.id.toString();
+			return UserManager.userInfo.roleId.toString();
 		}
 		return game.StringConstants.Empty;
 	}

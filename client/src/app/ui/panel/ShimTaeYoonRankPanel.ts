@@ -102,7 +102,7 @@ class ShimTaeYoonRankPanel extends BasePanel
     {
         if (this._currentRankListInfo)
         {
-            let selfRankInfo: RankInfo = RankManager.getRankInfoByRoleId(this._currentRankListInfo.list, UserManager.userInfo.id);
+            let selfRankInfo: RankInfo = RankManager.getRankInfoByRoleId(this._currentRankListInfo.list, UserManager.userInfo.roleId);
             if (selfRankInfo)
             {
                 this.selfRankGroup.visible = true;
