@@ -100,9 +100,9 @@ func HttpRequestNewUser(tvmid, token, username string, charid int64) {
 
 	//url := "https://open.yx.tvyouxuan.com/public/finance/MultiRecharge"
 	//url := "http://open.std.tvmopt.com/public/finance/MultiRecharge"
-	url := tbl.Global.HongBaoAPI.CharacterCreation
-	secret := tbl.Global.HongBaoAPI.Secret
-	key := tbl.Global.HongBaoAPI.Key
+	url := tbl.HongBaoAPI.CharacterCreation
+	secret := tbl.HongBaoAPI.Secret
+	key := tbl.HongBaoAPI.Key
 	mapset := make(map[string]interface{})
 	mapset["token"] = token
 	mapset["tvmid"] = tvmid
@@ -168,9 +168,9 @@ func HttpRequestUserOnlineTime(tvmid, token string, charid int64, tm_online int6
 
 	//url := "https://open.yx.tvyouxuan.com/public/finance/MultiRecharge"
 	//url := "http://open.std.tvmopt.com/public/finance/MultiRecharge"
-	url := tbl.Global.HongBaoAPI.Online
-	secret := tbl.Global.HongBaoAPI.Secret
-	key := tbl.Global.HongBaoAPI.Key
+	url := tbl.HongBaoAPI.Online
+	secret := tbl.HongBaoAPI.Secret
+	key := tbl.HongBaoAPI.Key
 	mapset := make(map[string]interface{})
 	mapset["token"] = token
 	mapset["tvmid"] = tvmid
@@ -226,9 +226,9 @@ func HttpRequestUserBattleCountArglist(arglist []interface{}) []interface{} {
 }
 func HttpRequestUserBattleCount(tvmid, token string, charid int64, playtype string, palycount int32) {
 
-	url := tbl.Global.HongBaoAPI.Battles
-	secret := tbl.Global.HongBaoAPI.Secret
-	key := tbl.Global.HongBaoAPI.Key
+	url := tbl.HongBaoAPI.Battles
+	secret := tbl.HongBaoAPI.Secret
+	key := tbl.HongBaoAPI.Key
 	mapset := make(map[string]interface{})
 	mapset["token"] = token
 	mapset["tvmid"] = tvmid
@@ -287,9 +287,9 @@ func HttpRequestUserLevel(tvmid, token string, charid int64, level int32) {
 
 	//url := "https://open.yx.tvyouxuan.com/public/finance/MultiRecharge"
 	//url := "http://open.std.tvmopt.com/public/finance/MultiRecharge"
-	url := tbl.Global.HongBaoAPI.CharacterLevel
-	secret := tbl.Global.HongBaoAPI.Secret
-	key := tbl.Global.HongBaoAPI.Key
+	url := tbl.HongBaoAPI.CharacterLevel
+	secret := tbl.HongBaoAPI.Secret
+	key := tbl.HongBaoAPI.Key
 	mapset := make(map[string]interface{})
 	mapset["token"] = token
 	mapset["tvmid"] = tvmid
@@ -364,9 +364,9 @@ func HttpRequestUserResourceConsume(tvmid, token string, charid int64, price int
 
 	//url := "https://open.yx.tvyouxuan.com/public/finance/MultiRecharge"
 	//url := "http://open.std.tvmopt.com/public/finance/MultiRecharge"
-	url := tbl.Global.HongBaoAPI.ConsumeMoney
-	secret := tbl.Global.HongBaoAPI.Secret
-	key := tbl.Global.HongBaoAPI.Key
+	url := tbl.HongBaoAPI.ConsumeMoney
+	secret := tbl.HongBaoAPI.Secret
+	key := tbl.HongBaoAPI.Key
 	mapset := make(map[string]interface{})
 	mapset["token"] = token
 	mapset["tvmid"] = tvmid
@@ -425,9 +425,9 @@ func HttpRequestUserResourceEarn(tvmid, token string, charid int64, price int32)
 	}
 	//url := "https://open.yx.tvyouxuan.com/public/finance/MultiRecharge"
 	//url := "http://open.std.tvmopt.com/public/finance/MultiRecharge"
-	url := tbl.Global.HongBaoAPI.LootMoney
-	secret := tbl.Global.HongBaoAPI.Secret
-	key := tbl.Global.HongBaoAPI.Key
+	url := tbl.HongBaoAPI.LootMoney
+	secret := tbl.HongBaoAPI.Secret
+	key := tbl.HongBaoAPI.Key
 	mapset := make(map[string]interface{})
 	mapset["token"] = token
 	mapset["tvmid"] = tvmid
@@ -486,9 +486,9 @@ func HttpRequestUserVictory(tvmid, token string, charid int64, victype string, c
 
 	//url := "https://open.yx.tvyouxuan.com/public/finance/MultiRecharge"
 	//url := "http://open.std.tvmopt.com/public/finance/MultiRecharge"
-	url := tbl.Global.HongBaoAPI.Victory
-	secret := tbl.Global.HongBaoAPI.Secret
-	key := tbl.Global.HongBaoAPI.Key
+	url := tbl.HongBaoAPI.Victory
+	secret := tbl.HongBaoAPI.Secret
+	key := tbl.HongBaoAPI.Key
 	mapset := make(map[string]interface{})
 	mapset["token"] = token
 	mapset["tvmid"] = tvmid
@@ -525,9 +525,9 @@ func HttpRequestFinanceQuery(charid int64, token, tvmid string) (errocde string,
 
 	//url := "https://open.yx.tvyouxuan.com/public/finance/Query"
 	//url := "http://open.std.tvmopt.com/public/finance/Query"
-	url := tbl.Global.HongBaoAPI.FinanceQuery
-	secret := tbl.Global.HongBaoAPI.Secret
-	key := tbl.Global.HongBaoAPI.Key
+	url := tbl.HongBaoAPI.FinanceQuery
+	secret := tbl.HongBaoAPI.Secret
+	key := tbl.HongBaoAPI.Key
 	mapset := make(map[string]interface{})
 	mapset["token"] = token
 	mapset["tvmid"] = tvmid
@@ -608,9 +608,9 @@ func HttpRequestDecrCoins(charid int64, token, tvmid string, count int32, desc s
 
 	//url := "https://open.yx.tvyouxuan.com/public/finance/DecrCoins"
 	//url := "http://open.std.tvmopt.com/public/finance/DecrCoins"
-	url := tbl.Global.HongBaoAPI.DecrCoins
-	secret := tbl.Global.HongBaoAPI.Secret
-	key := tbl.Global.HongBaoAPI.Key
+	url := tbl.HongBaoAPI.DecrCoins
+	secret := tbl.HongBaoAPI.Secret
+	key := tbl.HongBaoAPI.Key
 	order_id := strconv.FormatInt(int64(charid),10) + "_decrcoins_" + strconv.FormatInt(util.CURTIMEUS(), 10)
 	mapset := make(map[string]interface{})
 	mapset["token"] = token
@@ -670,9 +670,9 @@ func HttpRequestIncrDiamonds(charid int64, token, tvmid string, count int32, des
 
 	//url := "https://open.yx.tvyouxuan.com/public/finance/IncrDiamonds"
 	//url := "http://open.std.tvmopt.com/public/finance/IncrDiamonds"
-	url := tbl.Global.HongBaoAPI.IncrDiamonds
-	secret := tbl.Global.HongBaoAPI.Secret
-	key := tbl.Global.HongBaoAPI.Key
+	url := tbl.HongBaoAPI.IncrDiamonds
+	secret := tbl.HongBaoAPI.Secret
+	key := tbl.HongBaoAPI.Key
 	order_id := strconv.FormatInt(int64(charid),10) + "_incrdiamonds_" + strconv.FormatInt(util.CURTIMEUS(), 10)
 	mapset := make(map[string]interface{})
 	mapset["token"] = token
@@ -732,9 +732,9 @@ func HttpRequestCheckWechatBound(charid int64, token, tvmid string) {
 
 	//url := "https://open.yx.tvyouxuan.com/public/user/CheckWechatBound"
 	//url := "http://open.std.tvmopt.com/public/user/CheckWechatBound"
-	url := tbl.Global.HongBaoAPI.CheckWechatBound
-	secret := tbl.Global.HongBaoAPI.Secret
-	key := tbl.Global.HongBaoAPI.Key
+	url := tbl.HongBaoAPI.CheckWechatBound
+	secret := tbl.HongBaoAPI.Secret
+	key := tbl.HongBaoAPI.Key
 	mapset := make(map[string]interface{})
 	mapset["token"] = token
 	mapset["phone"] = tvmid
@@ -770,8 +770,8 @@ func HttpWechatCompanyPay(openid string, amount int64, reason string) string {
 
 	//
 	mapset := make(map[string]interface{})
-	mapset["mch_appid"] = tbl.Global.Wechat.AppID
-	mapset["mchid"] = tbl.Global.Wechat.Mchid
+	mapset["mch_appid"] = tbl.Wechat.AppID
+	mapset["mchid"] = tbl.Wechat.Mchid
 	//mapset["device_info"] = ""
 	mapset["nonce_str"] = strconv.FormatInt(util.CURTIMEUS(), 10)
 	mapset["partner_trade_no"] = strconv.FormatInt(util.CURTIMEUS(), 10)
@@ -811,7 +811,7 @@ func HttpWechatCompanyPay(openid string, amount int64, reason string) string {
 		}
 	}
 
-	stringSignTemp := sortVal + "&key=" + tbl.Global.Wechat.PaySecret
+	stringSignTemp := sortVal + "&key=" + tbl.Wechat.PaySecret
 	sign, md5string := "", util.MD5(stringSignTemp)
 	sign = strings.ToUpper(md5string)
 	//sign = util.SHA256(sign)	// HMAC-SHA256签名方式
@@ -875,7 +875,7 @@ func HttpWechatCompanyPay(openid string, amount int64, reason string) string {
 // 获取微信AccessToken
 func HttpWechatAccessToken() (string) {
 	url := fmt.Sprintf("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s",
-		tbl.Global.Wechat.AppID, tbl.Global.Wechat.AppSecret)
+		tbl.Wechat.AppID, tbl.Wechat.AppSecret)
 	resp, geterr := network.HttpGet(url)
 	if geterr != nil {
 		log.Error("获取微信 AccessToken失败 error[%s] resp[%#v]", geterr, resp)
@@ -947,10 +947,10 @@ func WechatMiniGameSign(dataset *map[string]interface{}, RequestURI string) (err
 		}
 	}
 
-	//stringSignTemp := sortVal + "&org_loc=/cgi-bin/midas/sandbox/getbalance&method=POST&secret=" + tbl.Global.WechatMiniGame.MidasSecret
-	stringSignTemp := sortVal + "&org_loc=" + RequestURI + "&method=POST&secret=" + tbl.Global.WechatMiniGame.MidasSecret
+	//stringSignTemp := sortVal + "&org_loc=/cgi-bin/midas/sandbox/getbalance&method=POST&secret=" + tbl.Wechat.WechatMiniGame.MidasSecret
+	stringSignTemp := sortVal + "&org_loc=" + RequestURI + "&method=POST&secret=" + tbl.Wechat.WechatMiniGame.MidasSecret
 	//log.Trace("\nGetBalance stringSignTemp=%s\n", stringSignTemp)
-	sign := util.HMAC_SHA256(tbl.Global.WechatMiniGame.MidasSecret, stringSignTemp)	// HMAC-SHA256签名方式
+	sign := util.HMAC_SHA256(tbl.Wechat.WechatMiniGame.MidasSecret, stringSignTemp)	// HMAC-SHA256签名方式
 	mapset["sig"] = sign
 	return ""
 }
@@ -1061,8 +1061,8 @@ func HttpWechatMiniGameGetBalance(redis *redis.Client, openid string) (balance, 
 
 	mapset := make(map[string]interface{})
 	mapset["openid"] = openid
-	mapset["appid"] = tbl.Global.Wechat.AppID
-	mapset["offer_id"] = tbl.Global.WechatMiniGame.MidasOfferID
+	mapset["appid"] = tbl.Wechat.AppID
+	mapset["offer_id"] = tbl.Wechat.WechatMiniGame.MidasOfferID
 	mapset["ts"] = util.CURTIME()
 	mapset["zone_id"] = "1"
 	mapset["pf"] = "android"
@@ -1072,7 +1072,7 @@ func HttpWechatMiniGameGetBalance(redis *redis.Client, openid string) (balance, 
 	mapset["mp_sig"] = ""
 
 	// 获取URI
-	rawurl := tbl.Global.WechatMiniGame.MidasBalance + access_token
+	rawurl := tbl.Wechat.WechatMiniGame.MidasBalance + access_token
 	RequestURI, errmsg := WechatMiniGameGetRequestURI(rawurl)
 	if errmsg != "" {
 		return 0, 0, errmsg
@@ -1163,8 +1163,8 @@ func HttpWechatMiniGamePresentMoney(redis *redis.Client, openid string, count in
 
 	mapset := make(map[string]interface{})
 	mapset["openid"] = openid
-	mapset["appid"] = tbl.Global.Wechat.AppID
-	mapset["offer_id"] = tbl.Global.WechatMiniGame.MidasOfferID
+	mapset["appid"] = tbl.Wechat.AppID
+	mapset["offer_id"] = tbl.Wechat.WechatMiniGame.MidasOfferID
 	mapset["ts"] = util.CURTIME()
 	mapset["zone_id"] = "1"
 	mapset["pf"] = "android"
@@ -1176,7 +1176,7 @@ func HttpWechatMiniGamePresentMoney(redis *redis.Client, openid string, count in
 	mapset["present_counts"] = count
 
 	// 获取URI
-	rawurl := tbl.Global.WechatMiniGame.MidasPresent + access_token
+	rawurl := tbl.Wechat.WechatMiniGame.MidasPresent + access_token
 	RequestURI, errmsg := WechatMiniGameGetRequestURI(rawurl)
 	if errmsg != "" {
 		return 0, errmsg
@@ -1262,8 +1262,8 @@ func HttpWechatMiniGamePayMoney(redis *redis.Client, openid string, count int64)
 
 	mapset := make(map[string]interface{})
 	mapset["openid"] = openid
-	mapset["appid"] = tbl.Global.Wechat.AppID
-	mapset["offer_id"] = tbl.Global.WechatMiniGame.MidasOfferID
+	mapset["appid"] = tbl.Wechat.AppID
+	mapset["offer_id"] = tbl.Wechat.WechatMiniGame.MidasOfferID
 	mapset["ts"] = util.CURTIME()
 	mapset["zone_id"] = "1"
 	mapset["pf"] = "android"
@@ -1277,7 +1277,7 @@ func HttpWechatMiniGamePayMoney(redis *redis.Client, openid string, count int64)
 	//mapset["app_remark"] = ""
 
 	// 获取URI
-	rawurl := tbl.Global.WechatMiniGame.MidasPay + access_token
+	rawurl := tbl.Wechat.WechatMiniGame.MidasPay + access_token
 	RequestURI, errmsg := WechatMiniGameGetRequestURI(rawurl)
 	if errmsg != "" {
 		return 0, errmsg
