@@ -664,7 +664,7 @@ class SocketManager
 		if (egret.getTimer() - SocketManager._heartbeatTime >= SocketManager.HeartbeatInterval)
 		{
 			SocketManager._heartbeatTime = egret.getTimer();
-			SocketManager._socket.SimpleCall(Command.C2GW_ReqHeartBeat, msg.C2GW_ReqHeartBeat.encode({}), SocketManager.OnHeartbeatServer, null, this);
+			SocketManager._socket.SimpleCall(Command.C2GW_ReqHeartBeat, {}, SocketManager.OnHeartbeatServer, null, this);
 			// SocketManager._socket.SimpleCall(Command.GW2C_RetHeartBeat, { sessionId: SocketManager._socket.requestSessionMax }, SocketManager.OnHeartbeatServer, null, this);
 		}
 	}

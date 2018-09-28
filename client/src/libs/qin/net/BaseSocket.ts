@@ -250,11 +250,11 @@ module game
 		 * <param name="isSole">一样的命令和回调是否独占发送，(如果是，当还没接收到上一个包的时候，再次发包，会忽略掉)</param>
 		 * <param name="isDiscRetry">断线重发</param>
 		 */
-		public InvokeSend(isSole: boolean, isDiscRetry: boolean, cmdId: string, msg: protobuf.Writer, onResult: Function, onError: Function, thisObject: any, subId?: string)
+		public InvokeSend(isSole: boolean, isDiscRetry: boolean, cmdId: string, args: any, onResult: Function, onError: Function, thisObject: any, subId?: string)
 		{
 			if (this._enabledSend)
 			{
-				let info: SocketInfo = this.AddSocketInfo(isSole, isDiscRetry, cmdId, msg, onResult, onError, thisObject, subId);
+				let info: SocketInfo = this.AddSocketInfo(isSole, isDiscRetry, cmdId, args, onResult, onError, thisObject, subId);
 				if (info != null)
 				{
 					this.SendObject(info);
@@ -264,7 +264,7 @@ module game
 			{
 				if (isDiscRetry)
 				{
-					this.AddSocketInfo(isSole, isDiscRetry, cmdId, msg, onResult, onError, thisObject, subId);
+					this.AddSocketInfo(isSole, isDiscRetry, cmdId, args, onResult, onError, thisObject, subId);
 				}
 			}
 		}
@@ -403,7 +403,7 @@ module game
 		}
 		private handleResponse(name: string, data: any, session: number)
 		{
-			let error:string = data["errcode"];
+			let error: string = data["errcode"];
 			if (name.indexOf("HeartBeat") == -1)
 			{
 				Console.log("client receive ------------> cmdId:" + name + "-> data:" + JSON.stringify(data), "-> error:" + error);
@@ -481,7 +481,7 @@ module game
 				}
 			}
 		}
-		private AddSocketInfo(isSole: boolean, isDiscRetry: boolean, cmdId: string, msg: protobuf.Writer, onResult: Function, onError: Function, thisObject: any, subId: string): SocketInfo
+		private AddSocketInfo(isSole: boolean, isDiscRetry: boolean, cmdId: string, args: any, onResult: Function, onError: Function, thisObject: any, subId: string): SocketInfo
 		{
 			if (this._infoList != null)
 			{
@@ -504,7 +504,15 @@ module game
 				info.cmdId = cmdId;
 				info.isDiscRetry = isDiscRetry;
 				info.isSole = isSole;
-				info.msg = msg;
+				let cmdBody = egret.getDefinitionByName(cmdId);
+				if (cmdBody)
+				{
+					info.msg = cmdBody.encode(args);
+				}
+				else
+				{
+					Console.log("发送消息出错，未找到消息体cmdid:", cmdId);
+				}
 				info.onResult = onResult;
 				info.onError = onError;
 				info.thisObject = thisObject;

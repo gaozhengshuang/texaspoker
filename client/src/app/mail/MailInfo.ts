@@ -41,10 +41,9 @@ class MailInfo extends BaseServerValueInfo
      */
     public SenderId: number;
     /**
-     * 附件json
+     * 附件列表
      */
-    public attaJson: string;
-    public attaList: Array<AwardInfoDefinition>;
+    public items:msg.MailItem[];
     /**
      * 是否领取
      */
@@ -54,6 +53,6 @@ class MailInfo extends BaseServerValueInfo
     */
     public get isHavePrize(): boolean
     {
-        return this.attaList != null && this.attaList.length > 0
+        return this.items && this.items.length > 0
     }
 }

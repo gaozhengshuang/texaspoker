@@ -14323,7 +14323,7 @@ $root.msg = (function() {
          * Properties of a MailItem.
          * @memberof msg
          * @interface IMailItem
-         * @property {number|null} [item] MailItem item
+         * @property {number|null} [id] MailItem id
          * @property {number|null} [num] MailItem num
          */
 
@@ -14343,12 +14343,12 @@ $root.msg = (function() {
         }
 
         /**
-         * MailItem item.
-         * @member {number} item
+         * MailItem id.
+         * @member {number} id
          * @memberof msg.MailItem
          * @instance
          */
-        MailItem.prototype.item = 0;
+        MailItem.prototype.id = 0;
 
         /**
          * MailItem num.
@@ -14382,8 +14382,8 @@ $root.msg = (function() {
         MailItem.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
-            if (message.item != null && message.hasOwnProperty("item"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.item);
+            if (message.id != null && message.hasOwnProperty("id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.id);
             if (message.num != null && message.hasOwnProperty("num"))
                 writer.uint32(/* id 2, wireType 0 =*/16).int32(message.num);
             return writer;
@@ -14421,7 +14421,7 @@ $root.msg = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.item = reader.int32();
+                    message.id = reader.int32();
                     break;
                 case 2:
                     message.num = reader.int32();
@@ -14461,9 +14461,9 @@ $root.msg = (function() {
         MailItem.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
-            if (message.item != null && message.hasOwnProperty("item"))
-                if (!$util.isInteger(message.item))
-                    return "item: integer expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isInteger(message.id))
+                    return "id: integer expected";
             if (message.num != null && message.hasOwnProperty("num"))
                 if (!$util.isInteger(message.num))
                     return "num: integer expected";
@@ -14482,8 +14482,8 @@ $root.msg = (function() {
             if (object instanceof $root.msg.MailItem)
                 return object;
             var message = new $root.msg.MailItem();
-            if (object.item != null)
-                message.item = object.item | 0;
+            if (object.id != null)
+                message.id = object.id | 0;
             if (object.num != null)
                 message.num = object.num | 0;
             return message;
@@ -14503,11 +14503,11 @@ $root.msg = (function() {
                 options = {};
             var object = {};
             if (options.defaults) {
-                object.item = 0;
+                object.id = 0;
                 object.num = 0;
             }
-            if (message.item != null && message.hasOwnProperty("item"))
-                object.item = message.item;
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
             if (message.num != null && message.hasOwnProperty("num"))
                 object.num = message.num;
             return object;
@@ -14533,7 +14533,7 @@ $root.msg = (function() {
          * Properties of a MailDetail.
          * @memberof msg
          * @interface IMailDetail
-         * @property {number|null} [id] MailDetail id
+         * @property {number|Long|null} [id] MailDetail id
          * @property {number|null} [type] MailDetail type
          * @property {string|null} [content] MailDetail content
          * @property {string|null} [title] MailDetail title
@@ -14564,11 +14564,11 @@ $root.msg = (function() {
 
         /**
          * MailDetail id.
-         * @member {number} id
+         * @member {number|Long} id
          * @memberof msg.MailDetail
          * @instance
          */
-        MailDetail.prototype.id = 0;
+        MailDetail.prototype.id = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
          * MailDetail type.
@@ -14675,7 +14675,7 @@ $root.msg = (function() {
             if (!writer)
                 writer = $Writer.create();
             if (message.id != null && message.hasOwnProperty("id"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.id);
+                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.id);
             if (message.type != null && message.hasOwnProperty("type"))
                 writer.uint32(/* id 2, wireType 0 =*/16).int32(message.type);
             if (message.content != null && message.hasOwnProperty("content"))
@@ -14732,7 +14732,7 @@ $root.msg = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.id = reader.int32();
+                    message.id = reader.int64();
                     break;
                 case 2:
                     message.type = reader.int32();
@@ -14802,8 +14802,8 @@ $root.msg = (function() {
             if (typeof message !== "object" || message === null)
                 return "object expected";
             if (message.id != null && message.hasOwnProperty("id"))
-                if (!$util.isInteger(message.id))
-                    return "id: integer expected";
+                if (!$util.isInteger(message.id) && !(message.id && $util.isInteger(message.id.low) && $util.isInteger(message.id.high)))
+                    return "id: integer|Long expected";
             if (message.type != null && message.hasOwnProperty("type"))
                 if (!$util.isInteger(message.type))
                     return "type: integer expected";
@@ -14856,7 +14856,14 @@ $root.msg = (function() {
                 return object;
             var message = new $root.msg.MailDetail();
             if (object.id != null)
-                message.id = object.id | 0;
+                if ($util.Long)
+                    (message.id = $util.Long.fromValue(object.id)).unsigned = false;
+                else if (typeof object.id === "string")
+                    message.id = parseInt(object.id, 10);
+                else if (typeof object.id === "number")
+                    message.id = object.id;
+                else if (typeof object.id === "object")
+                    message.id = new $util.LongBits(object.id.low >>> 0, object.id.high >>> 0).toNumber();
             if (object.type != null)
                 message.type = object.type | 0;
             if (object.content != null)
@@ -14904,7 +14911,11 @@ $root.msg = (function() {
             if (options.arrays || options.defaults)
                 object.items = [];
             if (options.defaults) {
-                object.id = 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.id = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.id = options.longs === String ? "0" : 0;
                 object.type = 0;
                 object.content = "";
                 object.title = "";
@@ -14916,7 +14927,10 @@ $root.msg = (function() {
                 object.isgot = false;
             }
             if (message.id != null && message.hasOwnProperty("id"))
-                object.id = message.id;
+                if (typeof message.id === "number")
+                    object.id = options.longs === String ? String(message.id) : message.id;
+                else
+                    object.id = options.longs === String ? $util.Long.prototype.toString.call(message.id) : options.longs === Number ? new $util.LongBits(message.id.low >>> 0, message.id.high >>> 0).toNumber() : message.id;
             if (message.type != null && message.hasOwnProperty("type"))
                 object.type = message.type;
             if (message.content != null && message.hasOwnProperty("content"))
@@ -15582,7 +15596,7 @@ $root.msg = (function() {
          * Properties of a GW2C_RetTakeMailItem.
          * @memberof msg
          * @interface IGW2C_RetTakeMailItem
-         * @property {number|null} [uid] GW2C_RetTakeMailItem uid
+         * @property {number|Long|null} [uid] GW2C_RetTakeMailItem uid
          * @property {string|null} [errcode] GW2C_RetTakeMailItem errcode
          */
 
@@ -15603,11 +15617,11 @@ $root.msg = (function() {
 
         /**
          * GW2C_RetTakeMailItem uid.
-         * @member {number} uid
+         * @member {number|Long} uid
          * @memberof msg.GW2C_RetTakeMailItem
          * @instance
          */
-        GW2C_RetTakeMailItem.prototype.uid = 0;
+        GW2C_RetTakeMailItem.prototype.uid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
          * GW2C_RetTakeMailItem errcode.
@@ -15642,7 +15656,7 @@ $root.msg = (function() {
             if (!writer)
                 writer = $Writer.create();
             if (message.uid != null && message.hasOwnProperty("uid"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.uid);
+                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.uid);
             if (message.errcode != null && message.hasOwnProperty("errcode"))
                 writer.uint32(/* id 2, wireType 2 =*/18).string(message.errcode);
             return writer;
@@ -15680,7 +15694,7 @@ $root.msg = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.uid = reader.int32();
+                    message.uid = reader.int64();
                     break;
                 case 2:
                     message.errcode = reader.string();
@@ -15721,8 +15735,8 @@ $root.msg = (function() {
             if (typeof message !== "object" || message === null)
                 return "object expected";
             if (message.uid != null && message.hasOwnProperty("uid"))
-                if (!$util.isInteger(message.uid))
-                    return "uid: integer expected";
+                if (!$util.isInteger(message.uid) && !(message.uid && $util.isInteger(message.uid.low) && $util.isInteger(message.uid.high)))
+                    return "uid: integer|Long expected";
             if (message.errcode != null && message.hasOwnProperty("errcode"))
                 if (!$util.isString(message.errcode))
                     return "errcode: string expected";
@@ -15742,7 +15756,14 @@ $root.msg = (function() {
                 return object;
             var message = new $root.msg.GW2C_RetTakeMailItem();
             if (object.uid != null)
-                message.uid = object.uid | 0;
+                if ($util.Long)
+                    (message.uid = $util.Long.fromValue(object.uid)).unsigned = false;
+                else if (typeof object.uid === "string")
+                    message.uid = parseInt(object.uid, 10);
+                else if (typeof object.uid === "number")
+                    message.uid = object.uid;
+                else if (typeof object.uid === "object")
+                    message.uid = new $util.LongBits(object.uid.low >>> 0, object.uid.high >>> 0).toNumber();
             if (object.errcode != null)
                 message.errcode = String(object.errcode);
             return message;
@@ -15762,11 +15783,18 @@ $root.msg = (function() {
                 options = {};
             var object = {};
             if (options.defaults) {
-                object.uid = 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.uid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.uid = options.longs === String ? "0" : 0;
                 object.errcode = "";
             }
             if (message.uid != null && message.hasOwnProperty("uid"))
-                object.uid = message.uid;
+                if (typeof message.uid === "number")
+                    object.uid = options.longs === String ? String(message.uid) : message.uid;
+                else
+                    object.uid = options.longs === String ? $util.Long.prototype.toString.call(message.uid) : options.longs === Number ? new $util.LongBits(message.uid.low >>> 0, message.uid.high >>> 0).toNumber() : message.uid;
             if (message.errcode != null && message.hasOwnProperty("errcode"))
                 object.errcode = message.errcode;
             return object;
@@ -44916,6 +44944,468 @@ $root.table = (function() {
         return LoadingTextDefine;
     })();
 
+    table.MailBase = (function() {
+
+        /**
+         * Properties of a MailBase.
+         * @memberof table
+         * @interface IMailBase
+         * @property {Array.<table.IMailDefine>|null} [Mail] MailBase Mail
+         */
+
+        /**
+         * Constructs a new MailBase.
+         * @memberof table
+         * @classdesc Represents a MailBase.
+         * @implements IMailBase
+         * @constructor
+         * @param {table.IMailBase=} [properties] Properties to set
+         */
+        function MailBase(properties) {
+            this.Mail = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * MailBase Mail.
+         * @member {Array.<table.IMailDefine>} Mail
+         * @memberof table.MailBase
+         * @instance
+         */
+        MailBase.prototype.Mail = $util.emptyArray;
+
+        /**
+         * Creates a new MailBase instance using the specified properties.
+         * @function create
+         * @memberof table.MailBase
+         * @static
+         * @param {table.IMailBase=} [properties] Properties to set
+         * @returns {table.MailBase} MailBase instance
+         */
+        MailBase.create = function create(properties) {
+            return new MailBase(properties);
+        };
+
+        /**
+         * Encodes the specified MailBase message. Does not implicitly {@link table.MailBase.verify|verify} messages.
+         * @function encode
+         * @memberof table.MailBase
+         * @static
+         * @param {table.IMailBase} message MailBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MailBase.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Mail != null && message.Mail.length)
+                for (var i = 0; i < message.Mail.length; ++i)
+                    $root.table.MailDefine.encode(message.Mail[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified MailBase message, length delimited. Does not implicitly {@link table.MailBase.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.MailBase
+         * @static
+         * @param {table.IMailBase} message MailBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MailBase.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a MailBase message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.MailBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.MailBase} MailBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MailBase.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.MailBase();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.Mail && message.Mail.length))
+                        message.Mail = [];
+                    message.Mail.push($root.table.MailDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a MailBase message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.MailBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.MailBase} MailBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MailBase.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a MailBase message.
+         * @function verify
+         * @memberof table.MailBase
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        MailBase.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Mail != null && message.hasOwnProperty("Mail")) {
+                if (!Array.isArray(message.Mail))
+                    return "Mail: array expected";
+                for (var i = 0; i < message.Mail.length; ++i) {
+                    var error = $root.table.MailDefine.verify(message.Mail[i]);
+                    if (error)
+                        return "Mail." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a MailBase message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.MailBase
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.MailBase} MailBase
+         */
+        MailBase.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.MailBase)
+                return object;
+            var message = new $root.table.MailBase();
+            if (object.Mail) {
+                if (!Array.isArray(object.Mail))
+                    throw TypeError(".table.MailBase.Mail: array expected");
+                message.Mail = [];
+                for (var i = 0; i < object.Mail.length; ++i) {
+                    if (typeof object.Mail[i] !== "object")
+                        throw TypeError(".table.MailBase.Mail: object expected");
+                    message.Mail[i] = $root.table.MailDefine.fromObject(object.Mail[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a MailBase message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.MailBase
+         * @static
+         * @param {table.MailBase} message MailBase
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        MailBase.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.Mail = [];
+            if (message.Mail && message.Mail.length) {
+                object.Mail = [];
+                for (var j = 0; j < message.Mail.length; ++j)
+                    object.Mail[j] = $root.table.MailDefine.toObject(message.Mail[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this MailBase to JSON.
+         * @function toJSON
+         * @memberof table.MailBase
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        MailBase.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return MailBase;
+    })();
+
+    table.MailDefine = (function() {
+
+        /**
+         * Properties of a MailDefine.
+         * @memberof table
+         * @interface IMailDefine
+         * @property {number|null} [Id] MailDefine Id
+         * @property {string|null} [Title] MailDefine Title
+         * @property {number|null} [Type] MailDefine Type
+         * @property {string|null} [Content] MailDefine Content
+         */
+
+        /**
+         * Constructs a new MailDefine.
+         * @memberof table
+         * @classdesc Represents a MailDefine.
+         * @implements IMailDefine
+         * @constructor
+         * @param {table.IMailDefine=} [properties] Properties to set
+         */
+        function MailDefine(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * MailDefine Id.
+         * @member {number} Id
+         * @memberof table.MailDefine
+         * @instance
+         */
+        MailDefine.prototype.Id = 0;
+
+        /**
+         * MailDefine Title.
+         * @member {string} Title
+         * @memberof table.MailDefine
+         * @instance
+         */
+        MailDefine.prototype.Title = "";
+
+        /**
+         * MailDefine Type.
+         * @member {number} Type
+         * @memberof table.MailDefine
+         * @instance
+         */
+        MailDefine.prototype.Type = 0;
+
+        /**
+         * MailDefine Content.
+         * @member {string} Content
+         * @memberof table.MailDefine
+         * @instance
+         */
+        MailDefine.prototype.Content = "";
+
+        /**
+         * Creates a new MailDefine instance using the specified properties.
+         * @function create
+         * @memberof table.MailDefine
+         * @static
+         * @param {table.IMailDefine=} [properties] Properties to set
+         * @returns {table.MailDefine} MailDefine instance
+         */
+        MailDefine.create = function create(properties) {
+            return new MailDefine(properties);
+        };
+
+        /**
+         * Encodes the specified MailDefine message. Does not implicitly {@link table.MailDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.MailDefine
+         * @static
+         * @param {table.IMailDefine} message MailDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MailDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.Id);
+            if (message.Title != null && message.hasOwnProperty("Title"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.Title);
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.Type);
+            if (message.Content != null && message.hasOwnProperty("Content"))
+                writer.uint32(/* id 4, wireType 2 =*/34).string(message.Content);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified MailDefine message, length delimited. Does not implicitly {@link table.MailDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.MailDefine
+         * @static
+         * @param {table.IMailDefine} message MailDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MailDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a MailDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.MailDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.MailDefine} MailDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MailDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.MailDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.int32();
+                    break;
+                case 2:
+                    message.Title = reader.string();
+                    break;
+                case 3:
+                    message.Type = reader.int32();
+                    break;
+                case 4:
+                    message.Content = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a MailDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.MailDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.MailDefine} MailDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MailDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a MailDefine message.
+         * @function verify
+         * @memberof table.MailDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        MailDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.Title != null && message.hasOwnProperty("Title"))
+                if (!$util.isString(message.Title))
+                    return "Title: string expected";
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                if (!$util.isInteger(message.Type))
+                    return "Type: integer expected";
+            if (message.Content != null && message.hasOwnProperty("Content"))
+                if (!$util.isString(message.Content))
+                    return "Content: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a MailDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.MailDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.MailDefine} MailDefine
+         */
+        MailDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.MailDefine)
+                return object;
+            var message = new $root.table.MailDefine();
+            if (object.Id != null)
+                message.Id = object.Id | 0;
+            if (object.Title != null)
+                message.Title = String(object.Title);
+            if (object.Type != null)
+                message.Type = object.Type | 0;
+            if (object.Content != null)
+                message.Content = String(object.Content);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a MailDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.MailDefine
+         * @static
+         * @param {table.MailDefine} message MailDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        MailDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.Id = 0;
+                object.Title = "";
+                object.Type = 0;
+                object.Content = "";
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.Title != null && message.hasOwnProperty("Title"))
+                object.Title = message.Title;
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                object.Type = message.Type;
+            if (message.Content != null && message.hasOwnProperty("Content"))
+                object.Content = message.Content;
+            return object;
+        };
+
+        /**
+         * Converts this MailDefine to JSON.
+         * @function toJSON
+         * @memberof table.MailDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        MailDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return MailDefine;
+    })();
+
     table.MapEventBase = (function() {
 
         /**
@@ -47776,6 +48266,512 @@ $root.table = (function() {
         };
 
         return ProtoIdDefine;
+    })();
+
+    table.RankBase = (function() {
+
+        /**
+         * Properties of a RankBase.
+         * @memberof table
+         * @interface IRankBase
+         * @property {Array.<table.IRankDefine>|null} [Rank] RankBase Rank
+         */
+
+        /**
+         * Constructs a new RankBase.
+         * @memberof table
+         * @classdesc Represents a RankBase.
+         * @implements IRankBase
+         * @constructor
+         * @param {table.IRankBase=} [properties] Properties to set
+         */
+        function RankBase(properties) {
+            this.Rank = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * RankBase Rank.
+         * @member {Array.<table.IRankDefine>} Rank
+         * @memberof table.RankBase
+         * @instance
+         */
+        RankBase.prototype.Rank = $util.emptyArray;
+
+        /**
+         * Creates a new RankBase instance using the specified properties.
+         * @function create
+         * @memberof table.RankBase
+         * @static
+         * @param {table.IRankBase=} [properties] Properties to set
+         * @returns {table.RankBase} RankBase instance
+         */
+        RankBase.create = function create(properties) {
+            return new RankBase(properties);
+        };
+
+        /**
+         * Encodes the specified RankBase message. Does not implicitly {@link table.RankBase.verify|verify} messages.
+         * @function encode
+         * @memberof table.RankBase
+         * @static
+         * @param {table.IRankBase} message RankBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RankBase.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Rank != null && message.Rank.length)
+                for (var i = 0; i < message.Rank.length; ++i)
+                    $root.table.RankDefine.encode(message.Rank[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified RankBase message, length delimited. Does not implicitly {@link table.RankBase.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.RankBase
+         * @static
+         * @param {table.IRankBase} message RankBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RankBase.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a RankBase message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.RankBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.RankBase} RankBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RankBase.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.RankBase();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.Rank && message.Rank.length))
+                        message.Rank = [];
+                    message.Rank.push($root.table.RankDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a RankBase message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.RankBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.RankBase} RankBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RankBase.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a RankBase message.
+         * @function verify
+         * @memberof table.RankBase
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        RankBase.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Rank != null && message.hasOwnProperty("Rank")) {
+                if (!Array.isArray(message.Rank))
+                    return "Rank: array expected";
+                for (var i = 0; i < message.Rank.length; ++i) {
+                    var error = $root.table.RankDefine.verify(message.Rank[i]);
+                    if (error)
+                        return "Rank." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a RankBase message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.RankBase
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.RankBase} RankBase
+         */
+        RankBase.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.RankBase)
+                return object;
+            var message = new $root.table.RankBase();
+            if (object.Rank) {
+                if (!Array.isArray(object.Rank))
+                    throw TypeError(".table.RankBase.Rank: array expected");
+                message.Rank = [];
+                for (var i = 0; i < object.Rank.length; ++i) {
+                    if (typeof object.Rank[i] !== "object")
+                        throw TypeError(".table.RankBase.Rank: object expected");
+                    message.Rank[i] = $root.table.RankDefine.fromObject(object.Rank[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a RankBase message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.RankBase
+         * @static
+         * @param {table.RankBase} message RankBase
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        RankBase.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.Rank = [];
+            if (message.Rank && message.Rank.length) {
+                object.Rank = [];
+                for (var j = 0; j < message.Rank.length; ++j)
+                    object.Rank[j] = $root.table.RankDefine.toObject(message.Rank[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this RankBase to JSON.
+         * @function toJSON
+         * @memberof table.RankBase
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        RankBase.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return RankBase;
+    })();
+
+    table.RankDefine = (function() {
+
+        /**
+         * Properties of a RankDefine.
+         * @memberof table
+         * @interface IRankDefine
+         * @property {number|null} [Id] RankDefine Id
+         * @property {number|null} [Type] RankDefine Type
+         * @property {number|null} [Param1] RankDefine Param1
+         * @property {number|null} [Param2] RankDefine Param2
+         * @property {number|null} [Param3] RankDefine Param3
+         * @property {number|null} [Cd] RankDefine Cd
+         */
+
+        /**
+         * Constructs a new RankDefine.
+         * @memberof table
+         * @classdesc Represents a RankDefine.
+         * @implements IRankDefine
+         * @constructor
+         * @param {table.IRankDefine=} [properties] Properties to set
+         */
+        function RankDefine(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * RankDefine Id.
+         * @member {number} Id
+         * @memberof table.RankDefine
+         * @instance
+         */
+        RankDefine.prototype.Id = 0;
+
+        /**
+         * RankDefine Type.
+         * @member {number} Type
+         * @memberof table.RankDefine
+         * @instance
+         */
+        RankDefine.prototype.Type = 0;
+
+        /**
+         * RankDefine Param1.
+         * @member {number} Param1
+         * @memberof table.RankDefine
+         * @instance
+         */
+        RankDefine.prototype.Param1 = 0;
+
+        /**
+         * RankDefine Param2.
+         * @member {number} Param2
+         * @memberof table.RankDefine
+         * @instance
+         */
+        RankDefine.prototype.Param2 = 0;
+
+        /**
+         * RankDefine Param3.
+         * @member {number} Param3
+         * @memberof table.RankDefine
+         * @instance
+         */
+        RankDefine.prototype.Param3 = 0;
+
+        /**
+         * RankDefine Cd.
+         * @member {number} Cd
+         * @memberof table.RankDefine
+         * @instance
+         */
+        RankDefine.prototype.Cd = 0;
+
+        /**
+         * Creates a new RankDefine instance using the specified properties.
+         * @function create
+         * @memberof table.RankDefine
+         * @static
+         * @param {table.IRankDefine=} [properties] Properties to set
+         * @returns {table.RankDefine} RankDefine instance
+         */
+        RankDefine.create = function create(properties) {
+            return new RankDefine(properties);
+        };
+
+        /**
+         * Encodes the specified RankDefine message. Does not implicitly {@link table.RankDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.RankDefine
+         * @static
+         * @param {table.IRankDefine} message RankDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RankDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.Id);
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.Type);
+            if (message.Param1 != null && message.hasOwnProperty("Param1"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.Param1);
+            if (message.Param2 != null && message.hasOwnProperty("Param2"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.Param2);
+            if (message.Param3 != null && message.hasOwnProperty("Param3"))
+                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.Param3);
+            if (message.Cd != null && message.hasOwnProperty("Cd"))
+                writer.uint32(/* id 6, wireType 0 =*/48).int32(message.Cd);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified RankDefine message, length delimited. Does not implicitly {@link table.RankDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.RankDefine
+         * @static
+         * @param {table.IRankDefine} message RankDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RankDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a RankDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.RankDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.RankDefine} RankDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RankDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.RankDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.int32();
+                    break;
+                case 2:
+                    message.Type = reader.int32();
+                    break;
+                case 3:
+                    message.Param1 = reader.int32();
+                    break;
+                case 4:
+                    message.Param2 = reader.int32();
+                    break;
+                case 5:
+                    message.Param3 = reader.int32();
+                    break;
+                case 6:
+                    message.Cd = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a RankDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.RankDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.RankDefine} RankDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RankDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a RankDefine message.
+         * @function verify
+         * @memberof table.RankDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        RankDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                if (!$util.isInteger(message.Type))
+                    return "Type: integer expected";
+            if (message.Param1 != null && message.hasOwnProperty("Param1"))
+                if (!$util.isInteger(message.Param1))
+                    return "Param1: integer expected";
+            if (message.Param2 != null && message.hasOwnProperty("Param2"))
+                if (!$util.isInteger(message.Param2))
+                    return "Param2: integer expected";
+            if (message.Param3 != null && message.hasOwnProperty("Param3"))
+                if (!$util.isInteger(message.Param3))
+                    return "Param3: integer expected";
+            if (message.Cd != null && message.hasOwnProperty("Cd"))
+                if (!$util.isInteger(message.Cd))
+                    return "Cd: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a RankDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.RankDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.RankDefine} RankDefine
+         */
+        RankDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.RankDefine)
+                return object;
+            var message = new $root.table.RankDefine();
+            if (object.Id != null)
+                message.Id = object.Id | 0;
+            if (object.Type != null)
+                message.Type = object.Type | 0;
+            if (object.Param1 != null)
+                message.Param1 = object.Param1 | 0;
+            if (object.Param2 != null)
+                message.Param2 = object.Param2 | 0;
+            if (object.Param3 != null)
+                message.Param3 = object.Param3 | 0;
+            if (object.Cd != null)
+                message.Cd = object.Cd | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a RankDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.RankDefine
+         * @static
+         * @param {table.RankDefine} message RankDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        RankDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.Id = 0;
+                object.Type = 0;
+                object.Param1 = 0;
+                object.Param2 = 0;
+                object.Param3 = 0;
+                object.Cd = 0;
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                object.Type = message.Type;
+            if (message.Param1 != null && message.hasOwnProperty("Param1"))
+                object.Param1 = message.Param1;
+            if (message.Param2 != null && message.hasOwnProperty("Param2"))
+                object.Param2 = message.Param2;
+            if (message.Param3 != null && message.hasOwnProperty("Param3"))
+                object.Param3 = message.Param3;
+            if (message.Cd != null && message.hasOwnProperty("Cd"))
+                object.Cd = message.Cd;
+            return object;
+        };
+
+        /**
+         * Converts this RankDefine to JSON.
+         * @function toJSON
+         * @memberof table.RankDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        RankDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return RankDefine;
     })();
 
     table.RechargeBase = (function() {

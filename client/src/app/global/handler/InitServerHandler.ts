@@ -127,13 +127,13 @@ class InitServerHandler
 	private reqGetInsideRoomIdList()
 	{
 		//拉取锦标赛赛事所在房间信息列表
-		SocketManager.ImplCall(Command.C2GW_ReqUserRoomInfo, msg.C2GW_ReqUserRoomInfo.encode({}), this.onGetInsideRoomListInfo, null, this);
+		SocketManager.ImplCall(Command.C2GW_ReqUserRoomInfo, {}, this.onGetInsideRoomListInfo, null, this);
 	}
 	private onGetInsideRoomListInfo(result: game.SpRpcResult)
 	{
 		InsideRoomManager.initialize(result);
 		//活动列表数据 move todo 不应该在这边拉，活动的数据需要最后拉去
-		this.reqGetActivityList();
+		this.reqGetMailList();
 		// this.reqGetMTTListInfo();
 	}
 	/**
@@ -158,19 +158,19 @@ class InitServerHandler
 	private onInviteAwardInfo(result: game.SpRpcResult)
 	{
 		InviteManager.initialize(result);
-		this.reqGetMailList();
+		// this.reqGetMailList();
 	}
 	/**
 	 * 拉取邮件列表
 	 */
 	private reqGetMailList()
 	{
-		SocketManager.ImplCall(Command.Mail_GetList_3097, { "StartId": 0, "Count": GameSetting.MaxMailNum }, this.onGetMailList, null, this);
+		SocketManager.ImplCall(Command.C2GW_ReqMailList, { "startId": 0, "count": GameSetting.MaxMailNum }, this.onGetMailList, null, this);
 	}
 	private onGetMailList(result: game.SpRpcResult)
 	{
 		MailManager.Reset();
-		MailManager.initialize(result, true);
+		MailManager.initialize(result, false);
 		this.reqGetActivityList();
 	}
 	/**
