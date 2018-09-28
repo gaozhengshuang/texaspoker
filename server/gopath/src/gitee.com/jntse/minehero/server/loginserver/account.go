@@ -372,7 +372,7 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 		gold := int32(tbl.Global.NewUser.Gold)
 		userinfo := &msg.Serialize{
 			Entity: &msg.EntityBase{
-				Id: pb.Int64(userid),
+				Roleid: pb.Int64(userid),
 				Name: pb.String(nickname),
 				Head: pb.String("null"),
 				Account: pb.String(account),
@@ -427,7 +427,7 @@ func DirectRegistAccount(account, passwd string) (errcode string) {
 
 // 缓存玩家简单信息
 func SaveUserSimpleInfo(bin *msg.Serialize) {
-	uid := bin.Entity.GetId()
+	uid := bin.Entity.GetRoleid()
 	pipe := Redis().Pipeline()
 	defer pipe.Close()
 

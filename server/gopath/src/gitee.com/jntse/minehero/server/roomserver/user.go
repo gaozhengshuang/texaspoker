@@ -59,7 +59,7 @@ func NewRoomUser(rid int64, b *msg.Serialize, gate network.IBaseNetSession, game
 func NewRoomUserAI(id int64, name string, sex int32) *RoomUser {
 	user := &RoomUser{}
 	user.bin = new(msg.Serialize)
-	user.bin.Entity = &msg.EntityBase{Id : pb.Int64(id), 
+	user.bin.Entity = &msg.EntityBase{Roleid : pb.Int64(id), 
 		Name : pb.String(name), 
 		Sex : pb.Int32(sex),
 		Gold : pb.Int32(100000),
@@ -85,7 +85,7 @@ func (u *RoomUser) UserBase() *msg.UserBase {
 }
 
 func (u *RoomUser) Id() int64 {
-	return u.Entity().GetId()
+	return u.Entity().GetRoleid()
 }
 
 func (u *RoomUser) Name() string {
