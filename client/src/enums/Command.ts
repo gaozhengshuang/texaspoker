@@ -85,15 +85,15 @@ class Command
     /**
      * 拉取邮件列表的请求
      */
-    public static readonly Mail_GetList_3097: string = "c3097";
+    public static readonly C2GW_ReqMailList: string = "msg.C2GW_ReqMailList";
     /**
      * 请求领取邮件附件
      */
-    public static readonly Mail_TakePrize_3098: string = "c3098";
+    public static readonly C2GW_ReqTakeMailItem: string = "msg.C2GW_ReqTakeMailItem";
     /**
      * 新邮件通知推送
      */
-    public static readonly Mail_Push_New_2024 = "c2024";
+    public static readonly GW2C_PushNewMail = "msg.GW2C_PushNewMail";
 
     //--------------------------------------------------------------
     // Friend

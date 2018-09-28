@@ -62,57 +62,58 @@ func (t *UserTicker) Stop() {
 	//t.ticker1m.Stop()
 }
 
-func (this *UserTicker) Run(now int64) {
-	for _, t := range this.tickers {
+func (u *UserTicker) Run(now int64) {
+	for _, t := range u.tickers {
 		t.Run(now)
 	}
 
 	// 嵌套节省
-	//this.ticker10ms.Run(now)
-	//this.ticker100ms.Run(now)
-	//if this.ticker1s.Run(now) {
-	//	if this.ticker5s.Run(now) { this.ticker1m.Run(now) }
+	//u.ticker10ms.Run(now)
+	//u.ticker100ms.Run(now)
+	//if u.ticker1s.Run(now) {
+	//	if u.ticker5s.Run(now) { u.ticker1m.Run(now) }
 	//}
 }
 
-func (this *GateUser) OnTicker10ms(now int64) {
-	this.asynev.Dispatch()
-	this.events.Tick(now)
+func (u *GateUser) OnTicker10ms(now int64) {
+	u.asynev.Dispatch()
+	u.events.Tick(now)
 }
 
-func (this *GateUser) OnTicker100ms(now int64) {
-	if len(this.broadcastbuffer) != 0 {
-		uuid := this.broadcastbuffer[0]
+func (u *GateUser) OnTicker100ms(now int64) {
+	if len(u.broadcastbuffer) != 0 {
+		uuid := u.broadcastbuffer[0]
 		msg := UserMgr().PickBroadcastMsg(uuid)
 		if msg != nil {
-			this.SendMsg(msg)
+			u.SendMsg(msg)
 		}
-		this.broadcastbuffer = this.broadcastbuffer[1:]
+		u.broadcastbuffer = u.broadcastbuffer[1:]
 	}
-	this.CheckOffline(now)
-	this.CheckDisconnectTimeOut(now)
+	u.CheckOffline(now)
+	u.CheckDisconnectTimeOut(now)
 }
 
-func (this *GateUser) OnTicker1s(now int64) {
+func (u *GateUser) OnTicker1s(now int64) {
 }
 
-func (this *GateUser) OnTicker5s(now int64) {
-	//this.CheckRechargeOrders()		// 不用我们的充值 2018年 05月 17日 星期四 19:34:03 CST
+func (u *GateUser) OnTicker5s(now int64) {
+	//u.CheckRechargeOrders()		// 不用我们的充值 2018年 05月 17日 星期四 19:34:03 CST
 }
 
-func (this *GateUser) OnTicker1m(now int64) {
+func (u *GateUser) OnTicker1m(now int64) {
+	u.mailbox.Tick(now)
 }
 
-func (this *GateUser) Tick(now int64) {
-	this.tickers.Run(now)
+func (u *GateUser) Tick(now int64) {
+	u.tickers.Run(now)
 }
 
 // 处理充值订单
-func (this *GateUser) CheckRechargeOrders() {
-	if this.IsInRoom() == true {
+func (u *GateUser) CheckRechargeOrders() {
+	if u.IsInRoom() == true {
 		return
 	}
-	keyorder := fmt.Sprintf("%d_verified_recharge_orders", this.Id())
+	keyorder := fmt.Sprintf("%d_verified_recharge_orders", u.Id())
 	order_amount, err := Redis().SPop(keyorder).Result()
 	if err == redis.Nil {
 		return
@@ -134,29 +135,29 @@ func (this *GateUser) CheckRechargeOrders() {
 		return
 	}
 
-	this.AddYuanbao(int32(amount), "充值获得", true)
+	u.AddYuanbao(int32(amount), "充值获得", true)
 }
 
 // 心跳,毫秒
-func (this *GateUser) SetHeartBeat(now int64) {
-	tm_last := this.tm_heartbeat
+func (u *GateUser) SetHeartBeat(now int64) {
+	tm_last := u.tm_heartbeat
 	tm_delay := now - tm_last
-	this.tm_heartbeat = now
+	u.tm_heartbeat = now
 	if tm_delay < 1000 {
-		//log.Warn("玩家[%s %d] 心跳太过频繁[%d ms]", this.Name(), this.Id(), tm_delay)
+		//log.Warn("玩家[%s %d] 心跳太过频繁[%d ms]", u.Name(), u.Id(), tm_delay)
 	} else if tm_delay > 6000 {
-		log.Warn("玩家[%s %d] 心跳延迟了[%d ms]，网络不好?", this.Name(), this.Id(), tm_delay)
+		log.Warn("玩家[%s %d] 心跳延迟了[%d ms]，网络不好?", u.Name(), u.Id(), tm_delay)
 	}
 }
 
 // 检查心跳，毫秒
-func (this *GateUser) CheckOffline(now int64) {
-	if this.online == false {
+func (u *GateUser) CheckOffline(now int64) {
+	if u.online == false {
 		return
 	}
-	tm_delay := now - this.tm_heartbeat
-	if tm_delay > tbl.Global.Hearbeat.Timeout {
-		log.Warn("玩家[%s %d] 心跳延迟达到[%d ms]，清理离线Session", this.Name(), this.Id(), tm_delay)
-		this.KickOut("心跳超时")
+	tm_delay := now - u.tm_heartbeat
+	if tm_delay > tbl.Global.HearBeat.Timeout {
+		log.Warn("玩家[%s %d] 心跳延迟达到[%d ms]，清理离线Session", u.Name(), u.Id(), tm_delay)
+		u.KickOut("心跳超时")
 	}
 }

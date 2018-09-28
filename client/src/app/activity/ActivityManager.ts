@@ -329,7 +329,7 @@ class ActivityManager
                 ActivityManager.onReqSingleActivityEvent.dispatch(id);
             }
         }
-        SocketManager.call(Command.C2GW_ReqActivityInfo, msg.C2GW_ReqActivityInfo.encode({ "id": id }), callback, null, this);
+        SocketManager.call(Command.C2GW_ReqActivityInfo, { "id": id }, callback, null, this);
     }
 
     /**
@@ -366,7 +366,7 @@ class ActivityManager
         {
             PropertyManager.OpenGet();
         }
-        SocketManager.call(Command.C2GW_ReqGetActivityReward, msg.C2GW_ReqGetActivityReward.encode({ "id": activityId, "subid": subId }), callback, null, this);
+        SocketManager.call(Command.C2GW_ReqGetActivityReward, { "id": activityId, "subid": subId }, callback, null, this);
     }
 
     /**

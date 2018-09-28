@@ -43,6 +43,7 @@ func (this *MS2GWMsgHandler) Init() {
 	//this.msgparser.RegistProtoMsg(msg.MS2GW_MatchOk{}, on_MS2GW_MatchOk)
 	this.msgparser.RegistProtoMsg(msg.MS2GW_RetCreateRoom{}, on_MS2GW_RetCreateRoom)
 	this.msgparser.RegistProtoMsg(msg.MS2Server_BroadCast{}, on_MS2Server_BroadCast)
+	this.msgparser.RegistProtoMsg(msg.MS2GW_PushNewMail{}, on_MS2GW_PushNewMail)
 }
 
 func on_MS2GW_RetRegist(session network.IBaseNetSession, message interface{}) {
@@ -114,3 +115,13 @@ func DoGMCmd(cmd map[string]*util.VarType) {
 		break
 	}
 }
+
+func on_MS2GW_PushNewMail(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.MS2GW_PushNewMail)
+	receiver := UserMgr().FindById(tmsg.GetReceiver())
+	if receiver == nil {
+		return
+	}
+	receiver.mailbox.ReceiveNewMail(tmsg.GetMail())
+}
+

@@ -72,9 +72,14 @@ func (this *C2GWMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqUserRoomInfo{}, on_C2GW_ReqUserRoomInfo)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTexasRoomList{}, on_C2GW_ReqTexasRoomList)
 
+	// 邮件
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqMailList{}, on_C2GW_ReqMailList)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTakeMailItem{}, on_C2GW_ReqTakeMailItem)
+
 	//活动
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqActivityInfo{}, on_C2GW_ReqActivityInfo)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqGetActivityReward{}, on_C2GW_ReqGetActivityReward)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqRankList{}, on_C2GW_ReqRankList)
 }
 
 // 客户端心跳
@@ -402,7 +407,7 @@ func on_C2GW_SendWechatAuthCode(session network.IBaseNetSession, message interfa
 	log.Info("玩家[%d] 获取access_token 微信授权code[%s]", u.Id(), tmsg.GetCode())
 
 	//获取用户access_token 和 openid
-	appid, secret, code := tbl.Global.Wechat.AppID, tbl.Global.Wechat.AppSecret, tmsg.GetCode()
+	appid, secret, code := tbl.Wechat.AppID, tbl.Wechat.AppSecret, tmsg.GetCode()
 	url := fmt.Sprintf("https://api.weixin.qq.com/sns/oauth2/access_token?appid=%s&secret=%s&code=%s&grant_type=authorization_code",
 		appid, secret, code)
 	resp, errcode := network.HttpGet(url)
@@ -560,6 +565,29 @@ func on_C2GW_LeaveEvent(session network.IBaseNetSession, message interface{}) {
 	u.events.LeaveEvent(tmsg.GetUid())
 }
 
+// 个人邮件列表
+func on_C2GW_ReqMailList(session network.IBaseNetSession, message interface{}) {
+	//tmsg := message.(*msg.C2GW_ReqMailList)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.mailbox.SendMailList()
+}
+
+func on_C2GW_ReqTakeMailItem(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqTakeMailItem)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.mailbox.TakeMailItem(tmsg.GetUid())
+}
+
 func on_C2GW_ReqTaskList(session network.IBaseNetSession, message interface{}) {
 	//tmsg := message.(*msg.C2GW_ReqTaskList)
 	u := ExtractSessionUser(session)
@@ -599,4 +627,17 @@ func on_C2GW_ReqGetActivityReward(session network.IBaseNetSession, message inter
 	id := tmsg.GetId()
 	subid := tmsg.GetSubid()
 	u.OnReqGetActivityReward(id, subid)
+}
+
+func on_C2GW_ReqRankList(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqRankList)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	_type := tmsg.GetType()
+	_rank := tmsg.GetRank()
+	u.ReqRankListByType(_type, _rank)
 }

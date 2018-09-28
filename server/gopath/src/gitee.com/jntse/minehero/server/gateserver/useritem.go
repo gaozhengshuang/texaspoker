@@ -65,6 +65,7 @@ func (this *GateUser) AddGold(gold int32, reason string, syn bool) {
 		this.SendPropertyChange()
 	}
 	log.Info("玩家[%d] 添加金币[%d] 库存[%d] 原因[%s]", this.Id(), gold, this.GetGold(), reason)
+	this.SyncGoldRankRedis()
 }
 func (this *GateUser) RemoveGold(gold int32, reason string, syn bool) bool {
 	if this.GetGold() >= gold {
@@ -74,6 +75,7 @@ func (this *GateUser) RemoveGold(gold int32, reason string, syn bool) bool {
 		}
 		log.Info("玩家[%d] 扣除金币[%d] 库存[%d] 原因[%s]", this.Id(), gold, this.GetGold(), reason)
 		RCounter().IncrByDate("item_remove", int32(msg.ItemId_Gold), gold)
+		this.SyncGoldRankRedis()
 		return true
 	}
 	log.Info("玩家[%d] 扣除金币失败[%d] 原因[%s]", this.Id(), gold, reason)
@@ -218,8 +220,8 @@ func (this *GateUser) DeliveryGoods(list []*msg.DeliveryGoods, token string) {
 		for _, item := range list {
 			amount += item.GetNum()
 		}
-		if int64(amount) < tbl.Global.Delivery.Freelimit {
-			delivercost = int32(tbl.Global.Delivery.Cost)
+		if int64(amount) < tbl.Delivery.Freelimit {
+			delivercost = int32(tbl.Delivery.Cost)
 			if this.GetYuanbao() < delivercost {
 				this.SendNotify("运费不足")
 				return
@@ -276,8 +278,8 @@ func (this *GateUser) DeliveryGoods(list []*msg.DeliveryGoods, token string) {
 
 	address := this.GetDefaultAddress()
 	order := &DeliveryOrder{Id: this.Id(), Way: "0", Name: address.GetReceiver(), Phone: address.GetPhone(), Address: address.GetAddress()}
-	order.GameId = tbl.Global.Delivery.GameID
-	order.Dev = tbl.Global.Delivery.Dev // 测试标记
+	order.GameId = tbl.Delivery.GameID
+	order.Dev = tbl.Delivery.Dev // 测试标记
 	for _, item := range list {
 		base := FindItemBase(item.GetItemid())
 		if base == nil {
@@ -302,7 +304,7 @@ func (this *GateUser) DeliveryGoods(list []*msg.DeliveryGoods, token string) {
 	}
 
 	orderstr := util.BytesToString(orderbytes)
-	url_platform := tbl.Global.Delivery.URLAPI
+	url_platform := tbl.Delivery.URLAPI
 	log.Info("[提货] 玩家[%s %d] 向平台[%s] 推送订单[%s]\n", this.Name(), this.Id(), url_platform, orderstr)
 	resp, posterr := network.HttpPost(url_platform, orderstr)
 	if posterr != nil {

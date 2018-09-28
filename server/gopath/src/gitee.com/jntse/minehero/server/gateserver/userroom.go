@@ -206,7 +206,7 @@ func (this *GateUser) OnLeaveRoom(bin *msg.Serialize) {
 	log.Info("[房间] 玩家[%s %d] 离开房间[%d] 回传房间个人数据", this.Name(), this.Id(), this.RoomId())
 	this.roomdata.Reset(this)
 	this.bin = pb.Clone(bin).(*msg.Serialize)		// 加载最新玩家数据
-	this.OnLoadDB("离开房间")
+	this.OnDBLoad("离开房间")
 	if this.IsOnline() {
 		this.SendMsg(&msg.GW2C_RetLeaveRoom{})
 		this.SendUserBase()
@@ -228,7 +228,7 @@ func (this *GateUser) OnDestoryRoom(bin *msg.Serialize) {
 	log.Info("[房间] 玩家[%s %d] 销毁房间[%d] 回传房间个人数据", this.Name(), this.Id(), this.RoomId())
 	this.roomdata.Reset(this)
 	this.bin = pb.Clone(bin).(*msg.Serialize)		// 加载最新玩家数据
-	this.OnLoadDB("房间销毁")
+	this.OnDBLoad("房间销毁")
 	if this.IsOnline() {
 		this.SendMsg(&msg.GW2C_RetLeaveRoom{})
 		this.SendUserBase()

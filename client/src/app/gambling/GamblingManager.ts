@@ -319,15 +319,15 @@ class GamblingManager
 		SocketManager.AddCommandListener(Command.C2GW_ReqEnterRoom, callback, this);
 		if (password != undefined && id > 0)
 		{
-			SocketManager.Send(Command.C2GW_ReqEnterRoom, msg.C2GW_ReqEnterRoom.encode({ userid: UserManager.userInfo.roleId, roomid: id, passwd: password }));
+			SocketManager.Send(Command.C2GW_ReqEnterRoom, { userid: UserManager.userInfo.roleId, roomid: id, passwd: password });
 		}
 		else if (id > 0)
 		{
-			SocketManager.Send(Command.C2GW_ReqEnterRoom, msg.C2GW_ReqEnterRoom.encode({ userid: UserManager.userInfo.roleId, roomid: id }));
+			SocketManager.Send(Command.C2GW_ReqEnterRoom, { userid: UserManager.userInfo.roleId, roomid: id });
 		}
 		else
 		{
-			SocketManager.Send(Command.C2GW_ReqEnterRoom, msg.C2GW_ReqEnterRoom.encode({ userid: UserManager.userInfo.roleId }));
+			SocketManager.Send(Command.C2GW_ReqEnterRoom, { userid: UserManager.userInfo.roleId });
 		}
 	}
 	public static initialize(result: game.SpRpcResult, isReconnect?: boolean)
@@ -1038,7 +1038,7 @@ class GamblingManager
 		// {
 		SocketManager.AddCommandListener(Command.C2GW_ReqLeaveRoom, callBack, this);
 		SocketManager.AddErrorListener(Command.C2GW_ReqLeaveRoom, callBackError, this);
-		SocketManager.Send(Command.C2GW_ReqLeaveRoom, msg.C2GW_ReqLeaveRoom.encode({ userid: UserManager.userInfo.roleId }));
+		SocketManager.Send(Command.C2GW_ReqLeaveRoom, { userid: UserManager.userInfo.roleId });
 		// }
 	}
 	private static leaveRoom()

@@ -76,6 +76,7 @@ type GateUser struct {
 	broadcastbuffer []int64      // 广播消息缓存
 	synbalance      bool         // 充值中
 	events          UserMapEvent // 地图事件
+	mailbox			MailBox		 // 邮箱
 }
 
 func NewGateUser(account, key, token string) *GateUser {
@@ -85,6 +86,7 @@ func NewGateUser(account, key, token string) *GateUser {
 	u.bag.Init(u)
 	u.task.Init(u)
 	u.events.Init(u)
+	u.mailbox.Init(u)
 	u.tickers.Init(u.OnTicker10ms, u.OnTicker100ms, u.OnTicker1s, u.OnTicker5s, u.OnTicker1m)
 	u.cleanup = false
 	u.tm_disconnect = 0
@@ -338,11 +340,11 @@ func (this *GateUser) SendUserBase() {
 	this.SendMsg(send)
 }
 
-func (this *GateUser) IsLoadDB() bool {
+func (this *GateUser) IsDBLoad() bool {
 	return this.bin != nil
 }
 
-func (this *GateUser) LoadDB() bool {
+func (this *GateUser) DBLoad() bool {
 	key, info := fmt.Sprintf("accounts_%s", this.account), &msg.AccountInfo{}
 	if err := utredis.GetProtoBin(Redis(), key, info); err != nil {
 		log.Error("账户%s 获取账户数据失败，err: %s", this.account, err)
@@ -357,11 +359,11 @@ func (this *GateUser) LoadDB() bool {
 		return false
 	}
 
-	this.OnLoadDB("登陆")
+	this.OnDBLoad("登陆")
 	return true
 }
 
-func (this *GateUser) OnLoadDB(way string) {
+func (this *GateUser) OnDBLoad(way string) {
 	log.Info("玩家数据: ==========")
 	log.Info("账户%s 加载DB数据成功 方式[%s]", this.account, way)
 	log.Info("%v", this.bin)
@@ -497,7 +499,8 @@ func (this *GateUser) LoadBin() {
 }
 
 // TODO: 存盘可以单独协程
-func (this *GateUser) Save() {
+func (this *GateUser) DBSave() {
+	this.mailbox.DBSave()
 	key := fmt.Sprintf("userbin_%d", this.Id())
 	if err := utredis.SetProtoBin(Redis(), key, this.PackBin()); err != nil {
 		log.Error("保存玩家[%s %d]数据失败", this.Name(), this.Id())
@@ -509,7 +512,7 @@ func (this *GateUser) Save() {
 // 异步存盘
 func (this *GateUser) AsynSave() {
 	log.Info("玩家[%s %d] 发起异步存盘", this.Name(), this.Id())
-	event := NewUserSaveEvent(this.Save, this.AsynSaveFeedback)
+	event := NewUserSaveEvent(this.DBSave, this.AsynSaveFeedback)
 	this.AsynEventInsert(event)
 }
 
@@ -603,7 +606,7 @@ func (this *GateUser) CheckDisconnectTimeOut(now int64) {
 	}
 
 	// 延迟清理离线玩家
-	if !GateSvr().IsGracefulQuit() && (now < this.tm_disconnect+tbl.Global.Disconclean) {
+	if !GateSvr().IsGracefulQuit() && (now < this.tm_disconnect+tbl.Global.DisconClean) {
 		return
 	}
 
@@ -627,7 +630,7 @@ func (this *GateUser) Logout() {
 	this.online = false
 	this.tm_logout = util.CURTIME()
 	this.cleanup = true
-	this.Save()
+	this.DBSave()
 	UnBindingAccountGateWay(this.account)
 	this.asynev.Shutdown()
 

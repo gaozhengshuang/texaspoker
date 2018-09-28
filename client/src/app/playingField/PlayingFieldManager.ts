@@ -13,7 +13,7 @@ class PlayingFieldManager
 	 */
     public static reqRoomListInfo(type: number)
     {
-        SocketManager.call(Command.C2GW_ReqTexasRoomList, msg.C2GW_ReqTexasRoomList.encode({ "type": type }), PlayingFieldManager.RoomListInfoResponse, null, this);
+        SocketManager.call(Command.C2GW_ReqTexasRoomList, { "type": type }, PlayingFieldManager.RoomListInfoResponse, null, this);
     }
     public static RoomListInfoResponse(result: game.SpRpcResult)
     {
@@ -60,10 +60,10 @@ class PlayingFieldManager
         };
         if (pwd)
         {
-            SocketManager.call(Command.C2GW_ReqCreateRoom, msg.C2GW_ReqCreateRoom.encode({ gamekind: msg.RoomKind.TexasPoker, texas: { roomId: roomId, pwd: pwd, ante: ante } }), callback, null, this);
+            SocketManager.call(Command.C2GW_ReqCreateRoom, { gamekind: msg.RoomKind.TexasPoker, texas: { roomId: roomId, pwd: pwd, ante: ante } }, callback, null, this);
         } else
         {
-            SocketManager.call(Command.C2GW_ReqCreateRoom, msg.C2GW_ReqCreateRoom.encode({ gamekind: msg.RoomKind.TexasPoker, texas: { roomId: roomId, ante: ante, pwd: game.StringConstants.Empty } }), callback, null, this);
+            SocketManager.call(Command.C2GW_ReqCreateRoom, { gamekind: msg.RoomKind.TexasPoker, texas: { roomId: roomId, ante: ante, pwd: game.StringConstants.Empty } }, callback, null, this);
         }
     }
 
