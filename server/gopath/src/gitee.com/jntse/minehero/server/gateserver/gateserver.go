@@ -133,6 +133,11 @@ func (this *GateServer) DoInputCmd(cmd string) {
 	case "free":
 		log.Info("Start FreeOSMemory...")
 		debug.FreeOSMemory() // 谨慎使用
+	case "mail":
+		items := make([]*msg.MailItem,0)
+		items = append(items, &msg.MailItem{Id:pb.Int32(int32(msg.ItemId_Gold)), Num:pb.Int32(100)})
+		items = append(items, &msg.MailItem{Id:pb.Int32(int32(msg.ItemId_Diamond)), Num:pb.Int32(200)})
+		MakeNewMail(util.Atol(subcmd[1]), 1002, "1002", 1, items)
 	default:
 		log.Error("Input Cmd Invalid cmd[%s]", cmd)
 	}

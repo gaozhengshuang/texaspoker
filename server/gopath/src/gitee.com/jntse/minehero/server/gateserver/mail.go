@@ -1,6 +1,7 @@
 package main
 import (
 	"fmt"
+	"strings"
 	"gitee.com/jntse/gotoolkit/log"
 	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/gotoolkit/redis"
@@ -53,8 +54,8 @@ func (m *Mail) Date() int64 {
 	return m.bin.GetDate()
 }
 
-func (m *Mail) IsExpiry(now int64) bool {
-	return (m.Date() + tbl.Global.Mail.ExpiryDate * util.DaySec) > now
+func (m *Mail) IsExpire(now int64) bool {
+	return now > (m.Date() + tbl.Global.Mail.ExpiryDate * util.DaySec)
 }
 
 func (m *Mail) SaveBin(userid int64, pipe redis.Pipeliner) {
@@ -92,7 +93,6 @@ type MailBox struct {
 func (m *MailBox) Init(owner *GateUser) {
 	m.owner = owner
 	m.mails = make(map[int64]*Mail)
-	m.DBLoad()
 }
 
 func (m *MailBox) Size() int32 {
@@ -102,6 +102,7 @@ func (m *MailBox) Size() int32 {
 func (m *MailBox) Online() {
 }
 
+// 加载
 func (m *MailBox) DBLoad() {
 	lists, err := Redis().HGetAll(fmt.Sprintf("usermails_%d", m.owner.Id())).Result()
 	if err != nil {
@@ -110,41 +111,58 @@ func (m *MailBox) DBLoad() {
 	}
 
 	// 反序列化
-	now :=  util.CURTIME()
 	for k, str := range lists {
 		id, rbuf, mail := util.Atol(k), []byte(str), &Mail{}
-		if mail.LoadBin([]byte(rbuf)) != nil {
-			log.Error("[邮件] 玩家[%s %d]解析邮件[%d]失败[%s]", m.owner.Name(), m.owner.Id(), id, err)
-			continue
-		}
-		if mail.IsExpiry(now) {
-			log.Info("[邮件] 玩家[%s %d] 邮件[%d] 过期删除", m.owner.Name(), m.owner.Id(), id)
+		if mail.LoadBin([]byte(rbuf)) == nil {
+			log.Error("[邮件] 玩家[%s %d] 邮件[%d] Protobuf Unmarshal 失败", m.owner.Name(), m.owner.Id(), id)
 			continue
 		}
 		m.mails[id] = mail
-		log.Trace("[邮件] 玩家[%s %d] 加载邮件[%#v]", mail)
+		log.Trace("[邮件] 玩家[%s %d] 加载邮件[%d]", m.owner.Name(), m.owner.Id(), id)
 	}
+	log.Info("[邮件] 玩家[%s %d] 加载邮件完毕，数量[%d]", m.owner.Name(), m.owner.Id(), m.Size())
 
-	log.Info("[邮件] 玩家[%s %d] 加载所有邮件[%d]", m.Size())
+	// 删除过期邮件
+	m.CheckExpire(util.CURTIME())
 }
 
+// 存盘
 func (m *MailBox) DBSave() {
 	pipe := Redis().Pipeline()
-	defer pipe.Close()
 	for _, v := range m.mails {
 		if v.Dirty() == true { v.SaveBin(m.owner.Id(), pipe) }
 	}
-	_, err := pipe.Exec()
-	if err != nil {
+
+	if cmds, err := pipe.Exec(); err != nil {
 		log.Error("[邮件] 玩家[%s %d] 保存邮件失败 RedisError[%s]", m.owner.Name(), m.owner.Id(), err)
-		return
+	}else if len(cmds) != 0 {
+		log.Info("[邮件] 玩家[%s %d] 保存邮件成功，数量[%d]", m.owner.Name(), m.owner.Id(), len(cmds))
 	}
-	log.Info("[邮件] 玩家[%s %d] 保存邮件成功，数量[%d]", m.owner.Name(), m.owner.Id(), m.Size())
+	pipe.Close()
 }
 
 // 1分钟tick
 func (m *MailBox) Tick(now int64) {
 	m.DBSave()
+}
+
+// 删除过期邮件
+func (m *MailBox) CheckExpire(now int64) {
+	pipe := Redis().Pipeline()
+	for id, v := range m.mails {
+		if v.IsExpire(now) == false {
+			continue
+		}
+		pipe.HDel(fmt.Sprintf("usermails_%d", m.owner.Id()), util.Ltoa(id))
+		delete(m.mails, id)
+	}
+
+	if cmds, err := pipe.Exec(); err != nil {
+		log.Error("[邮件] 玩家[%s %d] 删除过期邮件失败 RedisError[%s]", m.owner.Name(), m.owner.Id(), err)
+	}else if len(cmds) != 0 {
+		log.Error("[邮件] 玩家[%s %d] 删除过期邮件成功 数量[%d]", m.owner.Name(), m.owner.Id(), len(cmds))
+	}
+	pipe.Close()
 }
 
 // 邮件列表
@@ -188,7 +206,7 @@ func (m *MailBox) TakeMailItem(id int64) {
 
 // 接收新邮件
 func (m *MailBox) ReceiveNewMail(detail *msg.MailDetail) {
-	mail := &Mail{bin:detail}
+	mail := &Mail{bin:detail, dirty:false}
 	if _, exist := m.mails[mail.Id()]; exist == true {
 		log.Info("玩家[%s %d] 收到新邮件[%d]，UUID重复", m.owner.Name(), m.owner.Id(), mail.Id())
 		return
@@ -201,12 +219,20 @@ func (m *MailBox) ReceiveNewMail(detail *msg.MailDetail) {
 }
 
 // 创建邮件
-func MakeNewMail(rid int64, rname string, sid int64, sname string, subtype int32, items []*msg.MailItem) bool {
+func MakeNewMail(rid int64, sid int64, sname string, subtype int32, items []*msg.MailItem, args ...interface{}) bool {
+	tconf, find := tbl.MailBase.MailById[subtype]
+	if find == false {
+		log.Error("收件人[%d] 发件人[%s %d] 新邮件创建失败，无效的SubType[%d]", rid, sname, sid, subtype)
+		return false
+	}
+
+	// uuid generate
 	uuid, errcode := def.GenerateMailId(Redis())
 	if errcode != "" {
 		return false
 	}
 
+	// mail detail
 	detail := &msg.MailDetail{Items:make([]*msg.MailItem,0)}
 	detail.Id 		= pb.Int64(uuid)
 	detail.Senderid = pb.Int64(sid)
@@ -216,12 +242,25 @@ func MakeNewMail(rid int64, rname string, sid int64, sname string, subtype int32
 	detail.Isgot 	= pb.Bool(false)
 	detail.Items 	= append(detail.Items, items...)
 	detail.Subtype 	= pb.Int32(subtype)
-	//detail.Type 	= pb.Int32(0)
-	//detail.Title 	= pb.String("")
-	//detail.Content= pb.String("")
+	detail.Type 	= pb.Int32(tconf.Type)
+	detail.Title 	= pb.String(tconf.Title)
 
+
+	// 内容解析
+	content := fmt.Sprintf(tconf.Content, args)
+	textreward := "奖励："
+	for _, item := range items {
+		itembase, ok := tbl.ItemBase.ItemBaseDataById[item.GetId()]
+		if ok == false { continue }
+		textreward += fmt.Sprintf("%s * %d ", itembase.Name, item.GetNum())
+	}
+	strings.Replace(content, "{奖励}", textreward, 1)
+	detail.Content  = pb.String(content)
+
+	// DBSave
 	utredis.HSetProtoBin(Redis(), fmt.Sprintf("usermails_%d", rid), util.Ltoa(uuid), detail)
-	log.Info("玩家[%s %d] 新邮件[%d]创建成功 SubType[%d] 附件[%v]", rid, rname, uuid, subtype, items)
+	log.Info("收件人[%d] 发件人[%s %d] 新邮件创建成功 Id[%d] SubType[%d] 附件[%v]", rid, sname, sid, uuid, subtype, items)
+
 
 	// 收件人是否在本服务器
 	if receiver := UserMgr().FindById(rid); receiver != nil {

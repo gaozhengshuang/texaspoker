@@ -56,6 +56,9 @@ func (this* GW2CMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.RS2C_RetStandUp{}, on_RS2C_RetStandUp)
 	this.msgparser.RegistProtoMsg(msg.RS2C_RetEnterRoom{}, on_RS2C_RetEnterRoom)
 
+	// 邮件
+	this.msgparser.RegistProtoMsg(msg.GW2C_PushNewMail{}, on_GW2C_PushNewMail)
+
 
 	// 收room消息
 	//this.msgparser.RegistProtoMsg(msg.BT_GameInit{}, on_BT_GameInit)
@@ -252,5 +255,10 @@ func on_GW2C_RetCreateRoom(session network.IBaseNetSession, message interface{})
 
 	log.Info("玩家[%s %d] 开启游戏成功，进入房间[%d]", name, id, roomid)
 
+}
+
+func on_GW2C_PushNewMail(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2C_PushNewMail)
+	log.Info("%+v", tmsg)
 }
 
