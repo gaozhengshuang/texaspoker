@@ -134,10 +134,40 @@ func (this *GateServer) DoInputCmd(cmd string) {
 		log.Info("Start FreeOSMemory...")
 		debug.FreeOSMemory() // 谨慎使用
 	case "mail":
+		if len(subcmd) < 2 { return }
+
+		// 金币钻石
 		items := make([]*msg.MailItem,0)
 		items = append(items, &msg.MailItem{Id:pb.Int32(int32(msg.ItemId_Gold)), Num:pb.Int32(100)})
 		items = append(items, &msg.MailItem{Id:pb.Int32(int32(msg.ItemId_Diamond)), Num:pb.Int32(200)})
 		MakeNewMail(util.Atol(subcmd[1]), 1002, "1002", 1, items)
+
+		// 单个奖励
+		items = make([]*msg.MailItem,0)
+		items = append(items, &msg.MailItem{Id:pb.Int32(int32(101)), Num:pb.Int32(1)})
+		MakeNewMail(util.Atol(subcmd[1]), 1002, "1002", 101, items)
+
+		// 无奖励
+		MakeNewMail(util.Atol(subcmd[1]), 1002, "1002", 124, nil)
+
+		// 多个奖励
+		items = make([]*msg.MailItem,0)
+		items = append(items, &msg.MailItem{Id:pb.Int32(int32(201)), Num:pb.Int32(1)})
+		items = append(items, &msg.MailItem{Id:pb.Int32(int32(202)), Num:pb.Int32(1)})
+		items = append(items, &msg.MailItem{Id:pb.Int32(int32(203)), Num:pb.Int32(1)})
+		MakeNewMail(util.Atol(subcmd[1]), 0, "", 141, nil, "jakcy", 1002)
+
+		//
+		items = make([]*msg.MailItem,0)
+		items = append(items, &msg.MailItem{Id:pb.Int32(int32(110)), Num:pb.Int32(1)})
+		MakeNewMail(util.Atol(subcmd[1]), 0, "", 161, items, "jacky")
+
+		//
+		items = make([]*msg.MailItem,0)
+		items = append(items, &msg.MailItem{Id:pb.Int32(int32(111)), Num:pb.Int32(1)})
+		MakeNewMail(util.Atol(subcmd[1]), 0, "", 164, items, "jacky")
+
+
 	default:
 		log.Error("Input Cmd Invalid cmd[%s]", cmd)
 	}

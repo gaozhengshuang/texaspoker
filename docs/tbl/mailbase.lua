@@ -13,7 +13,7 @@ export var Mail : table.IMailDefine[] = [
 		{ Id : 122, Title : "锦标赛奖励", Type : 1, Content : "您在100元话费争夺赛中获得第2名，{奖励}，请查收！" 	},
 		{ Id : 123, Title : "锦标赛奖励", Type : 1, Content : "您在100元话费争夺赛中获得第3名，{奖励}，请查收！" 	},
 		{ Id : 124, Title : "首充优惠奖励", Type : 0, Content : "您好，这是您的首充优惠奖励，请注意查收！" 	},
-		{ Id : 141, Title : "邀请奖励", Type : 2, Content : "{%s}(ID：%d)绑定了您的邀请码，获得{奖励}，请查收！" 	},
+		{ Id : 141, Title : "邀请奖励", Type : 2, Content : "%s(ID：%d)绑定了您的邀请码，获得{奖励}，请查收！" 	},
 		{ Id : 161, Title : "赠送礼物", Type : 3, Content : "<font color='#f9cb55'>%s</font>赠送给您礼物：<font color='#f9cb55'>{奖励}</font>。" 	},
 		{ Id : 162, Title : "赠送道具", Type : 3, Content : "<font color='#f9cb55'>%s</font>赠送给您<font color='#f9cb55'>{奖励}</font>。" 	},
 		{ Id : 163, Title : "赠送道具", Type : 3, Content : "<font color='#f9cb55'>%s</font>赠送给您<font color='#f9cb55'>{奖励}</font>。" 	},

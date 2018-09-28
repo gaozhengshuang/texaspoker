@@ -247,14 +247,14 @@ func MakeNewMail(rid int64, sid int64, sname string, subtype int32, items []*msg
 
 
 	// 内容解析
-	content := fmt.Sprintf(tconf.Content, args)
+	content := fmt.Sprintf(tconf.Content, args...)
 	textreward := "奖励："
 	for _, item := range items {
 		itembase, ok := tbl.ItemBase.ItemBaseDataById[item.GetId()]
 		if ok == false { continue }
-		textreward += fmt.Sprintf("%s * %d ", itembase.Name, item.GetNum())
+		textreward += fmt.Sprintf("%s*%d ", itembase.Name, item.GetNum())
 	}
-	strings.Replace(content, "{奖励}", textreward, 1)
+	content = strings.Replace(content, "{奖励}", textreward, 1)
 	detail.Content  = pb.String(content)
 
 	// DBSave
