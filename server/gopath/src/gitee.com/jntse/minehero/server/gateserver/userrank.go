@@ -50,7 +50,7 @@ func (this *RankManager) Tick() {
 
 //刷新金币排行榜
 func (this *RankManager) UpdateGoldRankList() {
-	nowms := util.CURTIMEMS()
+	//nowms := util.CURTIMEMS()
 	this.goldranklist = make([]*UserRankInfo, 0)
 	picklist, err := Redis().ZRevRangeWithScores("zGoldRank", 0, 49).Result()
 	if err != nil {
@@ -88,23 +88,35 @@ func (this *RankManager) UpdateGoldRankList() {
 			log.Error("刷新金币排行榜 读取单个玩家信息 字段个数不对")
 			continue
 		}
-		this.goldranklist[k].name = vals[0].(string)
-		this.goldranklist[k].head = vals[1].(string)
-		sex, _ := strconv.ParseInt(vals[2].(string), 10, 32)
-		this.goldranklist[k].sex = int32(sex)
+		if name, ok := vals[0].(string); ok {
+			this.goldranklist[k].name = name
+		} else {
+			log.Error("刷新金币排行榜 读取单个玩家名字异常 uid:%d", this.goldranklist[k].uid)
+		}
 
+		if head, ok := vals[1].(string); ok {
+			this.goldranklist[k].head = head
+		} else {
+			log.Error("刷新金币排行榜 读取单个玩家头像异常 uid:%d", this.goldranklist[k].uid)
+		}
+		if sexstr, ok := vals[2].(string); ok {
+			sex, _ := strconv.ParseInt(sexstr, 10, 32)
+			this.goldranklist[k].sex = int32(sex)
+		} else {
+			log.Error("刷新金币排行榜 读取单个玩家性别异常 uid:%d", this.goldranklist[k].uid)
+		}
 	}
-	passtime := util.CURTIMEMS() - nowms
-	log.Info("金币排行榜刷新 耗时 %d 毫秒", passtime)
+	//passtime := util.CURTIMEMS() - nowms
+	//log.Info("金币排行榜刷新 耗时 %d 毫秒", passtime)
 
 }
 
 //刷新等级排行榜
 func (this *RankManager) UpdateLevelRankList() {
-	nowms := util.CURTIMEMS()
+	//nowms := util.CURTIMEMS()
 	//
-	passtime := util.CURTIMEMS() - nowms
-	log.Info("等级排行榜刷新 耗时 %d 毫秒", passtime)
+	//passtime := util.CURTIMEMS() - nowms
+	//log.Info("等级排行榜刷新 耗时 %d 毫秒", passtime)
 }
 
 func (this *RankManager) GetRankListByType(_type, _rank int32) []*UserRankInfo {
