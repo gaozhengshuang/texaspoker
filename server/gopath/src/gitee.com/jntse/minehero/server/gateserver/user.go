@@ -490,6 +490,9 @@ func (this *GateUser) LoadBin() {
 	// 任务
 	this.task.LoadBin(this.bin)
 
+	// 邮件
+	this.mailbox.DBLoad()
+
 	// 事件
 	this.events.LoadBin(this.bin)
 

@@ -48,7 +48,7 @@ func (this *UserBase) Name() string {
 }
 
 func (this *UserBase) Id() int64 {
-	return this.data.GetEntity().GetId()
+	return this.data.GetEntity().GetRoleid()
 }
 
 func (this *UserBase) Head() string {
