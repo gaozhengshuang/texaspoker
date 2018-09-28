@@ -65,6 +65,7 @@ func (this *GateUser) AddGold(gold int32, reason string, syn bool) {
 		this.SendPropertyChange()
 	}
 	log.Info("玩家[%d] 添加金币[%d] 库存[%d] 原因[%s]", this.Id(), gold, this.GetGold(), reason)
+	this.SyncGoldRankRedis()
 }
 func (this *GateUser) RemoveGold(gold int32, reason string, syn bool) bool {
 	if this.GetGold() >= gold {
@@ -74,6 +75,7 @@ func (this *GateUser) RemoveGold(gold int32, reason string, syn bool) bool {
 		}
 		log.Info("玩家[%d] 扣除金币[%d] 库存[%d] 原因[%s]", this.Id(), gold, this.GetGold(), reason)
 		RCounter().IncrByDate("item_remove", int32(msg.ItemId_Gold), gold)
+		this.SyncGoldRankRedis()
 		return true
 	}
 	log.Info("玩家[%d] 扣除金币失败[%d] 原因[%s]", this.Id(), gold, reason)

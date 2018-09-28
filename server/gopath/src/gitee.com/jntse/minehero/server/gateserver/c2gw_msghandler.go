@@ -79,6 +79,7 @@ func (this *C2GWMsgHandler) Init() {
 	//活动
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqActivityInfo{}, on_C2GW_ReqActivityInfo)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqGetActivityReward{}, on_C2GW_ReqGetActivityReward)
+	this.msgparser.RegistProtoMsg(msg.C2GW_ReqRankList{}, on_C2GW_ReqRankList)
 }
 
 // 客户端心跳
@@ -576,7 +577,6 @@ func on_C2GW_ReqMailList(session network.IBaseNetSession, message interface{}) {
 	u.mailbox.SendMailList()
 }
 
-
 func on_C2GW_ReqTakeMailItem(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_ReqTakeMailItem)
 	u := ExtractSessionUser(session)
@@ -627,4 +627,17 @@ func on_C2GW_ReqGetActivityReward(session network.IBaseNetSession, message inter
 	id := tmsg.GetId()
 	subid := tmsg.GetSubid()
 	u.OnReqGetActivityReward(id, subid)
+}
+
+func on_C2GW_ReqRankList(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqRankList)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	_type := tmsg.GetType()
+	_rank := tmsg.GetRank()
+	u.ReqRankListByType(_type, _rank)
 }
