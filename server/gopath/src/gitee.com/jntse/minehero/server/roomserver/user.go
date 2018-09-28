@@ -55,6 +55,26 @@ func NewRoomUser(rid int64, b *msg.Serialize, gate network.IBaseNetSession, game
 	return user
 }
 
+func NewRoomUserAI(id int64, name string, sex int32) *RoomUser {
+	user := &RoomUser{}
+	this.bin = new(msg.Serialize)
+	this.bin.Entity = &msg.EntityBase{Id : pb.Int64(id), 
+		Name : pb.String(name), 
+		Sex : pb.Int32(sex),
+		Gold : pb.Int32(100000),
+	}
+	this.bin.Base = &msg.UserBase{}
+	this.bin.Base.Misc = &msg.UserMiscData{}
+	this.bin.Base.Statics = &msg.UserStatistics{}
+	this.bin.Base.Sign = &msg.UserSignIn{}
+	this.bin.Base.Wechat = &msg.UserWechat{}
+	this.bin.Item = &msg.ItemBin{}
+	this.bin.Base.Addrlist = make([]*msg.UserAddress, 0)
+	this.bin.Base.Task = &msg.UserTask{}
+	this.bin.Base.Luckydraw = &msg.LuckyDrawRecord{Drawlist: make([]*msg.LuckyDrawItem, 0)}
+	return user
+}
+
 func (u *RoomUser) Entity() *msg.EntityBase {
 	return u.bin.GetEntity()
 }
