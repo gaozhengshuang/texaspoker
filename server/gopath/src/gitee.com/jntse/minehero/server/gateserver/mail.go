@@ -165,6 +165,7 @@ func (m *MailBox) CheckExpire(now int64) {
 	pipe.Close()
 }
 
+// 异常邮件
 func (m *MailBox) RemoveMail(id int64) {
 	if id == 0 { return }
 	Redis().HDel(fmt.Sprintf("usermails_%d", m.owner.Id()), util.Ltoa(id))
