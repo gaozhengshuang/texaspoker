@@ -132,27 +132,19 @@ func (m *MailBox) DBSave() {
 	pipe := Redis().Pipeline()
 	defer pipe.Close()
 	for _, v := range m.mails {
-		v.SaveBin(m.owner.Id(), pipe)
+		if v.Dirty() == true { v.SaveBin(m.owner.Id(), pipe) }
 	}
 	_, err := pipe.Exec()
 	if err != nil {
-		log.Error("[邮件] 玩家[%s %d] 保存所有邮件 RedisError[%s]", m.owner.Name(), m.owner.Id(), err)
+		log.Error("[邮件] 玩家[%s %d] 保存邮件失败 RedisError[%s]", m.owner.Name(), m.owner.Id(), err)
 		return
 	}
-	log.Info("[邮件] 玩家[%s %d] 保存所有邮件成功[%d]", m.owner.Name(), m.owner.Id(), m.Size())
+	log.Info("[邮件] 玩家[%s %d] 保存邮件成功，数量[%d]", m.owner.Name(), m.owner.Id(), m.Size())
 }
 
 // 1分钟tick
 func (m *MailBox) Tick(now int64) {
-	pipe := Redis().Pipeline()
-	for _, v := range m.mails {
-		if v.Dirty() == true { v.SaveBin(m.owner.Id(), pipe) }
-	}
-	_, err := pipe.Exec()
-	if err != nil && err != redis.Nil {
-		log.Error("[邮件] 定时存盘 RedisError:%s", err)
-	}
-	pipe.Close()
+	m.DBSave()
 }
 
 // 邮件列表

@@ -499,7 +499,8 @@ func (this *GateUser) LoadBin() {
 }
 
 // TODO: 存盘可以单独协程
-func (this *GateUser) Save() {
+func (this *GateUser) DBSave() {
+	this.mailbox.DBSave()
 	key := fmt.Sprintf("userbin_%d", this.Id())
 	if err := utredis.SetProtoBin(Redis(), key, this.PackBin()); err != nil {
 		log.Error("保存玩家[%s %d]数据失败", this.Name(), this.Id())
@@ -511,7 +512,7 @@ func (this *GateUser) Save() {
 // 异步存盘
 func (this *GateUser) AsynSave() {
 	log.Info("玩家[%s %d] 发起异步存盘", this.Name(), this.Id())
-	event := NewUserSaveEvent(this.Save, this.AsynSaveFeedback)
+	event := NewUserSaveEvent(this.DBSave, this.AsynSaveFeedback)
 	this.AsynEventInsert(event)
 }
 
@@ -629,7 +630,7 @@ func (this *GateUser) Logout() {
 	this.online = false
 	this.tm_logout = util.CURTIME()
 	this.cleanup = true
-	this.Save()
+	this.DBSave()
 	UnBindingAccountGateWay(this.account)
 	this.asynev.Shutdown()
 
