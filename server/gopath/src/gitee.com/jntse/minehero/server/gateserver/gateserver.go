@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/sql"
 	"fmt"
 	"gitee.com/jntse/gotoolkit/log"
 	"gitee.com/jntse/gotoolkit/net"
@@ -9,14 +10,13 @@ import (
 	"gitee.com/jntse/minehero/server/def"
 	"gitee.com/jntse/minehero/server/tbl"
 	"github.com/go-redis/redis"
+	_ "github.com/go-sql-driver/mysql"
 	pb "github.com/gogo/protobuf/proto"
 	"os"
 	"runtime"
 	"runtime/debug"
 	"strings"
 	"time"
-	"database/sql"
-	_ "github.com/go-sql-driver/mysql"
 )
 
 func SignalInt(signal os.Signal) {
@@ -44,22 +44,23 @@ func init() {
 }
 
 type GateServer struct {
-	netconf			*network.NetConf
-	net				*network.NetWork
-	loginsvr		network.IBaseNetSession
-	matchsvr		network.IBaseNetSession
-	hredis			*redis.Client
-	usermgr			UserManager
-	waitpool		LoginWaitPool
-	roomsvrmgr		RoomSvrManager
-	msghandlers		[]network.IBaseMsgHandler
-	tblloader		*tbl.TblLoader
-	rcounter 		util.RedisCounter
-	tickers       	[]util.IGameTicker
-	gracefulquit	bool
-	runtimestamp  	int64
-	hourmonitor   	*util.IntHourMonitorPool
-	mysqldb			*sql.DB
+	netconf      *network.NetConf
+	net          *network.NetWork
+	loginsvr     network.IBaseNetSession
+	matchsvr     network.IBaseNetSession
+	hredis       *redis.Client
+	usermgr      UserManager
+	waitpool     LoginWaitPool
+	roomsvrmgr   RoomSvrManager
+	msghandlers  []network.IBaseMsgHandler
+	tblloader    *tbl.TblLoader
+	rcounter     util.RedisCounter
+	tickers      []util.IGameTicker
+	gracefulquit bool
+	runtimestamp int64
+	hourmonitor  *util.IntHourMonitorPool
+	mysqldb      *sql.DB
+	rankmgr      RankManager
 }
 
 var g_GateServer *GateServer = nil
@@ -83,7 +84,11 @@ func UserMgr() *UserManager {
 	return &GateSvr().usermgr
 }
 
-func MysqlDB() *sql.DB{
+func RankMge() *RankManager {
+	return &GateSvr().rankmgr
+}
+
+func MysqlDB() *sql.DB {
 	return GateSvr().mysqldb
 }
 
@@ -229,15 +234,15 @@ func (this *GateServer) Init(fileconf string) bool {
 	return true
 }
 
-func (this *GateServer) InitMySql(){
+func (this *GateServer) InitMySql() {
 	strsql := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=true&charset=utf8", tbl.Mysql.User, tbl.Mysql.Passwd, tbl.Mysql.Address, tbl.Mysql.Port, tbl.Mysql.Database)
 	db, err := sql.Open("mysql", strsql)
-	if err != nil{
+	if err != nil {
 		log.Error("数据库连接失败 %s", strsql)
-	}else {
+	} else {
 		this.mysqldb = db
 		this.mysqldb.SetMaxIdleConns(int(tbl.Mysql.Connectnum))
-		if err := this.mysqldb.Ping(); err != nil{
+		if err := this.mysqldb.Ping(); err != nil {
 			log.Error("数据库连接失败 %s", strsql)
 			return
 		}
@@ -247,16 +252,18 @@ func (this *GateServer) InitMySql(){
 
 func (this *GateServer) Handler1mTick(now int64) {
 	this.rcounter.BatchSave(20)
+
 }
 
 func (this *GateServer) Handler1sTick(now int64) {
+	this.rankmgr.Tick()
 }
 
 func (this *GateServer) Handler100msTick(now int64) {
 	this.waitpool.Tick(now)
 
 	// 所有玩家下线存盘
-	if this.gracefulquit && this.usermgr.Amount() == 0 {	
+	if this.gracefulquit && this.usermgr.Amount() == 0 {
 		g_KeyBordInput.Push("quit")
 	}
 }
@@ -338,7 +345,7 @@ func (this *GateServer) OnStart() {
 
 	//
 	this.rcounter.Init(Redis())
-
+	this.rankmgr.Init()
 	//
 	this.runtimestamp = util.CURTIMEMS()
 	log.Info("结束执行OnStart")
