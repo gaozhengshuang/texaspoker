@@ -135,13 +135,13 @@ func (this *GateUser) ReqRankListByType(_type, _rank int32) {
 		List := RankMge().GetRankListByType(_type, _rank)
 		for _, v := range List {
 			tmp := &msg.RankInfo{}
-			tmp.RoleId = pb.Int64(v.uid)
+			tmp.Roleid = pb.Int64(v.uid)
 			tmp.Name = pb.String(v.name)
 			tmp.Sex = pb.Int32(v.sex)
 			tmp.Rank = pb.Int32(v.rank)
 			tmp.Score = pb.Int32(v.score)
 			tmp.Head = pb.String(v.head)
-			send.RankList = append(send.RankList, tmp)
+			send.Ranklist = append(send.Ranklist, tmp)
 		}
 	}
 	this.SendMsg(send)
