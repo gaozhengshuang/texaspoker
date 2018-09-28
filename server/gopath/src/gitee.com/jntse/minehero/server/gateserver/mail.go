@@ -259,7 +259,7 @@ func MakeNewMail(rid int64, sid int64, sname string, subtype int32, items []*msg
 
 	// DBSave
 	utredis.HSetProtoBin(Redis(), fmt.Sprintf("usermails_%d", rid), util.Ltoa(uuid), detail)
-	log.Info("收件人[%d] 发件人[%s %d] 新邮件创建成功 Id[%d] SubType[%d] 附件[%v]", rid, sname, sid, uuid, subtype, items)
+	log.Info("收件人[%d] 发件人[%s %d] 新邮件创建成功 Id[%d] SubType[%d] 附件[%v] 内容[%s]", rid, sname, sid, uuid, subtype, items, content)
 
 
 	// 收件人是否在本服务器
