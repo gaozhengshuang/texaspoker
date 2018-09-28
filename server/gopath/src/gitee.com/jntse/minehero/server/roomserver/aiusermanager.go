@@ -1,9 +1,11 @@
 package main
 import (
 	_"fmt"
-	"gitee.com/jntse/minehero/pbmsg"
-	"gitee.com/jntse/gotoolkit/net"
+	//"gitee.com/jntse/minehero/pbmsg"
+	//"gitee.com/jntse/gotoolkit/net"
 	_"gitee.com/jntse/gotoolkit/log"
+	"gitee.com/jntse/minehero/server/tbl"
+	"gitee.com/jntse/gotoolkit/util"
 )
 
 // --------------------------------------------------------------------------
@@ -15,6 +17,7 @@ type AIUserManager struct {
 
 func (this *AIUserManager) Init() {
 	this.ids = make(map[int64]*RoomUser)
+	this.CreateRoomAIUser()
 }
 
 func (this *AIUserManager) Amount() int {
@@ -43,18 +46,18 @@ func (this *AIUserManager) Tick(now int64) {
 }
 
 func (this *AIUserManager) CreateRoomAIUser() {
-	for _, v := range tbl.TexasAI.TexasAIById {
-		user := NewRoomUserAI(v.Id, v.Name, int32(util.RandBetween(1,2)))		
+	for _, v := range tbl.TexasAI.TAIById {
+		user := NewRoomUserAI(int64(v.Id), v.Name, int32(util.RandBetween(1,2)))		
 		if user != nil {
-			this.AddUser(u)
+			this.AddUser(user)
 		}
 	}
 }
 
 func (this *AIUserManager) GetUserByNum(num int32) []*RoomUser {
-	tmpmap := make([int64]int64)
+	tmpmap := make(map[int32]int32)
 	for {
-		id := util.RandBetween(1, this.Amount())
+		id := util.RandBetween(1, int32(this.Amount()))
 		tmpmap[id]=id
 		if len(tmpmap) >= int(num){
 			break
@@ -62,7 +65,7 @@ func (this *AIUserManager) GetUserByNum(num int32) []*RoomUser {
 	}
 	users := make([]*RoomUser, 0)
 	for k, _ := range tmpmap {
-		user , ok := this.ids[k]
+		user , ok := this.ids[int64(k)]
 		if ok == true {
 			users = append(users, user)
 		}

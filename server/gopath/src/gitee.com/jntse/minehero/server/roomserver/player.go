@@ -36,6 +36,7 @@ type TexasPlayer struct{
 	autobuy int32
 	addcoin int32
 	isai bool
+	aiacttime int32
 }
 
 type TexasPlayers []*TexasPlayer
@@ -63,8 +64,13 @@ func (this *TexasPlayer)Init(){
 	this.betover = false
 	this.isshowcard = false
 	this.bettime = 0
-	this.isready = false
+	if this.isai == true {
+		this.isready = true
+	} else {
+		this.isready = false
+	}
 	this.gamestate = GSWaitNext
+	this.aiacttime = 0
 }
 
 func (this *TexasPlayer) IsWait() bool{
@@ -296,6 +302,7 @@ func (this *TexasPlayer)RemoveBankRoll(num int32) bool{
 }
 
 func (this *TexasPlayer) AIAction() {
+	this.aiacttime = 0
 	num := util.RandBetween(1, 100)
 	switch {
 	case num >= 1 && num <= 10://弃牌

@@ -66,6 +66,7 @@ type TexasPokerRoom struct {
 	maxplayer int32
 	overflag bool
 	playerstate []int32
+	waittime int32						//无人的时间
 }
 
 func (this *TexasPokerRoom) Id() int64 { return this.id }
@@ -226,11 +227,17 @@ func (this *TexasPokerRoom) CanStart() bool {
 	if count >= 2 {
 		return true
 	}else{
+		if this.HasRealPlayer() {
+			this.waittime++
+		}
 		return false
 	}
 }
 
 func (this *TexasPokerRoom) StartGame() int32 {
+	if this.waittime >= 4 {
+		this.CreateAI(util.RandBetween(1,this.GetFreeNum()))
+	}
 	if !this.CanStart() {
 		return TPWait
 	}
@@ -574,6 +581,9 @@ func (this *TexasPokerRoom) ShowDown() int32{
 		if player.isshowcard == false {
 			continue
 		}
+		if this.remain == 1 {
+			continue
+		}
 		send.Handcardlist = append(send.Handcardlist, &msg.HandCardInfo{
 			Roleid : pb.Int64(player.owner.Id()),
 			Card : player.ToHandCard(),
@@ -602,6 +612,7 @@ func (this *TexasPokerRoom) RestartGame() int32{
 		this.allin = 0
 		this.remain = 0
 		this.overflag = false
+		this.waittime = 0
 		for _, p := range this.players {
 			if p != nil {
 				p.AddBankRollNext()
@@ -835,6 +846,15 @@ func (this *TexasPokerRoom) ReqStandUp(uid int64) {
 	}
 }
 
+func (this *TexasPokerRoom) HasRealPlayer() bool {
+	for _, p := range this.players {
+		if p != nil && !p.isai {
+			return true
+		}
+	}
+	return false
+}
+
 func (this *TexasPokerRoom) GetFreeNum() int32 {
 	var count int32 = 0
 	for _, p := range this.players {
@@ -842,26 +862,27 @@ func (this *TexasPokerRoom) GetFreeNum() int32 {
 			count++
 		}   
 	}
+	return count
 }
 
 func (this *TexasPokerRoom) GetFreePos() int32 {
 	frees := make([]int32, 0)
 	for k, p := range this.players {
 		if p == nil {
-			frees = append(frees, k) 
+			frees = append(frees, int32(k)) 
 		}
 	}
 	pos := util.RandBetween(0, int32(len(frees)))
-	return free[pos]
+	return frees[pos]
 }
 
 func (this *TexasPokerRoom) CreateAI(num int32) {
-	users := GetUserByNum(num)
-	if len(user) != int(num) {
+	users := AIUserMgr().GetUserByNum(num)
+	if len(users) != int(num) {
 		return
 	}
-	for i := 0; i < num; i++ {
-		player = NewTexasPlayerAI(u, user[i], true)
+	for i := 0; i < int(num); i++ {
+		player := NewTexasPlayer(users[i], this,  true)
 		player.Init()
 		rev := &msg.C2RS_ReqBuyInGame{Num:pb.Int32(1000), Isautobuy:pb.Bool(true), Pos:pb.Int32(this.GetFreePos())}
 		player.BuyInGame(rev)
