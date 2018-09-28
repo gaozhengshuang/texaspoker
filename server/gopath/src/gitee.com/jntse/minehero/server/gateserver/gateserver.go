@@ -447,6 +447,22 @@ func (this *GateServer) RegistRoomServer(agent *RoomAgent) {
 	log.Info("注册房间服 id=%d [%s] 当前总数:%d", agent.Id(), agent.name, this.roomsvrmgr.Num())
 }
 
+func (this *GateServer) SendGateMsg(agent int64, m pb.Message) bool {
+	name := pb.MessageName(m)
+	if name == "" {
+		log.Fatal("SendGateMsg 获取proto名字失败[%s]", m)
+		return false
+	}
+	msgbuf, err := pb.Marshal(m)
+	if err != nil {
+		log.Fatal("SendGateMsg 序列化proto失败[%s][%s]", name, err)
+		return false
+	}
+
+	send := &msg.GW2GW_MsgTransfer{ Uid:pb.Int64(agent), Name:pb.String(name), Buf:msgbuf }
+	return this.matchsvr.SendCmd(send)
+}
+
 // 通用公告
 func (this *GateServer) SendNotice(face string, ty msg.NoticeType, subtext ...string) {
 	noticemsg := &msg.GW2C_MsgNotice{Userid: pb.Int64(0), Name: pb.String(""), Head: pb.String(face), Type: pb.Int32(int32(ty))}

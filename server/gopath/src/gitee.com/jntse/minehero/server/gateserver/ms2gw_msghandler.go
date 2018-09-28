@@ -123,6 +123,5 @@ func on_MS2GW_PushNewMail(session network.IBaseNetSession, message interface{}) 
 		return
 	}
 	receiver.mailbox.ReceiveNewMail(tmsg.GetMail())
-
 }
 

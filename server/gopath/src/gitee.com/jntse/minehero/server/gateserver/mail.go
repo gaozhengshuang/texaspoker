@@ -216,20 +216,19 @@ func MakeNewMail(rid int64, rname string, sid int64, sname string, subtype int32
 	detail.Isgot 	= pb.Bool(false)
 	detail.Items 	= append(detail.Items, items...)
 	detail.Subtype 	= pb.Int32(subtype)
-	detail.Type 	= pb.Int32(0)
-	detail.Title 	= pb.String("")
-	detail.Content 	= pb.String("")
+	//detail.Type 	= pb.Int32(0)
+	//detail.Title 	= pb.String("")
+	//detail.Content= pb.String("")
 
 	utredis.HSetProtoBin(Redis(), fmt.Sprintf("usermails_%d", rid), util.Ltoa(uuid), detail)
 	log.Info("玩家[%s %d] 新邮件[%d]创建成功 SubType[%d] 附件[%v]", rid, rname, uuid, subtype, items)
 
 	// 收件人是否在本服务器
-	receiver := UserMgr().FindById(rid)
-	if receiver != nil {
+	if receiver := UserMgr().FindById(rid); receiver != nil {
 		receiver.mailbox.ReceiveNewMail(detail)
 		return true
 	}
-	
+
 	// 转发到中心服务器
 	transmsg := &msg.GW2MS_PushNewMail{Receiver:pb.Int64(rid), Mail:detail}
 	Match().SendCmd(transmsg)
