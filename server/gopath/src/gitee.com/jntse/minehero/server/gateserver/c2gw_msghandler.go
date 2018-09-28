@@ -573,10 +573,19 @@ func on_C2GW_ReqMailList(session network.IBaseNetSession, message interface{}) {
 		session.Close()
 		return
 	}
+	u.mailbox.SendMailList()
 }
 
 
 func on_C2GW_ReqTakeMailItem(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqTakeMailItem)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.mailbox.TakeMailItem(tmsg.GetUid())
 }
 
 func on_C2GW_ReqTaskList(session network.IBaseNetSession, message interface{}) {

@@ -29,6 +29,14 @@ func (m *Mail) IsGot() bool {
 	return m.bin.GetIsgot()
 }
 
+func (m *Mail) SetGot() {
+	m.bin.Isgot = pb.Bool(true)
+}
+
+func (m *Mail) Items() []*msg.MailItem {
+	return m.bin.Items
+}
+
 
 func (m *Mail) SaveBin(userid int64, pipe redis.Pipeliner) {
 	id := util.Ltoa(m.Id())
@@ -65,7 +73,7 @@ type MailBox struct {
 func (m *MailBox) Init(owner *GateUser) {
 	m.owner = owner
 	m.mails = make(map[int64]*Mail)
-	m.LoadDB()
+	m.DBLoad()
 }
 
 func (m *MailBox) Size() int32 {
@@ -75,7 +83,7 @@ func (m *MailBox) Size() int32 {
 func (m *MailBox) Online() {
 }
 
-func (m *MailBox) LoadDB() {
+func (m *MailBox) DBLoad() {
 	lists, err := Redis().HGetAll(fmt.Sprintf("usermails_%d", m.owner.Id())).Result()
 	if err != nil {
 		log.Error("[邮件] 玩家[%s %d]加载DB邮件失败[%s]", m.owner.Name(), m.owner.Id(), err)
@@ -96,7 +104,7 @@ func (m *MailBox) LoadDB() {
 	log.Info("[邮件] 玩家[%s %d] 加载所有邮件[%d]", m.Size())
 }
 
-func (m *MailBox) SaveAll() {
+func (m *MailBox) DBSave() {
 	pipe := Redis().Pipeline()
 	defer pipe.Close()
 	for _, v := range m.mails {
@@ -139,6 +147,12 @@ func (m *MailBox) TakeMailItem(id int64) {
 			errcode = "附件已领取"
 			break
 		}
+
+		for _, item := range mail.Items() {
+			m.owner.AddItem(item.GetId(), item.GetNum(), "邮件附件", true)
+		}
+		mail.SetGot()
+		log.Info("[邮件] 玩家[%s %d]提取附件成功", m.owner.Name(), m.owner.Id())
 	}
 
 	send := &msg.GW2C_RetTakeMailItem{Uid:pb.Int64(id), Errcode:pb.String(errcode)}

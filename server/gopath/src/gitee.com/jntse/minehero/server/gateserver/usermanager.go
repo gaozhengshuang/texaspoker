@@ -95,7 +95,7 @@ func (this *UserManager) Init() {
 
 func (this *UserManager) CreateNewUser(session network.IBaseNetSession, account, key, token, face string) (*GateUser, string) {
 	user := NewGateUser(account, key, token)
-	if user.LoadDB() == false {
+	if user.DBLoad() == false {
 		return nil, "加载玩家DB数据失败"
 	}
 	//玩家自己设置不从第三方带入头像
