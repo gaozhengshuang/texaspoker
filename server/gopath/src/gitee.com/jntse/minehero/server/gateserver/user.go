@@ -170,7 +170,7 @@ func (this *GateUser) SetHead(f string, bsync bool) {
 }
 
 func (this *GateUser) Id() int64 {
-	return this.EntityBase().GetId()
+	return this.EntityBase().GetRoleid()
 }
 
 func (this *GateUser) Sex() int32 {

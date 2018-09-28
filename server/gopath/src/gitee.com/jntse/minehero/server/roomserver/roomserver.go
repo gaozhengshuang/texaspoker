@@ -49,6 +49,7 @@ type RoomServer struct {
 	gatemgr			GateManager
 	roommgr			RoomManager
 	usermgr			UserManager
+	aiusermgr		AIUserManager
 	//sessions		map[int]network.IBaseNetSession     // 及时删除，没有任何地方引用golang才会GC
 	msghandlers		[]network.IBaseMsgHandler
 	clienthandler	*ClientMsgHandler
@@ -90,6 +91,10 @@ func RoomMgr() *RoomManager {
 
 func UserMgr() *UserManager {
 	return &RoomSvr().usermgr
+}
+
+func AIUserMgr() *AIUserManager {
+	return &RoomSvr().aiusermgr
 }
 
 func Redis() *redis.Client {
@@ -195,6 +200,7 @@ func (this *RoomServer) Init(fileconf string) bool {
 	//this.sessions = make(map[int]network.IBaseNetSession)
 	this.gatemgr.Init()
 	this.usermgr.Init()
+	this.aiusermgr.Init()
 
 	//this.countmgr.Init()
 	this.ticker1m = util.NewGameTicker(60 * time.Second, this.Handler1mTick)

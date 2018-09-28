@@ -37,6 +37,7 @@ type TexasPokerRoom struct {
 	RoomBase
 	tconf *table.TexasRoomDefine
 	ante int32
+	cdtime int32
 	cards Cards							//52张牌
 	topCardIndex int32					//当前牌顶
 	initilized bool						//是否已经初始化
@@ -65,6 +66,7 @@ type TexasPokerRoom struct {
 	maxplayer int32
 	overflag bool
 	playerstate []int32
+	waittime int32						//无人的时间
 }
 
 func (this *TexasPokerRoom) Id() int64 { return this.id }
@@ -122,14 +124,16 @@ func (this *TexasPokerRoom) Init() string {
 			this.cards = append(this.cards, c)
 		}
 	}
-	this.maxplayer = 5
+	this.maxplayer = tconf.Seat
+	this.ante = tconf.Tax
+	this.cdtime = tconf.Cd
 	this.players = make([]*TexasPlayer, this.maxplayer, this.maxplayer)
 	this.chips = make([]int32, this.maxplayer, this.maxplayer)
 	this.playerstate = make([]int32, this.maxplayer, this.maxplayer)
 	this.topCardIndex = 0
 	this.initilized = true
-	this.bigblindnum = 20
-	this.smallblindnum = 10
+	this.bigblindnum = tconf.BBlind
+	this.smallblindnum = tconf.SBlind
 	this.restarttime = 3
 	this.ticker1s = util.NewGameTicker(1 * time.Second, this.Handler1sTick)
 	this.ticker1s.Start()
@@ -223,11 +227,17 @@ func (this *TexasPokerRoom) CanStart() bool {
 	if count >= 2 {
 		return true
 	}else{
+		if this.HasRealPlayer() {
+			this.waittime++
+		}
 		return false
 	}
 }
 
 func (this *TexasPokerRoom) StartGame() int32 {
+	if this.waittime >= 4 {
+		this.CreateAI(util.RandBetween(1,this.GetFreeNum()))
+	}
 	if !this.CanStart() {
 		return TPWait
 	}
@@ -571,6 +581,9 @@ func (this *TexasPokerRoom) ShowDown() int32{
 		if player.isshowcard == false {
 			continue
 		}
+		if this.remain == 1 {
+			continue
+		}
 		send.Handcardlist = append(send.Handcardlist, &msg.HandCardInfo{
 			Roleid : pb.Int64(player.owner.Id()),
 			Card : player.ToHandCard(),
@@ -599,6 +612,7 @@ func (this *TexasPokerRoom) RestartGame() int32{
 		this.allin = 0
 		this.remain = 0
 		this.overflag = false
+		this.waittime = 0
 		for _, p := range this.players {
 			if p != nil {
 				p.AddBankRollNext()
@@ -771,9 +785,8 @@ func (this *TexasPokerRoom) UpdateMember() {
 
 func (this *TexasPokerRoom) BuyInGame(uid int64, rev *msg.C2RS_ReqBuyInGame){
 	player := this.FindAllByID(uid)
-	if player != nil && player.BuyInGame(rev) {
-		// 更新房间人数
-		this.UpdateMember()
+	if player != nil {
+		player.BuyInGame(rev)
 	}
 }
 
@@ -831,5 +844,48 @@ func (this *TexasPokerRoom) ReqStandUp(uid int64) {
 	if player != nil {
 		player.ReqStandUp()
 	}
+}
+
+func (this *TexasPokerRoom) HasRealPlayer() bool {
+	for _, p := range this.players {
+		if p != nil && !p.isai {
+			return true
+		}
+	}
+	return false
+}
+
+func (this *TexasPokerRoom) GetFreeNum() int32 {
+	var count int32 = 0
+	for _, p := range this.players {
+		if p == nil {
+			count++
+		}   
+	}
+	return count
+}
+
+func (this *TexasPokerRoom) GetFreePos() int32 {
+	frees := make([]int32, 0)
+	for k, p := range this.players {
+		if p == nil {
+			frees = append(frees, int32(k)) 
+		}
+	}
+	pos := util.RandBetween(0, int32(len(frees)))
+	return frees[pos]
+}
+
+func (this *TexasPokerRoom) CreateAI(num int32) {
+	users := AIUserMgr().GetUserByNum(num)
+	if len(users) != int(num) {
+		return
+	}
+	for i := 0; i < int(num); i++ {
+		player := NewTexasPlayer(users[i], this,  true)
+		player.Init()
+		rev := &msg.C2RS_ReqBuyInGame{Num:pb.Int32(1000), Isautobuy:pb.Bool(true), Pos:pb.Int32(this.GetFreePos())}
+		player.BuyInGame(rev)
+	}	
 }
 

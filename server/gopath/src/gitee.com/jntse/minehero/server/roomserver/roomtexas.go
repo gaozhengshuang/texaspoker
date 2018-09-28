@@ -53,7 +53,7 @@ func (this *TexasPokerRoom) UserEnter(u *RoomUser) {
 		return
 	}
 	this.members[u.Id()] = u
-	player = NewTexasPlayer(u, this)
+	player = NewTexasPlayer(u, this, false)
 	player.Init()
 	this.AddWatcher(player)
 	this.SendRoomInfo(player)

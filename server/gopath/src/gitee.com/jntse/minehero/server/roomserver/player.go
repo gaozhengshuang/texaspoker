@@ -35,11 +35,13 @@ type TexasPlayer struct{
 	isready bool
 	autobuy int32
 	addcoin int32
+	isai bool
+	aiacttime int32
 }
 
 type TexasPlayers []*TexasPlayer
 
-func NewTexasPlayer(user *RoomUser, room *TexasPokerRoom) *TexasPlayer{
+func NewTexasPlayer(user *RoomUser, room *TexasPokerRoom, isai bool) *TexasPlayer{
 	player := new(TexasPlayer)
 	player.hand = GetHand()
 	player.hole = make(Cards, 2, 2)
@@ -51,6 +53,7 @@ func NewTexasPlayer(user *RoomUser, room *TexasPokerRoom) *TexasPlayer{
 	player.bettime = 0
 	player.isready = false
 	player.gamestate = GSWaitNext
+	player.isai = isai
 	return player
 }
 
@@ -61,8 +64,13 @@ func (this *TexasPlayer)Init(){
 	this.betover = false
 	this.isshowcard = false
 	this.bettime = 0
-	this.isready = false
+	if this.isai == true {
+		this.isready = true
+	} else {
+		this.isready = false
+	}
 	this.gamestate = GSWaitNext
+	this.aiacttime = 0
 }
 
 func (this *TexasPlayer) IsWait() bool{
@@ -98,6 +106,7 @@ func (this *TexasPlayer) BetStart() {
 	//发送开始压注消息
 	if this.bettime == 0 {
 		this.bettime = 15
+		this.aiacttime = util.RandBetween(5,13)
 		send := &msg.RS2C_PushActionPosChange{}
 		send.Pos = pb.Int32(this.pos+1)
 		send.Postime = pb.Int32(this.bettime+int32(util.CURTIME()))
@@ -292,14 +301,41 @@ func (this *TexasPlayer)RemoveBankRoll(num int32) bool{
 	return true
 }
 
+func (this *TexasPlayer) AIAction() {
+	this.aiacttime = 0
+	num := util.RandBetween(1, 100)
+	switch {
+	case num >= 1 && num <= 10://弃牌
+		this.Betting(-1)
+	case num >= 11 && num <= 50://跟注或过牌
+		if this.curbet >= this.room.curbet {
+			this.Betting(0)
+		}else{
+			this.Betting(this.room.curbet-this.curbet)
+		}
+	case num >= 51 && num <= 90://加注
+		if this.GetBankRoll() + this.curbet >= this.room.curbet {
+			this.Betting(100)
+		}
+	case num >= 91 && num <= 100://AllIn	
+		this.Betting(this.GetBankRoll())
+	}
+}
+
 func (this *TexasPlayer) Tick (){
 	if this.bettime > 0 {
 		this.bettime--
-		if this.bettime == 0 {
-			if this.curbet >= this.room.curbet {
-				this.Betting(0)
-			} else {
-				this.Betting(-1)
+		if this.isai == true {
+			if this.bettime == this.aiacttime {
+				this.AIAction()
+			}
+		}else{
+			if this.bettime == 0 {
+				if this.curbet >= this.room.curbet {
+					this.Betting(0)
+				} else {
+					this.Betting(-1)
+				}
 			}
 		}
 	}
@@ -411,7 +447,9 @@ func (this *TexasPlayer) BuyInGame(rev *msg.C2RS_ReqBuyInGame) bool {
 
 		send1 := &msg.RS2C_RetBuyInGame{}
 		this.owner.SendClientMsg(send1)
-		log.Info("玩家坐下成功")
+
+		this.room.UpdateMember()
+		log.Info("玩家%d坐下成功", this.owner.Id())
 		return true
 	}
 

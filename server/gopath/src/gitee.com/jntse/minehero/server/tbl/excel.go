@@ -23,6 +23,7 @@ var GiftProBase = table.InsGiftProBaseTable
 var ProtoMsgIndex = table.InsProtoMsgIndexTable
 var TBallGiftbase = table.InsTBallGiftbaseTable
 var NoticeBase = table.InsNoticeBaseTable
+var TexasAI = table.InsTexasAITable
 var RechargeBase = table.InsRechargeBaseTable
 var MapEventBase = table.InsMapEventBaseTable
 var AwardBase = table.InsAwardBaseTable
