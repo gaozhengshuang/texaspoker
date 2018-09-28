@@ -157,6 +157,18 @@ func GenerateParkingId(redis *redis.Client) (id uint64,errcode string){
 	return uint64(newid),""
 }
 
+// 生成mail uuid
+func GenerateMailId(redis *redis.Client) (id int64, errcode string) {
+	key := "uuid_mail"
+	id, err := redis.Incr(key).Result()
+	if err != nil {
+		log.Error("生成mail uuid RedisError: %s", err)
+		return 0, "redis不可用"
+	}
+	return id, ""
+}
+
+
 func ConvertDegreesToRadians(degrees float64) float64 {
 	return degrees * float64(math.Pi) / float64(180.0)
 }

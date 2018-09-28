@@ -38,6 +38,7 @@ func (this *GW2MSMsgHandler) Init() {
 	this.msgparser.RegistProtoMsg(msg.GW2MS_HeartBeat{}, on_GW2MS_HeartBeat)
 	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqCreateRoom{}, on_GW2MS_ReqCreateRoom)
 	this.msgparser.RegistProtoMsg(msg.GW2MS_MsgNotice{}, on_GW2MS_MsgNotice)
+	this.msgparser.RegistProtoMsg(msg.GW2MS_PushNewMail{}, on_GW2MS_PushNewMail)
 
 	//// 发
 	//this.msgparser.RegistSendProto(msg.MS2GW_RetRegist{})
@@ -114,5 +115,11 @@ func on_GW2MS_MsgNotice(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2MS_MsgNotice)
 	//log.Info(reflect.TypeOf(tmsg).String())
 	send := &msg.MS2GW_MsgNotice{Notice: tmsg.GetNotice()}
+	Match().BroadcastGateMsg(send)
+}
+
+func on_GW2MS_PushNewMail(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2MS_PushNewMail)
+	send := &msg.MS2GW_PushNewMail{Receiver:tmsg.Receiver, Mail:tmsg.Mail}
 	Match().BroadcastGateMsg(send)
 }

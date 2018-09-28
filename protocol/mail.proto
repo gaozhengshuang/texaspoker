@@ -26,7 +26,7 @@ message MailDetail {
     optional int32 subtype = 5;     // 子类型
     optional int64 date = 6;        // 邮件创建日期
     optional string sender = 7;     // 发件人
-    optional int32 senderid = 8;    // 发件人id
+    optional int64 senderid = 8;    // 发件人id
     optional bool isread = 10;      // 已读标记
     optional bool isgot = 11;       // 附件领取标记
     repeated MailItem items = 9;    // 附件列表
@@ -57,5 +57,16 @@ message GW2C_PushNewMail {
     optional MailDetail mail = 1;
 }
 
+// GW2MS
+message GW2MS_PushNewMail {
+    optional int64 receiver = 1;
+    optional MailDetail mail = 2;
+}
+
+// MS2GW
+message MS2GW_PushNewMail {
+    optional int64 receiver = 1;
+    optional MailDetail mail = 2;
+}
 
 

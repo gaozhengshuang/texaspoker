@@ -98,10 +98,10 @@ func (u *GateUser) OnTicker1s(now int64) {
 
 func (u *GateUser) OnTicker5s(now int64) {
 	//u.CheckRechargeOrders()		// 不用我们的充值 2018年 05月 17日 星期四 19:34:03 CST
-	u.mailbox.Tick(now)
 }
 
 func (u *GateUser) OnTicker1m(now int64) {
+	u.mailbox.Tick(now)
 }
 
 func (u *GateUser) Tick(now int64) {

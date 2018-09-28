@@ -53,6 +53,7 @@
 
     "//":"邮件最大存储时效,天",
     "Mail" : {
-        "ExpiryDate":30
+        "ExpiryDate":30,
+        "Capacity":30
     }
 }
