@@ -2,7 +2,7 @@ syntax = "proto2";
 package msg;
 
 message MailItem {
-    optional int32 item = 1;
+    optional int32 id = 1;
     optional int32 num = 2;
 }
 
