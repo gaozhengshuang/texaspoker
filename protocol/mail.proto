@@ -24,7 +24,7 @@ message MailDetail {
     optional string content = 3;    // 内容
     optional string title = 4;      // 标题
     optional int32 subtype = 5;     // 子类型
-    optional int32 date = 6;        // 邮件创建日期
+    optional int64 date = 6;        // 邮件创建日期
     optional string sender = 7;     // 发件人
     optional int32 senderid = 8;    // 发件人id
     optional bool isread = 10;      // 已读标记

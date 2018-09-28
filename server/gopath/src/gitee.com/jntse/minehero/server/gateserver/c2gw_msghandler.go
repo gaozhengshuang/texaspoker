@@ -406,7 +406,7 @@ func on_C2GW_SendWechatAuthCode(session network.IBaseNetSession, message interfa
 	log.Info("玩家[%d] 获取access_token 微信授权code[%s]", u.Id(), tmsg.GetCode())
 
 	//获取用户access_token 和 openid
-	appid, secret, code := tbl.Global.Wechat.AppID, tbl.Global.Wechat.AppSecret, tmsg.GetCode()
+	appid, secret, code := tbl.Wechat.AppID, tbl.Wechat.AppSecret, tmsg.GetCode()
 	url := fmt.Sprintf("https://api.weixin.qq.com/sns/oauth2/access_token?appid=%s&secret=%s&code=%s&grant_type=authorization_code",
 		appid, secret, code)
 	resp, errcode := network.HttpGet(url)

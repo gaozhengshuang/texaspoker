@@ -5,6 +5,7 @@ import (
 	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/gotoolkit/redis"
 	"gitee.com/jntse/minehero/pbmsg"
+	"gitee.com/jntse/minehero/server/tbl"
 	pb "github.com/gogo/protobuf/proto"
 	"github.com/go-redis/redis"
 )
@@ -35,6 +36,14 @@ func (m *Mail) SetGot() {
 
 func (m *Mail) Items() []*msg.MailItem {
 	return m.bin.Items
+}
+
+func (m *Mail) Date() int64 {
+	return m.bin.GetDate()
+}
+
+func (m *Mail) IsExpiry(now int64) bool {
+	return (m.Date() + tbl.Global.Mail.ExpiryDate * util.DaySec) > now
 }
 
 
@@ -91,10 +100,15 @@ func (m *MailBox) DBLoad() {
 	}
 
 	// 反序列化
+	now :=  util.CURTIME()
 	for k, str := range lists {
 		id, rbuf, mail := util.Atol(k), []byte(str), &Mail{}
 		if mail.LoadBin([]byte(rbuf)) != nil {
 			log.Error("[邮件] 玩家[%s %d]解析邮件[%d]失败[%s]", m.owner.Name(), m.owner.Id(), id, err)
+			continue
+		}
+		if mail.IsExpiry(now) {
+			log.Info("[邮件] 玩家[%s %d] 邮件[%d] 过期删除", m.owner.Name(), m.owner.Id(), id)
 			continue
 		}
 		m.mails[id] = mail
@@ -118,6 +132,7 @@ func (m *MailBox) DBSave() {
 	log.Info("[邮件] 玩家[%s %d] 保存所有邮件成功[%d]", m.owner.Name(), m.owner.Id(), m.Size())
 }
 
+// 5秒tick
 func (m *MailBox) Tick(now int64) {
 }
 

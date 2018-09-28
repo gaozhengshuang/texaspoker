@@ -11,8 +11,11 @@ type IBaseJson interface {
 // --------------------------------------------------------------------------
 /// @brief 创建json config 实例
 // --------------------------------------------------------------------------
-var Game *table.Game = new(table.Game)
-var Global *table.Global = new(table.Global)
 var Room *table.Room = new(table.Room)
+var Global *table.Global = new(table.Global)
+var HongBaoAPI *table.HongBaoAPI = new(table.HongBaoAPI)
+var Delivery *table.Delivery = new(table.Delivery)
+var Game *table.Game = new(table.Game)
+var Wechat *table.Wechat = new(table.Wechat)
 var Mysql *table.Mysql = new(table.Mysql)
 
