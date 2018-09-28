@@ -68,7 +68,7 @@ func (m *Mail) SaveBin(userid int64, pipe redis.Pipeliner) {
 	if err := utredis.HSetProtoBin(Redis(), fmt.Sprintf("usermails_%d", userid), id, m.bin); err != nil {
 		log.Error("[邮件] 保存邮件失败 RedisError[%s]", err)
 	}else {
-		log.Info("[邮件] 保存邮件成功 id[%d]", id)
+		log.Info("[邮件] 保存邮件成功 id[%s]", id)
 	}
 }
 
@@ -169,6 +169,7 @@ func (m *MailBox) RemoveMail(id int64) {
 	if id == 0 { return }
 	Redis().HDel(fmt.Sprintf("usermails_%d", m.owner.Id()), util.Ltoa(id))
 	delete(m.mails, id)
+	log.Info("[邮件] 玩家[%s %d] 删除邮件[%d]", m.owner.Name(), m.owner.Id(), id)
 }
 
 // 邮件列表

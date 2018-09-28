@@ -24,18 +24,23 @@ type UserTicker struct {
 }
 
 func (t *UserTicker) Init(handler10ms, handler100ms, handler1s, handler5s, handler1m util.TickerCallbackHandle) {
-	ticker10ms := util.NewGameTicker(10*time.Millisecond, handler10ms)
-	ticker100ms := util.NewGameTicker(100*time.Millisecond, handler100ms)
-	ticker1s := util.NewGameTicker(1*time.Second, handler1s)
-	ticker5s := util.NewGameTicker(5*time.Second, handler5s)
-	ticker1m := util.NewGameTicker(1*time.Minute, handler1m)
-
 	t.tickers = make([]*util.GameTicker, 0)
-	t.tickers = append(t.tickers, ticker10ms)
-	t.tickers = append(t.tickers, ticker100ms)
-	t.tickers = append(t.tickers, ticker1s)
-	t.tickers = append(t.tickers, ticker5s)
-	t.tickers = append(t.tickers, ticker1m)
+
+	//ticker10ms := util.NewGameTicker(10*time.Millisecond, handler10ms)
+	//ticker100ms := util.NewGameTicker(100*time.Millisecond, handler100ms)
+	//ticker1s := util.NewGameTicker(1*time.Second, handler1s)
+	//ticker5s := util.NewGameTicker(5*time.Second, handler5s)
+	//ticker1m := util.NewGameTicker(1*time.Minute, handler1m)
+	//t.tickers = append(t.tickers, ticker10ms)
+	//t.tickers = append(t.tickers, ticker100ms)
+	//t.tickers = append(t.tickers, ticker1s)
+	//t.tickers = append(t.tickers, ticker5s)
+	//t.tickers = append(t.tickers, ticker1m)
+}
+
+func (t *UserTicker) Regist(d time.Duration, handler util.TickerCallbackHandle) {
+	ticker := util.NewGameTicker(d, handler)
+	t.tickers = append(t.tickers, ticker)
 }
 
 func (t *UserTicker) Start() {
@@ -75,6 +80,15 @@ func (u *UserTicker) Run(now int64) {
 	//}
 }
 
+func (u *GateUser) RegistTicker() {
+	u.tickers.Regist(10*time.Millisecond,  u.OnTicker10ms)
+	u.tickers.Regist(100*time.Millisecond, u.OnTicker100ms)
+	u.tickers.Regist(1*time.Second, u.OnTicker1s)
+	u.tickers.Regist(5*time.Second, u.OnTicker5s)
+	u.tickers.Regist(1*time.Minute, u.OnTicker1m)
+	u.tickers.Regist(5*time.Minute, u.OnTicker5m)
+}
+
 func (u *GateUser) OnTicker10ms(now int64) {
 	u.asynev.Dispatch()
 	u.events.Tick(now)
@@ -102,6 +116,9 @@ func (u *GateUser) OnTicker5s(now int64) {
 
 func (u *GateUser) OnTicker1m(now int64) {
 	u.mailbox.Tick(now)
+}
+
+func (u *GateUser) OnTicker5m(now int64) {
 }
 
 func (u *GateUser) Tick(now int64) {
