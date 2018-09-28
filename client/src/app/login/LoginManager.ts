@@ -75,10 +75,10 @@ module game
                         d.resolve(data);
                     }, "msg.C2GW_ReqLogin");
 
-                    SocketManager.Send("msg.C2GW_ReqLogin", msg.C2GW_ReqLogin.encode({
+                    SocketManager.Send("msg.C2GW_ReqLogin", {
                         account: account,
                         verifykey: gwResult.verifykey,
-                    }));
+                    });
                 }, BaseSocket.SOCKET_CONNECT_SUCCESS);
             }, BaseSocket.SOCKET_CONNECT_CLOSE);
             SocketManager.Close();
@@ -91,7 +91,7 @@ module game
             SocketManager.pollingConnect($netIp);
             NotificationCenter.once(LoginManager, () =>
             {
-                SocketManager.Send("msg.C2L_ReqLogin", msg.C2L_ReqLogin.encode(LoginManager.loginUserInfo));
+                SocketManager.Send("msg.C2L_ReqLogin", LoginManager.loginUserInfo);
                 NotificationCenter.once(LoginManager, (data: msg.IL2C_RetLogin) =>
                 {
                     d.resolve(data);

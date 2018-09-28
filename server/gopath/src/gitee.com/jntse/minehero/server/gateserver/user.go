@@ -605,7 +605,7 @@ func (this *GateUser) CheckDisconnectTimeOut(now int64) {
 	}
 
 	// 延迟清理离线玩家
-	if !GateSvr().IsGracefulQuit() && (now < this.tm_disconnect+tbl.Global.Disconclean) {
+	if !GateSvr().IsGracefulQuit() && (now < this.tm_disconnect+tbl.Global.DisconClean) {
 		return
 	}
 

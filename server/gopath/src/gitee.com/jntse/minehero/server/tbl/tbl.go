@@ -103,9 +103,12 @@ func (this *TblLoader) Init() {
 	
 
 	// load jsons
-    this.LoadJson(Game, "game.json")
+    this.LoadJson(Room, "room.json")
 	this.LoadJson(Global, "global.json")
-	this.LoadJson(Room, "room.json")
+	this.LoadJson(HongBaoAPI, "hongbao.json")
+	this.LoadJson(Delivery, "delivery.json")
+	this.LoadJson(Game, "game.json")
+	this.LoadJson(Wechat, "wechat.json")
 	this.LoadJson(Mysql, "mysql.json")
 	
 }

@@ -232,7 +232,7 @@ func HttpWxLogin(body []byte) (errcode int32, errmsg string) {
 	}
 
 	//
-	url := fmt.Sprintf(tbl.Global.WechatMiniGame.Jscode2Session, tbl.Global.Wechat.AppID, tbl.Global.Wechat.AppSecret, objcmd.TempAuthCode)
+	url := fmt.Sprintf(tbl.Wechat.WechatMiniGame.Jscode2Session, tbl.Wechat.AppID, tbl.Wechat.AppSecret, objcmd.TempAuthCode)
 	resp, err := network.HttpGet(url)
 	if err != nil {
 		log.Error("HttpWxLogin http请求错误 err[%s]", err)

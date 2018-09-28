@@ -70,4 +70,37 @@ abstract class BaseServerValueInfo
 			}
 		}
 	}
+	/**
+ 	* 适配服务器序列化不能大写的问题
+ 	*/
+	public copyValueFromIgnoreCase(data: any)
+	{
+		if (data)
+		{
+			let self: any = this;
+			for (let key in self)
+			{
+				let lowerKey = key.toLowerCase();
+				let property: any = this[key];
+				if (!(property instanceof Function)) //函数属性不拷贝
+				{
+					if (data[lowerKey] == undefined)
+					{
+						if (typeof self[key] === "number")
+						{
+							self[key] = 0;
+						}
+						else if (typeof self[key] === "string")
+						{
+							self[key] = game.StringConstants.Empty;
+						}
+					}
+					else
+					{
+						self[key] = data[lowerKey];
+					}
+				}
+			}
+		}
+	}
 }
