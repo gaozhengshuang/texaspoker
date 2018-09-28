@@ -84,8 +84,7 @@ class SignInHandler extends BaseActivitySubHandler<SignInInfo>
 		{
 			for (let i: number = 0; i < awardDef.RewardId.length; i++)
 			{
-				result += awardDef.Name + "*" + awardDef.RewardNum[i];
-				// result += ItemDefined.GetInstance().getDefinition(awardDef.RewardId[i]).name + "*" + awardDef.RewardNum[i];
+				result += table.ItemBaseDataById[awardDef.RewardId[i]].Name + "*" + awardDef.RewardNum[i];
 				if (i < awardDef.RewardId.length - 1)
 				{
 					result += ",";

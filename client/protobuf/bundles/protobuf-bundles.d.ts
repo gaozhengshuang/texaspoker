@@ -6145,8 +6145,8 @@ declare namespace msg {
     /** Properties of a MailItem. */
     interface IMailItem {
 
-        /** MailItem item */
-        item?: (number|null);
+        /** MailItem id */
+        id?: (number|null);
 
         /** MailItem num */
         num?: (number|null);
@@ -6161,8 +6161,8 @@ declare namespace msg {
          */
         constructor(properties?: msg.IMailItem);
 
-        /** MailItem item. */
-        public item: number;
+        /** MailItem id. */
+        public id: number;
 
         /** MailItem num. */
         public num: number;
@@ -6242,7 +6242,7 @@ declare namespace msg {
     interface IMailDetail {
 
         /** MailDetail id */
-        id?: (number|null);
+        id?: (number|Long|null);
 
         /** MailDetail type */
         type?: (number|null);
@@ -6285,7 +6285,7 @@ declare namespace msg {
         constructor(properties?: msg.IMailDetail);
 
         /** MailDetail id. */
-        public id: number;
+        public id: (number|Long);
 
         /** MailDetail type. */
         public type: number;
@@ -6668,7 +6668,7 @@ declare namespace msg {
     interface IGW2C_RetTakeMailItem {
 
         /** GW2C_RetTakeMailItem uid */
-        uid?: (number|null);
+        uid?: (number|Long|null);
 
         /** GW2C_RetTakeMailItem errcode */
         errcode?: (string|null);
@@ -6684,7 +6684,7 @@ declare namespace msg {
         constructor(properties?: msg.IGW2C_RetTakeMailItem);
 
         /** GW2C_RetTakeMailItem uid. */
-        public uid: number;
+        public uid: (number|Long);
 
         /** GW2C_RetTakeMailItem errcode. */
         public errcode: string;
@@ -19075,6 +19075,204 @@ declare namespace table {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a MailBase. */
+    interface IMailBase {
+
+        /** MailBase Mail */
+        Mail?: (table.IMailDefine[]|null);
+    }
+
+    /** Represents a MailBase. */
+    class MailBase implements IMailBase {
+
+        /**
+         * Constructs a new MailBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IMailBase);
+
+        /** MailBase Mail. */
+        public Mail: table.IMailDefine[];
+
+        /**
+         * Creates a new MailBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MailBase instance
+         */
+        public static create(properties?: table.IMailBase): table.MailBase;
+
+        /**
+         * Encodes the specified MailBase message. Does not implicitly {@link table.MailBase.verify|verify} messages.
+         * @param message MailBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IMailBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified MailBase message, length delimited. Does not implicitly {@link table.MailBase.verify|verify} messages.
+         * @param message MailBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IMailBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a MailBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MailBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.MailBase;
+
+        /**
+         * Decodes a MailBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MailBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.MailBase;
+
+        /**
+         * Verifies a MailBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MailBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MailBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.MailBase;
+
+        /**
+         * Creates a plain object from a MailBase message. Also converts values to other types if specified.
+         * @param message MailBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.MailBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MailBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a MailDefine. */
+    interface IMailDefine {
+
+        /** MailDefine Id */
+        Id?: (number|null);
+
+        /** MailDefine Title */
+        Title?: (string|null);
+
+        /** MailDefine Type */
+        Type?: (number|null);
+
+        /** MailDefine Content */
+        Content?: (string|null);
+    }
+
+    /** Represents a MailDefine. */
+    class MailDefine implements IMailDefine {
+
+        /**
+         * Constructs a new MailDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IMailDefine);
+
+        /** MailDefine Id. */
+        public Id: number;
+
+        /** MailDefine Title. */
+        public Title: string;
+
+        /** MailDefine Type. */
+        public Type: number;
+
+        /** MailDefine Content. */
+        public Content: string;
+
+        /**
+         * Creates a new MailDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MailDefine instance
+         */
+        public static create(properties?: table.IMailDefine): table.MailDefine;
+
+        /**
+         * Encodes the specified MailDefine message. Does not implicitly {@link table.MailDefine.verify|verify} messages.
+         * @param message MailDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IMailDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified MailDefine message, length delimited. Does not implicitly {@link table.MailDefine.verify|verify} messages.
+         * @param message MailDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IMailDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a MailDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MailDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.MailDefine;
+
+        /**
+         * Decodes a MailDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MailDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.MailDefine;
+
+        /**
+         * Verifies a MailDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MailDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MailDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.MailDefine;
+
+        /**
+         * Creates a plain object from a MailDefine message. Also converts values to other types if specified.
+         * @param message MailDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.MailDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MailDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a MapEventBase. */
     interface IMapEventBase {
 
@@ -20264,6 +20462,216 @@ declare namespace table {
 
         /**
          * Converts this ProtoIdDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RankBase. */
+    interface IRankBase {
+
+        /** RankBase Rank */
+        Rank?: (table.IRankDefine[]|null);
+    }
+
+    /** Represents a RankBase. */
+    class RankBase implements IRankBase {
+
+        /**
+         * Constructs a new RankBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IRankBase);
+
+        /** RankBase Rank. */
+        public Rank: table.IRankDefine[];
+
+        /**
+         * Creates a new RankBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RankBase instance
+         */
+        public static create(properties?: table.IRankBase): table.RankBase;
+
+        /**
+         * Encodes the specified RankBase message. Does not implicitly {@link table.RankBase.verify|verify} messages.
+         * @param message RankBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IRankBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified RankBase message, length delimited. Does not implicitly {@link table.RankBase.verify|verify} messages.
+         * @param message RankBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IRankBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a RankBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RankBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.RankBase;
+
+        /**
+         * Decodes a RankBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RankBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.RankBase;
+
+        /**
+         * Verifies a RankBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RankBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RankBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.RankBase;
+
+        /**
+         * Creates a plain object from a RankBase message. Also converts values to other types if specified.
+         * @param message RankBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.RankBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RankBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RankDefine. */
+    interface IRankDefine {
+
+        /** RankDefine Id */
+        Id?: (number|null);
+
+        /** RankDefine Type */
+        Type?: (number|null);
+
+        /** RankDefine Param1 */
+        Param1?: (number|null);
+
+        /** RankDefine Param2 */
+        Param2?: (number|null);
+
+        /** RankDefine Param3 */
+        Param3?: (number|null);
+
+        /** RankDefine Cd */
+        Cd?: (number|null);
+    }
+
+    /** Represents a RankDefine. */
+    class RankDefine implements IRankDefine {
+
+        /**
+         * Constructs a new RankDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IRankDefine);
+
+        /** RankDefine Id. */
+        public Id: number;
+
+        /** RankDefine Type. */
+        public Type: number;
+
+        /** RankDefine Param1. */
+        public Param1: number;
+
+        /** RankDefine Param2. */
+        public Param2: number;
+
+        /** RankDefine Param3. */
+        public Param3: number;
+
+        /** RankDefine Cd. */
+        public Cd: number;
+
+        /**
+         * Creates a new RankDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RankDefine instance
+         */
+        public static create(properties?: table.IRankDefine): table.RankDefine;
+
+        /**
+         * Encodes the specified RankDefine message. Does not implicitly {@link table.RankDefine.verify|verify} messages.
+         * @param message RankDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IRankDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified RankDefine message, length delimited. Does not implicitly {@link table.RankDefine.verify|verify} messages.
+         * @param message RankDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IRankDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a RankDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RankDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.RankDefine;
+
+        /**
+         * Decodes a RankDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RankDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.RankDefine;
+
+        /**
+         * Verifies a RankDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RankDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RankDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.RankDefine;
+
+        /**
+         * Creates a plain object from a RankDefine message. Also converts values to other types if specified.
+         * @param message RankDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.RankDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RankDefine to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
