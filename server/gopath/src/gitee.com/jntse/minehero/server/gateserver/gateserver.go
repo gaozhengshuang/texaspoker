@@ -155,7 +155,7 @@ func (this *GateServer) DoInputCmd(cmd string) {
 		items = append(items, &msg.MailItem{Id:pb.Int32(int32(201)), Num:pb.Int32(1)})
 		items = append(items, &msg.MailItem{Id:pb.Int32(int32(202)), Num:pb.Int32(1)})
 		items = append(items, &msg.MailItem{Id:pb.Int32(int32(203)), Num:pb.Int32(1)})
-		MakeNewMail(util.Atol(subcmd[1]), 0, "", 141, nil, "jakcy", 1002)
+		MakeNewMail(util.Atol(subcmd[1]), 0, "", 141, items, "jakcy", 1002)
 
 		//
 		items = make([]*msg.MailItem,0)

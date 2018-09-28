@@ -165,6 +165,12 @@ func (m *MailBox) CheckExpire(now int64) {
 	pipe.Close()
 }
 
+func (m *MailBox) RemoveMail(id int64) {
+	if id == 0 { return }
+	Redis().HDel(fmt.Sprintf("usermails_%d", m.owner.Id()), util.Ltoa(id))
+	delete(m.mails, id)
+}
+
 // 邮件列表
 func (m *MailBox) SendMailList() {
 	send := &msg.GW2C_RetMailList{Maillist:make([]*msg.MailDetail,0)}
@@ -212,6 +218,16 @@ func (m *MailBox) ReceiveNewMail(detail *msg.MailDetail) {
 		return
 	}
 
+	// 检查邮箱容量，删除最早一封
+	if m.Size() >= int32(tbl.Global.Mail.Capacity) {
+		var oldestmail int64 = 0
+		for id, _ := range m.mails {
+			if oldestmail == 0 { oldestmail = id }
+			if id < oldestmail { oldestmail = id }
+		}
+		m.RemoveMail(oldestmail)
+	}
+
 	m.mails[mail.Id()] = mail
 	newmail := &msg.GW2C_PushNewMail{Mail:detail}
 	m.owner.SendMsg(newmail)
@@ -220,6 +236,7 @@ func (m *MailBox) ReceiveNewMail(detail *msg.MailDetail) {
 
 // 创建邮件
 func MakeNewMail(rid int64, sid int64, sname string, subtype int32, items []*msg.MailItem, args ...interface{}) bool {
+	t1 := util.CURTIMEUS()
 	tconf, find := tbl.MailBase.MailById[subtype]
 	if find == false {
 		log.Error("收件人[%d] 发件人[%s %d] 新邮件创建失败，无效的SubType[%d]", rid, sname, sid, subtype)
@@ -259,7 +276,8 @@ func MakeNewMail(rid int64, sid int64, sname string, subtype int32, items []*msg
 
 	// DBSave
 	utredis.HSetProtoBin(Redis(), fmt.Sprintf("usermails_%d", rid), util.Ltoa(uuid), detail)
-	log.Info("收件人[%d] 发件人[%s %d] 新邮件创建成功 Id[%d] SubType[%d] 附件[%v] 内容[%s]", rid, sname, sid, uuid, subtype, items, content)
+	log.Info("收件人[%d] 发件人[%s %d] 新邮件创建成功 Id[%d] SubType[%d] 附件[%v] 内容[%s] 耗时[%d]us", 
+		rid, sname, sid, uuid, subtype, items, content, util.CURTIMEUS() - t1)
 
 
 	// 收件人是否在本服务器
