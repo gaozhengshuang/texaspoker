@@ -37,6 +37,7 @@ type TexasPlayer struct{
 	addcoin int32
 	isai bool
 	aiacttime int32
+	readytime int32
 }
 
 type TexasPlayers []*TexasPlayer
@@ -64,11 +65,7 @@ func (this *TexasPlayer)Init(){
 	this.betover = false
 	this.isshowcard = false
 	this.bettime = 0
-	if this.isai == true {
-		this.isready = true
-	} else {
-		this.isready = false
-	}
+	this.isready = false
 	this.gamestate = GSWaitNext
 	this.aiacttime = 0
 }
@@ -106,7 +103,7 @@ func (this *TexasPlayer) BetStart() {
 	//发送开始压注消息
 	if this.bettime == 0 {
 		this.bettime = 15
-		this.aiacttime = util.RandBetween(5,13)
+		this.aiacttime = util.RandBetween(7,13)
 		send := &msg.RS2C_PushActionPosChange{}
 		send.Pos = pb.Int32(this.pos+1)
 		send.Postime = pb.Int32(this.bettime+int32(util.CURTIME()))
@@ -152,6 +149,10 @@ func (this *TexasPlayer) Betting(num int32) {
 		this.ChangeState(GSCheck)
 		log.Info("玩家%d 让牌 筹码%d 房间人数%d", this.owner.Id(), this.GetBankRoll(),this.room.remain)
 	} else if num + this.curbet < this.room.curbet { // 跟注 或者 allin  table.Bet保持不变
+		if this.GetBankRoll() != num {
+			this.Betting(-1)
+			return
+		}
 		if !this.RemoveBankRoll(num) {
 			send.Errcode = pb.String("筹码不足")
 			this.owner.SendClientMsg(send)
@@ -166,6 +167,9 @@ func (this *TexasPlayer) Betting(num int32) {
 			log.Info("玩家%d 全压%d 筹码%d 房间人数%d", this.owner.Id(), this.curbet, this.GetBankRoll(),this.room.remain)
 		}
 	} else if num + this.curbet == this.room.curbet	{
+		if this.GetBankRoll() < num {
+			num = this.GetBankRoll()
+		}
 		if !this.RemoveBankRoll(num) {
 			send.Errcode = pb.String("筹码不足")
 			this.owner.SendClientMsg(send)
@@ -183,6 +187,9 @@ func (this *TexasPlayer) Betting(num int32) {
 			log.Info("玩家%d 跟注%d 筹码%d 房间人数%d", this.owner.Id(), this.curbet, this.GetBankRoll(),this.room.remain)
 		}
 	} else { // 加注
+		if this.GetBankRoll() < num {
+			num = this.GetBankRoll()
+		}
 		if !this.RemoveBankRoll(num) {
 			send.Errcode = pb.String("筹码不足")
 			this.owner.SendClientMsg(send)
@@ -200,6 +207,7 @@ func (this *TexasPlayer) Betting(num int32) {
 			log.Info("玩家%d 加注%d 筹码%d 房间人数%d", this.owner.Id(), this.curbet, this.GetBankRoll(),this.room.remain)
 		}
 		this.room.ClearBetOver(false)//清除所有人的下注成功
+		this.room.raisecount++
 		this.betover = true
 	}
 	this.owner.SendClientMsg(send)
@@ -241,7 +249,7 @@ func (this *TexasPlayer) NextForStart() *TexasPlayer {
 		return nil
 	}
 	for i := (this.pos+1) % this.room.maxplayer; i != this.pos; i = (i + 1) % this.room.maxplayer {
-		if this.room.players[i] != nil && this.room.players[i].isready { 
+		if this.room.players[i] != nil && this.room.players[i].IsWait() { 
 			return this.room.players[i]
 		}
 	}
@@ -251,25 +259,29 @@ func (this *TexasPlayer) NextForStart() *TexasPlayer {
 func (this *TexasPlayer)SetHole(c1 *Card, c2 *Card){
 	this.hole[0] = c1
 	this.hole[1] = c2
-	this.hand.SetCard(c1)
-	this.hand.SetCard(c2)
+	this.hand.SetCard(c1, true)
+	this.hand.SetCard(c2, true)
+	this.hand.AnalyseHand()
 	send := &msg.RS2C_PushHandCard{}
 	send.Card = this.ToHandCard()
 	this.owner.SendClientMsg(send)
 }
 
 func (this *TexasPlayer)SetFlop(c1 *Card, c2 *Card, c3 *Card){
-	this.hand.SetCard(c1)
-	this.hand.SetCard(c2)
-	this.hand.SetCard(c3)
+	this.hand.SetCard(c1, false)
+	this.hand.SetCard(c2, false)
+	this.hand.SetCard(c3, false)
+	this.hand.AnalyseHand()
 }
 
 func (this *TexasPlayer)SetTurn(c1 *Card){
-	this.hand.SetCard(c1)
+	this.hand.SetCard(c1, false)
+	this.hand.AnalyseHand()
 }
 
 func (this *TexasPlayer)SetRiver(c1 *Card){
-	this.hand.SetCard(c1)
+	this.hand.SetCard(c1, false)
+	this.hand.AnalyseHand()
 }
 
 func (this *TexasPlayer) GetBankRoll() int32{
@@ -301,33 +313,68 @@ func (this *TexasPlayer)RemoveBankRoll(num int32) bool{
 	return true
 }
 
-func (this *TexasPlayer) AIAction() {
+func (this *TexasPlayer) AIAction(action int32) {
 	this.aiacttime = 0
-	num := util.RandBetween(1, 100)
-	switch {
-	case num >= 1 && num <= 10://弃牌
-		this.Betting(-1)
-	case num >= 11 && num <= 50://跟注或过牌
+	//log.Info("AI%d手牌分析 等级%d", this.owner.Id(), this.hand.level)
+	if action == AINone {
+		action = AIUserMgr().GetActionByLevel(this.hand.level, this.hand.highvalue+2)
+		if this.room.raisecount >= 2 && action == AIRaise{
+			action = AICall
+		}
+		if this.GetBankRoll() >= this.room.bigblindnum * 10 && this.room.curbet >= this.GetBankRoll(){
+			if this.hand.level <= 1 {
+				action = AICall
+			}
+		}
+	}
+	log.Info("房间%d AI%d手牌分析%v 等级%d 最高价值%d 行为%d", this.room.Id(), this.owner.Id(), this.ToHandCard(), this.hand.level, this.hand.highvalue, action)
+	switch action {
+	case AIFoldCheck://弃牌或过牌
+		if this.curbet < this.room.curbet {
+			this.Betting(-1)
+		}else{
+			this.Betting(0)
+		}
+	case AICall://跟注
 		if this.curbet >= this.room.curbet {
 			this.Betting(0)
 		}else{
 			this.Betting(this.room.curbet-this.curbet)
 		}
-	case num >= 51 && num <= 90://加注
+	case AIRaise://加注
 		if this.GetBankRoll() + this.curbet >= this.room.curbet {
-			this.Betting(100)
+			call := this.room.curbet-this.curbet
+			if this.room.curbet <= this.GetBankRoll() - call {
+				if util.SelectPercent(30) {
+					this.Betting(this.room.curbet + call)
+				} else if util.SelectPercent(50) {
+					this.Betting(this.room.curbet*2/3 + call)
+				} else {
+					this.Betting(this.room.curbet/3 + call)
+				}
+			}else{
+				this.Betting(this.GetBankRoll())
+			}
+		}else{
+			this.Betting(this.GetBankRoll())
 		}
-	case num >= 91 && num <= 100://AllIn	
+	case AIAllIn://AllIn	
 		this.Betting(this.GetBankRoll())
 	}
 }
 
 func (this *TexasPlayer) Tick (){
+	if this.readytime > 0 {
+		this.readytime--
+		if this.readytime == 0 {
+			this.isready = true
+		}
+	}
 	if this.bettime > 0 {
 		this.bettime--
 		if this.isai == true {
 			if this.bettime == this.aiacttime {
-				this.AIAction()
+				this.AIAction(0)
 			}
 		}else{
 			if this.bettime == 0 {
@@ -463,6 +510,12 @@ func (this *TexasPlayer) ReqUserInfo(rev *msg.C2RS_ReqFriendGetRoleInfo) {
 	if user != nil {
 		send := user.ToRoleInfo()
 		this.owner.SendClientMsg(send)
+	} else {
+		user = AIUserMgr().FindUser(rev.GetRoleid())
+		if user != nil {
+			send := user.ToRoleInfo()
+			this.owner.SendClientMsg(send)
+		}
 	}
 }
 

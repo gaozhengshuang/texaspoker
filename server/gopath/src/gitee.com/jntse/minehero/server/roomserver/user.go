@@ -38,7 +38,7 @@ type RoomUser struct {
 	maxenergy      int64
 	gamekind       int32
 	roomid         int64 // 房间id
-
+	isai		   bool
 }
 
 func NewRoomUser(rid int64, b *msg.Serialize, gate network.IBaseNetSession, gamekind int32) *RoomUser {
@@ -73,6 +73,7 @@ func NewRoomUserAI(id int64, name string, sex int32) *RoomUser {
 	user.bin.Base.Addrlist = make([]*msg.UserAddress, 0)
 	user.bin.Base.Task = &msg.UserTask{}
 	user.bin.Base.Luckydraw = &msg.LuckyDrawRecord{Drawlist: make([]*msg.LuckyDrawItem, 0)}
+	user.isai = true
 	return user
 }
 
@@ -229,6 +230,9 @@ func (u *RoomUser) PackBin() *msg.Serialize {
 }
 
 func (u *RoomUser) SendMsg(m pb.Message) bool {
+	if u.isai == true {
+		return false
+	}
 	if u.agentid == 0 {
 		log.Fatal("玩家[%s %d] 没有网关agentid，不能发送消息", u.Name(), u.Id())
 		return false
@@ -238,6 +242,9 @@ func (u *RoomUser) SendMsg(m pb.Message) bool {
 
 // 转发消息到gate
 func (u *RoomUser) SendClientMsg(m pb.Message) bool {
+	if u.isai == true {
+		return false
+	}
 	name := pb.MessageName(m)
 	if name == "" {
 		log.Fatal("SendClientMsg 获取proto名字失败[%s]", m)
@@ -442,6 +449,7 @@ func (u *RoomUser) ToRoleInfo() *msg.RS2C_RetFriendGetRoleInfo {
 		Roleid:  pb.Int64(u.Id()),
 		Name:    pb.String(u.Name()),
 		Head:    pb.String(""),
+		Sex:	 pb.Int32(u.Sex()),
 	}
 }
 

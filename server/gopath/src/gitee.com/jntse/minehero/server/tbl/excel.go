@@ -26,6 +26,7 @@ var NoticeBase = table.InsNoticeBaseTable
 var TexasAI = table.InsTexasAITable
 var RechargeBase = table.InsRechargeBaseTable
 var MapEventBase = table.InsMapEventBaseTable
+var TexasFRC = table.InsTexasFRCTable
 var AwardBase = table.InsAwardBaseTable
 var NameBase = table.InsNameBaseTable
 var ChipsBase = table.InsChipsBaseTable
