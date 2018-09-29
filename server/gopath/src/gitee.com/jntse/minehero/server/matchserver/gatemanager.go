@@ -38,35 +38,35 @@ func NewGateAgent(s network.IBaseNetSession, name, ip string ,port int) *GateAge
 	return gate
 }
 
-func (this *GateAgent) Id() int {
-	return this.session.Id()
+func (g *GateAgent) Id() int {
+	return g.session.Id()
 }
 
-func (this *GateAgent) Host() string {
-	return this.host
+func (g *GateAgent) Host() string {
+	return g.host
 }
 
-func (this *GateAgent) Name() string {
-	return this.name
+func (g *GateAgent) Name() string {
+	return g.name
 }
 
-func (this *GateAgent) HostKey() string {
-	return this.Host()
+func (g *GateAgent) HostKey() string {
+	return g.Host()
 }
 
-func (this *GateAgent) TickNum(n int) {
-	this.usernum += n
-	if this.usernum <= 0 { this.usernum = 0 }
+func (g *GateAgent) TickNum(n int) {
+	g.usernum += n
+	if g.usernum <= 0 { g.usernum = 0 }
 }
 
-func (this *GateAgent) SendMsg(msg pb.Message) bool {
-	return this.session.SendCmd(msg)
+func (g *GateAgent) SendMsg(msg pb.Message) bool {
+	return g.session.SendCmd(msg)
 }
 
-func (this *GateAgent) OnClose() {
-	//UserMgr().GateClose(this.Id())
-	GateSvrMgr().DelGate(this.Id())
-	log.Info("网关离线 id=%d [%v] 当前总数:%d", this.Id(), this.Host(), GateSvrMgr().Num())
+func (g *GateAgent) OnClose() {
+	//UserMgr().GateClose(g.Id())
+	GateSvrMgr().DelGate(g.Id())
+	log.Info("网关离线 id=%d [%v] 当前总数:%d", g.Id(), g.Host(), GateSvrMgr().Num())
 }
 
 // --------------------------------------------------------------------------
@@ -76,34 +76,34 @@ type GateManager struct {
 	gates map[int]*GateAgent
 }
 
-func (this *GateManager) Init() {
-	this.gates = make(map[int]*GateAgent)
+func (g *GateManager) Init() {
+	g.gates = make(map[int]*GateAgent)
 }
 
-func (this *GateManager) Num() int {
-	return len(this.gates)
+func (g *GateManager) Num() int {
+	return len(g.gates)
 }
 
-func (this *GateManager) AddGate(agent *GateAgent) {
+func (g *GateManager) AddGate(agent *GateAgent) {
 	id := agent.Id()
-	this.gates[id] = agent
+	g.gates[id] = agent
 }
 
-func (this* GateManager) DelGate(id int) {
-	delete(this.gates, id)
+func (g* GateManager) DelGate(id int) {
+	delete(g.gates, id)
 }
 
-func (this* GateManager) FindGate(id int) *GateAgent {
-	agent, ok := this.gates[id]
+func (g* GateManager) FindGate(id int) *GateAgent {
+	agent, ok := g.gates[id]
 	if ok == false {
 		return nil
 	}
 	return agent
 }
 
-func (this *GateManager) IsRegisted(name, ip string, port int) bool {
+func (g *GateManager) IsRegisted(name, ip string, port int) bool {
 	host := fmt.Sprintf("%s:%d", ip, port)
-	for _,v := range this.gates {
+	for _,v := range g.gates {
 		if v.Host() == host || v.Name() == name {
 			return true
 		}
@@ -111,32 +111,32 @@ func (this *GateManager) IsRegisted(name, ip string, port int) bool {
 	return false
 }
 
-func (this *GateManager) OnClose(sid int) {
-	agent := this.FindGate(sid)
+func (g *GateManager) OnClose(sid int) {
+	agent := g.FindGate(sid)
 	if agent == nil { return }
 	agent.OnClose()
 }
 
-func (this *GateManager) AddNewSession(session network.IBaseNetSession, name, ip string ,port int) {
+func (g *GateManager) AddNewSession(session network.IBaseNetSession, name, ip string ,port int) {
 	agent := NewGateAgent(session, name, ip, port)
-	this.AddGate(agent)
-	log.Info("注册网关服 id=%d [%s][%s:%d] 当前总数:%d", agent.Id(), agent.Name(), agent.ip, agent.port, this.Num())
+	g.AddGate(agent)
+	log.Info("注册网关服 id=%d [%s][%s:%d] 当前总数:%d", agent.Id(), agent.Name(), agent.ip, agent.port, g.Num())
 
 	// 将Gate信息通知所有Room
 	RoomSvrMgr().NewGateOnline(agent)
 }
 
-func (this *GateManager) NewRoomOnline(room *RoomAgent) {
+func (g *GateManager) NewRoomOnline(room *RoomAgent) {
 	send := &msg.MS2RS_GateInfo{Gates:make([]*msg.GateSimpleInfo, 0)}
-	for _, gate := range this.gates {
+	for _, gate := range g.gates {
 		gateinfo := &msg.GateSimpleInfo{Name:pb.String(gate.Name()), Host:&msg.IpHost{Ip:pb.String(gate.ip), Port:pb.Int(gate.port)}}
 		send.Gates = append(send.Gates, gateinfo)
 	}
 	room.SendMsg(send)
 }
 
-func (this *GateManager) Broadcast(msg pb.Message) {
-	for _, gate := range this.gates {
+func (g *GateManager) Broadcast(msg pb.Message) {
+	for _, gate := range g.gates {
 		gate.SendMsg(msg)
 	}
 }
