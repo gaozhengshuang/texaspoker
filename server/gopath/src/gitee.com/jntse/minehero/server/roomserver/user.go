@@ -316,7 +316,7 @@ func (u *RoomUser) SetGold(gold int32, reason string, syn bool) {
 }
 
 func (u *RoomUser) SyncGoldRankRedis() {
-	zMem := redis.Z{float64(u.GetGold()), u.Id()}
+	zMem := redis.Z{Score:float64(u.GetGold()), Member:u.Id()}
 	Redis().ZAdd("zGoldRank", zMem)
 }
 

@@ -216,7 +216,6 @@ func (this *LoginServer) StartRedis() bool {
 	_, err := this.hredis.Ping().Result()
 	if err != nil {
 		panic(err)
-		return false
 	}
 
 	log.Info("连接Redis[%s]成功", this.netconf.Redis.Host.String())

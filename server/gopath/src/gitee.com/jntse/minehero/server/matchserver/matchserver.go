@@ -90,7 +90,7 @@ func Redis() *redis.Client {
 	return Match().hredis
 }
 
-func (this *MatchServer) DoInputCmd(cmd string) {
+func (ma *MatchServer) DoInputCmd(cmd string) {
 	switch cmd {
 	case "gates":
 		log.Info("show gates list")
@@ -104,7 +104,7 @@ func (this *MatchServer) DoInputCmd(cmd string) {
 		noticemsg.Text = pb.String(text)
 		noticemsg.Type = pb.Int32(int32(msg.NoticeType_Suspension))
 		send := &msg.MS2GW_MsgNotice{Notice: noticemsg}
-		this.BroadcastGateMsg(send)
+		ma.BroadcastGateMsg(send)
 	case "notice2":
 		log.Info("Notice Marquee  Test!")
 		noticemsg := &msg.GW2C_MsgNotice{Userid: pb.Int64(0), Name: pb.String("玩家名字"), Head: pb.String(""), Type: pb.Int32(0)}
@@ -112,22 +112,22 @@ func (this *MatchServer) DoInputCmd(cmd string) {
 		noticemsg.Text = pb.String(text)
 		noticemsg.Type = pb.Int32(int32(msg.NoticeType_Marquee))
 		send := &msg.MS2GW_MsgNotice{Notice: noticemsg}
-		this.BroadcastGateMsg(send)
+		ma.BroadcastGateMsg(send)
 	}
 }
 
 // --------------------------------------------------------------------------
 // --------------------------------------------------------------------------
-func (this *MatchServer) OnClose(session network.IBaseNetSession) {
+func (ma *MatchServer) OnClose(session network.IBaseNetSession) {
 	sid := session.Id()
-	//delete(this.sessions, sid)
+	//delete(ma.sessions, sid)
 	switch session.Name() {
 	case "TaskGate":
 		log.Info("和Gate连接断开 sid[%d]", sid)
-		this.gatemgr.OnClose(sid)
+		ma.gatemgr.OnClose(sid)
 	case "TaskRoom":
 		log.Info("和Room连接断开 sid[%d]", sid)
-		this.roomsvrmgr.OnClose(sid)
+		ma.roomsvrmgr.OnClose(sid)
 	default:
 		log.Error("OnClose error not regist session:%+v", sid)
 	}
@@ -135,16 +135,16 @@ func (this *MatchServer) OnClose(session network.IBaseNetSession) {
 
 // --------------------------------------------------------------------------
 // --------------------------------------------------------------------------
-func (this *MatchServer) OnConnect(session network.IBaseNetSession) {
+func (ma *MatchServer) OnConnect(session network.IBaseNetSession) {
 
-	//this.sessions[session.Id()] = session
+	//ma.sessions[session.Id()] = session
 	switch session.Name() {
 	case "TaskClient":
 		//log.Trace("OnConnect clientsession:%+v", session)
-		//session.SetUserDefdata(this)
+		//session.SetUserDefdata(ma)
 	case "TaskGate":
 		//log.Trace("OnConnect gatesession:%+v", session)
-		//session.SetUserDefdata(this)
+		//session.SetUserDefdata(ma)
 	case "TaskRoom":
 		//
 	default:
@@ -153,23 +153,23 @@ func (this *MatchServer) OnConnect(session network.IBaseNetSession) {
 	}
 }
 
-func (this *MatchServer) SendMsg(id int, msg pb.Message) bool {
-	//session, ok := this.sessions[id]
+func (ma *MatchServer) SendMsg(id int, msg pb.Message) bool {
+	//session, ok := ma.sessions[id]
 	//if ok == true {
 	//	return session.SendCmd(msg)
 	//}
 	//return false
-	return this.net.SendMsg(id, msg)
+	return ma.net.SendMsg(id, msg)
 }
 
-func (this *MatchServer) GetSession(id int) network.IBaseNetSession {
-	//session, _ := this.sessions[id]
+func (ma *MatchServer) GetSession(id int) network.IBaseNetSession {
+	//session, _ := ma.sessions[id]
 	//return session
-	return this.net.FindSession(id)
+	return ma.net.FindSession(id)
 }
 
 //
-func (this *MatchServer) Init(fileconf string) bool {
+func (ma *MatchServer) Init(fileconf string) bool {
 	// 服务器配置
 	netconf := &network.NetConf{}
 	jsonerr := util.JsonConfParser(fileconf, netconf)
@@ -177,62 +177,61 @@ func (this *MatchServer) Init(fileconf string) bool {
 		log.Error("JsonParser Error or netconf is nil: '%s'", jsonerr)
 		return false
 	}
-	this.netconf = netconf
+	ma.netconf = netconf
 	log.Info("加载服务器配置ok...")
 
 	// 游戏配置
-	this.tblloader = tbl.NewTblLoader(netconf.TblPath)
+	ma.tblloader = tbl.NewTblLoader(netconf.TblPath)
 
 	// 消息handler
-	this.InitMsgHandler()
+	ma.InitMsgHandler()
 
 	// 杂项
-	this.gatemgr.Init()
-	//this.usermgr.Init()
-	this.roomsvrmgr.Init()
-	//this.sessions = make(map[int]network.IBaseNetSession)
-	this.authens = make(map[string]int)
-	this.runtimestamp = 0
+	ma.gatemgr.Init()
+	//ma.usermgr.Init()
+	ma.roomsvrmgr.Init()
+	//ma.sessions = make(map[int]network.IBaseNetSession)
+	ma.authens = make(map[string]int)
+	ma.runtimestamp = 0
 
 	return true
 }
 
-func (this *MatchServer) InitMsgHandler() {
-	if this.tblloader == nil {
+func (ma *MatchServer) InitMsgHandler() {
+	if ma.tblloader == nil {
 		panic("should init 'tblloader' first")
 	}
 	network.InitGlobalSendMsgHandler(tbl.GetAllMsgIndex())
-	this.msghandlers = append(this.msghandlers, NewGW2MSMsgHandler())
-	this.msghandlers = append(this.msghandlers, NewRS2MSMsgHandler())
+	ma.msghandlers = append(ma.msghandlers, NewGW2MSMsgHandler())
+	ma.msghandlers = append(ma.msghandlers, NewRS2MSMsgHandler())
 }
 
 // 启动redis
-func (this *MatchServer) StartRedis() bool {
-	this.hredis = redis.NewClient(&redis.Options{
-		Addr:     this.netconf.Redis.Host.String(), // "ip:host"
-		Password: this.netconf.Redis.Passwd,        // no passwd
-		DB:       this.netconf.Redis.DB,            // 0: use default DB
+func (ma *MatchServer) StartRedis() bool {
+	ma.hredis = redis.NewClient(&redis.Options{
+		Addr:     ma.netconf.Redis.Host.String(), // "ip:host"
+		Password: ma.netconf.Redis.Passwd,        // no passwd
+		DB:       ma.netconf.Redis.DB,            // 0: use default DB
 	})
 
-	_, err := this.hredis.Ping().Result()
+	_, err := ma.hredis.Ping().Result()
 	if err != nil {
 		panic(err)
-		return false
 	}
 
-	log.Info("连接Redis[%s]成功", this.netconf.Redis.Host.String())
+	log.Info("连接Redis[%s]成功", ma.netconf.Redis.Host.String())
 	return true
 }
 
 // 启动网络
-func (this *MatchServer) StartNetWork() bool {
-	this.net = network.NewNetWork()
-	if this.net == nil {
+func (ma *MatchServer) StartNetWork() bool {
+	ma.net = network.NewNetWork()
+	if ma.net == nil {
 		return false
 	}
-	this.net.Init(this.netconf, this)
-	this.net.SetHttpResponseHandler(HttpServerResponseCallBack) // Http监听,需要设置处理回调
-	if this.net.Start() == false {
+	ma.net.Init(ma.netconf, ma)
+	ma.net.SetHttpResponseHandler(HttpServerResponseCallBack) // Http监听,需要设置处理回调
+	if ma.net.Start() == false {
 		log.Info("初始化网络error...")
 		return false
 	}
@@ -241,35 +240,35 @@ func (this *MatchServer) StartNetWork() bool {
 }
 
 // 启动完成
-func (this *MatchServer) OnStart() {
+func (ma *MatchServer) OnStart() {
 	log.Info("开始执行OnStart")
-	this.runtimestamp = util.CURTIMEMS()
+	ma.runtimestamp = util.CURTIMEMS()
 	log.Info("结束执行OnStart")
 }
 
 // 程序退出最后清理
-func (this *MatchServer) OnStop() {
-	this.hredis.Close()
+func (ma *MatchServer) OnStop() {
+	ma.hredis.Close()
 }
 
 //  退出
-func (this *MatchServer) Quit() {
-	if this.net != nil {
-		this.net.Shutdown()
+func (ma *MatchServer) Quit() {
+	if ma.net != nil {
+		ma.net.Shutdown()
 	}
 }
 
 // 主循环
-func (this *MatchServer) Run() {
+func (ma *MatchServer) Run() {
 
 	// TODO:每帧处理2000条
 	now := util.CURTIMEMS()
-	lastrun := now - this.runtimestamp
-	this.net.Dispatch(network.KFrameDispatchNum * 2)
+	lastrun := now - ma.runtimestamp
+	ma.net.Dispatch(network.KFrameDispatchNum * 2)
 	tm_dispath := util.CURTIMEMS()
 
 	//
-	this.roomsvrmgr.Tick(now)
+	ma.roomsvrmgr.Tick(now)
 	tm_roomtick := util.CURTIMEMS()
 	//
 	delay := tm_roomtick - now
@@ -278,16 +277,16 @@ func (this *MatchServer) Run() {
 	}
 
 	//
-	this.runtimestamp = util.CURTIMEMS()
+	ma.runtimestamp = util.CURTIMEMS()
 }
 
 // 公告
-func (this *MatchServer) BroadcastGateMsg(msg pb.Message) {
-	this.gatemgr.Broadcast(msg)
+func (ma *MatchServer) BroadcastGateMsg(msg pb.Message) {
+	ma.gatemgr.Broadcast(msg)
 }
 
-func (this *MatchServer) Reload() {
-	if this.tblloader != nil {
-		this.tblloader.Reload()
+func (ma *MatchServer) Reload() {
+	if ma.tblloader != nil {
+		ma.tblloader.Reload()
 	}
 }

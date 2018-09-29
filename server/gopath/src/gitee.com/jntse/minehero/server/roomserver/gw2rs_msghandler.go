@@ -55,7 +55,6 @@ func on_GW2RS_RetRegist(session network.IBaseNetSession, message interface{}) {
 	if tmsg.GetErrcode() != "" {
 		log.Info("请求注册房间服[%s]到Gate[%s][%s:%d]失败: %s", RoomSvr().Name(), session.Name(), ip, port, tmsg.GetErrcode())
 		panic(fmt.Sprintf("网关通知注册失败 原因:%s", tmsg.GetErrcode()))
-		return
 	}
 
 	// 重复注册检查

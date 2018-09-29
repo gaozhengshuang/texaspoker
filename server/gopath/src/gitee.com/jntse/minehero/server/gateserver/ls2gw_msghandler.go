@@ -45,7 +45,6 @@ func on_L2GW_RetRegist(session network.IBaseNetSession, message interface{}) {
 	// 启动了相同的网关
 	if tmsg.GetErrocde() != "" {
 		panic(fmt.Sprintf("Login服务器通知注册失败 原因：%s", tmsg.GetErrocde()))
-		return
 	}
 	log.Info("注册网关[%v]到Login成功", tmsg.GetHost())
 }

@@ -29,25 +29,25 @@ func NewRS2MSMsgHandler() *RS2MSMsgHandler {
 	return handler
 }
 
-func (this* RS2MSMsgHandler) Init() {
+func (rs* RS2MSMsgHandler) Init() {
 
-	this.msgparser = network.NewProtoParser("RS2MS_MsgParser", tbl.ProtoMsgIndexGenerator)
-	if this.msgparser == nil {
+	rs.msgparser = network.NewProtoParser("RS2MS_MsgParser", tbl.ProtoMsgIndexGenerator)
+	if rs.msgparser == nil {
 		return
 	}
 
 	// 收
-	this.msgparser.RegistProtoMsg(msg.RS2MS_ReqRegist{}, on_RS2MS_ReqRegist)
-	this.msgparser.RegistProtoMsg(msg.RS2MS_HeartBeat{}, on_RS2MS_HeartBeat)
-	this.msgparser.RegistProtoMsg(msg.RS2MS_RetCreateRoom{}, on_RS2MS_RetCreateRoom)
-	this.msgparser.RegistProtoMsg(msg.RS2MS_MsgNotice{}, on_RS2MS_MsgNotice)
+	rs.msgparser.RegistProtoMsg(msg.RS2MS_ReqRegist{}, on_RS2MS_ReqRegist)
+	rs.msgparser.RegistProtoMsg(msg.RS2MS_HeartBeat{}, on_RS2MS_HeartBeat)
+	rs.msgparser.RegistProtoMsg(msg.RS2MS_RetCreateRoom{}, on_RS2MS_RetCreateRoom)
+	rs.msgparser.RegistProtoMsg(msg.RS2MS_MsgNotice{}, on_RS2MS_MsgNotice)
 
 	//// 发
-	//this.msgparser.RegistSendProto(msg.MS2RS_RetRegist{})
-	//this.msgparser.RegistSendProto(msg.MS2RS_HeartBeat{})
-	//this.msgparser.RegistSendProto(msg.MS2RS_GateInfo{})
-	//this.msgparser.RegistSendProto(msg.MS2RS_CreateRoom{})
-	//this.msgparser.RegistSendProto(msg.MS2Server_BroadCast{})
+	//rs.msgparser.RegistSendProto(msg.MS2RS_RetRegist{})
+	//rs.msgparser.RegistSendProto(msg.MS2RS_HeartBeat{})
+	//rs.msgparser.RegistSendProto(msg.MS2RS_GateInfo{})
+	//rs.msgparser.RegistSendProto(msg.MS2RS_CreateRoom{})
+	//rs.msgparser.RegistSendProto(msg.MS2Server_BroadCast{})
 
 }
 

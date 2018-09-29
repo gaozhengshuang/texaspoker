@@ -129,13 +129,13 @@ func (this *RankManager) GetRankListByType(_type, _rank int32) []*UserRankInfo {
 
 //同步玩家金币到redis
 func (this *GateUser) SyncGoldRankRedis() {
-	zMem := redis.Z{float64(this.GetGold()), this.Id()}
+	zMem := redis.Z{Score: float64(this.GetGold()), Member: this.Id()}
 	Redis().ZAdd("zGoldRank", zMem)
 }
 
 //同步玩家等级到redis
 func (this *GateUser) SyncLevelRankRedis() {
-	zMem := redis.Z{float64(this.Level()), this.Id()}
+	zMem := redis.Z{Score: float64(this.Level()), Member: this.Id()}
 	Redis().ZAdd("zLevelRank", zMem)
 }
 
