@@ -50,7 +50,6 @@ func on_MS2GW_RetRegist(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.MS2GW_RetRegist)
 	if tmsg.GetErrcode() != "" {
 		panic(fmt.Sprintf("Matach服务器返回注册失败 原因：%s", tmsg.GetErrcode()))
-		return
 	}
 
 	log.Info("注册网关[%v]到Match成功", tmsg.GetHost())

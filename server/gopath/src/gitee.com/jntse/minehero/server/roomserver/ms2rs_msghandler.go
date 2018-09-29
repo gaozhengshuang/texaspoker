@@ -49,7 +49,6 @@ func on_MS2RS_RetRegist(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.MS2RS_RetRegist)
 	if tmsg.GetErrcode() != "" {
 		panic(fmt.Sprintf("Matach服务器通知注册失败 原因：%s", tmsg.GetErrcode()))
-		return
 	}
 	log.Info("注册房间服[%s]到Match成功", RoomSvr().Name())
 
@@ -76,7 +75,7 @@ func on_MS2RS_GateInfo(session network.IBaseNetSession, message interface{}) {
 		conf := network.TcpConnectConf{ 
 			Name:"GateConnector" + "_" + gate.GetName(),
 			Parser:"GW2RS_MsgParser",
-			Host:network.NetHost{gate.GetHost().GetIp(), int(gate.GetHost().GetPort())},
+			Host:network.NetHost{Ip:gate.GetHost().GetIp(), Port:int(gate.GetHost().GetPort())},
 			Interval:0,
 			SvrChannel:true,
 			Disable:1,
