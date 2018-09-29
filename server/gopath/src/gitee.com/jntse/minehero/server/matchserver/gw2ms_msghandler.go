@@ -26,7 +26,7 @@ func NewGW2MSMsgHandler() *GW2MSMsgHandler {
 	return handler
 }
 
-func (gw *GW2MSMsgHandler) Init() {
+func (mh *GW2MSMsgHandler) Init() {
 
 	mh.msgparser = network.NewProtoParser("GW2MS_MsgParser", tbl.ProtoMsgIndexGenerator)
 	if mh.msgparser == nil {

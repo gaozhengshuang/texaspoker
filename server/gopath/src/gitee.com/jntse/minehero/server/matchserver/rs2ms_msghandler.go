@@ -29,7 +29,7 @@ func NewRS2MSMsgHandler() *RS2MSMsgHandler {
 	return handler
 }
 
-func (rs* RS2MSMsgHandler) Init() {
+func (mh* RS2MSMsgHandler) Init() {
 
 	mh.msgparser = network.NewProtoParser("RS2MS_MsgParser", tbl.ProtoMsgIndexGenerator)
 	if mh.msgparser == nil {

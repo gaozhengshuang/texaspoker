@@ -24,16 +24,16 @@ func NewLS2CMsgHandler() *LS2CMsgHandler {
 	return handler
 }
 
-func (this* LS2CMsgHandler) Init() {
+func (mh* LS2CMsgHandler) Init() {
 
-	this.msgparser = network.NewProtoParser("LS2C_MsgParser", tbl.ProtoMsgIndexGenerator)
-	if this.msgparser == nil {
+	mh.msgparser = network.NewProtoParser("LS2C_MsgParser", tbl.ProtoMsgIndexGenerator)
+	if mh.msgparser == nil {
 		return
 	}
 
 	// 收
-	this.msgparser.RegistRecvMsg(msg.L2C_RetLogin{}, on_L2C_RetLogin)
-	this.msgparser.RegistRecvMsg(msg.L2C_RetRegistAccount{}, on_L2C_RetRegistAccount)
+	mh.msgparser.RegistRecvMsg(msg.L2C_RetLogin{}, on_L2C_RetLogin)
+	mh.msgparser.RegistRecvMsg(msg.L2C_RetRegistAccount{}, on_L2C_RetRegistAccount)
 }
 
 func on_L2C_RetLogin(session network.IBaseNetSession, message interface{}) {
