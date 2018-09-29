@@ -13,7 +13,7 @@ class RankManager
     public static initialize()
     {
         RankManager.allRankList = new Array<RankListInfo>();
-        for (let def of RankDefined.GetInstance().dataList)
+        for (let def of table.Rank)
         {
             let listInfo: RankListInfo = new RankListInfo();
             listInfo.definition = def;
@@ -51,33 +51,33 @@ class RankManager
     {
         for (let listInfo of RankManager.allRankList)
         {
-            let def: RankDefinition = listInfo.definition;
+            let def: table.IRankDefine = listInfo.definition;
             if (def)
             {
                 if (param3)
                 {
-                    if (def.type == type && def.param1 == param1 && def.param2 == param2 && def.param3 == param3)
+                    if (def.Type == type && def.Param1 == param1 && def.Param2 == param2 && def.Param3 == param3)
                     {
                         return listInfo;
                     }
                 }
                 else if (param2)
                 {
-                    if (def.type == type && def.param1 == param1 && def.param2 == param2)
+                    if (def.Type == type && def.Param1 == param1 && def.Param2 == param2)
                     {
                         return listInfo;
                     }
                 }
                 else if (param1)
                 {
-                    if (def.type == type && def.param1 == param1)
+                    if (def.Type == type && def.Param1 == param1)
                     {
                         return listInfo;
                     }
                 }
                 else
                 {
-                    if (def.type == type)
+                    if (def.Type == type)
                     {
                         return listInfo;
                     }
@@ -95,16 +95,17 @@ class RankManager
     {
         let callback: Function = function (result: game.SpRpcResult)
         {
+            let data:msg.GW2C_RetRankList = result.data;
             if (result.data)
             {
                 let list: Array<RankInfo> = new Array<RankInfo>();
-                if (result.data["rankList"])
+                if (data.ranklist)
                 {
-                    for (let def of result.data["rankList"])
+                    for (let info of data.ranklist)
                     {
                         let rank: RankInfo = new RankInfo();
                         rank.reset();
-                        rank.copyValueFrom(def);
+                        rank.copyValueFromIgnoreCase(info);
                         rank.type = type;
                         list.push(rank);
                     }
@@ -135,7 +136,7 @@ class RankManager
         {
             sendObj = { type: type, rank: isGetMyRank };
         }
-        SocketManager.call(Command.Req_RankList_3110, sendObj, callback, null, this);
+        SocketManager.call(Command.C2GW_ReqRankList, sendObj, callback, null, this);
     }
     /**
      * 根据roleId获得排名信息
@@ -162,7 +163,7 @@ class RankManager
         if (InfoUtil.checkAvailable(info))
         {
             let time: number = TimeManager.GetServerUtcTimestamp() - info.lastTime;
-            if (time > info.definition.cd)
+            if (time > info.definition.Cd)
             {
                 return true;
             }

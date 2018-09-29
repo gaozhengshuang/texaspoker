@@ -8,6 +8,7 @@ class MailPanel extends BasePanel
 	public mailScroller: eui.Scroller;
 	public noMailLabel: eui.Scroller;
 	public mailGroup: eui.Group;
+	private _lastIdx:number;
 	public constructor()
 	{
 		super();
@@ -34,7 +35,6 @@ class MailPanel extends BasePanel
 		super.init(appendData);
 		this.tab.init(0);
 		MailManager.unReadCount = 0;
-		this.onBarItemTap(0);
 	}
 	protected onEnable(event: eui.UIEvent): void
 	{
@@ -60,16 +60,18 @@ class MailPanel extends BasePanel
 	private refreshUI()
 	{
 		this.noMailLabel.visible = MailManager.mailList.length == 0;
-		UIUtil.writeListInfo(this.mailList, MailManager.mailList, "Id");
+		let list: MailInfo[] = MailManager.getListByType(this._lastIdx);
+		UIUtil.writeListInfo(this.mailList, list, "Id");
 	}
 
 	private onBarItemTap(index: number): void
 	{
+		this._lastIdx = index;
 		let list: MailInfo[] = MailManager.getListByType(index);
 		if (list)
 		{
 			this.noMailLabel.visible = list.length == 0;
-			UIUtil.writeListInfo(this.mailList, MailManager.getListByType(index), "Id", false, SortUtil.MailDateSort);
+			UIUtil.writeListInfo(this.mailList, list, "Id", false, SortUtil.MailDateSort);
 		}
 		else
 		{

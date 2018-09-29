@@ -275,7 +275,7 @@ class Command
     /**
      * 拉取排行榜信息
      */
-    public static readonly Req_RankList_3110 = "c3110";
+    public static readonly C2GW_ReqRankList = "msg.C2GW_ReqRankList";
     /**
      * 拉取物品列表
      */

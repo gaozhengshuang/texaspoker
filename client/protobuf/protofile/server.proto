@@ -73,6 +73,12 @@ message GW2MS_HeartBeat {
 message MS2GW_HeartBeat {
 }
 
+// GW2GW 消息转发
+message GW2GW_MsgTransfer {
+    optional int64 uid = 1;
+    optional string name = 2;
+    optional bytes buf = 3;
+}
 
 // --------------------------------------------------------------------------
 /// @brief GateServer <----> RoomServer

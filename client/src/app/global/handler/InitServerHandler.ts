@@ -170,7 +170,7 @@ class InitServerHandler
 	private onGetMailList(result: game.SpRpcResult)
 	{
 		MailManager.Reset();
-		MailManager.initialize(result, false);
+		MailManager.initialize(result);
 		this.reqGetActivityList();
 	}
 	/**
