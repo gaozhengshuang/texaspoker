@@ -68,6 +68,7 @@ type TexasPokerRoom struct {
 	playerstate []int32
 	waittime int32						//无人的时间
 	raisecount int32					//加注人数
+	raisebet int32						//加注数
 }
 
 func (this *TexasPokerRoom) Id() int64 { return this.id }
@@ -351,6 +352,7 @@ func (this *TexasPokerRoom) BetStart(pos int32){
 		return
 	}
 	this.raisecount = 0
+	this.raisebet = 0
 	this.ForEachPlayer(pos, func(player *TexasPlayer) bool {
 		if player.IsAllIn() {
 			return true
@@ -370,8 +372,6 @@ func (this *TexasPokerRoom) OneLoopOver() {
 
 func (this *TexasPokerRoom) PreFlopBet() int32{
 	if this.remain <= 1 {
-		log.Info("房间%d人数1人 直接结束比赛", this.Id())
-		this.overflag = true
 		return TPShowDown
 	}
 	if this.AllBetOver() {
@@ -504,7 +504,7 @@ func (this *TexasPokerRoom) AllBetOver() bool{
 		}
 		return true
 	})
-	if tmpcount == this.remain {
+	if tmpcount >= this.remain {
 		return true
 	}
 	return false
@@ -587,6 +587,9 @@ func (this *TexasPokerRoom) ShowDown() int32{
 		if player.isshowcard == false {
 			continue
 		}
+		if this.remain == 1 {
+			continue
+		}
 		send.Handcardlist = append(send.Handcardlist, &msg.HandCardInfo{
 			Roleid : pb.Int64(player.owner.Id()),
 			Card : player.ToHandCard(),
@@ -617,6 +620,7 @@ func (this *TexasPokerRoom) RestartGame() int32{
 		this.overflag = false
 		this.waittime = 0
 		this.raisecount = 0
+		this.raisebet = 0
 		for _, p := range this.players {
 			if p != nil {
 				p.AddBankRollNext()
