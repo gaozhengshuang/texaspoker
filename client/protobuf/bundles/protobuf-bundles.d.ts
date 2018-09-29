@@ -712,6 +712,342 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a C2GW_ReqRankList. */
+    interface IC2GW_ReqRankList {
+
+        /** C2GW_ReqRankList type */
+        type?: (number|null);
+
+        /** C2GW_ReqRankList rank */
+        rank?: (number|null);
+
+        /** C2GW_ReqRankList param1 */
+        param1?: (number|null);
+
+        /** C2GW_ReqRankList param2 */
+        param2?: (number|null);
+
+        /** C2GW_ReqRankList param3 */
+        param3?: (number|null);
+    }
+
+    /** Represents a C2GW_ReqRankList. */
+    class C2GW_ReqRankList implements IC2GW_ReqRankList {
+
+        /**
+         * Constructs a new C2GW_ReqRankList.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqRankList);
+
+        /** C2GW_ReqRankList type. */
+        public type: number;
+
+        /** C2GW_ReqRankList rank. */
+        public rank: number;
+
+        /** C2GW_ReqRankList param1. */
+        public param1: number;
+
+        /** C2GW_ReqRankList param2. */
+        public param2: number;
+
+        /** C2GW_ReqRankList param3. */
+        public param3: number;
+
+        /**
+         * Creates a new C2GW_ReqRankList instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqRankList instance
+         */
+        public static create(properties?: msg.IC2GW_ReqRankList): msg.C2GW_ReqRankList;
+
+        /**
+         * Encodes the specified C2GW_ReqRankList message. Does not implicitly {@link msg.C2GW_ReqRankList.verify|verify} messages.
+         * @param message C2GW_ReqRankList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqRankList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqRankList message, length delimited. Does not implicitly {@link msg.C2GW_ReqRankList.verify|verify} messages.
+         * @param message C2GW_ReqRankList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqRankList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqRankList message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqRankList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqRankList;
+
+        /**
+         * Decodes a C2GW_ReqRankList message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqRankList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqRankList;
+
+        /**
+         * Verifies a C2GW_ReqRankList message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqRankList message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqRankList
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqRankList;
+
+        /**
+         * Creates a plain object from a C2GW_ReqRankList message. Also converts values to other types if specified.
+         * @param message C2GW_ReqRankList
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqRankList, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqRankList to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RankInfo. */
+    interface IRankInfo {
+
+        /** RankInfo roleid */
+        roleid?: (number|Long|null);
+
+        /** RankInfo name */
+        name?: (string|null);
+
+        /** RankInfo score */
+        score?: (number|null);
+
+        /** RankInfo rank */
+        rank?: (number|null);
+
+        /** RankInfo head */
+        head?: (string|null);
+
+        /** RankInfo sex */
+        sex?: (number|null);
+
+        /** RankInfo change */
+        change?: (number|null);
+    }
+
+    /** Represents a RankInfo. */
+    class RankInfo implements IRankInfo {
+
+        /**
+         * Constructs a new RankInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IRankInfo);
+
+        /** RankInfo roleid. */
+        public roleid: (number|Long);
+
+        /** RankInfo name. */
+        public name: string;
+
+        /** RankInfo score. */
+        public score: number;
+
+        /** RankInfo rank. */
+        public rank: number;
+
+        /** RankInfo head. */
+        public head: string;
+
+        /** RankInfo sex. */
+        public sex: number;
+
+        /** RankInfo change. */
+        public change: number;
+
+        /**
+         * Creates a new RankInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RankInfo instance
+         */
+        public static create(properties?: msg.IRankInfo): msg.RankInfo;
+
+        /**
+         * Encodes the specified RankInfo message. Does not implicitly {@link msg.RankInfo.verify|verify} messages.
+         * @param message RankInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IRankInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified RankInfo message, length delimited. Does not implicitly {@link msg.RankInfo.verify|verify} messages.
+         * @param message RankInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IRankInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a RankInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RankInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RankInfo;
+
+        /**
+         * Decodes a RankInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RankInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RankInfo;
+
+        /**
+         * Verifies a RankInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RankInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RankInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.RankInfo;
+
+        /**
+         * Creates a plain object from a RankInfo message. Also converts values to other types if specified.
+         * @param message RankInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.RankInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RankInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetRankList. */
+    interface IGW2C_RetRankList {
+
+        /** GW2C_RetRankList myrank */
+        myrank?: (number|null);
+
+        /** GW2C_RetRankList ranklist */
+        ranklist?: (msg.IRankInfo[]|null);
+    }
+
+    /** Represents a GW2C_RetRankList. */
+    class GW2C_RetRankList implements IGW2C_RetRankList {
+
+        /**
+         * Constructs a new GW2C_RetRankList.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetRankList);
+
+        /** GW2C_RetRankList myrank. */
+        public myrank: number;
+
+        /** GW2C_RetRankList ranklist. */
+        public ranklist: msg.IRankInfo[];
+
+        /**
+         * Creates a new GW2C_RetRankList instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetRankList instance
+         */
+        public static create(properties?: msg.IGW2C_RetRankList): msg.GW2C_RetRankList;
+
+        /**
+         * Encodes the specified GW2C_RetRankList message. Does not implicitly {@link msg.GW2C_RetRankList.verify|verify} messages.
+         * @param message GW2C_RetRankList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetRankList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetRankList message, length delimited. Does not implicitly {@link msg.GW2C_RetRankList.verify|verify} messages.
+         * @param message GW2C_RetRankList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetRankList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetRankList message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetRankList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetRankList;
+
+        /**
+         * Decodes a GW2C_RetRankList message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetRankList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetRankList;
+
+        /**
+         * Verifies a GW2C_RetRankList message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetRankList message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetRankList
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetRankList;
+
+        /**
+         * Creates a plain object from a GW2C_RetRankList message. Also converts values to other types if specified.
+         * @param message GW2C_RetRankList
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetRankList, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetRankList to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of an IpHost. */
     interface IIpHost {
 
@@ -1585,8 +1921,8 @@ declare namespace msg {
     /** Properties of an EntityBase. */
     interface IEntityBase {
 
-        /** EntityBase id */
-        id?: (number|Long|null);
+        /** EntityBase roleid */
+        roleid?: (number|Long|null);
 
         /** EntityBase name */
         name?: (string|null);
@@ -1625,8 +1961,8 @@ declare namespace msg {
          */
         constructor(properties?: msg.IEntityBase);
 
-        /** EntityBase id. */
-        public id: (number|Long);
+        /** EntityBase roleid. */
+        public roleid: (number|Long);
 
         /** EntityBase name. */
         public name: string;
@@ -6257,13 +6593,13 @@ declare namespace msg {
         subtype?: (number|null);
 
         /** MailDetail date */
-        date?: (number|null);
+        date?: (number|Long|null);
 
         /** MailDetail sender */
         sender?: (string|null);
 
         /** MailDetail senderid */
-        senderid?: (number|null);
+        senderid?: (number|Long|null);
 
         /** MailDetail isread */
         isread?: (boolean|null);
@@ -6300,13 +6636,13 @@ declare namespace msg {
         public subtype: number;
 
         /** MailDetail date. */
-        public date: number;
+        public date: (number|Long);
 
         /** MailDetail sender. */
         public sender: string;
 
         /** MailDetail senderid. */
-        public senderid: number;
+        public senderid: (number|Long);
 
         /** MailDetail isread. */
         public isread: boolean;
@@ -6845,6 +7181,198 @@ declare namespace msg {
 
         /**
          * Converts this GW2C_PushNewMail to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2MS_PushNewMail. */
+    interface IGW2MS_PushNewMail {
+
+        /** GW2MS_PushNewMail receiver */
+        receiver?: (number|Long|null);
+
+        /** GW2MS_PushNewMail mail */
+        mail?: (msg.IMailDetail|null);
+    }
+
+    /** Represents a GW2MS_PushNewMail. */
+    class GW2MS_PushNewMail implements IGW2MS_PushNewMail {
+
+        /**
+         * Constructs a new GW2MS_PushNewMail.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2MS_PushNewMail);
+
+        /** GW2MS_PushNewMail receiver. */
+        public receiver: (number|Long);
+
+        /** GW2MS_PushNewMail mail. */
+        public mail?: (msg.IMailDetail|null);
+
+        /**
+         * Creates a new GW2MS_PushNewMail instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2MS_PushNewMail instance
+         */
+        public static create(properties?: msg.IGW2MS_PushNewMail): msg.GW2MS_PushNewMail;
+
+        /**
+         * Encodes the specified GW2MS_PushNewMail message. Does not implicitly {@link msg.GW2MS_PushNewMail.verify|verify} messages.
+         * @param message GW2MS_PushNewMail message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2MS_PushNewMail, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2MS_PushNewMail message, length delimited. Does not implicitly {@link msg.GW2MS_PushNewMail.verify|verify} messages.
+         * @param message GW2MS_PushNewMail message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2MS_PushNewMail, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2MS_PushNewMail message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2MS_PushNewMail
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_PushNewMail;
+
+        /**
+         * Decodes a GW2MS_PushNewMail message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2MS_PushNewMail
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_PushNewMail;
+
+        /**
+         * Verifies a GW2MS_PushNewMail message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2MS_PushNewMail message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2MS_PushNewMail
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2MS_PushNewMail;
+
+        /**
+         * Creates a plain object from a GW2MS_PushNewMail message. Also converts values to other types if specified.
+         * @param message GW2MS_PushNewMail
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2MS_PushNewMail, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2MS_PushNewMail to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a MS2GW_PushNewMail. */
+    interface IMS2GW_PushNewMail {
+
+        /** MS2GW_PushNewMail receiver */
+        receiver?: (number|Long|null);
+
+        /** MS2GW_PushNewMail mail */
+        mail?: (msg.IMailDetail|null);
+    }
+
+    /** Represents a MS2GW_PushNewMail. */
+    class MS2GW_PushNewMail implements IMS2GW_PushNewMail {
+
+        /**
+         * Constructs a new MS2GW_PushNewMail.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IMS2GW_PushNewMail);
+
+        /** MS2GW_PushNewMail receiver. */
+        public receiver: (number|Long);
+
+        /** MS2GW_PushNewMail mail. */
+        public mail?: (msg.IMailDetail|null);
+
+        /**
+         * Creates a new MS2GW_PushNewMail instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MS2GW_PushNewMail instance
+         */
+        public static create(properties?: msg.IMS2GW_PushNewMail): msg.MS2GW_PushNewMail;
+
+        /**
+         * Encodes the specified MS2GW_PushNewMail message. Does not implicitly {@link msg.MS2GW_PushNewMail.verify|verify} messages.
+         * @param message MS2GW_PushNewMail message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IMS2GW_PushNewMail, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified MS2GW_PushNewMail message, length delimited. Does not implicitly {@link msg.MS2GW_PushNewMail.verify|verify} messages.
+         * @param message MS2GW_PushNewMail message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IMS2GW_PushNewMail, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a MS2GW_PushNewMail message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MS2GW_PushNewMail
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MS2GW_PushNewMail;
+
+        /**
+         * Decodes a MS2GW_PushNewMail message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MS2GW_PushNewMail
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MS2GW_PushNewMail;
+
+        /**
+         * Verifies a MS2GW_PushNewMail message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MS2GW_PushNewMail message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MS2GW_PushNewMail
+         */
+        public static fromObject(object: { [k: string]: any }): msg.MS2GW_PushNewMail;
+
+        /**
+         * Creates a plain object from a MS2GW_PushNewMail message. Also converts values to other types if specified.
+         * @param message MS2GW_PushNewMail
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.MS2GW_PushNewMail, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MS2GW_PushNewMail to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -12053,6 +12581,108 @@ declare namespace msg {
 
         /**
          * Converts this MS2GW_HeartBeat to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2GW_MsgTransfer. */
+    interface IGW2GW_MsgTransfer {
+
+        /** GW2GW_MsgTransfer uid */
+        uid?: (number|Long|null);
+
+        /** GW2GW_MsgTransfer name */
+        name?: (string|null);
+
+        /** GW2GW_MsgTransfer buf */
+        buf?: (Uint8Array|null);
+    }
+
+    /** Represents a GW2GW_MsgTransfer. */
+    class GW2GW_MsgTransfer implements IGW2GW_MsgTransfer {
+
+        /**
+         * Constructs a new GW2GW_MsgTransfer.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2GW_MsgTransfer);
+
+        /** GW2GW_MsgTransfer uid. */
+        public uid: (number|Long);
+
+        /** GW2GW_MsgTransfer name. */
+        public name: string;
+
+        /** GW2GW_MsgTransfer buf. */
+        public buf: Uint8Array;
+
+        /**
+         * Creates a new GW2GW_MsgTransfer instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2GW_MsgTransfer instance
+         */
+        public static create(properties?: msg.IGW2GW_MsgTransfer): msg.GW2GW_MsgTransfer;
+
+        /**
+         * Encodes the specified GW2GW_MsgTransfer message. Does not implicitly {@link msg.GW2GW_MsgTransfer.verify|verify} messages.
+         * @param message GW2GW_MsgTransfer message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2GW_MsgTransfer, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2GW_MsgTransfer message, length delimited. Does not implicitly {@link msg.GW2GW_MsgTransfer.verify|verify} messages.
+         * @param message GW2GW_MsgTransfer message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2GW_MsgTransfer, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2GW_MsgTransfer message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2GW_MsgTransfer
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2GW_MsgTransfer;
+
+        /**
+         * Decodes a GW2GW_MsgTransfer message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2GW_MsgTransfer
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2GW_MsgTransfer;
+
+        /**
+         * Verifies a GW2GW_MsgTransfer message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2GW_MsgTransfer message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2GW_MsgTransfer
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2GW_MsgTransfer;
+
+        /**
+         * Creates a plain object from a GW2GW_MsgTransfer message. Also converts values to other types if specified.
+         * @param message GW2GW_MsgTransfer
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2GW_MsgTransfer, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2GW_MsgTransfer to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -21284,6 +21914,192 @@ declare namespace table {
 
         /**
          * Converts this TTaskDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TexasAI. */
+    interface ITexasAI {
+
+        /** TexasAI TAI */
+        TAI?: (table.ITAIDefine[]|null);
+    }
+
+    /** Represents a TexasAI. */
+    class TexasAI implements ITexasAI {
+
+        /**
+         * Constructs a new TexasAI.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITexasAI);
+
+        /** TexasAI TAI. */
+        public TAI: table.ITAIDefine[];
+
+        /**
+         * Creates a new TexasAI instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TexasAI instance
+         */
+        public static create(properties?: table.ITexasAI): table.TexasAI;
+
+        /**
+         * Encodes the specified TexasAI message. Does not implicitly {@link table.TexasAI.verify|verify} messages.
+         * @param message TexasAI message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITexasAI, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TexasAI message, length delimited. Does not implicitly {@link table.TexasAI.verify|verify} messages.
+         * @param message TexasAI message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITexasAI, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TexasAI message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TexasAI
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TexasAI;
+
+        /**
+         * Decodes a TexasAI message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TexasAI
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TexasAI;
+
+        /**
+         * Verifies a TexasAI message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TexasAI message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TexasAI
+         */
+        public static fromObject(object: { [k: string]: any }): table.TexasAI;
+
+        /**
+         * Creates a plain object from a TexasAI message. Also converts values to other types if specified.
+         * @param message TexasAI
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TexasAI, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TexasAI to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TAIDefine. */
+    interface ITAIDefine {
+
+        /** TAIDefine Id */
+        Id?: (number|null);
+
+        /** TAIDefine Name */
+        Name?: (string|null);
+    }
+
+    /** Represents a TAIDefine. */
+    class TAIDefine implements ITAIDefine {
+
+        /**
+         * Constructs a new TAIDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITAIDefine);
+
+        /** TAIDefine Id. */
+        public Id: number;
+
+        /** TAIDefine Name. */
+        public Name: string;
+
+        /**
+         * Creates a new TAIDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TAIDefine instance
+         */
+        public static create(properties?: table.ITAIDefine): table.TAIDefine;
+
+        /**
+         * Encodes the specified TAIDefine message. Does not implicitly {@link table.TAIDefine.verify|verify} messages.
+         * @param message TAIDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITAIDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TAIDefine message, length delimited. Does not implicitly {@link table.TAIDefine.verify|verify} messages.
+         * @param message TAIDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITAIDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TAIDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TAIDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TAIDefine;
+
+        /**
+         * Decodes a TAIDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TAIDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TAIDefine;
+
+        /**
+         * Verifies a TAIDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TAIDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TAIDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.TAIDefine;
+
+        /**
+         * Creates a plain object from a TAIDefine message. Also converts values to other types if specified.
+         * @param message TAIDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TAIDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TAIDefine to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };

@@ -2,7 +2,17 @@ class MailInfo extends BaseServerValueInfo
 {
     public reset()
     {
-
+        this.Id = 0;
+        this.IsRead = false;
+        this.Type = 0;
+        this.Title = game.StringConstants.Empty;
+        this.SubType = 0;
+        this.Content = game.StringConstants.Empty;
+        this.Sender = game.StringConstants.Empty;
+        this.SenderId = 0;
+        this.Date = 0;
+        this.items = null;
+        this.IsGot = false;
     }
     /**
      * 邮件id

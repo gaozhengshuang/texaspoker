@@ -9,30 +9,23 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 		{
 			for (let key in data)
 			{
-				if (key == "id")
+				let property: any = this[key];
+				if (!(property instanceof Function)) //函数属性不拷贝
 				{
-					this.roleId = data.id;
-				}
-				else
-				{
-					let property: any = this[key];
-					if (!(property instanceof Function)) //函数属性不拷贝
+					if (data[key] == undefined)
 					{
-						if (data[key] == undefined)
+						if (typeof this[key] == "number")
 						{
-							if (typeof this[key] == "number")
-							{
-								this[key] = 0;
-							}
-							else if (typeof this[key] == "string")
-							{
-								this[key] = game.StringConstants.Empty;
-							}
+							this[key] = 0;
 						}
-						else
+						else if (typeof this[key] == "string")
 						{
-							this[key] = data[key];
+							this[key] = game.StringConstants.Empty;
 						}
+					}
+					else
+					{
+						this[key] = data[key];
 					}
 				}
 			}
@@ -55,31 +48,24 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 			let self: any = this;
 			for (let key in self)
 			{
-				if (key == "id")
+				let lowerKey = key.toLowerCase();
+				let property: any = this[key];
+				if (!(property instanceof Function)) //函数属性不拷贝
 				{
-					this.roleId = data.id;
-				}
-				else
-				{
-					let lowerKey = key.toLowerCase();
-					let property: any = this[key];
-					if (!(property instanceof Function)) //函数属性不拷贝
+					if (data[lowerKey] == undefined)
 					{
-						if (data[lowerKey] == undefined)
+						if (typeof self[key] === "number")
 						{
-							if (typeof self[key] === "number")
-							{
-								self[key] = 0;
-							}
-							else if (typeof self[key] === "string")
-							{
-								self[key] = game.StringConstants.Empty;
-							}
+							self[key] = 0;
 						}
-						else
+						else if (typeof self[key] === "string")
 						{
-							self[key] = data[lowerKey];
+							self[key] = game.StringConstants.Empty;
 						}
+					}
+					else
+					{
+						self[key] = data[lowerKey];
 					}
 				}
 			}
@@ -159,7 +145,7 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 	/**
 	 * 登录时间
 	 */
-	public tmlogin:number;
+	public tmlogin: number;
 	/**
 	 * 钻石数量
 	 */

@@ -28,7 +28,7 @@ class InitAppHandler
 		// NotifyManager.initByReLogin(); //move todo
 		UploadHeadManager.clearAllData();
 		// BindAccountManager.clear(); //move todo
-		// RankManager.initialize(); //move todo
+		RankManager.initialize();
 		// PopupManager.initialize(); //move todo
 	}
 }

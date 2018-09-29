@@ -3,7 +3,7 @@
  */
 class RankListInfo implements IHaveDefintionInfo
 {
-    public definition: RankDefinition;
+    public definition: table.IRankDefine;
     public lastTime: number;
     public list: Array<RankInfo>;
 }
