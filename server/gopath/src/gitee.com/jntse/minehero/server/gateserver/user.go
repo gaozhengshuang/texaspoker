@@ -537,6 +537,7 @@ func (this *GateUser) Online(session network.IBaseNetSession, way string) bool {
 	}
 
 	curtime := util.CURTIME()
+	this.RegistTicker()
 	this.tickers.Start()
 	this.asynev.Start(int64(this.Id()), 100)
 	this.LoginStatistics()
