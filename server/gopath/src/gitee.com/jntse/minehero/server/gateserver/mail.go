@@ -239,6 +239,7 @@ func (m *MailBox) ReceiveNewMail(detail *msg.MailDetail) {
 // 创建邮件
 func MakeNewMail(rid int64, sid int64, sname string, subtype int32, items []*msg.MailItem, args ...interface{}) bool {
 	t1 := util.CURTIMEUS()
+	defer func() { log.Trace("[邮件] 邮件创建耗时[%d]", util.CURTIMEUS() - t1) }()
 	tconf, find := tbl.MailBase.MailById[subtype]
 	if find == false {
 		log.Error("收件人[%d] 发件人[%s %d] 新邮件创建失败，无效的SubType[%d]", rid, sname, sid, subtype)
@@ -278,8 +279,7 @@ func MakeNewMail(rid int64, sid int64, sname string, subtype int32, items []*msg
 
 	// DBSave
 	utredis.HSetProtoBin(Redis(), fmt.Sprintf("usermails_%d", rid), util.Ltoa(uuid), detail)
-	log.Info("收件人[%d] 发件人[%s %d] 新邮件创建成功 Id[%d] SubType[%d] 附件[%v] 内容[%s] 耗时[%d]us", 
-		rid, sname, sid, uuid, subtype, items, content, util.CURTIMEUS() - t1)
+	log.Info("收件人[%d] 发件人[%s %d] 新邮件创建成功 Id[%d] SubType[%d] 附件[%v] 内容[%s]", rid, sname, sid, uuid, subtype, items, content)
 
 
 	// 收件人是否在本服务器
