@@ -103,7 +103,7 @@ func main_pprof() {
 	//
 	server.OnStop()
 
-	time.Sleep(time.Millisecond * 100)
+	time.Sleep(time.Millisecond * 1)
 }
 
 func runMainLoop(server *MatchServer) {
