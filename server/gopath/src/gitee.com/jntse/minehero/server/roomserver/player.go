@@ -198,6 +198,7 @@ func (this *TexasPlayer) Betting(num int32) {
 		this.curbet += num
 		this.room.curbet = this.curbet
 		this.room.chips[this.pos] += num
+		this.room.raisebet = num
 		if this.GetBankRoll() == 0 {
 			this.ChangeState(GSAllIn)
 			this.room.allin++
@@ -322,9 +323,15 @@ func (this *TexasPlayer) AIAction(action int32) {
 			action = AICall
 		}
 		if this.GetBankRoll() >= this.room.bigblindnum * 10 && this.room.curbet >= this.GetBankRoll(){
-			if this.hand.level <= 1 {
-				action = AICall
+			if this.hand.level <= 1 || (this.hand.level == 2 && this.hand.highvalue <= 7) {
+				action = AIFoldCheck
 			}
+		}
+		if this.hand.level <= 1 && this.room.state == TPRiverBet {
+			action = AIFoldCheck
+		}
+		if this.room.state == TPPreFlopBet && action == AIAllIn {
+			action = AIRaise
 		}
 	}
 	log.Info("房间%d AI%d手牌分析%v 等级%d 最高价值%d 行为%d", this.room.Id(), this.owner.Id(), this.ToHandCard(), this.hand.level, this.hand.highvalue, action)
@@ -345,12 +352,10 @@ func (this *TexasPlayer) AIAction(action int32) {
 		if this.GetBankRoll() + this.curbet >= this.room.curbet {
 			call := this.room.curbet-this.curbet
 			if this.room.curbet <= this.GetBankRoll() - call {
-				if util.SelectPercent(30) {
-					this.Betting(this.room.curbet + call)
-				} else if util.SelectPercent(50) {
-					this.Betting(this.room.curbet*2/3 + call)
-				} else {
-					this.Betting(this.room.curbet/3 + call)
+				if this.room.raisebet != 0 {
+					this.Betting(this.room.raisebet*2 + call)
+				}else {
+					this.Betting(this.room.curbet/3*10/10  + call)
 				}
 			}else{
 				this.Betting(this.GetBankRoll())
@@ -543,7 +548,9 @@ func (this *TexasPlayer) StandUp() bool {
 		if !this.IsWait() {
 			this.room.remain--
 			this.room.playerstate[this.pos] = GSFold
+			log.Info("房间%d 玩家%d 站起 参加人数-1", this.room.Id(), this.owner.Id())
 		}
+		log.Info("房间%d 玩家%d 站起", this.room.Id(), this.owner.Id())
 		this.room.DelPlayer(this.pos)
 		this.Init()
 		this.room.AddWatcher(this)
