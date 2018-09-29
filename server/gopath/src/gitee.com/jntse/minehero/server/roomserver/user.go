@@ -38,7 +38,7 @@ type RoomUser struct {
 	maxenergy      int64
 	gamekind       int32
 	roomid         int64 // 房间id
-	isai		   bool
+	isai           bool
 }
 
 func NewRoomUser(rid int64, b *msg.Serialize, gate network.IBaseNetSession, gamekind int32) *RoomUser {
@@ -59,10 +59,10 @@ func NewRoomUser(rid int64, b *msg.Serialize, gate network.IBaseNetSession, game
 func NewRoomUserAI(id int64, name string, sex int32) *RoomUser {
 	user := &RoomUser{}
 	user.bin = new(msg.Serialize)
-	user.bin.Entity = &msg.EntityBase{Roleid : pb.Int64(id), 
-		Name : pb.String(name), 
-		Sex : pb.Int32(sex),
-		Gold : pb.Int32(100000),
+	user.bin.Entity = &msg.EntityBase{Roleid: pb.Int64(id),
+		Name: pb.String(name),
+		Sex:  pb.Int32(sex),
+		Gold: pb.Int32(100000),
 	}
 	user.bin.Base = &msg.UserBase{}
 	user.bin.Base.Misc = &msg.UserMiscData{}
@@ -316,7 +316,11 @@ func (u *RoomUser) SetGold(gold int32, reason string, syn bool) {
 }
 
 func (u *RoomUser) SyncGoldRankRedis() {
-	zMem := redis.Z{Score:float64(u.GetGold()), Member:u.Id()}
+	//机器人不参与排行榜
+	if u.isai == true {
+		return
+	}
+	zMem := redis.Z{Score: float64(u.GetGold()), Member: u.Id()}
 	Redis().ZAdd("zGoldRank", zMem)
 }
 
@@ -449,7 +453,7 @@ func (u *RoomUser) ToRoleInfo() *msg.RS2C_RetFriendGetRoleInfo {
 		Roleid:  pb.Int64(u.Id()),
 		Name:    pb.String(u.Name()),
 		Head:    pb.String(""),
-		Sex:	 pb.Int32(u.Sex()),
+		Sex:     pb.Int32(u.Sex()),
 	}
 }
 
