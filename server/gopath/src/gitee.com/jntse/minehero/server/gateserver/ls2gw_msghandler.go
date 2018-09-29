@@ -25,18 +25,18 @@ func NewLS2GMsgHandler() *LS2GMsgHandler {
 	return handler
 }
 
-func (this* LS2GMsgHandler) Init() {
+func (mh* LS2GMsgHandler) Init() {
 
-	this.msgparser = network.NewProtoParser("LS2GW_MsgParser", tbl.ProtoMsgIndexGenerator)
-	if this.msgparser == nil {
+	mh.msgparser = network.NewProtoParser("LS2GW_MsgParser", tbl.ProtoMsgIndexGenerator)
+	if mh.msgparser == nil {
 		return
 	}
 
 
 	// 收
-	this.msgparser.RegistProtoMsg(msg.L2GW_RetRegist{}, on_L2GW_RetRegist)
-	this.msgparser.RegistProtoMsg(msg.L2GW_HeartBeat{}, on_L2GW_HeartBeat)
-	this.msgparser.RegistProtoMsg(msg.L2GW_ReqRegistUser{}, on_L2GW_ReqRegistUser)
+	mh.msgparser.RegistProtoMsg(msg.L2GW_RetRegist{}, on_L2GW_RetRegist)
+	mh.msgparser.RegistProtoMsg(msg.L2GW_HeartBeat{}, on_L2GW_HeartBeat)
+	mh.msgparser.RegistProtoMsg(msg.L2GW_ReqRegistUser{}, on_L2GW_ReqRegistUser)
 }
 
 func on_L2GW_RetRegist(session network.IBaseNetSession, message interface{}) {

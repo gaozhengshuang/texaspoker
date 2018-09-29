@@ -85,14 +85,14 @@ func Redis() *redis.Client {
 	return Login().hredis
 }
 
-func (this *LoginServer) DoInputCmd(cmd string) {
+func (l *LoginServer) DoInputCmd(cmd string) {
 	switch cmd {
 	case "gates":
 		log.Info("show gates list")
 	case "reload":
-		this.tblloader.Reload()
+		l.tblloader.Reload()
 	case "num":
-		log.Info("num sessions=%d", this.net.SessionSize())
+		log.Info("num sessions=%d", l.net.SessionSize())
 	case "gc":
 		log.Info("Start Force GC...")
 		runtime.GC()
@@ -105,16 +105,16 @@ func (this *LoginServer) DoInputCmd(cmd string) {
 
 // --------------------------------------------------------------------------
 // --------------------------------------------------------------------------
-func (this *LoginServer) OnClose(session network.IBaseNetSession) {
+func (l *LoginServer) OnClose(session network.IBaseNetSession) {
 	sid := session.Id()
-	//delete(this.sessions, sid)
+	//delete(l.sessions, sid)
 	switch session.Name() {
 	case "TaskClient":
 		log.Info("和客户端连接断开 sid[%d]", sid)
-		this.CheckInSetRemove(sid)
+		l.CheckInSetRemove(sid)
 	case "TaskGate":
 		log.Info("和GateServer连接断开 sid[%d]", sid)
-		this.gatemgr.OnClose(sid)
+		l.gatemgr.OnClose(sid)
 	default:
 		log.Error("OnClose error not regist session:%+v", sid)
 	}
@@ -123,58 +123,58 @@ func (this *LoginServer) OnClose(session network.IBaseNetSession) {
 
 // --------------------------------------------------------------------------
 // --------------------------------------------------------------------------
-func (this* LoginServer) OnConnect(session network.IBaseNetSession) {
+func (l* LoginServer) OnConnect(session network.IBaseNetSession) {
 
-	//_, findid := this.sessions[session.Id()]
+	//_, findid := l.sessions[session.Id()]
 	//if findid == true {
 	//	panic(fmt.Sprintf("sid[%d] OnConnect 重复", session.Id()))
 	//	return
 	//}
-	//this.sessions[session.Id()] = session
+	//l.sessions[session.Id()] = session
 
 	switch session.Name() {
 	case "TaskClient":
 		//log.Info("OnConnect clientsession:%+v", session)
-		//session.SetUserDefdata(this)
+		//session.SetUserDefdata(l)
 	case "TaskGate":
 		//log.Trace("OnConnect gatesession:%+v", session)
-		//session.SetUserDefdata(this)
+		//session.SetUserDefdata(l)
 	default:
 		log.Error("not regist client OnConnect session:%+v", session)
 		session.Close()
 	}
 }
 
-func (this *LoginServer) SendMsg(id int, msg pb.Message) bool {
-	//session, ok := this.sessions[id]
+func (l *LoginServer) SendMsg(id int, msg pb.Message) bool {
+	//session, ok := l.sessions[id]
 	//if ok == true {
 	//	return session.SendCmd(msg)
 	//}
 	//return false
-	return this.net.SendMsg(id, msg)
+	return l.net.SendMsg(id, msg)
 }
 
 
-func (this *LoginServer) GetSession(id int) network.IBaseNetSession {
-	//session, _ := this.sessions[id]
+func (l *LoginServer) GetSession(id int) network.IBaseNetSession {
+	//session, _ := l.sessions[id]
 	//return session
-	return this.net.FindSession(id)
+	return l.net.FindSession(id)
 }
 
-func (this *LoginServer) InitMsgHandler() {
-	if this.tblloader == nil { panic("should init 'tblloader' first") }
+func (l *LoginServer) InitMsgHandler() {
+	if l.tblloader == nil { panic("should init 'tblloader' first") }
 	network.InitGlobalSendMsgHandler(tbl.GetAllMsgIndex())
-	this.msghandlers = append(this.msghandlers, NewGW2LMsgHandler())
-	this.msghandlers = append(this.msghandlers, NewC2LSMsgHandler())
+	l.msghandlers = append(l.msghandlers, NewGW2LMsgHandler())
+	l.msghandlers = append(l.msghandlers, NewC2LSMsgHandler())
 }
 
 // 重新加载配置
-func (this *LoginServer) Reload() {
-	if this.tblloader != nil { this.tblloader.Reload() }
+func (l *LoginServer) Reload() {
+	if l.tblloader != nil { l.tblloader.Reload() }
 }
 
 // 
-func (this *LoginServer) Init(fileconf string) bool {
+func (l *LoginServer) Init(fileconf string) bool {
 
 	// 服务器配置
 	netconf := &network.NetConf{}
@@ -183,55 +183,55 @@ func (this *LoginServer) Init(fileconf string) bool {
 		log.Error("JsonParser Error or netconf is nil: '%s'", jsonerr)
 		return false
 	}
-	this.netconf = netconf
+	l.netconf = netconf
 	log.Info("加载服务器配置ok...")
 
 	// 游戏配置
-	this.tblloader = tbl.NewTblLoader(netconf.TblPath)
+	l.tblloader = tbl.NewTblLoader(netconf.TblPath)
 
 	// 消息handler
-	this.InitMsgHandler()
+	l.InitMsgHandler()
 
 	// 杂项
-	this.ticker1ms = util.NewGameTicker(10 * time.Millisecond, this.Handler10msTick)
-	this.ticker1ms.Start()
-	this.gatemgr.Init()
-	//this.sessions = make(map[int]network.IBaseNetSession)
-	this.checkinset = make(map[string]*CheckInAccount)
-	this.runtimestamp = 0
-	this.asynev.Start(1, 1000000)
+	l.ticker1ms = util.NewGameTicker(10 * time.Millisecond, l.Handler10msTick)
+	l.ticker1ms.Start()
+	l.gatemgr.Init()
+	//l.sessions = make(map[int]network.IBaseNetSession)
+	l.checkinset = make(map[string]*CheckInAccount)
+	l.runtimestamp = 0
+	l.asynev.Start(1, 1000000)
 
 	return true
 }
 
 
 // 启动redis
-func (this *LoginServer) StartRedis() bool {
-	this.hredis = redis.NewClient(&redis.Options {
-		Addr:     this.netconf.Redis.Host.String(), // "ip:host"
-		Password: this.netconf.Redis.Passwd,        // no passwd 
-		DB:       this.netconf.Redis.DB,            // 0: use default DB
+func (l *LoginServer) StartRedis() bool {
+	l.hredis = redis.NewClient(&redis.Options {
+		Addr:     l.netconf.Redis.Host.String(), // "ip:host"
+		Password: l.netconf.Redis.Passwd,        // no passwd 
+		DB:       l.netconf.Redis.DB,            // 0: use default DB
 	})
 
-	_, err := this.hredis.Ping().Result()
+	_, err := l.hredis.Ping().Result()
 	if err != nil {
 		panic(err)
 	}
 
-	log.Info("连接Redis[%s]成功", this.netconf.Redis.Host.String())
+	log.Info("连接Redis[%s]成功", l.netconf.Redis.Host.String())
 	return true
 }
 
 
 // 启动网络
-func (this* LoginServer) StartNetWork() bool {
-	this.net = network.NewNetWork()
-	if this.net == nil {
+func (l* LoginServer) StartNetWork() bool {
+	l.net = network.NewNetWork()
+	if l.net == nil {
 		return false
 	}
-	this.net.Init(this.netconf, this)
-	this.net.SetHttpResponseHandler(HttpServerResponseCallBack)	// Http监听,需要设置处理回调
-	if this.net.Start() == false {
+	l.net.Init(l.netconf, l)
+	l.net.SetHttpResponseHandler(HttpServerResponseCallBack)	// Http监听,需要设置处理回调
+	if l.net.Start() == false {
 		log.Info("初始化网络error...")
 		return false
 	}
@@ -241,39 +241,39 @@ func (this* LoginServer) StartNetWork() bool {
 
 
 // 启动完成
-func (this *LoginServer) OnStart() {
+func (l *LoginServer) OnStart() {
 	log.Info("开始执行OnStart")
-	this.runtimestamp = util.CURTIMEMS()
+	l.runtimestamp = util.CURTIMEMS()
 	log.Info("结束执行OnStart")
 }
 
 // 程序退出最后清理
-func (this *LoginServer) OnStop() {
-	this.hredis.Close()
+func (l *LoginServer) OnStop() {
+	l.hredis.Close()
 }
 
 //  退出
-func (this* LoginServer) Quit() {
-	if this.net != nil {
-		this.asynev.Shutdown()
-		this.net.Shutdown()
+func (l* LoginServer) Quit() {
+	if l.net != nil {
+		l.asynev.Shutdown()
+		l.net.Shutdown()
 	}
 }
 
 
 // 主循环
-func (this* LoginServer) Run() {
+func (l* LoginServer) Run() {
 
 	// TODO:每帧处理1000条
 	now := util.CURTIMEMS()
-	lastrun := now - this.runtimestamp
-	this.net.Dispatch(network.KFrameDispatchNum * 2)
+	lastrun := now - l.runtimestamp
+	l.net.Dispatch(network.KFrameDispatchNum * 2)
 	tm_dispath := util.CURTIMEMS()
 
 	// 测试日志
-	doEventStatistics(this)
-	this.ticker1ms.Run(now)
-	this.gatemgr.Tick(now)
+	doEventStatistics(l)
+	l.ticker1ms.Run(now)
+	l.gatemgr.Tick(now)
 	tm_tick := util.CURTIMEMS()
 
 
@@ -284,50 +284,50 @@ func (this* LoginServer) Run() {
 	}
 
 	//
-	this.runtimestamp = util.CURTIMEMS()
+	l.runtimestamp = util.CURTIMEMS()
 }
 
-func (this *LoginServer) Handler10msTick(now int64) {
-	this.CheckInSetTick(now)
-	this.asynev.Dispatch()
+func (l *LoginServer) Handler10msTick(now int64) {
+	l.CheckInSetTick(now)
+	l.asynev.Dispatch()
 }
 
 // 添加正在登陆的账户
-func (this *LoginServer) CheckInSetAdd(ac string, session network.IBaseNetSession)	{
+func (l *LoginServer) CheckInSetAdd(ac string, session network.IBaseNetSession)	{
 	client := &CheckInAccount{session:session, account:ac, tm_login:util.CURTIMEMS()}
-	this.checkinset[ac] = client
+	l.checkinset[ac] = client
 }
 
 // 删除正在登陆的账户
-func (this *LoginServer) CheckInSetRemove(sid int)	{
-	for k, v := range this.checkinset {
+func (l *LoginServer) CheckInSetRemove(sid int)	{
+	for k, v := range l.checkinset {
 		if v.session.Id() != sid { continue }
-		delete(this.checkinset, k)
+		delete(l.checkinset, k)
 		return
 	}
 }
 
 // 查找正在登陆的账户
-func (this *LoginServer) CheckInSetFind(ac string) bool {
-	_, ok := this.checkinset[ac];
+func (l *LoginServer) CheckInSetFind(ac string) bool {
+	_, ok := l.checkinset[ac];
 	return ok
 }
 
 // 检查超时，客户端session长时间不断开会话或服务器没有收到断开
-func (this *LoginServer) CheckInSetTick(now int64)	{
+func (l *LoginServer) CheckInSetTick(now int64)	{
 	var timeout int64 = 10000
-	for k, v := range this.checkinset {
+	for k, v := range l.checkinset {
 		if now > v.tm_login + timeout {		// 超过30秒
 			log.Error("账户[%s] sid[%d] 长时间[%dms]与loginserver未断开，服务器主动断开", v.account, v.session.Id(), timeout)
 			v.session.Close()
-			delete(this.checkinset, k)
+			delete(l.checkinset, k)
 		}
 	}
 }
 
 // 插入新异步事件
-func (this *LoginServer) AsynEventInsert(event eventque.IEvent) {
-	this.asynev.Push(event)
+func (l *LoginServer) AsynEventInsert(event eventque.IEvent) {
+	l.asynev.Push(event)
 }
 
 // 生成唯一userid

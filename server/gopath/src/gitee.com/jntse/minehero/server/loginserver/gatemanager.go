@@ -47,74 +47,74 @@ func NewGateAgent(s network.IBaseNetSession, name, ip string ,port int) *GateAge
 	return gate
 }
 
-func (this *GateAgent) Init() {
-	this.ticker10ms = util.NewGameTicker(10 * time.Millisecond, this.Handler10msTick)
-	this.ticker10ms.Start()
-	this.asynev.Start(int64(this.Id()), 1000)
+func (g *GateAgent) Init() {
+	g.ticker10ms = util.NewGameTicker(10 * time.Millisecond, g.Handler10msTick)
+	g.ticker10ms.Start()
+	g.asynev.Start(int64(g.Id()), 1000)
 }
 
-func (this *GateAgent) Id() int {
-	return this.session.Id()
+func (g *GateAgent) Id() int {
+	return g.session.Id()
 }
 
-func (this *GateAgent) Name() string {
-	//return this.session.Name()
-	return this.name
+func (g *GateAgent) Name() string {
+	//return g.session.Name()
+	return g.name
 }
 
-//func (this *GateAgent) AddUserNum(n int) {
-//	this.usernum += n
-//	if this.usernum <= 0 { this.usernum = 0 }
+//func (g *GateAgent) AddUserNum(n int) {
+//	g.usernum += n
+//	if g.usernum <= 0 { g.usernum = 0 }
 //}
 
-func (this *GateAgent) SendMsg(msg pb.Message) bool {
-	return this.session.SendCmd(msg)
+func (g *GateAgent) SendMsg(msg pb.Message) bool {
+	return g.session.SendCmd(msg)
 }
 
-func (this *GateAgent) Host() string {
-	return this.host
+func (g *GateAgent) Host() string {
+	return g.host
 }
 
-func (this *GateAgent) Ip() string {
-	return this.ip
+func (g *GateAgent) Ip() string {
+	return g.ip
 }
 
-func (this *GateAgent) Port() int {
-	return this.port
+func (g *GateAgent) Port() int {
+	return g.port
 }
 
-func (this *GateAgent) OnEnd() {
-	this.asynev.Shutdown()
+func (g *GateAgent) OnEnd() {
+	g.asynev.Shutdown()
 }
 
-func (this *GateAgent) Tick(now int64) {
-	this.ticker10ms.Run(now)
+func (g *GateAgent) Tick(now int64) {
+	g.ticker10ms.Run(now)
 }
 
-func (this *GateAgent) Handler10msTick(now int64) {
-	this.asynev.Dispatch()
+func (g *GateAgent) Handler10msTick(now int64) {
+	g.asynev.Dispatch()
 }
 
-func (this *GateAgent) DoCalcAccountAmount(argu []interface{}) []interface{} {
-	key := fmt.Sprintf("%s_%s:%d", def.RedisKeyGateAccounts, this.ip, this.port)
+func (g *GateAgent) DoCalcAccountAmount(argu []interface{}) []interface{} {
+	key := fmt.Sprintf("%s_%s:%d", def.RedisKeyGateAccounts, g.ip, g.port)
 	size, err := Redis().SCard(key).Result()
 	if err != nil {
 		log.Error("SCard[%s] 获取Gate账户失败 err: %s", key, err)
-		this.usernum = math.MaxInt32
+		g.usernum = math.MaxInt32
 	}
-	this.usernum = size
+	g.usernum = size
 	return nil
 }
 
-func (this *GateAgent) AsynEventInsert(event eventque.IEvent) {
-	this.asynev.Push(event)
+func (g *GateAgent) AsynEventInsert(event eventque.IEvent) {
+	g.asynev.Push(event)
 }
 
-func (this *GateAgent) AsynCalcAccountAmount() {
-	if this.asynev.IsFull() { return }
+func (g *GateAgent) AsynCalcAccountAmount() {
+	if g.asynev.IsFull() { return }
 	arglist := []interface{}{}
-	event := eventque.NewCommonEvent(arglist, this.DoCalcAccountAmount, nil)
-	this.AsynEventInsert(event)
+	event := eventque.NewCommonEvent(arglist, g.DoCalcAccountAmount, nil)
+	g.AsynEventInsert(event)
 }
 
 // --------------------------------------------------------------------------
@@ -125,32 +125,32 @@ type GateManager struct {
 	tm_lastcalculate int64
 }
 
-func (this *GateManager) Init() {
-	this.gates = make(map[int]*GateAgent)
+func (g *GateManager) Init() {
+	g.gates = make(map[int]*GateAgent)
 }
 
-func (this *GateManager) Tick(now int64) {
-	for _ ,v := range this.gates {
+func (g *GateManager) Tick(now int64) {
+	for _ ,v := range g.gates {
 		v.Tick(now)
 	}
 }
 
-func (this *GateManager) Num() int {
-	return len(this.gates)
+func (g *GateManager) Num() int {
+	return len(g.gates)
 }
 
-func (this *GateManager) AddGate(agent *GateAgent) {
+func (g *GateManager) AddGate(agent *GateAgent) {
 	id := agent.Id()
-	this.gates[id] = agent
+	g.gates[id] = agent
 }
 
-func (this* GateManager) DelGate(id int) {
+func (g* GateManager) DelGate(id int) {
 	//log.Info("反注册网关 gate=%v", agent)
-	delete(this.gates, id)
+	delete(g.gates, id)
 }
 
-func (this* GateManager) FindGate(id int) *GateAgent {
-	agent, ok := this.gates[id]
+func (g* GateManager) FindGate(id int) *GateAgent {
+	agent, ok := g.gates[id]
 	if ok == false {
 		return nil
 	}
@@ -158,15 +158,15 @@ func (this* GateManager) FindGate(id int) *GateAgent {
 }
 
 // TODO: 获取一个低负荷Gate
-func (this *GateManager) FindLowLoadGate() *GateAgent {
-	if len(this.gates) == 0 {
+func (g *GateManager) FindLowLoadGate() *GateAgent {
+	if len(g.gates) == 0 {
 		return nil
 	}
 
 	now := util.CURTIMEMS()
 	sortGates := make(SliceGate, 0)
-	for _, v := range this.gates {
-		if now >= this.tm_lastcalculate + 10 {	// 间隔计算
+	for _, v := range g.gates {
+		if now >= g.tm_lastcalculate + 10 {	// 间隔计算
 			v.AsynCalcAccountAmount()		// 多Gate下，异步计数Gate在线人数效率提升明显
 		}
 		sortGates = append(sortGates, v)
@@ -176,13 +176,13 @@ func (this *GateManager) FindLowLoadGate() *GateAgent {
 		return nil
 	}
 
-	this.tm_lastcalculate = now
+	g.tm_lastcalculate = now
 	sort.Sort(sortGates)
 	return sortGates[0]
 }
 
-func (this *GateManager) FindGateByHost(host string) *GateAgent {
-	for _ ,v := range this.gates {
+func (g *GateManager) FindGateByHost(host string) *GateAgent {
+	for _ ,v := range g.gates {
 		if v.Host() == host {
 			return v
 		}
@@ -190,9 +190,9 @@ func (this *GateManager) FindGateByHost(host string) *GateAgent {
 	return nil
 }
 
-func (this *GateManager) IsRegisted(ip string, port int) bool {
+func (g *GateManager) IsRegisted(ip string, port int) bool {
 	host := fmt.Sprintf("%s:%d", ip, port)
-	for _, v := range this.gates {
+	for _, v := range g.gates {
 		if v.Host() == host {
 			return true
 		}
@@ -200,8 +200,8 @@ func (this *GateManager) IsRegisted(ip string, port int) bool {
 	return false
 }
 
-func (this *GateManager) IsRegistedByName(name string) bool {
-	for _, v := range this.gates {
+func (g *GateManager) IsRegistedByName(name string) bool {
+	for _, v := range g.gates {
 		if v.Name() == name { 
 			return true 
 		}
@@ -209,19 +209,19 @@ func (this *GateManager) IsRegistedByName(name string) bool {
 	return false
 }
 
-func (this *GateManager) OnClose(sid int) {
-	agent := this.FindGate(sid)
+func (g *GateManager) OnClose(sid int) {
+	agent := g.FindGate(sid)
 	if agent == nil { return }
 	agent.OnEnd()
-	this.DelGate(sid)
-	log.Info("网关离线 id=%d [%v] 当前总数:%d", sid, agent.Host(), this.Num())
+	g.DelGate(sid)
+	log.Info("网关离线 id=%d [%v] 当前总数:%d", sid, agent.Host(), g.Num())
 }
 
-func (this *GateManager) AddNew(session network.IBaseNetSession, name, ip string ,port int) {
+func (g *GateManager) AddNew(session network.IBaseNetSession, name, ip string ,port int) {
 	agent := NewGateAgent(session, name, ip, port)
 	agent.Init()
-	this.AddGate(agent)
-	log.Info("注册网关 id=%d [%s][%s:%d] 当前总数:%d", agent.Id(), agent.Name(), agent.ip, agent.port, this.Num())
+	g.AddGate(agent)
+	log.Info("注册网关 id=%d [%s][%s:%d] 当前总数:%d", agent.Id(), agent.Name(), agent.ip, agent.port, g.Num())
 }
 
 
