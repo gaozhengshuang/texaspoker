@@ -26,27 +26,27 @@ func NewGW2MSMsgHandler() *GW2MSMsgHandler {
 	return handler
 }
 
-func (this *GW2MSMsgHandler) Init() {
+func (mh *GW2MSMsgHandler) Init() {
 
-	this.msgparser = network.NewProtoParser("GW2MS_MsgParser", tbl.ProtoMsgIndexGenerator)
-	if this.msgparser == nil {
+	mh.msgparser = network.NewProtoParser("GW2MS_MsgParser", tbl.ProtoMsgIndexGenerator)
+	if mh.msgparser == nil {
 		return
 	}
 
 	// 收
-	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqRegist{}, on_GW2MS_ReqRegist)
-	this.msgparser.RegistProtoMsg(msg.GW2MS_HeartBeat{}, on_GW2MS_HeartBeat)
-	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqCreateRoom{}, on_GW2MS_ReqCreateRoom)
-	this.msgparser.RegistProtoMsg(msg.GW2MS_MsgNotice{}, on_GW2MS_MsgNotice)
-	this.msgparser.RegistProtoMsg(msg.GW2GW_MsgTransfer{}, on_GW2GW_MsgTransfer)
-	this.msgparser.RegistProtoMsg(msg.GW2MS_PushNewMail{}, on_GW2MS_PushNewMail)
+	mh.msgparser.RegistProtoMsg(msg.GW2MS_ReqRegist{}, on_GW2MS_ReqRegist)
+	mh.msgparser.RegistProtoMsg(msg.GW2MS_HeartBeat{}, on_GW2MS_HeartBeat)
+	mh.msgparser.RegistProtoMsg(msg.GW2MS_ReqCreateRoom{}, on_GW2MS_ReqCreateRoom)
+	mh.msgparser.RegistProtoMsg(msg.GW2MS_MsgNotice{}, on_GW2MS_MsgNotice)
+	mh.msgparser.RegistProtoMsg(msg.GW2GW_MsgTransfer{}, on_GW2GW_MsgTransfer)
+	mh.msgparser.RegistProtoMsg(msg.GW2MS_PushNewMail{}, on_GW2MS_PushNewMail)
 
 	//// 发
-	//this.msgparser.RegistSendProto(msg.MS2GW_RetRegist{})
-	//this.msgparser.RegistSendProto(msg.MS2GW_HeartBeat{})
-	//this.msgparser.RegistSendProto(msg.MS2GW_MsgNotice{})
-	//this.msgparser.RegistSendProto(msg.MS2GW_RetCreateRoom{})
-	//this.msgparser.RegistSendProto(msg.MS2Server_BroadCast{})
+	//mh.msgparser.RegistSendProto(msg.MS2GW_RetRegist{})
+	//mh.msgparser.RegistSendProto(msg.MS2GW_HeartBeat{})
+	//mh.msgparser.RegistSendProto(msg.MS2GW_MsgNotice{})
+	//mh.msgparser.RegistSendProto(msg.MS2GW_RetCreateRoom{})
+	//mh.msgparser.RegistSendProto(msg.MS2Server_BroadCast{})
 
 }
 

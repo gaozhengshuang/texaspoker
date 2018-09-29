@@ -34,24 +34,24 @@ func NewGateAgent(s network.IBaseNetSession, name, ip string ,port int) *GateAge
 	return gate
 }
 
-func (this *GateAgent) Id() int {
-	return this.session.Id()
+func (g *GateAgent) Id() int {
+	return g.session.Id()
 }
 
-func (this *GateAgent) Host() string {
-	return this.host
+func (g *GateAgent) Host() string {
+	return g.host
 }
 
-func (this *GateAgent) Name() string {
-	return this.name
+func (g *GateAgent) Name() string {
+	return g.name
 }
 
-func (this *GateAgent) HostKey() string {
-	return this.Host()
+func (g *GateAgent) HostKey() string {
+	return g.Host()
 }
 
-func (this *GateAgent) SendMsg(msg pb.Message) bool {
-	return this.session.SendCmd(msg)
+func (g *GateAgent) SendMsg(msg pb.Message) bool {
+	return g.session.SendCmd(msg)
 }
 
 // --------------------------------------------------------------------------
@@ -62,34 +62,34 @@ type GateManager struct {
 	gatenames map[string]*GateAgent
 }
 
-func (this *GateManager) Init() {
-	this.gates = make(map[int]*GateAgent)
-	this.gatenames = make(map[string]*GateAgent)
+func (g *GateManager) Init() {
+	g.gates = make(map[int]*GateAgent)
+	g.gatenames = make(map[string]*GateAgent)
 }
 
-func (this *GateManager) Num() int {
-	return len(this.gates)
+func (g *GateManager) Num() int {
+	return len(g.gates)
 }
 
-func (this *GateManager) AddGate(agent *GateAgent) {
+func (g *GateManager) AddGate(agent *GateAgent) {
 	id := agent.Id()
-	this.gates[id] = agent
+	g.gates[id] = agent
 }
 
-func (this* GateManager) DelGate(id int) {
-	delete(this.gates, id)
+func (g* GateManager) DelGate(id int) {
+	delete(g.gates, id)
 }
 
-func (this* GateManager) FindGate(id int) *GateAgent {
-	agent, ok := this.gates[id]
+func (g* GateManager) FindGate(id int) *GateAgent {
+	agent, ok := g.gates[id]
 	if ok == false {
 		return nil
 	}
 	return agent
 }
 
-func (this* GateManager) FindGateByName(n string) *GateAgent {
-	agent, ok := this.gatenames[n]
+func (g* GateManager) FindGateByName(n string) *GateAgent {
+	agent, ok := g.gatenames[n]
 	if ok == false {
 		return nil
 	}
@@ -97,9 +97,9 @@ func (this* GateManager) FindGateByName(n string) *GateAgent {
 }
 
 
-func (this *GateManager) IsRegisted(ip string, port int) bool {
+func (g *GateManager) IsRegisted(ip string, port int) bool {
 	host := fmt.Sprintf("%s:%d", ip, port)
-	for _,v := range this.gates {
+	for _,v := range g.gates {
 		if v.Host() == host {
 			return true
 		}
@@ -107,17 +107,17 @@ func (this *GateManager) IsRegisted(ip string, port int) bool {
 	return false
 }
 
-func (this *GateManager) OnClose(session network.IBaseNetSession) {
+func (g *GateManager) OnClose(session network.IBaseNetSession) {
 	//RoomSvr().Net().DelTcpConnector(session.Name())
-	agent := this.FindGate(session.Id())
+	agent := g.FindGate(session.Id())
 	if agent == nil { return }
-	this.DelGate(session.Id())
-	log.Info("网关离线 id=%d [%v] 当前总数:%d", session.Id(), agent.Host(), this.Num())
+	g.DelGate(session.Id())
+	log.Info("网关离线 id=%d [%v] 当前总数:%d", session.Id(), agent.Host(), g.Num())
 }
 
-func (this *GateManager) AddNew(session network.IBaseNetSession, name, ip string ,port int) {
+func (g *GateManager) AddNew(session network.IBaseNetSession, name, ip string ,port int) {
 	agent := NewGateAgent(session, name, ip, port)
-	this.AddGate(agent)
-	log.Info("注册网关 id=%d [%s:%d] 当前总数:%d", agent.Id(), agent.ip, agent.port, this.Num())
+	g.AddGate(agent)
+	log.Info("注册网关 id=%d [%s:%d] 当前总数:%d", agent.Id(), agent.ip, agent.port, g.Num())
 }
 

@@ -10,6 +10,7 @@ type Card struct{
 	Value int32    //0代表‘牌2’、1代表‘牌3’...etc
 
 	Showtime int32 //just for sort
+	IsHand bool		//是否是手里的牌
 }
 
 

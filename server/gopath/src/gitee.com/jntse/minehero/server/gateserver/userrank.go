@@ -30,28 +30,28 @@ type RankManager struct {
 	lastrefreshtime int64
 }
 
-func (this *RankManager) Init() {
-	this.goldranklist = make([]*UserRankInfo, 0)
-	this.levelranklist = make([]*UserRankInfo, 0)
-	this.UpdateGoldRankList()
-	this.UpdateLevelRankList()
-	this.lastrefreshtime = util.CURTIME()
+func (u *RankManager) Init() {
+	u.goldranklist = make([]*UserRankInfo, 0)
+	u.levelranklist = make([]*UserRankInfo, 0)
+	u.UpdateGoldRankList()
+	u.UpdateLevelRankList()
+	u.lastrefreshtime = util.CURTIME()
 }
 
 //Tick
-func (this *RankManager) Tick() {
+func (u *RankManager) Tick() {
 	now := util.CURTIME()
-	if now-this.lastrefreshtime >= 300 {
-		this.UpdateGoldRankList()
-		this.UpdateLevelRankList()
-		this.lastrefreshtime = now
+	if now-u.lastrefreshtime >= 300 {
+		u.UpdateGoldRankList()
+		u.UpdateLevelRankList()
+		u.lastrefreshtime = now
 	}
 }
 
 //刷新金币排行榜
-func (this *RankManager) UpdateGoldRankList() {
+func (u *RankManager) UpdateGoldRankList() {
 	//nowms := util.CURTIMEMS()
-	this.goldranklist = make([]*UserRankInfo, 0)
+	u.goldranklist = make([]*UserRankInfo, 0)
 	picklist, err := Redis().ZRevRangeWithScores("zGoldRank", 0, 49).Result()
 	if err != nil {
 		log.Error("刷新金币排行榜 读榜 redis 出错")
@@ -65,7 +65,7 @@ func (this *RankManager) UpdateGoldRankList() {
 		data.uid, _ = strconv.ParseInt(uidstr, 10, 32)
 		data.score = int32(v.Score)
 		data.rank = int32(k + 1)
-		this.goldranklist = append(this.goldranklist, data)
+		u.goldranklist = append(u.goldranklist, data)
 		key := fmt.Sprintf("charbase_%d", data.uid)
 		pipe.HMGet(key, "name", "face", "sex")
 	}
@@ -89,21 +89,21 @@ func (this *RankManager) UpdateGoldRankList() {
 			continue
 		}
 		if name, ok := vals[0].(string); ok {
-			this.goldranklist[k].name = name
+			u.goldranklist[k].name = name
 		} else {
-			log.Error("刷新金币排行榜 读取单个玩家名字异常 uid:%d", this.goldranklist[k].uid)
+			log.Error("刷新金币排行榜 读取单个玩家名字异常 uid:%d", u.goldranklist[k].uid)
 		}
 
 		if head, ok := vals[1].(string); ok {
-			this.goldranklist[k].head = head
+			u.goldranklist[k].head = head
 		} else {
-			log.Error("刷新金币排行榜 读取单个玩家头像异常 uid:%d", this.goldranklist[k].uid)
+			log.Error("刷新金币排行榜 读取单个玩家头像异常 uid:%d", u.goldranklist[k].uid)
 		}
 		if sexstr, ok := vals[2].(string); ok {
 			sex, _ := strconv.ParseInt(sexstr, 10, 32)
-			this.goldranklist[k].sex = int32(sex)
+			u.goldranklist[k].sex = int32(sex)
 		} else {
-			log.Error("刷新金币排行榜 读取单个玩家性别异常 uid:%d", this.goldranklist[k].uid)
+			log.Error("刷新金币排行榜 读取单个玩家性别异常 uid:%d", u.goldranklist[k].uid)
 		}
 	}
 	//passtime := util.CURTIMEMS() - nowms
@@ -112,35 +112,35 @@ func (this *RankManager) UpdateGoldRankList() {
 }
 
 //刷新等级排行榜
-func (this *RankManager) UpdateLevelRankList() {
+func (u *RankManager) UpdateLevelRankList() {
 	//nowms := util.CURTIMEMS()
 	//
 	//passtime := util.CURTIMEMS() - nowms
 	//log.Info("等级排行榜刷新 耗时 %d 毫秒", passtime)
 }
 
-func (this *RankManager) GetRankListByType(_type, _rank int32) []*UserRankInfo {
+func (u *RankManager) GetRankListByType(_type, _rank int32) []*UserRankInfo {
 	if _type == 1 {
-		return this.goldranklist
+		return u.goldranklist
 	}
 
 	return make([]*UserRankInfo, 0)
 }
 
 //同步玩家金币到redis
-func (this *GateUser) SyncGoldRankRedis() {
-	zMem := redis.Z{float64(this.GetGold()), this.Id()}
+func (u *GateUser) SyncGoldRankRedis() {
+	zMem := redis.Z{Score: float64(u.GetGold()), Member: u.Id()}
 	Redis().ZAdd("zGoldRank", zMem)
 }
 
 //同步玩家等级到redis
-func (this *GateUser) SyncLevelRankRedis() {
-	zMem := redis.Z{float64(this.Level()), this.Id()}
+func (u *GateUser) SyncLevelRankRedis() {
+	zMem := redis.Z{Score: float64(u.Level()), Member: u.Id()}
 	Redis().ZAdd("zLevelRank", zMem)
 }
 
 //玩家请求查看排行榜
-func (this *GateUser) ReqRankListByType(_type, _rank int32) {
+func (u *GateUser) ReqRankListByType(_type, _rank int32) {
 	send := &msg.GW2C_RetRankList{}
 	if _type == 1 {
 		//金币排行榜
@@ -156,5 +156,5 @@ func (this *GateUser) ReqRankListByType(_type, _rank int32) {
 			send.Ranklist = append(send.Ranklist, tmp)
 		}
 	}
-	this.SendMsg(send)
+	u.SendMsg(send)
 }

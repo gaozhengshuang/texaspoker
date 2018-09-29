@@ -40,46 +40,46 @@ func NewC2GWMsgHandler() *C2GWMsgHandler {
 	return handler
 }
 
-func (this *C2GWMsgHandler) Init() {
+func (mh *C2GWMsgHandler) Init() {
 
-	this.msgparser = network.NewProtoParser("C2GW_MsgParser", tbl.ProtoMsgIndexGenerator)
-	if this.msgparser == nil {
+	mh.msgparser = network.NewProtoParser("C2GW_MsgParser", tbl.ProtoMsgIndexGenerator)
+	if mh.msgparser == nil {
 		return
 	}
 
 	// 收
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqLogin{}, on_C2GW_ReqLogin)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqHeartBeat{}, on_C2GW_ReqHeartBeat)
-	this.msgparser.RegistProtoMsg(msg.C2RS_MsgTransfer{}, on_C2RS_MsgTransfer)
-	this.msgparser.RegistProtoMsg(msg.C2GW_BuyItem{}, on_C2GW_BuyItem)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqDeliveryGoods{}, on_C2GW_ReqDeliveryGoods)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqUseBagItem{}, on_C2GW_ReqUseBagItem)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqRechargeMoney{}, on_C2GW_ReqRechargeMoney)
-	this.msgparser.RegistProtoMsg(msg.C2GW_PlatformRechargeDone{}, on_C2GW_PlatformRechargeDone)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqLogin{}, on_C2GW_ReqLogin)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqHeartBeat{}, on_C2GW_ReqHeartBeat)
+	mh.msgparser.RegistProtoMsg(msg.C2RS_MsgTransfer{}, on_C2RS_MsgTransfer)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_BuyItem{}, on_C2GW_BuyItem)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqDeliveryGoods{}, on_C2GW_ReqDeliveryGoods)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqUseBagItem{}, on_C2GW_ReqUseBagItem)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqRechargeMoney{}, on_C2GW_ReqRechargeMoney)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_PlatformRechargeDone{}, on_C2GW_PlatformRechargeDone)
 
-	this.msgparser.RegistProtoMsg(msg.C2GW_SendWechatAuthCode{}, on_C2GW_SendWechatAuthCode)
-	this.msgparser.RegistProtoMsg(msg.C2GW_StartLuckyDraw{}, on_C2GW_StartLuckyDraw)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTaskList{}, on_C2GW_ReqTaskList)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_SendWechatAuthCode{}, on_C2GW_SendWechatAuthCode)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_StartLuckyDraw{}, on_C2GW_StartLuckyDraw)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqTaskList{}, on_C2GW_ReqTaskList)
 
 	// 地图事件
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqEnterEvents{}, on_C2GW_ReqEnterEvents)
-	this.msgparser.RegistProtoMsg(msg.C2GW_LeaveEvent{}, on_C2GW_LeaveEvent)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqEnterEvents{}, on_C2GW_ReqEnterEvents)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_LeaveEvent{}, on_C2GW_LeaveEvent)
 
 	// 游戏房间
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCreateRoom{}, on_C2GW_ReqCreateRoom)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqEnterRoom{}, on_C2GW_ReqEnterRoom)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqLeaveRoom{}, on_C2GW_ReqLeaveRoom)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqUserRoomInfo{}, on_C2GW_ReqUserRoomInfo)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTexasRoomList{}, on_C2GW_ReqTexasRoomList)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqCreateRoom{}, on_C2GW_ReqCreateRoom)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqEnterRoom{}, on_C2GW_ReqEnterRoom)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqLeaveRoom{}, on_C2GW_ReqLeaveRoom)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqUserRoomInfo{}, on_C2GW_ReqUserRoomInfo)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqTexasRoomList{}, on_C2GW_ReqTexasRoomList)
 
 	// 邮件
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqMailList{}, on_C2GW_ReqMailList)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTakeMailItem{}, on_C2GW_ReqTakeMailItem)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqMailList{}, on_C2GW_ReqMailList)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqTakeMailItem{}, on_C2GW_ReqTakeMailItem)
 
 	//活动
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqActivityInfo{}, on_C2GW_ReqActivityInfo)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqGetActivityReward{}, on_C2GW_ReqGetActivityReward)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqRankList{}, on_C2GW_ReqRankList)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqActivityInfo{}, on_C2GW_ReqActivityInfo)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqGetActivityReward{}, on_C2GW_ReqGetActivityReward)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqRankList{}, on_C2GW_ReqRankList)
 }
 
 // 客户端心跳

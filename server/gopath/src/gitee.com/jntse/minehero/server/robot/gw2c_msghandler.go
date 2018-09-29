@@ -23,47 +23,47 @@ func NewGW2CMsgHandler() *GW2CMsgHandler {
 	return handler
 }
 
-func (this* GW2CMsgHandler) Init() {
+func (mh* GW2CMsgHandler) Init() {
 
-	this.msgparser = network.NewProtoParser("GW2C_MsgParser", tbl.ProtoMsgIndexGenerator)
-	if this.msgparser == nil {
+	mh.msgparser = network.NewProtoParser("GW2C_MsgParser", tbl.ProtoMsgIndexGenerator)
+	if mh.msgparser == nil {
 		return
 	}
 
 	// 收Gate消息
-	this.msgparser.RegistProtoMsg(msg.GW2C_RetLogin{}, on_GW2C_RetLogin)
-	this.msgparser.RegistProtoMsg(msg.GW2C_PushUserInfo{}, on_GW2C_PushUserInfo)
-	this.msgparser.RegistProtoMsg(msg.GW2C_RetHeartBeat{}, on_GW2C_RetHeartBeat)
-	this.msgparser.RegistProtoMsg(msg.GW2C_MsgNotify{}, on_GW2C_MsgNotify)
-	this.msgparser.RegistProtoMsg(msg.GW2C_MsgNotice{}, on_GW2C_MsgNotice)
-	this.msgparser.RegistProtoMsg(msg.GW2C_PushPackageItemAdd{}, on_GW2C_PushPackageItemAdd)
-	this.msgparser.RegistProtoMsg(msg.GW2C_PushPackageItemRemove{}, on_GW2C_PushPackageItemRemove)
-	this.msgparser.RegistProtoMsg(msg.GW2C_PushYuanBaoUpdate{}, on_GW2C_PushYuanBaoUpdate)
-	this.msgparser.RegistProtoMsg(msg.GW2C_PushGoldUpdate{}, on_GW2C_PushGoldUpdate)
-	this.msgparser.RegistProtoMsg(msg.GW2C_PushDiamondUpdate{}, on_GW2C_PushDiamondUpdate)
-	this.msgparser.RegistProtoMsg(msg.GW2C_Ret7DayReward{}, on_GW2C_Ret7DayReward)
-	this.msgparser.RegistProtoMsg(msg.GW2C_LuckyDrawHit{}, on_GW2C_LuckyDrawHit)
-	this.msgparser.RegistProtoMsg(msg.GW2C_SendDeliveryAddressList{}, on_GW2C_SendDeliveryAddressList)
-	this.msgparser.RegistProtoMsg(msg.GW2C_SendLuckyDrawRecord{}, on_GW2C_SendLuckyDrawRecord)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_RetLogin{}, on_GW2C_RetLogin)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_PushUserInfo{}, on_GW2C_PushUserInfo)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_RetHeartBeat{}, on_GW2C_RetHeartBeat)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_MsgNotify{}, on_GW2C_MsgNotify)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_MsgNotice{}, on_GW2C_MsgNotice)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_PushPackageItemAdd{}, on_GW2C_PushPackageItemAdd)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_PushPackageItemRemove{}, on_GW2C_PushPackageItemRemove)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_PushYuanBaoUpdate{}, on_GW2C_PushYuanBaoUpdate)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_PushGoldUpdate{}, on_GW2C_PushGoldUpdate)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_PushDiamondUpdate{}, on_GW2C_PushDiamondUpdate)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_Ret7DayReward{}, on_GW2C_Ret7DayReward)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_LuckyDrawHit{}, on_GW2C_LuckyDrawHit)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_SendDeliveryAddressList{}, on_GW2C_SendDeliveryAddressList)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_SendLuckyDrawRecord{}, on_GW2C_SendLuckyDrawRecord)
 
 
 	// 房间
-	this.msgparser.RegistProtoMsg(msg.GW2C_RetCreateRoom{}, on_GW2C_RetCreateRoom)
-	this.msgparser.RegistProtoMsg(msg.GW2C_RetTexasRoomList{}, on_GW2C_RetTexasRoomList)
-	this.msgparser.RegistProtoMsg(msg.GW2C_RetUserRoomInfo{}, on_GW2C_RetUserRoomInfo)
-	this.msgparser.RegistProtoMsg(msg.GW2C_RetLeaveRoom{}, on_GW2C_RetLeaveRoom)
-	this.msgparser.RegistProtoMsg(msg.RS2C_RetSitDown{}, on_RS2C_RetSitDown)
-	this.msgparser.RegistProtoMsg(msg.RS2C_RetStandUp{}, on_RS2C_RetStandUp)
-	this.msgparser.RegistProtoMsg(msg.RS2C_RetEnterRoom{}, on_RS2C_RetEnterRoom)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_RetCreateRoom{}, on_GW2C_RetCreateRoom)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_RetTexasRoomList{}, on_GW2C_RetTexasRoomList)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_RetUserRoomInfo{}, on_GW2C_RetUserRoomInfo)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_RetLeaveRoom{}, on_GW2C_RetLeaveRoom)
+	mh.msgparser.RegistProtoMsg(msg.RS2C_RetSitDown{}, on_RS2C_RetSitDown)
+	mh.msgparser.RegistProtoMsg(msg.RS2C_RetStandUp{}, on_RS2C_RetStandUp)
+	mh.msgparser.RegistProtoMsg(msg.RS2C_RetEnterRoom{}, on_RS2C_RetEnterRoom)
 
 	// 邮件
-	this.msgparser.RegistProtoMsg(msg.GW2C_PushNewMail{}, on_GW2C_PushNewMail)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_PushNewMail{}, on_GW2C_PushNewMail)
 
 
 	// 收room消息
-	//this.msgparser.RegistProtoMsg(msg.BT_GameInit{}, on_BT_GameInit)
-	//this.msgparser.RegistProtoMsg(msg.BT_GameStart{}, on_BT_GameStart)
-	//this.msgparser.RegistProtoMsg(msg.BT_GameOver{}, on_BT_GameOver)
+	//mh.msgparser.RegistProtoMsg(msg.BT_GameInit{}, on_BT_GameInit)
+	//mh.msgparser.RegistProtoMsg(msg.BT_GameStart{}, on_BT_GameStart)
+	//mh.msgparser.RegistProtoMsg(msg.BT_GameOver{}, on_BT_GameOver)
 }
 
 func on_GW2C_PushDiamondUpdate(session network.IBaseNetSession, message interface{}) {

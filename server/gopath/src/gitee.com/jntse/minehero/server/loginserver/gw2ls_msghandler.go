@@ -27,22 +27,22 @@ func NewGW2LMsgHandler() *GW2LMsgHandler {
 	return handler
 }
 
-func (this* GW2LMsgHandler) Init() {
+func (mh* GW2LMsgHandler) Init() {
 
-	this.msgparser = network.NewProtoParser("GW2LS_MsgParser", tbl.ProtoMsgIndexGenerator)
-	if this.msgparser == nil {
+	mh.msgparser = network.NewProtoParser("GW2LS_MsgParser", tbl.ProtoMsgIndexGenerator)
+	if mh.msgparser == nil {
 		return
 	}
 
 	// 收
-	this.msgparser.RegistProtoMsg(msg.GW2L_ReqRegist{}, on_GW2L_ReqRegist)
-	this.msgparser.RegistProtoMsg(msg.GW2L_HeartBeat{}, on_GW2L_HeartBeat)
-	this.msgparser.RegistProtoMsg(msg.GW2L_RegistUserRet{}, on_GW2L_RegistUserRet)
+	mh.msgparser.RegistProtoMsg(msg.GW2L_ReqRegist{}, on_GW2L_ReqRegist)
+	mh.msgparser.RegistProtoMsg(msg.GW2L_HeartBeat{}, on_GW2L_HeartBeat)
+	mh.msgparser.RegistProtoMsg(msg.GW2L_RegistUserRet{}, on_GW2L_RegistUserRet)
 
 	//// 发
-	//this.msgparser.RegistSendProto(msg.L2GW_RetRegist{})
-	//this.msgparser.RegistSendProto(msg.L2GW_HeartBeat{})
-	//this.msgparser.RegistSendProto(msg.L2GW_ReqRegistUser{})
+	//mh.msgparser.RegistSendProto(msg.L2GW_RetRegist{})
+	//mh.msgparser.RegistSendProto(msg.L2GW_HeartBeat{})
+	//mh.msgparser.RegistSendProto(msg.L2GW_ReqRegistUser{})
 
 }
 

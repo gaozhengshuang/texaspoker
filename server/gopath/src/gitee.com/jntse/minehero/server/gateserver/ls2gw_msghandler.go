@@ -25,18 +25,18 @@ func NewLS2GMsgHandler() *LS2GMsgHandler {
 	return handler
 }
 
-func (this* LS2GMsgHandler) Init() {
+func (mh* LS2GMsgHandler) Init() {
 
-	this.msgparser = network.NewProtoParser("LS2GW_MsgParser", tbl.ProtoMsgIndexGenerator)
-	if this.msgparser == nil {
+	mh.msgparser = network.NewProtoParser("LS2GW_MsgParser", tbl.ProtoMsgIndexGenerator)
+	if mh.msgparser == nil {
 		return
 	}
 
 
 	// 收
-	this.msgparser.RegistProtoMsg(msg.L2GW_RetRegist{}, on_L2GW_RetRegist)
-	this.msgparser.RegistProtoMsg(msg.L2GW_HeartBeat{}, on_L2GW_HeartBeat)
-	this.msgparser.RegistProtoMsg(msg.L2GW_ReqRegistUser{}, on_L2GW_ReqRegistUser)
+	mh.msgparser.RegistProtoMsg(msg.L2GW_RetRegist{}, on_L2GW_RetRegist)
+	mh.msgparser.RegistProtoMsg(msg.L2GW_HeartBeat{}, on_L2GW_HeartBeat)
+	mh.msgparser.RegistProtoMsg(msg.L2GW_ReqRegistUser{}, on_L2GW_ReqRegistUser)
 }
 
 func on_L2GW_RetRegist(session network.IBaseNetSession, message interface{}) {
@@ -45,7 +45,6 @@ func on_L2GW_RetRegist(session network.IBaseNetSession, message interface{}) {
 	// 启动了相同的网关
 	if tmsg.GetErrocde() != "" {
 		panic(fmt.Sprintf("Login服务器通知注册失败 原因：%s", tmsg.GetErrocde()))
-		return
 	}
 	log.Info("注册网关[%v]到Login成功", tmsg.GetHost())
 }

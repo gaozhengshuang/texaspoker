@@ -36,222 +36,222 @@ type UserRoomData struct {
 	//tm_closing 	int64 	// 房间关闭超时
 }
 
-func (this *UserRoomData) Reset(u *GateUser) {
-	this.roomid = 0
-	this.roomsid = 0
-	this.kind = 0
-	//this.tm_closing = 0
-	this.creating = false
-	this.passwd = ""
-	this.roomtid = 0
+func (r *UserRoomData) Reset(u *GateUser) {
+	r.roomid = 0
+	r.roomsid = 0
+	r.kind = 0
+	//r.tm_closing = 0
+	r.creating = false
+	r.passwd = ""
+	r.roomtid = 0
 	Redis().Del(fmt.Sprintf("userinroom_%d", u.Id()))
 	log.Error("[房间] 玩家[%s %d] 重置房间数据", u.Name(), u.Id())
 }
 
-func (this *UserRoomData) Online(u *GateUser) {
+func (r *UserRoomData) Online(u *GateUser) {
 	roomid, _	:= Redis().Get(fmt.Sprintf("userinroom_%d", u.Id())).Int64()
 	if roomid == 0 {
-		this.Reset(u)
+		r.Reset(u)
 		return
 	}
 
 	// 检查房间是否存在
 	keybrief := fmt.Sprintf("roombrief_%d", roomid)
 	//if Redis().Exists(keybrief).Val() == 0 {
-	//	this.Reset(u)
-	//	log.Error("[房间] 玩家[%s %d] 房间[%d]已经销毁", u.Name(), u.Id(), this.roomid)
+	//	r.Reset(u)
+	//	log.Error("[房间] 玩家[%s %d] 房间[%d]已经销毁", u.Name(), u.Id(), r.roomid)
 	//	return
 	//}
 	agentname := Redis().HGet(keybrief, "agentname").Val()
 	var agent *RoomAgent = RoomSvrMgr().FindByName(agentname)
 	if agent == nil {
 		log.Error("[房间] 玩家[%s %d] 房间服务器[%s]未开启", u.Name(), u.Id(), agentname)
-		this.Reset(u)
+		r.Reset(u)
 		return
 	}
 
-	this.roomid  = roomid
-	this.roomsid = agent.Id()
-	this.kind 	 = util.Atoi(Redis().HGet(keybrief, "kind").Val())
-	this.roomtid = util.Atoi(Redis().HGet(keybrief, "tid").Val())
-	this.passwd  = Redis().HGet(keybrief, "passwd").Val()
-	log.Info("[房间] 玩家[%s %d] 获取房间信息[%v]", u.Name(), u.Id(), *this)
+	r.roomid  = roomid
+	r.roomsid = agent.Id()
+	r.kind 	 = util.Atoi(Redis().HGet(keybrief, "kind").Val())
+	r.roomtid = util.Atoi(Redis().HGet(keybrief, "tid").Val())
+	r.passwd  = Redis().HGet(keybrief, "passwd").Val()
+	log.Info("[房间] 玩家[%s %d] 获取房间信息[%v]", u.Name(), u.Id(), *r)
 
 	// 对应RoomUser更新Gate SessionInfo(Gate重启/家重连)
 	msgonline := &msg.GW2RS_UserOnline{Userid:pb.Int64(u.Id())}
 	u.SendRoomMsg(msgonline)
 }
 
-func (this *GateUser) GameKind() int32 	{ return this.roomdata.kind }
-func (this *GateUser) RoomId() int64 	{ return this.roomdata.roomid }
-func (this *GateUser) RoomSid() int 	{ return this.roomdata.roomsid }
-func (this *GateUser) RoomPwd() string 	{ return this.roomdata.passwd }
-func (this *GateUser) RoomTid() int32 	{ return this.roomdata.roomtid }
-func (this *GateUser) IsInRoom() bool 	{ return this.RoomId() != 0 }
-func (this *GateUser) IsRoomCreating() bool { return this.roomdata.creating }
+func (u *GateUser) GameKind() int32 	{ return u.roomdata.kind }
+func (u *GateUser) RoomId() int64 	{ return u.roomdata.roomid }
+func (u *GateUser) RoomSid() int 	{ return u.roomdata.roomsid }
+func (u *GateUser) RoomPwd() string 	{ return u.roomdata.passwd }
+func (u *GateUser) RoomTid() int32 	{ return u.roomdata.roomtid }
+func (u *GateUser) IsInRoom() bool 	{ return u.RoomId() != 0 }
+func (u *GateUser) IsRoomCreating() bool { return u.roomdata.creating }
 
 // 房间关闭中
-//func (this *GateUser) IsRoomClosing() bool { return this.roomdata.tm_closing != 0 }
-//func (this *GateUser) IsRoomCloseTimeOut() bool { return util.CURTIMEMS() > (this.roomdata.tm_closing+10000) }
+//func (u *GateUser) IsRoomClosing() bool { return u.roomdata.tm_closing != 0 }
+//func (u *GateUser) IsRoomCloseTimeOut() bool { return util.CURTIMEMS() > (u.roomdata.tm_closing+10000) }
 
 // 通知RS 玩家已经断开连接了
-func (this *GateUser) SendRsUserDisconnect() {
-	//if this.roomdata.tm_closing != 0 { return  }
-	//this.roomdata.tm_closing = util.CURTIMEMS()
-	if this.IsInRoom() == false {
+func (u *GateUser) SendRsUserDisconnect() {
+	//if u.roomdata.tm_closing != 0 { return  }
+	//u.roomdata.tm_closing = util.CURTIMEMS()
+	if u.IsInRoom() == false {
 		return 
 	}
 
-	msgclose := &msg.GW2RS_UserDisconnect{Userid: pb.Int64(this.Id())}
-	this.SendRoomMsg(msgclose)
-	log.Info("[房间] 玩家[%d %s] 通知RoomServer关闭房间", this.Id(), this.Name())
+	msgclose := &msg.GW2RS_UserDisconnect{Userid: pb.Int64(u.Id())}
+	u.SendRoomMsg(msgclose)
+	log.Info("[房间] 玩家[%d %s] 通知RoomServer关闭房间", u.Id(), u.Name())
 }
 
 // 发送房间消息
-func (this *GateUser) SendRoomMsg(msg pb.Message) {
-	if this.IsInRoom() == false {
-		log.Error("[房间] 玩家[%s %d]没有房间，发送房间消息失败", this.Name(), this.Id())
+func (u *GateUser) SendRoomMsg(msg pb.Message) {
+	if u.IsInRoom() == false {
+		log.Error("[房间] 玩家[%s %d]没有房间，发送房间消息失败", u.Name(), u.Id())
 		return
 	}
-	RoomSvrMgr().SendMsg(this.roomdata.roomsid, msg)
+	RoomSvrMgr().SendMsg(u.roomdata.roomsid, msg)
 }
 
 // TODO: 将个人信息上传到Room
-func (this *GateUser) SendUserBinToRoom(roomsid int, roomid int64) {
-	send := &msg.GW2RS_UploadUserBin{Roomid:pb.Int64(roomid), Userid:pb.Int64(this.Id()), Bin:this.PackBin()}
+func (u *GateUser) SendUserBinToRoom(roomsid int, roomid int64) {
+	send := &msg.GW2RS_UploadUserBin{Roomid:pb.Int64(roomid), Userid:pb.Int64(u.Id()), Bin:u.PackBin()}
 	RoomSvrMgr().SendMsg(roomsid, send)
 }
 
 // 回复客户端
-func (this *GateUser) CreateRoomResponse(err string) {
-	send := &msg.GW2C_RetCreateRoom{Errcode: pb.String(err), Roomid: pb.Int64(this.RoomId()), Passwd:pb.String(this.RoomPwd())}
-	this.SendMsg(send)
+func (u *GateUser) CreateRoomResponse(err string) {
+	send := &msg.GW2C_RetCreateRoom{Errcode: pb.String(err), Roomid: pb.Int64(u.RoomId()), Passwd:pb.String(u.RoomPwd())}
+	u.SendMsg(send)
 	if err != "" {
-		log.Info("[房间] 玩家[%s %d] 开始游戏失败[%s]", this.Name(), this.Id(), err)
+		log.Info("[房间] 玩家[%s %d] 开始游戏失败[%s]", u.Name(), u.Id(), err)
 	}
 }
 
 // 向match请求创建房间
-func (this *GateUser) CreateRoomRemote(tmsg *msg.C2GW_ReqCreateRoom) (errcode string) {
+func (u *GateUser) CreateRoomRemote(tmsg *msg.C2GW_ReqCreateRoom) (errcode string) {
 
 	gamekind := tmsg.GetGamekind()
 	if Match() == nil {
-		log.Error("玩家[%s %d] 匹配服务器未连接", this.Name(), this.Id())
+		log.Error("玩家[%s %d] 匹配服务器未连接", u.Name(), u.Id())
 		errcode = "创建房间服务器不可用"
 		return
 	}
 
 	//
 	if RoomSvrMgr().Num() == 0 {
-		log.Error("玩家[%s %d] 请求开房间，但是没有房间服务器", this.Name(), this.Id())
+		log.Error("玩家[%s %d] 请求开房间，但是没有房间服务器", u.Name(), u.Id())
 		errcode = "房间服务器不可用"
 		return
 	}
 
 	// 创建中
-	if this.IsRoomCreating() {
-		log.Error("玩家[%s %d] 重复创建房间，正在创建房间中", this.Name(), this.Id())
+	if u.IsRoomCreating() {
+		log.Error("玩家[%s %d] 重复创建房间，正在创建房间中", u.Name(), u.Id())
 		errcode = "正在创建房间中"
 		return
 	}
 
 	// 有房间
-	if this.IsInRoom() {
-		log.Error("玩家[%s %d] 重复创建房间，已经有一个房间[%d]", this.Name(), this.Id(), this.RoomId())
+	if u.IsInRoom() {
+		log.Error("玩家[%s %d] 重复创建房间，已经有一个房间[%d]", u.Name(), u.Id(), u.RoomId())
 		errcode = "重复创建房间"
 		return
 	}
 
 	// 请求创建房间
-	this.roomdata.kind = gamekind
-	this.roomdata.creating = true
+	u.roomdata.kind = gamekind
+	u.roomdata.creating = true
 	if gamekind == int32(msg.RoomKind_TexasPoker) {
-		this.roomdata.passwd = tmsg.Texas.GetPwd() 
-		this.roomdata.roomtid = tmsg.Texas.GetRoomId()
+		u.roomdata.passwd = tmsg.Texas.GetPwd() 
+		u.roomdata.roomtid = tmsg.Texas.GetRoomId()
 	}
 
 	//
 	send := &msg.GW2MS_ReqCreateRoom{
-		Userid:   pb.Int64(this.Id()),
+		Userid:   pb.Int64(u.Id()),
 		Gamekind: pb.Int32(gamekind),
 		Texas: pb.Clone(tmsg.Texas).(*msg.TexasPersonalRoom),
 	}
 	Match().SendCmd(send)
-	log.Info("[房间] 玩家[%s %d] 请求创建房间类型:%d ts[%d]", this.Name(), this.Id(), gamekind, util.CURTIMEMS())
+	log.Info("[房间] 玩家[%s %d] 请求创建房间类型:%d ts[%d]", u.Name(), u.Id(), gamekind, util.CURTIMEMS())
 	return
 }
 
 // 创建房间完成
-func (this *GateUser) OnCreateRoom(errmsg, agentname string, roomid int64) {
+func (u *GateUser) OnCreateRoom(errmsg, agentname string, roomid int64) {
 	if errmsg != "" {
-		this.roomdata.Reset(this)
+		u.roomdata.Reset(u)
 	}else {
 		var agent *RoomAgent = RoomSvrMgr().FindByName(agentname)
 		if agent == nil {
-			log.Error("[房间] 玩家[%s %d] 创建房间成功，但找不到RoomServer[%s]", this.Name(), this.Id(), agentname)
+			log.Error("[房间] 玩家[%s %d] 创建房间成功，但找不到RoomServer[%s]", u.Name(), u.Id(), agentname)
 			return
 		}
 
-		this.roomdata.roomid = roomid
-		this.roomdata.roomsid = agent.Id()
-		this.roomdata.creating = false
-		this.SendUserBinToRoom(agent.Id(), roomid)
-		log.Info("[房间] 玩家[%s %d] 创建房间[%d]成功 ts[%d]", this.Name(), this.Id(), roomid, util.CURTIMEMS())
+		u.roomdata.roomid = roomid
+		u.roomdata.roomsid = agent.Id()
+		u.roomdata.creating = false
+		u.SendUserBinToRoom(agent.Id(), roomid)
+		log.Info("[房间] 玩家[%s %d] 创建房间[%d]成功 ts[%d]", u.Name(), u.Id(), roomid, util.CURTIMEMS())
 	}
-	this.CreateRoomResponse(errmsg)
+	u.CreateRoomResponse(errmsg)
 }
 
 // 离开房间返回
-func (this *GateUser) OnLeaveRoom(bin *msg.Serialize) {
-	log.Info("[房间] 玩家[%s %d] 离开房间[%d] 回传房间个人数据", this.Name(), this.Id(), this.RoomId())
-	this.roomdata.Reset(this)
-	this.bin = pb.Clone(bin).(*msg.Serialize)		// 加载最新玩家数据
-	this.OnDBLoad("离开房间")
-	if this.IsOnline() {
-		this.SendMsg(&msg.GW2C_RetLeaveRoom{})
-		this.SendUserBase()
+func (u *GateUser) OnLeaveRoom(bin *msg.Serialize) {
+	log.Info("[房间] 玩家[%s %d] 离开房间[%d] 回传房间个人数据", u.Name(), u.Id(), u.RoomId())
+	u.roomdata.Reset(u)
+	u.bin = pb.Clone(bin).(*msg.Serialize)		// 加载最新玩家数据
+	u.OnDBLoad("离开房间")
+	if u.IsOnline() {
+		u.SendMsg(&msg.GW2C_RetLeaveRoom{})
+		u.SendUserBase()
 	}
 }
 
 // 进入房间
-func (this *GateUser) OnEnterRoom(agentid int, tmsg *msg.RS2GW_RetEnterRoom) {
-	this.roomdata.kind 		= tmsg.GetKind()
-	this.roomdata.roomid 	= tmsg.GetRoomid()
-	this.roomdata.roomsid 	= agentid
-	this.roomdata.roomtid 	= tmsg.GetRoomtid()
-	this.roomdata.passwd 	= tmsg.GetPasswd()
-	log.Info("[房间] 玩家[%s %d] 进入房间[%d]成功", this.Name(), this.Id(), this.RoomId())
+func (u *GateUser) OnEnterRoom(agentid int, tmsg *msg.RS2GW_RetEnterRoom) {
+	u.roomdata.kind 		= tmsg.GetKind()
+	u.roomdata.roomid 	= tmsg.GetRoomid()
+	u.roomdata.roomsid 	= agentid
+	u.roomdata.roomtid 	= tmsg.GetRoomtid()
+	u.roomdata.passwd 	= tmsg.GetPasswd()
+	log.Info("[房间] 玩家[%s %d] 进入房间[%d]成功", u.Name(), u.Id(), u.RoomId())
 }
 
 // 房间销毁
-func (this *GateUser) OnDestoryRoom(bin *msg.Serialize) {
-	log.Info("[房间] 玩家[%s %d] 销毁房间[%d] 回传房间个人数据", this.Name(), this.Id(), this.RoomId())
-	this.roomdata.Reset(this)
-	this.bin = pb.Clone(bin).(*msg.Serialize)		// 加载最新玩家数据
-	this.OnDBLoad("房间销毁")
-	if this.IsOnline() {
-		this.SendMsg(&msg.GW2C_RetLeaveRoom{})
-		this.SendUserBase()
+func (u *GateUser) OnDestoryRoom(bin *msg.Serialize) {
+	log.Info("[房间] 玩家[%s %d] 销毁房间[%d] 回传房间个人数据", u.Name(), u.Id(), u.RoomId())
+	u.roomdata.Reset(u)
+	u.bin = pb.Clone(bin).(*msg.Serialize)		// 加载最新玩家数据
+	u.OnDBLoad("房间销毁")
+	if u.IsOnline() {
+		u.SendMsg(&msg.GW2C_RetLeaveRoom{})
+		u.SendUserBase()
 	}
 }
 
 //// 房间关闭
-//func (this *GateUser) OnGameEnd(bin *msg.Serialize, reason string) {
-//	log.Info("玩家[%s %d] 房间关闭 房间[%d] 原因[%s]", this.Name(), this.Id(), this.RoomId(), reason)
-//	if this.IsOnline() { 
-//		this.SendMsg(&msg.BT_GameOver{Roomid:pb.Int64(this.RoomId())}) 
+//func (u *GateUser) OnGameEnd(bin *msg.Serialize, reason string) {
+//	log.Info("玩家[%s %d] 房间关闭 房间[%d] 原因[%s]", u.Name(), u.Id(), u.RoomId(), reason)
+//	if u.IsOnline() { 
+//		u.SendMsg(&msg.BT_GameOver{Roomid:pb.Int64(u.RoomId())}) 
 //	}
-//	this.roomdata.Reset(this)
+//	u.roomdata.Reset(u)
 //	if bin != nil {
-//		this.bin = pb.Clone(bin).(*msg.Serialize)
-//		this.OnLoadDB("房间结束")
-//		if this.IsOnline() { this.SendUserBase() }
+//		u.bin = pb.Clone(bin).(*msg.Serialize)
+//		u.OnLoadDB("房间结束")
+//		if u.IsOnline() { u.SendUserBase() }
 //	}
 //}
 
 
 // 发送德州房间列表
-func (this *GateUser) SendTexasRoomList(rtype int32) {
+func (u *GateUser) SendTexasRoomList(rtype int32) {
 	key := fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TexasPoker), rtype)
 	list, err := Redis().SMembers(key).Result()
 	if err == redis.Nil {
@@ -289,7 +289,7 @@ func (this *GateUser) SendTexasRoomList(rtype int32) {
 		}
 		send.List = append(send.List, info)
 	}
-	this.SendMsg(send)
+	u.SendMsg(send)
 }
 
 
