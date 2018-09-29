@@ -217,7 +217,8 @@ message RS2C_RetBrightInTime
 message RS2C_PushBrightCard
 {
     optional int64 roleid = 1;
-    repeated int32 card = 2;    
+    repeated int32 card = 2;
+    optional bool allin = 3;        //allin亮牌    
 }
 
 //请求增加金币

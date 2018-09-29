@@ -203,6 +203,25 @@ func (this *TexasPokerRoom) ForEachPlayer(start int32, f func(p *TexasPlayer) bo
 	}
 }
 
+func (this *TexasPokerRoom) ForStatePlayer(start int32, f func(p *TexasPlayer) bool) {
+	end := (this.maxplayer + start - 1) % this.maxplayer
+	i := start % this.maxplayer
+	for ; i != end; i = (i + 1) % this.maxplayer {
+		if this.players[i] != nil && !this.players[i].IsFold()&&
+		!this.players[i].IsWait() &&
+		!this.players[i].IsAllIn() &&
+		!f(this.players[i]) {
+			return
+		}
+	}
+	// end
+	if this.players[i] != nil && !this.players[i].IsFold() &&
+	!this.players[i].IsWait() &&
+	!this.players[i].IsAllIn() {
+		f(this.players[i])
+	}
+}
+
 //开始游戏使用
 func (this *TexasPokerRoom) ForStartPlayer(start int32, f func(p *TexasPlayer) bool) {
 	end := (this.maxplayer + start - 1) % this.maxplayer
@@ -363,6 +382,10 @@ func (this *TexasPokerRoom) BetStart(pos int32){
 }
 
 func (this *TexasPokerRoom) OneLoopOver() {
+	this.ForStatePlayer(0, func(player *TexasPlayer) bool {
+		player.ChangeState(GSWaitAction)
+		return true
+	})
 	send := &msg.RS2C_PushOneLoopOver{}
 	send.Card = this.publiccard
 	send.Potchips = this.pot

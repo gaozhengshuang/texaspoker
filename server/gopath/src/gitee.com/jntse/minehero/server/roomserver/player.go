@@ -355,7 +355,11 @@ func (this *TexasPlayer) AIAction(action int32) {
 				if this.room.raisebet != 0 {
 					this.Betting(this.room.raisebet*2 + call)
 				}else {
-					this.Betting(this.room.curbet/3*10/10  + call)
+					if this.room.curbet/3 < this.room.bigblindnum*2{
+						this.Betting(this.room.bigblindnum*2 + call)
+					}else{
+						this.Betting(this.room.curbet/3 + call)
+					}
 				}
 			}else{
 				this.Betting(this.GetBankRoll())
