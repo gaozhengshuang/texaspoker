@@ -25,35 +25,35 @@ func NewClientMsgHandler() *ClientMsgHandler {
 	return h
 }
 
-func (this *ClientMsgHandler) Init() {
-	this.msghandler = make(map[string]ClientMsgFunHandler)
+func (mh *ClientMsgHandler) Init() {
+	mh.msghandler = make(map[string]ClientMsgFunHandler)
 
 	// 消息注册
-	//this.RegistProtoMsg(msg.C2GW_StartLuckyDraw{}, on_C2GW_StartLuckyDraw)
-	//this.RegistProtoMsg(msg.C2RS_ReqSitDown{}, on_C2RS_ReqSitDown)
-	//this.RegistProtoMsg(msg.C2RS_ReqStandUp{}, on_C2RS_ReqStandUp)
+	//mh.RegistProtoMsg(msg.C2GW_StartLuckyDraw{}, on_C2GW_StartLuckyDraw)
+	//mh.RegistProtoMsg(msg.C2RS_ReqSitDown{}, on_C2RS_ReqSitDown)
+	//mh.RegistProtoMsg(msg.C2RS_ReqStandUp{}, on_C2RS_ReqStandUp)
 
 	//德州房间内消息
-	this.RegistProtoMsg(msg.C2RS_ReqTimeAwardInfo{}, on_C2RS_ReqTimeAwardInfo)
-	this.RegistProtoMsg(msg.C2RS_ReqBuyInGame{}, on_C2RS_ReqBuyInGame)
-	this.RegistProtoMsg(msg.C2RS_ReqFriendGetRoleInfo{}, on_C2RS_ReqFriendGetRoleInfo)
-	this.RegistProtoMsg(msg.C2RS_ReqNextRound{}, on_C2RS_ReqNextRound)
-	this.RegistProtoMsg(msg.C2RS_ReqAction{}, on_C2RS_ReqAction)
-	this.RegistProtoMsg(msg.C2RS_ReqBrightCard{}, on_C2RS_ReqBrightCard)
-	this.RegistProtoMsg(msg.C2RS_ReqAddCoin{}, on_C2RS_ReqAddCoin)
-	this.RegistProtoMsg(msg.C2RS_ReqBrightInTime{}, on_C2RS_ReqBrightInTime)
-	this.RegistProtoMsg(msg.C2RS_ReqStandUp{}, on_C2RS_ReqStandUp)
+	mh.RegistProtoMsg(msg.C2RS_ReqTimeAwardInfo{}, on_C2RS_ReqTimeAwardInfo)
+	mh.RegistProtoMsg(msg.C2RS_ReqBuyInGame{}, on_C2RS_ReqBuyInGame)
+	mh.RegistProtoMsg(msg.C2RS_ReqFriendGetRoleInfo{}, on_C2RS_ReqFriendGetRoleInfo)
+	mh.RegistProtoMsg(msg.C2RS_ReqNextRound{}, on_C2RS_ReqNextRound)
+	mh.RegistProtoMsg(msg.C2RS_ReqAction{}, on_C2RS_ReqAction)
+	mh.RegistProtoMsg(msg.C2RS_ReqBrightCard{}, on_C2RS_ReqBrightCard)
+	mh.RegistProtoMsg(msg.C2RS_ReqAddCoin{}, on_C2RS_ReqAddCoin)
+	mh.RegistProtoMsg(msg.C2RS_ReqBrightInTime{}, on_C2RS_ReqBrightInTime)
+	mh.RegistProtoMsg(msg.C2RS_ReqStandUp{}, on_C2RS_ReqStandUp)
 }
 
-func (this *ClientMsgHandler) RegistProtoMsg(message interface{} , fn ClientMsgFunHandler) {
+func (mh *ClientMsgHandler) RegistProtoMsg(message interface{} , fn ClientMsgFunHandler) {
 	msg_type := reflect.TypeOf(message)
-	this.msghandler[msg_type.String()] = fn
+	mh.msghandler[msg_type.String()] = fn
 }
 
-func (this *ClientMsgHandler) Handler(session network.IBaseNetSession, message interface{}, uid int64) {
+func (mh *ClientMsgHandler) Handler(session network.IBaseNetSession, message interface{}, uid int64) {
 	pbmsg := message.(pb.Message)
 	name := pb.MessageName(pbmsg)
-	fn, ok := this.msghandler[name]
+	fn, ok := mh.msghandler[name]
 	if ok == false {
 		log.Error("ClientMsgHandler 未注册消息%s", name)
 		return

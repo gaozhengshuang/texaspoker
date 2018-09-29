@@ -28,20 +28,20 @@ func NewMS2RSMsgHandler() *MS2RSMsgHandler {
 	return handler
 }
 
-func (this* MS2RSMsgHandler) Init() {
+func (mh* MS2RSMsgHandler) Init() {
 
-	this.msgparser = network.NewProtoParser("MS2RS_MsgParser", tbl.ProtoMsgIndexGenerator)
-	if this.msgparser == nil {
+	mh.msgparser = network.NewProtoParser("MS2RS_MsgParser", tbl.ProtoMsgIndexGenerator)
+	if mh.msgparser == nil {
 		return
 	}
 
 
 	// 收
-	this.msgparser.RegistProtoMsg(msg.MS2RS_RetRegist{}, on_MS2RS_RetRegist)
-	this.msgparser.RegistProtoMsg(msg.MS2RS_HeartBeat{}, on_MS2RS_HeartBeat)
-	this.msgparser.RegistProtoMsg(msg.MS2RS_GateInfo{}, on_MS2RS_GateInfo)
-	this.msgparser.RegistProtoMsg(msg.MS2RS_CreateRoom{}, on_MS2RS_CreateRoom)
-	this.msgparser.RegistProtoMsg(msg.MS2Server_BroadCast{}, on_MS2Server_BroadCast)
+	mh.msgparser.RegistProtoMsg(msg.MS2RS_RetRegist{}, on_MS2RS_RetRegist)
+	mh.msgparser.RegistProtoMsg(msg.MS2RS_HeartBeat{}, on_MS2RS_HeartBeat)
+	mh.msgparser.RegistProtoMsg(msg.MS2RS_GateInfo{}, on_MS2RS_GateInfo)
+	mh.msgparser.RegistProtoMsg(msg.MS2RS_CreateRoom{}, on_MS2RS_CreateRoom)
+	mh.msgparser.RegistProtoMsg(msg.MS2Server_BroadCast{}, on_MS2Server_BroadCast)
 	
 }
 
