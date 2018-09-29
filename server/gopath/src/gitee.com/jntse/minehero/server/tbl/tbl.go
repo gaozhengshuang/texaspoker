@@ -90,6 +90,7 @@ func (this *TblLoader) Init() {
 	this.LoadExcel(TexasAI, "texasai.json")
 	this.LoadExcel(RechargeBase, "recharge.json")
 	this.LoadExcel(MapEventBase, "mapevent.json")
+	this.LoadExcel(TexasFRC, "texasfrc.json")
 	this.LoadExcel(AwardBase, "awardbase.json")
 	this.LoadExcel(NameBase, "namebase.json")
 	this.LoadExcel(ChipsBase, "chips.json")
