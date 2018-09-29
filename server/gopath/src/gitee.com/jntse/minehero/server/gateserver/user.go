@@ -97,35 +97,35 @@ func NewGateUser(account, key, token string) *GateUser {
 	return u
 }
 
-func (this *GateUser) Account() string {
-	return this.account
+func (u *GateUser) Account() string {
+	return u.account
 }
 
-func (this *GateUser) EntityBase() *msg.EntityBase {
-	return this.bin.GetEntity()
+func (u *GateUser) EntityBase() *msg.EntityBase {
+	return u.bin.GetEntity()
 }
 
-func (this *GateUser) UserBase() *msg.UserBase {
-	return this.bin.GetBase()
+func (u *GateUser) UserBase() *msg.UserBase {
+	return u.bin.GetBase()
 }
 
-func (this *GateUser) Name() string {
-	return this.EntityBase().GetName()
+func (u *GateUser) Name() string {
+	return u.EntityBase().GetName()
 }
 
-func (this *GateUser) SetName(nickname string) bool {
+func (u *GateUser) SetName(nickname string) bool {
 	if nickname == "" {
-		this.SendNotify("昵称不能为空")
+		u.SendNotify("昵称不能为空")
 		return false
 	}
 
 	if strings.Count(nickname, "")-1 > 8 {
-		this.SendNotify("昵称长度不能大于8个字符")
+		u.SendNotify("昵称长度不能大于8个字符")
 		return false
 	}
 
 	if issp, _ := util.ContainsSpecialCharacter(nickname); issp == true {
-		this.SendNotify("昵称不能含有标点和特殊字符")
+		u.SendNotify("昵称不能含有标点和特殊字符")
 		return false
 	}
 
@@ -139,7 +139,7 @@ func (this *GateUser) SetName(nickname string) bool {
 	}
 	if keyvalue == true {
 		//errcode = "昵称重复"
-		this.SendNotify("昵称重复")
+		u.SendNotify("昵称重复")
 		return false
 	}
 	//新名字加入集合
@@ -150,537 +150,537 @@ func (this *GateUser) SetName(nickname string) bool {
 	}
 
 	//原名从集合中移除
-	_, errrem := Redis().SRem(keynickname, this.Name()).Result()
+	_, errrem := Redis().SRem(keynickname, u.Name()).Result()
 	if errrem != nil {
-		log.Error("改名移除玩家原来名字失败 oldname:%s , err: %s", this.Name(), errrem)
+		log.Error("改名移除玩家原来名字失败 oldname:%s , err: %s", u.Name(), errrem)
 	}
 
-	this.EntityBase().Name = pb.String(nickname)
-	log.Info("玩家[%d] 设置昵称[%s] 成功", this.Id(), nickname)
+	u.EntityBase().Name = pb.String(nickname)
+	log.Info("玩家[%d] 设置昵称[%s] 成功", u.Id(), nickname)
 	return true
 }
 
-func (this *GateUser) Head() string {
-	return this.EntityBase().GetHead()
+func (u *GateUser) Head() string {
+	return u.EntityBase().GetHead()
 }
 
-func (this *GateUser) SetHead(f string, bsync bool) {
-	log.Info("玩家[%d] 设置头像 [%s]", this.Id(), f)
-	this.EntityBase().Head = pb.String(f)
+func (u *GateUser) SetHead(f string, bsync bool) {
+	log.Info("玩家[%d] 设置头像 [%s]", u.Id(), f)
+	u.EntityBase().Head = pb.String(f)
 }
 
-func (this *GateUser) Id() int64 {
-	return this.EntityBase().GetRoleid()
+func (u *GateUser) Id() int64 {
+	return u.EntityBase().GetRoleid()
 }
 
-func (this *GateUser) Sex() int32 {
-	return this.EntityBase().GetSex()
+func (u *GateUser) Sex() int32 {
+	return u.EntityBase().GetSex()
 }
 
-func (this *GateUser) SetSex(sex int32) {
-	log.Info("玩家[%d] 设置性别 [%d]", this.Id(), sex)
-	this.EntityBase().Sex = pb.Int32(sex)
+func (u *GateUser) SetSex(sex int32) {
+	log.Info("玩家[%d] 设置性别 [%d]", u.Id(), sex)
+	u.EntityBase().Sex = pb.Int32(sex)
 }
 
-func (this *GateUser) Sid() int {
-	if this.client != nil {
-		return this.client.Id()
+func (u *GateUser) Sid() int {
+	if u.client != nil {
+		return u.client.Id()
 	}
 	return 0
 }
 
-func (this *GateUser) Level() int32 {
-	return this.level
+func (u *GateUser) Level() int32 {
+	return u.level
 }
 
-func (this *GateUser) AddLevel(num int32) {
-	this.level += num
+func (u *GateUser) AddLevel(num int32) {
+	u.level += num
 }
 
-func (this *GateUser) Exp() int32 {
-	return this.exp
+func (u *GateUser) Exp() int32 {
+	return u.exp
 }
 
-func (this *GateUser) SetExp(exp int32) {
-	this.exp = exp
+func (u *GateUser) SetExp(exp int32) {
+	u.exp = exp
 }
 
-func (this *GateUser) Token() string {
-	return this.token
+func (u *GateUser) Token() string {
+	return u.token
 }
 
-func (this *GateUser) SetToken(t string) {
-	this.token = t
+func (u *GateUser) SetToken(t string) {
+	u.token = t
 }
 
-func (this *GateUser) GetDiamondCost() int64 {
-	userbase := this.UserBase()
+func (u *GateUser) GetDiamondCost() int64 {
+	userbase := u.UserBase()
 	return userbase.GetScounter().GetMoneyCost()
 }
 
-func (this *GateUser) GetDiamondCostReset() int64 {
-	userbase := this.UserBase()
+func (u *GateUser) GetDiamondCostReset() int64 {
+	userbase := u.UserBase()
 	return userbase.GetScounter().GetMoneyCostReset()
 }
 
-func (this *GateUser) SetDiamondCost(cost int64) {
-	userbase := this.UserBase()
+func (u *GateUser) SetDiamondCost(cost int64) {
+	userbase := u.UserBase()
 	userbase.GetScounter().MoneyCost = pb.Int64(cost)
 }
 
-func (this *GateUser) SetDiamondCostReset(reset int64) {
-	userbase := this.UserBase()
+func (u *GateUser) SetDiamondCostReset(reset int64) {
+	userbase := u.UserBase()
 	userbase.GetScounter().MoneyCostReset = pb.Int64(reset)
 }
 
-func (this *GateUser) GetDefaultAddress() *msg.UserAddress {
-	if this.GetAddressSize() != 0 {
-		return this.addrlist[0]
+func (u *GateUser) GetDefaultAddress() *msg.UserAddress {
+	if u.GetAddressSize() != 0 {
+		return u.addrlist[0]
 	}
 	return nil
 }
 
-func (this *GateUser) SetDefaultAddress(index int32) {
-	//this.address = addr
+func (u *GateUser) SetDefaultAddress(index int32) {
+	//u.address = addr
 }
 
-func (this *GateUser) AddAddress(receiver, phone, address string) {
+func (u *GateUser) AddAddress(receiver, phone, address string) {
 	addr := &msg.UserAddress{Receiver: pb.String(receiver), Phone: pb.String(phone), Address: pb.String(address)}
-	this.addrlist = append(this.addrlist, addr)
+	u.addrlist = append(u.addrlist, addr)
 }
 
-func (this *GateUser) ClearAddress() {
-	this.addrlist = make([]*msg.UserAddress, 0)
+func (u *GateUser) ClearAddress() {
+	u.addrlist = make([]*msg.UserAddress, 0)
 }
 
-func (this *GateUser) GetAddressSize() int32 {
-	return int32(len(this.addrlist))
+func (u *GateUser) GetAddressSize() int32 {
+	return int32(len(u.addrlist))
 }
 
-func (this *GateUser) SendAddress() {
+func (u *GateUser) SendAddress() {
 	send := &msg.GW2C_SendDeliveryAddressList{List: make([]*msg.UserAddress, 0)}
-	for _, v := range this.addrlist {
+	for _, v := range u.addrlist {
 		send.List = append(send.List, v)
 	}
-	this.SendMsg(send)
+	u.SendMsg(send)
 }
 
-func (this *GateUser) Verifykey() string {
-	return this.verifykey
+func (u *GateUser) Verifykey() string {
+	return u.verifykey
 }
 
-func (this *GateUser) IsOnline() bool {
-	return this.online
+func (u *GateUser) IsOnline() bool {
+	return u.online
 }
 
-func (this *GateUser) SetOpenId(id string) {
-	this.wechatopenid = id
+func (u *GateUser) SetOpenId(id string) {
+	u.wechatopenid = id
 }
 
-func (this *GateUser) OpenId() string {
-	return this.wechatopenid
+func (u *GateUser) OpenId() string {
+	return u.wechatopenid
 }
 
 // 自己邀请码
-func (this *GateUser) MyInvitationCode() string {
-	return fmt.Sprintf("TJ%d", this.Id())
+func (u *GateUser) MyInvitationCode() string {
+	return fmt.Sprintf("TJ%d", u.Id())
 }
 
 // 邀请人邀请码
-func (this *GateUser) InvitationCode() string {
-	return this.invitationcode
+func (u *GateUser) InvitationCode() string {
+	return u.invitationcode
 }
 
 // 邀请人
-func (this *GateUser) Inviter() int64 {
-	if code := this.InvitationCode(); len(code) > 2 {
+func (u *GateUser) Inviter() int64 {
+	if code := u.InvitationCode(); len(code) > 2 {
 		inviter, _ := strconv.ParseInt(code[2:], 10, 64)
 		return inviter
 	}
 	return 0
 }
 
-func (this *GateUser) TotalRecharge() int32 {
-	return this.totalrecharge
+func (u *GateUser) TotalRecharge() int32 {
+	return u.totalrecharge
 }
 
-func (this *GateUser) SetTotalRecharge(r int32) {
-	this.totalrecharge = r
+func (u *GateUser) SetTotalRecharge(r int32) {
+	u.totalrecharge = r
 }
 
-func (this *GateUser) IsCleanUp() bool {
-	return this.cleanup
+func (u *GateUser) IsCleanUp() bool {
+	return u.cleanup
 }
 
-func (this *GateUser) GetUserPos() (float32, float32) {
+func (u *GateUser) GetUserPos() (float32, float32) {
 	return 0, 0
 }
 
-func (this *GateUser) SendMsg(msg pb.Message) {
-	if this.online == false {
-		log.Info("账户[%s] [%d %s] 不在线", this.Account(), this.Id(), this.Name())
+func (u *GateUser) SendMsg(msg pb.Message) {
+	if u.online == false {
+		log.Info("账户[%s] [%d %s] 不在线", u.Account(), u.Id(), u.Name())
 		return
 	}
-	this.client.SendCmd(msg)
+	u.client.SendCmd(msg)
 }
 
 // 广播缓存
-func (this *GateUser) AddBroadCastMsg(uuid int64) {
-	this.broadcastbuffer = append(this.broadcastbuffer, uuid)
+func (u *GateUser) AddBroadCastMsg(uuid int64) {
+	u.broadcastbuffer = append(u.broadcastbuffer, uuid)
 }
 
 // 玩家全部数据
-func (this *GateUser) SendUserBase() {
+func (u *GateUser) SendUserBase() {
 	send := &msg.GW2C_PushUserInfo{}
-	entity, base, item := this.bin.GetEntity(), this.bin.GetBase(), this.bin.GetItem()
+	entity, base, item := u.bin.GetEntity(), u.bin.GetBase(), u.bin.GetItem()
 	// clone类似c++的copyfrom
 	send.Entity = pb.Clone(entity).(*msg.EntityBase)
 	send.Base = pb.Clone(base).(*msg.UserBase)
 	send.Item = pb.Clone(item).(*msg.ItemBin)
-	this.SendMsg(send)
+	u.SendMsg(send)
 }
 
-func (this *GateUser) IsDBLoad() bool {
-	return this.bin != nil
+func (u *GateUser) IsDBLoad() bool {
+	return u.bin != nil
 }
 
-func (this *GateUser) DBLoad() bool {
-	key, info := fmt.Sprintf("accounts_%s", this.account), &msg.AccountInfo{}
+func (u *GateUser) DBLoad() bool {
+	key, info := fmt.Sprintf("accounts_%s", u.account), &msg.AccountInfo{}
 	if err := utredis.GetProtoBin(Redis(), key, info); err != nil {
-		log.Error("账户%s 获取账户数据失败，err: %s", this.account, err)
+		log.Error("账户%s 获取账户数据失败，err: %s", u.account, err)
 		return false
 	}
 
 	// 获取游戏数据
-	this.bin = new(msg.Serialize)
+	u.bin = new(msg.Serialize)
 	userkey := fmt.Sprintf("userbin_%d", info.GetUserid())
-	if err := utredis.GetProtoBin(Redis(), userkey, this.bin); err != nil {
-		log.Error("账户%s 获取玩家数据失败，err: %s", this.account, err)
+	if err := utredis.GetProtoBin(Redis(), userkey, u.bin); err != nil {
+		log.Error("账户%s 获取玩家数据失败，err: %s", u.account, err)
 		return false
 	}
 
-	this.OnDBLoad("登陆")
+	u.OnDBLoad("登陆")
 	return true
 }
 
-func (this *GateUser) OnDBLoad(way string) {
+func (u *GateUser) OnDBLoad(way string) {
 	log.Info("玩家数据: ==========")
-	log.Info("账户%s 加载DB数据成功 方式[%s]", this.account, way)
-	log.Info("%v", this.bin)
+	log.Info("账户%s 加载DB数据成功 方式[%s]", u.account, way)
+	log.Info("%v", u.bin)
 	log.Info("玩家数据: ==========")
 
 	// 没有名字取个名字
-	entity := this.bin.GetEntity()
+	entity := u.bin.GetEntity()
 	if entity == nil {
-		this.bin.Entity = &msg.EntityBase{}
+		u.bin.Entity = &msg.EntityBase{}
 	}
 	if entity.GetName() == "" {
-		entity.Name = pb.String(fmt.Sprintf("%d_name", this.Id()))
+		entity.Name = pb.String(fmt.Sprintf("%d_name", u.Id()))
 	}
 
 	// proto对象变量初始化
-	if this.bin.Base == nil { this.bin.Base = &msg.UserBase{} }
-	if this.bin.Base.Misc == nil { this.bin.Base.Misc = &msg.UserMiscData{} }
-	if this.bin.Base.Statics == nil { this.bin.Base.Statics = &msg.UserStatistics{} }
-	if this.bin.Base.Sign == nil { this.bin.Base.Sign = &msg.UserSignIn{} }
-	if this.bin.Base.Wechat == nil { this.bin.Base.Wechat = &msg.UserWechat{} }
-	if this.bin.Item == nil { this.bin.Item = &msg.ItemBin{} }
-	if this.bin.Base.Addrlist == nil { this.bin.Base.Addrlist = make([]*msg.UserAddress, 0) }
-	if this.bin.Base.Task == nil { this.bin.Base.Task = &msg.UserTask{} }
-	if this.bin.Base.Luckydraw == nil {
-		this.bin.Base.Luckydraw = &msg.LuckyDrawRecord{Drawlist: make([]*msg.LuckyDrawItem, 0)}
+	if u.bin.Base == nil { u.bin.Base = &msg.UserBase{} }
+	if u.bin.Base.Misc == nil { u.bin.Base.Misc = &msg.UserMiscData{} }
+	if u.bin.Base.Statics == nil { u.bin.Base.Statics = &msg.UserStatistics{} }
+	if u.bin.Base.Sign == nil { u.bin.Base.Sign = &msg.UserSignIn{} }
+	if u.bin.Base.Wechat == nil { u.bin.Base.Wechat = &msg.UserWechat{} }
+	if u.bin.Item == nil { u.bin.Item = &msg.ItemBin{} }
+	if u.bin.Base.Addrlist == nil { u.bin.Base.Addrlist = make([]*msg.UserAddress, 0) }
+	if u.bin.Base.Task == nil { u.bin.Base.Task = &msg.UserTask{} }
+	if u.bin.Base.Luckydraw == nil {
+		u.bin.Base.Luckydraw = &msg.LuckyDrawRecord{Drawlist: make([]*msg.LuckyDrawItem, 0)}
 	}
-	//if this.bin.Base.Images == nil { this.bin.Base.Images = &msg.PersonalImage{Lists: make([]*msg.ImageData, 0)} }
+	//if u.bin.Base.Images == nil { u.bin.Base.Images = &msg.PersonalImage{Lists: make([]*msg.ImageData, 0)} }
 
 	// 加载二进制
-	this.LoadBin()
+	u.LoadBin()
 
 	// 新用户回调
-	if this.tm_login == 0 {
-		this.OnCreateNew()
+	if u.tm_login == 0 {
+		u.OnCreateNew()
 	}
 }
 
 // 打包数据到二进制结构
-func (this *GateUser) PackBin() *msg.Serialize {
+func (u *GateUser) PackBin() *msg.Serialize {
 	bin := &msg.Serialize{}
 
 	// 基础信息
-	bin.Entity = pb.Clone(this.bin.GetEntity()).(*msg.EntityBase)
+	bin.Entity = pb.Clone(u.bin.GetEntity()).(*msg.EntityBase)
 
 	// 玩家信息
-	bin.Base = pb.Clone(this.bin.GetBase()).(*msg.UserBase)
+	bin.Base = pb.Clone(u.bin.GetBase()).(*msg.UserBase)
 	//bin.Base = &msg.UserBase{}
 	//bin.Base.Scounter = &msg.SimpleCounter{}
 	//bin.Base.Wechat = &msg.UserWechat{}
 	//bin.Base.Addrlist = make([]*msg.UserAddress,0)
 
 	entity := bin.Entity
-	entity.Gold = pb.Int32(this.gold)
-	entity.Diamond = pb.Int32(this.diamond)
-	entity.Yuanbao = pb.Int32(this.yuanbao)
-	entity.Level = pb.Int32(this.level)
-	entity.Exp = pb.Int32(this.exp)
+	entity.Gold = pb.Int32(u.gold)
+	entity.Diamond = pb.Int32(u.diamond)
+	entity.Yuanbao = pb.Int32(u.yuanbao)
+	entity.Level = pb.Int32(u.level)
+	entity.Exp = pb.Int32(u.exp)
 
 	userbase := bin.GetBase()
-	userbase.Statics.Tmlogin = pb.Int64(this.tm_login)
-	userbase.Statics.Tmlogout = pb.Int64(this.tm_logout)
-	userbase.Statics.Continuelogin = pb.Int32(this.continuelogin)
-	userbase.Statics.Nocountlogin = pb.Int32(this.nocountlogin)
-	userbase.Statics.Totalrecharge = pb.Int32(this.totalrecharge)
-	userbase.Sign.Signdays = pb.Int32(this.signdays)
-	userbase.Sign.Signtime = pb.Int32(this.signtime)
-	userbase.Misc.Invitationcode = pb.String(this.invitationcode)
+	userbase.Statics.Tmlogin = pb.Int64(u.tm_login)
+	userbase.Statics.Tmlogout = pb.Int64(u.tm_logout)
+	userbase.Statics.Continuelogin = pb.Int32(u.continuelogin)
+	userbase.Statics.Nocountlogin = pb.Int32(u.nocountlogin)
+	userbase.Statics.Totalrecharge = pb.Int32(u.totalrecharge)
+	userbase.Sign.Signdays = pb.Int32(u.signdays)
+	userbase.Sign.Signtime = pb.Int32(u.signtime)
+	userbase.Misc.Invitationcode = pb.String(u.invitationcode)
 
-	userbase.Addrlist = this.addrlist[:]
-	userbase.Wechat.Openid = pb.String(this.wechatopenid)
+	userbase.Addrlist = u.addrlist[:]
+	userbase.Wechat.Openid = pb.String(u.wechatopenid)
 	// 幸运抽奖
 	userbase.Luckydraw.Drawlist = make([]*msg.LuckyDrawItem, 0)
-	userbase.Luckydraw.Totalvalue = pb.Int64(this.luckydrawtotal)
-	for _, v := range this.luckydraw {
+	userbase.Luckydraw.Totalvalue = pb.Int64(u.luckydrawtotal)
+	for _, v := range u.luckydraw {
 		userbase.Luckydraw.Drawlist = append(userbase.Luckydraw.Drawlist, v)
 	}
 
 	// 道具信息
-	this.bag.PackBin(bin)
-	this.task.PackBin(bin)
-	this.events.PackBin(bin)
-	//this.image.PackBin(bin)
+	u.bag.PackBin(bin)
+	u.task.PackBin(bin)
+	u.events.PackBin(bin)
+	//u.image.PackBin(bin)
 
 	//
 	return bin
 }
 
 // 将二进制解析出来
-func (this *GateUser) LoadBin() {
+func (u *GateUser) LoadBin() {
 
 	// 基础信息
 
 	// 玩家信息
-	userbase, entity := this.bin.GetBase(), this.bin.GetEntity()
-	this.gold = entity.GetGold()
-	this.diamond = entity.GetDiamond()
-	this.yuanbao = entity.GetYuanbao()
-	this.level = entity.GetLevel()
-	this.exp = entity.GetExp()
+	userbase, entity := u.bin.GetBase(), u.bin.GetEntity()
+	u.gold = entity.GetGold()
+	u.diamond = entity.GetDiamond()
+	u.yuanbao = entity.GetYuanbao()
+	u.level = entity.GetLevel()
+	u.exp = entity.GetExp()
 
-	this.tm_login = userbase.Statics.GetTmlogin()
-	this.tm_logout = userbase.Statics.GetTmlogout()
-	this.continuelogin = userbase.Statics.GetContinuelogin()
-	this.nocountlogin = userbase.Statics.GetNocountlogin()
-	this.totalrecharge = userbase.Statics.GetTotalrecharge()
+	u.tm_login = userbase.Statics.GetTmlogin()
+	u.tm_logout = userbase.Statics.GetTmlogout()
+	u.continuelogin = userbase.Statics.GetContinuelogin()
+	u.nocountlogin = userbase.Statics.GetNocountlogin()
+	u.totalrecharge = userbase.Statics.GetTotalrecharge()
 
-	this.signdays = userbase.Sign.GetSigndays()
-	this.signtime = userbase.Sign.GetSigntime()
-	this.invitationcode = userbase.Misc.GetInvitationcode()
+	u.signdays = userbase.Sign.GetSigndays()
+	u.signtime = userbase.Sign.GetSigntime()
+	u.invitationcode = userbase.Misc.GetInvitationcode()
 
-	this.addrlist = userbase.GetAddrlist()[:]
-	this.wechatopenid = userbase.GetWechat().GetOpenid()
+	u.addrlist = userbase.GetAddrlist()[:]
+	u.wechatopenid = userbase.GetWechat().GetOpenid()
 	// 幸运抽奖
-	this.luckydraw = make([]*msg.LuckyDrawItem, 0)
-	this.luckydrawtotal = userbase.Luckydraw.GetTotalvalue()
+	u.luckydraw = make([]*msg.LuckyDrawItem, 0)
+	u.luckydrawtotal = userbase.Luckydraw.GetTotalvalue()
 	for _, v := range userbase.Luckydraw.Drawlist {
-		this.luckydraw = append(this.luckydraw, v)
+		u.luckydraw = append(u.luckydraw, v)
 	}
 
 	// 道具信息
-	this.bag.Clean()
-	this.bag.LoadBin(this.bin)
+	u.bag.Clean()
+	u.bag.LoadBin(u.bin)
 
 	// 任务
-	this.task.LoadBin(this.bin)
+	u.task.LoadBin(u.bin)
 
 	// 邮件
-	this.mailbox.DBLoad()
+	u.mailbox.DBLoad()
 
 	// 事件
-	this.events.LoadBin(this.bin)
+	u.events.LoadBin(u.bin)
 
 	// 换装信息
-	//this.image.Clean()
-	//this.image.LoadBin(this.bin)
+	//u.image.Clean()
+	//u.image.LoadBin(u.bin)
 }
 
 // TODO: 存盘可以单独协程
-func (this *GateUser) DBSave() {
-	this.mailbox.DBSave()
-	key := fmt.Sprintf("userbin_%d", this.Id())
-	if err := utredis.SetProtoBin(Redis(), key, this.PackBin()); err != nil {
-		log.Error("保存玩家[%s %d]数据失败", this.Name(), this.Id())
+func (u *GateUser) DBSave() {
+	u.mailbox.DBSave()
+	key := fmt.Sprintf("userbin_%d", u.Id())
+	if err := utredis.SetProtoBin(Redis(), key, u.PackBin()); err != nil {
+		log.Error("保存玩家[%s %d]数据失败", u.Name(), u.Id())
 		return
 	}
-	log.Info("保存玩家[%s %d]数据成功", this.Name(), this.Id())
+	log.Info("保存玩家[%s %d]数据成功", u.Name(), u.Id())
 }
 
 // 异步存盘
-func (this *GateUser) AsynSave() {
-	log.Info("玩家[%s %d] 发起异步存盘", this.Name(), this.Id())
-	event := NewUserSaveEvent(this.DBSave, this.AsynSaveFeedback)
-	this.AsynEventInsert(event)
+func (u *GateUser) AsynSave() {
+	log.Info("玩家[%s %d] 发起异步存盘", u.Name(), u.Id())
+	event := NewUserSaveEvent(u.DBSave, u.AsynSaveFeedback)
+	u.AsynEventInsert(event)
 }
 
 // 异步存盘完成回调
-func (this *GateUser) AsynSaveFeedback() {
-	log.Info("玩家[%s %d] 异步存盘完成", this.Name(), this.Id())
+func (u *GateUser) AsynSaveFeedback() {
+	log.Info("玩家[%s %d] 异步存盘完成", u.Name(), u.Id())
 }
 
 // 新用户回调
-func (this *GateUser) OnCreateNew() {
+func (u *GateUser) OnCreateNew() {
 }
 
 // 上线回调，玩家数据在LoginOk中发送
-func (this *GateUser) Online(session network.IBaseNetSession, way string) bool {
+func (u *GateUser) Online(session network.IBaseNetSession, way string) bool {
 
-	if this.online == true {
-		log.Error("Sid[%d] 账户[%s] 玩家[%d %s] Online失败，已经处于在线状态", this.Sid(), this.account, this.Id(), this.Name())
+	if u.online == true {
+		log.Error("Sid[%d] 账户[%s] 玩家[%d %s] Online失败，已经处于在线状态", u.Sid(), u.account, u.Id(), u.Name())
 		return false
 	}
 
 	curtime := util.CURTIME()
-	this.RegistTicker()
-	this.tickers.Start()
-	this.asynev.Start(int64(this.Id()), 100)
-	this.LoginStatistics()
-	this.online = true
-	this.client = session
-	this.tm_login = curtime
-	this.tm_disconnect = 0
-	this.tm_heartbeat = util.CURTIMEMS()
-	this.roomdata.Online(this)
-	log.Info("Sid[%d] 账户[%s] 玩家[%d] 名字[%s] 登录成功[%s]", this.Sid(), this.account, this.Id(), this.Name(), way)
+	u.RegistTicker()
+	u.tickers.Start()
+	u.asynev.Start(int64(u.Id()), 100)
+	u.LoginStatistics()
+	u.online = true
+	u.client = session
+	u.tm_login = curtime
+	u.tm_disconnect = 0
+	u.tm_heartbeat = util.CURTIMEMS()
+	u.roomdata.Online(u)
+	log.Info("Sid[%d] 账户[%s] 玩家[%d] 名字[%s] 登录成功[%s]", u.Sid(), u.account, u.Id(), u.Name(), way)
 
 	// 上线任务检查
-	this.OnlineTaskCheck()
-	this.events.Online()
+	u.OnlineTaskCheck()
+	u.events.Online()
 
 	// 同步数据到客户端
-	this.Syn()
+	u.Syn()
 	// 同步midas平台充值金额
-	//this.SynMidasBalance()
+	//u.SynMidasBalance()
 	return true
 }
 
-func (this *GateUser) Syn() {
-	this.SendUserBase()
-	this.SendSign()
-	this.CheckHaveCompensation()
-	//this.QueryPlatformCoins()
-	//this.TestItem()
+func (u *GateUser) Syn() {
+	u.SendUserBase()
+	u.SendSign()
+	u.CheckHaveCompensation()
+	//u.QueryPlatformCoins()
+	//u.TestItem()
 }
 
-func (this *GateUser) TestItem() {
+func (u *GateUser) TestItem() {
 	for k, _ := range tbl.ItemBase.ItemBaseDataById {
-		this.AddItem(k, 100, "测试", true)
+		u.AddItem(k, 100, "测试", true)
 	}
 }
 
 // 断开连接回调
-func (this *GateUser) OnDisconnect() {
-	log.Info("sid[%d] 账户%s 玩家[%s %d] 断开连接", this.Sid(), this.account, this.Name(), this.Id())
-	if this.online == false {
+func (u *GateUser) OnDisconnect() {
+	log.Info("sid[%d] 账户%s 玩家[%s %d] 断开连接", u.Sid(), u.account, u.Name(), u.Id())
+	if u.online == false {
 		return
 	}
-	this.online = false
-	this.client = nil
-	this.tm_disconnect = util.CURTIMEMS()
-	this.SendRsUserDisconnect()
-	this.AsynSave()
-	//this.PlatformPushUserOnlineTime()
+	u.online = false
+	u.client = nil
+	u.tm_disconnect = util.CURTIMEMS()
+	u.SendRsUserDisconnect()
+	u.AsynSave()
+	//u.PlatformPushUserOnlineTime()
 }
 
 // 服务器下线玩家
-func (this *GateUser) KickOut(way string) {
-	log.Info("sid[%d] 账户[%s] [%d %s] KickOut 原因[%s]", this.Sid(), this.account, this.Id(), this.Name(), way)
-	if this.online == false {
+func (u *GateUser) KickOut(way string) {
+	log.Info("sid[%d] 账户[%s] [%d %s] KickOut 原因[%s]", u.Sid(), u.account, u.Id(), u.Name(), way)
+	if u.online == false {
 		return
 	}
-	this.online = false
-	this.client.Close()
-	this.client = nil
-	this.tm_disconnect = util.CURTIMEMS()
-	this.SendRsUserDisconnect()
-	this.AsynSave()
-	//this.PlatformPushUserOnlineTime()
+	u.online = false
+	u.client.Close()
+	u.client = nil
+	u.tm_disconnect = util.CURTIMEMS()
+	u.SendRsUserDisconnect()
+	u.AsynSave()
+	//u.PlatformPushUserOnlineTime()
 }
 
 // 检查下线存盘
-func (this *GateUser) CheckDisconnectTimeOut(now int64) {
-	if this.tm_disconnect == 0 {
+func (u *GateUser) CheckDisconnectTimeOut(now int64) {
+	if u.tm_disconnect == 0 {
 		return
 	}
 
 	// 延迟清理离线玩家
-	if !GateSvr().IsGracefulQuit() && (now < this.tm_disconnect+tbl.Global.DisconClean) {
+	if !GateSvr().IsGracefulQuit() && (now < u.tm_disconnect+tbl.Global.DisconClean) {
 		return
 	}
 
 	//// 等待房间关闭
-	//if this.IsInRoom() && !this.IsRoomCloseTimeOut() {
+	//if u.IsInRoom() && !u.IsRoomCloseTimeOut() {
 	//	return
 	//}
 
 	// 异步事件未处理完
-	if this.asynev.EventSize() != 0 || this.asynev.FeedBackSize() != 0 {
+	if u.asynev.EventSize() != 0 || u.asynev.FeedBackSize() != 0 {
 		return
 	}
 
 	// 异步存盘，最大延迟1秒
 
-	this.Logout()
+	u.Logout()
 }
 
 // 真下线(存盘，从Gate清理玩家数据)
-func (this *GateUser) Logout() {
-	this.online = false
-	this.tm_logout = util.CURTIME()
-	this.cleanup = true
-	this.DBSave()
-	UnBindingAccountGateWay(this.account)
-	this.asynev.Shutdown()
+func (u *GateUser) Logout() {
+	u.online = false
+	u.tm_logout = util.CURTIME()
+	u.cleanup = true
+	u.DBSave()
+	UnBindingAccountGateWay(u.account)
+	u.asynev.Shutdown()
 
 	//下线通知MatchServer
-	//this.OnDisconnectMatchServer()
-	log.Info("账户%s 玩家[%s %d] 存盘清理下线", this.account, this.Name(), this.Id())
+	//u.OnDisconnectMatchServer()
+	log.Info("账户%s 玩家[%s %d] 存盘清理下线", u.account, u.Name(), u.Id())
 }
 
 // logout完成，做最后清理
-func (this *GateUser) OnCleanUp() {
-	this.tickers.Stop()
+func (u *GateUser) OnCleanUp() {
+	u.tickers.Stop()
 }
 
 // 发送个人通知
-func (this *GateUser) SendNotify(text string) {
+func (u *GateUser) SendNotify(text string) {
 	send := &msg.GW2C_MsgNotify{Text: pb.String(text)}
-	this.SendMsg(send)
+	u.SendMsg(send)
 }
 
 // 插入新异步事件
-func (this *GateUser) AsynEventInsert(event eventque.IEvent) {
-	this.asynev.Push(event)
+func (u *GateUser) AsynEventInsert(event eventque.IEvent) {
+	u.asynev.Push(event)
 }
 
 // 上线任务检查
-func (this *GateUser) OnlineTaskCheck() {
+func (u *GateUser) OnlineTaskCheck() {
 	// 自己注册任务
-	if this.task.IsTaskFinish(int32(msg.TaskId_RegistAccount)) == false {
-		this.task.TaskFinish(int32(msg.TaskId_RegistAccount))
+	if u.task.IsTaskFinish(int32(msg.TaskId_RegistAccount)) == false {
+		u.task.TaskFinish(int32(msg.TaskId_RegistAccount))
 	}
 
 	// 被自己邀请人达成积分任务
-	key_inviter := fmt.Sprintf("task_invitee_topscorefinish_%d", this.Id())
+	key_inviter := fmt.Sprintf("task_invitee_topscorefinish_%d", u.Id())
 	sumfinish, _ := Redis().SCard(key_inviter).Result()
-	if sumfinish != 0 && this.task.IsTaskFinish(int32(msg.TaskId_InviteeTopScore)) == false {
-		this.task.TaskFinish(int32(msg.TaskId_InviteeTopScore))
+	if sumfinish != 0 && u.task.IsTaskFinish(int32(msg.TaskId_InviteeTopScore)) == false {
+		u.task.TaskFinish(int32(msg.TaskId_InviteeTopScore))
 	}
 
 	// 邀请注册任务
-	invite_count_key := fmt.Sprintf("user_%d_invite_regist_count", this.Id())
+	invite_count_key := fmt.Sprintf("user_%d_invite_regist_count", u.Id())
 	invite_count, errget := Redis().Get(invite_count_key).Int64()
 	if errget != nil && errget != redis.Nil {
-		log.Error("玩家[%s %d] 上线获取邀请注册任务计数失败 redis err[%s]", this.Name(), this.Id(), errget)
+		log.Error("玩家[%s %d] 上线获取邀请注册任务计数失败 redis err[%s]", u.Name(), u.Id(), errget)
 	}
 	if invite_count != 0 {
-		this.task.SetTaskProgress(int32(msg.TaskId_InviteRegist), int32(invite_count))
+		u.task.SetTaskProgress(int32(msg.TaskId_InviteRegist), int32(invite_count))
 	}
 
 }

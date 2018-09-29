@@ -25,23 +25,23 @@ func NewRS2GWMsgHandler() *RS2GWMsgHandler {
 	return handler
 }
 
-func (this* RS2GWMsgHandler) Init() {
+func (mh* RS2GWMsgHandler) Init() {
 
-	this.msgparser = network.NewProtoParser("RS2GW_MsgParser", tbl.ProtoMsgIndexGenerator)
-	if this.msgparser == nil {
+	mh.msgparser = network.NewProtoParser("RS2GW_MsgParser", tbl.ProtoMsgIndexGenerator)
+	if mh.msgparser == nil {
 		return
 	}
 
 	// 收
-	this.msgparser.RegistProtoMsg(msg.RS2GW_ReqRegist{}, on_RS2GW_ReqRegist)
-	this.msgparser.RegistProtoMsg(msg.RS2GW_RetUserDisconnect{}, on_RS2GW_RetUserDisconnect)
-	this.msgparser.RegistProtoMsg(msg.RS2GW_MsgTransfer{}, on_RS2GW_MsgTransfer)
-	this.msgparser.RegistProtoMsg(msg.GW2C_MsgNotify{}, on_GW2C_MsgNotify)
+	mh.msgparser.RegistProtoMsg(msg.RS2GW_ReqRegist{}, on_RS2GW_ReqRegist)
+	mh.msgparser.RegistProtoMsg(msg.RS2GW_RetUserDisconnect{}, on_RS2GW_RetUserDisconnect)
+	mh.msgparser.RegistProtoMsg(msg.RS2GW_MsgTransfer{}, on_RS2GW_MsgTransfer)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_MsgNotify{}, on_GW2C_MsgNotify)
 
 	// 房间
-	this.msgparser.RegistProtoMsg(msg.RS2GW_PushRoomDestory{}, on_RS2GW_PushRoomDestory)
-	this.msgparser.RegistProtoMsg(msg.RS2GW_UserLeaveRoom{}, on_RS2GW_UserLeaveRoom)
-	this.msgparser.RegistProtoMsg(msg.RS2GW_RetEnterRoom{}, on_RS2GW_RetEnterRoom)
+	mh.msgparser.RegistProtoMsg(msg.RS2GW_PushRoomDestory{}, on_RS2GW_PushRoomDestory)
+	mh.msgparser.RegistProtoMsg(msg.RS2GW_UserLeaveRoom{}, on_RS2GW_UserLeaveRoom)
+	mh.msgparser.RegistProtoMsg(msg.RS2GW_RetEnterRoom{}, on_RS2GW_RetEnterRoom)
 }
 
 func on_RS2GW_ReqRegist(session network.IBaseNetSession, message interface{}) {
