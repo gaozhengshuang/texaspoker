@@ -87,7 +87,7 @@ func NewGateUser(account, key, token string) *GateUser {
 	u.task.Init(u)
 	u.events.Init(u)
 	u.mailbox.Init(u)
-	u.tickers.Init(u.OnTicker10ms, u.OnTicker100ms, u.OnTicker1s, u.OnTicker5s, u.OnTicker1m)
+	u.tickers.Init()
 	u.cleanup = false
 	u.tm_disconnect = 0
 	u.continuelogin = 1
@@ -506,10 +506,10 @@ func (u *GateUser) DBSave() {
 	u.mailbox.DBSave()
 	key := fmt.Sprintf("userbin_%d", u.Id())
 	if err := utredis.SetProtoBin(Redis(), key, u.PackBin()); err != nil {
-		log.Error("保存玩家[%s %d]数据失败", u.Name(), u.Id())
+		log.Error("玩家[%s %d] 数据存盘失败", u.Name(), u.Id())
 		return
 	}
-	log.Info("保存玩家[%s %d]数据成功", u.Name(), u.Id())
+	log.Info("玩家[%s %d] 数据存盘成功", u.Name(), u.Id())
 }
 
 // 异步存盘
@@ -521,7 +521,7 @@ func (u *GateUser) AsynSave() {
 
 // 异步存盘完成回调
 func (u *GateUser) AsynSaveFeedback() {
-	log.Info("玩家[%s %d] 异步存盘完成", u.Name(), u.Id())
+	log.Info("玩家[%s %d] 完成异步存盘", u.Name(), u.Id())
 }
 
 // 新用户回调
@@ -619,28 +619,27 @@ func (u *GateUser) CheckDisconnectTimeOut(now int64) {
 	//	return
 	//}
 
+
 	// 异步事件未处理完
 	if u.asynev.EventSize() != 0 || u.asynev.FeedBackSize() != 0 {
 		return
 	}
 
-	// 异步存盘，最大延迟1秒
-
 	u.Logout()
 }
 
-// 真下线(存盘，从Gate清理玩家数据)
+// 真下线，清理玩家数据
 func (u *GateUser) Logout() {
 	u.online = false
 	u.tm_logout = util.CURTIME()
 	u.cleanup = true
-	u.DBSave()
+	//u.DBSave()
 	UnBindingAccountGateWay(u.account)
 	u.asynev.Shutdown()
 
 	//下线通知MatchServer
 	//u.OnDisconnectMatchServer()
-	log.Info("账户%s 玩家[%s %d] 存盘清理下线", u.account, u.Name(), u.Id())
+	log.Info("玩家[%s %d] 账户[%s] 清理下线", u.Name(), u.Id(), u.Account())
 }
 
 // logout完成，做最后清理

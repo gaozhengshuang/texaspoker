@@ -74,7 +74,7 @@ type GateServer struct {
 	msghandlers  	[]network.IBaseMsgHandler
 	tblloader    	*tbl.TblLoader
 	rcounter     	util.RedisCounter
-	tickers      	[]util.IGameTicker
+	tickers      	[]*util.GameTicker
 	gracefulquit 	bool
 	runtimestamp 	int64
 	hourmonitor  	*util.IntHourMonitorPool
@@ -448,7 +448,7 @@ func (g *GateServer) Run() {
 	g.sf.Record(util.CURTIMEMS())
 
 	// 每帧统计耗时
-	if delay := g.sf.Total(); lastrun + delay > 40 { // 40毫秒
+	if delay := g.sf.Total(); lastrun + delay > 20 { // 40毫秒
 		log.Warn("统计帧耗时 lastrun[%d] total[%d] dispatch[%d] userticker[%d] svrticker[%d]",
 			lastrun, delay, g.sf.Diff(0, 1), g.sf.Diff(1,2), g.sf.Diff(2,3))
 	}

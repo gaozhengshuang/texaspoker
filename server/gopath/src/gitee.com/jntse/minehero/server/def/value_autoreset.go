@@ -22,7 +22,7 @@ func NewInthourAutoResetValue(id, hours int32, value int64) *InthourAutoResetVal
 	return v
 }
 
-func (t *InthourAutoResetValue) Init() {
+func (t *InthourAutoResetValue) init() {
 	resetbaseline, now := util.GetDayStart() + int64(t.hours * util.HourSec), util.CURTIME()
 	if t.lastreset == 0 {	// firt init
 		t.value ,t.lastreset = 0, now
@@ -37,17 +37,17 @@ func (t *InthourAutoResetValue) Init() {
 	}
 }
 
-func (t *InthourAutoResetValue) LoadBin(bin *msg.InthourAutoResetValue) {
+func (t *InthourAutoResetValue) loadBin(bin *msg.InthourAutoResetValue) {
 	t.id, t.hours, t.value = bin.GetId(), bin.GetHours(), bin.GetValue()
 	t.Init()
 }
 
-func (t *InthourAutoResetValue) PackBin() *msg.InthourAutoResetValue {
+func (t *InthourAutoResetValue) packBin() *msg.InthourAutoResetValue {
 	bin := &msg.InthourAutoResetValue{Id:pb.Int32(t.id), Hours:pb.Int32(t.hours), Value:pb.Int64(t.value)}
 	return bin
 }
 
-func (t *InthourAutoResetValue) Check() {
+func (t *InthourAutoResetValue) check() {
 	now := util.CURTIME()
 	if now > t.nextreset {
 		t.value = 0
@@ -56,26 +56,27 @@ func (t *InthourAutoResetValue) Check() {
 	}
 }
 
-func (t *InthourAutoResetValue) Value() int64 {
+func (t *InthourAutoResetValue) value() int64 {
 	t.Check()
 	return t.value
 }
 
-func (t *InthourAutoResetValue) Inc(n int64) {
+func (t *InthourAutoResetValue) inc(n int64) {
 	t.Check()
 	t.value += n
 }
 
-func (t *InthourAutoResetValue) Dec(n int64) {
+func (t *InthourAutoResetValue) dec(n int64) {
 	t.Check()
 	t.value -= n
 }
 
-//
+// 自动重置变量管理器
 type InthourAutoResetManager struct {
 	values map[int32]*InthourAutoResetValue
 }
 
+// 加载
 func (m *InthourAutoResetManager) LoadBin(bin *msg.InthourAutoResetManager) {
 	for _, v := range bin.Values {
 		vv := &InthourAutoResetValue{}
@@ -84,6 +85,7 @@ func (m *InthourAutoResetManager) LoadBin(bin *msg.InthourAutoResetManager) {
 	}
 }
 
+// 打包
 func (m *InthourAutoResetManager) PackBin() *msg.InthourAutoResetManager {
 	bin := &msg.InthourAutoResetManager{Values:make([]*msg.InthourAutoResetValue, 0)}
 	for _, v := range m.values {
@@ -92,8 +94,8 @@ func (m *InthourAutoResetManager) PackBin() *msg.InthourAutoResetManager {
 	return bin
 }
 
-//
-func (m *InthourAutoResetManager) Value(id int32) (int64, error) {
+// 获取值
+func (m *InthourAutoResetManager) Val(id int32) (int64, error) {
 	v, ok := m.values[id]
 	if ok == false {
 		return 0, fmt.Errorf("value is not exist")
@@ -101,6 +103,7 @@ func (m *InthourAutoResetManager) Value(id int32) (int64, error) {
 	return v.Value(), nil
 }
 
+// 增加
 func (m *InthourAutoResetManager) Inc(id int32, n int64) error {
 	v, ok := m.values[id]
 	if ok == false {
@@ -110,6 +113,7 @@ func (m *InthourAutoResetManager) Inc(id int32, n int64) error {
 	return nil
 }
 
+// 减少
 func (m *InthourAutoResetManager) Dec(id int32, n int64) error {
 	v, ok := m.values[id]
 	if ok == false {
@@ -119,7 +123,7 @@ func (m *InthourAutoResetManager) Dec(id int32, n int64) error {
 	return nil
 }
 
-// 增加一个新的计数器
+// 添加新计数器
 func (m *InthourAutoResetManager) Add(id, hours int32, n int64) error {
 	_, ok := m.values[id]
 	if ok == true {
@@ -129,7 +133,7 @@ func (m *InthourAutoResetManager) Add(id, hours int32, n int64) error {
 	return nil
 }
 
-// 删除一个计数器
+// 删除计数器
 func (m *InthourAutoResetManager) Remove(id int32) {
 	delete(m.values, id)
 }
