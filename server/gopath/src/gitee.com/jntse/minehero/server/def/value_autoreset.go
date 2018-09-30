@@ -1,39 +1,49 @@
 package def
 import (
 	"fmt"
+	"time"
 	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/minehero/pbmsg"
 	pb"github.com/gogo/protobuf/proto"
 )
 
-// 每日整点h重置变量
+// 变量自动重置(每日整点h/每周星期d)
 type AutoResetValue struct {
 	id			int32		//
+	kind		int32		// 每日/每周
+	weeks		int32		// weeks
 	hours		int32		// hours
 	value 		int64		// value
 	lastreset	int64		//
 	nextreset	int64		// tmp timestamp
 }
 
-func NewAutoResetValue(id, hours int32, value int64) *AutoResetValue {
-	v := &AutoResetValue{id:id, hours:hours}
+// 变量自动重置类型
+const (
+	AutoResetValueKind_Day 	= 1;
+	AutoResetValueKind_Week = 2;
+)
+
+func NewAutoResetValue(kind, id, weeks, hours int32, value int64) *AutoResetValue {
+	v := &AutoResetValue{id:id, kind:kind, weeks:weeks, hours:hours}
 	v.init()
 	v.inc(value)
 	return v
 }
 
 func (t *AutoResetValue) init() {
-	resetbaseline, now := util.GetDayStart() + int64(t.hours * util.HourSec), util.CURTIME()
+	now := util.CURTIME()
+	baseline := util.GetDayStart() + int64(t.hours * util.HourSec)
 	if t.lastreset == 0 {	// firt init
 		t.value ,t.lastreset = 0, now
 	}else if now - t.lastreset > util.DaySec {	// over 24 hours
 		t.value ,t.lastreset = 0, now
 	}
 
-	if now < resetbaseline {
-		t.nextreset = resetbaseline
+	if now < baseline {
+		t.nextreset = baseline
 	}else {
-		t.nextreset = resetbaseline + util.DaySec
+		t.nextreset = baseline + util.DaySec
 	}
 }
 
@@ -123,18 +133,49 @@ func (m *AutoResetValueManager) Dec(id int32, n int64) error {
 	return nil
 }
 
-// 添加新计数器
-func (m *AutoResetValueManager) Add(id, hours int32, n int64) error {
-	_, ok := m.values[id]
-	if ok == true {
-		return fmt.Errorf("value is duplicated")
-	}
-	m.values[id] = NewAutoResetValue(id, hours, n)
-	return nil
-}
-
 // 删除计数器
 func (m *AutoResetValueManager) Remove(id int32) {
 	delete(m.values, id)
 }
+
+// 添加新计数器(not import)
+func (m *AutoResetValueManager) addNew(kind, id, weeks, hours int32, n int64) error {
+	if _, ok := m.values[id]; ok == true {
+		return fmt.Errorf("value is duplicated")
+	}
+	if kind != AutoResetValueKind_Day && kind != AutoResetValueKind_Week {
+		return fmt.Errorf("kind is invalid")
+	}
+	if weeks < int32(time.Sunday) || weeks > int32(time.Saturday) {
+		return fmt.Errorf("week is invalid")
+	}
+	if hours < 0 || hours >= 24 {
+		return fmt.Errorf("hours is invalid")
+	}
+	m.values[id] = NewAutoResetValue(kind, id, weeks, hours, n)
+	return nil
+}
+
+// 每日0点
+func (m *AutoResetValueManager) AddDayDefault(id int32, n int64) error {
+	return m.addNew(AutoResetValueKind_Day, id, 0, 0, n)
+}
+
+func (m *AutoResetValueManager) AddDay(id, hours int32, n int64) error {
+	return m.addNew(AutoResetValueKind_Day, id, 0, hours, n)
+}
+
+// 每周一0点
+func (m *AutoResetValueManager) AddWeekDefault(id int32, n int64) error {
+	return m.addNew(AutoResetValueKind_Week, id, int32(time.Monday), 0, n)
+}
+
+func (m *AutoResetValueManager) AddWeekHours(id, weeks, hours int32, n int64) error {
+	return m.addNew(AutoResetValueKind_Week, id, weeks, hours, n)
+}
+
+func (m *AutoResetValueManager) AddWeek(id, weeks int32, n int64) error {
+	return m.addNew(AutoResetValueKind_Week, id, weeks, 0, n)
+}
+
 
