@@ -198,9 +198,6 @@ func (m *AutoResetValues) addNew(kind, id, weeks, hours int32, n int64) error {
 	if weeks < int32(time.Sunday) || weeks > int32(time.Saturday) {
 		return fmt.Errorf("week is invalid")
 	}
-	if weeks == 0 {		// 0 is Sunday, but treat as 7
-		weeks = 7
-	}
 	m.values[id] = NewAutoResetValue(kind, id, weeks, hours, n)
 	return nil
 }
