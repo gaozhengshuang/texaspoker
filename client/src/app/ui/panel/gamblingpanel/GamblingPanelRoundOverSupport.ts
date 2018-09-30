@@ -40,12 +40,21 @@ class GamblingPanelRoundOverSupport extends BaseGamblingPanelSupport
 		this._isClientOver = false;
 		this._isNextRoundStart = false;
 	}
-	private brightCardHandler(info: HandCardInfo)
+	private brightCardHandler(data: any)
 	{
-		if (info && this._isNextRoundStart == false)
+		let info: HandCardInfo = data.info;
+
+		let headCom: GamblingHeadComponent = this.target.getHeadComponentByRole(info.roleId);
+		if (data.allin)
 		{
-			let headCom: GamblingHeadComponent = this.target.getHeadComponentByRole(info.roleId);
-			if (headCom && info.cardList && info.cardList.length > 1)
+			if (headCom)
+			{
+				headCom.allinShowHand(info.cardList)
+			}
+		}
+		else
+		{
+			if (this._isNextRoundStart == false && headCom && info.cardList && info.cardList.length > 1)
 			{
 				headCom.runBrightCard(info.cardList);
 			}

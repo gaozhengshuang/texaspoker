@@ -56,13 +56,13 @@ class UserUtil
     */
     public static getTitle(level: number): string
     {
-        for (let i: number = 0; i < ExpDefined.GetInstance().dataList.length; i++)
-        {
-            if (level == ExpDefined.GetInstance().dataList[i].level)
-            {
-                return ExpDefined.GetInstance().dataList[i].title;
-            }
-        }
+        // for (let i: number = 0; i < ExpDefined.GetInstance().dataList.length; i++) //move todo
+        // {
+        //     if (level == ExpDefined.GetInstance().dataList[i].level)
+        //     {
+        //         return ExpDefined.GetInstance().dataList[i].title;
+        //     }
+        // }
         return null;
     }
     /**

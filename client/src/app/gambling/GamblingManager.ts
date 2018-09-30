@@ -317,7 +317,7 @@ class GamblingManager
 			}
 		};
 		SocketManager.AddCommandListener(Command.C2GW_ReqEnterRoom, callback, this);
-		if (password != undefined && id > 0)
+		if (!game.StringUtil.isNullOrEmpty(password) && id > 0)
 		{
 			SocketManager.Send(Command.C2GW_ReqEnterRoom, { userid: UserManager.userInfo.roleId, roomid: id, passwd: password });
 		}
@@ -610,7 +610,10 @@ class GamblingManager
 				else
 				{
 					GamblingManager.showPotChips += num;
-					pInfo.totalnum += num;
+					if (pInfo)
+					{
+						pInfo.totalnum += num;
+					}
 				}
 			}
 
@@ -836,7 +839,7 @@ class GamblingManager
 			info.roleId = game.longToNumber(data.roleid);
 			info.cardList = [];
 			GamblingUtil.cardArr2CardInfoList(data.card, info.cardList);
-			GamblingManager.SomeBodyBrightCardEvent.dispatch(info);
+			GamblingManager.SomeBodyBrightCardEvent.dispatch({allin:data.allin, info:info});
 		}
 	}
 	public static onReconnectHandler()
