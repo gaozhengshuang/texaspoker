@@ -139,3 +139,15 @@ func (u *GateUser) ActivityResetByWeek() {
 	//签到
 	u.ResetDailySign()
 }
+
+//领取系统周期奖励金币
+func (u *GateUser) GetFreeGold() {
+	now := util.CURTIME()
+	if int32(now)-u.lastgoldtime >= 1800 {
+		u.lastgoldtime = int32(now)
+		u.AddGold(500, "领取系统免费金币", true)
+		send := &msg.GW2C_RetGetFreeGold{}
+		send.Lastgoldtime = pb.Int32(u.lastgoldtime)
+		u.SendMsg(send)
+	}
+}
