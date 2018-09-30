@@ -16,7 +16,7 @@ export var ProtoId : table.IProtoIdDefine[] = [
 		{ Id : 11, Name : "msg.C2GW_ReqGetFreeGold" 	},
 		{ Id : 12, Name : "msg.GW2C_RetGetFreeGold" 	},
 		{ Id : 13, Name : "msg.AutoResetValue" 	},
-		{ Id : 14, Name : "msg.AutoResetValueManager" 	},
+		{ Id : 14, Name : "msg.AutoResetValues" 	},
 		{ Id : 15, Name : "msg.IpHost" 	},
 		{ Id : 16, Name : "msg.PairNumItem" 	},
 		{ Id : 17, Name : "msg.C2GW_AddDeliveryAddress" 	},

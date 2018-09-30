@@ -1,5 +1,6 @@
 syntax = "proto2";
 package msg;
+import "autoreset.proto";
 
 message EntityBase {
     optional int64  roleid  = 1;
@@ -95,12 +96,13 @@ message UserBase {
     optional UserMiscData misc = 1;
     optional UserStatistics statics = 2;
     optional UserSignIn sign = 3;
-    repeated UserAddress addrlist   = 4;   // 地址列表
-    optional SimpleCounter scounter = 5;   // 简单计数器
-    optional UserWechat wechat = 6;        // 微信
-    optional UserTask task = 7;            // 任务
-    optional LuckyDrawRecord luckydraw = 8;// 抽奖
-    optional UserMapEvent mapevent = 9;    // 地图事件
+    repeated UserAddress addrlist   = 4;    // 地址列表
+    optional SimpleCounter scounter = 5;    // 简单计数器
+    optional UserWechat wechat = 6;         // 微信
+    optional UserTask task = 7;             // 任务
+    optional LuckyDrawRecord luckydraw = 8; // 抽奖
+    optional UserMapEvent mapevent = 9;     // 地图事件
+    optional AutoResetValues arvalues = 10; // 变量自动重置
 }
 
 message UserAddress {

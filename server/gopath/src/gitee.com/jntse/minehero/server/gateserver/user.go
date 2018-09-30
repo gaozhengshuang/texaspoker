@@ -9,6 +9,7 @@ import (
 	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/minehero/server/tbl"
+	"gitee.com/jntse/minehero/server/def"
 	"github.com/go-redis/redis"
 	pb "github.com/gogo/protobuf/proto"
 	"strconv"
@@ -78,6 +79,7 @@ type GateUser struct {
 	synbalance      bool         // 充值中
 	events          UserMapEvent // 地图事件
 	mailbox         MailBox      // 邮箱
+	arvalues        def.AutoResetValues
 }
 
 func NewGateUser(account, key, token string) *GateUser {
@@ -88,6 +90,7 @@ func NewGateUser(account, key, token string) *GateUser {
 	u.task.Init(u)
 	u.events.Init(u)
 	u.mailbox.Init(u)
+	u.arvalues.Init()
 	u.tickers.Init()
 	u.cleanup = false
 	u.tm_disconnect = 0
@@ -380,33 +383,16 @@ func (u *GateUser) OnDBLoad(way string) {
 	}
 
 	// proto对象变量初始化
-	if u.bin.Base == nil {
-		u.bin.Base = &msg.UserBase{}
-	}
-	if u.bin.Base.Misc == nil {
-		u.bin.Base.Misc = &msg.UserMiscData{}
-	}
-	if u.bin.Base.Statics == nil {
-		u.bin.Base.Statics = &msg.UserStatistics{}
-	}
-	if u.bin.Base.Sign == nil {
-		u.bin.Base.Sign = &msg.UserSignIn{}
-	}
-	if u.bin.Base.Wechat == nil {
-		u.bin.Base.Wechat = &msg.UserWechat{}
-	}
-	if u.bin.Item == nil {
-		u.bin.Item = &msg.ItemBin{}
-	}
-	if u.bin.Base.Addrlist == nil {
-		u.bin.Base.Addrlist = make([]*msg.UserAddress, 0)
-	}
-	if u.bin.Base.Task == nil {
-		u.bin.Base.Task = &msg.UserTask{}
-	}
-	if u.bin.Base.Luckydraw == nil {
-		u.bin.Base.Luckydraw = &msg.LuckyDrawRecord{Drawlist: make([]*msg.LuckyDrawItem, 0)}
-	}
+	if u.bin.Base == nil { u.bin.Base = &msg.UserBase{} }
+	if u.bin.Base.Misc == nil { u.bin.Base.Misc = &msg.UserMiscData{} }
+	if u.bin.Base.Statics == nil { u.bin.Base.Statics = &msg.UserStatistics{} }
+	if u.bin.Base.Sign == nil { u.bin.Base.Sign = &msg.UserSignIn{} }
+	if u.bin.Base.Wechat == nil { u.bin.Base.Wechat = &msg.UserWechat{} }
+	if u.bin.Item == nil { u.bin.Item = &msg.ItemBin{} }
+	if u.bin.Base.Addrlist == nil { u.bin.Base.Addrlist = make([]*msg.UserAddress, 0) }
+	if u.bin.Base.Task == nil { u.bin.Base.Task = &msg.UserTask{} }
+	if u.bin.Base.Luckydraw == nil { u.bin.Base.Luckydraw = &msg.LuckyDrawRecord{Drawlist: make([]*msg.LuckyDrawItem, 0)} }
+	if u.bin.Base.Arvalues == nil { u.bin.Base.Arvalues = &msg.AutoResetValues{Values: make([]*msg.AutoResetValue, 0)} }
 	//if u.bin.Base.Images == nil { u.bin.Base.Images = &msg.PersonalImage{Lists: make([]*msg.ImageData, 0)} }
 
 	// 加载二进制
@@ -511,6 +497,9 @@ func (u *GateUser) LoadBin() {
 
 	// 邮件
 	u.mailbox.DBLoad()
+
+	// 自动重置计数
+	u.arvalues.LoadBin(u.bin.Base.Arvalues)
 
 	// 事件
 	u.events.LoadBin(u.bin)

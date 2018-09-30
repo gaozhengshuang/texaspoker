@@ -10,7 +10,7 @@ message AutoResetValue {
 }
 
 // 变量自动重置
-message AutoResetValueManager {
+message AutoResetValues {
     repeated AutoResetValue values = 1;
 }
 

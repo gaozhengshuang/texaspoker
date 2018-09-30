@@ -121,12 +121,16 @@ func (t *AutoResetValue) dec(n int64) {
 }
 
 // 自动重置变量管理器
-type AutoResetValueManager struct {
+type AutoResetValues struct {
 	values map[int32]*AutoResetValue
 }
 
+func (m *AutoResetValues) Init() {
+	m.values = make(map[int32]*AutoResetValue)
+}
+
 // 加载
-func (m *AutoResetValueManager) LoadBin(bin *msg.AutoResetValueManager) {
+func (m *AutoResetValues) LoadBin(bin *msg.AutoResetValues) {
 	for _, v := range bin.Values {
 		vv := &AutoResetValue{}
 		vv.loadBin(v)
@@ -135,8 +139,8 @@ func (m *AutoResetValueManager) LoadBin(bin *msg.AutoResetValueManager) {
 }
 
 // 打包
-func (m *AutoResetValueManager) PackBin() *msg.AutoResetValueManager {
-	bin := &msg.AutoResetValueManager{Values:make([]*msg.AutoResetValue, 0)}
+func (m *AutoResetValues) PackBin() *msg.AutoResetValues {
+	bin := &msg.AutoResetValues{Values:make([]*msg.AutoResetValue, 0)}
 	for _, v := range m.values {
 		bin.Values = append(bin.Values, v.packBin())
 	}
@@ -144,7 +148,7 @@ func (m *AutoResetValueManager) PackBin() *msg.AutoResetValueManager {
 }
 
 // 获取值
-func (m *AutoResetValueManager) Val(id int32) (int64, error) {
+func (m *AutoResetValues) Val(id int32) (int64, error) {
 	v, ok := m.values[id]
 	if ok == false {
 		return 0, fmt.Errorf("value is not exist")
@@ -153,7 +157,7 @@ func (m *AutoResetValueManager) Val(id int32) (int64, error) {
 }
 
 // 增加
-func (m *AutoResetValueManager) Inc(id int32, n int64) error {
+func (m *AutoResetValues) Inc(id int32, n int64) error {
 	v, ok := m.values[id]
 	if ok == false {
 		return fmt.Errorf("value is not exist")
@@ -163,7 +167,7 @@ func (m *AutoResetValueManager) Inc(id int32, n int64) error {
 }
 
 // 减少
-func (m *AutoResetValueManager) Dec(id int32, n int64) error {
+func (m *AutoResetValues) Dec(id int32, n int64) error {
 	v, ok := m.values[id]
 	if ok == false {
 		return fmt.Errorf("value is not exist")
@@ -173,12 +177,12 @@ func (m *AutoResetValueManager) Dec(id int32, n int64) error {
 }
 
 // 删除计数器
-func (m *AutoResetValueManager) Remove(id int32) {
+func (m *AutoResetValues) Remove(id int32) {
 	delete(m.values, id)
 }
 
 // 添加新计数器(not import)
-func (m *AutoResetValueManager) addNew(kind, id, weeks, hours int32, n int64) error {
+func (m *AutoResetValues) addNew(kind, id, weeks, hours int32, n int64) error {
 	if _, ok := m.values[id]; ok == true {
 		return fmt.Errorf("value is duplicated")
 	}
@@ -196,24 +200,24 @@ func (m *AutoResetValueManager) addNew(kind, id, weeks, hours int32, n int64) er
 }
 
 // 每日0点
-func (m *AutoResetValueManager) AddDayDefault(id int32, n int64) error {
+func (m *AutoResetValues) AddDayDefault(id int32, n int64) error {
 	return m.addNew(AutoResetValueKind_Day, id, 0, 0, n)
 }
 
-func (m *AutoResetValueManager) AddDay(id, hours int32, n int64) error {
+func (m *AutoResetValues) AddDay(id, hours int32, n int64) error {
 	return m.addNew(AutoResetValueKind_Day, id, 0, hours, n)
 }
 
 // 每周一0点
-func (m *AutoResetValueManager) AddWeekDefault(id int32, n int64) error {
+func (m *AutoResetValues) AddWeekDefault(id int32, n int64) error {
 	return m.addNew(AutoResetValueKind_Week, id, int32(time.Monday), 0, n)
 }
 
-func (m *AutoResetValueManager) AddWeekHours(id, weeks, hours int32, n int64) error {
+func (m *AutoResetValues) AddWeekHours(id, weeks, hours int32, n int64) error {
 	return m.addNew(AutoResetValueKind_Week, id, weeks, hours, n)
 }
 
-func (m *AutoResetValueManager) AddWeek(id, weeks int32, n int64) error {
+func (m *AutoResetValues) AddWeek(id, weeks int32, n int64) error {
 	return m.addNew(AutoResetValueKind_Week, id, weeks, 0, n)
 }
 
