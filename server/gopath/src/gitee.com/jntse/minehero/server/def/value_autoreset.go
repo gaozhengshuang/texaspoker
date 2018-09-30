@@ -61,7 +61,8 @@ func (t *AutoResetValue) dayInit() {
 
 func (t *AutoResetValue) weekInit() {
 	now := util.CURTIME()
-	baseline := util.GetWeekStart(now) + int64(t.weeks * util.DaySec) + int64(t.hours * util.HourSec)
+	mathweek := t.weeks - 1
+	baseline := util.GetWeekStart(now) + int64(mathweek * util.DaySec) + int64(t.hours * util.HourSec)
 	if t.lastreset >= baseline || now >= baseline {
 		baseline += util.DaySec * 7
 	}
