@@ -61,7 +61,9 @@ func (t *AutoResetValue) dayInit() {
 
 func (t *AutoResetValue) weekInit() {
 	now := util.CURTIME()
-	mathweek := t.weeks - 1
+	weeks := t.weeks
+	if t.weeks == 0 { weeks = 7 }	// 0 is Sunday, but treat as 7
+	mathweek := weeks - 1
 	baseline := util.GetWeekStart(now) + int64(mathweek * util.DaySec) + int64(t.hours * util.HourSec)
 	if t.lastreset >= baseline || now >= baseline {
 		baseline += util.DaySec * 7
@@ -190,11 +192,11 @@ func (m *AutoResetValues) addNew(kind, id, weeks, hours int32, n int64) error {
 	if kind != AutoResetValueKind_Day && kind != AutoResetValueKind_Week {
 		return fmt.Errorf("kind is invalid")
 	}
-	if weeks < int32(time.Sunday) || weeks > int32(time.Saturday) {
-		return fmt.Errorf("week is invalid")
-	}
 	if hours < 0 || hours >= 24 {
 		return fmt.Errorf("hours is invalid")
+	}
+	if weeks < int32(time.Sunday) || weeks > int32(time.Saturday) {
+		return fmt.Errorf("week is invalid")
 	}
 	if weeks == 0 {		// 0 is Sunday, but treat as 7
 		weeks = 7
