@@ -215,6 +215,7 @@ gen.maketbl_excel('TaskBase', 'taskbase', 'TTask.xlsx')
 gen.maketbl_excel('MapEventBase','mapevent','TMapEvent.xlsx')
 gen.maketbl_excel('MapEventRefreshBase','mapeventrefresh','TMapEventRefresh.xlsx')
 
+gen.maketbl_excel('TTimeAward','timeaward','TTimeAward.xlsx')
 gen.maketbl_excel('TexasFRC','texasfrc','TFRC.xlsx')
 gen.maketbl_excel('TexasAI','texasai','TAI.xlsx')
 gen.maketbl_excel('TexasRoomBase','texasroom','TTexasRoom.xlsx')

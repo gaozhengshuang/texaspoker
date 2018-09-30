@@ -47,6 +47,7 @@ type DBUserData struct {
 	luckydraw      []*msg.LuckyDrawItem
 	luckydrawtotal int64
 	totalrecharge  int32 // 总充值
+	lastgoldtime   int32 // 上次领取系统金币的时间
 }
 
 // --------------------------------------------------------------------------
@@ -76,7 +77,7 @@ type GateUser struct {
 	broadcastbuffer []int64      // 广播消息缓存
 	synbalance      bool         // 充值中
 	events          UserMapEvent // 地图事件
-	mailbox			MailBox		 // 邮箱
+	mailbox         MailBox      // 邮箱
 }
 
 func NewGateUser(account, key, token string) *GateUser {
@@ -379,14 +380,30 @@ func (u *GateUser) OnDBLoad(way string) {
 	}
 
 	// proto对象变量初始化
-	if u.bin.Base == nil { u.bin.Base = &msg.UserBase{} }
-	if u.bin.Base.Misc == nil { u.bin.Base.Misc = &msg.UserMiscData{} }
-	if u.bin.Base.Statics == nil { u.bin.Base.Statics = &msg.UserStatistics{} }
-	if u.bin.Base.Sign == nil { u.bin.Base.Sign = &msg.UserSignIn{} }
-	if u.bin.Base.Wechat == nil { u.bin.Base.Wechat = &msg.UserWechat{} }
-	if u.bin.Item == nil { u.bin.Item = &msg.ItemBin{} }
-	if u.bin.Base.Addrlist == nil { u.bin.Base.Addrlist = make([]*msg.UserAddress, 0) }
-	if u.bin.Base.Task == nil { u.bin.Base.Task = &msg.UserTask{} }
+	if u.bin.Base == nil {
+		u.bin.Base = &msg.UserBase{}
+	}
+	if u.bin.Base.Misc == nil {
+		u.bin.Base.Misc = &msg.UserMiscData{}
+	}
+	if u.bin.Base.Statics == nil {
+		u.bin.Base.Statics = &msg.UserStatistics{}
+	}
+	if u.bin.Base.Sign == nil {
+		u.bin.Base.Sign = &msg.UserSignIn{}
+	}
+	if u.bin.Base.Wechat == nil {
+		u.bin.Base.Wechat = &msg.UserWechat{}
+	}
+	if u.bin.Item == nil {
+		u.bin.Item = &msg.ItemBin{}
+	}
+	if u.bin.Base.Addrlist == nil {
+		u.bin.Base.Addrlist = make([]*msg.UserAddress, 0)
+	}
+	if u.bin.Base.Task == nil {
+		u.bin.Base.Task = &msg.UserTask{}
+	}
 	if u.bin.Base.Luckydraw == nil {
 		u.bin.Base.Luckydraw = &msg.LuckyDrawRecord{Drawlist: make([]*msg.LuckyDrawItem, 0)}
 	}
@@ -431,6 +448,7 @@ func (u *GateUser) PackBin() *msg.Serialize {
 	userbase.Sign.Signdays = pb.Int32(u.signdays)
 	userbase.Sign.Signtime = pb.Int32(u.signtime)
 	userbase.Misc.Invitationcode = pb.String(u.invitationcode)
+	userbase.Misc.Lastgoldtime = pb.Int32(u.lastgoldtime)
 
 	userbase.Addrlist = u.addrlist[:]
 	userbase.Wechat.Openid = pb.String(u.wechatopenid)
@@ -473,6 +491,7 @@ func (u *GateUser) LoadBin() {
 	u.signdays = userbase.Sign.GetSigndays()
 	u.signtime = userbase.Sign.GetSigntime()
 	u.invitationcode = userbase.Misc.GetInvitationcode()
+	u.lastgoldtime = userbase.Misc.GetLastgoldtime()
 
 	u.addrlist = userbase.GetAddrlist()[:]
 	u.wechatopenid = userbase.GetWechat().GetOpenid()

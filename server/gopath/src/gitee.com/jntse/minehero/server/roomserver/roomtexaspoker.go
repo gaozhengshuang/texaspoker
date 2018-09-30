@@ -69,6 +69,8 @@ type TexasPokerRoom struct {
 	waittime int32						//无人的时间
 	raisecount int32					//加注人数
 	raisebet int32						//加注数
+	publichand *Hand					//公共区域计算牌力
+	hasbright bool
 }
 
 func (this *TexasPokerRoom) Id() int64 { return this.id }
@@ -82,6 +84,14 @@ func (this *TexasPokerRoom) PlayersNum() int32{
 		}
 	}
 	return count
+}
+
+func (this *TexasPokerRoom) PublicLevel() int32 {
+	return this.publichand.level
+}
+
+func (this *TexasPokerRoom) PublicValue() int32 {
+	return this.publichand.finalvalue
 }
 
 func (this *TexasPokerRoom) CheckPos(pos int32) bool {
@@ -126,6 +136,8 @@ func (this *TexasPokerRoom) Init() string {
 			this.cards = append(this.cards, c)
 		}
 	}
+	this.publichand = GetHand()
+	this.publichand.Init()
 	this.maxplayer = tconf.Seat
 	this.ante = tconf.Tax
 	this.cdtime = tconf.Cd
@@ -183,6 +195,26 @@ func (this *TexasPokerRoom) SwapCard(a int32, b int32){
 	tmp := this.cards[a]
 	this.cards[a] = this.cards[b]
 	this.cards[b] = tmp
+}
+
+func (this *TexasPokerRoom) AllInBrightCard() {
+	if this.hasbright == true {
+		return
+	}
+	if this.allin + 1 >= this.remain{
+		for _, p := range this.players {
+			if p != nil && (p.IsAllIn() || p.IsCall() || p.IsRaise()) {
+				send := &msg.RS2C_PushBrightCard{}
+				send.Roleid = pb.Int64(p.owner.Id())
+				send.Card = p.ToHandCard()
+				send.Allin = pb.Bool(true)
+				this.BroadCastRoomMsg(send)
+				p.allinshow = true
+				log.Info("房间%d 玩家%d allin亮牌", this.Id(), p.owner.Id())
+			}
+		}
+		this.hasbright = true
+	}
 }
 
 //从start开始 比赛过程中使用
@@ -258,8 +290,10 @@ func (this *TexasPokerRoom) CanStart() bool {
 func (this *TexasPokerRoom) StartGame() int32 {
 	if this.waittime >= 4 {
 		freenum := this.GetFreeNum()
-		if freenum != 0 {
-			this.CreateAI(util.RandBetween(1, freenum))
+		if freenum >=2 {
+			this.CreateAI(util.RandBetween(1, 2))
+		} else if freenum == 1{
+			this.CreateAI(1)
 		}
 	}
 	if !this.CanStart() {
@@ -290,7 +324,7 @@ func (this *TexasPokerRoom) StartGame() int32 {
 	})
 	this.Shuffle()
 	this.SetHoleCard()
-	this.BetStart(this.bblindpos+1)
+	this.BetStart(this.bblindpos+1, false)
 	log.Info("房间%d 开始游戏", this.Id())
 	return TPPreFlopBet
 }
@@ -303,13 +337,6 @@ func (this *TexasPokerRoom) SendStartGame() {
 	send.Sblind = pb.Int32(this.smallblindnum)
 	send.Bblind = pb.Int32(this.bigblindnum)
 	this.BroadCastRoomMsg(send)
-}
-
-func (this *TexasPokerRoom) AnteBet() {
-	this.ForEachPlayer(0, func(p *TexasPlayer) bool {
-		p.RemoveBankRoll(this.ante)
-		return true
-	})
 }
 
 func (this *TexasPokerRoom) BlindBet() {
@@ -361,8 +388,8 @@ func (this *TexasPokerRoom) SetHoleCard() {
 	})
 }
 
-func (this *TexasPokerRoom) BetStart(pos int32){
-	if this.allin + 1 >= this.remain {
+func (this *TexasPokerRoom) BetStart(pos int32, start bool){
+	if this.allin + 1 >= this.remain && start {
 		log.Info("房间%d allin人数足够 不在下注", this.Id())
 		return
 	}
@@ -416,13 +443,18 @@ func (this *TexasPokerRoom) Flop() int32{
 	this.publiccard = append(this.publiccard, card2.Value+2)
 	this.publiccard = append(this.publiccard, card3.Suit+1)
 	this.publiccard = append(this.publiccard, card3.Value+2)
+	this.publichand.SetCard(card1,false)
+	this.publichand.SetCard(card2,false)
+	this.publichand.SetCard(card3,false)
+	this.publichand.ClearAnalyse()
+	this.publichand.AnalyseHand()
 	this.OneLoopOver()
 	this.ForEachPlayer(this.sblindpos, func(p *TexasPlayer) bool {
 		p.SetFlop(card1, card2, card3)
 		return true
 	})
 	this.ClearBetOver(true)
-	this.BetStart(this.sblindpos)
+	this.BetStart(this.sblindpos, true)
 	log.Info("房间%d Flop阶段", this.Id())
 	if this.allin + 1 >= this.remain {
 		return TPTurn
@@ -448,13 +480,16 @@ func (this *TexasPokerRoom) Turn() int32{
 	card := this.Deal()
 	this.publiccard = append(this.publiccard, card.Suit+1)
 	this.publiccard = append(this.publiccard, card.Value+2)
+	this.publichand.ClearAnalyse()
+	this.publichand.AnalyseHand()
+	this.publichand.SetCard(card,false)
 	this.OneLoopOver()
 	this.ForEachPlayer(this.sblindpos, func(p *TexasPlayer) bool {
 		p.SetTurn(card)
 		return true
 	})
 	this.ClearBetOver(true)
-	this.BetStart(this.sblindpos)
+	this.BetStart(this.sblindpos, true)
 	log.Info("房间%d Turn阶段", this.Id())
 	if this.allin + 1 >= this.remain {
 		return TPRiver
@@ -479,13 +514,16 @@ func (this *TexasPokerRoom) River() int32{
 	card := this.Deal()
 	this.publiccard = append(this.publiccard, card.Suit+1)
 	this.publiccard = append(this.publiccard, card.Value+2)
+	this.publichand.SetCard(card,false)
+	this.publichand.ClearAnalyse()
+	this.publichand.AnalyseHand()
 	this.OneLoopOver()
 	this.ForEachPlayer(this.sblindpos, func(p *TexasPlayer) bool {
 		p.SetRiver(card)
 		return true
 	})
 	this.ClearBetOver(true)
-	this.BetStart(this.sblindpos)
+	this.BetStart(this.sblindpos, true)
 	log.Info("房间%d River阶段", this.Id())
 	if this.allin + 1 >= this.remain {
 		return TPShowDown
@@ -528,6 +566,7 @@ func (this *TexasPokerRoom) AllBetOver() bool{
 		return true
 	})
 	if tmpcount >= this.remain {
+		this.AllInBrightCard()
 		return true
 	}
 	return false
@@ -607,7 +646,7 @@ func (this *TexasPokerRoom) ShowDown() int32{
 		if player == nil {
 			continue
 		}
-		if player.isshowcard == false {
+		if player.isshowcard == false || player.allinshow == true{
 			continue
 		}
 		if this.remain == 1 {
@@ -644,6 +683,9 @@ func (this *TexasPokerRoom) RestartGame() int32{
 		this.waittime = 0
 		this.raisecount = 0
 		this.raisebet = 0
+		this.hasbright = false
+		this.publichand.Init()
+		var playercount int32 = 0
 		for _, p := range this.players {
 			if p != nil {
 				p.AddBankRollNext()
@@ -653,6 +695,15 @@ func (this *TexasPokerRoom) RestartGame() int32{
 				p.Init()
 				if p.isai {
 					p.readytime = 2
+				}else{
+					playercount++
+				}
+			}
+		}
+		if playercount == 0 {
+			for _, p := range this.players {
+				if p != nil && p.isai {
+					p.StandUp()
 				}
 			}
 		}

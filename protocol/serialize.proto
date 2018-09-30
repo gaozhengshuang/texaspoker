@@ -87,7 +87,8 @@ message UserStatistics {
 
 // 杂项数据
 message UserMiscData {
-    optional string invitationcode = 3; // 邀请码
+    optional string invitationcode = 1; // 邀请码
+	optional int32 lastgoldtime = 2; // 定时领金币领取的时间戳
 }
 
 message UserBase {
