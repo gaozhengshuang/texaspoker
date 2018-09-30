@@ -498,7 +498,7 @@ func (u *GateUser) LoadBin() {
 	// 邮件
 	u.mailbox.DBLoad()
 
-	// 自动重置计数
+	// 自动重置变量
 	u.arvalues.LoadBin(u.bin.Base.Arvalues)
 
 	// 事件
