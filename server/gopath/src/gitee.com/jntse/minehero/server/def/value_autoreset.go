@@ -32,19 +32,51 @@ func NewAutoResetValue(kind, id, weeks, hours int32, value int64) *AutoResetValu
 }
 
 func (t *AutoResetValue) init() {
+	switch t.kind {
+		case AutoResetValueKind_Day:	t.dayInit()
+		case AutoResetValueKind_Week:	t.weekInit()
+	}
+}
+
+func (t *AutoResetValue) dayInit() {
 	now := util.CURTIME()
 	baseline := util.GetDayStart() + int64(t.hours * util.HourSec)
-	if t.lastreset == 0 {	// firt init
-		t.value ,t.lastreset = 0, now
-	}else if now - t.lastreset > util.DaySec {	// over 24 hours
-		t.value ,t.lastreset = 0, now
+
+	if t.lastreset >= baseline || now >= baseline {
+		baseline += util.DaySec
 	}
 
-	if now < baseline {
-		t.nextreset = baseline
-	}else {
-		t.nextreset = baseline + util.DaySec
+	if t.lastreset == 0 {	// firt init
+		t.value ,t.lastreset, t.nextreset = 0, now, baseline
+		return
 	}
+
+	if now - t.lastreset >= util.DaySec {	// over 24 hours
+		t.value ,t.lastreset, t.nextreset = 0, now, baseline
+		return
+	}
+
+	t.nextreset = baseline
+}
+
+func (t *AutoResetValue) weekInit() {
+	now := util.CURTIME()
+	baseline := util.GetWeekStart(now) + int64(t.weeks * util.DaySec) + int64(t.hours * util.HourSec)
+	if t.lastreset >= baseline || now >= baseline {
+		baseline += util.DaySec * 7
+	}
+
+	if t.lastreset == 0 {	// firt init
+		t.value ,t.lastreset, t.nextreset = 0, now, baseline
+		return
+	}
+
+	if now - t.lastreset >= util.DaySec * 7 {	// over 1 week 
+		t.value ,t.lastreset, t.nextreset = 0, now, baseline
+		return
+	}
+
+	t.nextreset = baseline
 }
 
 func (t *AutoResetValue) loadBin(bin *msg.AutoResetValue) {
@@ -59,10 +91,17 @@ func (t *AutoResetValue) packBin() *msg.AutoResetValue {
 
 func (t *AutoResetValue) check() {
 	now := util.CURTIME()
-	if now > t.nextreset {
-		t.value = 0
-		t.lastreset = now
-		t.nextreset = t.nextreset + util.DaySec
+	if now < t.nextreset {
+		return
+	}
+
+	t.value = 0
+	t.lastreset = now
+	switch t.kind {
+		case AutoResetValueKind_Day:
+			t.nextreset += util.DaySec
+		case AutoResetValueKind_Week:
+			t.nextreset += util.DaySec * 7
 	}
 }
 
