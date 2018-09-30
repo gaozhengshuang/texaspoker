@@ -39602,6 +39602,7 @@ $root.msg = (function() {
          * @interface IRS2C_PushBrightCard
          * @property {number|Long|null} [roleid] RS2C_PushBrightCard roleid
          * @property {Array.<number>|null} [card] RS2C_PushBrightCard card
+         * @property {boolean|null} [allin] RS2C_PushBrightCard allin
          */
 
         /**
@@ -39637,6 +39638,14 @@ $root.msg = (function() {
         RS2C_PushBrightCard.prototype.card = $util.emptyArray;
 
         /**
+         * RS2C_PushBrightCard allin.
+         * @member {boolean} allin
+         * @memberof msg.RS2C_PushBrightCard
+         * @instance
+         */
+        RS2C_PushBrightCard.prototype.allin = false;
+
+        /**
          * Creates a new RS2C_PushBrightCard instance using the specified properties.
          * @function create
          * @memberof msg.RS2C_PushBrightCard
@@ -39665,6 +39674,8 @@ $root.msg = (function() {
             if (message.card != null && message.card.length)
                 for (var i = 0; i < message.card.length; ++i)
                     writer.uint32(/* id 2, wireType 0 =*/16).int32(message.card[i]);
+            if (message.allin != null && message.hasOwnProperty("allin"))
+                writer.uint32(/* id 3, wireType 0 =*/24).bool(message.allin);
             return writer;
         };
 
@@ -39712,6 +39723,9 @@ $root.msg = (function() {
                     } else
                         message.card.push(reader.int32());
                     break;
+                case 3:
+                    message.allin = reader.bool();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -39757,6 +39771,9 @@ $root.msg = (function() {
                     if (!$util.isInteger(message.card[i]))
                         return "card: integer[] expected";
             }
+            if (message.allin != null && message.hasOwnProperty("allin"))
+                if (typeof message.allin !== "boolean")
+                    return "allin: boolean expected";
             return null;
         };
 
@@ -39788,6 +39805,8 @@ $root.msg = (function() {
                 for (var i = 0; i < object.card.length; ++i)
                     message.card[i] = object.card[i] | 0;
             }
+            if (object.allin != null)
+                message.allin = Boolean(object.allin);
             return message;
         };
 
@@ -39806,12 +39825,14 @@ $root.msg = (function() {
             var object = {};
             if (options.arrays || options.defaults)
                 object.card = [];
-            if (options.defaults)
+            if (options.defaults) {
                 if ($util.Long) {
                     var long = new $util.Long(0, 0, false);
                     object.roleid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.roleid = options.longs === String ? "0" : 0;
+                object.allin = false;
+            }
             if (message.roleid != null && message.hasOwnProperty("roleid"))
                 if (typeof message.roleid === "number")
                     object.roleid = options.longs === String ? String(message.roleid) : message.roleid;
@@ -39822,6 +39843,8 @@ $root.msg = (function() {
                 for (var j = 0; j < message.card.length; ++j)
                     object.card[j] = message.card[j];
             }
+            if (message.allin != null && message.hasOwnProperty("allin"))
+                object.allin = message.allin;
             return object;
         };
 
@@ -52224,6 +52247,556 @@ $root.table = (function() {
         };
 
         return TAIDefine;
+    })();
+
+    table.TexasFRC = (function() {
+
+        /**
+         * Properties of a TexasFRC.
+         * @memberof table
+         * @interface ITexasFRC
+         * @property {Array.<table.ITFRCDefine>|null} [TFRC] TexasFRC TFRC
+         */
+
+        /**
+         * Constructs a new TexasFRC.
+         * @memberof table
+         * @classdesc Represents a TexasFRC.
+         * @implements ITexasFRC
+         * @constructor
+         * @param {table.ITexasFRC=} [properties] Properties to set
+         */
+        function TexasFRC(properties) {
+            this.TFRC = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TexasFRC TFRC.
+         * @member {Array.<table.ITFRCDefine>} TFRC
+         * @memberof table.TexasFRC
+         * @instance
+         */
+        TexasFRC.prototype.TFRC = $util.emptyArray;
+
+        /**
+         * Creates a new TexasFRC instance using the specified properties.
+         * @function create
+         * @memberof table.TexasFRC
+         * @static
+         * @param {table.ITexasFRC=} [properties] Properties to set
+         * @returns {table.TexasFRC} TexasFRC instance
+         */
+        TexasFRC.create = function create(properties) {
+            return new TexasFRC(properties);
+        };
+
+        /**
+         * Encodes the specified TexasFRC message. Does not implicitly {@link table.TexasFRC.verify|verify} messages.
+         * @function encode
+         * @memberof table.TexasFRC
+         * @static
+         * @param {table.ITexasFRC} message TexasFRC message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TexasFRC.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.TFRC != null && message.TFRC.length)
+                for (var i = 0; i < message.TFRC.length; ++i)
+                    $root.table.TFRCDefine.encode(message.TFRC[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TexasFRC message, length delimited. Does not implicitly {@link table.TexasFRC.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TexasFRC
+         * @static
+         * @param {table.ITexasFRC} message TexasFRC message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TexasFRC.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TexasFRC message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TexasFRC
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TexasFRC} TexasFRC
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TexasFRC.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TexasFRC();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.TFRC && message.TFRC.length))
+                        message.TFRC = [];
+                    message.TFRC.push($root.table.TFRCDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TexasFRC message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TexasFRC
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TexasFRC} TexasFRC
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TexasFRC.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TexasFRC message.
+         * @function verify
+         * @memberof table.TexasFRC
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TexasFRC.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.TFRC != null && message.hasOwnProperty("TFRC")) {
+                if (!Array.isArray(message.TFRC))
+                    return "TFRC: array expected";
+                for (var i = 0; i < message.TFRC.length; ++i) {
+                    var error = $root.table.TFRCDefine.verify(message.TFRC[i]);
+                    if (error)
+                        return "TFRC." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a TexasFRC message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TexasFRC
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TexasFRC} TexasFRC
+         */
+        TexasFRC.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TexasFRC)
+                return object;
+            var message = new $root.table.TexasFRC();
+            if (object.TFRC) {
+                if (!Array.isArray(object.TFRC))
+                    throw TypeError(".table.TexasFRC.TFRC: array expected");
+                message.TFRC = [];
+                for (var i = 0; i < object.TFRC.length; ++i) {
+                    if (typeof object.TFRC[i] !== "object")
+                        throw TypeError(".table.TexasFRC.TFRC: object expected");
+                    message.TFRC[i] = $root.table.TFRCDefine.fromObject(object.TFRC[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TexasFRC message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TexasFRC
+         * @static
+         * @param {table.TexasFRC} message TexasFRC
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TexasFRC.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.TFRC = [];
+            if (message.TFRC && message.TFRC.length) {
+                object.TFRC = [];
+                for (var j = 0; j < message.TFRC.length; ++j)
+                    object.TFRC[j] = $root.table.TFRCDefine.toObject(message.TFRC[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this TexasFRC to JSON.
+         * @function toJSON
+         * @memberof table.TexasFRC
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TexasFRC.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TexasFRC;
+    })();
+
+    table.TFRCDefine = (function() {
+
+        /**
+         * Properties of a TFRCDefine.
+         * @memberof table
+         * @interface ITFRCDefine
+         * @property {number|null} [Id] TFRCDefine Id
+         * @property {string|null} [Name] TFRCDefine Name
+         * @property {number|null} [Type] TFRCDefine Type
+         * @property {number|null} [High] TFRCDefine High
+         * @property {number|null} [Fold] TFRCDefine Fold
+         * @property {number|null} [Call] TFRCDefine Call
+         * @property {number|null} [Raise] TFRCDefine Raise
+         * @property {number|null} [AllIn] TFRCDefine AllIn
+         */
+
+        /**
+         * Constructs a new TFRCDefine.
+         * @memberof table
+         * @classdesc Represents a TFRCDefine.
+         * @implements ITFRCDefine
+         * @constructor
+         * @param {table.ITFRCDefine=} [properties] Properties to set
+         */
+        function TFRCDefine(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TFRCDefine Id.
+         * @member {number} Id
+         * @memberof table.TFRCDefine
+         * @instance
+         */
+        TFRCDefine.prototype.Id = 0;
+
+        /**
+         * TFRCDefine Name.
+         * @member {string} Name
+         * @memberof table.TFRCDefine
+         * @instance
+         */
+        TFRCDefine.prototype.Name = "";
+
+        /**
+         * TFRCDefine Type.
+         * @member {number} Type
+         * @memberof table.TFRCDefine
+         * @instance
+         */
+        TFRCDefine.prototype.Type = 0;
+
+        /**
+         * TFRCDefine High.
+         * @member {number} High
+         * @memberof table.TFRCDefine
+         * @instance
+         */
+        TFRCDefine.prototype.High = 0;
+
+        /**
+         * TFRCDefine Fold.
+         * @member {number} Fold
+         * @memberof table.TFRCDefine
+         * @instance
+         */
+        TFRCDefine.prototype.Fold = 0;
+
+        /**
+         * TFRCDefine Call.
+         * @member {number} Call
+         * @memberof table.TFRCDefine
+         * @instance
+         */
+        TFRCDefine.prototype.Call = 0;
+
+        /**
+         * TFRCDefine Raise.
+         * @member {number} Raise
+         * @memberof table.TFRCDefine
+         * @instance
+         */
+        TFRCDefine.prototype.Raise = 0;
+
+        /**
+         * TFRCDefine AllIn.
+         * @member {number} AllIn
+         * @memberof table.TFRCDefine
+         * @instance
+         */
+        TFRCDefine.prototype.AllIn = 0;
+
+        /**
+         * Creates a new TFRCDefine instance using the specified properties.
+         * @function create
+         * @memberof table.TFRCDefine
+         * @static
+         * @param {table.ITFRCDefine=} [properties] Properties to set
+         * @returns {table.TFRCDefine} TFRCDefine instance
+         */
+        TFRCDefine.create = function create(properties) {
+            return new TFRCDefine(properties);
+        };
+
+        /**
+         * Encodes the specified TFRCDefine message. Does not implicitly {@link table.TFRCDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.TFRCDefine
+         * @static
+         * @param {table.ITFRCDefine} message TFRCDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TFRCDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.Id);
+            if (message.Name != null && message.hasOwnProperty("Name"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.Name);
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.Type);
+            if (message.High != null && message.hasOwnProperty("High"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.High);
+            if (message.Fold != null && message.hasOwnProperty("Fold"))
+                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.Fold);
+            if (message.Call != null && message.hasOwnProperty("Call"))
+                writer.uint32(/* id 6, wireType 0 =*/48).int32(message.Call);
+            if (message.Raise != null && message.hasOwnProperty("Raise"))
+                writer.uint32(/* id 7, wireType 0 =*/56).int32(message.Raise);
+            if (message.AllIn != null && message.hasOwnProperty("AllIn"))
+                writer.uint32(/* id 8, wireType 0 =*/64).int32(message.AllIn);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TFRCDefine message, length delimited. Does not implicitly {@link table.TFRCDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TFRCDefine
+         * @static
+         * @param {table.ITFRCDefine} message TFRCDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TFRCDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TFRCDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TFRCDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TFRCDefine} TFRCDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TFRCDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TFRCDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.int32();
+                    break;
+                case 2:
+                    message.Name = reader.string();
+                    break;
+                case 3:
+                    message.Type = reader.int32();
+                    break;
+                case 4:
+                    message.High = reader.int32();
+                    break;
+                case 5:
+                    message.Fold = reader.int32();
+                    break;
+                case 6:
+                    message.Call = reader.int32();
+                    break;
+                case 7:
+                    message.Raise = reader.int32();
+                    break;
+                case 8:
+                    message.AllIn = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TFRCDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TFRCDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TFRCDefine} TFRCDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TFRCDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TFRCDefine message.
+         * @function verify
+         * @memberof table.TFRCDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TFRCDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.Name != null && message.hasOwnProperty("Name"))
+                if (!$util.isString(message.Name))
+                    return "Name: string expected";
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                if (!$util.isInteger(message.Type))
+                    return "Type: integer expected";
+            if (message.High != null && message.hasOwnProperty("High"))
+                if (!$util.isInteger(message.High))
+                    return "High: integer expected";
+            if (message.Fold != null && message.hasOwnProperty("Fold"))
+                if (!$util.isInteger(message.Fold))
+                    return "Fold: integer expected";
+            if (message.Call != null && message.hasOwnProperty("Call"))
+                if (!$util.isInteger(message.Call))
+                    return "Call: integer expected";
+            if (message.Raise != null && message.hasOwnProperty("Raise"))
+                if (!$util.isInteger(message.Raise))
+                    return "Raise: integer expected";
+            if (message.AllIn != null && message.hasOwnProperty("AllIn"))
+                if (!$util.isInteger(message.AllIn))
+                    return "AllIn: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a TFRCDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TFRCDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TFRCDefine} TFRCDefine
+         */
+        TFRCDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TFRCDefine)
+                return object;
+            var message = new $root.table.TFRCDefine();
+            if (object.Id != null)
+                message.Id = object.Id | 0;
+            if (object.Name != null)
+                message.Name = String(object.Name);
+            if (object.Type != null)
+                message.Type = object.Type | 0;
+            if (object.High != null)
+                message.High = object.High | 0;
+            if (object.Fold != null)
+                message.Fold = object.Fold | 0;
+            if (object.Call != null)
+                message.Call = object.Call | 0;
+            if (object.Raise != null)
+                message.Raise = object.Raise | 0;
+            if (object.AllIn != null)
+                message.AllIn = object.AllIn | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TFRCDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TFRCDefine
+         * @static
+         * @param {table.TFRCDefine} message TFRCDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TFRCDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.Id = 0;
+                object.Name = "";
+                object.Type = 0;
+                object.High = 0;
+                object.Fold = 0;
+                object.Call = 0;
+                object.Raise = 0;
+                object.AllIn = 0;
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.Name != null && message.hasOwnProperty("Name"))
+                object.Name = message.Name;
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                object.Type = message.Type;
+            if (message.High != null && message.hasOwnProperty("High"))
+                object.High = message.High;
+            if (message.Fold != null && message.hasOwnProperty("Fold"))
+                object.Fold = message.Fold;
+            if (message.Call != null && message.hasOwnProperty("Call"))
+                object.Call = message.Call;
+            if (message.Raise != null && message.hasOwnProperty("Raise"))
+                object.Raise = message.Raise;
+            if (message.AllIn != null && message.hasOwnProperty("AllIn"))
+                object.AllIn = message.AllIn;
+            return object;
+        };
+
+        /**
+         * Converts this TFRCDefine to JSON.
+         * @function toJSON
+         * @memberof table.TFRCDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TFRCDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TFRCDefine;
     })();
 
     table.TexasRoomBase = (function() {

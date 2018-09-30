@@ -932,6 +932,25 @@ class GamblingHeadComponent extends BaseComponent<PlayerInfo>{
 		}
 	}
 	/**
+	 * 翻牌圈allin 推送手牌 showhand
+	 */
+	public allinShowHand(list: Array<CardInfo>)
+	{
+		//比牌
+		this.cardFace1.init(list[0]);
+		this.cardFace2.init(list[1]);
+		this.cardFace1.showMask(true);
+		this.cardFace2.showMask(true);
+		if (GamblingUtil.isOmaha)
+		{
+			this.cardFace3.init(list[2]);
+			this.cardFace4.init(list[3]);
+			this.cardFace3.showMask(true);
+			this.cardFace4.showMask(true);
+		}
+		this.changeState(GamblingHeadStateType.ThanTheCard);
+	}
+	/**
 	 * 切换到亮牌
 	 */
 	public runBrightCard(list: Array<CardInfo>)

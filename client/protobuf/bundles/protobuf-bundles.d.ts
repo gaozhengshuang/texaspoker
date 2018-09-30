@@ -16926,6 +16926,9 @@ declare namespace msg {
 
         /** RS2C_PushBrightCard card */
         card?: (number[]|null);
+
+        /** RS2C_PushBrightCard allin */
+        allin?: (boolean|null);
     }
 
     /** Represents a RS2C_PushBrightCard. */
@@ -16942,6 +16945,9 @@ declare namespace msg {
 
         /** RS2C_PushBrightCard card. */
         public card: number[];
+
+        /** RS2C_PushBrightCard allin. */
+        public allin: boolean;
 
         /**
          * Creates a new RS2C_PushBrightCard instance using the specified properties.
@@ -22100,6 +22106,228 @@ declare namespace table {
 
         /**
          * Converts this TAIDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TexasFRC. */
+    interface ITexasFRC {
+
+        /** TexasFRC TFRC */
+        TFRC?: (table.ITFRCDefine[]|null);
+    }
+
+    /** Represents a TexasFRC. */
+    class TexasFRC implements ITexasFRC {
+
+        /**
+         * Constructs a new TexasFRC.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITexasFRC);
+
+        /** TexasFRC TFRC. */
+        public TFRC: table.ITFRCDefine[];
+
+        /**
+         * Creates a new TexasFRC instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TexasFRC instance
+         */
+        public static create(properties?: table.ITexasFRC): table.TexasFRC;
+
+        /**
+         * Encodes the specified TexasFRC message. Does not implicitly {@link table.TexasFRC.verify|verify} messages.
+         * @param message TexasFRC message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITexasFRC, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TexasFRC message, length delimited. Does not implicitly {@link table.TexasFRC.verify|verify} messages.
+         * @param message TexasFRC message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITexasFRC, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TexasFRC message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TexasFRC
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TexasFRC;
+
+        /**
+         * Decodes a TexasFRC message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TexasFRC
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TexasFRC;
+
+        /**
+         * Verifies a TexasFRC message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TexasFRC message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TexasFRC
+         */
+        public static fromObject(object: { [k: string]: any }): table.TexasFRC;
+
+        /**
+         * Creates a plain object from a TexasFRC message. Also converts values to other types if specified.
+         * @param message TexasFRC
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TexasFRC, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TexasFRC to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TFRCDefine. */
+    interface ITFRCDefine {
+
+        /** TFRCDefine Id */
+        Id?: (number|null);
+
+        /** TFRCDefine Name */
+        Name?: (string|null);
+
+        /** TFRCDefine Type */
+        Type?: (number|null);
+
+        /** TFRCDefine High */
+        High?: (number|null);
+
+        /** TFRCDefine Fold */
+        Fold?: (number|null);
+
+        /** TFRCDefine Call */
+        Call?: (number|null);
+
+        /** TFRCDefine Raise */
+        Raise?: (number|null);
+
+        /** TFRCDefine AllIn */
+        AllIn?: (number|null);
+    }
+
+    /** Represents a TFRCDefine. */
+    class TFRCDefine implements ITFRCDefine {
+
+        /**
+         * Constructs a new TFRCDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITFRCDefine);
+
+        /** TFRCDefine Id. */
+        public Id: number;
+
+        /** TFRCDefine Name. */
+        public Name: string;
+
+        /** TFRCDefine Type. */
+        public Type: number;
+
+        /** TFRCDefine High. */
+        public High: number;
+
+        /** TFRCDefine Fold. */
+        public Fold: number;
+
+        /** TFRCDefine Call. */
+        public Call: number;
+
+        /** TFRCDefine Raise. */
+        public Raise: number;
+
+        /** TFRCDefine AllIn. */
+        public AllIn: number;
+
+        /**
+         * Creates a new TFRCDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TFRCDefine instance
+         */
+        public static create(properties?: table.ITFRCDefine): table.TFRCDefine;
+
+        /**
+         * Encodes the specified TFRCDefine message. Does not implicitly {@link table.TFRCDefine.verify|verify} messages.
+         * @param message TFRCDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITFRCDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TFRCDefine message, length delimited. Does not implicitly {@link table.TFRCDefine.verify|verify} messages.
+         * @param message TFRCDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITFRCDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TFRCDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TFRCDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TFRCDefine;
+
+        /**
+         * Decodes a TFRCDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TFRCDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TFRCDefine;
+
+        /**
+         * Verifies a TFRCDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TFRCDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TFRCDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.TFRCDefine;
+
+        /**
+         * Creates a plain object from a TFRCDefine message. Also converts values to other types if specified.
+         * @param message TFRCDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TFRCDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TFRCDefine to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };

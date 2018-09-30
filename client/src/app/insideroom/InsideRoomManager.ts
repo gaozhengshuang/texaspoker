@@ -57,24 +57,42 @@ class InsideRoomManager
     public static readonly ID_OMAHAPERSON_END: number = 29999;
 
     /**
-     * 最后所在的房间ID
+     * 最后所在的房间配置表ID
      */
-    public static lastId: number;
+    private static lastTId: number;
+    /**
+     * 最后所在的房间的唯一id
+     */
+    public static lastId:number;
+    /**
+     * 最后房间的密码
+     */
+    public static lastPasswd:string;
 
     public static initialize(result: game.SpRpcResult)
     {
         InsideRoomManager.list.length = 0;
-        InsideRoomManager.lastId = undefined;
-        if (result.data)
+        InsideRoomManager.lastTId = undefined;
+        let data: msg.GW2C_RetUserRoomInfo = result.data;
+        if (data && data.roomid > 0)
         {
-            InsideRoomManager.lastId = result.data.lastId
-            if (result.data.roomList)
-            {
-                for (let roomInfo of result.data.roomList)
-                {
-                    InsideRoomManager.list.push(new InsideRoomInfo(roomInfo));
-                }
-            }
+            InsideRoomManager.lastId = game.longToNumber(data.roomid);
+            InsideRoomManager.lastTId = data.tid;
+            InsideRoomManager.lastPasswd = data.passwd;
+            let info = new InsideRoomInfo();
+            info.id = game.longToNumber(data.roomid);
+            info.tid = data.tid;
+            info.passwd = data.passwd;
+            
+            InsideRoomManager.list.push(info);
+            // InsideRoomManager.lastId = result.data.lastId
+            // if (result.data.roomList)
+            // {
+            //     for (let roomInfo of result.data.roomList)
+            //     {
+            //         InsideRoomManager.list.push(new InsideRoomInfo(roomInfo));
+            //     }
+            // }
         }
     }
     /**
@@ -82,9 +100,9 @@ class InsideRoomManager
      */
     public static get lastInsideRoomType(): InsideRoomType
     {
-        if (InsideRoomManager.lastId != undefined)
+        if (InsideRoomManager.lastTId != undefined)
         {
-            return InsideRoomManager.getRoomType(InsideRoomManager.lastId);
+            return InsideRoomManager.getRoomType(InsideRoomManager.lastTId);
         }
         return InsideRoomType.None;
     }
@@ -155,37 +173,65 @@ class InsideRoomManager
         }
         else if (data instanceof RoomInfo)
         {
-            id = data.id;
+            id = data.roomId;
         }
 
-        if (id >= InsideRoomManager.ID_GAME_START && id <= InsideRoomManager.ID_GAME_END)
+        let roomDef = table.TexasRoomById[id];
+        if (roomDef)
         {
-            return InsideRoomType.Game;
+            switch (roomDef.Type)
+            {
+                case PlayingFieldType.Primary:
+                case PlayingFieldType.Middle:
+                case PlayingFieldType.High:
+                    return InsideRoomType.Game;
+                case PlayingFieldType.OmahaPrimary:
+                case PlayingFieldType.OmahaMiddle:
+                case PlayingFieldType.OmahaHigh:
+                    return InsideRoomType.Omaha;
+                case PlayingFieldType.PlayFieldPersonal:
+                    return InsideRoomType.GamePerson;
+                case PlayingFieldType.OmahaPersonal:
+                    return InsideRoomType.OmahaPerson;
+                case PlayingFieldType.Mtt:
+                case PlayingFieldType.Sng:
+                    return InsideRoomType.Match;
+                case PlayingFieldType.Guide:
+                case PlayingFieldType.GuidePlayWay:
+                    break;
+                default:
+                    game.Console.logError("获取房间类型异常data：" + data);
+                    return InsideRoomType.None;
+            }
         }
-        else if (id >= InsideRoomManager.ID_HUNDREDWAR_START && id <= InsideRoomManager.ID_HUNDREDWAR_END)
-        {
-            return InsideRoomType.HundredWar;
-        }
-        else if (id >= InsideRoomManager.ID_MTT_START && id <= InsideRoomManager.ID_MTT_END)
-        {
-            return InsideRoomType.Match;
-        }
-        else if (id >= InsideRoomManager.ID_OMAHA_START && id <= InsideRoomManager.ID_OMAHA_END)
-        {
-            return InsideRoomType.Omaha;
-        }
-        else if (id >= InsideRoomManager.ID_GAMEPERSON_START && id <= InsideRoomManager.ID_GAMEPERSON_END)
-        {
-            return InsideRoomType.GamePerson;
-        }
-        else if (id >= InsideRoomManager.ID_OMAHAPERSON_START && id <= InsideRoomManager.ID_OMAHAPERSON_END)
-        {
-            return InsideRoomType.OmahaPerson;
-        }
-        else
-        {
-            game.Console.logError("获取房间类型异常data：" + data);
-            return InsideRoomType.None;
-        }
+        // if (id >= InsideRoomManager.ID_GAME_START && id <= InsideRoomManager.ID_GAME_END)
+        // {
+        //     return InsideRoomType.Game;
+        // }
+        // else if (id >= InsideRoomManager.ID_HUNDREDWAR_START && id <= InsideRoomManager.ID_HUNDREDWAR_END)
+        // {
+        //     return InsideRoomType.HundredWar; //move todo 百人大战待定
+        // }
+        // else if (id >= InsideRoomManager.ID_MTT_START && id <= InsideRoomManager.ID_MTT_END)
+        // {
+        //     return InsideRoomType.Match;
+        // }
+        // else if (id >= InsideRoomManager.ID_OMAHA_START && id <= InsideRoomManager.ID_OMAHA_END)
+        // {
+        //     return InsideRoomType.Omaha;
+        // }
+        // else if (id >= InsideRoomManager.ID_GAMEPERSON_START && id <= InsideRoomManager.ID_GAMEPERSON_END)
+        // {
+        //     return InsideRoomType.GamePerson;
+        // }
+        // else if (id >= InsideRoomManager.ID_OMAHAPERSON_START && id <= InsideRoomManager.ID_OMAHAPERSON_END)
+        // {
+        //     return InsideRoomType.OmahaPerson;
+        // }
+        // else
+        // {
+        //     game.Console.logError("获取房间类型异常data：" + data);
+        //     return InsideRoomType.None;
+        // }
     }
 }
