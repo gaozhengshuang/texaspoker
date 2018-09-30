@@ -30,7 +30,6 @@ class Main extends eui.UILayer
     }
     private async startLoadConfig()
     {
-        console.log("test1111");
         if (game.System.isWeb || game.System.isMicro)
         {
             await RES.loadConfig(WebConfig.resUrl + WebConfig.defaultResJson, WebConfig.resUrl + 'resource/');

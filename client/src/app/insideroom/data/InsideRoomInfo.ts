@@ -17,4 +17,12 @@ class InsideRoomInfo extends BaseServerValueInfo
 	 * 600000-∞为Omaha
 	 */
 	public id: number;
+	/**
+	 * 房间的配置ID
+	 */
+	public tid:number;
+	/**
+	 * 房间的密码
+	 */
+	public passwd:string;
 }

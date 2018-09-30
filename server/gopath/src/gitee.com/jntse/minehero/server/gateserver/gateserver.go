@@ -43,24 +43,45 @@ func init() {
 	fmt.Println("gateserver.init()")
 }
 
+type StatDispatch struct {
+	count int32
+}
+
+func (d *StatDispatch) Inc(n int32) {
+	d.count += n
+}
+
+func (d *StatDispatch) Output(server *GateServer) {
+	if g_CmdArgs.EventStat == true {
+		if size := server.net.EventQueueSize(); size != 0 {
+			log.Info("netevent chansize[%d] dispatchsize[%d]", size, d.count)
+		}else {
+			log.Info("netevent chansize[0] dispatchsize[%d]", d.count)
+		}
+	}
+	d.count = 0
+}
+
 type GateServer struct {
-	netconf      *network.NetConf
-	net          *network.NetWork
-	loginsvr     network.IBaseNetSession
-	matchsvr     network.IBaseNetSession
-	hredis       *redis.Client
-	usermgr      UserManager
-	waitpool     LoginWaitPool
-	roomsvrmgr   RoomSvrManager
-	msghandlers  []network.IBaseMsgHandler
-	tblloader    *tbl.TblLoader
-	rcounter     util.RedisCounter
-	tickers      []util.IGameTicker
-	gracefulquit bool
-	runtimestamp int64
-	hourmonitor  *util.IntHourMonitorPool
-	mysqldb      *sql.DB
-	rankmgr      RankManager
+	netconf      	*network.NetConf
+	net          	*network.NetWork
+	loginsvr     	network.IBaseNetSession
+	matchsvr     	network.IBaseNetSession
+	hredis       	*redis.Client
+	usermgr      	UserManager
+	waitpool     	LoginWaitPool
+	roomsvrmgr   	RoomSvrManager
+	msghandlers  	[]network.IBaseMsgHandler
+	tblloader    	*tbl.TblLoader
+	rcounter     	util.RedisCounter
+	tickers      	[]util.IGameTicker
+	gracefulquit 	bool
+	runtimestamp 	int64
+	hourmonitor  	*util.IntHourMonitorPool
+	sf				util.StatFunctionTimeConsume
+	sdispatch		StatDispatch
+	mysqldb      	*sql.DB
+	rankmgr      	RankManager
 }
 
 var g_GateServer *GateServer = nil
@@ -266,6 +287,7 @@ func (g *GateServer) Init(fileconf string) bool {
 	}
 
 	g.runtimestamp = 0
+	g.sf.Init(10)
 	return true
 }
 
@@ -292,6 +314,7 @@ func (g *GateServer) Handler1mTick(now int64) {
 
 func (g *GateServer) Handler1sTick(now int64) {
 	g.rankmgr.Tick()
+	g.sdispatch.Output(g)
 }
 
 func (g *GateServer) Handler100msTick(now int64) {
@@ -408,30 +431,31 @@ func (g *GateServer) Run() {
 	// TODO:每帧处理1000条
 	now := util.CURTIMEMS() // 毫秒
 	lastrun := now - g.runtimestamp
-	g.net.Dispatch(network.KFrameDispatchNum)
-	tm_dispath := util.CURTIMEMS()
-
-	// 测试日志
-	doEventStatistics(g)
+	g.sf.Record(now)
+	dispatched := g.net.Dispatch(network.KFrameDispatchNum)
+	g.sdispatch.Inc(int32(dispatched))
+	g.sf.Record(util.CURTIMEMS())
 
 	//
 	g.usermgr.Tick(now)
-	tm_usrticker := util.CURTIMEMS()
+	g.sf.Record(util.CURTIMEMS())
 
 	//
 	g.hourmonitor.Run(now / 1000) // 秒
 	for _, t := range g.tickers {
 		t.Run(now)
 	}
-	tm_svrticker := util.CURTIMEMS()
+	g.sf.Record(util.CURTIMEMS())
 
 	// 每帧统计耗时
-	delay := tm_svrticker - now
-	if lastrun+delay > 20 { // 20毫秒
-		log.Warn("统计帧耗时 lastrun[%d] total[%d] dispatch[%d] userticker[%d] svrticker[%d] ",
-			lastrun, delay, tm_dispath-now, tm_usrticker-tm_dispath, tm_svrticker-tm_usrticker)
+	if delay := g.sf.Total(); lastrun + delay > 40 { // 40毫秒
+		log.Warn("统计帧耗时 lastrun[%d] total[%d] dispatch[%d] userticker[%d] svrticker[%d]",
+			lastrun, delay, g.sf.Diff(0, 1), g.sf.Diff(1,2), g.sf.Diff(2,3))
 	}
+
+	//
 	g.runtimestamp = util.CURTIMEMS()
+	g.sf.Reset()
 }
 
 // 注册到Login
@@ -544,3 +568,5 @@ func IntHourClockCallback(now int64) {
 	UserMgr().IntHourClockCallback(now)
 	log.Info("==========整点点回调结束===========")
 }
+
+

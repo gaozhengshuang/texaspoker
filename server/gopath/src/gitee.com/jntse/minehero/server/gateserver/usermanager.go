@@ -83,17 +83,17 @@ type UserManager struct {
 	bigcanton map[int32]int32 //省|人数 省级在线数
 }
 
-func (um *UserManager) Init() {
-	um.accounts = make(map[string]*GateUser)
-	um.names = make(map[string]*GateUser)
-	um.ids = make(map[int64]*GateUser)
-	um.msgbuffer = make(map[int64]*BufferMsg)
-	um.posmap = make(map[int32]map[int32]map[int64]*GateUser)
-	um.canton = make(map[int32]map[int32]int32)
-	um.bigcanton = make(map[int32]int32)
+func (m *UserManager) Init() {
+	m.accounts = make(map[string]*GateUser)
+	m.names = make(map[string]*GateUser)
+	m.ids = make(map[int64]*GateUser)
+	m.msgbuffer = make(map[int64]*BufferMsg)
+	m.posmap = make(map[int32]map[int32]map[int64]*GateUser)
+	m.canton = make(map[int32]map[int32]int32)
+	m.bigcanton = make(map[int32]int32)
 }
 
-func (um *UserManager) CreateNewUser(session network.IBaseNetSession, account, key, token, face string) (*GateUser, string) {
+func (m *UserManager) CreateNewUser(session network.IBaseNetSession, account, key, token, face string) (*GateUser, string) {
 	user := NewGateUser(account, key, token)
 	if user.DBLoad() == false {
 		return nil, "加载玩家DB数据失败"
@@ -106,27 +106,27 @@ func (um *UserManager) CreateNewUser(session network.IBaseNetSession, account, k
 	}
 
 	WaitPool().Remove(account)
-	um.AddUser(user)
-	log.Info("当前在线人数:%d", um.AmountOnline())
+	m.AddUser(user)
+	log.Info("当前在线人数:%d", m.AmountOnline())
 	return user, ""
 }
 
 // 从缓存登陆
-func (um *UserManager) LoginByCache(session network.IBaseNetSession, user *GateUser) string {
+func (m *UserManager) LoginByCache(session network.IBaseNetSession, user *GateUser) string {
 	if user.Online(session, "使用缓存登陆") == false {
 		return "Online失败"
 	}
-	log.Info("当前在线人数:%d", um.AmountOnline())
+	log.Info("当前在线人数:%d", m.AmountOnline())
 	return ""
 }
 
-func (um *UserManager) Amount() int {
-	return len(um.accounts)
+func (m *UserManager) Amount() int {
+	return len(m.accounts)
 }
 
-func (um *UserManager) AmountOnline() int {
+func (m *UserManager) AmountOnline() int {
 	count := 0
-	for _, user := range um.accounts {
+	for _, user := range m.accounts {
 		if user.IsOnline() {
 			count++
 		}
@@ -134,76 +134,76 @@ func (um *UserManager) AmountOnline() int {
 	return count
 }
 
-//func (um *UserManager) AddAccount(user *GateUser) {
-//	um.accounts[user.Account()] = user
+//func (m *UserManager) AddAccount(user *GateUser) {
+//	m.accounts[user.Account()] = user
 //}
 
-func (um *UserManager) AddUser(user *GateUser) {
-	um.accounts[user.Account()] = user
-	um.ids[user.Id()] = user
-	um.names[user.Name()] = user
+func (m *UserManager) AddUser(user *GateUser) {
+	m.accounts[user.Account()] = user
+	m.ids[user.Id()] = user
+	m.names[user.Name()] = user
 }
 
-func (um *UserManager) IsRegisted(acc string) bool {
-	_, ok := um.accounts[acc]
+func (m *UserManager) IsRegisted(acc string) bool {
+	_, ok := m.accounts[acc]
 	return ok
 }
 
-func (um *UserManager) FindByAccount(acc string) *GateUser {
-	u, _ := um.accounts[acc]
+func (m *UserManager) FindByAccount(acc string) *GateUser {
+	u, _ := m.accounts[acc]
 	return u
 }
 
-func (um *UserManager) FindByName(name string) *GateUser {
-	user, _ := um.names[name]
+func (m *UserManager) FindByName(name string) *GateUser {
+	user, _ := m.names[name]
 	return user
 }
 
-func (um *UserManager) FindById(id int64) *GateUser {
-	user, _ := um.ids[id]
+func (m *UserManager) FindById(id int64) *GateUser {
+	user, _ := m.ids[id]
 	return user
 }
 
-func (um *UserManager) DelUser(user *GateUser) {
-	delete(um.accounts, user.Account())
-	delete(um.names, user.Name())
-	delete(um.ids, user.Id())
-	log.Info("当前在线人数:%d", len(um.accounts))
+func (m *UserManager) DelUser(user *GateUser) {
+	delete(m.accounts, user.Account())
+	delete(m.names, user.Name())
+	delete(m.ids, user.Id())
+	log.Info("当前在线人数:%d", len(m.accounts))
 }
 
-func (um *UserManager) Tick(now int64) {
+func (m *UserManager) Tick(now int64) {
 
 	// faster broadcast
-	for k, v := range um.msgbuffer {
+	for k, v := range m.msgbuffer {
 		if now > v.tm_timeout {
-			delete(um.msgbuffer, k)
+			delete(m.msgbuffer, k)
 		}
 	}
 
 	// user
-	for _, user := range um.accounts {
-		if um.IsRemove(user, now) {
+	for _, user := range m.accounts {
+		if m.IsRemove(user, now) {
 			continue
 		}
 		user.Tick(now)
 	}
 }
 
-func (um *UserManager) IsRemove(user *GateUser, now int64) bool {
+func (m *UserManager) IsRemove(user *GateUser, now int64) bool {
 	if user.IsCleanUp() {
 		user.OnCleanUp()
-		um.DelUser(user)
+		m.DelUser(user)
 		return true
 	}
 	return false
 }
 
-func (um *UserManager) OnMatchServerClose() {
+func (m *UserManager) OnMatchServerClose() {
 }
 
 // 房间服务器断开
-func (um *UserManager) OnRoomServerClose(sid int) {
-	for _, user := range um.accounts {
+func (m *UserManager) OnRoomServerClose(sid int) {
+	for _, user := range m.accounts {
 		if sid == user.RoomSid() {
 			//user.SendMsg(&msg.BT_GameOver{Roomid:pb.Int64(user.RoomId())})
 			//user.OnGameEnd(nil , "房间服务器断开")
@@ -212,33 +212,33 @@ func (um *UserManager) OnRoomServerClose(sid int) {
 }
 
 // 本服务器退出
-func (um *UserManager) OnServerClose() {
-	for _, user := range um.accounts {
+func (m *UserManager) OnServerClose() {
+	for _, user := range m.accounts {
 		user.KickOut("服务器Shutdown")
 	}
 }
 
 // 广播消息
-func (um *UserManager) BroadcastMsg(msg pb.Message) {
+func (m *UserManager) BroadcastMsg(msg pb.Message) {
 	t1 := util.CURTIMEUS()
-	for _, user := range um.accounts {
+	for _, user := range m.accounts {
 		user.SendMsg(msg)
 	}
-	log.Trace("BroadcastMsg Amount[%d] 耗时[%d]us", len(um.accounts), util.CURTIMEUS()-t1)
+	log.Trace("BroadcastMsg Amount[%d] 耗时[%d]us", len(m.accounts), util.CURTIMEUS()-t1)
 }
 
 // 通过buffer广播消息
-func (um *UserManager) BroadcastMsgFaster(msg pb.Message) {
+func (m *UserManager) BroadcastMsgFaster(msg pb.Message) {
 	t1, uuid := util.CURTIMEUS(), util.UUID()
-	um.msgbuffer[uuid] = &BufferMsg{msg: msg, tm_timeout: util.CURTIMEMS() + 10000}
-	for _, user := range um.accounts {
+	m.msgbuffer[uuid] = &BufferMsg{msg: msg, tm_timeout: util.CURTIMEMS() + 10000}
+	for _, user := range m.accounts {
 		user.AddBroadCastMsg(uuid)
 	}
-	log.Trace("BroadcastMsgFaster Amount[%d] 耗时[%d]us", len(um.accounts), util.CURTIMEUS()-t1)
+	log.Trace("BroadcastMsgFaster Amount[%d] 耗时[%d]us", len(m.accounts), util.CURTIMEUS()-t1)
 }
 
-func (um *UserManager) PickBroadcastMsg(uid int64) pb.Message {
-	buffermsg, ok := um.msgbuffer[uid]
+func (m *UserManager) PickBroadcastMsg(uid int64) pb.Message {
+	buffermsg, ok := m.msgbuffer[uid]
 	if ok == false {
 		return nil
 	}
@@ -246,12 +246,12 @@ func (um *UserManager) PickBroadcastMsg(uid int64) pb.Message {
 }
 
 // 异步广播消息
-//func (um *UserManager) BroadcastMsgAsyn(msg pb.Message) {
+//func (m *UserManager) BroadcastMsgAsyn(msg pb.Message) {
 //	arglist := []interface{}{msg}
-//	eventque.NewCommonEvent(arglist, um.DoBroadcastMsgAsyn, nil)
+//	eventque.NewCommonEvent(arglist, m.DoBroadcastMsgAsyn, nil)
 //}
 //
-//func (um *UserManager) DoBroadcastMsgAsyn(arglist []interface{}) []interface{} {
+//func (m *UserManager) DoBroadcastMsgAsyn(arglist []interface{}) []interface{} {
 //	if len(arglist) != 1 {
 //		log.Fatal("DoBroadcastMsgAsyn 参数数量错误")
 //		return nil
@@ -265,7 +265,7 @@ func (um *UserManager) PickBroadcastMsg(uid int64) pb.Message {
 //	// copy lock
 //	locker.lock()
 //	accounts_tmp := make(map[string]*GateUser)
-//	for k, v := range um.accounts { accounts_tmp[k] = v }
+//	for k, v := range m.accounts { accounts_tmp[k] = v }
 //	locker.unlock()
 //	for _, user := range accounts_tmp {
 //		user.SendMsg(msg)
@@ -275,7 +275,7 @@ func (um *UserManager) PickBroadcastMsg(uid int64) pb.Message {
 //}
 
 //now秒，整点回调
-func (um *UserManager) IntHourClockCallback(now int64) {
+func (m *UserManager) IntHourClockCallback(now int64) {
 
 	// 地图事件刷新
 	inthour := time.Unix(now, 0).Hour()

@@ -379,7 +379,7 @@ class Command
     /**
      * 推送亮牌
      */
-    public static readonly RS2C_PushBrightCard = "RS2C_PushBrightCard";
+    public static readonly RS2C_PushBrightCard = "msg.RS2C_PushBrightCard";
     /**
      * 推送玩家筹码变化
      */

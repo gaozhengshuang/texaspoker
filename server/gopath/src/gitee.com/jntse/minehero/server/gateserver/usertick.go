@@ -1,13 +1,13 @@
 package main
 
 import (
-	"fmt"
+	_"fmt"
 	"gitee.com/jntse/gotoolkit/log"
 	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/minehero/server/tbl"
-	"github.com/go-redis/redis"
-	"strconv"
-	"strings"
+	_"github.com/go-redis/redis"
+	_"strconv"
+	_"strings"
 	"time"
 )
 
@@ -91,7 +91,6 @@ func (u *GateUser) RegistTicker() {
 
 func (u *GateUser) OnTicker10ms(now int64) {
 	u.asynev.Dispatch()
-	u.events.Tick(now)
 }
 
 func (u *GateUser) OnTicker100ms(now int64) {
@@ -105,6 +104,7 @@ func (u *GateUser) OnTicker100ms(now int64) {
 	}
 	u.CheckOffline(now)
 	u.CheckDisconnectTimeOut(now)
+	u.events.Tick(now)
 }
 
 func (u *GateUser) OnTicker1s(now int64) {
@@ -126,34 +126,34 @@ func (u *GateUser) Tick(now int64) {
 }
 
 // 处理充值订单
-func (u *GateUser) CheckRechargeOrders() {
-	if u.IsInRoom() == true {
-		return
-	}
-	keyorder := fmt.Sprintf("%d_verified_recharge_orders", u.Id())
-	order_amount, err := Redis().SPop(keyorder).Result()
-	if err == redis.Nil {
-		return
-	} else if err != nil {
-		log.Error("[充值] 从Redis Spop 验证订单失败 err:%s", err)
-		return
-	}
-
-	// 字符串格式 recharge_order_userid_timestamp_amount_number
-	orderparts := strings.Split(order_amount, "_")
-	if len(orderparts) != 5 {
-		log.Error("[充值] amount订单格式解析失败 [%s]", order_amount)
-		return
-	}
-
-	amount, perr := strconv.ParseInt(orderparts[4], 10, 32)
-	if perr != nil {
-		log.Error("[充值] amount订单格式解析失败 [%s]", order_amount)
-		return
-	}
-
-	u.AddYuanbao(int32(amount), "充值获得", true)
-}
+//func (u *GateUser) CheckRechargeOrders() {
+//	if u.IsInRoom() == true {
+//		return
+//	}
+//	keyorder := fmt.Sprintf("%d_verified_recharge_orders", u.Id())
+//	order_amount, err := Redis().SPop(keyorder).Result()
+//	if err == redis.Nil {
+//		return
+//	} else if err != nil {
+//		log.Error("[充值] 从Redis Spop 验证订单失败 err:%s", err)
+//		return
+//	}
+//
+//	// 字符串格式 recharge_order_userid_timestamp_amount_number
+//	orderparts := strings.Split(order_amount, "_")
+//	if len(orderparts) != 5 {
+//		log.Error("[充值] amount订单格式解析失败 [%s]", order_amount)
+//		return
+//	}
+//
+//	amount, perr := strconv.ParseInt(orderparts[4], 10, 32)
+//	if perr != nil {
+//		log.Error("[充值] amount订单格式解析失败 [%s]", order_amount)
+//		return
+//	}
+//
+//	u.AddYuanbao(int32(amount), "充值获得", true)
+//}
 
 // 心跳,毫秒
 func (u *GateUser) SetHeartBeat(now int64) {

@@ -591,6 +591,7 @@
 		"bin-debug/core/table/shopbase.js",
 		"bin-debug/core/table/taskbase.js",
 		"bin-debug/core/table/texasai.js",
+		"bin-debug/core/table/texasfrc.js",
 		"bin-debug/core/table/texasroom.js",
 		"bin-debug/core/time/SystemTimeManager.js",
 		"bin-debug/core/time/TimeManager.js",

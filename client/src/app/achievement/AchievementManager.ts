@@ -158,11 +158,14 @@ class AchievementManager
     public static getAchieveListByTag(userInfo: UserInfo, tag: number): Array<AchievementInfo>
     {
         let result: Array<AchievementInfo> = new Array<AchievementInfo>();
-        for (let info of userInfo.allAchieveList)
+        if (userInfo.allAchieveList)
         {
-            if (info.definition && info.definition.tag == tag)
+            for (let info of userInfo.allAchieveList)
             {
-                result.push(info);
+                if (info.definition && info.definition.tag == tag)
+                {
+                    result.push(info);
+                }
             }
         }
         return result;

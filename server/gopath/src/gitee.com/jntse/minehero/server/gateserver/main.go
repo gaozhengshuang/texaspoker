@@ -128,16 +128,4 @@ func runMainLoop(server *GateServer) {
 	}
 }
 
-var gTicker *time.Ticker = nil
-func doEventStatistics(server *GateServer) {
-	if g_CmdArgs.EventStat == true {
-		if gTicker == nil { gTicker = time.NewTicker(time.Second *1) }
-		select {
-		case <-gTicker.C:
-			if size := server.net.EventQueueSize(); size != 0 {
-				log.Info("netevent chan current size = %d", size)
-			}
-		default:
-		}
-	}
-}
+
