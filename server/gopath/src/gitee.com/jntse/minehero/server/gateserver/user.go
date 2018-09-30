@@ -449,6 +449,7 @@ func (u *GateUser) PackBin() *msg.Serialize {
 	u.bag.PackBin(bin)
 	u.task.PackBin(bin)
 	u.events.PackBin(bin)
+	u.PackAutoResetValues(bin)
 	//u.image.PackBin(bin)
 
 	//
@@ -691,3 +692,9 @@ func (u *GateUser) OnlineTaskCheck() {
 	}
 
 }
+
+func (u *GateUser) PackAutoResetValues(bin *msg.Serialize) {
+	u.bin.Base.Arvalues = u.arvalues.PackBin()
+}
+
+
