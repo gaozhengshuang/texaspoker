@@ -248,7 +248,7 @@ message C2RS_ReqReviewInfo
 {
 }
 
-message RS2C_ReqReviewInfo 
+message RS2C_RetReviewInfo 
 {
     repeated ReviewInfoArr array = 1;
 }

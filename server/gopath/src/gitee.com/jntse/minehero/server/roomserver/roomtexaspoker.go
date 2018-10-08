@@ -1087,7 +1087,7 @@ func (this *TexasPokerRoom) CreateAI(num int32) {
 func (this *TexasPokerRoom) ReqReviewInfo(uid int64) {
 	player := this.FindAllByID(uid)
 	if player != nil {
-		send := &msg.RS2C_ReqReviewInfo{}
+		send := &msg.RS2C_RetReviewInfo{}
 		send.Array = this.lastrecord
 		player.owner.SendClientMsg(send)
 	}
