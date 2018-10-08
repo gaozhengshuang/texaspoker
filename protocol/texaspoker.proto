@@ -248,19 +248,28 @@ message C2RS_ReqReviewInfo
 {
 }
 
-message RS2C_RetReviewInfo 
+message UserOneRound
 {
-    repeated ReviewInfoArr array = 1;
+    optional int32 state = 1;           //状态
+    optional int32 bet   = 2;           //下注
+    repeated int32 cards = 3;           //当轮牌
 }
 
-message ReviewInfoArr 
+message UserReviewInfo 
 {
-    optional int32 step = 1;
-    optional int32 action = 2;
-    optional int64 roleid = 3;
-    optional int32 num1 = 4;        //位置
-    optional int32 num2 = 5;        //下注
-    repeated int32 cards = 6;      //手牌
-    optional int32 time = 7;        //时间
+    optional int64 roleid = 1;          //角色id
+    optional string name = 2;           //名字
+    optional string face = 3;           //头像
+    optional int32  seatpos = 4;        //座位
+    optional int32  specialpos = 5;     //庄家1 小盲2 大盲3
+    optional bool   showcard = 6;       //是否亮牌
+    repeated UserOneRound round = 7;    //每轮操作
+    optional int32  bankroll = 8;       //赢+ 输-
+    optional int32  cardtype = 9;       //牌型 
+}
+
+message RS2C_RetReviewInfo
+{
+    repeated UserReviewInfo array = 1;
 }
 
