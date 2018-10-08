@@ -54,6 +54,10 @@ class TimeAwardHandler
     {
         this.reset();
         this.round = round;
+        if(time < 0)
+        {
+            time = 0;
+        }
         this.time = time;
         this.TimeAwardInfoEvent.dispatch();
     }
@@ -97,7 +101,7 @@ class TimeAwardHandler
                 {
                     result.data.round = 0;
                 }
-                if (result.data.round == 0 && result.data.secTime == undefined)
+                if (result.data.round == 0 && result.data.sectime == undefined)
                 {
                     let timeawardDef: table.ITimeAwardDefine = table.TimeAwardById[1];
                     if (timeawardDef)
@@ -108,7 +112,7 @@ class TimeAwardHandler
                 }
                 if (result.data.round < table.TimeAward.length)
                 {
-                    this.setInitInfo(result.data.round, result.data.secTime, result.data.startTime);
+                    this.setInitInfo(result.data.round, result.data.sectime, result.data.starttime);
                 } else
                 {
                     this.initialize(result.data.round);
@@ -124,19 +128,19 @@ class TimeAwardHandler
     /**
      * 设置计时奖励数据
     */
-    private setInitInfo(round: number, secTime: number, startTime: number)
+    private setInitInfo(round: number, sectime: number, startTime: number)
     {
         let timeawardDef: table.ITimeAwardDefine = table.TimeAwardById[round + 1];
         if (timeawardDef)
         {
-            if (secTime < timeawardDef.Time)
+            if (sectime < timeawardDef.Time)
             {
-                if (startTime == undefined)
+                if (startTime == undefined || startTime == 0)
                 {
-                    this.initialize(round, timeawardDef.Time - secTime + 3);
+                    this.initialize(round, timeawardDef.Time - sectime);
                 } else
                 {
-                    this.initialize(round, timeawardDef.Time - (Math.round(TimeManager.GetServerUtcTimestamp()) - startTime + secTime) + 3);
+                    this.initialize(round, timeawardDef.Time - (Math.round(TimeManager.GetServerUtcTimestamp()) - startTime + sectime));
                 }
             } else
             {
@@ -234,7 +238,7 @@ class TimeAwardHandler
     public getAwardList(def: table.IAwardDefine): Array<number>
     {
         let list = [];
-        let str: string = "roomType";
+        let str: string = "RoomType";
         for (let i: number = 0; i < 3; i++)
         {
             let index: number = i + 1;

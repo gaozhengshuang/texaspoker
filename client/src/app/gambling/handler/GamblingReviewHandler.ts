@@ -10,7 +10,7 @@ class GamblingReviewHandler
     /**
      * 发牌记录
     */
-    public dealActionRecord: Array<PlayerActionRecordInfo>;
+    public dealActionRecord: Array<msg.IReviewInfoArr>;
     /**
      * 公共牌列表
     */
@@ -31,11 +31,12 @@ class GamblingReviewHandler
         let callback: Function = function (result: game.SpRpcResult)
         {
             this.reset();
-            if (result.data)
+            let data:msg.RS2C_RetReviewInfo = result.data;
+            if (data)
             {
-                if (result.data.Array)
+                if (data.array)
                 {
-                    for (let info of result.data.Array)
+                    for (let info of data.array)
                     {
                         if (info.action)
                         {
@@ -65,7 +66,7 @@ class GamblingReviewHandler
         };
         if (this.isNewRound)
         {
-            SocketManager.call(Command.ReviewInfo_Req_3707, null, callback, null, this);
+            MsgTransferSend.sendRoomProto(Command.C2RS_ReqReviewInfo, null, callback, null, this);
         }
     }
     /**
@@ -81,7 +82,7 @@ class GamblingReviewHandler
         }
         if (!this.dealActionRecord)
         {
-            this.dealActionRecord = new Array<PlayerActionRecordInfo>();
+            this.dealActionRecord = new Array<msg.IReviewInfoArr>();
         }
         if (!this.pubCardList)
         {
@@ -94,7 +95,7 @@ class GamblingReviewHandler
     /**
      * 根据操作种类设置信息
     */
-    public setInfoByActionType(info: any)
+    public setInfoByActionType(info: msg.IReviewInfoArr)
     {
         switch (info.action)       
         {
@@ -121,17 +122,17 @@ class GamblingReviewHandler
     /**
      * 写入玩家roleId和座位位置
     */
-    public setPlayerRoleIdAndPos(info: any)
+    public setPlayerRoleIdAndPos(info: msg.IReviewInfoArr)
     {
         let playerReviewInfo: PlayerReviewInfo = new PlayerReviewInfo();
-        playerReviewInfo.roleId = info.roleId;
+        playerReviewInfo.roleId = game.longToNumber(info.roleid);
         playerReviewInfo.pos = info.num1;
         this.reviewInfoList.push(playerReviewInfo);
     }
     /**
      * 写入庄家位
     */
-    public setButtonPos(info: any)
+    public setButtonPos(info: msg.IReviewInfoArr)
     {
         for (let playerInfo of this.reviewInfoList)
         {
@@ -145,7 +146,7 @@ class GamblingReviewHandler
     /**
      * 写入大小盲位
     */
-    public setBlindPos(info: any)
+    public setBlindPos(info: msg.IReviewInfoArr)
     {
         let blind: number;
         if (GamblingManager.roomInfo.ante)
@@ -157,7 +158,7 @@ class GamblingReviewHandler
         }
         for (let playerInfo of this.reviewInfoList)
         {
-            if (playerInfo.roleId == info.roleId && playerInfo.posType != PlayerPosType.Banker)
+            if (playerInfo.roleId == info.roleid && playerInfo.posType != PlayerPosType.Banker)
             {
                 if (blind == GamblingManager.roomInfo.sBlind)
                 {
@@ -212,19 +213,19 @@ class GamblingReviewHandler
     /**
      * 设置自己的操作信息
     */
-    public setSelfActionRecord(info: any)
+    public setSelfActionRecord(info: msg.IReviewInfoArr)
     {
         if (this.reviewInfoList.length > 0)
         {
             for (let playerReviewInfo of this.reviewInfoList)
             {
-                if (info.roleId == playerReviewInfo.roleId)
+                if (info.roleid == playerReviewInfo.roleId)
                 {
                     if (info.action != PlayerState.WaitAction)
                     {
                         if (!playerReviewInfo.selfActionRecord)
                         {
-                            playerReviewInfo.selfActionRecord = new Array<PlayerActionRecordInfo>();
+                            playerReviewInfo.selfActionRecord = [];
                         }
                         playerReviewInfo.selfActionRecord.push(info);  //将用户自己的操作保存起来                        
                     }
@@ -236,29 +237,20 @@ class GamblingReviewHandler
     /**
      * 设置手牌和自己的操作信息
     */
-    public setSelfCardsInfo(info: any)
+    public setSelfCardsInfo(info: msg.IReviewInfoArr)
     {
         if (this.reviewInfoList.length > 0)
         {
             for (let playerReviewInfo of this.reviewInfoList)
             {
-                if (info.roleId == playerReviewInfo.roleId)
+                if (info.roleid == playerReviewInfo.roleId)
                 {
                     if (info.cards)  //将自己的手牌信息处理保存
                     {
-                        let cards: Array<number> = new Array<number>();
-                        try
-                        {
-                            cards = JSON.parse(info.cards);
-                        }
-                        catch (e)
-                        {
-                            game.Console.log(e);
-                        }
-                        if (cards)
+                        if (info.cards)
                         {
                             playerReviewInfo.cardList = new Array<CardInfo>();
-                            GamblingUtil.cardArr2CardInfoList(cards, playerReviewInfo.cardList);
+                            GamblingUtil.cardArr2CardInfoList(info.cards, playerReviewInfo.cardList);
                         }
                     }
                     break;
@@ -269,13 +261,13 @@ class GamblingReviewHandler
     /**
      * 设置是否亮牌
     */
-    public setIsShowCard(info: any)
+    public setIsShowCard(info: msg.IReviewInfoArr)
     {
         if (this.reviewInfoList.length > 0)
         {
             for (let playerReviewInfo of this.reviewInfoList)
             {
-                if (info.roleId == playerReviewInfo.roleId)
+                if (info.roleid == playerReviewInfo.roleId)
                 {
                     if (info.num1)
                     {

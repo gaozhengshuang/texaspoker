@@ -92,6 +92,20 @@ message UserMiscData {
 	optional int32 lastgoldtime = 2; // 定时领金币领取的时间戳
 }
 
+//兑换记录针对有配置logid的奖品做的记录
+message AwardRecord {
+	optional int32 logid = 1;
+	optional int32 time = 2;
+	optional int32 awardid = 3;
+}
+
+//兑换信息针对限购(次数或时间)的奖品做的记录
+message AwardGetInfo {
+	optional int32 id = 1;
+	optional int32 count = 2;
+	optional int32 time = 3;
+}
+
 message UserBase {
     optional UserMiscData misc = 1;
     optional UserStatistics statics = 2;
@@ -103,6 +117,8 @@ message UserBase {
     optional LuckyDrawRecord luckydraw = 8; // 抽奖
     optional UserMapEvent mapevent = 9;     // 地图事件
     optional AutoResetValues arvalues = 10; // 变量自动重置
+	repeated AwardRecord awardrecord = 11; 	// 兑换记录
+	repeated AwardGetInfo awardgetinfo = 12; // 兑换信息	
 }
 
 message UserAddress {

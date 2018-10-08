@@ -61,7 +61,7 @@ class PlayerReviewInfo extends BaseServerValueInfo implements IBaseHead
     /**
      * 自己的操作记录
     */
-    public selfActionRecord: Array<PlayerActionRecordInfo>;
+    public selfActionRecord: Array<msg.IReviewInfoArr>;
     /**
 	 * 手牌列表
 	 */

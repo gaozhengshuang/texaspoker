@@ -4,5 +4,5 @@
 	<e:Image id="btnImg" y="0" x="0" anchorOffsetX="0" anchorOffsetY="0" source="pub_button_11_png"
 	         source.disabled="pub_button_11_1_png" />
 	<e:Label id="labelDisplay" size="28" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei"
-	         anchorOffsetX="0" anchorOffsetY="0" textColor="0xffffff" text="按钮" width="160" height="60.67" name="label" />
+	         anchorOffsetX="0" anchorOffsetY="0" textColor="0xffffff" text="button" width="160" height="60.67" name="label" />
 </e:Skin>

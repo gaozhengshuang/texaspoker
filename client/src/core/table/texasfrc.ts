@@ -4,10 +4,10 @@
 module table {
 export var TFRC : table.ITFRCDefine[] = [
 		{ Id : 1, Name : "高牌", Type : 1, High : 0, Fold : 30, Call : 50, Raise : 0, AllIn : 0 	},
-		{ Id : 2, Name : "高牌", Type : 1, High : 14, Fold : 0, Call : 40, Raise : 20, AllIn : 5 	},
-		{ Id : 3, Name : "高牌", Type : 1, High : 13, Fold : 0, Call : 50, Raise : 20, AllIn : 3 	},
-		{ Id : 4, Name : "高牌", Type : 1, High : 12, Fold : 5, Call : 60, Raise : 10, AllIn : 0 	},
-		{ Id : 5, Name : "高牌", Type : 1, High : 11, Fold : 5, Call : 60, Raise : 10, AllIn : 0 	},
+		{ Id : 2, Name : "高牌", Type : 1, High : 14, Fold : 10, Call : 60, Raise : 20, AllIn : 5 	},
+		{ Id : 3, Name : "高牌", Type : 1, High : 13, Fold : 10, Call : 60, Raise : 20, AllIn : 0 	},
+		{ Id : 4, Name : "高牌", Type : 1, High : 12, Fold : 10, Call : 50, Raise : 10, AllIn : 0 	},
+		{ Id : 5, Name : "高牌", Type : 1, High : 11, Fold : 10, Call : 40, Raise : 10, AllIn : 0 	},
 		{ Id : 6, Name : "一对", Type : 2, High : 0, Fold : 10, Call : 40, Raise : 10, AllIn : 0 	},
 		{ Id : 7, Name : "一对", Type : 2, High : 14, Fold : 0, Call : 40, Raise : 60, AllIn : 15 	},
 		{ Id : 8, Name : "一对", Type : 2, High : 13, Fold : 0, Call : 40, Raise : 40, AllIn : 10 	},
