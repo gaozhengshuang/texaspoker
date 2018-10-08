@@ -250,17 +250,17 @@ message C2RS_ReqReviewInfo
 
 message RS2C_ReqReviewInfo 
 {
-    repeated ReviewInfoArr Array = 1;
+    repeated ReviewInfoArr array = 1;
 }
 
 message ReviewInfoArr 
 {
     optional int32 step = 1;
     optional int32 action = 2;
-    optional int32 roleId = 3;
+    optional int64 roleid = 3;
     optional int32 num1 = 4;        //位置
     optional int32 num2 = 5;        //下注
-    optional string cards = 6;      //手牌
+    repeated int32 cards = 6;      //手牌
     optional int32 time = 7;        //时间
 }
 

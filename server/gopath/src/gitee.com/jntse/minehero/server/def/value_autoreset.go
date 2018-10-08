@@ -27,8 +27,12 @@ const (
 // 变量枚举类型
 const (
 	CTNone int32 = iota		//value --> 0
-	CTTimeRewardRound		//局内时间奖励轮数
-	CTTimeRewardSec			//局内时间奖励时间计时
+	CTTimeRewardRound1		//初级局内时间奖励轮数
+	CTTimeRewardSec1		//初级局内时间奖励时间计时
+	CTTimeRewardRound2		//中级
+	CTTimeRewardSec2		//中级
+	CTTimeRewardRound3		//高级
+	CTTimeRewardSec3		//高级
 )
 
 func NewAutoResetValue(kind, id, weeks, hours int32, value int64) *AutoResetValue {
