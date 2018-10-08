@@ -178,7 +178,10 @@ export var ProtoId : table.IProtoIdDefine[] = [
 		{ Id : 173, Name : "msg.RS2C_RetBrightInTime" 	},
 		{ Id : 174, Name : "msg.RS2C_PushBrightCard" 	},
 		{ Id : 175, Name : "msg.C2RS_ReqAddCoin" 	},
-		{ Id : 176, Name : "msg.RS2C_RetAddCoin" 	}
+		{ Id : 176, Name : "msg.RS2C_RetAddCoin" 	},
+		{ Id : 177, Name : "msg.C2RS_ReqReviewInfo" 	},
+		{ Id : 178, Name : "msg.RS2C_ReqReviewInfo" 	},
+		{ Id : 179, Name : "msg.ReviewInfoArr" 	}
 	]
 
 

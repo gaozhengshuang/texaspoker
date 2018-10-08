@@ -333,7 +333,7 @@ func (this *TexasPlayer) AddBankRoll(num int32){
 
 func (this *TexasPlayer) ReqTimeAwardInfo(rev *msg.C2RS_ReqTimeAwardInfo) {
 	send := &msg.RS2C_RetTimeAwardInfo{}
-	send.Round = pb.Int32(this.rewardround)
+	send.Round = pb.Int32(this.rewardround-1)
 	endtime := RoomMgr().GetRewardTime(this.rewardround)
 	if endtime > this.rewardtime {
 		send.Sectime = pb.Int32(endtime - this.rewardtime)
@@ -346,7 +346,7 @@ func (this *TexasPlayer) ReqTimeAwardInfo(rev *msg.C2RS_ReqTimeAwardInfo) {
 func (this *TexasPlayer) ReqTimeAwardGet() {
 	send := &msg.RS2C_RetTimeAwardGet{}
 	endtime := RoomMgr().GetRewardTime(this.rewardround)
-	if endtime < this.rewardtime {
+	if endtime > this.rewardtime {
 		send.Errcode = pb.String("还不能领奖")
 		this.owner.SendClientMsg(send)
 		return
@@ -362,7 +362,7 @@ func (this *TexasPlayer) ReqTimeAwardGet() {
 
 func (this *TexasPlayer) SendTimeAward(start bool) {
 	send := &msg.RS2C_PushTimeAwardRefresh{}
-	endtime := RoomMgr().GetRewardTime(this.rewardround)
+	endtime := RoomMgr().GetRewardTime(this.rewardround-1)
 	if endtime > this.rewardtime {
 		send.Sectime = pb.Int32(endtime - this.rewardtime)
 	}else{
@@ -489,6 +489,7 @@ func (this *TexasPlayer) AddRewardTime() {
 		return
 	}
 	this.rewardtime++
+	//log.Info("房间%d 玩家%d 计时%d", this.room.Id(), this.owner.Id(), this.rewardtime)
 }
 
 func (this *TexasPlayer) SitDown(pos int32) {
