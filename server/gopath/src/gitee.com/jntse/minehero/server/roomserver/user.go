@@ -7,7 +7,7 @@ import (
 	"gitee.com/jntse/gotoolkit/net"
 	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/minehero/pbmsg"
-	_ "gitee.com/jntse/minehero/server/def"
+	"gitee.com/jntse/minehero/server/def"
 	"gitee.com/jntse/minehero/server/tbl"
 	_ "gitee.com/jntse/minehero/server/tbl/excel"
 	"github.com/go-redis/redis"
@@ -39,6 +39,7 @@ type RoomUser struct {
 	gamekind       int32
 	roomid         int64 // 房间id
 	isai           bool
+	arvalues		def.AutoResetValues
 }
 
 func NewRoomUser(rid int64, b *msg.Serialize, gate network.IBaseNetSession, gamekind int32) *RoomUser {
@@ -53,6 +54,8 @@ func NewRoomUser(rid int64, b *msg.Serialize, gate network.IBaseNetSession, game
 	user.task.LoadBin(b)
 	user.asynev.Start(int64(user.Id()), 10)
 	user.maxenergy = tbl.Game.MaxEnergy
+	user.arvalues.Init()
+	user.arvalues.LoadBin(user.bin.Base.Arvalues)
 	return user
 }
 
@@ -74,6 +77,7 @@ func NewRoomUserAI(id int64, name string, sex int32) *RoomUser {
 	user.bin.Base.Task = &msg.UserTask{}
 	user.bin.Base.Luckydraw = &msg.LuckyDrawRecord{Drawlist: make([]*msg.LuckyDrawItem, 0)}
 	user.isai = true
+	user.arvalues.Init()
 	return user
 }
 
@@ -194,7 +198,7 @@ func (u *RoomUser) AddExp(num int32, reason string, syn bool) {
 	}
 	u.SetExp(exp)
 	//if syn == true { u.SendBattleUser() }
-
+	u.SyncLevelRankRedis()
 	log.Info("玩家[%d] 添加经验[%d] 老等级[%d] 新等级[%d] 经验[%d] 原因[%s]", u.Id(), num, old, u.Level(), u.Exp(), reason)
 }
 
@@ -225,6 +229,7 @@ func (u *RoomUser) PackBin() *msg.Serialize {
 	u.bag.PackBin(bin)
 	u.task.PackBin(bin)
 	//u.image.PackBin(bin)
+	u.PackAutoResetValues(bin)
 
 	return bin
 }
@@ -315,6 +320,7 @@ func (u *RoomUser) SetGold(gold int32, reason string, syn bool) {
 	log.Info("玩家[%d] 设置金币[%d] 库存[%d] 原因[%s]", u.Id(), gold, u.GetGold(), reason)
 }
 
+//同步玩家金币到redis排行榜
 func (u *RoomUser) SyncGoldRankRedis() {
 	//机器人不参与排行榜
 	if u.isai == true {
@@ -322,6 +328,16 @@ func (u *RoomUser) SyncGoldRankRedis() {
 	}
 	zMem := redis.Z{Score: float64(u.GetGold()), Member: u.Id()}
 	Redis().ZAdd("zGoldRank", zMem)
+}
+
+//同步玩家等级到redis排行榜
+func (u *RoomUser) SyncLevelRankRedis() {
+	if u.isai == true {
+		return
+	}
+	score := u.Level() * 1000000 + u.Exp()
+	zMem := redis.Z{Score: float64(score), Member: u.Id()}
+	Redis().ZAdd("zLevelRank", zMem)
 }
 
 func (u *RoomUser) SendGold() {
@@ -475,4 +491,8 @@ func (u *RoomUser) HaveRechargeOrders() bool {
 // 插入新异步事件
 func (u *RoomUser) AsynEventInsert(event eventque.IEvent) {
 	u.asynev.Push(event)
+}
+
+func (u *RoomUser) PackAutoResetValues(bin *msg.Serialize) {
+	u.bin.Base.Arvalues = u.arvalues.PackBin()
 }

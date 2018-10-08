@@ -348,6 +348,7 @@ class UIUtil
 	*/
 	public static setListDpInfo(dp: eui.ArrayCollection, newSource: any[], propertyName: string, sort?: any)
 	{
+		newSource = newSource.concat();
 		if (newSource && newSource.length > 0)
 		{
 			for (let i: number = dp.source.length - 1; i >= 0; i--)

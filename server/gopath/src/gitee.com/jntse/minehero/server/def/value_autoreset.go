@@ -24,6 +24,13 @@ const (
 	AutoResetValueKind_Week = 2;
 )
 
+// 变量枚举类型
+const (
+	CTNone int32 = iota		//value --> 0
+	CTTimeRewardRound		//局内时间奖励轮数
+	CTTimeRewardSec			//局内时间奖励时间计时
+)
+
 func NewAutoResetValue(kind, id, weeks, hours int32, value int64) *AutoResetValue {
 	v := &AutoResetValue{id:id, kind:kind, weeks:weeks, hours:hours, lastreset:0, nextreset:0}
 	v.init()
@@ -123,6 +130,11 @@ func (t *AutoResetValue) dec(n int64) {
 	t.value -= n
 }
 
+func (t *AutoResetValue) set(n int64) {
+	t.check()
+	t.value = n
+}
+
 // 自动重置变量管理器
 type AutoResetValues struct {
 	values map[int32]*AutoResetValue
@@ -176,6 +188,16 @@ func (m *AutoResetValues) Dec(id int32, n int64) error {
 		return fmt.Errorf("value is not exist")
 	}
 	v.dec(n)
+	return nil
+}
+
+// 设置
+func (m *AutoResetValues) Set(id int32, n int64) error {
+	v, ok := m.values[id]
+	if ok == false {
+		return fmt.Errorf("value is not exist")
+	}
+	v.set(n)
 	return nil
 }
 

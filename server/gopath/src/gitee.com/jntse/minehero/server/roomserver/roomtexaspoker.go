@@ -86,6 +86,10 @@ func (this *TexasPokerRoom) PlayersNum() int32{
 	return count
 }
 
+func (this *TexasPokerRoom) GetRoomType() int32 {
+	return this.tconf.Type
+}
+
 func (this *TexasPokerRoom) PublicLevel() int32 {
 	return this.publichand.level
 }
@@ -319,6 +323,7 @@ func (this *TexasPokerRoom) StartGame() int32 {
 		}else {
 			p.ChangeState(GSWaitAction)
 		}
+		p.SendTimeAward(true)
 		this.remain++
 		return true
 	})
@@ -643,7 +648,7 @@ func (this *TexasPokerRoom) ShowDown() int32{
 	}
 
 	for _, player := range this.players {
-		if player == nil {
+		if player == nil || player.IsWait(){
 			continue
 		}
 		if player.isshowcard == false || player.allinshow == true{
@@ -658,6 +663,12 @@ func (this *TexasPokerRoom) ShowDown() int32{
 		})
 	}
 	this.BroadCastRoomMsg(send)
+	for _, player := range this.players {
+		if player == nil || player.IsWait(){
+			continue
+		}
+		player.SendTimeAward(false)
+	}
 	return TPRestart
 }
 
@@ -922,6 +933,13 @@ func (this *TexasPokerRoom) ReqTimeAwardInfo(uid int64, rev *msg.C2RS_ReqTimeAwa
 	player := this.FindAllByID(uid)
 	if player != nil {
 		player.ReqTimeAwardInfo(rev)
+	}
+}
+
+func (this *TexasPokerRoom) ReqTimeAwardGet(uid int64) {
+	player := this.FindAllByID(uid)
+	if player != nil {
+		player.ReqTimeAwardGet()
 	}
 }
 

@@ -525,6 +525,7 @@ func (u *GateUser) AddExp(num int32, reason string) {
 		u.OnLevelUp()
 	}
 	u.SetExp(exp)
+	u.SyncLevelRankRedis()
 	log.Info("玩家[%d] 添加经验[%d] 老等级[%d] 新等级[%d] 经验[%d] 原因[%s]", u.Id(), num, old, u.Level(), u.Exp(), reason)
 }
 
