@@ -194,7 +194,7 @@ func (u *RoomUser) AddExp(num int32, reason string, syn bool) {
 	}
 	u.SetExp(exp)
 	//if syn == true { u.SendBattleUser() }
-
+	u.SyncLevelRankRedis()
 	log.Info("玩家[%d] 添加经验[%d] 老等级[%d] 新等级[%d] 经验[%d] 原因[%s]", u.Id(), num, old, u.Level(), u.Exp(), reason)
 }
 
@@ -315,6 +315,7 @@ func (u *RoomUser) SetGold(gold int32, reason string, syn bool) {
 	log.Info("玩家[%d] 设置金币[%d] 库存[%d] 原因[%s]", u.Id(), gold, u.GetGold(), reason)
 }
 
+//同步玩家金币到redis排行榜
 func (u *RoomUser) SyncGoldRankRedis() {
 	//机器人不参与排行榜
 	if u.isai == true {
@@ -322,6 +323,16 @@ func (u *RoomUser) SyncGoldRankRedis() {
 	}
 	zMem := redis.Z{Score: float64(u.GetGold()), Member: u.Id()}
 	Redis().ZAdd("zGoldRank", zMem)
+}
+
+//同步玩家等级到redis排行榜
+func (u *RoomUser) SyncLevelRankRedis() {
+	if u.isai == true {
+		return
+	}
+	score := u.Level() * 1000000 + u.Exp()
+	zMem := redis.Z{Score: float64(score), Member: u.Id()}
+	Redis().ZAdd("zLevelRank", zMem)
 }
 
 func (u *RoomUser) SendGold() {
