@@ -7,7 +7,7 @@ import (
 	"gitee.com/jntse/gotoolkit/net"
 	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/minehero/pbmsg"
-	_ "gitee.com/jntse/minehero/server/def"
+	"gitee.com/jntse/minehero/server/def"
 	"gitee.com/jntse/minehero/server/tbl"
 	_ "gitee.com/jntse/minehero/server/tbl/excel"
 	"github.com/go-redis/redis"
@@ -39,6 +39,7 @@ type RoomUser struct {
 	gamekind       int32
 	roomid         int64 // 房间id
 	isai           bool
+	arvalues		def.AutoResetValues
 }
 
 func NewRoomUser(rid int64, b *msg.Serialize, gate network.IBaseNetSession, gamekind int32) *RoomUser {
@@ -53,6 +54,8 @@ func NewRoomUser(rid int64, b *msg.Serialize, gate network.IBaseNetSession, game
 	user.task.LoadBin(b)
 	user.asynev.Start(int64(user.Id()), 10)
 	user.maxenergy = tbl.Game.MaxEnergy
+	user.arvalues.Init()
+	user.arvalues.LoadBin(user.bin.Base.Arvalues)
 	return user
 }
 
@@ -74,6 +77,7 @@ func NewRoomUserAI(id int64, name string, sex int32) *RoomUser {
 	user.bin.Base.Task = &msg.UserTask{}
 	user.bin.Base.Luckydraw = &msg.LuckyDrawRecord{Drawlist: make([]*msg.LuckyDrawItem, 0)}
 	user.isai = true
+	user.arvalues.Init()
 	return user
 }
 
@@ -225,6 +229,7 @@ func (u *RoomUser) PackBin() *msg.Serialize {
 	u.bag.PackBin(bin)
 	u.task.PackBin(bin)
 	//u.image.PackBin(bin)
+	u.PackAutoResetValues(bin)
 
 	return bin
 }
@@ -475,4 +480,8 @@ func (u *RoomUser) HaveRechargeOrders() bool {
 // 插入新异步事件
 func (u *RoomUser) AsynEventInsert(event eventque.IEvent) {
 	u.asynev.Push(event)
+}
+
+func (u *RoomUser) PackAutoResetValues(bin *msg.Serialize) {
+	u.bin.Base.Arvalues = u.arvalues.PackBin()
 }

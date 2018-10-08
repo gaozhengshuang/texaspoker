@@ -6,6 +6,7 @@ import (
 	pb "github.com/gogo/protobuf/proto"
 	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/gotoolkit/log"
+	"gitee.com/jntse/minehero/server/def"
 )
 
 const (
@@ -39,6 +40,8 @@ type TexasPlayer struct{
 	aiacttime int32
 	readytime int32
 	allinshow bool
+	rewardtime int32
+	rewardround int32
 }
 
 type TexasPlayers []*TexasPlayer
@@ -56,6 +59,10 @@ func NewTexasPlayer(user *RoomUser, room *TexasPokerRoom, isai bool) *TexasPlaye
 	player.isready = false
 	player.gamestate = GSWaitNext
 	player.isai = isai
+	tmpsec,_ := user.arvalues.Val(def.CTTimeRewardSec)
+	player.rewardtime = int32(tmpsec)
+	tmpround,_ := user.arvalues.Val(def.CTTimeRewardRound)
+	player.rewardround = int32(tmpround)+1
 	return player
 }
 
@@ -326,6 +333,44 @@ func (this *TexasPlayer) AddBankRoll(num int32){
 
 func (this *TexasPlayer) ReqTimeAwardInfo(rev *msg.C2RS_ReqTimeAwardInfo) {
 	send := &msg.RS2C_RetTimeAwardInfo{}
+	send.Round = pb.Int32(this.rewardround)
+	endtime := RoomMgr().GetRewardTime(this.rewardround)
+	if endtime > this.rewardtime {
+		send.Sectime = pb.Int32(endtime - this.rewardtime)
+	}else{
+		send.Sectime = pb.Int32(0)
+	}
+	this.owner.SendClientMsg(send)
+}
+
+func (this *TexasPlayer) ReqTimeAwardGet() {
+	send := &msg.RS2C_RetTimeAwardGet{}
+	endtime := RoomMgr().GetRewardTime(this.rewardround)
+	if endtime < this.rewardtime {
+		send.Errcode = pb.String("还不能领奖")
+		this.owner.SendClientMsg(send)
+		return
+	}else{
+		gold := RoomMgr().GetRewardGold(this.rewardround, this.room.GetRoomType())
+		this.owner.AddGold(gold, "领取计时奖励", true)
+		this.owner.arvalues.AddDayDefault(def.CTTimeRewardRound, 1)
+		this.rewardround++
+		this.rewardtime = 0
+		this.owner.SendClientMsg(send)
+	}
+}
+
+func (this *TexasPlayer) SendTimeAward(start bool) {
+	send := &msg.RS2C_PushTimeAwardRefresh{}
+	endtime := RoomMgr().GetRewardTime(this.rewardround)
+	if endtime > this.rewardtime {
+		send.Sectime = pb.Int32(endtime - this.rewardtime)
+	}else{
+		send.Sectime = pb.Int32(0)
+	}
+	if start {
+		send.Starttime = pb.Int32(int32(util.CURTIME()))
+	}
 	this.owner.SendClientMsg(send)
 }
 
@@ -431,6 +476,19 @@ func (this *TexasPlayer) Tick (){
 			}
 		}
 	}
+	if !this.IsWait() {
+		this.AddRewardTime()
+	}
+}
+
+func (this *TexasPlayer) AddRewardTime() {
+	if this.isai {
+		return
+	}
+	if this.rewardround > RoomMgr().maxrewardround {
+		return
+	}
+	this.rewardtime++
 }
 
 func (this *TexasPlayer) SitDown(pos int32) {
@@ -599,6 +657,8 @@ func (this *TexasPlayer) StandUp() bool {
 			send1.Roleid = pb.Int64(this.owner.Id())
 			send1.State = pb.Int32(2)
 			this.room.BroadCastRoomMsg(send1)
+			this.owner.arvalues.Remove(def.CTTimeRewardSec)
+			this.owner.arvalues.AddDayDefault(def.CTTimeRewardSec, int64(this.rewardtime))
 		}
 		this.room.UpdateMember()
 		return true

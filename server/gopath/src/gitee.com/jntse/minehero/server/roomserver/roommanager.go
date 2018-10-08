@@ -13,6 +13,11 @@ import (
 	"gitee.com/jntse/minehero/server/def"
 )
 
+type TimesReward struct {
+	id int32
+	roomreward []int32
+	sumtime int32
+}
 
 // --------------------------------------------------------------------------
 /// @brief 
@@ -21,6 +26,8 @@ type RoomManager struct {
 	rooms map[int64]IRoomBase			// 所有房间
 	texasrooms map[int32][]IRoomBase	// 德州房间
 	ticker1s *util.GameTicker
+	timerewards map[int32]*TimesReward
+	maxrewardround int32
 }
 
 func (rm *RoomManager) Init() bool {
@@ -31,7 +38,25 @@ func (rm *RoomManager) Init() bool {
 
 	rm.CleanCache()
 	rm.InitPublicTexas()
+	rm.InitTimeReward()
 	return true
+}
+
+func (rm *RoomManager) InitTimeReward() {
+	rm.maxrewardround = 0
+	rm.timerewards = make(map[int32]*TimesReward)
+	for _, tconf := range tbl.TTimeAward.TimeAwardById {
+		if tconf.Id > rm.maxrewardround {
+			rm.maxrewardround = tconf.Id
+		}
+		reward := &TimesReward{}
+		reward.id = tconf.Id
+		reward.roomreward = append(reward.roomreward, tconf.RoomType1)
+		reward.roomreward = append(reward.roomreward, tconf.RoomType2)
+		reward.roomreward = append(reward.roomreward, tconf.RoomType3)
+		reward.sumtime = tconf.Time
+		rm.timerewards[reward.id] = reward
+	}
 }
 
 // 初始德州公共房间
@@ -50,6 +75,24 @@ func (rm *RoomManager) InitPublicTexas() bool {
 		rm.Add(room)
 	}
 	return true
+}
+
+func (rm *RoomManager) GetRewardTime(round int32) int32 {
+	if _, ok := rm.timerewards[round]; !ok {
+		return 0
+	}
+	return rm.timerewards[round].sumtime
+}
+
+func (rm *RoomManager) GetRewardGold(round int32, roomtype int32) int32 {
+	if _, ok := rm.timerewards[round]; !ok {
+		return 0
+	}
+	reward := rm.timerewards[round]
+	if roomtype == 0 || int(roomtype) > len(reward.roomreward) {
+		return 0
+	}
+	return reward.roomreward[roomtype-1]
 }
 
 func (rm *RoomManager) Num() int {

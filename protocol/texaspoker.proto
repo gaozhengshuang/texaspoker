@@ -66,6 +66,7 @@ message C2RS_ReqTimeAwardGet
 
 message RS2C_RetTimeAwardGet
 {
+    optional string errcode = 1;
 }
 
 //请求购买游戏币
