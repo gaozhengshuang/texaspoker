@@ -32,7 +32,7 @@ const (
 )
 
 func NewAutoResetValue(kind, id, weeks, hours int32, value int64) *AutoResetValue {
-	v := &AutoResetValue{id:id, kind:kind, weeks:weeks, hours:hours}
+	v := &AutoResetValue{id:id, kind:kind, weeks:weeks, hours:hours, lastreset:0, nextreset:0}
 	v.init()
 	v.inc(value)
 	return v
