@@ -49,6 +49,8 @@ type DBUserData struct {
 	luckydrawtotal int64
 	totalrecharge  int32 // 总充值
 	lastgoldtime   int32 // 上次领取系统金币的时间
+	awardrecord    []*msg.AwardRecord  
+	awardgetinfo   []*msg.AwardGetInfo
 }
 
 // --------------------------------------------------------------------------
@@ -435,7 +437,8 @@ func (u *GateUser) PackBin() *msg.Serialize {
 	userbase.Sign.Signtime = pb.Int32(u.signtime)
 	userbase.Misc.Invitationcode = pb.String(u.invitationcode)
 	userbase.Misc.Lastgoldtime = pb.Int32(u.lastgoldtime)
-
+	userbase.Awardrecord = u.awardrecord[:]
+	userbase.Awardgetinfo = u.awardgetinfo[:]
 	userbase.Addrlist = u.addrlist[:]
 	userbase.Wechat.Openid = pb.String(u.wechatopenid)
 	// 幸运抽奖
@@ -479,7 +482,8 @@ func (u *GateUser) LoadBin() {
 	u.signtime = userbase.Sign.GetSigntime()
 	u.invitationcode = userbase.Misc.GetInvitationcode()
 	u.lastgoldtime = userbase.Misc.GetLastgoldtime()
-
+	u.awardrecord = userbase.GetAwardrecord()[:]
+	u.awardgetinfo = userbase.GetAwardgetinfo()[:]
 	u.addrlist = userbase.GetAddrlist()[:]
 	u.wechatopenid = userbase.GetWechat().GetOpenid()
 	// 幸运抽奖

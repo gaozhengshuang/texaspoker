@@ -62,7 +62,25 @@ func (u *GateUser) GetActivityAwardByAwardId(awardid int32, reason string) bool 
 		log.Error("玩家[%d %s] 领取活动奖励失败，奖励物品配置不匹配 %d", u.Id(), u.Name(), awardid)
 		return false
 	}
-
+	costid := config.CostId
+	costnum := config.CostNum
+	if len(costid) > 0 && len(costid) != len(costnum) {
+		log.Error("玩家[%d %s] 领取活动奖励失败，花费物品配置不匹配 %d", u.Id(), u.Name(), awardid)
+		return false
+	}
+	if len(costid) > 0 {
+		for i := 0; i < len(costid); i++ {
+			if u.CheckEnoughItem(costid[i], costnum[i]) == false {
+				log.Error("玩家[%d %s] 领取活动奖励失败，所需花费不足 %d", u.Id(), u.Name(), awardid)
+				return false
+			}
+		}
+	}
+	if len(costid) > 0 {
+		for i := 0; i < len(costid); i++ {
+			u.RemoveItem(costid[i], costnum[i], "兑换奖励花费")
+		}
+	}
 	for i := 0; i < len(items); i++ {
 		u.AddItem(items[i], num[i], reason, true)
 	}
@@ -150,4 +168,44 @@ func (u *GateUser) GetFreeGold() {
 		send.Lastgoldtime = pb.Int32(u.lastgoldtime)
 		u.SendMsg(send)
 	}
+}
+
+
+//根据logid获取兑换记录
+func (u *GateUser) GetRewardRecordByLogid (logid, startid, count int32) {
+	send := &msg.GW2C_RetAwardRecord{}
+	tmp := make([]*msg.AwardRecord,0)
+	len1 := len(u.awardrecord)
+	for len1 > 0 {
+		len1 = len1 - 1
+		if u.awardrecord[len1].GetLogid() == logid {
+			tmp = append(tmp, u.awardrecord[len1])
+		}
+	}
+	len2 := len(tmp)
+	num := 0
+	for int32(len2) >= startid && int32(num) < count{
+		num = num + 1
+		data := &msg.RetAwardRecord{}
+		data.Id = pb.Int32(startid)
+		data.Time = pb.Int32(tmp[startid-1].GetTime())
+		data.Awardid = pb.Int32(tmp[startid-1].GetAwardid())
+		send.Loglist = append(send.Loglist, data)
+		startid = startid + 1
+	}
+	u.SendMsg(send)
+}
+
+//玩家客户端申请兑换奖励
+func (u *GateUser) ReqAwardExchange (id, count int32) {
+	config, ok := tbl.AwardBase.AwardById[id]
+	if !ok {
+		log.Error("玩家[%d %s] 兑换奖励失败，未找到奖励配置 %d", u.Id(), u.Name(), id)
+		return
+	}
+	if config.Nacr > 0 {
+		log.Error("玩家[%d %s] 兑换奖励失败，本奖励不允许客户端发起领奖 %d", u.Id(), u.Name(), id)
+		return
+	}
+	u.GetActivityAwardByAwardId(id, "玩家兑换奖励")
 }

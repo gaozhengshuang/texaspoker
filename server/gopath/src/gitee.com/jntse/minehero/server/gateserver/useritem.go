@@ -44,6 +44,20 @@ func (u *GateUser) SendPropertyChange() {
 	u.SendMsg(send)
 }
 
+//检查是否有足够的道具
+func (u *GateUser) CheckEnoughItem(item int32, num int32) bool {
+	if item == int32(msg.ItemId_YuanBao) {
+		return u.GetYuanbao() >= num
+	} else if item == int32(msg.ItemId_Gold) {
+		return u.GetGold() >= num
+	} else if item == int32(msg.ItemId_Diamond) {
+		return u.GetDiamond() >= num
+	} else {
+		have := u.bag.GetItemNum(item)
+		return have >= num
+	}
+}
+
 // 扣除道具
 func (u *GateUser) RemoveItem(item int32, num int32, reason string) bool {
 	if item == int32(msg.ItemId_YuanBao) {
