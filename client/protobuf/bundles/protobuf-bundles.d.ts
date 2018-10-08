@@ -1048,6 +1048,378 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a C2GW_ReqGetFreeGold. */
+    interface IC2GW_ReqGetFreeGold {
+    }
+
+    /** Represents a C2GW_ReqGetFreeGold. */
+    class C2GW_ReqGetFreeGold implements IC2GW_ReqGetFreeGold {
+
+        /**
+         * Constructs a new C2GW_ReqGetFreeGold.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqGetFreeGold);
+
+        /**
+         * Creates a new C2GW_ReqGetFreeGold instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqGetFreeGold instance
+         */
+        public static create(properties?: msg.IC2GW_ReqGetFreeGold): msg.C2GW_ReqGetFreeGold;
+
+        /**
+         * Encodes the specified C2GW_ReqGetFreeGold message. Does not implicitly {@link msg.C2GW_ReqGetFreeGold.verify|verify} messages.
+         * @param message C2GW_ReqGetFreeGold message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqGetFreeGold, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqGetFreeGold message, length delimited. Does not implicitly {@link msg.C2GW_ReqGetFreeGold.verify|verify} messages.
+         * @param message C2GW_ReqGetFreeGold message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqGetFreeGold, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqGetFreeGold message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqGetFreeGold
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqGetFreeGold;
+
+        /**
+         * Decodes a C2GW_ReqGetFreeGold message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqGetFreeGold
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqGetFreeGold;
+
+        /**
+         * Verifies a C2GW_ReqGetFreeGold message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqGetFreeGold message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqGetFreeGold
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqGetFreeGold;
+
+        /**
+         * Creates a plain object from a C2GW_ReqGetFreeGold message. Also converts values to other types if specified.
+         * @param message C2GW_ReqGetFreeGold
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqGetFreeGold, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqGetFreeGold to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetGetFreeGold. */
+    interface IGW2C_RetGetFreeGold {
+
+        /** GW2C_RetGetFreeGold lastgoldtime */
+        lastgoldtime?: (number|null);
+    }
+
+    /** Represents a GW2C_RetGetFreeGold. */
+    class GW2C_RetGetFreeGold implements IGW2C_RetGetFreeGold {
+
+        /**
+         * Constructs a new GW2C_RetGetFreeGold.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetGetFreeGold);
+
+        /** GW2C_RetGetFreeGold lastgoldtime. */
+        public lastgoldtime: number;
+
+        /**
+         * Creates a new GW2C_RetGetFreeGold instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetGetFreeGold instance
+         */
+        public static create(properties?: msg.IGW2C_RetGetFreeGold): msg.GW2C_RetGetFreeGold;
+
+        /**
+         * Encodes the specified GW2C_RetGetFreeGold message. Does not implicitly {@link msg.GW2C_RetGetFreeGold.verify|verify} messages.
+         * @param message GW2C_RetGetFreeGold message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetGetFreeGold, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetGetFreeGold message, length delimited. Does not implicitly {@link msg.GW2C_RetGetFreeGold.verify|verify} messages.
+         * @param message GW2C_RetGetFreeGold message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetGetFreeGold, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetGetFreeGold message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetGetFreeGold
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetGetFreeGold;
+
+        /**
+         * Decodes a GW2C_RetGetFreeGold message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetGetFreeGold
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetGetFreeGold;
+
+        /**
+         * Verifies a GW2C_RetGetFreeGold message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetGetFreeGold message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetGetFreeGold
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetGetFreeGold;
+
+        /**
+         * Creates a plain object from a GW2C_RetGetFreeGold message. Also converts values to other types if specified.
+         * @param message GW2C_RetGetFreeGold
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetGetFreeGold, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetGetFreeGold to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an AutoResetValue. */
+    interface IAutoResetValue {
+
+        /** AutoResetValue id */
+        id?: (number|null);
+
+        /** AutoResetValue hours */
+        hours?: (number|null);
+
+        /** AutoResetValue value */
+        value?: (number|Long|null);
+
+        /** AutoResetValue lastreset */
+        lastreset?: (number|Long|null);
+    }
+
+    /** Represents an AutoResetValue. */
+    class AutoResetValue implements IAutoResetValue {
+
+        /**
+         * Constructs a new AutoResetValue.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IAutoResetValue);
+
+        /** AutoResetValue id. */
+        public id: number;
+
+        /** AutoResetValue hours. */
+        public hours: number;
+
+        /** AutoResetValue value. */
+        public value: (number|Long);
+
+        /** AutoResetValue lastreset. */
+        public lastreset: (number|Long);
+
+        /**
+         * Creates a new AutoResetValue instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns AutoResetValue instance
+         */
+        public static create(properties?: msg.IAutoResetValue): msg.AutoResetValue;
+
+        /**
+         * Encodes the specified AutoResetValue message. Does not implicitly {@link msg.AutoResetValue.verify|verify} messages.
+         * @param message AutoResetValue message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IAutoResetValue, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified AutoResetValue message, length delimited. Does not implicitly {@link msg.AutoResetValue.verify|verify} messages.
+         * @param message AutoResetValue message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IAutoResetValue, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes an AutoResetValue message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns AutoResetValue
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.AutoResetValue;
+
+        /**
+         * Decodes an AutoResetValue message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns AutoResetValue
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.AutoResetValue;
+
+        /**
+         * Verifies an AutoResetValue message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an AutoResetValue message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns AutoResetValue
+         */
+        public static fromObject(object: { [k: string]: any }): msg.AutoResetValue;
+
+        /**
+         * Creates a plain object from an AutoResetValue message. Also converts values to other types if specified.
+         * @param message AutoResetValue
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.AutoResetValue, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this AutoResetValue to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an AutoResetValues. */
+    interface IAutoResetValues {
+
+        /** AutoResetValues values */
+        values?: (msg.IAutoResetValue[]|null);
+    }
+
+    /** Represents an AutoResetValues. */
+    class AutoResetValues implements IAutoResetValues {
+
+        /**
+         * Constructs a new AutoResetValues.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IAutoResetValues);
+
+        /** AutoResetValues values. */
+        public values: msg.IAutoResetValue[];
+
+        /**
+         * Creates a new AutoResetValues instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns AutoResetValues instance
+         */
+        public static create(properties?: msg.IAutoResetValues): msg.AutoResetValues;
+
+        /**
+         * Encodes the specified AutoResetValues message. Does not implicitly {@link msg.AutoResetValues.verify|verify} messages.
+         * @param message AutoResetValues message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IAutoResetValues, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified AutoResetValues message, length delimited. Does not implicitly {@link msg.AutoResetValues.verify|verify} messages.
+         * @param message AutoResetValues message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IAutoResetValues, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes an AutoResetValues message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns AutoResetValues
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.AutoResetValues;
+
+        /**
+         * Decodes an AutoResetValues message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns AutoResetValues
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.AutoResetValues;
+
+        /**
+         * Verifies an AutoResetValues message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an AutoResetValues message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns AutoResetValues
+         */
+        public static fromObject(object: { [k: string]: any }): msg.AutoResetValues;
+
+        /**
+         * Creates a plain object from an AutoResetValues message. Also converts values to other types if specified.
+         * @param message AutoResetValues
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.AutoResetValues, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this AutoResetValues to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of an IpHost. */
     interface IIpHost {
 
@@ -3171,6 +3543,9 @@ declare namespace msg {
 
         /** UserMiscData invitationcode */
         invitationcode?: (string|null);
+
+        /** UserMiscData lastgoldtime */
+        lastgoldtime?: (number|null);
     }
 
     /** Represents a UserMiscData. */
@@ -3184,6 +3559,9 @@ declare namespace msg {
 
         /** UserMiscData invitationcode. */
         public invitationcode: string;
+
+        /** UserMiscData lastgoldtime. */
+        public lastgoldtime: number;
 
         /**
          * Creates a new UserMiscData instance using the specified properties.
@@ -3285,6 +3663,9 @@ declare namespace msg {
 
         /** UserBase mapevent */
         mapevent?: (msg.IUserMapEvent|null);
+
+        /** UserBase arvalues */
+        arvalues?: (msg.IAutoResetValues|null);
     }
 
     /** Represents a UserBase. */
@@ -3322,6 +3703,9 @@ declare namespace msg {
 
         /** UserBase mapevent. */
         public mapevent?: (msg.IUserMapEvent|null);
+
+        /** UserBase arvalues. */
+        public arvalues?: (msg.IAutoResetValues|null);
 
         /**
          * Creates a new UserBase instance using the specified properties.
@@ -4235,204 +4619,6 @@ declare namespace msg {
 
         /**
          * Converts this GW2C_EnterGameEvent to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of an InthourAutoResetValue. */
-    interface IInthourAutoResetValue {
-
-        /** InthourAutoResetValue id */
-        id?: (number|null);
-
-        /** InthourAutoResetValue hours */
-        hours?: (number|null);
-
-        /** InthourAutoResetValue value */
-        value?: (number|Long|null);
-
-        /** InthourAutoResetValue lastreset */
-        lastreset?: (number|Long|null);
-    }
-
-    /** Represents an InthourAutoResetValue. */
-    class InthourAutoResetValue implements IInthourAutoResetValue {
-
-        /**
-         * Constructs a new InthourAutoResetValue.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IInthourAutoResetValue);
-
-        /** InthourAutoResetValue id. */
-        public id: number;
-
-        /** InthourAutoResetValue hours. */
-        public hours: number;
-
-        /** InthourAutoResetValue value. */
-        public value: (number|Long);
-
-        /** InthourAutoResetValue lastreset. */
-        public lastreset: (number|Long);
-
-        /**
-         * Creates a new InthourAutoResetValue instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns InthourAutoResetValue instance
-         */
-        public static create(properties?: msg.IInthourAutoResetValue): msg.InthourAutoResetValue;
-
-        /**
-         * Encodes the specified InthourAutoResetValue message. Does not implicitly {@link msg.InthourAutoResetValue.verify|verify} messages.
-         * @param message InthourAutoResetValue message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IInthourAutoResetValue, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified InthourAutoResetValue message, length delimited. Does not implicitly {@link msg.InthourAutoResetValue.verify|verify} messages.
-         * @param message InthourAutoResetValue message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IInthourAutoResetValue, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes an InthourAutoResetValue message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns InthourAutoResetValue
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.InthourAutoResetValue;
-
-        /**
-         * Decodes an InthourAutoResetValue message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns InthourAutoResetValue
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.InthourAutoResetValue;
-
-        /**
-         * Verifies an InthourAutoResetValue message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates an InthourAutoResetValue message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns InthourAutoResetValue
-         */
-        public static fromObject(object: { [k: string]: any }): msg.InthourAutoResetValue;
-
-        /**
-         * Creates a plain object from an InthourAutoResetValue message. Also converts values to other types if specified.
-         * @param message InthourAutoResetValue
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.InthourAutoResetValue, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this InthourAutoResetValue to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of an InthourAutoResetManager. */
-    interface IInthourAutoResetManager {
-
-        /** InthourAutoResetManager values */
-        values?: (msg.IInthourAutoResetValue[]|null);
-    }
-
-    /** Represents an InthourAutoResetManager. */
-    class InthourAutoResetManager implements IInthourAutoResetManager {
-
-        /**
-         * Constructs a new InthourAutoResetManager.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IInthourAutoResetManager);
-
-        /** InthourAutoResetManager values. */
-        public values: msg.IInthourAutoResetValue[];
-
-        /**
-         * Creates a new InthourAutoResetManager instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns InthourAutoResetManager instance
-         */
-        public static create(properties?: msg.IInthourAutoResetManager): msg.InthourAutoResetManager;
-
-        /**
-         * Encodes the specified InthourAutoResetManager message. Does not implicitly {@link msg.InthourAutoResetManager.verify|verify} messages.
-         * @param message InthourAutoResetManager message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IInthourAutoResetManager, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified InthourAutoResetManager message, length delimited. Does not implicitly {@link msg.InthourAutoResetManager.verify|verify} messages.
-         * @param message InthourAutoResetManager message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IInthourAutoResetManager, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes an InthourAutoResetManager message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns InthourAutoResetManager
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.InthourAutoResetManager;
-
-        /**
-         * Decodes an InthourAutoResetManager message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns InthourAutoResetManager
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.InthourAutoResetManager;
-
-        /**
-         * Verifies an InthourAutoResetManager message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates an InthourAutoResetManager message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns InthourAutoResetManager
-         */
-        public static fromObject(object: { [k: string]: any }): msg.InthourAutoResetManager;
-
-        /**
-         * Creates a plain object from an InthourAutoResetManager message. Also converts values to other types if specified.
-         * @param message InthourAutoResetManager
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.InthourAutoResetManager, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this InthourAutoResetManager to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -14566,6 +14752,186 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a C2RS_ReqTimeAwardGet. */
+    interface IC2RS_ReqTimeAwardGet {
+
+        /** C2RS_ReqTimeAwardGet roomtype */
+        roomtype?: (number|null);
+    }
+
+    /** Represents a C2RS_ReqTimeAwardGet. */
+    class C2RS_ReqTimeAwardGet implements IC2RS_ReqTimeAwardGet {
+
+        /**
+         * Constructs a new C2RS_ReqTimeAwardGet.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2RS_ReqTimeAwardGet);
+
+        /** C2RS_ReqTimeAwardGet roomtype. */
+        public roomtype: number;
+
+        /**
+         * Creates a new C2RS_ReqTimeAwardGet instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2RS_ReqTimeAwardGet instance
+         */
+        public static create(properties?: msg.IC2RS_ReqTimeAwardGet): msg.C2RS_ReqTimeAwardGet;
+
+        /**
+         * Encodes the specified C2RS_ReqTimeAwardGet message. Does not implicitly {@link msg.C2RS_ReqTimeAwardGet.verify|verify} messages.
+         * @param message C2RS_ReqTimeAwardGet message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2RS_ReqTimeAwardGet, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2RS_ReqTimeAwardGet message, length delimited. Does not implicitly {@link msg.C2RS_ReqTimeAwardGet.verify|verify} messages.
+         * @param message C2RS_ReqTimeAwardGet message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2RS_ReqTimeAwardGet, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2RS_ReqTimeAwardGet message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2RS_ReqTimeAwardGet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2RS_ReqTimeAwardGet;
+
+        /**
+         * Decodes a C2RS_ReqTimeAwardGet message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2RS_ReqTimeAwardGet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2RS_ReqTimeAwardGet;
+
+        /**
+         * Verifies a C2RS_ReqTimeAwardGet message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2RS_ReqTimeAwardGet message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2RS_ReqTimeAwardGet
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2RS_ReqTimeAwardGet;
+
+        /**
+         * Creates a plain object from a C2RS_ReqTimeAwardGet message. Also converts values to other types if specified.
+         * @param message C2RS_ReqTimeAwardGet
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2RS_ReqTimeAwardGet, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2RS_ReqTimeAwardGet to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RS2C_RetTimeAwardGet. */
+    interface IRS2C_RetTimeAwardGet {
+
+        /** RS2C_RetTimeAwardGet errcode */
+        errcode?: (string|null);
+    }
+
+    /** Represents a RS2C_RetTimeAwardGet. */
+    class RS2C_RetTimeAwardGet implements IRS2C_RetTimeAwardGet {
+
+        /**
+         * Constructs a new RS2C_RetTimeAwardGet.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IRS2C_RetTimeAwardGet);
+
+        /** RS2C_RetTimeAwardGet errcode. */
+        public errcode: string;
+
+        /**
+         * Creates a new RS2C_RetTimeAwardGet instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RS2C_RetTimeAwardGet instance
+         */
+        public static create(properties?: msg.IRS2C_RetTimeAwardGet): msg.RS2C_RetTimeAwardGet;
+
+        /**
+         * Encodes the specified RS2C_RetTimeAwardGet message. Does not implicitly {@link msg.RS2C_RetTimeAwardGet.verify|verify} messages.
+         * @param message RS2C_RetTimeAwardGet message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IRS2C_RetTimeAwardGet, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified RS2C_RetTimeAwardGet message, length delimited. Does not implicitly {@link msg.RS2C_RetTimeAwardGet.verify|verify} messages.
+         * @param message RS2C_RetTimeAwardGet message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IRS2C_RetTimeAwardGet, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a RS2C_RetTimeAwardGet message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RS2C_RetTimeAwardGet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2C_RetTimeAwardGet;
+
+        /**
+         * Decodes a RS2C_RetTimeAwardGet message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RS2C_RetTimeAwardGet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2C_RetTimeAwardGet;
+
+        /**
+         * Verifies a RS2C_RetTimeAwardGet message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RS2C_RetTimeAwardGet message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RS2C_RetTimeAwardGet
+         */
+        public static fromObject(object: { [k: string]: any }): msg.RS2C_RetTimeAwardGet;
+
+        /**
+         * Creates a plain object from a RS2C_RetTimeAwardGet message. Also converts values to other types if specified.
+         * @param message RS2C_RetTimeAwardGet
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.RS2C_RetTimeAwardGet, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RS2C_RetTimeAwardGet to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a C2RS_ReqBuyInGame. */
     interface IC2RS_ReqBuyInGame {
 
@@ -22616,6 +22982,210 @@ declare namespace table {
 
         /**
          * Converts this TexasRoomDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TTimeAward. */
+    interface ITTimeAward {
+
+        /** TTimeAward TimeAward */
+        TimeAward?: (table.ITimeAwardDefine[]|null);
+    }
+
+    /** Represents a TTimeAward. */
+    class TTimeAward implements ITTimeAward {
+
+        /**
+         * Constructs a new TTimeAward.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITTimeAward);
+
+        /** TTimeAward TimeAward. */
+        public TimeAward: table.ITimeAwardDefine[];
+
+        /**
+         * Creates a new TTimeAward instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TTimeAward instance
+         */
+        public static create(properties?: table.ITTimeAward): table.TTimeAward;
+
+        /**
+         * Encodes the specified TTimeAward message. Does not implicitly {@link table.TTimeAward.verify|verify} messages.
+         * @param message TTimeAward message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITTimeAward, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TTimeAward message, length delimited. Does not implicitly {@link table.TTimeAward.verify|verify} messages.
+         * @param message TTimeAward message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITTimeAward, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TTimeAward message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TTimeAward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TTimeAward;
+
+        /**
+         * Decodes a TTimeAward message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TTimeAward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TTimeAward;
+
+        /**
+         * Verifies a TTimeAward message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TTimeAward message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TTimeAward
+         */
+        public static fromObject(object: { [k: string]: any }): table.TTimeAward;
+
+        /**
+         * Creates a plain object from a TTimeAward message. Also converts values to other types if specified.
+         * @param message TTimeAward
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TTimeAward, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TTimeAward to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TimeAwardDefine. */
+    interface ITimeAwardDefine {
+
+        /** TimeAwardDefine Id */
+        Id?: (number|null);
+
+        /** TimeAwardDefine RoomType1 */
+        RoomType1?: (number|null);
+
+        /** TimeAwardDefine RoomType2 */
+        RoomType2?: (number|null);
+
+        /** TimeAwardDefine RoomType3 */
+        RoomType3?: (number|null);
+
+        /** TimeAwardDefine Time */
+        Time?: (number|null);
+    }
+
+    /** Represents a TimeAwardDefine. */
+    class TimeAwardDefine implements ITimeAwardDefine {
+
+        /**
+         * Constructs a new TimeAwardDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITimeAwardDefine);
+
+        /** TimeAwardDefine Id. */
+        public Id: number;
+
+        /** TimeAwardDefine RoomType1. */
+        public RoomType1: number;
+
+        /** TimeAwardDefine RoomType2. */
+        public RoomType2: number;
+
+        /** TimeAwardDefine RoomType3. */
+        public RoomType3: number;
+
+        /** TimeAwardDefine Time. */
+        public Time: number;
+
+        /**
+         * Creates a new TimeAwardDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TimeAwardDefine instance
+         */
+        public static create(properties?: table.ITimeAwardDefine): table.TimeAwardDefine;
+
+        /**
+         * Encodes the specified TimeAwardDefine message. Does not implicitly {@link table.TimeAwardDefine.verify|verify} messages.
+         * @param message TimeAwardDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITimeAwardDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TimeAwardDefine message, length delimited. Does not implicitly {@link table.TimeAwardDefine.verify|verify} messages.
+         * @param message TimeAwardDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITimeAwardDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TimeAwardDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TimeAwardDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TimeAwardDefine;
+
+        /**
+         * Decodes a TimeAwardDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TimeAwardDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TimeAwardDefine;
+
+        /**
+         * Verifies a TimeAwardDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TimeAwardDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TimeAwardDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.TimeAwardDefine;
+
+        /**
+         * Creates a plain object from a TimeAwardDefine message. Also converts values to other types if specified.
+         * @param message TimeAwardDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TimeAwardDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TimeAwardDefine to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };

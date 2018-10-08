@@ -299,7 +299,7 @@ class Command
     /**
      * 请求领取免费金币
      */
-    public static readonly Req_GetFreeGold_3024: string = "c3024";
+    public static readonly C2GW_ReqGetFreeGold: string = "msg.C2GW_ReqGetFreeGold";
 
     //--------------------------------------------------------------
     // 行牌流程
@@ -476,7 +476,7 @@ class Command
     /**
      * 领取计时奖励
     */
-    public static readonly TimeAwardGet_Req_3621 = "c3621";
+    public static readonly C2RS_ReqTimeAwardGet = "msg.C2RS_ReqTimeAwardGet";
     /**
      * 时间更新推送
     */

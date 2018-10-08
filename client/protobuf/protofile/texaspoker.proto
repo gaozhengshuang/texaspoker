@@ -58,6 +58,17 @@ message RS2C_RetTimeAwardInfo
     optional string errcode = 4;
 }
 
+//领取计时奖励
+message C2RS_ReqTimeAwardGet
+{
+    optional int32 roomtype = 1;
+}
+
+message RS2C_RetTimeAwardGet
+{
+    optional string errcode = 1;
+}
+
 //请求购买游戏币
 message C2RS_ReqBuyInGame
 {

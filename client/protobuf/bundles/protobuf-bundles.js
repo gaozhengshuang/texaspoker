@@ -2491,6 +2491,843 @@ $root.msg = (function() {
         return GW2C_RetRankList;
     })();
 
+    msg.C2GW_ReqGetFreeGold = (function() {
+
+        /**
+         * Properties of a C2GW_ReqGetFreeGold.
+         * @memberof msg
+         * @interface IC2GW_ReqGetFreeGold
+         */
+
+        /**
+         * Constructs a new C2GW_ReqGetFreeGold.
+         * @memberof msg
+         * @classdesc Represents a C2GW_ReqGetFreeGold.
+         * @implements IC2GW_ReqGetFreeGold
+         * @constructor
+         * @param {msg.IC2GW_ReqGetFreeGold=} [properties] Properties to set
+         */
+        function C2GW_ReqGetFreeGold(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Creates a new C2GW_ReqGetFreeGold instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_ReqGetFreeGold
+         * @static
+         * @param {msg.IC2GW_ReqGetFreeGold=} [properties] Properties to set
+         * @returns {msg.C2GW_ReqGetFreeGold} C2GW_ReqGetFreeGold instance
+         */
+        C2GW_ReqGetFreeGold.create = function create(properties) {
+            return new C2GW_ReqGetFreeGold(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqGetFreeGold message. Does not implicitly {@link msg.C2GW_ReqGetFreeGold.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_ReqGetFreeGold
+         * @static
+         * @param {msg.IC2GW_ReqGetFreeGold} message C2GW_ReqGetFreeGold message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqGetFreeGold.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqGetFreeGold message, length delimited. Does not implicitly {@link msg.C2GW_ReqGetFreeGold.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_ReqGetFreeGold
+         * @static
+         * @param {msg.IC2GW_ReqGetFreeGold} message C2GW_ReqGetFreeGold message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqGetFreeGold.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_ReqGetFreeGold message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_ReqGetFreeGold
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_ReqGetFreeGold} C2GW_ReqGetFreeGold
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqGetFreeGold.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqGetFreeGold();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_ReqGetFreeGold message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_ReqGetFreeGold
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_ReqGetFreeGold} C2GW_ReqGetFreeGold
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqGetFreeGold.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_ReqGetFreeGold message.
+         * @function verify
+         * @memberof msg.C2GW_ReqGetFreeGold
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_ReqGetFreeGold.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_ReqGetFreeGold message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_ReqGetFreeGold
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_ReqGetFreeGold} C2GW_ReqGetFreeGold
+         */
+        C2GW_ReqGetFreeGold.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_ReqGetFreeGold)
+                return object;
+            return new $root.msg.C2GW_ReqGetFreeGold();
+        };
+
+        /**
+         * Creates a plain object from a C2GW_ReqGetFreeGold message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_ReqGetFreeGold
+         * @static
+         * @param {msg.C2GW_ReqGetFreeGold} message C2GW_ReqGetFreeGold
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_ReqGetFreeGold.toObject = function toObject() {
+            return {};
+        };
+
+        /**
+         * Converts this C2GW_ReqGetFreeGold to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_ReqGetFreeGold
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_ReqGetFreeGold.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_ReqGetFreeGold;
+    })();
+
+    msg.GW2C_RetGetFreeGold = (function() {
+
+        /**
+         * Properties of a GW2C_RetGetFreeGold.
+         * @memberof msg
+         * @interface IGW2C_RetGetFreeGold
+         * @property {number|null} [lastgoldtime] GW2C_RetGetFreeGold lastgoldtime
+         */
+
+        /**
+         * Constructs a new GW2C_RetGetFreeGold.
+         * @memberof msg
+         * @classdesc Represents a GW2C_RetGetFreeGold.
+         * @implements IGW2C_RetGetFreeGold
+         * @constructor
+         * @param {msg.IGW2C_RetGetFreeGold=} [properties] Properties to set
+         */
+        function GW2C_RetGetFreeGold(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_RetGetFreeGold lastgoldtime.
+         * @member {number} lastgoldtime
+         * @memberof msg.GW2C_RetGetFreeGold
+         * @instance
+         */
+        GW2C_RetGetFreeGold.prototype.lastgoldtime = 0;
+
+        /**
+         * Creates a new GW2C_RetGetFreeGold instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_RetGetFreeGold
+         * @static
+         * @param {msg.IGW2C_RetGetFreeGold=} [properties] Properties to set
+         * @returns {msg.GW2C_RetGetFreeGold} GW2C_RetGetFreeGold instance
+         */
+        GW2C_RetGetFreeGold.create = function create(properties) {
+            return new GW2C_RetGetFreeGold(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_RetGetFreeGold message. Does not implicitly {@link msg.GW2C_RetGetFreeGold.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_RetGetFreeGold
+         * @static
+         * @param {msg.IGW2C_RetGetFreeGold} message GW2C_RetGetFreeGold message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetGetFreeGold.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.lastgoldtime != null && message.hasOwnProperty("lastgoldtime"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.lastgoldtime);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_RetGetFreeGold message, length delimited. Does not implicitly {@link msg.GW2C_RetGetFreeGold.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_RetGetFreeGold
+         * @static
+         * @param {msg.IGW2C_RetGetFreeGold} message GW2C_RetGetFreeGold message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetGetFreeGold.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_RetGetFreeGold message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_RetGetFreeGold
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_RetGetFreeGold} GW2C_RetGetFreeGold
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetGetFreeGold.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RetGetFreeGold();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.lastgoldtime = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_RetGetFreeGold message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_RetGetFreeGold
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_RetGetFreeGold} GW2C_RetGetFreeGold
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetGetFreeGold.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_RetGetFreeGold message.
+         * @function verify
+         * @memberof msg.GW2C_RetGetFreeGold
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_RetGetFreeGold.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.lastgoldtime != null && message.hasOwnProperty("lastgoldtime"))
+                if (!$util.isInteger(message.lastgoldtime))
+                    return "lastgoldtime: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_RetGetFreeGold message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_RetGetFreeGold
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_RetGetFreeGold} GW2C_RetGetFreeGold
+         */
+        GW2C_RetGetFreeGold.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_RetGetFreeGold)
+                return object;
+            var message = new $root.msg.GW2C_RetGetFreeGold();
+            if (object.lastgoldtime != null)
+                message.lastgoldtime = object.lastgoldtime | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_RetGetFreeGold message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_RetGetFreeGold
+         * @static
+         * @param {msg.GW2C_RetGetFreeGold} message GW2C_RetGetFreeGold
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_RetGetFreeGold.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.lastgoldtime = 0;
+            if (message.lastgoldtime != null && message.hasOwnProperty("lastgoldtime"))
+                object.lastgoldtime = message.lastgoldtime;
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_RetGetFreeGold to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_RetGetFreeGold
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_RetGetFreeGold.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_RetGetFreeGold;
+    })();
+
+    msg.AutoResetValue = (function() {
+
+        /**
+         * Properties of an AutoResetValue.
+         * @memberof msg
+         * @interface IAutoResetValue
+         * @property {number|null} [id] AutoResetValue id
+         * @property {number|null} [hours] AutoResetValue hours
+         * @property {number|Long|null} [value] AutoResetValue value
+         * @property {number|Long|null} [lastreset] AutoResetValue lastreset
+         */
+
+        /**
+         * Constructs a new AutoResetValue.
+         * @memberof msg
+         * @classdesc Represents an AutoResetValue.
+         * @implements IAutoResetValue
+         * @constructor
+         * @param {msg.IAutoResetValue=} [properties] Properties to set
+         */
+        function AutoResetValue(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * AutoResetValue id.
+         * @member {number} id
+         * @memberof msg.AutoResetValue
+         * @instance
+         */
+        AutoResetValue.prototype.id = 0;
+
+        /**
+         * AutoResetValue hours.
+         * @member {number} hours
+         * @memberof msg.AutoResetValue
+         * @instance
+         */
+        AutoResetValue.prototype.hours = 0;
+
+        /**
+         * AutoResetValue value.
+         * @member {number|Long} value
+         * @memberof msg.AutoResetValue
+         * @instance
+         */
+        AutoResetValue.prototype.value = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * AutoResetValue lastreset.
+         * @member {number|Long} lastreset
+         * @memberof msg.AutoResetValue
+         * @instance
+         */
+        AutoResetValue.prototype.lastreset = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * Creates a new AutoResetValue instance using the specified properties.
+         * @function create
+         * @memberof msg.AutoResetValue
+         * @static
+         * @param {msg.IAutoResetValue=} [properties] Properties to set
+         * @returns {msg.AutoResetValue} AutoResetValue instance
+         */
+        AutoResetValue.create = function create(properties) {
+            return new AutoResetValue(properties);
+        };
+
+        /**
+         * Encodes the specified AutoResetValue message. Does not implicitly {@link msg.AutoResetValue.verify|verify} messages.
+         * @function encode
+         * @memberof msg.AutoResetValue
+         * @static
+         * @param {msg.IAutoResetValue} message AutoResetValue message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AutoResetValue.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && message.hasOwnProperty("id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.id);
+            if (message.hours != null && message.hasOwnProperty("hours"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.hours);
+            if (message.value != null && message.hasOwnProperty("value"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int64(message.value);
+            if (message.lastreset != null && message.hasOwnProperty("lastreset"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int64(message.lastreset);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified AutoResetValue message, length delimited. Does not implicitly {@link msg.AutoResetValue.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.AutoResetValue
+         * @static
+         * @param {msg.IAutoResetValue} message AutoResetValue message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AutoResetValue.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an AutoResetValue message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.AutoResetValue
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.AutoResetValue} AutoResetValue
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AutoResetValue.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.AutoResetValue();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.int32();
+                    break;
+                case 2:
+                    message.hours = reader.int32();
+                    break;
+                case 3:
+                    message.value = reader.int64();
+                    break;
+                case 4:
+                    message.lastreset = reader.int64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an AutoResetValue message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.AutoResetValue
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.AutoResetValue} AutoResetValue
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AutoResetValue.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an AutoResetValue message.
+         * @function verify
+         * @memberof msg.AutoResetValue
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        AutoResetValue.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isInteger(message.id))
+                    return "id: integer expected";
+            if (message.hours != null && message.hasOwnProperty("hours"))
+                if (!$util.isInteger(message.hours))
+                    return "hours: integer expected";
+            if (message.value != null && message.hasOwnProperty("value"))
+                if (!$util.isInteger(message.value) && !(message.value && $util.isInteger(message.value.low) && $util.isInteger(message.value.high)))
+                    return "value: integer|Long expected";
+            if (message.lastreset != null && message.hasOwnProperty("lastreset"))
+                if (!$util.isInteger(message.lastreset) && !(message.lastreset && $util.isInteger(message.lastreset.low) && $util.isInteger(message.lastreset.high)))
+                    return "lastreset: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates an AutoResetValue message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.AutoResetValue
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.AutoResetValue} AutoResetValue
+         */
+        AutoResetValue.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.AutoResetValue)
+                return object;
+            var message = new $root.msg.AutoResetValue();
+            if (object.id != null)
+                message.id = object.id | 0;
+            if (object.hours != null)
+                message.hours = object.hours | 0;
+            if (object.value != null)
+                if ($util.Long)
+                    (message.value = $util.Long.fromValue(object.value)).unsigned = false;
+                else if (typeof object.value === "string")
+                    message.value = parseInt(object.value, 10);
+                else if (typeof object.value === "number")
+                    message.value = object.value;
+                else if (typeof object.value === "object")
+                    message.value = new $util.LongBits(object.value.low >>> 0, object.value.high >>> 0).toNumber();
+            if (object.lastreset != null)
+                if ($util.Long)
+                    (message.lastreset = $util.Long.fromValue(object.lastreset)).unsigned = false;
+                else if (typeof object.lastreset === "string")
+                    message.lastreset = parseInt(object.lastreset, 10);
+                else if (typeof object.lastreset === "number")
+                    message.lastreset = object.lastreset;
+                else if (typeof object.lastreset === "object")
+                    message.lastreset = new $util.LongBits(object.lastreset.low >>> 0, object.lastreset.high >>> 0).toNumber();
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an AutoResetValue message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.AutoResetValue
+         * @static
+         * @param {msg.AutoResetValue} message AutoResetValue
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        AutoResetValue.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.id = 0;
+                object.hours = 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.value = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.value = options.longs === String ? "0" : 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.lastreset = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.lastreset = options.longs === String ? "0" : 0;
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.hours != null && message.hasOwnProperty("hours"))
+                object.hours = message.hours;
+            if (message.value != null && message.hasOwnProperty("value"))
+                if (typeof message.value === "number")
+                    object.value = options.longs === String ? String(message.value) : message.value;
+                else
+                    object.value = options.longs === String ? $util.Long.prototype.toString.call(message.value) : options.longs === Number ? new $util.LongBits(message.value.low >>> 0, message.value.high >>> 0).toNumber() : message.value;
+            if (message.lastreset != null && message.hasOwnProperty("lastreset"))
+                if (typeof message.lastreset === "number")
+                    object.lastreset = options.longs === String ? String(message.lastreset) : message.lastreset;
+                else
+                    object.lastreset = options.longs === String ? $util.Long.prototype.toString.call(message.lastreset) : options.longs === Number ? new $util.LongBits(message.lastreset.low >>> 0, message.lastreset.high >>> 0).toNumber() : message.lastreset;
+            return object;
+        };
+
+        /**
+         * Converts this AutoResetValue to JSON.
+         * @function toJSON
+         * @memberof msg.AutoResetValue
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        AutoResetValue.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return AutoResetValue;
+    })();
+
+    msg.AutoResetValues = (function() {
+
+        /**
+         * Properties of an AutoResetValues.
+         * @memberof msg
+         * @interface IAutoResetValues
+         * @property {Array.<msg.IAutoResetValue>|null} [values] AutoResetValues values
+         */
+
+        /**
+         * Constructs a new AutoResetValues.
+         * @memberof msg
+         * @classdesc Represents an AutoResetValues.
+         * @implements IAutoResetValues
+         * @constructor
+         * @param {msg.IAutoResetValues=} [properties] Properties to set
+         */
+        function AutoResetValues(properties) {
+            this.values = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * AutoResetValues values.
+         * @member {Array.<msg.IAutoResetValue>} values
+         * @memberof msg.AutoResetValues
+         * @instance
+         */
+        AutoResetValues.prototype.values = $util.emptyArray;
+
+        /**
+         * Creates a new AutoResetValues instance using the specified properties.
+         * @function create
+         * @memberof msg.AutoResetValues
+         * @static
+         * @param {msg.IAutoResetValues=} [properties] Properties to set
+         * @returns {msg.AutoResetValues} AutoResetValues instance
+         */
+        AutoResetValues.create = function create(properties) {
+            return new AutoResetValues(properties);
+        };
+
+        /**
+         * Encodes the specified AutoResetValues message. Does not implicitly {@link msg.AutoResetValues.verify|verify} messages.
+         * @function encode
+         * @memberof msg.AutoResetValues
+         * @static
+         * @param {msg.IAutoResetValues} message AutoResetValues message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AutoResetValues.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.values != null && message.values.length)
+                for (var i = 0; i < message.values.length; ++i)
+                    $root.msg.AutoResetValue.encode(message.values[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified AutoResetValues message, length delimited. Does not implicitly {@link msg.AutoResetValues.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.AutoResetValues
+         * @static
+         * @param {msg.IAutoResetValues} message AutoResetValues message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AutoResetValues.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an AutoResetValues message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.AutoResetValues
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.AutoResetValues} AutoResetValues
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AutoResetValues.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.AutoResetValues();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.values && message.values.length))
+                        message.values = [];
+                    message.values.push($root.msg.AutoResetValue.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an AutoResetValues message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.AutoResetValues
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.AutoResetValues} AutoResetValues
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AutoResetValues.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an AutoResetValues message.
+         * @function verify
+         * @memberof msg.AutoResetValues
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        AutoResetValues.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.values != null && message.hasOwnProperty("values")) {
+                if (!Array.isArray(message.values))
+                    return "values: array expected";
+                for (var i = 0; i < message.values.length; ++i) {
+                    var error = $root.msg.AutoResetValue.verify(message.values[i]);
+                    if (error)
+                        return "values." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates an AutoResetValues message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.AutoResetValues
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.AutoResetValues} AutoResetValues
+         */
+        AutoResetValues.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.AutoResetValues)
+                return object;
+            var message = new $root.msg.AutoResetValues();
+            if (object.values) {
+                if (!Array.isArray(object.values))
+                    throw TypeError(".msg.AutoResetValues.values: array expected");
+                message.values = [];
+                for (var i = 0; i < object.values.length; ++i) {
+                    if (typeof object.values[i] !== "object")
+                        throw TypeError(".msg.AutoResetValues.values: object expected");
+                    message.values[i] = $root.msg.AutoResetValue.fromObject(object.values[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an AutoResetValues message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.AutoResetValues
+         * @static
+         * @param {msg.AutoResetValues} message AutoResetValues
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        AutoResetValues.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.values = [];
+            if (message.values && message.values.length) {
+                object.values = [];
+                for (var j = 0; j < message.values.length; ++j)
+                    object.values[j] = $root.msg.AutoResetValue.toObject(message.values[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this AutoResetValues to JSON.
+         * @function toJSON
+         * @memberof msg.AutoResetValues
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        AutoResetValues.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return AutoResetValues;
+    })();
+
     msg.IpHost = (function() {
 
         /**
@@ -7512,6 +8349,7 @@ $root.msg = (function() {
          * @memberof msg
          * @interface IUserMiscData
          * @property {string|null} [invitationcode] UserMiscData invitationcode
+         * @property {number|null} [lastgoldtime] UserMiscData lastgoldtime
          */
 
         /**
@@ -7538,6 +8376,14 @@ $root.msg = (function() {
         UserMiscData.prototype.invitationcode = "";
 
         /**
+         * UserMiscData lastgoldtime.
+         * @member {number} lastgoldtime
+         * @memberof msg.UserMiscData
+         * @instance
+         */
+        UserMiscData.prototype.lastgoldtime = 0;
+
+        /**
          * Creates a new UserMiscData instance using the specified properties.
          * @function create
          * @memberof msg.UserMiscData
@@ -7562,7 +8408,9 @@ $root.msg = (function() {
             if (!writer)
                 writer = $Writer.create();
             if (message.invitationcode != null && message.hasOwnProperty("invitationcode"))
-                writer.uint32(/* id 3, wireType 2 =*/26).string(message.invitationcode);
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.invitationcode);
+            if (message.lastgoldtime != null && message.hasOwnProperty("lastgoldtime"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.lastgoldtime);
             return writer;
         };
 
@@ -7597,8 +8445,11 @@ $root.msg = (function() {
             while (reader.pos < end) {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
-                case 3:
+                case 1:
                     message.invitationcode = reader.string();
+                    break;
+                case 2:
+                    message.lastgoldtime = reader.int32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -7638,6 +8489,9 @@ $root.msg = (function() {
             if (message.invitationcode != null && message.hasOwnProperty("invitationcode"))
                 if (!$util.isString(message.invitationcode))
                     return "invitationcode: string expected";
+            if (message.lastgoldtime != null && message.hasOwnProperty("lastgoldtime"))
+                if (!$util.isInteger(message.lastgoldtime))
+                    return "lastgoldtime: integer expected";
             return null;
         };
 
@@ -7655,6 +8509,8 @@ $root.msg = (function() {
             var message = new $root.msg.UserMiscData();
             if (object.invitationcode != null)
                 message.invitationcode = String(object.invitationcode);
+            if (object.lastgoldtime != null)
+                message.lastgoldtime = object.lastgoldtime | 0;
             return message;
         };
 
@@ -7671,10 +8527,14 @@ $root.msg = (function() {
             if (!options)
                 options = {};
             var object = {};
-            if (options.defaults)
+            if (options.defaults) {
                 object.invitationcode = "";
+                object.lastgoldtime = 0;
+            }
             if (message.invitationcode != null && message.hasOwnProperty("invitationcode"))
                 object.invitationcode = message.invitationcode;
+            if (message.lastgoldtime != null && message.hasOwnProperty("lastgoldtime"))
+                object.lastgoldtime = message.lastgoldtime;
             return object;
         };
 
@@ -7707,6 +8567,7 @@ $root.msg = (function() {
          * @property {msg.IUserTask|null} [task] UserBase task
          * @property {msg.ILuckyDrawRecord|null} [luckydraw] UserBase luckydraw
          * @property {msg.IUserMapEvent|null} [mapevent] UserBase mapevent
+         * @property {msg.IAutoResetValues|null} [arvalues] UserBase arvalues
          */
 
         /**
@@ -7798,6 +8659,14 @@ $root.msg = (function() {
         UserBase.prototype.mapevent = null;
 
         /**
+         * UserBase arvalues.
+         * @member {msg.IAutoResetValues|null|undefined} arvalues
+         * @memberof msg.UserBase
+         * @instance
+         */
+        UserBase.prototype.arvalues = null;
+
+        /**
          * Creates a new UserBase instance using the specified properties.
          * @function create
          * @memberof msg.UserBase
@@ -7840,6 +8709,8 @@ $root.msg = (function() {
                 $root.msg.LuckyDrawRecord.encode(message.luckydraw, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
             if (message.mapevent != null && message.hasOwnProperty("mapevent"))
                 $root.msg.UserMapEvent.encode(message.mapevent, writer.uint32(/* id 9, wireType 2 =*/74).fork()).ldelim();
+            if (message.arvalues != null && message.hasOwnProperty("arvalues"))
+                $root.msg.AutoResetValues.encode(message.arvalues, writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
             return writer;
         };
 
@@ -7902,6 +8773,9 @@ $root.msg = (function() {
                     break;
                 case 9:
                     message.mapevent = $root.msg.UserMapEvent.decode(reader, reader.uint32());
+                    break;
+                case 10:
+                    message.arvalues = $root.msg.AutoResetValues.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -7987,6 +8861,11 @@ $root.msg = (function() {
                 if (error)
                     return "mapevent." + error;
             }
+            if (message.arvalues != null && message.hasOwnProperty("arvalues")) {
+                var error = $root.msg.AutoResetValues.verify(message.arvalues);
+                if (error)
+                    return "arvalues." + error;
+            }
             return null;
         };
 
@@ -8052,6 +8931,11 @@ $root.msg = (function() {
                     throw TypeError(".msg.UserBase.mapevent: object expected");
                 message.mapevent = $root.msg.UserMapEvent.fromObject(object.mapevent);
             }
+            if (object.arvalues != null) {
+                if (typeof object.arvalues !== "object")
+                    throw TypeError(".msg.UserBase.arvalues: object expected");
+                message.arvalues = $root.msg.AutoResetValues.fromObject(object.arvalues);
+            }
             return message;
         };
 
@@ -8079,6 +8963,7 @@ $root.msg = (function() {
                 object.task = null;
                 object.luckydraw = null;
                 object.mapevent = null;
+                object.arvalues = null;
             }
             if (message.misc != null && message.hasOwnProperty("misc"))
                 object.misc = $root.msg.UserMiscData.toObject(message.misc, options);
@@ -8101,6 +8986,8 @@ $root.msg = (function() {
                 object.luckydraw = $root.msg.LuckyDrawRecord.toObject(message.luckydraw, options);
             if (message.mapevent != null && message.hasOwnProperty("mapevent"))
                 object.mapevent = $root.msg.UserMapEvent.toObject(message.mapevent, options);
+            if (message.arvalues != null && message.hasOwnProperty("arvalues"))
+                object.arvalues = $root.msg.AutoResetValues.toObject(message.arvalues, options);
             return object;
         };
 
@@ -10031,496 +10918,6 @@ $root.msg = (function() {
         };
 
         return GW2C_EnterGameEvent;
-    })();
-
-    msg.InthourAutoResetValue = (function() {
-
-        /**
-         * Properties of an InthourAutoResetValue.
-         * @memberof msg
-         * @interface IInthourAutoResetValue
-         * @property {number|null} [id] InthourAutoResetValue id
-         * @property {number|null} [hours] InthourAutoResetValue hours
-         * @property {number|Long|null} [value] InthourAutoResetValue value
-         * @property {number|Long|null} [lastreset] InthourAutoResetValue lastreset
-         */
-
-        /**
-         * Constructs a new InthourAutoResetValue.
-         * @memberof msg
-         * @classdesc Represents an InthourAutoResetValue.
-         * @implements IInthourAutoResetValue
-         * @constructor
-         * @param {msg.IInthourAutoResetValue=} [properties] Properties to set
-         */
-        function InthourAutoResetValue(properties) {
-            if (properties)
-                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * InthourAutoResetValue id.
-         * @member {number} id
-         * @memberof msg.InthourAutoResetValue
-         * @instance
-         */
-        InthourAutoResetValue.prototype.id = 0;
-
-        /**
-         * InthourAutoResetValue hours.
-         * @member {number} hours
-         * @memberof msg.InthourAutoResetValue
-         * @instance
-         */
-        InthourAutoResetValue.prototype.hours = 0;
-
-        /**
-         * InthourAutoResetValue value.
-         * @member {number|Long} value
-         * @memberof msg.InthourAutoResetValue
-         * @instance
-         */
-        InthourAutoResetValue.prototype.value = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
-
-        /**
-         * InthourAutoResetValue lastreset.
-         * @member {number|Long} lastreset
-         * @memberof msg.InthourAutoResetValue
-         * @instance
-         */
-        InthourAutoResetValue.prototype.lastreset = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
-
-        /**
-         * Creates a new InthourAutoResetValue instance using the specified properties.
-         * @function create
-         * @memberof msg.InthourAutoResetValue
-         * @static
-         * @param {msg.IInthourAutoResetValue=} [properties] Properties to set
-         * @returns {msg.InthourAutoResetValue} InthourAutoResetValue instance
-         */
-        InthourAutoResetValue.create = function create(properties) {
-            return new InthourAutoResetValue(properties);
-        };
-
-        /**
-         * Encodes the specified InthourAutoResetValue message. Does not implicitly {@link msg.InthourAutoResetValue.verify|verify} messages.
-         * @function encode
-         * @memberof msg.InthourAutoResetValue
-         * @static
-         * @param {msg.IInthourAutoResetValue} message InthourAutoResetValue message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        InthourAutoResetValue.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.id != null && message.hasOwnProperty("id"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.id);
-            if (message.hours != null && message.hasOwnProperty("hours"))
-                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.hours);
-            if (message.value != null && message.hasOwnProperty("value"))
-                writer.uint32(/* id 3, wireType 0 =*/24).int64(message.value);
-            if (message.lastreset != null && message.hasOwnProperty("lastreset"))
-                writer.uint32(/* id 4, wireType 0 =*/32).int64(message.lastreset);
-            return writer;
-        };
-
-        /**
-         * Encodes the specified InthourAutoResetValue message, length delimited. Does not implicitly {@link msg.InthourAutoResetValue.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof msg.InthourAutoResetValue
-         * @static
-         * @param {msg.IInthourAutoResetValue} message InthourAutoResetValue message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        InthourAutoResetValue.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes an InthourAutoResetValue message from the specified reader or buffer.
-         * @function decode
-         * @memberof msg.InthourAutoResetValue
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {msg.InthourAutoResetValue} InthourAutoResetValue
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        InthourAutoResetValue.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.InthourAutoResetValue();
-            while (reader.pos < end) {
-                var tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 1:
-                    message.id = reader.int32();
-                    break;
-                case 2:
-                    message.hours = reader.int32();
-                    break;
-                case 3:
-                    message.value = reader.int64();
-                    break;
-                case 4:
-                    message.lastreset = reader.int64();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes an InthourAutoResetValue message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof msg.InthourAutoResetValue
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.InthourAutoResetValue} InthourAutoResetValue
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        InthourAutoResetValue.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies an InthourAutoResetValue message.
-         * @function verify
-         * @memberof msg.InthourAutoResetValue
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        InthourAutoResetValue.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.id != null && message.hasOwnProperty("id"))
-                if (!$util.isInteger(message.id))
-                    return "id: integer expected";
-            if (message.hours != null && message.hasOwnProperty("hours"))
-                if (!$util.isInteger(message.hours))
-                    return "hours: integer expected";
-            if (message.value != null && message.hasOwnProperty("value"))
-                if (!$util.isInteger(message.value) && !(message.value && $util.isInteger(message.value.low) && $util.isInteger(message.value.high)))
-                    return "value: integer|Long expected";
-            if (message.lastreset != null && message.hasOwnProperty("lastreset"))
-                if (!$util.isInteger(message.lastreset) && !(message.lastreset && $util.isInteger(message.lastreset.low) && $util.isInteger(message.lastreset.high)))
-                    return "lastreset: integer|Long expected";
-            return null;
-        };
-
-        /**
-         * Creates an InthourAutoResetValue message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof msg.InthourAutoResetValue
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {msg.InthourAutoResetValue} InthourAutoResetValue
-         */
-        InthourAutoResetValue.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.InthourAutoResetValue)
-                return object;
-            var message = new $root.msg.InthourAutoResetValue();
-            if (object.id != null)
-                message.id = object.id | 0;
-            if (object.hours != null)
-                message.hours = object.hours | 0;
-            if (object.value != null)
-                if ($util.Long)
-                    (message.value = $util.Long.fromValue(object.value)).unsigned = false;
-                else if (typeof object.value === "string")
-                    message.value = parseInt(object.value, 10);
-                else if (typeof object.value === "number")
-                    message.value = object.value;
-                else if (typeof object.value === "object")
-                    message.value = new $util.LongBits(object.value.low >>> 0, object.value.high >>> 0).toNumber();
-            if (object.lastreset != null)
-                if ($util.Long)
-                    (message.lastreset = $util.Long.fromValue(object.lastreset)).unsigned = false;
-                else if (typeof object.lastreset === "string")
-                    message.lastreset = parseInt(object.lastreset, 10);
-                else if (typeof object.lastreset === "number")
-                    message.lastreset = object.lastreset;
-                else if (typeof object.lastreset === "object")
-                    message.lastreset = new $util.LongBits(object.lastreset.low >>> 0, object.lastreset.high >>> 0).toNumber();
-            return message;
-        };
-
-        /**
-         * Creates a plain object from an InthourAutoResetValue message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof msg.InthourAutoResetValue
-         * @static
-         * @param {msg.InthourAutoResetValue} message InthourAutoResetValue
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        InthourAutoResetValue.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            var object = {};
-            if (options.defaults) {
-                object.id = 0;
-                object.hours = 0;
-                if ($util.Long) {
-                    var long = new $util.Long(0, 0, false);
-                    object.value = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.value = options.longs === String ? "0" : 0;
-                if ($util.Long) {
-                    var long = new $util.Long(0, 0, false);
-                    object.lastreset = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.lastreset = options.longs === String ? "0" : 0;
-            }
-            if (message.id != null && message.hasOwnProperty("id"))
-                object.id = message.id;
-            if (message.hours != null && message.hasOwnProperty("hours"))
-                object.hours = message.hours;
-            if (message.value != null && message.hasOwnProperty("value"))
-                if (typeof message.value === "number")
-                    object.value = options.longs === String ? String(message.value) : message.value;
-                else
-                    object.value = options.longs === String ? $util.Long.prototype.toString.call(message.value) : options.longs === Number ? new $util.LongBits(message.value.low >>> 0, message.value.high >>> 0).toNumber() : message.value;
-            if (message.lastreset != null && message.hasOwnProperty("lastreset"))
-                if (typeof message.lastreset === "number")
-                    object.lastreset = options.longs === String ? String(message.lastreset) : message.lastreset;
-                else
-                    object.lastreset = options.longs === String ? $util.Long.prototype.toString.call(message.lastreset) : options.longs === Number ? new $util.LongBits(message.lastreset.low >>> 0, message.lastreset.high >>> 0).toNumber() : message.lastreset;
-            return object;
-        };
-
-        /**
-         * Converts this InthourAutoResetValue to JSON.
-         * @function toJSON
-         * @memberof msg.InthourAutoResetValue
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        InthourAutoResetValue.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return InthourAutoResetValue;
-    })();
-
-    msg.InthourAutoResetManager = (function() {
-
-        /**
-         * Properties of an InthourAutoResetManager.
-         * @memberof msg
-         * @interface IInthourAutoResetManager
-         * @property {Array.<msg.IInthourAutoResetValue>|null} [values] InthourAutoResetManager values
-         */
-
-        /**
-         * Constructs a new InthourAutoResetManager.
-         * @memberof msg
-         * @classdesc Represents an InthourAutoResetManager.
-         * @implements IInthourAutoResetManager
-         * @constructor
-         * @param {msg.IInthourAutoResetManager=} [properties] Properties to set
-         */
-        function InthourAutoResetManager(properties) {
-            this.values = [];
-            if (properties)
-                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * InthourAutoResetManager values.
-         * @member {Array.<msg.IInthourAutoResetValue>} values
-         * @memberof msg.InthourAutoResetManager
-         * @instance
-         */
-        InthourAutoResetManager.prototype.values = $util.emptyArray;
-
-        /**
-         * Creates a new InthourAutoResetManager instance using the specified properties.
-         * @function create
-         * @memberof msg.InthourAutoResetManager
-         * @static
-         * @param {msg.IInthourAutoResetManager=} [properties] Properties to set
-         * @returns {msg.InthourAutoResetManager} InthourAutoResetManager instance
-         */
-        InthourAutoResetManager.create = function create(properties) {
-            return new InthourAutoResetManager(properties);
-        };
-
-        /**
-         * Encodes the specified InthourAutoResetManager message. Does not implicitly {@link msg.InthourAutoResetManager.verify|verify} messages.
-         * @function encode
-         * @memberof msg.InthourAutoResetManager
-         * @static
-         * @param {msg.IInthourAutoResetManager} message InthourAutoResetManager message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        InthourAutoResetManager.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.values != null && message.values.length)
-                for (var i = 0; i < message.values.length; ++i)
-                    $root.msg.InthourAutoResetValue.encode(message.values[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-            return writer;
-        };
-
-        /**
-         * Encodes the specified InthourAutoResetManager message, length delimited. Does not implicitly {@link msg.InthourAutoResetManager.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof msg.InthourAutoResetManager
-         * @static
-         * @param {msg.IInthourAutoResetManager} message InthourAutoResetManager message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        InthourAutoResetManager.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes an InthourAutoResetManager message from the specified reader or buffer.
-         * @function decode
-         * @memberof msg.InthourAutoResetManager
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {msg.InthourAutoResetManager} InthourAutoResetManager
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        InthourAutoResetManager.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.InthourAutoResetManager();
-            while (reader.pos < end) {
-                var tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 1:
-                    if (!(message.values && message.values.length))
-                        message.values = [];
-                    message.values.push($root.msg.InthourAutoResetValue.decode(reader, reader.uint32()));
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes an InthourAutoResetManager message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof msg.InthourAutoResetManager
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.InthourAutoResetManager} InthourAutoResetManager
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        InthourAutoResetManager.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies an InthourAutoResetManager message.
-         * @function verify
-         * @memberof msg.InthourAutoResetManager
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        InthourAutoResetManager.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.values != null && message.hasOwnProperty("values")) {
-                if (!Array.isArray(message.values))
-                    return "values: array expected";
-                for (var i = 0; i < message.values.length; ++i) {
-                    var error = $root.msg.InthourAutoResetValue.verify(message.values[i]);
-                    if (error)
-                        return "values." + error;
-                }
-            }
-            return null;
-        };
-
-        /**
-         * Creates an InthourAutoResetManager message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof msg.InthourAutoResetManager
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {msg.InthourAutoResetManager} InthourAutoResetManager
-         */
-        InthourAutoResetManager.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.InthourAutoResetManager)
-                return object;
-            var message = new $root.msg.InthourAutoResetManager();
-            if (object.values) {
-                if (!Array.isArray(object.values))
-                    throw TypeError(".msg.InthourAutoResetManager.values: array expected");
-                message.values = [];
-                for (var i = 0; i < object.values.length; ++i) {
-                    if (typeof object.values[i] !== "object")
-                        throw TypeError(".msg.InthourAutoResetManager.values: object expected");
-                    message.values[i] = $root.msg.InthourAutoResetValue.fromObject(object.values[i]);
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Creates a plain object from an InthourAutoResetManager message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof msg.InthourAutoResetManager
-         * @static
-         * @param {msg.InthourAutoResetManager} message InthourAutoResetManager
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        InthourAutoResetManager.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            var object = {};
-            if (options.arrays || options.defaults)
-                object.values = [];
-            if (message.values && message.values.length) {
-                object.values = [];
-                for (var j = 0; j < message.values.length; ++j)
-                    object.values[j] = $root.msg.InthourAutoResetValue.toObject(message.values[j], options);
-            }
-            return object;
-        };
-
-        /**
-         * Converts this InthourAutoResetManager to JSON.
-         * @function toJSON
-         * @memberof msg.InthourAutoResetManager
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        InthourAutoResetManager.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return InthourAutoResetManager;
     })();
 
     msg.C2GW_BuyItem = (function() {
@@ -34324,6 +34721,380 @@ $root.msg = (function() {
         return RS2C_RetTimeAwardInfo;
     })();
 
+    msg.C2RS_ReqTimeAwardGet = (function() {
+
+        /**
+         * Properties of a C2RS_ReqTimeAwardGet.
+         * @memberof msg
+         * @interface IC2RS_ReqTimeAwardGet
+         * @property {number|null} [roomtype] C2RS_ReqTimeAwardGet roomtype
+         */
+
+        /**
+         * Constructs a new C2RS_ReqTimeAwardGet.
+         * @memberof msg
+         * @classdesc Represents a C2RS_ReqTimeAwardGet.
+         * @implements IC2RS_ReqTimeAwardGet
+         * @constructor
+         * @param {msg.IC2RS_ReqTimeAwardGet=} [properties] Properties to set
+         */
+        function C2RS_ReqTimeAwardGet(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2RS_ReqTimeAwardGet roomtype.
+         * @member {number} roomtype
+         * @memberof msg.C2RS_ReqTimeAwardGet
+         * @instance
+         */
+        C2RS_ReqTimeAwardGet.prototype.roomtype = 0;
+
+        /**
+         * Creates a new C2RS_ReqTimeAwardGet instance using the specified properties.
+         * @function create
+         * @memberof msg.C2RS_ReqTimeAwardGet
+         * @static
+         * @param {msg.IC2RS_ReqTimeAwardGet=} [properties] Properties to set
+         * @returns {msg.C2RS_ReqTimeAwardGet} C2RS_ReqTimeAwardGet instance
+         */
+        C2RS_ReqTimeAwardGet.create = function create(properties) {
+            return new C2RS_ReqTimeAwardGet(properties);
+        };
+
+        /**
+         * Encodes the specified C2RS_ReqTimeAwardGet message. Does not implicitly {@link msg.C2RS_ReqTimeAwardGet.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2RS_ReqTimeAwardGet
+         * @static
+         * @param {msg.IC2RS_ReqTimeAwardGet} message C2RS_ReqTimeAwardGet message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2RS_ReqTimeAwardGet.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.roomtype != null && message.hasOwnProperty("roomtype"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.roomtype);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2RS_ReqTimeAwardGet message, length delimited. Does not implicitly {@link msg.C2RS_ReqTimeAwardGet.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2RS_ReqTimeAwardGet
+         * @static
+         * @param {msg.IC2RS_ReqTimeAwardGet} message C2RS_ReqTimeAwardGet message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2RS_ReqTimeAwardGet.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2RS_ReqTimeAwardGet message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2RS_ReqTimeAwardGet
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2RS_ReqTimeAwardGet} C2RS_ReqTimeAwardGet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2RS_ReqTimeAwardGet.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2RS_ReqTimeAwardGet();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.roomtype = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2RS_ReqTimeAwardGet message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2RS_ReqTimeAwardGet
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2RS_ReqTimeAwardGet} C2RS_ReqTimeAwardGet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2RS_ReqTimeAwardGet.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2RS_ReqTimeAwardGet message.
+         * @function verify
+         * @memberof msg.C2RS_ReqTimeAwardGet
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2RS_ReqTimeAwardGet.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.roomtype != null && message.hasOwnProperty("roomtype"))
+                if (!$util.isInteger(message.roomtype))
+                    return "roomtype: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2RS_ReqTimeAwardGet message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2RS_ReqTimeAwardGet
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2RS_ReqTimeAwardGet} C2RS_ReqTimeAwardGet
+         */
+        C2RS_ReqTimeAwardGet.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2RS_ReqTimeAwardGet)
+                return object;
+            var message = new $root.msg.C2RS_ReqTimeAwardGet();
+            if (object.roomtype != null)
+                message.roomtype = object.roomtype | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2RS_ReqTimeAwardGet message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2RS_ReqTimeAwardGet
+         * @static
+         * @param {msg.C2RS_ReqTimeAwardGet} message C2RS_ReqTimeAwardGet
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2RS_ReqTimeAwardGet.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.roomtype = 0;
+            if (message.roomtype != null && message.hasOwnProperty("roomtype"))
+                object.roomtype = message.roomtype;
+            return object;
+        };
+
+        /**
+         * Converts this C2RS_ReqTimeAwardGet to JSON.
+         * @function toJSON
+         * @memberof msg.C2RS_ReqTimeAwardGet
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2RS_ReqTimeAwardGet.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2RS_ReqTimeAwardGet;
+    })();
+
+    msg.RS2C_RetTimeAwardGet = (function() {
+
+        /**
+         * Properties of a RS2C_RetTimeAwardGet.
+         * @memberof msg
+         * @interface IRS2C_RetTimeAwardGet
+         * @property {string|null} [errcode] RS2C_RetTimeAwardGet errcode
+         */
+
+        /**
+         * Constructs a new RS2C_RetTimeAwardGet.
+         * @memberof msg
+         * @classdesc Represents a RS2C_RetTimeAwardGet.
+         * @implements IRS2C_RetTimeAwardGet
+         * @constructor
+         * @param {msg.IRS2C_RetTimeAwardGet=} [properties] Properties to set
+         */
+        function RS2C_RetTimeAwardGet(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * RS2C_RetTimeAwardGet errcode.
+         * @member {string} errcode
+         * @memberof msg.RS2C_RetTimeAwardGet
+         * @instance
+         */
+        RS2C_RetTimeAwardGet.prototype.errcode = "";
+
+        /**
+         * Creates a new RS2C_RetTimeAwardGet instance using the specified properties.
+         * @function create
+         * @memberof msg.RS2C_RetTimeAwardGet
+         * @static
+         * @param {msg.IRS2C_RetTimeAwardGet=} [properties] Properties to set
+         * @returns {msg.RS2C_RetTimeAwardGet} RS2C_RetTimeAwardGet instance
+         */
+        RS2C_RetTimeAwardGet.create = function create(properties) {
+            return new RS2C_RetTimeAwardGet(properties);
+        };
+
+        /**
+         * Encodes the specified RS2C_RetTimeAwardGet message. Does not implicitly {@link msg.RS2C_RetTimeAwardGet.verify|verify} messages.
+         * @function encode
+         * @memberof msg.RS2C_RetTimeAwardGet
+         * @static
+         * @param {msg.IRS2C_RetTimeAwardGet} message RS2C_RetTimeAwardGet message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_RetTimeAwardGet.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.errcode != null && message.hasOwnProperty("errcode"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.errcode);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified RS2C_RetTimeAwardGet message, length delimited. Does not implicitly {@link msg.RS2C_RetTimeAwardGet.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.RS2C_RetTimeAwardGet
+         * @static
+         * @param {msg.IRS2C_RetTimeAwardGet} message RS2C_RetTimeAwardGet message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_RetTimeAwardGet.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a RS2C_RetTimeAwardGet message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.RS2C_RetTimeAwardGet
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.RS2C_RetTimeAwardGet} RS2C_RetTimeAwardGet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_RetTimeAwardGet.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.RS2C_RetTimeAwardGet();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.errcode = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a RS2C_RetTimeAwardGet message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.RS2C_RetTimeAwardGet
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.RS2C_RetTimeAwardGet} RS2C_RetTimeAwardGet
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_RetTimeAwardGet.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a RS2C_RetTimeAwardGet message.
+         * @function verify
+         * @memberof msg.RS2C_RetTimeAwardGet
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        RS2C_RetTimeAwardGet.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.errcode != null && message.hasOwnProperty("errcode"))
+                if (!$util.isString(message.errcode))
+                    return "errcode: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a RS2C_RetTimeAwardGet message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.RS2C_RetTimeAwardGet
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.RS2C_RetTimeAwardGet} RS2C_RetTimeAwardGet
+         */
+        RS2C_RetTimeAwardGet.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.RS2C_RetTimeAwardGet)
+                return object;
+            var message = new $root.msg.RS2C_RetTimeAwardGet();
+            if (object.errcode != null)
+                message.errcode = String(object.errcode);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a RS2C_RetTimeAwardGet message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.RS2C_RetTimeAwardGet
+         * @static
+         * @param {msg.RS2C_RetTimeAwardGet} message RS2C_RetTimeAwardGet
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        RS2C_RetTimeAwardGet.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.errcode = "";
+            if (message.errcode != null && message.hasOwnProperty("errcode"))
+                object.errcode = message.errcode;
+            return object;
+        };
+
+        /**
+         * Converts this RS2C_RetTimeAwardGet to JSON.
+         * @function toJSON
+         * @memberof msg.RS2C_RetTimeAwardGet
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        RS2C_RetTimeAwardGet.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return RS2C_RetTimeAwardGet;
+    })();
+
     msg.C2RS_ReqBuyInGame = (function() {
 
         /**
@@ -53611,6 +54382,490 @@ $root.table = (function() {
         };
 
         return TexasRoomDefine;
+    })();
+
+    table.TTimeAward = (function() {
+
+        /**
+         * Properties of a TTimeAward.
+         * @memberof table
+         * @interface ITTimeAward
+         * @property {Array.<table.ITimeAwardDefine>|null} [TimeAward] TTimeAward TimeAward
+         */
+
+        /**
+         * Constructs a new TTimeAward.
+         * @memberof table
+         * @classdesc Represents a TTimeAward.
+         * @implements ITTimeAward
+         * @constructor
+         * @param {table.ITTimeAward=} [properties] Properties to set
+         */
+        function TTimeAward(properties) {
+            this.TimeAward = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TTimeAward TimeAward.
+         * @member {Array.<table.ITimeAwardDefine>} TimeAward
+         * @memberof table.TTimeAward
+         * @instance
+         */
+        TTimeAward.prototype.TimeAward = $util.emptyArray;
+
+        /**
+         * Creates a new TTimeAward instance using the specified properties.
+         * @function create
+         * @memberof table.TTimeAward
+         * @static
+         * @param {table.ITTimeAward=} [properties] Properties to set
+         * @returns {table.TTimeAward} TTimeAward instance
+         */
+        TTimeAward.create = function create(properties) {
+            return new TTimeAward(properties);
+        };
+
+        /**
+         * Encodes the specified TTimeAward message. Does not implicitly {@link table.TTimeAward.verify|verify} messages.
+         * @function encode
+         * @memberof table.TTimeAward
+         * @static
+         * @param {table.ITTimeAward} message TTimeAward message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TTimeAward.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.TimeAward != null && message.TimeAward.length)
+                for (var i = 0; i < message.TimeAward.length; ++i)
+                    $root.table.TimeAwardDefine.encode(message.TimeAward[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TTimeAward message, length delimited. Does not implicitly {@link table.TTimeAward.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TTimeAward
+         * @static
+         * @param {table.ITTimeAward} message TTimeAward message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TTimeAward.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TTimeAward message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TTimeAward
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TTimeAward} TTimeAward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TTimeAward.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TTimeAward();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.TimeAward && message.TimeAward.length))
+                        message.TimeAward = [];
+                    message.TimeAward.push($root.table.TimeAwardDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TTimeAward message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TTimeAward
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TTimeAward} TTimeAward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TTimeAward.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TTimeAward message.
+         * @function verify
+         * @memberof table.TTimeAward
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TTimeAward.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.TimeAward != null && message.hasOwnProperty("TimeAward")) {
+                if (!Array.isArray(message.TimeAward))
+                    return "TimeAward: array expected";
+                for (var i = 0; i < message.TimeAward.length; ++i) {
+                    var error = $root.table.TimeAwardDefine.verify(message.TimeAward[i]);
+                    if (error)
+                        return "TimeAward." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a TTimeAward message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TTimeAward
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TTimeAward} TTimeAward
+         */
+        TTimeAward.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TTimeAward)
+                return object;
+            var message = new $root.table.TTimeAward();
+            if (object.TimeAward) {
+                if (!Array.isArray(object.TimeAward))
+                    throw TypeError(".table.TTimeAward.TimeAward: array expected");
+                message.TimeAward = [];
+                for (var i = 0; i < object.TimeAward.length; ++i) {
+                    if (typeof object.TimeAward[i] !== "object")
+                        throw TypeError(".table.TTimeAward.TimeAward: object expected");
+                    message.TimeAward[i] = $root.table.TimeAwardDefine.fromObject(object.TimeAward[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TTimeAward message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TTimeAward
+         * @static
+         * @param {table.TTimeAward} message TTimeAward
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TTimeAward.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.TimeAward = [];
+            if (message.TimeAward && message.TimeAward.length) {
+                object.TimeAward = [];
+                for (var j = 0; j < message.TimeAward.length; ++j)
+                    object.TimeAward[j] = $root.table.TimeAwardDefine.toObject(message.TimeAward[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this TTimeAward to JSON.
+         * @function toJSON
+         * @memberof table.TTimeAward
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TTimeAward.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TTimeAward;
+    })();
+
+    table.TimeAwardDefine = (function() {
+
+        /**
+         * Properties of a TimeAwardDefine.
+         * @memberof table
+         * @interface ITimeAwardDefine
+         * @property {number|null} [Id] TimeAwardDefine Id
+         * @property {number|null} [RoomType1] TimeAwardDefine RoomType1
+         * @property {number|null} [RoomType2] TimeAwardDefine RoomType2
+         * @property {number|null} [RoomType3] TimeAwardDefine RoomType3
+         * @property {number|null} [Time] TimeAwardDefine Time
+         */
+
+        /**
+         * Constructs a new TimeAwardDefine.
+         * @memberof table
+         * @classdesc Represents a TimeAwardDefine.
+         * @implements ITimeAwardDefine
+         * @constructor
+         * @param {table.ITimeAwardDefine=} [properties] Properties to set
+         */
+        function TimeAwardDefine(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TimeAwardDefine Id.
+         * @member {number} Id
+         * @memberof table.TimeAwardDefine
+         * @instance
+         */
+        TimeAwardDefine.prototype.Id = 0;
+
+        /**
+         * TimeAwardDefine RoomType1.
+         * @member {number} RoomType1
+         * @memberof table.TimeAwardDefine
+         * @instance
+         */
+        TimeAwardDefine.prototype.RoomType1 = 0;
+
+        /**
+         * TimeAwardDefine RoomType2.
+         * @member {number} RoomType2
+         * @memberof table.TimeAwardDefine
+         * @instance
+         */
+        TimeAwardDefine.prototype.RoomType2 = 0;
+
+        /**
+         * TimeAwardDefine RoomType3.
+         * @member {number} RoomType3
+         * @memberof table.TimeAwardDefine
+         * @instance
+         */
+        TimeAwardDefine.prototype.RoomType3 = 0;
+
+        /**
+         * TimeAwardDefine Time.
+         * @member {number} Time
+         * @memberof table.TimeAwardDefine
+         * @instance
+         */
+        TimeAwardDefine.prototype.Time = 0;
+
+        /**
+         * Creates a new TimeAwardDefine instance using the specified properties.
+         * @function create
+         * @memberof table.TimeAwardDefine
+         * @static
+         * @param {table.ITimeAwardDefine=} [properties] Properties to set
+         * @returns {table.TimeAwardDefine} TimeAwardDefine instance
+         */
+        TimeAwardDefine.create = function create(properties) {
+            return new TimeAwardDefine(properties);
+        };
+
+        /**
+         * Encodes the specified TimeAwardDefine message. Does not implicitly {@link table.TimeAwardDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.TimeAwardDefine
+         * @static
+         * @param {table.ITimeAwardDefine} message TimeAwardDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TimeAwardDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.Id);
+            if (message.RoomType1 != null && message.hasOwnProperty("RoomType1"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.RoomType1);
+            if (message.RoomType2 != null && message.hasOwnProperty("RoomType2"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.RoomType2);
+            if (message.RoomType3 != null && message.hasOwnProperty("RoomType3"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.RoomType3);
+            if (message.Time != null && message.hasOwnProperty("Time"))
+                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.Time);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TimeAwardDefine message, length delimited. Does not implicitly {@link table.TimeAwardDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TimeAwardDefine
+         * @static
+         * @param {table.ITimeAwardDefine} message TimeAwardDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TimeAwardDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TimeAwardDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TimeAwardDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TimeAwardDefine} TimeAwardDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TimeAwardDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TimeAwardDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.int32();
+                    break;
+                case 2:
+                    message.RoomType1 = reader.int32();
+                    break;
+                case 3:
+                    message.RoomType2 = reader.int32();
+                    break;
+                case 4:
+                    message.RoomType3 = reader.int32();
+                    break;
+                case 5:
+                    message.Time = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TimeAwardDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TimeAwardDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TimeAwardDefine} TimeAwardDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TimeAwardDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TimeAwardDefine message.
+         * @function verify
+         * @memberof table.TimeAwardDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TimeAwardDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.RoomType1 != null && message.hasOwnProperty("RoomType1"))
+                if (!$util.isInteger(message.RoomType1))
+                    return "RoomType1: integer expected";
+            if (message.RoomType2 != null && message.hasOwnProperty("RoomType2"))
+                if (!$util.isInteger(message.RoomType2))
+                    return "RoomType2: integer expected";
+            if (message.RoomType3 != null && message.hasOwnProperty("RoomType3"))
+                if (!$util.isInteger(message.RoomType3))
+                    return "RoomType3: integer expected";
+            if (message.Time != null && message.hasOwnProperty("Time"))
+                if (!$util.isInteger(message.Time))
+                    return "Time: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a TimeAwardDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TimeAwardDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TimeAwardDefine} TimeAwardDefine
+         */
+        TimeAwardDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TimeAwardDefine)
+                return object;
+            var message = new $root.table.TimeAwardDefine();
+            if (object.Id != null)
+                message.Id = object.Id | 0;
+            if (object.RoomType1 != null)
+                message.RoomType1 = object.RoomType1 | 0;
+            if (object.RoomType2 != null)
+                message.RoomType2 = object.RoomType2 | 0;
+            if (object.RoomType3 != null)
+                message.RoomType3 = object.RoomType3 | 0;
+            if (object.Time != null)
+                message.Time = object.Time | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TimeAwardDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TimeAwardDefine
+         * @static
+         * @param {table.TimeAwardDefine} message TimeAwardDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TimeAwardDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.Id = 0;
+                object.RoomType1 = 0;
+                object.RoomType2 = 0;
+                object.RoomType3 = 0;
+                object.Time = 0;
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.RoomType1 != null && message.hasOwnProperty("RoomType1"))
+                object.RoomType1 = message.RoomType1;
+            if (message.RoomType2 != null && message.hasOwnProperty("RoomType2"))
+                object.RoomType2 = message.RoomType2;
+            if (message.RoomType3 != null && message.hasOwnProperty("RoomType3"))
+                object.RoomType3 = message.RoomType3;
+            if (message.Time != null && message.hasOwnProperty("Time"))
+                object.Time = message.Time;
+            return object;
+        };
+
+        /**
+         * Converts this TimeAwardDefine to JSON.
+         * @function toJSON
+         * @memberof table.TimeAwardDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TimeAwardDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TimeAwardDefine;
     })();
 
     return table;
