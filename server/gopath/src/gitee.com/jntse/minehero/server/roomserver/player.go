@@ -59,10 +59,7 @@ func NewTexasPlayer(user *RoomUser, room *TexasPokerRoom, isai bool) *TexasPlaye
 	player.isready = false
 	player.gamestate = GSWaitNext
 	player.isai = isai
-	tmpsec,_ := user.arvalues.Val(def.CTTimeRewardSec)
-	player.rewardtime = int32(tmpsec)
-	tmpround,_ := user.arvalues.Val(def.CTTimeRewardRound)
-	player.rewardround = int32(tmpround)+1
+	player.InitTimeReward()
 	return player
 }
 
@@ -77,6 +74,44 @@ func (this *TexasPlayer)Init(){
 	this.gamestate = GSWaitNext
 	this.aiacttime = 0
 	this.allinshow = false
+}
+
+func (this *TexasPlayer) InitTimeReward() {
+	var tmpsec, tmpround int64
+	//var err error
+	switch this.room.GetRoomType() {
+	case 1:
+		tmpsec,_ = this.owner.arvalues.Val(def.CTTimeRewardSec1)
+		tmpround,_ = this.owner.arvalues.Val(def.CTTimeRewardRound1)
+	case 2:
+		tmpsec,_ = this.owner.arvalues.Val(def.CTTimeRewardSec2)
+		tmpround,_ = this.owner.arvalues.Val(def.CTTimeRewardRound2)
+	case 3:
+		tmpsec,_ = this.owner.arvalues.Val(def.CTTimeRewardSec3)
+		tmpround,_ = this.owner.arvalues.Val(def.CTTimeRewardRound3)
+	}
+	this.rewardtime = int32(tmpsec)
+	this.rewardround = int32(tmpround)+1
+}
+
+func (this *TexasPlayer) SetTimeReward() {
+	switch this.room.GetRoomType() {
+	case 1:
+		this.owner.arvalues.Remove(def.CTTimeRewardSec1)
+		this.owner.arvalues.Remove(def.CTTimeRewardRound1)
+		this.owner.arvalues.AddDayDefault(def.CTTimeRewardRound1, int64(this.rewardround))
+		this.owner.arvalues.AddDayDefault(def.CTTimeRewardSec1, int64(this.rewardtime))
+	case 2:
+		this.owner.arvalues.Remove(def.CTTimeRewardSec2)
+		this.owner.arvalues.Remove(def.CTTimeRewardRound2)
+		this.owner.arvalues.AddDayDefault(def.CTTimeRewardRound2, int64(this.rewardround))
+		this.owner.arvalues.AddDayDefault(def.CTTimeRewardSec2, int64(this.rewardtime))
+	case 3:
+		this.owner.arvalues.Remove(def.CTTimeRewardSec3)
+		this.owner.arvalues.Remove(def.CTTimeRewardRound3)
+		this.owner.arvalues.AddDayDefault(def.CTTimeRewardRound3, int64(this.rewardround))
+		this.owner.arvalues.AddDayDefault(def.CTTimeRewardSec3, int64(this.rewardtime))
+	}
 }
 
 func (this *TexasPlayer) IsRaise() bool{
@@ -346,17 +381,18 @@ func (this *TexasPlayer) ReqTimeAwardInfo(rev *msg.C2RS_ReqTimeAwardInfo) {
 func (this *TexasPlayer) ReqTimeAwardGet() {
 	send := &msg.RS2C_RetTimeAwardGet{}
 	endtime := RoomMgr().GetRewardTime(this.rewardround)
-	if endtime > this.rewardtime {
+	if endtime > this.rewardtime || endtime == 0 {
 		send.Errcode = pb.String("还不能领奖")
 		this.owner.SendClientMsg(send)
+		log.Info("房间%d 玩家%d 计时奖励轮数%d end%d now%d", this.room.Id(), this.owner.Id(), this.rewardround, endtime,this.rewardtime)
 		return
 	}else{
 		gold := RoomMgr().GetRewardGold(this.rewardround, this.room.GetRoomType())
 		this.owner.AddGold(gold, "领取计时奖励", true)
-		this.owner.arvalues.AddDayDefault(def.CTTimeRewardRound, 1)
 		this.rewardround++
 		this.rewardtime = 0
 		this.owner.SendClientMsg(send)
+		this.SetTimeReward()
 	}
 }
 
@@ -658,8 +694,7 @@ func (this *TexasPlayer) StandUp() bool {
 			send1.Roleid = pb.Int64(this.owner.Id())
 			send1.State = pb.Int32(2)
 			this.room.BroadCastRoomMsg(send1)
-			this.owner.arvalues.Remove(def.CTTimeRewardSec)
-			this.owner.arvalues.AddDayDefault(def.CTTimeRewardSec, int64(this.rewardtime))
+			this.SetTimeReward()
 		}
 		this.room.UpdateMember()
 		return true
