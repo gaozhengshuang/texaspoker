@@ -74,13 +74,14 @@ type BufferMsg struct {
 /// @brief 玩家管理器
 // --------------------------------------------------------------------------
 type UserManager struct {
-	accounts  map[string]*GateUser
-	ids       map[int64]*GateUser
-	names     map[string]*GateUser
-	msgbuffer map[int64]*BufferMsg
-	posmap	  map[int32]map[int32]map[int64]*GateUser //经度参数|维度参数|uid|*GateUser
-	canton 	  map[int32]map[int32]int32 //省|市|人数 市级行政区的在线人数
-	bigcanton map[int32]int32 //省|人数 省级在线数
+	accounts  	map[string]*GateUser
+	ids       	map[int64]*GateUser
+	names     	map[string]*GateUser
+	msgbuffer 	map[int64]*BufferMsg
+	posmap	  	map[int32]map[int32]map[int64]*GateUser //经度参数|维度参数|uid|*GateUser
+	canton 	  	map[int32]map[int32]int32 //省|市|人数 市级行政区的在线人数
+	bigcanton 	map[int32]int32 //省|人数 省级在线数
+	ticker 		*util.GameTicker
 }
 
 func (m *UserManager) Init() {
@@ -91,6 +92,8 @@ func (m *UserManager) Init() {
 	m.posmap = make(map[int32]map[int32]map[int64]*GateUser)
 	m.canton = make(map[int32]map[int32]int32)
 	m.bigcanton = make(map[int32]int32)
+	m.ticker = util.NewGameTicker(1*time.Millisecond, m.OnTicker1ms)
+	m.ticker.Start()
 }
 
 func (m *UserManager) CreateNewUser(session network.IBaseNetSession, account, key, token, face string) (*GateUser, string) {
@@ -171,8 +174,8 @@ func (m *UserManager) DelUser(user *GateUser) {
 	log.Info("当前在线人数:%d", len(m.accounts))
 }
 
-func (m *UserManager) Tick(now int64) {
-
+// 1毫秒精度
+func (m *UserManager) OnTicker1ms(now int64) {
 	// faster broadcast
 	for k, v := range m.msgbuffer {
 		if now > v.tm_timeout {
@@ -180,13 +183,16 @@ func (m *UserManager) Tick(now int64) {
 		}
 	}
 
-	// user
 	for _, user := range m.accounts {
 		if m.IsRemove(user, now) {
 			continue
 		}
 		user.Tick(now)
 	}
+}
+
+func (m *UserManager) Tick(now int64) {
+	m.ticker.Run(now)
 }
 
 func (m *UserManager) IsRemove(user *GateUser, now int64) bool {

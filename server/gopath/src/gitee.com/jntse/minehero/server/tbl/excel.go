@@ -21,6 +21,7 @@ var MailBase = table.InsMailBaseTable
 var Activity_listBase = table.InsActivity_listBaseTable
 var GiftProBase = table.InsGiftProBaseTable
 var ProtoMsgIndex = table.InsProtoMsgIndexTable
+var TTimeAward = table.InsTTimeAwardTable
 var TBallGiftbase = table.InsTBallGiftbaseTable
 var NoticeBase = table.InsNoticeBaseTable
 var TexasAI = table.InsTexasAITable

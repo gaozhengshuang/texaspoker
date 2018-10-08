@@ -13,38 +13,38 @@ type UserManager struct {
 	ids	map[int64]*RoomUser
 }
 
-func (um *UserManager) Init() {
-	um.ids = make(map[int64]*RoomUser)
+func (m *UserManager) Init() {
+	m.ids = make(map[int64]*RoomUser)
 }
 
-func (um *UserManager) Amount() int {
-	return len(um.ids)
+func (m *UserManager) Amount() int {
+	return len(m.ids)
 }
 
-func (um *UserManager) AddUser(u *RoomUser) {
-	um.ids[u.Id()] = u
+func (m *UserManager) AddUser(u *RoomUser) {
+	m.ids[u.Id()] = u
 }
 
-func (um *UserManager) FindUser(id int64) *RoomUser {
-	u, _ := um.ids[id]
+func (m *UserManager) FindUser(id int64) *RoomUser {
+	u, _ := m.ids[id]
 	return u
 }
 
-func (um *UserManager) DelUser(u *RoomUser) {
-	delete(um.ids, u.Id())
+func (m *UserManager) DelUser(u *RoomUser) {
+	delete(m.ids, u.Id())
 }
 
-func (um *UserManager) IsRegisted(id int64) bool {
-	_, ok := um.ids[id]
+func (m *UserManager) IsRegisted(id int64) bool {
+	_, ok := m.ids[id]
 	return ok
 }
 
-func (um *UserManager) Tick(now int64) {
+func (m *UserManager) Tick(now int64) {
 }
 
-func (um *UserManager) CreateRoomUser(roomid int64, bin *msg.Serialize, gate network.IBaseNetSession, gamekind int32) *RoomUser {
+func (m *UserManager) CreateRoomUser(roomid int64, bin *msg.Serialize, gate network.IBaseNetSession, gamekind int32) *RoomUser {
 	u := NewRoomUser(roomid, bin, gate, gamekind)
-	um.ids[u.Id()] = u
+	m.ids[u.Id()] = u
 	return u
 }
 

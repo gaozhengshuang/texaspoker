@@ -15,27 +15,11 @@ import (
 /// @brief
 // --------------------------------------------------------------------------
 type UserTicker struct {
-	//ticker1s	*util.GameTicker
-	//ticker5s	*util.GameTicker
-	//ticker1m	*util.GameTicker
-	//ticker10ms *util.GameTicker
-	//ticker100ms *util.GameTicker
 	tickers []*util.GameTicker
 }
 
-func (t *UserTicker) Init(handler10ms, handler100ms, handler1s, handler5s, handler1m util.TickerCallbackHandle) {
+func (t *UserTicker) Init() {
 	t.tickers = make([]*util.GameTicker, 0)
-
-	//ticker10ms := util.NewGameTicker(10*time.Millisecond, handler10ms)
-	//ticker100ms := util.NewGameTicker(100*time.Millisecond, handler100ms)
-	//ticker1s := util.NewGameTicker(1*time.Second, handler1s)
-	//ticker5s := util.NewGameTicker(5*time.Second, handler5s)
-	//ticker1m := util.NewGameTicker(1*time.Minute, handler1m)
-	//t.tickers = append(t.tickers, ticker10ms)
-	//t.tickers = append(t.tickers, ticker100ms)
-	//t.tickers = append(t.tickers, ticker1s)
-	//t.tickers = append(t.tickers, ticker5s)
-	//t.tickers = append(t.tickers, ticker1m)
 }
 
 func (t *UserTicker) Regist(d time.Duration, handler util.TickerCallbackHandle) {
@@ -47,37 +31,18 @@ func (t *UserTicker) Start() {
 	for _, t := range t.tickers {
 		t.Start()
 	}
-
-	//t.ticker10ms.Start()
-	//t.ticker100ms.Start()
-	//t.ticker1s.Start()
-	//t.ticker5s.Start()
-	//t.ticker1m.Start()
 }
 
 func (t *UserTicker) Stop() {
 	for _, t := range t.tickers {
 		t.Stop()
 	}
-
-	//t.ticker10ms.Stop()
-	//t.ticker100ms.Stop()
-	//t.ticker1s.Stop()
-	//t.ticker5s.Stop()
-	//t.ticker1m.Stop()
 }
 
 func (u *UserTicker) Run(now int64) {
 	for _, t := range u.tickers {
 		t.Run(now)
 	}
-
-	// 嵌套节省
-	//u.ticker10ms.Run(now)
-	//u.ticker100ms.Run(now)
-	//if u.ticker1s.Run(now) {
-	//	if u.ticker5s.Run(now) { u.ticker1m.Run(now) }
-	//}
 }
 
 func (u *GateUser) RegistTicker() {

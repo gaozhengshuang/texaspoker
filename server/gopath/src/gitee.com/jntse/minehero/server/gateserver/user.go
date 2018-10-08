@@ -9,6 +9,7 @@ import (
 	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/minehero/server/tbl"
+	"gitee.com/jntse/minehero/server/def"
 	"github.com/go-redis/redis"
 	pb "github.com/gogo/protobuf/proto"
 	"strconv"
@@ -78,6 +79,7 @@ type GateUser struct {
 	synbalance      bool         // 充值中
 	events          UserMapEvent // 地图事件
 	mailbox         MailBox      // 邮箱
+	arvalues        def.AutoResetValues
 }
 
 func NewGateUser(account, key, token string) *GateUser {
@@ -88,7 +90,8 @@ func NewGateUser(account, key, token string) *GateUser {
 	u.task.Init(u)
 	u.events.Init(u)
 	u.mailbox.Init(u)
-	u.tickers.Init(u.OnTicker10ms, u.OnTicker100ms, u.OnTicker1s, u.OnTicker5s, u.OnTicker1m)
+	u.arvalues.Init()
+	u.tickers.Init()
 	u.cleanup = false
 	u.tm_disconnect = 0
 	u.continuelogin = 1
@@ -380,33 +383,16 @@ func (u *GateUser) OnDBLoad(way string) {
 	}
 
 	// proto对象变量初始化
-	if u.bin.Base == nil {
-		u.bin.Base = &msg.UserBase{}
-	}
-	if u.bin.Base.Misc == nil {
-		u.bin.Base.Misc = &msg.UserMiscData{}
-	}
-	if u.bin.Base.Statics == nil {
-		u.bin.Base.Statics = &msg.UserStatistics{}
-	}
-	if u.bin.Base.Sign == nil {
-		u.bin.Base.Sign = &msg.UserSignIn{}
-	}
-	if u.bin.Base.Wechat == nil {
-		u.bin.Base.Wechat = &msg.UserWechat{}
-	}
-	if u.bin.Item == nil {
-		u.bin.Item = &msg.ItemBin{}
-	}
-	if u.bin.Base.Addrlist == nil {
-		u.bin.Base.Addrlist = make([]*msg.UserAddress, 0)
-	}
-	if u.bin.Base.Task == nil {
-		u.bin.Base.Task = &msg.UserTask{}
-	}
-	if u.bin.Base.Luckydraw == nil {
-		u.bin.Base.Luckydraw = &msg.LuckyDrawRecord{Drawlist: make([]*msg.LuckyDrawItem, 0)}
-	}
+	if u.bin.Base == nil { u.bin.Base = &msg.UserBase{} }
+	if u.bin.Base.Misc == nil { u.bin.Base.Misc = &msg.UserMiscData{} }
+	if u.bin.Base.Statics == nil { u.bin.Base.Statics = &msg.UserStatistics{} }
+	if u.bin.Base.Sign == nil { u.bin.Base.Sign = &msg.UserSignIn{} }
+	if u.bin.Base.Wechat == nil { u.bin.Base.Wechat = &msg.UserWechat{} }
+	if u.bin.Item == nil { u.bin.Item = &msg.ItemBin{} }
+	if u.bin.Base.Addrlist == nil { u.bin.Base.Addrlist = make([]*msg.UserAddress, 0) }
+	if u.bin.Base.Task == nil { u.bin.Base.Task = &msg.UserTask{} }
+	if u.bin.Base.Luckydraw == nil { u.bin.Base.Luckydraw = &msg.LuckyDrawRecord{Drawlist: make([]*msg.LuckyDrawItem, 0)} }
+	if u.bin.Base.Arvalues == nil { u.bin.Base.Arvalues = &msg.AutoResetValues{Values: make([]*msg.AutoResetValue, 0)} }
 	//if u.bin.Base.Images == nil { u.bin.Base.Images = &msg.PersonalImage{Lists: make([]*msg.ImageData, 0)} }
 
 	// 加载二进制
@@ -463,6 +449,7 @@ func (u *GateUser) PackBin() *msg.Serialize {
 	u.bag.PackBin(bin)
 	u.task.PackBin(bin)
 	u.events.PackBin(bin)
+	u.PackAutoResetValues(bin)
 	//u.image.PackBin(bin)
 
 	//
@@ -512,6 +499,9 @@ func (u *GateUser) LoadBin() {
 	// 邮件
 	u.mailbox.DBLoad()
 
+	// 自动重置变量
+	u.arvalues.LoadBin(u.bin.Base.Arvalues)
+
 	// 事件
 	u.events.LoadBin(u.bin)
 
@@ -525,10 +515,10 @@ func (u *GateUser) DBSave() {
 	u.mailbox.DBSave()
 	key := fmt.Sprintf("userbin_%d", u.Id())
 	if err := utredis.SetProtoBin(Redis(), key, u.PackBin()); err != nil {
-		log.Error("保存玩家[%s %d]数据失败", u.Name(), u.Id())
+		log.Error("玩家[%s %d] 数据存盘失败", u.Name(), u.Id())
 		return
 	}
-	log.Info("保存玩家[%s %d]数据成功", u.Name(), u.Id())
+	log.Info("玩家[%s %d] 数据存盘成功", u.Name(), u.Id())
 }
 
 // 异步存盘
@@ -540,7 +530,7 @@ func (u *GateUser) AsynSave() {
 
 // 异步存盘完成回调
 func (u *GateUser) AsynSaveFeedback() {
-	log.Info("玩家[%s %d] 异步存盘完成", u.Name(), u.Id())
+	log.Info("玩家[%s %d] 完成异步存盘", u.Name(), u.Id())
 }
 
 // 新用户回调
@@ -638,28 +628,27 @@ func (u *GateUser) CheckDisconnectTimeOut(now int64) {
 	//	return
 	//}
 
+
 	// 异步事件未处理完
 	if u.asynev.EventSize() != 0 || u.asynev.FeedBackSize() != 0 {
 		return
 	}
 
-	// 异步存盘，最大延迟1秒
-
 	u.Logout()
 }
 
-// 真下线(存盘，从Gate清理玩家数据)
+// 真下线，清理玩家数据
 func (u *GateUser) Logout() {
 	u.online = false
 	u.tm_logout = util.CURTIME()
 	u.cleanup = true
-	u.DBSave()
+	//u.DBSave()
 	UnBindingAccountGateWay(u.account)
 	u.asynev.Shutdown()
 
 	//下线通知MatchServer
 	//u.OnDisconnectMatchServer()
-	log.Info("账户%s 玩家[%s %d] 存盘清理下线", u.account, u.Name(), u.Id())
+	log.Info("玩家[%s %d] 账户[%s] 清理下线", u.Name(), u.Id(), u.Account())
 }
 
 // logout完成，做最后清理
@@ -703,3 +692,9 @@ func (u *GateUser) OnlineTaskCheck() {
 	}
 
 }
+
+func (u *GateUser) PackAutoResetValues(bin *msg.Serialize) {
+	u.bin.Base.Arvalues = u.arvalues.PackBin()
+}
+
+
