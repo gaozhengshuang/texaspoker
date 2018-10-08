@@ -3,6 +3,7 @@
 // --------------------------------------------------------------------------
 syntax = "proto2";
 package msg;
+import "serialize.proto";
 
 //请求活动信息
 message C2GW_ReqActivityInfo {
@@ -71,4 +72,43 @@ message C2GW_ReqGetFreeGold {
 //返回领取免费金币
 message GW2C_RetGetFreeGold {
 	optional int32 lastgoldtime = 1;
+}
+
+//请求兑换某种奖励
+message C2GW_ReqAwardExchange {
+	optional int32 id = 1;
+	optional int32 count = 2;
+}
+
+//返回兑换结果
+message GW2C_RetAwardExchange {
+
+}
+
+//请求兑换信息
+message C2GW_ReqAwardGetInfo {
+
+}
+
+//返回兑换信息
+message GW2C_RetAwardGetInfo {
+	repeated msg.AwardGetInfo DataList = 1;
+}
+
+//请求兑换记录
+message C2GW_ReqAwardRecord {
+	optional int32 logid = 1;
+	optional int32 startid = 2;
+	optional int32 count = 3;
+}
+
+message RetAwardRecord {
+	optional int32 id = 1;
+	optional int32 time = 2;
+	optional int32 awardid = 3;
+}
+
+//返回兑换记录
+message GW2C_RetAwardRecord {
+	repeated RetAwardRecord loglist = 1;
 }
