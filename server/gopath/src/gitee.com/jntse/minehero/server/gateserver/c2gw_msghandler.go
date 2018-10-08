@@ -76,6 +76,16 @@ func (mh *C2GWMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqMailList{}, on_C2GW_ReqMailList)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqTakeMailItem{}, on_C2GW_ReqTakeMailItem)
 
+	// 好友
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqFriendsList{}, on_C2GW_ReqFriendsList)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqFriendsPresent{}, on_C2GW_ReqFriendsPresent)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqFriendsDetail{}, on_C2GW_ReqFriendsDetail)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqGetFriendsPresent{}, on_C2GW_ReqGetFriendsPresent)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqFriendsRequestList{}, on_C2GW_ReqFriendsRequestList)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqDealFriendsRequest{}, on_C2GW_ReqDealFriendsRequest)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqFriendsSearch{}, on_C2GW_ReqFriendsSearch)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqFriendsAdd{}, on_C2GW_ReqFriendsAdd)
+
 	//活动
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqActivityInfo{}, on_C2GW_ReqActivityInfo)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqGetActivityReward{}, on_C2GW_ReqGetActivityReward)
@@ -587,6 +597,27 @@ func on_C2GW_ReqTakeMailItem(session network.IBaseNetSession, message interface{
 		return
 	}
 	u.mailbox.TakeMailItem(tmsg.GetUid())
+}
+
+// --------------------------------------------------------------------------
+/// @brief 好友
+// --------------------------------------------------------------------------
+func on_C2GW_ReqFriendsList(session network.IBaseNetSession, message interface{}) {
+	;
+}
+func on_C2GW_ReqFriendsPresent(session network.IBaseNetSession, message interface{}) {
+}
+func on_C2GW_ReqFriendsDetail(session network.IBaseNetSession, message interface{}) {
+}
+func on_C2GW_ReqGetFriendsPresent(session network.IBaseNetSession, message interface{}) {
+}
+func on_C2GW_ReqFriendsRequestList(session network.IBaseNetSession, message interface{}) {
+}
+func on_C2GW_ReqDealFriendsRequest(session network.IBaseNetSession, message interface{}) {
+}
+func on_C2GW_ReqFriendsSearch(session network.IBaseNetSession, message interface{}) {
+}
+func on_C2GW_ReqFriendsAdd(session network.IBaseNetSession, message interface{}) {
 }
 
 func on_C2GW_ReqTaskList(session network.IBaseNetSession, message interface{}) {

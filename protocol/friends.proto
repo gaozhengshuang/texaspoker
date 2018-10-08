@@ -4,16 +4,16 @@ import "serialize.proto";
 
 
 // 好友列表
-message FriendsInfo {
-    optional string name = 1;
-    optional int32  level = 2;
-    optional string head = 3;
-    optional int32  getgold = 4;
-    optional int32  givegold = 5;
+message FriendData {
+    optional int64  roleid = 1;
+    optional string name = 2;
+    optional int32  level = 3;
+    optional string head = 4;
+    optional int32  sex = 5;
     optional int32  viplevel = 6;
-    optional int32  roleid = 7;
-    optional int32  gold = 8;
-    optional int32  sex = 9;
+    optional int32  gold = 7;
+    optional int32  getgold = 8;
+    optional int32  givegold = 9;
     optional int32  offlinetime = 10;
 }
 
@@ -33,7 +33,7 @@ message C2GW_ReqFriendsList {
 }
 
 message GW2C_RetFriendsList {
-    repeated FriendsInfo friends = 1;
+    repeated FriendData friends = 1;
 }
 
 
@@ -141,11 +141,11 @@ message GW2C_PushFriendsRemove {
 
 
 // 发送添加用户为好友的请求
-message C2GW_ReqFriendsAddNew {
+message C2GW_ReqFriendsAdd {
     optional int64 roleid = 1;
 }
 
-message GW2C_RetFriendsAddNew {
+message GW2C_RetFriendsAdd {
 }
 
 
