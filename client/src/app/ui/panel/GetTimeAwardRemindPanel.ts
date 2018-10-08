@@ -41,13 +41,13 @@ class GetTimeAwardRemindPanel extends BasePanel
         this.enterAnime();
         this.countDownNum = 5;
         let round = this.panelData.round + 1;
-        if (round < TimeAwardDefined.GetInstance().dataList.length)
+        if (round < table.TimeAward.length)
         {
             this.nextTimeGroup.visible = true;
-            let timeawardDef: TimeAwardDefinition = TimeAwardDefined.GetInstance().getDefinition(round + 1);
+            let timeawardDef: table.ITimeAwardDefine = table.TimeAwardById[round + 1];
             if (timeawardDef)
             {
-                this.nextTimeLabel.text = Math.round(timeawardDef.time / 60) + "分钟";
+                this.nextTimeLabel.text = Math.round(timeawardDef.Time / 60) + "分钟";
             }
         } else
         {

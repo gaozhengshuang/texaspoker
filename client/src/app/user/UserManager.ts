@@ -368,14 +368,14 @@ class UserManager
 	public static reqGetFreeGold()
 	{
 		PropertyManager.OpenGet();
-		SocketManager.call(Command.Req_GetFreeGold_3024, null, this.onGetFreeGold, null, this);
+		SocketManager.call(Command.C2GW_ReqGetFreeGold, {}, this.onGetFreeGold, null, this);
 	}
 	private static onGetFreeGold(result: game.SpRpcResult)
 	{
 		if (result.data)
 		{
 			PropertyManager.ShowItemList();
-			UserManager.userInfo.lastGoldTime = result.data["lastGoldTime"];
+			UserManager.userInfo.lastGoldTime = result.data["lastgoldtime"];
 			UserManager.getFreeGoldEvent.dispatch();
 		}
 	}

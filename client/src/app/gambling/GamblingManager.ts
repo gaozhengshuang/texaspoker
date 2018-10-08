@@ -376,9 +376,9 @@ class GamblingManager
 				GamblingManager.getPlayerUserInfoOver();
 			}
 			//设置计时奖励数据	
-			if (result.data.roomId)
+			if (result.data.roomid)
 			{
-				let roomDef: table.ITexasRoomDefine = table.TexasRoomById[result.data.roomId];
+				let roomDef: table.ITexasRoomDefine = table.TexasRoomById[result.data.roomid];
 				if (roomDef)
 				{
 					this.timeAwardHandler.reqGetTimeAwardInfo(roomDef.Type);

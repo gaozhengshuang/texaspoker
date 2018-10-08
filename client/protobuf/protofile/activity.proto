@@ -63,3 +63,12 @@ message GW2C_RetRankList {
 	repeated RankInfo ranklist = 2;
 }
 
+//领取免费金币
+message C2GW_ReqGetFreeGold {
+	
+}
+
+//返回领取免费金币
+message GW2C_RetGetFreeGold {
+	optional int32 lastgoldtime = 1;
+}

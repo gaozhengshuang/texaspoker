@@ -12,7 +12,7 @@ class NewTimeAwardNotifyHandler extends BaseNotifyHandle
     }
     public get count(): number
     {
-        let len: number = TimeAwardDefined.GetInstance().dataList.length;
+        let len: number = table.TimeAward.length;
         if ((GamblingManager.timeAwardHandler.round < len && GamblingManager.timeAwardHandler.time > 0) || GamblingManager.timeAwardHandler.round == len || GamblingManager.timeAwardHandler.round == undefined)
         {
             return 0;

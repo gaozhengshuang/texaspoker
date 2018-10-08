@@ -88,7 +88,7 @@ class TimeAwardPanel extends BasePanel
     */
     private setTimeAwardInfo()
     {
-        if (GamblingManager.timeAwardHandler.round == TimeAwardDefined.GetInstance().dataList.length)
+        if (GamblingManager.timeAwardHandler.round == table.TimeAward.length)
         {
             this.getBtn.enabled = false;
             this.timeLabel.text = "距离下次领奖时间00:00";

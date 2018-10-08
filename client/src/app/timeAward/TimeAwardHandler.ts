@@ -76,7 +76,7 @@ class TimeAwardHandler
                 {
                     GamblingManager.timeAwardHandler.startCountDown();
                 }
-            } else if (data.sectime)  //一局结束
+            } else  //一局结束
             {
                 this.isEffectTime = false;
                 GamblingManager.timeAwardHandler.stopCountDown();
@@ -99,11 +99,14 @@ class TimeAwardHandler
                 }
                 if (result.data.round == 0 && result.data.secTime == undefined)
                 {
-                    let timeawardDef: TimeAwardDefinition = TimeAwardDefined.GetInstance().getDefinition(1);
-                    this.initialize(0, timeawardDef.time);
+                    let timeawardDef: table.ITimeAwardDefine = table.TimeAwardById[1];
+                    if (timeawardDef)
+                    {
+                        this.initialize(0, timeawardDef.Time);
+                    }
                     return;
                 }
-                if (result.data.round < TimeAwardDefined.GetInstance().dataList.length)
+                if (result.data.round < table.TimeAward.length)
                 {
                     this.setInitInfo(result.data.round, result.data.secTime, result.data.startTime);
                 } else
@@ -123,17 +126,17 @@ class TimeAwardHandler
     */
     private setInitInfo(round: number, secTime: number, startTime: number)
     {
-        let timeawardDef: TimeAwardDefinition = TimeAwardDefined.GetInstance().getDefinition(round + 1);
+        let timeawardDef: table.ITimeAwardDefine = table.TimeAwardById[round + 1];
         if (timeawardDef)
         {
-            if (secTime < timeawardDef.time)
+            if (secTime < timeawardDef.Time)
             {
                 if (startTime == undefined)
                 {
-                    this.initialize(round, timeawardDef.time - secTime + 3);
+                    this.initialize(round, timeawardDef.Time - secTime + 3);
                 } else
                 {
-                    this.initialize(round, timeawardDef.time - (Math.round(TimeManager.GetServerUtcTimestamp()) - startTime + secTime) + 3);
+                    this.initialize(round, timeawardDef.Time - (Math.round(TimeManager.GetServerUtcTimestamp()) - startTime + secTime) + 3);
                 }
             } else
             {
@@ -146,16 +149,16 @@ class TimeAwardHandler
     */
     public reqGetTimeAward(roomFieldType: PlayingFieldType)
     {
-        SocketManager.call(Command.TimeAwardGet_Req_3621, { roomType: roomFieldType }, this.getTimeAwardResponse, null, this);
+        MsgTransferSend.sendRoomProto(Command.C2RS_ReqTimeAwardGet, { roomType: roomFieldType }, this.getTimeAwardResponse, null, this);
     }
     public getTimeAwardResponse(result: game.SpRpcResult)
     {
         PropertyManager.ShowItemList();
         this.round++;
-        let def: TimeAwardDefinition = TimeAwardDefined.GetInstance().getDefinition(this.round + 1);
+        let def: table.ITimeAwardDefine = table.TimeAwardById[this.round + 1];
         if (def)
         {
-            this.time = def.time;
+            this.time = def.Time;
         }
         this.GetTimeAwardInfoEvent.dispatch();
     }
@@ -164,7 +167,7 @@ class TimeAwardHandler
     */
     public getTimeAward(type: PlayingFieldType)
     {
-        let awardList = TimeAwardDefined.GetInstance().dataList;
+        let awardList = table.TimeAward;
         if (awardList)
         {
             game.ArrayUtil.Clear(this.timeAwardList);
@@ -175,12 +178,13 @@ class TimeAwardHandler
             for (let def of awardList)
             {
                 let timeAwardInfo: TimeAwardInfo = new TimeAwardInfo();
-                timeAwardInfo.num = def.awardList[type - 1];
-                if (this.round && def.id <= this.round)
+                let awardList = this.getAwardList(def);
+                timeAwardInfo.num = awardList[type - 1];
+                if (this.round && def.Id <= this.round)
                 {
                     timeAwardInfo.isBring = 1;
                 }
-                timeAwardInfo.icon = SheetSubName["TimeAwardGold" + def.id];
+                timeAwardInfo.icon = SheetSubName["TimeAwardGold" + def.Id];
                 this.timeAwardList.push(timeAwardInfo);
             }
         }
@@ -210,11 +214,12 @@ class TimeAwardHandler
             if (this.time <= 0)
             {
                 this.stopCountDown();
-                let def: TimeAwardDefinition = TimeAwardDefined.GetInstance().getDefinition(this.round + 1);
+                let def: table.ITimeAwardDefine = table.TimeAwardById[this.round + 1];
                 if (def)
                 {
                     let num: number;
-                    num = def.awardList[GamblingManager.roomInfo.definition.Type - 1];
+                    let aList = this.getAwardList(def);
+                    num = aList[GamblingManager.roomInfo.definition.Type - 1];
                     UIManager.showPanel(UIModuleName.GetTimeAwardRemindPanel, { round: this.round, num: num, pattern: GamblingManager.roomInfo.definition.Type });
                 }
                 this.isGetTimeAward = true;
@@ -226,6 +231,18 @@ class TimeAwardHandler
             this.stopCountDown();
         }
     }
+    public getAwardList(def: table.IAwardDefine): Array<number>
+    {
+        let list = [];
+        let str: string = "roomType";
+        for (let i: number = 0; i < 3; i++)
+        {
+            let index: number = i + 1;
+            list[i] = def[str + index];
+        }
+        return list;
+    }
+
     /**
      * 停止计时
     */

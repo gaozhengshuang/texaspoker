@@ -661,7 +661,7 @@ class GamblingPanelActionSupport extends BaseGamblingPanelSupport
 	*/
 	private setNextTimeAwardInfo()
 	{
-		if (GamblingManager.timeAwardHandler.round < TimeAwardDefined.GetInstance().dataList.length)
+		if (GamblingManager.timeAwardHandler.round < table.TimeAward.length)
 		{
 			this._numContentInfo.content = game.DateTimeUtil.countDownFormat(GamblingManager.timeAwardHandler.time, false)
 			this.target.onlineAwardBtn["numComponent"].init(this._numContentInfo);
