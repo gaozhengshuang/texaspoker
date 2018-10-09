@@ -1,0 +1,173 @@
+syntax = "proto2";
+package msg;
+import "serialize.proto";
+
+// 玩家摘要信息
+message FriendBrief {
+    optional int64 roleid = 1;
+    optional string name = 2;
+    optional string head = 3;
+    optional int32 sex = 4;
+    optional int32 level = 5;
+    optional int32 gold = 6;
+    optional int32 viplevel = 7;
+    optional int32 offlinetime = 8;     // 离线时间
+}
+
+
+// 好友数据
+message FriendData {
+    optional FriendBrief base = 1;
+    optional int32 givegold = 2;
+    optional int32 getgold = 3;
+}
+
+// 请求好友列表信息
+message C2GW_ReqFriendsList {
+}
+
+message GW2C_RetFriendsList {
+    repeated FriendData friendlist = 1;
+}
+
+
+// 请求赠送好友金币
+message C2GW_ReqPresentToFriends {
+    optional int64 roleid = 1;
+}
+
+message GW2C_RetPresentToFriends {
+}
+
+// 好友赠送金币通知推送
+message GW2C_PushFriendsPresent {
+    optional int64 roleid = 1;
+}
+
+// 请求获取好友详细信息
+message C2GW_ReqFriendsDetail {
+    optional int64 roleid = 1;
+}
+
+message GW2C_RetFriendsDetail {
+    // 个人基础信息
+    optional msg.EntityBase base = 1;
+
+    // 个人游戏统计
+    //optional int32 maxGold = 12;
+    //optional int32 maxGoldOnetimes = 13;
+    //optional int32 friendNum = 14;
+    //optional int32 gameTimes = 15;
+    //optional int32 winTimes = 16;
+    //repeated int32 maxHand = 17;
+    //optional int32 championTimes = 18;
+    //optional int32 vipExp = 19;
+    //optional int32 vipTime = 20;
+    //optional int32 yearVipTime = 21;
+    //optional int32 vipLevel = 22;
+    //optional int32 createdTime = 23;
+    //optional int32 isOffline = 24;
+    //optional int32 stateId = 25;
+    //optional int32 stateConfId = 26;
+    //optional int32 entryTimes = 27;
+    //optional int32 showdownTimes = 28;
+    //optional int32 mttJoinTimes = 29;
+    //optional int32 mttPrizeTimes = 30;
+    //optional int32 gameTimes2 = 31;
+    //optional int32 winTimes2 = 32;
+    //optional int32 entryTimes2 = 33;
+    //optional int32 showdownTimes2 = 34;
+}
+
+// 请求领取好友赠送的金币
+message C2GW_ReqGetFriendsPresent {
+    optional int64 roleid = 1;
+}
+
+message GW2C_RetGetFriendsPresent {
+    repeated int64 roleid = 1;
+}
+
+
+// 好友添加请求列表
+message C2GW_ReqFriendsRequestList { 
+}
+
+message GW2C_RetFriendsRequestList {
+    repeated msg.FriendBrief array = 1;
+}
+
+
+// 发送是否接受好友请求的请求
+message C2GW_ReqDealFriendsRequest {
+    optional int64 roleid = 1;
+    optional bool isaccept = 2;
+}
+
+message GW2C_RetDealFriendsRequest {
+}
+
+
+// 发送搜索用户的请求
+message C2GW_ReqFriendsSearch {
+    optional string val = 1;
+}
+
+message GW2C_RetFriendsSearch {
+    repeated msg.FriendBrief array = 1;
+}
+
+
+// 发送删除好友的请求
+message C2GW_ReqFriendsRemove {
+    optional int64 roleid = 1;
+}
+
+message GW2C_RetFriendsRemove {
+    optional int64 roleid = 1;
+}
+
+
+// 被好友删除的通知推送
+message GW2C_PushFriendsRemove {
+    optional int64 roleid = 1;
+}
+
+
+// 发送添加用户为好友的请求
+message C2GW_ReqFriendsAdd {
+    optional int64 roleid = 1;
+}
+
+message GW2C_RetFriendsAdd {
+}
+
+
+// 好友添加成功的通知推送
+message GW2C_PushFriendsAddSuccess {
+    optional msg.FriendBrief friend = 1;
+}
+
+
+// 好友在线通知推送
+message GW2C_PushFriendsLogin {
+    optional int64 roleid = 1;
+    optional int32 offlinetime = 2;
+}
+
+
+// 添加好友请求通知推送
+message GW2C_PushAddYouFriends {
+    optional msg.FriendBrief friend = 1;
+}
+
+
+// 被好友邀请推送
+message GW2C_PushFriendsInvitation {
+    optional int64 id = 1;
+    optional int64 roleid = 2;
+    optional string pwd = 3;
+    optional int64 roomid = 4;
+}
+
+

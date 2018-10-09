@@ -81,6 +81,7 @@ type GateUser struct {
 	synbalance      bool         // 充值中
 	events          UserMapEvent // 地图事件
 	mailbox         MailBox      // 邮箱
+	friends			Friends		 // 好友
 	arvalues        def.AutoResetValues
 }
 
@@ -92,6 +93,7 @@ func NewGateUser(account, key, token string) *GateUser {
 	u.task.Init(u)
 	u.events.Init(u)
 	u.mailbox.Init(u)
+	u.friends.Init(u)
 	u.arvalues.Init()
 	u.tickers.Init()
 	u.cleanup = false
@@ -503,6 +505,9 @@ func (u *GateUser) LoadBin() {
 	// 邮件
 	u.mailbox.DBLoad()
 
+	// 好友
+	u.friends.DBLoad()
+
 	// 自动重置变量
 	u.arvalues.LoadBin(u.bin.Base.Arvalues)
 
@@ -517,6 +522,7 @@ func (u *GateUser) LoadBin() {
 // TODO: 存盘可以单独协程
 func (u *GateUser) DBSave() {
 	u.mailbox.DBSave()
+	u.friends.DBSave()
 	key := fmt.Sprintf("userbin_%d", u.Id())
 	if err := utredis.SetProtoBin(Redis(), key, u.PackBin()); err != nil {
 		log.Error("玩家[%s %d] 数据存盘失败", u.Name(), u.Id())
