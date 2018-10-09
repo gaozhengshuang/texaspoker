@@ -2,9 +2,8 @@ syntax = "proto2";
 package msg;
 import "serialize.proto";
 
-
-// 好友列表
-message FriendData {
+// 好友玩家
+message FriendUser {
     optional int64  roleid = 1;
     optional string name = 2;
     optional int32  level = 3;
@@ -12,20 +11,14 @@ message FriendData {
     optional int32  sex = 5;
     optional int32  viplevel = 6;
     optional int32  gold = 7;
-    optional int32  getgold = 8;
-    optional int32  givegold = 9;
-    optional int32  offlinetime = 10;
+    optional int32  offlinetime = 8;
 }
 
-// 玩家简单信息
-message PlayerSimpleInfo {
-    optional int64 roleid = 1;
-    optional string name = 2;
-    optional int32 level = 3;
-    optional string head = 4;
-    optional int32 sex = 5;
-    optional int32 viplevel = 6;
-    optional int32 lastlogintime = 7;
+// 好友数据
+message FriendData {
+    optional FriendUser base = 1;
+    optional int32 givegold = 2;
+    optional int32 getgold = 3;
 }
 
 // 请求好友列表信息
@@ -33,16 +26,16 @@ message C2GW_ReqFriendsList {
 }
 
 message GW2C_RetFriendsList {
-    repeated FriendData friends = 1;
+    repeated FriendData friendlist = 1;
 }
 
 
 // 请求赠送好友金币
-message C2GW_ReqFriendsPresent {
+message C2GW_ReqPresentToFriends {
     optional int64 roleid = 1;
 }
 
-message GW2C_RetFriendsPresent {
+message GW2C_RetPresentToFriends {
 }
 
 // 好友赠送金币通知推送
@@ -100,7 +93,7 @@ message C2GW_ReqFriendsRequestList {
 }
 
 message GW2C_RetFriendsRequestList {
-    repeated PlayerSimpleInfo array = 1;
+    repeated msg.UserBrief array = 1;
 }
 
 
@@ -120,7 +113,7 @@ message C2GW_ReqFriendsSearch {
 }
 
 message GW2C_RetFriendsSearch {
-    repeated PlayerSimpleInfo array = 1;
+    repeated msg.UserBrief array = 1;
 }
 
 
@@ -151,7 +144,7 @@ message GW2C_RetFriendsAdd {
 
 // 好友添加成功的通知推送
 message GW2C_PushFriendsAddSuccess {
-    optional PlayerSimpleInfo friend = 1;
+    optional msg.UserBrief friend = 1;
 }
 
 
@@ -164,7 +157,7 @@ message GW2C_PushFriendsLogin {
 
 // 添加好友请求通知推送
 message GW2C_PushAddYouFriends {
-    optional PlayerSimpleInfo friend = 1;
+    optional msg.UserBrief friend = 1;
 }
 
 

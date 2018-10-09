@@ -78,7 +78,7 @@ func (mh *C2GWMsgHandler) Init() {
 
 	// 好友
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqFriendsList{}, on_C2GW_ReqFriendsList)
-	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqFriendsPresent{}, on_C2GW_ReqFriendsPresent)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqPresentToFriends{}, on_C2GW_ReqPresentToFriends)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqFriendsDetail{}, on_C2GW_ReqFriendsDetail)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqGetFriendsPresent{}, on_C2GW_ReqGetFriendsPresent)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqFriendsRequestList{}, on_C2GW_ReqFriendsRequestList)
@@ -603,10 +603,27 @@ func on_C2GW_ReqTakeMailItem(session network.IBaseNetSession, message interface{
 /// @brief 好友
 // --------------------------------------------------------------------------
 func on_C2GW_ReqFriendsList(session network.IBaseNetSession, message interface{}) {
-	;
+	//tmsg := message.(*msg.C2GW_ReqFriendsList)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.friends.SendFriendList()
 }
-func on_C2GW_ReqFriendsPresent(session network.IBaseNetSession, message interface{}) {
+
+func on_C2GW_ReqPresentToFriends(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqPresentToFriends)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.friends.PresentToFriends(tmsg.GetRoleid())
 }
+
 func on_C2GW_ReqFriendsDetail(session network.IBaseNetSession, message interface{}) {
 }
 func on_C2GW_ReqGetFriendsPresent(session network.IBaseNetSession, message interface{}) {

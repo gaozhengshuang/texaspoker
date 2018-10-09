@@ -31,7 +31,7 @@ gc)
     #GODEBUG=gctrace=1 ./loginserver -conf=../conf/conf_login.json -logname=loginserver.log -logpath=../../log/loginserver/ 2> gctrace.log
 ;;
 *)
-    ./${servername} -conf=${fileconf} -logname=${logname} -logpath=${logpath} -loglvl="trace" -eventstat=true -pprof=27110
+    ./${servername} -conf=${fileconf} -logname=${logname} -logpath=${logpath} -loglvl="trace" -eventstat=false -pprof=27110
 ;;
 esac
 

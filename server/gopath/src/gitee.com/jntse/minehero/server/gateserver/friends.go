@@ -2,9 +2,10 @@ package main
 import (
 	"fmt"
 	_"strings"
+	_"reflect"
 	"gitee.com/jntse/gotoolkit/log"
 	"gitee.com/jntse/gotoolkit/util"
-	"gitee.com/jntse/gotoolkit/redis"
+	_"gitee.com/jntse/gotoolkit/redis"
 	"gitee.com/jntse/minehero/pbmsg"
 	_"gitee.com/jntse/minehero/server/tbl"
 	_"gitee.com/jntse/minehero/server/def"
@@ -16,122 +17,165 @@ import (
 /// @brief 好友
 // --------------------------------------------------------------------------
 type Friend struct {
-	bin *msg.FriendData
+	id int64
+	stat_present int32	// 是否已经赠送 0未赠送，1已经赠送 
+	stat_get int32		// 是否可以领取 0不可领，1可以领取，2已经领取
+	base *msg.FriendUser
+	basebuf string 
 	dirty bool
 }
 
 func (m *Friend) Id() int64 {
-	return m.bin.GetRoleid()
+	return m.id
+}
+
+func (m *Friend) PresentStat() int32 {
+	return m.stat_present
+}
+
+func (m *Friend) GetStat() int32 {
+	return m.stat_get
 }
 
 func (m *Friend) Bin() *msg.FriendData {
-	return m.bin
+	return &msg.FriendData{Base:m.base, Givegold:pb.Int32(m.PresentStat()), Getgold:pb.Int32(m.GetStat())}
 }
 
 func (m *Friend) Dirty() bool {
 	return m.dirty
 }
 
-func (m *Friend) SaveBin(userid int64, pipe redis.Pipeliner) {
-	id := util.Ltoa(m.Id())
-	m.dirty = false
-	if pipe == nil {
-		utredis.HSetProtoBinPipeline(pipe, fmt.Sprintf("userfriends_%d", userid), id, m.bin)
-		return
-	}
-	if err := utredis.HSetProtoBin(Redis(), fmt.Sprintf("userfriends_%d", userid), id, m.bin); err != nil {
-		log.Error("[邮件] 保存邮件失败 RedisError[%s]", err)
-	}else {
-		log.Info("[邮件] 保存邮件成功 id[%s]", id)
-	}
+func (m *Friend) Present() {
+	m.stat_present = 1
+	m.dirty = true
 }
 
-func (m *Friend) LoadBin(rbuf []byte) *msg.FriendData {
-	data := &msg.FriendData{}
-	if err := pb.Unmarshal(rbuf, data); err != nil {
-		return nil
+func (m *Friend) SaveBin(userid, friend int64, pipe redis.Pipeliner) {
+	id := util.Ltoa(m.Id())
+	m.dirty = false
+	mfields := map[string]interface{}{"id":m.Id(), "stat_present":m.PresentStat(), "stat_get":m.GetStat()}
+	if pipe != nil {
+		pipe.HMSet(fmt.Sprintf("userfriendbrief_%d_%d", userid, friend), mfields)
+		return
 	}
-	m.bin = data
-	return data
+
+	Redis().HMSet(fmt.Sprintf("userfriendbrief_%d_%d", userid, friend), mfields)
+	log.Info("[好友] 保存好友成功 id[%s]", id)
+}
+
+func (m *Friend) LoadBin(userid, friend int64, pipe redis.Pipeliner) {
+	//pipe.HMGet(fmt.Sprintf("userfriendbrief_%d_%d", userid, friend), "id", "stat_present", "stat_get")
+	pipe.HGetAll(fmt.Sprintf("userfriendbrief_%d_%d", userid, friend))
+	pipe.Get(fmt.Sprintf("frienduser_%d", friend))
 }
 
 
 // --------------------------------------------------------------------------
 /// @brief 邮箱
 // --------------------------------------------------------------------------
-type FriendBox struct {
+type Friends struct {
 	owner *GateUser
 	friends map[int64]*Friend
 }
 
-func (m *FriendBox) Init(owner *GateUser) {
+func (m *Friends) Init(owner *GateUser) {
 	m.owner = owner
 	m.friends = make(map[int64]*Friend)
 }
 
-func (m *FriendBox) Size() int32 {
+func (m *Friends) Size() int32 {
 	return int32(len(m.friends))
 }
 
-func (m *FriendBox) Online() {
+func (m *Friends) Online() {
 }
 
 // 加载
-func (m *FriendBox) DBLoad() {
-	lists, err := Redis().HGetAll(fmt.Sprintf("userfriends_%d", m.owner.Id())).Result()
+func (m *Friends) DBLoad() {
+	idlist, err := Redis().SMembers(fmt.Sprintf("userfriendlist_%d", m.owner.Id())).Result()
 	if err != nil {
-		log.Error("[邮件] 玩家[%s %d]加载DB邮件失败[%s]", m.owner.Name(), m.owner.Id(), err)
+		log.Error("[好友] 玩家[%s %d] 加载DB好友列表失败 RedisError[%s]", m.owner.Name(), m.owner.Id(), err)
 		return
 	}
 
-	// 反序列化
-	for k, str := range lists {
-		id, rbuf, mail := util.Atol(k), []byte(str), &Friend{}
-		if mail.LoadBin([]byte(rbuf)) == nil {
-			log.Error("[邮件] 玩家[%s %d] 邮件[%d] Protobuf Unmarshal 失败", m.owner.Name(), m.owner.Id(), id)
+	pipe := Redis().Pipeline()
+	defer pipe.Close()
+	for _, v := range idlist {
+		id, friend := util.Atol(v), &Friend{}
+		friend.LoadBin(m.owner.Id(), id, pipe)
+	}
+	cmds, err := pipe.Exec()
+	if err != nil && err != redis.Nil {
+		log.Error("[好友] 玩家[%s %d] 加载DB好友失败 RedisError[%s]", m.owner.Name(), m.owner.Id(), err)
+		return
+	}
+
+	friendinfo := &Friend{base:nil, dirty:false}
+	for _, cmd := range cmds {
+		if sscmd, ok := cmd.(*redis.StringStringMapCmd); ok == true && len(sscmd.Val()) != 0 {
+			friendinfo = &Friend{base:nil, dirty:false}
+			for k, v := range sscmd.Val() {
+				if k == "id" { friendinfo.id = util.NewVarType(v).Int64() }
+				if k == "stat_present" { friendinfo.stat_present = util.NewVarType(v).Int32() }
+				if k == "stat_get" { friendinfo.stat_get = util.NewVarType(v).Int32() }
+			}
 			continue
 		}
-		m.friends[id] = mail
-		log.Trace("[邮件] 玩家[%s %d] 加载邮件[%d]", m.owner.Name(), m.owner.Id(), id)
+
+		if scmd, ok := cmd.(*redis.StringCmd); ok == true {
+			friendinfo.basebuf = scmd.Val()
+			if friendinfo.Id() != 0 { m.friends[friendinfo.id] = friendinfo }
+		}
 	}
-	log.Info("[邮件] 玩家[%s %d] 加载邮件完毕，数量[%d]", m.owner.Name(), m.owner.Id(), m.Size())
+
+	if m.Size() != 0 {
+		log.Info("[好友] 玩家[%s %d] 加载DB好友成功，数量[%d]", m.owner.Name(), m.owner.Id(), m.Size() )
+	}
 }
 
 // 存盘
-func (m *FriendBox) DBSave() {
+func (m *Friends) DBSave() {
+	return	// TODO: 测试代码
 	pipe := Redis().Pipeline()
 	for _, v := range m.friends {
-		if v.Dirty() == true { v.SaveBin(m.owner.Id(), pipe) }
+		if v.Dirty() == true { v.SaveBin(m.owner.Id(), v.Id(), pipe) }
 	}
 
 	if cmds, err := pipe.Exec(); err != nil {
-		log.Error("[邮件] 玩家[%s %d] 保存邮件失败 RedisError[%s]", m.owner.Name(), m.owner.Id(), err)
+		log.Error("[好友] 玩家[%s %d] 保存好友失败 RedisError[%s]", m.owner.Name(), m.owner.Id(), err)
 	}else if len(cmds) != 0 {
-		log.Info("[邮件] 玩家[%s %d] 保存邮件成功，数量[%d]", m.owner.Name(), m.owner.Id(), len(cmds))
+		log.Info("[好友] 玩家[%s %d] 保存好友成功，数量[%d]", m.owner.Name(), m.owner.Id(), len(cmds))
 	}
 	pipe.Close()
 }
 
 // 1分钟tick
-func (m *FriendBox) Tick(now int64) {
+func (m *Friends) Tick(now int64) {
 	m.DBSave()
 }
 
 
-// 异常邮件
-func (m *FriendBox) RemoveFriend(id int64) {
+func (m *Friends) RemoveFriend(id int64) {
 	if id == 0 { return }
-	Redis().HDel(fmt.Sprintf("userfriends_%d", m.owner.Id()), util.Ltoa(id))
+	Redis().HDel(fmt.Sprintf("userfriendbrief_%d", m.owner.Id()), util.Ltoa(id))
 	delete(m.friends, id)
-	log.Info("[邮件] 玩家[%s %d] 删除邮件[%d]", m.owner.Name(), m.owner.Id(), id)
+	log.Info("[好友] 玩家[%s %d] 删除好友[%d]", m.owner.Name(), m.owner.Id(), id)
 }
 
-// 邮件列表
-func (m *FriendBox) SendFriendList() {
-	//send := &msg.GW2C_RetFriendList{Friendlist:make([]*msg.FriendData,0)}
-	//for _, v := range m.friends {
-	//	send.Friendlist = append(send.Friendlist, v.Bin())
-	//}
-	//m.owner.SendMsg(send)
+// 好友列表
+func (m *Friends) SendFriendList() {
+	send := &msg.GW2C_RetFriendsList{Friendlist:make([]*msg.FriendData,0)}
+	for _, v := range m.friends {
+		send.Friendlist = append(send.Friendlist, v.Bin())
+	}
+	m.owner.SendMsg(send)
 }
 
+func (m *Friends) PresentToFriends(uid int64) {
+	friend, ok := m.friends[uid]
+	if ok == false {
+		log.Info("[好友] 玩家[%s %d] 赠送好友[%d]，好友不存在", m.owner.Name(), m.owner.Id(), uid)
+		return
+	}
+	friend.Present()
+}
