@@ -58,21 +58,20 @@ class InitServerHandler
 		}
 		game.Console.roleId = UserManager.userInfo.roleId;
 		UserManager.initialize();
-		// this.reqAwardInfo();
-		this.reqGetInsideRoomIdList();
+		this.reqAwardInfo();
 	}
 	/**
 	 * 拉取兑换信息
 	 */
 	private reqAwardInfo()
 	{
-		SocketManager.ImplCall(Command.Award_GetInfo_3112, null, this.onReqAwardInfo, null, this);
+		SocketManager.ImplCall(Command.C2GW_ReqAwardGetInfo, {}, this.onReqAwardInfo, null, this);
 	}
-
 	private onReqAwardInfo(result: game.SpRpcResult)
 	{
 		AwardManager.Initialize(result);
-		this.reqItemList();
+		this.reqGetInsideRoomIdList();
+		// this.reqItemList();
 	}
 	/**
 	 * 拉取物品列表

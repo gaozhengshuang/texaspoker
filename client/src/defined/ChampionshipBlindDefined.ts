@@ -1,9 +1,8 @@
 /**
  * 锦标赛盲注定义
 */
-class ChampionshipBlindDefined extends BaseDefined<ChampionshipBlindDefinition>
+class ChampionshipBlindDefined
 {
-    private static readonly championshipBlindConfig: string = "championshipBlind";
     private static _instance: ChampionshipBlindDefined;
     public static GetInstance(): ChampionshipBlindDefined
     {
@@ -11,66 +10,59 @@ class ChampionshipBlindDefined extends BaseDefined<ChampionshipBlindDefinition>
         {
             ChampionshipBlindDefined._instance = new ChampionshipBlindDefined();
         }
-        if (DefinedManager.IsParsed(ChampionshipBlindDefined.championshipBlindConfig) == false)
-        {
-            ChampionshipBlindDefined._instance.initialize();
-        }
         return ChampionshipBlindDefined._instance;
     }
-    private initialize()
-    {
-        this.dataList = DefinedManager.GetData(ChampionshipBlindDefined.championshipBlindConfig) as Array<ChampionshipBlindDefinition>;
-    }
+   
     /**
      * 根据blindId获取盲注信息数组
     */
-    private getBlindListByBlindId(blindId: number): Array<ChampionshipBlindDefinition>
+    private getBlindListByBlindId(blindId: number): Array<any>
     {
-        if (this.dataList != null)
-        {
-            let blindList: Array<ChampionshipBlindDefinition> = new Array<ChampionshipBlindDefinition>();
-            for (let i: number = 0; i < this.dataList.length; i++)
-            {
-                if (this.dataList[i].blindId == blindId)
-                {
-                    blindList.push(this.dataList[i]);
-                }
-            }
-            return blindList;
-        }
+        // if (this.dataList != null)
+        // {
+        //     let blindList: Array<ChampionshipBlindDefinition> = new Array<ChampionshipBlindDefinition>();
+        //     for (let i: number = 0; i < this.dataList.length; i++)
+        //     {
+        //         if (this.dataList[i].blindId == blindId)
+        //         {
+        //             blindList.push(this.dataList[i]);
+        //         }
+        //     }
+        //     return blindList;
+        // }
         return null;
     }
     /**
      * 获得盲注信息通过level和blindId
     */
-    public getBlindInfoByLevel(level: number, blindId: number): ChampionshipBlindDefinition
+    public getBlindInfoByLevel(level: number, blindId: number): any
     {
-        let blindList: Array<ChampionshipBlindDefinition> = this.getBlindListByBlindId(blindId);
-        if (blindList != null)
-        {
-            for (let i: number = 0; i < blindList.length; i++)
-            {
-                if (this.dataList[i].level == level)
-                {
-                    return blindList[i];
-                }
-            }
-        }
+        // let blindList: Array<ChampionshipBlindDefinition> = this.getBlindListByBlindId(blindId);
+        // if (blindList != null)
+        // {
+        //     for (let i: number = 0; i < blindList.length; i++)
+        //     {
+        //         if (this.dataList[i].level == level)
+        //         {
+        //             return blindList[i];
+        //         }
+        //     }
+        // }
         return null;
     }
 
-    public getDefByBlind(typeId: number, sBlind: number, bBlind: number): ChampionshipBlindDefinition
+    public getDefByBlind(typeId: number, sBlind: number, bBlind: number): any
     {
-        if (this.dataList != null)
-        {
-            for (let i: number = 0; i < this.dataList.length; i++)
-            {
-                if (this.dataList[i].blindId == typeId && this.dataList[i].sBlind == sBlind && this.dataList[i].bBlind == bBlind)
-                {
-                    return this.dataList[i];
-                }
-            }
-        }
+        // if (this.dataList != null)
+        // {
+        //     for (let i: number = 0; i < this.dataList.length; i++)
+        //     {
+        //         if (this.dataList[i].blindId == typeId && this.dataList[i].sBlind == sBlind && this.dataList[i].bBlind == bBlind)
+        //         {
+        //             return this.dataList[i];
+        //         }
+        //     }
+        // }
         return null;
     }
 }

@@ -141,11 +141,16 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 		//邀请
 		this.bindRoleId = 0;
 		this.shareId = undefined;
+		this.yuanbao = 0;
 	}
 	/**
 	 * 登录时间
 	 */
 	public tmlogin: number;
+	/**
+	 * 金豆
+	 */
+	public yuanbao:number;
 	/**
 	 * 钻石数量
 	 */

@@ -171,15 +171,15 @@ class Command
     /**
      * 兑换奖励
      */
-    public static readonly Award_Exchange_3113 = "c3113";
+    public static readonly C2GW_ReqAwardExchange = "msg.C2GW_ReqAwardExchange";
     /**
      * 拉取兑换信息
      */
-    public static readonly Award_GetInfo_3112 = "c3112";
+    public static readonly C2GW_ReqAwardGetInfo = "msg.C2GW_ReqAwardGetInfo";
     /**
      * 拉取兑换记录
      */
-    public static readonly Award_Record_3713 = "c3713";
+    public static readonly C2GW_ReqAwardRecord = "msg.C2GW_ReqAwardRecord";
 
     //--------------------------------------------------------------
     // Achievement
@@ -261,7 +261,7 @@ class Command
      */
     public static readonly Role_Create_3012: string = "c3012";
     /**
-     * 发送存取金币的请求
+     * 发送保险箱存取金币的请求
      */
     public static readonly Req_saveORwithdraw_3014: string = "c3014";
     /**
@@ -626,7 +626,7 @@ class Command
     /**
      * 兑换次数更新推送
     */
-    public static readonly ExchangeTimeRefresh_Push_2031 = "c2031";
+    public static readonly GW2C_PushExchangeTimeRefresh = "msg.GW2C_PushExchangeTimeRefresh";
     //---------------------邀请------------------------
     /**
      * 绑定邀请码

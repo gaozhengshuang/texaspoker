@@ -1,7 +1,7 @@
 /**
  * 兑换奖品项
 */
-class GoldenBeanAwardItemRenderer extends BaseItemRenderer<GoldenBeanAwardDefinition>
+class GoldenBeanAwardItemRenderer extends BaseItemRenderer<table.IGoldenBeanAwardDefine>
 {
 
     public nameLabel: eui.Label;
@@ -23,7 +23,7 @@ class GoldenBeanAwardItemRenderer extends BaseItemRenderer<GoldenBeanAwardDefini
         this.awardBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onAward, this);
         if (this.bindData)
         {
-            let awardDef: table.IAwardDefine = table.AwardById[this.bindData.awardId];
+            let awardDef: table.IAwardDefine = table.AwardById[this.bindData.AwardId];
             if (awardDef)
             {
                 this.icon.init(awardDef);
@@ -53,9 +53,9 @@ class GoldenBeanAwardItemRenderer extends BaseItemRenderer<GoldenBeanAwardDefini
     {
         if (this.bindData)
         {
-            if (ItemManager.getItemNumById(ItemFixedId.GoldenBean, ItemManager.itemList) >= this._cost)
+            if (UserManager.userInfo.yuanbao >= this._cost)
             {
-                AwardManager.Exchange(this.bindData.awardId);
+                AwardManager.Exchange(this.bindData.AwardId);
             }
             else
             {

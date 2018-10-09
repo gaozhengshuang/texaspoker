@@ -104,7 +104,7 @@ class Main extends eui.UILayer
 
     private createScene()
     {
-        this.setLoadingText(I18n.getText('正在进入游戏...'));
+        this.setLoadingText('正在进入游戏...');
         GameManager.initialize(this.stage, this);
         UIManager.initialize(this.stage);
         game.Tick.initialize(this.stage);

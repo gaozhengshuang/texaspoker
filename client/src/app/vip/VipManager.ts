@@ -140,10 +140,10 @@ class VipManager
         {
             if (monthCard.definition)
             {
-                let info: AwardTimesInfo = AwardManager.GetExchangeInfo(monthCard.definition.awardId);
+                let info: msg.IAwardGetInfo = AwardManager.GetExchangeInfo(monthCard.definition.awardId);
                 if (info)
                 {
-                    let left: number = info.lastTime - TimeManager.GetServerUtcTimestamp();
+                    let left: number = info.time - TimeManager.GetServerUtcTimestamp();
                     if (left > 0)
                     {
                         activiteMonthCardList.push(monthCard);
@@ -183,19 +183,19 @@ class VipManager
             {
                 if (monthCard.definition)
                 {
-                    let info: AwardTimesInfo = AwardManager.GetExchangeInfo(monthCard.definition.awardId);
+                    let info: msg.IAwardGetInfo = AwardManager.GetExchangeInfo(monthCard.definition.awardId);
                     if (info)
                     {
                         bringAwardDef = table.AwardById[info.id];
                         if (bringAwardDef)
                         {
-                            let info1: AwardTimesInfo = AwardManager.GetExchangeInfo(bringAwardDef.Id);
+                            let info1: msg.IAwardGetInfo = AwardManager.GetExchangeInfo(bringAwardDef.Id);
                             if (!info1)
                             {
                                 return false;
                             } else
                             {
-                                if (info1.times < bringAwardDef.Limit)
+                                if (info1.count < bringAwardDef.Limit)
                                 {
                                     return false;
                                 }

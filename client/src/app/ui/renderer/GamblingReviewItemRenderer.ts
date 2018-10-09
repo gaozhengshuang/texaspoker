@@ -1,7 +1,7 @@
 /**
  * 牌局上局回顾项面板
 */
-class GamblingReviewItemRenderer extends BaseItemRenderer<PlayerReviewInfo>
+class GamblingReviewItemRenderer extends BaseItemRenderer<msg.UserReviewInfo>
 {
     /**
      * 位置描述
@@ -67,20 +67,20 @@ class GamblingReviewItemRenderer extends BaseItemRenderer<PlayerReviewInfo>
         {
             this._isSetAllIn = false;
             //根据公共牌情况设置公共牌显示隐藏
-            switch (GamblingManager.gamblingReviewHandler.pubCardList.length)
+            switch (this.bindData.round.length)
             {
-                case 0:
+                case 1:
                     this.pubGroup0.visible = this.pubGroup1.visible = this.pubGroup2.visible = false;
                     break;
-                case 3:
+                case 2:
                     this.pubGroup0.visible = true;
                     this.pubGroup1.visible = this.pubGroup2.visible = false;
                     break;
-                case 4:
+                case 3:
                     this.pubGroup0.visible = this.pubGroup1.visible = true;
                     this.pubGroup2.visible = false;
                     break;
-                case 5:
+                case 4:
                     this.pubGroup0.visible = this.pubGroup1.visible = this.pubGroup2.visible = true;
                     break;
             }
@@ -90,47 +90,80 @@ class GamblingReviewItemRenderer extends BaseItemRenderer<PlayerReviewInfo>
                 this["operation" + i].text = "";
                 this["num" + i].text = "";
             }
-
-            this.headCom.init(this.bindData, 76);
+            let baseHead: IBaseHead = { head: this.bindData.face, sex: this.bindData.sex };
+            this.headCom.init(baseHead, 76);
             this.nameLabel.text = this.bindData.name;
 
-            if (!this.bindData.posType)
+            if (this.bindData.bankroll > 0)
+            {
+                this.resultNumLabel.textColor = ColorEnum.Review_Win_Orange;
+                this.resultNumLabel.text = "+" + game.MathUtil.formatNum(this.bindData.bankroll);
+            } else
+            {
+                this.resultNumLabel.textColor = ColorEnum.Review_Lost_Green;
+                if (this.bindData.bankroll == 0)
+                {
+                    this.resultNumLabel.text = this.bindData.bankroll.toString();
+                } else
+                {
+                    this.resultNumLabel.text = game.MathUtil.formatNum(this.bindData.bankroll);
+                }
+            }
+            this.cardTypeLabel.text = CardTypeMatchUtil.getCardDes(this.bindData.cardtype);
+
+            for (let i: number = 0; i <= 3; i++)
+            {
+                this["operation" + i.toString()].text = game.StringConstants.Empty;
+                this["num" + i.toString()].text = game.StringConstants.Empty;
+            }
+            for (let i: number = 0; i <= 6; i++)
+            {
+                this["card" + i.toString()].visible = false;
+            }
+            let cardIdx = 0;
+            for (let i: number = 0; i < this.bindData.round.length; i++)
+            {
+                let roundInfo = this.bindData.round[i];
+                this["operation" + i.toString()].text = this.getActionNameByState(roundInfo.state);
+                this["num" + i.toString()].text = roundInfo.bet.toString();
+
+                let infoList = GamblingUtil.cardArr2CardInfoList(this.bindData.round[i].cards);
+                for (let j: number = 0; j < infoList.length; j++)
+                {
+                    this["card" + cardIdx.toString()].visible = true;
+                    this["card" + cardIdx.toString()].init(infoList[j]);
+                    if (i > 0)
+                    {
+                        this["card" + cardIdx.toString()].initElementsShow2();
+                    }
+                    cardIdx++;
+                }
+            }
+
+            if (!this.bindData.specialpos)
             {
                 this.posDesGroup.visible = false;
             } else
             {
                 this.posDesGroup.visible = true;
-                if (this.bindData.posType == PlayerPosType.Banker)
+                if (this.bindData.specialpos == PlayerPosType.Banker)
                 {
                     this.posDesLabel.text = "";
                     this.posImg.source = SheetSubName.Review_Banker;
                 } else
                 {
                     this.posImg.source = SheetSubName.Review_Blind;
-                    if (this.bindData.posType == PlayerPosType.Bblind)
+                    if (this.bindData.specialpos == PlayerPosType.Bblind)
                     {
                         this.posDesLabel.text = "大盲";
-                    } else if (this.bindData.posType == PlayerPosType.Sblind)
+                    } else if (this.bindData.specialpos == PlayerPosType.Sblind)
                     {
                         this.posDesLabel.text = "小盲";
                     }
                 }
             }
 
-            this.card0.init(this.bindData.cardList[0]);
-            this.card1.init(this.bindData.cardList[1]);
-
-            let flodStep: number;
-            for (let info of this.bindData.selfActionRecord)
-            {
-                if (info.action == PlayerState.Fold || info.action == PlayerState.StandUp)
-                {
-                    flodStep = info.step;
-                    break;
-                }
-            }
-
-            if ((GamblingManager.gamblingReviewHandler.isCompare() && !flodStep) || this.bindData.isShowCard || this.bindData.roleId == UserManager.userInfo.roleId)
+            if (this.bindData.showcard || this.bindData.roleid == UserManager.userInfo.roleId)
             {
                 this.card0.initElementsShow2();
                 this.card1.initElementsShow2();
@@ -140,244 +173,9 @@ class GamblingReviewItemRenderer extends BaseItemRenderer<PlayerReviewInfo>
                 this.card1.initElementsShow();
             }
 
-            let len: number = GamblingManager.gamblingReviewHandler.dealActionRecord.length;
-            if (flodStep)  //是否弃牌或离开
-            {
-                this.cardTypeLabel.text = "";
-                //设置3张公共牌显示隐藏
-                if (len >= 1)
-                {
-                    let pubCardsActionInfo:  msg.IReviewInfoArr = GamblingManager.gamblingReviewHandler.dealActionRecord[0];
-                    let actionInfo:  msg.IReviewInfoArr = this.getLTAndNearestStepAction(pubCardsActionInfo.step);
-                    this.setLastActionDesBeforeDeal(0, actionInfo);
-                    if (flodStep > pubCardsActionInfo.step)
-                    {
-                        this.pubGroup0.visible = true;
-                        for (let i: number = 0; i < 3; i++)
-                        {
-                            let j: number = i + 2;
-                            this["card" + j].init(GamblingManager.gamblingReviewHandler.pubCardList[i]);
-                            this["card" + j].initElementsShow2();
-                        }
-                        if (len == 1)
-                        {
-                            this.setLastActionDesAfterDeal(len, actionInfo);
-                        }
-                    } else
-                    {
-                        this.pubGroup0.visible = this.pubGroup1.visible = this.pubGroup2.visible = false;
-                    }
-                } else
-                {
-                    this.setLastActionDesAfterDeal(0);
-                    this.pubGroup0.visible = this.pubGroup1.visible = this.pubGroup2.visible = false;
-                }
-                if (len >= 2)
-                {
-                    let pubCardsActionInfo:  msg.IReviewInfoArr = GamblingManager.gamblingReviewHandler.dealActionRecord[1];
-                    let actionInfo:  msg.IReviewInfoArr = this.getLTAndNearestStepAction(pubCardsActionInfo.step);
-                    this.setLastActionDesBeforeDeal(1, actionInfo);
-                    if (flodStep > pubCardsActionInfo.step)
-                    {
-                        this.pubGroup1.visible = true;
-                        this.card5.init(GamblingManager.gamblingReviewHandler.pubCardList[3]);
-                        this.card5.initElementsShow2();
-                        if (len == 2)
-                        {
-                            this.setLastActionDesAfterDeal(len, actionInfo);
-                        }
-                    } else
-                    {
-                        this.pubGroup1.visible = this.pubGroup2.visible = false;
-                    }
-                }
-            } else
-            {
-                for (let i: number = 0; i < GamblingManager.gamblingReviewHandler.pubCardList.length; i++)
-                {
-                    let j: number = i + 2;
-                    this["card" + j].init(GamblingManager.gamblingReviewHandler.pubCardList[i]);
-                    this["card" + j].initElementsShow2();
-                }
-                this.cardTypeLabel.text = this.bindData.cardTypeDes;
-
-                if (len >= 1)
-                {
-                    this.setActionDes(len, 1);
-                } else
-                {
-                    this.setLastActionDesAfterDeal(0);
-                }
-                if (len >= 2)
-                {
-                    this.setActionDes(len, 2);
-                }
-            }
-            if (len >= 3)
-            {
-                if (flodStep)
-                {
-                    let pubCardsActionInfo:  msg.IReviewInfoArr = GamblingManager.gamblingReviewHandler.dealActionRecord[2];
-                    if (flodStep > pubCardsActionInfo.step)
-                    {
-                        this.pubGroup2.visible = true;
-                        this.card6.init(GamblingManager.gamblingReviewHandler.pubCardList[4]);
-                        this.card6.initElementsShow2();
-                    } else
-                    {
-                        this.pubGroup2.visible = false;
-                    }
-                }
-                this.setActionDes(len, 3);
-            }
-
-            if (this.bindData.isWin)
-            {
-                this.resultNumLabel.textColor = ColorEnum.Review_Win_Orange;
-                this.resultNumLabel.text = "+" + game.MathUtil.formatNum(this.bindData.betNum);
-            } else
-            {
-                this.resultNumLabel.textColor = ColorEnum.Review_Lost_Green;
-                if (this.bindData.betNum == 0)
-                {
-                    this.resultNumLabel.text = this.bindData.betNum.toString();
-                } else
-                {
-                    this.resultNumLabel.text = "-" + game.MathUtil.formatNum(this.bindData.betNum);
-                }
-            }
-
         }
     }
 
-    /**
-     * 设置操作描述信息
-    */
-    private setActionDes(len: number, index: number)
-    {
-        let i: number = index - 1;
-        let actionInfo:  msg.IReviewInfoArr;
-        let pubCardsActionInfo:  msg.IReviewInfoArr = GamblingManager.gamblingReviewHandler.dealActionRecord[i];
-        if (!this._isSetAllIn)
-        {
-            actionInfo = this.getLTAndNearestStepAction(pubCardsActionInfo.step);
-            this.setLastActionDesBeforeDeal(i, actionInfo);
-            if (len == index)
-            {
-                this.setLastActionDesAfterDeal(index, actionInfo);
-            }
-        }
-    }
-    /**
-     * 设置该次发牌前最后一次操作描述
-    */
-    private setLastActionDesBeforeDeal(index: number, actionInfo:  msg.IReviewInfoArr)
-    {
-        if (actionInfo && actionInfo.action)
-        {
-            this.setActionDesInfo(index, actionInfo);
-
-        }
-    }
-    /**
-     * 设置该次发牌后最后一次操作描述
-    */
-    private setLastActionDesAfterDeal(index: number, actionInfo?:  msg.IReviewInfoArr)
-    {
-        let lastActionInfo:  msg.IReviewInfoArr = this.getLTAndNearestStepAction(GamblingManager.gamblingReviewHandler.overActionStep);
-        let flag: boolean = false;
-        if (index == 0)
-        {
-            if (lastActionInfo)
-            {
-                flag = true;
-            }
-        } else
-        {
-            if (lastActionInfo && lastActionInfo.action)
-            {
-                flag = true;
-            }
-        }
-        if (flag)
-        {
-            if (actionInfo)
-            {
-                if (actionInfo != lastActionInfo)
-                {
-                    this.setActionDesInfo(index, lastActionInfo);
-                }
-            } else
-            {
-                this.setActionDesInfo(index, lastActionInfo);
-            }
-        }
-    }
-    /**
-     * 设置最后一次操作描述
-    */
-    private setActionDesInfo(index: number, lastActionInfo:  msg.IReviewInfoArr)
-    {
-        this["operation" + index].text = this.getActionNameByState(lastActionInfo.action);
-        let blindNum: number = GamblingManager.gamblingReviewHandler.getBlind(this.bindData.roleId);
-        let num: number = 0;
-        if (lastActionInfo.num1)
-        {
-            num = lastActionInfo.num1;
-        } else
-        {
-            if (index == 0 && blindNum)
-            {
-                num = blindNum;
-            }
-        }
-        if (num > 0)
-        {
-            this["num" + index].text = game.MathUtil.formatNum(num);
-        }
-    }
-    /**
-     * 获得小于但最接近传入步骤的步骤
-    */
-    private getLTAndNearestStepAction(step: number): msg.IReviewInfoArr
-    {
-        let nearestStep = 0;
-        let nearestStepAction: msg.IReviewInfoArr;
-        let isFold: boolean = this.isFold();
-        for (let actionInfo of this.bindData.selfActionRecord)
-        {
-            if (actionInfo.action != PlayerState.Trusteeship && actionInfo.action != PlayerState.ShowCard && actionInfo.step < step && actionInfo.step > nearestStep)
-            {
-                if (isFold)
-                {
-                    if (actionInfo.action != PlayerState.StandUp)
-                    {
-                        nearestStep = actionInfo.step;
-                        nearestStepAction = actionInfo;
-                    }
-                } else
-                {
-                    nearestStep = actionInfo.step;
-                    nearestStepAction = actionInfo;
-                }
-            }
-        }
-        return nearestStepAction;
-    }
-    /**
-     * 判断是否弃牌
-    */
-    private isFold(): boolean
-    {
-        for (let info of this.bindData.selfActionRecord)
-        {
-            if (info.action == PlayerState.Fold)
-            {
-                return true
-            }
-        }
-        return false;
-    }
     /**
      * 根据操作状态获得操作名称
     */

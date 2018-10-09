@@ -54,6 +54,15 @@ enum TaskId {
     InviteRegist        = 1004; // 邀请注册
 }
 
+enum RankType {
+	RTGold 		= 1;
+	RTFriendGold  = 2;
+	RTLevel 		= 3;
+	RTFriendLevel = 4;
+	RTvip 		= 5;
+	RTActivity 	= 6;
+}
+
 // 道具位置定义
 enum ItemPos {
     Bag = 0;        // 默认背包

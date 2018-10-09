@@ -649,21 +649,21 @@ class ChampionshipInfoPanel extends BasePanel
             ChampionshipManager.blindList = new Array<ChampionshipBlindDefinition>();
         }
         ChampionshipManager.blindList.length = 0;
-        for (let def of ChampionshipBlindDefined.GetInstance().dataList)
-        {
-            if (def.blindId == type)
-            {
-                ChampionshipManager.blindList.push(def);
-                if (def.rebuy)
-                {
-                    this.nthRebuy = def.level;
-                }
-                if (def.addon)
-                {
-                    this.nthAddon = def.level;
-                }
-            }
-        }
+        // for (let def of ChampionshipBlindDefined.GetInstance().dataList) //move todo
+        // {
+        //     if (def.blindId == type)
+        //     {
+        //         ChampionshipManager.blindList.push(def);
+        //         if (def.rebuy)
+        //         {
+        //             this.nthRebuy = def.level;
+        //         }
+        //         if (def.addon)
+        //         {
+        //             this.nthAddon = def.level;
+        //         }
+        //     }
+        // }
         this.setBlindInfo();
     }
     /**

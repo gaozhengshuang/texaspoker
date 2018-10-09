@@ -30,18 +30,18 @@ module game
 				WebImageSelect._input.onchange = null;
 				if (!WebImageSelect._input.files || WebImageSelect._input.files.length <= 0)
 				{
-					FuncUtil.invoke(error, thisObject, I18n.getText('未选择任何图片'));
+					FuncUtil.invoke(error, thisObject, '未选择任何图片');
 					return;
 				}
 				let file = WebImageSelect._input.files[0];
 				if ((/^image\//i).test(file.type) == false)
 				{
-					FuncUtil.invoke(error, thisObject, I18n.getText('图片类型不正确'));
+					FuncUtil.invoke(error, thisObject, '图片类型不正确');
 					return;
 				}
 				if (file.size > WebImageSelect.MaxSize)
 				{
-					FuncUtil.invoke(error, thisObject, I18n.getText('图片不能大于') + WebImageSelect.MaxSize / 1024 + 'KB');
+					FuncUtil.invoke(error, thisObject, '图片不能大于' + WebImageSelect.MaxSize / 1024 + 'KB');
 					return;
 				}
 				let reader: FileReader = new FileReader();
