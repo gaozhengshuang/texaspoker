@@ -230,28 +230,34 @@ func (u *GateUser) ReqAwardExchange (id, count int32) {
 
 	send1 := &msg.GW2C_PushExchangeTimeRefresh{}
 	send1.Id = pb.Int32(id)
-	if config.Limit > 0 {
-		got := false
-		num := 0
-		for _, v := range u.awardgetinfo {
-			if v.GetId() == id {
-				num = int(v.GetCount()) + 1
-				v.Count = pb.Int32(int32(num))
-				v.Time = pb.Int32(int32(util.CURTIME()))
-				got = true
-			}
+	got := false
+	num := 0
+	for _, v := range u.awardgetinfo {
+		if v.GetId() == id {
+			num = int(v.GetCount()) + 1
+			v.Count = pb.Int32(int32(num))
+			v.Time = pb.Int32(int32(util.CURTIME()))
+			got = true
 		}
-		if got == false {
-			num = 1
-			tmp := &msg.AwardGetInfo{}
-			tmp.Id = pb.Int32(id)
-			tmp.Count = pb.Int32(int32(num))
-			tmp.Time = pb.Int32(int32(util.CURTIME()))
-		}
-		send1.Count = pb.Int32(int32(num))
 	}
+	if got == false {
+		num = 1
+		tmp := &msg.AwardGetInfo{}
+		tmp.Id = pb.Int32(id)
+		tmp.Count = pb.Int32(int32(num))
+		tmp.Time = pb.Int32(int32(util.CURTIME()))
+		u.awardgetinfo = append(u.awardgetinfo, tmp)
+	}
+	send1.Count = pb.Int32(int32(num))
 	send1.Time = pb.Int32(int32(util.CURTIME()))
 	u.SendMsg(send1)
 	send2 := &msg.GW2C_RetAwardExchange{}
 	u.SendMsg(send2)
+}
+
+//返回玩家兑换信息
+func (u *GateUser) GetAwardGetInfo () {
+	send := &msg.GW2C_RetAwardGetInfo{}
+	send.Datalist = u.awardgetinfo[:]
+	u.SendMsg(send)
 }

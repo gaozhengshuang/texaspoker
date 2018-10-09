@@ -41,6 +41,7 @@ func (u *GateUser) SendPropertyChange() {
 	send.Diamond = pb.Int32(u.diamond)
 	send.Gold = pb.Int32(u.gold)
 	send.Safegold = pb.Int32(0)
+	send.Yuanbao = pb.Int32(u.yuanbao)
 	u.SendMsg(send)
 }
 
@@ -101,8 +102,9 @@ func (u *GateUser) GetYuanbao() int32 { return u.yuanbao }
 func (u *GateUser) AddYuanbao(yuanbao int32, reason string, syn bool) {
 	u.yuanbao = u.GetYuanbao() + yuanbao
 	if syn {
-		send := &msg.GW2C_PushYuanBaoUpdate{Num: pb.Int32(u.GetYuanbao())}
-		u.SendMsg(send)
+		//send := &msg.GW2C_PushYuanBaoUpdate{Num: pb.Int32(u.GetYuanbao())}
+		//u.SendMsg(send)
+		u.SendPropertyChange()
 	}
 	RCounter().IncrByDate("item_add", int32(msg.ItemId_YuanBao), yuanbao)
 	log.Info("玩家[%d] 添加元宝[%d] 库存[%d] 原因[%s]", u.Id(), yuanbao, u.GetYuanbao(), reason)
@@ -111,8 +113,9 @@ func (u *GateUser) RemoveYuanbao(yuanbao int32, reason string, syn bool) bool {
 	if u.GetYuanbao() >= yuanbao {
 		u.yuanbao = u.GetYuanbao() - yuanbao
 		if syn {
-			send := &msg.GW2C_PushYuanBaoUpdate{Num: pb.Int32(u.GetYuanbao())}
-			u.SendMsg(send)
+			//send := &msg.GW2C_PushYuanBaoUpdate{Num: pb.Int32(u.GetYuanbao())}
+			//u.SendMsg(send)
+			u.SendPropertyChange()
 		}
 		log.Info("玩家[%d] 扣除元宝[%d] 库存[%d] 原因[%s]", u.Id(), yuanbao, u.GetYuanbao(), reason)
 		RCounter().IncrByDate("item_remove", int32(msg.ItemId_YuanBao), yuanbao)

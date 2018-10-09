@@ -93,6 +93,7 @@ func (mh *C2GWMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqGetFreeGold{}, on_C2GW_ReqGetFreeGold)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqAwardExchange{}, on_C2GW_ReqAwardExchange)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqAwardRecord{}, on_C2GW_ReqAwardRecord)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqAwardGetInfo{}, on_C2GW_ReqAwardGetInfo)
 }
 
 // 客户端心跳
@@ -745,4 +746,14 @@ func on_C2GW_ReqAwardRecord(session network.IBaseNetSession, message interface{}
 	startid := tmsg.GetStartid()
 	count := tmsg.GetCount()
 	u.GetRewardRecordByLogid(logid,startid,count)
+}
+
+func on_C2GW_ReqAwardGetInfo(session network.IBaseNetSession, message interface{}) {
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.GetAwardGetInfo()
 }
