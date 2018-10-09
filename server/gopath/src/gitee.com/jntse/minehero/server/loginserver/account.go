@@ -370,6 +370,7 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 
 		// 初始元宝和金卷
 		gold := int32(tbl.Global.NewUser.Gold)
+		yuanbao := int32(tbl.Global.NewUser.Yuanbao)
 		userinfo := &msg.Serialize{
 			Entity: &msg.EntityBase{
 				Roleid: pb.Int64(userid),
@@ -377,7 +378,7 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 				Head: pb.String("null"),
 				Account: pb.String(account),
 				Gold: pb.Int32(gold), 
-				Yuanbao: pb.Int32(0), 
+				Yuanbao: pb.Int32(yuanbao), 
 				Diamond: pb.Int32(0),
 				Level: pb.Int32(1),
 				Sex: pb.Int32(int32(msg.Sex_Female)),

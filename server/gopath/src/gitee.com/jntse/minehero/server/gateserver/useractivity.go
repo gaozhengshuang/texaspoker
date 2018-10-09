@@ -174,6 +174,9 @@ func (u *GateUser) GetFreeGold() {
 
 //根据logid获取兑换记录
 func (u *GateUser) GetRewardRecordByLogid (logid, startid, count int32) {
+	if startid <= 0 {
+		return
+	}
 	send := &msg.GW2C_RetAwardRecord{}
 	tmp := make([]*msg.AwardRecord,0)
 	len1 := len(u.awardrecord)
