@@ -15,9 +15,11 @@ type IBaseExcel interface {
 // --------------------------------------------------------------------------
 var MusicBase = table.InsMusicBaseTable
 var LevelBasee = table.InsLevelBaseeTable
+var TChampionshipPrize = table.InsTChampionshipPrizeTable
 var LoadingTextBase = table.InsLoadingTextBaseTable
 var Activity_signinBase = table.InsActivity_signinBaseTable
 var MailBase = table.InsMailBaseTable
+var TSystemTime = table.InsTSystemTimeTable
 var Activity_listBase = table.InsActivity_listBaseTable
 var GiftProBase = table.InsGiftProBaseTable
 var ProtoMsgIndex = table.InsProtoMsgIndexTable
@@ -30,10 +32,12 @@ var MapEventBase = table.InsMapEventBaseTable
 var TexasFRC = table.InsTexasFRCTable
 var AwardBase = table.InsAwardBaseTable
 var NameBase = table.InsNameBaseTable
+var TChampionship = table.InsTChampionshipTable
 var ChipsBase = table.InsChipsBaseTable
 var MapEventRefreshBase = table.InsMapEventRefreshBaseTable
 var RankBase = table.InsRankBaseTable
 var TaskBase = table.InsTaskBaseTable
+var TChampionshipBlind = table.InsTChampionshipBlindTable
 var BundleBase = table.InsBundleBaseTable
 var CardBase = table.InsCardBaseTable
 var ShopBase = table.InsShopBaseTable

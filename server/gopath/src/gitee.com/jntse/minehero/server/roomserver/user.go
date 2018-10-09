@@ -66,6 +66,7 @@ func NewRoomUserAI(id int64, name string, sex int32) *RoomUser {
 		Name: pb.String(name),
 		Sex:  pb.Int32(sex),
 		Gold: pb.Int32(100000),
+		Head: pb.String(""),
 	}
 	user.bin.Base = &msg.UserBase{}
 	user.bin.Base.Misc = &msg.UserMiscData{}

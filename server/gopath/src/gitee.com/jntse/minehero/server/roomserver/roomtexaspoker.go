@@ -325,19 +325,26 @@ func (this *TexasPokerRoom) StartGame() int32 {
 		record.Roleid = pb.Int64(p.owner.Id())
 		record.Name = pb.String(p.owner.Name())
 		record.Face = pb.String(p.owner.Face())
+		record.Sex = pb.Int32(p.owner.Sex())
+		log.Info("机器人数据%d 名字%s 头像%s 性别%d", p.owner.Id(), p.owner.Name(), p.owner.Face(), p.owner.Sex())
 		record.Seatpos = pb.Int32(p.pos+1)
 		p.RemoveBankRoll(this.ante)
 		if p == this.bigblinder {
 			p.BlindBet(this.bigblindnum, true)
-			record.Specialpos = pb.Int32(2)
+			record.Specialpos = pb.Int32(3)
 		}else if p == this.smallblinder {
 			p.BlindBet(this.smallblindnum, false)
-			record.Specialpos = pb.Int32(1)
+			record.Specialpos = pb.Int32(2)
 		}else {
 			p.ChangeState(GSWaitAction)
-			record.Specialpos = pb.Int32(0)
+			if p == this.dealer {
+				record.Specialpos = pb.Int32(1)
+			}else{
+				record.Specialpos = pb.Int32(0)
+			}
 		}
 		record.Showcard = pb.Bool(false)
+		record.Bankroll = pb.Int32(0)
 		this.currecord = append(this.currecord, record)
 		p.SendTimeAward(true)
 		this.remain++
@@ -440,6 +447,24 @@ func (this *TexasPokerRoom) OneLoopOver() {
 	this.BroadCastRoomMsg(send)
 }
 
+func (this *TexasPokerRoom) SetLeaveRecord(id int64){
+	for _, record := range this.currecord {
+		if record.GetRoleid() != id {
+			continue
+		}
+		player := this.FindPlayerByID(record.GetRoleid())
+		if player == nil {
+			continue
+		}
+		round := &msg.UserOneRound{}
+		round.State = pb.Int32(GSFold)
+		round.Bet = pb.Int32(player.curbet)
+		round.Cards = this.publiccard
+		record.Round = append(record.Round, round)
+		record.Bankroll = pb.Int32(record.GetBankroll() - player.curbet)
+	}
+}
+
 func (this *TexasPokerRoom) SetPreFlopRecord() {
 	for _, record := range this.currecord {
 		player := this.FindPlayerByID(record.GetRoleid())
@@ -461,7 +486,6 @@ func (this *TexasPokerRoom) PreFlopBet() int32{
 	}
 	if this.AllBetOver() {
 		this.CalcGambPool()
-		this.SetPreFlopRecord()
 		log.Info("房间%d Flop阶段", this.Id())
 		return TPFlop
 	}
@@ -470,6 +494,7 @@ func (this *TexasPokerRoom) PreFlopBet() int32{
 }
 
 func (this *TexasPokerRoom) Flop() int32{
+	this.SetPreFlopRecord()
 	card1 := this.Deal()
 	card2 := this.Deal()
 	card3 := this.Deal()
@@ -516,6 +541,9 @@ func (this *TexasPokerRoom) SetOtherRecord() {
 		if player == nil {
 			continue
 		}
+		if player.IsFold() {
+			continue
+		}
 		round := &msg.UserOneRound{}
 		round.State = pb.Int32(player.gamestate)
 		round.Bet = pb.Int32(player.curbet)
@@ -532,7 +560,6 @@ func (this *TexasPokerRoom) FlopBet() int32{
 	}
 	if this.AllBetOver() {
 		this.CalcGambPool()
-		this.SetOtherRecord()
 		log.Info("房间%d Turn阶段", this.Id())
 		return TPTurn
 	}
@@ -541,6 +568,7 @@ func (this *TexasPokerRoom) FlopBet() int32{
 }
 
 func (this *TexasPokerRoom) Turn() int32{
+	this.SetOtherRecord()
 	card := this.Deal()
 	this.publiccard = make([]int32, 0)
 	this.publiccard = append(this.publiccard, card.Suit+1)
@@ -568,7 +596,6 @@ func (this *TexasPokerRoom) TurnBet() int32{
 	}
 	if this.AllBetOver() {
 		this.CalcGambPool()
-		this.SetOtherRecord()
 		log.Info("房间%d River阶段", this.Id())
 		return TPRiver
 	}
@@ -577,6 +604,7 @@ func (this *TexasPokerRoom) TurnBet() int32{
 }
 
 func (this *TexasPokerRoom) River() int32{
+	this.SetOtherRecord()
 	card := this.Deal()
 	this.publiccard = make([]int32, 0)
 	this.publiccard = append(this.publiccard, card.Suit+1)
@@ -604,7 +632,6 @@ func (this *TexasPokerRoom) RiverBet() int32{
 	}
 	if this.AllBetOver() {
 		//this.CalcGambPool()
-		this.SetOtherRecord()
 		log.Info("房间%d ShowDown阶段", this.Id())
 		return TPShowDown
 	}
@@ -641,6 +668,7 @@ func (this *TexasPokerRoom) AllBetOver() bool{
 }
 
 func (this *TexasPokerRoom) ShowDown() int32{
+	this.SetOtherRecord()
 	pots := this.CalcGambPool()
 	for i := range this.chips {
 		this.chips[i] = 0
@@ -708,7 +736,7 @@ func (this *TexasPokerRoom) ShowDown() int32{
 			this.players[i].AddBankRoll(this.chips[i])
 			log.Info("房间%d 玩家%d 获得筹码%d 手牌%v 等级%d 牌力%d", this.Id(), this.players[i].owner.Id(), this.chips[i], this.players[i].hand.ToAllCard(), this.players[i].hand.level, this.players[i].hand.finalvalue)
 			for _, record := range this.currecord {
-				if record.GetSeatpos() == int32(i) {
+				if record.GetRoleid() == this.players[i].owner.Id() {
 					record.Bankroll = pb.Int32(record.GetBankroll() + this.chips[i])
 				}
 			}
@@ -1082,6 +1110,9 @@ func (this *TexasPokerRoom) ReqReviewInfo(uid int64) {
 		send := &msg.RS2C_RetReviewInfo{}
 		send.Array = this.lastrecord
 		player.owner.SendClientMsg(send)
+		for _, record := range this.lastrecord {
+			log.Info("记录数据 %v", record)
+		}
 	}
 }
 

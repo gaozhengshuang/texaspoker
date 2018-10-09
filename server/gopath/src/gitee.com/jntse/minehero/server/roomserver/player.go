@@ -675,6 +675,7 @@ func (this *TexasPlayer) StandUp() bool {
 				this.Betting(-1)
 			}
 			log.Info("房间%d 玩家%d 站起 参加人数-1", this.room.Id(), this.owner.Id())
+			this.room.SetLeaveRecord(this.owner.Id())
 		}
 		log.Info("房间%d 玩家%d 站起", this.room.Id(), this.owner.Id())
 		this.room.DelPlayer(this.pos)
