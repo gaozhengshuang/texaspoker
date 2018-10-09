@@ -17,6 +17,7 @@ var MusicBase = table.InsMusicBaseTable
 var LevelBasee = table.InsLevelBaseeTable
 var TChampionshipPrize = table.InsTChampionshipPrizeTable
 var LoadingTextBase = table.InsLoadingTextBaseTable
+var GoldenBeanAward = table.InsGoldenBeanAwardTable
 var Activity_signinBase = table.InsActivity_signinBaseTable
 var MailBase = table.InsMailBaseTable
 var TSystemTime = table.InsTSystemTimeTable
