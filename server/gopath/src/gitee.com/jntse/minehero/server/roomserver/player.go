@@ -39,7 +39,6 @@ type TexasPlayer struct{
 	isai bool
 	aiacttime int32
 	readytime int32
-	allinshow bool
 	rewardtime int32
 	rewardround int32
 }
@@ -73,7 +72,6 @@ func (this *TexasPlayer)Init(){
 	this.isready = false
 	this.gamestate = GSWaitNext
 	this.aiacttime = 0
-	this.allinshow = false
 }
 
 func (this *TexasPlayer) InitTimeReward() {

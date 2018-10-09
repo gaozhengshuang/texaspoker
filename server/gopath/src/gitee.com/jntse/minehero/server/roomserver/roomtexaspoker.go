@@ -220,7 +220,6 @@ func (this *TexasPokerRoom) AllInBrightCard() {
 				send.Card = p.ToHandCard()
 				send.Allin = pb.Bool(true)
 				this.BroadCastRoomMsg(send)
-				p.allinshow = true
 				log.Info("房间%d 玩家%d allin亮牌", this.Id(), p.owner.Id())
 			}
 		}
@@ -732,6 +731,7 @@ func (this *TexasPokerRoom) ShowDown() int32{
 			for _,record := range this.currecord {
 				if record.GetRoleid() == player.owner.Id() {
 					record.Showcard = pb.Bool(true)
+					record.Cardtype = pb.Int32(player.hand.level)
 				}   
 			}
 		}

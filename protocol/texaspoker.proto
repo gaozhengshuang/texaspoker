@@ -265,7 +265,8 @@ message UserReviewInfo
     optional bool   showcard = 6;       //是否亮牌
     repeated UserOneRound round = 7;    //每轮操作
     optional int32  bankroll = 8;       //赢+ 输-
-    optional int32  cardtype = 9;       //牌型 
+    optional int32  cardtype = 9;       //牌型
+    optional int32  sex = 10;           //1男 2女 
 }
 
 message RS2C_RetReviewInfo
