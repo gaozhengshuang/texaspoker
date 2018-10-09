@@ -289,9 +289,8 @@ func (m *Friends) RequestAddFriends(uid int64) {
 
 	send := &msg.GW2C_RetFriendsAdd{}
 	m.owner.SendMsg(send)
-	//u := m.owner
 
-	// push
+	// 通知对方
 	target := UserMgr().FindById(uid)
 	if target != nil {
 		pushmsg := &msg.GW2C_PushAddYouFriends{Friend:m.owner.FillFriendBrief()}
@@ -299,6 +298,8 @@ func (m *Friends) RequestAddFriends(uid int64) {
 		Redis().SAdd(fmt.Sprintf("friendsrequest_%d", uid), m.owner.Id())
 		return
 	}
+
+	// 跨服务器
 
 }
 
@@ -321,8 +322,6 @@ func (m *Friends) GetRequestUserBrief() []*msg.FriendBrief {
 		sscmd := cmd.(*redis.StringStringMapCmd)
 		charbase := m.FillCharBase(sscmd.Val())
 		userbriefs = append(userbriefs, charbase)
-		//friend := &Friend{id:charbase.GetRoleid(), u:m.owner, charbase:charbase, dirty:true}
-		//m.AddFriend(friend)
 	}
 	return userbriefs
 }
@@ -354,29 +353,6 @@ func (m *Friends) FillFriendBrief(briefs map[string]string) *Friend {
 	return friend
 }
 
-// 搜索玩家
-func (u *GateUser) SearchUser(val string) {
-	id, send := util.Atol(val), &msg.GW2C_RetFriendsSearch{}
-
-	// id 查找
-	user := UserMgr().FindById(id)
-	if user != nil {
-		send.Brief = user.FillFriendBrief()
-		u.SendMsg(send)
-		return
-	}
-	
-	// 名字查找
-	user = UserMgr().FindByName(val)
-	if user != nil {
-		send.Brief = user.FillFriendBrief()
-		u.SendMsg(send)
-		return
-	}
-
-	u.SendMsg(send)
-}
-
 func (u *GateUser) FillFriendBrief() *msg.FriendBrief {
 	charbase := &msg.FriendBrief{}
 	charbase.Roleid = pb.Int64(u.Id())
@@ -389,4 +365,28 @@ func (u *GateUser) FillFriendBrief() *msg.FriendBrief {
 	charbase.Offlinetime = pb.Int32(0)
 	return charbase
 }
+
+// 搜索玩家
+func (u *GateUser) SearchUser(val string) {
+	id, send := util.Atol(val), &msg.GW2C_RetFriendsSearch{ Brief:make([]*msg.FriendBrief,0) }
+
+	// id 查找
+	user := UserMgr().FindById(id)
+	if user != nil {
+		send.Brief = append(send.Brief,user.FillFriendBrief())
+		u.SendMsg(send)
+		return
+	}
+	
+	// 名字查找
+	user = UserMgr().FindByName(val)
+	if user != nil {
+		send.Brief = append(send.Brief,user.FillFriendBrief())
+		u.SendMsg(send)
+		return
+	}
+
+	u.SendMsg(send)
+}
+
 
