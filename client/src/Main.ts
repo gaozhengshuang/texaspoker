@@ -21,7 +21,7 @@ class Main extends eui.UILayer
             egret.TextField.default_fontFamily = 'Microsoft YaHei';
         }
         RES.setMaxLoadingThread(game.System.isMicro ? 8 : 4);
-        game.I18n.initSystem(PrefsManager.getValue(PrefsManager.Language), OperatePlatform.getLangs());
+        I18n.initSystem(PrefsManager.getValue(PrefsManager.Language), OperatePlatform.getLangs());
         //注入自定义的素材解析器
         egret.registerImplementation("eui.IAssetAdapter", new AssetAdapter());
         egret.registerImplementation("eui.IThemeAdapter", new ThemeAdapter());
@@ -45,7 +45,7 @@ class Main extends eui.UILayer
      */
     private async onConfigComplete()
     {
-        if (game.I18n.isDefault)
+        if (I18n.isDefault)
         {
             this.loadAssetText();
         }
@@ -53,11 +53,11 @@ class Main extends eui.UILayer
         {
             if (DEBUG)
             {
-                await RES.getResByUrl(PathName.LangDirectory + game.I18n.lang + AssetsSuffixName.JSON, this.onLangComplete, this);
+                await RES.getResByUrl(PathName.LangDirectory + I18n.lang + AssetsSuffixName.JSON, this.onLangComplete, this);
             }
             else
             {
-                await RES.getResAsync(ResPrefixPathName.Lang + game.I18n.lang + ResSuffixName.ZIP);
+                await RES.getResAsync(ResPrefixPathName.Lang + I18n.lang + ResSuffixName.ZIP);
             }
         }
     }
@@ -65,13 +65,13 @@ class Main extends eui.UILayer
     {
         if (data)
         {
-            game.I18n.initMap(data);
+            I18n.initMap(data);
         }
         this.loadAssetText();
     }
     private async loadAssetText()
     {
-        let name = game.I18n.isDefault ? ResGroupName.Text : ResGroupName.Text + game.StringConstants.UnderLine + game.I18n.lang;
+        let name = I18n.isDefault ? ResGroupName.Text : ResGroupName.Text + game.StringConstants.UnderLine + I18n.lang;
         await RES.loadGroup(name);
         await this.loadTheme();
         await RES.loadGroup(ResGroupName.Login);
@@ -104,7 +104,7 @@ class Main extends eui.UILayer
 
     private createScene()
     {
-        this.setLoadingText(game.I18n.getText('正在进入游戏...'));
+        this.setLoadingText(I18n.getText('正在进入游戏...'));
         GameManager.initialize(this.stage, this);
         UIManager.initialize(this.stage);
         game.Tick.initialize(this.stage);

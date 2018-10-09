@@ -147,8 +147,8 @@ class GamblingReviewItemRenderer extends BaseItemRenderer<PlayerReviewInfo>
                 //设置3张公共牌显示隐藏
                 if (len >= 1)
                 {
-                    let pubCardsActionInfo: PlayerActionRecordInfo = GamblingManager.gamblingReviewHandler.dealActionRecord[0];
-                    let actionInfo: PlayerActionRecordInfo = this.getLTAndNearestStepAction(pubCardsActionInfo.step);
+                    let pubCardsActionInfo:  msg.IReviewInfoArr = GamblingManager.gamblingReviewHandler.dealActionRecord[0];
+                    let actionInfo:  msg.IReviewInfoArr = this.getLTAndNearestStepAction(pubCardsActionInfo.step);
                     this.setLastActionDesBeforeDeal(0, actionInfo);
                     if (flodStep > pubCardsActionInfo.step)
                     {
@@ -174,8 +174,8 @@ class GamblingReviewItemRenderer extends BaseItemRenderer<PlayerReviewInfo>
                 }
                 if (len >= 2)
                 {
-                    let pubCardsActionInfo: PlayerActionRecordInfo = GamblingManager.gamblingReviewHandler.dealActionRecord[1];
-                    let actionInfo: PlayerActionRecordInfo = this.getLTAndNearestStepAction(pubCardsActionInfo.step);
+                    let pubCardsActionInfo:  msg.IReviewInfoArr = GamblingManager.gamblingReviewHandler.dealActionRecord[1];
+                    let actionInfo:  msg.IReviewInfoArr = this.getLTAndNearestStepAction(pubCardsActionInfo.step);
                     this.setLastActionDesBeforeDeal(1, actionInfo);
                     if (flodStep > pubCardsActionInfo.step)
                     {
@@ -217,7 +217,7 @@ class GamblingReviewItemRenderer extends BaseItemRenderer<PlayerReviewInfo>
             {
                 if (flodStep)
                 {
-                    let pubCardsActionInfo: PlayerActionRecordInfo = GamblingManager.gamblingReviewHandler.dealActionRecord[2];
+                    let pubCardsActionInfo:  msg.IReviewInfoArr = GamblingManager.gamblingReviewHandler.dealActionRecord[2];
                     if (flodStep > pubCardsActionInfo.step)
                     {
                         this.pubGroup2.visible = true;
@@ -256,8 +256,8 @@ class GamblingReviewItemRenderer extends BaseItemRenderer<PlayerReviewInfo>
     private setActionDes(len: number, index: number)
     {
         let i: number = index - 1;
-        let actionInfo: PlayerActionRecordInfo;
-        let pubCardsActionInfo: PlayerActionRecordInfo = GamblingManager.gamblingReviewHandler.dealActionRecord[i];
+        let actionInfo:  msg.IReviewInfoArr;
+        let pubCardsActionInfo:  msg.IReviewInfoArr = GamblingManager.gamblingReviewHandler.dealActionRecord[i];
         if (!this._isSetAllIn)
         {
             actionInfo = this.getLTAndNearestStepAction(pubCardsActionInfo.step);
@@ -271,7 +271,7 @@ class GamblingReviewItemRenderer extends BaseItemRenderer<PlayerReviewInfo>
     /**
      * 设置该次发牌前最后一次操作描述
     */
-    private setLastActionDesBeforeDeal(index: number, actionInfo: PlayerActionRecordInfo)
+    private setLastActionDesBeforeDeal(index: number, actionInfo:  msg.IReviewInfoArr)
     {
         if (actionInfo && actionInfo.action)
         {
@@ -282,9 +282,9 @@ class GamblingReviewItemRenderer extends BaseItemRenderer<PlayerReviewInfo>
     /**
      * 设置该次发牌后最后一次操作描述
     */
-    private setLastActionDesAfterDeal(index: number, actionInfo?: PlayerActionRecordInfo)
+    private setLastActionDesAfterDeal(index: number, actionInfo?:  msg.IReviewInfoArr)
     {
-        let lastActionInfo: PlayerActionRecordInfo = this.getLTAndNearestStepAction(GamblingManager.gamblingReviewHandler.overActionStep);
+        let lastActionInfo:  msg.IReviewInfoArr = this.getLTAndNearestStepAction(GamblingManager.gamblingReviewHandler.overActionStep);
         let flag: boolean = false;
         if (index == 0)
         {
@@ -316,7 +316,7 @@ class GamblingReviewItemRenderer extends BaseItemRenderer<PlayerReviewInfo>
     /**
      * 设置最后一次操作描述
     */
-    private setActionDesInfo(index: number, lastActionInfo: PlayerActionRecordInfo)
+    private setActionDesInfo(index: number, lastActionInfo:  msg.IReviewInfoArr)
     {
         this["operation" + index].text = this.getActionNameByState(lastActionInfo.action);
         let blindNum: number = GamblingManager.gamblingReviewHandler.getBlind(this.bindData.roleId);
@@ -339,10 +339,10 @@ class GamblingReviewItemRenderer extends BaseItemRenderer<PlayerReviewInfo>
     /**
      * 获得小于但最接近传入步骤的步骤
     */
-    private getLTAndNearestStepAction(step: number): PlayerActionRecordInfo
+    private getLTAndNearestStepAction(step: number): msg.IReviewInfoArr
     {
         let nearestStep = 0;
-        let nearestStepAction: PlayerActionRecordInfo;
+        let nearestStepAction: msg.IReviewInfoArr;
         let isFold: boolean = this.isFold();
         for (let actionInfo of this.bindData.selfActionRecord)
         {

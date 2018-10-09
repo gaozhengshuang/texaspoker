@@ -3,6 +3,6 @@
 	<e:Image id="btnImg" y="0" x="0" anchorOffsetX="0" anchorOffsetY="0" source="mall_button_2_png"
 	         source.disabled="mall_button_2_1_png" />
 	<e:Label id="labelDisplay" size="30" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei"
-	         anchorOffsetX="0" anchorOffsetY="0" textColor="0xFFFFFF" text="按钮" width="171" height="62.42" name="label"
+	         anchorOffsetX="0" anchorOffsetY="0" textColor="0xFFFFFF" text="button" width="171" height="62.42" name="label"
 	         verticalCenter="-2.5" horizontalCenter="0" />
 </e:Skin>

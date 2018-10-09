@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="mailTakePrizeButtonSkin" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Image id="btnImg" width="172" source="pub_button_3_png" scale9Grid="22,0,6,76"/>
-	<e:Label id="labelDisplay" size="25" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei" anchorOffsetX="0" anchorOffsetY="0" textColor="0xFFFFFF" x="4" y="4" text="按钮" width="158" height="60" name="label"/>
+	<e:Label id="labelDisplay" size="25" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei" anchorOffsetX="0" anchorOffsetY="0" textColor="0xFFFFFF" x="4" y="4" text="button" width="158" height="60" name="label"/>
 </e:Skin>

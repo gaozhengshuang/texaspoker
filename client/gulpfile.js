@@ -25,7 +25,11 @@ const LibsrcRootPath = '../libsrc';
 const LibsrcNameList = ['jszip','BigInteger','base64','sproto','aes','hmacsha1','pakdh-client', 'particle', 'md5'];
 //排除的配置表文件列表
 const ExcludeConfigFileList = ['autoName.json','autoAction.json'];
-
+var requireDir = require('require-dir');
+requireDir('./gulp-tasks');
+Gulp.task('default', ['replace-lang'], function ()
+{
+});
 //--------------------------------------------------------------
 // bundle
 //--------------------------------------------------------------

@@ -395,7 +395,7 @@ class Command
     /**
      * 请求牌局上局回顾数据
     */
-    public static readonly ReviewInfo_Req_3707 = "c3707";
+    public static readonly C2RS_ReqReviewInfo = "msg.C2RS_ReqReviewInfo";
     //--------------------------------------------------------------
     // 行牌流程 end
     //--------------------------------------------------------------

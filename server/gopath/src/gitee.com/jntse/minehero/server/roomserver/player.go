@@ -39,7 +39,6 @@ type TexasPlayer struct{
 	isai bool
 	aiacttime int32
 	readytime int32
-	allinshow bool
 	rewardtime int32
 	rewardround int32
 }
@@ -73,7 +72,6 @@ func (this *TexasPlayer)Init(){
 	this.isready = false
 	this.gamestate = GSWaitNext
 	this.aiacttime = 0
-	this.allinshow = false
 }
 
 func (this *TexasPlayer) InitTimeReward() {
@@ -92,6 +90,7 @@ func (this *TexasPlayer) InitTimeReward() {
 	}
 	this.rewardtime = int32(tmpsec)
 	this.rewardround = int32(tmpround)+1
+	log.Info("房间%d 玩家%d 计时奖励轮数%d 时间%d", this.room.Id(), this.owner.Id(), this.rewardround, this.rewardtime)
 }
 
 func (this *TexasPlayer) SetTimeReward() {
@@ -203,7 +202,7 @@ func (this *TexasPlayer) Betting(num int32) {
 			this.owner.SendClientMsg(send)
 			return
 		}
-		this.hole = nil
+		//this.hole = nil
 		this.hand.Init()
 		num = 0
 		this.betover = true
@@ -369,12 +368,7 @@ func (this *TexasPlayer) AddBankRoll(num int32){
 func (this *TexasPlayer) ReqTimeAwardInfo(rev *msg.C2RS_ReqTimeAwardInfo) {
 	send := &msg.RS2C_RetTimeAwardInfo{}
 	send.Round = pb.Int32(this.rewardround-1)
-	endtime := RoomMgr().GetRewardTime(this.rewardround)
-	if endtime > this.rewardtime {
-		send.Sectime = pb.Int32(endtime - this.rewardtime)
-	}else{
-		send.Sectime = pb.Int32(0)
-	}
+	send.Sectime = pb.Int32(this.rewardtime)
 	this.owner.SendClientMsg(send)
 }
 
@@ -398,12 +392,9 @@ func (this *TexasPlayer) ReqTimeAwardGet() {
 
 func (this *TexasPlayer) SendTimeAward(start bool) {
 	send := &msg.RS2C_PushTimeAwardRefresh{}
-	endtime := RoomMgr().GetRewardTime(this.rewardround-1)
-	if endtime > this.rewardtime {
-		send.Sectime = pb.Int32(endtime - this.rewardtime)
-	}else{
-		send.Sectime = pb.Int32(0)
-	}
+	//endtime := RoomMgr().GetRewardTime(this.rewardround-1)
+	//if endtime > this.rewardtime {
+	send.Sectime = pb.Int32(this.rewardtime)
 	if start {
 		send.Starttime = pb.Int32(int32(util.CURTIME()))
 	}
@@ -428,11 +419,11 @@ func (this *TexasPlayer) AIAction(action int32) {
 	//log.Info("AI%d手牌分析 等级%d", this.owner.Id(), this.hand.level)
 	if action == AINone {
 		if this.room.PublicLevel() == this.hand.level {
-			if this.room.PublicValue() == this.hand.finalvalue {
-				action = AIUserMgr().GetActionByLevel(1, this.hand.highvalue+2)
-			}else{
-				action = AIUserMgr().GetActionByLevel(this.hand.level, this.hand.highvalue+2)
-			}
+			//if this.room.PublicValue() == this.hand.finalvalue {
+			action = AIUserMgr().GetActionByLevel(1, this.hand.highvalue+2)
+			//}else{
+			//	action = AIUserMgr().GetActionByLevel(this.hand.level, this.hand.highvalue+2)
+			//}
 		} else {
 			action = AIUserMgr().GetActionByLevel(this.hand.level, this.hand.highvalue+2)
 		}
