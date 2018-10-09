@@ -216,6 +216,14 @@ func (u *GateUser) ReqAwardExchange (id, count int32) {
 		tmp.Awardid = pb.Int32(id)
 		u.awardrecord = append(u.awardrecord, tmp)
 	}
+	if config.Limit > 0 {
+		//限购的
+		for _, v := range u.awardgetinfo {
+			if v.GetId() == id && v.GetCount() >= config.Limit {
+				return
+			}
+		}
+	}
 
 	send1 := &msg.GW2C_RetExchangeTimeRefresh{}
 	send1.Id = pb.Int32(id)
