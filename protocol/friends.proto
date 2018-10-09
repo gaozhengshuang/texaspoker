@@ -158,7 +158,8 @@ message GW2C_PushFriendsLogin {
 
 // 添加好友请求通知推送
 message GW2C_PushAddYouFriends {
-    optional msg.FriendBrief friend = 1;
+    optional int64 handler = 1;     // 服务器使用
+    optional msg.FriendBrief friend = 2;
 }
 
 
