@@ -17,6 +17,7 @@ import (
 /// @brief 好友
 // --------------------------------------------------------------------------
 type Friend struct {
+	u *GateUser
 	id int64
 	stat_present int32	// 是否已经赠送 0未赠送，1已经赠送 
 	time_present int64	// 赠送时间戳
@@ -39,8 +40,11 @@ func (m *Friend) PresentStat() int32 {
 }
 
 func (m *Friend) GetStat() int32 {
-	return m.stat_get
+	//return m.stat_get
+	stat, _ := Redis().HGet(fmt.Sprintf("userfriendbrief_%d_%d", m.u.Id(), m.Id()), "stat_get").Int()
+	return int32(stat)
 }
+
 
 func (m *Friend) Bin() *msg.FriendData {
 	return &msg.FriendData{Base:m.base, Givegold:pb.Int32(m.PresentStat()), Getgold:pb.Int32(m.GetStat())}
@@ -50,23 +54,20 @@ func (m *Friend) Dirty() bool {
 	return m.dirty
 }
 
-func (m *Friend) Present(u *GateUser) {
+func (m *Friend) Present() {
 	now := util.CURTIME()
 	if util.IsSameDay(now, m.time_present) {
-		u.SendNotify("今天已经赠送过了")
+		m.u.SendNotify("今天已经赠送过了")
 		return
 	}
-
-	Redis().HSet(fmt.Sprintf("userfriendbrief_%d_%d", m.Id(), u.Id()), "stat_get", 1)
-	m.stat_present = 1
-	m.time_present = now
-	m.dirty = true
+	m.stat_present, m.time_present, m.dirty = 1, now, true
+	Redis().HSet(fmt.Sprintf("userfriendbrief_%d_%d", m.Id(), m.u.Id()), "stat_get", 1)	// 修改对方领取标记
 }
 
-func (m *Friend) GetPresent(u *GateUser) {
-	m.stat_get = 2
-	u.AddGold(100, "好友赠送", true)
-	m.dirty = true
+func (m *Friend) ReceivePresent() {
+	//m.stat_get, m.dirty = 2, true
+	Redis().HSet(fmt.Sprintf("userfriendbrief_%d_%d", m.u.Id(), m.Id()), "stat_get", 2)
+	m.u.AddGold(100, "好友赠送", true)
 }
 
 
@@ -84,7 +85,6 @@ func (m *Friend) SaveBin(userid, friend int64, pipe redis.Pipeliner) {
 }
 
 func (m *Friend) LoadBin(userid, friend int64, pipe redis.Pipeliner) {
-	//pipe.HMGet(fmt.Sprintf("userfriendbrief_%d_%d", userid, friend), "id", "stat_present", "stat_get")
 	pipe.HGetAll(fmt.Sprintf("userfriendbrief_%d_%d", userid, friend))
 	pipe.Get(fmt.Sprintf("frienduser_%d", friend))
 }
@@ -130,10 +130,10 @@ func (m *Friends) DBLoad() {
 		return
 	}
 
-	friendinfo := &Friend{base:nil, dirty:false}
+	friendinfo := &Friend{u:m.owner, base:nil, dirty:false}
 	for _, cmd := range cmds {
 		if sscmd, ok := cmd.(*redis.StringStringMapCmd); ok == true && len(sscmd.Val()) != 0 {
-			friendinfo = &Friend{base:nil, dirty:false}
+			friendinfo = &Friend{u:m.owner, base:nil, dirty:false}
 			for k, v := range sscmd.Val() {
 				if k == "id" { friendinfo.id = util.NewVarType(v).Int64() }
 				if k == "time_present" { friendinfo.time_present = util.NewVarType(v).Int64() }
@@ -199,7 +199,7 @@ func (m *Friends) PresentToFriends(uid int64) {
 		log.Info("[好友] 玩家[%s %d] 赠送好友[%d]，好友不存在", m.owner.Name(), m.owner.Id(), uid)
 		return
 	}
-	friend.Present(m.owner)
+	friend.Present()
 
 	send := &msg.GW2C_RetPresentToFriends{}
 	m.owner.SendMsg(send)
@@ -216,7 +216,7 @@ func (m *Friends) SendFriendDetail(uid int64) {
 	//m.owner.SendMsg(send)
 }
 
-// 查看好友详细信息
+// 领取好友赠送礼物
 func (m *Friends) GetFriendsPresent(uid int64) {
 	send := &msg.GW2C_RetGetFriendsPresent{Roleid:make([]int64,0)}
 	if uid != 0 {	// 领取个人
@@ -225,19 +225,19 @@ func (m *Friends) GetFriendsPresent(uid int64) {
 			log.Info("[好友] 玩家[%s %d] 查看好友详细信息[%d]，好友不存在", m.owner.Name(), m.owner.Id(), uid)
 			return
 		}
-		if friend.stat_get != 1 {
+		if friend.GetStat() != 1 {
 			m.owner.SendNotify("不可领取")
 			return
 		}
 		send.Roleid = append(send.Roleid, uid)
-		friend.GetPresent(m.owner)
+		friend.ReceivePresent()
 	} else {		// 领取全部
 		for _, f := range m.friends {
-			if f.stat_get != 1 {
+			if f.GetStat() != 1 {
 				continue
 			}
 			send.Roleid = append(send.Roleid, uid)
-			f.GetPresent(m.owner)
+			f.ReceivePresent()
 		}
 	}
 	m.owner.SendMsg(send)
