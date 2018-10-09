@@ -225,7 +225,7 @@ func (u *GateUser) ReqAwardExchange (id, count int32) {
 		}
 	}
 
-	send1 := &msg.GW2C_RetExchangeTimeRefresh{}
+	send1 := &msg.GW2C_PushExchangeTimeRefresh{}
 	send1.Id = pb.Int32(id)
 	if config.Limit > 0 {
 		got := false

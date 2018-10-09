@@ -17,7 +17,7 @@ export var ProtoId : table.IProtoIdDefine[] = [
 		{ Id : 12, Name : "msg.GW2C_RetGetFreeGold" 	},
 		{ Id : 13, Name : "msg.C2GW_ReqAwardExchange" 	},
 		{ Id : 14, Name : "msg.GW2C_RetAwardExchange" 	},
-		{ Id : 15, Name : "msg.GW2C_RetExchangeTimeRefresh" 	},
+		{ Id : 15, Name : "msg.GW2C_PushExchangeTimeRefresh" 	},
 		{ Id : 16, Name : "msg.C2GW_ReqAwardGetInfo" 	},
 		{ Id : 17, Name : "msg.GW2C_RetAwardGetInfo" 	},
 		{ Id : 18, Name : "msg.C2GW_ReqAwardRecord" 	},
