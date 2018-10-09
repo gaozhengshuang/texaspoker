@@ -23,7 +23,7 @@ class MttLogic
 		component.addonButton.visible = false;
 		component.rebuyButton.visible = false;
 
-		let leftTime: number = GamblingManager.matchRoomInfo.startTime + GamblingManager.matchRoomInfo.definition.delaySign - TimeManager.GetServerUtcTimestamp();
+		let leftTime: number = GamblingManager.matchRoomInfo.startTime + GamblingManager.matchRoomInfo.definition.DelaySign - TimeManager.GetServerUtcTimestamp();
 		if (leftTime > 0)
 		{
 			game.Tick.AddTimeoutInvoke(this.delaySignOver, leftTime * 1000, this)
@@ -62,7 +62,7 @@ class MttLogic
 	{
 		if (GamblingManager.matchRoomInfo && GamblingManager.matchRoomInfo.definition)
 		{
-			let leftTime: number = GamblingManager.matchRoomInfo.startTime + GamblingManager.matchRoomInfo.definition.delaySign - TimeManager.GetServerUtcTimestamp();
+			let leftTime: number = GamblingManager.matchRoomInfo.startTime + GamblingManager.matchRoomInfo.definition.DelaySign - TimeManager.GetServerUtcTimestamp();
 			if (leftTime <= 0)
 			{
 				if (GamblingManager.matchRoomInfo.leftJoin <= GamblingManager.matchRoomInfo.maxAwardRank)

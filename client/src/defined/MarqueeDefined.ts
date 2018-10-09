@@ -44,7 +44,7 @@ class MarqueeDefined extends BaseDefined<MarqueeDefinition>
 */
 class MarqueeDefinition implements IBaseDefintion
 {
-    public id: number;
+    public Id: number;
     public type: number;
     /**
      * 显示位置

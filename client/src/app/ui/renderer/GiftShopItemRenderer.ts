@@ -93,7 +93,7 @@ class GiftShopItemRenderer extends BaseItemRenderer<GiftShopDefinition>
             }
             else//赠送
             {
-                ShopManager.reqSendGift(UserManager.otherUserInfo.roleId, this.bindData.id);
+                ShopManager.reqSendGift(UserManager.otherUserInfo.roleId, this.bindData.Id);
             }
         }
     }

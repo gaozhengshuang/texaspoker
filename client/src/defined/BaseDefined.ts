@@ -1,7 +1,7 @@
 //基础定义
 interface IBaseDefintion 
 {
-	id: number;
+	Id: number;
 }
 class BaseDefined<T extends IBaseDefintion>
 {
@@ -16,7 +16,7 @@ class BaseDefined<T extends IBaseDefintion>
 		{
 			for (let i: number = 0; i < this.dataList.length; i++)
 			{
-				if (this.dataList[i].id == id)
+				if (this.dataList[i].Id == id)
 				{
 					return this.dataList[i];
 				}

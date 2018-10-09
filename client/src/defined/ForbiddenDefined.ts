@@ -62,6 +62,6 @@ class ForbiddenDefined extends BaseDefined<ForbiddenDefinition>
 */
 class ForbiddenDefinition implements IBaseDefintion
 {
-    public id: number;
+    public Id: number;
     public des: string;
 }

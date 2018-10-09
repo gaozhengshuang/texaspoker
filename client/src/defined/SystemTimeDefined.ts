@@ -64,7 +64,7 @@ class SystemTimeDefinition implements IBaseDefintion
     /**
      * id
      */
-    public id: number;
+    public Id: number;
     /**
      * 类型
      */

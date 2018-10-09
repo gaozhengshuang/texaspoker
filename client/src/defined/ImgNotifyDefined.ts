@@ -26,7 +26,7 @@ class ImgNotifyDefined extends BaseDefined<ImgNotifyDefinition>
 /**
  * 公告定义
  */
-class ImgNotifyDefinition
+class ImgNotifyDefinition implements IBaseDefintion
 {
     /**
      * 索引编号
@@ -35,7 +35,7 @@ class ImgNotifyDefinition
     /**
      * id
      */
-    public id: number;
+    public Id: number;
     /**
      * 类型（1绝对时间，2相对于创号时间）
      */

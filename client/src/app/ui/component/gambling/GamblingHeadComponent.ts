@@ -356,7 +356,7 @@ class GamblingHeadComponent extends BaseComponent<PlayerInfo>{
 					{
 						if (GamblingManager.roomInfo.playerList.length == 2)
 						{
-							if (InfoUtil.checkAvailable(GamblingManager.matchRoomInfo) && GamblingManager.matchRoomInfo.definition.type == MatchType.SNG)
+							if (InfoUtil.checkAvailable(GamblingManager.matchRoomInfo) && GamblingManager.matchRoomInfo.definition.Type == MatchType.SNG)
 							{
 								this.sngReqNextRound();
 							}
@@ -377,7 +377,7 @@ class GamblingHeadComponent extends BaseComponent<PlayerInfo>{
 							}
 							if (isAllWaitNext)
 							{
-								if (InfoUtil.checkAvailable(GamblingManager.matchRoomInfo) && GamblingManager.matchRoomInfo.definition.type == MatchType.SNG)
+								if (InfoUtil.checkAvailable(GamblingManager.matchRoomInfo) && GamblingManager.matchRoomInfo.definition.Type == MatchType.SNG)
 								{
 									this.sngReqNextRound();
 								}
@@ -476,9 +476,9 @@ class GamblingHeadComponent extends BaseComponent<PlayerInfo>{
 		if (InfoUtil.checkAvailable(GamblingManager.matchRoomInfo))
 		{
 			let time: number = TimeManager.GetServerUtcTimestamp() - GamblingManager.matchRoomInfo.startTime;
-			if (GamblingManager.matchRoomInfo.definition.type == MatchType.SNG && time <= GamblingManager.matchRoomInfo.definition.waitingTime)
+			if (GamblingManager.matchRoomInfo.definition.Type == MatchType.SNG && time <= GamblingManager.matchRoomInfo.definition.WaitingTime)
 			{ //坐满即玩比赛，比赛刚开始
-				GamblingManager.sngNextRoundStart(GamblingManager.matchRoomInfo.definition.waitingTime - time);
+				GamblingManager.sngNextRoundStart(GamblingManager.matchRoomInfo.definition.WaitingTime - time);
 			}
 			else
 			{

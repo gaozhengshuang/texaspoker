@@ -29,7 +29,7 @@ class GuideStepDefined extends BaseDefined<GuideStepDefinition>
 * */
 class GuideStepDefinition implements IBaseDefintion
 {
-	public id: number;
+	public Id: number;
 	/**
 	 * 单步类型
 	 */

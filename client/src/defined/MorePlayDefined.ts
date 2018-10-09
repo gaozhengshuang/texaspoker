@@ -56,7 +56,7 @@ class MorePlayDefined extends BaseDefined<MorePlayDefinition>
             }
             else
             {
-                game.Console.log("时间格式不对！活动ID：" + def.id);
+                game.Console.log("时间格式不对！活动ID：" + def.Id);
             }
         }
         return null;
@@ -126,7 +126,7 @@ class MorePlayDefined extends BaseDefined<MorePlayDefinition>
 * */
 class MorePlayDefinition implements IBaseDefintion
 {
-    public id: number;
+    public Id: number;
     public name: string;
     public isInHall: boolean;
     public icon: string;

@@ -243,7 +243,7 @@ class GuessHandler
             for (let def of HoleCardsDefined.GetInstance().dataList)
             {
                 let guessOddsInfo: GuessOddsInfo = new GuessOddsInfo();
-                guessOddsInfo.id = def.id;
+                guessOddsInfo.id = def.Id;
                 this.guessOddsList.push(guessOddsInfo);
             }
         }

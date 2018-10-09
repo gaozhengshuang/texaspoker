@@ -130,7 +130,7 @@ class VipManager
         for (let i: number = 0; i < ShopDefined.GetInstance().dataList.length; i++)
         {
             info = new ShopInfo();
-            info.id = ShopDefined.GetInstance().dataList[i].id;
+            info.id = ShopDefined.GetInstance().dataList[i].Id;
             if (info.definition && info.definition.type == ShopType.MonthCard)
             {
                 monthCardsList.push(info);

@@ -338,7 +338,7 @@ class UserManager
 						let matchRoomInfo: MatchRoomInfo = ChampionshipManager.getMatchRoomInfoByRoomId(GamblingManager.roomInfo.id);
 						if (InfoUtil.checkAvailable(matchRoomInfo))
 						{
-							UserManager.userInfo.stateConfId = matchRoomInfo.definition.id;
+							UserManager.userInfo.stateConfId = matchRoomInfo.definition.Id;
 						}
 						return UserState.InMatch;
 					}

@@ -109,10 +109,10 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
         if (InfoUtil.checkAvailable(this.bindData))
         {
             this.init();
-            this.itemComp.init(this.bindData.definition.icon + ResSuffixName.PNG, 100);
-            this.nameLabel.text = this.bindData.definition.name;
+            this.itemComp.init(this.bindData.definition.Icon + ResSuffixName.PNG, 100);
+            this.nameLabel.text = this.bindData.definition.Name;
 
-            if (this.bindData.definition.type == MatchType.MTT) 
+            if (this.bindData.definition.Type == MatchType.MTT) 
             {
                 this.mttShow();
             } else
@@ -148,13 +148,13 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
     private mttShow()
     {
         this.mttNumGroup.visible = true;
-        this.numLabel.text = this.bindData.join + "/" + this.bindData.definition.bNum;
+        this.numLabel.text = this.bindData.join + "/" + this.bindData.definition.BNum;
 
-        if (this.bindData.definition.addon)
+        if (this.bindData.definition.Addon)
         {
             this.addonImg.visible = true;
         }
-        if (this.bindData.definition.rebuy)
+        if (this.bindData.definition.Rebuy)
         {
             this.rebuyImg.visible = true;
         }
@@ -169,7 +169,7 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
 
         if (TimeManager.GetServerUtcTimestamp() >= this.bindData.startTime)  //比赛进行中
         {
-            if (TimeManager.GetServerUtcTimestamp() <= this.bindData.startTime + this.bindData.definition.delaySign)
+            if (TimeManager.GetServerUtcTimestamp() <= this.bindData.startTime + this.bindData.definition.DelaySign)
             {
                 this.countDownOver();
             } else
@@ -229,8 +229,8 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
         this.waitJoinGroup.visible = true;
         let today: Date = new Date(TimeManager.GetServerUtcTimestamp() * 1000);
         let todayLastTime: number = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59).getTime();
-        let date: Date = new Date((this.bindData.startTime - this.bindData.definition.signTime) * 1000);
-        if (this.bindData.startTime - this.bindData.definition.signTime > Math.floor(todayLastTime / 1000))  //大于一天
+        let date: Date = new Date((this.bindData.startTime - this.bindData.definition.SignTime) * 1000);
+        if (this.bindData.startTime - this.bindData.definition.SignTime > Math.floor(todayLastTime / 1000))  //大于一天
         {
             this.startJoinTimeLabel.text = (date.getMonth() + 1) + "-" + date.getDate() + "  " + game.DateTimeUtil.formatDate(date, game.DateTimeUtil.Format_Standard_NoSecond).split(game.StringConstants.Blank)[1];
         } else
@@ -246,7 +246,7 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
     private sitAndPlayShow()
     {
         this.sitAndGoNumGroup.visible = true;
-        this.sitAndGonumLabel.text = "开赛人数:" + this.bindData.definition.bNum;
+        this.sitAndGonumLabel.text = "开赛人数:" + this.bindData.definition.BNum;
         this.getMoreInfo(this.bindData.id);
         if (this.bindData.joinWay) //是否已报名
         {
@@ -265,7 +265,7 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
         this.startJoin();
         this.showJoinedCostByJoinWay();
         this.trusteeshipShowSet();
-        if (this.bindData.join >= this.bindData.definition.bNum)  //报名人数是否满足开赛人数
+        if (this.bindData.join >= this.bindData.definition.BNum)  //报名人数是否满足开赛人数
         {
             //满足时显示托管中
             if (!this.bindData.outTime && !this.bindData.endTime)
@@ -292,13 +292,13 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
     */
     private getSNGAllAward(): number
     {
-        let championshipPrizeList: Array<ChampionshipPrizeDefinition> = ChampionshipManager.getAwardList(this.bindData.id);
+        let championshipPrizeList: Array<table.IChampionshipPrizeDefine> = ChampionshipManager.getAwardList(this.bindData.id);
         let total: number = 0;
         if (championshipPrizeList)
         {
             for (let championshipPrize of championshipPrizeList)
             {
-                let num: number = AwardDefined.GetInstance().getAwardNumByAwardId(championshipPrize.awardId);
+                let num: number = AwardDefined.GetInstance().getAwardNumByAwardId(championshipPrize.AwardId);
                 if (num)
                 {
                     total += num;
@@ -435,10 +435,10 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
     */
     private notStartJoinShow()
     {
-        if (this.bindData.definition.type == MatchType.MTT)
+        if (this.bindData.definition.Type == MatchType.MTT)
         {
             this.mttNotStartJoinShow();
-        } else if (this.bindData.definition.type == MatchType.SNG)
+        } else if (this.bindData.definition.Type == MatchType.SNG)
         {
             this.sitAndPlayNotStartJoinShow();
         }
@@ -468,7 +468,7 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
         {
             for (let def of ItemManager.itemList)
             {
-                if (this.bindData.definition.ticketId == def.id)
+                if (this.bindData.definition.TicketId == def.id)
                 {
                     flag = true;
                     break;
@@ -543,12 +543,12 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
     {
         this.goldImg.visible = true;
         this.ticketImg.visible = false;
-        if (this.bindData.definition.signCost == 0 || this.bindData.definition.signCost == undefined)
+        if (this.bindData.definition.SignCost == 0 || this.bindData.definition.SignCost == undefined)
         {
-            this.priceLabel.text = "免费" + "+" + game.MathUtil.formatNum(this.bindData.definition.serveCost);
+            this.priceLabel.text = "免费" + "+" + game.MathUtil.formatNum(this.bindData.definition.ServeCost);
         } else
         {
-            this.priceLabel.text = game.MathUtil.formatNum(this.bindData.definition.signCost) + "+" + game.MathUtil.formatNum(this.bindData.definition.serveCost);
+            this.priceLabel.text = game.MathUtil.formatNum(this.bindData.definition.SignCost) + "+" + game.MathUtil.formatNum(this.bindData.definition.ServeCost);
         }
     }
     /**
@@ -566,11 +566,11 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
         if (data.recordId == this.bindData.recordId)
         {
             this.applyBtn.visible = false;
-            let matchType: MatchType = this.bindData.definition.type;
+            let matchType: MatchType = this.bindData.definition.Type;
             if (matchType == MatchType.MTT)
             {
                 this.bindData.joinWay = data.flag;
-                this.numLabel.text = this.bindData.join + "/" + this.bindData.definition.bNum;
+                this.numLabel.text = this.bindData.join + "/" + this.bindData.definition.BNum;
                 let time: number = this.bindData.startTime - TimeManager.GetServerUtcTimestamp();
                 if (time <= 60)
                 {
@@ -600,15 +600,15 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
     private onaApplyBtnClick(event: TouchEvent)
     {
         SoundManager.playButtonEffect(event.target);
-        let flag: boolean = ItemManager.isHaveTicket(this.bindData.definition.ticketId);
+        let flag: boolean = ItemManager.isHaveTicket(this.bindData.definition.TicketId);
         if (flag)
         {
-            ChampionshipManager.reqRequestJoin(this.bindData.recordId, JoinChampionshipWay.Ticket, this.bindData.startTime, this.bindData.id, this.bindData.definition.type);
+            ChampionshipManager.reqRequestJoin(this.bindData.recordId, JoinChampionshipWay.Ticket, this.bindData.startTime, this.bindData.id, this.bindData.definition.Type);
         } else
         {
-            if (CostManager.verifyGold(this.bindData.definition.signCost + this.bindData.definition.serveCost, true)) 
+            if (CostManager.verifyGold(this.bindData.definition.SignCost + this.bindData.definition.ServeCost, true)) 
             {
-                ChampionshipManager.reqRequestJoin(this.bindData.recordId, JoinChampionshipWay.Gold, this.bindData.startTime, this.bindData.id, this.bindData.definition.type);
+                ChampionshipManager.reqRequestJoin(this.bindData.recordId, JoinChampionshipWay.Gold, this.bindData.startTime, this.bindData.id, this.bindData.definition.Type);
             }
         }
     }
@@ -618,10 +618,10 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
     private onEnterBtnClick(event: TouchEvent)
     {
         SoundManager.playButtonEffect(event.target);
-        if (this.bindData.definition.type == MatchType.MTT)
+        if (this.bindData.definition.Type == MatchType.MTT)
         {
             ChampionshipManager.enterMttHandler.enterMatch(this.bindData, game.StringConstants.Empty);
-        } else if (this.bindData.definition.type == MatchType.SNG)
+        } else if (this.bindData.definition.Type == MatchType.SNG)
         {
             let enterMatch: MatchRoomInfo = ChampionshipManager.getMathInfoByRecordId(this.bindData.recordId);
             if (enterMatch)
@@ -664,7 +664,7 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
         {
             this.fiveMinStart();
         }
-        if (this._countDownNum == this.bindData.definition.signTime)  //从未开始报名过渡到开始报名
+        if (this._countDownNum == this.bindData.definition.SignTime)  //从未开始报名过渡到开始报名
         {
             this.startJoin();
         }
@@ -691,9 +691,9 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
     private countDownOver()
     {
         this.setLessFiveMStyle();
-        if (this.bindData.definition.delaySign)
+        if (this.bindData.definition.DelaySign)
         {
-            if (TimeManager.GetServerUtcTimestamp() >= this.bindData.startTime + this.bindData.definition.delaySign)
+            if (TimeManager.GetServerUtcTimestamp() >= this.bindData.startTime + this.bindData.definition.DelaySign)
             {
                 this.delFromMTTList();
             } else
@@ -705,7 +705,7 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
                     this.waitLabel.visible = false;
                     this.enterBtn.visible = true;
                 }
-                this._countDownNum = Math.floor(this.bindData.startTime + this.bindData.definition.delaySign - TimeManager.GetServerUtcTimestamp());
+                this._countDownNum = Math.floor(this.bindData.startTime + this.bindData.definition.DelaySign - TimeManager.GetServerUtcTimestamp());
                 this.delayTimeCountDown();
                 game.Tick.AddSecondsInvoke(this.delayTimeCountDown, this);
             }

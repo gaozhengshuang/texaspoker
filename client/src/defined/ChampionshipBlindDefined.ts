@@ -18,18 +18,18 @@ class ChampionshipBlindDefined
     */
     private getBlindListByBlindId(blindId: number): Array<any>
     {
-        // if (this.dataList != null)
-        // {
-        //     let blindList: Array<ChampionshipBlindDefinition> = new Array<ChampionshipBlindDefinition>();
-        //     for (let i: number = 0; i < this.dataList.length; i++)
-        //     {
-        //         if (this.dataList[i].blindId == blindId)
-        //         {
-        //             blindList.push(this.dataList[i]);
-        //         }
-        //     }
-        //     return blindList;
-        // }
+        if (table.ChampionshipBlind)
+        {
+            let blindList: Array<table.IChampionshipBlindDefine> = new Array<table.IChampionshipBlindDefine>();
+            for (let i: number = 0; i < table.ChampionshipBlind.length; i++)
+            {
+                if (table.ChampionshipBlind[i].BlindId == blindId)
+                {
+                    blindList.push(table.ChampionshipBlind[i]);
+                }
+            }
+            return blindList;
+        }
         return null;
     }
     /**
@@ -37,74 +37,32 @@ class ChampionshipBlindDefined
     */
     public getBlindInfoByLevel(level: number, blindId: number): any
     {
-        // let blindList: Array<ChampionshipBlindDefinition> = this.getBlindListByBlindId(blindId);
-        // if (blindList != null)
-        // {
-        //     for (let i: number = 0; i < blindList.length; i++)
-        //     {
-        //         if (this.dataList[i].level == level)
-        //         {
-        //             return blindList[i];
-        //         }
-        //     }
-        // }
+        let blindList: Array<table.IChampionshipBlindDefine> = this.getBlindListByBlindId(blindId);
+        if (blindList != null)
+        {
+            for (let i: number = 0; i < blindList.length; i++)
+            {
+                if (blindList[i].Level == level)
+                {
+                    return blindList[i];
+                }
+            }
+        }
         return null;
     }
 
     public getDefByBlind(typeId: number, sBlind: number, bBlind: number): any
     {
-        // if (this.dataList != null)
-        // {
-        //     for (let i: number = 0; i < this.dataList.length; i++)
-        //     {
-        //         if (this.dataList[i].blindId == typeId && this.dataList[i].sBlind == sBlind && this.dataList[i].bBlind == bBlind)
-        //         {
-        //             return this.dataList[i];
-        //         }
-        //     }
-        // }
+        if (table.ChampionshipBlind)
+        {
+            for (let i: number = 0; i < table.ChampionshipBlind.length; i++)
+            {
+                if (table.ChampionshipBlind[i].BlindId == typeId && table.ChampionshipBlind[i].SBlind == sBlind && table.ChampionshipBlind[i].BBlind == bBlind)
+                {
+                    return table.ChampionshipBlind[i];
+                }
+            }
+        }
         return null;
     }
-}
-/**
- * 锦标赛盲注定义
- * */
-class ChampionshipBlindDefinition implements IBaseDefintion
-{
-    /**
-     * id
-     */
-    public id: number;
-	/**
-	 * 类型
-	 */
-    public blindId: number;
-    /**
-     * 盲注级别
-    */
-    public level: number;
-    /**
-     * 小盲注
-    */
-    public sBlind: number;
-    /**
-     * 大盲注
-    */
-    public bBlind: number;
-    /**
-     * 前注
-    */
-    public preBet: number;
-    /**
-     * 重购
-    */
-    public rebuy: number;
-    /**
-     * 增购
-    */
-    public addon: number;
-    /**
-     * 涨盲时间
-    */
-    public upTime: number;
 }

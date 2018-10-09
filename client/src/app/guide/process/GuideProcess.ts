@@ -11,7 +11,7 @@ class GuideProcess extends BaseGuideProcess<GuideDefinition>
 	{
 		let step: BaseGuideProcess<GuideControllerDefinition>;
 		this._step = 0;
-		game.Console.log("引导步骤ID：" + this.definition.id);
+		game.Console.log("引导步骤ID：" + this.definition.Id);
 		let i: number = 0;
 		let len: number = this.steps.length; //一定要这样处理，有个想不到的问题
 		for (let i: number = 0; i < len; i++)
@@ -63,7 +63,7 @@ class GuideProcess extends BaseGuideProcess<GuideDefinition>
 			{
 				if (stepDef.isNotClear == 1)
 				{
-					GuideExecutor.addNotClearStep(this.definition.id, step);
+					GuideExecutor.addNotClearStep(this.definition.Id, step);
 				}
 				else
 				{

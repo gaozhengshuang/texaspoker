@@ -33,7 +33,7 @@ class TextDefined extends BaseDefined<TextDefinition>
  * */
 class TextDefinition implements IBaseDefintion
 {
-	public id: number;
+	public Id: number;
 	/**
 	 * 文本内容
 	 */

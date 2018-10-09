@@ -491,7 +491,7 @@ class GamblingUtil
 	{
 		return InfoUtil.checkAvailable(GamblingManager.roomInfo) &&
 			InfoUtil.checkAvailable(GamblingManager.matchRoomInfo) &&
-			GamblingManager.matchRoomInfo.definition.type == MatchType.MTT;
+			GamblingManager.matchRoomInfo.definition.Type == MatchType.MTT;
 	}
 	/**
 	 * 是否是淘汰赛
@@ -499,7 +499,7 @@ class GamblingUtil
 	public static get isSng(): boolean
 	{
 		return InfoUtil.checkAvailable(GamblingManager.matchRoomInfo) &&
-			GamblingManager.matchRoomInfo.definition.type == MatchType.SNG;
+			GamblingManager.matchRoomInfo.definition.Type == MatchType.SNG;
 	}
 	/**
 	 * 是否是单桌
@@ -508,8 +508,8 @@ class GamblingUtil
 	{
 		if (InfoUtil.checkAvailable(info))
 		{
-			let roomDef: table.ITexasRoomDefine = table.TexasRoomById[info.definition.roomId];
-			if (roomDef && roomDef.Seat && Math.ceil(info.definition.bNum / roomDef.Seat) == 1)
+			let roomDef: table.ITexasRoomDefine = table.TexasRoomById[info.definition.RoomId];
+			if (roomDef && roomDef.Seat && Math.ceil(info.definition.BNum / roomDef.Seat) == 1)
 			{
 				return true;
 			}
@@ -563,7 +563,7 @@ class GamblingUtil
 	{
 		if (InfoUtil.checkAvailable(info))
 		{
-			let leftTime: number = info.startTime + info.definition.delaySign - TimeManager.GetServerUtcTimestamp();
+			let leftTime: number = info.startTime + info.definition.DelaySign - TimeManager.GetServerUtcTimestamp();
 			return leftTime <= 0;
 		}
 		return false;
