@@ -94,17 +94,6 @@ message UserMiscData {
 	optional int32 lastgoldtime = 2; // 定时领金币领取的时间戳
 }
 
-// 玩家摘要信息
-message UserBrief {
-    optional int64 roleid = 1;
-    optional string name = 2;
-    optional int32 level = 3;
-    optional string head = 4;
-    optional int32 sex = 5;
-    optional int32 viplevel = 6;
-    optional int32 lastlogintime = 7;
-}
-
 message UserBase {
     optional UserMiscData misc = 1;
     optional UserStatistics statics = 2;

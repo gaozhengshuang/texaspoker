@@ -20,7 +20,7 @@ type Friend struct {
 	id int64
 	stat_present int32	// 是否已经赠送 0未赠送，1已经赠送 
 	stat_get int32		// 是否可以领取 0不可领，1可以领取，2已经领取
-	base *msg.FriendUser
+	base *msg.FriendBrief
 	basebuf string 
 	dirty bool
 }

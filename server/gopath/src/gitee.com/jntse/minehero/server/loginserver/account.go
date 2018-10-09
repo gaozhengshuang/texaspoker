@@ -431,9 +431,13 @@ func SaveUserSimpleInfo(bin *msg.Serialize) {
 	pipe := Redis().Pipeline()
 	defer pipe.Close()
 
-	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "name", bin.Entity.GetName())
-	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "face", bin.Entity.GetHead())
-	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "sex",  bin.Entity.GetSex())
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "name", 	bin.Entity.GetName())
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "face", 	bin.Entity.GetHead())
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "sex",  	bin.Entity.GetSex())
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "level",	bin.Entity.GetLevel())
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "gold",	bin.Entity.GetGold())
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "viplevel",  0)
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "offlinetime", 0)
 	_, err := pipe.Exec()
 	if err != nil {
 		log.Error("缓存玩家[%s %d]简单信息失败 %s", bin.Entity.GetName(), uid, err)
