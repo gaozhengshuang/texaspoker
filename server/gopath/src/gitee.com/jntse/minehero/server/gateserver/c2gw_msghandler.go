@@ -625,8 +625,25 @@ func on_C2GW_ReqPresentToFriends(session network.IBaseNetSession, message interf
 }
 
 func on_C2GW_ReqFriendsDetail(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqPresentToFriends)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.friends.SendFriendDetail(tmsg.GetRoleid())
 }
+
 func on_C2GW_ReqGetFriendsPresent(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqPresentToFriends)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.friends.GetFriendsPresent(tmsg.GetRoleid())
 }
 func on_C2GW_ReqFriendsRequestList(session network.IBaseNetSession, message interface{}) {
 }
