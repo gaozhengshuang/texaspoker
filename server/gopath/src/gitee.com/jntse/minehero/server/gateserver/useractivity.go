@@ -84,6 +84,7 @@ func (u *GateUser) GetActivityAwardByAwardId(awardid int32, reason string) bool 
 	for i := 0; i < len(items); i++ {
 		u.AddItem(items[i], num[i], reason, true)
 	}
+
 	return true
 }
 
@@ -208,4 +209,38 @@ func (u *GateUser) ReqAwardExchange (id, count int32) {
 		return
 	}
 	u.GetActivityAwardByAwardId(id, "玩家兑换奖励")
+	if config.LogId > 0 {
+		tmp := &msg.AwardRecord{}
+		tmp.Logid = pb.Int32(int32(config.LogId))
+		tmp.Time = pb.Int32(int32(util.CURTIME()))
+		tmp.Awardid = pb.Int32(id)
+		u.awardrecord = append(u.awardrecord, tmp)
+	}
+
+	send1 := &msg.GW2C_RetExchangeTimeRefresh{}
+	send1.Id = pb.Int32(id)
+	if config.Limit > 0 {
+		got := false
+		num := 0
+		for _, v := range u.awardgetinfo {
+			if v.GetId() == id {
+				num = int(v.GetCount()) + 1
+				v.Count = pb.Int32(int32(num))
+				v.Time = pb.Int32(int32(util.CURTIME()))
+				got = true
+			}
+		}
+		if got == false {
+			num = 1
+			tmp := &msg.AwardGetInfo{}
+			tmp.Id = pb.Int32(id)
+			tmp.Count = pb.Int32(int32(num))
+			tmp.Time = pb.Int32(int32(util.CURTIME()))
+		}
+		send1.Count = pb.Int32(int32(num))
+	}
+	send1.Time = pb.Int32(int32(util.CURTIME()))
+	u.SendMsg(send1)
+	send2 := &msg.GW2C_RetAwardExchange{}
+	u.SendMsg(send2)
 }
