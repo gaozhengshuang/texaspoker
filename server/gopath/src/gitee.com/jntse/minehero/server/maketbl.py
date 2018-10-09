@@ -234,7 +234,7 @@ gen.maketbl_excel('Activity_signinBase','activity_signinbase','TActivity_signin.
 gen.maketbl_excel('AwardBase','awardbase','TAward.xlsx')
 gen.maketbl_excel('MailBase','mailbase','TMail.xlsx')
 gen.maketbl_excel('RankBase','rankbase','TRank.xlsx')
-gen.maketbl_excel('GoldenBeanAward','goldenbeanawardbase','TGoldenBeanAward.xlsx')
+gen.maketbl_excel('GoldenBeanAwardBase','goldenbeanawardbase','TGoldenBeanAward.xlsx')
 
 gen.maketbl_json('table', 'Global', 'global.json')
 gen.maketbl_json('table', 'Room', 'room.json')

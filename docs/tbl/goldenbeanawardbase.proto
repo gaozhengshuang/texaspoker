@@ -5,8 +5,8 @@
 package table;
 
 
-// Defined in table: GoldenBeanAward
-message GoldenBeanAward
+// Defined in table: GoldenBeanAwardBase
+message GoldenBeanAwardBase
 {	
 	
 	
