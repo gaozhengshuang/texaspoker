@@ -627,7 +627,7 @@ func on_C2GW_ReqPresentToFriends(session network.IBaseNetSession, message interf
 }
 
 func on_C2GW_ReqFriendsDetail(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_ReqPresentToFriends)
+	tmsg := message.(*msg.C2GW_ReqFriendsDetail)
 	u := ExtractSessionUser(session)
 	if u == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
@@ -638,7 +638,7 @@ func on_C2GW_ReqFriendsDetail(session network.IBaseNetSession, message interface
 }
 
 func on_C2GW_ReqGetFriendsPresent(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_ReqPresentToFriends)
+	tmsg := message.(*msg.C2GW_ReqGetFriendsPresent)
 	u := ExtractSessionUser(session)
 	if u == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
@@ -647,13 +647,42 @@ func on_C2GW_ReqGetFriendsPresent(session network.IBaseNetSession, message inter
 	}
 	u.friends.GetFriendsPresent(tmsg.GetRoleid())
 }
+
 func on_C2GW_ReqFriendsRequestList(session network.IBaseNetSession, message interface{}) {
+	//tmsg := message.(*msg.C2GW_ReqFriendsRequestList)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.friends.SendFriendsRequestList()
 }
+
 func on_C2GW_ReqDealFriendsRequest(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqDealFriendsRequest)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.friends.DealFriendsRequest(tmsg.GetRoleid(), tmsg.GetIsaccept())
 }
+
 func on_C2GW_ReqFriendsSearch(session network.IBaseNetSession, message interface{}) {
+
 }
+
 func on_C2GW_ReqFriendsAdd(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqFriendsAdd)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.friends.RequestAddFriends(tmsg.GetRoleid())
 }
 
 func on_C2GW_ReqTaskList(session network.IBaseNetSession, message interface{}) {
