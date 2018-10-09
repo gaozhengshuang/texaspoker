@@ -114,7 +114,7 @@ message C2GW_ReqFriendsSearch {
 }
 
 message GW2C_RetFriendsSearch {
-    repeated msg.FriendBrief array = 1;
+    optional msg.FriendBrief brief = 1;
 }
 
 

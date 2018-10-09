@@ -671,7 +671,14 @@ func on_C2GW_ReqDealFriendsRequest(session network.IBaseNetSession, message inte
 }
 
 func on_C2GW_ReqFriendsSearch(session network.IBaseNetSession, message interface{}) {
-
+	tmsg := message.(*msg.C2GW_ReqFriendsSearch)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.SearchUser(tmsg.GetVal())
 }
 
 func on_C2GW_ReqFriendsAdd(session network.IBaseNetSession, message interface{}) {

@@ -135,9 +135,14 @@ func on_GW2GW_MsgTransfer(session network.IBaseNetSession, message interface{}) 
 		return
 	}
 
-	agent := GateSvrMgr().FindGate(int(tmsg.GetUid()))
-	if agent == nil { return }
-	agent.SendMsg(protomsg.(pb.Message))
+	// 指定gate
+	if tmsg.GetUid() != 0 {
+		agent := GateSvrMgr().FindGate(int(tmsg.GetUid()))
+		if agent == nil { return }
+		agent.SendMsg(protomsg.(pb.Message))
+	}else {
+		Match().BroadcastGateMsg(protomsg.(pb.Message), session.Id())
+	}
 }
 
 
@@ -146,3 +151,5 @@ func on_GW2MS_PushNewMail(session network.IBaseNetSession, message interface{}) 
 	send := &msg.MS2GW_PushNewMail{Receiver:tmsg.Receiver, Mail:tmsg.Mail}
 	Match().BroadcastGateMsg(send)
 }
+
+

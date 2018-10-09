@@ -111,7 +111,6 @@ func (m *Friends) Size() int32 {
 }
 
 func (m *Friends) Online() {
-	m.CheckAddFriendsRequest()
 }
 
 // 加载
@@ -139,29 +138,15 @@ func (m *Friends) DBLoad() {
 		sscmd, ok := cmd.(*redis.StringStringMapCmd)
 		if ok == false { continue }
 		if len(sscmd.Val()) == 4 {
-			friend = &Friend{u:m.owner, charbase:nil, dirty:false}
-			for k, v := range sscmd.Val() {
-				if k == "id" { friend.id = util.NewVarType(v).Int64() }
-				if k == "time_present" { friend.time_present = util.NewVarType(v).Int64() }
-				if k == "stat_present" { friend.stat_present = util.NewVarType(v).Int32() }
-				if k == "stat_get" { friend.stat_get = util.NewVarType(v).Int32() }
-			}
-			continue
+			friend = m.FillFriendBrief(sscmd.Val())
 		} else {
-			charbase := &msg.FriendBrief{}
-			for k, v := range sscmd.Val() {
-				vt := util.NewVarType(v)
-				if k == "roleid"		{ charbase.Roleid = pb.Int64(vt.Int64()) }
-				if k == "name"			{ charbase.Name = pb.String(vt.String()) }
-				if k == "face"			{ charbase.Head = pb.String(vt.String()) }
-				if k == "level"			{ charbase.Level = pb.Int32(vt.Int32()) }
-				if k == "sex"			{ charbase.Sex = pb.Int32(vt.Int32()) }
-				if k == "gold"			{ charbase.Gold = pb.Int32(vt.Int32()) }
-				if k == "viplevel"		{ charbase.Viplevel = pb.Int32(vt.Int32()) }
-				if k == "offlinetime" 	{ charbase.Offlinetime = pb.Int32(vt.Int32()) }
+			charbase := m.FillCharBase(sscmd.Val())
+			if friend.Id() != charbase.GetRoleid() {
+				continue
 			}
 			friend.charbase = charbase
 			m.friends[friend.Id()] = friend
+			friend = nil
 		}
 	}
 
@@ -271,6 +256,10 @@ func (m *Friends) GetFriendsPresent(uid int64) {
 // 好友添加请求列表
 func (m *Friends) SendFriendsRequestList() {
 	send := &msg.GW2C_RetFriendsRequestList{Array:make([]*msg.FriendBrief, 0)}
+	userbriefs := m.GetRequestUserBrief()
+	for _, v := range userbriefs {
+		send.Array = append(send.Array, v)
+	}
 	m.owner.SendMsg(send)
 }
 
@@ -303,23 +292,20 @@ func (m *Friends) RequestAddFriends(uid int64) {
 	//u := m.owner
 
 	// push
-	//charbase := &msg.FriendBrief{}
-	//charbase.Roleid = pb.String(u.Id())
-	//charbase.Name = pb.String(u.Name())
-	//charbase.Head = pb.String(u.Head())
-	//charbase.Level = pb.Int32(u.Level())
-	//charbase.Sex = pb.Int32(u.Sex())
-	//charbase.Gold = pb.Int32(u.GetGold())
-	//charbase.Viplevel = pb.Int32(0)
-	//charbase.Offlinetime = pb.Int32(0)
-	//pushmsg := &msg.GW2C_PushAddYouFriends{Friend:charbase}
-	//u.SendMsg(pushmsg)
+	target := UserMgr().FindById(uid)
+	if target != nil {
+		pushmsg := &msg.GW2C_PushAddYouFriends{Friend:m.owner.FillFriendBrief()}
+		target.SendMsg(pushmsg)
+		Redis().SAdd(fmt.Sprintf("friendsrequest_%d", uid), m.owner.Id())
+		return
+	}
 
-	Redis().SAdd(fmt.Sprintf("addfriendsrequest_%d", uid), m.owner.Id())
 }
 
-func (m *Friends) CheckAddFriendsRequest() {
-	requests := Redis().SMembers(fmt.Sprintf("addfriendsrequest_%d", m.owner.Id())).Val()
+// 获取好友请求列表玩家Brief信息
+func (m *Friends) GetRequestUserBrief() []*msg.FriendBrief {
+	userbriefs := make([]*msg.FriendBrief, 0)
+	requests := Redis().SMembers(fmt.Sprintf("friendsrequest_%d", m.owner.Id())).Val()
 	pipe := Redis().Pipeline()
 	defer pipe.Close()
 	for _, strid := range requests {
@@ -327,16 +313,18 @@ func (m *Friends) CheckAddFriendsRequest() {
 	}
 	cmds, err := pipe.Exec()
 	if err != nil {
-		log.Error("[好友] 玩家[%s %d] 拉取好友charbase信息失败", m.owner.Name(), m.owner.Id())
-		return
+		log.Error("[好友] 玩家[%s %d] 拉取玩家charbase信息失败 RedisError[%s]", m.owner.Name(), m.owner.Id(), err)
+		return userbriefs
 	}
 
 	for _, cmd := range cmds {
 		sscmd := cmd.(*redis.StringStringMapCmd)
 		charbase := m.FillCharBase(sscmd.Val())
-		friend := &Friend{id:charbase.GetRoleid(), u:m.owner, charbase:charbase, dirty:true}
-		m.AddFriend(friend)
+		userbriefs = append(userbriefs, charbase)
+		//friend := &Friend{id:charbase.GetRoleid(), u:m.owner, charbase:charbase, dirty:true}
+		//m.AddFriend(friend)
 	}
+	return userbriefs
 }
 
 func (m *Friends) FillCharBase(charset map[string]string) *msg.FriendBrief {
@@ -354,3 +342,51 @@ func (m *Friends) FillCharBase(charset map[string]string) *msg.FriendBrief {
 	}
 	return charbase
 }
+
+func (m *Friends) FillFriendBrief(briefs map[string]string) *Friend {
+	friend := &Friend{u:m.owner, charbase:nil, dirty:false}
+	for k, v := range briefs {
+		if k == "id" { friend.id = util.NewVarType(v).Int64() }
+		if k == "time_present" { friend.time_present = util.NewVarType(v).Int64() }
+		if k == "stat_present" { friend.stat_present = util.NewVarType(v).Int32() }
+		if k == "stat_get" { friend.stat_get = util.NewVarType(v).Int32() }
+	}
+	return friend
+}
+
+// 搜索玩家
+func (u *GateUser) SearchUser(val string) {
+	id, send := util.Atol(val), &msg.GW2C_RetFriendsSearch{}
+
+	// id 查找
+	user := UserMgr().FindById(id)
+	if user != nil {
+		send.Brief = user.FillFriendBrief()
+		u.SendMsg(send)
+		return
+	}
+	
+	// 名字查找
+	user = UserMgr().FindByName(val)
+	if user != nil {
+		send.Brief = user.FillFriendBrief()
+		u.SendMsg(send)
+		return
+	}
+
+	u.SendMsg(send)
+}
+
+func (u *GateUser) FillFriendBrief() *msg.FriendBrief {
+	charbase := &msg.FriendBrief{}
+	charbase.Roleid = pb.Int64(u.Id())
+	charbase.Name 	= pb.String(u.Name())
+	charbase.Head	= pb.String(u.Head())
+	charbase.Level 	= pb.Int32(u.Level())
+	charbase.Sex 	= pb.Int32(u.Sex())
+	charbase.Gold 	= pb.Int32(u.GetGold())
+	charbase.Viplevel = pb.Int32(0)
+	charbase.Offlinetime = pb.Int32(0)
+	return charbase
+}
+
