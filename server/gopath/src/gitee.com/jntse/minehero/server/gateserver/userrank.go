@@ -176,9 +176,9 @@ func (this *RankManager) UpdateLevelRankList() {
 }
 
 func (this *RankManager) GetRankListByType(_type, _rank int32) []*UserRankInfo {
-	if _type == 1 {
+	if _type == int32(msg.RankType_RTGold) {
 		return this.goldranklist
-	} else if _type == 2 {
+	} else if _type == int32(msg.RankType_RTLevel) {
 		return this.levelranklist
 	}
 
@@ -201,19 +201,17 @@ func (u *GateUser) SyncLevelRankRedis() {
 //玩家请求查看排行榜
 func (u *GateUser) ReqRankListByType(_type, _rank int32) {
 	send := &msg.GW2C_RetRankList{}
-	if _type == 1 || _type == 2{
-		//金币或等级排行榜
-		List := RankMge().GetRankListByType(_type, _rank)
-		for _, v := range List {
-			tmp := &msg.RankInfo{}
-			tmp.Roleid = pb.Int64(v.uid)
-			tmp.Name = pb.String(v.name)
-			tmp.Sex = pb.Int32(v.sex)
-			tmp.Rank = pb.Int32(v.rank)
-			tmp.Score = pb.Int32(v.score)
-			tmp.Head = pb.String(v.head)
-			send.Ranklist = append(send.Ranklist, tmp)
-		}
+	//金币或等级排行榜
+	List := RankMge().GetRankListByType(_type, _rank)
+	for _, v := range List {
+		tmp := &msg.RankInfo{}
+		tmp.Roleid = pb.Int64(v.uid)
+		tmp.Name = pb.String(v.name)
+		tmp.Sex = pb.Int32(v.sex)
+		tmp.Rank = pb.Int32(v.rank)
+		tmp.Score = pb.Int32(v.score)
+		tmp.Head = pb.String(v.head)
+		send.Ranklist = append(send.Ranklist, tmp)
 	}
 	u.SendMsg(send)
 }
