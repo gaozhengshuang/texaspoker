@@ -147,6 +147,12 @@ func (m *Friends) Size() int32 {
 }
 
 func (m *Friends) Online() {
+
+	// 跨服务器
+	pushmsg := &msg.GW2C_PushUserOnline{Uid : pb.Int64(m.owner.Id())}
+	GateSvr().SendGateMsg(0, pushmsg)
+
+	// 上线检查
 	m.PassedFriendRequestCheck()
 	m.RemovedFriendCheck()
 }

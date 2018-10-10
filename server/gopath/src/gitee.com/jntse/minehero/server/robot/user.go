@@ -385,7 +385,8 @@ func (u *User) ReqRoomList() {
 }
 
 func (u *User) DoInputCmd(cmd string) {
-	switch cmd {
+	subcmd := strings.Split(cmd, " ")
+	switch subcmd[0] {
 	case "reg":
 		u.RegistAccount()
 	case "wxlogin":
@@ -422,6 +423,21 @@ func (u *User) DoInputCmd(cmd string) {
 		//u.EnterEvent(26)
 	case "list":
 		u.ReqRoomList()
+
+	case "flist":
+		u.ReqFriendList()
+	case "frlist":
+		u.ReqFriendRequestList()
+	case "fadd":
+		u.AddFriend(subcmd[1])
+	case "fprocess":
+		u.ProcessFriend(subcmd[1])
+	case "fpresent":
+		u.FriendPresent(subcmd[1])
+	case "fdel":
+		u.RemoveFriend(subcmd[1])
+	case "fsearch":
+		u.SearchFriend(subcmd[1])
 	}
 }
 

@@ -166,3 +166,7 @@ func on_GW2C_PushFriendPresent(session network.IBaseNetSession, message interfac
 	receiver.friends.OnFriendPresent(tmsg)
 }
 
+func on_GW2C_PushUserOnline(session network.IBaseNetSession, message interface{}) {
+	//tmsg := message.(*msg.GW2C_PushUserOnline)
+}
+
