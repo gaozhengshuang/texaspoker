@@ -46,7 +46,8 @@ func (mh *MS2GWMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.MS2GW_PushNewMail{}, on_MS2GW_PushNewMail)
 
 	// GW2GW
-	mh.msgparser.RegistProtoMsg(msg.GW2C_PushAddYouFriends{}, on_GW2C_PushAddYouFriends)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_PushAddYouFriend{}, on_GW2C_PushAddYouFriend)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_PushFriendAddSuccess{}, on_GW2C_PushFriendAddSuccess)
 }
 
 func on_MS2GW_RetRegist(session network.IBaseNetSession, message interface{}) {
@@ -127,12 +128,21 @@ func on_MS2GW_PushNewMail(session network.IBaseNetSession, message interface{}) 
 	receiver.mailbox.ReceiveNewMail(tmsg.GetMail())
 }
 
-func on_GW2C_PushAddYouFriends(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.GW2C_PushAddYouFriends)
+func on_GW2C_PushAddYouFriend(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2C_PushAddYouFriend)
 	receiver := UserMgr().FindById(tmsg.GetHandler())
 	if receiver == nil {
 		return
 	}
-	receiver.friends.RecvFriendsRequest(tmsg)
+	receiver.friends.RecvFriendRequest(tmsg)
+}
+
+func on_GW2C_PushFriendAddSuccess(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2C_PushFriendAddSuccess)
+	receiver := UserMgr().FindById(tmsg.GetHandler())
+	if receiver == nil {
+		return
+	}
+	receiver.friends.AgreeFriendRequest(tmsg)
 }
 
