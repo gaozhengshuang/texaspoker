@@ -23,7 +23,6 @@ type Friend struct {
 	time_present int64	// 赠送时间戳
 	stat_get int32		// 是否可以领取 0不可领，1可以领取，2已经领取
 	charbase *msg.FriendBrief
-	newfriend bool		// 新添加
 	dirty bool
 }
 
@@ -77,23 +76,29 @@ func (m *Friend) ReceivePresent() {
 
 func (m *Friend) SaveBin(pipe redis.Pipeliner) {
 	m.dirty = false
-	m.newfriend = false
 	mfields := map[string]interface{}{"id":m.Id(), "time_present":m.PresentTime(), "stat_present":m.PresentStat(), "stat_get":m.GetStat()}
 	if pipe != nil {
 		pipe.HMSet(fmt.Sprintf("friendbase_%d_%d", m.u.Id(), m.Id()), mfields)
-		if m.newfriend { pipe.SAdd(fmt.Sprintf("friendlist_%d", m.u.Id()), m.Id()) }
 		return
 	}
-
 	Redis().HMSet(fmt.Sprintf("friendbase_%d_%d", m.u.Id(), m.Id()), mfields)
-	if m.newfriend { Redis().SAdd(fmt.Sprintf("friendlist_%d", m.u.Id()), m.Id()) }
-
 	log.Info("[好友] 保存好友成功 id[%d]", m.Id())
 }
 
 func (m *Friend) LoadBin(friend int64, pipe redis.Pipeliner) {
 	pipe.HGetAll(fmt.Sprintf("friendbase_%d_%d", m.u.Id(), friend))
 	pipe.HGetAll(fmt.Sprintf("charbase_%d", friend))
+}
+
+func (m *Friend) AddBin() {
+	mfields := map[string]interface{}{"id":m.Id(), "time_present":m.PresentTime(), "stat_present":m.PresentStat(), "stat_get":m.GetStat()}
+	Redis().HMSet(fmt.Sprintf("friendbase_%d_%d", m.u.Id(), m.Id()), mfields)
+	Redis().SAdd(fmt.Sprintf("friendlist_%d", m.u.Id()), m.Id())
+}
+
+func (m *Friend) RemoveBin() {
+	Redis().Del(fmt.Sprintf("friendbase_%d_%d", m.u.Id(), m.Id()))
+	Redis().SRem(fmt.Sprintf("friendlist_%d", m.u.Id()), m.Id())
 }
 
 func (m *Friend) LoadDetail(cmd1, cmd2 redis.Cmder) bool {
@@ -209,11 +214,13 @@ func (m *Friends) SendFriendList() {
 }
 
 func (m *Friends) RemoveFriend(id int64, reason string) {
-	if id == 0 { return }
+	f, ok := m.friends[id]
+	if ok == false {
+		return
+	}
+	f.RemoveBin()
 	delete(m.friends, id)
-	Redis().Del(fmt.Sprintf("friendbase_%d_%d", m.owner.Id(), id))
-	Redis().SRem(fmt.Sprintf("friendlist_%d", m.owner.Id()), id)
-	log.Info("[好友] 玩家[%s %d] 删除好友[%d] 原因[%s]", m.owner.Name(), m.owner.Id(), id, reason)
+	log.Info("[好友] 玩家[%s %d] 删除好友[%s %d] 原因[%s]", m.owner.Name(), m.owner.Id(), f.Name(), id, reason)
 }
 
 func (m *Friends) AddFriend(brief *msg.FriendBrief) *Friend {
@@ -223,9 +230,9 @@ func (m *Friends) AddFriend(brief *msg.FriendBrief) *Friend {
 		return nil
 	}
 
-	f := &Friend{id:uid, u:m.owner, charbase:brief, dirty:true, newfriend:true}
+	f := &Friend{id:uid, u:m.owner, charbase:brief, dirty:true}
 	m.friends[f.Id()] = f
-	f.SaveBin(nil)
+	f.AddBin()
 	log.Info("[好友] 玩家[%s %d] 添加好友[%s %d]成功", m.owner.Name(), m.owner.Id(), f.Id(), f.Name())
 	return f
 }
