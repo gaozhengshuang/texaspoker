@@ -78,14 +78,14 @@ func (mh *C2GWMsgHandler) Init() {
 
 	// 好友
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqFriendsList{}, on_C2GW_ReqFriendsList)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqAddFriend{}, on_C2GW_ReqAddFriend)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqRemoveFriend{}, on_C2GW_ReqRemoveFriend)
-	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqPresentToFriend{}, on_C2GW_ReqPresentToFriend)
-	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqFriendDetail{}, on_C2GW_ReqFriendDetail)
-	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqGetFriendPresent{}, on_C2GW_ReqGetFriendPresent)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqFriendRequestList{}, on_C2GW_ReqFriendRequestList)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqProcessFriendRequest{}, on_C2GW_ReqProcessFriendRequest)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqPresentToFriend{}, on_C2GW_ReqPresentToFriend)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqGetFriendPresent{}, on_C2GW_ReqGetFriendPresent)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqFriendDetail{}, on_C2GW_ReqFriendDetail)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqFriendSearch{}, on_C2GW_ReqFriendSearch)
-	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqAddFriend{}, on_C2GW_ReqAddFriend)
 
 	//活动
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqActivityInfo{}, on_C2GW_ReqActivityInfo)
@@ -639,40 +639,6 @@ func on_C2GW_ReqAddFriend(session network.IBaseNetSession, message interface{}) 
 	u.friends.RequestAddFriend(tmsg.GetRoleid())
 }
 
-
-func on_C2GW_ReqPresentToFriend(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_ReqPresentToFriend)
-	u := ExtractSessionUser(session)
-	if u == nil {
-		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-		session.Close()
-		return
-	}
-	u.friends.PresentToFriend(tmsg.GetRoleid())
-}
-
-func on_C2GW_ReqFriendDetail(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_ReqFriendDetail)
-	u := ExtractSessionUser(session)
-	if u == nil {
-		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-		session.Close()
-		return
-	}
-	u.friends.SendFriendDetail(tmsg.GetRoleid())
-}
-
-func on_C2GW_ReqGetFriendPresent(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_ReqGetFriendPresent)
-	u := ExtractSessionUser(session)
-	if u == nil {
-		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-		session.Close()
-		return
-	}
-	u.friends.GetFriendPresent(tmsg.GetRoleid())
-}
-
 func on_C2GW_ReqFriendRequestList(session network.IBaseNetSession, message interface{}) {
 	//tmsg := message.(*msg.C2GW_ReqFriendRequestList)
 	u := ExtractSessionUser(session)
@@ -693,6 +659,39 @@ func on_C2GW_ReqProcessFriendRequest(session network.IBaseNetSession, message in
 		return
 	}
 	u.friends.ProcessFriendRequest(tmsg.GetRoleid(), tmsg.GetIsaccept())
+}
+
+func on_C2GW_ReqPresentToFriend(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqPresentToFriend)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.friends.PresentToFriend(tmsg.GetRoleid())
+}
+
+func on_C2GW_ReqGetFriendPresent(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqGetFriendPresent)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.friends.GetFriendPresent(tmsg.GetRoleid())
+}
+
+func on_C2GW_ReqFriendDetail(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqFriendDetail)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.friends.SendFriendDetail(tmsg.GetRoleid())
 }
 
 func on_C2GW_ReqFriendSearch(session network.IBaseNetSession, message interface{}) {
