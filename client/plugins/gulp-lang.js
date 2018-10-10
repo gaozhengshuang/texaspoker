@@ -16,7 +16,7 @@ exports.extractLang = function(paths, suffixs, filterPaths, filterKeywords, orig
     var regex_remove = new RegExp('[\\t\\0\\v]', 'g');//去掉杂七杂八的字符
     var regex_line = new RegExp('[\\r\\n]', 'g');//换行裁剪成数组
     //
-    var langArray = [];
+    var langObj = {};
     var pathList = [];
     paths.forEach(function(path) {
         GulpUtil.refAllFilePath(path, suffixs, pathList);
@@ -38,19 +38,14 @@ exports.extractLang = function(paths, suffixs, filterPaths, filterKeywords, orig
                         var lang = array[c].substring(1, array[c].length-1);
                         if(regex_lang.test(lang))
                         {
-                            var obj = _getLangObject(origLangs, lang);
-                            if(!obj)
-                            {
-                                obj = {k:lang,v:''};
-                            }
-                            langArray.push(obj);
+                            langObj[lang] = '';
                         }
                     }
                 }
             }
         }
     }
-    return langArray;
+    return langObj;
 };
 function _getLangObject(langArray, key)
 {

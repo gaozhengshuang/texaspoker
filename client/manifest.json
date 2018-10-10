@@ -11,8 +11,7 @@
 		"libs/modules/promise/promise.js",
 		"protobuf/library/protobuf-library.js",
 		"protobuf/bundles/protobuf-bundles.js",
-		"libs/modules/particle/particle.js",
-		"libs/modules/md5/md5.js"
+		"libs/thirdlib/thirdlib.js"
 	],
 	"game": [
 		"bin-debug/app/activity/BaseActivitySubHandler.js",
