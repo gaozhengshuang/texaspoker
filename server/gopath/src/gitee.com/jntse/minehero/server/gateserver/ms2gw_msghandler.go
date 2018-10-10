@@ -134,7 +134,7 @@ func on_GW2C_PushAddYouFriend(session network.IBaseNetSession, message interface
 	if receiver == nil {
 		return
 	}
-	receiver.friends.RecvFriendRequest(tmsg)
+	receiver.friends.OnFriendRequestRecv(tmsg)
 }
 
 func on_GW2C_PushFriendAddSuccess(session network.IBaseNetSession, message interface{}) {
@@ -143,6 +143,6 @@ func on_GW2C_PushFriendAddSuccess(session network.IBaseNetSession, message inter
 	if receiver == nil {
 		return
 	}
-	receiver.friends.AgreeFriendRequest(tmsg)
+	receiver.friends.OnFriendRequestPass(tmsg)
 }
 
