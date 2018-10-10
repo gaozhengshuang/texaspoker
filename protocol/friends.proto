@@ -105,8 +105,9 @@ message GW2C_RetRemoveFriend {
     optional int64 roleid = 1;
 }
 // 被好友删除的通知推送
-message GW2C_PushFriendRemove {
-    optional int64 roleid = 1;
+message GW2C_PushRemoveFriend {
+    optional int64 handler = 1;     // 服务器使用
+    optional int64 roleid = 2;
 }
 
 
