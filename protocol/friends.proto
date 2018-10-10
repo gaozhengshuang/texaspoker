@@ -37,11 +37,10 @@ message C2GW_ReqPresentToFriend {
 }
 message GW2C_RetPresentToFriend {
 }
-
-
 // 好友赠送金币通知推送
 message GW2C_PushFriendPresent {
-    optional int64 roleid = 1;
+    optional int64 handler = 1;
+    optional int64 roleid = 2;
 }
 
 

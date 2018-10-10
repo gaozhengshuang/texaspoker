@@ -49,6 +49,7 @@ func (mh *MS2GWMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.GW2C_PushAddYouFriend{}, on_GW2C_PushAddYouFriend)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_PushFriendAddSuccess{}, on_GW2C_PushFriendAddSuccess)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_PushRemoveFriend{}, on_GW2C_PushRemoveFriend)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_PushFriendPresent{}, on_GW2C_PushFriendPresent)
 }
 
 func on_MS2GW_RetRegist(session network.IBaseNetSession, message interface{}) {
@@ -154,5 +155,14 @@ func on_GW2C_PushRemoveFriend(session network.IBaseNetSession, message interface
 		return
 	}
 	receiver.friends.OnFriendRemove(tmsg)
+}
+
+func on_GW2C_PushFriendPresent(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2C_PushFriendPresent)
+	receiver := UserMgr().FindById(tmsg.GetHandler())
+	if receiver == nil {
+		return
+	}
+	receiver.friends.OnFriendPresent(tmsg)
 }
 

@@ -23,6 +23,7 @@ type Friend struct {
 	time_present int64	// 赠送时间戳
 	stat_get int32		// 是否可以领取 0不可领，1可以领取，2已经领取
 	charbase *msg.FriendBrief
+	newfriend bool		// 新添加
 	dirty bool
 }
 
@@ -76,13 +77,17 @@ func (m *Friend) ReceivePresent() {
 
 func (m *Friend) SaveBin(pipe redis.Pipeliner) {
 	m.dirty = false
+	m.newfriend = false
 	mfields := map[string]interface{}{"id":m.Id(), "time_present":m.PresentTime(), "stat_present":m.PresentStat(), "stat_get":m.GetStat()}
 	if pipe != nil {
 		pipe.HMSet(fmt.Sprintf("friendbase_%d_%d", m.u.Id(), m.Id()), mfields)
+		if m.newfriend { pipe.SAdd(fmt.Sprintf("friendlist_%d", m.u.Id()), m.Id()) }
 		return
 	}
 
 	Redis().HMSet(fmt.Sprintf("friendbase_%d_%d", m.u.Id(), m.Id()), mfields)
+	if m.newfriend { Redis().SAdd(fmt.Sprintf("friendlist_%d", m.u.Id()), m.Id()) }
+
 	log.Info("[好友] 保存好友成功 id[%d]", m.Id())
 }
 
@@ -92,8 +97,16 @@ func (m *Friend) LoadBin(friend int64, pipe redis.Pipeliner) {
 }
 
 func (m *Friend) LoadDetail(cmd1, cmd2 redis.Cmder) bool {
-	cmdbase , _ := cmd1.(*redis.StringStringMapCmd)
-	cmdcharbase , _ := cmd2.(*redis.StringStringMapCmd)
+	cmdbase , ok := cmd1.(*redis.StringStringMapCmd)
+	if ok == false {
+		log.Error("[好友] 玩家[%s %d] 加载DB详情失败 [%d]", m.u.Name(), m.u.Id())
+		return false
+	}
+	cmdcharbase , ok := cmd2.(*redis.StringStringMapCmd)
+	if ok == false {
+		log.Error("[好友] 玩家[%s %d] 加载DB详情失败 [%d]", m.u.Name(), m.u.Id())
+		return false
+	}
 
 	for k, v := range cmdbase.Val() {
 		if k == "id" { m.id = util.NewVarType(v).Int64() }
@@ -130,6 +143,7 @@ func (m *Friends) Size() int32 {
 
 func (m *Friends) Online() {
 	m.PassedFriendRequestCheck()
+	m.RemovedFriendCheck()
 }
 
 // 加载
@@ -209,9 +223,8 @@ func (m *Friends) AddFriend(brief *msg.FriendBrief) *Friend {
 		return nil
 	}
 
-	f := &Friend{id:uid, u:m.owner, charbase:brief, dirty:true}
+	f := &Friend{id:uid, u:m.owner, charbase:brief, dirty:true, newfriend:true}
 	m.friends[f.Id()] = f
-	Redis().SAdd(fmt.Sprintf("friendlist_%d", m.owner.Id()), f.Id())
 	f.SaveBin(nil)
 	log.Info("[好友] 玩家[%s %d] 添加好友[%s %d]成功", m.owner.Name(), m.owner.Id(), f.Id(), f.Name())
 	return f
@@ -229,7 +242,7 @@ func (m *Friends) RequestRemoveFriend(uid int64) {
 	m.owner.SendMsg(send)
 
 	// 
-	Redis().SAdd(fmt.Sprintf("friendsremoved_%d", uid), m.owner.Id())
+	Redis().SAdd(fmt.Sprintf("firendremoveyou_%d", uid), m.owner.Id())
 
 
 	// 通知对方删除
@@ -252,7 +265,7 @@ func (m *Friends) RequestAddFriend(uid int64) {
 	m.owner.SendMsg(send)
 
 	// 请求列表
-	Redis().SAdd(fmt.Sprintf("friendrequest_%d", uid), m.owner.Id())
+	Redis().SAdd(fmt.Sprintf("addfriend_request_%d", uid), m.owner.Id())
 
 	// 通知对方
 	pushmsg := &msg.GW2C_PushAddYouFriend{ Handler:pb.Int64(uid) }
@@ -272,14 +285,14 @@ func (m *Friends) ProcessFriendRequest(uid int64, accept bool) {
 	}
 
 	// 检查请求列表
-	bfind := Redis().SIsMember(fmt.Sprintf("friendrequest_%d", m.owner.Id()), uid).Val()
+	bfind := Redis().SIsMember(fmt.Sprintf("addfriend_request_%d", m.owner.Id()), uid).Val()
 	if bfind == false {
 		m.owner.SendNotify("对方不在您的申请列表")
 		return
 	}
 
 	// 从列表删除
-	Redis().SRem(fmt.Sprintf("friendrequest_%d", m.owner.Id()), uid)
+	Redis().SRem(fmt.Sprintf("addfriend_request_%d", m.owner.Id()), uid)
 	response := &msg.GW2C_RetProcessFriendRequest{}
 	m.owner.SendMsg(response)
 	if accept == false {
@@ -297,7 +310,7 @@ func (m *Friends) ProcessFriendRequest(uid int64, accept bool) {
 
 
 	// 通知对方请求通过
-	Redis().SAdd(fmt.Sprintf("friendrequest_passed_%d", uid), m.owner.Id())
+	Redis().SAdd(fmt.Sprintf("addfriend_passed_%d", uid), m.owner.Id())
 	pushmsg := &msg.GW2C_PushFriendAddSuccess{Handler:pb.Int64(m.owner.Id()), Friend:m.owner.FillUserBrief()}
 	if target := UserMgr().FindById(uid); target != nil {
 		target.friends.OnFriendRequestPass(pushmsg)
@@ -310,7 +323,7 @@ func (m *Friends) ProcessFriendRequest(uid int64, accept bool) {
 // 收到好友添加消息
 func (m *Friends) OnFriendRemove(push *msg.GW2C_PushRemoveFriend) {
 	uid := push.GetRoleid()
-	Redis().SRem(fmt.Sprintf("friendsremoved_%d", m.owner.Id()), uid)
+	Redis().SRem(fmt.Sprintf("firendremoveyou_%d", m.owner.Id()), uid)
 	m.RemoveFriend(uid, "被对方删除")
 	m.owner.SendMsg(push)
 }
@@ -324,7 +337,12 @@ func (m *Friends) OnFriendRequestRecv(reqmsg *msg.GW2C_PushAddYouFriend) {
 func (m *Friends) OnFriendRequestPass(push *msg.GW2C_PushFriendAddSuccess) {
 	m.AddFriend(push.Friend)
 	m.owner.SendMsg(push)
-	Redis().SRem(fmt.Sprintf("friendrequest_passed_%d", m.owner.Id()), push.Friend.GetRoleid())
+	Redis().SRem(fmt.Sprintf("addfriend_passed_%d", m.owner.Id()), push.Friend.GetRoleid())
+}
+
+// 收到申请礼物消息
+func (m *Friends) OnFriendPresent(push *msg.GW2C_PushFriendPresent) {
+	m.owner.SendMsg(push)
 }
 
 
@@ -339,6 +357,13 @@ func (m *Friends) PresentToFriend(uid int64) {
 
 	send := &msg.GW2C_RetPresentToFriend{}
 	m.owner.SendMsg(send)
+
+	pushmsg := &msg.GW2C_PushFriendPresent{Handler:pb.Int64(uid), Roleid:pb.Int64(m.owner.Id()) }
+	if target := UserMgr().FindById(uid); target != nil {
+		target.friends.OnFriendPresent(pushmsg)
+	}else {
+		GateSvr().SendGateMsg(0, pushmsg)	// 跨服务器
+	}
 }
 
 // 领取好友赠送礼物
@@ -380,7 +405,7 @@ func (m *Friends) SendFriendRequestList() {
 
 // 好友拉黑检查
 func (m *Friends) RemovedFriendCheck() {
-	list, err := Redis().SMembers(fmt.Sprintf("friendsremoved_%d", m.owner.Id())).Result()
+	list, err := Redis().SMembers(fmt.Sprintf("firendremoveyou_%d", m.owner.Id())).Result()
 	if err != nil {
 		log.Error("[好友] 玩家[%s %d] 拉取同意列表失败 RedisError[%s]", m.owner.Name(), m.owner.Id(), err)
 		return
@@ -388,14 +413,14 @@ func (m *Friends) RemovedFriendCheck() {
 
 	for _, v := range list {
 		uid := util.Atol(v)
-		Redis().SRem(fmt.Sprintf("friendsremoved_%d", m.owner.Id()), uid)
+		Redis().SRem(fmt.Sprintf("firendremoveyou_%d", m.owner.Id()), uid)
 		m.RemoveFriend(uid, "被对方删除")
 	}
 }
 
 // 通过的请求检查
 func (m *Friends) PassedFriendRequestCheck() {
-	list, err := Redis().SMembers(fmt.Sprintf("friendrequest_passed_%d", m.owner.Id())).Result()
+	list, err := Redis().SMembers(fmt.Sprintf("addfriend_passed_%d", m.owner.Id())).Result()
 	if err != nil {
 		log.Error("[好友] 玩家[%s %d] 拉取同意列表失败 RedisError[%s]", m.owner.Name(), m.owner.Id(), err)
 		return
@@ -421,13 +446,13 @@ func (m *Friends) PassedFriendRequestCheck() {
 	}
 
 	// 清理列表
-	Redis().SRem(fmt.Sprintf("friendrequest_passed_%d", m.owner.Id()), rmlist...)
+	Redis().SRem(fmt.Sprintf("addfriend_passed_%d", m.owner.Id()), rmlist...)
 }
 
 // 获取好友请求列表玩家Brief信息
 func (m *Friends) GetRequestUserBrief() []*msg.FriendBrief {
 	userbriefs := make([]*msg.FriendBrief, 0)
-	requests := Redis().SMembers(fmt.Sprintf("friendrequest_%d", m.owner.Id())).Val()
+	requests := Redis().SMembers(fmt.Sprintf("addfriend_request_%d", m.owner.Id())).Val()
 	pipe := Redis().Pipeline()
 	defer pipe.Close()
 	for _, strid := range requests {
