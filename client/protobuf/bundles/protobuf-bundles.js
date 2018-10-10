@@ -15882,785 +15882,6 @@ $root.msg = (function() {
         return GW2C_RetFriendRequestList;
     })();
 
-    msg.C2GW_ReqProcessFriendRequest = (function() {
-
-        /**
-         * Properties of a C2GW_ReqProcessFriendRequest.
-         * @memberof msg
-         * @interface IC2GW_ReqProcessFriendRequest
-         * @property {number|Long|null} [roleid] C2GW_ReqProcessFriendRequest roleid
-         * @property {boolean|null} [isaccept] C2GW_ReqProcessFriendRequest isaccept
-         */
-
-        /**
-         * Constructs a new C2GW_ReqProcessFriendRequest.
-         * @memberof msg
-         * @classdesc Represents a C2GW_ReqProcessFriendRequest.
-         * @implements IC2GW_ReqProcessFriendRequest
-         * @constructor
-         * @param {msg.IC2GW_ReqProcessFriendRequest=} [properties] Properties to set
-         */
-        function C2GW_ReqProcessFriendRequest(properties) {
-            if (properties)
-                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * C2GW_ReqProcessFriendRequest roleid.
-         * @member {number|Long} roleid
-         * @memberof msg.C2GW_ReqProcessFriendRequest
-         * @instance
-         */
-        C2GW_ReqProcessFriendRequest.prototype.roleid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
-
-        /**
-         * C2GW_ReqProcessFriendRequest isaccept.
-         * @member {boolean} isaccept
-         * @memberof msg.C2GW_ReqProcessFriendRequest
-         * @instance
-         */
-        C2GW_ReqProcessFriendRequest.prototype.isaccept = false;
-
-        /**
-         * Creates a new C2GW_ReqProcessFriendRequest instance using the specified properties.
-         * @function create
-         * @memberof msg.C2GW_ReqProcessFriendRequest
-         * @static
-         * @param {msg.IC2GW_ReqProcessFriendRequest=} [properties] Properties to set
-         * @returns {msg.C2GW_ReqProcessFriendRequest} C2GW_ReqProcessFriendRequest instance
-         */
-        C2GW_ReqProcessFriendRequest.create = function create(properties) {
-            return new C2GW_ReqProcessFriendRequest(properties);
-        };
-
-        /**
-         * Encodes the specified C2GW_ReqProcessFriendRequest message. Does not implicitly {@link msg.C2GW_ReqProcessFriendRequest.verify|verify} messages.
-         * @function encode
-         * @memberof msg.C2GW_ReqProcessFriendRequest
-         * @static
-         * @param {msg.IC2GW_ReqProcessFriendRequest} message C2GW_ReqProcessFriendRequest message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        C2GW_ReqProcessFriendRequest.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.roleid != null && message.hasOwnProperty("roleid"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.roleid);
-            if (message.isaccept != null && message.hasOwnProperty("isaccept"))
-                writer.uint32(/* id 2, wireType 0 =*/16).bool(message.isaccept);
-            return writer;
-        };
-
-        /**
-         * Encodes the specified C2GW_ReqProcessFriendRequest message, length delimited. Does not implicitly {@link msg.C2GW_ReqProcessFriendRequest.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof msg.C2GW_ReqProcessFriendRequest
-         * @static
-         * @param {msg.IC2GW_ReqProcessFriendRequest} message C2GW_ReqProcessFriendRequest message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        C2GW_ReqProcessFriendRequest.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a C2GW_ReqProcessFriendRequest message from the specified reader or buffer.
-         * @function decode
-         * @memberof msg.C2GW_ReqProcessFriendRequest
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {msg.C2GW_ReqProcessFriendRequest} C2GW_ReqProcessFriendRequest
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        C2GW_ReqProcessFriendRequest.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqProcessFriendRequest();
-            while (reader.pos < end) {
-                var tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 1:
-                    message.roleid = reader.int64();
-                    break;
-                case 2:
-                    message.isaccept = reader.bool();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a C2GW_ReqProcessFriendRequest message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof msg.C2GW_ReqProcessFriendRequest
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.C2GW_ReqProcessFriendRequest} C2GW_ReqProcessFriendRequest
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        C2GW_ReqProcessFriendRequest.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a C2GW_ReqProcessFriendRequest message.
-         * @function verify
-         * @memberof msg.C2GW_ReqProcessFriendRequest
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        C2GW_ReqProcessFriendRequest.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.roleid != null && message.hasOwnProperty("roleid"))
-                if (!$util.isInteger(message.roleid) && !(message.roleid && $util.isInteger(message.roleid.low) && $util.isInteger(message.roleid.high)))
-                    return "roleid: integer|Long expected";
-            if (message.isaccept != null && message.hasOwnProperty("isaccept"))
-                if (typeof message.isaccept !== "boolean")
-                    return "isaccept: boolean expected";
-            return null;
-        };
-
-        /**
-         * Creates a C2GW_ReqProcessFriendRequest message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof msg.C2GW_ReqProcessFriendRequest
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {msg.C2GW_ReqProcessFriendRequest} C2GW_ReqProcessFriendRequest
-         */
-        C2GW_ReqProcessFriendRequest.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.C2GW_ReqProcessFriendRequest)
-                return object;
-            var message = new $root.msg.C2GW_ReqProcessFriendRequest();
-            if (object.roleid != null)
-                if ($util.Long)
-                    (message.roleid = $util.Long.fromValue(object.roleid)).unsigned = false;
-                else if (typeof object.roleid === "string")
-                    message.roleid = parseInt(object.roleid, 10);
-                else if (typeof object.roleid === "number")
-                    message.roleid = object.roleid;
-                else if (typeof object.roleid === "object")
-                    message.roleid = new $util.LongBits(object.roleid.low >>> 0, object.roleid.high >>> 0).toNumber();
-            if (object.isaccept != null)
-                message.isaccept = Boolean(object.isaccept);
-            return message;
-        };
-
-        /**
-         * Creates a plain object from a C2GW_ReqProcessFriendRequest message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof msg.C2GW_ReqProcessFriendRequest
-         * @static
-         * @param {msg.C2GW_ReqProcessFriendRequest} message C2GW_ReqProcessFriendRequest
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        C2GW_ReqProcessFriendRequest.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            var object = {};
-            if (options.defaults) {
-                if ($util.Long) {
-                    var long = new $util.Long(0, 0, false);
-                    object.roleid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.roleid = options.longs === String ? "0" : 0;
-                object.isaccept = false;
-            }
-            if (message.roleid != null && message.hasOwnProperty("roleid"))
-                if (typeof message.roleid === "number")
-                    object.roleid = options.longs === String ? String(message.roleid) : message.roleid;
-                else
-                    object.roleid = options.longs === String ? $util.Long.prototype.toString.call(message.roleid) : options.longs === Number ? new $util.LongBits(message.roleid.low >>> 0, message.roleid.high >>> 0).toNumber() : message.roleid;
-            if (message.isaccept != null && message.hasOwnProperty("isaccept"))
-                object.isaccept = message.isaccept;
-            return object;
-        };
-
-        /**
-         * Converts this C2GW_ReqProcessFriendRequest to JSON.
-         * @function toJSON
-         * @memberof msg.C2GW_ReqProcessFriendRequest
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        C2GW_ReqProcessFriendRequest.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return C2GW_ReqProcessFriendRequest;
-    })();
-
-    msg.GW2C_RetProcessFriendRequest = (function() {
-
-        /**
-         * Properties of a GW2C_RetProcessFriendRequest.
-         * @memberof msg
-         * @interface IGW2C_RetProcessFriendRequest
-         */
-
-        /**
-         * Constructs a new GW2C_RetProcessFriendRequest.
-         * @memberof msg
-         * @classdesc Represents a GW2C_RetProcessFriendRequest.
-         * @implements IGW2C_RetProcessFriendRequest
-         * @constructor
-         * @param {msg.IGW2C_RetProcessFriendRequest=} [properties] Properties to set
-         */
-        function GW2C_RetProcessFriendRequest(properties) {
-            if (properties)
-                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * Creates a new GW2C_RetProcessFriendRequest instance using the specified properties.
-         * @function create
-         * @memberof msg.GW2C_RetProcessFriendRequest
-         * @static
-         * @param {msg.IGW2C_RetProcessFriendRequest=} [properties] Properties to set
-         * @returns {msg.GW2C_RetProcessFriendRequest} GW2C_RetProcessFriendRequest instance
-         */
-        GW2C_RetProcessFriendRequest.create = function create(properties) {
-            return new GW2C_RetProcessFriendRequest(properties);
-        };
-
-        /**
-         * Encodes the specified GW2C_RetProcessFriendRequest message. Does not implicitly {@link msg.GW2C_RetProcessFriendRequest.verify|verify} messages.
-         * @function encode
-         * @memberof msg.GW2C_RetProcessFriendRequest
-         * @static
-         * @param {msg.IGW2C_RetProcessFriendRequest} message GW2C_RetProcessFriendRequest message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        GW2C_RetProcessFriendRequest.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            return writer;
-        };
-
-        /**
-         * Encodes the specified GW2C_RetProcessFriendRequest message, length delimited. Does not implicitly {@link msg.GW2C_RetProcessFriendRequest.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof msg.GW2C_RetProcessFriendRequest
-         * @static
-         * @param {msg.IGW2C_RetProcessFriendRequest} message GW2C_RetProcessFriendRequest message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        GW2C_RetProcessFriendRequest.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a GW2C_RetProcessFriendRequest message from the specified reader or buffer.
-         * @function decode
-         * @memberof msg.GW2C_RetProcessFriendRequest
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {msg.GW2C_RetProcessFriendRequest} GW2C_RetProcessFriendRequest
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        GW2C_RetProcessFriendRequest.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RetProcessFriendRequest();
-            while (reader.pos < end) {
-                var tag = reader.uint32();
-                switch (tag >>> 3) {
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a GW2C_RetProcessFriendRequest message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof msg.GW2C_RetProcessFriendRequest
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.GW2C_RetProcessFriendRequest} GW2C_RetProcessFriendRequest
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        GW2C_RetProcessFriendRequest.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a GW2C_RetProcessFriendRequest message.
-         * @function verify
-         * @memberof msg.GW2C_RetProcessFriendRequest
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        GW2C_RetProcessFriendRequest.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            return null;
-        };
-
-        /**
-         * Creates a GW2C_RetProcessFriendRequest message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof msg.GW2C_RetProcessFriendRequest
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {msg.GW2C_RetProcessFriendRequest} GW2C_RetProcessFriendRequest
-         */
-        GW2C_RetProcessFriendRequest.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.GW2C_RetProcessFriendRequest)
-                return object;
-            return new $root.msg.GW2C_RetProcessFriendRequest();
-        };
-
-        /**
-         * Creates a plain object from a GW2C_RetProcessFriendRequest message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof msg.GW2C_RetProcessFriendRequest
-         * @static
-         * @param {msg.GW2C_RetProcessFriendRequest} message GW2C_RetProcessFriendRequest
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        GW2C_RetProcessFriendRequest.toObject = function toObject() {
-            return {};
-        };
-
-        /**
-         * Converts this GW2C_RetProcessFriendRequest to JSON.
-         * @function toJSON
-         * @memberof msg.GW2C_RetProcessFriendRequest
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        GW2C_RetProcessFriendRequest.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return GW2C_RetProcessFriendRequest;
-    })();
-
-    msg.C2GW_ReqFriendSearch = (function() {
-
-        /**
-         * Properties of a C2GW_ReqFriendSearch.
-         * @memberof msg
-         * @interface IC2GW_ReqFriendSearch
-         * @property {string|null} [val] C2GW_ReqFriendSearch val
-         */
-
-        /**
-         * Constructs a new C2GW_ReqFriendSearch.
-         * @memberof msg
-         * @classdesc Represents a C2GW_ReqFriendSearch.
-         * @implements IC2GW_ReqFriendSearch
-         * @constructor
-         * @param {msg.IC2GW_ReqFriendSearch=} [properties] Properties to set
-         */
-        function C2GW_ReqFriendSearch(properties) {
-            if (properties)
-                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * C2GW_ReqFriendSearch val.
-         * @member {string} val
-         * @memberof msg.C2GW_ReqFriendSearch
-         * @instance
-         */
-        C2GW_ReqFriendSearch.prototype.val = "";
-
-        /**
-         * Creates a new C2GW_ReqFriendSearch instance using the specified properties.
-         * @function create
-         * @memberof msg.C2GW_ReqFriendSearch
-         * @static
-         * @param {msg.IC2GW_ReqFriendSearch=} [properties] Properties to set
-         * @returns {msg.C2GW_ReqFriendSearch} C2GW_ReqFriendSearch instance
-         */
-        C2GW_ReqFriendSearch.create = function create(properties) {
-            return new C2GW_ReqFriendSearch(properties);
-        };
-
-        /**
-         * Encodes the specified C2GW_ReqFriendSearch message. Does not implicitly {@link msg.C2GW_ReqFriendSearch.verify|verify} messages.
-         * @function encode
-         * @memberof msg.C2GW_ReqFriendSearch
-         * @static
-         * @param {msg.IC2GW_ReqFriendSearch} message C2GW_ReqFriendSearch message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        C2GW_ReqFriendSearch.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.val != null && message.hasOwnProperty("val"))
-                writer.uint32(/* id 1, wireType 2 =*/10).string(message.val);
-            return writer;
-        };
-
-        /**
-         * Encodes the specified C2GW_ReqFriendSearch message, length delimited. Does not implicitly {@link msg.C2GW_ReqFriendSearch.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof msg.C2GW_ReqFriendSearch
-         * @static
-         * @param {msg.IC2GW_ReqFriendSearch} message C2GW_ReqFriendSearch message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        C2GW_ReqFriendSearch.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a C2GW_ReqFriendSearch message from the specified reader or buffer.
-         * @function decode
-         * @memberof msg.C2GW_ReqFriendSearch
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {msg.C2GW_ReqFriendSearch} C2GW_ReqFriendSearch
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        C2GW_ReqFriendSearch.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqFriendSearch();
-            while (reader.pos < end) {
-                var tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 1:
-                    message.val = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a C2GW_ReqFriendSearch message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof msg.C2GW_ReqFriendSearch
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.C2GW_ReqFriendSearch} C2GW_ReqFriendSearch
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        C2GW_ReqFriendSearch.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a C2GW_ReqFriendSearch message.
-         * @function verify
-         * @memberof msg.C2GW_ReqFriendSearch
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        C2GW_ReqFriendSearch.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.val != null && message.hasOwnProperty("val"))
-                if (!$util.isString(message.val))
-                    return "val: string expected";
-            return null;
-        };
-
-        /**
-         * Creates a C2GW_ReqFriendSearch message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof msg.C2GW_ReqFriendSearch
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {msg.C2GW_ReqFriendSearch} C2GW_ReqFriendSearch
-         */
-        C2GW_ReqFriendSearch.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.C2GW_ReqFriendSearch)
-                return object;
-            var message = new $root.msg.C2GW_ReqFriendSearch();
-            if (object.val != null)
-                message.val = String(object.val);
-            return message;
-        };
-
-        /**
-         * Creates a plain object from a C2GW_ReqFriendSearch message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof msg.C2GW_ReqFriendSearch
-         * @static
-         * @param {msg.C2GW_ReqFriendSearch} message C2GW_ReqFriendSearch
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        C2GW_ReqFriendSearch.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            var object = {};
-            if (options.defaults)
-                object.val = "";
-            if (message.val != null && message.hasOwnProperty("val"))
-                object.val = message.val;
-            return object;
-        };
-
-        /**
-         * Converts this C2GW_ReqFriendSearch to JSON.
-         * @function toJSON
-         * @memberof msg.C2GW_ReqFriendSearch
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        C2GW_ReqFriendSearch.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return C2GW_ReqFriendSearch;
-    })();
-
-    msg.GW2C_RetFriendSearch = (function() {
-
-        /**
-         * Properties of a GW2C_RetFriendSearch.
-         * @memberof msg
-         * @interface IGW2C_RetFriendSearch
-         * @property {Array.<msg.IFriendBrief>|null} [brief] GW2C_RetFriendSearch brief
-         */
-
-        /**
-         * Constructs a new GW2C_RetFriendSearch.
-         * @memberof msg
-         * @classdesc Represents a GW2C_RetFriendSearch.
-         * @implements IGW2C_RetFriendSearch
-         * @constructor
-         * @param {msg.IGW2C_RetFriendSearch=} [properties] Properties to set
-         */
-        function GW2C_RetFriendSearch(properties) {
-            this.brief = [];
-            if (properties)
-                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * GW2C_RetFriendSearch brief.
-         * @member {Array.<msg.IFriendBrief>} brief
-         * @memberof msg.GW2C_RetFriendSearch
-         * @instance
-         */
-        GW2C_RetFriendSearch.prototype.brief = $util.emptyArray;
-
-        /**
-         * Creates a new GW2C_RetFriendSearch instance using the specified properties.
-         * @function create
-         * @memberof msg.GW2C_RetFriendSearch
-         * @static
-         * @param {msg.IGW2C_RetFriendSearch=} [properties] Properties to set
-         * @returns {msg.GW2C_RetFriendSearch} GW2C_RetFriendSearch instance
-         */
-        GW2C_RetFriendSearch.create = function create(properties) {
-            return new GW2C_RetFriendSearch(properties);
-        };
-
-        /**
-         * Encodes the specified GW2C_RetFriendSearch message. Does not implicitly {@link msg.GW2C_RetFriendSearch.verify|verify} messages.
-         * @function encode
-         * @memberof msg.GW2C_RetFriendSearch
-         * @static
-         * @param {msg.IGW2C_RetFriendSearch} message GW2C_RetFriendSearch message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        GW2C_RetFriendSearch.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.brief != null && message.brief.length)
-                for (var i = 0; i < message.brief.length; ++i)
-                    $root.msg.FriendBrief.encode(message.brief[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-            return writer;
-        };
-
-        /**
-         * Encodes the specified GW2C_RetFriendSearch message, length delimited. Does not implicitly {@link msg.GW2C_RetFriendSearch.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof msg.GW2C_RetFriendSearch
-         * @static
-         * @param {msg.IGW2C_RetFriendSearch} message GW2C_RetFriendSearch message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        GW2C_RetFriendSearch.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a GW2C_RetFriendSearch message from the specified reader or buffer.
-         * @function decode
-         * @memberof msg.GW2C_RetFriendSearch
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {msg.GW2C_RetFriendSearch} GW2C_RetFriendSearch
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        GW2C_RetFriendSearch.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RetFriendSearch();
-            while (reader.pos < end) {
-                var tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 1:
-                    if (!(message.brief && message.brief.length))
-                        message.brief = [];
-                    message.brief.push($root.msg.FriendBrief.decode(reader, reader.uint32()));
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a GW2C_RetFriendSearch message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof msg.GW2C_RetFriendSearch
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.GW2C_RetFriendSearch} GW2C_RetFriendSearch
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        GW2C_RetFriendSearch.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a GW2C_RetFriendSearch message.
-         * @function verify
-         * @memberof msg.GW2C_RetFriendSearch
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        GW2C_RetFriendSearch.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.brief != null && message.hasOwnProperty("brief")) {
-                if (!Array.isArray(message.brief))
-                    return "brief: array expected";
-                for (var i = 0; i < message.brief.length; ++i) {
-                    var error = $root.msg.FriendBrief.verify(message.brief[i]);
-                    if (error)
-                        return "brief." + error;
-                }
-            }
-            return null;
-        };
-
-        /**
-         * Creates a GW2C_RetFriendSearch message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof msg.GW2C_RetFriendSearch
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {msg.GW2C_RetFriendSearch} GW2C_RetFriendSearch
-         */
-        GW2C_RetFriendSearch.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.GW2C_RetFriendSearch)
-                return object;
-            var message = new $root.msg.GW2C_RetFriendSearch();
-            if (object.brief) {
-                if (!Array.isArray(object.brief))
-                    throw TypeError(".msg.GW2C_RetFriendSearch.brief: array expected");
-                message.brief = [];
-                for (var i = 0; i < object.brief.length; ++i) {
-                    if (typeof object.brief[i] !== "object")
-                        throw TypeError(".msg.GW2C_RetFriendSearch.brief: object expected");
-                    message.brief[i] = $root.msg.FriendBrief.fromObject(object.brief[i]);
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Creates a plain object from a GW2C_RetFriendSearch message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof msg.GW2C_RetFriendSearch
-         * @static
-         * @param {msg.GW2C_RetFriendSearch} message GW2C_RetFriendSearch
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        GW2C_RetFriendSearch.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            var object = {};
-            if (options.arrays || options.defaults)
-                object.brief = [];
-            if (message.brief && message.brief.length) {
-                object.brief = [];
-                for (var j = 0; j < message.brief.length; ++j)
-                    object.brief[j] = $root.msg.FriendBrief.toObject(message.brief[j], options);
-            }
-            return object;
-        };
-
-        /**
-         * Converts this GW2C_RetFriendSearch to JSON.
-         * @function toJSON
-         * @memberof msg.GW2C_RetFriendSearch
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        GW2C_RetFriendSearch.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return GW2C_RetFriendSearch;
-    })();
-
     msg.C2GW_ReqRemoveFriend = (function() {
 
         /**
@@ -17854,230 +17075,6 @@ $root.msg = (function() {
         return GW2C_PushFriendAddSuccess;
     })();
 
-    msg.GW2C_PushFriendLogin = (function() {
-
-        /**
-         * Properties of a GW2C_PushFriendLogin.
-         * @memberof msg
-         * @interface IGW2C_PushFriendLogin
-         * @property {number|Long|null} [roleid] GW2C_PushFriendLogin roleid
-         * @property {number|null} [offlinetime] GW2C_PushFriendLogin offlinetime
-         */
-
-        /**
-         * Constructs a new GW2C_PushFriendLogin.
-         * @memberof msg
-         * @classdesc Represents a GW2C_PushFriendLogin.
-         * @implements IGW2C_PushFriendLogin
-         * @constructor
-         * @param {msg.IGW2C_PushFriendLogin=} [properties] Properties to set
-         */
-        function GW2C_PushFriendLogin(properties) {
-            if (properties)
-                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * GW2C_PushFriendLogin roleid.
-         * @member {number|Long} roleid
-         * @memberof msg.GW2C_PushFriendLogin
-         * @instance
-         */
-        GW2C_PushFriendLogin.prototype.roleid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
-
-        /**
-         * GW2C_PushFriendLogin offlinetime.
-         * @member {number} offlinetime
-         * @memberof msg.GW2C_PushFriendLogin
-         * @instance
-         */
-        GW2C_PushFriendLogin.prototype.offlinetime = 0;
-
-        /**
-         * Creates a new GW2C_PushFriendLogin instance using the specified properties.
-         * @function create
-         * @memberof msg.GW2C_PushFriendLogin
-         * @static
-         * @param {msg.IGW2C_PushFriendLogin=} [properties] Properties to set
-         * @returns {msg.GW2C_PushFriendLogin} GW2C_PushFriendLogin instance
-         */
-        GW2C_PushFriendLogin.create = function create(properties) {
-            return new GW2C_PushFriendLogin(properties);
-        };
-
-        /**
-         * Encodes the specified GW2C_PushFriendLogin message. Does not implicitly {@link msg.GW2C_PushFriendLogin.verify|verify} messages.
-         * @function encode
-         * @memberof msg.GW2C_PushFriendLogin
-         * @static
-         * @param {msg.IGW2C_PushFriendLogin} message GW2C_PushFriendLogin message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        GW2C_PushFriendLogin.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.roleid != null && message.hasOwnProperty("roleid"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.roleid);
-            if (message.offlinetime != null && message.hasOwnProperty("offlinetime"))
-                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.offlinetime);
-            return writer;
-        };
-
-        /**
-         * Encodes the specified GW2C_PushFriendLogin message, length delimited. Does not implicitly {@link msg.GW2C_PushFriendLogin.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof msg.GW2C_PushFriendLogin
-         * @static
-         * @param {msg.IGW2C_PushFriendLogin} message GW2C_PushFriendLogin message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        GW2C_PushFriendLogin.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a GW2C_PushFriendLogin message from the specified reader or buffer.
-         * @function decode
-         * @memberof msg.GW2C_PushFriendLogin
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {msg.GW2C_PushFriendLogin} GW2C_PushFriendLogin
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        GW2C_PushFriendLogin.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_PushFriendLogin();
-            while (reader.pos < end) {
-                var tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 1:
-                    message.roleid = reader.int64();
-                    break;
-                case 2:
-                    message.offlinetime = reader.int32();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a GW2C_PushFriendLogin message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof msg.GW2C_PushFriendLogin
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.GW2C_PushFriendLogin} GW2C_PushFriendLogin
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        GW2C_PushFriendLogin.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a GW2C_PushFriendLogin message.
-         * @function verify
-         * @memberof msg.GW2C_PushFriendLogin
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        GW2C_PushFriendLogin.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.roleid != null && message.hasOwnProperty("roleid"))
-                if (!$util.isInteger(message.roleid) && !(message.roleid && $util.isInteger(message.roleid.low) && $util.isInteger(message.roleid.high)))
-                    return "roleid: integer|Long expected";
-            if (message.offlinetime != null && message.hasOwnProperty("offlinetime"))
-                if (!$util.isInteger(message.offlinetime))
-                    return "offlinetime: integer expected";
-            return null;
-        };
-
-        /**
-         * Creates a GW2C_PushFriendLogin message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof msg.GW2C_PushFriendLogin
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {msg.GW2C_PushFriendLogin} GW2C_PushFriendLogin
-         */
-        GW2C_PushFriendLogin.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.GW2C_PushFriendLogin)
-                return object;
-            var message = new $root.msg.GW2C_PushFriendLogin();
-            if (object.roleid != null)
-                if ($util.Long)
-                    (message.roleid = $util.Long.fromValue(object.roleid)).unsigned = false;
-                else if (typeof object.roleid === "string")
-                    message.roleid = parseInt(object.roleid, 10);
-                else if (typeof object.roleid === "number")
-                    message.roleid = object.roleid;
-                else if (typeof object.roleid === "object")
-                    message.roleid = new $util.LongBits(object.roleid.low >>> 0, object.roleid.high >>> 0).toNumber();
-            if (object.offlinetime != null)
-                message.offlinetime = object.offlinetime | 0;
-            return message;
-        };
-
-        /**
-         * Creates a plain object from a GW2C_PushFriendLogin message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof msg.GW2C_PushFriendLogin
-         * @static
-         * @param {msg.GW2C_PushFriendLogin} message GW2C_PushFriendLogin
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        GW2C_PushFriendLogin.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            var object = {};
-            if (options.defaults) {
-                if ($util.Long) {
-                    var long = new $util.Long(0, 0, false);
-                    object.roleid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.roleid = options.longs === String ? "0" : 0;
-                object.offlinetime = 0;
-            }
-            if (message.roleid != null && message.hasOwnProperty("roleid"))
-                if (typeof message.roleid === "number")
-                    object.roleid = options.longs === String ? String(message.roleid) : message.roleid;
-                else
-                    object.roleid = options.longs === String ? $util.Long.prototype.toString.call(message.roleid) : options.longs === Number ? new $util.LongBits(message.roleid.low >>> 0, message.roleid.high >>> 0).toNumber() : message.roleid;
-            if (message.offlinetime != null && message.hasOwnProperty("offlinetime"))
-                object.offlinetime = message.offlinetime;
-            return object;
-        };
-
-        /**
-         * Converts this GW2C_PushFriendLogin to JSON.
-         * @function toJSON
-         * @memberof msg.GW2C_PushFriendLogin
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        GW2C_PushFriendLogin.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return GW2C_PushFriendLogin;
-    })();
-
     msg.GW2C_PushAddYouFriend = (function() {
 
         /**
@@ -18305,6 +17302,1009 @@ $root.msg = (function() {
         };
 
         return GW2C_PushAddYouFriend;
+    })();
+
+    msg.C2GW_ReqProcessFriendRequest = (function() {
+
+        /**
+         * Properties of a C2GW_ReqProcessFriendRequest.
+         * @memberof msg
+         * @interface IC2GW_ReqProcessFriendRequest
+         * @property {number|Long|null} [roleid] C2GW_ReqProcessFriendRequest roleid
+         * @property {boolean|null} [isaccept] C2GW_ReqProcessFriendRequest isaccept
+         */
+
+        /**
+         * Constructs a new C2GW_ReqProcessFriendRequest.
+         * @memberof msg
+         * @classdesc Represents a C2GW_ReqProcessFriendRequest.
+         * @implements IC2GW_ReqProcessFriendRequest
+         * @constructor
+         * @param {msg.IC2GW_ReqProcessFriendRequest=} [properties] Properties to set
+         */
+        function C2GW_ReqProcessFriendRequest(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_ReqProcessFriendRequest roleid.
+         * @member {number|Long} roleid
+         * @memberof msg.C2GW_ReqProcessFriendRequest
+         * @instance
+         */
+        C2GW_ReqProcessFriendRequest.prototype.roleid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * C2GW_ReqProcessFriendRequest isaccept.
+         * @member {boolean} isaccept
+         * @memberof msg.C2GW_ReqProcessFriendRequest
+         * @instance
+         */
+        C2GW_ReqProcessFriendRequest.prototype.isaccept = false;
+
+        /**
+         * Creates a new C2GW_ReqProcessFriendRequest instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_ReqProcessFriendRequest
+         * @static
+         * @param {msg.IC2GW_ReqProcessFriendRequest=} [properties] Properties to set
+         * @returns {msg.C2GW_ReqProcessFriendRequest} C2GW_ReqProcessFriendRequest instance
+         */
+        C2GW_ReqProcessFriendRequest.create = function create(properties) {
+            return new C2GW_ReqProcessFriendRequest(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqProcessFriendRequest message. Does not implicitly {@link msg.C2GW_ReqProcessFriendRequest.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_ReqProcessFriendRequest
+         * @static
+         * @param {msg.IC2GW_ReqProcessFriendRequest} message C2GW_ReqProcessFriendRequest message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqProcessFriendRequest.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.roleid);
+            if (message.isaccept != null && message.hasOwnProperty("isaccept"))
+                writer.uint32(/* id 2, wireType 0 =*/16).bool(message.isaccept);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqProcessFriendRequest message, length delimited. Does not implicitly {@link msg.C2GW_ReqProcessFriendRequest.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_ReqProcessFriendRequest
+         * @static
+         * @param {msg.IC2GW_ReqProcessFriendRequest} message C2GW_ReqProcessFriendRequest message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqProcessFriendRequest.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_ReqProcessFriendRequest message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_ReqProcessFriendRequest
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_ReqProcessFriendRequest} C2GW_ReqProcessFriendRequest
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqProcessFriendRequest.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqProcessFriendRequest();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.roleid = reader.int64();
+                    break;
+                case 2:
+                    message.isaccept = reader.bool();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_ReqProcessFriendRequest message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_ReqProcessFriendRequest
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_ReqProcessFriendRequest} C2GW_ReqProcessFriendRequest
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqProcessFriendRequest.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_ReqProcessFriendRequest message.
+         * @function verify
+         * @memberof msg.C2GW_ReqProcessFriendRequest
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_ReqProcessFriendRequest.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                if (!$util.isInteger(message.roleid) && !(message.roleid && $util.isInteger(message.roleid.low) && $util.isInteger(message.roleid.high)))
+                    return "roleid: integer|Long expected";
+            if (message.isaccept != null && message.hasOwnProperty("isaccept"))
+                if (typeof message.isaccept !== "boolean")
+                    return "isaccept: boolean expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_ReqProcessFriendRequest message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_ReqProcessFriendRequest
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_ReqProcessFriendRequest} C2GW_ReqProcessFriendRequest
+         */
+        C2GW_ReqProcessFriendRequest.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_ReqProcessFriendRequest)
+                return object;
+            var message = new $root.msg.C2GW_ReqProcessFriendRequest();
+            if (object.roleid != null)
+                if ($util.Long)
+                    (message.roleid = $util.Long.fromValue(object.roleid)).unsigned = false;
+                else if (typeof object.roleid === "string")
+                    message.roleid = parseInt(object.roleid, 10);
+                else if (typeof object.roleid === "number")
+                    message.roleid = object.roleid;
+                else if (typeof object.roleid === "object")
+                    message.roleid = new $util.LongBits(object.roleid.low >>> 0, object.roleid.high >>> 0).toNumber();
+            if (object.isaccept != null)
+                message.isaccept = Boolean(object.isaccept);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_ReqProcessFriendRequest message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_ReqProcessFriendRequest
+         * @static
+         * @param {msg.C2GW_ReqProcessFriendRequest} message C2GW_ReqProcessFriendRequest
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_ReqProcessFriendRequest.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.roleid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.roleid = options.longs === String ? "0" : 0;
+                object.isaccept = false;
+            }
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                if (typeof message.roleid === "number")
+                    object.roleid = options.longs === String ? String(message.roleid) : message.roleid;
+                else
+                    object.roleid = options.longs === String ? $util.Long.prototype.toString.call(message.roleid) : options.longs === Number ? new $util.LongBits(message.roleid.low >>> 0, message.roleid.high >>> 0).toNumber() : message.roleid;
+            if (message.isaccept != null && message.hasOwnProperty("isaccept"))
+                object.isaccept = message.isaccept;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_ReqProcessFriendRequest to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_ReqProcessFriendRequest
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_ReqProcessFriendRequest.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_ReqProcessFriendRequest;
+    })();
+
+    msg.GW2C_RetProcessFriendRequest = (function() {
+
+        /**
+         * Properties of a GW2C_RetProcessFriendRequest.
+         * @memberof msg
+         * @interface IGW2C_RetProcessFriendRequest
+         */
+
+        /**
+         * Constructs a new GW2C_RetProcessFriendRequest.
+         * @memberof msg
+         * @classdesc Represents a GW2C_RetProcessFriendRequest.
+         * @implements IGW2C_RetProcessFriendRequest
+         * @constructor
+         * @param {msg.IGW2C_RetProcessFriendRequest=} [properties] Properties to set
+         */
+        function GW2C_RetProcessFriendRequest(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Creates a new GW2C_RetProcessFriendRequest instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_RetProcessFriendRequest
+         * @static
+         * @param {msg.IGW2C_RetProcessFriendRequest=} [properties] Properties to set
+         * @returns {msg.GW2C_RetProcessFriendRequest} GW2C_RetProcessFriendRequest instance
+         */
+        GW2C_RetProcessFriendRequest.create = function create(properties) {
+            return new GW2C_RetProcessFriendRequest(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_RetProcessFriendRequest message. Does not implicitly {@link msg.GW2C_RetProcessFriendRequest.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_RetProcessFriendRequest
+         * @static
+         * @param {msg.IGW2C_RetProcessFriendRequest} message GW2C_RetProcessFriendRequest message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetProcessFriendRequest.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_RetProcessFriendRequest message, length delimited. Does not implicitly {@link msg.GW2C_RetProcessFriendRequest.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_RetProcessFriendRequest
+         * @static
+         * @param {msg.IGW2C_RetProcessFriendRequest} message GW2C_RetProcessFriendRequest message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetProcessFriendRequest.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_RetProcessFriendRequest message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_RetProcessFriendRequest
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_RetProcessFriendRequest} GW2C_RetProcessFriendRequest
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetProcessFriendRequest.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RetProcessFriendRequest();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_RetProcessFriendRequest message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_RetProcessFriendRequest
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_RetProcessFriendRequest} GW2C_RetProcessFriendRequest
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetProcessFriendRequest.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_RetProcessFriendRequest message.
+         * @function verify
+         * @memberof msg.GW2C_RetProcessFriendRequest
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_RetProcessFriendRequest.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_RetProcessFriendRequest message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_RetProcessFriendRequest
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_RetProcessFriendRequest} GW2C_RetProcessFriendRequest
+         */
+        GW2C_RetProcessFriendRequest.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_RetProcessFriendRequest)
+                return object;
+            return new $root.msg.GW2C_RetProcessFriendRequest();
+        };
+
+        /**
+         * Creates a plain object from a GW2C_RetProcessFriendRequest message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_RetProcessFriendRequest
+         * @static
+         * @param {msg.GW2C_RetProcessFriendRequest} message GW2C_RetProcessFriendRequest
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_RetProcessFriendRequest.toObject = function toObject() {
+            return {};
+        };
+
+        /**
+         * Converts this GW2C_RetProcessFriendRequest to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_RetProcessFriendRequest
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_RetProcessFriendRequest.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_RetProcessFriendRequest;
+    })();
+
+    msg.C2GW_ReqFriendSearch = (function() {
+
+        /**
+         * Properties of a C2GW_ReqFriendSearch.
+         * @memberof msg
+         * @interface IC2GW_ReqFriendSearch
+         * @property {string|null} [val] C2GW_ReqFriendSearch val
+         */
+
+        /**
+         * Constructs a new C2GW_ReqFriendSearch.
+         * @memberof msg
+         * @classdesc Represents a C2GW_ReqFriendSearch.
+         * @implements IC2GW_ReqFriendSearch
+         * @constructor
+         * @param {msg.IC2GW_ReqFriendSearch=} [properties] Properties to set
+         */
+        function C2GW_ReqFriendSearch(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_ReqFriendSearch val.
+         * @member {string} val
+         * @memberof msg.C2GW_ReqFriendSearch
+         * @instance
+         */
+        C2GW_ReqFriendSearch.prototype.val = "";
+
+        /**
+         * Creates a new C2GW_ReqFriendSearch instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_ReqFriendSearch
+         * @static
+         * @param {msg.IC2GW_ReqFriendSearch=} [properties] Properties to set
+         * @returns {msg.C2GW_ReqFriendSearch} C2GW_ReqFriendSearch instance
+         */
+        C2GW_ReqFriendSearch.create = function create(properties) {
+            return new C2GW_ReqFriendSearch(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqFriendSearch message. Does not implicitly {@link msg.C2GW_ReqFriendSearch.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_ReqFriendSearch
+         * @static
+         * @param {msg.IC2GW_ReqFriendSearch} message C2GW_ReqFriendSearch message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqFriendSearch.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.val != null && message.hasOwnProperty("val"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.val);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqFriendSearch message, length delimited. Does not implicitly {@link msg.C2GW_ReqFriendSearch.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_ReqFriendSearch
+         * @static
+         * @param {msg.IC2GW_ReqFriendSearch} message C2GW_ReqFriendSearch message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqFriendSearch.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_ReqFriendSearch message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_ReqFriendSearch
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_ReqFriendSearch} C2GW_ReqFriendSearch
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqFriendSearch.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqFriendSearch();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.val = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_ReqFriendSearch message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_ReqFriendSearch
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_ReqFriendSearch} C2GW_ReqFriendSearch
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqFriendSearch.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_ReqFriendSearch message.
+         * @function verify
+         * @memberof msg.C2GW_ReqFriendSearch
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_ReqFriendSearch.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.val != null && message.hasOwnProperty("val"))
+                if (!$util.isString(message.val))
+                    return "val: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_ReqFriendSearch message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_ReqFriendSearch
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_ReqFriendSearch} C2GW_ReqFriendSearch
+         */
+        C2GW_ReqFriendSearch.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_ReqFriendSearch)
+                return object;
+            var message = new $root.msg.C2GW_ReqFriendSearch();
+            if (object.val != null)
+                message.val = String(object.val);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_ReqFriendSearch message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_ReqFriendSearch
+         * @static
+         * @param {msg.C2GW_ReqFriendSearch} message C2GW_ReqFriendSearch
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_ReqFriendSearch.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.val = "";
+            if (message.val != null && message.hasOwnProperty("val"))
+                object.val = message.val;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_ReqFriendSearch to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_ReqFriendSearch
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_ReqFriendSearch.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_ReqFriendSearch;
+    })();
+
+    msg.GW2C_RetFriendSearch = (function() {
+
+        /**
+         * Properties of a GW2C_RetFriendSearch.
+         * @memberof msg
+         * @interface IGW2C_RetFriendSearch
+         * @property {Array.<msg.IFriendBrief>|null} [brief] GW2C_RetFriendSearch brief
+         */
+
+        /**
+         * Constructs a new GW2C_RetFriendSearch.
+         * @memberof msg
+         * @classdesc Represents a GW2C_RetFriendSearch.
+         * @implements IGW2C_RetFriendSearch
+         * @constructor
+         * @param {msg.IGW2C_RetFriendSearch=} [properties] Properties to set
+         */
+        function GW2C_RetFriendSearch(properties) {
+            this.brief = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_RetFriendSearch brief.
+         * @member {Array.<msg.IFriendBrief>} brief
+         * @memberof msg.GW2C_RetFriendSearch
+         * @instance
+         */
+        GW2C_RetFriendSearch.prototype.brief = $util.emptyArray;
+
+        /**
+         * Creates a new GW2C_RetFriendSearch instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_RetFriendSearch
+         * @static
+         * @param {msg.IGW2C_RetFriendSearch=} [properties] Properties to set
+         * @returns {msg.GW2C_RetFriendSearch} GW2C_RetFriendSearch instance
+         */
+        GW2C_RetFriendSearch.create = function create(properties) {
+            return new GW2C_RetFriendSearch(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_RetFriendSearch message. Does not implicitly {@link msg.GW2C_RetFriendSearch.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_RetFriendSearch
+         * @static
+         * @param {msg.IGW2C_RetFriendSearch} message GW2C_RetFriendSearch message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetFriendSearch.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.brief != null && message.brief.length)
+                for (var i = 0; i < message.brief.length; ++i)
+                    $root.msg.FriendBrief.encode(message.brief[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_RetFriendSearch message, length delimited. Does not implicitly {@link msg.GW2C_RetFriendSearch.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_RetFriendSearch
+         * @static
+         * @param {msg.IGW2C_RetFriendSearch} message GW2C_RetFriendSearch message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetFriendSearch.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_RetFriendSearch message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_RetFriendSearch
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_RetFriendSearch} GW2C_RetFriendSearch
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetFriendSearch.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RetFriendSearch();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.brief && message.brief.length))
+                        message.brief = [];
+                    message.brief.push($root.msg.FriendBrief.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_RetFriendSearch message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_RetFriendSearch
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_RetFriendSearch} GW2C_RetFriendSearch
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetFriendSearch.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_RetFriendSearch message.
+         * @function verify
+         * @memberof msg.GW2C_RetFriendSearch
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_RetFriendSearch.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.brief != null && message.hasOwnProperty("brief")) {
+                if (!Array.isArray(message.brief))
+                    return "brief: array expected";
+                for (var i = 0; i < message.brief.length; ++i) {
+                    var error = $root.msg.FriendBrief.verify(message.brief[i]);
+                    if (error)
+                        return "brief." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_RetFriendSearch message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_RetFriendSearch
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_RetFriendSearch} GW2C_RetFriendSearch
+         */
+        GW2C_RetFriendSearch.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_RetFriendSearch)
+                return object;
+            var message = new $root.msg.GW2C_RetFriendSearch();
+            if (object.brief) {
+                if (!Array.isArray(object.brief))
+                    throw TypeError(".msg.GW2C_RetFriendSearch.brief: array expected");
+                message.brief = [];
+                for (var i = 0; i < object.brief.length; ++i) {
+                    if (typeof object.brief[i] !== "object")
+                        throw TypeError(".msg.GW2C_RetFriendSearch.brief: object expected");
+                    message.brief[i] = $root.msg.FriendBrief.fromObject(object.brief[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_RetFriendSearch message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_RetFriendSearch
+         * @static
+         * @param {msg.GW2C_RetFriendSearch} message GW2C_RetFriendSearch
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_RetFriendSearch.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.brief = [];
+            if (message.brief && message.brief.length) {
+                object.brief = [];
+                for (var j = 0; j < message.brief.length; ++j)
+                    object.brief[j] = $root.msg.FriendBrief.toObject(message.brief[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_RetFriendSearch to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_RetFriendSearch
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_RetFriendSearch.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_RetFriendSearch;
+    })();
+
+    msg.GW2C_PushFriendLogin = (function() {
+
+        /**
+         * Properties of a GW2C_PushFriendLogin.
+         * @memberof msg
+         * @interface IGW2C_PushFriendLogin
+         * @property {number|Long|null} [roleid] GW2C_PushFriendLogin roleid
+         * @property {number|null} [offlinetime] GW2C_PushFriendLogin offlinetime
+         */
+
+        /**
+         * Constructs a new GW2C_PushFriendLogin.
+         * @memberof msg
+         * @classdesc Represents a GW2C_PushFriendLogin.
+         * @implements IGW2C_PushFriendLogin
+         * @constructor
+         * @param {msg.IGW2C_PushFriendLogin=} [properties] Properties to set
+         */
+        function GW2C_PushFriendLogin(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_PushFriendLogin roleid.
+         * @member {number|Long} roleid
+         * @memberof msg.GW2C_PushFriendLogin
+         * @instance
+         */
+        GW2C_PushFriendLogin.prototype.roleid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * GW2C_PushFriendLogin offlinetime.
+         * @member {number} offlinetime
+         * @memberof msg.GW2C_PushFriendLogin
+         * @instance
+         */
+        GW2C_PushFriendLogin.prototype.offlinetime = 0;
+
+        /**
+         * Creates a new GW2C_PushFriendLogin instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_PushFriendLogin
+         * @static
+         * @param {msg.IGW2C_PushFriendLogin=} [properties] Properties to set
+         * @returns {msg.GW2C_PushFriendLogin} GW2C_PushFriendLogin instance
+         */
+        GW2C_PushFriendLogin.create = function create(properties) {
+            return new GW2C_PushFriendLogin(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_PushFriendLogin message. Does not implicitly {@link msg.GW2C_PushFriendLogin.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_PushFriendLogin
+         * @static
+         * @param {msg.IGW2C_PushFriendLogin} message GW2C_PushFriendLogin message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_PushFriendLogin.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.roleid);
+            if (message.offlinetime != null && message.hasOwnProperty("offlinetime"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.offlinetime);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_PushFriendLogin message, length delimited. Does not implicitly {@link msg.GW2C_PushFriendLogin.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_PushFriendLogin
+         * @static
+         * @param {msg.IGW2C_PushFriendLogin} message GW2C_PushFriendLogin message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_PushFriendLogin.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_PushFriendLogin message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_PushFriendLogin
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_PushFriendLogin} GW2C_PushFriendLogin
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_PushFriendLogin.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_PushFriendLogin();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.roleid = reader.int64();
+                    break;
+                case 2:
+                    message.offlinetime = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_PushFriendLogin message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_PushFriendLogin
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_PushFriendLogin} GW2C_PushFriendLogin
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_PushFriendLogin.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_PushFriendLogin message.
+         * @function verify
+         * @memberof msg.GW2C_PushFriendLogin
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_PushFriendLogin.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                if (!$util.isInteger(message.roleid) && !(message.roleid && $util.isInteger(message.roleid.low) && $util.isInteger(message.roleid.high)))
+                    return "roleid: integer|Long expected";
+            if (message.offlinetime != null && message.hasOwnProperty("offlinetime"))
+                if (!$util.isInteger(message.offlinetime))
+                    return "offlinetime: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_PushFriendLogin message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_PushFriendLogin
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_PushFriendLogin} GW2C_PushFriendLogin
+         */
+        GW2C_PushFriendLogin.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_PushFriendLogin)
+                return object;
+            var message = new $root.msg.GW2C_PushFriendLogin();
+            if (object.roleid != null)
+                if ($util.Long)
+                    (message.roleid = $util.Long.fromValue(object.roleid)).unsigned = false;
+                else if (typeof object.roleid === "string")
+                    message.roleid = parseInt(object.roleid, 10);
+                else if (typeof object.roleid === "number")
+                    message.roleid = object.roleid;
+                else if (typeof object.roleid === "object")
+                    message.roleid = new $util.LongBits(object.roleid.low >>> 0, object.roleid.high >>> 0).toNumber();
+            if (object.offlinetime != null)
+                message.offlinetime = object.offlinetime | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_PushFriendLogin message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_PushFriendLogin
+         * @static
+         * @param {msg.GW2C_PushFriendLogin} message GW2C_PushFriendLogin
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_PushFriendLogin.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.roleid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.roleid = options.longs === String ? "0" : 0;
+                object.offlinetime = 0;
+            }
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                if (typeof message.roleid === "number")
+                    object.roleid = options.longs === String ? String(message.roleid) : message.roleid;
+                else
+                    object.roleid = options.longs === String ? $util.Long.prototype.toString.call(message.roleid) : options.longs === Number ? new $util.LongBits(message.roleid.low >>> 0, message.roleid.high >>> 0).toNumber() : message.roleid;
+            if (message.offlinetime != null && message.hasOwnProperty("offlinetime"))
+                object.offlinetime = message.offlinetime;
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_PushFriendLogin to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_PushFriendLogin
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_PushFriendLogin.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_PushFriendLogin;
     })();
 
     msg.GW2C_PushFriendInvitation = (function() {

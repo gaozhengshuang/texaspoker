@@ -6818,366 +6818,6 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a C2GW_ReqProcessFriendRequest. */
-    interface IC2GW_ReqProcessFriendRequest {
-
-        /** C2GW_ReqProcessFriendRequest roleid */
-        roleid?: (number|Long|null);
-
-        /** C2GW_ReqProcessFriendRequest isaccept */
-        isaccept?: (boolean|null);
-    }
-
-    /** Represents a C2GW_ReqProcessFriendRequest. */
-    class C2GW_ReqProcessFriendRequest implements IC2GW_ReqProcessFriendRequest {
-
-        /**
-         * Constructs a new C2GW_ReqProcessFriendRequest.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IC2GW_ReqProcessFriendRequest);
-
-        /** C2GW_ReqProcessFriendRequest roleid. */
-        public roleid: (number|Long);
-
-        /** C2GW_ReqProcessFriendRequest isaccept. */
-        public isaccept: boolean;
-
-        /**
-         * Creates a new C2GW_ReqProcessFriendRequest instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns C2GW_ReqProcessFriendRequest instance
-         */
-        public static create(properties?: msg.IC2GW_ReqProcessFriendRequest): msg.C2GW_ReqProcessFriendRequest;
-
-        /**
-         * Encodes the specified C2GW_ReqProcessFriendRequest message. Does not implicitly {@link msg.C2GW_ReqProcessFriendRequest.verify|verify} messages.
-         * @param message C2GW_ReqProcessFriendRequest message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IC2GW_ReqProcessFriendRequest, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified C2GW_ReqProcessFriendRequest message, length delimited. Does not implicitly {@link msg.C2GW_ReqProcessFriendRequest.verify|verify} messages.
-         * @param message C2GW_ReqProcessFriendRequest message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IC2GW_ReqProcessFriendRequest, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a C2GW_ReqProcessFriendRequest message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns C2GW_ReqProcessFriendRequest
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqProcessFriendRequest;
-
-        /**
-         * Decodes a C2GW_ReqProcessFriendRequest message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns C2GW_ReqProcessFriendRequest
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqProcessFriendRequest;
-
-        /**
-         * Verifies a C2GW_ReqProcessFriendRequest message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a C2GW_ReqProcessFriendRequest message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns C2GW_ReqProcessFriendRequest
-         */
-        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqProcessFriendRequest;
-
-        /**
-         * Creates a plain object from a C2GW_ReqProcessFriendRequest message. Also converts values to other types if specified.
-         * @param message C2GW_ReqProcessFriendRequest
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.C2GW_ReqProcessFriendRequest, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this C2GW_ReqProcessFriendRequest to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a GW2C_RetProcessFriendRequest. */
-    interface IGW2C_RetProcessFriendRequest {
-    }
-
-    /** Represents a GW2C_RetProcessFriendRequest. */
-    class GW2C_RetProcessFriendRequest implements IGW2C_RetProcessFriendRequest {
-
-        /**
-         * Constructs a new GW2C_RetProcessFriendRequest.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IGW2C_RetProcessFriendRequest);
-
-        /**
-         * Creates a new GW2C_RetProcessFriendRequest instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns GW2C_RetProcessFriendRequest instance
-         */
-        public static create(properties?: msg.IGW2C_RetProcessFriendRequest): msg.GW2C_RetProcessFriendRequest;
-
-        /**
-         * Encodes the specified GW2C_RetProcessFriendRequest message. Does not implicitly {@link msg.GW2C_RetProcessFriendRequest.verify|verify} messages.
-         * @param message GW2C_RetProcessFriendRequest message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IGW2C_RetProcessFriendRequest, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified GW2C_RetProcessFriendRequest message, length delimited. Does not implicitly {@link msg.GW2C_RetProcessFriendRequest.verify|verify} messages.
-         * @param message GW2C_RetProcessFriendRequest message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IGW2C_RetProcessFriendRequest, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a GW2C_RetProcessFriendRequest message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns GW2C_RetProcessFriendRequest
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetProcessFriendRequest;
-
-        /**
-         * Decodes a GW2C_RetProcessFriendRequest message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns GW2C_RetProcessFriendRequest
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetProcessFriendRequest;
-
-        /**
-         * Verifies a GW2C_RetProcessFriendRequest message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a GW2C_RetProcessFriendRequest message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns GW2C_RetProcessFriendRequest
-         */
-        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetProcessFriendRequest;
-
-        /**
-         * Creates a plain object from a GW2C_RetProcessFriendRequest message. Also converts values to other types if specified.
-         * @param message GW2C_RetProcessFriendRequest
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.GW2C_RetProcessFriendRequest, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this GW2C_RetProcessFriendRequest to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a C2GW_ReqFriendSearch. */
-    interface IC2GW_ReqFriendSearch {
-
-        /** C2GW_ReqFriendSearch val */
-        val?: (string|null);
-    }
-
-    /** Represents a C2GW_ReqFriendSearch. */
-    class C2GW_ReqFriendSearch implements IC2GW_ReqFriendSearch {
-
-        /**
-         * Constructs a new C2GW_ReqFriendSearch.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IC2GW_ReqFriendSearch);
-
-        /** C2GW_ReqFriendSearch val. */
-        public val: string;
-
-        /**
-         * Creates a new C2GW_ReqFriendSearch instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns C2GW_ReqFriendSearch instance
-         */
-        public static create(properties?: msg.IC2GW_ReqFriendSearch): msg.C2GW_ReqFriendSearch;
-
-        /**
-         * Encodes the specified C2GW_ReqFriendSearch message. Does not implicitly {@link msg.C2GW_ReqFriendSearch.verify|verify} messages.
-         * @param message C2GW_ReqFriendSearch message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IC2GW_ReqFriendSearch, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified C2GW_ReqFriendSearch message, length delimited. Does not implicitly {@link msg.C2GW_ReqFriendSearch.verify|verify} messages.
-         * @param message C2GW_ReqFriendSearch message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IC2GW_ReqFriendSearch, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a C2GW_ReqFriendSearch message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns C2GW_ReqFriendSearch
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqFriendSearch;
-
-        /**
-         * Decodes a C2GW_ReqFriendSearch message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns C2GW_ReqFriendSearch
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqFriendSearch;
-
-        /**
-         * Verifies a C2GW_ReqFriendSearch message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a C2GW_ReqFriendSearch message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns C2GW_ReqFriendSearch
-         */
-        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqFriendSearch;
-
-        /**
-         * Creates a plain object from a C2GW_ReqFriendSearch message. Also converts values to other types if specified.
-         * @param message C2GW_ReqFriendSearch
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.C2GW_ReqFriendSearch, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this C2GW_ReqFriendSearch to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a GW2C_RetFriendSearch. */
-    interface IGW2C_RetFriendSearch {
-
-        /** GW2C_RetFriendSearch brief */
-        brief?: (msg.IFriendBrief[]|null);
-    }
-
-    /** Represents a GW2C_RetFriendSearch. */
-    class GW2C_RetFriendSearch implements IGW2C_RetFriendSearch {
-
-        /**
-         * Constructs a new GW2C_RetFriendSearch.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IGW2C_RetFriendSearch);
-
-        /** GW2C_RetFriendSearch brief. */
-        public brief: msg.IFriendBrief[];
-
-        /**
-         * Creates a new GW2C_RetFriendSearch instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns GW2C_RetFriendSearch instance
-         */
-        public static create(properties?: msg.IGW2C_RetFriendSearch): msg.GW2C_RetFriendSearch;
-
-        /**
-         * Encodes the specified GW2C_RetFriendSearch message. Does not implicitly {@link msg.GW2C_RetFriendSearch.verify|verify} messages.
-         * @param message GW2C_RetFriendSearch message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IGW2C_RetFriendSearch, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified GW2C_RetFriendSearch message, length delimited. Does not implicitly {@link msg.GW2C_RetFriendSearch.verify|verify} messages.
-         * @param message GW2C_RetFriendSearch message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IGW2C_RetFriendSearch, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a GW2C_RetFriendSearch message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns GW2C_RetFriendSearch
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetFriendSearch;
-
-        /**
-         * Decodes a GW2C_RetFriendSearch message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns GW2C_RetFriendSearch
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetFriendSearch;
-
-        /**
-         * Verifies a GW2C_RetFriendSearch message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a GW2C_RetFriendSearch message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns GW2C_RetFriendSearch
-         */
-        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetFriendSearch;
-
-        /**
-         * Creates a plain object from a GW2C_RetFriendSearch message. Also converts values to other types if specified.
-         * @param message GW2C_RetFriendSearch
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.GW2C_RetFriendSearch, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this GW2C_RetFriendSearch to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
     /** Properties of a C2GW_ReqRemoveFriend. */
     interface IC2GW_ReqRemoveFriend {
 
@@ -7718,102 +7358,6 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a GW2C_PushFriendLogin. */
-    interface IGW2C_PushFriendLogin {
-
-        /** GW2C_PushFriendLogin roleid */
-        roleid?: (number|Long|null);
-
-        /** GW2C_PushFriendLogin offlinetime */
-        offlinetime?: (number|null);
-    }
-
-    /** Represents a GW2C_PushFriendLogin. */
-    class GW2C_PushFriendLogin implements IGW2C_PushFriendLogin {
-
-        /**
-         * Constructs a new GW2C_PushFriendLogin.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IGW2C_PushFriendLogin);
-
-        /** GW2C_PushFriendLogin roleid. */
-        public roleid: (number|Long);
-
-        /** GW2C_PushFriendLogin offlinetime. */
-        public offlinetime: number;
-
-        /**
-         * Creates a new GW2C_PushFriendLogin instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns GW2C_PushFriendLogin instance
-         */
-        public static create(properties?: msg.IGW2C_PushFriendLogin): msg.GW2C_PushFriendLogin;
-
-        /**
-         * Encodes the specified GW2C_PushFriendLogin message. Does not implicitly {@link msg.GW2C_PushFriendLogin.verify|verify} messages.
-         * @param message GW2C_PushFriendLogin message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IGW2C_PushFriendLogin, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified GW2C_PushFriendLogin message, length delimited. Does not implicitly {@link msg.GW2C_PushFriendLogin.verify|verify} messages.
-         * @param message GW2C_PushFriendLogin message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IGW2C_PushFriendLogin, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a GW2C_PushFriendLogin message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns GW2C_PushFriendLogin
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_PushFriendLogin;
-
-        /**
-         * Decodes a GW2C_PushFriendLogin message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns GW2C_PushFriendLogin
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_PushFriendLogin;
-
-        /**
-         * Verifies a GW2C_PushFriendLogin message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a GW2C_PushFriendLogin message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns GW2C_PushFriendLogin
-         */
-        public static fromObject(object: { [k: string]: any }): msg.GW2C_PushFriendLogin;
-
-        /**
-         * Creates a plain object from a GW2C_PushFriendLogin message. Also converts values to other types if specified.
-         * @param message GW2C_PushFriendLogin
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.GW2C_PushFriendLogin, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this GW2C_PushFriendLogin to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
     /** Properties of a GW2C_PushAddYouFriend. */
     interface IGW2C_PushAddYouFriend {
 
@@ -7905,6 +7449,462 @@ declare namespace msg {
 
         /**
          * Converts this GW2C_PushAddYouFriend to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqProcessFriendRequest. */
+    interface IC2GW_ReqProcessFriendRequest {
+
+        /** C2GW_ReqProcessFriendRequest roleid */
+        roleid?: (number|Long|null);
+
+        /** C2GW_ReqProcessFriendRequest isaccept */
+        isaccept?: (boolean|null);
+    }
+
+    /** Represents a C2GW_ReqProcessFriendRequest. */
+    class C2GW_ReqProcessFriendRequest implements IC2GW_ReqProcessFriendRequest {
+
+        /**
+         * Constructs a new C2GW_ReqProcessFriendRequest.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqProcessFriendRequest);
+
+        /** C2GW_ReqProcessFriendRequest roleid. */
+        public roleid: (number|Long);
+
+        /** C2GW_ReqProcessFriendRequest isaccept. */
+        public isaccept: boolean;
+
+        /**
+         * Creates a new C2GW_ReqProcessFriendRequest instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqProcessFriendRequest instance
+         */
+        public static create(properties?: msg.IC2GW_ReqProcessFriendRequest): msg.C2GW_ReqProcessFriendRequest;
+
+        /**
+         * Encodes the specified C2GW_ReqProcessFriendRequest message. Does not implicitly {@link msg.C2GW_ReqProcessFriendRequest.verify|verify} messages.
+         * @param message C2GW_ReqProcessFriendRequest message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqProcessFriendRequest, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqProcessFriendRequest message, length delimited. Does not implicitly {@link msg.C2GW_ReqProcessFriendRequest.verify|verify} messages.
+         * @param message C2GW_ReqProcessFriendRequest message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqProcessFriendRequest, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqProcessFriendRequest message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqProcessFriendRequest
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqProcessFriendRequest;
+
+        /**
+         * Decodes a C2GW_ReqProcessFriendRequest message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqProcessFriendRequest
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqProcessFriendRequest;
+
+        /**
+         * Verifies a C2GW_ReqProcessFriendRequest message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqProcessFriendRequest message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqProcessFriendRequest
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqProcessFriendRequest;
+
+        /**
+         * Creates a plain object from a C2GW_ReqProcessFriendRequest message. Also converts values to other types if specified.
+         * @param message C2GW_ReqProcessFriendRequest
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqProcessFriendRequest, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqProcessFriendRequest to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetProcessFriendRequest. */
+    interface IGW2C_RetProcessFriendRequest {
+    }
+
+    /** Represents a GW2C_RetProcessFriendRequest. */
+    class GW2C_RetProcessFriendRequest implements IGW2C_RetProcessFriendRequest {
+
+        /**
+         * Constructs a new GW2C_RetProcessFriendRequest.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetProcessFriendRequest);
+
+        /**
+         * Creates a new GW2C_RetProcessFriendRequest instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetProcessFriendRequest instance
+         */
+        public static create(properties?: msg.IGW2C_RetProcessFriendRequest): msg.GW2C_RetProcessFriendRequest;
+
+        /**
+         * Encodes the specified GW2C_RetProcessFriendRequest message. Does not implicitly {@link msg.GW2C_RetProcessFriendRequest.verify|verify} messages.
+         * @param message GW2C_RetProcessFriendRequest message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetProcessFriendRequest, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetProcessFriendRequest message, length delimited. Does not implicitly {@link msg.GW2C_RetProcessFriendRequest.verify|verify} messages.
+         * @param message GW2C_RetProcessFriendRequest message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetProcessFriendRequest, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetProcessFriendRequest message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetProcessFriendRequest
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetProcessFriendRequest;
+
+        /**
+         * Decodes a GW2C_RetProcessFriendRequest message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetProcessFriendRequest
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetProcessFriendRequest;
+
+        /**
+         * Verifies a GW2C_RetProcessFriendRequest message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetProcessFriendRequest message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetProcessFriendRequest
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetProcessFriendRequest;
+
+        /**
+         * Creates a plain object from a GW2C_RetProcessFriendRequest message. Also converts values to other types if specified.
+         * @param message GW2C_RetProcessFriendRequest
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetProcessFriendRequest, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetProcessFriendRequest to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqFriendSearch. */
+    interface IC2GW_ReqFriendSearch {
+
+        /** C2GW_ReqFriendSearch val */
+        val?: (string|null);
+    }
+
+    /** Represents a C2GW_ReqFriendSearch. */
+    class C2GW_ReqFriendSearch implements IC2GW_ReqFriendSearch {
+
+        /**
+         * Constructs a new C2GW_ReqFriendSearch.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqFriendSearch);
+
+        /** C2GW_ReqFriendSearch val. */
+        public val: string;
+
+        /**
+         * Creates a new C2GW_ReqFriendSearch instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqFriendSearch instance
+         */
+        public static create(properties?: msg.IC2GW_ReqFriendSearch): msg.C2GW_ReqFriendSearch;
+
+        /**
+         * Encodes the specified C2GW_ReqFriendSearch message. Does not implicitly {@link msg.C2GW_ReqFriendSearch.verify|verify} messages.
+         * @param message C2GW_ReqFriendSearch message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqFriendSearch, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqFriendSearch message, length delimited. Does not implicitly {@link msg.C2GW_ReqFriendSearch.verify|verify} messages.
+         * @param message C2GW_ReqFriendSearch message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqFriendSearch, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqFriendSearch message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqFriendSearch
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqFriendSearch;
+
+        /**
+         * Decodes a C2GW_ReqFriendSearch message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqFriendSearch
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqFriendSearch;
+
+        /**
+         * Verifies a C2GW_ReqFriendSearch message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqFriendSearch message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqFriendSearch
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqFriendSearch;
+
+        /**
+         * Creates a plain object from a C2GW_ReqFriendSearch message. Also converts values to other types if specified.
+         * @param message C2GW_ReqFriendSearch
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqFriendSearch, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqFriendSearch to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetFriendSearch. */
+    interface IGW2C_RetFriendSearch {
+
+        /** GW2C_RetFriendSearch brief */
+        brief?: (msg.IFriendBrief[]|null);
+    }
+
+    /** Represents a GW2C_RetFriendSearch. */
+    class GW2C_RetFriendSearch implements IGW2C_RetFriendSearch {
+
+        /**
+         * Constructs a new GW2C_RetFriendSearch.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetFriendSearch);
+
+        /** GW2C_RetFriendSearch brief. */
+        public brief: msg.IFriendBrief[];
+
+        /**
+         * Creates a new GW2C_RetFriendSearch instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetFriendSearch instance
+         */
+        public static create(properties?: msg.IGW2C_RetFriendSearch): msg.GW2C_RetFriendSearch;
+
+        /**
+         * Encodes the specified GW2C_RetFriendSearch message. Does not implicitly {@link msg.GW2C_RetFriendSearch.verify|verify} messages.
+         * @param message GW2C_RetFriendSearch message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetFriendSearch, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetFriendSearch message, length delimited. Does not implicitly {@link msg.GW2C_RetFriendSearch.verify|verify} messages.
+         * @param message GW2C_RetFriendSearch message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetFriendSearch, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetFriendSearch message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetFriendSearch
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetFriendSearch;
+
+        /**
+         * Decodes a GW2C_RetFriendSearch message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetFriendSearch
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetFriendSearch;
+
+        /**
+         * Verifies a GW2C_RetFriendSearch message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetFriendSearch message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetFriendSearch
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetFriendSearch;
+
+        /**
+         * Creates a plain object from a GW2C_RetFriendSearch message. Also converts values to other types if specified.
+         * @param message GW2C_RetFriendSearch
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetFriendSearch, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetFriendSearch to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_PushFriendLogin. */
+    interface IGW2C_PushFriendLogin {
+
+        /** GW2C_PushFriendLogin roleid */
+        roleid?: (number|Long|null);
+
+        /** GW2C_PushFriendLogin offlinetime */
+        offlinetime?: (number|null);
+    }
+
+    /** Represents a GW2C_PushFriendLogin. */
+    class GW2C_PushFriendLogin implements IGW2C_PushFriendLogin {
+
+        /**
+         * Constructs a new GW2C_PushFriendLogin.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_PushFriendLogin);
+
+        /** GW2C_PushFriendLogin roleid. */
+        public roleid: (number|Long);
+
+        /** GW2C_PushFriendLogin offlinetime. */
+        public offlinetime: number;
+
+        /**
+         * Creates a new GW2C_PushFriendLogin instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_PushFriendLogin instance
+         */
+        public static create(properties?: msg.IGW2C_PushFriendLogin): msg.GW2C_PushFriendLogin;
+
+        /**
+         * Encodes the specified GW2C_PushFriendLogin message. Does not implicitly {@link msg.GW2C_PushFriendLogin.verify|verify} messages.
+         * @param message GW2C_PushFriendLogin message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_PushFriendLogin, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_PushFriendLogin message, length delimited. Does not implicitly {@link msg.GW2C_PushFriendLogin.verify|verify} messages.
+         * @param message GW2C_PushFriendLogin message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_PushFriendLogin, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_PushFriendLogin message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_PushFriendLogin
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_PushFriendLogin;
+
+        /**
+         * Decodes a GW2C_PushFriendLogin message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_PushFriendLogin
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_PushFriendLogin;
+
+        /**
+         * Verifies a GW2C_PushFriendLogin message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_PushFriendLogin message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_PushFriendLogin
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_PushFriendLogin;
+
+        /**
+         * Creates a plain object from a GW2C_PushFriendLogin message. Also converts values to other types if specified.
+         * @param message GW2C_PushFriendLogin
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_PushFriendLogin, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_PushFriendLogin to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
