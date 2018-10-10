@@ -83,14 +83,13 @@ class InitServerHandler
 	private onGetItemList(result: game.SpRpcResult)
 	{
 		ItemManager.initialize(result);
-		this.reqFriendListInfo();
 	}
 	/**
 	* 发送好友列表信息获取请求
 	*/
 	private reqFriendListInfo()
 	{
-		SocketManager.ImplCall(Command.Friend_GetList_3156, null, this.FriendListInfoResponse, null, this);
+		SocketManager.ImplCall(Command.C2GW_ReqFriendsList, null, this.FriendListInfoResponse, null, this);
 	}
 	private FriendListInfoResponse(result: game.SpRpcResult)
 	{
@@ -102,12 +101,13 @@ class InitServerHandler
 	*/
 	private reqAddFriendListInfo()
 	{
-		SocketManager.ImplCall(Command.Friend_RequestList_3157, null, this.addFriendListInfoResponse, null, this);
+		SocketManager.ImplCall(Command.C2GW_ReqFriendRequestList, null, this.addFriendListInfoResponse, null, this);
 	}
 	private addFriendListInfoResponse(result: game.SpRpcResult)
 	{
 		FriendManager.FriendRequestResponse(result);
-		this.reqAchievementList();
+		this.reqGetMailList();
+		// this.reqAchievementList();
 	}
 	/**
 	 * 拉取成就
@@ -116,7 +116,6 @@ class InitServerHandler
 	{
 		SocketManager.ImplCall(Command.Achievement_GetList_3090, { "roleId": UserManager.userInfo.roleId }, this.OnAchievementListInfo, null, this);
 	}
-
 	private OnAchievementListInfo(result: game.SpRpcResult)
 	{
 		AchievementManager.initialize(result);
@@ -131,8 +130,7 @@ class InitServerHandler
 	private onGetInsideRoomListInfo(result: game.SpRpcResult)
 	{
 		InsideRoomManager.initialize(result);
-		//活动列表数据 move todo 不应该在这边拉，活动的数据需要最后拉去
-		this.reqGetMailList();
+		this.reqFriendListInfo();
 		// this.reqGetMTTListInfo();
 	}
 	/**
