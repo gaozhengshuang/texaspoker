@@ -518,32 +518,6 @@ declare class friendIsOnlineTB extends eui.Skin{
 }
 declare class friendKSLQButtonSkin extends eui.Skin{
 }
-declare class CardFaceComponentSkin extends eui.Skin{
-}
-declare class ChipsShowComponentSkin extends eui.Skin{
-}
-declare class ChipsSingleShowComponentSkin extends eui.Skin{
-}
-declare class DownEfffectComponentSkin extends eui.Skin{
-}
-declare class GamblingActionComponentSkin extends eui.Skin{
-}
-declare class ActionCdComponentSkin extends eui.Skin{
-}
-declare class GamblingGuideComponentSkin extends eui.Skin{
-}
-declare class GamblingGuidePlayWayComponentSkin extends eui.Skin{
-}
-declare class GamblingHeadComponentSkin extends eui.Skin{
-}
-declare class GamblingMatchBlindComponentSkin extends eui.Skin{
-}
-declare class GamblingMatchComponentSkin extends eui.Skin{
-}
-declare class GamblingMatchWaitComponentSkin extends eui.Skin{
-}
-declare class OmahaCardTypeBtnComponentSkin extends eui.Skin{
-}
 declare class guessAnteBuyRadioButtonSkin extends eui.Skin{
 }
 declare class guessAnteToggleSwitchSkin extends eui.Skin{
@@ -608,6 +582,32 @@ declare class loginOfficialBtnSkin extends eui.Skin{
 }
 declare class loginWXBtnSkin extends eui.Skin{
 }
+declare class CardFaceComponentSkin extends eui.Skin{
+}
+declare class ChipsShowComponentSkin extends eui.Skin{
+}
+declare class ChipsSingleShowComponentSkin extends eui.Skin{
+}
+declare class DownEfffectComponentSkin extends eui.Skin{
+}
+declare class GamblingActionComponentSkin extends eui.Skin{
+}
+declare class ActionCdComponentSkin extends eui.Skin{
+}
+declare class GamblingGuideComponentSkin extends eui.Skin{
+}
+declare class GamblingGuidePlayWayComponentSkin extends eui.Skin{
+}
+declare class GamblingHeadComponentSkin extends eui.Skin{
+}
+declare class GamblingMatchBlindComponentSkin extends eui.Skin{
+}
+declare class GamblingMatchComponentSkin extends eui.Skin{
+}
+declare class GamblingMatchWaitComponentSkin extends eui.Skin{
+}
+declare class OmahaCardTypeBtnComponentSkin extends eui.Skin{
+}
 declare class enterBlueSkin extends eui.Skin{
 }
 declare class zkTSSkin extends eui.Skin{
@@ -619,6 +619,10 @@ declare class playfieldBringTSSkin extends eui.Skin{
 declare class playfieldButtonSkin extends eui.Skin{
 }
 declare class playfieldTBSkin extends eui.Skin{
+}
+declare class CircleHeadComponentSkin extends eui.Skin{
+}
+declare class HeadComponentSkin extends eui.Skin{
 }
 declare class AddChipsButtonSkin extends eui.Skin{
 }
@@ -681,8 +685,4 @@ declare class gambling_standup_btn extends eui.Skin{
 declare class gambling_trusteeship_btn extends eui.Skin{
 }
 declare class gambling_trusteeship_btn1 extends eui.Skin{
-}
-declare class CircleHeadComponentSkin extends eui.Skin{
-}
-declare class HeadComponentSkin extends eui.Skin{
 }
