@@ -135,8 +135,12 @@ func (g *GateManager) NewRoomOnline(room *RoomAgent) {
 	room.SendMsg(send)
 }
 
-func (g *GateManager) Broadcast(msg pb.Message) {
-	for _, gate := range g.gates {
+func (g *GateManager) Broadcast(msg pb.Message, except ...int) {
+	loop:
+	for id, gate := range g.gates {
+		for _, exc := range except {
+			if id == exc { continue loop }
+		}
 		gate.SendMsg(msg)
 	}
 }

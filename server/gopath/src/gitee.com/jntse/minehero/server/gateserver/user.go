@@ -571,6 +571,7 @@ func (u *GateUser) Online(session network.IBaseNetSession, way string) bool {
 	// 上线任务检查
 	u.OnlineTaskCheck()
 	u.events.Online()
+	u.friends.Online()
 
 	// 同步数据到客户端
 	u.Syn()
