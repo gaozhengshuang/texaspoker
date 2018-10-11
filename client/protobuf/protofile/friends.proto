@@ -22,34 +22,34 @@ message FriendData {
     optional int32 getgold = 3;
 }
 
+
 // 请求好友列表信息
 message C2GW_ReqFriendsList {
 }
-
 message GW2C_RetFriendsList {
     repeated FriendData friendlist = 1;
 }
 
 
 // 请求赠送好友金币
-message C2GW_ReqPresentToFriends {
+message C2GW_ReqPresentToFriend {
     optional int64 roleid = 1;
 }
-
-message GW2C_RetPresentToFriends {
+message GW2C_RetPresentToFriend {
 }
+
 
 // 好友赠送金币通知推送
-message GW2C_PushFriendsPresent {
+message GW2C_PushFriendPresent {
     optional int64 roleid = 1;
 }
+
 
 // 请求获取好友详细信息
-message C2GW_ReqFriendsDetail {
+message C2GW_ReqFriendDetail {
     optional int64 roleid = 1;
 }
-
-message GW2C_RetFriendsDetail {
+message GW2C_RetFriendDetail {
     // 个人基础信息
     optional msg.EntityBase base = 1;
 
@@ -79,91 +79,82 @@ message GW2C_RetFriendsDetail {
     //optional int32 showdownTimes2 = 34;
 }
 
+
 // 请求领取好友赠送的金币
-message C2GW_ReqGetFriendsPresent {
+message C2GW_ReqGetFriendPresent {
     optional int64 roleid = 1;
 }
-
-message GW2C_RetGetFriendsPresent {
+message GW2C_RetGetFriendPresent {
     repeated int64 roleid = 1;
 }
 
 
 // 好友添加请求列表
-message C2GW_ReqFriendsRequestList { 
+message C2GW_ReqFriendRequestList { 
 }
-
-message GW2C_RetFriendsRequestList {
-    repeated msg.FriendBrief array = 1;
-}
-
-
-// 发送是否接受好友请求的请求
-message C2GW_ReqDealFriendsRequest {
-    optional int64 roleid = 1;
-    optional bool isaccept = 2;
-}
-
-message GW2C_RetDealFriendsRequest {
-}
-
-
-// 发送搜索用户的请求
-message C2GW_ReqFriendsSearch {
-    optional string val = 1;
-}
-
-message GW2C_RetFriendsSearch {
+message GW2C_RetFriendRequestList {
     repeated msg.FriendBrief array = 1;
 }
 
 
 // 发送删除好友的请求
-message C2GW_ReqFriendsRemove {
+message C2GW_ReqRemoveFriend {
     optional int64 roleid = 1;
 }
-
-message GW2C_RetFriendsRemove {
+message GW2C_RetRemoveFriend {
     optional int64 roleid = 1;
 }
-
-
 // 被好友删除的通知推送
-message GW2C_PushFriendsRemove {
+message GW2C_PushFriendRemove {
     optional int64 roleid = 1;
 }
 
 
 // 发送添加用户为好友的请求
-message C2GW_ReqFriendsAdd {
+message C2GW_ReqAddFriend {
     optional int64 roleid = 1;
 }
-
-message GW2C_RetFriendsAdd {
+message GW2C_RetAddFriend {
+}
+// 好友添加成功的通知推送
+message GW2C_PushFriendAddSuccess {
+    optional int64 handler = 1;     // 服务器使用
+    optional msg.FriendBrief friend = 2;
+}
+// 添加好友请求通知推送
+message GW2C_PushAddYouFriend {
+    optional int64 handler = 1;     // 服务器使用
+    optional msg.FriendBrief friend = 2;
 }
 
 
-// 好友添加成功的通知推送
-message GW2C_PushFriendsAddSuccess {
-    optional msg.FriendBrief friend = 1;
+// 处理好友请求的请求
+message C2GW_ReqProcessFriendRequest {
+    optional int64 roleid = 1;
+    optional bool isaccept = 2;
+}
+message GW2C_RetProcessFriendRequest {
+}
+
+
+// 发送搜索用户的请求
+message C2GW_ReqFriendSearch {
+    optional string val = 1;
+}
+message GW2C_RetFriendSearch {
+    repeated msg.FriendBrief brief = 1;
 }
 
 
 // 好友在线通知推送
-message GW2C_PushFriendsLogin {
+message GW2C_PushFriendLogin {
     optional int64 roleid = 1;
     optional int32 offlinetime = 2;
 }
 
 
-// 添加好友请求通知推送
-message GW2C_PushAddYouFriends {
-    optional msg.FriendBrief friend = 1;
-}
-
-
 // 被好友邀请推送
-message GW2C_PushFriendsInvitation {
+message GW2C_PushFriendInvitation {
     optional int64 id = 1;
     optional int64 roleid = 2;
     optional string pwd = 3;

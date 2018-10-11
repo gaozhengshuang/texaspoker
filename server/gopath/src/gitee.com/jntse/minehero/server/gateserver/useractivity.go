@@ -37,6 +37,8 @@ func (u *GateUser) OnReqGetActivityReward(id, subid int32) {
 	ret := ""
 	if id == int32(msg.ActivityType_DailySign) {
 		ret = u.DailySign()
+	} else if id == int32(msg.ActivityType_BankruptcySubsidy){
+		ret = u.TakeBankruptcySubsidy()
 	} else {
 		ret = "未定义的活动id"
 	}
@@ -260,4 +262,11 @@ func (u *GateUser) GetAwardGetInfo () {
 	send := &msg.GW2C_RetAwardGetInfo{}
 	send.Datalist = u.awardgetinfo[:]
 	u.SendMsg(send)
+}
+
+
+//领破产补助
+func (u *GateUser) TakeBankruptcySubsidy() string {
+	errcode := ""
+	return errcode
 }
