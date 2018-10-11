@@ -418,8 +418,8 @@ func (u *GateUser) LoginStatistics() {
 		return
 	}
 	diffday := false
-	if util.IsNextDay(u.tm_login, util.CURTIME()) {
-		u.continuelogin += 1
+	if util.IsNextDay(u.statistics.tm_login, util.CURTIME()) {
+		u.statistics.continuelogin += 1
 		if u.nocountlogin == 0 {
 			key := fmt.Sprintf("%s_login_%d", datetime, u.continuelogin)
 			Redis().Incr(key)

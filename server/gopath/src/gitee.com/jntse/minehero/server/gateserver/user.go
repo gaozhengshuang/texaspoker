@@ -491,7 +491,7 @@ func (u *GateUser) LoadBin() {
 		u.luckydraw = append(u.luckydraw, v)
 	}
 
-	u.statistics.LoadBin(this.bin)
+	u.statistics.LoadBin(u.bin)
 	// 道具信息
 	u.bag.Clean()
 	u.bag.LoadBin(u.bin)
@@ -521,23 +521,24 @@ func (u *GateUser) DBSave() {
 	u.mailbox.DBSave()
 	u.friends.DBSave()
 	key := fmt.Sprintf("userbin_%d", u.Id())
-	if err := utredis.SetProtoBin(Redis(), key, u.PackBin()); err != nil {
+	userbin := u.PackBin()
+	if err := utredis.SetProtoBin(Redis(), key, userbin); err != nil {
 		log.Error("玩家[%s %d] 数据存盘失败", u.Name(), u.Id())
 		return
 	}
 	log.Info("玩家[%s %d] 数据存盘成功", u.Name(), u.Id())
 	//存储浏览数据
-	key = fmt.Sprintf("userentity_%d", uint.Id())
+	key = fmt.Sprintf("userentity_%d", u.Id())
 	if err := utredis.SetProtoBin(Redis(), key, userbin.Entity); err != nil {
 		log.Error("保存玩家[%s %d] entity 数据失败", u.Name(), u.Id())
 		return
 	}
-	key = fmt.Sprintf("uservip_%d", uint.Id())
+	key = fmt.Sprintf("uservip_%d", u.Id())
 	if err := utredis.SetProtoBin(Redis(), key, userbin.GetBase().Vip); err != nil {
 		log.Error("保存玩家[%s %d] vip 数据失败", u.Name(), u.Id())
 		return
 	}
-	key = fmt.Sprintf("userstatistics_%d", uint.Id())
+	key = fmt.Sprintf("userstatistics_%d", u.Id())
 	if err := utredis.SetProtoBin(Redis(), key, userbin.GetBase().Statics); err != nil {
 		log.Error("保存玩家[%s %d] statistics 数据失败", u.Name(), u.Id())
 		return
