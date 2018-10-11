@@ -13,11 +13,11 @@
 			"name": "text"
 		},
 		{
-			"keys": "assets/lang/sheet/text_en_1_json,assets/lang/sheet/text_en_2_json",
+			"keys": "",
 			"name": "text_en"
 		},
 		{
-			"keys": "assets/lang/sheet/text_zh-tw_1_json,assets/lang/sheet/text_zh-tw_2_json",
+			"keys": "",
 			"name": "text_zh-tw"
 		},
 		{
@@ -58,6 +58,16 @@
 		}
 	],
 	"resources": [
+		{
+			"url": "assets/lang/zh-cn/gonggao_xrl.png",
+			"type": "image",
+			"name": "assets/lang/zh-cn/gonggao_xrl_png"
+		},
+		{
+			"url": "assets/lang/zh-cn/gonggao_yq.png",
+			"type": "image",
+			"name": "assets/lang/zh-cn/gonggao_yq_png"
+		},
 		{
 			"url": "assets/bg/vip_neirong.png",
 			"type": "image",
@@ -124,7 +134,7 @@
 			"url": "assets/sheet/gambling_1.json",
 			"type": "sheet",
 			"name": "assets/sheet/gambling_1_json",
-			"subkeys": "all_png,bg_liaotian_4_png,bg_liaotian_5_png,bg_liaotian_6_png,biaoqing_png,button_genzhu_1_png,button_genzhu_png,button_jiazhu_png,button_liangpai_png,button_qipai_1_png,button_qipai_png,chips_01_png,chips_02_png,chips_03_png,chips_04_png,chips_05_png,chips_06_png,chips_07_png,chips_08_png,chips_09_png,chips_10_png,chips_11_png,chips_12_png,chips_13_png,chips_14_png,chips_15_png,chips_16_png,chouma_ddks_png,dengji_icon_png,dichi_bg_png,game_bg_6_png,game_bg_touying_png,game_cd_png,game_huigu_png,game_icon_12_png,game_icon_13_png,game_icon_14_png,game_icon_15_png,game_icon_16_png,game_icon_17_png,game_icon_23_png,game_lt_png,game_rw_png,game_sc_png,game_sk_png,game_tc_png,game_vip_png,game_zdmr_png,game_zuoxia_jt_png,game_zuoxia_zh_png,gaoliang_ddks_png,icon_zgcg_png,jc_1_png,jc_5_png,jishi_png,js_1_png,js_2_png,js_3_png,js_4_png,js_5_png,js_6_png,n_game_10_png,n_game_12_png,n_game_14_png,n_game_16_png,n_game_1_24_png,n_game_23_png,n_game_27_png,n_game_7_png,n_game_8_png,pai_bg2_png,paixing_1_png,paixing_bg_1_png,paixing_bg_png,shoupai_png,xinshou_3_png,xinshou_4_png,xinshou_5_png,xinshou_6_png,yuyin_1_png,yuyin_2_png,yuyin_3_png,yuyin_4_png,yuyin_bf_1_png,yuyin_bf_2_png,yuyin_bf_3_png,yuyin_bg_png,yuyin_png"
+			"subkeys": "all_png,bg_liaotian_4_png,bg_liaotian_5_png,bg_liaotian_6_png,biaoqing_png,button_genzhu_1_png,button_genzhu_png,button_jiazhu_png,button_liangpai_png,button_qipai_1_png,button_qipai_png,chips_01_png,chips_02_png,chips_03_png,chips_04_png,chips_05_png,chips_06_png,chips_07_png,chips_08_png,chips_09_png,chips_10_png,chips_11_png,chips_12_png,chips_13_png,chips_14_png,chips_15_png,chips_16_png,chouma_ddks_png,dengji_icon_png,dichi_bg_png,game_bg_6_png,game_bg_touying_png,game_cd_png,game_huigu_png,game_icon_12_png,game_icon_13_png,game_icon_14_png,game_icon_15_png,game_icon_16_png,game_icon_17_png,game_icon_23_png,game_lt_png,game_rw_png,game_sc_png,game_tc_png,game_vip_png,game_zdmr_png,game_zuoxia_jt_png,game_zuoxia_zh_png,gaoliang_ddks_png,icon_zgcg_png,jc_1_png,jc_5_png,jishi_png,js_1_png,js_2_png,js_3_png,js_4_png,js_5_png,js_6_png,n_game_10_png,n_game_12_png,n_game_14_png,n_game_16_png,n_game_1_24_png,n_game_23_png,n_game_27_png,n_game_7_png,n_game_8_png,pai_bg2_png,paixing_1_png,paixing_bg_1_png,paixing_bg_png,shoupai_png,xinshou_3_png,xinshou_4_png,xinshou_5_png,xinshou_6_png,yuyin_1_png,yuyin_2_png,yuyin_3_png,yuyin_4_png,yuyin_bf_1_png,yuyin_bf_2_png,yuyin_bf_3_png,yuyin_bg_png,yuyin_png"
 		},
 		{
 			"url": "assets/sheet/login_2.json",
@@ -149,34 +159,10 @@
 			"name": "assets/bg/hall_bg_1_png"
 		},
 		{
-			"url": "assets/lang/sheet/text_en_1.json",
-			"type": "sheet",
-			"name": "assets/lang/sheet/text_en_1_json",
-			"subkeys": "allin_a_png,allin_i_png,allin_l_png,allin_n_png,djs_0_png,djs_1_png,djs_2_png,djs_3_png,djs_4_png,djs_5_png,djs_6_png,djs_7_png,djs_8_png,djs_9_png,hall_btdz_png,hall_dzpk_png,hall_ssc_png,jrxly_png,jryx_png,logo_png,tet_option_png,tet_safe_png,txt_bangding_png,txt_gengduo_png,txt_haoyou_png,txt_hdzx_png,txt_playway_png,txt_qdlq_png,txt_renwu_png,txt_shangcheng_png,txt_yx_png,wsls_png,wsxs_png"
-		},
-		{
-			"url": "assets/lang/sheet/text_en_2.json",
-			"type": "sheet",
-			"name": "assets/lang/sheet/text_en_2_json",
-			"subkeys": "achieve_num_0_png,achieve_num_1_png,achieve_num_2_png,achieve_num_3_png,achieve_num_4_png,achieve_num_5_png,achieve_num_6_png,achieve_num_7_png,achieve_num_8_png,achieve_num_9_png,activity_hd_png,bangding_png,bjzl_png,bmcg_png,bsjs_png,cjjs_png,cjsrf_png,ddqr_png,dengdai_png,djxx_png,friend_hy_png,friend_hyzl_png,friend_yq_png,game_ddks_png,game_jbs_png,game_jc_png,game_jsjl_png,game_rw1_png,game_sy_1_png,game_sy_2_png,game_wf_png,game_yxc_png,grxx_png,hdcw_png,hyyq_png,jbbz_png,jbssm_png,jj_png,lb_phb_png,login_dl_png,login_yhxy_png,login_zc_png,mailbox_yx_png,maohao_png,mrqd_png,mryx_png,nfhy_png,nypc_png,pxjs_png,qhdwt_png,safe_bxx_png,safe_zhmm_png,saishi_png,setting_sz_png,srfmm_png,ssxx_png,task_rw_png,txt_lqjb_png,vip_png,wan_png,wdjp_png,xgnc_png,xly_png,xtts_png,yi_png,yiqiandao_png,yiwancheng_png,yqhy_png"
-		},
-		{
-			"url": "assets/lang/sheet/text_zh-tw_1.json",
-			"type": "sheet",
-			"name": "assets/lang/sheet/text_zh-tw_1_json",
-			"subkeys": "allin_a_png,allin_i_png,allin_l_png,allin_n_png,djs_0_png,djs_1_png,djs_2_png,djs_3_png,djs_4_png,djs_5_png,djs_6_png,djs_7_png,djs_8_png,djs_9_png,hall_btdz_png,hall_dzpk_png,hall_ssc_png,jrxly_png,jryx_png,logo_png,tet_option_png,tet_safe_png,txt_bangding_png,txt_gengduo_png,txt_haoyou_png,txt_hdzx_png,txt_playway_png,txt_qdlq_png,txt_renwu_png,txt_shangcheng_png,txt_yx_png,wsls_png,wsxs_png"
-		},
-		{
-			"url": "assets/lang/sheet/text_zh-tw_2.json",
-			"type": "sheet",
-			"name": "assets/lang/sheet/text_zh-tw_2_json",
-			"subkeys": "achieve_num_0_png,achieve_num_1_png,achieve_num_2_png,achieve_num_3_png,achieve_num_4_png,achieve_num_5_png,achieve_num_6_png,achieve_num_7_png,achieve_num_8_png,achieve_num_9_png,activity_hd_png,bangding_png,bjzl_png,bmcg_png,bsjs_png,cjjs_png,cjsrf_png,ddqr_png,dengdai_png,djxx_png,friend_hy_png,friend_hyzl_png,friend_yq_png,game_ddks_png,game_jbs_png,game_jc_png,game_jsjl_png,game_rw1_png,game_sy_1_png,game_sy_2_png,game_wf_png,game_yxc_png,grxx_png,hdcw_png,hyyq_png,jbbz_png,jbssm_png,jj_png,lb_phb_png,login_dl_png,login_yhxy_png,login_zc_png,mailbox_yx_png,maohao_png,mrqd_png,mryx_png,nfhy_png,nypc_png,pxjs_png,qhdwt_png,safe_bxx_png,safe_zhmm_png,saishi_png,setting_sz_png,srfmm_png,ssxx_png,task_rw_png,txt_lqjb_png,vip_png,wan_png,wdjp_png,xgnc_png,xly_png,xtts_png,yi_png,yiqiandao_png,yiwancheng_png,yqhy_png"
-		},
-		{
 			"url": "assets/sheet/hundredwar_1.json",
 			"type": "sheet",
 			"name": "assets/sheet/hundredwar_1_json",
-			"subkeys": "br_bg_10_png,br_bg_11_png,br_bg_1_png,br_bg_4_png,br_bg_5_png,br_bg_6_png,br_bt_bg_png,br_button_1_png,br_button_2_png,br_button_3_png,br_button_4_png,br_button_9_png,br_button_guang_png,br_chouma_png,br_icon_1_png,br_icon_2_png,br_icon_3_png,br_icon_4_png,br_icon_5_png,br_icon_6_png,br_icon_7_png,br_jiangchi_png,br_shu_bg_png,br_ying_bg_png,br_zoushi_fk_png,br_zoushi_ht_png,br_zoushi_hx_png,br_zoushi_mh_png,tx_1_png,tx_2_png"
+			"subkeys": "br_bg_10_png,br_bg_11_png,br_bg_1_png,br_bg_4_png,br_bg_5_png,br_bg_6_png,br_bt_bg_png,br_button_1_png,br_button_2_png,br_button_3_png,br_button_4_png,br_button_9_png,br_button_guang_png,br_chouma_png,br_icon_1_png,br_icon_2_png,br_icon_3_png,br_icon_4_png,br_icon_5_png,br_jiangchi_png,br_shu_bg_png,br_ying_bg_png,br_zoushi_fk_png,br_zoushi_ht_png,br_zoushi_hx_png,br_zoushi_mh_png,tx_1_png,tx_2_png"
 		},
 		{
 			"url": "assets/sheet/hundredwar_2.json",
@@ -749,16 +735,6 @@
 			"url": "assets/bg/pub_bg11_1.png",
 			"type": "image",
 			"name": "assets/bg/pub_bg11_1_png"
-		},
-		{
-			"url": "assets/lang/zh-cn/gonggao_xrl.png",
-			"type": "image",
-			"name": "assets/lang/zh-cn/gonggao_xrl_png"
-		},
-		{
-			"url": "assets/lang/zh-cn/gonggao_yq.png",
-			"type": "image",
-			"name": "assets/lang/zh-cn/gonggao_yq_png"
 		}
 	]
 }
