@@ -85,15 +85,15 @@ class Command
     /**
      * 拉取邮件列表的请求
      */
-    public static readonly Mail_GetList_3097: string = "c3097";
+    public static readonly C2GW_ReqMailList: string = "msg.C2GW_ReqMailList";
     /**
      * 请求领取邮件附件
      */
-    public static readonly Mail_TakePrize_3098: string = "c3098";
+    public static readonly C2GW_ReqTakeMailItem: string = "msg.C2GW_ReqTakeMailItem";
     /**
      * 新邮件通知推送
      */
-    public static readonly Mail_Push_New_2024 = "c2024";
+    public static readonly GW2C_PushNewMail = "msg.GW2C_PushNewMail";
 
     //--------------------------------------------------------------
     // Friend
@@ -102,15 +102,15 @@ class Command
     /**
      * 请求好友列表信息
     */
-    public static readonly Friend_GetList_3156: string = "c3156";
+    public static readonly C2GW_ReqFriendsList: string = "msg.C2GW_ReqFriendsList";
     /**
      * 请求赠送好友金币
     */
-    public static readonly Friend_GiveGold_3151: string = "c3151";
+    public static readonly C2GW_ReqPresentToFriend: string = "msg.C2GW_ReqPresentToFriend";
     /**
      * 好友赠送金币通知推送
      */
-    public static readonly Friend_Push_GiveGold_2037 = "c2037";
+    public static readonly GW2C_PushFriendPresent = "msg.GW2C_PushFriendPresent";
     /**
      * 请求获取好友详细信息
      */
@@ -118,47 +118,47 @@ class Command
     /**
      * 请求领取好友赠送的金币
      */
-    public static readonly Friend_ReceiveGift_3150: string = "c3150";
+    public static readonly C2GW_ReqGetFriendPresent: string = "msg.C2GW_ReqGetFriendPresent";
     /**
      * 请求好友请求列表
      */
-    public static readonly Friend_RequestList_3157: string = "c3157";
+    public static readonly C2GW_ReqFriendRequestList: string = "msg.C2GW_ReqFriendRequestList";
     /**
      * 发送是否接受好友请求的请求
      */
-    public static readonly Friend_Receive_3154: string = "c3154";
+    public static readonly C2GW_ReqProcessFriendRequest: string = "msg.C2GW_ReqProcessFriendRequest";
     /**
      * 发送搜索用户的请求
      */
-    public static readonly Friend_SearchPlayer_3153: string = "c3153";
+    public static readonly C2GW_ReqFriendSearch: string = "msg.C2GW_ReqFriendSearch";
     /**
      * 发送删除好友的请求
      */
-    public static readonly Friend_DelPlayer_3155: string = "c3155";
+    public static readonly C2GW_ReqRemoveFriend: string = "msg.C2GW_ReqRemoveFriend";
     /**
      * 发送添加用户为好友的请求
      */
-    public static readonly Friend_AddPlayer_3152: string = "c3152";
+    public static readonly C2GW_ReqAddFriend: string = "msg.C2GW_ReqAddFriend";
     /**
      * 好友添加成功的通知推送
      */
-    public static readonly Friend_Push_AddSuccess_2036 = "c2036";
+    public static readonly GW2C_PushFriendAddSuccess = "msg.GW2C_PushFriendAddSuccess";
     /**
      *被好友删除的通知推送
      */
-    public static readonly Friend_Push_BeDel_2035 = "c2035";
+    public static readonly GW2C_PushRemoveFriend = "msg.GW2C_PushRemoveFriend";
     /**
      * 好友在线通知推送
      */
-    public static readonly Friend_Push_OnlineState_2064 = "c2064";
+    public static readonly GW2C_PushFriendLogin = "msg.GW2C_PushFriendLogin";
     /**
      * 添加好友请求通知推送
      */
-    public static readonly Friend_Push_RequestFriend_2038 = "c2038";
+    public static readonly GW2C_PushAddYouFriend = "msg.GW2C_PushAddYouFriend";
     /**
      * 被好友邀请推送
     */
-    public static readonly Friend_Push_Invite_2111: string = "c2111";
+    public static readonly GW2C_PushFriendInvitation: string = "msg.GW2C_PushFriendInvitation";
     /**
      * 0点定时重置推送
     */
@@ -171,15 +171,15 @@ class Command
     /**
      * 兑换奖励
      */
-    public static readonly Award_Exchange_3113 = "c3113";
+    public static readonly C2GW_ReqAwardExchange = "msg.C2GW_ReqAwardExchange";
     /**
      * 拉取兑换信息
      */
-    public static readonly Award_GetInfo_3112 = "c3112";
+    public static readonly C2GW_ReqAwardGetInfo = "msg.C2GW_ReqAwardGetInfo";
     /**
      * 拉取兑换记录
      */
-    public static readonly Award_Record_3713 = "c3713";
+    public static readonly C2GW_ReqAwardRecord = "msg.C2GW_ReqAwardRecord";
 
     //--------------------------------------------------------------
     // Achievement
@@ -205,7 +205,7 @@ class Command
     /**
      * 拉取活动列表
      */
-    public static readonly Activity_GetList_3233: string = "c3233";
+    public static readonly C2GW_ReqActivityInfo: string = "msg.C2GW_ReqActivityInfo";
     /**
      * 推送活动
      */
@@ -213,7 +213,7 @@ class Command
     /**
      * 请求领取活动奖励
      */
-    public static readonly Activity_GetPrize_3202: string = "c3202";
+    public static readonly C2GW_ReqGetActivityReward: string = "msg.C2GW_ReqGetActivityReward";
     /**
      * 请求参与活动
     */
@@ -261,7 +261,7 @@ class Command
      */
     public static readonly Role_Create_3012: string = "c3012";
     /**
-     * 发送存取金币的请求
+     * 发送保险箱存取金币的请求
      */
     public static readonly Req_saveORwithdraw_3014: string = "c3014";
     /**
@@ -275,7 +275,7 @@ class Command
     /**
      * 拉取排行榜信息
      */
-    public static readonly Req_RankList_3110 = "c3110";
+    public static readonly C2GW_ReqRankList = "msg.C2GW_ReqRankList";
     /**
      * 拉取物品列表
      */
@@ -299,7 +299,7 @@ class Command
     /**
      * 请求领取免费金币
      */
-    public static readonly Req_GetFreeGold_3024: string = "c3024";
+    public static readonly C2GW_ReqGetFreeGold: string = "msg.C2GW_ReqGetFreeGold";
 
     //--------------------------------------------------------------
     // 行牌流程
@@ -379,7 +379,7 @@ class Command
     /**
      * 推送亮牌
      */
-    public static readonly RS2C_PushBrightCard = "RS2C_PushBrightCard";
+    public static readonly RS2C_PushBrightCard = "msg.RS2C_PushBrightCard";
     /**
      * 推送玩家筹码变化
      */
@@ -395,7 +395,7 @@ class Command
     /**
      * 请求牌局上局回顾数据
     */
-    public static readonly ReviewInfo_Req_3707 = "c3707";
+    public static readonly C2RS_ReqReviewInfo = "msg.C2RS_ReqReviewInfo";
     //--------------------------------------------------------------
     // 行牌流程 end
     //--------------------------------------------------------------
@@ -476,7 +476,7 @@ class Command
     /**
      * 领取计时奖励
     */
-    public static readonly TimeAwardGet_Req_3621 = "c3621";
+    public static readonly C2RS_ReqTimeAwardGet = "msg.C2RS_ReqTimeAwardGet";
     /**
      * 时间更新推送
     */
@@ -626,7 +626,7 @@ class Command
     /**
      * 兑换次数更新推送
     */
-    public static readonly ExchangeTimeRefresh_Push_2031 = "c2031";
+    public static readonly GW2C_PushExchangeTimeRefresh = "msg.GW2C_PushExchangeTimeRefresh";
     //---------------------邀请------------------------
     /**
      * 绑定邀请码

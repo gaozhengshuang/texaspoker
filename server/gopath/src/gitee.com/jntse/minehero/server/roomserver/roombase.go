@@ -21,7 +21,7 @@ type IRoomBase interface {
 	Tick(now int64)
 	Owner() *RoomUser
 	OwnerId() int64
-	NumMembers() int32
+	MembersNum() int32			// 所有玩家
 	Passwd() string
 	SubKind() int32
 	IsFull() bool
@@ -33,7 +33,7 @@ type IRoomBase interface {
 	//BroadCastWatcherMsg(msg pb.Message, except ...int64)
 	BroadCastRoomMsg(msg pb.Message, except ...int64)
 
-	DoCache()
+	InitCache()
 	RmCache()
 	Destory(delay int64)
 	IsDestory(now int64) bool
@@ -65,7 +65,7 @@ type RoomBase struct {
 	gamekind		int32		// 游戏类型
 	owner			*RoomUser	// 房主
 	ownerid			int64		// 房主
-	members			map[int64]*RoomUser		// 正式，已坐下
+	members			map[int64]*RoomUser		// 所有房间内玩家
 	//watchmembers	map[int64]*RoomUser		// 观战，未坐下
 	passwd			string		// 房间密码
 	subkind			int32		// 房间子类型
@@ -81,7 +81,7 @@ func (r *RoomBase) IsDestory(now int64) bool { return (r.tm_destory != 0 && now 
 func (r *RoomBase) Destory(delay int64) { r.tm_destory = util.CURTIME() + delay }
 func (r *RoomBase) Owner() *RoomUser { return r.owner }
 func (r *RoomBase) OwnerId() int64 { return r.ownerid }
-func (r *RoomBase) NumMembers() int32 { return int32(len(r.members)) }
+func (r *RoomBase) MembersNum() int32 { return int32(len(r.members)) }
 func (r *RoomBase) Passwd() string { return r.passwd }
 func (r *RoomBase) SubKind() int32 { return r.subkind }
 func (r *RoomBase) IsFull() bool { return false }
@@ -136,13 +136,13 @@ func (r *RoomBase) BroadCastRoomMsg(msg pb.Message, except ...int64) {
 }
 
 // 缓存
-func (room *RoomBase) DoCache() {
+func (room *RoomBase) InitCache() {
 	pipe := Redis().Pipeline()
 	key := fmt.Sprintf("roombrief_%d", room.Id())
 	pipe.HSet(key, "uid", room.Id())
 	pipe.HSet(key, "ownerid", room.OwnerId())
 	pipe.HSet(key, "tid", room.Tid())
-	pipe.HSet(key, "members", room.NumMembers())
+	pipe.HSet(key, "members", 0)
 	pipe.HSet(key, "passwd", room.Passwd())
 	pipe.HSet(key, "agentname", RoomSvr().Name())
 	pipe.SAdd("roomlist", room.Id())

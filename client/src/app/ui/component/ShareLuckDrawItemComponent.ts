@@ -11,10 +11,10 @@ class ShareLuckDrawItemComponent extends BaseComponent<any>
 
     public init(itemId: number, num?: number)
     {
-        let def: ItemDefinition = ItemDefined.GetInstance().getDefinition(itemId);
+        let def: table.IItemBaseDataDefine = table.ItemBaseDataById[itemId];
         if (def)
         {
-            this.itemImg.source = def.icon + ResSuffixName.PNG;
+            this.itemImg.source = def.Icon + ResSuffixName.PNG;
         }
 
         if (num && num > 1)

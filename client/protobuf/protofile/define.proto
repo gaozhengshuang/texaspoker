@@ -14,9 +14,9 @@ message IpHost {
 
 // 道具id规则 = 类型 * 10000 + 顺序号
 enum ItemId {
-    YuanBao = 60001;            // 元宝
-    Diamond = 60002;            // 钻石
-    Gold = 60003;               // 金币
+    YuanBao = 402;            // 元宝
+    Diamond = 2;            // 钻石
+    Gold = 1;               // 金币
     FreeStep = 60005;           // 免费步数
     Strength = 60006;           // 体力
     RedDiamond = 100001;        // 红包钻石
@@ -52,6 +52,15 @@ enum TaskId {
     RegisterTopScore    = 1002; // 达到目标分数
     InviteeTopScore     = 1003; // 被邀请人达到目标分数
     InviteRegist        = 1004; // 邀请注册
+}
+
+enum RankType {
+	RTGold 		= 1;
+	RTFriendGold  = 2;
+	RTLevel 		= 3;
+	RTFriendLevel = 4;
+	RTvip 		= 5;
+	RTActivity 	= 6;
 }
 
 // 道具位置定义
@@ -117,4 +126,17 @@ enum UserInfoType {
 enum RoomKind {
     TanTanLe = 1;
     TexasPoker = 2;
+}
+
+//活动类别
+enum ActivityType {
+	DailySign = 3;
+	BankruptcySubsidy = 7;
+}
+
+// 邮件类型
+enum MailType {
+    System = 0;     // 系统
+    Notify = 1;     // 通知
+    Personal = 2;   // 个人
 }

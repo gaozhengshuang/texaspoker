@@ -1,7 +1,7 @@
 /**
  * 锦标赛赛事信息盲注项
  */
-class BlindItemRenderer extends BaseItemRenderer<ChampionshipBlindDefinition>
+class BlindItemRenderer extends BaseItemRenderer<table.IChampionshipBlindDefine>
 {
     /**
      * 增购图标
@@ -39,9 +39,9 @@ class BlindItemRenderer extends BaseItemRenderer<ChampionshipBlindDefinition>
         if (this.bindData)
         {
             this.rebuyImg.visible = this.addonImg.visible = false;
-            this.rankLabel.text = this.bindData.level.toString();
-            this.blindLabel.text = game.MathUtil.formatNum(this.bindData.sBlind) + "/" + game.MathUtil.formatNum(this.bindData.bBlind);
-            if (ChampionshipManager.nowBlindRank && this.bindData.level == ChampionshipManager.nowBlindRank)
+            this.rankLabel.text = this.bindData.Level.toString();
+            this.blindLabel.text = game.MathUtil.formatNum(this.bindData.SBlind) + "/" + game.MathUtil.formatNum(this.bindData.BBlind);
+            if (ChampionshipManager.nowBlindRank && this.bindData.Level == ChampionshipManager.nowBlindRank)
             {
                 this.rankLabel.textColor = ColorEnum.Golden;
                 this.blindLabel.textColor = ColorEnum.Golden;
@@ -55,19 +55,19 @@ class BlindItemRenderer extends BaseItemRenderer<ChampionshipBlindDefinition>
                 this.anteLabel.textColor = ColorEnum.White;
                 this.timeLabel.textColor = ColorEnum.White;
             }
-            if (!this.bindData.preBet)
+            if (!this.bindData.PreBet)
             {
                 this.anteLabel.text = "0";
             } else
             {
-                this.anteLabel.text = game.MathUtil.formatNum(this.bindData.preBet);
+                this.anteLabel.text = game.MathUtil.formatNum(this.bindData.PreBet);
             }
-            this.timeLabel.text = this.bindData.upTime + "秒";
-            if (this.bindData.addon)
+            this.timeLabel.text = this.bindData.UpTime + "秒";
+            if (this.bindData.Addon)
             {
                 this.addonImg.visible = true;
             }
-            if (this.bindData.rebuy)
+            if (this.bindData.Rebuy)
             {
                 this.rebuyImg.visible = true;
             }

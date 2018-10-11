@@ -8,7 +8,7 @@ class ShopManager
 	public static diamondList: Array<ShopInfo> = new Array<ShopInfo>();
 	public static vipList: Array<ShopInfo> = new Array<ShopInfo>();
 	public static propList: Array<ShopInfo> = new Array<ShopInfo>();
-	public static awardGoldList: Array<AwardDefinition> = new Array<AwardDefinition>();
+	public static awardGoldList: Array<table.IAwardDefine> = new Array<table.IAwardDefine>();
 
 	public static goldListRender: ShopInfo[][] = [];
 	public static diamondListRender: ShopInfo[][] = [];
@@ -21,13 +21,13 @@ class ShopManager
 	{
 		game.ArrayUtil.Clear(ShopManager.shoppingList);
 		let info: ShopInfo;
-		for (let i: number = 0; i < ShopDefined.GetInstance().dataList.length; i++)
+		for (let i: number = 0; i < table.PayList.length; i++)
 		{
 			info = new ShopInfo();
-			info.id = ShopDefined.GetInstance().dataList[i].id;
+			info.id = table.PayList[i].Id;
 			if (info.definition)
 			{
-				switch (info.definition.type)
+				switch (info.definition.Type)
 				{
 					case ShopType.Gold:
 						ShopManager.goldList.push(info);
@@ -44,10 +44,10 @@ class ShopManager
 				}
 			}
 		}
-		let awardDef: AwardDefinition;
+		let awardDef: table.IAwardDefine;
 		for (let i: number = 0; i < ShopManager.goldList.length; i++)
 		{
-			awardDef = AwardDefined.GetInstance().getDefinition(ShopManager.goldList[i].definition.awardId);
+			awardDef = table.AwardById[ShopManager.goldList[i].definition.AwardId];
 			ShopManager.awardGoldList.push(awardDef);
 		}
 		let temp: number = Math.ceil(ShopManager.goldList.length / 3);
@@ -77,16 +77,20 @@ class ShopManager
 	{
 		if (ShopManager._vipId.indexOf(id) != -1)
 		{
-			let awardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(id);
-			if (awardDef && awardDef.rewardList)
+			let awardDef: table.IAwardDefine = table.AwardById[id];
+			if (awardDef && awardDef.RewardId)
 			{
 				let itemGetList: Array<ItemGetInfo> = new Array<ItemGetInfo>();
-				for (let reward of awardDef.rewardList)
+				for (let i: number = 0; i < awardDef.RewardId.length; i++)
 				{
+					let id = awardDef.RewardId[i];
+					let count = awardDef.RewardNum[i];
+					let type = awardDef.RewardType[i];
+
 					let itemGetInfo: ItemGetInfo = new ItemGetInfo();
-					itemGetInfo.id = reward.id;
-					itemGetInfo.count = reward.count;
-					itemGetInfo.type = reward.type;
+					itemGetInfo.id = id;
+					itemGetInfo.count = count;
+					itemGetInfo.type = type;
 					itemGetList.push(itemGetInfo);
 					if (itemGetInfo.id == ItemFixedId.vipExp)
 					{

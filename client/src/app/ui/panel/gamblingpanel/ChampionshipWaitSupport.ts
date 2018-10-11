@@ -16,9 +16,9 @@ class ChampionshipWaitSupport extends BaseGamblingPanelSupport
         game.Tick.RemoveSecondsInvoke(this.refreshTime, this);
         if (InfoUtil.checkAvailable(GamblingManager.matchRoomInfo))
         {
-            component.waitChipsLabel.text = GamblingManager.matchRoomInfo.definition.initialChips.toString();
+            component.waitChipsLabel.text = GamblingManager.matchRoomInfo.definition.InitialChips.toString();
 
-            switch (GamblingManager.matchRoomInfo.definition.type)
+            switch (GamblingManager.matchRoomInfo.definition.Type)
             {
                 case MatchType.MTT:
                     game.Tick.AddSecondsInvoke(this.refreshTime, this);
@@ -33,7 +33,7 @@ class ChampionshipWaitSupport extends BaseGamblingPanelSupport
                 this.onCancelMTTPushEvent(GamblingManager.matchRoomInfo);
             }
             component.refreshGroup();
-            component.mttNameLabel.text = GamblingManager.matchRoomInfo.definition.name;
+            component.mttNameLabel.text = GamblingManager.matchRoomInfo.definition.Name;
         }
     }
     private refreshTime()
@@ -74,7 +74,7 @@ class ChampionshipWaitSupport extends BaseGamblingPanelSupport
             this.onDisable();
             if (info.definition)
             {
-                AlertManager.showAlert("您报名的" + info.definition.name + "因为报名人数不足已经取消，您的所有报名费用/门票已经返还给您！", this.backHall);
+                AlertManager.showAlert("您报名的" + info.definition.Name + "因为报名人数不足已经取消，您的所有报名费用/门票已经返还给您！", this.backHall);
             }
             else
             {
@@ -106,14 +106,14 @@ class ChampionshipWaitSupport extends BaseGamblingPanelSupport
     {
         if (InfoUtil.checkAvailable(GamblingManager.matchRoomInfo))
         {
-            switch (GamblingManager.matchRoomInfo.definition.type)
+            switch (GamblingManager.matchRoomInfo.definition.Type)
             {
                 case MatchType.SNG:
                     let state: GamblingPanelMatchWaitState = <GamblingPanelMatchWaitState>this.target.panelState;
                     let component: GamblingMatchWaitComponent = state.getCompoent<GamblingMatchWaitComponent>(GamblingMatchWaitComponent);
                     component.showSngInfo();
 
-                    if (GamblingManager.matchRoomInfo.join >= GamblingManager.matchRoomInfo.definition.bNum) //人满请求进入牌局
+                    if (GamblingManager.matchRoomInfo.join >= GamblingManager.matchRoomInfo.definition.BNum) //人满请求进入牌局
                     {
                         game.Tick.AddTimeoutInvoke(this.delayEnterRoom, 600, this);
                     }

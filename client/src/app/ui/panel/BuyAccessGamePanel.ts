@@ -139,17 +139,10 @@ class BuyAccessGamePanel extends BasePanel
 	{
 		if (this._shopInfo && this._shopInfo.definition)
 		{
-			let awardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(this._shopInfo.definition.awardId);
+			let awardDef: table.IAwardDefine = table.AwardById[this._shopInfo.definition.AwardId];
 			if (awardDef)
 			{
-				let def: AwardInfoDefinition;
-				for (let cost of awardDef.costList)
-				{
-					if (cost.type == CostType.RMB)
-					{
-						def = cost;
-					}
-				}
+				
 				AwardManager.OnExchanged.removeListener(this.onExchanged, this);
 				AwardManager.OnExchanged.addListener(this.onExchanged, this);
 				ChannelManager.PaySend(this._shopInfo.id);
@@ -158,7 +151,7 @@ class BuyAccessGamePanel extends BasePanel
 	}
 	private onExchanged(id: number)
 	{
-		if (this._shopInfo && this._shopInfo.definition && this._shopInfo.definition.awardId == id)
+		if (this._shopInfo && this._shopInfo.definition && this._shopInfo.definition.AwardId == id)
 		{
 			AwardManager.OnExchanged.removeListener(this.onExchanged, this);
 			this.onCloseBtnClickHandler(null);
@@ -202,7 +195,7 @@ class BuyAccessGamePanel extends BasePanel
 	}
 	private sitOrStandHandler(obj: any)
 	{
-		if (obj.pInfo.roleId == UserManager.userInfo.id && (!this.panelData || !this.panelData.isGoldInsufficient))
+		if (obj.pInfo.roleId == UserManager.userInfo.roleId && (!this.panelData || !this.panelData.isGoldInsufficient))
 		{
 			this.onCloseBtnClickHandler(null);
 		}
@@ -221,7 +214,9 @@ class BuyAccessGamePanel extends BasePanel
 		// let awardDef = AwardDefined.GetInstance().(ShoppingManager.awardGoldList.id,ShoppingManager.awardGoldList)
 		// let goldIndex=awardDef.costType.indexOf(CostType.RMB);
 		this._shopInfo = null;
-		let awardDef: AwardDefinition;
+		let awardDef: table.IAwardDefine;
+		let rewardList:AwardInfoDefinition[];
+		let costList:AwardInfoDefinition[];
 		if (ShopManager.goldList.length > 0)
 		{
 			for (let i: number = 0; i < ShopManager.goldList.length; i++)
@@ -229,8 +224,10 @@ class BuyAccessGamePanel extends BasePanel
 				let info: ShopInfo = ShopManager.goldList[i];
 				if (info && info.definition)
 				{
-					awardDef = AwardDefined.GetInstance().getDefinition(info.definition.awardId);
-					if (awardDef && goldOffset <= awardDef.rewardList[0].count || i == ShopManager.goldList.length - 1)
+					awardDef = table.AwardById[info.definition.AwardId];
+					costList = AwardManager.getCostInfoDefinitionList(info.definition.AwardId);
+					rewardList = AwardManager.getAwardInfoDefinitionList(info.definition.AwardId);
+					if (awardDef && rewardList && goldOffset <= rewardList[0].count || i == ShopManager.goldList.length - 1)
 					{
 						this._shopInfo = info;
 						break;
@@ -239,11 +236,11 @@ class BuyAccessGamePanel extends BasePanel
 			}
 			if (this._shopInfo && awardDef)
 			{
-				if (awardDef.rewardList && awardDef.costList.length > 0)
+				if (costList && costList.length > 0)
 				{
-					this.priceLabel.text = "仅需" + awardDef.costList[0].count / 100 + "元";
+					this.priceLabel.text = "仅需" + costList[0].count / 100 + "元";
 				}
-				this.goldLabel.text = awardDef.name;
+				this.goldLabel.text = awardDef.Name;
 			}
 		}
 	}

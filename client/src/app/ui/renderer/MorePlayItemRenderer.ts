@@ -1,7 +1,7 @@
 /**
  * 更多玩法列表渲染项
  */
-class MorePlayItemRenderer extends BaseItemRenderer<MorePlayDefinition>
+class MorePlayItemRenderer extends BaseItemRenderer<table.IMorePlayDefine>
 {
     public morePlayIcon: eui.Image //图片
     public itemTitleLabel: eui.Label//标题
@@ -25,10 +25,10 @@ class MorePlayItemRenderer extends BaseItemRenderer<MorePlayDefinition>
     {
         if (this.bindData)
         {
-            this.itemTitleLabel.text = this.bindData.name;
-            this.itemDesLabel.text = this.bindData.des;
-            this.morePlayIcon.source = this.bindData.icon + ResSuffixName.PNG;
-            this.playWayBtn.visible = this.bindData.desId != undefined;
+            this.itemTitleLabel.text = this.bindData.Name;
+            this.itemDesLabel.text = this.bindData.Des;
+            this.morePlayIcon.source = this.bindData.Icon + ResSuffixName.PNG;
+            this.playWayBtn.visible = this.bindData.DesId != undefined;
         }
     }
 
@@ -37,11 +37,11 @@ class MorePlayItemRenderer extends BaseItemRenderer<MorePlayDefinition>
         SoundManager.playEffect(MusicAction.buttonClick);
         if (event.target == this.playWayBtn)
         {
-            UIManager.showPanel(UIModuleName.TextInfoPanel, this.bindData.desId);
+            UIManager.showPanel(UIModuleName.TextInfoPanel, this.bindData.DesId);
         }
         else
         {
-            if (this.bindData.id == MorePlay.Omaha)
+            if (this.bindData.Id == MorePlay.Omaha)
             {
                 UIManager.showPanel(UIModuleName.PlayingFieldPanel, { playWay: PlayWayType.Omaha, prevPanelName: UIModuleName.MorePlayPanel });
             }

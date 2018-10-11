@@ -13,25 +13,40 @@ type IBaseExcel interface {
 // --------------------------------------------------------------------------
 /// @brief 为excel config 实例取一个别名
 // --------------------------------------------------------------------------
-var GiftProBase = table.InsGiftProBaseTable
-var RechargeBase = table.InsRechargeBaseTable
-var LevelBasee = table.InsLevelBaseeTable
-var Activity_listBase = table.InsActivity_listBaseTable
-var MapEventBase = table.InsMapEventBaseTable
-var LoadingTextBase = table.InsLoadingTextBaseTable
-var ProtoMsgIndex = table.InsProtoMsgIndexTable
-var AwardBase = table.InsAwardBaseTable
-var TaskBase = table.InsTaskBaseTable
-var NameBase = table.InsNameBaseTable
+var GiftShopBase = table.InsGiftShopBaseTable
 var MusicBase = table.InsMusicBaseTable
+var LevelBasee = table.InsLevelBaseeTable
+var PayListBase = table.InsPayListBaseTable
+var TextBase = table.InsTextBaseTable
+var TChampionshipPrize = table.InsTChampionshipPrizeTable
+var LoadingTextBase = table.InsLoadingTextBaseTable
 var Activity_signinBase = table.InsActivity_signinBaseTable
-var BundleBase = table.InsBundleBaseTable
-var CardBase = table.InsCardBaseTable
+var MailBase = table.InsMailBaseTable
+var TSystemTime = table.InsTSystemTimeTable
+var Activity_listBase = table.InsActivity_listBaseTable
+var GiftProBase = table.InsGiftProBaseTable
+var GoldenBeanAwardBase = table.InsGoldenBeanAwardBaseTable
+var MorePlayBase = table.InsMorePlayBaseTable
+var ProtoMsgIndex = table.InsProtoMsgIndexTable
+var TTimeAward = table.InsTTimeAwardTable
 var TBallGiftbase = table.InsTBallGiftbaseTable
 var NoticeBase = table.InsNoticeBaseTable
+var TexasAI = table.InsTexasAITable
+var RechargeBase = table.InsRechargeBaseTable
+var MapEventBase = table.InsMapEventBaseTable
+var TexasFRC = table.InsTexasFRCTable
+var AwardBase = table.InsAwardBaseTable
+var NameBase = table.InsNameBaseTable
+var TChampionship = table.InsTChampionshipTable
 var ChipsBase = table.InsChipsBaseTable
+var MapEventRefreshBase = table.InsMapEventRefreshBaseTable
+var BankruptBase = table.InsBankruptBaseTable
+var RankBase = table.InsRankBaseTable
+var TaskBase = table.InsTaskBaseTable
+var TChampionshipBlind = table.InsTChampionshipBlindTable
+var BundleBase = table.InsBundleBaseTable
+var CardBase = table.InsCardBaseTable
 var ShopBase = table.InsShopBaseTable
 var TexasRoomBase = table.InsTexasRoomBaseTable
 var ItemBase = table.InsItemBaseTable
-var MapEventRefreshBase = table.InsMapEventRefreshBaseTable
 

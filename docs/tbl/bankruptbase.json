@@ -1,0 +1,6 @@
+{
+	"Tool": "github.com/davyxu/tabtoy",
+	"Version": "2.8.10",
+	"Activity_bankruptSubsidy":[
+		{ "Id": 1, "ActivityId": 7, "SubId": 1, "AwardId": 61001, "LimitGold": 1000, "Times": 4 }
+	]}

@@ -27,11 +27,11 @@ class BindPhoneAwardItemRenderer extends BaseItemRenderer<AwardInfoDefinition>
         if (this.bindData)
         {
             this.comIcon.init(this.bindData.id, 120, null, false, true);
-            let definition: ItemDefinition = ItemDefined.GetInstance().getDefinition(this.bindData.id)
+            let definition: table.IItemBaseDataDefine = table.ItemBaseDataById[this.bindData.id];
             if (definition)
             {
                 this.numDesLabel.text = this.bindData.count.toString();
-                this.nameLabel.text = definition.name;
+                this.nameLabel.text = definition.Name;
             }
             this.addEventListener(egret.Event.REMOVED_FROM_STAGE, this.onDisable, this);
         }

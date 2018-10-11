@@ -2,7 +2,17 @@ class MailInfo extends BaseServerValueInfo
 {
     public reset()
     {
-
+        this.Id = 0;
+        this.IsRead = false;
+        this.Type = 0;
+        this.Title = game.StringConstants.Empty;
+        this.SubType = 0;
+        this.Content = game.StringConstants.Empty;
+        this.Sender = game.StringConstants.Empty;
+        this.SenderId = 0;
+        this.Date = 0;
+        this.items = null;
+        this.IsGot = false;
     }
     /**
      * 邮件id
@@ -41,10 +51,9 @@ class MailInfo extends BaseServerValueInfo
      */
     public SenderId: number;
     /**
-     * 附件json
+     * 附件列表
      */
-    public attaJson: string;
-    public attaList: Array<AwardInfoDefinition>;
+    public items:msg.MailItem[];
     /**
      * 是否领取
      */
@@ -54,6 +63,6 @@ class MailInfo extends BaseServerValueInfo
     */
     public get isHavePrize(): boolean
     {
-        return this.attaList != null && this.attaList.length > 0
+        return this.items && this.items.length > 0
     }
 }

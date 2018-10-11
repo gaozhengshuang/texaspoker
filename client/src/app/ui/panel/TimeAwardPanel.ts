@@ -88,7 +88,7 @@ class TimeAwardPanel extends BasePanel
     */
     private setTimeAwardInfo()
     {
-        if (GamblingManager.timeAwardHandler.round == TimeAwardDefined.GetInstance().dataList.length)
+        if (GamblingManager.timeAwardHandler.round == table.TimeAward.length)
         {
             this.getBtn.enabled = false;
             this.timeLabel.text = "距离下次领奖时间00:00";
@@ -118,7 +118,7 @@ class TimeAwardPanel extends BasePanel
             this.getBtn.enabled = true;
             this.timeLabel.text = "距离下次领奖时间00:00";
         }
-        let playInfo: PlayerInfo = GamblingManager.getPlayerInfo(UserManager.userInfo.id);
+        let playInfo: PlayerInfo = GamblingManager.getPlayerInfo(UserManager.userInfo.roleId);
         if (playInfo)
         {
             let bankRoll: number = playInfo.bankRoll;  //桌内的筹码             

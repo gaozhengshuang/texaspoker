@@ -44,14 +44,15 @@ class UserManager
 			UserManager.otherUserInfo.reset();
 		}
 	}
-	public static initialize(roleId: number, data: any)
+	public static initialize()
 	{
 		UserManager.otherUserInfoClear();
-		UserManager.userInfo = new UserInfo();
-		UserManager.userInfo.copyValueFrom(data);
-		if (data["lastGoldTime"] == undefined && data["createdTime"])
+		// UserManager.userInfo = new UserInfo();
+		// UserManager.userInfo.copyValueFrom(data); //move todo
+
+		if (UserManager.userInfo.lastGoldTime == undefined) //move todo
 		{
-			UserManager.userInfo.lastGoldTime = data["createdTime"];
+			UserManager.userInfo.lastGoldTime = UserManager.userInfo.tmlogin;
 		}
 		UserManager.playerNameOper(UserManager.userInfo);
 		SocketManager.AddCommandListener(Command.Role_Push_ExpChange_2028, UserManager.onExpChangeResult, this);
@@ -83,6 +84,7 @@ class UserManager
 			UserManager.setNumProperty("gold", result.data);
 			UserManager.setNumProperty("diamond", result.data);
 			UserManager.setNumProperty("safeGold", result.data);
+			UserManager.setNumProperty("yuanbao", result.data);
 			UserManager.propertyChangeEvent.dispatch();
 		}
 	}
@@ -152,7 +154,7 @@ class UserManager
 				UserManager.otherUserInfo.vipSpeed = ProjectDefined.getVipSpeedDefinition(UserManager.otherUserInfo.vipType).speed;
 				UserManager.getOtherUserInfoEa.dispatch();
 			}
-			if (FriendManager.isFriend(UserManager.otherUserInfo.id))
+			if (FriendManager.isFriend(UserManager.otherUserInfo.roleId))
 			{
 				UIManager.showPanel(UIModuleName.UserInfoPanel);
 			}
@@ -167,9 +169,16 @@ class UserManager
 	/**
 	 * 获取其他用户信息
 	 */
-	public static sendGetUserInfo(roleId: number, callback: Function, errorCallBack?: Function)
+	public static sendGetUserInfo(roleId: number, callback: Function, errorCallBack?: Function, isInRoom: boolean = false)
 	{
-		SocketManager.call(Command.C2RS_ReqFriendGetRoleInfo, msg.C2RS_ReqFriendGetRoleInfo.encode({ roleid: roleId }), callback, errorCallBack, this);
+		if (isInRoom)
+		{
+			MsgTransferSend.sendRoomProto(Command.C2RS_ReqFriendGetRoleInfo, { roleid: roleId }, callback, errorCallBack, this);
+		}
+		else
+		{
+			SocketManager.call(Command.C2RS_ReqFriendGetRoleInfo, { roleid: roleId }, callback, errorCallBack, this);
+		}
 	}
 
 	public static reqSimpleUserInfo(roleId: number)
@@ -329,7 +338,7 @@ class UserManager
 						let matchRoomInfo: MatchRoomInfo = ChampionshipManager.getMatchRoomInfoByRoomId(GamblingManager.roomInfo.id);
 						if (InfoUtil.checkAvailable(matchRoomInfo))
 						{
-							UserManager.userInfo.stateConfId = matchRoomInfo.definition.id;
+							UserManager.userInfo.stateConfId = matchRoomInfo.definition.Id;
 						}
 						return UserState.InMatch;
 					}
@@ -367,14 +376,14 @@ class UserManager
 	public static reqGetFreeGold()
 	{
 		PropertyManager.OpenGet();
-		SocketManager.call(Command.Req_GetFreeGold_3024, null, this.onGetFreeGold, null, this);
+		SocketManager.call(Command.C2GW_ReqGetFreeGold, {}, this.onGetFreeGold, null, this);
 	}
 	private static onGetFreeGold(result: game.SpRpcResult)
 	{
 		if (result.data)
 		{
 			PropertyManager.ShowItemList();
-			UserManager.userInfo.lastGoldTime = result.data["lastGoldTime"];
+			UserManager.userInfo.lastGoldTime = result.data["lastgoldtime"];
 			UserManager.getFreeGoldEvent.dispatch();
 		}
 	}

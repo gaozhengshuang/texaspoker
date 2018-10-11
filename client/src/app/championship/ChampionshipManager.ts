@@ -30,7 +30,7 @@ class ChampionshipManager
     /**
      * 盲注列表
     */
-    public static blindList: Array<ChampionshipBlindDefinition>;
+    public static blindList: Array<table.IChampionshipBlindDefine>;
     /**
      * 奖品列表
     */
@@ -137,13 +137,13 @@ class ChampionshipManager
     private static initSitAndPlayListInfo()
     {
         game.ArrayUtil.Clear(ChampionshipManager.showSitAndPlayList);
-        let matchDefList: Array<ChampionshipDefinition> = ChampionshipDefined.GetInstance().getSitAndPlayMatchList();
+        let matchDefList: Array<table.IChampionshipDefine> = ChampionshipDefined.GetInstance().getSitAndPlayMatchList();
         if (matchDefList)
         {
             for (let def of matchDefList)
             {
                 let matchInfo: MatchRoomInfo = new MatchRoomInfo();
-                matchInfo.id = def.id;
+                matchInfo.id = def.Id;
                 matchInfo.isShow = 1;
                 ChampionshipManager.setOpenAndCloseTime(matchInfo);
                 ChampionshipManager.showSitAndPlayList.push(matchInfo);
@@ -155,7 +155,7 @@ class ChampionshipManager
     */
     private static setOpenAndCloseTime(matchInfo: MatchRoomInfo)
     {
-        let subDefList: Array<SystemTimeDefinition> = SystemTimeDefined.GetInstance().getSubListById(matchInfo.definition.timeId);
+        let subDefList: Array<SystemTimeDefinition> = SystemTimeDefined.GetInstance().getSubListById(matchInfo.definition.TimeId);
         if (subDefList)
         {
             matchInfo.openTime = SystemTimeManager.GetDateTimeByArray(subDefList[0].start, TimeManager.GetServerLocalDateTime()).getTime();
@@ -193,10 +193,10 @@ class ChampionshipManager
                     }
                 }
                 matchInfo.leftJoin = mttInfo.leftjoin;
-                let chapDef: ChampionshipDefinition = matchInfo.definition;
+                let chapDef: table.IChampionshipDefine = matchInfo.definition;
                 if (chapDef)
                 {
-                    if (chapDef.type == MatchType.MTT)
+                    if (chapDef.Type == MatchType.MTT)
                     {
                         ChampionshipManager.setIsMTTShow(chapDef, matchInfo, mttInfo);
                         if (matchInfo.isShow)
@@ -204,10 +204,10 @@ class ChampionshipManager
                             ChampionshipManager.showMTTList.push(matchInfo);
                         }
                     }
-                    else if (chapDef.type == MatchType.SNG)
+                    else if (chapDef.Type == MatchType.SNG)
                     {
                         matchInfo.isShow = 1;
-                        if (!matchInfo.isRemineded && matchInfo.join >= matchInfo.definition.bNum)
+                        if (!matchInfo.isRemineded && matchInfo.join >= matchInfo.definition.BNum)
                         {
                             matchInfo.isRemineded = true;
                         }
@@ -226,24 +226,24 @@ class ChampionshipManager
     {
         if (InfoUtil.checkAvailable(matchInfo))
         {
-            if (matchInfo.definition.type == MatchType.MTT)
+            if (matchInfo.definition.Type == MatchType.MTT)
             {
-                if (matchInfo.definition.signTime != matchInfo.definition.displayTime && matchInfo.isShow == 1)
+                if (matchInfo.definition.SignTime != matchInfo.definition.DisplayTime && matchInfo.isShow == 1)
                 {
-                    if (matchInfo.startTime - matchInfo.definition.signTime < TimeManager.GetServerUtcTimestamp())
+                    if (matchInfo.startTime - matchInfo.definition.SignTime < TimeManager.GetServerUtcTimestamp())
                     {
                         return true;
                     } else
                     {
                         return false;
                     }
-                } else if (matchInfo.definition.signTime == matchInfo.definition.displayTime && matchInfo.isShow == 1)
+                } else if (matchInfo.definition.SignTime == matchInfo.definition.DisplayTime && matchInfo.isShow == 1)
                 {
                     return true;
                 }
-            } else if (matchInfo.definition.type == MatchType.SNG)
+            } else if (matchInfo.definition.Type == MatchType.SNG)
             {
-                if (SystemTimeManager.IsInTime(matchInfo.definition.timeId) && matchInfo.isShow == 1)
+                if (SystemTimeManager.IsInTime(matchInfo.definition.TimeId) && matchInfo.isShow == 1)
                 {
                     return true;
                 } else 
@@ -257,11 +257,11 @@ class ChampionshipManager
     /**
      * mtt设置是否显示
     */
-    private static setIsMTTShow(chapDef: ChampionshipDefinition, matchinfo: MatchRoomInfo, mttInfo: any)
+    private static setIsMTTShow(chapDef: table.IChampionshipDefine, matchinfo: MatchRoomInfo, mttInfo: any)
     {
-        if (chapDef.delaySign)
+        if (chapDef.DelaySign)
         {
-            if (TimeManager.GetServerUtcTimestamp() < matchinfo.startTime + chapDef.delaySign && !mttInfo.outTime && !mttInfo.endTime)
+            if (TimeManager.GetServerUtcTimestamp() < matchinfo.startTime + chapDef.DelaySign && !mttInfo.outTime && !mttInfo.endTime)
             {
                 matchinfo.isShow = 1;
             }
@@ -287,7 +287,7 @@ class ChampionshipManager
                 {
                     let matchinfo: MatchRoomInfo = new MatchRoomInfo();
                     matchinfo.copyValueFrom(mttInfo);
-                    if (matchinfo.definition && matchinfo.definition.type == MatchType.SNG)
+                    if (matchinfo.definition && matchinfo.definition.Type == MatchType.SNG)
                     {
                         ChampionshipManager.setOpenAndCloseTime(matchinfo);
                     }
@@ -340,12 +340,12 @@ class ChampionshipManager
                 record.recordId = recordInfo.recordId;
                 record.time = recordInfo.startTime;
                 record.rankList = new Array<ChampionshipRankInfo>();
-                let def: ChampionshipDefinition = ChampionshipDefined.GetInstance().getDefinition(recordInfo.id);
-                let championshipPrizeList: Array<ChampionshipPrizeDefinition>;
+                let def: table.IChampionshipDefine = table.ChampionshipById[recordInfo.id];
+                let championshipPrizeList: Array<table.IChampionshipPrizeDefine>;
                 if (def)
                 {
-                    record.name = def.name;
-                    championshipPrizeList = ChampionshipManager.getAwardList(def.id);
+                    record.name = def.Name;
+                    championshipPrizeList = ChampionshipManager.getAwardList(def.Id);
                 }
                 rankInfo.name = recordInfo["name"];
                 rankInfo.rank = 1;
@@ -364,10 +364,10 @@ class ChampionshipManager
                 {
                     for (let championshipPrize of championshipPrizeList)
                     {
-                        if (rankInfo.rank == championshipPrize.start)
+                        if (rankInfo.rank == championshipPrize.Start)
                         {
                             let str: string = "获得";
-                            let des = AwardDefined.GetInstance().getAwardNameById(championshipPrize.awardId);
+                            let des = AwardDefined.GetInstance().getAwardNameById(championshipPrize.AwardId);
                             if (des)
                             {
                                 str += des;
@@ -396,15 +396,15 @@ class ChampionshipManager
                 {
                     let rank: ChampionshipRankInfo = new ChampionshipRankInfo();
                     rank.copyValueFrom(rankInfo);
-                    let championshipPrizeList: Array<ChampionshipPrizeDefinition> = ChampionshipManager.getAwardList(ChampionshipManager.recentMTTId);
+                    let championshipPrizeList: Array<table.IChampionshipPrizeDefine> = ChampionshipManager.getAwardList(ChampionshipManager.recentMTTId);
                     if (championshipPrizeList)
                     {
                         for (let championshipPrize of championshipPrizeList)
                         {
-                            if (rankInfo.rank == championshipPrize.start)
+                            if (rankInfo.rank == championshipPrize.Start)
                             {
                                 let str: string = "获得";
-                                let des: string = AwardDefined.GetInstance().getAwardNameById(championshipPrize.awardId);
+                                let des: string = AwardDefined.GetInstance().getAwardNameById(championshipPrize.AwardId);
                                 if (des)
                                 {
                                     str += des;
@@ -481,7 +481,7 @@ class ChampionshipManager
                 let time: number = startTime - TimeManager.GetServerUtcTimestamp();
                 if (time > 0 && InfoUtil.checkAvailable(championshipInfo))
                 {
-                    UIManager.showPanel(UIModuleName.JoinChampionshipSuccessPanel, { name: championshipInfo.definition.name, time: championshipInfo.startTime, applyNum: championshipInfo.join, bNum: championshipInfo.definition.bNum, chip: championshipInfo.definition.initialChips });
+                    UIManager.showPanel(UIModuleName.JoinChampionshipSuccessPanel, { name: championshipInfo.definition.Name, time: championshipInfo.startTime, applyNum: championshipInfo.join, bNum: championshipInfo.definition.BNum, chip: championshipInfo.definition.InitialChips });
                 }
             }
             ChampionshipManager.onRequestJoinEvent.dispatch({ flag: flag, recordId: result.data.recordId });
@@ -533,7 +533,7 @@ class ChampionshipManager
             }
         }
 
-        if (InfoUtil.checkAvailable(mttInfo) && mttInfo.join < mttInfo.definition.bNum)
+        if (InfoUtil.checkAvailable(mttInfo) && mttInfo.join < mttInfo.definition.BNum)
         {
             return true;
         } else
@@ -581,13 +581,13 @@ class ChampionshipManager
                 else
                 {
                     ChampionshipManager.nowBlindRank = 1;
-                    let mttBlindDef: ChampionshipBlindDefinition = ChampionshipBlindDefined.GetInstance().getBlindInfoByLevel(ChampionshipManager.nowBlindRank, blindType);
+                    let mttBlindDef: table.IChampionshipBlindDefine = ChampionshipBlindDefined.GetInstance().getBlindInfoByLevel(ChampionshipManager.nowBlindRank, blindType);
                     if (mttBlindDef)
                     {
-                        ChampionshipManager.matchOutsInfo.addBlindTime = mttBlindDef.upTime;
+                        ChampionshipManager.matchOutsInfo.addBlindTime = mttBlindDef.UpTime;
                     }
                 }
-                let blindDef: ChampionshipBlindDefinition = ChampionshipBlindDefined.GetInstance().getBlindInfoByLevel(ChampionshipManager.nowBlindRank, blindType);
+                let blindDef: table.IChampionshipBlindDefine = ChampionshipBlindDefined.GetInstance().getBlindInfoByLevel(ChampionshipManager.nowBlindRank, blindType);
                 ChampionshipManager.setOutsBlindInfo(blindDef);
                 ChampionshipManager.matchOutsInfo.rank = result.data["rank"];
                 ChampionshipManager.OnOutsInfoEvent.dispatch();
@@ -657,17 +657,17 @@ class ChampionshipManager
                         break;
                     }
                 }
-                if (InfoUtil.checkAvailable(withdrawMatch) && withdrawMatch.definition.type == MatchType.MTT)
+                if (InfoUtil.checkAvailable(withdrawMatch) && withdrawMatch.definition.Type == MatchType.MTT)
                 {
                     ChampionshipManager.remindMTTStart();
                 }
             }
             if (InfoUtil.checkAvailable(withdrawMatch))
             {
-                if (withdrawMatch.definition.type == MatchType.MTT)
+                if (withdrawMatch.definition.Type == MatchType.MTT)
                 {
                     ChampionshipManager.setNotJoinFromMTTList(recordId);
-                } else if (withdrawMatch.definition.type == MatchType.SNG)
+                } else if (withdrawMatch.definition.Type == MatchType.SNG)
                 {
                     ChampionshipManager.setNotJoinFromSitAndPlayList(recordId);
                 }
@@ -766,7 +766,7 @@ class ChampionshipManager
             }
             if (InfoUtil.checkAvailable(info))
             {
-                AlertManager.showAlert("您报名的" + info.definition.name + "因为报名人数不足已经取消，您的所有报名费用/门票已经返还给您！");
+                AlertManager.showAlert("您报名的" + info.definition.Name + "因为报名人数不足已经取消，您的所有报名费用/门票已经返还给您！");
             }
             UIManager.closePanel(UIModuleName.SecondRemindPanel);
             ChampionshipManager.OnCancelMTTPushEvent.dispatch(info);
@@ -891,12 +891,12 @@ class ChampionshipManager
     /**
      * 根据赛事id获得奖励列表
     */
-    public static getAwardList(id: number): Array<ChampionshipPrizeDefinition>
+    public static getAwardList(id: number): Array<table.IChampionshipPrizeDefine>
     {
-        let championship: ChampionshipDefinition = ChampionshipDefined.GetInstance().getDefinition(id);
+        let championship: table.IChampionshipDefine = table.ChampionshipById[id];
         if (championship)
         {
-            let championshipPrizeList: Array<ChampionshipPrizeDefinition> = ChampionshipPrizeDefined.GetInstance().getChampionshipPrizeList(championship.prize);
+            let championshipPrizeList: Array<table.IChampionshipPrizeDefine> = ChampionshipPrizeDefined.GetInstance().getChampionshipPrizeList(championship.Prize);
             return championshipPrizeList;
         }
         return null;
@@ -949,19 +949,19 @@ class ChampionshipManager
     /**
      * 获取进入奖励圈的排名
      */
-    public static getAwardMaxRank(championship: ChampionshipDefinition): number
+    public static getAwardMaxRank(championship: table.IChampionshipDefine): number
     {
         let maxRank: number = 0;
         if (championship)
         {
-            let championshipPrizeList: Array<ChampionshipPrizeDefinition> = ChampionshipPrizeDefined.GetInstance().getChampionshipPrizeList(championship.prize);
+            let championshipPrizeList: Array<table.IChampionshipPrizeDefine> = ChampionshipPrizeDefined.GetInstance().getChampionshipPrizeList(championship.Prize);
             if (championshipPrizeList)
             {
                 for (let info of championshipPrizeList)
                 {
-                    if (info.end > maxRank)
+                    if (info.End > maxRank)
                     {
-                        maxRank = info.end;
+                        maxRank = info.End;
                     }
                 }
             }
@@ -971,19 +971,19 @@ class ChampionshipManager
     /**
      * 设置赛况盲注级别信息
     */
-    public static setOutsBlindInfo(blindDef: ChampionshipBlindDefinition)
+    public static setOutsBlindInfo(blindDef: table.IChampionshipBlindDefine)
     {
         if (blindDef)
         {
-            if (blindDef.preBet)
+            if (blindDef.PreBet)
             {
-                ChampionshipManager.matchOutsInfo.nowAnte = blindDef.preBet;
+                ChampionshipManager.matchOutsInfo.nowAnte = blindDef.PreBet;
             } else
             {
                 ChampionshipManager.matchOutsInfo.nowAnte = 0;
             }
-            ChampionshipManager.matchOutsInfo.nowSBlind = blindDef.sBlind;
-            ChampionshipManager.matchOutsInfo.nowBBlind = blindDef.bBlind;
+            ChampionshipManager.matchOutsInfo.nowSBlind = blindDef.SBlind;
+            ChampionshipManager.matchOutsInfo.nowBBlind = blindDef.BBlind;
         }
         if (ChampionshipManager.blindList && ChampionshipManager.blindList.length > 0 && ChampionshipManager.nowBlindRank < ChampionshipManager.blindList.length)
         {
@@ -991,15 +991,15 @@ class ChampionshipManager
         }
         if (blindDef)
         {
-            if (blindDef.preBet)
+            if (blindDef.PreBet)
             {
-                ChampionshipManager.matchOutsInfo.nextAnte = blindDef.preBet;
+                ChampionshipManager.matchOutsInfo.nextAnte = blindDef.PreBet;
             } else
             {
                 ChampionshipManager.matchOutsInfo.nextAnte = 0;
             }
-            ChampionshipManager.matchOutsInfo.nextSBlind = blindDef.sBlind;
-            ChampionshipManager.matchOutsInfo.nextBBlind = blindDef.bBlind;
+            ChampionshipManager.matchOutsInfo.nextSBlind = blindDef.SBlind;
+            ChampionshipManager.matchOutsInfo.nextBBlind = blindDef.BBlind;
         }
     }
     /**

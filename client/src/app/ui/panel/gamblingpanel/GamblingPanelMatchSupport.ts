@@ -26,7 +26,7 @@ class GamblingPanelMatchSupport extends BaseGamblingPanelSupport
 
         if (InfoUtil.checkAvailable(GamblingManager.matchRoomInfo) && InfoUtil.checkAvailable(GamblingManager.roomInfo))
         {
-            if (GamblingManager.matchRoomInfo.definition.type == MatchType.MTT)
+            if (GamblingManager.matchRoomInfo.definition.Type == MatchType.MTT)
             {
                 this._mttLogic.initialize();
             }
@@ -90,7 +90,7 @@ class GamblingPanelMatchSupport extends BaseGamblingPanelSupport
         {
             UIManager.closePanel(UIModuleName.ChampionshipBuyChipsPanel);
             UIManager.closePanel(UIModuleName.ChatPanel);
-            switch (GamblingManager.matchRoomInfo.definition.type)
+            switch (GamblingManager.matchRoomInfo.definition.Type)
             {
                 case MatchType.MTT:
                     let state: GamblingPanelMatchState = this.target.panelState;
@@ -154,13 +154,13 @@ class GamblingPanelMatchSupport extends BaseGamblingPanelSupport
             {
                 this._mttLogic.onRebuyORAddonEvent();
 
-                let def: ChampionshipBlindDefinition = ChampionshipBlindDefined.GetInstance().getBlindInfoByLevel(GamblingManager.roomInfo.blindLevel, GamblingManager.matchRoomInfo.definition.blindType);
+                let def: table.IChampionshipBlindDefine = ChampionshipBlindDefined.GetInstance().getBlindInfoByLevel(GamblingManager.roomInfo.blindLevel, GamblingManager.matchRoomInfo.definition.BlindType);
                 if (def)
                 {
-                    let text: string = "下局盲注将增长至:" + game.MathUtil.formatNum(def.sBlind) + "/" + game.MathUtil.formatNum(def.bBlind)
-                    if (def.preBet)
+                    let text: string = "下局盲注将增长至:" + game.MathUtil.formatNum(def.SBlind) + "/" + game.MathUtil.formatNum(def.BBlind)
+                    if (def.PreBet)
                     {
-                        text += ",前注:" + game.MathUtil.formatNum(def.preBet);
+                        text += ",前注:" + game.MathUtil.formatNum(def.PreBet);
                     }
                     this._newsLogic.showAddBlind(text);
                 }
@@ -172,7 +172,7 @@ class GamblingPanelMatchSupport extends BaseGamblingPanelSupport
     {
         super.onEnable();
 
-        if (InfoUtil.checkAvailable(GamblingManager.matchRoomInfo) && GamblingManager.matchRoomInfo.definition.type == MatchType.MTT)
+        if (InfoUtil.checkAvailable(GamblingManager.matchRoomInfo) && GamblingManager.matchRoomInfo.definition.Type == MatchType.MTT)
         {
             this._mttLogic.onEnable();
         }
@@ -188,7 +188,7 @@ class GamblingPanelMatchSupport extends BaseGamblingPanelSupport
     public onDisable()
     {
         super.onDisable();
-        if (InfoUtil.checkAvailable(GamblingManager.matchRoomInfo) && GamblingManager.matchRoomInfo.definition.type == MatchType.MTT)
+        if (InfoUtil.checkAvailable(GamblingManager.matchRoomInfo) && GamblingManager.matchRoomInfo.definition.Type == MatchType.MTT)
         {
             this._mttLogic.onDisable();
         }
@@ -227,7 +227,7 @@ class GamblingPanelMatchSupport extends BaseGamblingPanelSupport
         {
             component.avgChipsLabel.text = "均码:---";
         }
-        component.mttNameLabel.text = GamblingManager.matchRoomInfo.definition.name;
+        component.mttNameLabel.text = GamblingManager.matchRoomInfo.definition.Name;
         component.refresh();
     }
     private showBlind()
@@ -275,6 +275,6 @@ class GamblingPanelMatchSupport extends BaseGamblingPanelSupport
     private get isShowAlert(): boolean
     {
         //锦标赛和多桌的淘汰赛
-        return GamblingManager.matchRoomInfo.definition.type == MatchType.MTT || (GamblingManager.matchRoomInfo.definition.type == MatchType.SNG && !GamblingUtil.isSingleTable(GamblingManager.matchRoomInfo))
+        return GamblingManager.matchRoomInfo.definition.Type == MatchType.MTT || (GamblingManager.matchRoomInfo.definition.Type == MatchType.SNG && !GamblingUtil.isSingleTable(GamblingManager.matchRoomInfo))
     }
 }

@@ -67,7 +67,7 @@ class VipDefinition implements IBaseDefintion
     /**
      * id
      */
-    public id: number;
+    public Id: number;
     /**
      * VIP等级
      */

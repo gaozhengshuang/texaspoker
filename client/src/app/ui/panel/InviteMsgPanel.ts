@@ -24,11 +24,11 @@ class InviteMsgPanel extends BasePanel
 	public init(appendData: any)
 	{
 		super.init(appendData);
-		let info: FriendInfo = FriendManager.getFriendInfoById(appendData.roleId);
+		let info: FriendInfo = FriendManager.getFriendInfoById(game.longToNumber(appendData.roleid));
 		this.roomBuyLabel.text = "";
-		if (info && appendData.roomId && appendData.roomId != 0)
+		if (info && appendData.roomid && appendData.roomid != 0)
 		{
-			let def: table.ITexasRoomDefine = table.TexasRoomById[appendData.roomId];
+			let def: table.ITexasRoomDefine = table.TexasRoomById[game.longToNumber(appendData.roomid)];
 			this.inviteMsgLable.text = "你的好友" + info.name + "现在邀请您一起游戏！";
 			this.omahaInviteLable.text = "你的好友" + info.name + "现在邀请您一起进行";
 			this.headComp.init(info, 120);
@@ -49,13 +49,13 @@ class InviteMsgPanel extends BasePanel
 		}
 		else
 		{
-			game.Console.logError("ERROR好友信息未找到角色ID：" + appendData.roleId);
+			game.Console.logError("ERROR好友信息未找到角色ID：" + appendData.roleid);
 		}
 		if (appendData.id)
 		{
 			if (appendData.id.toString().length < 5)
 			{
-				this.roomIdLabel.text = PlayingFieldManager.roomIdAddZero(appendData.id);
+				this.roomIdLabel.text = PlayingFieldManager.roomIdAddZero(game.longToNumber(appendData.id));
 			}
 			else
 			{

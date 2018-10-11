@@ -34,23 +34,23 @@ class ChampionshipHandler
             if (InfoUtil.checkAvailable(GamblingManager.matchRoomInfo))
             {
                 //盲注等级达到上限
-                let def: ChampionshipBlindDefinition = ChampionshipBlindDefined.GetInstance().getBlindInfoByLevel(GamblingManager.roomInfo.blindLevel + 1, GamblingManager.matchRoomInfo.definition.blindType);
+                let def: table.IChampionshipBlindDefine = ChampionshipBlindDefined.GetInstance().getBlindInfoByLevel(GamblingManager.roomInfo.blindLevel + 1, GamblingManager.matchRoomInfo.definition.BlindType);
                 if (!def)
                 {
                     GamblingManager.roomInfo.blindTime = -1;
                 }
                 else if (!GamblingManager.roomInfo.blindTime && GamblingManager.roomInfo.startTime)
                 {
-                    GamblingManager.roomInfo.blindTime = GamblingManager.roomInfo.startTime + def.upTime;
+                    GamblingManager.roomInfo.blindTime = GamblingManager.roomInfo.startTime + def.UpTime;
                 }
             }
             GamblingManager.roomInfo.nowBlindLevel = GamblingManager.roomInfo.blindLevel;
             if (GamblingManager.matchRoomInfo && GamblingManager.matchRoomInfo.definition)
             {
-                let def: ChampionshipBlindDefinition = ChampionshipBlindDefined.GetInstance().getDefByBlind(GamblingManager.matchRoomInfo.definition.blindType, GamblingManager.roomInfo.sBlind, GamblingManager.roomInfo.bBlind);
-                if (def && def.level <= GamblingManager.roomInfo.blindLevel)
+                let def: table.IChampionshipBlindDefine = ChampionshipBlindDefined.GetInstance().getDefByBlind(GamblingManager.matchRoomInfo.definition.BlindType, GamblingManager.roomInfo.sBlind, GamblingManager.roomInfo.bBlind);
+                if (def && def.Level <= GamblingManager.roomInfo.blindLevel)
                 {
-                    GamblingManager.roomInfo.nowBlindLevel = def.level;
+                    GamblingManager.roomInfo.nowBlindLevel = def.Level;
                 }
             }
             if (!GamblingManager.roomInfo.addonTimes)
@@ -80,10 +80,10 @@ class ChampionshipHandler
                 {
                     GamblingManager.roomInfo.blindLevel = 1;
                 }
-                let def: ChampionshipBlindDefinition = ChampionshipBlindDefined.GetInstance().getBlindInfoByLevel(GamblingManager.roomInfo.blindLevel + 1, GamblingManager.matchRoomInfo.definition.blindType);
+                let def: table.IChampionshipBlindDefine = ChampionshipBlindDefined.GetInstance().getBlindInfoByLevel(GamblingManager.roomInfo.blindLevel + 1, GamblingManager.matchRoomInfo.definition.BlindType);
                 if (def)
                 {
-                    GamblingManager.roomInfo.blindTime = def.upTime + TimeManager.GetServerUtcTimestamp();
+                    GamblingManager.roomInfo.blindTime = def.UpTime + TimeManager.GetServerUtcTimestamp();
                 }
                 else
                 {
@@ -101,15 +101,15 @@ class ChampionshipHandler
         {
             if (type == ChampionshipBuyType.Rebuy)
             {
-                let pInfo: PlayerInfo = GamblingManager.getPlayerInfo(UserManager.userInfo.id);
-                if (pInfo && (pInfo.initbankRoll <= GamblingManager.matchRoomInfo.definition.initialChips || !pInfo.initbankRoll))
+                let pInfo: PlayerInfo = GamblingManager.getPlayerInfo(UserManager.userInfo.roleId);
+                if (pInfo && (pInfo.initbankRoll <= GamblingManager.matchRoomInfo.definition.InitialChips || !pInfo.initbankRoll))
                 {
-                    let def: ChampionshipBlindDefinition = ChampionshipBlindDefined.GetInstance().getBlindInfoByLevel(GamblingManager.roomInfo.nowBlindLevel, GamblingManager.matchRoomInfo.definition.blindType);
-                    if (def && def.rebuy > 0 && GamblingManager.matchRoomInfo.definition.rebuy > 0 && GamblingManager.matchRoomInfo.definition.maxRebuyTimes > 0)
+                    let def: table.IChampionshipBlindDefine = ChampionshipBlindDefined.GetInstance().getBlindInfoByLevel(GamblingManager.roomInfo.nowBlindLevel, GamblingManager.matchRoomInfo.definition.BlindType);
+                    if (def && def.Rebuy > 0 && GamblingManager.matchRoomInfo.definition.Rebuy > 0 && GamblingManager.matchRoomInfo.definition.MaxRebuyTimes > 0)
                     {
-                        if (GamblingManager.matchRoomInfo.definition.rebuy > GamblingManager.roomInfo.rebuyTimes || !GamblingManager.roomInfo.rebuyTimes)
+                        if (GamblingManager.matchRoomInfo.definition.Rebuy > GamblingManager.roomInfo.rebuyTimes || !GamblingManager.roomInfo.rebuyTimes)
                         {
-                            if (!GamblingManager.roomInfo.addbuy || (GamblingManager.roomInfo.addbuy < GamblingManager.matchRoomInfo.definition.maxRebuyTimes * GamblingManager.matchRoomInfo.definition.initialChips))
+                            if (!GamblingManager.roomInfo.addbuy || (GamblingManager.roomInfo.addbuy < GamblingManager.matchRoomInfo.definition.MaxRebuyTimes * GamblingManager.matchRoomInfo.definition.InitialChips))
                             {
                                 return true;
                             }
@@ -143,12 +143,12 @@ class ChampionshipHandler
             }
             else if (type == ChampionshipBuyType.Addon)
             {
-                let def: ChampionshipBlindDefinition = ChampionshipBlindDefined.GetInstance().getBlindInfoByLevel(GamblingManager.roomInfo.nowBlindLevel, GamblingManager.matchRoomInfo.definition.blindType);
-                if (def && def.addon > 0 && GamblingManager.matchRoomInfo.definition.addon > 0)
+                let def: table.IChampionshipBlindDefine = ChampionshipBlindDefined.GetInstance().getBlindInfoByLevel(GamblingManager.roomInfo.nowBlindLevel, GamblingManager.matchRoomInfo.definition.BlindType);
+                if (def && def.Addon > 0 && GamblingManager.matchRoomInfo.definition.Addon > 0)
                 {
-                    if (GamblingManager.matchRoomInfo.definition.addon > GamblingManager.roomInfo.addonTimes || !GamblingManager.roomInfo.addonTimes)
+                    if (GamblingManager.matchRoomInfo.definition.Addon > GamblingManager.roomInfo.addonTimes || !GamblingManager.roomInfo.addonTimes)
                     {
-                        if (!GamblingManager.roomInfo.addbuy || (GamblingManager.roomInfo.addbuy < GamblingManager.matchRoomInfo.definition.addonChips))
+                        if (!GamblingManager.roomInfo.addbuy || (GamblingManager.roomInfo.addbuy < GamblingManager.matchRoomInfo.definition.AddonChips))
                         {
                             return true;
                         }
@@ -222,13 +222,13 @@ class ChampionshipHandler
                         }
                         if (type == ChampionshipBuyType.Rebuy)
                         {
-                            GamblingManager.roomInfo.addbuy += GamblingManager.matchRoomInfo.definition.initialChips;
-                            AlertManager.showAlert(game.StringUtil.format("重购成功,{0}筹码将在下局增加", GamblingManager.matchRoomInfo.definition.initialChips));
+                            GamblingManager.roomInfo.addbuy += GamblingManager.matchRoomInfo.definition.InitialChips;
+                            AlertManager.showAlert(game.StringUtil.format("重购成功,{0}筹码将在下局增加", GamblingManager.matchRoomInfo.definition.InitialChips));
                         }
                         else
                         {
-                            GamblingManager.roomInfo.addbuy += GamblingManager.matchRoomInfo.definition.addonChips;
-                            AlertManager.showAlert(game.StringUtil.format("增购成功,{0}筹码将在下局增加", GamblingManager.matchRoomInfo.definition.addonChips));
+                            GamblingManager.roomInfo.addbuy += GamblingManager.matchRoomInfo.definition.AddonChips;
+                            AlertManager.showAlert(game.StringUtil.format("增购成功,{0}筹码将在下局增加", GamblingManager.matchRoomInfo.definition.AddonChips));
                         }
                     }
                     else
@@ -250,7 +250,7 @@ class ChampionshipHandler
         {
             SocketManager.RemoveCommandListener(Command.MTTRebuyOrAddon_3619, callback, this);
             SocketManager.RemoveErrorListener(Command.MTTRebuyOrAddon_3619, callbackError, this);
-            if (result.error == 3012)
+            if (result.error == "3012") //move todo
             {
                 if (type == ChampionshipBuyType.Rebuy)
                 {

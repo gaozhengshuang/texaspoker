@@ -1,8 +1,9 @@
 syntax = "proto2";
 package msg;
+import "autoreset.proto";
 
 message EntityBase {
-    optional int64  id      = 1;
+    optional int64  roleid  = 1;
     optional string name    = 2;
     optional string head    = 3;
     optional int32  sex     = 4;
@@ -12,9 +13,10 @@ message EntityBase {
     optional int32  gold    = 8;        // 金币
     optional int32  diamond = 9;        // 钻石
     optional int32  yuanbao = 10;       // 元宝
-    optional string ip = 11;            // ip
-    optional string sign = 12;          // 个性签名
-    optional int32 age = 13;            // 年龄
+    optional int32  age     = 11;
+    optional string bio     = 12;       // 个人简介签名
+    optional string sign    = 13;       // 个性签名
+    optional string ip      = 14;       // ip
 }
 
 // 简单计数器
@@ -117,20 +119,43 @@ message UserVip {
 
 // 杂项数据
 message UserMiscData {
-    optional string invitationcode = 3; // 邀请码
+    optional string invitationcode = 1; // 邀请码
+	optional int32 lastgoldtime = 2; // 定时领金币领取的时间戳
+	optional int32 bankruptcount = 3; //当天领取破产补助的次数
+	optional int32 silvercardtime = 4; //白银卡到期时间
+	optional int32 silvercardawardstate = 5; //白银卡每日奖励状态
+	optional int32 goldcardtime = 6; //黄金卡到期时间
+	optional int32 goldcardawardstate = 7; //黄金卡每日奖励状态
+}
+
+//兑换记录针对有配置logid的奖品做的记录
+message AwardRecord {
+	optional int32 logid = 1;
+	optional int32 time = 2;
+	optional int32 awardid = 3;
+}
+
+//兑换信息针对限购(次数或时间)的奖品做的记录
+message AwardGetInfo {
+	optional int32 id = 1;
+	optional int32 count = 2;
+	optional int32 time = 3;
 }
 
 message UserBase {
     optional UserMiscData misc = 1;
     optional UserStatistics statics = 2;
     optional UserSignIn sign = 3;
-    repeated UserAddress addrlist   = 4;   // 地址列表
-    optional SimpleCounter scounter = 5;   // 简单计数器
-    optional UserWechat wechat = 6;        // 微信
-    optional UserTask task = 7;            // 任务
-    optional LuckyDrawRecord luckydraw = 8;// 抽奖
-    optional UserMapEvent mapevent = 9;    // 地图事件
-    optional UserVip vip = 10;             // vip
+    repeated UserAddress addrlist   = 4;    // 地址列表
+    optional SimpleCounter scounter = 5;    // 简单计数器
+    optional UserWechat wechat = 6;         // 微信
+    optional UserTask task = 7;             // 任务
+    optional LuckyDrawRecord luckydraw = 8; // 抽奖
+    optional UserMapEvent mapevent = 9;     // 地图事件
+    optional AutoResetValues arvalues = 10; // 变量自动重置
+	repeated AwardRecord awardrecord = 11; 	// 兑换记录
+	repeated AwardGetInfo awardgetinfo = 12; // 兑换信息	
+    optional UserVip vip = 13;              //vip
 }
 
 message UserAddress {

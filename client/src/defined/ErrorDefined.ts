@@ -38,7 +38,7 @@ class ErrorDefined extends BaseDefined<ErrorDefinition>
 class ErrorDefinition implements IBaseDefintion
 {
 	/*id*/
-	public id: number;
+	public Id: number;
 	/**
 	 * 错误消息
 	 */

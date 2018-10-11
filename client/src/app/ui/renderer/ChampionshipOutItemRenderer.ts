@@ -46,8 +46,8 @@ class ChampionshipOutItemRenderer extends BaseItemRenderer<MatchRoomInfo>
         super.dataChanged();
         if (InfoUtil.checkAvailable(this.bindData))
         {
-            this.itemComp.init(this.bindData.definition.icon + ResSuffixName.PNG, 100);
-            this.nameLabel.text = this.bindData.definition.name;
+            this.itemComp.init(this.bindData.definition.Icon + ResSuffixName.PNG, 100);
+            this.nameLabel.text = this.bindData.definition.Name;
             this.numLabel.text = this.bindData.join.toString();
             this.getTimeDesAndTime();
             this.setRankImg();
@@ -108,15 +108,15 @@ class ChampionshipOutItemRenderer extends BaseItemRenderer<MatchRoomInfo>
     */
     private setAwardInfo()
     {
-        let prizeListInfo: Array<ChampionshipPrizeDefinition> = ChampionshipManager.getAwardList(this.bindData.id);
+        let prizeListInfo: Array<table.IChampionshipPrizeDefine> = ChampionshipManager.getAwardList(this.bindData.id);
         let des: string = "淘汰";
         if (prizeListInfo && prizeListInfo.length > 0)
         {
             for (let def of prizeListInfo)
             {
-                if (def.start == this.bindData.rank)
+                if (def.Start == this.bindData.rank)
                 {
-                    let name: string = AwardDefined.GetInstance().getAwardNameById(def.awardId);
+                    let name: string = AwardDefined.GetInstance().getAwardNameById(def.AwardId);
                     if (name)
                     {
                         des = name;

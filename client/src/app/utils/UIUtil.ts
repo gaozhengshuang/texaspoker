@@ -348,17 +348,20 @@ class UIUtil
 	*/
 	public static setListDpInfo(dp: eui.ArrayCollection, newSource: any[], propertyName: string, sort?: any)
 	{
+		newSource = newSource.concat();
 		if (newSource && newSource.length > 0)
 		{
-			for (let i: number = 0; i < dp.source.length; i++)
+			for (let i: number = dp.source.length - 1; i >= 0; i--)
 			{
 				let flag: boolean = true;
-				for (let j: number = 0; j < newSource.length; j++)
+				for (let j: number = newSource.length - 1; j >= 0; j--)
 				{
 					if (newSource[j][propertyName] == dp.source[i][propertyName])
 					{
 						dp.source[i] = newSource[j];  //更新旧数据在新数据中有的
+						newSource.splice(j, 1);
 						flag = false;
+						break;
 					}
 				}
 				if (flag)

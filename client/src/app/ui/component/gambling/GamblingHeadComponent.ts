@@ -347,7 +347,7 @@ class GamblingHeadComponent extends BaseComponent<PlayerInfo>{
 		//断线重连的问题 是自己且有手牌
 		if (data)
 		{
-			if (data.roleId == UserManager.userInfo.id)
+			if (data.roleId == UserManager.userInfo.roleId)
 			{
 				if (data.state == PlayerState.WaitNext) //断线重连如果是自己，则请求下一局 延长2S
 				{
@@ -356,7 +356,7 @@ class GamblingHeadComponent extends BaseComponent<PlayerInfo>{
 					{
 						if (GamblingManager.roomInfo.playerList.length == 2)
 						{
-							if (InfoUtil.checkAvailable(GamblingManager.matchRoomInfo) && GamblingManager.matchRoomInfo.definition.type == MatchType.SNG)
+							if (InfoUtil.checkAvailable(GamblingManager.matchRoomInfo) && GamblingManager.matchRoomInfo.definition.Type == MatchType.SNG)
 							{
 								this.sngReqNextRound();
 							}
@@ -377,7 +377,7 @@ class GamblingHeadComponent extends BaseComponent<PlayerInfo>{
 							}
 							if (isAllWaitNext)
 							{
-								if (InfoUtil.checkAvailable(GamblingManager.matchRoomInfo) && GamblingManager.matchRoomInfo.definition.type == MatchType.SNG)
+								if (InfoUtil.checkAvailable(GamblingManager.matchRoomInfo) && GamblingManager.matchRoomInfo.definition.Type == MatchType.SNG)
 								{
 									this.sngReqNextRound();
 								}
@@ -412,7 +412,7 @@ class GamblingHeadComponent extends BaseComponent<PlayerInfo>{
 			this.showCardFace(false);
 		}
 		//显示有牌的逻辑处理
-		if (data && data.roleId != UserManager.userInfo.id && GamblingUtil.isOnProcess(data))
+		if (data && data.roleId != UserManager.userInfo.roleId && GamblingUtil.isOnProcess(data))
 		{
 			//断线重连的问题 在牌桌上肯定手里有2张牌(奥马哈4张)
 			if (GamblingUtil.isOmaha)
@@ -476,9 +476,9 @@ class GamblingHeadComponent extends BaseComponent<PlayerInfo>{
 		if (InfoUtil.checkAvailable(GamblingManager.matchRoomInfo))
 		{
 			let time: number = TimeManager.GetServerUtcTimestamp() - GamblingManager.matchRoomInfo.startTime;
-			if (GamblingManager.matchRoomInfo.definition.type == MatchType.SNG && time <= GamblingManager.matchRoomInfo.definition.waitingTime)
+			if (GamblingManager.matchRoomInfo.definition.Type == MatchType.SNG && time <= GamblingManager.matchRoomInfo.definition.WaitingTime)
 			{ //坐满即玩比赛，比赛刚开始
-				GamblingManager.sngNextRoundStart(GamblingManager.matchRoomInfo.definition.waitingTime - time);
+				GamblingManager.sngNextRoundStart(GamblingManager.matchRoomInfo.definition.WaitingTime - time);
 			}
 			else
 			{
@@ -685,7 +685,7 @@ class GamblingHeadComponent extends BaseComponent<PlayerInfo>{
 			this.cardFace3.visible = flag;
 			this.cardFace4.visible = flag;
 		}
-		if (this.bindData && this.bindData.roleId == UserManager.userInfo.id)
+		if (this.bindData && this.bindData.roleId == UserManager.userInfo.roleId)
 		{
 			game.Console.log("显示隐藏自己的手牌：" + flag);
 		}
@@ -905,7 +905,7 @@ class GamblingHeadComponent extends BaseComponent<PlayerInfo>{
 				{
 					if (this.bindData.state != PlayerState.Fold)
 					{
-						if (this.bindData.roleId != UserManager.userInfo.id)
+						if (this.bindData.roleId != UserManager.userInfo.roleId)
 						{
 							//比牌
 							this.cardFace1.init(handCardInfo.cardList[0]);
@@ -930,6 +930,25 @@ class GamblingHeadComponent extends BaseComponent<PlayerInfo>{
 				}
 			}
 		}
+	}
+	/**
+	 * 翻牌圈allin 推送手牌 showhand
+	 */
+	public allinShowHand(list: Array<CardInfo>)
+	{
+		//比牌
+		this.cardFace1.init(list[0]);
+		this.cardFace2.init(list[1]);
+		this.cardFace1.showMask(true);
+		this.cardFace2.showMask(true);
+		if (GamblingUtil.isOmaha)
+		{
+			this.cardFace3.init(list[2]);
+			this.cardFace4.init(list[3]);
+			this.cardFace3.showMask(true);
+			this.cardFace4.showMask(true);
+		}
+		this.changeState(GamblingHeadStateType.ThanTheCard);
 	}
 	/**
 	 * 切换到亮牌

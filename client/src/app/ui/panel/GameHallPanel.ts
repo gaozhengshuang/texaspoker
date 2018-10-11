@@ -101,7 +101,7 @@ class GameHallPanel extends BasePanel
 		this._buttonAnime = new GameHallButtonAnime(this);
 		this._panelAnime = new GameHallPanelAnime(this);
 		this._btnSupport = new GameHallBtnSupport(this);
-		// this._rankListInfo = RankManager.getRankListInfo(RankType.FriendGold); //move todo
+		this._rankListInfo = RankManager.getRankListInfo(RankType.FriendGold);
 		VersionManager.setComponentVisibleBySafe(this.firstpayBtn, this.activityBtn, this.matchBtn, this.ranking, this.safeBoxBtn, this.bindBtn, this.vipGroup, this.awardsBtn);
 	}
 
@@ -121,7 +121,6 @@ class GameHallPanel extends BasePanel
 	public init(appendData: any)
 	{
 		super.init(appendData);
-		// this.updateRankList(); //move todo
 		this.refreshUserInfoUI();
 		this.resetFreeGoldTime();
 
@@ -204,7 +203,7 @@ class GameHallPanel extends BasePanel
 		this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onClickHandler, this);
 		// VipManager.vipUpgradeEvent.addListener(this.refreshUserInfoUI, this); //move todo
 		UserManager.propertyChangeEvent.addListener(this.refreshGold, this);
-		// RankManager.getRankListEvent.addListener(this.getRankList, this);//move todo
+		RankManager.getRankListEvent.addListener(this.getRankList, this);
 		UserManager.onCreateRoleEvent.addListener(this.refreshUserInfoUI, this);
 		UserManager.onSetUserInfoComplete.addListener(this.refreshUserInfoUI, this);
 		UserManager.headImageUpdateEvent.addListener(this.refreshUserInfoUI, this);
@@ -221,7 +220,7 @@ class GameHallPanel extends BasePanel
 		this.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onClickHandler, this);
 		// VipManager.vipUpgradeEvent.removeListener(this.refreshUserInfoUI, this);//move todo
 		UserManager.propertyChangeEvent.removeListener(this.refreshGold, this);
-		// RankManager.getRankListEvent.removeListener(this.getRankList, this);//move todo
+		RankManager.getRankListEvent.removeListener(this.getRankList, this);
 		UserManager.onCreateRoleEvent.removeListener(this.refreshUserInfoUI, this);
 		UserManager.onSetUserInfoComplete.removeListener(this.refreshUserInfoUI, this);
 		UserManager.headImageUpdateEvent.removeListener(this.refreshUserInfoUI, this);
@@ -269,7 +268,7 @@ class GameHallPanel extends BasePanel
 		}
 	}
 
-	private _txtDef: TextDefinition;
+	private _txtDef: table.TextDefine;
 	protected onClickHandler(event: egret.TouchEvent)
 	{
 		if (this.moreGroup.visible && event.target != this.moreBtn)
@@ -280,7 +279,7 @@ class GameHallPanel extends BasePanel
 		{
 			case this.userHeadComp:
 				SoundManager.playEffect(MusicAction.buttonClick);
-				UserManager.reqShowOtherUserInfoPanel(UserManager.userInfo.id);
+				UserManager.reqShowOtherUserInfoPanel(UserManager.userInfo.roleId);
 				break;
 			case this.addDiamondBtn:
 				SoundManager.playEffect(MusicAction.buttonClick);

@@ -124,24 +124,22 @@ class ChipsShowComponent extends BaseComponent<any>
         egret.Tween.removeTweens(this.chipBar);
         this.chipBar.alpha = 1;
 
-        if (ChipsDefined.GetInstance().dataList)
+
+        let imgList: Array<eui.Image> = new Array<eui.Image>();
+        let dataLen = table.Chips.length;
+        let def:table.IChipsDefine
+        for (let i: number = dataLen - 1; i >= 0; i--)
         {
-            let imgList: Array<eui.Image> = new Array<eui.Image>();
-            let dataLen: number = ChipsDefined.GetInstance().dataList.length;
-            let def: ChipsDefinition;
-            for (let i: number = dataLen - 1; i >= 0; i--)
+            def = table.Chips[i];
+            let imgNum: number = Math.floor(chipNum / def.Phase);
+            for (let j: number = 0; j < imgNum; j++)
             {
-                def = ChipsDefined.GetInstance().dataList[i];
-                let imgNum: number = Math.floor(chipNum / def.phase);
-                for (let j: number = 0; j < imgNum; j++)
-                {
-                    let img: eui.Image = ChipsPot.popImg(def.img + ResSuffixName.PNG);
-                    imgList.push(img);
-                }
-                chipNum %= def.phase;
+                let img: eui.Image = ChipsPot.popImg(def.Img + ResSuffixName.PNG);
+                imgList.push(img);
             }
-            this._allImgList.push(imgList);
+            chipNum %= def.Phase;
         }
+        this._allImgList.push(imgList);
     }
     /**
      * 设置初始值

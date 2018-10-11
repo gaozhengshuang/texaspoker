@@ -23,7 +23,7 @@ class HundredWarManager
     private static _self: HWHundredWarRoomPlayerInfo;
     public static get self(): HWHundredWarRoomPlayerInfo
     {
-        HundredWarManager._self = HundredWarManager.getPlayerInfo(UserManager.userInfo.id);
+        HundredWarManager._self = HundredWarManager.getPlayerInfo(UserManager.userInfo.roleId);
         return HundredWarManager._self;
     }
     private static _isInitialize: boolean = false;
@@ -37,7 +37,7 @@ class HundredWarManager
         SocketManager.AddCommandListener(Command.HWCards_Push_2124, HundredWarManager.onCardPush, this);
         SocketManager.AddCommandListener(Command.OutRoom_Push_2128, HundredWarManager.onOutRoomPush, this);
 
-        SocketManager.AddIgnoreError(ErrorCode.HundredWarOverFlow);
+        // SocketManager.AddIgnoreError(ErrorCode.HundredWarOverFlow); //move todo
     }
 
     public static removePushListener()
@@ -48,7 +48,7 @@ class HundredWarManager
         SocketManager.RemoveCommandListener(Command.HWCards_Push_2124, HundredWarManager.onCardPush, this);
         SocketManager.RemoveCommandListener(Command.OutRoom_Push_2128, HundredWarManager.onOutRoomPush, this);
 
-        SocketManager.RemoveIgnoreError(ErrorCode.HundredWarOverFlow);
+        // SocketManager.RemoveIgnoreError(ErrorCode.HundredWarOverFlow); //move todo
         HundredWarManager.onBankerChangeEvent.removeListener(HundredWarManager.onBankerChange, this);
     }
 
@@ -201,7 +201,7 @@ class HundredWarManager
     {
         if (data)
         {
-            if (data.beforeId == UserManager.userInfo.id) //自动下庄
+            if (data.beforeId == UserManager.userInfo.roleId) //自动下庄
             {
                 for (let i: number = 0; i < HundredWarManager.panelHandler.HundredWarBankerList.length; i++)
                 {
@@ -321,7 +321,7 @@ class HundredWarManager
         };
         let errorCallback: Function = function (result: game.SpRpcResult)
         {
-            if (result.error == ErrorCode.HundredWarOverFlow)
+            if (result.error == "ErrorCode.HundredWarOverFlow") //move todo
             {
                 UIManager.showFloatTips("当前下注金币数已达庄家金币上限");
             }
@@ -380,7 +380,7 @@ class HundredWarManager
             let beforeId: number;
             if (HundredWarManager.roomInfo && HundredWarManager.roomInfo.playerList)
             {
-                if (result.data.pos == 0 && !result.data.roleId && HundredWarManager.isBanker(UserManager.userInfo.id) && InfoUtil.checkAvailable(HundredWarManager.roomInfo) && HundredWarManager.roomInfo.bankerGold < HundredWarManager.roomInfo.definition.bankerMinGold)
+                if (result.data.pos == 0 && !result.data.roleId && HundredWarManager.isBanker(UserManager.userInfo.roleId) && InfoUtil.checkAvailable(HundredWarManager.roomInfo) && HundredWarManager.roomInfo.bankerGold < HundredWarManager.roomInfo.definition.bankerMinGold)
                 {
                     AlertManager.showAlert("您的当前金币低于" + game.MathUtil.formatNum(HundredWarManager.roomInfo.definition.bankerMinGold) + "金币，已从庄家列表退出。");
                 }

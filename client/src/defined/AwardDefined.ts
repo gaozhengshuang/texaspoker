@@ -1,9 +1,8 @@
 /**
  * 兑换奖品的定义
  * */
-class AwardDefined extends BaseDefined<AwardDefinition>
+class AwardDefined
 {
-	private static readonly awardConfig: string = "award";
 	private static _instance: AwardDefined;
 	public static GetInstance(): AwardDefined
 	{
@@ -11,74 +10,17 @@ class AwardDefined extends BaseDefined<AwardDefinition>
 		{
 			AwardDefined._instance = new AwardDefined();
 		}
-		if (DefinedManager.IsParsed(AwardDefined.awardConfig) == false)
-		{
-			AwardDefined._instance.initialize();
-		}
 		return AwardDefined._instance;
 	}
-	public awardDefinitionDic: game.Map<number, AwardDefinition>;
-
-	private initialize()
-	{
-		this.awardDefinitionDic = new game.Map<number, AwardDefinition>();
-		this.dataList = DefinedManager.GetData(AwardDefined.awardConfig) as Array<AwardDefinition>;
-		for (let def of this.dataList)
-		{
-			this.setAwardInfoDefinitionList(def);
-			this.awardDefinitionDic.add(def.id, def);
-		}
-	}
-
-	private setAwardInfoDefinitionList(awardDef: AwardDefinition)
-	{
-		if (awardDef["costType"])
-		{
-			awardDef.costList = new Array<AwardInfoDefinition>();
-			for (let i: number = 0; i < awardDef["costType"].length; i++)
-			{
-				let cost: AwardInfoDefinition = new AwardInfoDefinition();
-				cost.type = awardDef["costType"][i];
-				if (awardDef["costId"])
-				{
-					cost.id = awardDef["costId"][i];
-				}
-				if (awardDef["costNum"])
-				{
-					cost.count = awardDef["costNum"][i];
-				}
-				awardDef.costList.push(cost);
-			}
-		}
-		if (awardDef["rewardType"])
-		{
-			awardDef.rewardList = new Array<AwardInfoDefinition>();
-			for (let i: number = 0; i < awardDef["rewardType"].length; i++)
-			{
-				let reward: AwardInfoDefinition = new AwardInfoDefinition();
-				reward.type = awardDef["rewardType"][i];
-				if (awardDef["rewardId"])
-				{
-					reward.id = awardDef["rewardId"][i];
-				}
-				if (awardDef["rewardNum"])
-				{
-					reward.count = awardDef["rewardNum"][i];
-				}
-				awardDef.rewardList.push(reward);
-			}
-		}
-	}
-
 	/**
 	 * 获取某一兑换ID前置ID列表是否空
 	 */
 	public getPrevIdIsNull(id: number): boolean
 	{
-		let def: AwardDefinition = this.getDefinition(id);
+		let def: table.IAwardDefine = table.AwardById[id];
 		if (def)
 		{
-			return def.preId == null;
+			return !def.PreId;
 		}
 		return false;
 	}
@@ -87,20 +29,20 @@ class AwardDefined extends BaseDefined<AwardDefinition>
 	*/
 	public getAwardNameById(id: number, isShowquantifier: boolean = false): string
 	{
-		let award: AwardDefinition = AwardDefined.GetInstance().getDefinition(id);
-		if (award && award.rewardList)
+		let award: table.IAwardDefine = table.AwardById[id];
+		if (award && award.RewardId)
 		{
-			let len: number = award.rewardList.length;
+			let len: number = award.RewardId.length;
 			let str: string = "";
 			for (let i: number = 0; i < len; i++)
 			{
-				let itemDef: ItemDefinition = ItemDefined.GetInstance().getDefinition(award.rewardList[i].id)
+				let itemDef: table.IItemBaseDataDefine = table.ItemBaseDataById[award.RewardId[i]];
 				let name: string;
 				if (itemDef)
 				{
-					name = itemDef.name;
+					name = itemDef.Name;
 				}
-				let count: number = award.rewardList[i].count;
+				let count: number = award.RewardNum[i];
 				if (name && count)
 				{
 					if (count < 100)
@@ -116,7 +58,7 @@ class AwardDefined extends BaseDefined<AwardDefinition>
 					{
 						str += game.MathUtil.formatNum(count) + name;
 					}
-					if (award.rewardList && i < len - 1)
+					if (i < len - 1)
 					{
 						str += "、";
 					}
@@ -131,13 +73,13 @@ class AwardDefined extends BaseDefined<AwardDefinition>
 	*/
 	public getAwardNumByAwardId(id: number): number
 	{
-		let award: AwardDefinition = AwardDefined.GetInstance().getDefinition(id);
+		let award: table.IAwardDefine = table.AwardById[id];
 		let num: number = 0;
-		if (award && award.rewardList)
+		if (award && award.RewardId)
 		{
-			for (let i: number = 0; i < award.rewardList.length; i++)
+			for (let i: number = 0; i < award.RewardId.length; i++)
 			{
-				let count: number = award.rewardList[i].count;
+				let count: number = award.RewardNum[i];
 				num += count;
 			}
 		}
@@ -146,88 +88,19 @@ class AwardDefined extends BaseDefined<AwardDefinition>
 	/**
 	 * 根据preId获得award信息
 	*/
-	public getAwardInfoByPreId(preId: number): AwardDefinition
+	public getAwardInfoByPreId(preId: number): table.IAwardDefine
 	{
-		if (this.dataList != null)
+		let len = table.Award.length;
+		for (let i: number = 0; i < len; i++)
 		{
-			for (let i: number = 0; i < this.dataList.length; i++)
+			if (table.Award[i].PreId == preId)
 			{
-				if (this.dataList[i].preId == preId)
-				{
-					return this.dataList[i];
-				}
+				return table.Award[i];
 			}
 		}
 		return null;
 	}
 }
-/**
- * 奖品的定义
- * */
-class AwardDefinition implements IBaseDefintion
-{
-    /**
-     * 奖品id
-     */
-	public id: number;
-	/**
-	 * 奖品类型
-	 */
-	public type: number;
-	/**
-	 * 消耗列表
-	 */
-	public costList: Array<AwardInfoDefinition>;
-    /**
-     * 是否消耗
-     */
-	public isCost: boolean;
-    /**
-     * 消耗名称
-     */
-	public costName: string;
-	/**
-	 * 奖励列表
-	 */
-	public rewardList: Array<AwardInfoDefinition>;
-	/**
-	 * 时间编号
-	 */
-	public timeId: number;
-	/**
-	 * 用户等级
-	 */
-	public level: number;
-	/**
-	 * 前置奖励
-	 */
-	public preId: number;
-	/**
-	 * 限制次数
-	 */
-	public limit: number;
-	/**
-	 * vip等级要求
-	 */
-	public vipLevel: number;
-	/**
-	 * 名字
-	 */
-	public name: string;
-	/**
-	 * 描述
-	 */
-	public des: string;
-	/**
-	 * 不能通过兑换协议直接兑换
-	 */
-	public nacr: boolean;
-	/**
-	 * 邮件id
-	 */
-	public mailId: number;
-}
-
 /**
  *  配表中奖励的结构体封装
  */

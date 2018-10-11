@@ -15,11 +15,11 @@ class MatchRoomInfo extends BaseServerValueInfo implements IHaveDefintionInfo
     public set id(value: number)
     {
         this._id = value;
-        this._definition = ChampionshipDefined.GetInstance().getDefinition(value);
+        this._definition = table.ChampionshipById[value];
         this.maxAwardRank = ChampionshipManager.getAwardMaxRank(this._definition);
     }
-    private _definition: ChampionshipDefinition
-    public get definition(): ChampionshipDefinition
+    private _definition: table.IChampionshipDefine
+    public get definition(): table.IChampionshipDefine
     {
         return this._definition;
     }

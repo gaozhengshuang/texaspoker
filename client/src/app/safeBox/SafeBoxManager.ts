@@ -25,7 +25,7 @@ class SafeBoxManager
         }
         let errorCallBack: Function = function (result: game.SpRpcResult)
         {
-            if (result.error == 3004)
+            if (result.error == "3004") //move todo
             {
                 AlertManager.showAlert("您输入的密码错误，请重新输入！");
             }
@@ -55,7 +55,7 @@ class SafeBoxManager
         }
         let errorCallBack: Function = function (result: game.SpRpcResult)
         {
-            if (result.error == 3001)
+            if (result.error == "3001") //move todo
             {
                 AlertManager.showAlert("您的原密码不正确！");
             }

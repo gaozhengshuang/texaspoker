@@ -1,0 +1,16 @@
+syntax = "proto2";
+package msg;
+
+// 变量自动重置
+message AutoResetValue {
+    optional int32 id = 1;      // uuid
+    optional int32 hours = 2;   // hours
+    optional int64 value = 3;   // value
+    optional int64 lastreset = 4;   // timestamp
+}
+
+// 变量自动重置
+message AutoResetValues {
+    repeated AutoResetValue values = 1;
+}
+

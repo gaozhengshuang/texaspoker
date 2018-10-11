@@ -29,23 +29,23 @@ func NewC2LSMsgHandler() *C2LSMsgHandler {
 	return handler
 }
 
-func (this* C2LSMsgHandler) Init() {
+func (mh* C2LSMsgHandler) Init() {
 
-	this.msgparser = network.NewProtoParser("C2LS_MsgParser", tbl.ProtoMsgIndexGenerator)
-	if this.msgparser == nil {
+	mh.msgparser = network.NewProtoParser("C2LS_MsgParser", tbl.ProtoMsgIndexGenerator)
+	if mh.msgparser == nil {
 		return
 	}
 
 	// 收
-	this.msgparser.RegistProtoMsg(msg.C2L_ReqLogin{}, on_C2L_ReqLogin)
-	this.msgparser.RegistProtoMsg(msg.C2L_ReqLoginWechat{}, on_C2L_ReqLoginWechat)
-	this.msgparser.RegistProtoMsg(msg.C2L_ReqRegistAccount{}, on_C2L_ReqRegistAccount)
-	this.msgparser.RegistProtoMsg(msg.C2L_ReqRegistAuthCode{}, on_C2L_ReqRegistAuthCode)
+	mh.msgparser.RegistProtoMsg(msg.C2L_ReqLogin{}, on_C2L_ReqLogin)
+	mh.msgparser.RegistProtoMsg(msg.C2L_ReqLoginWechat{}, on_C2L_ReqLoginWechat)
+	mh.msgparser.RegistProtoMsg(msg.C2L_ReqRegistAccount{}, on_C2L_ReqRegistAccount)
+	mh.msgparser.RegistProtoMsg(msg.C2L_ReqRegistAuthCode{}, on_C2L_ReqRegistAuthCode)
 
 
 	// 发
-	//this.msgparser.RegistSendProto(msg.L2C_RetLogin{})
-	//this.msgparser.RegistSendProto(msg.L2C_RetRegistAccount{})
+	//mh.msgparser.RegistSendProto(msg.L2C_RetLogin{})
+	//mh.msgparser.RegistSendProto(msg.L2C_RetRegistAccount{})
 }
 
 func newL2C_RetLogin(reason string, ip string, port int, key string) *msg.L2C_RetLogin {

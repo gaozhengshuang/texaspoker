@@ -13,6 +13,11 @@ import (
 	"gitee.com/jntse/minehero/server/def"
 )
 
+type TimesReward struct {
+	id int32
+	roomreward []int32
+	sumtime int32
+}
 
 // --------------------------------------------------------------------------
 /// @brief 
@@ -21,21 +26,41 @@ type RoomManager struct {
 	rooms map[int64]IRoomBase			// 所有房间
 	texasrooms map[int32][]IRoomBase	// 德州房间
 	ticker1s *util.GameTicker
+	timerewards map[int32]*TimesReward
+	maxrewardround int32
 }
 
-func (this *RoomManager) Init() bool {
-	this.rooms = make(map[int64]IRoomBase)
-	this.texasrooms = make(map[int32][]IRoomBase)
-	this.ticker1s = util.NewGameTicker(time.Second, this.Handler1sTick)
-	this.ticker1s.Start()
+func (rm *RoomManager) Init() bool {
+	rm.rooms = make(map[int64]IRoomBase)
+	rm.texasrooms = make(map[int32][]IRoomBase)
+	rm.ticker1s = util.NewGameTicker(time.Second, rm.Handler1sTick)
+	rm.ticker1s.Start()
 
-	this.CleanCache()
-	this.InitPublicTexas()
+	rm.CleanCache()
+	rm.InitPublicTexas()
+	rm.InitTimeReward()
 	return true
 }
 
+func (rm *RoomManager) InitTimeReward() {
+	rm.maxrewardround = 0
+	rm.timerewards = make(map[int32]*TimesReward)
+	for _, tconf := range tbl.TTimeAward.TimeAwardById {
+		if tconf.Id > rm.maxrewardround {
+			rm.maxrewardround = tconf.Id
+		}
+		reward := &TimesReward{}
+		reward.id = tconf.Id
+		reward.roomreward = append(reward.roomreward, tconf.RoomType1)
+		reward.roomreward = append(reward.roomreward, tconf.RoomType2)
+		reward.roomreward = append(reward.roomreward, tconf.RoomType3)
+		reward.sumtime = tconf.Time
+		rm.timerewards[reward.id] = reward
+	}
+}
+
 // 初始德州公共房间
-func (this *RoomManager) InitPublicTexas() bool {
+func (rm *RoomManager) InitPublicTexas() bool {
 	for _, tconf := range tbl.TexasRoomBase.TexasRoomById {
 		if IsTexasRoomBaseType(tconf.Type) == false {
 			continue
@@ -47,42 +72,60 @@ func (this *RoomManager) InitPublicTexas() bool {
 		}
 		room := NewTexasRoom(0, roomid, tconf.Id, 0, "")
 		room.Init()
-		this.Add(room)
+		rm.Add(room)
 	}
 	return true
 }
 
-func (this *RoomManager) Num() int {
-	return len(this.rooms)
+func (rm *RoomManager) GetRewardTime(round int32) int32 {
+	if _, ok := rm.timerewards[round]; !ok {
+		return 0
+	}
+	return rm.timerewards[round].sumtime
 }
 
-func (this *RoomManager) Add(room IRoomBase) {
+func (rm *RoomManager) GetRewardGold(round int32, roomtype int32) int32 {
+	if _, ok := rm.timerewards[round]; !ok {
+		return 0
+	}
+	reward := rm.timerewards[round]
+	if roomtype == 0 || int(roomtype) > len(reward.roomreward) {
+		return 0
+	}
+	return reward.roomreward[roomtype-1]
+}
+
+func (rm *RoomManager) Num() int {
+	return len(rm.rooms)
+}
+
+func (rm *RoomManager) Add(room IRoomBase) {
 	id := room.Id()
-	this.rooms[id] = room
-	room.DoCache()
+	rm.rooms[id] = room
+	room.InitCache()
 	if room.Kind() == int32(msg.RoomKind_TexasPoker) {
 		subkind := room.SubKind()
-		if this.texasrooms[subkind] == nil { this.texasrooms[subkind] = make([]IRoomBase, 0) }
-		this.texasrooms[subkind] = append(this.texasrooms[subkind], room)
+		if rm.texasrooms[subkind] == nil { rm.texasrooms[subkind] = make([]IRoomBase, 0) }
+		rm.texasrooms[subkind] = append(rm.texasrooms[subkind], room)
 	}
-	log.Info("[房间] 添加房间[%d]----------当前房间数[%d]", id, len(this.rooms))
+	log.Info("[房间] 添加房间[%d]----------当前房间数[%d]", id, len(rm.rooms))
 }
 
-func (this* RoomManager) Del(id int64) {
-	delete(this.rooms, id)
-	log.Info("[房间] 删除房间[%d]----------当前房间数[%d]", id, len(this.rooms))
+func (rm* RoomManager) Del(id int64) {
+	delete(rm.rooms, id)
+	log.Info("[房间] 删除房间[%d]----------当前房间数[%d]", id, len(rm.rooms))
 }
 
-func (this* RoomManager) Find(id int64) IRoomBase {
-	room, ok := this.rooms[id]
+func (rm* RoomManager) Find(id int64) IRoomBase {
+	room, ok := rm.rooms[id]
 	if ok == false {
 		return nil
 	}
 	return room
 }
 
-func (this* RoomManager) FindTexas(id int64) *TexasPokerRoom {
-	room, ok := this.rooms[id]
+func (rm* RoomManager) FindTexas(id int64) *TexasPokerRoom {
+	room, ok := rm.rooms[id]
 	if ok == false {
 		return nil
 	}
@@ -94,23 +137,23 @@ func (this* RoomManager) FindTexas(id int64) *TexasPokerRoom {
 }
 
 
-func (this *RoomManager) Tick(now int64) {
-	this.ticker1s.Run(now)
-	for id, room := range this.rooms {
+func (rm *RoomManager) Tick(now int64) {
+	rm.ticker1s.Run(now)
+	for id, room := range rm.rooms {
 		if room.IsDestory(now) == true {
 			room.OnDestory(now)
-			this.Del(id)
+			rm.Del(id)
 			continue
 		}
 		room.Tick(now)
 	}
 }
 
-func (this *RoomManager) Handler1sTick(now int64) {
-	this.TexasRoomAmountCheck()
+func (rm *RoomManager) Handler1sTick(now int64) {
+	rm.TexasRoomAmountCheck()
 }
 
-func (this *RoomManager) CleanCache() {
+func (rm *RoomManager) CleanCache() {
 	//
 	pipe := Redis().Pipeline()
 	tkey := fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TanTanLe), 0)
@@ -150,20 +193,20 @@ func (this *RoomManager) CleanCache() {
 }
 
 // 自动增加房间
-func (this *RoomManager) TexasRoomAmountCheck() {
-	for subtype, subrooms := range this.texasrooms {
+func (rm *RoomManager) TexasRoomAmountCheck() {
+	for subtype, subrooms := range rm.texasrooms {
 		if IsTexasRoomBaseType(subtype) == false { continue }
 		notfullamount := 0
 		for _, r := range subrooms {
 			if r.IsFull() == false { notfullamount += 1 }
 		}
 		if notfullamount <= 0 {
-			this.AutoIncTexasRoomAmount(subtype)
+			rm.AutoIncTexasRoomAmount(subtype)
 		}
 	}
 }
 
-func (this *RoomManager) AutoIncTexasRoomAmount(subtype int32) bool {
+func (rm *RoomManager) AutoIncTexasRoomAmount(subtype int32) bool {
 	for _, tconf := range tbl.TexasRoomBase.TexasRoomById {
 		if IsTexasRoomBaseType(tconf.Type) == false {
 			continue
@@ -175,14 +218,14 @@ func (this *RoomManager) AutoIncTexasRoomAmount(subtype int32) bool {
 		}
 		room := NewTexasRoom(0, roomid, tconf.Id, 0, "")
 		room.Init()
-		this.Add(room)
+		rm.Add(room)
 		log.Info("[房间] 自动创建德州新房间[%d] 子类型[%d]", room.Id(), subtype)
 	}
 	return true
 }
 
-func (this *RoomManager) OnGateClose(sid int) {
-	//for _, v := range this.rooms {
+func (rm *RoomManager) OnGateClose(sid int) {
+	//for _, v := range rm.rooms {
 	//	if v.owner == nil { continue; }
 	//	if v.owner.AgentId() == sid {
 	//		v.GateLeave(sid)
@@ -190,13 +233,13 @@ func (this *RoomManager) OnGateClose(sid int) {
 	//}
 }
 
-func (this *RoomManager) Shutdown() {
-	this.ticker1s.Stop()
-	log.Info("[房间] 服务器准备关闭，即将销毁所有房间数量[%d]", this.Num())
-	for _, room := range this.rooms {
+func (rm *RoomManager) Shutdown() {
+	rm.ticker1s.Stop()
+	log.Info("[房间] 服务器准备关闭，即将销毁所有房间数量[%d]", rm.Num())
+	for _, room := range rm.rooms {
 		room.Destory(0)
 	}
-	//this.rooms = make(map[int64]IRoomBase)
+	//rm.rooms = make(map[int64]IRoomBase)
 }
 
 func NewTanTanLeRoom(ownerid, uid int64) *TanTanLe {

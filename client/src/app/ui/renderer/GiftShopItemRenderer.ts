@@ -1,7 +1,7 @@
 /**
  * 礼物商店物品项
 */
-class GiftShopItemRenderer extends BaseItemRenderer<GiftShopDefinition>
+class GiftShopItemRenderer extends BaseItemRenderer<table.IGiftShopDefine>
 {
     public icon: CommonIcon;
     public nameLabel: eui.Label;
@@ -21,20 +21,20 @@ class GiftShopItemRenderer extends BaseItemRenderer<GiftShopDefinition>
         this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onSelect, this);
         if (this.bindData)
         {
-            this.icon.init(this.bindData.iconName + ResSuffixName.PNG, 80, SheetSubName.GiftShopItemBg, false, false);
-            let awardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(this.bindData.awardId);
+            this.icon.init(this.bindData.IconName + ResSuffixName.PNG, 80, SheetSubName.GiftShopItemBg, false, false);
+            let awardDef: table.IAwardDefine = table.AwardById[this.bindData.AwardId];
             if (awardDef)
             {
-                this.nameLabel.text = awardDef.name;
-                if (awardDef.costList && awardDef.costList.length > 0)
+                this.nameLabel.text = awardDef.Name;
+                if (awardDef.CostId && awardDef.CostId.length > 0)
                 {
-                    let cost: AwardInfoDefinition = awardDef.costList[0];
-                    this.costCount.text = cost.count.toString();
-                    if (cost.type == CostType.Gold)
+                    let type = awardDef.CostType[0];
+                    this.costCount.text = awardDef.CostNum[0].toString();
+                    if (type == CostType.Gold)
                     {
                         this.costIcon.init(ItemFixedId.gold, 60, null, false, true);
                     }
-                    else if (cost.type == CostType.Diamond)
+                    else if (type == CostType.Diamond)
                     {
                         this.costIcon.init(ItemFixedId.diamond, 60, null, false, true);
                     }
@@ -72,28 +72,28 @@ class GiftShopItemRenderer extends BaseItemRenderer<GiftShopDefinition>
     public buy()
     {
         let isEnough: boolean = false;
-        let awardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(this.bindData.awardId);
-        if (awardDef && awardDef.costList && awardDef.costList.length > 0)
+        let awardDef: table.IAwardDefine = table.AwardById[this.bindData.AwardId];
+        if (awardDef && awardDef.CostId && awardDef.CostId.length > 0)
         {
-            let cost: AwardInfoDefinition = awardDef.costList[0];
-            if (cost.type == CostType.Diamond)
+            let type = awardDef.CostType[0];
+            if (type == CostType.Diamond)
             {
-                isEnough = CostManager.verifyDiamond(cost.count, true, () => { JumpUtil.JumpToShopping(ShopGroupIndex.Diamond, UIModuleName.GiftShopPanel); });
+                isEnough = CostManager.verifyDiamond(awardDef.CostNum[0], true, () => { JumpUtil.JumpToShopping(ShopGroupIndex.Diamond, UIModuleName.GiftShopPanel); });
             }
-            else if (cost.type == CostType.Gold)
+            else if (type == CostType.Gold)
             {
-                isEnough = CostManager.verifyGold(cost.count, true, () => { JumpUtil.JumpToShopping(ShopGroupIndex.Vip, UIModuleName.GiftShopPanel); });
+                isEnough = CostManager.verifyGold(awardDef.CostNum[0], true, () => { JumpUtil.JumpToShopping(ShopGroupIndex.Vip, UIModuleName.GiftShopPanel); });
             }
         }
         if (isEnough)
         {
             if (ShopManager.giftShopIsSelf)//购买
             {
-                AwardManager.Exchange(this.bindData.awardId, 1, true);
+                AwardManager.Exchange(this.bindData.AwardId, 1, true);
             }
             else//赠送
             {
-                ShopManager.reqSendGift(UserManager.otherUserInfo.id, this.bindData.id);
+                ShopManager.reqSendGift(UserManager.otherUserInfo.roleId, this.bindData.Id);
             }
         }
     }

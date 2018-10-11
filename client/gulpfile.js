@@ -20,38 +20,43 @@ const ProjectBinReleasePath = 'bin-release';
 const ProjectBinPublishPath = 'bin-publish';
 const ProjectMicroPath = 'micro';
 //第三方扩展库的根路径
-const LibsrcRootPath = '../libsrc';
+const LibsrcRootPath = '../../tools/egret/';
 //当前项目使用的第三方扩展库列表
-const LibsrcNameList = ['jszip','BigInteger','base64','sproto','aes','hmacsha1','pakdh-client', 'particle', 'md5'];
+const LibsrcNameList = ['jszip', 'particle', 'md5'];
 //排除的配置表文件列表
-const ExcludeConfigFileList = ['autoName.json','autoAction.json'];
-
+const ExcludeConfigFileList = ['autoName.json', 'autoAction.json'];
+var requireDir = require('require-dir');
+requireDir('./gulp-tasks');
+Gulp.task('default', ['replace-lang', "lang-complex"], function ()
+{
+});
 //--------------------------------------------------------------
 // bundle
 //--------------------------------------------------------------
 
 //构建自定义js库
-Gulp.task('bundle', function()
+Gulp.task('bundle', function ()
 {
     function getLibsrcPathList(suffix)
     {
         let list = [];
-        for (let i=0;i<LibsrcNameList.length;i++)
+        for (let i = 0; i < LibsrcNameList.length; i++)
         {
             let name = LibsrcNameList[i];
-            list.push(Path.join(LibsrcRootPath, name, 'bin', name, name+suffix));
+            list.push(Path.join(LibsrcRootPath, name, 'libsrc/bin', name, name + suffix));
         }
         return list;
     }
     //js
     let list = getLibsrcPathList('.js');
-    Gulp.src(list).pipe(GulpConcat('bundle.js')).pipe(Gulp.dest(ProjectLibsPath));
+    console.log("list", list);
+    Gulp.src(list).pipe(GulpConcat('thirdlib.js')).pipe(Gulp.dest(Path.join(ProjectLibsPath, "thirdlib")));
     //min.js
     list = getLibsrcPathList('.min.js');
-    Gulp.src(list).pipe(GulpConcat('bundle.min.js')).pipe(Gulp.dest(ProjectLibsPath));
+    Gulp.src(list).pipe(GulpConcat('thirdlib.min.js')).pipe(Gulp.dest(Path.join(ProjectLibsPath, "thirdlib")));
     //d.ts
     list = getLibsrcPathList('.d.ts');
-    Gulp.src(list).pipe(GulpConcat('bundle.d.ts')).pipe(Gulp.dest(ProjectLibsPath));
+    Gulp.src(list).pipe(GulpConcat('thirdlib.d.ts')).pipe(Gulp.dest(Path.join(ProjectLibsPath, "thirdlib")));
 });
 
 //--------------------------------------------------------------
@@ -59,14 +64,14 @@ Gulp.task('bundle', function()
 //--------------------------------------------------------------
 
 //生成配置表文件列表文件，debug使用
-Gulp.task('config-files', function()
+Gulp.task('config-files', function ()
 {
     let files = FS.readdirSync(ProjectConfigPath);
     let outList = [];
-    for(let i in files)
+    for (let i in files)
     {
         let file = files[i];
-        if(Path.extname(file) == '.json')
+        if (Path.extname(file) == '.json')
         {
             outList.push(file);
         }
@@ -75,15 +80,15 @@ Gulp.task('config-files', function()
     console.log('生成配置表文件列表文件');
 });
 //压缩配置表
-Gulp.task('zip-config',function()
+Gulp.task('zip-config', function ()
 {
     console.log('压缩配置表和通信协议');
     Gulp.src(Path.join(ProjectConfigPath, '*.bin')).pipe(GulpZip('proto.zip')).pipe(Gulp.dest(ProjectConfigPath));
     let fileList = FS.readdirSync(ProjectConfigPath);
     let srcList = [];
-    for(let file of fileList)
+    for (let file of fileList)
     {
-        if(Path.extname(file) == '.json' && ExcludeConfigFileList.indexOf(file) < 0)
+        if (Path.extname(file) == '.json' && ExcludeConfigFileList.indexOf(file) < 0)
         {
             srcList.push(Path.join(ProjectConfigPath, file));
         }
@@ -91,17 +96,17 @@ Gulp.task('zip-config',function()
     return Gulp.src(srcList).pipe(GulpJsonMinify()).pipe(GulpZip('config.zip')).pipe(Gulp.dest(ProjectConfigPath));
 });
 //压缩语言文件
-Gulp.task('zip-lang',function()
+Gulp.task('zip-lang', function ()
 {
-    if(FS.existsSync(ProjectLangPath))
+    if (FS.existsSync(ProjectLangPath))
     {
         let langList = FS.readdirSync(ProjectLangPath);
-        for(let i in langList)
+        for (let i in langList)
         {
             let langFile = Path.join(ProjectLangPath, langList[i]);
-            if(FS.statSync(langFile).isDirectory() == false)
+            if (FS.statSync(langFile).isDirectory() == false)
             {
-                if(Path.extname(langFile) == '.json')
+                if (Path.extname(langFile) == '.json')
                 {
                     let zipName = Path.basename(langFile, '.json') + '.zip';
                     Gulp.src(langFile).pipe(GulpJsonMinify()).pipe(GulpZip(zipName)).pipe(Gulp.dest(ProjectLangPath));
@@ -112,19 +117,21 @@ Gulp.task('zip-lang',function()
     }
 });
 //default.res.json相关处理
-Gulp.task('res-process',function()
+Gulp.task('res-process', function ()
 {
     let path = Path.join(ProjectResourcePath, 'default.res.json');
     let resStr = FS.readFileSync(path).toString();
     let resObj = resStr ? JSON.parse(resStr) : null;
-    if(resObj == null) {
+    if (resObj == null)
+    {
         resObj = {};
     }
-    if(resObj.resources == null) {
+    if (resObj.resources == null)
+    {
         resObj.resources = [];
     }
     //
-    let resFiles = GulpUtil.getAllFilePath(ProjectAssetsPath).concat(GulpUtil.getAllFilePath(ProjectConfigPath,'.zip'));
+    let resFiles = GulpUtil.getAllFilePath(ProjectAssetsPath).concat(GulpUtil.getAllFilePath(ProjectConfigPath, '.zip'));
     //添加资源文件到default.res.json
     GulpEgret.addResFilesToResJson(resFiles, resObj);
     //default.res.json 支持不同文件夹相同文件名
@@ -133,7 +140,8 @@ Gulp.task('res-process',function()
     console.log('default.res.json处理完成');
 });
 //处理配置表相关的发布
-Gulp.task('zip', ['config-files', 'zip-config','zip-lang', 'res-process'], function() {
+Gulp.task('zip', ['config-files', 'zip-config', 'zip-lang', 'res-process'], function ()
+{
     console.log('全部压缩和处理完成');
 });
 
@@ -145,28 +153,29 @@ function getHtmlManifestText(manifest, revObj)
 {
     let scriptsString = '';
     let scripts = manifest.initial.concat(manifest.game);
-    for(let i in scripts)
+    for (let i in scripts)
     {
-        let path =  scripts[i];
+        let path = scripts[i];
         let revPath = revObj[path];
-        if(revPath) {
+        if (revPath)
+        {
             path = revPath;
         }
-        scriptsString += (scriptsString?',':'') + "'" + path + "'";
+        scriptsString += (scriptsString ? ',' : '') + "'" + path + "'";
     }
     let resString = revObj['resource/default.res.json'];
-    if(resString == null)
+    if (resString == null)
     {
         resString = '';
     }
     let thmString = revObj['resource/default.thm.json'];
-    if(thmString == null)
+    if (thmString == null)
     {
         thmString = '';
     }
     let str = 'window.web_config_scripts = [' + scriptsString + '];\n';
-    str += "window.web_config_defaultResJson = '"+ resString +"';\n";
-    str += "window.web_config_defaultThmJson = '"+ thmString +"';\n";
+    str += "window.web_config_defaultResJson = '" + resString + "';\n";
+    str += "window.web_config_defaultThmJson = '" + thmString + "';\n";
     return str;
 }
 //index.html 版本处理并输出
@@ -176,7 +185,7 @@ function revIndexHtmlExport(srcPath, exportPath, manifestText)
     //
     let htmlContent = FS.readFileSync(srcPath).toString();
     htmlContent = htmlContent.replace(/^\uFEFF/, '');
-    if(manifestText)
+    if (manifestText)
     {
         htmlContent = htmlContent.replace(WebConfigRegex, manifestText);
     }
@@ -191,9 +200,9 @@ function revMicroHtmlModify(srcPath, manifestText, isClient)
     //
     let htmlContent = FS.readFileSync(srcPath).toString();
     htmlContent = htmlContent.replace(/^\uFEFF/, '');
-    if(manifestText)
+    if (manifestText)
     {
-        if(isClient)
+        if (isClient)
         {
             manifestText = manifestText.replace('window.web_config_scripts', 'var client_scripts');
             manifestText = manifestText.replace('window.web_config_defaultResJson', 'var client_defaultResJson');
@@ -214,17 +223,17 @@ function revMicroHtmlModify(srcPath, manifestText, isClient)
 function revSheetJson(resourcePath, assetsPath, revObj)
 {
     let fileList = GulpUtil.getAllFilePath(assetsPath, '.json');
-    for(let filePath of fileList)
+    for (let filePath of fileList)
     {
         let obj = JSON.parse(FS.readFileSync(filePath).toString());
-        let relativeUrl = filePath.substring(resourcePath.length).replace(/\\/g,'/');//去掉resource/,并path转url
-        if(relativeUrl[0] == '/')
+        let relativeUrl = filePath.substring(resourcePath.length).replace(/\\/g, '/');//去掉resource/,并path转url
+        if (relativeUrl[0] == '/')
         {
             relativeUrl = relativeUrl.substring(1);
         }
         let imgUrl = Path.dirname(relativeUrl) + '/' + obj.file;
         let revPath = revObj[imgUrl];
-        if(revPath)
+        if (revPath)
         {
             obj.file = Path.basename(revPath);
             FS.writeFileSync(filePath, JSON.stringify(obj));
@@ -235,11 +244,11 @@ function revSheetJson(resourcePath, assetsPath, revObj)
 function revDefaultResJson(path, exportPath, revObj)
 {
     let resJsonObj = JSON.parse(FS.readFileSync(path).toString());
-    for(let i in resJsonObj.resources)
+    for (let i in resJsonObj.resources)
     {
         let resItem = resJsonObj.resources[i];
         let revPath = revObj[resItem.url];
-        if(revPath)
+        if (revPath)
         {
             resItem.url = revPath;
         }
@@ -248,10 +257,10 @@ function revDefaultResJson(path, exportPath, revObj)
 }
 //web发布优化
 require('gulp-awaitable-tasks')(Gulp);
-Gulp.task('web', function*()
+Gulp.task('web', function* ()
 {
     let version = GulpUtil.getProcessArgs();
-    if(version == null)
+    if (version == null)
     {
         throw new Error('版本号不能为空');
     }
@@ -283,14 +292,14 @@ Gulp.task('web', function*()
     //获取manifest.json
     let manifest = JSON.parse(FS.readFileSync(Release_ManifestPath).toString());
     const Release_MainJsPath = Path.join(Release_RootPath, 'main.min.js');
-    if(FS.existsSync(Release_MainJsPath))
+    if (FS.existsSync(Release_MainJsPath))
     {
         FS.renameSync(Release_MainJsPath, Path.join(Release_LibsPath, 'main.min.js'));
         manifest.game[0] = Relative_MainJsUrl;
         FS.writeFileSync(Release_ManifestPath, JSON.stringify(manifest));
         console.log('移动main.min.js到libs');
     }
-    if(manifest.initial.indexOf(Relative_ModulesJsUrl) == -1)
+    if (manifest.initial.indexOf(Relative_ModulesJsUrl) == -1)
     {
         //合并优化js库(排除bundle)
         let bundleIndex = manifest.initial.indexOf(Relative_BundleJsUrl);
@@ -312,7 +321,8 @@ Gulp.task('web', function*()
     GulpUtil.deleteFiles(Path.join(Release_AssetsPath, 'lang'), '.json');
     console.log('删除没用的语言json文件');
     const delDirList = [Path.join(Release_RootPath, 'promise'), Path.join(Release_LibsPath, 'modules'), Path.join(Release_ResourcePath, 'images'), Path.join(Release_ResourcePath, 'eui_skins'), Path.join(Release_ResourcePath, 'skins')];
-    GulpUtil.deleteDirectoryList(delDirList, (path)=>{
+    GulpUtil.deleteDirectoryList(delDirList, (path) =>
+    {
         console.log('删除没用的路径:' + path);
     });
 
@@ -334,14 +344,14 @@ Gulp.task('web', function*()
     GulpUtil.deleteDirectory(Publish_RootPath);
     //版本处理
     let srcList = [Path.join(Release_ResourcePath, '!(default.res)*.json'), Path.join(Release_LibsPath, '**/*.js')];
-    yield Gulp.src(srcList, {base:Release_RootPath}).pipe(GulpRev()).pipe(Gulp.dest(Publish_RootPath)).pipe(GulpRev.manifest()).pipe(Gulp.dest(Release_RevPath_Libs));
+    yield Gulp.src(srcList, { base: Release_RootPath }).pipe(GulpRev()).pipe(Gulp.dest(Publish_RootPath)).pipe(GulpRev.manifest()).pipe(Gulp.dest(Release_RevPath_Libs));
     srcList = [Path.join(Release_ConfigPath, '*.*'), Path.join(Release_AssetsPath, '**/*.*')];
-    yield Gulp.src(srcList, {base:Release_ResourcePath}).pipe(GulpImageMin()).pipe(GulpRev()).pipe(Gulp.dest(Publish_ResourcePath)).pipe(GulpRev.manifest()).pipe(Gulp.dest(Release_RevPath_Resource));
+    yield Gulp.src(srcList, { base: Release_ResourcePath }).pipe(GulpImageMin()).pipe(GulpRev()).pipe(Gulp.dest(Publish_ResourcePath)).pipe(GulpRev.manifest()).pipe(Gulp.dest(Release_RevPath_Resource));
     //
     let revObj = JSON.parse(FS.readFileSync(Path.join(Release_RevPath_Resource, RevManifestFileName)).toString());
     //default.res.json 版本处理
     revDefaultResJson(Release_DefaultResJsonPath, Publish_DefaultResJsonPath, revObj);
-    yield Gulp.src(Publish_DefaultResJsonPath, {base:Publish_RootPath}).pipe(GulpRev()).pipe(Gulp.dest(Publish_RootPath)).pipe(GulpRev.manifest()).pipe(Gulp.dest(Release_RevPath_Default));
+    yield Gulp.src(Publish_DefaultResJsonPath, { base: Publish_RootPath }).pipe(GulpRev()).pipe(Gulp.dest(Publish_RootPath)).pipe(GulpRev.manifest()).pipe(Gulp.dest(Release_RevPath_Default));
     GulpUtil.deleteFile(Publish_DefaultResJsonPath);
     //sheet 版本处理
     revSheetJson(Publish_ResourcePath, Publish_AssetsPath, revObj);
@@ -357,17 +367,17 @@ Gulp.task('web', function*()
     revIndexHtmlExport(Release_IndexHtmlPath, Publish_IndexHtmlPath, manifestText);
     console.log('版本处理完成');
     //复制需要的文件
-    Gulp.src(Path.join(Release_IconsPath,'*.*'),{base:Release_ResourcePath}).pipe(GulpImageMin()).pipe(Gulp.dest(Publish_ResourcePath));
+    Gulp.src(Path.join(Release_IconsPath, '*.*'), { base: Release_ResourcePath }).pipe(GulpImageMin()).pipe(Gulp.dest(Publish_ResourcePath));
     Gulp.src(Path.join(Release_RootPath, '*.{ico,jpg,png,gif}')).pipe(Gulp.dest(Publish_RootPath));
     Gulp.src(Path.join(Release_ResourcePath, '*.{jpg,png,gif}')).pipe(GulpImageMin()).pipe(Gulp.dest(Publish_ResourcePath));
     Gulp.src(Path.join(Release_ResourcePath, '*.html')).pipe(Gulp.dest(Publish_ResourcePath));
     console.log('发布优化完成:' + Publish_RootPath);
 });
 //web发布优化-配置表
-Gulp.task('web-config', function*()
+Gulp.task('web-config', function* ()
 {
     let version = GulpUtil.getProcessArgs();
-    if(version == null)
+    if (version == null)
     {
         throw new Error('版本号不能为空');
     }
@@ -396,10 +406,10 @@ Gulp.task('web-config', function*()
     const Publish_ManifestTxtPath = Path.join(Publish_RootPath, 'manifest.txt');
     const Publish_IndexHtmlPath = Path.join(Publish_RootPath, 'index.html');
     //
-    yield Gulp.src(Path.join(Release_ConfigPath, '*.*'), {base:Release_ResourcePath}).pipe(GulpRev()).pipe(Gulp.dest(Publish_ResourcePath)).pipe(GulpRev.manifest()).pipe(Gulp.dest(Release_RevPath_Config));
+    yield Gulp.src(Path.join(Release_ConfigPath, '*.*'), { base: Release_ResourcePath }).pipe(GulpRev()).pipe(Gulp.dest(Publish_ResourcePath)).pipe(GulpRev.manifest()).pipe(Gulp.dest(Release_RevPath_Config));
     let revObj = JSON.parse(FS.readFileSync(Path.join(Release_RevPath_Config, RevManifestFileName)).toString());
     revDefaultResJson(Release_DefaultResJsonPath, Publish_DefaultResJsonPath, revObj);
-    yield Gulp.src(Publish_DefaultResJsonPath, {base:Publish_RootPath}).pipe(GulpRev()).pipe(Gulp.dest(Publish_RootPath)).pipe(GulpRev.manifest()).pipe(Gulp.dest(Release_RevPath_Default));
+    yield Gulp.src(Publish_DefaultResJsonPath, { base: Publish_RootPath }).pipe(GulpRev()).pipe(Gulp.dest(Publish_RootPath)).pipe(GulpRev.manifest()).pipe(Gulp.dest(Release_RevPath_Default));
     GulpUtil.deleteFile(Publish_DefaultResJsonPath);
     //读取版本文件
     revObj = JSON.parse(FS.readFileSync(Path.join(Release_RevPath_Libs, RevManifestFileName)).toString());
@@ -421,21 +431,21 @@ Gulp.task('web-config', function*()
 //--------------------------------------------------------------
 
 //抽取语言映射(繁体:zh-tw,英文:en,日语:ja,韩语:ko)
-Gulp.task('lang',function()
+Gulp.task('lang', function ()
 {
     let lang = GulpUtil.getProcessArgs();
-    if(lang == null)
+    if (lang == null)
     {
         throw new Error('语言不能为空');
     }
-    const paths = [ProjectSrcPath,ProjectConfigPath];
+    const paths = [ProjectSrcPath, ProjectConfigPath];
     const suffixs = ['.ts', '.json', '.txt', '.xml'];
     const filterKeywords = ['console.', 'game.Console.', 'egret.log'];
-    const filterPaths = [ProjectConfigPath+'/name.json', ProjectConfigPath+'/forbidden.json'];
+    const filterPaths = [ProjectConfigPath + '/name.json', ProjectConfigPath + '/forbidden.json'];
     //
     const langFile = Path.join(ProjectLangPath, lang + '.json');
     let origLangs;
-    if(FS.existsSync(langFile))
+    if (FS.existsSync(langFile))
     {
         origLangs = JSON.parse(FS.readFileSync(langFile).toString());
     }
@@ -461,33 +471,33 @@ function exportMicroHtml(bid, manifestText, isClient, srcDir, exportDir)
 function parseMicroHtml(isClient)
 {
     let args = GulpUtil.getProcessArgsList();
-    if(!args || args.length != 2)
+    if (!args || args.length != 2)
     {
         console.log('请输入包id和版本号');
-        return ;
+        return;
     }
     let bid = args[0];
     let version = args[1];
-    const ExportDirectory = Path.join(ProjectBinPublishPath,'web', version);
-    if(!FS.existsSync(ExportDirectory))
+    const ExportDirectory = Path.join(ProjectBinPublishPath, 'web', version);
+    if (!FS.existsSync(ExportDirectory))
     {
-        console.log('版本号：'+ version + ' 的web发布目录不存在');
-        return ;
+        console.log('版本号：' + version + ' 的web发布目录不存在');
+        return;
     }
-    let mTxtPath = Path.join(ExportDirectory,'manifest.txt');
+    let mTxtPath = Path.join(ExportDirectory, 'manifest.txt');
     let manifestText = '';
-    if(FS.existsSync(mTxtPath))
+    if (FS.existsSync(mTxtPath))
     {
         manifestText = FS.readFileSync(mTxtPath).toString();
     }
-    if(isClient == false && bid == 'all')
+    if (isClient == false && bid == 'all')
     {
         let suffix = '.html';
         let fileList = FS.readdirSync(ProjectMicroPath);
-        fileList.forEach(function(file)
+        fileList.forEach(function (file)
         {
             let name = Path.basename(file, suffix);
-            if(name != 'template' && Path.extname(file) == suffix)
+            if (name != 'template' && Path.extname(file) == suffix)
             {
                 exportMicroHtml(name, manifestText, isClient, ProjectMicroPath, ExportDirectory);
             }
@@ -499,12 +509,12 @@ function parseMicroHtml(isClient)
     }
 }
 //更新模式:压缩输出微端入口文件到web发布目录
-Gulp.task('micro-update',function()
+Gulp.task('micro-update', function ()
 {
     parseMicroHtml(false);
 });
 //安装包模式:压缩输出微端入口文件到web发布目录
-Gulp.task('micro-client',function()
+Gulp.task('micro-client', function ()
 {
     parseMicroHtml(true);
 });
@@ -514,21 +524,21 @@ Gulp.task('micro-client',function()
 //--------------------------------------------------------------
 
 //格式化代码
-Gulp.task( 'format-code', function ()
+Gulp.task('format-code', function ()
 {
-    console.log( '格式化代码去除注释' );
-    let result = FS.readFileSync( Path.join( ProjectResourcePath, 'result.txt' ), 'utf-8' );
-    let end = deleteCodeComments( result );
+    console.log('格式化代码去除注释');
+    let result = FS.readFileSync(Path.join(ProjectResourcePath, 'result.txt'), 'utf-8');
+    let end = deleteCodeComments(result);
     // console.log( end );
-    FS.writeFileSync( Path.join( ProjectResourcePath, 'result_end.txt' ), end );
+    FS.writeFileSync(Path.join(ProjectResourcePath, 'result_end.txt'), end);
 });
-function deleteCodeComments( code )
+function deleteCodeComments(code)
 {
     // 以下的两种方式都可以  // sodino.com
     //    var reg1 = /\/\/.*/g;
     //    var reg2 = /\/\*[\s\S]*?\*\//g;
     var reg = /(\/\/.*)|(\/\*[\s\S]*?\*\/)/g;
-    var result = code.replace( reg, '' );
+    var result = code.replace(reg, '');
     // reg = /^\\s*\\n/g;
     // result = result.replace(reg, '' );
     return result;

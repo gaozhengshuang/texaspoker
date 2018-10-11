@@ -29,8 +29,8 @@ module game
 		 */
 		public data: any;
 		/**
-		 * 错误码 为0 则是正常返回
+		 * 错误码 为空 则是正常返回
 		 */
-		public error: number;
+		public error: string;
 	}
 }

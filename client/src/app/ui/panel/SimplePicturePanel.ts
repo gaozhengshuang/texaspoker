@@ -30,8 +30,8 @@ class SimplePicturePanel extends BaseActivityPanel
         this.activityScroller.viewport.scrollV = 0;
         if (InfoUtil.checkAvailable(this.activityInfo))
         {
-            this.activityImg.source = this.activityInfo.definition.icon;
-            this.titleLabel.text = this.activityInfo.definition.name;
+            this.activityImg.source = this.activityInfo.definition.Icon;
+            this.titleLabel.text = this.activityInfo.definition.Name;
         }
     }
     protected onEnable(event: eui.UIEvent): void

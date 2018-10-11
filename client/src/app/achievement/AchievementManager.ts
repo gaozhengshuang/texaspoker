@@ -29,7 +29,7 @@ class AchievementManager
             for (let def of AchieveDefined.GetInstance().dataList)
             {
                 let info: AchievementInfo = new AchievementInfo();
-                info.id = def.id;
+                info.id = def.Id;
                 info.isComplete = false;
                 info.isTake = false;
                 info.isOther = false;
@@ -44,7 +44,7 @@ class AchievementManager
      */
     public static reqUserAchieveList(info: UserInfo)
     {
-        if (info.id == UserManager.userInfo.id)
+        if (info.roleId == UserManager.userInfo.roleId)
         {
             info.allAchieveList = UserManager.userInfo.allAchieveList;
             return;
@@ -56,7 +56,7 @@ class AchievementManager
             // AchievementManager.setAchieveInfoByGroupInfo(info, AchieveGroup.FriendGroup, info.friendNum);
             // AchievementManager.setAchieveInfoByGroupInfo(info, AchieveGroup.LevelGroup, info.level);
         }
-        SocketManager.call(Command.Achievement_GetList_3090, { "roleId": info.id }, callback, null, this);
+        SocketManager.call(Command.Achievement_GetList_3090, { "roleId": info.roleId }, callback, null, this);
     }
     /**
      * 设置某用户已解锁的成就信息
@@ -86,7 +86,7 @@ class AchievementManager
                         completeInfo.id = achieveInfo.id;
                         completeInfo.isTake = false;
                         completeInfo.isComplete = true;
-                        completeInfo.isOther = info.id != UserManager.userInfo.id;
+                        completeInfo.isOther = info.roleId != UserManager.userInfo.roleId;
                         list.push(completeInfo);
                     }
                 }
@@ -144,7 +144,7 @@ class AchievementManager
                     resultInfo.id = info.id;
                     resultInfo.isTake = false;
                     resultInfo.isComplete = false;
-                    resultInfo.isOther = userInfo.id != UserManager.userInfo.id;
+                    resultInfo.isOther = userInfo.roleId != UserManager.userInfo.roleId;
                 }
             }
             result.push(resultInfo);
@@ -158,11 +158,14 @@ class AchievementManager
     public static getAchieveListByTag(userInfo: UserInfo, tag: number): Array<AchievementInfo>
     {
         let result: Array<AchievementInfo> = new Array<AchievementInfo>();
-        for (let info of userInfo.allAchieveList)
+        if (userInfo.allAchieveList)
         {
-            if (info.definition && info.definition.tag == tag)
+            for (let info of userInfo.allAchieveList)
             {
-                result.push(info);
+                if (info.definition && info.definition.tag == tag)
+                {
+                    result.push(info);
+                }
             }
         }
         return result;

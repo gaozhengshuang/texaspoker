@@ -26,10 +26,11 @@ class FirstPayPanel extends BaseActivityPanel
 			let subItem: ActivityPayPrizeDefintion = this.activityInfo.subList[0].definition as ActivityPayPrizeDefintion;
 			if (subItem)
 			{
-				let awardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(subItem.awardId);
-				if (awardDef && awardDef.rewardList)
+				let awardDef: table.IAwardDefine = table.AwardById[subItem.awardId];
+				if (awardDef && awardDef.RewardId)
 				{
-					for (let itemInfo of awardDef.rewardList)
+					let list = AwardManager.getAwardInfoDefinitionList(awardDef.Id);
+					for (let itemInfo of list)
 					{
 						let itemComp: FirstPayItemComponent = new FirstPayItemComponent(UIComponentSkinName.FirstPayItemComponent);
 						itemComp.init(itemInfo);
@@ -41,7 +42,7 @@ class FirstPayPanel extends BaseActivityPanel
 				}
 				this.deslabel2.text = subItem.des;
 			}
-			this.deslabel1.textFlow = game.TextUtil.parse(this.activityInfo.definition.des);
+			this.deslabel1.textFlow = game.TextUtil.parse(this.activityInfo.definition.Des);
 		}
 	}
 

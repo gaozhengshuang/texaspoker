@@ -16,11 +16,11 @@ class FirstPayItemComponent extends BaseComponent<AwardInfoDefinition>
         super.rendererStart(event);
         if (this.bindData)
         {
-            let itemDef: ItemDefinition = ItemDefined.GetInstance().getDefinition(this.bindData.id);
+            let itemDef: table.IItemBaseDataDefine = table.ItemBaseDataById[this.bindData.id];
             if (itemDef)
             {
-                this.nameLabel.text = itemDef.name;
-                this.itemComp.init(itemDef.icon + ResSuffixName.PNG, 130, null, false, true);
+                this.nameLabel.text = itemDef.Name;
+                this.itemComp.init(itemDef.Icon + ResSuffixName.PNG, 130, null, false, true);
             }
             this.countLabel.text = game.MathUtil.numAddSpace(this.bindData.count);
         }

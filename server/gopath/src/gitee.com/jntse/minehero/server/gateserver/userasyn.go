@@ -26,11 +26,11 @@ func NewUserRechargeEvent(user *GateUser, tvmid, token string, amount int32, han
 	return &UserRechargeEvent{tvmid:tvmid,token:token,user:user,amount:amount,handler:handler}
 }
 
-func (this *UserRechargeEvent) Process(ch_fback chan eventque.IEvent) {
-	this.handler(this.tvmid, this.token, this.user, this.amount)
+func (ev *UserRechargeEvent) Process(ch_fback chan eventque.IEvent) {
+	ev.handler(ev.tvmid, ev.token, ev.user, ev.amount)
 }
 
-func (this *UserRechargeEvent) Feedback() {
+func (ev *UserRechargeEvent) Feedback() {
 }
 
 
@@ -48,13 +48,13 @@ func NewUserSaveEvent(handler UserSaveEventHandle, feedback UserSaveEventFeedbac
 	return &UserSaveEvent{handler:handler, feedback:feedback}
 }
 
-func (this *UserSaveEvent) Process(ch_fback chan eventque.IEvent) {
-	this.handler()
-	ch_fback <- this
+func (ev *UserSaveEvent) Process(ch_fback chan eventque.IEvent) {
+	ev.handler()
+	ch_fback <- ev
 }
 
-func (this *UserSaveEvent) Feedback() {
-	if this.feedback != nil { this.feedback() }
+func (ev *UserSaveEvent) Feedback() {
+	if ev.feedback != nil { ev.feedback() }
 }
 
 
@@ -72,13 +72,13 @@ func NewDeliveryGoodsEvent(list []*msg.DeliveryGoods, token string, handler Deli
 	return &DeliveryGoodsEvent{list:list, token:token, handler:handler}
 }
 
-func (this *DeliveryGoodsEvent) Process(ch_fback chan eventque.IEvent) {
+func (ev *DeliveryGoodsEvent) Process(ch_fback chan eventque.IEvent) {
 	tm1 := util.CURTIMEMS()
-	this.handler(this.list, this.token)
+	ev.handler(ev.list, ev.token)
 	log.Trace("[异步事件] DeliveryGoodsEvent 本次消耗 %dms", util.CURTIMEMS() - tm1)
 }
 
-func (this *DeliveryGoodsEvent) Feedback() {
+func (ev *DeliveryGoodsEvent) Feedback() {
 }
 
 
@@ -96,11 +96,11 @@ func NewGiveFreeStepEvent(now int64, reason string, handler GiveFreeStepHandle) 
 	return &GiveFreeStepEvent{now:now,reason:reason,handler:handler}
 }
 
-func (this *GiveFreeStepEvent) Process(ch_fback chan eventque.IEvent) {
-	this.handler(this.now, this.reason)
+func (ev *GiveFreeStepEvent) Process(ch_fback chan eventque.IEvent) {
+	ev.handler(ev.now, ev.reason)
 }
 
-func (this *GiveFreeStepEvent) Feedback() {
+func (ev *GiveFreeStepEvent) Feedback() {
 }
 
 // --------------------------------------------------------------------------
@@ -120,15 +120,15 @@ func NewQueryPlatformCoinsEvent(handler QueryPlatformCoinsEventHandle, feedback 
 	return &QueryPlatformCoinsEvent{handler:handler, feedback:feedback}
 }
 
-func (this *QueryPlatformCoinsEvent) Process(ch_fback chan eventque.IEvent) {
+func (ev *QueryPlatformCoinsEvent) Process(ch_fback chan eventque.IEvent) {
 	tm1 := util.CURTIMEMS()
-	this.balance, this.save_amt, this.errmsg = this.handler()
-	ch_fback <- this
+	ev.balance, ev.save_amt, ev.errmsg = ev.handler()
+	ch_fback <- ev
 	log.Trace("[异步事件] QueryPlatformCoinsEvent 本次消耗 %dms", util.CURTIMEMS() - tm1)
 }
 
-func (this *QueryPlatformCoinsEvent) Feedback() {
-	if this.feedback != nil { this.feedback(this.balance, this.save_amt, this.errmsg) }
+func (ev *QueryPlatformCoinsEvent) Feedback() {
+	if ev.feedback != nil { ev.feedback(ev.balance, ev.save_amt, ev.errmsg) }
 }
 
 // --------------------------------------------------------------------------
@@ -149,15 +149,15 @@ func NewRemovePlatformCoinsEvent(amount int64, h RemovePlatformCoinsEventHandle,
 	return &RemovePlatformCoinsEvent{h, amount, fb, 0, ""}
 }
 
-func (this *RemovePlatformCoinsEvent) Process(ch_fback chan eventque.IEvent) {
+func (ev *RemovePlatformCoinsEvent) Process(ch_fback chan eventque.IEvent) {
 	tm1 := util.CURTIMEMS()
-	this.balance, this.errmsg = this.handler(this.amount)
-	ch_fback <- this
+	ev.balance, ev.errmsg = ev.handler(ev.amount)
+	ch_fback <- ev
 	log.Trace("[异步事件] QueryPlatformCoinsEvent 本次消耗 %dms", util.CURTIMEMS() - tm1)
 }
 
-func (this *RemovePlatformCoinsEvent) Feedback() {
-	if this.feedback != nil { this.feedback(this.balance, this.errmsg, this.amount) }
+func (ev *RemovePlatformCoinsEvent) Feedback() {
+	if ev.feedback != nil { ev.feedback(ev.balance, ev.errmsg, ev.amount) }
 }
 
 // --------------------------------------------------------------------------
@@ -178,15 +178,15 @@ func NewAddPlatformCoinsEvent(amount int64, h AddPlatformCoinsEventHandle, fb Ad
 	return &AddPlatformCoinsEvent{h, amount, fb, 0, ""}
 }
 
-func (this *AddPlatformCoinsEvent) Process(ch_fback chan eventque.IEvent) {
+func (ev *AddPlatformCoinsEvent) Process(ch_fback chan eventque.IEvent) {
 	tm1 := util.CURTIMEMS()
-	this.balance, this.errmsg = this.handler(this.amount)
-	ch_fback <- this
+	ev.balance, ev.errmsg = ev.handler(ev.amount)
+	ch_fback <- ev
 	log.Trace("[异步事件] QueryPlatformCoinsEvent 本次消耗 %dms", util.CURTIMEMS() - tm1)
 }
 
-func (this *AddPlatformCoinsEvent) Feedback() {
-	if this.feedback != nil { this.feedback(this.balance, this.errmsg, this.amount) }
+func (ev *AddPlatformCoinsEvent) Feedback() {
+	if ev.feedback != nil { ev.feedback(ev.balance, ev.errmsg, ev.amount) }
 }
 
 

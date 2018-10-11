@@ -1,9 +1,8 @@
 /**
  * 签到选项的定义
  * */
-class SignInDefined extends BaseActivitySubDefined<SignInDefinition>
+class SignInDefined extends BaseActivitySubDefined<table.IActivity_signinDefine>
 {
-	private static readonly config: string = "activity_signin";
 	private static _instance: SignInDefined;
 
 	public static GetInstance(): SignInDefined
@@ -12,22 +11,14 @@ class SignInDefined extends BaseActivitySubDefined<SignInDefinition>
 		{
 			SignInDefined._instance = new SignInDefined();
 		}
-		if (DefinedManager.IsParsed(SignInDefined.config) == false)
-		{
-			SignInDefined._instance.initialize();
-		}
 		return SignInDefined._instance;
 	}
-	public initialize()
-	{
-		this.dataList = DefinedManager.GetData(SignInDefined.config) as Array<SignInDefinition>;
-	}
 
-	public getDefinitionbyAwardId(awardId: number): SignInDefinition
+	public getDefinitionbyAwardId(awardId: number)
 	{
-		for (let def of this.dataList)
+		for (let def of table.Activity_signin)
 		{
-			if (def.awardId == awardId)
+			if (def.AwardId == awardId)
 			{
 				return def;
 			}
@@ -37,32 +28,13 @@ class SignInDefined extends BaseActivitySubDefined<SignInDefinition>
 
 	public getDefinitionbySubId(subId: number)
 	{
-		for (let def of this.dataList)
+		for (let def of table.Activity_signin)
 		{
-			if (def.subId == subId)
+			if (def.SubId == subId)
 			{
 				return def;
 			}
 		}
 		return null;
 	}
-}
-
-/**
- * 签到选项的定义
- * */
-class SignInDefinition extends BaseActivitySubDefnition
-{
-	/**
-	 * 签到天数
-	 */
-	public day: number;
-	/**
-	 * 奖励id
-	 */
-	public awardId: number;
-	/**
-	 * 累积天数奖励id
-	 */
-	public pilePrize: number;
 }

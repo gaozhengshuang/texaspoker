@@ -23,11 +23,11 @@ class GuideBringGoldPanel extends BasePanel
         let guideDef: GuideDefinition = GuideDefined.GetInstance().getDefinition(appendData.self);
         if (guideDef)
         {
-            let awardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(guideDef.awardId);
-            if (awardDef && awardDef.rewardList.length > 0)
+            let awardDef: table.IAwardDefine = table.AwardById[guideDef.awardId];
+            if (awardDef && awardDef.RewardId && awardDef.RewardId.length > 0)
             {
-                this.iconImg.init(awardDef.rewardList[0].id, 48, game.StringConstants.Empty);
-                this.goldNumLabel.text = awardDef.rewardList[0].count.toString();
+                this.iconImg.init(awardDef.RewardId[0], 48, game.StringConstants.Empty);
+                this.goldNumLabel.text = awardDef.RewardNum[0].toString();
             }
         }
     }

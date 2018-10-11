@@ -1,7 +1,7 @@
 /**
  * 分享抽奖活动配置
  */
-class ActivityShareDefined extends BaseActivitySubDefined<ActivityShareDefintion>
+class ActivityShareDefined extends BaseActivitySubDefined<any>
 {
     private static readonly config: string = "activity_share";
     private static _instance: ActivityShareDefined;
@@ -20,11 +20,11 @@ class ActivityShareDefined extends BaseActivitySubDefined<ActivityShareDefintion
 
     public initialize()
     {
-        this.dataList = DefinedManager.GetData(ActivityShareDefined.config) as Array<ActivityShareDefintion>;
-        for (let def of this.dataList)
-        {
-            this.setAwardInfoDefinitionList(def);
-        }
+        // this.dataList = DefinedManager.GetData(ActivityShareDefined.config) as Array<ActivityShareDefintion>;  //move todo
+        // for (let def of this.dataList)
+        // {
+        //     this.setAwardInfoDefinitionList(def);
+        // }
     }
     private setAwardInfoDefinitionList(awardDef: ActivityShareDefintion)
     {
@@ -51,7 +51,7 @@ class ActivityShareDefined extends BaseActivitySubDefined<ActivityShareDefintion
 /**
  * 分享抽奖活动配置
  */
-class ActivityShareDefintion extends BaseActivitySubDefnition
+class ActivityShareDefintion
 {
     /**
      * 奖励列表

@@ -62,6 +62,7 @@ import (
 		"errors"
 		//"fmt"
 		"sort"
+		//"gitee.com/jntse/gotoolkit/log"
 )
 
 //每个花色所在二进制区间，详见判断同花逻辑
@@ -101,6 +102,7 @@ type Hand struct{
 	数据排序规则是，出现次数多者优先，次数相同则大小优先
 	*/
 	finalvalue int32
+	highvalue int32
 }
 
 func GetHand() *Hand{
@@ -123,12 +125,13 @@ func (h *Hand)Init(){
 	h.handvalue = 0
 	h.handsize = 0
 	h.initilized = true
+	h.highvalue = 0
 
 	h.level = -1
 	h.finalvalue = -1
 }
 
-func (h *Hand)SetCard(c *Card) error{
+func (h *Hand)SetCard(c *Card, ishand bool) error{
 	if h.initilized == false{
 		return errors.New("Hand must init first")
 	}
@@ -138,8 +141,19 @@ func (h *Hand)SetCard(c *Card) error{
 	h.cards[h.handsize].Suit = c.Suit
 	h.cards[h.handsize].Value = c.Value
 	h.cards[h.handsize].Showtime = 0
+	h.cards[h.handsize].IsHand = ishand
 	h.handsize++
 	return nil
+}
+
+func (h *Hand) ClearAnalyse() {
+	h.flush = 0
+	h.straight = []int32{0,0,0,0}
+	h.count = []int32{0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+	h.handvalue = 0
+	h.level = -1
+	h.finalvalue = -1
+	h.highvalue = 0
 }
 
 //可以重构一下，分成更多小函数
@@ -147,13 +161,20 @@ func (h *Hand)AnalyseHand() error{
 	if h.initilized == false{
 		return errors.New("Hand must init first")
 	}
-	if h.handsize < 7{
-		return errors.New("not enough cards, must have seven!")
-	}
+	h.ClearAnalyse()
+	//if h.handsize < 7{
+	//	return errors.New("not enough cards, must have seven!")
+	//}
 
 	h.analyCards()
 	sort.Sort(h.cards)
 	tmp := turnToValue(h.cards)
+	for _ , card := range h.cards {
+		if card.IsHand {
+			h.highvalue = card.Value
+			break
+		}
+	}
 
 	//由大到小来判断手牌等级
 	//判断是否有皇家同花顺
@@ -266,11 +287,12 @@ func (h *Hand)AnalyseHand() error{
 
 //将手牌转化成整数形式
 func turnToValue(cards Cards) int32{
-	//我是升序排的，所以反着来
+	//我是降序排的
 	var res int32 = 0
-	for i:=len(cards)-1; i>=0; i--{
+	for i:=0; i<len(cards)-2; i++{
 		res *= 10
 		res += cards[i].Value
+		//log.Info("手牌%d  牌%d", res, cards[i].Value)
 	}
 	return res
 }
@@ -305,5 +327,17 @@ func (h *Hand)analyCards(){
 		c := h.cards[i]
 		c.Showtime = h.count[c.Value]
 	}
+}
+
+func (h *Hand)ToAllCard() []int32{
+	tmpcard := make([]int32, 0)
+	for _, v := range h.cards {
+		if v == nil {
+			continue
+		}
+		tmpcard = append(tmpcard, v.Suit+1)
+		tmpcard = append(tmpcard, v.Value+2)
+	}
+	return tmpcard
 }
 

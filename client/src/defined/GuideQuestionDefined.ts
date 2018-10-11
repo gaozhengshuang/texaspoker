@@ -30,7 +30,7 @@ class GuideQuestionDefinition implements IBaseDefintion
     /**
      * ID
     */
-    public id: number;
+    public Id: number;
     /**
      * 问题描述
     */

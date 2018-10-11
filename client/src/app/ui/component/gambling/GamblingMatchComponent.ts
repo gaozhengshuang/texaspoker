@@ -42,7 +42,7 @@ class GamblingMatchComponent extends BaseGamblingSlotComponent
 		this.mttGroup.visible = this.sngGroup.visible = false;
 		if (InfoUtil.checkAvailable(GamblingManager.matchRoomInfo))
 		{
-			switch (GamblingManager.matchRoomInfo.definition.type)
+			switch (GamblingManager.matchRoomInfo.definition.Type)
 			{
 				case MatchType.MTT:
 					this.mttGroup.visible = true;

@@ -23,17 +23,20 @@ class MusicDefined
 			let index: number = 0;
 			if (sex == Sex.Female && def.Girl)
 			{
-				return def.Girl;
+				index = game.MathUtil.getRandom(0, def.Girl.length - 1);
+				return def.Girl[index];
 			}
 			else if (sex == Sex.Male && def.Boy)
 			{
-				return def.Boy;
+				index = game.MathUtil.getRandom(0, def.Boy.length - 1);
+				return def.Boy[index];
 			}
 			else
 			{
 				if (def.Boy)
 				{
-					return def.Boy;
+					index = game.MathUtil.getRandom(0, def.Boy.length - 1);
+					return def.Boy[index];
 				}
 			}
 		}

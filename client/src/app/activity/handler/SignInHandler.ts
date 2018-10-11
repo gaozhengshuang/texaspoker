@@ -12,10 +12,10 @@ class SignInHandler extends BaseActivitySubHandler<SignInInfo>
 	{
 		super.initialize(info);
 
-		let def: SignInDefinition;
-		for (let i: number = 0; i < SignInDefined.GetInstance().dataList.length; i++) //填充子列表信息
+		let def: table.IActivity_signinDefine;
+		for (let i: number = 0; i < table.Activity_signin.length; i++) //填充子列表信息
 		{
-			def = SignInDefined.GetInstance().dataList[i];
+			def = table.Activity_signin[i];
 			this.addSubInfo(info, SignInInfo, def);
 		};
 	}
@@ -62,7 +62,7 @@ class SignInHandler extends BaseActivitySubHandler<SignInInfo>
 			}
 			let now: Date = TimeManager.GetServerLocalDateTime();
 			let today: Date = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-			let signTime: Date = new Date(info.jsonObj.SignTime * 1000);
+			let signTime: Date = new Date(parseInt(info.jsonObj.SignTime) * 1000);
 			if (signTime < today)
 			{
 				return false;
@@ -77,15 +77,15 @@ class SignInHandler extends BaseActivitySubHandler<SignInInfo>
 	/**
 	 * 生成获得物品的描述
 	 */
-	public getAwardDes(awardDef: AwardDefinition): string
+	public getAwardDes(awardDef: table.IAwardDefine): string
 	{
 		let result: string = game.StringConstants.Empty;
-		if (awardDef && awardDef.rewardList)
+		if (awardDef && awardDef.RewardId)
 		{
-			for (let i: number = 0; i < awardDef.rewardList.length; i++)
+			for (let i: number = 0; i < awardDef.RewardId.length; i++)
 			{
-				result += ItemDefined.GetInstance().getDefinition(awardDef.rewardList[i].id).name + "*" + awardDef.rewardList[i].count;
-				if (i < awardDef.rewardList.length - 1)
+				result += table.ItemBaseDataById[awardDef.RewardId[i]].Name + "*" + awardDef.RewardNum[i];
+				if (i < awardDef.RewardId.length - 1)
 				{
 					result += ",";
 				}

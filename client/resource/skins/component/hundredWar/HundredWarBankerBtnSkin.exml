@@ -3,5 +3,5 @@
        >
 	<e:Image  id="btnImg" alpha.disabled="0.5" y="0" x="0"  anchorOffsetX="0" anchorOffsetY="0" source="br_button_1_png" scale9Grid="9,8,11,26" width="117" height="46"/>
 	<e:Label id="labelDisplay" size="22" verticalAlign="middle" textAlign="center"
-	         fontFamily="Microsoft YaHei" anchorOffsetX="0" anchorOffsetY="0"  text="按钮" width="112" height="42" name="label" textColor="0x000000"/>
+	         fontFamily="Microsoft YaHei" anchorOffsetX="0" anchorOffsetY="0"  text="button" width="112" height="42" name="label" textColor="0x000000"/>
 </e:Skin>

@@ -114,7 +114,7 @@ class UserInfoPanel extends BasePanel
 	{
 		super.onRender(event);
 		let otherUserInfo: UserInfo = UserManager.otherUserInfo;
-		if (otherUserInfo == null || otherUserInfo.id == UserManager.userInfo.id)
+		if (otherUserInfo == null || otherUserInfo.roleId == UserManager.userInfo.roleId)
 		{
 			if (otherUserInfo == null)
 			{
@@ -155,7 +155,7 @@ class UserInfoPanel extends BasePanel
 		this.goldNumLabel.text = game.MathUtil.numAddSpace(info.gold);
 		this.refreshUserInfo(info);
 		this.refreshOtherVipInfo(info);
-		this.userIdLabel.text = info.id.toString();
+		this.userIdLabel.text = info.roleId.toString();
 		this.levelLabel.text = info.level.toString();
 		this.titleLabel.text = UserUtil.getTitle(info.level);
 		this.levelProgressImg.width = 340;
@@ -188,10 +188,10 @@ class UserInfoPanel extends BasePanel
 				}
 				break;
 			case UserState.InMatch:
-				let matchDef: ChampionshipDefinition = ChampionshipDefined.GetInstance().getDefinition(info.stateConfId);
+				let matchDef: table.IChampionshipDefine = table.ChampionshipById[info.stateConfId];
 				if (matchDef)
 				{
-					this.stateLabel.text = game.StringUtil.format("{0}中", matchDef.name);
+					this.stateLabel.text = game.StringUtil.format("{0}中", matchDef.Name);
 				}
 				break;
 			case UserState.InHundredWar:
@@ -364,13 +364,13 @@ class UserInfoPanel extends BasePanel
 				SoundManager.playButtonEffect(event.target);
 				if (UserManager.otherUserInfo)
 				{
-					FriendManager.reqAddPlayer(UserManager.otherUserInfo.id);
+					FriendManager.reqAddPlayer(UserManager.otherUserInfo.roleId);
 				}
 				this.requestBtn.enabled = false;
 				break;
 			case this.closeButton:
 				SoundManager.playButtonEffect(event.target);
-				if (this.userinfo.id == UserManager.userInfo.id)
+				if (this.userinfo.roleId == UserManager.userInfo.roleId)
 				{
 					this.reqSaveSign();
 				}
@@ -393,7 +393,7 @@ class UserInfoPanel extends BasePanel
 	{
 		if (UserManager.otherUserInfo)
 		{
-			FriendManager.reqRemovePlayer(UserManager.otherUserInfo.id);
+			FriendManager.reqRemovePlayer(UserManager.otherUserInfo.roleId);
 		}
 	}
 
@@ -431,7 +431,7 @@ class UserInfoPanel extends BasePanel
 			this.buyUserGiftBtn.label = this.buyGiftBtn.label = "赠送礼物";
 			this.buyUserItemBtn.label = "赠送道具";
 			this.buyVipBtn.label = "赠送VIP";
-			if (FriendManager.isFriend(UserManager.otherUserInfo.id))
+			if (FriendManager.isFriend(UserManager.otherUserInfo.roleId))
 			{
 				this.myPrizeBtn.visible = false;
 				this.deleteFriendBtn.visible = true;

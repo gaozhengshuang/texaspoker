@@ -64,7 +64,7 @@ class GameHallBtnSupport
     private onGetPayPrizeAward(id: number)
     {
         let info: ActivityInfo = ActivityManager.getActivityInfo(id);
-        if (InfoUtil.checkAvailable(info) && info.definition.subType == ActivitySubType.NewGift)
+        if (InfoUtil.checkAvailable(info) && info.definition.SubType == ActivitySubType.NewGift)
         {
             this.refreshNewGift();
         }
@@ -93,7 +93,7 @@ class GameHallBtnSupport
     */
     private setIsShowBindPhoneAwardBtn()
     {
-        let bringAwardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(this.bindPhoneAwardId);
+         let bringAwardDef: table.IAwardDefine = table.AwardById[this.bindPhoneAwardId];
         if (ChannelManager.loginType != ChannelLoginType.GiantFun)
         {
             if (BindAccountManager.getIsBinding(ChannelLoginType.GiantFun) && AwardManager.isToLimit(bringAwardDef))

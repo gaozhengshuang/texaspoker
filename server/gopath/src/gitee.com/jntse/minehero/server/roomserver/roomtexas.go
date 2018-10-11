@@ -1,6 +1,6 @@
 package main
 import (
-	"fmt"
+	//"fmt"
 	"time"
 	//_"strings"
 	//_"strconv"
@@ -16,6 +16,7 @@ import (
 
 // 房间销毁
 func (this *TexasPokerRoom) OnDestory(now int64) {
+	this.ticker1s.Stop()
 
 	// 更新房间数量
 	loadkey := def.RoomAgentLoadRedisKey(RoomSvr().Name())
@@ -45,40 +46,41 @@ func (this *TexasPokerRoom) OnGameOver() {
 // 玩家进入房间，首次/断线重进
 func (this *TexasPokerRoom) UserEnter(u *RoomUser) {
 	log.Info("[房间] 玩家[%s %d] 进入房间[%d]", u.Name(), u.Id(), this.Id())
-	player := this.FindPlayerByID(u.Id())
+	u.OnEnterRoom(this)
+	player := this.FindAllByID(u.Id())
 	if player != nil {
 		this.SendRoomInfo(player)
 		return
 	}
 	this.members[u.Id()] = u
-	player = NewTexasPlayer(u, this)
+	player = NewTexasPlayer(u, this, false)
 	player.Init()
 	this.AddWatcher(player)
 	this.SendRoomInfo(player)
+	u.SendPropertyChange()
 }
 
 // 玩家离开房间
 func (this *TexasPokerRoom) UserLeave(u *RoomUser) {
-	delete(this.members, u.Id())
-	//delete(this.watchmembers, u.Id())
-	Redis().HSet(fmt.Sprintf("roombrief_%d", this.Id()), "members", this.PlayersNum())
-	u.OnLeaveRoom()
-	log.Info("[房间] 玩家[%s %d] 离开房间[%d]", u.Name(), u.Id(), this.Id())
-
-	// 如果是私人房间，全部人离开解散
-	if IsTexasRoomPrivateType(this.SubKind()) && len(this.members) == 0 {
-		this.Destory(0)
-	}
-
-	//
-	player := this.FindPlayerByID(u.Id())
+	log.Info("[房间]离开")
+	player := this.FindAllByID(u.Id())
 	if player == nil {
 		return
 	}
 	if this.InGame(player) {
-		this.DelPlayer(player.pos)
-	}else {
-		this.DelWatcher(player)
+		player.StandUp()
+	}
+	this.DelWatcher(player)
+
+	delete(this.members, u.Id())
+	//delete(this.watchmembers, u.Id())
+	//Redis().HSet(fmt.Sprintf("roombrief_%d", this.Id()), "members", this.PlayersNum())
+	u.OnLeaveRoom()
+	//log.Info("[房间] 玩家[%s %d] 离开房间[%d]", u.Name(), u.Id(), this.Id())
+
+	// 如果是私人房间，全部人离开解散
+	if IsTexasRoomPrivateType(this.SubKind()) && len(this.members) == 0 {
+		this.Destory(0)
 	}
 }
 

@@ -9,10 +9,10 @@ class GetItemComponent extends BaseComponent<ItemGetInfo>
     public initInfo(info: ItemGetInfo)
     {
         this.itemComp.init(info.id, 100, SheetSubName.GetItemBg);
-        let itemDef: ItemDefinition = ItemDefined.GetInstance().getDefinition(info.id);
+        let itemDef: table.IItemBaseDataDefine = table.ItemBaseDataById[info.id];
         if (itemDef)
         {
-            this.nameLabel.text = itemDef.name + " * " + info.count;
+            this.nameLabel.text = itemDef.Name + " * " + info.count;
         }
     }
 }

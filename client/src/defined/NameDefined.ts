@@ -39,14 +39,14 @@ class NameDefined extends BaseDefined<NameDefinition>
                 {
                     if (!def.name)
                     {
-                        this._lastNameRange = def.id-1;
+                        this._lastNameRange = def.Id-1;
                     }
                 }
                 if (!this._boyFirstNameRange)
                 {
                     if (!def.boy)
                     {
-                        this._boyFirstNameRange = def.id-1;
+                        this._boyFirstNameRange = def.Id-1;
                     }
                 }
             }
@@ -86,7 +86,7 @@ class NameDefined extends BaseDefined<NameDefinition>
 */
 class NameDefinition implements IBaseDefintion
 {
-    public id: number;
+    public Id: number;
     public name: string;
     public boy: string;
     public girl: string;

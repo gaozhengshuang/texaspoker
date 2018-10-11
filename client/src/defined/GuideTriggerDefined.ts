@@ -46,7 +46,7 @@ class GuideTriggerDefined extends BaseDefined<GuideTriggerDefinition>
 * */
 class GuideTriggerDefinition implements IBaseDefintion
 {
-	public id: number;
+	public Id: number;
 	/**
 	 * 引导类型
 	 */

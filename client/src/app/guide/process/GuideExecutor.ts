@@ -154,7 +154,7 @@ class GuideExecutor
 		}
 		else
 		{
-			game.Console.log("引导步骤数据为空！引导ID：" + guideDef.id);
+			game.Console.log("引导步骤数据为空！引导ID：" + guideDef.Id);
 			GuideExecutor.guideProcessComplete(GuideExecutor.guideProcess); //没有子步骤执行的话，直接执行结束
 		}
 	}
@@ -182,7 +182,7 @@ class GuideExecutor
 		}
 		if (definition)
 		{
-			if (GuideDefined.GetInstance().getDefinition(definition.id).phaseEndFlag == 1) //当前阶段引导执行完毕
+			if (GuideDefined.GetInstance().getDefinition(definition.Id).phaseEndFlag == 1) //当前阶段引导执行完毕
 			{
 				GuideExecutor.trySetGuideStep(definition, next);
 			}
@@ -234,7 +234,7 @@ class GuideExecutor
 		else
 		{
 			GuideExecutor._isOnGuide = false;
-			game.Console.logError("同阶段触发下一步引导异常！ID:" + definition.id);
+			game.Console.logError("同阶段触发下一步引导异常！ID:" + definition.Id);
 		}
 	}
 	private static setGuideRecordComplete(data: any)

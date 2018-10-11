@@ -8,7 +8,7 @@ class GoldItemComponent extends BaseComponent<ShopInfo>{
     public goldBtn: eui.Button;//钻石（元）；
 
     private _info: ShopInfo;
-    private _awardDef: AwardDefinition;
+    private _awardDef: table.IAwardDefine;
 
     protected onEnable(event: eui.UIEvent): void
     {
@@ -25,17 +25,17 @@ class GoldItemComponent extends BaseComponent<ShopInfo>{
         if (InfoUtil.checkAvailable(info))
         {
             this._info = info;
-            this._awardDef = AwardDefined.GetInstance().getDefinition(info.definition.awardId);
-            if (this._awardDef && this._awardDef.costList)
+            this._awardDef = table.AwardById[info.definition.AwardId];
+            if (this._awardDef && this._awardDef.CostId)
             {
-                this.goldImg.source = info.definition.iconName + ResSuffixName.PNG;
-                this.goldNum.text = this._awardDef.name;
-                this.goldCount.text = this._awardDef.des;
-                for (let def of this._awardDef.costList)
+                this.goldImg.source = info.definition.IconName + ResSuffixName.PNG;
+                this.goldNum.text = this._awardDef.Name;
+                this.goldCount.text = this._awardDef.Des;
+                for (let i: number = 0; i < this._awardDef.CostType.length; i++)
                 {
-                    if (def.type == CostType.RMB)
+                    if (this._awardDef.CostType[i] == CostType.RMB)
                     {
-                        this.goldBtn.label = def.count / 100 + "元";
+                        this.goldBtn.label = this._awardDef.CostNum[i] / 100 + "元";
                     }
                 }
             }

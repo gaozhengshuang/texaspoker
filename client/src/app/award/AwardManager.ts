@@ -6,20 +6,49 @@ class AwardManager
     public static OnExchanged: game.DelegateDispatcher = new game.DelegateDispatcher();
     public static OnAwardValueChanged: game.DelegateDispatcher = new game.DelegateDispatcher();
 
-    private static _map: game.Map<number, AwardTimesInfo> = new game.Map<number, AwardTimesInfo>();
+    private static _map: game.Dictionary<msg.IAwardGetInfo> = {};
+    private static _awardInfoMap: game.Map<number, AwardInfoDefinition[]> = new game.Map<number, AwardInfoDefinition[]>();
+    private static _costInfoMap: game.Map<number, AwardInfoDefinition[]> = new game.Map<number, AwardInfoDefinition[]>();
 
-    public static Initialize(data: game.SpRpcResult)
+    public static Initialize(result: game.SpRpcResult)
     {
         AwardManager.Reset();
-        SocketManager.AddCommandListener(Command.ExchangeTimeRefresh_Push_2031, this.refreshExchangeTime, this);
-        let objs: Array<game.SpRpcResult> = data.data["DataList"] as Array<game.SpRpcResult>;
-        if (objs)
+        SocketManager.AddCommandListener(Command.GW2C_PushExchangeTimeRefresh, this.refreshExchangeTime, this);
+        let data: msg.GW2C_RetAwardGetInfo = result.data;
+        if (data.datalist)
         {
-            let data: game.SpRpcResult;
-            for (let i: number = 0; i < objs.length; i++)
+            for (let i: number = 0; i < data.datalist.length; i++)
             {
-                data = objs[i];
-                this.refreshMapInfo(data);
+                this.refreshMapInfo(data.datalist[i]);
+            }
+        }
+        for (let def of table.Award)
+        {
+            if (def.RewardId)
+            {
+                let list = [];
+                for (let i: number = 0; i < def.RewardId.length; i++)
+                {
+                    let awInfo = new AwardInfoDefinition();
+                    awInfo.id = def.RewardId[i];
+                    awInfo.count = def.RewardNum[i];
+                    awInfo.type = def.RewardType[i];
+                    list[i] = awInfo;
+                }
+                AwardManager._awardInfoMap.add(def.Id, list);
+            }
+            if (def.CostType)
+            {
+                let list = [];
+                for (let i: number = 0; i < def.CostType.length; i++)
+                {
+                    let awInfo = new AwardInfoDefinition();
+                    awInfo.id = def.CostId[i];
+                    awInfo.count = def.CostNum[i];
+                    awInfo.type = def.CostType[i];
+                    list[i] = awInfo;
+                }
+                AwardManager._costInfoMap.add(def.Id, list);
             }
         }
         AwardManager.getExChangeInfoEa.dispatch();
@@ -29,36 +58,34 @@ class AwardManager
     */
     private static refreshExchangeTime(result: game.SpRpcResult)
     {
-        if (result.data)
+        let data: msg.GW2C_PushExchangeTimeRefresh = result.data;
+        if (data)
         {
-            this.refreshMapInfo(result.data);
-            let info: AwardTimesInfo = AwardManager.GetExchangeInfo(result.data.Id);
+            this.refreshMapInfo(data);
+            let info: msg.IAwardGetInfo = AwardManager.GetExchangeInfo(data.id);
             if (info)
             {
                 AwardStatistics.Invoke(info);
             }
-            AwardManager.OnAwardValueChanged.dispatch(result.data.Id);
+            AwardManager.OnAwardValueChanged.dispatch(data.id);
         }
     }
     /**
     * 更新_map数据
     */
-    private static refreshMapInfo(data: any)
+    private static refreshMapInfo(data: msg.IAwardGetInfo)
     {
         if (data)
         {
-            if (AwardManager._map.containsKey(data.Id))
+            let info: msg.IAwardGetInfo = AwardManager._map[data.id];
+            if (!info)
             {
-                let info: AwardTimesInfo = AwardManager._map.getValue(data.Id);
-                info.times = parseInt(data.Count);
-                if (data.Time != null)
-                {
-                    info.lastTime = parseInt(data.Time);
-                }
-                else
-                {
-                    info.lastTime = 0;
-                }
+                AwardManager._map[data.id] = data;
+            }
+            else
+            {
+                info.count = data.count;
+                info.time = data.time;
             }
         }
     }
@@ -85,7 +112,7 @@ class AwardManager
         {
             AwardManager.OnExchangeFromServer(id, count, needAlert);
         }
-        SocketManager.call(Command.Award_Exchange_3113, { "Id": id, "Count": count }, callback, null, this);
+        SocketManager.call(Command.C2GW_ReqAwardExchange, { "id": id, "count": count }, callback, null, this);
     }
 
     private static OnExchangeFromServer(id: number, count: number, needAlert: boolean)
@@ -102,26 +129,30 @@ class AwardManager
     public static GetNotFitErrorType(id: number): AwardExchangeErrorType
     {
         let result: AwardExchangeErrorType = AwardExchangeErrorType.NoError;
-        let info: AwardTimesInfo = AwardManager.GetExchangeInfo(id);
-        if (InfoUtil.checkAvailable(info))
+        let info: msg.IAwardGetInfo = AwardManager.GetExchangeInfo(id);
+        if (info)
         {
             let limit: number = AwardManager.GetAwardLimit(id);
-            if (limit != 0 && info.times >= limit) //次数达到上限
+            if (limit != 0 && info.count >= limit) //次数达到上限
             {
                 result = result | AwardExchangeErrorType.OverTimes;
             }
             let serverTime: Date = TimeManager.GetServerLocalDateTime();
-            if (info.definition.level > UserManager.userInfo.level) //用户等级不满足
-            {
-                result = result | AwardExchangeErrorType.LevelNotEnough;
-            }
+            // if (info.definition.level > UserManager.userInfo.level) //用户等级不满足 //move todo
+            // {
+            //     result = result | AwardExchangeErrorType.LevelNotEnough;
+            // }
             if (!AwardDefined.GetInstance().getPrevIdIsNull(id))
             {
-                let preInfo: AwardTimesInfo = AwardManager.GetExchangeInfo(info.definition.preId);
-                limit = AwardManager.GetAwardLimit(info.definition.preId);
-                if (preInfo.times < limit) //前置未完成
+                let def = table.AwardById[info.id];
+                if (def)
                 {
-                    result = result | AwardExchangeErrorType.PreNotComplete;
+                    let preInfo: msg.IAwardGetInfo = AwardManager.GetExchangeInfo(def.PreId);
+                    limit = AwardManager.GetAwardLimit(def.PreId);
+                    if (preInfo && preInfo.count < limit) //前置未完成
+                    {
+                        result = result | AwardExchangeErrorType.PreNotComplete;
+                    }
                 }
             }
             return result;
@@ -153,23 +184,23 @@ class AwardManager
      */
     public static GetTimes(id: number): number
     {
-        let info: AwardTimesInfo = AwardManager.GetExchangeInfo(id);
+        let info: msg.IAwardGetInfo = AwardManager.GetExchangeInfo(id);
         if (info)
         {
-            return info.times;
+            return info.count;
         }
         return 0;
     }
     public static GetAwardLimit(awardId: number): number
     {
-        let def: AwardDefinition = AwardDefined.GetInstance().getDefinition(awardId);
+        let def: table.IAwardDefine = table.AwardById[awardId];
         if (def)
         {
-            if (game.StringUtil.isNullOrEmpty(def.costName))
-            {
-                return def.limit;
-            }
-            return 0;
+            // if (game.StringUtil.isNullOrEmpty(def.costName))  //move todo
+            // {
+            return def.Limit;
+            // } //move todo
+            // return 0; //move todo
         }
     }
     /**
@@ -177,34 +208,30 @@ class AwardManager
      */
     public static GetLastAlterDate(id: number): number
     {
-        let info: AwardTimesInfo = AwardManager.GetExchangeInfo(id);
+        let info: msg.IAwardGetInfo = AwardManager.GetExchangeInfo(id);
         if (info)
         {
-            return info.lastTime;
+            return info.time;
         }
         return 0;
     }
     /**
      * 获得兑换信息
      */
-    public static GetExchangeInfo(id: number): AwardTimesInfo
+    public static GetExchangeInfo(id: number): msg.IAwardGetInfo
     {
-        let info: AwardTimesInfo;
-        if (AwardManager._map.getValue(id))
-        {
-            info = AwardManager._map.getValue(id);
-        }
+        let info: msg.IAwardGetInfo = AwardManager._map[id];
         return info;
     }
     /**
      * 判断某个奖励是否达到限制次数上限
     */
-    public static isToLimit(awardDef: AwardDefinition): boolean
+    public static isToLimit(awardDef: table.IAwardDefine): boolean
     {
         if (awardDef)
         {
-            let info: AwardTimesInfo = AwardManager.GetExchangeInfo(awardDef.id);
-            if (info && info.times >= awardDef.limit)
+            let info: msg.IAwardGetInfo = AwardManager.GetExchangeInfo(awardDef.Id);
+            if (info && info.count >= awardDef.Limit)
             {
                 return true;
             }
@@ -214,17 +241,13 @@ class AwardManager
 
     private static Reset()
     {
-        AwardManager._map.clear();
-        let defDic: game.Map<number, AwardDefinition> = AwardDefined.GetInstance().awardDefinitionDic;
-        let keys: Array<number> = defDic.getKeys();
-        for (let i: number = 0; i < keys.length; i++)
+        AwardManager._awardInfoMap.clear();
+        AwardManager._costInfoMap.clear();
+        AwardManager._map = {};
+        for (let def of table.Award)
         {
-            let key = keys[i];
-            let info: AwardTimesInfo = new AwardTimesInfo();
-            info.id = key;
-            info.times = 0;
-            info.lastTime = TimeManager.Utc1970.getTime();
-            AwardManager._map.add(info.id, info);
+            let info: msg.IAwardGetInfo = { id: def.Id, count: 0, time: TimeManager.Utc1970.getTime()};
+            AwardManager._map[def.Id] = info;
         }
     }
 
@@ -236,18 +259,28 @@ class AwardManager
         let callback: Function = function (result: game.SpRpcResult)
         {
             let recordList: Array<AwardRecordInfo> = new Array<AwardRecordInfo>();
-            if (result.data["logList"])
+            if (result.data["loglist"])
             {
-                for (let info of result.data["logList"])
+                for (let info of result.data["loglist"])
                 {
                     let awardRecordInfo: AwardRecordInfo = new AwardRecordInfo();
-                    awardRecordInfo.copyValueFrom(info);
+
+                    awardRecordInfo.copyValueFromIgnoreCase(info);
                     recordList.push(awardRecordInfo);
                 }
             }
             AwardManager.getAwardRecordEvent.dispatch(recordList);
         }
-        SocketManager.call(Command.Award_Record_3713, { "logId": logId, "startId": startId, "count": count }, callback, null, this);
+        SocketManager.call(Command.C2GW_ReqAwardRecord, { "logid": logId, "startid": startId, "count": count }, callback, null, this);
+    }
+
+    public static getAwardInfoDefinitionList(id: number): AwardInfoDefinition[]
+    {
+        return this._awardInfoMap.getValue(id);
+    }
+    public static getCostInfoDefinitionList(id: number): AwardInfoDefinition[]
+    {
+        return this._costInfoMap.getValue(id);
     }
 
     /**

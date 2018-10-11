@@ -42,11 +42,11 @@ class MonthCardItemRenderer extends BaseItemRenderer<ShopInfo>
     /**
      * 领取的award信息
     */
-    private _bringAwardDef: AwardDefinition;
+    private _bringAwardDef: table.IAwardDefine;
     /**
      * 月卡的定义信息
     */
-    private _monthCardDefinition: AwardDefinition;
+    private _monthCardDefinition: table.IAwardDefine; 
 
     public constructor()
     {
@@ -58,21 +58,21 @@ class MonthCardItemRenderer extends BaseItemRenderer<ShopInfo>
         super.dataChanged();
         if (InfoUtil.checkAvailable(this.bindData))
         {
-            this.iconImg.source = this.bindData.definition.iconName + ResSuffixName.PNG;
-            this._monthCardDefinition = AwardDefined.GetInstance().getDefinition(this.bindData.definition.awardId);
+            this.iconImg.source = this.bindData.definition.IconName + ResSuffixName.PNG;
+            this._monthCardDefinition = table.AwardById[this.bindData.definition.AwardId];
             if (this._monthCardDefinition)
             {
-                if (this._monthCardDefinition.costList)
+                if (this._monthCardDefinition.CostId)
                 {
-                    this.costLabel.text = this._monthCardDefinition.costList[0].count / 100 + this.getDesByCostType(this._monthCardDefinition.costList[0].type);
+                    this.costLabel.text = this._monthCardDefinition.CostNum[0] / 100 + this.getDesByCostType(this._monthCardDefinition.CostType[0]);
                 }
-                this._bringAwardDef = AwardDefined.GetInstance().getAwardInfoByPreId(this._monthCardDefinition.id);
+                this._bringAwardDef = AwardDefined.GetInstance().getAwardInfoByPreId(this._monthCardDefinition.Id);
                 if (this._bringAwardDef)
                 {
-                    if (this._bringAwardDef.rewardList)
+                    if (this._bringAwardDef.RewardId)
                     {
-                        this.goldNumDesLabel.text = this._bringAwardDef.rewardList[0].count + "金币";
-                        this.goldNumLabel.text = this._bringAwardDef.rewardList[0].count.toString();
+                        this.goldNumDesLabel.text = this._bringAwardDef.RewardNum[0] + "金币";
+                        this.goldNumLabel.text = this._bringAwardDef.RewardNum[0].toString();
                     }
                 }
             }
@@ -133,7 +133,7 @@ class MonthCardItemRenderer extends BaseItemRenderer<ShopInfo>
     */
     private bringSuccess(id: number)
     {
-        if (this._bringAwardDef.id == id)
+        if (this._bringAwardDef.Id == id)
         {
             this.forbidBringBtn();
         }
@@ -143,7 +143,7 @@ class MonthCardItemRenderer extends BaseItemRenderer<ShopInfo>
     */
     private buySuccess(id: any)
     {
-        if (id == this._monthCardDefinition.id)
+        if (id == this._monthCardDefinition.Id)
         {
             this.setRendererInfo();
         }
@@ -164,7 +164,7 @@ class MonthCardItemRenderer extends BaseItemRenderer<ShopInfo>
         SoundManager.playEffect(MusicAction.buttonClick);
         if (this._bringAwardDef)
         {
-            AwardManager.Exchange(this._bringAwardDef.id);
+            AwardManager.Exchange(this._bringAwardDef.Id);
         }
     }
     /**
@@ -172,10 +172,10 @@ class MonthCardItemRenderer extends BaseItemRenderer<ShopInfo>
     */
     private getSurplusTime(): number
     {
-        let info: AwardTimesInfo = AwardManager.GetExchangeInfo(this.bindData.definition.awardId);
+        let info: msg.IAwardGetInfo = AwardManager.GetExchangeInfo(this.bindData.definition.AwardId);
         if (info)
         {
-            return info.lastTime - TimeManager.GetServerUtcTimestamp();
+            return info.time - TimeManager.GetServerUtcTimestamp();
         }
         return 0;
     }

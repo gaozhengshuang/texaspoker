@@ -138,13 +138,13 @@ class OrderDetailPanel extends BasePanel
     */
     private setBaseInfo()
     {
-        let itemDef: ItemDefinition = ItemDefined.GetInstance().getDefinition(this.panelData.itemId);
+        let itemDef: table.IItemBaseDataDefine = table.ItemBaseDataById[this.panelData.itemId];
         if (itemDef)
         {
             this.comItemIcon.init(this.panelData.itemId, 118, SheetSubName.GetItemBg);
-            this.nameLabel.text = itemDef.name;
-            this.desLabel.text = itemDef.des;
-            this.getTypeLabel.text = itemDef.extern;
+            this.nameLabel.text = itemDef.Name;
+            this.desLabel.text = itemDef.Des;
+            this.getTypeLabel.text = itemDef.Extern;
         }
     }
 }

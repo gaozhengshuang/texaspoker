@@ -51,17 +51,17 @@ class SignInPanel extends BaseActivityPanel
 	 */
 	private setDaysPrize(day: SignInDay, prizeLabel: eui.Label, prizeIcon: eui.Image)
 	{
-		let signinDef: SignInDefinition = SignInDefined.GetInstance().getDefinitionbySubId(day);
+		let signinDef: table.IActivity_signinDefine = SignInDefined.GetInstance().getDefinitionbySubId(day);
 		if (signinDef)
 		{
-			let awardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(signinDef.pilePrize);
-			if (awardDef && awardDef.rewardList)
+			let awardDef: table.IAwardDefine = table.AwardById[signinDef.PilePrize];
+			if (awardDef && awardDef.RewardId)
 			{
 				prizeLabel.text = ActivityManager.signInHandler.getAwardDes(awardDef);
-				let itemDef: ItemDefinition = ItemDefined.GetInstance().getDefinition(awardDef.rewardList[0].id);
+				let itemDef: table.IItemBaseDataDefine = table.ItemBaseDataById[awardDef.RewardId[0]];
 				if (itemDef)
 				{
-					prizeIcon.source = itemDef.icon + ResSuffixName.PNG;
+					prizeIcon.source = itemDef.Icon + ResSuffixName.PNG;
 				}
 			}
 		}

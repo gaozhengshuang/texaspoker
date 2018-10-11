@@ -41,9 +41,9 @@ func HttpServerResponseCallBack(w http.ResponseWriter, urlpath string, rawquery 
 func RequestUserHomeAddress(tvmid string, token string) ( receiver, phone, address string) {
 	//url := "https://open.yx.tvyouxuan.com/public/user/GetDeliveryAddresses"
 	//url := "http://open.std.tvmopt.com/public/user/GetDeliveryAddresses"
-	url := tbl.Global.HongBaoAPI.Getaddress
-	secret := tbl.Global.HongBaoAPI.Secret
-	key := tbl.Global.HongBaoAPI.Key
+	url := tbl.HongBaoAPI.Getaddress
+	secret := tbl.HongBaoAPI.Secret
+	key := tbl.HongBaoAPI.Key
 	mapset := make(map[string]interface{})
 	mapset["token"] = token
 	mapset["tvmid"] = tvmid
@@ -165,9 +165,9 @@ func RequestRecharge(tvmid string, token string, user *GateUser, amount int32) {
 	}
 	//url := "https://open.yx.tvyouxuan.com/public/finance/MultiRecharge"
 	//url := "http://open.std.tvmopt.com/public/finance/MultiRecharge"
-	url := tbl.Global.HongBaoAPI.Recharge
-	secret := tbl.Global.HongBaoAPI.Secret
-	key := tbl.Global.HongBaoAPI.Key
+	url := tbl.HongBaoAPI.Recharge
+	secret := tbl.HongBaoAPI.Secret
+	key := tbl.HongBaoAPI.Key
 	order_id := strconv.FormatInt(int64(user.Id()),10) + "_recharge_" + strconv.FormatInt(util.CURTIMEUS(), 10)
 	mapset := make(map[string]interface{})
 	mapset["token"] = token

@@ -10,7 +10,7 @@ class CommonIcon extends BaseComponent<any>
 
     public init(sourse: string, size?: number, bg?: string, isHighLight?: boolean, hideBg?: boolean);
     public init(itemId: number, size?: number, bg?: string, isHighLight?: boolean, hideBg?: boolean);
-    public init(awardDef: AwardDefinition, size?: number, bg?: string, isHighLight?: boolean, hideBg?: boolean);
+    public init(awardDef: table.IAwardDefine, size?: number, bg?: string, isHighLight?: boolean, hideBg?: boolean);
     public init(item: any, size?: number, bg?: string, isHighLight?: boolean, hideBg?: boolean)
     {
         if (typeof item == "string")
@@ -19,19 +19,19 @@ class CommonIcon extends BaseComponent<any>
         }
         else if (typeof item == "number")
         {
-            let def: ItemDefinition = ItemDefined.GetInstance().getDefinition(item);
+            let def: table.IItemBaseDataDefine = table.ItemBaseDataById[item];
             if (def)
             {
-                this.itemImg.source = def.icon + ResSuffixName.PNG;
+                this.itemImg.source = def.Icon + ResSuffixName.PNG;
             }
         }
-        else if (item && item.rewardList)
+        else if (item && (item as table.IAwardDefine).RewardId)
         {
-            let id: number = item.rewardList[0].id;
-            let def: ItemDefinition = ItemDefined.GetInstance().getDefinition(id);
+            let id: number = item.RewardId[0];
+            let def: table.IItemBaseDataDefine = table.ItemBaseDataById[id];
             if (def)
             {
-                this.itemImg.source = def.icon + ResSuffixName.PNG;
+                this.itemImg.source = def.Icon + ResSuffixName.PNG;
             }
         }
         if (size != undefined)

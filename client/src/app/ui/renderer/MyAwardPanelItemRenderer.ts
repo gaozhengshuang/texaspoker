@@ -9,7 +9,7 @@ class MyAwardPanelItemRenderer extends BaseItemRenderer<PrizeInfo>
     public takeDesLabel: eui.Label//奖品状态
     public takeErrorLabel: eui.Label//奖品返还提醒
 
-    private _itemDef: ItemDefinition;
+    private _itemDef: table.IItemBaseDataDefine;
     public comItemIcon: CommonIcon;
 
     public constructor()
@@ -22,37 +22,37 @@ class MyAwardPanelItemRenderer extends BaseItemRenderer<PrizeInfo>
         super.dataChanged();
         if (this.bindData)
         {
-            this._itemDef = ItemDefined.GetInstance().getDefinition(this.bindData.itemId);
+            this._itemDef = table.ItemBaseDataById[this.bindData.itemId];
             if (this._itemDef)
             {
-                this.bindData.effectType = this._itemDef.effectType;
+                this.bindData.effectType = this._itemDef.EffectType;
                 this.takePrizeBtn.visible = this.takeDesLabel.visible = this.itemDesLabel.visible = false;
-                this.comItemIcon.init(this._itemDef.icon + ResSuffixName.PNG, 88);
-                this.itemTitleLabel.text = this._itemDef.name;
+                this.comItemIcon.init(this._itemDef.Icon + ResSuffixName.PNG, 88);
+                this.itemTitleLabel.text = this._itemDef.Name;
                 this.takeErrorLabel.visible = false;
                 if (this.bindData.isGet == 1)  //未领取
                 {
                     this.takePrizeBtn.visible = this.itemDesLabel.visible = true;
-                    this.itemDesLabel.text = this._itemDef.des;
+                    this.itemDesLabel.text = this._itemDef.Des;
                 } else if (this.bindData.isGet == 2)  //已领取
                 {
                     this.takeDesLabel.visible = this.itemDesLabel.visible = true;
-                    this.itemDesLabel.text = this._itemDef.des;
+                    this.itemDesLabel.text = this._itemDef.Des;
                     if (this.bindData.state == PrizeState.Complete)
                     {
-                        if (this._itemDef.effectType == PrizeEffectType.Kind)
+                        if (this._itemDef.EffectType == PrizeEffectType.Kind)
                         {
                             this.takeDesLabel.text = "已发货";
-                        } else if (this._itemDef.effectType == PrizeEffectType.Cost)
+                        } else if (this._itemDef.EffectType == PrizeEffectType.Cost)
                         {
                             this.takeDesLabel.text = "已充值";
                         }
                     } else if (this.bindData.state == PrizeState.Underway)
                     {
-                        if (this._itemDef.effectType == PrizeEffectType.Kind)
+                        if (this._itemDef.EffectType == PrizeEffectType.Kind)
                         {
                             this.takeDesLabel.text = "等待发货";
-                        } else if (this._itemDef.effectType == PrizeEffectType.Cost)
+                        } else if (this._itemDef.EffectType == PrizeEffectType.Cost)
                         {
                             this.takeDesLabel.text = "充值中";
                         }
@@ -84,14 +84,14 @@ class MyAwardPanelItemRenderer extends BaseItemRenderer<PrizeInfo>
             AlertManager.showAlert("您尚未填写领奖信息，请填写后再领取奖品", this.skipToInfo);
         } else
         {
-            if (this._itemDef.effectType == PrizeEffectType.Kind)
+            if (this._itemDef.EffectType == PrizeEffectType.Kind)
             {
                 //实物订单确认界面
-                UIManager.showPanel(UIModuleName.PrizeOrderSurePanel, { id: this.bindData.itemId, type: PrizeEffectType.Kind, awardName: this._itemDef.name });
+                UIManager.showPanel(UIModuleName.PrizeOrderSurePanel, { id: this.bindData.itemId, type: PrizeEffectType.Kind, awardName: this._itemDef.Name });
             } else
             {
                 //话费订单确认界面
-                UIManager.showPanel(UIModuleName.PrizeOrderSurePanel, { id: this.bindData.itemId, type: PrizeEffectType.Cost, awardName: this._itemDef.name });
+                UIManager.showPanel(UIModuleName.PrizeOrderSurePanel, { id: this.bindData.itemId, type: PrizeEffectType.Cost, awardName: this._itemDef.Name });
             }
         }
     }

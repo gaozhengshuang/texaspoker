@@ -19,14 +19,14 @@ class MsgTransferSend
 				let writer:protobuf.Writer = cmdBody.encode(args);
 				let buffer = writer.finish();
 				data.buf = buffer;
-				data.uid = UserManager.userInfo.id;
+				data.uid = UserManager.userInfo.roleId;
 				if (sendFunc)
 				{
-					sendFunc(Command.C2RS_MsgTransfer, msg.C2RS_MsgTransfer.encode(data), onResult, onError, thisObj, cmdId);
+					sendFunc(Command.C2RS_MsgTransfer, data, onResult, onError, thisObj, cmdId);
 				}
 				else
 				{
-					SocketManager.call(Command.C2RS_MsgTransfer, msg.C2RS_MsgTransfer.encode(data), onResult, onError, thisObj, cmdId);
+					SocketManager.call(Command.C2RS_MsgTransfer, data, onResult, onError, thisObj, cmdId);
 				}
 			}
 			else

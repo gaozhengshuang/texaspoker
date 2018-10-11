@@ -23,7 +23,7 @@ class MttLogic
 		component.addonButton.visible = false;
 		component.rebuyButton.visible = false;
 
-		let leftTime: number = GamblingManager.matchRoomInfo.startTime + GamblingManager.matchRoomInfo.definition.delaySign - TimeManager.GetServerUtcTimestamp();
+		let leftTime: number = GamblingManager.matchRoomInfo.startTime + GamblingManager.matchRoomInfo.definition.DelaySign - TimeManager.GetServerUtcTimestamp();
 		if (leftTime > 0)
 		{
 			game.Tick.AddTimeoutInvoke(this.delaySignOver, leftTime * 1000, this)
@@ -62,7 +62,7 @@ class MttLogic
 	{
 		if (GamblingManager.matchRoomInfo && GamblingManager.matchRoomInfo.definition)
 		{
-			let leftTime: number = GamblingManager.matchRoomInfo.startTime + GamblingManager.matchRoomInfo.definition.delaySign - TimeManager.GetServerUtcTimestamp();
+			let leftTime: number = GamblingManager.matchRoomInfo.startTime + GamblingManager.matchRoomInfo.definition.DelaySign - TimeManager.GetServerUtcTimestamp();
 			if (leftTime <= 0)
 			{
 				if (GamblingManager.matchRoomInfo.leftJoin <= GamblingManager.matchRoomInfo.maxAwardRank)
@@ -92,7 +92,7 @@ class MttLogic
 	{
 		if (InfoUtil.checkAvailable(GamblingManager.roomInfo) && GamblingManager.roomInfo.gamblingType == GamblingType.Match)
 		{
-			if (info && info.roleId == UserManager.userInfo.id)
+			if (info && info.roleId == UserManager.userInfo.roleId)
 			{
 				this.onRebuyORAddonEvent();
 			}
@@ -144,7 +144,7 @@ class MttLogic
 	{
 		if (GamblingUtil.isMtt) 
 		{
-			let pInfo: PlayerInfo = GamblingManager.getPlayerInfo(UserManager.userInfo.id);
+			let pInfo: PlayerInfo = GamblingManager.getPlayerInfo(UserManager.userInfo.roleId);
 			if (pInfo && this._roundOverData && this._roundOverData.initbankRoll)
 			{
 				//这里需要判断本局是否有重购/增购 未增加的筹码
@@ -159,7 +159,7 @@ class MttLogic
 	{
 		if (InfoUtil.checkAvailable(GamblingManager.roomInfo) && GamblingManager.roomInfo.gamblingType == GamblingType.Match)
 		{
-			let pInfo: PlayerInfo = GamblingManager.getPlayerInfo(UserManager.userInfo.id);
+			let pInfo: PlayerInfo = GamblingManager.getPlayerInfo(UserManager.userInfo.roleId);
 			//这里需要判断本局是否有重购/增购 未增加的筹码
 			if (pInfo && (pInfo.bankRoll <= 0 || !pInfo.bankRoll) && (!GamblingManager.roomInfo.addbuy || GamblingManager.roomInfo.addbuy <= 0))
 			{

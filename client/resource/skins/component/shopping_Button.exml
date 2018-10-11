@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="shopping_ButtonSkin" xmlns:e="http://ns.egret.com/eui" width="164">
 	<e:Image id="btnImg" y="0" x="0" anchorOffsetX="0" anchorOffsetY="0" source="mall_button_1_png"/>
-	<e:Label id="labelDisplay" size="30" fontFamily="Microsoft YaHei" anchorOffsetX="0" anchorOffsetY="0" textColor="0xFFFFFF" y="0" text="按钮" width="164" height="52.17" name="label" verticalAlign="middle" textAlign="center" x="0"/>
+	<e:Label id="labelDisplay" size="30" fontFamily="Microsoft YaHei" anchorOffsetX="0" anchorOffsetY="0" textColor="0xFFFFFF" y="0" text="button" width="164" height="52.17" name="label" verticalAlign="middle" textAlign="center" x="0"/>
 </e:Skin>

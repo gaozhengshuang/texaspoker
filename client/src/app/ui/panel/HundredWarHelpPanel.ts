@@ -60,16 +60,16 @@ class HundredWarHelpPanel extends BasePanel
 
 	private setLabel(label: eui.Label, id: TextFixedId)
 	{
-		let def: TextDefinition = TextDefined.GetInstance().getDefinition(id);
+		let def: table.ITextDefine = table.TextById[id];
 		if (def)
 		{
-			if (def.isRichTxt)
+			if (def.IsRichTxt)
 			{
-				label.textFlow = game.TextUtil.parse(def.text);
+				label.textFlow = game.TextUtil.parse(def.Text);
 			}
 			else
 			{
-				label.text = def.text;
+				label.text = def.Text;
 			}
 		}
 	}

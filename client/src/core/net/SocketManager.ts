@@ -5,7 +5,7 @@ class SocketManager
 {
 	private static ResetRoleInfoErrorCode: number = 201;//重新获取角色数据错误码
 	private static HeartbeatInterval: number = 3000;//心跳包发送间隔时间，60秒
-	private static _ignoreError: Array<number>;
+	private static _ignoreError: Array<string>;
 	private static _lastSendTime: number;
 	/**
 	 * 重连时的服务器推送的session记录
@@ -16,11 +16,11 @@ class SocketManager
 	/// 添加忽略错误码处理
 	/// </summary>
 	/// <param name="error"></param>
-	public static AddIgnoreError(error: number)
+	public static AddIgnoreError(error: string)
 	{
 		if (!SocketManager._ignoreError)
 		{
-			SocketManager._ignoreError = new Array<number>();
+			SocketManager._ignoreError = new Array<string>();
 		}
 		if (SocketManager._ignoreError.indexOf(error) == -1)
 		{
@@ -31,7 +31,7 @@ class SocketManager
 	/// 移除忽略错误码处理
 	/// </summary>
 	/// <param name="error"></param>
-	public static RemoveIgnoreError(error: number)
+	public static RemoveIgnoreError(error: string)
 	{
 		game.ArrayUtil.RemoveItem(error, SocketManager._ignoreError)
 	}
@@ -71,7 +71,7 @@ class SocketManager
 		{
 			SocketManager._socket = new game.GameSocket();
 			SocketManager._socket.enabledErrorCode = (SocketManager._isEntering == false);
-			SocketManager._socket.addNormalError(SocketManager.ResetRoleInfoErrorCode);
+			// SocketManager._socket.addNormalError(SocketManager.ResetRoleInfoErrorCode); //move todo
 			SocketManager._socket.initialize(msgType);
 			SocketManager._socket.AddMessageListener(SocketManager.OnMessage, this);
 		}
@@ -462,31 +462,30 @@ class SocketManager
 			//客户端请求的返回
 			// SocketManager._heartbeatTime = egret.getTimer(); //move todo
 			UIManager.closePanel(UIModuleName.LoadingPanel);
-			if (result.error != 0)
+			if (!game.StringUtil.isNullOrEmpty(result.error))
 			{
-				if (result.error == SocketManager.ResetRoleInfoErrorCode)
+				// if (result.error == SocketManager.ResetRoleInfoErrorCode)
+				// {
+				// 	//当发送给服务器成功，在服务器返回之前断线，然后重连请求一样的session时候，重新拉数据
+				// 	GameManager.initServerHandler.AfreshGetInfo();
+				// }
+				// else
+				// {
+				if (!SocketManager._ignoreError || SocketManager._ignoreError.indexOf(result.error) == -1)
 				{
-					//当发送给服务器成功，在服务器返回之前断线，然后重连请求一样的session时候，重新拉数据
-					GameManager.initServerHandler.AfreshGetInfo();
-				}
-				else
-				{
-					if (!SocketManager._ignoreError || SocketManager._ignoreError.indexOf(result.error) == -1)
+					if (SocketManager._isEntering)
 					{
-						if (SocketManager._isEntering)
-						{
-							NetUtil.AlertResultError(result, SocketManager.OnClickEnterError);
-						}
-						else
-						{
-							NetUtil.AlertResultError(result);
-							SocketManager.OnResultError.dispatch(result.error);
-						}
+						NetUtil.AlertResultError(result, SocketManager.OnClickEnterError);
 					}
-					let message: string = ErrorDefined.GetInstance().getDetails(result.error);
-					let title = game.StringUtil.format("protocol:{0} code:{1}", result.cmdId, result.error);
-					game.Console.log(game.StringUtil.format("{0},描述：{1}", title, message));
+					else
+					{
+						NetUtil.AlertResultError(result);
+						SocketManager.OnResultError.dispatch(result.error);
+					}
 				}
+				let title = game.StringUtil.format("protocol:{0}", result.cmdId);
+				game.Console.log(game.StringUtil.format("{0},描述：{1}", title, result.error));
+				// }
 			}
 		}
 		else
@@ -665,7 +664,7 @@ class SocketManager
 		if (egret.getTimer() - SocketManager._heartbeatTime >= SocketManager.HeartbeatInterval)
 		{
 			SocketManager._heartbeatTime = egret.getTimer();
-			SocketManager._socket.SimpleCall(Command.C2GW_ReqHeartBeat, msg.C2GW_ReqHeartBeat.encode({}), SocketManager.OnHeartbeatServer, null, this);
+			SocketManager._socket.SimpleCall(Command.C2GW_ReqHeartBeat, {}, SocketManager.OnHeartbeatServer, null, this);
 			// SocketManager._socket.SimpleCall(Command.GW2C_RetHeartBeat, { sessionId: SocketManager._socket.requestSessionMax }, SocketManager.OnHeartbeatServer, null, this);
 		}
 	}

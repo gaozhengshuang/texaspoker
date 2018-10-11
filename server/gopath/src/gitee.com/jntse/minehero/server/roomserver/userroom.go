@@ -29,7 +29,7 @@ func (u *RoomUser) OnDestoryRoom() {
 	Redis().Del(fmt.Sprintf("userinroom_%d", u.Id()))
 	msgdestory := &msg.RS2GW_PushRoomDestory{Roomid:pb.Int64(u.RoomId()), Userid:pb.Int64(u.Id()), Bin:u.PackBin()}
 	u.SendMsg(msgdestory)
-	log.Trace("[房间] 销毁房间[%d] 回传玩家[%s %d]个人数据", u.RoomId(), u.Name(), u.Id()) 
+	log.Trace("[房间] 玩家[%s %d] 回传个人数据，房间销毁[%d]", u.Name(), u.Id(), u.RoomId())
 }
 
 // 离开房间
@@ -38,7 +38,7 @@ func (u *RoomUser) OnLeaveRoom() {
 	Redis().Del(fmt.Sprintf("userinroom_%d", u.Id()))
 	msgleave := &msg.RS2GW_UserLeaveRoom{Userid:pb.Int64(u.Id()), Bin:u.PackBin() }
 	u.SendMsg(msgleave)
-	log.Trace("[房间] 离开房间[%d] 回传玩家[%s %d]个人数据", u.RoomId(), u.Name(), u.Id()) 
+	log.Trace("[房间] 玩家[%s %d] 回传个人数据，离开房间[%d]", u.Name(), u.Id(), u.RoomId()) 
 }
 
 // 进房间之前
@@ -47,24 +47,32 @@ func (u *RoomUser) OnPreEnterRoom() {
 }
 
 // 进入房间
-func (u *RoomUser) OnEnterRoom() {
+func (u *RoomUser) OnEnterRoom(room IRoomBase) {
+	send := &msg.RS2GW_RetEnterRoom{
+		Userid:pb.Int64(u.Id()), 
+		Kind:pb.Int32(room.Kind()),
+		Roomid:pb.Int64(room.Id()), 
+		Roomtid:pb.Int32(room.Tid()),
+		Passwd:pb.String(room.Passwd()),
+		Errcode:pb.String(""),
+	}
+	u.SendMsg(send)
 }
 
 // 棋牌站起动作
 func (u *RoomUser) OnStandUp() {
-	send := &msg.RS2C_RetStandUp{}
-	u.SendClientMsg(send)
-	u.seatpos = 0
+	//send := &msg.RS2C_RetStandUp{}
+	//u.SendClientMsg(send)
+	//u.seatpos = 0
 }
 
 // 棋牌坐下动作
 func (u *RoomUser) OnSitDown(seat int32, errmsg string) {
-	u.SendClientMsg(&msg.RS2C_RetSitDown{Errcode:pb.String(errmsg)})
-	if errmsg != "" {
-		log.Info("[房间] 玩家[%s %d] 坐下房间[%d] 位置[%d] 错误[%s] ", u.Name(), u.Id(), u.RoomId(), seat, errmsg)
-		return
-	}
-
-	u.seatpos = seat
+	//u.SendClientMsg(&msg.RS2C_RetSitDown{Errcode:pb.String(errmsg)})
+	//if errmsg != "" {
+	//	log.Info("[房间] 玩家[%s %d] 坐下房间[%d] 位置[%d] 错误[%s] ", u.Name(), u.Id(), u.RoomId(), seat, errmsg)
+	//	return
+	//}
+	//u.seatpos = seat
 }
 

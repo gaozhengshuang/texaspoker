@@ -40,38 +40,63 @@ func NewC2GWMsgHandler() *C2GWMsgHandler {
 	return handler
 }
 
-func (this *C2GWMsgHandler) Init() {
+func (mh *C2GWMsgHandler) Init() {
 
-	this.msgparser = network.NewProtoParser("C2GW_MsgParser", tbl.ProtoMsgIndexGenerator)
-	if this.msgparser == nil {
+	mh.msgparser = network.NewProtoParser("C2GW_MsgParser", tbl.ProtoMsgIndexGenerator)
+	if mh.msgparser == nil {
 		return
 	}
 
 	// 收
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqLogin{}, on_C2GW_ReqLogin)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqHeartBeat{}, on_C2GW_ReqHeartBeat)
-	this.msgparser.RegistProtoMsg(msg.C2RS_MsgTransfer{}, on_C2RS_MsgTransfer)
-	this.msgparser.RegistProtoMsg(msg.C2GW_BuyItem{}, on_C2GW_BuyItem)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqDeliveryGoods{}, on_C2GW_ReqDeliveryGoods)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqUseBagItem{}, on_C2GW_ReqUseBagItem)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqRechargeMoney{}, on_C2GW_ReqRechargeMoney)
-	this.msgparser.RegistProtoMsg(msg.C2GW_PlatformRechargeDone{}, on_C2GW_PlatformRechargeDone)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqLogin{}, on_C2GW_ReqLogin)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqHeartBeat{}, on_C2GW_ReqHeartBeat)
+	mh.msgparser.RegistProtoMsg(msg.C2RS_MsgTransfer{}, on_C2RS_MsgTransfer)
+	mh.msgparser.RegistProtoMsg(msg.C2MS_MsgTransfer{}, on_C2MS_MsgTransfer)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_BuyItem{}, on_C2GW_BuyItem)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqDeliveryGoods{}, on_C2GW_ReqDeliveryGoods)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqUseBagItem{}, on_C2GW_ReqUseBagItem)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqRechargeMoney{}, on_C2GW_ReqRechargeMoney)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_PlatformRechargeDone{}, on_C2GW_PlatformRechargeDone)
 
-	this.msgparser.RegistProtoMsg(msg.C2GW_SendWechatAuthCode{}, on_C2GW_SendWechatAuthCode)
-	this.msgparser.RegistProtoMsg(msg.C2GW_StartLuckyDraw{}, on_C2GW_StartLuckyDraw)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTaskList{}, on_C2GW_ReqTaskList)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_SendWechatAuthCode{}, on_C2GW_SendWechatAuthCode)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_StartLuckyDraw{}, on_C2GW_StartLuckyDraw)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqTaskList{}, on_C2GW_ReqTaskList)
 	this.msgparser.RegistProtoMsg(msg.C2GW_ReqPlayerRoleInfo{}, on_C2GW_ReqPlayerRoleInfo)
 
 	// 地图事件
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqEnterEvents{}, on_C2GW_ReqEnterEvents)
-	this.msgparser.RegistProtoMsg(msg.C2GW_LeaveEvent{}, on_C2GW_LeaveEvent)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqEnterEvents{}, on_C2GW_ReqEnterEvents)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_LeaveEvent{}, on_C2GW_LeaveEvent)
 
 	// 游戏房间
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqCreateRoom{}, on_C2GW_ReqCreateRoom)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqEnterRoom{}, on_C2GW_ReqEnterRoom)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqLeaveRoom{}, on_C2GW_ReqLeaveRoom)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqUserRoomInfo{}, on_C2GW_ReqUserRoomInfo)
-	this.msgparser.RegistProtoMsg(msg.C2GW_ReqTexasRoomList{}, on_C2GW_ReqTexasRoomList)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqCreateRoom{}, on_C2GW_ReqCreateRoom)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqEnterRoom{}, on_C2GW_ReqEnterRoom)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqLeaveRoom{}, on_C2GW_ReqLeaveRoom)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqUserRoomInfo{}, on_C2GW_ReqUserRoomInfo)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqTexasRoomList{}, on_C2GW_ReqTexasRoomList)
+
+	// 邮件
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqMailList{}, on_C2GW_ReqMailList)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqTakeMailItem{}, on_C2GW_ReqTakeMailItem)
+
+	// 好友
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqFriendsList{}, on_C2GW_ReqFriendsList)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqAddFriend{}, on_C2GW_ReqAddFriend)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqRemoveFriend{}, on_C2GW_ReqRemoveFriend)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqFriendRequestList{}, on_C2GW_ReqFriendRequestList)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqProcessFriendRequest{}, on_C2GW_ReqProcessFriendRequest)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqPresentToFriend{}, on_C2GW_ReqPresentToFriend)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqGetFriendPresent{}, on_C2GW_ReqGetFriendPresent)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqFriendDetail{}, on_C2GW_ReqFriendDetail)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqFriendSearch{}, on_C2GW_ReqFriendSearch)
+
+	//活动
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqActivityInfo{}, on_C2GW_ReqActivityInfo)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqGetActivityReward{}, on_C2GW_ReqGetActivityReward)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqRankList{}, on_C2GW_ReqRankList)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqGetFreeGold{}, on_C2GW_ReqGetFreeGold)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqAwardExchange{}, on_C2GW_ReqAwardExchange)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqAwardRecord{}, on_C2GW_ReqAwardRecord)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqAwardGetInfo{}, on_C2GW_ReqAwardGetInfo)
 }
 
 // 客户端心跳
@@ -105,6 +130,19 @@ func on_C2GW_ReqHeartBeat(session network.IBaseNetSession, message interface{}) 
 	})
 }
 
+func on_C2MS_MsgTransfer(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2MS_MsgTransfer)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		return
+	}
+	if u.Id() != tmsg.GetUid() {
+		log.Error("玩家[%s %d] 消息转发只能带自己的玩家Id", u.Name(), u.Id())
+		return
+	}
+	Match().SendCmd(tmsg)
+}
+
 func on_C2RS_MsgTransfer(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2RS_MsgTransfer)
 	//msg_type := pb.MessageType(tmsg.GetName())
@@ -128,15 +166,15 @@ func on_C2RS_MsgTransfer(session network.IBaseNetSession, message interface{}) {
 	//}
 	//u.SendRoomMsg(protomsg.(pb.Message))
 	u := ExtractSessionUser(session)
+	// 不做解析转发到RoomServer
+	if u == nil {
+		return
+	}
 	if u.Id() != tmsg.GetUid() {
 		log.Error("玩家[%s %d] 消息转发只能带自己的玩家Id", u.Name(), u.Id())
 		return
 	}
 
-	// 不做解析转发到RoomServer
-	if u == nil {
-		return
-	}
 	if u.IsInRoom() == false {
 		log.Warn("消息转发失败，玩家[%s %d]没有在任何房间中", u.Name(), u.Id())
 		return
@@ -168,6 +206,11 @@ func on_C2GW_ReqEnterRoom(session network.IBaseNetSession, message interface{}) 
 		return
 	}
 
+	if u.Id() != tmsg.GetUserid() {
+		log.Error("[房间] 玩家[%s %d]请求进入房间，使用错误的id[%d]", u.Name(), u.Id(), tmsg.GetUserid())
+		return
+	}
+
 	roomid := tmsg.GetRoomid()
 	if roomid == 0 {
 		log.Error("[房间] 玩家[%s %d]请求进入无效的房间[%d]", u.Name(), u.Id(), roomid)
@@ -186,7 +229,7 @@ func on_C2GW_ReqEnterRoom(session network.IBaseNetSession, message interface{}) 
 	}
 
 	// 进入游戏房间
-	log.Info("玩家[%d] 请求进入房间[%d] ts[%d]", u.Id(), tmsg.GetRoomid(), util.CURTIMEMS())
+	log.Info("玩家[%s %d] 请求进入房间[%d] ts[%d]", u.Name(), u.Id(), tmsg.GetRoomid(), util.CURTIMEMS())
 	RoomSvrMgr().SendMsg(sid, tmsg)
 }
 
@@ -198,6 +241,11 @@ func on_C2GW_ReqLeaveRoom(session network.IBaseNetSession, message interface{}) 
 	if u == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
+		return
+	}
+
+	if u.Id() != tmsg.GetUserid() {
+		log.Error("[房间] 玩家[%s %d]请求离开房间，使用错误的id[%d]", u.Name(), u.Id(), tmsg.GetUserid())
 		return
 	}
 
@@ -389,7 +437,7 @@ func on_C2GW_SendWechatAuthCode(session network.IBaseNetSession, message interfa
 	log.Info("玩家[%d] 获取access_token 微信授权code[%s]", u.Id(), tmsg.GetCode())
 
 	//获取用户access_token 和 openid
-	appid, secret, code := tbl.Global.Wechat.AppID, tbl.Global.Wechat.AppSecret, tmsg.GetCode()
+	appid, secret, code := tbl.Wechat.AppID, tbl.Wechat.AppSecret, tmsg.GetCode()
 	url := fmt.Sprintf("https://api.weixin.qq.com/sns/oauth2/access_token?appid=%s&secret=%s&code=%s&grant_type=authorization_code",
 		appid, secret, code)
 	resp, errcode := network.HttpGet(url)
@@ -547,6 +595,131 @@ func on_C2GW_LeaveEvent(session network.IBaseNetSession, message interface{}) {
 	u.events.LeaveEvent(tmsg.GetUid())
 }
 
+// 个人邮件列表
+func on_C2GW_ReqMailList(session network.IBaseNetSession, message interface{}) {
+	//tmsg := message.(*msg.C2GW_ReqMailList)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.mailbox.SendMailList()
+}
+
+func on_C2GW_ReqTakeMailItem(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqTakeMailItem)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.mailbox.TakeMailItem(tmsg.GetUid())
+}
+
+// --------------------------------------------------------------------------
+/// @brief 好友
+// --------------------------------------------------------------------------
+func on_C2GW_ReqFriendsList(session network.IBaseNetSession, message interface{}) {
+	//tmsg := message.(*msg.C2GW_ReqFriendsList)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.friends.SendFriendList()
+}
+
+func on_C2GW_ReqRemoveFriend(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqRemoveFriend)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.friends.RequestRemoveFriend(tmsg.GetRoleid())
+}
+
+func on_C2GW_ReqAddFriend(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqAddFriend)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.friends.RequestAddFriend(tmsg.GetRoleid())
+}
+
+func on_C2GW_ReqFriendRequestList(session network.IBaseNetSession, message interface{}) {
+	//tmsg := message.(*msg.C2GW_ReqFriendRequestList)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.friends.SendFriendRequestList()
+}
+
+func on_C2GW_ReqProcessFriendRequest(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqProcessFriendRequest)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.friends.ProcessFriendRequest(tmsg.GetRoleid(), tmsg.GetIsaccept())
+}
+
+func on_C2GW_ReqPresentToFriend(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqPresentToFriend)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.friends.PresentToFriend(tmsg.GetRoleid())
+}
+
+func on_C2GW_ReqGetFriendPresent(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqGetFriendPresent)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.friends.GetFriendPresent(tmsg.GetRoleid())
+}
+
+func on_C2GW_ReqFriendDetail(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqFriendDetail)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.friends.SendFriendDetail(tmsg.GetRoleid())
+}
+
+func on_C2GW_ReqFriendSearch(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqFriendSearch)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.SearchUser(tmsg.GetVal())
+}
+
 func on_C2GW_ReqTaskList(session network.IBaseNetSession, message interface{}) {
 	//tmsg := message.(*msg.C2GW_ReqTaskList)
 	u := ExtractSessionUser(session)
@@ -572,4 +745,89 @@ func on_C2GW_ReqPlayerRoleInfo(session network.IBaseNetSession, message interfac
 	}
 	send := StatisticsMgr().GetPlayerRoleInfo(tmsg.GetRoleid())
 	u.SendMsg(send)
+}
+
+func on_C2GW_ReqActivityInfo(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqActivityInfo)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	id := tmsg.GetId()
+	u.OnReqActivityInfo(id)
+}
+
+func on_C2GW_ReqGetActivityReward(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqGetActivityReward)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	id := tmsg.GetId()
+	subid := tmsg.GetSubid()
+	u.OnReqGetActivityReward(id, subid)
+}
+
+func on_C2GW_ReqRankList(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqRankList)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	_type := tmsg.GetType()
+	_rank := tmsg.GetRank()
+	u.ReqRankListByType(_type, _rank)
+}
+
+func on_C2GW_ReqGetFreeGold(session network.IBaseNetSession, message interface{}) {
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.GetFreeGold()
+}
+
+func on_C2GW_ReqAwardExchange(session network.IBaseNetSession, message interface{}) {
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	tmsg := message.(*msg.C2GW_ReqAwardExchange)
+	id := tmsg.GetId()
+	count := tmsg.GetCount()
+	u.ReqAwardExchange(id, count)
+}
+
+func on_C2GW_ReqAwardRecord(session network.IBaseNetSession, message interface{}) {
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	tmsg := message.(*msg.C2GW_ReqAwardRecord)
+	logid := tmsg.GetLogid()
+	startid := tmsg.GetStartid()
+	count := tmsg.GetCount()
+	u.GetRewardRecordByLogid(logid,startid,count)
+}
+
+func on_C2GW_ReqAwardGetInfo(session network.IBaseNetSession, message interface{}) {
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.GetAwardGetInfo()
 }

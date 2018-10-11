@@ -21,7 +21,7 @@ class Main extends eui.UILayer
             egret.TextField.default_fontFamily = 'Microsoft YaHei';
         }
         RES.setMaxLoadingThread(game.System.isMicro ? 8 : 4);
-        game.I18n.initSystem(PrefsManager.getValue(PrefsManager.Language), OperatePlatform.getLangs());
+        I18n.initSystem(PrefsManager.getValue(PrefsManager.Language), OperatePlatform.getLangs());
         //注入自定义的素材解析器
         egret.registerImplementation("eui.IAssetAdapter", new AssetAdapter());
         egret.registerImplementation("eui.IThemeAdapter", new ThemeAdapter());
@@ -30,7 +30,6 @@ class Main extends eui.UILayer
     }
     private async startLoadConfig()
     {
-        console.log("test1111");
         if (game.System.isWeb || game.System.isMicro)
         {
             await RES.loadConfig(WebConfig.resUrl + WebConfig.defaultResJson, WebConfig.resUrl + 'resource/');
@@ -46,7 +45,7 @@ class Main extends eui.UILayer
      */
     private async onConfigComplete()
     {
-        if (game.I18n.isDefault)
+        if (I18n.isDefault)
         {
             this.loadAssetText();
         }
@@ -54,11 +53,13 @@ class Main extends eui.UILayer
         {
             if (DEBUG)
             {
-                await RES.getResByUrl(PathName.LangDirectory + game.I18n.lang + AssetsSuffixName.JSON, this.onLangComplete, this);
+                await RES.getResByUrl(PathName.LangDirectory + I18n.lang + AssetsSuffixName.JSON, this.onLangComplete, this);
             }
             else
             {
-                await RES.getResAsync(ResPrefixPathName.Lang + game.I18n.lang + ResSuffixName.ZIP);
+                let langName = ResPrefixPathName.Lang + I18n.lang + ResSuffixName.ZIP;
+                // langName = ResPrefixPathName.Lang + "zh-tw" + ResSuffixName.ZIP;
+                await RES.getResAsync(langName, this.onLangZipComplete, this);
             }
         }
     }
@@ -66,13 +67,23 @@ class Main extends eui.UILayer
     {
         if (data)
         {
-            game.I18n.initMap(data);
+            I18n.initMap(data);
         }
         this.loadAssetText();
     }
+    private async onLangZipComplete(data: any)
+    {
+        JSZip.loadAsync(data).then(function (zip)
+        {
+            return zip.file(I18n.lang + ".json").async("text");
+        }).then(function (text)
+        {
+            this.onLangComplete(text);
+        });
+    }
     private async loadAssetText()
     {
-        let name = game.I18n.isDefault ? ResGroupName.Text : ResGroupName.Text + game.StringConstants.UnderLine + game.I18n.lang;
+        let name = I18n.isDefault ? ResGroupName.Text : ResGroupName.Text + game.StringConstants.UnderLine + I18n.lang;
         await RES.loadGroup(name);
         await this.loadTheme();
         await RES.loadGroup(ResGroupName.Login);
@@ -105,14 +116,20 @@ class Main extends eui.UILayer
 
     private createScene()
     {
-        this.setLoadingText(game.I18n.getText('正在进入游戏...'));
+        this.setLoadingText('正在进入游戏...');
+        this.configInitialize();
         GameManager.initialize(this.stage, this);
         UIManager.initialize(this.stage);
         game.Tick.initialize(this.stage);
         SceneManager.initialize();
-
         ChannelManager.OnInitComplete.addListener(this.OnChannelInitComplete, this);
         ChannelManager.initialize();
+    }
+    private configInitialize()
+    {
+        TextDefined.GetInstance().initialize();
+        ActivityDefined.GetInstance().initialize();
+        MorePlayDefined.GetInstance().initialize();
     }
     private OnChannelInitComplete()
     {

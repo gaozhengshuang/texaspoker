@@ -50,7 +50,7 @@ class GuessPanel extends BasePanel
     public txtGroup: eui.Group;
 
     private _contentList: Array<string>;
-    private _def: TextDefinition;
+    private _def: table.ITextDefine;
     private _txtCount: number = 24;
     public _lastShowContainer: any;
     /**
@@ -165,7 +165,7 @@ class GuessPanel extends BasePanel
     */
     private refreshGoldNum()
     {
-        let playInfo: PlayerInfo = GamblingManager.getPlayerInfo(UserManager.userInfo.id);
+        let playInfo: PlayerInfo = GamblingManager.getPlayerInfo(UserManager.userInfo.roleId);
         if (playInfo)
         {
             let bankRoll: number = playInfo.bankRoll;  //桌内的筹码             
@@ -303,11 +303,11 @@ class GuessPanel extends BasePanel
     */
     private setHelpInfo()
     {
-        this._def = TextDefined.GetInstance().getDefinition(TextFixedId.GuessHelp);
+        this._def = table.TextById[TextFixedId.GuessHelp];
         if (this._def)
         {
-            this.helpTitleLabel.textFlow = game.TextUtil.parse(this._def.title);
-            this.txtLabel.textFlow = game.TextUtil.parse(this._def.text);
+            this.helpTitleLabel.textFlow = game.TextUtil.parse(this._def.Title);
+            this.txtLabel.textFlow = game.TextUtil.parse(this._def.Text);
             this.txtGroup.visible = true;
             this._lastShowContainer = this.txtGroup;
         }

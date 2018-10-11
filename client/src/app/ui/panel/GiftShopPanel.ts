@@ -77,7 +77,7 @@ class GiftShopPanel extends BasePanel
 		if (appendData)
 		{
 			this._userInfo = appendData.userInfo;
-			ShopManager.giftShopIsSelf = this._userInfo.id == UserManager.userInfo.id;
+			ShopManager.giftShopIsSelf = this._userInfo.roleId == UserManager.userInfo.roleId;
 			if (appendData.tab == null)
 			{
 				appendData.tab = 0;
@@ -141,7 +141,7 @@ class GiftShopPanel extends BasePanel
 
 	private refreshUI()
 	{
-		this.buyBtn.label = this._userInfo.id == UserManager.userInfo.id ? "购买" : "赠送";
+		this.buyBtn.label = this._userInfo.roleId == UserManager.userInfo.roleId ? "购买" : "赠送";
 		this.buyBtn.enabled = ShopManager.giftShopSelect ? true : false;
 		this.goldNumLabel.text = game.MathUtil.formatNum(UserManager.userInfo.gold);
 		this.diamondNumLabel.text = game.MathUtil.formatNum(UserManager.userInfo.diamond);
@@ -263,7 +263,7 @@ class GiftShopPanel extends BasePanel
 				break;
 		}
 		this.vipTimeLabel.text = game.DateTimeUtil.formatDate(new Date(VipManager.GetVipTime(userInfo) * 1000), game.DateTimeUtil.Format_Standard_Date);
-		this.buyVipButton.visible = userInfo.id == UserManager.userInfo.id;
+		this.buyVipButton.visible = userInfo.roleId == UserManager.userInfo.roleId;
 		this.vipProgressImg.width = 560;
 		this.vipProgressImg.width *= game.MathUtil.clamp(parseFloat((userInfo.vipExp / 6000).toFixed(2)), 0, 1);
 		this.vipProgressLabel.text = userInfo.vipExp.toString();

@@ -88,7 +88,7 @@ class ShareLuckDrawPanel extends BaseActivityPanel
             }
         }
 
-        this.desLabel.text = this.activityInfo.definition.des;
+        // this.desLabel.text = this.activityInfo.definition.des;  //move todo
         this.drawBtn.enabled = true;
         this.reqResultInfo();
     }
@@ -125,19 +125,19 @@ class ShareLuckDrawPanel extends BaseActivityPanel
     */
     private setAwardInfo()
     {
-        let dataList: Array<ActivityShareDefintion> = ActivityShareDefined.GetInstance().dataList;
-        if (dataList && this.itemList)
-        {
-            for (let i: number = 0; i < this.itemList.length; i++)
-            {
-                let data: ActivityShareDefintion = dataList[i];
-                if (data.rewardList && data.rewardList.length > 0)
-                {
-                    let rewardInfo: AwardInfoDefinition = data.rewardList[0];
-                    this.itemList[i].init(rewardInfo.id, rewardInfo.count);
-                }
-            }
-        }
+        // let dataList: Array<ActivityShareDefintion> = ActivityShareDefined.GetInstance().dataList;  //move todo
+        // if (dataList && this.itemList)
+        // {
+        //     for (let i: number = 0; i < this.itemList.length; i++)
+        //     {
+        //         let data: ActivityShareDefintion = dataList[i];
+        //         if (data.rewardList && data.rewardList.length > 0)
+        //         {
+        //             let rewardInfo: AwardInfoDefinition = data.rewardList[0];
+        //             this.itemList[i].init(rewardInfo.id, rewardInfo.count);
+        //         }
+        //     }
+        // }
     }
     /**
      * 请求中奖结果
@@ -158,13 +158,13 @@ class ShareLuckDrawPanel extends BaseActivityPanel
             {
                 let resultInfo: ChampionshipRankInfo = new ChampionshipRankInfo();
                 resultInfo.copyValueFrom(info);
-                let def: ActivityShareDefintion = ActivityShareDefined.GetInstance().getSubDefinition(this.activityInfo.id, info.subId);
-                if (def)
-                {
-                    let rewardInfo: AwardInfoDefinition = def.rewardList[0];
-                    resultInfo.award = ItemDefined.GetInstance().getDefinition(rewardInfo.id).name + "*" + rewardInfo.count;
-                    this.resultList.push(resultInfo);
-                }
+                // let def: ActivityShareDefintion = ActivityShareDefined.GetInstance().getSubDefinition(this.activityInfo.id, info.subId);  //move todo
+                // if (def)
+                // {
+                //     let rewardInfo: AwardInfoDefinition = def.rewardList[0];
+                //     resultInfo.award = table.ItemBaseDataById[rewardInfo.id).name + "*" + rewardInfo.count;
+                //     this.resultList.push(resultInfo);
+                // }
             }
         }
         if (this.resultList && this.resultList.length > 0)
@@ -284,15 +284,15 @@ class ShareLuckDrawPanel extends BaseActivityPanel
             if (this.activityInfo.step > 0 && !(this.activityInfo.gotJsonObj.length && this.activityInfo.gotJsonObj.length > 0))  //step代表抽奖次数
             {
                 // 请求参与活动
-                let def: ActivityShareDefintion = ActivityShareDefined.GetInstance().getDefinition(this.activityInfo.id);
-                let id: number;
-                let subId: number;
-                if (def)
-                {
-                    id = def.id;
-                    subId = def.subId;
-                    ActivityManager.reqJoinActivity(def.id, def.subId);
-                }
+                // let def: ActivityShareDefintion = ActivityShareDefined.GetInstance().getDefinition(this.activityInfo.id); //move todo
+                // let id: number;
+                // let subId: number;
+                // if (def)
+                // {
+                //     id = def.Id;
+                //     subId = def.SubId;
+                //     ActivityManager.reqJoinActivity(def.Id, def.SubId);
+                // }
                 this.drawBtn.enabled = false;
             } else
             {
@@ -459,18 +459,18 @@ class ShareLuckDrawPanel extends BaseActivityPanel
         }
         if (this._subId)  //更新抽奖结果
         {
-            let def: ActivityShareDefintion = ActivityShareDefined.GetInstance().getSubDefinition(this.activityInfo.id, this._subId);
-            if (def)
-            {
-                if (def.hotTag && def.rewardList && def.rewardList.length > 0)
-                {
-                    let result: ChampionshipRankInfo = new ChampionshipRankInfo();
-                    let rewardInfo: AwardInfoDefinition = def.rewardList[0];
-                    result.name = UserManager.userInfo.name;
-                    result.award = ItemDefined.GetInstance().getDefinition(rewardInfo.id).name + "*" + rewardInfo.count;
-                    this.refreshResultInfo(result);
-                }
-            }
+            // let def: ActivityShareDefintion = ActivityShareDefined.GetInstance().getSubDefinition(this.activityInfo.id, this._subId);  //move todo
+            // if (def)
+            // {
+            //     if (def.hotTag && def.rewardList && def.rewardList.length > 0)
+            //     {
+            //         let result: ChampionshipRankInfo = new ChampionshipRankInfo();
+            //         let rewardInfo: AwardInfoDefinition = def.rewardList[0];
+            //         result.name = UserManager.userInfo.name;
+            //         result.award = table.ItemBaseDataById[rewardInfo.id).name + "*" + rewardInfo.count;
+            //         this.refreshResultInfo(result);
+            //     }
+            // }
         }
     }
 }

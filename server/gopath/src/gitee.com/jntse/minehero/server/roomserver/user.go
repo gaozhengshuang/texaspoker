@@ -1,18 +1,19 @@
 package main
+
 import (
-	"gitee.com/jntse/minehero/pbmsg"
-	"gitee.com/jntse/minehero/server/tbl"
-	_"gitee.com/jntse/minehero/server/tbl/excel"
-	_"gitee.com/jntse/minehero/server/def"
-	"gitee.com/jntse/gotoolkit/net"
-	"gitee.com/jntse/gotoolkit/log"
-	"gitee.com/jntse/gotoolkit/util"
-	"gitee.com/jntse/gotoolkit/eventqueue"
-	pb "github.com/gogo/protobuf/proto"
 	"fmt"
-	_"strings"
-	"strconv"
+	"gitee.com/jntse/gotoolkit/eventqueue"
+	"gitee.com/jntse/gotoolkit/log"
+	"gitee.com/jntse/gotoolkit/net"
+	"gitee.com/jntse/gotoolkit/util"
+	"gitee.com/jntse/minehero/pbmsg"
+	"gitee.com/jntse/minehero/server/def"
+	"gitee.com/jntse/minehero/server/tbl"
+	_ "gitee.com/jntse/minehero/server/tbl/excel"
 	"github.com/go-redis/redis"
+	pb "github.com/gogo/protobuf/proto"
+	"strconv"
+	_ "strings"
 	"time"
 )
 
@@ -20,31 +21,31 @@ import (
 /// @brief 玩家信息
 // --------------------------------------------------------------------------
 type RoomUser struct {
-	agentname	string
-	agentid 	int
-	bin 		*msg.Serialize
-	bag 		UserBag
-	task       	UserTask
-	token		string
-	ticker1s  	*util.GameTicker
-	ticker10ms  *util.GameTicker
-	asynev      eventque.AsynEventQueue // 异步事件处理
+	agentname      string
+	agentid        int
+	bin            *msg.Serialize
+	bag            UserBag
+	task           UserTask
+	token          string
+	ticker1s       *util.GameTicker
+	ticker10ms     *util.GameTicker
+	asynev         eventque.AsynEventQueue // 异步事件处理
 	invitationcode string
-	synbalance	bool
-	bulletid 	int64
-	energy		int64
-	save_amt	int64
-	maxenergy	int64
-	gamekind  	int32
-	roomid    	int64	// 房间id
-	seatpos 	int32	// 座位号
-
+	synbalance     bool
+	bulletid       int64
+	energy         int64
+	save_amt       int64
+	maxenergy      int64
+	gamekind       int32
+	roomid         int64 // 房间id
+	isai           bool
+	arvalues		def.AutoResetValues
 }
 
 func NewRoomUser(rid int64, b *msg.Serialize, gate network.IBaseNetSession, gamekind int32) *RoomUser {
-	user := &RoomUser{roomid:rid, bin:b, agentid:gate.Id(), agentname:gate.Name(), gamekind:gamekind}
-	user.ticker1s = util.NewGameTicker(1 * time.Second, user.Handler1sTick)
-	user.ticker10ms = util.NewGameTicker(10 * time.Millisecond, user.Handler10msTick)
+	user := &RoomUser{roomid: rid, bin: b, agentid: gate.Id(), agentname: gate.Name(), gamekind: gamekind}
+	user.ticker1s = util.NewGameTicker(1*time.Second, user.Handler1sTick)
+	user.ticker10ms = util.NewGameTicker(10*time.Millisecond, user.Handler10msTick)
 	user.ticker1s.Start()
 	user.ticker10ms.Start()
 	user.bag.Init(user)
@@ -53,6 +54,31 @@ func NewRoomUser(rid int64, b *msg.Serialize, gate network.IBaseNetSession, game
 	user.task.LoadBin(b)
 	user.asynev.Start(int64(user.Id()), 10)
 	user.maxenergy = tbl.Game.MaxEnergy
+	user.arvalues.Init()
+	user.arvalues.LoadBin(user.bin.Base.Arvalues)
+	return user
+}
+
+func NewRoomUserAI(id int64, name string, sex int32) *RoomUser {
+	user := &RoomUser{}
+	user.bin = new(msg.Serialize)
+	user.bin.Entity = &msg.EntityBase{Roleid: pb.Int64(id),
+		Name: pb.String(name),
+		Sex:  pb.Int32(sex),
+		Gold: pb.Int32(100000),
+		Head: pb.String(""),
+	}
+	user.bin.Base = &msg.UserBase{}
+	user.bin.Base.Misc = &msg.UserMiscData{}
+	user.bin.Base.Statics = &msg.UserStatistics{}
+	user.bin.Base.Sign = &msg.UserSignIn{}
+	user.bin.Base.Wechat = &msg.UserWechat{}
+	user.bin.Item = &msg.ItemBin{}
+	user.bin.Base.Addrlist = make([]*msg.UserAddress, 0)
+	user.bin.Base.Task = &msg.UserTask{}
+	user.bin.Base.Luckydraw = &msg.LuckyDrawRecord{Drawlist: make([]*msg.LuckyDrawItem, 0)}
+	user.isai = true
+	user.arvalues.Init()
 	return user
 }
 
@@ -65,7 +91,7 @@ func (u *RoomUser) UserBase() *msg.UserBase {
 }
 
 func (u *RoomUser) Id() int64 {
-	return u.Entity().GetId()
+	return u.Entity().GetRoleid()
 }
 
 func (u *RoomUser) Name() string {
@@ -100,10 +126,6 @@ func (u *RoomUser) RoomId() int64 {
 	return u.roomid
 }
 
-func (u *RoomUser) Seat() int32 {
-	return u.seatpos
-}
-
 func (u *RoomUser) OpenId() string {
 	userbase := u.UserBase()
 	return userbase.GetWechat().GetOpenid()
@@ -119,7 +141,6 @@ func (u *RoomUser) SetTotalRecharge(r int32) {
 	userbase.Statics.Totalrecharge = pb.Int32(r)
 }
 
-
 // 邀请人邀请码
 func (u *RoomUser) InvitationCode() string {
 	userbase := u.UserBase()
@@ -129,7 +150,7 @@ func (u *RoomUser) InvitationCode() string {
 // 邀请人
 func (u *RoomUser) Inviter() int64 {
 	if code := u.InvitationCode(); len(code) > 2 {
-		inviter , _ := strconv.ParseInt(code[2:], 10, 64)
+		inviter, _ := strconv.ParseInt(code[2:], 10, 64)
 		return inviter
 	}
 	return 0
@@ -161,7 +182,7 @@ func (u *RoomUser) SetExp(num int32) {
 
 // 添加经验
 func (u *RoomUser) AddExp(num int32, reason string, syn bool) {
-	old, exp := u.Level(), u.Exp() + num
+	old, exp := u.Level(), u.Exp()+num
 	for {
 		lvlbase, ok := tbl.LevelBasee.TLevelById[u.Level()]
 		if ok == false {
@@ -178,17 +199,19 @@ func (u *RoomUser) AddExp(num int32, reason string, syn bool) {
 	}
 	u.SetExp(exp)
 	//if syn == true { u.SendBattleUser() }
-
+	u.SyncLevelRankRedis()
 	log.Info("玩家[%d] 添加经验[%d] 老等级[%d] 新等级[%d] 经验[%d] 原因[%s]", u.Id(), num, old, u.Level(), u.Exp(), reason)
 }
 
 // 升级
 func (u *RoomUser) OnLevelUp() {
 	u.AddLevel(1)
-	
+
 	//升级拿元宝
 	lvlbase, ok := tbl.LevelBasee.TLevelById[u.Level()-1]
-	if ok == true { u.AddYuanbao(int32(lvlbase.Reward), "升级奖元宝") }
+	if ok == true {
+		u.AddYuanbao(int32(lvlbase.Reward), "升级奖元宝")
+	}
 }
 
 // 打包二进制数据
@@ -207,35 +230,39 @@ func (u *RoomUser) PackBin() *msg.Serialize {
 	u.bag.PackBin(bin)
 	u.task.PackBin(bin)
 	//u.image.PackBin(bin)
-
+	u.PackAutoResetValues(bin)
 
 	return bin
 }
 
 func (u *RoomUser) SendMsg(m pb.Message) bool {
-	if u.agentid == 0 {
-		log.Fatal("SendMsg", m)
+	if u.isai == true {
 		return false
 	}
-
-	return RoomSvr().SendMsg(u.agentid , m)
+	if u.agentid == 0 {
+		log.Fatal("玩家[%s %d] 没有网关agentid，不能发送消息", u.Name(), u.Id())
+		return false
+	}
+	return RoomSvr().SendMsg(u.agentid, m)
 }
-
 
 // 转发消息到gate
 func (u *RoomUser) SendClientMsg(m pb.Message) bool {
+	if u.isai == true {
+		return false
+	}
 	name := pb.MessageName(m)
-	if name == "" { 
+	if name == "" {
 		log.Fatal("SendClientMsg 获取proto名字失败[%s]", m)
-		return false 
+		return false
 	}
 	msgbuf, err := pb.Marshal(m)
-	if err != nil { 
+	if err != nil {
 		log.Fatal("SendClientMsg 序列化proto失败[%s][%s]", name, err)
-		return false 
+		return false
 	}
 
-	send := &msg.RS2GW_MsgTransfer{ Uid:pb.Int64(u.Id()), Name:pb.String(name), Buf:msgbuf }
+	send := &msg.RS2GW_MsgTransfer{Uid: pb.Int64(u.Id()), Name: pb.String(name), Buf: msgbuf}
 	return u.SendMsg(send)
 }
 
@@ -252,19 +279,28 @@ func (u *RoomUser) UpdateGateAgent(agent network.IBaseNetSession) {
 	u.agentname = agent.Name()
 	log.Info("玩家[%s %d] 上线更新GateAgent信息[%s %d]", u.Name(), u.Id(), agent.Name(), agent.Id())
 }
- 
+
 func (u *RoomUser) GetGold() int32 {
-	return u.Entity().GetGold()
+	//return u.Entity().GetGold()
+	gold := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "gold").Val())
+	return gold
 }
 
 func (u *RoomUser) RemoveGold(gold int32, reason string, syn bool) bool {
-	if u.GetGold() >= gold {
-		entity := u.Entity()
-		entity.Gold = pb.Int32(u.GetGold() - gold)
-		if syn { u.SendGold() }
-		log.Info("玩家[%d] 扣除金币[%d] 库存[%d] 原因[%s]", u.Id(), gold, u.GetGold(), reason)
+	if u.isai == true {
+		return true
+	}
+	goldsrc := u.GetGold()
+	if goldsrc >= gold {
+		newgold := goldsrc - gold
+		Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "gold", newgold)
+		if syn {
+			u.SendPropertyChange()
+		}
+		log.Info("玩家[%d] 扣除金币[%d] 库存[%d] 原因[%s]", u.Id(), gold, newgold, reason)
 
 		RCounter().IncrByDate("item_remove", int32(msg.ItemId_Gold), gold)
+		u.SyncGoldRankRedis()
 		return true
 	}
 	log.Info("玩家[%d] 扣除金币失败[%d] 原因[%s]", u.Id(), gold, reason)
@@ -272,29 +308,61 @@ func (u *RoomUser) RemoveGold(gold int32, reason string, syn bool) bool {
 }
 
 func (u *RoomUser) AddGold(gold int32, reason string, syn bool) {
-	entity := u.Entity()
-	entity.Gold = pb.Int32(u.GetGold() + gold)
-	if syn { u.SendPropertyChange() }
-	log.Info("玩家[%d] 添加金币[%d] 库存[%d] 原因[%s]", u.Id(), gold, u.GetGold(), reason)
+	//entity := u.Entity()
+	//entity.Gold = pb.Int32(u.GetGold() + gold)
+	if u.isai == true {
+		return 
+	}
+	goldsrc := u.GetGold()
+	newgold := goldsrc + gold
+	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "gold", newgold)
+	if syn {
+		u.SendPropertyChange()
+	}
+	u.SyncGoldRankRedis()
+	log.Info("玩家[%d] 添加金币[%d] 库存[%d] 原因[%s]", u.Id(), gold, newgold, reason)
 }
 
 func (u *RoomUser) SetGold(gold int32, reason string, syn bool) {
-	entity := u.Entity()
-	entity.Gold = pb.Int32(gold)
-	if syn { u.SendPropertyChange() }
-	log.Info("玩家[%d] 设置金币[%d] 库存[%d] 原因[%s]", u.Id(), gold, u.GetGold(), reason)
+	//entity := u.Entity()
+	//entity.Gold = pb.Int32(gold)
+	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "gold", gold)
+	if syn {
+		u.SendPropertyChange()
+	}
+	u.SyncGoldRankRedis()
+	log.Info("玩家[%d] 设置金币[%d] 库存[%d] 原因[%s]", u.Id(), gold, gold, reason)
+}
+
+//同步玩家金币到redis排行榜
+func (u *RoomUser) SyncGoldRankRedis() {
+	//机器人不参与排行榜
+	if u.isai == true {
+		return
+	}
+	zMem := redis.Z{Score: float64(u.GetGold()), Member: u.Id()}
+	Redis().ZAdd("zGoldRank", zMem)
+}
+
+//同步玩家等级到redis排行榜
+func (u *RoomUser) SyncLevelRankRedis() {
+	if u.isai == true {
+		return
+	}
+	score := u.Level() * 1000000 + u.Exp()
+	zMem := redis.Z{Score: float64(score), Member: u.Id()}
+	Redis().ZAdd("zLevelRank", zMem)
 }
 
 func (u *RoomUser) SendGold() {
-	send := &msg.GW2C_PushGoldUpdate{Num:pb.Int32(u.GetGold())}
+	send := &msg.GW2C_PushGoldUpdate{Num: pb.Int32(u.GetGold())}
 	u.SendClientMsg(send)
 }
 
 func (u *RoomUser) SendDiamond() {
-	send := &msg.GW2C_PushDiamondUpdate{Num:pb.Int32(u.GetDiamond())}
+	send := &msg.GW2C_PushDiamondUpdate{Num: pb.Int32(u.GetDiamond())}
 	u.SendClientMsg(send)
 }
-
 
 // 元宝
 func (u *RoomUser) GetYuanbao() int32 {
@@ -306,12 +374,12 @@ func (u *RoomUser) AddYuanbao(yuanbao int32, reason string) {
 	entity.Yuanbao = pb.Int32(entity.GetYuanbao() + yuanbao)
 	RCounter().IncrByDate("room_output", int32(u.gamekind), yuanbao)
 	//u.PlatformPushLootMoney(float32(yuanbao))
-	log.Info("玩家[%d] 添加元宝[%d] 库存[%d] 原因[%s]", u.Id(), yuanbao, entity.GetYuanbao(), reason) 
+	log.Info("玩家[%d] 添加元宝[%d] 库存[%d] 原因[%s]", u.Id(), yuanbao, entity.GetYuanbao(), reason)
 }
 
 func (u *RoomUser) RemoveYuanbao(yuanbao int32, reason string) bool {
 	if u.GetYuanbao() >= yuanbao {
-		entity:= u.Entity()
+		entity := u.Entity()
 		entity.Yuanbao = pb.Int32(u.GetYuanbao() - yuanbao)
 		RCounter().IncrByDate("item_remove", int32(msg.ItemId_YuanBao), yuanbao)
 		RCounter().IncrByDate("room_income", int32(u.gamekind), yuanbao)
@@ -330,9 +398,11 @@ func (u *RoomUser) GetDiamond() int32 {
 // 移除金卷
 func (u *RoomUser) RemoveDiamond(num int32, reason string, syn bool) bool {
 	entity := u.Entity()
-	if ( entity.GetDiamond() >= num ) {
+	if entity.GetDiamond() >= num {
 		entity.Diamond = pb.Int32(entity.GetDiamond() - num)
-		if syn { u.SendPropertyChange() }
+		if syn {
+			u.SendPropertyChange()
+		}
 		log.Info("玩家[%d] 扣除金卷[%d] 库存[%d] 原因[%s]", u.Id(), num, entity.GetDiamond(), reason)
 		RCounter().IncrByDate("item_remove", int32(msg.ItemId_Diamond), num)
 		return true
@@ -346,14 +416,16 @@ func (u *RoomUser) AddDiamond(num int32, reason string, syn bool) {
 	entity := u.Entity()
 	entity.Diamond = pb.Int32(entity.GetDiamond() + num)
 	//u.SynAddMidsMoney(int64(num), reason)
-	if syn { u.SendPropertyChange() }
+	if syn {
+		u.SendPropertyChange()
+	}
 	log.Info("玩家[%d] 添加钻石[%d] 库存[%d] 原因[%s]", u.Id(), num, entity.GetDiamond(), reason)
 }
 
 func (u *RoomUser) SendPropertyChange() {
 	send := &msg.RS2C_RolePushPropertyChange{}
 	send.Diamond = pb.Int32(u.Entity().GetDiamond())
-	send.Gold = pb.Int32(u.Entity().GetGold())
+	send.Gold = pb.Int32(u.GetGold())
 	send.Safegold = pb.Int32(0)
 	u.SendClientMsg(send)
 }
@@ -361,13 +433,13 @@ func (u *RoomUser) SendPropertyChange() {
 // 添加道具
 func (u *RoomUser) AddItem(item int32, num int32, reason string, syn bool) {
 
-    if item == int32(msg.ItemId_YuanBao) {
-        u.AddYuanbao(num, reason)
-    }else if item == int32(msg.ItemId_Gold) {
-        u.AddGold(num, reason, syn)
-    }else if item == int32(msg.ItemId_Diamond) {
+	if item == int32(msg.ItemId_YuanBao) {
+		u.AddYuanbao(num, reason)
+	} else if item == int32(msg.ItemId_Gold) {
+		u.AddGold(num, reason, syn)
+	} else if item == int32(msg.ItemId_Diamond) {
 		u.AddDiamond(num, reason, syn)
-	}else{
+	} else {
 		u.bag.AddItem(item, num, reason)
 	}
 	RCounter().IncrByDate("item_add", item, num)
@@ -375,12 +447,12 @@ func (u *RoomUser) AddItem(item int32, num int32, reason string, syn bool) {
 }
 
 // 扣除道具
-func (u *RoomUser) RemoveItem(item int32, num int32, reason string) bool{
+func (u *RoomUser) RemoveItem(item int32, num int32, reason string) bool {
 	return u.bag.RemoveItem(item, num, reason)
 }
 
 func (u *RoomUser) SendNotify(text string) {
-	send := &msg.GW2C_MsgNotify{Userid:pb.Int64(u.Id()), Text:pb.String(text)}
+	send := &msg.GW2C_MsgNotify{Userid: pb.Int64(u.Id()), Text: pb.String(text)}
 	u.SendMsg(send)
 }
 
@@ -406,11 +478,12 @@ func (u *RoomUser) Handler1sTick(now int64) {
 
 func (u *RoomUser) ToRoleInfo() *msg.RS2C_RetFriendGetRoleInfo {
 	return &msg.RS2C_RetFriendGetRoleInfo{
-		Diamond : pb.Int32(0),
-		Gold : pb.Int32(0),
-		Roleid : pb.Int64(u.Id()),
-		Name : pb.String(u.Name()),
-		Head : pb.String(u.Face()),
+		Diamond: pb.Int32(0),
+		Gold:    pb.Int32(0),
+		Roleid:  pb.Int64(u.Id()),
+		Name:    pb.String(u.Name()),
+		Head:    pb.String(""),
+		Sex:     pb.Int32(u.Sex()),
 	}
 }
 
@@ -434,3 +507,6 @@ func (u *RoomUser) AsynEventInsert(event eventque.IEvent) {
 	u.asynev.Push(event)
 }
 
+func (u *RoomUser) PackAutoResetValues(bin *msg.Serialize) {
+	u.bin.Base.Arvalues = u.arvalues.PackBin()
+}

@@ -33,12 +33,12 @@ class GamblingReviewPanel extends BasePanel
     protected onEnable(event: eui.UIEvent): void
     {
         super.onEnable(event);
-        GamblingManager.gamblingReviewHandler.onGetAllPlayerInfoEvent.addListener(this.setPanelInfo, this);
+        GamblingManager.gamblingReviewHandler.onReqReviewInfoEvent.addListener(this.setPanelInfo, this);
     }
     protected onDisable(event: eui.UIEvent): void
     {
         super.onDisable(event);
-        GamblingManager.gamblingReviewHandler.onGetAllPlayerInfoEvent.removeListener(this.setPanelInfo, this);
+        GamblingManager.gamblingReviewHandler.onReqReviewInfoEvent.removeListener(this.setPanelInfo, this);
     }
 
     /**
@@ -46,13 +46,13 @@ class GamblingReviewPanel extends BasePanel
     */
     private setPanelInfo()
     {
-        if (GamblingManager.gamblingReviewHandler.reviewInfoList.length > 0)
+        if (GamblingManager.gamblingReviewHandler.lastRoundData.array.length > 0)
         {
             this.hasReviewGroup.visible = true;
             this.noReviewGroup.visible = false;
-            if (GamblingManager.gamblingReviewHandler.reviewInfoList && GamblingManager.gamblingReviewHandler.reviewInfoList.length > 0)
+            if (GamblingManager.gamblingReviewHandler.lastRoundData.array && GamblingManager.gamblingReviewHandler.lastRoundData.array.length > 0)
             {
-                UIUtil.writeListInfo(this.reviewList, GamblingManager.gamblingReviewHandler.reviewInfoList, "roleId");
+                UIUtil.writeListInfo(this.reviewList, GamblingManager.gamblingReviewHandler.lastRoundData.array, "roleid");
             }
         } else
         {

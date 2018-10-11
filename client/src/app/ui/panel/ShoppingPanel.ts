@@ -118,7 +118,7 @@ class ShoppingPanel extends BasePanel
     }
     private onRefreshProperty(awardId: number)
     {
-        let shopDef: ShopDefinition = ShopDefined.GetInstance().getDefinitionByAwardId(awardId);
+        let shopDef: table.IPayListDefine = ShopDefined.GetInstance().getDefinitionByAwardId(awardId);
         if (shopDef)
         {
             this.diamondNumLabel.text = game.MathUtil.formatNum(UserManager.userInfo.diamond);
@@ -151,27 +151,23 @@ class ShoppingPanel extends BasePanel
      */
     private payByDiamond(selectedItem: any)
     {
-        let awardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(selectedItem.definition.awardId);
-        if (awardDef && awardDef.costList)
+        let awardDef: table.IAwardDefine = table.AwardById[selectedItem.definition.awardId];
+        if (awardDef && awardDef.CostType)
         {
-            let costInfo: AwardInfoDefinition;
-            for (let i: number = 0; i < awardDef.costList.length; i++)
+            for (let i: number = 0; i < awardDef.CostType.length; i++)
             {
-                if (awardDef.costList[i].type == CostType.Diamond)
+                if (awardDef.CostType[i] == CostType.Diamond)
                 {
-                    costInfo = awardDef.costList[i];
+                    let count = awardDef.CostNum[i];
+                    if (UserManager.userInfo.diamond >= count)
+                    {
+                        AlertManager.showConfirm(game.StringUtil.format("是否花费{0}钻石，购买{1}？", count, awardDef.Name), this.tryPay, null, selectedItem);
+                    }
+                    else
+                    {
+                        CostManager.showBuyDiamond(this.goDiamondGp.bind(this));
+                    }
                     break;
-                }
-            }
-            if (costInfo)
-            {
-                if (UserManager.userInfo.diamond >= costInfo.count)
-                {
-                    AlertManager.showConfirm(game.StringUtil.format("是否花费{0}钻石，购买{1}？", costInfo.count, awardDef.name), this.tryPay, null, selectedItem);
-                }
-                else
-                {
-                    CostManager.showBuyDiamond(this.goDiamondGp.bind(this));
                 }
             }
         }
@@ -196,10 +192,10 @@ class ShoppingPanel extends BasePanel
     {
         if (obj)
         {
-            let payDef: ShopDefinition = ShopDefined.GetInstance().getDefinition(obj.id);
+            let payDef: table.IPayListDefine = table.PayListById[obj.id];
             if (payDef)
             {
-                AwardManager.Exchange(payDef.awardId, 1, true);//直接兑换
+                AwardManager.Exchange(payDef.AwardId, 1, true);//直接兑换
             }
         }
     }

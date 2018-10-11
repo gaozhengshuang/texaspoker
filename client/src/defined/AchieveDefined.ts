@@ -72,7 +72,7 @@ class AchieveDefintion implements IBaseDefintion
     /**
      * id
      */
-	public id: number;
+	public Id: number;
 	/**
 	 * 组编号
 	 */

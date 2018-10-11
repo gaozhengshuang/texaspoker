@@ -27,15 +27,15 @@ class NewPayGiftPanel extends BaseActivityPanel
 		if (InfoUtil.checkAvailable(this.activityInfo) && !this._isOpen)
 		{
 			this._isOpen = true;
-			this.desLabel.text = this.activityInfo.definition.des;
+			this.desLabel.text = this.activityInfo.definition.Des;
 			let subInfo: PayPrizeInfo = this.activityInfo.subList[0] as PayPrizeInfo;
 			if (InfoUtil.checkAvailable(subInfo))
 			{
 				this._subInfo = subInfo;
-				let awardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(subInfo.definition.awardId);
-				if (awardDef && awardDef.rewardList)
+				let awardList = AwardManager.getAwardInfoDefinitionList(subInfo.definition.awardId);
+				if (awardList)
 				{
-					this.firstPayComp.init(awardDef.rewardList[0]);
+					this.firstPayComp.init(awardList[0]);
 				}
 			}
 		}

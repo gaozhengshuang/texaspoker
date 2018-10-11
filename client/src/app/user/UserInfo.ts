@@ -5,7 +5,31 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 {
 	public copyValueFrom(data: any)
 	{
-		super.copyValueFrom(data);
+		if (data)
+		{
+			for (let key in data)
+			{
+				let property: any = this[key];
+				if (!(property instanceof Function)) //函数属性不拷贝
+				{
+					if (data[key] == undefined)
+					{
+						if (typeof this[key] == "number")
+						{
+							this[key] = 0;
+						}
+						else if (typeof this[key] == "string")
+						{
+							this[key] = game.StringConstants.Empty;
+						}
+					}
+					else
+					{
+						this[key] = data[key];
+					}
+				}
+			}
+		}
 		if (data && data["maxHand"])
 		{
 			this.maxHandList = new Array<CardInfo>();
@@ -17,7 +41,7 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 	/**
 	 * 适配服务器序列化不能大写的问题
 	 */
-	public copyValueFromIgnoreCase(data: msg.RS2C_RetFriendGetRoleInfo)
+	public copyValueFromIgnoreCase(data: any)
 	{
 		if (data)
 		{
@@ -26,7 +50,7 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 			{
 				let lowerKey = key.toLowerCase();
 				let property: any = this[key];
-				if (!(property instanceof Function)) //函数属性不拷贝
+				if (data.hasOwnProperty(lowerKey) && !(property instanceof Function)) //函数属性不拷贝
 				{
 					if (data[lowerKey] == undefined)
 					{
@@ -61,7 +85,7 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 		this._saveGold = 0;
 		this.timestamp = 0;
 		this.timezone = 0;
-		this.id = 0;
+		this.roleId = 0;
 		this.name = game.StringConstants.Empty;
 		this.head = null;
 		this.sex = 0;
@@ -117,7 +141,16 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 		//邀请
 		this.bindRoleId = 0;
 		this.shareId = undefined;
+		this.yuanbao = 0;
 	}
+	/**
+	 * 登录时间
+	 */
+	public tmlogin: number;
+	/**
+	 * 金豆
+	 */
+	public yuanbao: number;
 	/**
 	 * 钻石数量
 	 */
@@ -169,7 +202,7 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 	/**
 	 * 角色ID
 	 */
-	public id: number;
+	public roleId: number;
 	/**
 	 * 昵称
 	 */
@@ -282,7 +315,7 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 	private _friendNum: number;
 	public get friendNum(): number
 	{
-		if (this.id == UserManager.userInfo.id && FriendManager.friendList)
+		if (this.roleId == UserManager.userInfo.roleId && FriendManager.friendList)
 		{
 			return FriendManager.friendList.length;
 		}
@@ -406,10 +439,19 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 	 * 开服时间
 	 */
 	public openServerTime: number;
+
+	private _lastGoldTime: number;
 	/**
 	 * 上次领取金币时间戳
 	 */
-	public lastGoldTime: number;
+	public set lastGoldTime(value: number)
+	{
+		this._lastGoldTime = value;
+	}
+	public get lastGoldTime(): number
+	{
+		return this._lastGoldTime;
+	}
 	/**
  	* 头像宽高
  	*/

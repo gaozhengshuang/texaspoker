@@ -12,7 +12,7 @@ class GuideManager
         {
             UserManager.userInfo.addGuideRecord(def.phase, def.type);
             game.Console.log("设置引导步骤完成type" + def.type, "-----phase:" + def.phase);
-            GuideManager.onSetGuideStepEvent.dispatch({ id: def.phase, type: def.type, uid: def.id, next: next });
+            GuideManager.onSetGuideStepEvent.dispatch({ id: def.phase, type: def.type, uid: def.Id, next: next });
             if (def.awardId > 0)
             {
                 PropertyManager.ShowItemList();

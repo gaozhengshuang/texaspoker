@@ -1,9 +1,8 @@
 /**
  * 支付配置列表定义
  * */
-class ShopDefined extends BaseDefined<ShopDefinition>
+class ShopDefined
 {
-	private static readonly ShoppingConfig: string = "payList";
 	private static _instance: ShopDefined;
 
 	public static GetInstance(): ShopDefined
@@ -12,23 +11,16 @@ class ShopDefined extends BaseDefined<ShopDefinition>
 		{
 			ShopDefined._instance = new ShopDefined();
 		}
-		if (DefinedManager.IsParsed(ShopDefined.ShoppingConfig) == false)
-		{
-			ShopDefined._instance.initialize();
-		}
+	
 		return ShopDefined._instance;
 	}
-	private initialize()
+	public getDefinitionByAwardId(id:number):table.IPayListDefine
 	{
-		this.dataList = DefinedManager.GetData(ShopDefined.ShoppingConfig) as Array<ShopDefinition>;
-	}
-	public getDefinitionByAwardId(id:number):ShopDefinition
-	{
-		if(this.dataList)
+		if(table.PayList)
 		{
-			for(let def of this.dataList)
+			for(let def of table.PayList)
 			{
-				if(def.awardId == id)
+				if(def.AwardId == id)
 				{
 					return def;
 				}
@@ -41,27 +33,13 @@ class ShopDefined extends BaseDefined<ShopDefinition>
 	 */
 	public isType(awardId: number, type:ShopType):boolean
 	{
-		for (let def of this.dataList)
+		for (let def of table.PayList)
 		{
-			if (def.awardId == awardId && def.type == type)
+			if (def.AwardId == awardId && def.Type == type)
 			{
 				return true;
 			}
 		}
 		return false;
 	}
-}
-
-
-/**
- * 支付配置定义
- * */
-class ShopDefinition implements IBaseDefintion
-{
-	public id: number;
-	public type: ShopType;
-	public ignoreInPanel: number;
-	public iconName: string;
-	public isWhiteView: number;
-	public awardId: number;
 }

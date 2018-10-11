@@ -58,6 +58,17 @@ message RS2C_RetTimeAwardInfo
     optional string errcode = 4;
 }
 
+//领取计时奖励
+message C2RS_ReqTimeAwardGet
+{
+    optional int32 roomtype = 1;
+}
+
+message RS2C_RetTimeAwardGet
+{
+    optional string errcode = 1;
+}
+
 //请求购买游戏币
 message C2RS_ReqBuyInGame
 {
@@ -76,7 +87,7 @@ message RS2C_PushSitOrStand
 {
     optional int64 roleid = 1;              //玩家id
     optional int32 pos = 2;                 //玩家位置
-    optional int32 state = 3;               //玩家状态
+    optional int32 state = 3;               //玩家状态 1坐下2站起
     optional int32 bankroll = 4;            //玩家筹码
 }
 
@@ -217,7 +228,8 @@ message RS2C_RetBrightInTime
 message RS2C_PushBrightCard
 {
     optional int64 roleid = 1;
-    repeated int32 card = 2;    
+    repeated int32 card = 2;
+    optional bool allin = 3;        //allin亮牌    
 }
 
 //请求增加金币
@@ -231,4 +243,34 @@ message RS2C_RetAddCoin
     optional string errcode = 1;
 }
 
+//请求上局回顾
+message C2RS_ReqReviewInfo 
+{
+}
+
+message UserOneRound
+{
+    optional int32 state = 1;           //状态
+    optional int32 bet   = 2;           //下注
+    repeated int32 cards = 3;           //当轮牌
+}
+
+message UserReviewInfo 
+{
+    optional int64 roleid = 1;          //角色id
+    optional string name = 2;           //名字
+    optional string face = 3;           //头像
+    optional int32  seatpos = 4;        //座位
+    optional int32  specialpos = 5;     //庄家1 小盲2 大盲3
+    optional bool   showcard = 6;       //是否亮牌
+    repeated UserOneRound round = 7;    //每轮操作
+    optional int32  bankroll = 8;       //赢+ 输-
+    optional int32  cardtype = 9;       //牌型
+    optional int32  sex = 10;           //1男 2女 
+}
+
+message RS2C_RetReviewInfo
+{
+    repeated UserReviewInfo array = 1;
+}
 

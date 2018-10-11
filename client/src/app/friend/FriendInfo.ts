@@ -16,4 +16,12 @@ class FriendInfo extends BaseFriendInfo
      * 是否可以领取金币  0不可领取  1可领取   2已领取
     */
     public getGold: number;
+    public reset()
+    {
+        super.reset();
+        this.gold = 0;
+        this.offlineTime = 0;
+        this.giveGold = 0;
+        this.getGold = 0;
+    }
 }

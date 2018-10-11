@@ -1,7 +1,7 @@
 /**
  * 兑换奖品项
 */
-class GoldenBeanAwardItemRenderer extends BaseItemRenderer<GoldenBeanAwardDefinition>
+class GoldenBeanAwardItemRenderer extends BaseItemRenderer<table.IGoldenBeanAwardDefine>
 {
 
     public nameLabel: eui.Label;
@@ -23,21 +23,21 @@ class GoldenBeanAwardItemRenderer extends BaseItemRenderer<GoldenBeanAwardDefini
         this.awardBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onAward, this);
         if (this.bindData)
         {
-            let awardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(this.bindData.awardId);
+            let awardDef: table.IAwardDefine = table.AwardById[this.bindData.AwardId];
             if (awardDef)
             {
                 this.icon.init(awardDef);
-                if (awardDef.rewardList && awardDef.rewardList.length > 0)
+                if (awardDef.RewardId && awardDef.RewardId.length > 0)
                 {
-                    let itemDef: ItemDefinition = ItemDefined.GetInstance().getDefinition(awardDef.rewardList[0].id);
+                    let itemDef: table.IItemBaseDataDefine = table.ItemBaseDataById[awardDef.RewardId[0]];
                     if (itemDef)
                     {
-                        this.nameLabel.text = itemDef.name;
+                        this.nameLabel.text = itemDef.Name;
                     }
                 }
-                if (awardDef.costList && awardDef.costList.length > 0)
+                if (awardDef.CostNum && awardDef.CostNum.length > 0)
                 {
-                    this._cost = awardDef.costList[0].count;
+                    this._cost = awardDef.CostNum[0];
                     this.goldenBeanLabel.text = this._cost.toString();
                 }
             }
@@ -53,9 +53,9 @@ class GoldenBeanAwardItemRenderer extends BaseItemRenderer<GoldenBeanAwardDefini
     {
         if (this.bindData)
         {
-            if (ItemManager.getItemNumById(ItemFixedId.GoldenBean, ItemManager.itemList) >= this._cost)
+            if (UserManager.userInfo.yuanbao >= this._cost)
             {
-                AwardManager.Exchange(this.bindData.awardId);
+                AwardManager.Exchange(this.bindData.AwardId);
             }
             else
             {

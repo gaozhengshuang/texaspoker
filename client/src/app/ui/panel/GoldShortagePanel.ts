@@ -59,26 +59,26 @@ class GoldShortagePanel extends BasePanel
     {
         if (this._shopInfo && this._shopInfo.definition)
         {
-            let awardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(this._shopInfo.definition.awardId);
-            if (awardDef)
-            {
-                let def: AwardInfoDefinition;
-                for (let cost of awardDef.costList)
-                {
-                    if (cost.type == CostType.RMB)
-                    {
-                        def = cost;
-                    }
-                }
-                AwardManager.OnExchanged.removeListener(this.onExchanged, this);
-                AwardManager.OnExchanged.addListener(this.onExchanged, this);
-                ChannelManager.PaySend(this._shopInfo.id);
-            }
+            // let awardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(this._shopInfo.definition.awardId);  // move todo
+            // if (awardDef)
+            // {
+            //     let def: AwardInfoDefinition;
+            //     for (let cost of awardDef.costList)
+            //     {
+            //         if (cost.type == CostType.RMB)
+            //         {
+            //             def = cost;
+            //         }
+            //     }
+            //     AwardManager.OnExchanged.removeListener(this.onExchanged, this);
+            //     AwardManager.OnExchanged.addListener(this.onExchanged, this);
+            //     ChannelManager.PaySend(this._shopInfo.id);
+            // }
         }
     }
     private onExchanged(id: number)
     {
-        if (this._shopInfo && this._shopInfo.definition && this._shopInfo.definition.awardId == id)
+        if (this._shopInfo && this._shopInfo.definition && this._shopInfo.definition.AwardId == id)
         {
             AwardManager.OnExchanged.removeListener(this.onExchanged, this);
             this.onCloseBtnClickHandler(null);
@@ -94,7 +94,7 @@ class GoldShortagePanel extends BasePanel
     private unEnoughGoldHandle()
     {
         this._shopInfo = null;
-        let awardDef: AwardDefinition;
+        let awardDef: table.IAwardDefine;
         if (ShopManager.goldList.length > 0)
         {
             for (let i: number = 0; i < ShopManager.goldList.length; i++)
@@ -102,8 +102,8 @@ class GoldShortagePanel extends BasePanel
                 let info: ShopInfo = ShopManager.goldList[i];
                 if (info && info.definition)
                 {
-                    awardDef = AwardDefined.GetInstance().getDefinition(info.definition.awardId);
-                    if (awardDef && this.panelData.goldShortage <= awardDef.rewardList[0].count || i == ShopManager.goldList.length - 1)
+                    awardDef = table.AwardById[info.definition.AwardId];
+                    if (awardDef && this.panelData.goldShortage <= awardDef.RewardNum[0] || i == ShopManager.goldList.length - 1)
                     {
                         this._shopInfo = info;
                         break;
@@ -112,11 +112,11 @@ class GoldShortagePanel extends BasePanel
             }
             if (this._shopInfo && awardDef)
             {
-                if (awardDef.costList && awardDef.costList.length > 0)
+                if (awardDef.CostNum && awardDef.CostNum.length > 0)
                 {
-                    this.priceLabel.text = "仅需" + awardDef.costList[0].count / 100 + "元";
+                    this.priceLabel.text = "仅需" + awardDef.CostNum[0] / 100 + "元";
                 }
-                this.goldLabel.text = awardDef.name;
+                this.goldLabel.text = awardDef.Name;
             }
         }
     }

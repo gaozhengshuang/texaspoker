@@ -19,19 +19,19 @@ func NewRoomAgent(session network.IBaseNetSession, name string) *RoomAgent {
 	return gate
 }
 
-func (this *RoomAgent) Id() int {
-	return this.session.Id()
+func (r *RoomAgent) Id() int {
+	return r.session.Id()
 }
 
-func (this *RoomAgent) SendMsg(msg pb.Message) bool {
-	return this.session.SendCmd(msg)
+func (r *RoomAgent) SendMsg(msg pb.Message) bool {
+	return r.session.SendCmd(msg)
 }
 
-func (this *RoomAgent) Name() string {
-	return this.name
+func (r *RoomAgent) Name() string {
+	return r.name
 }
 
-func (this *RoomAgent) Tick(now int64) {
+func (r *RoomAgent) Tick(now int64) {
 }
 
 // --------------------------------------------------------------------------
@@ -41,30 +41,30 @@ type RoomSvrManager struct {
 	rooms map[int]*RoomAgent		// 房间服务器
 }
 
-func (this *RoomSvrManager) Init() {
-	this.rooms = make(map[int]*RoomAgent)
+func (r *RoomSvrManager) Init() {
+	r.rooms = make(map[int]*RoomAgent)
 }
 
-func (this *RoomSvrManager) Num() int {
-	return len(this.rooms)
+func (r *RoomSvrManager) Num() int {
+	return len(r.rooms)
 }
 
-func (this *RoomSvrManager) AddRoom(agent *RoomAgent) {
+func (r *RoomSvrManager) AddRoom(agent *RoomAgent) {
 	id := agent.Id()
-	this.rooms[id] = agent
+	r.rooms[id] = agent
 }
 
-func (this* RoomSvrManager) DelRoom(id int) {
-	delete(this.rooms, id)
+func (r* RoomSvrManager) DelRoom(id int) {
+	delete(r.rooms, id)
 }
 
-func (this* RoomSvrManager) FindRoom(id int) *RoomAgent {
-	agent, _ := this.rooms[id]
+func (r* RoomSvrManager) FindRoom(id int) *RoomAgent {
+	agent, _ := r.rooms[id]
 	return agent
 }
 
-func (this *RoomSvrManager) FindByName(name string) *RoomAgent {
-	for _,v := range this.rooms {
+func (r *RoomSvrManager) FindByName(name string) *RoomAgent {
+	for _,v := range r.rooms {
 		if v.Name() == name {
 			return v
 		}
@@ -72,8 +72,8 @@ func (this *RoomSvrManager) FindByName(name string) *RoomAgent {
 	return nil
 }
 
-func (this *RoomSvrManager) IsRegisted(name string) bool {
-	for _,v := range this.rooms {
+func (r *RoomSvrManager) IsRegisted(name string) bool {
+	for _,v := range r.rooms {
 		if v.Name() == name {
 			return true
 		}
@@ -81,35 +81,35 @@ func (this *RoomSvrManager) IsRegisted(name string) bool {
 	return false
 }
 
-func (this *RoomSvrManager) Tick(now int64) {
-	for _, v := range this.rooms {
+func (r *RoomSvrManager) Tick(now int64) {
+	for _, v := range r.rooms {
 		v.Tick(now)
 	}
 }
 
-func (this *RoomSvrManager) BroadCast(msg pb.Message) {
-	for _, v := range this.rooms {
+func (r *RoomSvrManager) BroadCast(msg pb.Message) {
+	for _, v := range r.rooms {
 		v.SendMsg(msg)
 	}
 }
 
-func (this *RoomSvrManager) SendMsg(sid int, msg pb.Message) {
-	if agent := this.FindRoom(sid); agent != nil {
+func (r *RoomSvrManager) SendMsg(sid int, msg pb.Message) {
+	if agent := r.FindRoom(sid); agent != nil {
 		agent.SendMsg(msg)
 	}
 }
 
-func (this *RoomSvrManager) OnClose(sid int) {
-	agent := this.FindRoom(sid)
+func (r *RoomSvrManager) OnClose(sid int) {
+	agent := r.FindRoom(sid)
 	if agent == nil {return }
-	this.DelRoom(sid)
+	r.DelRoom(sid)
 	UserMgr().OnRoomServerClose(sid)
-	log.Info("房间服离线 id=%d [%s] 当前总数:%d", sid, agent.Name(), this.Num())
+	log.Info("房间服离线 id=%d [%s] 当前总数:%d", sid, agent.Name(), r.Num())
 }
 
-func (this *RoomSvrManager) AddNew(session network.IBaseNetSession, name string) {
+func (r *RoomSvrManager) AddNew(session network.IBaseNetSession, name string) {
 	agent := NewRoomAgent(session, name)
-	this.AddRoom(agent)
+	r.AddRoom(agent)
 	log.Info("注册房间服 id=%d [%s] 当前总数:%d", agent.Id(), agent.Name(), RoomSvrMgr().Num())
 }
 

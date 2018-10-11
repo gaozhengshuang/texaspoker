@@ -26,25 +26,28 @@ func NewGW2MSMsgHandler() *GW2MSMsgHandler {
 	return handler
 }
 
-func (this *GW2MSMsgHandler) Init() {
+func (mh *GW2MSMsgHandler) Init() {
 
-	this.msgparser = network.NewProtoParser("GW2MS_MsgParser", tbl.ProtoMsgIndexGenerator)
-	if this.msgparser == nil {
+	mh.msgparser = network.NewProtoParser("GW2MS_MsgParser", tbl.ProtoMsgIndexGenerator)
+	if mh.msgparser == nil {
 		return
 	}
 
 	// 收
-	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqRegist{}, on_GW2MS_ReqRegist)
-	this.msgparser.RegistProtoMsg(msg.GW2MS_HeartBeat{}, on_GW2MS_HeartBeat)
-	this.msgparser.RegistProtoMsg(msg.GW2MS_ReqCreateRoom{}, on_GW2MS_ReqCreateRoom)
-	this.msgparser.RegistProtoMsg(msg.GW2MS_MsgNotice{}, on_GW2MS_MsgNotice)
+	mh.msgparser.RegistProtoMsg(msg.GW2MS_ReqRegist{}, on_GW2MS_ReqRegist)
+	mh.msgparser.RegistProtoMsg(msg.GW2MS_HeartBeat{}, on_GW2MS_HeartBeat)
+	mh.msgparser.RegistProtoMsg(msg.C2MS_MsgTransfer{}, on_C2MS_MsgTransfer)
+	mh.msgparser.RegistProtoMsg(msg.GW2MS_ReqCreateRoom{}, on_GW2MS_ReqCreateRoom)
+	mh.msgparser.RegistProtoMsg(msg.GW2MS_MsgNotice{}, on_GW2MS_MsgNotice)
+	mh.msgparser.RegistProtoMsg(msg.GW2GW_MsgTransfer{}, on_GW2GW_MsgTransfer)
+	mh.msgparser.RegistProtoMsg(msg.GW2MS_PushNewMail{}, on_GW2MS_PushNewMail)
 
 	//// 发
-	//this.msgparser.RegistSendProto(msg.MS2GW_RetRegist{})
-	//this.msgparser.RegistSendProto(msg.MS2GW_HeartBeat{})
-	//this.msgparser.RegistSendProto(msg.MS2GW_MsgNotice{})
-	//this.msgparser.RegistSendProto(msg.MS2GW_RetCreateRoom{})
-	//this.msgparser.RegistSendProto(msg.MS2Server_BroadCast{})
+	//mh.msgparser.RegistSendProto(msg.MS2GW_RetRegist{})
+	//mh.msgparser.RegistSendProto(msg.MS2GW_HeartBeat{})
+	//mh.msgparser.RegistSendProto(msg.MS2GW_MsgNotice{})
+	//mh.msgparser.RegistSendProto(msg.MS2GW_RetCreateRoom{})
+	//mh.msgparser.RegistSendProto(msg.MS2Server_BroadCast{})
 
 }
 
@@ -110,9 +113,62 @@ func on_GW2MS_HeartBeat(session network.IBaseNetSession, message interface{}) {
 	log.Info(reflect.TypeOf(tmsg).String())
 }
 
+func on_C2MS_MsgTransfer(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2MS_MsgTransfer)
+	msg_type := pb.MessageType(tmsg.GetName())
+	if msg_type == nil {
+		log.Fatal("消息转发解析失败，找不到proto msg=%s" , tmsg.GetName())
+		return
+	}
+
+	protomsg := reflect.New(msg_type.Elem()).Interface()
+	err := pb.Unmarshal(tmsg.GetBuf(), protomsg.(pb.Message))
+	if err != nil {
+		log.Fatal("消息转发解析失败，Unmarshal失败 msg=%s" , tmsg.GetName())
+		return
+	}
+
+	ClientMsgAgent().Handler(session, protomsg, tmsg.GetUid())
+}
+
 func on_GW2MS_MsgNotice(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2MS_MsgNotice)
 	//log.Info(reflect.TypeOf(tmsg).String())
 	send := &msg.MS2GW_MsgNotice{Notice: tmsg.GetNotice()}
 	Match().BroadcastGateMsg(send)
 }
+
+// Gate间消息转发
+func on_GW2GW_MsgTransfer(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2GW_MsgTransfer)
+	msg_type := pb.MessageType(tmsg.GetName())
+	if msg_type == nil {
+		log.Fatal("消息转发解析失败，找不到proto msg=%s" , tmsg.GetName())
+		return
+	}
+
+	protomsg := reflect.New(msg_type.Elem()).Interface()
+	err := pb.Unmarshal(tmsg.GetBuf(), protomsg.(pb.Message))
+	if err != nil {
+		log.Fatal("消息转发解析失败，Unmarshal失败 msg=%s" , tmsg.GetName())
+		return
+	}
+
+	// 指定gate
+	if tmsg.GetUid() != 0 {
+		agent := GateSvrMgr().FindGate(int(tmsg.GetUid()))
+		if agent == nil { return }
+		agent.SendMsg(protomsg.(pb.Message))
+	}else {
+		Match().BroadcastGateMsg(protomsg.(pb.Message), session.Id())
+	}
+}
+
+
+func on_GW2MS_PushNewMail(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2MS_PushNewMail)
+	send := &msg.MS2GW_PushNewMail{Receiver:tmsg.Receiver, Mail:tmsg.Mail}
+	Match().BroadcastGateMsg(send)
+}
+
+

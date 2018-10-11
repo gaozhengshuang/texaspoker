@@ -26,15 +26,15 @@ class ActivityItemRenderer extends BaseItemRenderer<ActivityInfo>
     {
         if (InfoUtil.checkAvailable(this.bindData))
         {
-            this.itemTitleLabel.text = this.bindData.definition.name;
-            this.itemDesLabel.text = this.bindData.definition.des;
-            this.activityIcon.source = this.bindData.definition.icon + ResSuffixName.PNG;
+            this.itemTitleLabel.text = this.bindData.definition.Name;
+            this.itemDesLabel.text = this.bindData.definition.Des;
+            this.activityIcon.source = this.bindData.definition.Icon + ResSuffixName.PNG;
         }
     }
 
     private addRedPoint()
     {
-        if (this.bindData.definition.type == ActivityType.BankruptSubsidy)
+        if (this.bindData.definition.Type == ActivityType.BankruptSubsidy)
         {
             UIUtil.addMultiNotify(this.iconGroup, NotifyType.BankruptSubsidy, this.bindData.id, 0, 0);
         }

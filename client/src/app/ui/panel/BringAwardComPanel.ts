@@ -8,11 +8,11 @@ class BringAwardComPanel extends BasePanel
     public goldNumLabel: eui.Label;
     public titleLabel: eui.Label;
 
-    private _awardDef: AwardDefinition;
+    private _awardDef: table.IAwardDefine;
     private _callback: Function;
     private _thisObj: any;
     private _iconSize: number = 48;
-    private _itemDef: ItemDefinition;
+    private _itemDef: table.IItemBaseDataDefine;
     private _itemCount: number;
     public constructor()
     {
@@ -31,7 +31,7 @@ class BringAwardComPanel extends BasePanel
         {
             if (appendData.awardId)
             {
-                let awardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(appendData.awardId);
+                let awardDef: table.IAwardDefine = table.AwardById[appendData.awardId];
                 this._awardDef = awardDef;
             }
             if (appendData.des)
@@ -52,21 +52,21 @@ class BringAwardComPanel extends BasePanel
             }
             if (appendData.itemId)
             {
-                this._itemDef = ItemDefined.GetInstance().getDefinition(appendData.itemId);
+                this._itemDef = table.ItemBaseDataById[appendData.itemId];
             }
             if (appendData.itemCount)
             {
                 this._itemCount = appendData.itemCount;
             }
         }
-        if (this._awardDef && this._awardDef.rewardList.length > 0)
+        if (this._awardDef && this._awardDef.RewardId.length > 0)
         {
             this.iconImg.init(this._awardDef, this._iconSize, null, false, true);
-            this.goldNumLabel.text = this._awardDef.rewardList[0].count.toString();
+            this.goldNumLabel.text = this._awardDef.RewardNum[0].toString();
         }
         if (this._itemDef && this._itemCount)
         {
-            this.iconImg.init(this._itemDef.id, this._iconSize, null, false, true);
+            this.iconImg.init(this._itemDef.Id, this._iconSize, null, false, true);
             this.goldNumLabel.text = this._itemCount.toString();
         }
     }

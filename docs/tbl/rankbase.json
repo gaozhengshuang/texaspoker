@@ -1,0 +1,20 @@
+{
+	"Tool": "github.com/davyxu/tabtoy",
+	"Version": "2.8.10",
+	"Rank":[
+		{ "Id": 1, "Type": 1, "Cd": 120 },
+		{ "Id": 2, "Type": 2, "Cd": 120 },
+		{ "Id": 3, "Type": 3, "Cd": 120 },
+		{ "Id": 4, "Type": 4, "Cd": 120 },
+		{ "Id": 5, "Type": 5, "Cd": 120 },
+		{ "Id": 6, "Type": 100, "Param1": 5, "Param2": 1, "Cd": 120 },
+		{ "Id": 7, "Type": 100, "Param1": 5, "Param2": 2, "Cd": 120 },
+		{ "Id": 8, "Type": 100, "Param1": 6, "Param2": 0, "Param3": 200, "Cd": 120 },
+		{ "Id": 9, "Type": 100, "Param1": 6, "Param2": 0, "Param3": 2000, "Cd": 120 },
+		{ "Id": 10, "Type": 100, "Param1": 6, "Param2": 0, "Param3": 20000, "Cd": 120 },
+		{ "Id": 11, "Type": 100, "Param1": 6, "Param2": 0, "Param3": 200000, "Cd": 120 },
+		{ "Id": 12, "Type": 100, "Param1": 6, "Param2": 1, "Param3": 200, "Cd": 120 },
+		{ "Id": 13, "Type": 100, "Param1": 6, "Param2": 1, "Param3": 2000, "Cd": 120 },
+		{ "Id": 14, "Type": 100, "Param1": 6, "Param2": 1, "Param3": 20000, "Cd": 120 },
+		{ "Id": 15, "Type": 100, "Param1": 6, "Param2": 1, "Param3": 200000, "Cd": 120 }
+	]}

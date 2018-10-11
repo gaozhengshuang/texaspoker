@@ -124,6 +124,7 @@ message RS2C_RolePushPropertyChange
 {
     optional int32 diamond = 1;
     optional int32 gold = 2;
-    optional int32 safegold = 3;    
+    optional int32 safegold = 3;
+	optional int32 yuanbao = 4;   
 }
 

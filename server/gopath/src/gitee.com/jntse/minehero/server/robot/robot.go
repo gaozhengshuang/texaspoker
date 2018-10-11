@@ -25,33 +25,33 @@ type Robot struct {
 	sids			map[int] *User
 }
 
-//func (this *Robot) Net() *network.NetWork {
-//	return this.net
+//func (r *Robot) Net() *network.NetWork {
+//	return r.net
 //}
 
-func (this *Robot) NetConf() *network.NetConf {
-	return this.netconf
+func (r *Robot) NetConf() *network.NetConf {
+	return r.netconf
 }
 
-func (this *Robot) InitMsgHandler() {
+func (r *Robot) InitMsgHandler() {
 	network.InitGlobalSendMsgHandler(tbl.GetAllMsgIndex())
-	this.msghandlers = append(this.msghandlers, NewGW2CMsgHandler())
-	this.msghandlers = append(this.msghandlers, NewLS2CMsgHandler())
+	r.msghandlers = append(r.msghandlers, NewGW2CMsgHandler())
+	r.msghandlers = append(r.msghandlers, NewLS2CMsgHandler())
 }
 
-func (this *Robot) Start() {
-	for _, client := range this.clients {
+func (r *Robot) Start() {
+	for _, client := range r.clients {
 		go client.Run()
 	}
 }
 
-func (this *Robot) Quit() {
-	for _, client := range this.clients {
+func (r *Robot) Quit() {
+	for _, client := range r.clients {
 		client.Quit()
 	}
 }
 
-func (this *Robot) Init() {
+func (r *Robot) Init() {
 
 	// 机器人配置
 	netconf := &network.NetConf{}
@@ -60,17 +60,17 @@ func (this *Robot) Init() {
 		log.Error("JsonParser Error: '%s'", jsonerr)
 		return 
 	}
-	this.netconf = netconf
-	this.tblloader = tbl.NewTblLoader(netconf.TblPath)
+	r.netconf = netconf
+	r.tblloader = tbl.NewTblLoader(netconf.TblPath)
 	log.Info("加载机器人配置ok...")
 
 
 	// MsgHandler
-	this.InitMsgHandler()
+	r.InitMsgHandler()
 
 
 	// 初始化机器人
-	this.clients = make(map[string] *User)
+	r.clients = make(map[string] *User)
 	for i := g_AccountStart; i < g_RobotNum + g_AccountStart; i++ {
 		passwd, account := "12345", fmt.Sprintf("%s_%d", g_RobotAccount, i)
 		client := NewUser()
@@ -83,15 +83,15 @@ func (this *Robot) Init() {
 			panic("机器人起到网络失败")
 		}
 
-		this.clients[account] = client
+		r.clients[account] = client
 	}
 
 }
 
-func (this *Robot) Run(now int64) {
+func (r *Robot) Run(now int64) {
 }
 
-func (this *Robot) DoInputCmd(cmd string) {
+func (r *Robot) DoInputCmd(cmd string) {
 	switch cmd {
 	case "gc":
 		log.Info("Start Force GC...")
@@ -100,12 +100,12 @@ func (this *Robot) DoInputCmd(cmd string) {
 		log.Info("Start FreeOSMemory...")
 		debug.FreeOSMemory()        // 谨慎使用
 	default:
-		this.BroadCastCmd(cmd)
+		r.BroadCastCmd(cmd)
 	}
 }
 
-func (this *Robot) BroadCastCmd(cmd string) {
-	for _, client := range this.clients {
+func (r *Robot) BroadCastCmd(cmd string) {
+	for _, client := range r.clients {
 		client.ch_cmd <- cmd
 	}
 }
@@ -113,14 +113,14 @@ func (this *Robot) BroadCastCmd(cmd string) {
 //// --------------------------------------------------------------------------
 ///// @brief TODO: session is nil
 //// --------------------------------------------------------------------------
-//func (this *Robot) OnClose(session network.IBaseNetSession) {
+//func (r *Robot) OnClose(session network.IBaseNetSession) {
 //	panic("Robot.OnClose callback should't be used")
 //}
 //
 //// --------------------------------------------------------------------------
 ///// @brief 
 //// --------------------------------------------------------------------------
-//func (this *Robot) OnConnect(session network.IBaseNetSession)	{
+//func (r *Robot) OnConnect(session network.IBaseNetSession)	{
 //	panic("Robot.OnConnect callback should't be used")
 //}
 

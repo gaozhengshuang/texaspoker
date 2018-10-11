@@ -1,17 +1,17 @@
 /**
  * 破产补助活动管理
  */
-class BankruptSubsidyHandler extends BaseActivitySubHandler<BankruptSubsidyInfo>
+class BankruptSubsidyHandler extends BaseActivitySubHandler<any>
 {
 
     public initialize(info: ActivityInfo)
     {
         super.initialize(info);
-        let def: BankruptSubsidyDefintion;
+        let def: table.IActivity_bankruptSubsidyDefine;
         let pInfo: BankruptSubsidyInfo;
-        for (let i: number = 0; i < BankruptSubsidyDefined.GetInstance().dataList.length; i++) //填充子列表信息
+        for (let i: number = 0; i < table.Activity_bankruptSubsidy.length; i++) //填充子列表信息
         {
-            def = BankruptSubsidyDefined.GetInstance().dataList[i];
+            def = table.Activity_bankruptSubsidy[i];
             pInfo = this.addSubInfo(info, BankruptSubsidyInfo, def);
         };
         GamblingManager.SitOrStandEvent.addListener(this.onBust, this);
@@ -60,7 +60,7 @@ class BankruptSubsidyHandler extends BaseActivitySubHandler<BankruptSubsidyInfo>
             let subInfo: BankruptSubsidyInfo = this.getSubInfo(activityInfo.id, 1);
             if (subInfo)
             {
-                return subInfo.definition.times - this.getPrizeTimes(activityInfo.id);
+                return subInfo.definition.Times - this.getPrizeTimes(activityInfo.id);
             }
             else
             {
@@ -78,7 +78,7 @@ class BankruptSubsidyHandler extends BaseActivitySubHandler<BankruptSubsidyInfo>
         if (activityInfo)
         {
             let subInfo = this.getSubInfo(activityInfo.id, 1);
-            if (subInfo && UserManager.userInfo.gold + UserManager.userInfo.safeGold < subInfo.definition.limitGold && this.getLeftPrizeTimes() > 0)
+            if (subInfo && UserManager.userInfo.gold + UserManager.userInfo.safeGold < subInfo.definition.LimitGold && this.getLeftPrizeTimes() > 0)
             {
                 return true;
             }
@@ -90,7 +90,7 @@ class BankruptSubsidyHandler extends BaseActivitySubHandler<BankruptSubsidyInfo>
      */
     private onBust(obj: any)
     {
-        if (InfoUtil.checkAvailable(GamblingManager.roomInfo) && obj.pInfo.roleId == UserManager.userInfo.id && obj.state == BuyInGameState.Stand && UserManager.isBust)
+        if (InfoUtil.checkAvailable(GamblingManager.roomInfo) && obj.pInfo.roleId == UserManager.userInfo.roleId && obj.state == BuyInGameState.Stand && UserManager.isBust)
         {
             let minNum: number = GamblingManager.roomInfo.definition.SBuyin;
             if (SceneManager.sceneType != SceneType.Hall)
@@ -117,11 +117,11 @@ class BankruptSubsidyHandler extends BaseActivitySubHandler<BankruptSubsidyInfo>
 /**
  * 破产补助信息
  */
-class BankruptSubsidyInfo extends BaseActivitySubInfo<BankruptSubsidyDefintion>
+class BankruptSubsidyInfo extends BaseActivitySubInfo<any>
 {
     protected trySetDefinition()
     {
         super.trySetDefinition();
-        this._definition = BankruptSubsidyDefined.GetInstance().getSubDefinition(this._id, this._subId);
+        this._definition = ActivityManager.getSubDefinition(this._id, this._subId, table.Activity_bankruptSubsidy);
     }
 }

@@ -60,5 +60,11 @@ class BaseFriendInfo extends BaseServerValueInfo implements IBaseHead
     public reset()
     {
         super.reset();
+        this.roleId = 0;
+        this.head = game.StringConstants.Empty;
+        this.name = game.StringConstants.Empty;
+        this.level = 0;
+        this.sex = 0;
+        this.vipLevel = 0;
     }
 }

@@ -1,7 +1,7 @@
 /**
  * 子活动信息
  */
-abstract class BaseActivitySubInfo<T extends BaseActivitySubDefnition> extends BaseServerValueInfo implements IHaveDefintionInfo
+abstract class BaseActivitySubInfo<T extends IBaseActivitySubDefnition> implements IHaveDefintionInfo
 {
 	protected _id: number;
 	public get id(): number

@@ -26,7 +26,7 @@ module game
 		private _commandDispatcher: CallDispatcher<SpRpcResult> = new CallDispatcher<SpRpcResult>();
 		private _errorDispatcher: CallDispatcher<SpRpcResult> = new CallDispatcher<SpRpcResult>();
 		//
-		private _normalErrorSet: HashSet<number> = new HashSet<number>(); 	//有错误码的包也正常解析
+		private _normalErrorSet: HashSet<string> = new HashSet<string>(); 	//有错误码的包也正常解析
 		//
 		private _enabledSend: boolean = false; //close的时候，是否还允许发送
 		//
@@ -56,17 +56,17 @@ module game
 		/// 添加正常解析的错误码包（命令事件正常执行，而不是执行错误事件）
 		/// </summary>
 		/// <param name="error"></param>
-		public addNormalError(error: number)
+		public addNormalError(cmdId: string)
 		{
-			this._normalErrorSet.add(error);
+			this._normalErrorSet.add(cmdId);
 		}
 		/// <summary>
 		/// 移除正常解析的错误码包
 		/// </summary>
 		/// <param name="error"></param>
-		public removeNormalError(error: number)
+		public removeNormalError(cmdId: string)
 		{
-			this._normalErrorSet.remove(error);
+			this._normalErrorSet.remove(cmdId);
 		}
 		public get address(): string
 		{
@@ -250,11 +250,11 @@ module game
 		 * <param name="isSole">一样的命令和回调是否独占发送，(如果是，当还没接收到上一个包的时候，再次发包，会忽略掉)</param>
 		 * <param name="isDiscRetry">断线重发</param>
 		 */
-		public InvokeSend(isSole: boolean, isDiscRetry: boolean, cmdId: string, msg: protobuf.Writer, onResult: Function, onError: Function, thisObject: any, subId?: string)
+		public InvokeSend(isSole: boolean, isDiscRetry: boolean, cmdId: string, args: any, onResult: Function, onError: Function, thisObject: any, subId?: string)
 		{
 			if (this._enabledSend)
 			{
-				let info: SocketInfo = this.AddSocketInfo(isSole, isDiscRetry, cmdId, msg, onResult, onError, thisObject, subId);
+				let info: SocketInfo = this.AddSocketInfo(isSole, isDiscRetry, cmdId, args, onResult, onError, thisObject, subId);
 				if (info != null)
 				{
 					this.SendObject(info);
@@ -264,7 +264,7 @@ module game
 			{
 				if (isDiscRetry)
 				{
-					this.AddSocketInfo(isSole, isDiscRetry, cmdId, msg, onResult, onError, thisObject, subId);
+					this.AddSocketInfo(isSole, isDiscRetry, cmdId, args, onResult, onError, thisObject, subId);
 				}
 			}
 		}
@@ -277,7 +277,7 @@ module game
 			}
 			try
 			{
-				if (info.cmdId.indexOf("HeartBeat") != -1)
+				if (info.cmdId.indexOf("HeartBeat") == -1)
 				{
 					Console.log("Socket.Send-----------> cmdId:" + info.cmdId + "------params:", JSON.stringify(info.msg), "- >session:" + info.session);
 				}
@@ -349,7 +349,7 @@ module game
 			let decoded = msg[msgName.slice(4)].decode(cmdDataBA.bytes);
 			if (msgName.indexOf("Push") != -1) //推送协议
 			{
-				this.handleRequest(msgName, decoded, undefined, undefined);
+				this.handleRequest(msgName, decoded, undefined);
 			}
 			else
 			{
@@ -357,27 +357,23 @@ module game
 				let retName = msgName.substr(idx + 3);
 				for (let protoInfo of table.ProtoId)
 				{
-					if (msgName != protoInfo.Name && protoInfo.Name.indexOf(retName) != -1)
+					if (msgName != protoInfo.Name && protoInfo.Name.substr(idx + 3) == retName)
 					{
 						msgName = protoInfo.Name;
 						break;
 					}
 				}
-				this.handleResponse(msgName, decoded, undefined, undefined);
+				this.handleResponse(msgName, decoded, undefined);
 			}
 			NotificationCenter.postNotification(msgName, decoded);
 		}
-		private handleRequest(name: string, data: any, session: number, error: number)
+		private handleRequest(name: string, data: any, session: number)
 		{
-			if (error == undefined)
-			{
-				error = 0;
-			}
-			Console.log("server-push-----> cmdId:" + name, "-> session:" + session, "-> error:" + error);
+			Console.log("server-push-----> cmdId:" + name, "-> data:" + JSON.stringify(data));
 			let spRpcResult: SpRpcResult = new SpRpcResult();
 			spRpcResult.cmdId = name;
 			spRpcResult.data = data;
-			spRpcResult.error = error;
+			spRpcResult.error = game.StringConstants.Empty;
 			spRpcResult.op = SpRpcOp.Request;
 			spRpcResult.session = session;
 			if (this._requestSessionMax < session)
@@ -391,7 +387,7 @@ module game
 			else
 			{
 				this.DispatchResult(spRpcResult);
-				if (spRpcResult.error == 0 || this._normalErrorSet.contains(spRpcResult.error))
+				if (game.StringUtil.isNullOrEmpty(spRpcResult.error)) // || this._normalErrorSet.contains(spRpcResult.error)
 				{
 					this.DispatchCommand(name, spRpcResult);
 				}
@@ -404,15 +400,12 @@ module game
 				}
 			}
 		}
-		private handleResponse(name: string, data: any, session: number, error: number)
+		private handleResponse(name: string, data: any, session: number)
 		{
-			if (error == undefined)
+			let error: string = data["errcode"];
+			if (name.indexOf("HeartBeat") == -1)
 			{
-				error = 0;
-			}
-			if (name.indexOf("HeartBeat") != -1)
-			{
-				Console.log("client receive ------------> cmdId:" + name + "-> session:" + session, "-> error:" + error);
+				Console.log("client receive ------------> cmdId:" + name + "-> data:" + JSON.stringify(data), "-> error:" + error);
 			}
 			let info: SocketInfo = this.RemoveSocketInfo(name);
 			// let info: SocketInfo = this.RemoveSocketInfo(session);
@@ -429,7 +422,36 @@ module game
 			else
 			{
 				this.DispatchResult(spRpcResult);
-				if (spRpcResult.error == 0 || this._normalErrorSet.contains(spRpcResult.error))
+
+				if (error != undefined)
+				{
+					if (game.StringUtil.isNullOrEmpty(error) || this._normalErrorSet.contains(name))
+					{
+						if (info && info.onResult)
+						{
+							FuncUtil.invoke(info.onResult, info.thisObject, spRpcResult);
+						}
+						else
+						{
+							this.DispatchCommand(name, spRpcResult);
+						}
+					}
+					else 
+					{
+						if (this.enabledErrorCode)
+						{
+							if (info && info.onError)
+							{
+								FuncUtil.invoke(info.onError, info.thisObject, spRpcResult);
+							}
+							else
+							{
+								this.DispatchError(name, spRpcResult);
+							}
+						}
+					}
+				}
+				else
 				{
 					if (info && info.onResult)
 					{
@@ -438,20 +460,6 @@ module game
 					else
 					{
 						this.DispatchCommand(name, spRpcResult);
-					}
-				}
-				else
-				{
-					if (this.enabledErrorCode)
-					{
-						if (info && info.onError)
-						{
-							FuncUtil.invoke(info.onError, info.thisObject, spRpcResult);
-						}
-						else
-						{
-							this.DispatchError(name, spRpcResult);
-						}
 					}
 				}
 			}
@@ -472,7 +480,7 @@ module game
 				}
 			}
 		}
-		private AddSocketInfo(isSole: boolean, isDiscRetry: boolean, cmdId: string, msg: protobuf.Writer, onResult: Function, onError: Function, thisObject: any, subId: string): SocketInfo
+		private AddSocketInfo(isSole: boolean, isDiscRetry: boolean, cmdId: string, args: any, onResult: Function, onError: Function, thisObject: any, subId: string): SocketInfo
 		{
 			if (this._infoList != null)
 			{
@@ -495,7 +503,15 @@ module game
 				info.cmdId = cmdId;
 				info.isDiscRetry = isDiscRetry;
 				info.isSole = isSole;
-				info.msg = msg;
+				let cmdBody = egret.getDefinitionByName(cmdId);
+				if (cmdBody)
+				{
+					info.msg = cmdBody.encode(args);
+				}
+				else
+				{
+					Console.log("发送消息出错，未找到消息体cmdid:", cmdId);
+				}
 				info.onResult = onResult;
 				info.onError = onError;
 				info.thisObject = thisObject;

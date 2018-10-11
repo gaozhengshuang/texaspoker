@@ -66,7 +66,7 @@ class GuideDefined extends BaseDefined<GuideDefinition>
  */
 class GuideDefinition implements IBaseDefintion
 {
-	public id: number;
+	public Id: number;
 	/**
 	 * 引导类型
 	 */
@@ -117,7 +117,7 @@ class GuideDefinition implements IBaseDefintion
  */
 class GuideControllerDefinition implements IBaseDefintion
 {
-	public id: number;
+	public Id: number;
 	/**
 	 * 步骤ID
 	 */

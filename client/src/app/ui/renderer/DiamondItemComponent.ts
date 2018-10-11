@@ -7,7 +7,7 @@ class DiamondItemComponent extends BaseComponent<ShopInfo>{
     public diamondBtn: eui.Button;//钻石（元）；
 
     private _info: ShopInfo;
-    private _awardDef: AwardDefinition;
+    private _awardDef: table.IAwardDefine;
 
     protected onEnable(event: eui.UIEvent): void
     {
@@ -25,16 +25,16 @@ class DiamondItemComponent extends BaseComponent<ShopInfo>{
         if (InfoUtil.checkAvailable(info))
         {
             this._info = info;
-            this._awardDef = AwardDefined.GetInstance().getDefinition(info.definition.awardId);
-            if (this._awardDef && this._awardDef.costList)
+            this._awardDef = table.AwardById[info.definition.AwardId];
+            if (this._awardDef && this._awardDef.CostId)
             {
-                this.diamondImg.source = info.definition.iconName + ResSuffixName.PNG;
-                this.diamondNum.text = this._awardDef.name;
-                for (let def of this._awardDef.costList)
+                this.diamondImg.source = info.definition.IconName + ResSuffixName.PNG;
+                this.diamondNum.text = this._awardDef.Name;
+                for (let i: number = 0; i < this._awardDef.CostType.length; i++)
                 {
-                    if (def.type == CostType.RMB)
+                    if (this._awardDef.CostType[i] == CostType.RMB)
                     {
-                        this.diamondBtn.label = def.count / 100 + "元";
+                        this.diamondBtn.label = this._awardDef.CostNum[i] / 100 + "元";
                         break;
                     }
                 }
@@ -47,15 +47,16 @@ class DiamondItemComponent extends BaseComponent<ShopInfo>{
         ChannelManager.PaySend(this._info.id);
         // if (this._awardDef)
         // {
-        //     let def: AwardInfoDefinition;
-        //     for (let cost of this._awardDef.costList)
+        //     let count: number = 0;
+        //     for (let i: number = 0; i < this._awardDef.CostType.length; i++)
         //     {
-        //         if (cost.type == CostType.RMB)
+        //         if (this._awardDef.CostType[i] == CostType.RMB)
         //         {
-        //             def = cost;
+        //             count = this._awardDef.CostNum[i];
+        //             break;
         //         }
         //     }
-        //     AlertManager.showConfirm(game.StringUtil.format("是否花费{0}元，购买{1}？", def.count, this._awardDef.name), ChannelManager.PaySend, null, this._info.id);
+        //     AlertManager.showConfirm(game.StringUtil.format("是否花费{0}元，购买{1}？", count, this._awardDef.Name), ChannelManager.PaySend, null, this._info.id);
         // }
     }
 }

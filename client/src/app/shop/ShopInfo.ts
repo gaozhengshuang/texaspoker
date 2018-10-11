@@ -8,14 +8,14 @@ class ShopInfo implements IHaveDefintionInfo
 	public set id(value: number)
 	{
 		this._id = value;
-		this._definition = ShopDefined.GetInstance().getDefinition(value);
+		this._definition = table.PayListById[value];
 	}
-	private _definition: ShopDefinition
-	public get definition(): ShopDefinition
+	private _definition: table.IPayListDefine
+	public get definition(): table.IPayListDefine
 	{
 		return this._definition;
 	}
-	public set definition(value: ShopDefinition)
+	public set definition(value: table.IPayListDefine)
 	{
 		this._definition = value;
 	}

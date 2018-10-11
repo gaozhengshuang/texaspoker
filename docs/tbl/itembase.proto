@@ -19,34 +19,31 @@ message ItemBaseDataDefine
 {	
 	
 	
-	optional int32 Id = 1; // 道具ID(规则：类型x10000+自然递增)
+	optional int32 Id = 1; // 道具id
 	
 	
-	optional int32 Type = 2; // 道具类型
+	optional string Name = 2; // 道具名称
 	
 	
-	optional int32 SubType = 3; 
+	optional int32 Type = 3; // 道具类型
 	
 	
-	optional int32 Color = 4; // 1白2绿3蓝4紫5橙
+	optional string TypeDes = 4; // 类型没描述
 	
 	
-	optional int32 ImageId = 5; 
+	optional int32 EffectType = 5; // 效果类型
 	
 	
-	optional string Name = 6; // 道具名
+	optional string Des = 6; // 描述
 	
 	
-	optional string Desc = 7; // 道具简介
+	optional string Icon = 7; // 道具icon
 	
 	
-	optional int32 Clothes = 8; // 合成时装
+	optional int32 PileNum = 8; // 最大叠加数量
 	
 	
-	optional string TypeDes = 9; // 类型名
-	
-	
-	optional int32 Tradable = 10; // 可否交易1可以0不可以
+	optional string Extern = 9; // 获得方式
 
 }
 
