@@ -298,3 +298,25 @@ func (u *GateUser) TakeBankruptcySubsidy(subid int32) string {
 	errcode = "没找到配置"
 	return errcode
 }
+
+//增加白银卡时间 单位秒 例如月卡 60*60*24*30
+func (u *GateUser) AddSilverCardTime (addtime int32) {
+	now := util.CURTIME()
+	if int32(now) >= u.silvercardtime {
+		u.silvercardtime = int32(now) + addtime
+	} else {
+		u.silvercardtime = u.silvercardtime + addtime
+	}
+}
+
+//增加黄金卡时间 单位秒 例如月卡 60*60*24*30
+func (u *GateUser) AddGoldCardTime (addtime int32) {
+	now := util.CURTIME()
+	if int32(now) >= u.goldcardtime {
+		u.goldcardtime = int32(now) + addtime
+	} else {
+		u.goldcardtime = u.goldcardtime + addtime
+	}
+}
+
+
