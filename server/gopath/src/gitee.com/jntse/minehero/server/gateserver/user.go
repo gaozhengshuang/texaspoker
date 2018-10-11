@@ -426,6 +426,7 @@ func (u *GateUser) PackBin() *msg.Serialize {
 
 	userbase := bin.GetBase()
 	userbase.Statics = u.statistics.PackBin()
+	userbase.Vip = &msg.UserVip{}
 	userbase.Sign.Signdays = pb.Int32(u.signdays)
 	userbase.Sign.Signtime = pb.Int32(u.signtime)
 	userbase.Misc.Invitationcode = pb.String(u.invitationcode)
