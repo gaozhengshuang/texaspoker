@@ -1,9 +1,8 @@
 /**
  * 锦标赛赛事奖品的定义
  * */
-class ChampionshipPrizeDefined extends BaseDefined<ChampionshipPrizeDefinition>
+class ChampionshipPrizeDefined
 {
-    private static readonly championshipPrizeConfig: string = "championshipPrize";
     private static _instance: ChampionshipPrizeDefined;
     public static GetInstance(): ChampionshipPrizeDefined
     {
@@ -11,39 +10,31 @@ class ChampionshipPrizeDefined extends BaseDefined<ChampionshipPrizeDefinition>
         {
             ChampionshipPrizeDefined._instance = new ChampionshipPrizeDefined();
         }
-        if (DefinedManager.IsParsed(ChampionshipPrizeDefined.championshipPrizeConfig) == false)
-        {
-            ChampionshipPrizeDefined._instance.initialize();
-        }
         return ChampionshipPrizeDefined._instance;
     }
 
-    private initialize()
-    {
-        this.dataList = DefinedManager.GetData(ChampionshipPrizeDefined.championshipPrizeConfig) as Array<ChampionshipPrizeDefinition>;
-    }
     /**
      * 根据type类型获得championshipPrize的集合数组
     */
-    public getChampionshipPrizeList(prizeId: number): Array<ChampionshipPrizeDefinition>
+    public getChampionshipPrizeList(prizeId: number): Array<table.IChampionshipPrizeDefine>
     {
-        if (this.dataList != null)
+        if (table.ChampionshipPrize)
         {
-            let championshipPrizeList: Array<ChampionshipPrizeDefinition> = new Array<ChampionshipPrizeDefinition>();
-            for (let def of this.dataList)
+            let championshipPrizeList: Array<table.IChampionshipPrizeDefine> = new Array<table.IChampionshipPrizeDefine>();
+            for (let def of table.ChampionshipPrize)
             {
-                if (def.prizeId == prizeId)
+                if (def.PrizeId == prizeId)
                 {
-                    if (def.start != def.end)
+                    if (def.Start != def.End)
                     {
-                        for (let i: number = def.start; i <= def.end - def.start; i++)
+                        for (let i: number = def.Start; i <= def.End - def.Start; i++)
                         {
-                            let info: ChampionshipPrizeDefinition = new ChampionshipPrizeDefinition();
-                            info.id = def.id;
-                            info.start = i;
-                            info.end = i;
-                            info.prizeId = def.prizeId;
-                            info.awardId = def.awardId;
+                            let info: table.IChampionshipPrizeDefine = {};
+                            info.Id = def.Id;
+                            info.Start = i;
+                            info.End = i;
+                            info.PrizeId = def.PrizeId;
+                            info.AwardId = def.AwardId;
                             championshipPrizeList.push(def);
                         }
                     } else
@@ -55,30 +46,4 @@ class ChampionshipPrizeDefined extends BaseDefined<ChampionshipPrizeDefinition>
             return championshipPrizeList;
         }
     }
-}
-/**
- * 奖品的定义
- * */
-class ChampionshipPrizeDefinition implements IBaseDefintion
-{
-    /**
-     * 奖品id
-     */
-    public id: number;
-	/**
-	 * 奖品类型
-	 */
-    public prizeId: number;
-    /**
-     * 获取该奖品的开始名次
-     */
-    public start: number;
-    /**
-     * 获得该奖品的结束名次
-     */
-    public end: number;
-    /**
-     * 对应award表中的rewardId
-     */
-    public awardId: number;
 }

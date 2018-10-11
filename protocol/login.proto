@@ -93,4 +93,13 @@ message GW2C_RetHeartBeat {
     repeated string test = 3;
 }
 
+// 玩家上线
+message GW2C_PushUserOnline {
+    optional int64 uid = 1;
+}
+
+// 玩家下线
+message GW2C_PushUserOffline {
+    optional int64 uid = 1;
+}
 

@@ -84,6 +84,7 @@ class UserManager
 			UserManager.setNumProperty("gold", result.data);
 			UserManager.setNumProperty("diamond", result.data);
 			UserManager.setNumProperty("safeGold", result.data);
+			UserManager.setNumProperty("yuanbao", result.data);
 			UserManager.propertyChangeEvent.dispatch();
 		}
 	}
@@ -168,9 +169,16 @@ class UserManager
 	/**
 	 * 获取其他用户信息
 	 */
-	public static sendGetUserInfo(roleId: number, callback: Function, errorCallBack?: Function)
+	public static sendGetUserInfo(roleId: number, callback: Function, errorCallBack?: Function, isInRoom: boolean = false)
 	{
-		MsgTransferSend.sendRoomProto(Command.C2RS_ReqFriendGetRoleInfo, { roleid: roleId }, callback, errorCallBack, this);
+		if (isInRoom)
+		{
+			MsgTransferSend.sendRoomProto(Command.C2RS_ReqFriendGetRoleInfo, { roleid: roleId }, callback, errorCallBack, this);
+		}
+		else
+		{
+			SocketManager.call(Command.C2RS_ReqFriendGetRoleInfo, { roleid: roleId }, callback, errorCallBack, this);
+		}
 	}
 
 	public static reqSimpleUserInfo(roleId: number)
@@ -330,7 +338,7 @@ class UserManager
 						let matchRoomInfo: MatchRoomInfo = ChampionshipManager.getMatchRoomInfoByRoomId(GamblingManager.roomInfo.id);
 						if (InfoUtil.checkAvailable(matchRoomInfo))
 						{
-							UserManager.userInfo.stateConfId = matchRoomInfo.definition.id;
+							UserManager.userInfo.stateConfId = matchRoomInfo.definition.Id;
 						}
 						return UserState.InMatch;
 					}

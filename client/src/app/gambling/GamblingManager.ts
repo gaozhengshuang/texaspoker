@@ -429,10 +429,10 @@ class GamblingManager
 			{
 				if (GamblingManager.matchRoomInfo && GamblingManager.matchRoomInfo.definition)
 				{
-					let def: ChampionshipBlindDefinition = ChampionshipBlindDefined.GetInstance().getBlindInfoByLevel(GamblingManager.roomInfo.blindLevel, GamblingManager.matchRoomInfo.definition.blindType);
-					if (def && def.sBlind == GamblingManager.roomInfo.sBlind && def.bBlind == GamblingManager.roomInfo.bBlind)
+					let def: table.IChampionshipBlindDefine = ChampionshipBlindDefined.GetInstance().getBlindInfoByLevel(GamblingManager.roomInfo.blindLevel, GamblingManager.matchRoomInfo.definition.BlindType);
+					if (def && def.SBlind == GamblingManager.roomInfo.sBlind && def.BBlind == GamblingManager.roomInfo.bBlind)
 					{
-						GamblingManager.roomInfo.ante = def.preBet;
+						GamblingManager.roomInfo.ante = def.PreBet;
 					}
 				}
 				GamblingManager.roomInfo.nowBlindLevel = GamblingManager.roomInfo.blindLevel;
@@ -864,7 +864,7 @@ class GamblingManager
 		{
 			if (InfoUtil.checkAvailable(GamblingManager.matchRoomInfo))
 			{
-				GamblingManager.sngReadyCountDownTime = GamblingManager.matchRoomInfo.definition.waitingTime;
+				GamblingManager.sngReadyCountDownTime = GamblingManager.matchRoomInfo.definition.WaitingTime;
 				if (GamblingManager.sngReadyCountDownTime == undefined)
 				{
 					GamblingManager.sngReadyCountDownTime = 8;
@@ -1236,7 +1236,7 @@ class GamblingManager
 				GamblingManager._getUserInfoQueue.shift();
 				GamblingManager.getNext();
 			};
-			UserManager.sendGetUserInfo(target.roleId, callBack, errorCallBack);
+			UserManager.sendGetUserInfo(target.roleId, callBack, errorCallBack, true);
 		}
 	}
 	private static getNext()

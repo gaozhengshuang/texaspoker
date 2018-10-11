@@ -34,7 +34,7 @@ Gulp.task('replace-lang', function (cb)
                         if (v != "")
                         {
                             reg = new RegExp('"' + obj.k + '"', "g");
-                            outData = outData.replace(reg,  "I18n.getText(" + '"' + obj.k + '"' + ")");
+                            outData = outData.replace(reg, "I18n.getText(" + '"' + obj.k + '"' + ")");
                         }
                     }
                     // console.log("outData", outData);
@@ -45,5 +45,37 @@ Gulp.task('replace-lang', function (cb)
     else
     {
         console.log('语言目录不存在:' + langdatapath);
+    }
+});
+Gulp.task('lang-complex', function (cb)
+{
+    //繁体字路径
+    var complexpath = "resource/assets/lang/zh-tw-complex.json";
+    let originpath = "resource/assets/lang/zh-tw.json";
+    if (fs.existsSync(complexpath) && fs.existsSync(originpath))
+    {
+        var text = fs.readFileSync(complexpath).toString();
+        let complexList = JSON.parse(text);
+
+        text = fs.readFileSync(originpath).toString();
+        let originList = JSON.parse(text);
+
+        let keyList = [];
+        for(let key in complexList)
+        {
+            keyList.push(key);
+        }
+        let idx = 0;
+        for(let key in originList)
+        {
+            originList[key] = keyList[idx];
+            idx++;
+        }
+        fs.writeFileSync(originpath, JSON.stringify(originList));
+        console.log("语言转换完毕");
+    }
+    else
+    {
+        console.log('请检查语言目录是否存在:' + complexpath + " 源目录:" + originpath);
     }
 });

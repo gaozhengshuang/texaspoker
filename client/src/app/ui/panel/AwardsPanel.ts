@@ -16,7 +16,7 @@ class AwardsPanel extends BasePanel
 	public goldenBeanLabel: eui.Label;
 
 	private _recordList: Array<AwardRecordInfo>;
-	private readonly _startId: number = 0;
+	private readonly _startId: number = 1;
 	private readonly _count: number = 30;
 	public constructor()
 	{
@@ -42,21 +42,21 @@ class AwardsPanel extends BasePanel
 	protected onEnable(event: eui.UIEvent): void
 	{
 		super.onEnable(event);
-		ItemManager.itemReduceEvent.addListener(this.refresh, this);
+		UserManager.propertyChangeEvent.addListener(this.refresh, this);
 		this.tabComponent.tabChangeEvent.addListener(this.onTabChange, this);
 		AwardManager.getAwardRecordEvent.addListener(this.refreshRecordList, this);
 	}
 	protected onDisable(event: eui.UIEvent): void
 	{
 		super.onDisable(event);
-		ItemManager.itemReduceEvent.removeListener(this.refresh, this);
+		UserManager.propertyChangeEvent.removeListener(this.refresh, this);
 		this.tabComponent.tabChangeEvent.removeListener(this.onTabChange, this);
 		AwardManager.getAwardRecordEvent.removeListener(this.refreshRecordList, this);
 	}
 	private refresh()
 	{
-		this.goldenBeanLabel.text = ItemManager.getItemNumById(ItemFixedId.GoldenBean, ItemManager.itemList).toString();
-		UIUtil.writeListInfo(this.awardsList, GoldenBeanAwardDefined.GetInstance().dataList, "id", false);
+		this.goldenBeanLabel.text = game.MathUtil.formatNum(UserManager.userInfo.yuanbao); //ItemManager.getItemNumById(ItemFixedId.GoldenBean, ItemManager.itemList).toString();
+		UIUtil.writeListInfo(this.awardsList, table.GoldenBeanAward, "Id", false);
 	}
 	private refreshRecordList(list: Array<AwardRecordInfo>)
 	{
@@ -69,14 +69,7 @@ class AwardsPanel extends BasePanel
 		{
 			this.recordScroller.stopAnimation();
 			this.recordScroller.viewport.scrollV = 0;
-			if (!this._recordList)
-			{
-				AwardManager.reqAwardRecord(AwardLogId.GoldenBean, this._startId, this._count);
-			}
-			else
-			{
-				UIUtil.writeListInfo(this.recordList, this._recordList, "id", false, SortUtil.AwardRecoedSort);
-			}
+			AwardManager.reqAwardRecord(AwardLogId.GoldenBean, this._startId, this._count);
 		}
 	}
 }

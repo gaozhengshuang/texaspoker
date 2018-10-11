@@ -505,6 +505,12 @@ func (g *GateServer) RegistRoomServer(agent *RoomAgent) {
 	log.Info("注册房间服 id=%d [%s] 当前总数:%d", agent.Id(), agent.name, g.roomsvrmgr.Num())
 }
 
+// --------------------------------------------------------------------------
+/// @brief 
+///
+/// @param agent 非0指定网关(0其他所有网关)
+/// @param pb.Message
+// --------------------------------------------------------------------------
 func (g *GateServer) SendGateMsg(agent int64, m pb.Message) bool {
 	name := pb.MessageName(m)
 	if name == "" {

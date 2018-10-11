@@ -37,6 +37,8 @@ func (u *GateUser) OnReqGetActivityReward(id, subid int32) {
 	ret := ""
 	if id == int32(msg.ActivityType_DailySign) {
 		ret = u.DailySign()
+	} else if id == int32(msg.ActivityType_BankruptcySubsidy){
+		ret = u.TakeBankruptcySubsidy()
 	} else {
 		ret = "未定义的活动id"
 	}
@@ -129,6 +131,11 @@ func (u *GateUser) ResetDailySign() {
 	u.signdays = 0
 }
 
+//破产补助重置
+func (u *GateUser) ResetBankruptCount() {
+	u.bankruptcount = 0
+}
+
 //签到信息封装消息
 func (u *GateUser) DailySignInfoToMsg(bin *msg.GW2C_RetActivityInfo) {
 	data := make(map[string]string)
@@ -150,7 +157,7 @@ func (u *GateUser) DailySignInfoToMsg(bin *msg.GW2C_RetActivityInfo) {
 
 //跨天重置的活动
 func (u *GateUser) ActivityResetByDay() {
-
+	u.ResetBankruptCount()
 }
 
 //跨周重置的活动
@@ -174,6 +181,9 @@ func (u *GateUser) GetFreeGold() {
 
 //根据logid获取兑换记录
 func (u *GateUser) GetRewardRecordByLogid (logid, startid, count int32) {
+	if startid <= 0 {
+		return
+	}
 	send := &msg.GW2C_RetAwardRecord{}
 	tmp := make([]*msg.AwardRecord,0)
 	len1 := len(u.awardrecord)
@@ -227,28 +237,63 @@ func (u *GateUser) ReqAwardExchange (id, count int32) {
 
 	send1 := &msg.GW2C_PushExchangeTimeRefresh{}
 	send1.Id = pb.Int32(id)
-	if config.Limit > 0 {
-		got := false
-		num := 0
-		for _, v := range u.awardgetinfo {
-			if v.GetId() == id {
-				num = int(v.GetCount()) + 1
-				v.Count = pb.Int32(int32(num))
-				v.Time = pb.Int32(int32(util.CURTIME()))
-				got = true
-			}
+	got := false
+	num := 0
+	for _, v := range u.awardgetinfo {
+		if v.GetId() == id {
+			num = int(v.GetCount()) + 1
+			v.Count = pb.Int32(int32(num))
+			v.Time = pb.Int32(int32(util.CURTIME()))
+			got = true
 		}
-		if got == false {
-			num = 1
-			tmp := &msg.AwardGetInfo{}
-			tmp.Id = pb.Int32(id)
-			tmp.Count = pb.Int32(int32(num))
-			tmp.Time = pb.Int32(int32(util.CURTIME()))
-		}
-		send1.Count = pb.Int32(int32(num))
 	}
+	if got == false {
+		num = 1
+		tmp := &msg.AwardGetInfo{}
+		tmp.Id = pb.Int32(id)
+		tmp.Count = pb.Int32(int32(num))
+		tmp.Time = pb.Int32(int32(util.CURTIME()))
+		u.awardgetinfo = append(u.awardgetinfo, tmp)
+	}
+	send1.Count = pb.Int32(int32(num))
 	send1.Time = pb.Int32(int32(util.CURTIME()))
 	u.SendMsg(send1)
 	send2 := &msg.GW2C_RetAwardExchange{}
 	u.SendMsg(send2)
+}
+
+//返回玩家兑换信息
+func (u *GateUser) GetAwardGetInfo () {
+	send := &msg.GW2C_RetAwardGetInfo{}
+	send.Datalist = u.awardgetinfo[:]
+	u.SendMsg(send)
+}
+
+
+//领破产补助
+func (u *GateUser) TakeBankruptcySubsidy() string {
+	errcode := ""
+	config, ok := tbl.BankruptBase.Activity_bankruptSubsidyById[int32(msg.ActivityType_BankruptcySubsidy)]
+	if !ok {
+		errcode = "破产补助表配置查不到"
+		return errcode
+	} 
+	awardid := config.AwardId
+	limitgold := config.LimitGold
+	times := config.Times
+	if u.bankruptcount >= times {
+		errcode = "本日破产补助领取次数已达上限"
+		return errcode
+	}
+	if u.GetGold() >= limitgold {
+		errcode = "尚未破产 无法领取"
+		return errcode
+	}
+	if u.GetActivityAwardByAwardId(awardid, "破产补助") == true {
+		u.bankruptcount = u.bankruptcount + 1
+	} else {
+		errcode = "领取失败"
+		return errcode
+	}
+	return errcode
 }

@@ -28,7 +28,7 @@ class GamblingMatchWaitComponent extends BaseGamblingSlotComponent
 		this.mttGroup.visible = this.sngGroup.visible = false;
 		if (InfoUtil.checkAvailable(GamblingManager.matchRoomInfo))
 		{
-			switch (GamblingManager.matchRoomInfo.definition.type)
+			switch (GamblingManager.matchRoomInfo.definition.Type)
 			{
 				case MatchType.MTT:
 					this.mttGroup.visible = true;
@@ -47,7 +47,7 @@ class GamblingMatchWaitComponent extends BaseGamblingSlotComponent
 		if (InfoUtil.checkAvailable(GamblingManager.matchRoomInfo))
 		{
 			let join: number = GamblingManager.matchRoomInfo.join;
-			let leftJoin: number = GamblingManager.matchRoomInfo.definition.bNum - join;
+			let leftJoin: number = GamblingManager.matchRoomInfo.definition.BNum - join;
 			let text: string = game.StringUtil.format("<font size=30 color=0xffffff>已报名{0}人，还需</font><font color=0xf9cb55 size=42>{1}</font><font size=30 color=0xffffff>人即可开赛</font>", join, leftJoin);
 			this.sngInfoLabel.textFlow = game.TextUtil.htmlParser.parser(text);
 		}

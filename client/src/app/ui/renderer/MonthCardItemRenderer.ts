@@ -172,10 +172,10 @@ class MonthCardItemRenderer extends BaseItemRenderer<ShopInfo>
     */
     private getSurplusTime(): number
     {
-        let info: AwardTimesInfo = AwardManager.GetExchangeInfo(this.bindData.definition.awardId);
+        let info: msg.IAwardGetInfo = AwardManager.GetExchangeInfo(this.bindData.definition.awardId);
         if (info)
         {
-            return info.lastTime - TimeManager.GetServerUtcTimestamp();
+            return info.time - TimeManager.GetServerUtcTimestamp();
         }
         return 0;
     }

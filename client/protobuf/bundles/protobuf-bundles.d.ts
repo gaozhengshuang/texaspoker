@@ -1402,6 +1402,108 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a GW2C_PushExchangeTimeRefresh. */
+    interface IGW2C_PushExchangeTimeRefresh {
+
+        /** GW2C_PushExchangeTimeRefresh id */
+        id?: (number|null);
+
+        /** GW2C_PushExchangeTimeRefresh count */
+        count?: (number|null);
+
+        /** GW2C_PushExchangeTimeRefresh time */
+        time?: (number|null);
+    }
+
+    /** Represents a GW2C_PushExchangeTimeRefresh. */
+    class GW2C_PushExchangeTimeRefresh implements IGW2C_PushExchangeTimeRefresh {
+
+        /**
+         * Constructs a new GW2C_PushExchangeTimeRefresh.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_PushExchangeTimeRefresh);
+
+        /** GW2C_PushExchangeTimeRefresh id. */
+        public id: number;
+
+        /** GW2C_PushExchangeTimeRefresh count. */
+        public count: number;
+
+        /** GW2C_PushExchangeTimeRefresh time. */
+        public time: number;
+
+        /**
+         * Creates a new GW2C_PushExchangeTimeRefresh instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_PushExchangeTimeRefresh instance
+         */
+        public static create(properties?: msg.IGW2C_PushExchangeTimeRefresh): msg.GW2C_PushExchangeTimeRefresh;
+
+        /**
+         * Encodes the specified GW2C_PushExchangeTimeRefresh message. Does not implicitly {@link msg.GW2C_PushExchangeTimeRefresh.verify|verify} messages.
+         * @param message GW2C_PushExchangeTimeRefresh message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_PushExchangeTimeRefresh, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_PushExchangeTimeRefresh message, length delimited. Does not implicitly {@link msg.GW2C_PushExchangeTimeRefresh.verify|verify} messages.
+         * @param message GW2C_PushExchangeTimeRefresh message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_PushExchangeTimeRefresh, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_PushExchangeTimeRefresh message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_PushExchangeTimeRefresh
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_PushExchangeTimeRefresh;
+
+        /**
+         * Decodes a GW2C_PushExchangeTimeRefresh message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_PushExchangeTimeRefresh
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_PushExchangeTimeRefresh;
+
+        /**
+         * Verifies a GW2C_PushExchangeTimeRefresh message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_PushExchangeTimeRefresh message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_PushExchangeTimeRefresh
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_PushExchangeTimeRefresh;
+
+        /**
+         * Creates a plain object from a GW2C_PushExchangeTimeRefresh message. Also converts values to other types if specified.
+         * @param message GW2C_PushExchangeTimeRefresh
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_PushExchangeTimeRefresh, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_PushExchangeTimeRefresh to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a C2GW_ReqAwardGetInfo. */
     interface IC2GW_ReqAwardGetInfo {
     }
@@ -1489,8 +1591,8 @@ declare namespace msg {
     /** Properties of a GW2C_RetAwardGetInfo. */
     interface IGW2C_RetAwardGetInfo {
 
-        /** GW2C_RetAwardGetInfo DataList */
-        DataList?: (msg.IAwardGetInfo[]|null);
+        /** GW2C_RetAwardGetInfo datalist */
+        datalist?: (msg.IAwardGetInfo[]|null);
     }
 
     /** Represents a GW2C_RetAwardGetInfo. */
@@ -1502,8 +1604,8 @@ declare namespace msg {
          */
         constructor(properties?: msg.IGW2C_RetAwardGetInfo);
 
-        /** GW2C_RetAwardGetInfo DataList. */
-        public DataList: msg.IAwardGetInfo[];
+        /** GW2C_RetAwardGetInfo datalist. */
+        public datalist: msg.IAwardGetInfo[];
 
         /**
          * Creates a new GW2C_RetAwardGetInfo instance using the specified properties.
@@ -1902,6 +2004,12 @@ declare namespace msg {
 
         /** EntityBase yuanbao */
         yuanbao?: (number|null);
+
+        /** EntityBase age */
+        age?: (number|null);
+
+        /** EntityBase bio */
+        bio?: (string|null);
     }
 
     /** Represents an EntityBase. */
@@ -1942,6 +2050,12 @@ declare namespace msg {
 
         /** EntityBase yuanbao. */
         public yuanbao: number;
+
+        /** EntityBase age. */
+        public age: number;
+
+        /** EntityBase bio. */
+        public bio: string;
 
         /**
          * Creates a new EntityBase instance using the specified properties.
@@ -4399,6 +4513,16 @@ declare namespace msg {
         InviteRegist = 1004
     }
 
+    /** RankType enum. */
+    enum RankType {
+        RTGold = 1,
+        RTFriendGold = 2,
+        RTLevel = 3,
+        RTFriendLevel = 4,
+        RTvip = 5,
+        RTActivity = 6
+    }
+
     /** ItemPos enum. */
     enum ItemPos {
         Bag = 0,
@@ -5483,6 +5607,2412 @@ declare namespace msg {
 
         /**
          * Converts this GW2C_EnterGameEvent to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a FriendBrief. */
+    interface IFriendBrief {
+
+        /** FriendBrief roleid */
+        roleid?: (number|Long|null);
+
+        /** FriendBrief name */
+        name?: (string|null);
+
+        /** FriendBrief head */
+        head?: (string|null);
+
+        /** FriendBrief sex */
+        sex?: (number|null);
+
+        /** FriendBrief level */
+        level?: (number|null);
+
+        /** FriendBrief gold */
+        gold?: (number|null);
+
+        /** FriendBrief viplevel */
+        viplevel?: (number|null);
+
+        /** FriendBrief offlinetime */
+        offlinetime?: (number|null);
+    }
+
+    /** Represents a FriendBrief. */
+    class FriendBrief implements IFriendBrief {
+
+        /**
+         * Constructs a new FriendBrief.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IFriendBrief);
+
+        /** FriendBrief roleid. */
+        public roleid: (number|Long);
+
+        /** FriendBrief name. */
+        public name: string;
+
+        /** FriendBrief head. */
+        public head: string;
+
+        /** FriendBrief sex. */
+        public sex: number;
+
+        /** FriendBrief level. */
+        public level: number;
+
+        /** FriendBrief gold. */
+        public gold: number;
+
+        /** FriendBrief viplevel. */
+        public viplevel: number;
+
+        /** FriendBrief offlinetime. */
+        public offlinetime: number;
+
+        /**
+         * Creates a new FriendBrief instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns FriendBrief instance
+         */
+        public static create(properties?: msg.IFriendBrief): msg.FriendBrief;
+
+        /**
+         * Encodes the specified FriendBrief message. Does not implicitly {@link msg.FriendBrief.verify|verify} messages.
+         * @param message FriendBrief message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IFriendBrief, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified FriendBrief message, length delimited. Does not implicitly {@link msg.FriendBrief.verify|verify} messages.
+         * @param message FriendBrief message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IFriendBrief, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a FriendBrief message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns FriendBrief
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.FriendBrief;
+
+        /**
+         * Decodes a FriendBrief message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns FriendBrief
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.FriendBrief;
+
+        /**
+         * Verifies a FriendBrief message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a FriendBrief message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns FriendBrief
+         */
+        public static fromObject(object: { [k: string]: any }): msg.FriendBrief;
+
+        /**
+         * Creates a plain object from a FriendBrief message. Also converts values to other types if specified.
+         * @param message FriendBrief
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.FriendBrief, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this FriendBrief to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a FriendData. */
+    interface IFriendData {
+
+        /** FriendData base */
+        base?: (msg.IFriendBrief|null);
+
+        /** FriendData givegold */
+        givegold?: (number|null);
+
+        /** FriendData getgold */
+        getgold?: (number|null);
+    }
+
+    /** Represents a FriendData. */
+    class FriendData implements IFriendData {
+
+        /**
+         * Constructs a new FriendData.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IFriendData);
+
+        /** FriendData base. */
+        public base?: (msg.IFriendBrief|null);
+
+        /** FriendData givegold. */
+        public givegold: number;
+
+        /** FriendData getgold. */
+        public getgold: number;
+
+        /**
+         * Creates a new FriendData instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns FriendData instance
+         */
+        public static create(properties?: msg.IFriendData): msg.FriendData;
+
+        /**
+         * Encodes the specified FriendData message. Does not implicitly {@link msg.FriendData.verify|verify} messages.
+         * @param message FriendData message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IFriendData, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified FriendData message, length delimited. Does not implicitly {@link msg.FriendData.verify|verify} messages.
+         * @param message FriendData message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IFriendData, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a FriendData message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns FriendData
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.FriendData;
+
+        /**
+         * Decodes a FriendData message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns FriendData
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.FriendData;
+
+        /**
+         * Verifies a FriendData message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a FriendData message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns FriendData
+         */
+        public static fromObject(object: { [k: string]: any }): msg.FriendData;
+
+        /**
+         * Creates a plain object from a FriendData message. Also converts values to other types if specified.
+         * @param message FriendData
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.FriendData, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this FriendData to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqFriendsList. */
+    interface IC2GW_ReqFriendsList {
+    }
+
+    /** Represents a C2GW_ReqFriendsList. */
+    class C2GW_ReqFriendsList implements IC2GW_ReqFriendsList {
+
+        /**
+         * Constructs a new C2GW_ReqFriendsList.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqFriendsList);
+
+        /**
+         * Creates a new C2GW_ReqFriendsList instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqFriendsList instance
+         */
+        public static create(properties?: msg.IC2GW_ReqFriendsList): msg.C2GW_ReqFriendsList;
+
+        /**
+         * Encodes the specified C2GW_ReqFriendsList message. Does not implicitly {@link msg.C2GW_ReqFriendsList.verify|verify} messages.
+         * @param message C2GW_ReqFriendsList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqFriendsList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqFriendsList message, length delimited. Does not implicitly {@link msg.C2GW_ReqFriendsList.verify|verify} messages.
+         * @param message C2GW_ReqFriendsList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqFriendsList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqFriendsList message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqFriendsList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqFriendsList;
+
+        /**
+         * Decodes a C2GW_ReqFriendsList message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqFriendsList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqFriendsList;
+
+        /**
+         * Verifies a C2GW_ReqFriendsList message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqFriendsList message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqFriendsList
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqFriendsList;
+
+        /**
+         * Creates a plain object from a C2GW_ReqFriendsList message. Also converts values to other types if specified.
+         * @param message C2GW_ReqFriendsList
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqFriendsList, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqFriendsList to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetFriendsList. */
+    interface IGW2C_RetFriendsList {
+
+        /** GW2C_RetFriendsList friendlist */
+        friendlist?: (msg.IFriendData[]|null);
+    }
+
+    /** Represents a GW2C_RetFriendsList. */
+    class GW2C_RetFriendsList implements IGW2C_RetFriendsList {
+
+        /**
+         * Constructs a new GW2C_RetFriendsList.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetFriendsList);
+
+        /** GW2C_RetFriendsList friendlist. */
+        public friendlist: msg.IFriendData[];
+
+        /**
+         * Creates a new GW2C_RetFriendsList instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetFriendsList instance
+         */
+        public static create(properties?: msg.IGW2C_RetFriendsList): msg.GW2C_RetFriendsList;
+
+        /**
+         * Encodes the specified GW2C_RetFriendsList message. Does not implicitly {@link msg.GW2C_RetFriendsList.verify|verify} messages.
+         * @param message GW2C_RetFriendsList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetFriendsList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetFriendsList message, length delimited. Does not implicitly {@link msg.GW2C_RetFriendsList.verify|verify} messages.
+         * @param message GW2C_RetFriendsList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetFriendsList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetFriendsList message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetFriendsList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetFriendsList;
+
+        /**
+         * Decodes a GW2C_RetFriendsList message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetFriendsList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetFriendsList;
+
+        /**
+         * Verifies a GW2C_RetFriendsList message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetFriendsList message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetFriendsList
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetFriendsList;
+
+        /**
+         * Creates a plain object from a GW2C_RetFriendsList message. Also converts values to other types if specified.
+         * @param message GW2C_RetFriendsList
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetFriendsList, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetFriendsList to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqPresentToFriend. */
+    interface IC2GW_ReqPresentToFriend {
+
+        /** C2GW_ReqPresentToFriend roleid */
+        roleid?: (number|Long|null);
+    }
+
+    /** Represents a C2GW_ReqPresentToFriend. */
+    class C2GW_ReqPresentToFriend implements IC2GW_ReqPresentToFriend {
+
+        /**
+         * Constructs a new C2GW_ReqPresentToFriend.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqPresentToFriend);
+
+        /** C2GW_ReqPresentToFriend roleid. */
+        public roleid: (number|Long);
+
+        /**
+         * Creates a new C2GW_ReqPresentToFriend instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqPresentToFriend instance
+         */
+        public static create(properties?: msg.IC2GW_ReqPresentToFriend): msg.C2GW_ReqPresentToFriend;
+
+        /**
+         * Encodes the specified C2GW_ReqPresentToFriend message. Does not implicitly {@link msg.C2GW_ReqPresentToFriend.verify|verify} messages.
+         * @param message C2GW_ReqPresentToFriend message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqPresentToFriend, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqPresentToFriend message, length delimited. Does not implicitly {@link msg.C2GW_ReqPresentToFriend.verify|verify} messages.
+         * @param message C2GW_ReqPresentToFriend message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqPresentToFriend, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqPresentToFriend message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqPresentToFriend
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqPresentToFriend;
+
+        /**
+         * Decodes a C2GW_ReqPresentToFriend message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqPresentToFriend
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqPresentToFriend;
+
+        /**
+         * Verifies a C2GW_ReqPresentToFriend message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqPresentToFriend message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqPresentToFriend
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqPresentToFriend;
+
+        /**
+         * Creates a plain object from a C2GW_ReqPresentToFriend message. Also converts values to other types if specified.
+         * @param message C2GW_ReqPresentToFriend
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqPresentToFriend, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqPresentToFriend to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetPresentToFriend. */
+    interface IGW2C_RetPresentToFriend {
+    }
+
+    /** Represents a GW2C_RetPresentToFriend. */
+    class GW2C_RetPresentToFriend implements IGW2C_RetPresentToFriend {
+
+        /**
+         * Constructs a new GW2C_RetPresentToFriend.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetPresentToFriend);
+
+        /**
+         * Creates a new GW2C_RetPresentToFriend instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetPresentToFriend instance
+         */
+        public static create(properties?: msg.IGW2C_RetPresentToFriend): msg.GW2C_RetPresentToFriend;
+
+        /**
+         * Encodes the specified GW2C_RetPresentToFriend message. Does not implicitly {@link msg.GW2C_RetPresentToFriend.verify|verify} messages.
+         * @param message GW2C_RetPresentToFriend message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetPresentToFriend, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetPresentToFriend message, length delimited. Does not implicitly {@link msg.GW2C_RetPresentToFriend.verify|verify} messages.
+         * @param message GW2C_RetPresentToFriend message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetPresentToFriend, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetPresentToFriend message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetPresentToFriend
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetPresentToFriend;
+
+        /**
+         * Decodes a GW2C_RetPresentToFriend message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetPresentToFriend
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetPresentToFriend;
+
+        /**
+         * Verifies a GW2C_RetPresentToFriend message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetPresentToFriend message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetPresentToFriend
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetPresentToFriend;
+
+        /**
+         * Creates a plain object from a GW2C_RetPresentToFriend message. Also converts values to other types if specified.
+         * @param message GW2C_RetPresentToFriend
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetPresentToFriend, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetPresentToFriend to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_PushFriendPresent. */
+    interface IGW2C_PushFriendPresent {
+
+        /** GW2C_PushFriendPresent roleid */
+        roleid?: (number|Long|null);
+    }
+
+    /** Represents a GW2C_PushFriendPresent. */
+    class GW2C_PushFriendPresent implements IGW2C_PushFriendPresent {
+
+        /**
+         * Constructs a new GW2C_PushFriendPresent.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_PushFriendPresent);
+
+        /** GW2C_PushFriendPresent roleid. */
+        public roleid: (number|Long);
+
+        /**
+         * Creates a new GW2C_PushFriendPresent instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_PushFriendPresent instance
+         */
+        public static create(properties?: msg.IGW2C_PushFriendPresent): msg.GW2C_PushFriendPresent;
+
+        /**
+         * Encodes the specified GW2C_PushFriendPresent message. Does not implicitly {@link msg.GW2C_PushFriendPresent.verify|verify} messages.
+         * @param message GW2C_PushFriendPresent message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_PushFriendPresent, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_PushFriendPresent message, length delimited. Does not implicitly {@link msg.GW2C_PushFriendPresent.verify|verify} messages.
+         * @param message GW2C_PushFriendPresent message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_PushFriendPresent, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_PushFriendPresent message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_PushFriendPresent
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_PushFriendPresent;
+
+        /**
+         * Decodes a GW2C_PushFriendPresent message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_PushFriendPresent
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_PushFriendPresent;
+
+        /**
+         * Verifies a GW2C_PushFriendPresent message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_PushFriendPresent message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_PushFriendPresent
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_PushFriendPresent;
+
+        /**
+         * Creates a plain object from a GW2C_PushFriendPresent message. Also converts values to other types if specified.
+         * @param message GW2C_PushFriendPresent
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_PushFriendPresent, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_PushFriendPresent to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqFriendDetail. */
+    interface IC2GW_ReqFriendDetail {
+
+        /** C2GW_ReqFriendDetail roleid */
+        roleid?: (number|Long|null);
+    }
+
+    /** Represents a C2GW_ReqFriendDetail. */
+    class C2GW_ReqFriendDetail implements IC2GW_ReqFriendDetail {
+
+        /**
+         * Constructs a new C2GW_ReqFriendDetail.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqFriendDetail);
+
+        /** C2GW_ReqFriendDetail roleid. */
+        public roleid: (number|Long);
+
+        /**
+         * Creates a new C2GW_ReqFriendDetail instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqFriendDetail instance
+         */
+        public static create(properties?: msg.IC2GW_ReqFriendDetail): msg.C2GW_ReqFriendDetail;
+
+        /**
+         * Encodes the specified C2GW_ReqFriendDetail message. Does not implicitly {@link msg.C2GW_ReqFriendDetail.verify|verify} messages.
+         * @param message C2GW_ReqFriendDetail message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqFriendDetail, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqFriendDetail message, length delimited. Does not implicitly {@link msg.C2GW_ReqFriendDetail.verify|verify} messages.
+         * @param message C2GW_ReqFriendDetail message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqFriendDetail, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqFriendDetail message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqFriendDetail
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqFriendDetail;
+
+        /**
+         * Decodes a C2GW_ReqFriendDetail message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqFriendDetail
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqFriendDetail;
+
+        /**
+         * Verifies a C2GW_ReqFriendDetail message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqFriendDetail message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqFriendDetail
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqFriendDetail;
+
+        /**
+         * Creates a plain object from a C2GW_ReqFriendDetail message. Also converts values to other types if specified.
+         * @param message C2GW_ReqFriendDetail
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqFriendDetail, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqFriendDetail to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetFriendDetail. */
+    interface IGW2C_RetFriendDetail {
+
+        /** GW2C_RetFriendDetail base */
+        base?: (msg.IEntityBase|null);
+    }
+
+    /** Represents a GW2C_RetFriendDetail. */
+    class GW2C_RetFriendDetail implements IGW2C_RetFriendDetail {
+
+        /**
+         * Constructs a new GW2C_RetFriendDetail.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetFriendDetail);
+
+        /** GW2C_RetFriendDetail base. */
+        public base?: (msg.IEntityBase|null);
+
+        /**
+         * Creates a new GW2C_RetFriendDetail instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetFriendDetail instance
+         */
+        public static create(properties?: msg.IGW2C_RetFriendDetail): msg.GW2C_RetFriendDetail;
+
+        /**
+         * Encodes the specified GW2C_RetFriendDetail message. Does not implicitly {@link msg.GW2C_RetFriendDetail.verify|verify} messages.
+         * @param message GW2C_RetFriendDetail message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetFriendDetail, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetFriendDetail message, length delimited. Does not implicitly {@link msg.GW2C_RetFriendDetail.verify|verify} messages.
+         * @param message GW2C_RetFriendDetail message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetFriendDetail, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetFriendDetail message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetFriendDetail
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetFriendDetail;
+
+        /**
+         * Decodes a GW2C_RetFriendDetail message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetFriendDetail
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetFriendDetail;
+
+        /**
+         * Verifies a GW2C_RetFriendDetail message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetFriendDetail message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetFriendDetail
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetFriendDetail;
+
+        /**
+         * Creates a plain object from a GW2C_RetFriendDetail message. Also converts values to other types if specified.
+         * @param message GW2C_RetFriendDetail
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetFriendDetail, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetFriendDetail to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqGetFriendPresent. */
+    interface IC2GW_ReqGetFriendPresent {
+
+        /** C2GW_ReqGetFriendPresent roleid */
+        roleid?: (number|Long|null);
+    }
+
+    /** Represents a C2GW_ReqGetFriendPresent. */
+    class C2GW_ReqGetFriendPresent implements IC2GW_ReqGetFriendPresent {
+
+        /**
+         * Constructs a new C2GW_ReqGetFriendPresent.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqGetFriendPresent);
+
+        /** C2GW_ReqGetFriendPresent roleid. */
+        public roleid: (number|Long);
+
+        /**
+         * Creates a new C2GW_ReqGetFriendPresent instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqGetFriendPresent instance
+         */
+        public static create(properties?: msg.IC2GW_ReqGetFriendPresent): msg.C2GW_ReqGetFriendPresent;
+
+        /**
+         * Encodes the specified C2GW_ReqGetFriendPresent message. Does not implicitly {@link msg.C2GW_ReqGetFriendPresent.verify|verify} messages.
+         * @param message C2GW_ReqGetFriendPresent message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqGetFriendPresent, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqGetFriendPresent message, length delimited. Does not implicitly {@link msg.C2GW_ReqGetFriendPresent.verify|verify} messages.
+         * @param message C2GW_ReqGetFriendPresent message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqGetFriendPresent, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqGetFriendPresent message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqGetFriendPresent
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqGetFriendPresent;
+
+        /**
+         * Decodes a C2GW_ReqGetFriendPresent message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqGetFriendPresent
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqGetFriendPresent;
+
+        /**
+         * Verifies a C2GW_ReqGetFriendPresent message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqGetFriendPresent message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqGetFriendPresent
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqGetFriendPresent;
+
+        /**
+         * Creates a plain object from a C2GW_ReqGetFriendPresent message. Also converts values to other types if specified.
+         * @param message C2GW_ReqGetFriendPresent
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqGetFriendPresent, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqGetFriendPresent to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetGetFriendPresent. */
+    interface IGW2C_RetGetFriendPresent {
+
+        /** GW2C_RetGetFriendPresent roleid */
+        roleid?: ((number|Long)[]|null);
+    }
+
+    /** Represents a GW2C_RetGetFriendPresent. */
+    class GW2C_RetGetFriendPresent implements IGW2C_RetGetFriendPresent {
+
+        /**
+         * Constructs a new GW2C_RetGetFriendPresent.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetGetFriendPresent);
+
+        /** GW2C_RetGetFriendPresent roleid. */
+        public roleid: (number|Long)[];
+
+        /**
+         * Creates a new GW2C_RetGetFriendPresent instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetGetFriendPresent instance
+         */
+        public static create(properties?: msg.IGW2C_RetGetFriendPresent): msg.GW2C_RetGetFriendPresent;
+
+        /**
+         * Encodes the specified GW2C_RetGetFriendPresent message. Does not implicitly {@link msg.GW2C_RetGetFriendPresent.verify|verify} messages.
+         * @param message GW2C_RetGetFriendPresent message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetGetFriendPresent, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetGetFriendPresent message, length delimited. Does not implicitly {@link msg.GW2C_RetGetFriendPresent.verify|verify} messages.
+         * @param message GW2C_RetGetFriendPresent message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetGetFriendPresent, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetGetFriendPresent message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetGetFriendPresent
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetGetFriendPresent;
+
+        /**
+         * Decodes a GW2C_RetGetFriendPresent message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetGetFriendPresent
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetGetFriendPresent;
+
+        /**
+         * Verifies a GW2C_RetGetFriendPresent message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetGetFriendPresent message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetGetFriendPresent
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetGetFriendPresent;
+
+        /**
+         * Creates a plain object from a GW2C_RetGetFriendPresent message. Also converts values to other types if specified.
+         * @param message GW2C_RetGetFriendPresent
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetGetFriendPresent, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetGetFriendPresent to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqFriendRequestList. */
+    interface IC2GW_ReqFriendRequestList {
+    }
+
+    /** Represents a C2GW_ReqFriendRequestList. */
+    class C2GW_ReqFriendRequestList implements IC2GW_ReqFriendRequestList {
+
+        /**
+         * Constructs a new C2GW_ReqFriendRequestList.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqFriendRequestList);
+
+        /**
+         * Creates a new C2GW_ReqFriendRequestList instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqFriendRequestList instance
+         */
+        public static create(properties?: msg.IC2GW_ReqFriendRequestList): msg.C2GW_ReqFriendRequestList;
+
+        /**
+         * Encodes the specified C2GW_ReqFriendRequestList message. Does not implicitly {@link msg.C2GW_ReqFriendRequestList.verify|verify} messages.
+         * @param message C2GW_ReqFriendRequestList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqFriendRequestList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqFriendRequestList message, length delimited. Does not implicitly {@link msg.C2GW_ReqFriendRequestList.verify|verify} messages.
+         * @param message C2GW_ReqFriendRequestList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqFriendRequestList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqFriendRequestList message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqFriendRequestList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqFriendRequestList;
+
+        /**
+         * Decodes a C2GW_ReqFriendRequestList message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqFriendRequestList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqFriendRequestList;
+
+        /**
+         * Verifies a C2GW_ReqFriendRequestList message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqFriendRequestList message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqFriendRequestList
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqFriendRequestList;
+
+        /**
+         * Creates a plain object from a C2GW_ReqFriendRequestList message. Also converts values to other types if specified.
+         * @param message C2GW_ReqFriendRequestList
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqFriendRequestList, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqFriendRequestList to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetFriendRequestList. */
+    interface IGW2C_RetFriendRequestList {
+
+        /** GW2C_RetFriendRequestList array */
+        array?: (msg.IFriendBrief[]|null);
+    }
+
+    /** Represents a GW2C_RetFriendRequestList. */
+    class GW2C_RetFriendRequestList implements IGW2C_RetFriendRequestList {
+
+        /**
+         * Constructs a new GW2C_RetFriendRequestList.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetFriendRequestList);
+
+        /** GW2C_RetFriendRequestList array. */
+        public array: msg.IFriendBrief[];
+
+        /**
+         * Creates a new GW2C_RetFriendRequestList instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetFriendRequestList instance
+         */
+        public static create(properties?: msg.IGW2C_RetFriendRequestList): msg.GW2C_RetFriendRequestList;
+
+        /**
+         * Encodes the specified GW2C_RetFriendRequestList message. Does not implicitly {@link msg.GW2C_RetFriendRequestList.verify|verify} messages.
+         * @param message GW2C_RetFriendRequestList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetFriendRequestList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetFriendRequestList message, length delimited. Does not implicitly {@link msg.GW2C_RetFriendRequestList.verify|verify} messages.
+         * @param message GW2C_RetFriendRequestList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetFriendRequestList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetFriendRequestList message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetFriendRequestList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetFriendRequestList;
+
+        /**
+         * Decodes a GW2C_RetFriendRequestList message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetFriendRequestList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetFriendRequestList;
+
+        /**
+         * Verifies a GW2C_RetFriendRequestList message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetFriendRequestList message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetFriendRequestList
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetFriendRequestList;
+
+        /**
+         * Creates a plain object from a GW2C_RetFriendRequestList message. Also converts values to other types if specified.
+         * @param message GW2C_RetFriendRequestList
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetFriendRequestList, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetFriendRequestList to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqRemoveFriend. */
+    interface IC2GW_ReqRemoveFriend {
+
+        /** C2GW_ReqRemoveFriend roleid */
+        roleid?: (number|Long|null);
+    }
+
+    /** Represents a C2GW_ReqRemoveFriend. */
+    class C2GW_ReqRemoveFriend implements IC2GW_ReqRemoveFriend {
+
+        /**
+         * Constructs a new C2GW_ReqRemoveFriend.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqRemoveFriend);
+
+        /** C2GW_ReqRemoveFriend roleid. */
+        public roleid: (number|Long);
+
+        /**
+         * Creates a new C2GW_ReqRemoveFriend instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqRemoveFriend instance
+         */
+        public static create(properties?: msg.IC2GW_ReqRemoveFriend): msg.C2GW_ReqRemoveFriend;
+
+        /**
+         * Encodes the specified C2GW_ReqRemoveFriend message. Does not implicitly {@link msg.C2GW_ReqRemoveFriend.verify|verify} messages.
+         * @param message C2GW_ReqRemoveFriend message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqRemoveFriend, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqRemoveFriend message, length delimited. Does not implicitly {@link msg.C2GW_ReqRemoveFriend.verify|verify} messages.
+         * @param message C2GW_ReqRemoveFriend message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqRemoveFriend, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqRemoveFriend message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqRemoveFriend
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqRemoveFriend;
+
+        /**
+         * Decodes a C2GW_ReqRemoveFriend message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqRemoveFriend
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqRemoveFriend;
+
+        /**
+         * Verifies a C2GW_ReqRemoveFriend message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqRemoveFriend message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqRemoveFriend
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqRemoveFriend;
+
+        /**
+         * Creates a plain object from a C2GW_ReqRemoveFriend message. Also converts values to other types if specified.
+         * @param message C2GW_ReqRemoveFriend
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqRemoveFriend, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqRemoveFriend to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetRemoveFriend. */
+    interface IGW2C_RetRemoveFriend {
+
+        /** GW2C_RetRemoveFriend roleid */
+        roleid?: (number|Long|null);
+    }
+
+    /** Represents a GW2C_RetRemoveFriend. */
+    class GW2C_RetRemoveFriend implements IGW2C_RetRemoveFriend {
+
+        /**
+         * Constructs a new GW2C_RetRemoveFriend.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetRemoveFriend);
+
+        /** GW2C_RetRemoveFriend roleid. */
+        public roleid: (number|Long);
+
+        /**
+         * Creates a new GW2C_RetRemoveFriend instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetRemoveFriend instance
+         */
+        public static create(properties?: msg.IGW2C_RetRemoveFriend): msg.GW2C_RetRemoveFriend;
+
+        /**
+         * Encodes the specified GW2C_RetRemoveFriend message. Does not implicitly {@link msg.GW2C_RetRemoveFriend.verify|verify} messages.
+         * @param message GW2C_RetRemoveFriend message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetRemoveFriend, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetRemoveFriend message, length delimited. Does not implicitly {@link msg.GW2C_RetRemoveFriend.verify|verify} messages.
+         * @param message GW2C_RetRemoveFriend message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetRemoveFriend, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetRemoveFriend message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetRemoveFriend
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetRemoveFriend;
+
+        /**
+         * Decodes a GW2C_RetRemoveFriend message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetRemoveFriend
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetRemoveFriend;
+
+        /**
+         * Verifies a GW2C_RetRemoveFriend message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetRemoveFriend message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetRemoveFriend
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetRemoveFriend;
+
+        /**
+         * Creates a plain object from a GW2C_RetRemoveFriend message. Also converts values to other types if specified.
+         * @param message GW2C_RetRemoveFriend
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetRemoveFriend, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetRemoveFriend to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_PushFriendRemove. */
+    interface IGW2C_PushFriendRemove {
+
+        /** GW2C_PushFriendRemove roleid */
+        roleid?: (number|Long|null);
+    }
+
+    /** Represents a GW2C_PushFriendRemove. */
+    class GW2C_PushFriendRemove implements IGW2C_PushFriendRemove {
+
+        /**
+         * Constructs a new GW2C_PushFriendRemove.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_PushFriendRemove);
+
+        /** GW2C_PushFriendRemove roleid. */
+        public roleid: (number|Long);
+
+        /**
+         * Creates a new GW2C_PushFriendRemove instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_PushFriendRemove instance
+         */
+        public static create(properties?: msg.IGW2C_PushFriendRemove): msg.GW2C_PushFriendRemove;
+
+        /**
+         * Encodes the specified GW2C_PushFriendRemove message. Does not implicitly {@link msg.GW2C_PushFriendRemove.verify|verify} messages.
+         * @param message GW2C_PushFriendRemove message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_PushFriendRemove, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_PushFriendRemove message, length delimited. Does not implicitly {@link msg.GW2C_PushFriendRemove.verify|verify} messages.
+         * @param message GW2C_PushFriendRemove message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_PushFriendRemove, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_PushFriendRemove message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_PushFriendRemove
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_PushFriendRemove;
+
+        /**
+         * Decodes a GW2C_PushFriendRemove message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_PushFriendRemove
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_PushFriendRemove;
+
+        /**
+         * Verifies a GW2C_PushFriendRemove message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_PushFriendRemove message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_PushFriendRemove
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_PushFriendRemove;
+
+        /**
+         * Creates a plain object from a GW2C_PushFriendRemove message. Also converts values to other types if specified.
+         * @param message GW2C_PushFriendRemove
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_PushFriendRemove, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_PushFriendRemove to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqAddFriend. */
+    interface IC2GW_ReqAddFriend {
+
+        /** C2GW_ReqAddFriend roleid */
+        roleid?: (number|Long|null);
+    }
+
+    /** Represents a C2GW_ReqAddFriend. */
+    class C2GW_ReqAddFriend implements IC2GW_ReqAddFriend {
+
+        /**
+         * Constructs a new C2GW_ReqAddFriend.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqAddFriend);
+
+        /** C2GW_ReqAddFriend roleid. */
+        public roleid: (number|Long);
+
+        /**
+         * Creates a new C2GW_ReqAddFriend instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqAddFriend instance
+         */
+        public static create(properties?: msg.IC2GW_ReqAddFriend): msg.C2GW_ReqAddFriend;
+
+        /**
+         * Encodes the specified C2GW_ReqAddFriend message. Does not implicitly {@link msg.C2GW_ReqAddFriend.verify|verify} messages.
+         * @param message C2GW_ReqAddFriend message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqAddFriend, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqAddFriend message, length delimited. Does not implicitly {@link msg.C2GW_ReqAddFriend.verify|verify} messages.
+         * @param message C2GW_ReqAddFriend message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqAddFriend, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqAddFriend message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqAddFriend
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqAddFriend;
+
+        /**
+         * Decodes a C2GW_ReqAddFriend message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqAddFriend
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqAddFriend;
+
+        /**
+         * Verifies a C2GW_ReqAddFriend message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqAddFriend message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqAddFriend
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqAddFriend;
+
+        /**
+         * Creates a plain object from a C2GW_ReqAddFriend message. Also converts values to other types if specified.
+         * @param message C2GW_ReqAddFriend
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqAddFriend, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqAddFriend to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetAddFriend. */
+    interface IGW2C_RetAddFriend {
+    }
+
+    /** Represents a GW2C_RetAddFriend. */
+    class GW2C_RetAddFriend implements IGW2C_RetAddFriend {
+
+        /**
+         * Constructs a new GW2C_RetAddFriend.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetAddFriend);
+
+        /**
+         * Creates a new GW2C_RetAddFriend instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetAddFriend instance
+         */
+        public static create(properties?: msg.IGW2C_RetAddFriend): msg.GW2C_RetAddFriend;
+
+        /**
+         * Encodes the specified GW2C_RetAddFriend message. Does not implicitly {@link msg.GW2C_RetAddFriend.verify|verify} messages.
+         * @param message GW2C_RetAddFriend message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetAddFriend, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetAddFriend message, length delimited. Does not implicitly {@link msg.GW2C_RetAddFriend.verify|verify} messages.
+         * @param message GW2C_RetAddFriend message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetAddFriend, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetAddFriend message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetAddFriend
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetAddFriend;
+
+        /**
+         * Decodes a GW2C_RetAddFriend message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetAddFriend
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetAddFriend;
+
+        /**
+         * Verifies a GW2C_RetAddFriend message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetAddFriend message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetAddFriend
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetAddFriend;
+
+        /**
+         * Creates a plain object from a GW2C_RetAddFriend message. Also converts values to other types if specified.
+         * @param message GW2C_RetAddFriend
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetAddFriend, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetAddFriend to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_PushFriendAddSuccess. */
+    interface IGW2C_PushFriendAddSuccess {
+
+        /** GW2C_PushFriendAddSuccess handler */
+        handler?: (number|Long|null);
+
+        /** GW2C_PushFriendAddSuccess friend */
+        friend?: (msg.IFriendBrief|null);
+    }
+
+    /** Represents a GW2C_PushFriendAddSuccess. */
+    class GW2C_PushFriendAddSuccess implements IGW2C_PushFriendAddSuccess {
+
+        /**
+         * Constructs a new GW2C_PushFriendAddSuccess.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_PushFriendAddSuccess);
+
+        /** GW2C_PushFriendAddSuccess handler. */
+        public handler: (number|Long);
+
+        /** GW2C_PushFriendAddSuccess friend. */
+        public friend?: (msg.IFriendBrief|null);
+
+        /**
+         * Creates a new GW2C_PushFriendAddSuccess instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_PushFriendAddSuccess instance
+         */
+        public static create(properties?: msg.IGW2C_PushFriendAddSuccess): msg.GW2C_PushFriendAddSuccess;
+
+        /**
+         * Encodes the specified GW2C_PushFriendAddSuccess message. Does not implicitly {@link msg.GW2C_PushFriendAddSuccess.verify|verify} messages.
+         * @param message GW2C_PushFriendAddSuccess message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_PushFriendAddSuccess, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_PushFriendAddSuccess message, length delimited. Does not implicitly {@link msg.GW2C_PushFriendAddSuccess.verify|verify} messages.
+         * @param message GW2C_PushFriendAddSuccess message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_PushFriendAddSuccess, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_PushFriendAddSuccess message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_PushFriendAddSuccess
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_PushFriendAddSuccess;
+
+        /**
+         * Decodes a GW2C_PushFriendAddSuccess message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_PushFriendAddSuccess
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_PushFriendAddSuccess;
+
+        /**
+         * Verifies a GW2C_PushFriendAddSuccess message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_PushFriendAddSuccess message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_PushFriendAddSuccess
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_PushFriendAddSuccess;
+
+        /**
+         * Creates a plain object from a GW2C_PushFriendAddSuccess message. Also converts values to other types if specified.
+         * @param message GW2C_PushFriendAddSuccess
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_PushFriendAddSuccess, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_PushFriendAddSuccess to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_PushAddYouFriend. */
+    interface IGW2C_PushAddYouFriend {
+
+        /** GW2C_PushAddYouFriend handler */
+        handler?: (number|Long|null);
+
+        /** GW2C_PushAddYouFriend friend */
+        friend?: (msg.IFriendBrief|null);
+    }
+
+    /** Represents a GW2C_PushAddYouFriend. */
+    class GW2C_PushAddYouFriend implements IGW2C_PushAddYouFriend {
+
+        /**
+         * Constructs a new GW2C_PushAddYouFriend.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_PushAddYouFriend);
+
+        /** GW2C_PushAddYouFriend handler. */
+        public handler: (number|Long);
+
+        /** GW2C_PushAddYouFriend friend. */
+        public friend?: (msg.IFriendBrief|null);
+
+        /**
+         * Creates a new GW2C_PushAddYouFriend instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_PushAddYouFriend instance
+         */
+        public static create(properties?: msg.IGW2C_PushAddYouFriend): msg.GW2C_PushAddYouFriend;
+
+        /**
+         * Encodes the specified GW2C_PushAddYouFriend message. Does not implicitly {@link msg.GW2C_PushAddYouFriend.verify|verify} messages.
+         * @param message GW2C_PushAddYouFriend message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_PushAddYouFriend, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_PushAddYouFriend message, length delimited. Does not implicitly {@link msg.GW2C_PushAddYouFriend.verify|verify} messages.
+         * @param message GW2C_PushAddYouFriend message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_PushAddYouFriend, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_PushAddYouFriend message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_PushAddYouFriend
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_PushAddYouFriend;
+
+        /**
+         * Decodes a GW2C_PushAddYouFriend message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_PushAddYouFriend
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_PushAddYouFriend;
+
+        /**
+         * Verifies a GW2C_PushAddYouFriend message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_PushAddYouFriend message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_PushAddYouFriend
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_PushAddYouFriend;
+
+        /**
+         * Creates a plain object from a GW2C_PushAddYouFriend message. Also converts values to other types if specified.
+         * @param message GW2C_PushAddYouFriend
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_PushAddYouFriend, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_PushAddYouFriend to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqProcessFriendRequest. */
+    interface IC2GW_ReqProcessFriendRequest {
+
+        /** C2GW_ReqProcessFriendRequest roleid */
+        roleid?: (number|Long|null);
+
+        /** C2GW_ReqProcessFriendRequest isaccept */
+        isaccept?: (boolean|null);
+    }
+
+    /** Represents a C2GW_ReqProcessFriendRequest. */
+    class C2GW_ReqProcessFriendRequest implements IC2GW_ReqProcessFriendRequest {
+
+        /**
+         * Constructs a new C2GW_ReqProcessFriendRequest.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqProcessFriendRequest);
+
+        /** C2GW_ReqProcessFriendRequest roleid. */
+        public roleid: (number|Long);
+
+        /** C2GW_ReqProcessFriendRequest isaccept. */
+        public isaccept: boolean;
+
+        /**
+         * Creates a new C2GW_ReqProcessFriendRequest instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqProcessFriendRequest instance
+         */
+        public static create(properties?: msg.IC2GW_ReqProcessFriendRequest): msg.C2GW_ReqProcessFriendRequest;
+
+        /**
+         * Encodes the specified C2GW_ReqProcessFriendRequest message. Does not implicitly {@link msg.C2GW_ReqProcessFriendRequest.verify|verify} messages.
+         * @param message C2GW_ReqProcessFriendRequest message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqProcessFriendRequest, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqProcessFriendRequest message, length delimited. Does not implicitly {@link msg.C2GW_ReqProcessFriendRequest.verify|verify} messages.
+         * @param message C2GW_ReqProcessFriendRequest message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqProcessFriendRequest, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqProcessFriendRequest message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqProcessFriendRequest
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqProcessFriendRequest;
+
+        /**
+         * Decodes a C2GW_ReqProcessFriendRequest message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqProcessFriendRequest
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqProcessFriendRequest;
+
+        /**
+         * Verifies a C2GW_ReqProcessFriendRequest message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqProcessFriendRequest message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqProcessFriendRequest
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqProcessFriendRequest;
+
+        /**
+         * Creates a plain object from a C2GW_ReqProcessFriendRequest message. Also converts values to other types if specified.
+         * @param message C2GW_ReqProcessFriendRequest
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqProcessFriendRequest, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqProcessFriendRequest to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetProcessFriendRequest. */
+    interface IGW2C_RetProcessFriendRequest {
+    }
+
+    /** Represents a GW2C_RetProcessFriendRequest. */
+    class GW2C_RetProcessFriendRequest implements IGW2C_RetProcessFriendRequest {
+
+        /**
+         * Constructs a new GW2C_RetProcessFriendRequest.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetProcessFriendRequest);
+
+        /**
+         * Creates a new GW2C_RetProcessFriendRequest instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetProcessFriendRequest instance
+         */
+        public static create(properties?: msg.IGW2C_RetProcessFriendRequest): msg.GW2C_RetProcessFriendRequest;
+
+        /**
+         * Encodes the specified GW2C_RetProcessFriendRequest message. Does not implicitly {@link msg.GW2C_RetProcessFriendRequest.verify|verify} messages.
+         * @param message GW2C_RetProcessFriendRequest message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetProcessFriendRequest, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetProcessFriendRequest message, length delimited. Does not implicitly {@link msg.GW2C_RetProcessFriendRequest.verify|verify} messages.
+         * @param message GW2C_RetProcessFriendRequest message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetProcessFriendRequest, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetProcessFriendRequest message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetProcessFriendRequest
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetProcessFriendRequest;
+
+        /**
+         * Decodes a GW2C_RetProcessFriendRequest message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetProcessFriendRequest
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetProcessFriendRequest;
+
+        /**
+         * Verifies a GW2C_RetProcessFriendRequest message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetProcessFriendRequest message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetProcessFriendRequest
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetProcessFriendRequest;
+
+        /**
+         * Creates a plain object from a GW2C_RetProcessFriendRequest message. Also converts values to other types if specified.
+         * @param message GW2C_RetProcessFriendRequest
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetProcessFriendRequest, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetProcessFriendRequest to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqFriendSearch. */
+    interface IC2GW_ReqFriendSearch {
+
+        /** C2GW_ReqFriendSearch val */
+        val?: (string|null);
+    }
+
+    /** Represents a C2GW_ReqFriendSearch. */
+    class C2GW_ReqFriendSearch implements IC2GW_ReqFriendSearch {
+
+        /**
+         * Constructs a new C2GW_ReqFriendSearch.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqFriendSearch);
+
+        /** C2GW_ReqFriendSearch val. */
+        public val: string;
+
+        /**
+         * Creates a new C2GW_ReqFriendSearch instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqFriendSearch instance
+         */
+        public static create(properties?: msg.IC2GW_ReqFriendSearch): msg.C2GW_ReqFriendSearch;
+
+        /**
+         * Encodes the specified C2GW_ReqFriendSearch message. Does not implicitly {@link msg.C2GW_ReqFriendSearch.verify|verify} messages.
+         * @param message C2GW_ReqFriendSearch message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqFriendSearch, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqFriendSearch message, length delimited. Does not implicitly {@link msg.C2GW_ReqFriendSearch.verify|verify} messages.
+         * @param message C2GW_ReqFriendSearch message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqFriendSearch, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqFriendSearch message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqFriendSearch
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqFriendSearch;
+
+        /**
+         * Decodes a C2GW_ReqFriendSearch message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqFriendSearch
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqFriendSearch;
+
+        /**
+         * Verifies a C2GW_ReqFriendSearch message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqFriendSearch message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqFriendSearch
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqFriendSearch;
+
+        /**
+         * Creates a plain object from a C2GW_ReqFriendSearch message. Also converts values to other types if specified.
+         * @param message C2GW_ReqFriendSearch
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqFriendSearch, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqFriendSearch to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetFriendSearch. */
+    interface IGW2C_RetFriendSearch {
+
+        /** GW2C_RetFriendSearch brief */
+        brief?: (msg.IFriendBrief[]|null);
+    }
+
+    /** Represents a GW2C_RetFriendSearch. */
+    class GW2C_RetFriendSearch implements IGW2C_RetFriendSearch {
+
+        /**
+         * Constructs a new GW2C_RetFriendSearch.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetFriendSearch);
+
+        /** GW2C_RetFriendSearch brief. */
+        public brief: msg.IFriendBrief[];
+
+        /**
+         * Creates a new GW2C_RetFriendSearch instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetFriendSearch instance
+         */
+        public static create(properties?: msg.IGW2C_RetFriendSearch): msg.GW2C_RetFriendSearch;
+
+        /**
+         * Encodes the specified GW2C_RetFriendSearch message. Does not implicitly {@link msg.GW2C_RetFriendSearch.verify|verify} messages.
+         * @param message GW2C_RetFriendSearch message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetFriendSearch, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetFriendSearch message, length delimited. Does not implicitly {@link msg.GW2C_RetFriendSearch.verify|verify} messages.
+         * @param message GW2C_RetFriendSearch message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetFriendSearch, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetFriendSearch message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetFriendSearch
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetFriendSearch;
+
+        /**
+         * Decodes a GW2C_RetFriendSearch message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetFriendSearch
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetFriendSearch;
+
+        /**
+         * Verifies a GW2C_RetFriendSearch message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetFriendSearch message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetFriendSearch
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetFriendSearch;
+
+        /**
+         * Creates a plain object from a GW2C_RetFriendSearch message. Also converts values to other types if specified.
+         * @param message GW2C_RetFriendSearch
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetFriendSearch, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetFriendSearch to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_PushFriendLogin. */
+    interface IGW2C_PushFriendLogin {
+
+        /** GW2C_PushFriendLogin roleid */
+        roleid?: (number|Long|null);
+
+        /** GW2C_PushFriendLogin offlinetime */
+        offlinetime?: (number|null);
+    }
+
+    /** Represents a GW2C_PushFriendLogin. */
+    class GW2C_PushFriendLogin implements IGW2C_PushFriendLogin {
+
+        /**
+         * Constructs a new GW2C_PushFriendLogin.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_PushFriendLogin);
+
+        /** GW2C_PushFriendLogin roleid. */
+        public roleid: (number|Long);
+
+        /** GW2C_PushFriendLogin offlinetime. */
+        public offlinetime: number;
+
+        /**
+         * Creates a new GW2C_PushFriendLogin instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_PushFriendLogin instance
+         */
+        public static create(properties?: msg.IGW2C_PushFriendLogin): msg.GW2C_PushFriendLogin;
+
+        /**
+         * Encodes the specified GW2C_PushFriendLogin message. Does not implicitly {@link msg.GW2C_PushFriendLogin.verify|verify} messages.
+         * @param message GW2C_PushFriendLogin message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_PushFriendLogin, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_PushFriendLogin message, length delimited. Does not implicitly {@link msg.GW2C_PushFriendLogin.verify|verify} messages.
+         * @param message GW2C_PushFriendLogin message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_PushFriendLogin, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_PushFriendLogin message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_PushFriendLogin
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_PushFriendLogin;
+
+        /**
+         * Decodes a GW2C_PushFriendLogin message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_PushFriendLogin
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_PushFriendLogin;
+
+        /**
+         * Verifies a GW2C_PushFriendLogin message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_PushFriendLogin message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_PushFriendLogin
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_PushFriendLogin;
+
+        /**
+         * Creates a plain object from a GW2C_PushFriendLogin message. Also converts values to other types if specified.
+         * @param message GW2C_PushFriendLogin
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_PushFriendLogin, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_PushFriendLogin to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_PushFriendInvitation. */
+    interface IGW2C_PushFriendInvitation {
+
+        /** GW2C_PushFriendInvitation id */
+        id?: (number|Long|null);
+
+        /** GW2C_PushFriendInvitation roleid */
+        roleid?: (number|Long|null);
+
+        /** GW2C_PushFriendInvitation pwd */
+        pwd?: (string|null);
+
+        /** GW2C_PushFriendInvitation roomid */
+        roomid?: (number|Long|null);
+    }
+
+    /** Represents a GW2C_PushFriendInvitation. */
+    class GW2C_PushFriendInvitation implements IGW2C_PushFriendInvitation {
+
+        /**
+         * Constructs a new GW2C_PushFriendInvitation.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_PushFriendInvitation);
+
+        /** GW2C_PushFriendInvitation id. */
+        public id: (number|Long);
+
+        /** GW2C_PushFriendInvitation roleid. */
+        public roleid: (number|Long);
+
+        /** GW2C_PushFriendInvitation pwd. */
+        public pwd: string;
+
+        /** GW2C_PushFriendInvitation roomid. */
+        public roomid: (number|Long);
+
+        /**
+         * Creates a new GW2C_PushFriendInvitation instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_PushFriendInvitation instance
+         */
+        public static create(properties?: msg.IGW2C_PushFriendInvitation): msg.GW2C_PushFriendInvitation;
+
+        /**
+         * Encodes the specified GW2C_PushFriendInvitation message. Does not implicitly {@link msg.GW2C_PushFriendInvitation.verify|verify} messages.
+         * @param message GW2C_PushFriendInvitation message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_PushFriendInvitation, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_PushFriendInvitation message, length delimited. Does not implicitly {@link msg.GW2C_PushFriendInvitation.verify|verify} messages.
+         * @param message GW2C_PushFriendInvitation message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_PushFriendInvitation, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_PushFriendInvitation message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_PushFriendInvitation
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_PushFriendInvitation;
+
+        /**
+         * Decodes a GW2C_PushFriendInvitation message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_PushFriendInvitation
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_PushFriendInvitation;
+
+        /**
+         * Verifies a GW2C_PushFriendInvitation message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_PushFriendInvitation message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_PushFriendInvitation
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_PushFriendInvitation;
+
+        /**
+         * Creates a plain object from a GW2C_PushFriendInvitation message. Also converts values to other types if specified.
+         * @param message GW2C_PushFriendInvitation
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_PushFriendInvitation, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_PushFriendInvitation to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -9903,6 +12433,9 @@ declare namespace msg {
 
         /** RS2C_RolePushPropertyChange safegold */
         safegold?: (number|null);
+
+        /** RS2C_RolePushPropertyChange yuanbao */
+        yuanbao?: (number|null);
     }
 
     /** Represents a RS2C_RolePushPropertyChange. */
@@ -9922,6 +12455,9 @@ declare namespace msg {
 
         /** RS2C_RolePushPropertyChange safegold. */
         public safegold: number;
+
+        /** RS2C_RolePushPropertyChange yuanbao. */
+        public yuanbao: number;
 
         /**
          * Creates a new RS2C_RolePushPropertyChange instance using the specified properties.
@@ -13642,6 +16178,9 @@ declare namespace msg {
         /** GW2GW_MsgTransfer uid */
         uid?: (number|Long|null);
 
+        /** GW2GW_MsgTransfer userid */
+        userid?: (number|Long|null);
+
         /** GW2GW_MsgTransfer name */
         name?: (string|null);
 
@@ -13660,6 +16199,9 @@ declare namespace msg {
 
         /** GW2GW_MsgTransfer uid. */
         public uid: (number|Long);
+
+        /** GW2GW_MsgTransfer userid. */
+        public userid: (number|Long);
 
         /** GW2GW_MsgTransfer name. */
         public name: string;
@@ -18514,11 +21056,257 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a UserOneRound. */
+    interface IUserOneRound {
+
+        /** UserOneRound state */
+        state?: (number|null);
+
+        /** UserOneRound bet */
+        bet?: (number|null);
+
+        /** UserOneRound cards */
+        cards?: (number[]|null);
+    }
+
+    /** Represents a UserOneRound. */
+    class UserOneRound implements IUserOneRound {
+
+        /**
+         * Constructs a new UserOneRound.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IUserOneRound);
+
+        /** UserOneRound state. */
+        public state: number;
+
+        /** UserOneRound bet. */
+        public bet: number;
+
+        /** UserOneRound cards. */
+        public cards: number[];
+
+        /**
+         * Creates a new UserOneRound instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns UserOneRound instance
+         */
+        public static create(properties?: msg.IUserOneRound): msg.UserOneRound;
+
+        /**
+         * Encodes the specified UserOneRound message. Does not implicitly {@link msg.UserOneRound.verify|verify} messages.
+         * @param message UserOneRound message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IUserOneRound, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified UserOneRound message, length delimited. Does not implicitly {@link msg.UserOneRound.verify|verify} messages.
+         * @param message UserOneRound message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IUserOneRound, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a UserOneRound message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns UserOneRound
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.UserOneRound;
+
+        /**
+         * Decodes a UserOneRound message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns UserOneRound
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.UserOneRound;
+
+        /**
+         * Verifies a UserOneRound message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a UserOneRound message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns UserOneRound
+         */
+        public static fromObject(object: { [k: string]: any }): msg.UserOneRound;
+
+        /**
+         * Creates a plain object from a UserOneRound message. Also converts values to other types if specified.
+         * @param message UserOneRound
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.UserOneRound, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this UserOneRound to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a UserReviewInfo. */
+    interface IUserReviewInfo {
+
+        /** UserReviewInfo roleid */
+        roleid?: (number|Long|null);
+
+        /** UserReviewInfo name */
+        name?: (string|null);
+
+        /** UserReviewInfo face */
+        face?: (string|null);
+
+        /** UserReviewInfo seatpos */
+        seatpos?: (number|null);
+
+        /** UserReviewInfo specialpos */
+        specialpos?: (number|null);
+
+        /** UserReviewInfo showcard */
+        showcard?: (boolean|null);
+
+        /** UserReviewInfo round */
+        round?: (msg.IUserOneRound[]|null);
+
+        /** UserReviewInfo bankroll */
+        bankroll?: (number|null);
+
+        /** UserReviewInfo cardtype */
+        cardtype?: (number|null);
+
+        /** UserReviewInfo sex */
+        sex?: (number|null);
+    }
+
+    /** Represents a UserReviewInfo. */
+    class UserReviewInfo implements IUserReviewInfo {
+
+        /**
+         * Constructs a new UserReviewInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IUserReviewInfo);
+
+        /** UserReviewInfo roleid. */
+        public roleid: (number|Long);
+
+        /** UserReviewInfo name. */
+        public name: string;
+
+        /** UserReviewInfo face. */
+        public face: string;
+
+        /** UserReviewInfo seatpos. */
+        public seatpos: number;
+
+        /** UserReviewInfo specialpos. */
+        public specialpos: number;
+
+        /** UserReviewInfo showcard. */
+        public showcard: boolean;
+
+        /** UserReviewInfo round. */
+        public round: msg.IUserOneRound[];
+
+        /** UserReviewInfo bankroll. */
+        public bankroll: number;
+
+        /** UserReviewInfo cardtype. */
+        public cardtype: number;
+
+        /** UserReviewInfo sex. */
+        public sex: number;
+
+        /**
+         * Creates a new UserReviewInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns UserReviewInfo instance
+         */
+        public static create(properties?: msg.IUserReviewInfo): msg.UserReviewInfo;
+
+        /**
+         * Encodes the specified UserReviewInfo message. Does not implicitly {@link msg.UserReviewInfo.verify|verify} messages.
+         * @param message UserReviewInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IUserReviewInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified UserReviewInfo message, length delimited. Does not implicitly {@link msg.UserReviewInfo.verify|verify} messages.
+         * @param message UserReviewInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IUserReviewInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a UserReviewInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns UserReviewInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.UserReviewInfo;
+
+        /**
+         * Decodes a UserReviewInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns UserReviewInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.UserReviewInfo;
+
+        /**
+         * Verifies a UserReviewInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a UserReviewInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns UserReviewInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.UserReviewInfo;
+
+        /**
+         * Creates a plain object from a UserReviewInfo message. Also converts values to other types if specified.
+         * @param message UserReviewInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.UserReviewInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this UserReviewInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a RS2C_RetReviewInfo. */
     interface IRS2C_RetReviewInfo {
 
         /** RS2C_RetReviewInfo array */
-        array?: (msg.IReviewInfoArr[]|null);
+        array?: (msg.IUserReviewInfo[]|null);
     }
 
     /** Represents a RS2C_RetReviewInfo. */
@@ -18531,7 +21319,7 @@ declare namespace msg {
         constructor(properties?: msg.IRS2C_RetReviewInfo);
 
         /** RS2C_RetReviewInfo array. */
-        public array: msg.IReviewInfoArr[];
+        public array: msg.IUserReviewInfo[];
 
         /**
          * Creates a new RS2C_RetReviewInfo instance using the specified properties.
@@ -18599,132 +21387,6 @@ declare namespace msg {
 
         /**
          * Converts this RS2C_RetReviewInfo to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a ReviewInfoArr. */
-    interface IReviewInfoArr {
-
-        /** ReviewInfoArr step */
-        step?: (number|null);
-
-        /** ReviewInfoArr action */
-        action?: (number|null);
-
-        /** ReviewInfoArr roleid */
-        roleid?: (number|Long|null);
-
-        /** ReviewInfoArr num1 */
-        num1?: (number|null);
-
-        /** ReviewInfoArr num2 */
-        num2?: (number|null);
-
-        /** ReviewInfoArr cards */
-        cards?: (number[]|null);
-
-        /** ReviewInfoArr time */
-        time?: (number|null);
-    }
-
-    /** Represents a ReviewInfoArr. */
-    class ReviewInfoArr implements IReviewInfoArr {
-
-        /**
-         * Constructs a new ReviewInfoArr.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IReviewInfoArr);
-
-        /** ReviewInfoArr step. */
-        public step: number;
-
-        /** ReviewInfoArr action. */
-        public action: number;
-
-        /** ReviewInfoArr roleid. */
-        public roleid: (number|Long);
-
-        /** ReviewInfoArr num1. */
-        public num1: number;
-
-        /** ReviewInfoArr num2. */
-        public num2: number;
-
-        /** ReviewInfoArr cards. */
-        public cards: number[];
-
-        /** ReviewInfoArr time. */
-        public time: number;
-
-        /**
-         * Creates a new ReviewInfoArr instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns ReviewInfoArr instance
-         */
-        public static create(properties?: msg.IReviewInfoArr): msg.ReviewInfoArr;
-
-        /**
-         * Encodes the specified ReviewInfoArr message. Does not implicitly {@link msg.ReviewInfoArr.verify|verify} messages.
-         * @param message ReviewInfoArr message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IReviewInfoArr, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified ReviewInfoArr message, length delimited. Does not implicitly {@link msg.ReviewInfoArr.verify|verify} messages.
-         * @param message ReviewInfoArr message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IReviewInfoArr, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a ReviewInfoArr message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns ReviewInfoArr
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.ReviewInfoArr;
-
-        /**
-         * Decodes a ReviewInfoArr message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns ReviewInfoArr
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.ReviewInfoArr;
-
-        /**
-         * Verifies a ReviewInfoArr message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a ReviewInfoArr message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns ReviewInfoArr
-         */
-        public static fromObject(object: { [k: string]: any }): msg.ReviewInfoArr;
-
-        /**
-         * Creates a plain object from a ReviewInfoArr message. Also converts values to other types if specified.
-         * @param message ReviewInfoArr
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.ReviewInfoArr, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this ReviewInfoArr to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -20245,6 +22907,762 @@ declare namespace table {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a TChampionship. */
+    interface ITChampionship {
+
+        /** TChampionship Championship */
+        Championship?: (table.IChampionshipDefine[]|null);
+    }
+
+    /** Represents a TChampionship. */
+    class TChampionship implements ITChampionship {
+
+        /**
+         * Constructs a new TChampionship.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITChampionship);
+
+        /** TChampionship Championship. */
+        public Championship: table.IChampionshipDefine[];
+
+        /**
+         * Creates a new TChampionship instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TChampionship instance
+         */
+        public static create(properties?: table.ITChampionship): table.TChampionship;
+
+        /**
+         * Encodes the specified TChampionship message. Does not implicitly {@link table.TChampionship.verify|verify} messages.
+         * @param message TChampionship message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITChampionship, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TChampionship message, length delimited. Does not implicitly {@link table.TChampionship.verify|verify} messages.
+         * @param message TChampionship message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITChampionship, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TChampionship message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TChampionship
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TChampionship;
+
+        /**
+         * Decodes a TChampionship message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TChampionship
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TChampionship;
+
+        /**
+         * Verifies a TChampionship message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TChampionship message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TChampionship
+         */
+        public static fromObject(object: { [k: string]: any }): table.TChampionship;
+
+        /**
+         * Creates a plain object from a TChampionship message. Also converts values to other types if specified.
+         * @param message TChampionship
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TChampionship, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TChampionship to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a ChampionshipDefine. */
+    interface IChampionshipDefine {
+
+        /** ChampionshipDefine Id */
+        Id?: (number|null);
+
+        /** ChampionshipDefine Name */
+        Name?: (string|null);
+
+        /** ChampionshipDefine Type */
+        Type?: (number|null);
+
+        /** ChampionshipDefine Icon */
+        Icon?: (string|null);
+
+        /** ChampionshipDefine SNum */
+        SNum?: (number|null);
+
+        /** ChampionshipDefine BNum */
+        BNum?: (number|null);
+
+        /** ChampionshipDefine SignCost */
+        SignCost?: (number|null);
+
+        /** ChampionshipDefine ServeCost */
+        ServeCost?: (number|null);
+
+        /** ChampionshipDefine RebuyCost */
+        RebuyCost?: (number|null);
+
+        /** ChampionshipDefine AddonCost */
+        AddonCost?: (number|null);
+
+        /** ChampionshipDefine TicketId */
+        TicketId?: (number|null);
+
+        /** ChampionshipDefine TimeId */
+        TimeId?: (number|null);
+
+        /** ChampionshipDefine DisplayTime */
+        DisplayTime?: (number|null);
+
+        /** ChampionshipDefine SignTime */
+        SignTime?: (number|null);
+
+        /** ChampionshipDefine DelaySign */
+        DelaySign?: (number|null);
+
+        /** ChampionshipDefine Rebuy */
+        Rebuy?: (number|null);
+
+        /** ChampionshipDefine Addon */
+        Addon?: (number|null);
+
+        /** ChampionshipDefine Prize */
+        Prize?: (number|null);
+
+        /** ChampionshipDefine BlindType */
+        BlindType?: (number|null);
+
+        /** ChampionshipDefine InitialChips */
+        InitialChips?: (number|null);
+
+        /** ChampionshipDefine RoomId */
+        RoomId?: (number|null);
+
+        /** ChampionshipDefine WaitingTime */
+        WaitingTime?: (number|null);
+
+        /** ChampionshipDefine AddonChips */
+        AddonChips?: (number|null);
+
+        /** ChampionshipDefine MaxRebuyTimes */
+        MaxRebuyTimes?: (number|null);
+
+        /** ChampionshipDefine Autoinit */
+        Autoinit?: (number|null);
+    }
+
+    /** Represents a ChampionshipDefine. */
+    class ChampionshipDefine implements IChampionshipDefine {
+
+        /**
+         * Constructs a new ChampionshipDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IChampionshipDefine);
+
+        /** ChampionshipDefine Id. */
+        public Id: number;
+
+        /** ChampionshipDefine Name. */
+        public Name: string;
+
+        /** ChampionshipDefine Type. */
+        public Type: number;
+
+        /** ChampionshipDefine Icon. */
+        public Icon: string;
+
+        /** ChampionshipDefine SNum. */
+        public SNum: number;
+
+        /** ChampionshipDefine BNum. */
+        public BNum: number;
+
+        /** ChampionshipDefine SignCost. */
+        public SignCost: number;
+
+        /** ChampionshipDefine ServeCost. */
+        public ServeCost: number;
+
+        /** ChampionshipDefine RebuyCost. */
+        public RebuyCost: number;
+
+        /** ChampionshipDefine AddonCost. */
+        public AddonCost: number;
+
+        /** ChampionshipDefine TicketId. */
+        public TicketId: number;
+
+        /** ChampionshipDefine TimeId. */
+        public TimeId: number;
+
+        /** ChampionshipDefine DisplayTime. */
+        public DisplayTime: number;
+
+        /** ChampionshipDefine SignTime. */
+        public SignTime: number;
+
+        /** ChampionshipDefine DelaySign. */
+        public DelaySign: number;
+
+        /** ChampionshipDefine Rebuy. */
+        public Rebuy: number;
+
+        /** ChampionshipDefine Addon. */
+        public Addon: number;
+
+        /** ChampionshipDefine Prize. */
+        public Prize: number;
+
+        /** ChampionshipDefine BlindType. */
+        public BlindType: number;
+
+        /** ChampionshipDefine InitialChips. */
+        public InitialChips: number;
+
+        /** ChampionshipDefine RoomId. */
+        public RoomId: number;
+
+        /** ChampionshipDefine WaitingTime. */
+        public WaitingTime: number;
+
+        /** ChampionshipDefine AddonChips. */
+        public AddonChips: number;
+
+        /** ChampionshipDefine MaxRebuyTimes. */
+        public MaxRebuyTimes: number;
+
+        /** ChampionshipDefine Autoinit. */
+        public Autoinit: number;
+
+        /**
+         * Creates a new ChampionshipDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns ChampionshipDefine instance
+         */
+        public static create(properties?: table.IChampionshipDefine): table.ChampionshipDefine;
+
+        /**
+         * Encodes the specified ChampionshipDefine message. Does not implicitly {@link table.ChampionshipDefine.verify|verify} messages.
+         * @param message ChampionshipDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IChampionshipDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified ChampionshipDefine message, length delimited. Does not implicitly {@link table.ChampionshipDefine.verify|verify} messages.
+         * @param message ChampionshipDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IChampionshipDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a ChampionshipDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns ChampionshipDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.ChampionshipDefine;
+
+        /**
+         * Decodes a ChampionshipDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns ChampionshipDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.ChampionshipDefine;
+
+        /**
+         * Verifies a ChampionshipDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a ChampionshipDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns ChampionshipDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.ChampionshipDefine;
+
+        /**
+         * Creates a plain object from a ChampionshipDefine message. Also converts values to other types if specified.
+         * @param message ChampionshipDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.ChampionshipDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this ChampionshipDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TChampionshipBlind. */
+    interface ITChampionshipBlind {
+
+        /** TChampionshipBlind ChampionshipBlind */
+        ChampionshipBlind?: (table.IChampionshipBlindDefine[]|null);
+    }
+
+    /** Represents a TChampionshipBlind. */
+    class TChampionshipBlind implements ITChampionshipBlind {
+
+        /**
+         * Constructs a new TChampionshipBlind.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITChampionshipBlind);
+
+        /** TChampionshipBlind ChampionshipBlind. */
+        public ChampionshipBlind: table.IChampionshipBlindDefine[];
+
+        /**
+         * Creates a new TChampionshipBlind instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TChampionshipBlind instance
+         */
+        public static create(properties?: table.ITChampionshipBlind): table.TChampionshipBlind;
+
+        /**
+         * Encodes the specified TChampionshipBlind message. Does not implicitly {@link table.TChampionshipBlind.verify|verify} messages.
+         * @param message TChampionshipBlind message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITChampionshipBlind, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TChampionshipBlind message, length delimited. Does not implicitly {@link table.TChampionshipBlind.verify|verify} messages.
+         * @param message TChampionshipBlind message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITChampionshipBlind, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TChampionshipBlind message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TChampionshipBlind
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TChampionshipBlind;
+
+        /**
+         * Decodes a TChampionshipBlind message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TChampionshipBlind
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TChampionshipBlind;
+
+        /**
+         * Verifies a TChampionshipBlind message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TChampionshipBlind message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TChampionshipBlind
+         */
+        public static fromObject(object: { [k: string]: any }): table.TChampionshipBlind;
+
+        /**
+         * Creates a plain object from a TChampionshipBlind message. Also converts values to other types if specified.
+         * @param message TChampionshipBlind
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TChampionshipBlind, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TChampionshipBlind to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a ChampionshipBlindDefine. */
+    interface IChampionshipBlindDefine {
+
+        /** ChampionshipBlindDefine Id */
+        Id?: (number|null);
+
+        /** ChampionshipBlindDefine BlindId */
+        BlindId?: (number|null);
+
+        /** ChampionshipBlindDefine Level */
+        Level?: (number|null);
+
+        /** ChampionshipBlindDefine SBlind */
+        SBlind?: (number|null);
+
+        /** ChampionshipBlindDefine BBlind */
+        BBlind?: (number|null);
+
+        /** ChampionshipBlindDefine PreBet */
+        PreBet?: (number|null);
+
+        /** ChampionshipBlindDefine Addon */
+        Addon?: (number|null);
+
+        /** ChampionshipBlindDefine Rebuy */
+        Rebuy?: (number|null);
+
+        /** ChampionshipBlindDefine UpTime */
+        UpTime?: (number|null);
+    }
+
+    /** Represents a ChampionshipBlindDefine. */
+    class ChampionshipBlindDefine implements IChampionshipBlindDefine {
+
+        /**
+         * Constructs a new ChampionshipBlindDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IChampionshipBlindDefine);
+
+        /** ChampionshipBlindDefine Id. */
+        public Id: number;
+
+        /** ChampionshipBlindDefine BlindId. */
+        public BlindId: number;
+
+        /** ChampionshipBlindDefine Level. */
+        public Level: number;
+
+        /** ChampionshipBlindDefine SBlind. */
+        public SBlind: number;
+
+        /** ChampionshipBlindDefine BBlind. */
+        public BBlind: number;
+
+        /** ChampionshipBlindDefine PreBet. */
+        public PreBet: number;
+
+        /** ChampionshipBlindDefine Addon. */
+        public Addon: number;
+
+        /** ChampionshipBlindDefine Rebuy. */
+        public Rebuy: number;
+
+        /** ChampionshipBlindDefine UpTime. */
+        public UpTime: number;
+
+        /**
+         * Creates a new ChampionshipBlindDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns ChampionshipBlindDefine instance
+         */
+        public static create(properties?: table.IChampionshipBlindDefine): table.ChampionshipBlindDefine;
+
+        /**
+         * Encodes the specified ChampionshipBlindDefine message. Does not implicitly {@link table.ChampionshipBlindDefine.verify|verify} messages.
+         * @param message ChampionshipBlindDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IChampionshipBlindDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified ChampionshipBlindDefine message, length delimited. Does not implicitly {@link table.ChampionshipBlindDefine.verify|verify} messages.
+         * @param message ChampionshipBlindDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IChampionshipBlindDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a ChampionshipBlindDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns ChampionshipBlindDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.ChampionshipBlindDefine;
+
+        /**
+         * Decodes a ChampionshipBlindDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns ChampionshipBlindDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.ChampionshipBlindDefine;
+
+        /**
+         * Verifies a ChampionshipBlindDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a ChampionshipBlindDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns ChampionshipBlindDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.ChampionshipBlindDefine;
+
+        /**
+         * Creates a plain object from a ChampionshipBlindDefine message. Also converts values to other types if specified.
+         * @param message ChampionshipBlindDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.ChampionshipBlindDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this ChampionshipBlindDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TChampionshipPrize. */
+    interface ITChampionshipPrize {
+
+        /** TChampionshipPrize ChampionshipPrize */
+        ChampionshipPrize?: (table.IChampionshipPrizeDefine[]|null);
+    }
+
+    /** Represents a TChampionshipPrize. */
+    class TChampionshipPrize implements ITChampionshipPrize {
+
+        /**
+         * Constructs a new TChampionshipPrize.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITChampionshipPrize);
+
+        /** TChampionshipPrize ChampionshipPrize. */
+        public ChampionshipPrize: table.IChampionshipPrizeDefine[];
+
+        /**
+         * Creates a new TChampionshipPrize instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TChampionshipPrize instance
+         */
+        public static create(properties?: table.ITChampionshipPrize): table.TChampionshipPrize;
+
+        /**
+         * Encodes the specified TChampionshipPrize message. Does not implicitly {@link table.TChampionshipPrize.verify|verify} messages.
+         * @param message TChampionshipPrize message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITChampionshipPrize, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TChampionshipPrize message, length delimited. Does not implicitly {@link table.TChampionshipPrize.verify|verify} messages.
+         * @param message TChampionshipPrize message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITChampionshipPrize, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TChampionshipPrize message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TChampionshipPrize
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TChampionshipPrize;
+
+        /**
+         * Decodes a TChampionshipPrize message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TChampionshipPrize
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TChampionshipPrize;
+
+        /**
+         * Verifies a TChampionshipPrize message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TChampionshipPrize message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TChampionshipPrize
+         */
+        public static fromObject(object: { [k: string]: any }): table.TChampionshipPrize;
+
+        /**
+         * Creates a plain object from a TChampionshipPrize message. Also converts values to other types if specified.
+         * @param message TChampionshipPrize
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TChampionshipPrize, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TChampionshipPrize to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a ChampionshipPrizeDefine. */
+    interface IChampionshipPrizeDefine {
+
+        /** ChampionshipPrizeDefine Id */
+        Id?: (number|null);
+
+        /** ChampionshipPrizeDefine PrizeId */
+        PrizeId?: (number|null);
+
+        /** ChampionshipPrizeDefine Start */
+        Start?: (number|null);
+
+        /** ChampionshipPrizeDefine End */
+        End?: (number|null);
+
+        /** ChampionshipPrizeDefine AwardId */
+        AwardId?: (number|null);
+    }
+
+    /** Represents a ChampionshipPrizeDefine. */
+    class ChampionshipPrizeDefine implements IChampionshipPrizeDefine {
+
+        /**
+         * Constructs a new ChampionshipPrizeDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IChampionshipPrizeDefine);
+
+        /** ChampionshipPrizeDefine Id. */
+        public Id: number;
+
+        /** ChampionshipPrizeDefine PrizeId. */
+        public PrizeId: number;
+
+        /** ChampionshipPrizeDefine Start. */
+        public Start: number;
+
+        /** ChampionshipPrizeDefine End. */
+        public End: number;
+
+        /** ChampionshipPrizeDefine AwardId. */
+        public AwardId: number;
+
+        /**
+         * Creates a new ChampionshipPrizeDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns ChampionshipPrizeDefine instance
+         */
+        public static create(properties?: table.IChampionshipPrizeDefine): table.ChampionshipPrizeDefine;
+
+        /**
+         * Encodes the specified ChampionshipPrizeDefine message. Does not implicitly {@link table.ChampionshipPrizeDefine.verify|verify} messages.
+         * @param message ChampionshipPrizeDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IChampionshipPrizeDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified ChampionshipPrizeDefine message, length delimited. Does not implicitly {@link table.ChampionshipPrizeDefine.verify|verify} messages.
+         * @param message ChampionshipPrizeDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IChampionshipPrizeDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a ChampionshipPrizeDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns ChampionshipPrizeDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.ChampionshipPrizeDefine;
+
+        /**
+         * Decodes a ChampionshipPrizeDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns ChampionshipPrizeDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.ChampionshipPrizeDefine;
+
+        /**
+         * Verifies a ChampionshipPrizeDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a ChampionshipPrizeDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns ChampionshipPrizeDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.ChampionshipPrizeDefine;
+
+        /**
+         * Creates a plain object from a ChampionshipPrizeDefine message. Also converts values to other types if specified.
+         * @param message ChampionshipPrizeDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.ChampionshipPrizeDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this ChampionshipPrizeDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a ChipsBase. */
     interface IChipsBase {
 
@@ -20630,6 +24048,192 @@ declare namespace table {
 
         /**
          * Converts this TGiftProDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GoldenBeanAwardBase. */
+    interface IGoldenBeanAwardBase {
+
+        /** GoldenBeanAwardBase GoldenBeanAward */
+        GoldenBeanAward?: (table.IGoldenBeanAwardDefine[]|null);
+    }
+
+    /** Represents a GoldenBeanAwardBase. */
+    class GoldenBeanAwardBase implements IGoldenBeanAwardBase {
+
+        /**
+         * Constructs a new GoldenBeanAwardBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IGoldenBeanAwardBase);
+
+        /** GoldenBeanAwardBase GoldenBeanAward. */
+        public GoldenBeanAward: table.IGoldenBeanAwardDefine[];
+
+        /**
+         * Creates a new GoldenBeanAwardBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GoldenBeanAwardBase instance
+         */
+        public static create(properties?: table.IGoldenBeanAwardBase): table.GoldenBeanAwardBase;
+
+        /**
+         * Encodes the specified GoldenBeanAwardBase message. Does not implicitly {@link table.GoldenBeanAwardBase.verify|verify} messages.
+         * @param message GoldenBeanAwardBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IGoldenBeanAwardBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GoldenBeanAwardBase message, length delimited. Does not implicitly {@link table.GoldenBeanAwardBase.verify|verify} messages.
+         * @param message GoldenBeanAwardBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IGoldenBeanAwardBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GoldenBeanAwardBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GoldenBeanAwardBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.GoldenBeanAwardBase;
+
+        /**
+         * Decodes a GoldenBeanAwardBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GoldenBeanAwardBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.GoldenBeanAwardBase;
+
+        /**
+         * Verifies a GoldenBeanAwardBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GoldenBeanAwardBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GoldenBeanAwardBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.GoldenBeanAwardBase;
+
+        /**
+         * Creates a plain object from a GoldenBeanAwardBase message. Also converts values to other types if specified.
+         * @param message GoldenBeanAwardBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.GoldenBeanAwardBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GoldenBeanAwardBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GoldenBeanAwardDefine. */
+    interface IGoldenBeanAwardDefine {
+
+        /** GoldenBeanAwardDefine Id */
+        Id?: (number|null);
+
+        /** GoldenBeanAwardDefine AwardId */
+        AwardId?: (number|null);
+    }
+
+    /** Represents a GoldenBeanAwardDefine. */
+    class GoldenBeanAwardDefine implements IGoldenBeanAwardDefine {
+
+        /**
+         * Constructs a new GoldenBeanAwardDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IGoldenBeanAwardDefine);
+
+        /** GoldenBeanAwardDefine Id. */
+        public Id: number;
+
+        /** GoldenBeanAwardDefine AwardId. */
+        public AwardId: number;
+
+        /**
+         * Creates a new GoldenBeanAwardDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GoldenBeanAwardDefine instance
+         */
+        public static create(properties?: table.IGoldenBeanAwardDefine): table.GoldenBeanAwardDefine;
+
+        /**
+         * Encodes the specified GoldenBeanAwardDefine message. Does not implicitly {@link table.GoldenBeanAwardDefine.verify|verify} messages.
+         * @param message GoldenBeanAwardDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IGoldenBeanAwardDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GoldenBeanAwardDefine message, length delimited. Does not implicitly {@link table.GoldenBeanAwardDefine.verify|verify} messages.
+         * @param message GoldenBeanAwardDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IGoldenBeanAwardDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GoldenBeanAwardDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GoldenBeanAwardDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.GoldenBeanAwardDefine;
+
+        /**
+         * Decodes a GoldenBeanAwardDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GoldenBeanAwardDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.GoldenBeanAwardDefine;
+
+        /**
+         * Verifies a GoldenBeanAwardDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GoldenBeanAwardDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GoldenBeanAwardDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.GoldenBeanAwardDefine;
+
+        /**
+         * Creates a plain object from a GoldenBeanAwardDefine message. Also converts values to other types if specified.
+         * @param message GoldenBeanAwardDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.GoldenBeanAwardDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GoldenBeanAwardDefine to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -23252,6 +26856,210 @@ declare namespace table {
 
         /**
          * Converts this TShopDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TSystemTime. */
+    interface ITSystemTime {
+
+        /** TSystemTime SystemTime */
+        SystemTime?: (table.ISystemTimeDefine[]|null);
+    }
+
+    /** Represents a TSystemTime. */
+    class TSystemTime implements ITSystemTime {
+
+        /**
+         * Constructs a new TSystemTime.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITSystemTime);
+
+        /** TSystemTime SystemTime. */
+        public SystemTime: table.ISystemTimeDefine[];
+
+        /**
+         * Creates a new TSystemTime instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TSystemTime instance
+         */
+        public static create(properties?: table.ITSystemTime): table.TSystemTime;
+
+        /**
+         * Encodes the specified TSystemTime message. Does not implicitly {@link table.TSystemTime.verify|verify} messages.
+         * @param message TSystemTime message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITSystemTime, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TSystemTime message, length delimited. Does not implicitly {@link table.TSystemTime.verify|verify} messages.
+         * @param message TSystemTime message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITSystemTime, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TSystemTime message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TSystemTime
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TSystemTime;
+
+        /**
+         * Decodes a TSystemTime message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TSystemTime
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TSystemTime;
+
+        /**
+         * Verifies a TSystemTime message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TSystemTime message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TSystemTime
+         */
+        public static fromObject(object: { [k: string]: any }): table.TSystemTime;
+
+        /**
+         * Creates a plain object from a TSystemTime message. Also converts values to other types if specified.
+         * @param message TSystemTime
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TSystemTime, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TSystemTime to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a SystemTimeDefine. */
+    interface ISystemTimeDefine {
+
+        /** SystemTimeDefine Id */
+        Id?: (number|null);
+
+        /** SystemTimeDefine TimeId */
+        TimeId?: (number|null);
+
+        /** SystemTimeDefine SubId */
+        SubId?: (number|null);
+
+        /** SystemTimeDefine Start */
+        Start?: (number[]|null);
+
+        /** SystemTimeDefine End */
+        End?: (number[]|null);
+    }
+
+    /** Represents a SystemTimeDefine. */
+    class SystemTimeDefine implements ISystemTimeDefine {
+
+        /**
+         * Constructs a new SystemTimeDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ISystemTimeDefine);
+
+        /** SystemTimeDefine Id. */
+        public Id: number;
+
+        /** SystemTimeDefine TimeId. */
+        public TimeId: number;
+
+        /** SystemTimeDefine SubId. */
+        public SubId: number;
+
+        /** SystemTimeDefine Start. */
+        public Start: number[];
+
+        /** SystemTimeDefine End. */
+        public End: number[];
+
+        /**
+         * Creates a new SystemTimeDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns SystemTimeDefine instance
+         */
+        public static create(properties?: table.ISystemTimeDefine): table.SystemTimeDefine;
+
+        /**
+         * Encodes the specified SystemTimeDefine message. Does not implicitly {@link table.SystemTimeDefine.verify|verify} messages.
+         * @param message SystemTimeDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ISystemTimeDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified SystemTimeDefine message, length delimited. Does not implicitly {@link table.SystemTimeDefine.verify|verify} messages.
+         * @param message SystemTimeDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ISystemTimeDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a SystemTimeDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns SystemTimeDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.SystemTimeDefine;
+
+        /**
+         * Decodes a SystemTimeDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns SystemTimeDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.SystemTimeDefine;
+
+        /**
+         * Verifies a SystemTimeDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a SystemTimeDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns SystemTimeDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.SystemTimeDefine;
+
+        /**
+         * Creates a plain object from a SystemTimeDefine message. Also converts values to other types if specified.
+         * @param message SystemTimeDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.SystemTimeDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this SystemTimeDefine to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };

@@ -57,7 +57,7 @@ startserver() {
     mkdir -p ${logpath}
     echo "./${servername} -conf=${fileconf} -logname=${logname} -logpath=${logpath} -loglvl="trace" -eventstat=true -pprof=$pprof -daemon=true \
         -ver=$exepath > ${daemonlog} 2>&1 &"
-    ./${servername} -conf=${fileconf} -logname=${logname} -logpath=$logpath -loglvl="trace" -eventstat=true -pprof=$pprof -daemon=true \
+    ./${servername} -conf=${fileconf} -logname=${logname} -logpath=$logpath -loglvl="trace" -eventstat=false -pprof=$pprof -daemon=true \
         -ver=$exepath > ${daemonlog} 2>&1 &
     sleep 0.3
     echo "."

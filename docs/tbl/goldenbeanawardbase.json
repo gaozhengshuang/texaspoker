@@ -1,0 +1,9 @@
+{
+	"Tool": "github.com/davyxu/tabtoy",
+	"Version": "2.8.10",
+	"GoldenBeanAward":[
+		{ "Id": 1, "AwardId": 341 },
+		{ "Id": 2, "AwardId": 342 },
+		{ "Id": 3, "AwardId": 343 },
+		{ "Id": 4, "AwardId": 344 }
+	]}

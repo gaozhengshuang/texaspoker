@@ -40,7 +40,7 @@ class MTTRemindStartHandler
         }
         for (let matchInfo of ChampionshipManager.joinMTTList)
         {
-            if (matchInfo.definition && matchInfo.definition.type == MatchType.MTT)
+            if (matchInfo.definition && matchInfo.definition.Type == MatchType.MTT)
             {
                 this.joinedMTTList.push(matchInfo);
             }
@@ -63,7 +63,7 @@ class MTTRemindStartHandler
     {
         for (let joinedMatch of ChampionshipManager.processMTTList)
         {
-            if (InfoUtil.checkAvailable(joinedMatch) && joinedMatch.definition.type == MatchType.SNG && joinedMatch.join >= joinedMatch.definition.bNum && !joinedMatch.outTime && joinedMatch.joinWay)
+            if (InfoUtil.checkAvailable(joinedMatch) && joinedMatch.definition.Type == MatchType.SNG && joinedMatch.join >= joinedMatch.definition.BNum && !joinedMatch.outTime && joinedMatch.joinWay)
             {
                 joinedMatch.startTime = TimeManager.GetServerUtcTimestamp();  //人数满时就是赛事开始时间
                 if (InfoUtil.checkAvailable(GamblingManager.matchRoomInfo) && GamblingManager.matchRoomInfo.recordId == joinedMatch.recordId)

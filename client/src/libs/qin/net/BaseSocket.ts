@@ -357,8 +357,7 @@ module game
 				let retName = msgName.substr(idx + 3);
 				for (let protoInfo of table.ProtoId)
 				{
-					let idx = protoInfo.Name.indexOf(retName);
-					if (msgName != protoInfo.Name && protoInfo.Name.substr(idx) == retName)
+					if (msgName != protoInfo.Name && protoInfo.Name.substr(idx + 3) == retName)
 					{
 						msgName = protoInfo.Name;
 						break;

@@ -61,7 +61,7 @@ func (m *Mail) IsExpire(now int64) bool {
 func (m *Mail) SaveBin(userid int64, pipe redis.Pipeliner) {
 	id := util.Ltoa(m.Id())
 	m.dirty = false
-	if pipe == nil {
+	if pipe != nil {
 		utredis.HSetProtoBinPipeline(pipe, fmt.Sprintf("usermails_%d", userid), id, m.bin)
 		return
 	}

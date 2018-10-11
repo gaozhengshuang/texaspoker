@@ -111,15 +111,15 @@ class SitAndPlayOverPanel extends BasePanel
             this.lostBtnGroup.visible = true;
             this.setRankImg();
         }
-        let championshipPrizeList: Array<ChampionshipPrizeDefinition> = ChampionshipManager.getAwardList(this.panelData.id);
+        let championshipPrizeList: Array<table.IChampionshipPrizeDefine> = ChampionshipManager.getAwardList(this.panelData.id);
         if (championshipPrizeList)
         {
             for (let championshipPrize of championshipPrizeList)
             {
-                if (this.panelData.rank <= championshipPrizeList.length && this.panelData.rank == championshipPrize.start)
+                if (this.panelData.rank <= championshipPrizeList.length && this.panelData.rank == championshipPrize.Start)
                 {
                     this.hasAwardShow();
-                    let num: number = AwardDefined.GetInstance().getAwardNumByAwardId(championshipPrize.awardId);
+                    let num: number = AwardDefined.GetInstance().getAwardNumByAwardId(championshipPrize.AwardId);
                     if (num)
                     {
                         this.goldNumLabel.text = game.MathUtil.formatNum(num);

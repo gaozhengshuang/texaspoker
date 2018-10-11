@@ -177,13 +177,13 @@ class ChampionshipInfoPanel extends BasePanel
         this.reset();
         if (this._championshipInfo.definition)
         {
-            if (this._championshipInfo.recordId == undefined && this._championshipInfo.definition.type == MatchType.SNG) //坐满即玩比赛未生成无recordId时
+            if (this._championshipInfo.recordId == undefined && this._championshipInfo.definition.Type == MatchType.SNG) //坐满即玩比赛未生成无recordId时
             {
                 this.setSitAndPlayNoRecordIdOutsInfo();
                 this.setOutsInfo();
                 return;
             }
-            ChampionshipManager.reqOutsInfo(this._championshipInfo.recordId, this._championshipInfo.definition.blindType);
+            ChampionshipManager.reqOutsInfo(this._championshipInfo.recordId, this._championshipInfo.definition.BlindType);
         }
     }
     protected onEnable(event: eui.UIEvent): void
@@ -225,7 +225,7 @@ class ChampionshipInfoPanel extends BasePanel
     {
         this.applicationBtn.visible = false;
         this.withdrawBtn.visible = true;
-        if (this._championshipInfo.definition.type == MatchType.MTT)
+        if (this._championshipInfo.definition.Type == MatchType.MTT)
         {
             let time: number = this._championshipInfo.startTime - TimeManager.GetServerUtcTimestamp();
             if (time <= 0)
@@ -239,7 +239,7 @@ class ChampionshipInfoPanel extends BasePanel
     */
     private closePanel(data: any)
     {
-        let matchType: MatchType = this._championshipInfo.definition.type;
+        let matchType: MatchType = this._championshipInfo.definition.Type;
         if (matchType == MatchType.MTT)
         {
             this.mttWithDrawSuccessRemind(data);
@@ -275,7 +275,7 @@ class ChampionshipInfoPanel extends BasePanel
     private onWithdrawBtnClick(event: TouchEvent)
     {
         SoundManager.playButtonEffect(event.target);
-        let matchType: MatchType = this._championshipInfo.definition.type;
+        let matchType: MatchType = this._championshipInfo.definition.Type;
         if (matchType == MatchType.MTT)
         {
             this.mttWithdraw();
@@ -307,7 +307,7 @@ class ChampionshipInfoPanel extends BasePanel
     */
     private sitAndPlayWithdraw()
     {
-        if (this._championshipInfo.join >= this._championshipInfo.definition.bNum)
+        if (this._championshipInfo.join >= this._championshipInfo.definition.BNum)
         {
             AlertManager.showAlert("比赛已经开启，不可退赛。");
             return;
@@ -329,15 +329,15 @@ class ChampionshipInfoPanel extends BasePanel
         SoundManager.playButtonEffect(event.target);
         if (this._championshipInfo.definition)
         {
-            let flag: boolean = ItemManager.isHaveTicket(this._championshipInfo.definition.ticketId);
+            let flag: boolean = ItemManager.isHaveTicket(this._championshipInfo.definition.TicketId);
             if (flag)
             {
-                ChampionshipManager.reqRequestJoin(this._championshipInfo.recordId, JoinChampionshipWay.Ticket, this._championshipInfo.startTime, this._championshipInfo.id, this._championshipInfo.definition.type);
+                ChampionshipManager.reqRequestJoin(this._championshipInfo.recordId, JoinChampionshipWay.Ticket, this._championshipInfo.startTime, this._championshipInfo.id, this._championshipInfo.definition.Type);
             } else
             {
-                if (CostManager.verifyGold(this._championshipInfo.definition.signCost + this._championshipInfo.definition.serveCost, true))
+                if (CostManager.verifyGold(this._championshipInfo.definition.SignCost + this._championshipInfo.definition.ServeCost, true))
                 {
-                    ChampionshipManager.reqRequestJoin(this._championshipInfo.recordId, JoinChampionshipWay.Gold, this._championshipInfo.startTime, this._championshipInfo.id, this._championshipInfo.definition.type);
+                    ChampionshipManager.reqRequestJoin(this._championshipInfo.recordId, JoinChampionshipWay.Gold, this._championshipInfo.startTime, this._championshipInfo.id, this._championshipInfo.definition.Type);
                 }
             }
         }
@@ -347,7 +347,7 @@ class ChampionshipInfoPanel extends BasePanel
     */
     private setAwardInfo()
     {
-        let prizeListInfo: Array<ChampionshipPrizeDefinition> = ChampionshipManager.getAwardList(this._championshipInfo.id);
+        let prizeListInfo: Array<table.IChampionshipPrizeDefine> = ChampionshipManager.getAwardList(this._championshipInfo.id);
         if (!ChampionshipManager.awardList)
         {
             ChampionshipManager.awardList = new Array<ChampionshipAwardInfo>();
@@ -358,11 +358,11 @@ class ChampionshipInfoPanel extends BasePanel
             for (let def of prizeListInfo)
             {
                 let info: ChampionshipAwardInfo = new ChampionshipAwardInfo();
-                let des: string = AwardDefined.GetInstance().getAwardNameById(def.awardId);
+                let des: string = AwardDefined.GetInstance().getAwardNameById(def.AwardId);
                 if (des)
                 {
                     info.des = des;
-                    info.rank = def.start;
+                    info.rank = def.Start;
                     ChampionshipManager.awardList.push(info);
                 }
             }
@@ -416,18 +416,18 @@ class ChampionshipInfoPanel extends BasePanel
     */
     private setSitAndPlayNoRecordIdOutsInfo()
     {
-        ChampionshipManager.nowBlindId = this._championshipInfo.definition.blindType;
+        ChampionshipManager.nowBlindId = this._championshipInfo.definition.BlindType;
         if (!ChampionshipManager.matchOutsInfo)
         {
             ChampionshipManager.matchOutsInfo = new MatchOutsInfo();
         }
         ChampionshipManager.nowBlindRank = 1;
-        let mttBlindDef: ChampionshipBlindDefinition = ChampionshipBlindDefined.GetInstance().getBlindInfoByLevel(ChampionshipManager.nowBlindRank, this._championshipInfo.definition.blindType);
+        let mttBlindDef: table.IChampionshipBlindDefine = ChampionshipBlindDefined.GetInstance().getBlindInfoByLevel(ChampionshipManager.nowBlindRank, this._championshipInfo.definition.BlindType);
         if (mttBlindDef)
         {
-            ChampionshipManager.matchOutsInfo.addBlindTime = mttBlindDef.upTime;
+            ChampionshipManager.matchOutsInfo.addBlindTime = mttBlindDef.UpTime;
         }
-        let blindDef: ChampionshipBlindDefinition = ChampionshipBlindDefined.GetInstance().getBlindInfoByLevel(ChampionshipManager.nowBlindRank, this._championshipInfo.definition.blindType);
+        let blindDef: table.IChampionshipBlindDefine = ChampionshipBlindDefined.GetInstance().getBlindInfoByLevel(ChampionshipManager.nowBlindRank, this._championshipInfo.definition.BlindType);
         ChampionshipManager.setOutsBlindInfo(blindDef);
         ChampionshipManager.matchOutsInfo.rank = 0;
     }
@@ -446,7 +446,7 @@ class ChampionshipInfoPanel extends BasePanel
             {
                 this.joinLabel.text = this._championshipInfo.join.toString();
             }
-            if (this._championshipInfo.definition.type == MatchType.MTT)
+            if (this._championshipInfo.definition.Type == MatchType.MTT)
             {
                 let num: number = Math.floor(TimeManager.GetServerUtcTimestamp()) - this._championshipInfo.startTime;
                 if (num > 0)
@@ -464,9 +464,9 @@ class ChampionshipInfoPanel extends BasePanel
                     this.surplusTimeGroup.visible = false;
                     this.notStartGroup.visible = true;
                 }
-            } else if (this._championshipInfo.definition.type == MatchType.SNG)
+            } else if (this._championshipInfo.definition.Type == MatchType.SNG)
             {
-                if (this._championshipInfo.join >= this._championshipInfo.definition.bNum)
+                if (this._championshipInfo.join >= this._championshipInfo.definition.BNum)
                 {
                     let num: number = Math.floor(TimeManager.GetServerUtcTimestamp()) - this._championshipInfo.startTime;
                     if (num > 0)
@@ -505,24 +505,24 @@ class ChampionshipInfoPanel extends BasePanel
     */
     private setApplicationInfo()
     {
-        let champDef: ChampionshipDefinition = this._championshipInfo.definition;
+        let champDef: table.IChampionshipDefine = this._championshipInfo.definition;
         if (champDef)
         {
-            this.nameLabel.text = champDef.name;
-            if (champDef.signCost == 0)
+            this.nameLabel.text = champDef.Name;
+            if (champDef.SignCost == 0)
             {
-                this.applicationFeeLabel.text = "免费" + "+" + champDef.serveCost + "服务费 ";
+                this.applicationFeeLabel.text = "免费" + "+" + champDef.ServeCost + "服务费 ";
             } else
             {
-                this.applicationFeeLabel.text = champDef.signCost + "金币" + "+" + champDef.serveCost + "服务费 " + "或 " + champDef.name + "门票1张";
+                this.applicationFeeLabel.text = champDef.SignCost + "金币" + "+" + champDef.ServeCost + "服务费 " + "或 " + champDef.Name + "门票1张";
             }
 
-            this.initChipLabel.text = champDef.initialChips.toString();
-            this.getChampionshipBlindInfo(champDef.blindType);
-            if (this._championshipInfo.definition.type == MatchType.MTT)
+            this.initChipLabel.text = champDef.InitialChips.toString();
+            this.getChampionshipBlindInfo(champDef.BlindType);
+            if (this._championshipInfo.definition.Type == MatchType.MTT)
             {
                 this.setMTTApplicationInfo(champDef);
-            } else if (this._championshipInfo.definition.type == MatchType.SNG)
+            } else if (this._championshipInfo.definition.Type == MatchType.SNG)
             {
                 this.setSitAndPlayApplicationInfo(champDef);
             }
@@ -562,56 +562,56 @@ class ChampionshipInfoPanel extends BasePanel
     /**
      * 设置mtt概述信息
     */
-    private setMTTApplicationInfo(champDef: ChampionshipDefinition)
+    private setMTTApplicationInfo(champDef: table.IChampionshipDefine)
     {
         this.timeDesLabel.text = "比赛时间:";
         let date: Date = new Date(this._championshipInfo.startTime * 1000);
-        if (champDef.delaySign)
+        if (champDef.DelaySign)
         {
-            this.timeLabel.text = (date.getMonth() + 1) + "-" + date.getDate() + " " + game.DateTimeUtil.formatDate(date, game.DateTimeUtil.Format_Standard_NoSecond).split(" ")[1] + "（延迟报名" + Math.floor(champDef.delaySign / 60) + "分钟）";
+            this.timeLabel.text = (date.getMonth() + 1) + "-" + date.getDate() + " " + game.DateTimeUtil.formatDate(date, game.DateTimeUtil.Format_Standard_NoSecond).split(" ")[1] + "（延迟报名" + Math.floor(champDef.DelaySign / 60) + "分钟）";
         } else
         {
             this.timeLabel.text = (date.getMonth() + 1) + "-" + date.getDate() + " " + game.DateTimeUtil.formatDate(date, game.DateTimeUtil.Format_Standard_NoSecond).split(" ")[1];
         }
-        this.joinNumLabel.text = champDef.sNum + "-" + champDef.bNum + "人";
+        this.joinNumLabel.text = champDef.SNum + "-" + champDef.BNum + "人";
         this.setRebuyAndAddonInfo(champDef);
     }
     /**
      * 设置坐满即玩概述信息
     */
-    private setSitAndPlayApplicationInfo(champDef: ChampionshipDefinition)
+    private setSitAndPlayApplicationInfo(champDef: table.IChampionshipDefine)
     {
         this.timeDesLabel.text = "开放时间:";
         let date: Date = new Date(this._championshipInfo.openTime);
         let endDate: Date = new Date(this._championshipInfo.closeTime);
         this.timeLabel.text = game.DateTimeUtil.formatDate(date, game.DateTimeUtil.Format_Standard_NoSecond).split(" ")[1] + "-" + game.DateTimeUtil.formatDate(endDate, game.DateTimeUtil.Format_Standard_NoSecond).split(" ")[1] + "，坐满即开";
-        this.joinNumLabel.text = champDef.bNum + "人";
+        this.joinNumLabel.text = champDef.BNum + "人";
     }
     /**
      * 设置锦标赛重购和增购信息
     */
-    private setRebuyAndAddonInfo(champDef: ChampionshipDefinition)
+    private setRebuyAndAddonInfo(champDef: table.IChampionshipDefine)
     {
-        if (champDef.rebuy)
+        if (champDef.Rebuy)
         {
             this.rebuyGroup.visible = true;
             this.rebuyDesLabel.textFlow = game.TextUtil.parse(
                 '可重购比赛，次数：' +
-                '<font color="#F3C655" size="24">' + champDef.rebuy + '次' + '</font>' +
+                '<font color="#F3C655" size="24">' + champDef.Rebuy + '次' + '</font>' +
                 '，第' + '<font color="#F3C655" size="24">' + this.nthRebuy + '</font>' +
-                '个盲注级别前可用' + '<font color="#F3C655" size="24">' + champDef.rebuyCost + '金币' + '</font>' +
-                '兑换' + '<font color="#F3C655" size="24">' + champDef.initialChips + '比赛筹码' + '</font>'
+                '个盲注级别前可用' + '<font color="#F3C655" size="24">' + champDef.RebuyCost + '金币' + '</font>' +
+                '兑换' + '<font color="#F3C655" size="24">' + champDef.InitialChips + '比赛筹码' + '</font>'
             );
         }
-        if (champDef.addon)
+        if (champDef.Addon)
         {
             this.addonGroup.visible = true;
             this.addonDesLabel.textFlow = game.TextUtil.parse(
                 '可增购比赛，次数：' +
-                '<font color="#F3C655" size="24">' + champDef.addon + '次' + '</font>' +
+                '<font color="#F3C655" size="24">' + champDef.Addon + '次' + '</font>' +
                 '，第' + '<font color="#F3C655" size="24">' + this.nthAddon + '</font>' +
-                '个盲注级别前可用' + '<font color="#F3C655" size="24">' + champDef.addonCost + '金币' + '</font>' +
-                '兑换' + '<font color="#F3C655" size="24">' + champDef.addonChips + '比赛筹码' + '</font>'
+                '个盲注级别前可用' + '<font color="#F3C655" size="24">' + champDef.AddonCost + '金币' + '</font>' +
+                '兑换' + '<font color="#F3C655" size="24">' + champDef.AddonChips + '比赛筹码' + '</font>'
             );
         }
     }
@@ -624,11 +624,11 @@ class ChampionshipInfoPanel extends BasePanel
         {
             if (this._championshipInfo.definition)
             {
-                ChampionshipManager.reqOutsInfo(this._championshipInfo.recordId, this._championshipInfo.definition.blindType);
+                ChampionshipManager.reqOutsInfo(this._championshipInfo.recordId, this._championshipInfo.definition.BlindType);
             }
         } else if (index == 2)
         {
-            if (this._championshipInfo.recordId == undefined && this._championshipInfo.definition && this._championshipInfo.definition.type == MatchType.SNG) //坐满即玩比赛未生成无recordId时
+            if (this._championshipInfo.recordId == undefined && this._championshipInfo.definition && this._championshipInfo.definition.Type == MatchType.SNG) //坐满即玩比赛未生成无recordId时
             {
                 this.hasJoinGroup.visible = false;
                 this.noJoinGroup.visible = true;
@@ -646,24 +646,24 @@ class ChampionshipInfoPanel extends BasePanel
     {
         if (!ChampionshipManager.blindList)
         {
-            ChampionshipManager.blindList = new Array<ChampionshipBlindDefinition>();
+            ChampionshipManager.blindList = new Array<table.IChampionshipBlindDefine>();
         }
         ChampionshipManager.blindList.length = 0;
-        for (let def of ChampionshipBlindDefined.GetInstance().dataList)
-        {
-            if (def.blindId == type)
-            {
-                ChampionshipManager.blindList.push(def);
-                if (def.rebuy)
-                {
-                    this.nthRebuy = def.level;
-                }
-                if (def.addon)
-                {
-                    this.nthAddon = def.level;
-                }
-            }
-        }
+        // for (let def of ChampionshipBlindDefined.GetInstance().dataList) //move todo
+        // {
+        //     if (def.blindId == type)
+        //     {
+        //         ChampionshipManager.blindList.push(def);
+        //         if (def.rebuy)
+        //         {
+        //             this.nthRebuy = def.level;
+        //         }
+        //         if (def.addon)
+        //         {
+        //             this.nthAddon = def.level;
+        //         }
+        //     }
+        // }
         this.setBlindInfo();
     }
     /**
@@ -686,11 +686,11 @@ class ChampionshipInfoPanel extends BasePanel
             {
                 ChampionshipManager.nowBlindRank++;
                 this.refreshNowBlindColor();
-                let blindDef: ChampionshipBlindDefinition = ChampionshipBlindDefined.GetInstance().getBlindInfoByLevel(ChampionshipManager.nowBlindRank, ChampionshipManager.nowBlindId);
+                let blindDef: table.IChampionshipBlindDefine = ChampionshipBlindDefined.GetInstance().getBlindInfoByLevel(ChampionshipManager.nowBlindRank, ChampionshipManager.nowBlindId);
                 ChampionshipManager.setOutsBlindInfo(blindDef);
                 if (blindDef)
                 {
-                    ChampionshipManager.setOutsAddBlindTimeInfo(blindDef.upTime);
+                    ChampionshipManager.setOutsAddBlindTimeInfo(blindDef.UpTime);
                 }
                 this.setOutsInfo();
             }
@@ -711,7 +711,7 @@ class ChampionshipInfoPanel extends BasePanel
             for (let i: number = 0; i < this.blindList.numChildren; i++)
             {
                 item = this.blindList.getChildAt(i) as BlindItemRenderer;
-                if (item.bindData.level == ChampionshipManager.nowBlindRank)
+                if (item.bindData.Level == ChampionshipManager.nowBlindRank)
                 {
                     item.rankLabel.textColor = ColorEnum.Golden;
                     item.blindLabel.textColor = ColorEnum.Golden;

@@ -47,7 +47,7 @@ class HundredWarCardTypeDefinition implements IBaseDefintion
     /**
      * ID
     */
-    public id: number;
+    public Id: number;
     /**
      * 类型
     */

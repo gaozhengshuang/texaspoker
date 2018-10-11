@@ -21,7 +21,7 @@ class MonthCardPanel extends BasePanel
         for (let i: number = 0; i < ShopDefined.GetInstance().dataList.length; i++)
         {
             info = new ShopInfo();
-            info.id = ShopDefined.GetInstance().dataList[i].id;
+            info.id = ShopDefined.GetInstance().dataList[i].Id;
             if (info.definition && info.definition.type == ShopType.MonthCard)
             {
                 this._monthCardsList.push(info);

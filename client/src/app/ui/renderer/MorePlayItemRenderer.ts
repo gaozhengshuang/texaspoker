@@ -41,7 +41,7 @@ class MorePlayItemRenderer extends BaseItemRenderer<MorePlayDefinition>
         }
         else
         {
-            if (this.bindData.id == MorePlay.Omaha)
+            if (this.bindData.Id == MorePlay.Omaha)
             {
                 UIManager.showPanel(UIModuleName.PlayingFieldPanel, { playWay: PlayWayType.Omaha, prevPanelName: UIModuleName.MorePlayPanel });
             }

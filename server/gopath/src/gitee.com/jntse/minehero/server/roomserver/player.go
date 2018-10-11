@@ -367,6 +367,12 @@ func (this *TexasPlayer) AddBankRoll(num int32){
 	log.Info("房间%d 玩家%d 增加筹码%d", this.room.Id(), this.owner.Id(), num)
 }
 
+func (this *TexasPlayer) AddExp(exp int32, reason string, syn bool) {
+	if this.owner != nil && this.owner.isai == false {
+		this.owner.AddExp(exp, reason, syn)
+	}
+}
+
 func (this *TexasPlayer) ReqTimeAwardInfo(rev *msg.C2RS_ReqTimeAwardInfo) {
 	send := &msg.RS2C_RetTimeAwardInfo{}
 	send.Round = pb.Int32(this.rewardround-1)

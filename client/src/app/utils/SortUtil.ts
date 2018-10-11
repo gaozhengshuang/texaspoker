@@ -5,11 +5,11 @@ class SortUtil
 {
 	public static sortCardById(card1: IBaseDefintion, card2: IBaseDefintion): number
 	{
-		if (card1.id > card2.id)
+		if (card1.Id > card2.Id)
 		{
 			return 1;
 		}
-		if (card1.id < card2.id)
+		if (card1.Id < card2.Id)
 		{
 			return -1;
 		}

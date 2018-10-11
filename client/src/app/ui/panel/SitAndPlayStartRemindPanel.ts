@@ -34,7 +34,7 @@ class SitAndPlayStartRemindPanel extends BasePanel
             this._startMatch = appendData.startMatch;
             this.desLabel.textFlow = game.TextUtil.parse(
                 '您报名的坐满即玩' +
-                '<font color="#F3C655" size="24">' + this._startMatch.definition.name + '</font>' +
+                '<font color="#F3C655" size="24">' + this._startMatch.definition.Name + '</font>' +
                 '马上就要开赛，是否立即进入？' + '（' + game.DateTimeUtil.countDownFormat(this._countDownNum, false) + '）'
             );
             game.Tick.AddSecondsInvoke(this.countDown, this);
@@ -80,7 +80,7 @@ class SitAndPlayStartRemindPanel extends BasePanel
         this._countDownNum--;
         this.desLabel.textFlow = game.TextUtil.parse(
             '您报名的坐满即玩' +
-            '<font color="#F3C655" size="24">' + this._startMatch.definition.name + '</font>' +
+            '<font color="#F3C655" size="24">' + this._startMatch.definition.Name + '</font>' +
             '马上就要开赛，是否立即进入？' + '（' + game.DateTimeUtil.countDownFormat(this._countDownNum, false) + '）'
         );
         if (this._countDownNum <= 0)

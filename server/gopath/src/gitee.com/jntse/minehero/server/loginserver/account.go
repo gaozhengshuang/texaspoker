@@ -370,6 +370,7 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 
 		// 初始元宝和金卷
 		gold := int32(tbl.Global.NewUser.Gold)
+		yuanbao := int32(tbl.Global.NewUser.Yuanbao)
 		userinfo := &msg.Serialize{
 			Entity: &msg.EntityBase{
 				Roleid: pb.Int64(userid),
@@ -377,7 +378,7 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 				Head: pb.String("null"),
 				Account: pb.String(account),
 				Gold: pb.Int32(gold), 
-				Yuanbao: pb.Int32(0), 
+				Yuanbao: pb.Int32(yuanbao), 
 				Diamond: pb.Int32(0),
 				Level: pb.Int32(1),
 				Sex: pb.Int32(int32(msg.Sex_Female)),
@@ -431,9 +432,13 @@ func SaveUserSimpleInfo(bin *msg.Serialize) {
 	pipe := Redis().Pipeline()
 	defer pipe.Close()
 
-	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "name", bin.Entity.GetName())
-	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "face", bin.Entity.GetHead())
-	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "sex",  bin.Entity.GetSex())
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "name", 	bin.Entity.GetName())
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "face", 	bin.Entity.GetHead())
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "sex",  	bin.Entity.GetSex())
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "level",	bin.Entity.GetLevel())
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "gold",	bin.Entity.GetGold())
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "viplevel",  0)
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "offlinetime", 0)
 	_, err := pipe.Exec()
 	if err != nil {
 		log.Error("缓存玩家[%s %d]简单信息失败 %s", bin.Entity.GetName(), uid, err)

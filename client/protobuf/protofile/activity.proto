@@ -85,6 +85,13 @@ message GW2C_RetAwardExchange {
 
 }
 
+//返回兑换次数推送
+message GW2C_PushExchangeTimeRefresh {
+	optional int32 id = 1;
+	optional int32 count = 2;
+	optional int32 time = 3;
+}
+
 //请求兑换信息
 message C2GW_ReqAwardGetInfo {
 
@@ -92,7 +99,7 @@ message C2GW_ReqAwardGetInfo {
 
 //返回兑换信息
 message GW2C_RetAwardGetInfo {
-	repeated msg.AwardGetInfo DataList = 1;
+	repeated msg.AwardGetInfo datalist = 1;
 }
 
 //请求兑换记录

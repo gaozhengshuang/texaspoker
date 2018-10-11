@@ -45,7 +45,7 @@ class GiftShopDefined extends BaseDefined<GiftShopDefinition>
  * */
 class GiftShopDefinition implements IBaseDefintion
 {
-	public id: number;
+	public Id: number;
 	public type: GiftShopType;
 	public iconName: string;
 	public awardId: number;

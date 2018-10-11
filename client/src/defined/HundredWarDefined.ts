@@ -30,7 +30,7 @@ class HundredWarDefinition implements IBaseDefintion
     /**
      * ID
     */
-    public id: number;
+    public Id: number;
     /**
      * 类型
     */

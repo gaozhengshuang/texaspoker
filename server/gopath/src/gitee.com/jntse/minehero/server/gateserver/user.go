@@ -51,6 +51,7 @@ type DBUserData struct {
 	lastgoldtime   int32 // 上次领取系统金币的时间
 	awardrecord    []*msg.AwardRecord  
 	awardgetinfo   []*msg.AwardGetInfo
+	bankruptcount  int32 // 当天领取破产补助的次数
 }
 
 // --------------------------------------------------------------------------
@@ -81,6 +82,7 @@ type GateUser struct {
 	synbalance      bool         // 充值中
 	events          UserMapEvent // 地图事件
 	mailbox         MailBox      // 邮箱
+	friends			Friends		 // 好友
 	arvalues        def.AutoResetValues
 }
 
@@ -92,6 +94,7 @@ func NewGateUser(account, key, token string) *GateUser {
 	u.task.Init(u)
 	u.events.Init(u)
 	u.mailbox.Init(u)
+	u.friends.Init(u)
 	u.arvalues.Init()
 	u.tickers.Init()
 	u.cleanup = false
@@ -437,6 +440,8 @@ func (u *GateUser) PackBin() *msg.Serialize {
 	userbase.Sign.Signtime = pb.Int32(u.signtime)
 	userbase.Misc.Invitationcode = pb.String(u.invitationcode)
 	userbase.Misc.Lastgoldtime = pb.Int32(u.lastgoldtime)
+	userbase.Misc.Bankruptcount = pb.Int32(u.bankruptcount)
+	
 	userbase.Awardrecord = u.awardrecord[:]
 	userbase.Awardgetinfo = u.awardgetinfo[:]
 	userbase.Addrlist = u.addrlist[:]
@@ -482,6 +487,7 @@ func (u *GateUser) LoadBin() {
 	u.signtime = userbase.Sign.GetSigntime()
 	u.invitationcode = userbase.Misc.GetInvitationcode()
 	u.lastgoldtime = userbase.Misc.GetLastgoldtime()
+	u.bankruptcount = userbase.Misc.GetBankruptcount()
 	u.awardrecord = userbase.GetAwardrecord()[:]
 	u.awardgetinfo = userbase.GetAwardgetinfo()[:]
 	u.addrlist = userbase.GetAddrlist()[:]
@@ -503,6 +509,9 @@ func (u *GateUser) LoadBin() {
 	// 邮件
 	u.mailbox.DBLoad()
 
+	// 好友
+	u.friends.DBLoad()
+
 	// 自动重置变量
 	u.arvalues.LoadBin(u.bin.Base.Arvalues)
 
@@ -517,6 +526,7 @@ func (u *GateUser) LoadBin() {
 // TODO: 存盘可以单独协程
 func (u *GateUser) DBSave() {
 	u.mailbox.DBSave()
+	u.friends.DBSave()
 	key := fmt.Sprintf("userbin_%d", u.Id())
 	if err := utredis.SetProtoBin(Redis(), key, u.PackBin()); err != nil {
 		log.Error("玩家[%s %d] 数据存盘失败", u.Name(), u.Id())
@@ -565,6 +575,7 @@ func (u *GateUser) Online(session network.IBaseNetSession, way string) bool {
 	// 上线任务检查
 	u.OnlineTaskCheck()
 	u.events.Online()
+	u.friends.Online()
 
 	// 同步数据到客户端
 	u.Syn()

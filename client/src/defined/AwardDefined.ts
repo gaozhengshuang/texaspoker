@@ -20,7 +20,7 @@ class AwardDefined
 		let def: table.IAwardDefine = table.AwardById[id];
 		if (def)
 		{
-			return def.PreId == null;
+			return !def.PreId;
 		}
 		return false;
 	}

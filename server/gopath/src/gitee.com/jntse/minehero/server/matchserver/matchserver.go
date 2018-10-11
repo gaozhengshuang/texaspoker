@@ -301,8 +301,8 @@ func (ma *MatchServer) Run() {
 }
 
 // 公告
-func (ma *MatchServer) BroadcastGateMsg(msg pb.Message) {
-	ma.gatemgr.Broadcast(msg)
+func (ma *MatchServer) BroadcastGateMsg(msg pb.Message, except ...int) {
+	ma.gatemgr.Broadcast(msg, except...)
 }
 
 func (ma *MatchServer) Reload() {

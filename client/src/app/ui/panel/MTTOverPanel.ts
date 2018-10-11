@@ -101,15 +101,15 @@ class MTTOverPanel extends BasePanel
         {
             this.endRankLabel.text = "第" + this.panelData.rank.toString() + "名";
         }
-        let championshipPrizeList: Array<ChampionshipPrizeDefinition> = ChampionshipManager.getAwardList(this.panelData.id);
+        let championshipPrizeList: Array<table.IChampionshipPrizeDefine> = ChampionshipManager.getAwardList(this.panelData.id);
         if (championshipPrizeList)
         {
             for (let championshipPrize of championshipPrizeList)
             {
-                if (this.panelData.rank <= championshipPrizeList.length && this.panelData.rank == championshipPrize.start)
+                if (this.panelData.rank <= championshipPrizeList.length && this.panelData.rank == championshipPrize.Start)
                 {
                     let str: string = "恭喜你获得了";
-                    let des: string = AwardDefined.GetInstance().getAwardNameById(championshipPrize.awardId);
+                    let des: string = AwardDefined.GetInstance().getAwardNameById(championshipPrize.AwardId);
                     if (des)
                     {
                         str = str + des + "奖励！";

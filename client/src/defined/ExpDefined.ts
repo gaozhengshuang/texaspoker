@@ -29,7 +29,7 @@ class ExpDefined extends BaseDefined<ExpDefinition>
 * */
 class ExpDefinition implements IBaseDefintion
 {
-    public id: number;
+    public Id: number;
     public level: number;
     public exp: number;
     public title: string;

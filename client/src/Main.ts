@@ -57,7 +57,9 @@ class Main extends eui.UILayer
             }
             else
             {
-                await RES.getResAsync(ResPrefixPathName.Lang + I18n.lang + ResSuffixName.ZIP);
+                let langName = ResPrefixPathName.Lang + I18n.lang + ResSuffixName.ZIP;
+                // langName = ResPrefixPathName.Lang + "zh-tw" + ResSuffixName.ZIP;
+                await RES.getResAsync(langName, this.onLangZipComplete, this);
             }
         }
     }
@@ -68,6 +70,16 @@ class Main extends eui.UILayer
             I18n.initMap(data);
         }
         this.loadAssetText();
+    }
+    private async onLangZipComplete(data: any)
+    {
+        JSZip.loadAsync(data).then(function (zip)
+        {
+            return zip.file(I18n.lang + ".json").async("text");
+        }).then(function (text)
+        {
+            this.onLangComplete(text);
+        });
     }
     private async loadAssetText()
     {
@@ -104,7 +116,7 @@ class Main extends eui.UILayer
 
     private createScene()
     {
-        this.setLoadingText(I18n.getText('正在进入游戏...'));
+        this.setLoadingText('正在进入游戏...');
         GameManager.initialize(this.stage, this);
         UIManager.initialize(this.stage);
         game.Tick.initialize(this.stage);

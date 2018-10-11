@@ -188,10 +188,10 @@ class UserInfoPanel extends BasePanel
 				}
 				break;
 			case UserState.InMatch:
-				let matchDef: ChampionshipDefinition = ChampionshipDefined.GetInstance().getDefinition(info.stateConfId);
+				let matchDef: table.IChampionshipDefine = table.ChampionshipById[info.stateConfId];
 				if (matchDef)
 				{
-					this.stateLabel.text = game.StringUtil.format("{0}中", matchDef.name);
+					this.stateLabel.text = game.StringUtil.format("{0}中", matchDef.Name);
 				}
 				break;
 			case UserState.InHundredWar:

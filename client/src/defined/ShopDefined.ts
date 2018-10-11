@@ -58,7 +58,7 @@ class ShopDefined extends BaseDefined<ShopDefinition>
  * */
 class ShopDefinition implements IBaseDefintion
 {
-	public id: number;
+	public Id: number;
 	public type: ShopType;
 	public ignoreInPanel: number;
 	public iconName: string;

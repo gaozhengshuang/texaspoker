@@ -131,6 +131,7 @@ enum RoomKind {
 //活动类别
 enum ActivityType {
 	DailySign = 3;
+	BankruptcySubsidy = 7;
 }
 
 // 邮件类型

@@ -116,7 +116,7 @@ func (this *RankManager) UpdateLevelRankList() {
 	//nowms := util.CURTIMEMS()
 	
 	this.levelranklist = make([]*UserRankInfo, 0)
-	picklist, err := Redis().ZRevRangeWithScores("zGoldRank", 0, 49).Result()
+	picklist, err := Redis().ZRevRangeWithScores("zLevelRank", 0, 49).Result()
 	if err != nil {
 		log.Error("刷新等级排行榜 读榜 redis 出错")
 		return

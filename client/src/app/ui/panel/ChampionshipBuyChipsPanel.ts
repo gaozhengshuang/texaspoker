@@ -49,35 +49,35 @@ class ChampionshipBuyChipsPanel extends BasePanel
 		{
 			if (this.panelData && this.panelData.isRebuy)
 			{
-				this.timesLabel.text = game.StringUtil.format("剩余买入比赛次数:{0}", GamblingManager.matchRoomInfo.definition.rebuy - GamblingManager.roomInfo.rebuyTimes);
+				this.timesLabel.text = game.StringUtil.format("剩余买入比赛次数:{0}", GamblingManager.matchRoomInfo.definition.Rebuy - GamblingManager.roomInfo.rebuyTimes);
 				this.rebuyGroup.visible = true;
 				this.addonGroup.visible = false;
 				if (this.panelData.isOver)
 				{
 					this.desLabel.text = game.StringUtil.format("比赛筹码输光了,是否花费{0}金币重新购买{1}比赛筹码?",
-						GamblingManager.matchRoomInfo.definition.rebuyCost, GamblingManager.matchRoomInfo.definition.initialChips)
+						GamblingManager.matchRoomInfo.definition.RebuyCost, GamblingManager.matchRoomInfo.definition.InitialChips)
 					this._text = this.desLabel.text;
 					this.showDownCount();
 					return;
 				}
 				this.desLabel.text = game.StringUtil.format("是否花费{0}金币重新购买{1}比赛筹码?",
-					GamblingManager.matchRoomInfo.definition.rebuyCost, GamblingManager.matchRoomInfo.definition.initialChips)
+					GamblingManager.matchRoomInfo.definition.RebuyCost, GamblingManager.matchRoomInfo.definition.InitialChips)
 			}
 			else
 			{
-				this.timesLabel.text = game.StringUtil.format("剩余买入比赛次数:{0}", GamblingManager.matchRoomInfo.definition.addon - GamblingManager.roomInfo.addonTimes);
+				this.timesLabel.text = game.StringUtil.format("剩余买入比赛次数:{0}", GamblingManager.matchRoomInfo.definition.Addon - GamblingManager.roomInfo.addonTimes);
 				this.rebuyGroup.visible = false;
 				this.addonGroup.visible = true;
 				if (this.panelData && this.panelData.isOver)
 				{
 					this.desLabel.text = game.StringUtil.format("比赛筹码输光了,是否花费{0}金币重新购买{1}比赛筹码?",
-						GamblingManager.matchRoomInfo.definition.addonCost, GamblingManager.matchRoomInfo.definition.addonChips)
+						GamblingManager.matchRoomInfo.definition.AddonCost, GamblingManager.matchRoomInfo.definition.AddonChips)
 					this._text = this.desLabel.text;
 					this.showDownCount();
 					return;
 				}
 				this.desLabel.text = game.StringUtil.format("是否花费{0}金币增购{1}比赛筹码?",
-					GamblingManager.matchRoomInfo.definition.addonCost, GamblingManager.matchRoomInfo.definition.addonChips)
+					GamblingManager.matchRoomInfo.definition.AddonCost, GamblingManager.matchRoomInfo.definition.AddonChips)
 			}
 		}
 	}
@@ -121,7 +121,7 @@ class ChampionshipBuyChipsPanel extends BasePanel
 		{
 			if (GamblingManager.championshipHandler.isCanAddChips(ChampionshipBuyType.Rebuy, true))
 			{
-				if (CostManager.verifyGold(GamblingManager.matchRoomInfo.definition.rebuyCost, true))
+				if (CostManager.verifyGold(GamblingManager.matchRoomInfo.definition.RebuyCost, true))
 				{
 					GamblingManager.championshipHandler.addShip(ChampionshipBuyType.Rebuy)
 				}
@@ -136,7 +136,7 @@ class ChampionshipBuyChipsPanel extends BasePanel
 		{
 			if (GamblingManager.championshipHandler.isCanAddChips(ChampionshipBuyType.Addon, true))
 			{
-				if (CostManager.verifyGold(GamblingManager.matchRoomInfo.definition.addonCost, true))
+				if (CostManager.verifyGold(GamblingManager.matchRoomInfo.definition.AddonCost, true))
 				{
 					GamblingManager.championshipHandler.addShip(ChampionshipBuyType.Addon)
 				}

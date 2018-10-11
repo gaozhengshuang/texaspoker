@@ -77,8 +77,10 @@ func (this *TblLoader) ReloadJson() {
 func (this *TblLoader) Init() {
 
 	// load excels
-    this.LoadExcel(MusicBase, "music.json")
+    this.LoadExcel(GiftShopBase, "giftshopbase.json")
+	this.LoadExcel(MusicBase, "music.json")
 	this.LoadExcel(LevelBasee, "levelbase.json")
+	this.LoadExcel(PayListBase, "paylistbase.json")
 	this.LoadExcel(TChampionshipPrize, "championshipprize.json")
 	this.LoadExcel(LoadingTextBase, "loadingtext.json")
 	this.LoadExcel(Activity_signinBase, "activity_signinbase.json")
@@ -86,6 +88,7 @@ func (this *TblLoader) Init() {
 	this.LoadExcel(TSystemTime, "systemtime.json")
 	this.LoadExcel(Activity_listBase, "activity_listbase.json")
 	this.LoadExcel(GiftProBase, "giftprobase.json")
+	this.LoadExcel(GoldenBeanAwardBase, "goldenbeanawardbase.json")
 	this.LoadExcel(ProtoMsgIndex, "proto_index.json")
 	this.LoadExcel(TTimeAward, "timeaward.json")
 	this.LoadExcel(TBallGiftbase, "ballgiftbase.json")
@@ -99,6 +102,7 @@ func (this *TblLoader) Init() {
 	this.LoadExcel(TChampionship, "championship.json")
 	this.LoadExcel(ChipsBase, "chips.json")
 	this.LoadExcel(MapEventRefreshBase, "mapeventrefresh.json")
+	this.LoadExcel(BankruptBase, "bankruptbase.json")
 	this.LoadExcel(RankBase, "rankbase.json")
 	this.LoadExcel(TaskBase, "taskbase.json")
 	this.LoadExcel(TChampionshipBlind, "championshipblind.json")

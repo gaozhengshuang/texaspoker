@@ -29,7 +29,7 @@ class AchievementManager
             for (let def of AchieveDefined.GetInstance().dataList)
             {
                 let info: AchievementInfo = new AchievementInfo();
-                info.id = def.id;
+                info.id = def.Id;
                 info.isComplete = false;
                 info.isTake = false;
                 info.isOther = false;

@@ -366,15 +366,15 @@ enum PlayerPosType
     /**
      * 小盲位
     */
-	Sblind = 1,
+	Sblind = 2,
     /**
      * 大盲位
     */
-	Bblind = 2,
+	Bblind = 3,
     /**
      * 庄家位
     */
-	Banker = 3,
+	Banker = 1,
 }
 /**
  * 牌局类型

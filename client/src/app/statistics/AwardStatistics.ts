@@ -3,7 +3,7 @@
  */
 class AwardStatistics
 {
-	public static Invoke(info: AwardTimesInfo)
+	public static Invoke(info: msg.IAwardGetInfo)
 	{
 		try
 		{
@@ -51,7 +51,7 @@ class AwardStatistics
 				{
 					if (costList[i].type == CostType.Diamond)
 					{
-						TalkingDataManager.onItemPurchase("Award:" + info.id.toString(), info.times, costList[i].count);
+						TalkingDataManager.onItemPurchase("Award:" + info.id.toString(), info.count, costList[i].count);
 					}
 				}
 			}

@@ -48,10 +48,10 @@ class MarqueeHandler
             let mttName: string;
             let awardName: string;
             msg = marqueeDef.message;  //恭喜【{0}】在{1}中获得冠军，获得奖励{2}
-            let mttDef: ChampionshipDefinition = ChampionshipDefined.GetInstance().getDefinition(marquee["id"]);
+            let mttDef: table.IChampionshipDefine = table.ChampionshipById[marquee["id"]];
             if (mttDef)
             {
-                mttName = mttDef.name;
+                mttName = mttDef.Name;
             }
             awardName = AwardDefined.GetInstance().getAwardNameById(marquee["aid"], true);
             if (awardName)

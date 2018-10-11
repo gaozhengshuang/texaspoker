@@ -28,7 +28,7 @@ class GuideRoomDefined extends BaseDefined<GuideRoomDefinition>
  */
 class GuideRoomDefinition implements IBaseDefintion
 {
-	public id: number;
+	public Id: number;
 	/**
 	 * 房间ID
 	 */
