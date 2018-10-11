@@ -17,6 +17,7 @@ var GiftShopBase = table.InsGiftShopBaseTable
 var MusicBase = table.InsMusicBaseTable
 var LevelBasee = table.InsLevelBaseeTable
 var PayListBase = table.InsPayListBaseTable
+var TextBase = table.InsTextBaseTable
 var TChampionshipPrize = table.InsTChampionshipPrizeTable
 var LoadingTextBase = table.InsLoadingTextBaseTable
 var Activity_signinBase = table.InsActivity_signinBaseTable
