@@ -53,11 +53,14 @@ type MatchServer struct {
 	mutex   sync.Mutex
 	gatemgr GateManager
 	//usermgr		UserManager
+	systimermgr  SysTimerManager
+	championmgr  ChampionManager
 	roomsvrmgr   RoomSvrManager
 	authens      map[string]int
 	msghandlers  []network.IBaseMsgHandler
 	tblloader    *tbl.TblLoader
 	runtimestamp int64
+	clienthandler *ClientMsgHandler
 }
 
 var g_MatchServer *MatchServer = nil
@@ -88,6 +91,18 @@ func RoomSvrMgr() *RoomSvrManager {
 
 func Redis() *redis.Client {
 	return Match().hredis
+}
+
+func SysTimerMgr() *SysTimerManager {
+	return &Match().systimermgr
+}
+
+func ChampionMgr() *ChampionManager {
+	return &Match().championmgr
+}
+
+func ClientMsgAgent() *ClientMsgHandler {
+	return Match().clienthandler
 }
 
 func (ma *MatchServer) DoInputCmd(cmd string) {
@@ -190,6 +205,8 @@ func (ma *MatchServer) Init(fileconf string) bool {
 	ma.gatemgr.Init()
 	//ma.usermgr.Init()
 	ma.roomsvrmgr.Init()
+	ma.systimermgr.Init()
+	ma.championmgr.Init()
 	//ma.sessions = make(map[int]network.IBaseNetSession)
 	ma.authens = make(map[string]int)
 	ma.runtimestamp = 0
@@ -204,6 +221,7 @@ func (ma *MatchServer) InitMsgHandler() {
 	network.InitGlobalSendMsgHandler(tbl.GetAllMsgIndex())
 	ma.msghandlers = append(ma.msghandlers, NewGW2MSMsgHandler())
 	ma.msghandlers = append(ma.msghandlers, NewRS2MSMsgHandler())
+	ma.clienthandler = NewClientMsgHandler()
 }
 
 // 启动redis
@@ -269,6 +287,8 @@ func (ma *MatchServer) Run() {
 
 	//
 	ma.roomsvrmgr.Tick(now)
+	ma.systimermgr.Tick(now)
+	ma.championmgr.Tick(now)
 	tm_roomtick := util.CURTIMEMS()
 	//
 	delay := tm_roomtick - now

@@ -41,6 +41,7 @@ type TexasPlayer struct{
 	readytime int32
 	rewardtime int32
 	rewardround int32
+	isallinshow bool
 }
 
 type TexasPlayers []*TexasPlayer
@@ -72,6 +73,7 @@ func (this *TexasPlayer)Init(){
 	this.isready = false
 	this.gamestate = GSWaitNext
 	this.aiacttime = 0
+	this.isallinshow = false
 }
 
 func (this *TexasPlayer) InitTimeReward() {
@@ -587,10 +589,16 @@ func (this *TexasPlayer) AutoBuy() {
 	if this.autobuy == 0 {
 		return
 	}
-	if !this.owner.RemoveGold(this.autobuy, "金币兑换筹码", true) {
+	var buy int32 = 0
+	if this.autobuy > this.owner.GetGold() {
+		buy = this.owner.GetGold()
+	}else {
+		buy = this.autobuy
+	}
+	if !this.owner.RemoveGold(buy, "金币兑换筹码", true) {
 		return
 	}
-	this.AddBankRoll(this.autobuy)
+	this.AddBankRoll(buy)
 }
 
 func (this *TexasPlayer) BuyInGame(rev *msg.C2RS_ReqBuyInGame) bool {

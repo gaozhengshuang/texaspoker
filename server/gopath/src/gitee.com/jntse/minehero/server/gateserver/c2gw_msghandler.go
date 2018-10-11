@@ -51,6 +51,7 @@ func (mh *C2GWMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqLogin{}, on_C2GW_ReqLogin)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqHeartBeat{}, on_C2GW_ReqHeartBeat)
 	mh.msgparser.RegistProtoMsg(msg.C2RS_MsgTransfer{}, on_C2RS_MsgTransfer)
+	mh.msgparser.RegistProtoMsg(msg.C2MS_MsgTransfer{}, on_C2MS_MsgTransfer)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_BuyItem{}, on_C2GW_BuyItem)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqDeliveryGoods{}, on_C2GW_ReqDeliveryGoods)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqUseBagItem{}, on_C2GW_ReqUseBagItem)
@@ -116,6 +117,19 @@ func on_C2GW_ReqHeartBeat(session network.IBaseNetSession, message interface{}) 
 	})
 }
 
+func on_C2MS_MsgTransfer(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2MS_MsgTransfer)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		return
+	}
+	if u.Id() != tmsg.GetUid() {
+		log.Error("玩家[%s %d] 消息转发只能带自己的玩家Id", u.Name(), u.Id())
+		return
+	}
+	Match().SendCmd(tmsg)
+}
+
 func on_C2RS_MsgTransfer(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2RS_MsgTransfer)
 	//msg_type := pb.MessageType(tmsg.GetName())
@@ -139,15 +153,15 @@ func on_C2RS_MsgTransfer(session network.IBaseNetSession, message interface{}) {
 	//}
 	//u.SendRoomMsg(protomsg.(pb.Message))
 	u := ExtractSessionUser(session)
+	// 不做解析转发到RoomServer
+	if u == nil {
+		return
+	}
 	if u.Id() != tmsg.GetUid() {
 		log.Error("玩家[%s %d] 消息转发只能带自己的玩家Id", u.Name(), u.Id())
 		return
 	}
 
-	// 不做解析转发到RoomServer
-	if u == nil {
-		return
-	}
 	if u.IsInRoom() == false {
 		log.Warn("消息转发失败，玩家[%s %d]没有在任何房间中", u.Name(), u.Id())
 		return

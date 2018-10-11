@@ -36,6 +36,7 @@ func (mh *GW2MSMsgHandler) Init() {
 	// 收
 	mh.msgparser.RegistProtoMsg(msg.GW2MS_ReqRegist{}, on_GW2MS_ReqRegist)
 	mh.msgparser.RegistProtoMsg(msg.GW2MS_HeartBeat{}, on_GW2MS_HeartBeat)
+	mh.msgparser.RegistProtoMsg(msg.C2MS_MsgTransfer{}, on_C2MS_MsgTransfer)
 	mh.msgparser.RegistProtoMsg(msg.GW2MS_ReqCreateRoom{}, on_GW2MS_ReqCreateRoom)
 	mh.msgparser.RegistProtoMsg(msg.GW2MS_MsgNotice{}, on_GW2MS_MsgNotice)
 	mh.msgparser.RegistProtoMsg(msg.GW2GW_MsgTransfer{}, on_GW2GW_MsgTransfer)
@@ -110,6 +111,24 @@ func on_GW2MS_ReqRegist(session network.IBaseNetSession, message interface{}) {
 func on_GW2MS_HeartBeat(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2MS_HeartBeat)
 	log.Info(reflect.TypeOf(tmsg).String())
+}
+
+func on_C2MS_MsgTransfer(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2MS_MsgTransfer)
+	msg_type := pb.MessageType(tmsg.GetName())
+	if msg_type == nil {
+		log.Fatal("消息转发解析失败，找不到proto msg=%s" , tmsg.GetName())
+		return
+	}
+
+	protomsg := reflect.New(msg_type.Elem()).Interface()
+	err := pb.Unmarshal(tmsg.GetBuf(), protomsg.(pb.Message))
+	if err != nil {
+		log.Fatal("消息转发解析失败，Unmarshal失败 msg=%s" , tmsg.GetName())
+		return
+	}
+
+	ClientMsgAgent().Handler(session, protomsg, tmsg.GetUid())
 }
 
 func on_GW2MS_MsgNotice(session network.IBaseNetSession, message interface{}) {
