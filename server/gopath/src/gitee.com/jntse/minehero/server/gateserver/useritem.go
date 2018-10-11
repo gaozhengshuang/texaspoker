@@ -39,7 +39,7 @@ func (u *GateUser) AddItem(item int32, num int32, reason string, syn bool) {
 func (u *GateUser) SendPropertyChange() {
 	send := &msg.RS2C_RolePushPropertyChange{}
 	send.Diamond = pb.Int32(u.diamond)
-	send.Gold = pb.Int32(u.gold)
+	send.Gold = pb.Int32(u.GetGold())
 	send.Safegold = pb.Int32(0)
 	send.Yuanbao = pb.Int32(u.yuanbao)
 	u.SendMsg(send)
@@ -73,22 +73,28 @@ func (u *GateUser) RemoveItem(item int32, num int32, reason string) bool {
 }
 
 // 金币
-func (u *GateUser) GetGold() int32 { return u.gold }
+func (u *GateUser) GetGold() int32 {
+	gold := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "gold").Val())
+	return gold
+}
 func (u *GateUser) AddGold(gold int32, reason string, syn bool) {
-	u.gold = u.GetGold() + gold
+	newgold := u.GetGold() + gold
+	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "gold", newgold)
 	if syn {
 		u.SendPropertyChange()
 	}
-	log.Info("玩家[%d] 添加金币[%d] 库存[%d] 原因[%s]", u.Id(), gold, u.GetGold(), reason)
+	log.Info("玩家[%d] 添加金币[%d] 库存[%d] 原因[%s]", u.Id(), gold, newgold, reason)
 	u.SyncGoldRankRedis()
 }
 func (u *GateUser) RemoveGold(gold int32, reason string, syn bool) bool {
-	if u.GetGold() >= gold {
-		u.gold = u.GetGold() - gold
+	goldsrc := u.GetGold()
+	if goldsrc >= gold {
+		newgold := goldsrc - gold
+		Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "gold", newgold)
 		if syn {
 			u.SendPropertyChange()
 		}
-		log.Info("玩家[%d] 扣除金币[%d] 库存[%d] 原因[%s]", u.Id(), gold, u.GetGold(), reason)
+		log.Info("玩家[%d] 扣除金币[%d] 库存[%d] 原因[%s]", u.Id(), gold, newgold, reason)
 		RCounter().IncrByDate("item_remove", int32(msg.ItemId_Gold), gold)
 		u.SyncGoldRankRedis()
 		return true

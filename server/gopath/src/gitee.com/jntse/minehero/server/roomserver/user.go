@@ -281,17 +281,20 @@ func (u *RoomUser) UpdateGateAgent(agent network.IBaseNetSession) {
 }
 
 func (u *RoomUser) GetGold() int32 {
-	return u.Entity().GetGold()
+	//return u.Entity().GetGold()
+	gold := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "gold").Val())
+	return gold
 }
 
 func (u *RoomUser) RemoveGold(gold int32, reason string, syn bool) bool {
-	if u.GetGold() >= gold {
-		entity := u.Entity()
-		entity.Gold = pb.Int32(u.GetGold() - gold)
+	goldsrc := u.GetGold()
+	if goldsrc >= gold {
+		newgold := goldsrc - gold
+		Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "gold", newgold)
 		if syn {
 			u.SendPropertyChange()
 		}
-		log.Info("玩家[%d] 扣除金币[%d] 库存[%d] 原因[%s]", u.Id(), gold, u.GetGold(), reason)
+		log.Info("玩家[%d] 扣除金币[%d] 库存[%d] 原因[%s]", u.Id(), gold, newgold, reason)
 
 		RCounter().IncrByDate("item_remove", int32(msg.ItemId_Gold), gold)
 		u.SyncGoldRankRedis()
@@ -302,23 +305,27 @@ func (u *RoomUser) RemoveGold(gold int32, reason string, syn bool) bool {
 }
 
 func (u *RoomUser) AddGold(gold int32, reason string, syn bool) {
-	entity := u.Entity()
-	entity.Gold = pb.Int32(u.GetGold() + gold)
+	//entity := u.Entity()
+	//entity.Gold = pb.Int32(u.GetGold() + gold)
+	goldsrc := u.GetGold()
+	newgold := goldsrc + gold
+	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "gold", newgold)
 	if syn {
 		u.SendPropertyChange()
 	}
 	u.SyncGoldRankRedis()
-	log.Info("玩家[%d] 添加金币[%d] 库存[%d] 原因[%s]", u.Id(), gold, u.GetGold(), reason)
+	log.Info("玩家[%d] 添加金币[%d] 库存[%d] 原因[%s]", u.Id(), gold, newgold, reason)
 }
 
 func (u *RoomUser) SetGold(gold int32, reason string, syn bool) {
-	entity := u.Entity()
-	entity.Gold = pb.Int32(gold)
+	//entity := u.Entity()
+	//entity.Gold = pb.Int32(gold)
+	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "gold", gold)
 	if syn {
 		u.SendPropertyChange()
 	}
 	u.SyncGoldRankRedis()
-	log.Info("玩家[%d] 设置金币[%d] 库存[%d] 原因[%s]", u.Id(), gold, u.GetGold(), reason)
+	log.Info("玩家[%d] 设置金币[%d] 库存[%d] 原因[%s]", u.Id(), gold, gold, reason)
 }
 
 //同步玩家金币到redis排行榜
@@ -412,7 +419,7 @@ func (u *RoomUser) AddDiamond(num int32, reason string, syn bool) {
 func (u *RoomUser) SendPropertyChange() {
 	send := &msg.RS2C_RolePushPropertyChange{}
 	send.Diamond = pb.Int32(u.Entity().GetDiamond())
-	send.Gold = pb.Int32(u.Entity().GetGold())
+	send.Gold = pb.Int32(u.GetGold())
 	send.Safegold = pb.Int32(0)
 	u.SendClientMsg(send)
 }
