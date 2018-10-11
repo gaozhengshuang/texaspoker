@@ -61,6 +61,7 @@ func (mh *C2GWMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.C2GW_SendWechatAuthCode{}, on_C2GW_SendWechatAuthCode)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_StartLuckyDraw{}, on_C2GW_StartLuckyDraw)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqTaskList{}, on_C2GW_ReqTaskList)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqPlayerRoleInfo{}, on_C2GW_ReqPlayerRoleInfo)
 
 	// 地图事件
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqEnterEvents{}, on_C2GW_ReqEnterEvents)
@@ -733,6 +734,17 @@ func on_C2GW_ReqTaskList(session network.IBaseNetSession, message interface{}) {
 	//	return
 	//}
 	u.task.SendTaskList()
+}
+func on_C2GW_ReqPlayerRoleInfo(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqPlayerRoleInfo)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	send := StatisticsMgr().GetPlayerRoleInfo(tmsg.GetRoleid())
+	u.SendMsg(send)
 }
 
 func on_C2GW_ReqActivityInfo(session network.IBaseNetSession, message interface{}) {
