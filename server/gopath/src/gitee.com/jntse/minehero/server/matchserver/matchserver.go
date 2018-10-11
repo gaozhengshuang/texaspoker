@@ -177,6 +177,22 @@ func (ma *MatchServer) SendMsg(id int, msg pb.Message) bool {
 	return ma.net.SendMsg(id, msg)
 }
 
+func (ma *MatchServer) SendClientMsg(m pb.Message) bool {
+	name := pb.MessageName(m)
+	if name == "" {
+		log.Fatal("SendClientMsg 获取proto名字失败[%s]", m)
+		return false
+	}
+	msgbuf, err := pb.Marshal(m)
+	if err != nil {
+		log.Fatal("SendClientMsg 序列化proto失败[%s][%s]", name, err)
+		return false
+	}
+
+	send := &msg.MS2GW_MsgTransfer{Uid: pb.Int64(0), Name: pb.String(name), Buf: msgbuf}
+	return ma.net.SendMsg(0, send)
+}
+
 func (ma *MatchServer) GetSession(id int) network.IBaseNetSession {
 	//session, _ := ma.sessions[id]
 	//return session
