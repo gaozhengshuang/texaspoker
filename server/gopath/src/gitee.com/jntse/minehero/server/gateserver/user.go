@@ -29,6 +29,7 @@ import (
 // --------------------------------------------------------------------------
 type DBUserData struct {
 	bin            *msg.Serialize // db二进制数据
+	gatebin 	   *msg.GateSerialize
 	tm_login       int64
 	tm_logout      int64
 	gold           int32
@@ -372,6 +373,13 @@ func (u *GateUser) DBLoad() bool {
 		log.Error("账户%s 获取玩家数据失败，err: %s", u.account, err)
 		return false
 	}
+	
+	u.gatebin = new(msg.GateSerialize)
+	userkey2 := fmt.Sprintf("gateuserbin_%d", info.GetUserid())
+	if err := utredis.GetProtoBin(Redis(), userkey2, u.gatebin); err != nil {
+		log.Error("账户%s 获取玩家gate数据失败，err: %s", u.account, err)
+		return false
+	}
 
 	u.OnDBLoad("登陆")
 	return true
@@ -407,6 +415,7 @@ func (u *GateUser) OnDBLoad(way string) {
 
 	// 加载二进制
 	u.LoadBin()
+	u.LoadGateBin()
 
 	// 新用户回调
 	if u.tm_login == 0 {
@@ -445,7 +454,6 @@ func (u *GateUser) PackBin() *msg.Serialize {
 	userbase.Sign.Signtime = pb.Int32(u.signtime)
 	userbase.Misc.Invitationcode = pb.String(u.invitationcode)
 	userbase.Misc.Lastgoldtime = pb.Int32(u.lastgoldtime)
-	userbase.Misc.Bankruptcount = pb.Int32(u.bankruptcount)
 	userbase.Misc.Silvercardtime = pb.Int32(u.silvercardtime)
 	userbase.Misc.Silvercardawardstate = pb.Int32(u.silvercardawardstate)
 	userbase.Misc.Goldcardtime = pb.Int32(u.goldcardtime)
@@ -473,6 +481,13 @@ func (u *GateUser) PackBin() *msg.Serialize {
 	return bin
 }
 
+func (u *GateUser) PackGateBin() *msg.GateSerialize {
+	gatebin := &msg.GateSerialize{}
+	gatebin.Bankruptcount = pb.Int32(u.bankruptcount)
+	log.Info("SSSSSSSSSSSSSSSSSSSSSSSSSSSSS-----------> %d", u.bankruptcount)
+	return gatebin
+}
+
 // 将二进制解析出来
 func (u *GateUser) LoadBin() {
 
@@ -496,7 +511,6 @@ func (u *GateUser) LoadBin() {
 	u.signtime = userbase.Sign.GetSigntime()
 	u.invitationcode = userbase.Misc.GetInvitationcode()
 	u.lastgoldtime = userbase.Misc.GetLastgoldtime()
-	u.bankruptcount = userbase.Misc.GetBankruptcount()
 	u.silvercardtime= userbase.Misc.GetSilvercardtime()
 	u.silvercardawardstate = userbase.Misc.GetSilvercardawardstate()
 	u.goldcardtime = userbase.Misc.GetGoldcardtime()
@@ -537,6 +551,11 @@ func (u *GateUser) LoadBin() {
 	//u.image.LoadBin(u.bin)
 }
 
+func (u *GateUser) LoadGateBin () {
+	u.bankruptcount = u.gatebin.GetBankruptcount()
+	log.Info("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL-----------> %d", u.bankruptcount)
+}
+
 // TODO: 存盘可以单独协程
 func (u *GateUser) DBSave() {
 	u.mailbox.DBSave()
@@ -544,6 +563,12 @@ func (u *GateUser) DBSave() {
 	key := fmt.Sprintf("userbin_%d", u.Id())
 	if err := utredis.SetProtoBin(Redis(), key, u.PackBin()); err != nil {
 		log.Error("玩家[%s %d] 数据存盘失败", u.Name(), u.Id())
+		return
+	}
+
+	key2 := fmt.Sprintf("gateuserbin_%d", u.Id())
+	if err := utredis.SetProtoBin(Redis(), key2, u.PackGateBin()); err != nil {
+		log.Error("玩家[%s %d] gate数据存盘失败", u.Name(), u.Id())
 		return
 	}
 	log.Info("玩家[%s %d] 数据存盘成功", u.Name(), u.Id())

@@ -398,7 +398,17 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 			log.Error("新建账户%s插入玩家数据失败，err: %s", account, err)
 			break
 		}
-
+		
+		gateuserinfo := &msg.GateSerialize{
+			Bankruptcount: pb.Int32(0),
+		}
+		userkey2 := fmt.Sprintf("gateuserbin_%d", userid)
+		if err := utredis.SetProtoBin(Redis(), userkey2, gateuserinfo); err != nil {
+			errcode = "插入玩家gate数据失败"
+			log.Error("新建账户%s插入玩家gate数据失败，err: %s", account, err)
+			break
+		}
+		
 		// 缓存简单信息
 		SaveUserSimpleInfo(userinfo)
 		//SaveUserWechatOpenId(userid, openid)
