@@ -26,6 +26,7 @@ var TSystemTime = table.InsTSystemTimeTable
 var Activity_listBase = table.InsActivity_listBaseTable
 var GiftProBase = table.InsGiftProBaseTable
 var GoldenBeanAwardBase = table.InsGoldenBeanAwardBaseTable
+var MorePlayBase = table.InsMorePlayBaseTable
 var ProtoMsgIndex = table.InsProtoMsgIndexTable
 var TTimeAward = table.InsTTimeAwardTable
 var TBallGiftbase = table.InsTBallGiftbaseTable
