@@ -11,7 +11,7 @@ class TextInfoPanel extends BasePanel
 	public titleImg: eui.Image;
 	private _contentList: Array<string>;
 
-	private _def: TextDefinition;
+	private _def: table.ITextDefine;
 
 	private _txtCount: number = 24;
 
@@ -52,13 +52,13 @@ class TextInfoPanel extends BasePanel
 			this.txtGroup.visible = false;
 		}
 		super.init(appendData);
-		if (this.panelData instanceof TextDefinition)
+		if (this.panelData instanceof table.TextDefine)
 		{
 			this._def = this.panelData;
 		}
 		else if (typeof this.panelData == "number")
 		{
-			this._def = TextDefined.GetInstance().getDefinition(this.panelData);
+			this._def = table.TextById[this.panelData];
 		}
 		this.contentContainerOper();
 	}
@@ -66,7 +66,7 @@ class TextInfoPanel extends BasePanel
 	{
 		if (this._def)
 		{
-			if (this._def.isRichTxt)
+			if (this._def.IsRichTxt)
 			{
 				this.txtGroupScroller.viewport = this.txtGroup;
 			}
@@ -82,18 +82,18 @@ class TextInfoPanel extends BasePanel
 		UIUtil.hideScrollerBar(this.txtGroupScroller, true, false);
 		if (this._def)
 		{
-			if (this._def.url)
+			if (this._def.Url)
 			{
-				this.titleImg.source = this._def.url;
+				this.titleImg.source = this._def.Url;
 			}
 			else
 			{
 				if (this.titleLabel)
 				{
-					this.titleLabel.text = this._def.title;
+					this.titleLabel.text = this._def.Title;
 				}
 			}
-			if (!this._def.isRichTxt)
+			if (!this._def.IsRichTxt)
 			{
 				this.txtList.visible = true;
 				this._lastShowContainer = this.txtList;
@@ -102,7 +102,7 @@ class TextInfoPanel extends BasePanel
 			}
 			else
 			{
-				this.txtLabel.textFlow = game.TextUtil.parse(this._def.text);
+				this.txtLabel.textFlow = game.TextUtil.parse(this._def.Text);
 				this.txtGroup.visible = true;
 				this._lastShowContainer = this.txtGroup;
 			}
@@ -113,7 +113,7 @@ class TextInfoPanel extends BasePanel
 	private contentOper()
 	{
 		game.ArrayUtil.Clear(this._contentList);
-		let str: string = this._def.text;
+		let str: string = this._def.Text;
 		let splitStr: string = "\n";
 		// if (this._def.isRichTxt)
 		// {

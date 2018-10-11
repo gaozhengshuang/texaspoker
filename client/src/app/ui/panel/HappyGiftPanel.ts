@@ -126,18 +126,18 @@ class HappyGiftPanel extends BaseActivityPanel
 
     private setLabel(title: eui.Label, text: eui.Label, id: TextFixedId)
     {
-        let def: TextDefinition = TextDefined.GetInstance().getDefinition(id);
+        let def: table.ITextDefine = table.TextById[id];
         if (def)
         {
-            if (def.isRichTxt)
+            if (def.IsRichTxt)
             {
-                text.textFlow = game.TextUtil.parse(def.text);
-                title.textFlow = game.TextUtil.parse(def.title);
+                text.textFlow = game.TextUtil.parse(def.Text);
+                title.textFlow = game.TextUtil.parse(def.Title);
             }
             else
             {
-                text.text = def.text;
-                title.text = def.title;
+                text.text = def.Text;
+                title.text = def.Title;
             }
         }
     }
