@@ -32,12 +32,12 @@ func (this *StatisticsManager) GetPlayerRoleInfo(id int64) *msg.GW2C_RetPlayerRo
 		}
 		send.Entity = entityInfo
 		key, vipInfo := fmt.Sprintf("uservip_%d", id), &msg.UserVip{}
-		if err = utredis.GetProtoBin(Redis(), key, vipInfo); err != nil {
+		if err := utredis.GetProtoBin(Redis(), key, vipInfo); err != nil {
 			log.Error("加载玩家[%d] vip 数据失败", id)
 		}
 		send.Vip = vipInfo
 		key, statisticsInfo := fmt.Sprintf("userstatistics_%d", id), &msg.UserStatistics{}
-		if err = utredis.GetProtoBin(Redis(), key, statisticsInfo); err != nil {
+		if err := utredis.GetProtoBin(Redis(), key, statisticsInfo); err != nil {
 			log.Error("加载玩家[%d] statistics 数据失败", id)
 		}
 		send.Statistics = statisticsInfo

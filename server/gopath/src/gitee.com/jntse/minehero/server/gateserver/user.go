@@ -503,17 +503,17 @@ func (this *GateUser) Save() {
 	log.Info("保存玩家[%s %d]数据成功", this.Name(), this.Id())
 	//存储浏览数据
 	key = fmt.Sprintf("userentity_%d", this.Id())
-	if err = utredis.SetProtoBin(Redis(), key, userbin.Entity); err != nil {
+	if err := utredis.SetProtoBin(Redis(), key, userbin.Entity); err != nil {
 		log.Error("保存玩家[%s %d] entity 数据失败", this.Name(), this.Id())
 		return
 	}
 	key = fmt.Sprintf("uservip_%d", this.Id())
-	if err = utredis.SetProtoBin(Redis(), key, userbin.GetBase().Vip); err != nil {
+	if err := utredis.SetProtoBin(Redis(), key, userbin.GetBase().Vip); err != nil {
 		log.Error("保存玩家[%s %d] vip 数据失败", this.Name(), this.Id())
 		return
 	}
 	key = fmt.Sprintf("userstatistics_%d", this.Id())
-	if err = utredis.SetProtoBin(Redis(), key, userbin.GetBase().Statics); err != nil {
+	if err := utredis.SetProtoBin(Redis(), key, userbin.GetBase().Statics); err != nil {
 		log.Error("保存玩家[%s %d] statistics 数据失败", this.Name(), this.Id())
 		return
 	}
