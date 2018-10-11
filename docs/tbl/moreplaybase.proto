@@ -38,6 +38,9 @@ message MorePlayDefine
 	
 	
 	optional int32 DesId = 7; 
+	
+	
+	repeated int32 EndTime = 8; 
 
 }
 

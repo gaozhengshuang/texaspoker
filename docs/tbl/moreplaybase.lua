@@ -3,8 +3,8 @@
 
 module table {
 export var MorePlay : table.IMorePlayDefine[] = [
-		{ Id : 1, Name : "奥马哈扑克", IsInHall : 0, Icon : "wanfa_aomaha", Des : "奥马哈扑克游戏是一种与德克萨斯扑克相似的扑克游戏，在玩家当中长盛不衰，该游戏始于20世纪90年代。", StartTime : [ 2018, 3, 16, 0, 0, 0 ], DesId : 9 	},
-		{ Id : 2, Name : "百人大战", IsInHall : 1, Icon : "item_111", Des : "", StartTime : [ 2018, 3, 16, 0, 0, 0 ], DesId : 0 	}
+		{ Id : 1, Name : "奥马哈扑克", IsInHall : 0, Icon : "wanfa_aomaha", Des : "奥马哈扑克游戏是一种与德克萨斯扑克相似的扑克游戏，在玩家当中长盛不衰，该游戏始于20世纪90年代。", StartTime : [ 2018, 3, 16, 0, 0, 0 ], DesId : 9, EndTime : [ 0 ] 	},
+		{ Id : 2, Name : "百人大战", IsInHall : 1, Icon : "item_111", Des : "", StartTime : [ 2018, 3, 16, 0, 0, 0 ], DesId : 0, EndTime : [ 0 ] 	}
 	]
 
 
