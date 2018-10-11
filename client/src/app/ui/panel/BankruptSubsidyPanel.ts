@@ -43,7 +43,7 @@ class BankruptSubsidyPanel extends BaseActivityPanel
     }
 
     private refresh()
-    {
+    { 
         if (InfoUtil.checkAvailable(this.activityInfo))
         {
             this.leftTimeLabel.text = ActivityManager.bankruptSubsidyHandler.getLeftPrizeTimes().toString();
