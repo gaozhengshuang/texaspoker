@@ -165,7 +165,6 @@ func (m *Friends) Online() {
 	GateSvr().SendGateMsg(0, pushmsg)
 
 	// 上线检查
-	//m.PassedFriendRequestCheck()
 	m.RemovedFriendCheck()
 }
 
@@ -333,13 +332,7 @@ func (m *Friends) ProcessFriendRequest(uid int64, accept bool) {
 		return
 	}
 
-	// 检查请求列表
-	//if bfind := Redis().SIsMember(fmt.Sprintf("addfriend_request_%d", m.Id()), uid).Val(); !bfind {
-	//	m.owner.SendNotify("对方不在您的申请列表")
-	//	return
-	//}
-
-	// 从列表删除
+	// 检查请求列表，从列表删除
 	if rmsize := Redis().SRem(fmt.Sprintf("addfriend_request_%d", m.Id()), uid).Val(); rmsize == 0 {
 		m.owner.SendNotify("对方不在您的申请列表")
 		return
@@ -360,13 +353,21 @@ func (m *Friends) ProcessFriendRequest(uid int64, accept bool) {
 	}
 	m.AddFriend(FillFriendBrief(cmdmap),"同意好友请求", true)
 
+	pipe := Redis().Pipeline()
+	defer pipe.Close()
+
 	// 我在对方申请列表，删除这条记录
-	Redis().SRem(fmt.Sprintf("addfriend_request_%d", uid), m.Id())
+	pipe.SRem(fmt.Sprintf("addfriend_request_%d", uid), m.Id())
 
 	// 添加到对方好友列表
 	mfields := map[string]interface{}{"id":m.Id(), "time_present":0, "stat_present":0, "stat_get":0}
-	Redis().HMSet(fmt.Sprintf("friendbase_%d_%d", uid, m.Id()), mfields)
-	Redis().SAdd(fmt.Sprintf("friendlist_%d", uid), m.Id())
+	pipe.HMSet(fmt.Sprintf("friendbase_%d_%d", uid, m.Id()), mfields)
+	pipe.SAdd(fmt.Sprintf("friendlist_%d", uid), m.Id())
+	if _, err := pipe.Exec(); err != nil {
+		log.Error("[好友] 玩家[%s %d] 同意好友[%d]添加请求，插入新数据失败 RedisError[%s]", m.Name(), m.Id(), uid, err)
+		return
+	}
+
 
 	// 通知对方请求通过
 	pushmsg := &msg.GW2C_PushFriendAddSuccess{Handler:pb.Int64(m.Id()), Friend:m.owner.FillUserBrief()}
@@ -492,40 +493,6 @@ func (m *Friends) RemovedFriendCheck() {
 	}
 }
 
-// 通过的请求检查
-//func (m *Friends) PassedFriendRequestCheck() {
-//	list, err := Redis().SMembers(fmt.Sprintf("addfriend_passed_%d", m.Id())).Result()
-//	if err != nil {
-//		log.Error("[好友] 玩家[%s %d] 拉取同意列表失败 RedisError[%s]", m.Name(), m.Id(), err)
-//		return
-//	}
-//	if len(list) == 0 {
-//		return
-//	}
-//
-//	pipe := Redis().Pipeline()
-//	defer pipe.Close()
-//	for _, strid := range list {
-//		pipe.HGetAll(fmt.Sprintf("charbase_%s", strid))
-//	}
-//	cmds, err := pipe.Exec()
-//	if err != nil {
-//		log.Error("[好友] 玩家[%s %d] 拉取玩家charbase信息失败 RedisError[%s]", m.Name(), m.Id(), err)
-//		return
-//	}
-//
-//	rmlist := make([]interface{}, 0)
-//	for _, cmd := range cmds {
-//		sscmd := cmd.(*redis.StringStringMapCmd)
-//		if f := m.AddFriend(FillFriendBrief(sscmd.Val()), "对方同意", true); f != nil {
-//			rmlist = append(rmlist, f.Id())
-//		}
-//	}
-//
-//	// 清理列表
-//	Redis().SRem(fmt.Sprintf("addfriend_passed_%d", m.Id()), rmlist...)
-//}
-
 // 获取好友请求列表玩家Brief信息
 func (m *Friends) GetRequestUserBrief() []*msg.FriendBrief {
 	userbriefs := make([]*msg.FriendBrief, 0)
@@ -596,25 +563,31 @@ func (u *GateUser) FillUserBrief() *msg.FriendBrief {
 
 // 搜索玩家
 func (u *GateUser) SearchUser(val string) {
-	id, send := util.Atol(val), &msg.GW2C_RetFriendSearch{ Brief:make([]*msg.FriendBrief,0) }
+	send := &msg.GW2C_RetFriendSearch{ Brief:make([]*msg.FriendBrief,0) }
+	defer u.SendMsg(send)
 
-	// id 查找
-	user := UserMgr().FindById(id)
-	if user != nil {
-		send.Brief = append(send.Brief,user.FillUserBrief())
-		u.SendMsg(send)
-		return
-	}
-	
-	// 名字查找
-	user = UserMgr().FindByName(val)
-	if user != nil {
-		send.Brief = append(send.Brief,user.FillUserBrief())
-		u.SendMsg(send)
-		return
+	// 通过id查找
+	FindUserCharBase := func(uid int64) {
+		cmdmap, err := Redis().HGetAll(fmt.Sprintf("charbase_%d", uid)).Result()
+		if err != nil && err != redis.Nil {
+			log.Error("[好友] 玩家[%s %d] 获取玩家Charbase失败 RedisError[%s]", u.Name(), u.Id(), err)
+			return
+		}
+		if len(cmdmap) != 0 {
+			brief := FillFriendBrief(cmdmap)
+			send.Brief = append(send.Brief, brief)
+		}
 	}
 
-	u.SendMsg(send)
+	if uid := util.Atol(val); uid != 0 {
+		FindUserCharBase(uid)
+	}
+
+
+	// 通过名字查找
+	if uid, err := Redis().Get(fmt.Sprintf("charname_%s", val)).Int64(); err == nil {
+		FindUserCharBase(uid)
+	}
 }
 
 
