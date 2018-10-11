@@ -59,6 +59,21 @@ func (mh* GW2CMsgHandler) Init() {
 	// 邮件
 	mh.msgparser.RegistProtoMsg(msg.GW2C_PushNewMail{}, on_GW2C_PushNewMail)
 
+	// 好友
+	mh.msgparser.RegistProtoMsg(msg.GW2C_RetFriendsList{}, on_GW2C_RetFriendsList)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_RetPresentToFriend{}, on_GW2C_RetPresentToFriend)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_RetGetFriendPresent{}, on_GW2C_RetGetFriendPresent)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_RetFriendRequestList{}, on_GW2C_RetFriendRequestList)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_RetRemoveFriend{}, on_GW2C_RetRemoveFriend)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_PushRemoveFriend{}, on_GW2C_PushRemoveFriend)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_RetAddFriend{}, on_GW2C_RetAddFriend)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_PushFriendAddSuccess{}, on_GW2C_PushFriendAddSuccess)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_PushAddYouFriend{}, on_GW2C_PushAddYouFriend)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_RetProcessFriendRequest{}, on_GW2C_RetProcessFriendRequest)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_RetFriendSearch{}, on_GW2C_RetFriendSearch)
+	//mh.msgparser.RegistProtoMsg(msg.GW2C_PushFriendLogin{}, on_GW2C_PushFriendLogin)
+	//mh.msgparser.RegistProtoMsg(msg.GW2C_PushFriendInvitation{}, on_GW2C_PushFriendInvitation)
+
 
 	// 收room消息
 	//mh.msgparser.RegistProtoMsg(msg.BT_GameInit{}, on_BT_GameInit)
