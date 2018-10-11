@@ -420,15 +420,15 @@ func (u *GateUser) LoginStatistics() {
 	diffday := false
 	if util.IsNextDay(u.statistics.tm_login, util.CURTIME()) {
 		u.statistics.continuelogin += 1
-		if u.nocountlogin == 0 {
-			key := fmt.Sprintf("%s_login_%d", datetime, u.continuelogin)
+		if u.statistics.nocountlogin == 0 {
+			key := fmt.Sprintf("%s_login_%d", datetime, u.statistics.continuelogin)
 			Redis().Incr(key)
 		}
 		key2 := fmt.Sprintf("%s_loginsum", datetime)
 		Redis().Incr(key2)
 		diffday = true
 	} else {
-		if !util.IsSameDay(u.tm_login, util.CURTIME()) {
+		if !util.IsSameDay(u.statistics.tm_login, util.CURTIME()) {
 			u.statistics.continuelogin = 1
 			u.statistics.nocountlogin = 1
 			key := fmt.Sprintf("%s_loginsum", datetime)
@@ -441,7 +441,7 @@ func (u *GateUser) LoginStatistics() {
 		u.ActivityResetByDay()
 	}
 
-	if !util.IsSameWeek(u.tm_login, util.CURTIME()) {
+	if !util.IsSameWeek(u.statistics.tm_login, util.CURTIME()) {
 		u.ActivityResetByWeek()
 	}
 }
