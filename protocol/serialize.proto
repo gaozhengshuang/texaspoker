@@ -150,3 +150,8 @@ message Serialize {
     optional ItemBin    item    = 3;
 }
 
+//只在gateserver上应用的数据
+message GateSerialize {
+	optional int32 bankruptcount = 1; //当天领取破产补助的次数
+}
+
