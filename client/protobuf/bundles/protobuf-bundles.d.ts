@@ -26310,6 +26310,228 @@ declare namespace table {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a MorePlayBase. */
+    interface IMorePlayBase {
+
+        /** MorePlayBase MorePlay */
+        MorePlay?: (table.IMorePlayDefine[]|null);
+    }
+
+    /** Represents a MorePlayBase. */
+    class MorePlayBase implements IMorePlayBase {
+
+        /**
+         * Constructs a new MorePlayBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IMorePlayBase);
+
+        /** MorePlayBase MorePlay. */
+        public MorePlay: table.IMorePlayDefine[];
+
+        /**
+         * Creates a new MorePlayBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MorePlayBase instance
+         */
+        public static create(properties?: table.IMorePlayBase): table.MorePlayBase;
+
+        /**
+         * Encodes the specified MorePlayBase message. Does not implicitly {@link table.MorePlayBase.verify|verify} messages.
+         * @param message MorePlayBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IMorePlayBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified MorePlayBase message, length delimited. Does not implicitly {@link table.MorePlayBase.verify|verify} messages.
+         * @param message MorePlayBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IMorePlayBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a MorePlayBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MorePlayBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.MorePlayBase;
+
+        /**
+         * Decodes a MorePlayBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MorePlayBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.MorePlayBase;
+
+        /**
+         * Verifies a MorePlayBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MorePlayBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MorePlayBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.MorePlayBase;
+
+        /**
+         * Creates a plain object from a MorePlayBase message. Also converts values to other types if specified.
+         * @param message MorePlayBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.MorePlayBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MorePlayBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a MorePlayDefine. */
+    interface IMorePlayDefine {
+
+        /** MorePlayDefine Id */
+        Id?: (number|null);
+
+        /** MorePlayDefine Name */
+        Name?: (string|null);
+
+        /** MorePlayDefine IsInHall */
+        IsInHall?: (number|null);
+
+        /** MorePlayDefine Icon */
+        Icon?: (string|null);
+
+        /** MorePlayDefine Des */
+        Des?: (string|null);
+
+        /** MorePlayDefine StartTime */
+        StartTime?: (number[]|null);
+
+        /** MorePlayDefine DesId */
+        DesId?: (number|null);
+
+        /** MorePlayDefine EndTime */
+        EndTime?: (number[]|null);
+    }
+
+    /** Represents a MorePlayDefine. */
+    class MorePlayDefine implements IMorePlayDefine {
+
+        /**
+         * Constructs a new MorePlayDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IMorePlayDefine);
+
+        /** MorePlayDefine Id. */
+        public Id: number;
+
+        /** MorePlayDefine Name. */
+        public Name: string;
+
+        /** MorePlayDefine IsInHall. */
+        public IsInHall: number;
+
+        /** MorePlayDefine Icon. */
+        public Icon: string;
+
+        /** MorePlayDefine Des. */
+        public Des: string;
+
+        /** MorePlayDefine StartTime. */
+        public StartTime: number[];
+
+        /** MorePlayDefine DesId. */
+        public DesId: number;
+
+        /** MorePlayDefine EndTime. */
+        public EndTime: number[];
+
+        /**
+         * Creates a new MorePlayDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MorePlayDefine instance
+         */
+        public static create(properties?: table.IMorePlayDefine): table.MorePlayDefine;
+
+        /**
+         * Encodes the specified MorePlayDefine message. Does not implicitly {@link table.MorePlayDefine.verify|verify} messages.
+         * @param message MorePlayDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IMorePlayDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified MorePlayDefine message, length delimited. Does not implicitly {@link table.MorePlayDefine.verify|verify} messages.
+         * @param message MorePlayDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IMorePlayDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a MorePlayDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MorePlayDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.MorePlayDefine;
+
+        /**
+         * Decodes a MorePlayDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MorePlayDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.MorePlayDefine;
+
+        /**
+         * Verifies a MorePlayDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MorePlayDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MorePlayDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.MorePlayDefine;
+
+        /**
+         * Creates a plain object from a MorePlayDefine message. Also converts values to other types if specified.
+         * @param message MorePlayDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.MorePlayDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MorePlayDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a MusicBase. */
     interface IMusicBase {
 
@@ -29005,6 +29227,210 @@ declare namespace table {
 
         /**
          * Converts this TexasRoomDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TextBase. */
+    interface ITextBase {
+
+        /** TextBase Text */
+        Text?: (table.ITextDefine[]|null);
+    }
+
+    /** Represents a TextBase. */
+    class TextBase implements ITextBase {
+
+        /**
+         * Constructs a new TextBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITextBase);
+
+        /** TextBase Text. */
+        public Text: table.ITextDefine[];
+
+        /**
+         * Creates a new TextBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TextBase instance
+         */
+        public static create(properties?: table.ITextBase): table.TextBase;
+
+        /**
+         * Encodes the specified TextBase message. Does not implicitly {@link table.TextBase.verify|verify} messages.
+         * @param message TextBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITextBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TextBase message, length delimited. Does not implicitly {@link table.TextBase.verify|verify} messages.
+         * @param message TextBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITextBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TextBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TextBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TextBase;
+
+        /**
+         * Decodes a TextBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TextBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TextBase;
+
+        /**
+         * Verifies a TextBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TextBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TextBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.TextBase;
+
+        /**
+         * Creates a plain object from a TextBase message. Also converts values to other types if specified.
+         * @param message TextBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TextBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TextBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TextDefine. */
+    interface ITextDefine {
+
+        /** TextDefine Id */
+        Id?: (number|null);
+
+        /** TextDefine Title */
+        Title?: (string|null);
+
+        /** TextDefine IsRichTxt */
+        IsRichTxt?: (number|null);
+
+        /** TextDefine Url */
+        Url?: (string|null);
+
+        /** TextDefine Text */
+        Text?: (string|null);
+    }
+
+    /** Represents a TextDefine. */
+    class TextDefine implements ITextDefine {
+
+        /**
+         * Constructs a new TextDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITextDefine);
+
+        /** TextDefine Id. */
+        public Id: number;
+
+        /** TextDefine Title. */
+        public Title: string;
+
+        /** TextDefine IsRichTxt. */
+        public IsRichTxt: number;
+
+        /** TextDefine Url. */
+        public Url: string;
+
+        /** TextDefine Text. */
+        public Text: string;
+
+        /**
+         * Creates a new TextDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TextDefine instance
+         */
+        public static create(properties?: table.ITextDefine): table.TextDefine;
+
+        /**
+         * Encodes the specified TextDefine message. Does not implicitly {@link table.TextDefine.verify|verify} messages.
+         * @param message TextDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITextDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TextDefine message, length delimited. Does not implicitly {@link table.TextDefine.verify|verify} messages.
+         * @param message TextDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITextDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TextDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TextDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TextDefine;
+
+        /**
+         * Decodes a TextDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TextDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TextDefine;
+
+        /**
+         * Verifies a TextDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TextDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TextDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.TextDefine;
+
+        /**
+         * Creates a plain object from a TextDefine message. Also converts values to other types if specified.
+         * @param message TextDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TextDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TextDefine to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };

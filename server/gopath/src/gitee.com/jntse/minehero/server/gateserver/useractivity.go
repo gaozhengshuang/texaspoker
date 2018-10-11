@@ -24,6 +24,8 @@ func (u *GateUser) OnReqActivityInfo(id int32) {
 	} else {
 		if id == int32(msg.ActivityType_DailySign) {
 			u.DailySignInfoToMsg(send)
+		} else if id == int32(msg.ActivityType_BankruptcySubsidy) {
+			u.BankruptcySubsidyInfoToMsg(send)
 		}
 	}
 	u.SendMsg(send)
@@ -298,6 +300,19 @@ func (u *GateUser) TakeBankruptcySubsidy(subid int32) string {
 	errcode = "没找到配置"
 	return errcode
 }
+
+
+//破产补助信息封装消息
+func (u *GateUser) BankruptcySubsidyInfoToMsg(bin *msg.GW2C_RetActivityInfo) {
+	info := &msg.ActivityInfo{}
+	//info.Type = pb.String("")
+	info.Id = pb.Int32(int32(msg.ActivityType_BankruptcySubsidy))
+	info.Step = pb.Int32(u.bankruptcount)
+	//info.Gotjson = pb.String("")
+	//info.Json = pb.String("")
+	bin.Array = append(bin.Array, info)
+}
+
 
 //增加白银卡时间 单位秒 例如月卡 60*60*24*30
 func (u *GateUser) AddSilverCardTime (addtime int32) {

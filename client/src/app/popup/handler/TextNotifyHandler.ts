@@ -6,7 +6,7 @@ class TextNotifyHandler
 	private readonly ReloadThreshold: number = 1800 * 1000;//重新加载公告阀值
 	//
 	private _textNotifyTime: Date = new Date();
-	private _textNotify: TextDefinition = null;
+	private _textNotify: table.ITextDefine = null;
 	private _isLoginNotifyed: boolean = false;
 	public get isLoginNotifyed(): boolean
 	{
@@ -20,8 +20,8 @@ class TextNotifyHandler
 	{
 		if (this._textNotify == null)
 		{
-			this._textNotify = new TextDefinition();
-			this._textNotify.title = "公  告";
+			this._textNotify = new table.TextDefine();
+			this._textNotify.Title = "公  告";
 		}
 	}
 
@@ -55,7 +55,7 @@ class TextNotifyHandler
 		if (data)
 		{
 			this.createTextNotify();
-			this._textNotify.text = game.StringUtil.format(data, ChannelManager.appName);
+			this._textNotify.Text = game.StringUtil.format(data, ChannelManager.appName);
 			UIManager.showPanel(UIModuleName.TextInfoPanel, this._textNotify);
 		}
 		else
@@ -133,11 +133,11 @@ class TextNotifyHandler
 				this.createTextNotify();
 				if (!game.StringUtil.isNullOrEmpty(data))
 				{
-					this._textNotify.text = game.StringUtil.format(data, ChannelManager.appName);
+					this._textNotify.Text = game.StringUtil.format(data, ChannelManager.appName);
 				}
 				else
 				{
-					this._textNotify.text = game.StringConstants.Empty;
+					this._textNotify.Text = game.StringConstants.Empty;
 				}
 				UIManager.showPanel(UIModuleName.TextInfoPanel, this._textNotify);
 			}

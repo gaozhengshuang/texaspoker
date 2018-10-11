@@ -268,7 +268,7 @@ class GameHallPanel extends BasePanel
 		}
 	}
 
-	private _txtDef: TextDefinition;
+	private _txtDef: table.TextDefine;
 	protected onClickHandler(event: egret.TouchEvent)
 	{
 		if (this.moreGroup.visible && event.target != this.moreBtn)

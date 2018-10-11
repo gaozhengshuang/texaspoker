@@ -596,7 +596,7 @@ func (this *TexasPlayer) AutoBuy() {
 		return
 	}
 	var buy int32 = 0
-	if this.autobuy > this.owner.GetGold() {
+	if this.owner.isai == false && this.autobuy > this.owner.GetGold() {
 		buy = this.owner.GetGold()
 	}else {
 		buy = this.autobuy

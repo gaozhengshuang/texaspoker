@@ -62121,6 +62121,600 @@ $root.table = (function() {
         return TMapEventRefreshDefine;
     })();
 
+    table.MorePlayBase = (function() {
+
+        /**
+         * Properties of a MorePlayBase.
+         * @memberof table
+         * @interface IMorePlayBase
+         * @property {Array.<table.IMorePlayDefine>|null} [MorePlay] MorePlayBase MorePlay
+         */
+
+        /**
+         * Constructs a new MorePlayBase.
+         * @memberof table
+         * @classdesc Represents a MorePlayBase.
+         * @implements IMorePlayBase
+         * @constructor
+         * @param {table.IMorePlayBase=} [properties] Properties to set
+         */
+        function MorePlayBase(properties) {
+            this.MorePlay = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * MorePlayBase MorePlay.
+         * @member {Array.<table.IMorePlayDefine>} MorePlay
+         * @memberof table.MorePlayBase
+         * @instance
+         */
+        MorePlayBase.prototype.MorePlay = $util.emptyArray;
+
+        /**
+         * Creates a new MorePlayBase instance using the specified properties.
+         * @function create
+         * @memberof table.MorePlayBase
+         * @static
+         * @param {table.IMorePlayBase=} [properties] Properties to set
+         * @returns {table.MorePlayBase} MorePlayBase instance
+         */
+        MorePlayBase.create = function create(properties) {
+            return new MorePlayBase(properties);
+        };
+
+        /**
+         * Encodes the specified MorePlayBase message. Does not implicitly {@link table.MorePlayBase.verify|verify} messages.
+         * @function encode
+         * @memberof table.MorePlayBase
+         * @static
+         * @param {table.IMorePlayBase} message MorePlayBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MorePlayBase.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.MorePlay != null && message.MorePlay.length)
+                for (var i = 0; i < message.MorePlay.length; ++i)
+                    $root.table.MorePlayDefine.encode(message.MorePlay[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified MorePlayBase message, length delimited. Does not implicitly {@link table.MorePlayBase.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.MorePlayBase
+         * @static
+         * @param {table.IMorePlayBase} message MorePlayBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MorePlayBase.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a MorePlayBase message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.MorePlayBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.MorePlayBase} MorePlayBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MorePlayBase.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.MorePlayBase();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.MorePlay && message.MorePlay.length))
+                        message.MorePlay = [];
+                    message.MorePlay.push($root.table.MorePlayDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a MorePlayBase message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.MorePlayBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.MorePlayBase} MorePlayBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MorePlayBase.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a MorePlayBase message.
+         * @function verify
+         * @memberof table.MorePlayBase
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        MorePlayBase.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.MorePlay != null && message.hasOwnProperty("MorePlay")) {
+                if (!Array.isArray(message.MorePlay))
+                    return "MorePlay: array expected";
+                for (var i = 0; i < message.MorePlay.length; ++i) {
+                    var error = $root.table.MorePlayDefine.verify(message.MorePlay[i]);
+                    if (error)
+                        return "MorePlay." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a MorePlayBase message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.MorePlayBase
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.MorePlayBase} MorePlayBase
+         */
+        MorePlayBase.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.MorePlayBase)
+                return object;
+            var message = new $root.table.MorePlayBase();
+            if (object.MorePlay) {
+                if (!Array.isArray(object.MorePlay))
+                    throw TypeError(".table.MorePlayBase.MorePlay: array expected");
+                message.MorePlay = [];
+                for (var i = 0; i < object.MorePlay.length; ++i) {
+                    if (typeof object.MorePlay[i] !== "object")
+                        throw TypeError(".table.MorePlayBase.MorePlay: object expected");
+                    message.MorePlay[i] = $root.table.MorePlayDefine.fromObject(object.MorePlay[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a MorePlayBase message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.MorePlayBase
+         * @static
+         * @param {table.MorePlayBase} message MorePlayBase
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        MorePlayBase.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.MorePlay = [];
+            if (message.MorePlay && message.MorePlay.length) {
+                object.MorePlay = [];
+                for (var j = 0; j < message.MorePlay.length; ++j)
+                    object.MorePlay[j] = $root.table.MorePlayDefine.toObject(message.MorePlay[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this MorePlayBase to JSON.
+         * @function toJSON
+         * @memberof table.MorePlayBase
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        MorePlayBase.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return MorePlayBase;
+    })();
+
+    table.MorePlayDefine = (function() {
+
+        /**
+         * Properties of a MorePlayDefine.
+         * @memberof table
+         * @interface IMorePlayDefine
+         * @property {number|null} [Id] MorePlayDefine Id
+         * @property {string|null} [Name] MorePlayDefine Name
+         * @property {number|null} [IsInHall] MorePlayDefine IsInHall
+         * @property {string|null} [Icon] MorePlayDefine Icon
+         * @property {string|null} [Des] MorePlayDefine Des
+         * @property {Array.<number>|null} [StartTime] MorePlayDefine StartTime
+         * @property {number|null} [DesId] MorePlayDefine DesId
+         * @property {Array.<number>|null} [EndTime] MorePlayDefine EndTime
+         */
+
+        /**
+         * Constructs a new MorePlayDefine.
+         * @memberof table
+         * @classdesc Represents a MorePlayDefine.
+         * @implements IMorePlayDefine
+         * @constructor
+         * @param {table.IMorePlayDefine=} [properties] Properties to set
+         */
+        function MorePlayDefine(properties) {
+            this.StartTime = [];
+            this.EndTime = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * MorePlayDefine Id.
+         * @member {number} Id
+         * @memberof table.MorePlayDefine
+         * @instance
+         */
+        MorePlayDefine.prototype.Id = 0;
+
+        /**
+         * MorePlayDefine Name.
+         * @member {string} Name
+         * @memberof table.MorePlayDefine
+         * @instance
+         */
+        MorePlayDefine.prototype.Name = "";
+
+        /**
+         * MorePlayDefine IsInHall.
+         * @member {number} IsInHall
+         * @memberof table.MorePlayDefine
+         * @instance
+         */
+        MorePlayDefine.prototype.IsInHall = 0;
+
+        /**
+         * MorePlayDefine Icon.
+         * @member {string} Icon
+         * @memberof table.MorePlayDefine
+         * @instance
+         */
+        MorePlayDefine.prototype.Icon = "";
+
+        /**
+         * MorePlayDefine Des.
+         * @member {string} Des
+         * @memberof table.MorePlayDefine
+         * @instance
+         */
+        MorePlayDefine.prototype.Des = "";
+
+        /**
+         * MorePlayDefine StartTime.
+         * @member {Array.<number>} StartTime
+         * @memberof table.MorePlayDefine
+         * @instance
+         */
+        MorePlayDefine.prototype.StartTime = $util.emptyArray;
+
+        /**
+         * MorePlayDefine DesId.
+         * @member {number} DesId
+         * @memberof table.MorePlayDefine
+         * @instance
+         */
+        MorePlayDefine.prototype.DesId = 0;
+
+        /**
+         * MorePlayDefine EndTime.
+         * @member {Array.<number>} EndTime
+         * @memberof table.MorePlayDefine
+         * @instance
+         */
+        MorePlayDefine.prototype.EndTime = $util.emptyArray;
+
+        /**
+         * Creates a new MorePlayDefine instance using the specified properties.
+         * @function create
+         * @memberof table.MorePlayDefine
+         * @static
+         * @param {table.IMorePlayDefine=} [properties] Properties to set
+         * @returns {table.MorePlayDefine} MorePlayDefine instance
+         */
+        MorePlayDefine.create = function create(properties) {
+            return new MorePlayDefine(properties);
+        };
+
+        /**
+         * Encodes the specified MorePlayDefine message. Does not implicitly {@link table.MorePlayDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.MorePlayDefine
+         * @static
+         * @param {table.IMorePlayDefine} message MorePlayDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MorePlayDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.Id);
+            if (message.Name != null && message.hasOwnProperty("Name"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.Name);
+            if (message.IsInHall != null && message.hasOwnProperty("IsInHall"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.IsInHall);
+            if (message.Icon != null && message.hasOwnProperty("Icon"))
+                writer.uint32(/* id 4, wireType 2 =*/34).string(message.Icon);
+            if (message.Des != null && message.hasOwnProperty("Des"))
+                writer.uint32(/* id 5, wireType 2 =*/42).string(message.Des);
+            if (message.StartTime != null && message.StartTime.length)
+                for (var i = 0; i < message.StartTime.length; ++i)
+                    writer.uint32(/* id 6, wireType 0 =*/48).int32(message.StartTime[i]);
+            if (message.DesId != null && message.hasOwnProperty("DesId"))
+                writer.uint32(/* id 7, wireType 0 =*/56).int32(message.DesId);
+            if (message.EndTime != null && message.EndTime.length)
+                for (var i = 0; i < message.EndTime.length; ++i)
+                    writer.uint32(/* id 8, wireType 0 =*/64).int32(message.EndTime[i]);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified MorePlayDefine message, length delimited. Does not implicitly {@link table.MorePlayDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.MorePlayDefine
+         * @static
+         * @param {table.IMorePlayDefine} message MorePlayDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MorePlayDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a MorePlayDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.MorePlayDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.MorePlayDefine} MorePlayDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MorePlayDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.MorePlayDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.int32();
+                    break;
+                case 2:
+                    message.Name = reader.string();
+                    break;
+                case 3:
+                    message.IsInHall = reader.int32();
+                    break;
+                case 4:
+                    message.Icon = reader.string();
+                    break;
+                case 5:
+                    message.Des = reader.string();
+                    break;
+                case 6:
+                    if (!(message.StartTime && message.StartTime.length))
+                        message.StartTime = [];
+                    if ((tag & 7) === 2) {
+                        var end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2)
+                            message.StartTime.push(reader.int32());
+                    } else
+                        message.StartTime.push(reader.int32());
+                    break;
+                case 7:
+                    message.DesId = reader.int32();
+                    break;
+                case 8:
+                    if (!(message.EndTime && message.EndTime.length))
+                        message.EndTime = [];
+                    if ((tag & 7) === 2) {
+                        var end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2)
+                            message.EndTime.push(reader.int32());
+                    } else
+                        message.EndTime.push(reader.int32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a MorePlayDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.MorePlayDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.MorePlayDefine} MorePlayDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MorePlayDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a MorePlayDefine message.
+         * @function verify
+         * @memberof table.MorePlayDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        MorePlayDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.Name != null && message.hasOwnProperty("Name"))
+                if (!$util.isString(message.Name))
+                    return "Name: string expected";
+            if (message.IsInHall != null && message.hasOwnProperty("IsInHall"))
+                if (!$util.isInteger(message.IsInHall))
+                    return "IsInHall: integer expected";
+            if (message.Icon != null && message.hasOwnProperty("Icon"))
+                if (!$util.isString(message.Icon))
+                    return "Icon: string expected";
+            if (message.Des != null && message.hasOwnProperty("Des"))
+                if (!$util.isString(message.Des))
+                    return "Des: string expected";
+            if (message.StartTime != null && message.hasOwnProperty("StartTime")) {
+                if (!Array.isArray(message.StartTime))
+                    return "StartTime: array expected";
+                for (var i = 0; i < message.StartTime.length; ++i)
+                    if (!$util.isInteger(message.StartTime[i]))
+                        return "StartTime: integer[] expected";
+            }
+            if (message.DesId != null && message.hasOwnProperty("DesId"))
+                if (!$util.isInteger(message.DesId))
+                    return "DesId: integer expected";
+            if (message.EndTime != null && message.hasOwnProperty("EndTime")) {
+                if (!Array.isArray(message.EndTime))
+                    return "EndTime: array expected";
+                for (var i = 0; i < message.EndTime.length; ++i)
+                    if (!$util.isInteger(message.EndTime[i]))
+                        return "EndTime: integer[] expected";
+            }
+            return null;
+        };
+
+        /**
+         * Creates a MorePlayDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.MorePlayDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.MorePlayDefine} MorePlayDefine
+         */
+        MorePlayDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.MorePlayDefine)
+                return object;
+            var message = new $root.table.MorePlayDefine();
+            if (object.Id != null)
+                message.Id = object.Id | 0;
+            if (object.Name != null)
+                message.Name = String(object.Name);
+            if (object.IsInHall != null)
+                message.IsInHall = object.IsInHall | 0;
+            if (object.Icon != null)
+                message.Icon = String(object.Icon);
+            if (object.Des != null)
+                message.Des = String(object.Des);
+            if (object.StartTime) {
+                if (!Array.isArray(object.StartTime))
+                    throw TypeError(".table.MorePlayDefine.StartTime: array expected");
+                message.StartTime = [];
+                for (var i = 0; i < object.StartTime.length; ++i)
+                    message.StartTime[i] = object.StartTime[i] | 0;
+            }
+            if (object.DesId != null)
+                message.DesId = object.DesId | 0;
+            if (object.EndTime) {
+                if (!Array.isArray(object.EndTime))
+                    throw TypeError(".table.MorePlayDefine.EndTime: array expected");
+                message.EndTime = [];
+                for (var i = 0; i < object.EndTime.length; ++i)
+                    message.EndTime[i] = object.EndTime[i] | 0;
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a MorePlayDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.MorePlayDefine
+         * @static
+         * @param {table.MorePlayDefine} message MorePlayDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        MorePlayDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults) {
+                object.StartTime = [];
+                object.EndTime = [];
+            }
+            if (options.defaults) {
+                object.Id = 0;
+                object.Name = "";
+                object.IsInHall = 0;
+                object.Icon = "";
+                object.Des = "";
+                object.DesId = 0;
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.Name != null && message.hasOwnProperty("Name"))
+                object.Name = message.Name;
+            if (message.IsInHall != null && message.hasOwnProperty("IsInHall"))
+                object.IsInHall = message.IsInHall;
+            if (message.Icon != null && message.hasOwnProperty("Icon"))
+                object.Icon = message.Icon;
+            if (message.Des != null && message.hasOwnProperty("Des"))
+                object.Des = message.Des;
+            if (message.StartTime && message.StartTime.length) {
+                object.StartTime = [];
+                for (var j = 0; j < message.StartTime.length; ++j)
+                    object.StartTime[j] = message.StartTime[j];
+            }
+            if (message.DesId != null && message.hasOwnProperty("DesId"))
+                object.DesId = message.DesId;
+            if (message.EndTime && message.EndTime.length) {
+                object.EndTime = [];
+                for (var j = 0; j < message.EndTime.length; ++j)
+                    object.EndTime[j] = message.EndTime[j];
+            }
+            return object;
+        };
+
+        /**
+         * Converts this MorePlayDefine to JSON.
+         * @function toJSON
+         * @memberof table.MorePlayDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        MorePlayDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return MorePlayDefine;
+    })();
+
     table.MusicBase = (function() {
 
         /**
@@ -68687,6 +69281,490 @@ $root.table = (function() {
         };
 
         return TexasRoomDefine;
+    })();
+
+    table.TextBase = (function() {
+
+        /**
+         * Properties of a TextBase.
+         * @memberof table
+         * @interface ITextBase
+         * @property {Array.<table.ITextDefine>|null} [Text] TextBase Text
+         */
+
+        /**
+         * Constructs a new TextBase.
+         * @memberof table
+         * @classdesc Represents a TextBase.
+         * @implements ITextBase
+         * @constructor
+         * @param {table.ITextBase=} [properties] Properties to set
+         */
+        function TextBase(properties) {
+            this.Text = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TextBase Text.
+         * @member {Array.<table.ITextDefine>} Text
+         * @memberof table.TextBase
+         * @instance
+         */
+        TextBase.prototype.Text = $util.emptyArray;
+
+        /**
+         * Creates a new TextBase instance using the specified properties.
+         * @function create
+         * @memberof table.TextBase
+         * @static
+         * @param {table.ITextBase=} [properties] Properties to set
+         * @returns {table.TextBase} TextBase instance
+         */
+        TextBase.create = function create(properties) {
+            return new TextBase(properties);
+        };
+
+        /**
+         * Encodes the specified TextBase message. Does not implicitly {@link table.TextBase.verify|verify} messages.
+         * @function encode
+         * @memberof table.TextBase
+         * @static
+         * @param {table.ITextBase} message TextBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TextBase.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Text != null && message.Text.length)
+                for (var i = 0; i < message.Text.length; ++i)
+                    $root.table.TextDefine.encode(message.Text[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TextBase message, length delimited. Does not implicitly {@link table.TextBase.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TextBase
+         * @static
+         * @param {table.ITextBase} message TextBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TextBase.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TextBase message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TextBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TextBase} TextBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TextBase.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TextBase();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.Text && message.Text.length))
+                        message.Text = [];
+                    message.Text.push($root.table.TextDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TextBase message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TextBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TextBase} TextBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TextBase.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TextBase message.
+         * @function verify
+         * @memberof table.TextBase
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TextBase.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Text != null && message.hasOwnProperty("Text")) {
+                if (!Array.isArray(message.Text))
+                    return "Text: array expected";
+                for (var i = 0; i < message.Text.length; ++i) {
+                    var error = $root.table.TextDefine.verify(message.Text[i]);
+                    if (error)
+                        return "Text." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a TextBase message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TextBase
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TextBase} TextBase
+         */
+        TextBase.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TextBase)
+                return object;
+            var message = new $root.table.TextBase();
+            if (object.Text) {
+                if (!Array.isArray(object.Text))
+                    throw TypeError(".table.TextBase.Text: array expected");
+                message.Text = [];
+                for (var i = 0; i < object.Text.length; ++i) {
+                    if (typeof object.Text[i] !== "object")
+                        throw TypeError(".table.TextBase.Text: object expected");
+                    message.Text[i] = $root.table.TextDefine.fromObject(object.Text[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TextBase message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TextBase
+         * @static
+         * @param {table.TextBase} message TextBase
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TextBase.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.Text = [];
+            if (message.Text && message.Text.length) {
+                object.Text = [];
+                for (var j = 0; j < message.Text.length; ++j)
+                    object.Text[j] = $root.table.TextDefine.toObject(message.Text[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this TextBase to JSON.
+         * @function toJSON
+         * @memberof table.TextBase
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TextBase.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TextBase;
+    })();
+
+    table.TextDefine = (function() {
+
+        /**
+         * Properties of a TextDefine.
+         * @memberof table
+         * @interface ITextDefine
+         * @property {number|null} [Id] TextDefine Id
+         * @property {string|null} [Title] TextDefine Title
+         * @property {number|null} [IsRichTxt] TextDefine IsRichTxt
+         * @property {string|null} [Url] TextDefine Url
+         * @property {string|null} [Text] TextDefine Text
+         */
+
+        /**
+         * Constructs a new TextDefine.
+         * @memberof table
+         * @classdesc Represents a TextDefine.
+         * @implements ITextDefine
+         * @constructor
+         * @param {table.ITextDefine=} [properties] Properties to set
+         */
+        function TextDefine(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TextDefine Id.
+         * @member {number} Id
+         * @memberof table.TextDefine
+         * @instance
+         */
+        TextDefine.prototype.Id = 0;
+
+        /**
+         * TextDefine Title.
+         * @member {string} Title
+         * @memberof table.TextDefine
+         * @instance
+         */
+        TextDefine.prototype.Title = "";
+
+        /**
+         * TextDefine IsRichTxt.
+         * @member {number} IsRichTxt
+         * @memberof table.TextDefine
+         * @instance
+         */
+        TextDefine.prototype.IsRichTxt = 0;
+
+        /**
+         * TextDefine Url.
+         * @member {string} Url
+         * @memberof table.TextDefine
+         * @instance
+         */
+        TextDefine.prototype.Url = "";
+
+        /**
+         * TextDefine Text.
+         * @member {string} Text
+         * @memberof table.TextDefine
+         * @instance
+         */
+        TextDefine.prototype.Text = "";
+
+        /**
+         * Creates a new TextDefine instance using the specified properties.
+         * @function create
+         * @memberof table.TextDefine
+         * @static
+         * @param {table.ITextDefine=} [properties] Properties to set
+         * @returns {table.TextDefine} TextDefine instance
+         */
+        TextDefine.create = function create(properties) {
+            return new TextDefine(properties);
+        };
+
+        /**
+         * Encodes the specified TextDefine message. Does not implicitly {@link table.TextDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.TextDefine
+         * @static
+         * @param {table.ITextDefine} message TextDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TextDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.Id);
+            if (message.Title != null && message.hasOwnProperty("Title"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.Title);
+            if (message.IsRichTxt != null && message.hasOwnProperty("IsRichTxt"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.IsRichTxt);
+            if (message.Url != null && message.hasOwnProperty("Url"))
+                writer.uint32(/* id 4, wireType 2 =*/34).string(message.Url);
+            if (message.Text != null && message.hasOwnProperty("Text"))
+                writer.uint32(/* id 5, wireType 2 =*/42).string(message.Text);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TextDefine message, length delimited. Does not implicitly {@link table.TextDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TextDefine
+         * @static
+         * @param {table.ITextDefine} message TextDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TextDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TextDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TextDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TextDefine} TextDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TextDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TextDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.int32();
+                    break;
+                case 2:
+                    message.Title = reader.string();
+                    break;
+                case 3:
+                    message.IsRichTxt = reader.int32();
+                    break;
+                case 4:
+                    message.Url = reader.string();
+                    break;
+                case 5:
+                    message.Text = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TextDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TextDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TextDefine} TextDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TextDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TextDefine message.
+         * @function verify
+         * @memberof table.TextDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TextDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.Title != null && message.hasOwnProperty("Title"))
+                if (!$util.isString(message.Title))
+                    return "Title: string expected";
+            if (message.IsRichTxt != null && message.hasOwnProperty("IsRichTxt"))
+                if (!$util.isInteger(message.IsRichTxt))
+                    return "IsRichTxt: integer expected";
+            if (message.Url != null && message.hasOwnProperty("Url"))
+                if (!$util.isString(message.Url))
+                    return "Url: string expected";
+            if (message.Text != null && message.hasOwnProperty("Text"))
+                if (!$util.isString(message.Text))
+                    return "Text: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a TextDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TextDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TextDefine} TextDefine
+         */
+        TextDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TextDefine)
+                return object;
+            var message = new $root.table.TextDefine();
+            if (object.Id != null)
+                message.Id = object.Id | 0;
+            if (object.Title != null)
+                message.Title = String(object.Title);
+            if (object.IsRichTxt != null)
+                message.IsRichTxt = object.IsRichTxt | 0;
+            if (object.Url != null)
+                message.Url = String(object.Url);
+            if (object.Text != null)
+                message.Text = String(object.Text);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TextDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TextDefine
+         * @static
+         * @param {table.TextDefine} message TextDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TextDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.Id = 0;
+                object.Title = "";
+                object.IsRichTxt = 0;
+                object.Url = "";
+                object.Text = "";
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.Title != null && message.hasOwnProperty("Title"))
+                object.Title = message.Title;
+            if (message.IsRichTxt != null && message.hasOwnProperty("IsRichTxt"))
+                object.IsRichTxt = message.IsRichTxt;
+            if (message.Url != null && message.hasOwnProperty("Url"))
+                object.Url = message.Url;
+            if (message.Text != null && message.hasOwnProperty("Text"))
+                object.Text = message.Text;
+            return object;
+        };
+
+        /**
+         * Converts this TextDefine to JSON.
+         * @function toJSON
+         * @memberof table.TextDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TextDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TextDefine;
     })();
 
     table.TTimeAward = (function() {

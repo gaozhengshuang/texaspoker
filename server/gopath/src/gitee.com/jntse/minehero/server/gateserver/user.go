@@ -348,6 +348,7 @@ func (u *GateUser) SendUserBase() {
 	entity, base, item := u.bin.GetEntity(), u.bin.GetBase(), u.bin.GetItem()
 	// clone类似c++的copyfrom
 	send.Entity = pb.Clone(entity).(*msg.EntityBase)
+	send.Entity.Gold = pb.Int32(u.GetGold())
 	send.Base = pb.Clone(base).(*msg.UserBase)
 	send.Item = pb.Clone(item).(*msg.ItemBin)
 	u.SendMsg(send)

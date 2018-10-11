@@ -1,9 +1,8 @@
 /**
  * 更多玩法的定义
  * */
-class MorePlayDefined extends BaseDefined<MorePlayDefinition>
+class MorePlayDefined 
 {
-    private static readonly morePlayConfig: string = "morePlay";
     private static _instance: MorePlayDefined;
     public static GetInstance(): MorePlayDefined
     {
@@ -11,40 +10,27 @@ class MorePlayDefined extends BaseDefined<MorePlayDefinition>
         {
             MorePlayDefined._instance = new MorePlayDefined();
         }
-        if (DefinedManager.IsParsed(MorePlayDefined.morePlayConfig) == false)
-        {
-            MorePlayDefined._instance.initialize();
-        }
         return MorePlayDefined._instance;
     }
 
-    private initialize()
+    public initialize()
     {
-        this.dataList = DefinedManager.GetData(MorePlayDefined.morePlayConfig) as Array<MorePlayDefinition>;
-        if (this.dataList)
+        if (table.MorePlay)
         {
-            for (let def of this.dataList)
+            for (let def of table.MorePlay)
             {
-                if (def.startTime)
+                if (def.StartTime.length == 0)
                 {
-                    def.startDate = this.getDate(def, def.startTime);
+                    def.StartTime = [2000, 0, 1, 0, 0, 0];
                 }
-                else
+                if (def.EndTime.length == 0)
                 {
-                    def.startDate = TimeManager.Utc1970;
-                }
-                if (def.endTime)
-                {
-                    def.endDate = this.getDate(def, def.endTime);
-                }
-                else
-                {
-                    def.endDate = new Date(2099, 0, 1, 0, 0, 0);
+                    def.EndTime = [2099, 0, 1, 0, 0, 0];
                 }
             }
         }
     }
-    private getDate(def: MorePlayDefinition, timeStr: string): Date
+    private getDate(def: table.IMorePlayDefine, timeStr: string): Date
     {
         let dataArr: Array<number>;
         dataArr = game.StringUtil.toIntArray(timeStr);
@@ -64,15 +50,18 @@ class MorePlayDefined extends BaseDefined<MorePlayDefinition>
     /**
      * 获取显示的玩法定义列表
      */
-    private getShowDefList(): Array<MorePlayDefinition>
+    private getShowDefList(): Array<table.IMorePlayDefine>
     {
-        if (this.dataList)
+        if (table.MorePlay)
         {
-            let result: Array<MorePlayDefinition> = new Array<MorePlayDefinition>();
+            let result: Array<table.IMorePlayDefine> = new Array<table.IMorePlayDefine>();
             let dt: Date = TimeManager.GetServerLocalDateTime();
-            for (let def of this.dataList)
+            for (let def of table.MorePlay)
             {
-                if (dt >= def.startDate && dt < def.endDate)
+                let startDt = new Date(def.StartTime[0], def.StartTime[1], def.StartTime[2], def.StartTime[3], def.StartTime[4], def.StartTime[5]);
+                let endDt = new Date(def.EndTime[0], def.EndTime[1], def.EndTime[2], def.EndTime[3], def.EndTime[4], def.EndTime[5]);
+
+                if (dt >= startDt && dt < endDt)
                 {
                     result.push(def);
                 }
@@ -84,14 +73,14 @@ class MorePlayDefined extends BaseDefined<MorePlayDefinition>
     /**
      * 获取在大厅显示的定义
      */
-    public getDefInHall(): MorePlayDefinition
+    public getDefInHall(): table.IMorePlayDefine
     {
         let list = this.getShowDefList();
         if (list)
         {
             for (let def of list)
             {
-                if (def.isInHall)
+                if (def.IsInHall)
                 {
                     return def;
                 }
@@ -102,15 +91,15 @@ class MorePlayDefined extends BaseDefined<MorePlayDefinition>
     /**
      * 获取在更多玩法面板显示的玩法定义列表
      */
-    public getDefListInMorePlay(): Array<MorePlayDefinition>
+    public getDefListInMorePlay(): Array<table.IMorePlayDefine>
     {
         let list = this.getShowDefList();
         if (list)
         {
-            let result: Array<MorePlayDefinition> = new Array<MorePlayDefinition>();
+            let result: Array<table.IMorePlayDefine> = new Array<table.IMorePlayDefine>();
             for (let def of list)
             {
-                if (!def.isInHall)
+                if (!def.IsInHall)
                 {
                     result.push(def);
                 }
@@ -119,22 +108,4 @@ class MorePlayDefined extends BaseDefined<MorePlayDefinition>
         }
         return null;
     }
-}
-
-/**
-* 更多玩法的定义
-* */
-class MorePlayDefinition implements IBaseDefintion
-{
-    public Id: number;
-    public name: string;
-    public isInHall: boolean;
-    public icon: string;
-    public des: string;
-    public startTime: string;
-    public endTime: string;
-    public desId: number;
-
-    public startDate: Date;
-    public endDate: Date;
 }
