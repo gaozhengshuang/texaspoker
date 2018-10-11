@@ -287,6 +287,9 @@ func (u *RoomUser) GetGold() int32 {
 }
 
 func (u *RoomUser) RemoveGold(gold int32, reason string, syn bool) bool {
+	if u.isai == true {
+		return true
+	}
 	goldsrc := u.GetGold()
 	if goldsrc >= gold {
 		newgold := goldsrc - gold
@@ -307,6 +310,9 @@ func (u *RoomUser) RemoveGold(gold int32, reason string, syn bool) bool {
 func (u *RoomUser) AddGold(gold int32, reason string, syn bool) {
 	//entity := u.Entity()
 	//entity.Gold = pb.Int32(u.GetGold() + gold)
+	if u.isai == true {
+		return 
+	}
 	goldsrc := u.GetGold()
 	newgold := goldsrc + gold
 	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "gold", newgold)
