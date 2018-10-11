@@ -28,15 +28,11 @@ import (
 // --------------------------------------------------------------------------
 type DBUserData struct {
 	bin            *msg.Serialize // db二进制数据
-	tm_login       int64
-	tm_logout      int64
 	gold           int32
 	diamond        int32
 	yuanbao        int32
 	level          int32
 	exp            int32
-	continuelogin  int32
-	nocountlogin   int32
 	signdays       int32
 	signtime       int32
 	addrlist       []*msg.UserAddress
@@ -46,7 +42,7 @@ type DBUserData struct {
 	invitationcode string
 	luckydraw      []*msg.LuckyDrawItem
 	luckydrawtotal int64
-	totalrecharge  int32 // 总充值
+	statistics	   UserStatistics
 }
 
 // --------------------------------------------------------------------------
@@ -88,7 +84,7 @@ func NewGateUser(account, key, token string) *GateUser {
 	u.tickers.Init(u.OnTicker10ms, u.OnTicker100ms, u.OnTicker1s, u.OnTicker5s, u.OnTicker1m)
 	u.cleanup = false
 	u.tm_disconnect = 0
-	u.continuelogin = 1
+	u.statistics.continuelogin = 1
 	u.tm_asynsave = 0
 	u.token = token
 	u.broadcastbuffer = make([]int64, 0)
@@ -298,14 +294,6 @@ func (this *GateUser) Inviter() int64 {
 	return 0
 }
 
-func (this *GateUser) TotalRecharge() int32 {
-	return this.totalrecharge
-}
-
-func (this *GateUser) SetTotalRecharge(r int32) {
-	this.totalrecharge = r
-}
-
 func (this *GateUser) IsCleanUp() bool {
 	return this.cleanup
 }
@@ -410,7 +398,7 @@ func (this *GateUser) OnLoadDB(way string) {
 	this.LoadBin()
 
 	// 新用户回调
-	if this.tm_login == 0 {
+	if this.statistics.tm_login == 0 {
 		this.OnCreateNew()
 	}
 }
@@ -437,11 +425,7 @@ func (this *GateUser) PackBin() *msg.Serialize {
 	entity.Exp = pb.Int32(this.exp)
 
 	userbase := bin.GetBase()
-	userbase.Statics.Tmlogin = pb.Int64(this.tm_login)
-	userbase.Statics.Tmlogout = pb.Int64(this.tm_logout)
-	userbase.Statics.Continuelogin = pb.Int32(this.continuelogin)
-	userbase.Statics.Nocountlogin = pb.Int32(this.nocountlogin)
-	userbase.Statics.Totalrecharge = pb.Int32(this.totalrecharge)
+	userbase.Statics = this.statistics.PackBin()
 	userbase.Sign.Signdays = pb.Int32(this.signdays)
 	userbase.Sign.Signtime = pb.Int32(this.signtime)
 	userbase.Misc.Invitationcode = pb.String(this.invitationcode)
@@ -451,6 +435,7 @@ func (this *GateUser) PackBin() *msg.Serialize {
 	// 幸运抽奖
 	userbase.Luckydraw.Drawlist = make([]*msg.LuckyDrawItem, 0)
 	userbase.Luckydraw.Totalvalue = pb.Int64(this.luckydrawtotal)
+	userbase.Vip = &msg.UserVip{}
 	for _, v := range this.luckydraw {
 		userbase.Luckydraw.Drawlist = append(userbase.Luckydraw.Drawlist, v)
 	}
@@ -478,12 +463,6 @@ func (this *GateUser) LoadBin() {
 	this.level = entity.GetLevel()
 	this.exp = entity.GetExp()
 
-	this.tm_login = userbase.Statics.GetTmlogin()
-	this.tm_logout = userbase.Statics.GetTmlogout()
-	this.continuelogin = userbase.Statics.GetContinuelogin()
-	this.nocountlogin = userbase.Statics.GetNocountlogin()
-	this.totalrecharge = userbase.Statics.GetTotalrecharge()
-
 	this.signdays = userbase.Sign.GetSigndays()
 	this.signtime = userbase.Sign.GetSigntime()
 	this.invitationcode = userbase.Misc.GetInvitationcode()
@@ -497,6 +476,7 @@ func (this *GateUser) LoadBin() {
 		this.luckydraw = append(this.luckydraw, v)
 	}
 
+	this.statistics.LoadBin(this.bin)
 	// 道具信息
 	this.bag.Clean()
 	this.bag.LoadBin(this.bin)
@@ -515,11 +495,29 @@ func (this *GateUser) LoadBin() {
 // TODO: 存盘可以单独协程
 func (this *GateUser) Save() {
 	key := fmt.Sprintf("userbin_%d", this.Id())
-	if err := utredis.SetProtoBin(Redis(), key, this.PackBin()); err != nil {
+	userbin := this.PackBin()
+	if err := utredis.SetProtoBin(Redis(), key, userbin); err != nil {
 		log.Error("保存玩家[%s %d]数据失败", this.Name(), this.Id())
 		return
 	}
 	log.Info("保存玩家[%s %d]数据成功", this.Name(), this.Id())
+	//存储浏览数据
+	key = fmt.Sprintf("userentity_%d", this.Id())
+	if err = utredis.SetProtoBin(Redis(), key, userbin.Entity); err != nil {
+		log.Error("保存玩家[%s %d] entity 数据失败", this.Name(), this.Id())
+		return
+	}
+	key = fmt.Sprintf("uservip_%d", this.Id())
+	if err = utredis.SetProtoBin(Redis(), key, userbin.GetBase().Vip); err != nil {
+		log.Error("保存玩家[%s %d] vip 数据失败", this.Name(), this.Id())
+		return
+	}
+	key = fmt.Sprintf("userstatistics_%d", this.Id())
+	if err = utredis.SetProtoBin(Redis(), key, userbin.GetBase().Statics); err != nil {
+		log.Error("保存玩家[%s %d] statistics 数据失败", this.Name(), this.Id())
+		return
+	}
+	log.Info("保存玩家[%s %d]展示数据成功", this.Name(), this.Id())
 }
 
 // 异步存盘
@@ -552,7 +550,7 @@ func (this *GateUser) Online(session network.IBaseNetSession, way string) bool {
 	this.LoginStatistics()
 	this.online = true
 	this.client = session
-	this.tm_login = curtime
+	this.statistics.tm_login = curtime
 	this.tm_disconnect = 0
 	this.tm_heartbeat = util.CURTIMEMS()
 	this.roomdata.Online(this)
@@ -641,7 +639,7 @@ func (this *GateUser) CheckDisconnectTimeOut(now int64) {
 // 真下线(存盘，从Gate清理玩家数据)
 func (this *GateUser) Logout() {
 	this.online = false
-	this.tm_logout = util.CURTIME()
+	this.statistics.tm_logout = util.CURTIME()
 	this.cleanup = true
 	this.Save()
 	UnBindingAccountGateWay(this.account)

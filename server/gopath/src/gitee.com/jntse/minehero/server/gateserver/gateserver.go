@@ -52,6 +52,7 @@ type GateServer struct {
 	usermgr			UserManager
 	waitpool		LoginWaitPool
 	roomsvrmgr		RoomSvrManager
+	statisticsmgr 	StatisticsManager
 	msghandlers		[]network.IBaseMsgHandler
 	tblloader		*tbl.TblLoader
 	rcounter 		util.RedisCounter
@@ -93,6 +94,10 @@ func WaitPool() *LoginWaitPool {
 
 func RoomSvrMgr() *RoomSvrManager {
 	return &GateSvr().roomsvrmgr
+}
+
+func StatisticsMgr() *StatisticsManager {
+	return &GateSvr().statisticsmgr
 }
 
 func RCounter() *util.RedisCounter {
@@ -215,6 +220,7 @@ func (this *GateServer) Init(fileconf string) bool {
 	this.usermgr.Init()
 	this.waitpool.Init()
 	this.roomsvrmgr.Init()
+	this.statisticsmgr.Init()
 	this.InitMySql()
 	//this.countmgr.Init()
 	//this.gamemgr.Init()

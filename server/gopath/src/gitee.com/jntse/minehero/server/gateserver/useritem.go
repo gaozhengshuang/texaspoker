@@ -384,26 +384,26 @@ func (this *GateUser) CheckHaveCompensation() {
 // 统计登陆
 func (this *GateUser) LoginStatistics() {
 	datetime := time.Now().Format("2006-01-02")
-	if this.tm_login == 0 {
+	if this.statistics.tm_login == 0 {
 		key := fmt.Sprintf("%s_create", datetime)
 		Redis().Incr(key)
 		key = fmt.Sprintf("%s_loginsum", datetime)
 		Redis().Incr(key)
-		this.continuelogin = 1
+		this.statistics.continuelogin = 1
 		return
 	}
-	if util.IsNextDay(this.tm_login, util.CURTIME()) {
-		this.continuelogin += 1
-		if this.nocountlogin == 0 {
-			key := fmt.Sprintf("%s_login_%d", datetime, this.continuelogin)
+	if util.IsNextDay(this.statistics.tm_login, util.CURTIME()) {
+		this.statistics.continuelogin += 1
+		if this.statistics.nocountlogin == 0 {
+			key := fmt.Sprintf("%s_login_%d", datetime, this.statistics.continuelogin)
 			Redis().Incr(key)
 		}
 		key2 := fmt.Sprintf("%s_loginsum", datetime)
 		Redis().Incr(key2)
 	} else {
-		if !util.IsSameDay(this.tm_login, util.CURTIME()) {
-			this.continuelogin = 1
-			this.nocountlogin = 1
+		if !util.IsSameDay(this.statistics.tm_login, util.CURTIME()) {
+			this.statistics.continuelogin = 1
+			this.statistics.nocountlogin = 1
 			key := fmt.Sprintf("%s_loginsum", datetime)
 			Redis().Incr(key)
 		}
