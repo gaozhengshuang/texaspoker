@@ -63,6 +63,7 @@ func (mh* GW2CMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.GW2C_RetFriendsList{}, on_GW2C_RetFriendsList)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_RetPresentToFriend{}, on_GW2C_RetPresentToFriend)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_RetGetFriendPresent{}, on_GW2C_RetGetFriendPresent)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_PushFriendPresent{}, on_GW2C_PushFriendPresent)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_RetFriendRequestList{}, on_GW2C_RetFriendRequestList)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_RetRemoveFriend{}, on_GW2C_RetRemoveFriend)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_PushRemoveFriend{}, on_GW2C_PushRemoveFriend)

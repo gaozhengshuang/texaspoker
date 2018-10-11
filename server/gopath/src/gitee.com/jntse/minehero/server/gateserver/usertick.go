@@ -81,6 +81,7 @@ func (u *GateUser) OnTicker5s(now int64) {
 
 func (u *GateUser) OnTicker1m(now int64) {
 	u.mailbox.Tick(now)
+	u.friends.Tick(now)
 }
 
 func (u *GateUser) OnTicker5m(now int64) {

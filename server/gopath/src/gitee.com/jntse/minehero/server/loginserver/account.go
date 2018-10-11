@@ -432,6 +432,7 @@ func SaveUserSimpleInfo(bin *msg.Serialize) {
 	pipe := Redis().Pipeline()
 	defer pipe.Close()
 
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "roleid",bin.Entity.GetRoleid())
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "name", 	bin.Entity.GetName())
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "face", 	bin.Entity.GetHead())
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "sex",  	bin.Entity.GetSex())

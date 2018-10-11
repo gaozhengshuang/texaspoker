@@ -431,9 +431,11 @@ func (u *User) DoInputCmd(cmd string) {
 	case "fadd":
 		u.AddFriend(subcmd[1])
 	case "fprocess":
-		u.ProcessFriend(subcmd[1])
+		u.ProcessFriend(subcmd[1], subcmd[2])
 	case "fpresent":
 		u.FriendPresent(subcmd[1])
+	case "fgetpresent":
+		u.GetFriendPresent(subcmd[1])
 	case "fdel":
 		u.RemoveFriend(subcmd[1])
 	case "fsearch":
