@@ -160,7 +160,6 @@ func (m *Friends) Name() string {
 }
 
 func (m *Friends) Online() {
-
 	// 跨服务器
 	pushmsg := &msg.GW2C_PushUserOnline{Uid : pb.Int64(m.Id())}
 	GateSvr().SendGateMsg(0, pushmsg)
@@ -271,8 +270,6 @@ func (m *Friends) RequestRemoveFriend(uid int64) {
 	m.RemoveFriend(uid, "主动删除")
 	send := &msg.GW2C_RetRemoveFriend{Roleid:pb.Int64(uid)}
 	m.owner.SendMsg(send)
-
-	// 
 	Redis().SAdd(fmt.Sprintf("friendremoveyou_%d", uid), m.Id())
 
 
@@ -283,7 +280,6 @@ func (m *Friends) RequestRemoveFriend(uid int64) {
 	}else {
 		GateSvr().SendGateMsg(0, pushmsg)	// 跨服务器
 	}
-
 }
 
 // --------------------------------------------------------------------------
@@ -373,7 +369,6 @@ func (m *Friends) ProcessFriendRequest(uid int64, accept bool) {
 	Redis().SAdd(fmt.Sprintf("friendlist_%d", uid), m.Id())
 
 	// 通知对方请求通过
-	//Redis().SAdd(fmt.Sprintf("addfriend_passed_%d", uid), m.Id())
 	pushmsg := &msg.GW2C_PushFriendAddSuccess{Handler:pb.Int64(m.Id()), Friend:m.owner.FillUserBrief()}
 	if target := UserMgr().FindById(uid); target != nil {
 		target.friends.OnFriendRequestPass(pushmsg)
@@ -400,7 +395,6 @@ func (m *Friends) OnFriendRequestRecv(reqmsg *msg.GW2C_PushAddYouFriend) {
 func (m *Friends) OnFriendRequestPass(push *msg.GW2C_PushFriendAddSuccess) {
 	m.AddFriend(push.Friend, "对方同意", false)
 	m.owner.SendMsg(push)
-	//Redis().SRem(fmt.Sprintf("addfriend_passed_%d", m.Id()), push.Friend.GetRoleid())
 }
 
 // 收到申请礼物消息
