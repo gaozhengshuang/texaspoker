@@ -51,6 +51,7 @@ type DBUserData struct {
 	lastgoldtime   int32 // 上次领取系统金币的时间
 	awardrecord    []*msg.AwardRecord  
 	awardgetinfo   []*msg.AwardGetInfo
+	bankruptcount  int32 // 当天领取破产补助的次数
 }
 
 // --------------------------------------------------------------------------
@@ -439,6 +440,8 @@ func (u *GateUser) PackBin() *msg.Serialize {
 	userbase.Sign.Signtime = pb.Int32(u.signtime)
 	userbase.Misc.Invitationcode = pb.String(u.invitationcode)
 	userbase.Misc.Lastgoldtime = pb.Int32(u.lastgoldtime)
+	userbase.Misc.Bankruptcount = pb.Int32(u.bankruptcount)
+	
 	userbase.Awardrecord = u.awardrecord[:]
 	userbase.Awardgetinfo = u.awardgetinfo[:]
 	userbase.Addrlist = u.addrlist[:]
@@ -484,6 +487,7 @@ func (u *GateUser) LoadBin() {
 	u.signtime = userbase.Sign.GetSigntime()
 	u.invitationcode = userbase.Misc.GetInvitationcode()
 	u.lastgoldtime = userbase.Misc.GetLastgoldtime()
+	u.bankruptcount = userbase.Misc.GetBankruptcount()
 	u.awardrecord = userbase.GetAwardrecord()[:]
 	u.awardgetinfo = userbase.GetAwardgetinfo()[:]
 	u.addrlist = userbase.GetAddrlist()[:]

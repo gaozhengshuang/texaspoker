@@ -131,6 +131,11 @@ func (u *GateUser) ResetDailySign() {
 	u.signdays = 0
 }
 
+//破产补助重置
+func (u *GateUser) ResetBankruptCount() {
+	u.bankruptcount = 0
+}
+
 //签到信息封装消息
 func (u *GateUser) DailySignInfoToMsg(bin *msg.GW2C_RetActivityInfo) {
 	data := make(map[string]string)
@@ -152,7 +157,7 @@ func (u *GateUser) DailySignInfoToMsg(bin *msg.GW2C_RetActivityInfo) {
 
 //跨天重置的活动
 func (u *GateUser) ActivityResetByDay() {
-
+	u.ResetBankruptCount()
 }
 
 //跨周重置的活动
@@ -268,5 +273,27 @@ func (u *GateUser) GetAwardGetInfo () {
 //领破产补助
 func (u *GateUser) TakeBankruptcySubsidy() string {
 	errcode := ""
+	config, ok := tbl.BankruptBase.Activity_bankruptSubsidyById[int32(msg.ActivityType_BankruptcySubsidy)]
+	if !ok {
+		errcode = "破产补助表配置查不到"
+		return errcode
+	} 
+	awardid := config.AwardId
+	limitgold := config.LimitGold
+	times := config.Times
+	if u.bankruptcount >= times {
+		errcode = "本日破产补助领取次数已达上限"
+		return errcode
+	}
+	if u.GetGold() >= limitgold {
+		errcode = "尚未破产 无法领取"
+		return errcode
+	}
+	if u.GetActivityAwardByAwardId(awardid, "破产补助") == true {
+		u.bankruptcount = u.bankruptcount + 1
+	} else {
+		errcode = "领取失败"
+		return errcode
+	}
 	return errcode
 }
