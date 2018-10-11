@@ -21,13 +21,13 @@ class ShopManager
 	{
 		game.ArrayUtil.Clear(ShopManager.shoppingList);
 		let info: ShopInfo;
-		for (let i: number = 0; i < ShopDefined.GetInstance().dataList.length; i++)
+		for (let i: number = 0; i < table.PayList.length; i++)
 		{
 			info = new ShopInfo();
-			info.id = ShopDefined.GetInstance().dataList[i].Id;
+			info.id = table.PayList[i].Id;
 			if (info.definition)
 			{
-				switch (info.definition.type)
+				switch (info.definition.Type)
 				{
 					case ShopType.Gold:
 						ShopManager.goldList.push(info);
@@ -47,7 +47,7 @@ class ShopManager
 		let awardDef: table.IAwardDefine;
 		for (let i: number = 0; i < ShopManager.goldList.length; i++)
 		{
-			awardDef = table.AwardById[ShopManager.goldList[i].definition.awardId];
+			awardDef = table.AwardById[ShopManager.goldList[i].definition.AwardId];
 			ShopManager.awardGoldList.push(awardDef);
 		}
 		let temp: number = Math.ceil(ShopManager.goldList.length / 3);

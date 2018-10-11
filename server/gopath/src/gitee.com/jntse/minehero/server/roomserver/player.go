@@ -41,6 +41,7 @@ type TexasPlayer struct{
 	readytime int32
 	rewardtime int32
 	rewardround int32
+	isallinshow bool
 }
 
 type TexasPlayers []*TexasPlayer
@@ -72,6 +73,7 @@ func (this *TexasPlayer)Init(){
 	this.isready = false
 	this.gamestate = GSWaitNext
 	this.aiacttime = 0
+	this.isallinshow = false
 }
 
 func (this *TexasPlayer) InitTimeReward() {
@@ -365,6 +367,12 @@ func (this *TexasPlayer) AddBankRoll(num int32){
 	log.Info("房间%d 玩家%d 增加筹码%d", this.room.Id(), this.owner.Id(), num)
 }
 
+func (this *TexasPlayer) AddExp(exp int32, reason string, syn bool) {
+	if this.owner != nil && this.owner.isai == false {
+		this.owner.AddExp(exp, reason, syn)
+	}
+}
+
 func (this *TexasPlayer) ReqTimeAwardInfo(rev *msg.C2RS_ReqTimeAwardInfo) {
 	send := &msg.RS2C_RetTimeAwardInfo{}
 	send.Round = pb.Int32(this.rewardround-1)
@@ -587,10 +595,16 @@ func (this *TexasPlayer) AutoBuy() {
 	if this.autobuy == 0 {
 		return
 	}
-	if !this.owner.RemoveGold(this.autobuy, "金币兑换筹码", true) {
+	var buy int32 = 0
+	if this.autobuy > this.owner.GetGold() {
+		buy = this.owner.GetGold()
+	}else {
+		buy = this.autobuy
+	}
+	if !this.owner.RemoveGold(buy, "金币兑换筹码", true) {
 		return
 	}
-	this.AddBankRoll(this.autobuy)
+	this.AddBankRoll(buy)
 }
 
 func (this *TexasPlayer) BuyInGame(rev *msg.C2RS_ReqBuyInGame) bool {

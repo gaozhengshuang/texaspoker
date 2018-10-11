@@ -23,7 +23,7 @@ class InitAppHandler
 			//重登录,做了数据缓存的都清除
 		}
 		//每次登录都执行
-		// ShopManager.initialize(); //move todo
+		ShopManager.initialize();
 		// VipManager.initialize(); //move todo
 		// NotifyManager.initByReLogin(); //move todo
 		UploadHeadManager.clearAllData();

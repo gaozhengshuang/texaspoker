@@ -37,6 +37,8 @@ func (u *GateUser) OnReqGetActivityReward(id, subid int32) {
 	ret := ""
 	if id == int32(msg.ActivityType_DailySign) {
 		ret = u.DailySign()
+	} else if id == int32(msg.ActivityType_BankruptcySubsidy){
+		ret = u.TakeBankruptcySubsidy(subid)
 	} else {
 		ret = "未定义的活动id"
 	}
@@ -129,6 +131,11 @@ func (u *GateUser) ResetDailySign() {
 	u.signdays = 0
 }
 
+//破产补助重置
+func (u *GateUser) ResetBankruptCount() {
+	u.bankruptcount = 0
+}
+
 //签到信息封装消息
 func (u *GateUser) DailySignInfoToMsg(bin *msg.GW2C_RetActivityInfo) {
 	data := make(map[string]string)
@@ -150,7 +157,7 @@ func (u *GateUser) DailySignInfoToMsg(bin *msg.GW2C_RetActivityInfo) {
 
 //跨天重置的活动
 func (u *GateUser) ActivityResetByDay() {
-
+	u.ResetBankruptCount()
 }
 
 //跨周重置的活动
@@ -261,3 +268,55 @@ func (u *GateUser) GetAwardGetInfo () {
 	send.Datalist = u.awardgetinfo[:]
 	u.SendMsg(send)
 }
+
+
+//领破产补助
+func (u *GateUser) TakeBankruptcySubsidy(subid int32) string {
+	errcode := ""
+    for _,v := range tbl.BankruptBase.Activity_bankruptSubsidyById {
+    	if v.SubId == subid {
+    		awardid := v.AwardId
+    		limitgold := v.LimitGold
+    		times := v.Times
+    		if u.bankruptcount >= times {
+    			errcode = "本日破产补助领取次数已达上限"
+    			return errcode
+    		}
+    		if u.GetGold() >= limitgold {
+    			errcode = "尚未破产 无法领取"
+    			return errcode
+    		}
+    		if u.GetActivityAwardByAwardId(awardid, "破产补助") == true {
+    			u.bankruptcount = u.bankruptcount + 1
+    		} else {
+    			errcode = "领取失败"
+    			return errcode
+    		}
+    		return errcode
+    	}
+	}
+	errcode = "没找到配置"
+	return errcode
+}
+
+//增加白银卡时间 单位秒 例如月卡 60*60*24*30
+func (u *GateUser) AddSilverCardTime (addtime int32) {
+	now := util.CURTIME()
+	if int32(now) >= u.silvercardtime {
+		u.silvercardtime = int32(now) + addtime
+	} else {
+		u.silvercardtime = u.silvercardtime + addtime
+	}
+}
+
+//增加黄金卡时间 单位秒 例如月卡 60*60*24*30
+func (u *GateUser) AddGoldCardTime (addtime int32) {
+	now := util.CURTIME()
+	if int32(now) >= u.goldcardtime {
+		u.goldcardtime = int32(now) + addtime
+	} else {
+		u.goldcardtime = u.goldcardtime + addtime
+	}
+}
+
+

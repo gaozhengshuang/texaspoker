@@ -50,7 +50,7 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 			{
 				let lowerKey = key.toLowerCase();
 				let property: any = this[key];
-				if (!(property instanceof Function)) //函数属性不拷贝
+				if (data.hasOwnProperty(lowerKey) && !(property instanceof Function)) //函数属性不拷贝
 				{
 					if (data[lowerKey] == undefined)
 					{
@@ -150,7 +150,7 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 	/**
 	 * 金豆
 	 */
-	public yuanbao:number;
+	public yuanbao: number;
 	/**
 	 * 钻石数量
 	 */
@@ -439,10 +439,19 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 	 * 开服时间
 	 */
 	public openServerTime: number;
+
+	private _lastGoldTime: number;
 	/**
 	 * 上次领取金币时间戳
 	 */
-	public lastGoldTime: number;
+	public set lastGoldTime(value: number)
+	{
+		this._lastGoldTime = value;
+	}
+	public get lastGoldTime(): number
+	{
+		return this._lastGoldTime;
+	}
 	/**
  	* 头像宽高
  	*/

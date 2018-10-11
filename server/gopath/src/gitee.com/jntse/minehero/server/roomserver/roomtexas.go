@@ -57,7 +57,7 @@ func (this *TexasPokerRoom) UserEnter(u *RoomUser) {
 	player.Init()
 	this.AddWatcher(player)
 	this.SendRoomInfo(player)
-	u.SendGold()
+	u.SendPropertyChange()
 }
 
 // 玩家离开房间

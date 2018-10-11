@@ -3,7 +3,7 @@
 */
 class RequestNewsInfo
 {
-    public constructor(type: FriendMsgType, info: any)
+    public constructor(type: FriendMsgType, info: msg.GW2C_PushFriendInvitation)
     {
         this.type = type;
         this.info = info;
@@ -13,5 +13,5 @@ class RequestNewsInfo
     public time: number;
     //类型
     public type: FriendMsgType;
-    public info: any;
+    public info: msg.GW2C_PushFriendInvitation;
 }

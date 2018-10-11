@@ -118,7 +118,7 @@ class ShoppingPanel extends BasePanel
     }
     private onRefreshProperty(awardId: number)
     {
-        let shopDef: ShopDefinition = ShopDefined.GetInstance().getDefinitionByAwardId(awardId);
+        let shopDef: table.IPayListDefine = ShopDefined.GetInstance().getDefinitionByAwardId(awardId);
         if (shopDef)
         {
             this.diamondNumLabel.text = game.MathUtil.formatNum(UserManager.userInfo.diamond);
@@ -192,10 +192,10 @@ class ShoppingPanel extends BasePanel
     {
         if (obj)
         {
-            let payDef: ShopDefinition = ShopDefined.GetInstance().getDefinition(obj.id);
+            let payDef: table.IPayListDefine = table.PayListById[obj.id];
             if (payDef)
             {
-                AwardManager.Exchange(payDef.awardId, 1, true);//直接兑换
+                AwardManager.Exchange(payDef.AwardId, 1, true);//直接兑换
             }
         }
     }

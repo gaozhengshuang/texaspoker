@@ -52,12 +52,12 @@ class FriendManager
     }
     public static addRecListener()
     {
-        SocketManager.AddCommandListener(Command.Friend_Push_AddSuccess_2036, FriendManager.onAddFriendSuccessRec, this);
-        SocketManager.AddCommandListener(Command.Friend_Push_BeDel_2035, FriendManager.onDelFriendSuccessRec, this);
-        SocketManager.AddCommandListener(Command.Friend_Push_OnlineState_2064, FriendManager.onOnlineStateChangeRec, this);
-        SocketManager.AddCommandListener(Command.Friend_Push_GiveGold_2037, FriendManager.onGiveGoldRec, this);
-        SocketManager.AddCommandListener(Command.Friend_Push_RequestFriend_2038, FriendManager.onRequestFriendRec, this);
-        SocketManager.AddCommandListener(Command.Friend_Push_Invite_2111, FriendManager.pushInviteMsgHandler, this)
+        SocketManager.AddCommandListener(Command.GW2C_PushFriendAddSuccess, FriendManager.onAddFriendSuccessRec, this);
+        SocketManager.AddCommandListener(Command.GW2C_PushRemoveFriend, FriendManager.onDelFriendSuccessRec, this);
+        SocketManager.AddCommandListener(Command.GW2C_PushFriendLogin, FriendManager.onOnlineStateChangeRec, this);
+        SocketManager.AddCommandListener(Command.GW2C_PushFriendPresent, FriendManager.onGiveGoldRec, this);
+        SocketManager.AddCommandListener(Command.GW2C_PushAddYouFriend, FriendManager.onRequestFriendRec, this);
+        SocketManager.AddCommandListener(Command.GW2C_PushFriendInvitation, FriendManager.pushInviteMsgHandler, this)
         SocketManager.AddCommandListener(Command.Friend_Push_Reset_2015, FriendManager.onResetPush, this)
     }
     /**
@@ -76,30 +76,25 @@ class FriendManager
         {
             FriendManager._givenGoldRoleIdList = new Array<number>();
         }
-        if (result.data["friendList"])
+        let data: msg.GW2C_RetFriendsList = result.data;
+        if (data.friendlist)
         {
-            for (let friendInfo of result.data["friendList"])
+            for (let friendInfo of data.friendlist)
             {
                 let info: FriendInfo = new FriendInfo();
-                info.copyValueFrom(friendInfo);
+                info.copyValueFromIgnoreCase(friendInfo);
+                info.copyValueFromIgnoreCase(friendInfo.base);
                 FriendManager.friendList.push(info);
-                if (friendInfo.getGold == 1)  //可领取
+                if (info.getGold == 1)  //可领取
                 {
                     FriendManager.giftList.push(info);
                 }
-                if (friendInfo.giveGold)
+                if (info.giveGold)
                 {
-                    FriendManager._givenGoldRoleIdList.push(friendInfo.roleId);
+                    FriendManager._givenGoldRoleIdList.push(info.roleId);
                 }
             }
         }
-    }
-    /**
-     * 发送获取好友列表请求
-    */
-    public static reqFriendListInfo()
-    {
-        SocketManager.call(Command.Friend_GetList_3156, null, FriendManager.FriendListInfoResponse, null, this);
     }
     public static FriendListInfoResponse(result: game.SpRpcResult)
     {
@@ -137,7 +132,7 @@ class FriendManager
                 FriendManager._givenGoldRoleIdList.push(id);
             }
         };
-        SocketManager.call(Command.Friend_GiveGold_3151, { roleId: id }, callback, null, this);
+        SocketManager.call(Command.C2GW_ReqPresentToFriend, { roleid: id }, callback, null, this);
     }
     /**
      * 判断roleId是否已经存在在当天赠送过金币的用户id数组中
@@ -179,28 +174,23 @@ class FriendManager
             FriendManager.onReceiveGiftEvent.dispatch();
         }
         PropertyManager.OpenGet();
-        SocketManager.call(Command.Friend_ReceiveGift_3150, { roleId: id }, callback, null, this);
-    }
-    /**
-    * 发送获取好友请求列表的请求
-   */
-    public static reqFriendRequest()
-    {
-        SocketManager.call(Command.Friend_RequestList_3157, null, FriendManager.FriendRequestResponse, null, this);
+        SocketManager.call(Command.C2GW_ReqGetFriendPresent, { roleid: id }, callback, null, this);
     }
     public static FriendRequestResponse(result: game.SpRpcResult)
     {
-        if (result.data.Array)
+        let data: msg.GW2C_RetFriendRequestList = result.data;
+
+        if (data.array)
         {
             game.ArrayUtil.Clear(FriendManager.requestFriendList);
             if (!FriendManager.requestFriendList)
             {
                 FriendManager.requestFriendList = new Array<BaseFriendInfo>();
             }
-            for (let requestInfo of result.data.Array)
+            for (let requestInfo of data.array)
             {
                 let info: BaseFriendInfo = new BaseFriendInfo();
-                info.copyValueFrom(requestInfo);
+                info.copyValueFromIgnoreCase(requestInfo);
                 FriendManager.requestFriendList.push(info);
             }
             FriendManager.onFriendRequestEvent.dispatch();
@@ -231,7 +221,7 @@ class FriendManager
             FriendManager.onReceiveFriendRequestEvent.dispatch();
         };
         let IsAccept: Boolean = (isReceive == 1) ? true : false;
-        SocketManager.call(Command.Friend_Receive_3154, { roleId: id, IsAccept: IsAccept }, callback, null, this);
+        SocketManager.call(Command.C2GW_ReqProcessFriendRequest, { roleid: id, isaccept: IsAccept }, callback, null, this);
     }
     /**
      * 发送查询好友的请求
@@ -240,7 +230,8 @@ class FriendManager
     {
         let callback: Function = function (result: game.SpRpcResult)
         {
-            if (result.data.Array)
+            let data:msg.GW2C_RetFriendSearch = result.data;
+            if (data.brief)
             {
                 if (text)
                 {
@@ -249,10 +240,10 @@ class FriendManager
                     {
                         FriendManager.searchList = new Array<BaseFriendInfo>();
                     }
-                    for (let searchInfo of result.data.Array)
+                    for (let searchInfo of data.brief)
                     {
                         let info: BaseFriendInfo = new BaseFriendInfo();
-                        info.copyValueFrom(searchInfo);
+                        info.copyValueFromIgnoreCase(searchInfo);
                         FriendManager.searchList.push(info);
                     }
                 } else
@@ -260,10 +251,10 @@ class FriendManager
                     if (!FriendManager.recList)
                     {
                         FriendManager.recList = new Array<BaseFriendInfo>();
-                        for (let rec of result.data.Array)
+                        for (let rec of data.brief)
                         {
                             let recInfo: BaseFriendInfo = new BaseFriendInfo();
-                            recInfo.copyValueFrom(rec);
+                            recInfo.copyValueFromIgnoreCase(rec);
                             FriendManager.recList.push(recInfo);
                         }
                     }
@@ -274,7 +265,7 @@ class FriendManager
                 AlertManager.showAlert("此用户名或者ID不存在");
             }
         };
-        SocketManager.call(Command.Friend_SearchPlayer_3153, { Val: text }, callback, null, this);
+        SocketManager.call(Command.C2GW_ReqFriendSearch, { val: text }, callback, null, this);
     }
     /**
      * 发送添加好友的请求
@@ -301,7 +292,7 @@ class FriendManager
         {
             if (FriendManager.isFriendFull(true))
             {
-                SocketManager.call(Command.Friend_AddPlayer_3152, { roleId: id }, callback, null, this);
+                SocketManager.call(Command.C2GW_ReqAddFriend, { roleid: id }, callback, null, this);
             }
         } else
         {
@@ -329,7 +320,7 @@ class FriendManager
         };
         if (FriendManager.isFriend(id))
         {
-            SocketManager.call(Command.Friend_DelPlayer_3155, { roleId: id }, callback, null, this);
+            SocketManager.call(Command.C2GW_ReqRemoveFriend, { roleid: id }, callback, null, this);
         } else
         {
             game.Console.log("删除的用户不是您的好友,id:" + id);
@@ -398,9 +389,10 @@ class FriendManager
     */
     public static onAddFriendSuccessRec(result: game.SpRpcResult)
     {
-        if (result.data['roleId'])
+        let data:msg.GW2C_PushFriendAddSuccess = result.data;
+        if (data.friend)
         {
-            UserManager.reqGetOtherUserInfo(result.data['roleId'], FriendUIType.FriendList);
+            UserManager.reqGetOtherUserInfo(game.longToNumber(data.friend.roleid), FriendUIType.FriendList);
         }
     }
     /**
@@ -408,14 +400,15 @@ class FriendManager
     */
     public static onDelFriendSuccessRec(result: game.SpRpcResult)
     {
-        if (result.data)
+        let data:msg.GW2C_PushRemoveFriend = result.data;
+        if (data)
         {
             for (let i: number = 0; i < FriendManager.friendList.length; i++)
             {
-                if (result.data["roleId"] == FriendManager.friendList[i].roleId)
+                if (data.roleid == FriendManager.friendList[i].roleId)
                 {
                     FriendManager.friendList.splice(i, 1);
-                    FriendManager.refreshGiftList(result.data["roleId"]);
+                    FriendManager.refreshGiftList(data.roleid);
                     break;
                 }
             }
@@ -444,13 +437,14 @@ class FriendManager
     */
     public static onOnlineStateChangeRec(result: game.SpRpcResult)
     {
-        if (result.data)
+        let data:msg.GW2C_PushFriendLogin = result.data;
+        if (data)
         {
             for (let i: number = 0; i < FriendManager.friendList.length; i++)
             {
-                if (result.data["roleId"] == FriendManager.friendList[i].roleId)
+                if (data.roleid == FriendManager.friendList[i].roleId)
                 {
-                    FriendManager.friendList[i].offlineTime = result.data["offlineTime"];
+                    FriendManager.friendList[i].offlineTime = data.offlinetime;
                     FriendManager.onRefreshInfoEvent.dispatch(FriendUIType.FriendList);
                     break;
                 }
@@ -472,17 +466,18 @@ class FriendManager
     */
     public static onRequestFriendRec(result: game.SpRpcResult)
     {
-        if (result.data)
+        let data:msg.GW2C_PushAddYouFriend = result.data;
+        if (data)
         {
             let info: BaseFriendInfo = new BaseFriendInfo();
-            info.copyValueFrom(result.data);
+            info.copyValueFromIgnoreCase(data.friend);
             if (!FriendManager.requestFriendList)
             {
                 FriendManager.requestFriendList = new Array<BaseFriendInfo>();
             }
             for (let i: number = 0; i < FriendManager.requestFriendList.length; i++)
             {
-                if (info["roleId"] == FriendManager.requestFriendList[i].roleId)
+                if (info.roleId == FriendManager.requestFriendList[i].roleId)
                 {
                     return;
                 }
@@ -507,13 +502,14 @@ class FriendManager
     */
     private static pushInviteMsgHandler(result: game.SpRpcResult)
     {
-        if (result.data)
+        let data:msg.GW2C_PushFriendInvitation = result.data;
+        if (data)
         {
             if (!FriendManager.requestNewsList)
             {
                 FriendManager.requestNewsList = new Array<RequestNewsInfo>();
             }
-            FriendManager.requestNewsList.push(new RequestNewsInfo(FriendMsgType.InviteMsg, result.data));
+            FriendManager.requestNewsList.push(new RequestNewsInfo(FriendMsgType.InviteMsg, data));
             let requestInfo = FriendManager.getFriendMsgInfo();
             if (requestInfo)
             {

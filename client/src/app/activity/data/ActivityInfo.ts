@@ -3,10 +3,6 @@
  */
 class ActivityInfo extends BaseServerValueInfo implements IHaveDefintionInfo
 {
-    public reset()
-    {
-        
-    }
     private _id: number;
     public get id(): number
     {
@@ -80,4 +76,9 @@ class ActivityInfo extends BaseServerValueInfo implements IHaveDefintionInfo
      * 子活动列表
      */
     public subList: Array<BaseActivitySubInfo<IBaseActivitySubDefnition>>;
+
+    public reset()
+    {
+
+    }
 }

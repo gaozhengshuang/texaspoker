@@ -289,7 +289,7 @@ func (u *RoomUser) RemoveGold(gold int32, reason string, syn bool) bool {
 		entity := u.Entity()
 		entity.Gold = pb.Int32(u.GetGold() - gold)
 		if syn {
-			u.SendGold()
+			u.SendPropertyChange()
 		}
 		log.Info("玩家[%d] 扣除金币[%d] 库存[%d] 原因[%s]", u.Id(), gold, u.GetGold(), reason)
 
