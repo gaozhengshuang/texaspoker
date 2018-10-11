@@ -71,24 +71,24 @@ class SetPanel extends BasePanel
 		this.soundEffectTog.selected = SoundManager.effectEnabled;
 		this.shakeTog.selected = GameSetting.shakeEnabled;
 		this.autoVocieTog.selected = GameSetting.autoVoiceEnabled;
-		let def: TextDefinition;
-		def = TextDefined.GetInstance().getDefinition(TextFixedId.Forum);
+		let def: table.ITextDefine;
+		def = table.TextById[TextFixedId.Forum];
 		if (def)
 		{
-			this.forum.text = def.text;
-			this.forumTitle.text = def.title;
+			this.forum.text = def.Text;
+			this.forumTitle.text = def.Title;
 		}
-		def = TextDefined.GetInstance().getDefinition(TextFixedId.QQ);
+		def = table.TextById[TextFixedId.QQ];
 		if (def)
 		{
-			this.QQ.text = def.text;
-			this.QQTitle.text = def.title;
+			this.QQ.text = def.Text;
+			this.QQTitle.text = def.Title;
 		}
-		def = TextDefined.GetInstance().getDefinition(TextFixedId.CustomerService);
+		def = table.TextById[TextFixedId.CustomerService];
 		if (def)
 		{
-			this.customerService.text = def.text;
-			this.customerServiceTitle.text = def.title;
+			this.customerService.text = def.Text;
+			this.customerServiceTitle.text = def.Title;
 		}
 		if (UserManager.userInfo)
 		{
