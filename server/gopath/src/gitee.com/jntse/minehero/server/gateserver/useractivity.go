@@ -38,7 +38,7 @@ func (u *GateUser) OnReqGetActivityReward(id, subid int32) {
 	if id == int32(msg.ActivityType_DailySign) {
 		ret = u.DailySign()
 	} else if id == int32(msg.ActivityType_BankruptcySubsidy){
-		ret = u.TakeBankruptcySubsidy()
+		ret = u.TakeBankruptcySubsidy(subid)
 	} else {
 		ret = "未定义的活动id"
 	}
@@ -271,29 +271,30 @@ func (u *GateUser) GetAwardGetInfo () {
 
 
 //领破产补助
-func (u *GateUser) TakeBankruptcySubsidy() string {
+func (u *GateUser) TakeBankruptcySubsidy(subid int32) string {
 	errcode := ""
-	config, ok := tbl.BankruptBase.Activity_bankruptSubsidyById[int32(msg.ActivityType_BankruptcySubsidy)]
-	if !ok {
-		errcode = "破产补助表配置查不到"
-		return errcode
-	} 
-	awardid := config.AwardId
-	limitgold := config.LimitGold
-	times := config.Times
-	if u.bankruptcount >= times {
-		errcode = "本日破产补助领取次数已达上限"
-		return errcode
+    for _,v := range tbl.BankruptBase.Activity_bankruptSubsidyById {
+    	if v.SubId == subid {
+    		awardid := v.AwardId
+    		limitgold := v.LimitGold
+    		times := v.Times
+    		if u.bankruptcount >= times {
+    			errcode = "本日破产补助领取次数已达上限"
+    			return errcode
+    		}
+    		if u.GetGold() >= limitgold {
+    			errcode = "尚未破产 无法领取"
+    			return errcode
+    		}
+    		if u.GetActivityAwardByAwardId(awardid, "破产补助") == true {
+    			u.bankruptcount = u.bankruptcount + 1
+    		} else {
+    			errcode = "领取失败"
+    			return errcode
+    		}
+    		return errcode
+    	}
 	}
-	if u.GetGold() >= limitgold {
-		errcode = "尚未破产 无法领取"
-		return errcode
-	}
-	if u.GetActivityAwardByAwardId(awardid, "破产补助") == true {
-		u.bankruptcount = u.bankruptcount + 1
-	} else {
-		errcode = "领取失败"
-		return errcode
-	}
+	errcode = "没找到配置"
 	return errcode
 }
