@@ -52,6 +52,10 @@ type DBUserData struct {
 	awardrecord    []*msg.AwardRecord  
 	awardgetinfo   []*msg.AwardGetInfo
 	bankruptcount  int32 // 当天领取破产补助的次数
+	silvercardtime int32 // 白银卡到期时间
+	silvercardawardstate  int32 // 白银卡每日奖励状态
+	goldcardtime   int32 // 黄金卡到期时间
+	goldcardawardstate int32 // 黄金卡每日奖励状态
 }
 
 // --------------------------------------------------------------------------
@@ -441,6 +445,10 @@ func (u *GateUser) PackBin() *msg.Serialize {
 	userbase.Misc.Invitationcode = pb.String(u.invitationcode)
 	userbase.Misc.Lastgoldtime = pb.Int32(u.lastgoldtime)
 	userbase.Misc.Bankruptcount = pb.Int32(u.bankruptcount)
+	userbase.Misc.Silvercardtime = pb.Int32(u.silvercardtime)
+	userbase.Misc.Silvercardawardstate = pb.Int32(u.silvercardawardstate)
+	userbase.Misc.Goldcardtime = pb.Int32(u.goldcardtime)
+	userbase.Misc.Goldcardawardstate = pb.Int32(u.goldcardawardstate)
 	
 	userbase.Awardrecord = u.awardrecord[:]
 	userbase.Awardgetinfo = u.awardgetinfo[:]
@@ -488,6 +496,11 @@ func (u *GateUser) LoadBin() {
 	u.invitationcode = userbase.Misc.GetInvitationcode()
 	u.lastgoldtime = userbase.Misc.GetLastgoldtime()
 	u.bankruptcount = userbase.Misc.GetBankruptcount()
+	u.silvercardtime= userbase.Misc.GetSilvercardtime()
+	u.silvercardawardstate = userbase.Misc.GetSilvercardawardstate()
+	u.goldcardtime = userbase.Misc.GetGoldcardtime()
+	u.goldcardawardstate = userbase.Misc.GetGoldcardawardstate()
+
 	u.awardrecord = userbase.GetAwardrecord()[:]
 	u.awardgetinfo = userbase.GetAwardgetinfo()[:]
 	u.addrlist = userbase.GetAddrlist()[:]
