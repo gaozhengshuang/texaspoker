@@ -18,11 +18,11 @@ class MonthCardPanel extends BasePanel
         this.maskAlpha = 0;
         this._monthCardsList = new Array<ShopInfo>();
         let info: ShopInfo;
-        for (let i: number = 0; i < ShopDefined.GetInstance().dataList.length; i++)
+        for (let i: number = 0; i < table.PayList.length; i++)
         {
             info = new ShopInfo();
-            info.id = ShopDefined.GetInstance().dataList[i].Id;
-            if (info.definition && info.definition.type == ShopType.MonthCard)
+            info.id = table.PayList[i].Id;
+            if (info.definition && info.definition.Type == ShopType.MonthCard)
             {
                 this._monthCardsList.push(info);
             }

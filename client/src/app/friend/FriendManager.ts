@@ -53,7 +53,7 @@ class FriendManager
     public static addRecListener()
     {
         SocketManager.AddCommandListener(Command.GW2C_PushFriendAddSuccess, FriendManager.onAddFriendSuccessRec, this);
-        SocketManager.AddCommandListener(Command.GW2C_PushFriendRemove, FriendManager.onDelFriendSuccessRec, this);
+        SocketManager.AddCommandListener(Command.GW2C_PushRemoveFriend, FriendManager.onDelFriendSuccessRec, this);
         SocketManager.AddCommandListener(Command.GW2C_PushFriendLogin, FriendManager.onOnlineStateChangeRec, this);
         SocketManager.AddCommandListener(Command.GW2C_PushFriendPresent, FriendManager.onGiveGoldRec, this);
         SocketManager.AddCommandListener(Command.GW2C_PushAddYouFriend, FriendManager.onRequestFriendRec, this);
@@ -400,7 +400,7 @@ class FriendManager
     */
     public static onDelFriendSuccessRec(result: game.SpRpcResult)
     {
-        let data:msg.GW2C_PushFriendRemove = result.data;
+        let data:msg.GW2C_PushRemoveFriend = result.data;
         if (data)
         {
             for (let i: number = 0; i < FriendManager.friendList.length; i++)

@@ -92,6 +92,11 @@ message UserStatistics {
 message UserMiscData {
     optional string invitationcode = 1; // 邀请码
 	optional int32 lastgoldtime = 2; // 定时领金币领取的时间戳
+	optional int32 bankruptcount = 3; //当天领取破产补助的次数
+	optional int32 silvercardtime = 4; //白银卡到期时间
+	optional int32 silvercardawardstate = 5; //白银卡每日奖励状态
+	optional int32 goldcardtime = 6; //黄金卡到期时间
+	optional int32 goldcardawardstate = 7; //黄金卡每日奖励状态
 }
 
 //兑换记录针对有配置logid的奖品做的记录

@@ -139,7 +139,7 @@ class BuyAccessGamePanel extends BasePanel
 	{
 		if (this._shopInfo && this._shopInfo.definition)
 		{
-			let awardDef: table.IAwardDefine = table.AwardById[this._shopInfo.definition.awardId];
+			let awardDef: table.IAwardDefine = table.AwardById[this._shopInfo.definition.AwardId];
 			if (awardDef)
 			{
 				
@@ -151,7 +151,7 @@ class BuyAccessGamePanel extends BasePanel
 	}
 	private onExchanged(id: number)
 	{
-		if (this._shopInfo && this._shopInfo.definition && this._shopInfo.definition.awardId == id)
+		if (this._shopInfo && this._shopInfo.definition && this._shopInfo.definition.AwardId == id)
 		{
 			AwardManager.OnExchanged.removeListener(this.onExchanged, this);
 			this.onCloseBtnClickHandler(null);
@@ -224,9 +224,9 @@ class BuyAccessGamePanel extends BasePanel
 				let info: ShopInfo = ShopManager.goldList[i];
 				if (info && info.definition)
 				{
-					awardDef = table.AwardById[info.definition.awardId];
-					costList = AwardManager.getCostInfoDefinitionList(info.definition.awardId);
-					rewardList = AwardManager.getAwardInfoDefinitionList(info.definition.awardId);
+					awardDef = table.AwardById[info.definition.AwardId];
+					costList = AwardManager.getCostInfoDefinitionList(info.definition.AwardId);
+					rewardList = AwardManager.getAwardInfoDefinitionList(info.definition.AwardId);
 					if (awardDef && rewardList && goldOffset <= rewardList[0].count || i == ShopManager.goldList.length - 1)
 					{
 						this._shopInfo = info;

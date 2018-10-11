@@ -25,12 +25,12 @@ class AwardStatistics
 			}
 			if (isCostCurrency)
 			{
-				let payList: Array<ShopDefinition> = ShopDefined.GetInstance().dataList;
+				let payList: Array<table.IPayListDefine> = table.PayList;
 				for (let i: number = 0; i < payList.length; i++)
 				{
-					let payDef: ShopDefinition = payList[i];
+					let payDef: table.IPayListDefine = payList[i];
 					if (def && costList != null && costList.length > 0
-						&& rewardList != null && rewardList.length > 0 && payDef.awardId == info.id)
+						&& rewardList != null && rewardList.length > 0 && payDef.AwardId == info.id)
 					{
 						let orderId: string = ChannelUtil.GenerateOrder(info.id, VersionManager.isServerTest);//订单id
 						let price: number = costList[0].count / 100;//消耗的RMB,单位：元

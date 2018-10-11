@@ -58,8 +58,8 @@ class MonthCardItemRenderer extends BaseItemRenderer<ShopInfo>
         super.dataChanged();
         if (InfoUtil.checkAvailable(this.bindData))
         {
-            this.iconImg.source = this.bindData.definition.iconName + ResSuffixName.PNG;
-            this._monthCardDefinition = table.AwardById[this.bindData.definition.awardId];
+            this.iconImg.source = this.bindData.definition.IconName + ResSuffixName.PNG;
+            this._monthCardDefinition = table.AwardById[this.bindData.definition.AwardId];
             if (this._monthCardDefinition)
             {
                 if (this._monthCardDefinition.CostId)
@@ -172,7 +172,7 @@ class MonthCardItemRenderer extends BaseItemRenderer<ShopInfo>
     */
     private getSurplusTime(): number
     {
-        let info: msg.IAwardGetInfo = AwardManager.GetExchangeInfo(this.bindData.definition.awardId);
+        let info: msg.IAwardGetInfo = AwardManager.GetExchangeInfo(this.bindData.definition.AwardId);
         if (info)
         {
             return info.time - TimeManager.GetServerUtcTimestamp();

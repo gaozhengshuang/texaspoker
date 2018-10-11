@@ -78,7 +78,7 @@ class GoldShortagePanel extends BasePanel
     }
     private onExchanged(id: number)
     {
-        if (this._shopInfo && this._shopInfo.definition && this._shopInfo.definition.awardId == id)
+        if (this._shopInfo && this._shopInfo.definition && this._shopInfo.definition.AwardId == id)
         {
             AwardManager.OnExchanged.removeListener(this.onExchanged, this);
             this.onCloseBtnClickHandler(null);
@@ -102,7 +102,7 @@ class GoldShortagePanel extends BasePanel
                 let info: ShopInfo = ShopManager.goldList[i];
                 if (info && info.definition)
                 {
-                    awardDef = table.AwardById[info.definition.awardId];
+                    awardDef = table.AwardById[info.definition.AwardId];
                     if (awardDef && this.panelData.goldShortage <= awardDef.RewardNum[0] || i == ShopManager.goldList.length - 1)
                     {
                         this._shopInfo = info;

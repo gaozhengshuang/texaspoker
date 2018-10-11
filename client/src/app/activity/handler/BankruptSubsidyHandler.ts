@@ -7,13 +7,13 @@ class BankruptSubsidyHandler extends BaseActivitySubHandler<any>
     public initialize(info: ActivityInfo)
     {
         super.initialize(info);
-        let def: BankruptSubsidyDefintion;
+        let def: table.IActivity_bankruptSubsidyDefine;
         let pInfo: BankruptSubsidyInfo;
-        // for (let i: number = 0; i < BankruptSubsidyDefined.GetInstance().dataList.length; i++) //填充子列表信息
-        // {
-        //     def = BankruptSubsidyDefined.GetInstance().dataList[i];
-        //     pInfo = this.addSubInfo(info, BankruptSubsidyInfo, def);
-        // };
+        for (let i: number = 0; i < table.Activity_bankruptSubsidy.length; i++) //填充子列表信息
+        {
+            def = table.Activity_bankruptSubsidy[i];
+            pInfo = this.addSubInfo(info, BankruptSubsidyInfo, def);
+        };
         GamblingManager.SitOrStandEvent.addListener(this.onBust, this);
     }
     /**
@@ -60,7 +60,7 @@ class BankruptSubsidyHandler extends BaseActivitySubHandler<any>
             let subInfo: BankruptSubsidyInfo = this.getSubInfo(activityInfo.id, 1);
             if (subInfo)
             {
-                return subInfo.definition.times - this.getPrizeTimes(activityInfo.id);
+                return subInfo.definition.Times - this.getPrizeTimes(activityInfo.id);
             }
             else
             {
@@ -78,7 +78,7 @@ class BankruptSubsidyHandler extends BaseActivitySubHandler<any>
         if (activityInfo)
         {
             let subInfo = this.getSubInfo(activityInfo.id, 1);
-            if (subInfo && UserManager.userInfo.gold + UserManager.userInfo.safeGold < subInfo.definition.limitGold && this.getLeftPrizeTimes() > 0)
+            if (subInfo && UserManager.userInfo.gold + UserManager.userInfo.safeGold < subInfo.definition.LimitGold && this.getLeftPrizeTimes() > 0)
             {
                 return true;
             }
@@ -122,6 +122,6 @@ class BankruptSubsidyInfo extends BaseActivitySubInfo<any>
     protected trySetDefinition()
     {
         super.trySetDefinition();
-        // this._definition = BankruptSubsidyDefined.GetInstance().getSubDefinition(this._id, this._subId);
+        this._definition = ActivityManager.getSubDefinition(this._id, this._subId, table.Activity_bankruptSubsidy);
     }
 }

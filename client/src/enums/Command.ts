@@ -146,7 +146,7 @@ class Command
     /**
      *被好友删除的通知推送
      */
-    public static readonly GW2C_PushFriendRemove = "msg.GW2C_PushFriendRemove";
+    public static readonly GW2C_PushRemoveFriend = "msg.GW2C_PushRemoveFriend";
     /**
      * 好友在线通知推送
      */

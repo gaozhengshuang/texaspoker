@@ -56,7 +56,7 @@ class BankruptSubsidyInGamePanel extends BaseActivityPanel
             this.leftTimeLabel.text = ActivityManager.bankruptSubsidyHandler.getLeftPrizeTimes().toString();
             if (this._subInfo)
             {
-                this.goldLimitLabel.text = this._subInfo.definition.limitGold.toString();
+                this.goldLimitLabel.text = this._subInfo.definition.LimitGold.toString();
             }
             this.takePrizeBtn.enabled = ActivityManager.bankruptSubsidyHandler.isBankruptSubsidy;
         }
@@ -65,7 +65,7 @@ class BankruptSubsidyInGamePanel extends BaseActivityPanel
 
     private onTakePrize(event: egret.TouchEvent)
     {
-        if (this._subInfo && UserManager.userInfo.gold > this._subInfo.definition.limitGold)
+        if (this._subInfo && UserManager.userInfo.gold > this._subInfo.definition.LimitGold)
         {
             AlertManager.showAlert("您当前拥有的金币大于1000，暂时不可领取救助金！");
             return;
