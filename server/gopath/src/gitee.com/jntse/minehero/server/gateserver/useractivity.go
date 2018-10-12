@@ -21,6 +21,7 @@ func (u *GateUser) OnReqActivityInfo(id int32) {
 	send := &msg.GW2C_RetActivityInfo{}
 	if id == 0 {
 		u.DailySignInfoToMsg(send)
+		u.BankruptcySubsidyInfoToMsg(send)
 	} else {
 		if id == int32(msg.ActivityType_DailySign) {
 			u.DailySignInfoToMsg(send)
@@ -136,6 +137,7 @@ func (u *GateUser) ResetDailySign() {
 //破产补助重置
 func (u *GateUser) ResetBankruptCount() {
 	u.bankruptcount = 0
+	log.Info("RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR")
 }
 
 //签到信息封装消息

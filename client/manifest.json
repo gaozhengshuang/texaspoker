@@ -520,6 +520,7 @@
 		"bin-debug/app/ui/renderer/OutsItemRenderer.js",
 		"bin-debug/app/ui/renderer/PlayingFieldItemRenderer.js",
 		"bin-debug/app/ui/renderer/RankItemRenderer.js",
+		"bin-debug/app/ui/renderer/ServerSelectItemRender.js",
 		"bin-debug/app/ui/renderer/ShareLuckDrawItemRenderer.js",
 		"bin-debug/app/ui/renderer/ShimTaeYoonHelpItemRenderer.js",
 		"bin-debug/app/ui/renderer/ShimTaeYoonItemRenderer.js",

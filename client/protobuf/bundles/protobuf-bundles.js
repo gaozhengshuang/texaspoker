@@ -4498,6 +4498,8 @@ $root.msg = (function() {
          * @property {number|null} [yuanbao] EntityBase yuanbao
          * @property {number|null} [age] EntityBase age
          * @property {string|null} [bio] EntityBase bio
+         * @property {string|null} [sign] EntityBase sign
+         * @property {string|null} [ip] EntityBase ip
          */
 
         /**
@@ -4612,6 +4614,22 @@ $root.msg = (function() {
         EntityBase.prototype.bio = "";
 
         /**
+         * EntityBase sign.
+         * @member {string} sign
+         * @memberof msg.EntityBase
+         * @instance
+         */
+        EntityBase.prototype.sign = "";
+
+        /**
+         * EntityBase ip.
+         * @member {string} ip
+         * @memberof msg.EntityBase
+         * @instance
+         */
+        EntityBase.prototype.ip = "";
+
+        /**
          * Creates a new EntityBase instance using the specified properties.
          * @function create
          * @memberof msg.EntityBase
@@ -4659,6 +4677,10 @@ $root.msg = (function() {
                 writer.uint32(/* id 11, wireType 0 =*/88).int32(message.age);
             if (message.bio != null && message.hasOwnProperty("bio"))
                 writer.uint32(/* id 12, wireType 2 =*/98).string(message.bio);
+            if (message.sign != null && message.hasOwnProperty("sign"))
+                writer.uint32(/* id 13, wireType 2 =*/106).string(message.sign);
+            if (message.ip != null && message.hasOwnProperty("ip"))
+                writer.uint32(/* id 14, wireType 2 =*/114).string(message.ip);
             return writer;
         };
 
@@ -4728,6 +4750,12 @@ $root.msg = (function() {
                     break;
                 case 12:
                     message.bio = reader.string();
+                    break;
+                case 13:
+                    message.sign = reader.string();
+                    break;
+                case 14:
+                    message.ip = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -4800,6 +4828,12 @@ $root.msg = (function() {
             if (message.bio != null && message.hasOwnProperty("bio"))
                 if (!$util.isString(message.bio))
                     return "bio: string expected";
+            if (message.sign != null && message.hasOwnProperty("sign"))
+                if (!$util.isString(message.sign))
+                    return "sign: string expected";
+            if (message.ip != null && message.hasOwnProperty("ip"))
+                if (!$util.isString(message.ip))
+                    return "ip: string expected";
             return null;
         };
 
@@ -4846,6 +4880,10 @@ $root.msg = (function() {
                 message.age = object.age | 0;
             if (object.bio != null)
                 message.bio = String(object.bio);
+            if (object.sign != null)
+                message.sign = String(object.sign);
+            if (object.ip != null)
+                message.ip = String(object.ip);
             return message;
         };
 
@@ -4879,6 +4917,8 @@ $root.msg = (function() {
                 object.yuanbao = 0;
                 object.age = 0;
                 object.bio = "";
+                object.sign = "";
+                object.ip = "";
             }
             if (message.roleid != null && message.hasOwnProperty("roleid"))
                 if (typeof message.roleid === "number")
@@ -4907,6 +4947,10 @@ $root.msg = (function() {
                 object.age = message.age;
             if (message.bio != null && message.hasOwnProperty("bio"))
                 object.bio = message.bio;
+            if (message.sign != null && message.hasOwnProperty("sign"))
+                object.sign = message.sign;
+            if (message.ip != null && message.hasOwnProperty("ip"))
+                object.ip = message.ip;
             return object;
         };
 
@@ -7318,6 +7362,25 @@ $root.msg = (function() {
          * @property {number|null} [continuelogin] UserStatistics continuelogin
          * @property {number|null} [nocountlogin] UserStatistics nocountlogin
          * @property {number|null} [totalrecharge] UserStatistics totalrecharge
+         * @property {number|Long|null} [createdtime] UserStatistics createdtime
+         * @property {number|null} [maxgold] UserStatistics maxgold
+         * @property {number|null} [maxgoldonetimes] UserStatistics maxgoldonetimes
+         * @property {number|null} [friendnum] UserStatistics friendnum
+         * @property {number|null} [gametimes] UserStatistics gametimes
+         * @property {number|null} [wintimes] UserStatistics wintimes
+         * @property {number|null} [entrytimes] UserStatistics entrytimes
+         * @property {number|null} [showdowntimes] UserStatistics showdowntimes
+         * @property {number|null} [gametimes2] UserStatistics gametimes2
+         * @property {number|null} [wintimes2] UserStatistics wintimes2
+         * @property {number|null} [entrytimes2] UserStatistics entrytimes2
+         * @property {number|null} [showdowntimes2] UserStatistics showdowntimes2
+         * @property {number|null} [mttjointimes] UserStatistics mttjointimes
+         * @property {number|null} [mttprizetimes] UserStatistics mttprizetimes
+         * @property {number|null} [championtimes] UserStatistics championtimes
+         * @property {Array.<number>|null} [maxhand] UserStatistics maxhand
+         * @property {number|null} [isoffline] UserStatistics isoffline
+         * @property {number|null} [stateid] UserStatistics stateid
+         * @property {number|null} [stateconfid] UserStatistics stateconfid
          */
 
         /**
@@ -7329,6 +7392,7 @@ $root.msg = (function() {
          * @param {msg.IUserStatistics=} [properties] Properties to set
          */
         function UserStatistics(properties) {
+            this.maxhand = [];
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
@@ -7376,6 +7440,158 @@ $root.msg = (function() {
         UserStatistics.prototype.totalrecharge = 0;
 
         /**
+         * UserStatistics createdtime.
+         * @member {number|Long} createdtime
+         * @memberof msg.UserStatistics
+         * @instance
+         */
+        UserStatistics.prototype.createdtime = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * UserStatistics maxgold.
+         * @member {number} maxgold
+         * @memberof msg.UserStatistics
+         * @instance
+         */
+        UserStatistics.prototype.maxgold = 0;
+
+        /**
+         * UserStatistics maxgoldonetimes.
+         * @member {number} maxgoldonetimes
+         * @memberof msg.UserStatistics
+         * @instance
+         */
+        UserStatistics.prototype.maxgoldonetimes = 0;
+
+        /**
+         * UserStatistics friendnum.
+         * @member {number} friendnum
+         * @memberof msg.UserStatistics
+         * @instance
+         */
+        UserStatistics.prototype.friendnum = 0;
+
+        /**
+         * UserStatistics gametimes.
+         * @member {number} gametimes
+         * @memberof msg.UserStatistics
+         * @instance
+         */
+        UserStatistics.prototype.gametimes = 0;
+
+        /**
+         * UserStatistics wintimes.
+         * @member {number} wintimes
+         * @memberof msg.UserStatistics
+         * @instance
+         */
+        UserStatistics.prototype.wintimes = 0;
+
+        /**
+         * UserStatistics entrytimes.
+         * @member {number} entrytimes
+         * @memberof msg.UserStatistics
+         * @instance
+         */
+        UserStatistics.prototype.entrytimes = 0;
+
+        /**
+         * UserStatistics showdowntimes.
+         * @member {number} showdowntimes
+         * @memberof msg.UserStatistics
+         * @instance
+         */
+        UserStatistics.prototype.showdowntimes = 0;
+
+        /**
+         * UserStatistics gametimes2.
+         * @member {number} gametimes2
+         * @memberof msg.UserStatistics
+         * @instance
+         */
+        UserStatistics.prototype.gametimes2 = 0;
+
+        /**
+         * UserStatistics wintimes2.
+         * @member {number} wintimes2
+         * @memberof msg.UserStatistics
+         * @instance
+         */
+        UserStatistics.prototype.wintimes2 = 0;
+
+        /**
+         * UserStatistics entrytimes2.
+         * @member {number} entrytimes2
+         * @memberof msg.UserStatistics
+         * @instance
+         */
+        UserStatistics.prototype.entrytimes2 = 0;
+
+        /**
+         * UserStatistics showdowntimes2.
+         * @member {number} showdowntimes2
+         * @memberof msg.UserStatistics
+         * @instance
+         */
+        UserStatistics.prototype.showdowntimes2 = 0;
+
+        /**
+         * UserStatistics mttjointimes.
+         * @member {number} mttjointimes
+         * @memberof msg.UserStatistics
+         * @instance
+         */
+        UserStatistics.prototype.mttjointimes = 0;
+
+        /**
+         * UserStatistics mttprizetimes.
+         * @member {number} mttprizetimes
+         * @memberof msg.UserStatistics
+         * @instance
+         */
+        UserStatistics.prototype.mttprizetimes = 0;
+
+        /**
+         * UserStatistics championtimes.
+         * @member {number} championtimes
+         * @memberof msg.UserStatistics
+         * @instance
+         */
+        UserStatistics.prototype.championtimes = 0;
+
+        /**
+         * UserStatistics maxhand.
+         * @member {Array.<number>} maxhand
+         * @memberof msg.UserStatistics
+         * @instance
+         */
+        UserStatistics.prototype.maxhand = $util.emptyArray;
+
+        /**
+         * UserStatistics isoffline.
+         * @member {number} isoffline
+         * @memberof msg.UserStatistics
+         * @instance
+         */
+        UserStatistics.prototype.isoffline = 0;
+
+        /**
+         * UserStatistics stateid.
+         * @member {number} stateid
+         * @memberof msg.UserStatistics
+         * @instance
+         */
+        UserStatistics.prototype.stateid = 0;
+
+        /**
+         * UserStatistics stateconfid.
+         * @member {number} stateconfid
+         * @memberof msg.UserStatistics
+         * @instance
+         */
+        UserStatistics.prototype.stateconfid = 0;
+
+        /**
          * Creates a new UserStatistics instance using the specified properties.
          * @function create
          * @memberof msg.UserStatistics
@@ -7409,6 +7625,45 @@ $root.msg = (function() {
                 writer.uint32(/* id 4, wireType 0 =*/32).int32(message.nocountlogin);
             if (message.totalrecharge != null && message.hasOwnProperty("totalrecharge"))
                 writer.uint32(/* id 5, wireType 0 =*/40).int32(message.totalrecharge);
+            if (message.createdtime != null && message.hasOwnProperty("createdtime"))
+                writer.uint32(/* id 6, wireType 0 =*/48).int64(message.createdtime);
+            if (message.maxgold != null && message.hasOwnProperty("maxgold"))
+                writer.uint32(/* id 7, wireType 0 =*/56).int32(message.maxgold);
+            if (message.maxgoldonetimes != null && message.hasOwnProperty("maxgoldonetimes"))
+                writer.uint32(/* id 8, wireType 0 =*/64).int32(message.maxgoldonetimes);
+            if (message.friendnum != null && message.hasOwnProperty("friendnum"))
+                writer.uint32(/* id 9, wireType 0 =*/72).int32(message.friendnum);
+            if (message.gametimes != null && message.hasOwnProperty("gametimes"))
+                writer.uint32(/* id 10, wireType 0 =*/80).int32(message.gametimes);
+            if (message.wintimes != null && message.hasOwnProperty("wintimes"))
+                writer.uint32(/* id 11, wireType 0 =*/88).int32(message.wintimes);
+            if (message.entrytimes != null && message.hasOwnProperty("entrytimes"))
+                writer.uint32(/* id 12, wireType 0 =*/96).int32(message.entrytimes);
+            if (message.showdowntimes != null && message.hasOwnProperty("showdowntimes"))
+                writer.uint32(/* id 13, wireType 0 =*/104).int32(message.showdowntimes);
+            if (message.gametimes2 != null && message.hasOwnProperty("gametimes2"))
+                writer.uint32(/* id 14, wireType 0 =*/112).int32(message.gametimes2);
+            if (message.wintimes2 != null && message.hasOwnProperty("wintimes2"))
+                writer.uint32(/* id 15, wireType 0 =*/120).int32(message.wintimes2);
+            if (message.entrytimes2 != null && message.hasOwnProperty("entrytimes2"))
+                writer.uint32(/* id 16, wireType 0 =*/128).int32(message.entrytimes2);
+            if (message.showdowntimes2 != null && message.hasOwnProperty("showdowntimes2"))
+                writer.uint32(/* id 17, wireType 0 =*/136).int32(message.showdowntimes2);
+            if (message.mttjointimes != null && message.hasOwnProperty("mttjointimes"))
+                writer.uint32(/* id 18, wireType 0 =*/144).int32(message.mttjointimes);
+            if (message.mttprizetimes != null && message.hasOwnProperty("mttprizetimes"))
+                writer.uint32(/* id 19, wireType 0 =*/152).int32(message.mttprizetimes);
+            if (message.championtimes != null && message.hasOwnProperty("championtimes"))
+                writer.uint32(/* id 20, wireType 0 =*/160).int32(message.championtimes);
+            if (message.maxhand != null && message.maxhand.length)
+                for (var i = 0; i < message.maxhand.length; ++i)
+                    writer.uint32(/* id 21, wireType 0 =*/168).int32(message.maxhand[i]);
+            if (message.isoffline != null && message.hasOwnProperty("isoffline"))
+                writer.uint32(/* id 22, wireType 0 =*/176).int32(message.isoffline);
+            if (message.stateid != null && message.hasOwnProperty("stateid"))
+                writer.uint32(/* id 23, wireType 0 =*/184).int32(message.stateid);
+            if (message.stateconfid != null && message.hasOwnProperty("stateconfid"))
+                writer.uint32(/* id 24, wireType 0 =*/192).int32(message.stateconfid);
             return writer;
         };
 
@@ -7457,6 +7712,70 @@ $root.msg = (function() {
                     break;
                 case 5:
                     message.totalrecharge = reader.int32();
+                    break;
+                case 6:
+                    message.createdtime = reader.int64();
+                    break;
+                case 7:
+                    message.maxgold = reader.int32();
+                    break;
+                case 8:
+                    message.maxgoldonetimes = reader.int32();
+                    break;
+                case 9:
+                    message.friendnum = reader.int32();
+                    break;
+                case 10:
+                    message.gametimes = reader.int32();
+                    break;
+                case 11:
+                    message.wintimes = reader.int32();
+                    break;
+                case 12:
+                    message.entrytimes = reader.int32();
+                    break;
+                case 13:
+                    message.showdowntimes = reader.int32();
+                    break;
+                case 14:
+                    message.gametimes2 = reader.int32();
+                    break;
+                case 15:
+                    message.wintimes2 = reader.int32();
+                    break;
+                case 16:
+                    message.entrytimes2 = reader.int32();
+                    break;
+                case 17:
+                    message.showdowntimes2 = reader.int32();
+                    break;
+                case 18:
+                    message.mttjointimes = reader.int32();
+                    break;
+                case 19:
+                    message.mttprizetimes = reader.int32();
+                    break;
+                case 20:
+                    message.championtimes = reader.int32();
+                    break;
+                case 21:
+                    if (!(message.maxhand && message.maxhand.length))
+                        message.maxhand = [];
+                    if ((tag & 7) === 2) {
+                        var end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2)
+                            message.maxhand.push(reader.int32());
+                    } else
+                        message.maxhand.push(reader.int32());
+                    break;
+                case 22:
+                    message.isoffline = reader.int32();
+                    break;
+                case 23:
+                    message.stateid = reader.int32();
+                    break;
+                case 24:
+                    message.stateconfid = reader.int32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -7508,6 +7827,67 @@ $root.msg = (function() {
             if (message.totalrecharge != null && message.hasOwnProperty("totalrecharge"))
                 if (!$util.isInteger(message.totalrecharge))
                     return "totalrecharge: integer expected";
+            if (message.createdtime != null && message.hasOwnProperty("createdtime"))
+                if (!$util.isInteger(message.createdtime) && !(message.createdtime && $util.isInteger(message.createdtime.low) && $util.isInteger(message.createdtime.high)))
+                    return "createdtime: integer|Long expected";
+            if (message.maxgold != null && message.hasOwnProperty("maxgold"))
+                if (!$util.isInteger(message.maxgold))
+                    return "maxgold: integer expected";
+            if (message.maxgoldonetimes != null && message.hasOwnProperty("maxgoldonetimes"))
+                if (!$util.isInteger(message.maxgoldonetimes))
+                    return "maxgoldonetimes: integer expected";
+            if (message.friendnum != null && message.hasOwnProperty("friendnum"))
+                if (!$util.isInteger(message.friendnum))
+                    return "friendnum: integer expected";
+            if (message.gametimes != null && message.hasOwnProperty("gametimes"))
+                if (!$util.isInteger(message.gametimes))
+                    return "gametimes: integer expected";
+            if (message.wintimes != null && message.hasOwnProperty("wintimes"))
+                if (!$util.isInteger(message.wintimes))
+                    return "wintimes: integer expected";
+            if (message.entrytimes != null && message.hasOwnProperty("entrytimes"))
+                if (!$util.isInteger(message.entrytimes))
+                    return "entrytimes: integer expected";
+            if (message.showdowntimes != null && message.hasOwnProperty("showdowntimes"))
+                if (!$util.isInteger(message.showdowntimes))
+                    return "showdowntimes: integer expected";
+            if (message.gametimes2 != null && message.hasOwnProperty("gametimes2"))
+                if (!$util.isInteger(message.gametimes2))
+                    return "gametimes2: integer expected";
+            if (message.wintimes2 != null && message.hasOwnProperty("wintimes2"))
+                if (!$util.isInteger(message.wintimes2))
+                    return "wintimes2: integer expected";
+            if (message.entrytimes2 != null && message.hasOwnProperty("entrytimes2"))
+                if (!$util.isInteger(message.entrytimes2))
+                    return "entrytimes2: integer expected";
+            if (message.showdowntimes2 != null && message.hasOwnProperty("showdowntimes2"))
+                if (!$util.isInteger(message.showdowntimes2))
+                    return "showdowntimes2: integer expected";
+            if (message.mttjointimes != null && message.hasOwnProperty("mttjointimes"))
+                if (!$util.isInteger(message.mttjointimes))
+                    return "mttjointimes: integer expected";
+            if (message.mttprizetimes != null && message.hasOwnProperty("mttprizetimes"))
+                if (!$util.isInteger(message.mttprizetimes))
+                    return "mttprizetimes: integer expected";
+            if (message.championtimes != null && message.hasOwnProperty("championtimes"))
+                if (!$util.isInteger(message.championtimes))
+                    return "championtimes: integer expected";
+            if (message.maxhand != null && message.hasOwnProperty("maxhand")) {
+                if (!Array.isArray(message.maxhand))
+                    return "maxhand: array expected";
+                for (var i = 0; i < message.maxhand.length; ++i)
+                    if (!$util.isInteger(message.maxhand[i]))
+                        return "maxhand: integer[] expected";
+            }
+            if (message.isoffline != null && message.hasOwnProperty("isoffline"))
+                if (!$util.isInteger(message.isoffline))
+                    return "isoffline: integer expected";
+            if (message.stateid != null && message.hasOwnProperty("stateid"))
+                if (!$util.isInteger(message.stateid))
+                    return "stateid: integer expected";
+            if (message.stateconfid != null && message.hasOwnProperty("stateconfid"))
+                if (!$util.isInteger(message.stateconfid))
+                    return "stateconfid: integer expected";
             return null;
         };
 
@@ -7547,6 +7927,56 @@ $root.msg = (function() {
                 message.nocountlogin = object.nocountlogin | 0;
             if (object.totalrecharge != null)
                 message.totalrecharge = object.totalrecharge | 0;
+            if (object.createdtime != null)
+                if ($util.Long)
+                    (message.createdtime = $util.Long.fromValue(object.createdtime)).unsigned = false;
+                else if (typeof object.createdtime === "string")
+                    message.createdtime = parseInt(object.createdtime, 10);
+                else if (typeof object.createdtime === "number")
+                    message.createdtime = object.createdtime;
+                else if (typeof object.createdtime === "object")
+                    message.createdtime = new $util.LongBits(object.createdtime.low >>> 0, object.createdtime.high >>> 0).toNumber();
+            if (object.maxgold != null)
+                message.maxgold = object.maxgold | 0;
+            if (object.maxgoldonetimes != null)
+                message.maxgoldonetimes = object.maxgoldonetimes | 0;
+            if (object.friendnum != null)
+                message.friendnum = object.friendnum | 0;
+            if (object.gametimes != null)
+                message.gametimes = object.gametimes | 0;
+            if (object.wintimes != null)
+                message.wintimes = object.wintimes | 0;
+            if (object.entrytimes != null)
+                message.entrytimes = object.entrytimes | 0;
+            if (object.showdowntimes != null)
+                message.showdowntimes = object.showdowntimes | 0;
+            if (object.gametimes2 != null)
+                message.gametimes2 = object.gametimes2 | 0;
+            if (object.wintimes2 != null)
+                message.wintimes2 = object.wintimes2 | 0;
+            if (object.entrytimes2 != null)
+                message.entrytimes2 = object.entrytimes2 | 0;
+            if (object.showdowntimes2 != null)
+                message.showdowntimes2 = object.showdowntimes2 | 0;
+            if (object.mttjointimes != null)
+                message.mttjointimes = object.mttjointimes | 0;
+            if (object.mttprizetimes != null)
+                message.mttprizetimes = object.mttprizetimes | 0;
+            if (object.championtimes != null)
+                message.championtimes = object.championtimes | 0;
+            if (object.maxhand) {
+                if (!Array.isArray(object.maxhand))
+                    throw TypeError(".msg.UserStatistics.maxhand: array expected");
+                message.maxhand = [];
+                for (var i = 0; i < object.maxhand.length; ++i)
+                    message.maxhand[i] = object.maxhand[i] | 0;
+            }
+            if (object.isoffline != null)
+                message.isoffline = object.isoffline | 0;
+            if (object.stateid != null)
+                message.stateid = object.stateid | 0;
+            if (object.stateconfid != null)
+                message.stateconfid = object.stateconfid | 0;
             return message;
         };
 
@@ -7563,6 +7993,8 @@ $root.msg = (function() {
             if (!options)
                 options = {};
             var object = {};
+            if (options.arrays || options.defaults)
+                object.maxhand = [];
             if (options.defaults) {
                 if ($util.Long) {
                     var long = new $util.Long(0, 0, false);
@@ -7577,6 +8009,28 @@ $root.msg = (function() {
                 object.continuelogin = 0;
                 object.nocountlogin = 0;
                 object.totalrecharge = 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.createdtime = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.createdtime = options.longs === String ? "0" : 0;
+                object.maxgold = 0;
+                object.maxgoldonetimes = 0;
+                object.friendnum = 0;
+                object.gametimes = 0;
+                object.wintimes = 0;
+                object.entrytimes = 0;
+                object.showdowntimes = 0;
+                object.gametimes2 = 0;
+                object.wintimes2 = 0;
+                object.entrytimes2 = 0;
+                object.showdowntimes2 = 0;
+                object.mttjointimes = 0;
+                object.mttprizetimes = 0;
+                object.championtimes = 0;
+                object.isoffline = 0;
+                object.stateid = 0;
+                object.stateconfid = 0;
             }
             if (message.tmlogin != null && message.hasOwnProperty("tmlogin"))
                 if (typeof message.tmlogin === "number")
@@ -7594,6 +8048,50 @@ $root.msg = (function() {
                 object.nocountlogin = message.nocountlogin;
             if (message.totalrecharge != null && message.hasOwnProperty("totalrecharge"))
                 object.totalrecharge = message.totalrecharge;
+            if (message.createdtime != null && message.hasOwnProperty("createdtime"))
+                if (typeof message.createdtime === "number")
+                    object.createdtime = options.longs === String ? String(message.createdtime) : message.createdtime;
+                else
+                    object.createdtime = options.longs === String ? $util.Long.prototype.toString.call(message.createdtime) : options.longs === Number ? new $util.LongBits(message.createdtime.low >>> 0, message.createdtime.high >>> 0).toNumber() : message.createdtime;
+            if (message.maxgold != null && message.hasOwnProperty("maxgold"))
+                object.maxgold = message.maxgold;
+            if (message.maxgoldonetimes != null && message.hasOwnProperty("maxgoldonetimes"))
+                object.maxgoldonetimes = message.maxgoldonetimes;
+            if (message.friendnum != null && message.hasOwnProperty("friendnum"))
+                object.friendnum = message.friendnum;
+            if (message.gametimes != null && message.hasOwnProperty("gametimes"))
+                object.gametimes = message.gametimes;
+            if (message.wintimes != null && message.hasOwnProperty("wintimes"))
+                object.wintimes = message.wintimes;
+            if (message.entrytimes != null && message.hasOwnProperty("entrytimes"))
+                object.entrytimes = message.entrytimes;
+            if (message.showdowntimes != null && message.hasOwnProperty("showdowntimes"))
+                object.showdowntimes = message.showdowntimes;
+            if (message.gametimes2 != null && message.hasOwnProperty("gametimes2"))
+                object.gametimes2 = message.gametimes2;
+            if (message.wintimes2 != null && message.hasOwnProperty("wintimes2"))
+                object.wintimes2 = message.wintimes2;
+            if (message.entrytimes2 != null && message.hasOwnProperty("entrytimes2"))
+                object.entrytimes2 = message.entrytimes2;
+            if (message.showdowntimes2 != null && message.hasOwnProperty("showdowntimes2"))
+                object.showdowntimes2 = message.showdowntimes2;
+            if (message.mttjointimes != null && message.hasOwnProperty("mttjointimes"))
+                object.mttjointimes = message.mttjointimes;
+            if (message.mttprizetimes != null && message.hasOwnProperty("mttprizetimes"))
+                object.mttprizetimes = message.mttprizetimes;
+            if (message.championtimes != null && message.hasOwnProperty("championtimes"))
+                object.championtimes = message.championtimes;
+            if (message.maxhand && message.maxhand.length) {
+                object.maxhand = [];
+                for (var j = 0; j < message.maxhand.length; ++j)
+                    object.maxhand[j] = message.maxhand[j];
+            }
+            if (message.isoffline != null && message.hasOwnProperty("isoffline"))
+                object.isoffline = message.isoffline;
+            if (message.stateid != null && message.hasOwnProperty("stateid"))
+                object.stateid = message.stateid;
+            if (message.stateconfid != null && message.hasOwnProperty("stateconfid"))
+                object.stateconfid = message.stateconfid;
             return object;
         };
 
@@ -7609,6 +8107,260 @@ $root.msg = (function() {
         };
 
         return UserStatistics;
+    })();
+
+    msg.UserVip = (function() {
+
+        /**
+         * Properties of a UserVip.
+         * @memberof msg
+         * @interface IUserVip
+         * @property {number|null} [vipexp] UserVip vipexp
+         * @property {number|null} [viptime] UserVip viptime
+         * @property {number|null} [yearviptime] UserVip yearviptime
+         * @property {number|null} [viplevel] UserVip viplevel
+         */
+
+        /**
+         * Constructs a new UserVip.
+         * @memberof msg
+         * @classdesc Represents a UserVip.
+         * @implements IUserVip
+         * @constructor
+         * @param {msg.IUserVip=} [properties] Properties to set
+         */
+        function UserVip(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * UserVip vipexp.
+         * @member {number} vipexp
+         * @memberof msg.UserVip
+         * @instance
+         */
+        UserVip.prototype.vipexp = 0;
+
+        /**
+         * UserVip viptime.
+         * @member {number} viptime
+         * @memberof msg.UserVip
+         * @instance
+         */
+        UserVip.prototype.viptime = 0;
+
+        /**
+         * UserVip yearviptime.
+         * @member {number} yearviptime
+         * @memberof msg.UserVip
+         * @instance
+         */
+        UserVip.prototype.yearviptime = 0;
+
+        /**
+         * UserVip viplevel.
+         * @member {number} viplevel
+         * @memberof msg.UserVip
+         * @instance
+         */
+        UserVip.prototype.viplevel = 0;
+
+        /**
+         * Creates a new UserVip instance using the specified properties.
+         * @function create
+         * @memberof msg.UserVip
+         * @static
+         * @param {msg.IUserVip=} [properties] Properties to set
+         * @returns {msg.UserVip} UserVip instance
+         */
+        UserVip.create = function create(properties) {
+            return new UserVip(properties);
+        };
+
+        /**
+         * Encodes the specified UserVip message. Does not implicitly {@link msg.UserVip.verify|verify} messages.
+         * @function encode
+         * @memberof msg.UserVip
+         * @static
+         * @param {msg.IUserVip} message UserVip message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        UserVip.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.vipexp != null && message.hasOwnProperty("vipexp"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.vipexp);
+            if (message.viptime != null && message.hasOwnProperty("viptime"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.viptime);
+            if (message.yearviptime != null && message.hasOwnProperty("yearviptime"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.yearviptime);
+            if (message.viplevel != null && message.hasOwnProperty("viplevel"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.viplevel);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified UserVip message, length delimited. Does not implicitly {@link msg.UserVip.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.UserVip
+         * @static
+         * @param {msg.IUserVip} message UserVip message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        UserVip.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a UserVip message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.UserVip
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.UserVip} UserVip
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        UserVip.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.UserVip();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.vipexp = reader.int32();
+                    break;
+                case 2:
+                    message.viptime = reader.int32();
+                    break;
+                case 3:
+                    message.yearviptime = reader.int32();
+                    break;
+                case 4:
+                    message.viplevel = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a UserVip message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.UserVip
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.UserVip} UserVip
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        UserVip.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a UserVip message.
+         * @function verify
+         * @memberof msg.UserVip
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        UserVip.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.vipexp != null && message.hasOwnProperty("vipexp"))
+                if (!$util.isInteger(message.vipexp))
+                    return "vipexp: integer expected";
+            if (message.viptime != null && message.hasOwnProperty("viptime"))
+                if (!$util.isInteger(message.viptime))
+                    return "viptime: integer expected";
+            if (message.yearviptime != null && message.hasOwnProperty("yearviptime"))
+                if (!$util.isInteger(message.yearviptime))
+                    return "yearviptime: integer expected";
+            if (message.viplevel != null && message.hasOwnProperty("viplevel"))
+                if (!$util.isInteger(message.viplevel))
+                    return "viplevel: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a UserVip message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.UserVip
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.UserVip} UserVip
+         */
+        UserVip.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.UserVip)
+                return object;
+            var message = new $root.msg.UserVip();
+            if (object.vipexp != null)
+                message.vipexp = object.vipexp | 0;
+            if (object.viptime != null)
+                message.viptime = object.viptime | 0;
+            if (object.yearviptime != null)
+                message.yearviptime = object.yearviptime | 0;
+            if (object.viplevel != null)
+                message.viplevel = object.viplevel | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a UserVip message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.UserVip
+         * @static
+         * @param {msg.UserVip} message UserVip
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        UserVip.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.vipexp = 0;
+                object.viptime = 0;
+                object.yearviptime = 0;
+                object.viplevel = 0;
+            }
+            if (message.vipexp != null && message.hasOwnProperty("vipexp"))
+                object.vipexp = message.vipexp;
+            if (message.viptime != null && message.hasOwnProperty("viptime"))
+                object.viptime = message.viptime;
+            if (message.yearviptime != null && message.hasOwnProperty("yearviptime"))
+                object.yearviptime = message.yearviptime;
+            if (message.viplevel != null && message.hasOwnProperty("viplevel"))
+                object.viplevel = message.viplevel;
+            return object;
+        };
+
+        /**
+         * Converts this UserVip to JSON.
+         * @function toJSON
+         * @memberof msg.UserVip
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        UserVip.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return UserVip;
     })();
 
     msg.UserMiscData = (function() {
@@ -8413,6 +9165,7 @@ $root.msg = (function() {
          * @property {msg.IAutoResetValues|null} [arvalues] UserBase arvalues
          * @property {Array.<msg.IAwardRecord>|null} [awardrecord] UserBase awardrecord
          * @property {Array.<msg.IAwardGetInfo>|null} [awardgetinfo] UserBase awardgetinfo
+         * @property {msg.IUserVip|null} [vip] UserBase vip
          */
 
         /**
@@ -8530,6 +9283,14 @@ $root.msg = (function() {
         UserBase.prototype.awardgetinfo = $util.emptyArray;
 
         /**
+         * UserBase vip.
+         * @member {msg.IUserVip|null|undefined} vip
+         * @memberof msg.UserBase
+         * @instance
+         */
+        UserBase.prototype.vip = null;
+
+        /**
          * Creates a new UserBase instance using the specified properties.
          * @function create
          * @memberof msg.UserBase
@@ -8580,6 +9341,8 @@ $root.msg = (function() {
             if (message.awardgetinfo != null && message.awardgetinfo.length)
                 for (var i = 0; i < message.awardgetinfo.length; ++i)
                     $root.msg.AwardGetInfo.encode(message.awardgetinfo[i], writer.uint32(/* id 12, wireType 2 =*/98).fork()).ldelim();
+            if (message.vip != null && message.hasOwnProperty("vip"))
+                $root.msg.UserVip.encode(message.vip, writer.uint32(/* id 13, wireType 2 =*/106).fork()).ldelim();
             return writer;
         };
 
@@ -8655,6 +9418,9 @@ $root.msg = (function() {
                     if (!(message.awardgetinfo && message.awardgetinfo.length))
                         message.awardgetinfo = [];
                     message.awardgetinfo.push($root.msg.AwardGetInfo.decode(reader, reader.uint32()));
+                    break;
+                case 13:
+                    message.vip = $root.msg.UserVip.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -8763,6 +9529,11 @@ $root.msg = (function() {
                         return "awardgetinfo." + error;
                 }
             }
+            if (message.vip != null && message.hasOwnProperty("vip")) {
+                var error = $root.msg.UserVip.verify(message.vip);
+                if (error)
+                    return "vip." + error;
+            }
             return null;
         };
 
@@ -8853,6 +9624,11 @@ $root.msg = (function() {
                     message.awardgetinfo[i] = $root.msg.AwardGetInfo.fromObject(object.awardgetinfo[i]);
                 }
             }
+            if (object.vip != null) {
+                if (typeof object.vip !== "object")
+                    throw TypeError(".msg.UserBase.vip: object expected");
+                message.vip = $root.msg.UserVip.fromObject(object.vip);
+            }
             return message;
         };
 
@@ -8884,6 +9660,7 @@ $root.msg = (function() {
                 object.luckydraw = null;
                 object.mapevent = null;
                 object.arvalues = null;
+                object.vip = null;
             }
             if (message.misc != null && message.hasOwnProperty("misc"))
                 object.misc = $root.msg.UserMiscData.toObject(message.misc, options);
@@ -8918,6 +9695,8 @@ $root.msg = (function() {
                 for (var j = 0; j < message.awardgetinfo.length; ++j)
                     object.awardgetinfo[j] = $root.msg.AwardGetInfo.toObject(message.awardgetinfo[j], options);
             }
+            if (message.vip != null && message.hasOwnProperty("vip"))
+                object.vip = $root.msg.UserVip.toObject(message.vip, options);
             return object;
         };
 
@@ -9852,6 +10631,193 @@ $root.msg = (function() {
         };
 
         return Serialize;
+    })();
+
+    msg.GateSerialize = (function() {
+
+        /**
+         * Properties of a GateSerialize.
+         * @memberof msg
+         * @interface IGateSerialize
+         * @property {number|null} [bankruptcount] GateSerialize bankruptcount
+         */
+
+        /**
+         * Constructs a new GateSerialize.
+         * @memberof msg
+         * @classdesc Represents a GateSerialize.
+         * @implements IGateSerialize
+         * @constructor
+         * @param {msg.IGateSerialize=} [properties] Properties to set
+         */
+        function GateSerialize(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GateSerialize bankruptcount.
+         * @member {number} bankruptcount
+         * @memberof msg.GateSerialize
+         * @instance
+         */
+        GateSerialize.prototype.bankruptcount = 0;
+
+        /**
+         * Creates a new GateSerialize instance using the specified properties.
+         * @function create
+         * @memberof msg.GateSerialize
+         * @static
+         * @param {msg.IGateSerialize=} [properties] Properties to set
+         * @returns {msg.GateSerialize} GateSerialize instance
+         */
+        GateSerialize.create = function create(properties) {
+            return new GateSerialize(properties);
+        };
+
+        /**
+         * Encodes the specified GateSerialize message. Does not implicitly {@link msg.GateSerialize.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GateSerialize
+         * @static
+         * @param {msg.IGateSerialize} message GateSerialize message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GateSerialize.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.bankruptcount != null && message.hasOwnProperty("bankruptcount"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.bankruptcount);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GateSerialize message, length delimited. Does not implicitly {@link msg.GateSerialize.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GateSerialize
+         * @static
+         * @param {msg.IGateSerialize} message GateSerialize message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GateSerialize.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GateSerialize message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GateSerialize
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GateSerialize} GateSerialize
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GateSerialize.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GateSerialize();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.bankruptcount = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GateSerialize message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GateSerialize
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GateSerialize} GateSerialize
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GateSerialize.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GateSerialize message.
+         * @function verify
+         * @memberof msg.GateSerialize
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GateSerialize.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.bankruptcount != null && message.hasOwnProperty("bankruptcount"))
+                if (!$util.isInteger(message.bankruptcount))
+                    return "bankruptcount: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a GateSerialize message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GateSerialize
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GateSerialize} GateSerialize
+         */
+        GateSerialize.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GateSerialize)
+                return object;
+            var message = new $root.msg.GateSerialize();
+            if (object.bankruptcount != null)
+                message.bankruptcount = object.bankruptcount | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GateSerialize message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GateSerialize
+         * @static
+         * @param {msg.GateSerialize} message GateSerialize
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GateSerialize.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.bankruptcount = 0;
+            if (message.bankruptcount != null && message.hasOwnProperty("bankruptcount"))
+                object.bankruptcount = message.bankruptcount;
+            return object;
+        };
+
+        /**
+         * Converts this GateSerialize to JSON.
+         * @function toJSON
+         * @memberof msg.GateSerialize
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GateSerialize.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GateSerialize;
     })();
 
     msg.AutoResetValue = (function() {
@@ -28288,6 +29254,512 @@ $root.msg = (function() {
         };
 
         return C2GW_SendWechatAuthCode;
+    })();
+
+    msg.C2GW_ReqPlayerRoleInfo = (function() {
+
+        /**
+         * Properties of a C2GW_ReqPlayerRoleInfo.
+         * @memberof msg
+         * @interface IC2GW_ReqPlayerRoleInfo
+         * @property {number|Long|null} [roleid] C2GW_ReqPlayerRoleInfo roleid
+         */
+
+        /**
+         * Constructs a new C2GW_ReqPlayerRoleInfo.
+         * @memberof msg
+         * @classdesc Represents a C2GW_ReqPlayerRoleInfo.
+         * @implements IC2GW_ReqPlayerRoleInfo
+         * @constructor
+         * @param {msg.IC2GW_ReqPlayerRoleInfo=} [properties] Properties to set
+         */
+        function C2GW_ReqPlayerRoleInfo(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_ReqPlayerRoleInfo roleid.
+         * @member {number|Long} roleid
+         * @memberof msg.C2GW_ReqPlayerRoleInfo
+         * @instance
+         */
+        C2GW_ReqPlayerRoleInfo.prototype.roleid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * Creates a new C2GW_ReqPlayerRoleInfo instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_ReqPlayerRoleInfo
+         * @static
+         * @param {msg.IC2GW_ReqPlayerRoleInfo=} [properties] Properties to set
+         * @returns {msg.C2GW_ReqPlayerRoleInfo} C2GW_ReqPlayerRoleInfo instance
+         */
+        C2GW_ReqPlayerRoleInfo.create = function create(properties) {
+            return new C2GW_ReqPlayerRoleInfo(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqPlayerRoleInfo message. Does not implicitly {@link msg.C2GW_ReqPlayerRoleInfo.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_ReqPlayerRoleInfo
+         * @static
+         * @param {msg.IC2GW_ReqPlayerRoleInfo} message C2GW_ReqPlayerRoleInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqPlayerRoleInfo.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.roleid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqPlayerRoleInfo message, length delimited. Does not implicitly {@link msg.C2GW_ReqPlayerRoleInfo.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_ReqPlayerRoleInfo
+         * @static
+         * @param {msg.IC2GW_ReqPlayerRoleInfo} message C2GW_ReqPlayerRoleInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqPlayerRoleInfo.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_ReqPlayerRoleInfo message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_ReqPlayerRoleInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_ReqPlayerRoleInfo} C2GW_ReqPlayerRoleInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqPlayerRoleInfo.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqPlayerRoleInfo();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.roleid = reader.int64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_ReqPlayerRoleInfo message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_ReqPlayerRoleInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_ReqPlayerRoleInfo} C2GW_ReqPlayerRoleInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqPlayerRoleInfo.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_ReqPlayerRoleInfo message.
+         * @function verify
+         * @memberof msg.C2GW_ReqPlayerRoleInfo
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_ReqPlayerRoleInfo.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                if (!$util.isInteger(message.roleid) && !(message.roleid && $util.isInteger(message.roleid.low) && $util.isInteger(message.roleid.high)))
+                    return "roleid: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_ReqPlayerRoleInfo message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_ReqPlayerRoleInfo
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_ReqPlayerRoleInfo} C2GW_ReqPlayerRoleInfo
+         */
+        C2GW_ReqPlayerRoleInfo.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_ReqPlayerRoleInfo)
+                return object;
+            var message = new $root.msg.C2GW_ReqPlayerRoleInfo();
+            if (object.roleid != null)
+                if ($util.Long)
+                    (message.roleid = $util.Long.fromValue(object.roleid)).unsigned = false;
+                else if (typeof object.roleid === "string")
+                    message.roleid = parseInt(object.roleid, 10);
+                else if (typeof object.roleid === "number")
+                    message.roleid = object.roleid;
+                else if (typeof object.roleid === "object")
+                    message.roleid = new $util.LongBits(object.roleid.low >>> 0, object.roleid.high >>> 0).toNumber();
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_ReqPlayerRoleInfo message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_ReqPlayerRoleInfo
+         * @static
+         * @param {msg.C2GW_ReqPlayerRoleInfo} message C2GW_ReqPlayerRoleInfo
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_ReqPlayerRoleInfo.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.roleid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.roleid = options.longs === String ? "0" : 0;
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                if (typeof message.roleid === "number")
+                    object.roleid = options.longs === String ? String(message.roleid) : message.roleid;
+                else
+                    object.roleid = options.longs === String ? $util.Long.prototype.toString.call(message.roleid) : options.longs === Number ? new $util.LongBits(message.roleid.low >>> 0, message.roleid.high >>> 0).toNumber() : message.roleid;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_ReqPlayerRoleInfo to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_ReqPlayerRoleInfo
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_ReqPlayerRoleInfo.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_ReqPlayerRoleInfo;
+    })();
+
+    msg.GW2C_RetPlayerRoleInfo = (function() {
+
+        /**
+         * Properties of a GW2C_RetPlayerRoleInfo.
+         * @memberof msg
+         * @interface IGW2C_RetPlayerRoleInfo
+         * @property {number|Long|null} [roleid] GW2C_RetPlayerRoleInfo roleid
+         * @property {string|null} [errcode] GW2C_RetPlayerRoleInfo errcode
+         * @property {msg.IEntityBase|null} [entity] GW2C_RetPlayerRoleInfo entity
+         * @property {msg.IUserVip|null} [vip] GW2C_RetPlayerRoleInfo vip
+         * @property {msg.IUserStatistics|null} [statistics] GW2C_RetPlayerRoleInfo statistics
+         */
+
+        /**
+         * Constructs a new GW2C_RetPlayerRoleInfo.
+         * @memberof msg
+         * @classdesc Represents a GW2C_RetPlayerRoleInfo.
+         * @implements IGW2C_RetPlayerRoleInfo
+         * @constructor
+         * @param {msg.IGW2C_RetPlayerRoleInfo=} [properties] Properties to set
+         */
+        function GW2C_RetPlayerRoleInfo(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_RetPlayerRoleInfo roleid.
+         * @member {number|Long} roleid
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.roleid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * GW2C_RetPlayerRoleInfo errcode.
+         * @member {string} errcode
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.errcode = "";
+
+        /**
+         * GW2C_RetPlayerRoleInfo entity.
+         * @member {msg.IEntityBase|null|undefined} entity
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.entity = null;
+
+        /**
+         * GW2C_RetPlayerRoleInfo vip.
+         * @member {msg.IUserVip|null|undefined} vip
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.vip = null;
+
+        /**
+         * GW2C_RetPlayerRoleInfo statistics.
+         * @member {msg.IUserStatistics|null|undefined} statistics
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.statistics = null;
+
+        /**
+         * Creates a new GW2C_RetPlayerRoleInfo instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @static
+         * @param {msg.IGW2C_RetPlayerRoleInfo=} [properties] Properties to set
+         * @returns {msg.GW2C_RetPlayerRoleInfo} GW2C_RetPlayerRoleInfo instance
+         */
+        GW2C_RetPlayerRoleInfo.create = function create(properties) {
+            return new GW2C_RetPlayerRoleInfo(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_RetPlayerRoleInfo message. Does not implicitly {@link msg.GW2C_RetPlayerRoleInfo.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @static
+         * @param {msg.IGW2C_RetPlayerRoleInfo} message GW2C_RetPlayerRoleInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetPlayerRoleInfo.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.roleid);
+            if (message.errcode != null && message.hasOwnProperty("errcode"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.errcode);
+            if (message.entity != null && message.hasOwnProperty("entity"))
+                $root.msg.EntityBase.encode(message.entity, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+            if (message.vip != null && message.hasOwnProperty("vip"))
+                $root.msg.UserVip.encode(message.vip, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+            if (message.statistics != null && message.hasOwnProperty("statistics"))
+                $root.msg.UserStatistics.encode(message.statistics, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_RetPlayerRoleInfo message, length delimited. Does not implicitly {@link msg.GW2C_RetPlayerRoleInfo.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @static
+         * @param {msg.IGW2C_RetPlayerRoleInfo} message GW2C_RetPlayerRoleInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetPlayerRoleInfo.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_RetPlayerRoleInfo message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_RetPlayerRoleInfo} GW2C_RetPlayerRoleInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetPlayerRoleInfo.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RetPlayerRoleInfo();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.roleid = reader.int64();
+                    break;
+                case 2:
+                    message.errcode = reader.string();
+                    break;
+                case 3:
+                    message.entity = $root.msg.EntityBase.decode(reader, reader.uint32());
+                    break;
+                case 4:
+                    message.vip = $root.msg.UserVip.decode(reader, reader.uint32());
+                    break;
+                case 5:
+                    message.statistics = $root.msg.UserStatistics.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_RetPlayerRoleInfo message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_RetPlayerRoleInfo} GW2C_RetPlayerRoleInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetPlayerRoleInfo.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_RetPlayerRoleInfo message.
+         * @function verify
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_RetPlayerRoleInfo.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                if (!$util.isInteger(message.roleid) && !(message.roleid && $util.isInteger(message.roleid.low) && $util.isInteger(message.roleid.high)))
+                    return "roleid: integer|Long expected";
+            if (message.errcode != null && message.hasOwnProperty("errcode"))
+                if (!$util.isString(message.errcode))
+                    return "errcode: string expected";
+            if (message.entity != null && message.hasOwnProperty("entity")) {
+                var error = $root.msg.EntityBase.verify(message.entity);
+                if (error)
+                    return "entity." + error;
+            }
+            if (message.vip != null && message.hasOwnProperty("vip")) {
+                var error = $root.msg.UserVip.verify(message.vip);
+                if (error)
+                    return "vip." + error;
+            }
+            if (message.statistics != null && message.hasOwnProperty("statistics")) {
+                var error = $root.msg.UserStatistics.verify(message.statistics);
+                if (error)
+                    return "statistics." + error;
+            }
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_RetPlayerRoleInfo message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_RetPlayerRoleInfo} GW2C_RetPlayerRoleInfo
+         */
+        GW2C_RetPlayerRoleInfo.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_RetPlayerRoleInfo)
+                return object;
+            var message = new $root.msg.GW2C_RetPlayerRoleInfo();
+            if (object.roleid != null)
+                if ($util.Long)
+                    (message.roleid = $util.Long.fromValue(object.roleid)).unsigned = false;
+                else if (typeof object.roleid === "string")
+                    message.roleid = parseInt(object.roleid, 10);
+                else if (typeof object.roleid === "number")
+                    message.roleid = object.roleid;
+                else if (typeof object.roleid === "object")
+                    message.roleid = new $util.LongBits(object.roleid.low >>> 0, object.roleid.high >>> 0).toNumber();
+            if (object.errcode != null)
+                message.errcode = String(object.errcode);
+            if (object.entity != null) {
+                if (typeof object.entity !== "object")
+                    throw TypeError(".msg.GW2C_RetPlayerRoleInfo.entity: object expected");
+                message.entity = $root.msg.EntityBase.fromObject(object.entity);
+            }
+            if (object.vip != null) {
+                if (typeof object.vip !== "object")
+                    throw TypeError(".msg.GW2C_RetPlayerRoleInfo.vip: object expected");
+                message.vip = $root.msg.UserVip.fromObject(object.vip);
+            }
+            if (object.statistics != null) {
+                if (typeof object.statistics !== "object")
+                    throw TypeError(".msg.GW2C_RetPlayerRoleInfo.statistics: object expected");
+                message.statistics = $root.msg.UserStatistics.fromObject(object.statistics);
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_RetPlayerRoleInfo message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @static
+         * @param {msg.GW2C_RetPlayerRoleInfo} message GW2C_RetPlayerRoleInfo
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_RetPlayerRoleInfo.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.roleid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.roleid = options.longs === String ? "0" : 0;
+                object.errcode = "";
+                object.entity = null;
+                object.vip = null;
+                object.statistics = null;
+            }
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                if (typeof message.roleid === "number")
+                    object.roleid = options.longs === String ? String(message.roleid) : message.roleid;
+                else
+                    object.roleid = options.longs === String ? $util.Long.prototype.toString.call(message.roleid) : options.longs === Number ? new $util.LongBits(message.roleid.low >>> 0, message.roleid.high >>> 0).toNumber() : message.roleid;
+            if (message.errcode != null && message.hasOwnProperty("errcode"))
+                object.errcode = message.errcode;
+            if (message.entity != null && message.hasOwnProperty("entity"))
+                object.entity = $root.msg.EntityBase.toObject(message.entity, options);
+            if (message.vip != null && message.hasOwnProperty("vip"))
+                object.vip = $root.msg.UserVip.toObject(message.vip, options);
+            if (message.statistics != null && message.hasOwnProperty("statistics"))
+                object.statistics = $root.msg.UserStatistics.toObject(message.statistics, options);
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_RetPlayerRoleInfo to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_RetPlayerRoleInfo.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_RetPlayerRoleInfo;
     })();
 
     msg.C2RS_ReqFriendGetRoleInfo = (function() {

@@ -60,6 +60,19 @@ message C2GW_SendWechatAuthCode {
     optional string code = 1;
 }
 
+//请求个人你信息
+message C2GW_ReqPlayerRoleInfo
+{
+    optional int64 roleid = 1;
+}
+message GW2C_RetPlayerRoleInfo
+{
+    optional int64 roleid = 1;
+    optional string errcode = 2;
+    optional msg.EntityBase entity = 3;
+    optional msg.UserVip vip = 4;
+    optional msg.UserStatistics statistics = 5;
+}
 
 //请求个人数据
 message C2RS_ReqFriendGetRoleInfo
@@ -77,9 +90,9 @@ message RS2C_RetFriendGetRoleInfo
     optional int32 sex = 6;
     optional int32 level = 7;
     optional int32 exp = 8;
-    optional string ip = 9;
-    optional string sign = 10;
-    optional int32 age = 11;
+    optional string ip = 9;                     //none
+    optional string sign = 10;                  //none
+    optional int32 age = 11;                    //none
     optional int32 maxgold = 12;
     optional int32 maxgoldonetimes = 13;
     optional int32 friendnum = 14;

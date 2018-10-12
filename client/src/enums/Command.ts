@@ -112,9 +112,9 @@ class Command
      */
     public static readonly GW2C_PushFriendPresent = "msg.GW2C_PushFriendPresent";
     /**
-     * 请求获取好友详细信息
+     * 请求获取用户详细信息
      */
-    public static readonly C2RS_ReqFriendGetRoleInfo: string = "msg.C2RS_ReqFriendGetRoleInfo";
+    public static readonly C2GW_ReqPlayerRoleInfo: string = "msg.C2GW_ReqPlayerRoleInfo";
     /**
      * 请求领取好友赠送的金币
      */

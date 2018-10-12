@@ -409,28 +409,28 @@ func (u *GateUser) CheckHaveCompensation() {
 // 统计登陆
 func (u *GateUser) LoginStatistics() {
 	datetime := time.Now().Format("2006-01-02")
-	if u.tm_login == 0 {
+	if u.statistics.tm_login == 0 {
 		key := fmt.Sprintf("%s_create", datetime)
 		Redis().Incr(key)
 		key = fmt.Sprintf("%s_loginsum", datetime)
 		Redis().Incr(key)
-		u.continuelogin = 1
+		u.statistics.continuelogin = 1
 		return
 	}
 	diffday := false
-	if util.IsNextDay(u.tm_login, util.CURTIME()) {
-		u.continuelogin += 1
-		if u.nocountlogin == 0 {
-			key := fmt.Sprintf("%s_login_%d", datetime, u.continuelogin)
+	if util.IsNextDay(u.statistics.tm_login, util.CURTIME()) {
+		u.statistics.continuelogin += 1
+		if u.statistics.nocountlogin == 0 {
+			key := fmt.Sprintf("%s_login_%d", datetime, u.statistics.continuelogin)
 			Redis().Incr(key)
 		}
 		key2 := fmt.Sprintf("%s_loginsum", datetime)
 		Redis().Incr(key2)
 		diffday = true
 	} else {
-		if !util.IsSameDay(u.tm_login, util.CURTIME()) {
-			u.continuelogin = 1
-			u.nocountlogin = 1
+		if !util.IsSameDay(u.statistics.tm_login, util.CURTIME()) {
+			u.statistics.continuelogin = 1
+			u.statistics.nocountlogin = 1
 			key := fmt.Sprintf("%s_loginsum", datetime)
 			Redis().Incr(key)
 			diffday = true
@@ -441,7 +441,7 @@ func (u *GateUser) LoginStatistics() {
 		u.ActivityResetByDay()
 	}
 
-	if !util.IsSameWeek(u.tm_login, util.CURTIME()) {
+	if !util.IsSameWeek(u.statistics.tm_login, util.CURTIME()) {
 		u.ActivityResetByWeek()
 	}
 }

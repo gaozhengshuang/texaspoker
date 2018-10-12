@@ -63,6 +63,7 @@ func (mh* GW2CMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.GW2C_RetFriendsList{}, on_GW2C_RetFriendsList)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_RetPresentToFriend{}, on_GW2C_RetPresentToFriend)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_RetGetFriendPresent{}, on_GW2C_RetGetFriendPresent)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_PushFriendPresent{}, on_GW2C_PushFriendPresent)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_RetFriendRequestList{}, on_GW2C_RetFriendRequestList)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_RetRemoveFriend{}, on_GW2C_RetRemoveFriend)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_PushRemoveFriend{}, on_GW2C_PushRemoveFriend)
@@ -79,6 +80,7 @@ func (mh* GW2CMsgHandler) Init() {
 	//mh.msgparser.RegistProtoMsg(msg.BT_GameInit{}, on_BT_GameInit)
 	//mh.msgparser.RegistProtoMsg(msg.BT_GameStart{}, on_BT_GameStart)
 	//mh.msgparser.RegistProtoMsg(msg.BT_GameOver{}, on_BT_GameOver)
+	mh.msgparser.RegistProtoMsg(msg.RS2C_RolePushPropertyChange{}, on_RS2C_RolePushPropertyChange)
 }
 
 func on_GW2C_PushDiamondUpdate(session network.IBaseNetSession, message interface{}) {
@@ -276,4 +278,10 @@ func on_GW2C_PushNewMail(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2C_PushNewMail)
 	log.Info("%+v", tmsg)
 }
+
+func on_RS2C_RolePushPropertyChange(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.RS2C_RolePushPropertyChange)
+	log.Info("%+v", tmsg)
+}
+
 
