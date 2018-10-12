@@ -606,6 +606,7 @@ func (u *GateUser) Online(session network.IBaseNetSession, way string) bool {
 	u.online = true
 	u.client = session
 	u.statistics.tm_login = curtime
+	u.statistics.tm_logout = 0
 	u.tm_disconnect = 0
 	u.tm_heartbeat = util.CURTIMEMS()
 	u.roomdata.Online(u)

@@ -11,7 +11,7 @@ message FriendBrief {
     optional int32 level = 5;
     optional int32 gold = 6;
     optional int32 viplevel = 7;
-    optional int32 offlinetime = 8;     // 离线时间
+    optional int64 offlinetime = 8;     // 离线时间
 }
 
 
