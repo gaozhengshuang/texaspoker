@@ -314,6 +314,7 @@ func (m *Friends) RequestAddFriend(uid int64) {
 	}else {
 		GateSvr().SendGateMsg(0, pushmsg)	// 跨服务器
 	}
+	log.Info("[好友] 玩家[%s %d] 请求添加好友[%d]", m.Name(), m.Id(), uid)
 }
 
 // --------------------------------------------------------------------------
@@ -370,7 +371,7 @@ func (m *Friends) ProcessFriendRequest(uid int64, accept bool) {
 
 
 	// 通知对方请求通过
-	pushmsg := &msg.GW2C_PushFriendAddSuccess{Handler:pb.Int64(m.Id()), Friend:m.owner.FillUserBrief()}
+	pushmsg := &msg.GW2C_PushFriendAddSuccess{Handler:pb.Int64(uid), Friend:m.owner.FillUserBrief()}
 	if target := UserMgr().FindById(uid); target != nil {
 		target.friends.OnFriendRequestPass(pushmsg)
 	}else {
@@ -552,9 +553,9 @@ func (u *GateUser) FillUserBrief() *msg.FriendBrief {
 	fbrief := &msg.FriendBrief{}
 	fbrief.Roleid = pb.Int64(u.Id())
 	fbrief.Name 	= pb.String(u.Name())
-	fbrief.Head	= pb.String(u.Head())
+	fbrief.Head		= pb.String(u.Head())
 	fbrief.Level 	= pb.Int32(u.Level())
-	fbrief.Sex 	= pb.Int32(u.Sex())
+	fbrief.Sex 		= pb.Int32(u.Sex())
 	fbrief.Gold 	= pb.Int32(u.GetGold())
 	fbrief.Viplevel = pb.Int32(0)
 	fbrief.Offlinetime = pb.Int32(0)
