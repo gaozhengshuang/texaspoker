@@ -160,12 +160,13 @@ func (m *Friends) Name() string {
 }
 
 func (m *Friends) Online() {
-	// 跨服务器
-	pushmsg := &msg.GW2C_PushUserOnline{Uid : pb.Int64(m.Id())}
-	GateSvr().SendGateMsg(0, pushmsg)
 
 	// 上线检查
 	m.RemovedFriendCheck()
+
+	// 上线通知好友
+	//pushmsg := &msg.GW2C_PushFriendLogin{Roleid: pb.Int64(m.Id()), Offlinetime:pb.Int64(0)}
+	//GateSvr().SendGateMsg(0, pushmsg)
 }
 
 // 加载
@@ -217,7 +218,6 @@ func (m *Friends) DBSave() {
 
 // 1分钟tick
 func (m *Friends) Tick(now int64) {
-	m.DBSave()
 }
 
 // 好友列表

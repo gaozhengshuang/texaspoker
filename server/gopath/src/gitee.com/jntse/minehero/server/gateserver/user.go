@@ -612,6 +612,9 @@ func (u *GateUser) Online(session network.IBaseNetSession, way string) bool {
 	u.roomdata.Online(u)
 	log.Info("Sid[%d] 账户[%s] 玩家[%d] 名字[%s] 登录成功[%s]", u.Sid(), u.account, u.Id(), u.Name(), way)
 
+	// 更新charbase
+	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "offlinetime", 0)
+
 	// 上线任务检查
 	u.OnlineTaskCheck()
 	u.events.Online()
@@ -695,7 +698,9 @@ func (u *GateUser) CheckDisconnectTimeOut(now int64) {
 // 真下线，清理玩家数据
 func (u *GateUser) Logout() {
 	u.online = false
-	u.statistics.tm_logout = util.CURTIME()
+	nowtime := util.CURTIME()
+	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "offlinetime", nowtime)
+	u.statistics.tm_logout = nowtime
 	u.cleanup = true
 	//u.DBSave()
 	UnBindingAccountGateWay(u.account)
