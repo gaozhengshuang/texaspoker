@@ -42,6 +42,8 @@ func (u *GateUser) SendPropertyChange() {
 	send.Gold = pb.Int32(u.GetGold())
 	send.Safegold = pb.Int32(0)
 	send.Yuanbao = pb.Int32(u.yuanbao)
+	send.Silvercardtime = pb.Int32(u.silvercardtime)
+	send.Goldcardtime = pb.Int32(u.goldcardtime)
 	u.SendMsg(send)
 }
 

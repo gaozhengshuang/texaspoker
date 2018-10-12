@@ -125,6 +125,8 @@ message RS2C_RolePushPropertyChange
     optional int32 diamond = 1;
     optional int32 gold = 2;
     optional int32 safegold = 3;
-	optional int32 yuanbao = 4;   
+	optional int32 yuanbao = 4; 
+	optional int32 silvercardtime = 5; //白银月卡到期时间
+	optional int32 goldcardtime = 6; //黄金月卡到期时间  
 }
 
