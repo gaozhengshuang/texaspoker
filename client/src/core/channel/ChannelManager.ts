@@ -277,7 +277,7 @@ class ChannelManager
 					AlertManager.showAlertByString('支付已关闭，无法支付');
 					return;
 				}
-				if (costList.length > 0 && costList[0].type == CostType.RMB)//消耗为rmb时调用支付
+				if (costList.length > 0)// && costList[0].type == CostType.RMB move todo //消耗为rmb时调用支付  
 				{
 					let price: number = costList[0].count;
 					if (price > 0)

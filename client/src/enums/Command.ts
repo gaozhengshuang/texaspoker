@@ -148,7 +148,7 @@ class Command
      */
     public static readonly GW2C_PushRemoveFriend = "msg.GW2C_PushRemoveFriend";
     /**
-     * 好友在线通知推送
+     * 好友在线通知推送 (已废弃 改为每次切标签拉信息列表)
      */
     public static readonly GW2C_PushFriendLogin = "msg.GW2C_PushFriendLogin";
     /**

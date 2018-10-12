@@ -180,7 +180,7 @@ class UserInfoPanel extends BasePanel
 			case UserState.InGamePerson:
 			case UserState.InOmaha:
 			case UserState.InOmahaPerson:
-				let roomDef:table.ITexasRoomDefine = table.TexasRoomById[info.stateConfId];
+				let roomDef: table.ITexasRoomDefine = table.TexasRoomById[info.stateConfId];
 				if (roomDef)
 				{
 					let patternName: string = PlayingFieldManager.getPatternName(roomDef.Type);

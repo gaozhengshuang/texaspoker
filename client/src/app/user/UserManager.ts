@@ -85,6 +85,8 @@ class UserManager
 			UserManager.setNumProperty("diamond", result.data);
 			UserManager.setNumProperty("safeGold", result.data);
 			UserManager.setNumProperty("yuanbao", result.data);
+			UserManager.setNumProperty("silvercardtime", result.data);
+			UserManager.setNumProperty("goldcardtime", result.data);
 			UserManager.propertyChangeEvent.dispatch();
 		}
 	}

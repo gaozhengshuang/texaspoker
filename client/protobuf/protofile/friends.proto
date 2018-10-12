@@ -1,6 +1,6 @@
 syntax = "proto2";
 package msg;
-import "serialize.proto";
+//import "serialize.proto";
 
 // 玩家摘要信息
 message FriendBrief {
@@ -44,39 +44,39 @@ message GW2C_PushFriendPresent {
 }
 
 
-// 请求获取好友详细信息
-message C2GW_ReqFriendDetail {
-    optional int64 roleid = 1;
-}
-message GW2C_RetFriendDetail {
-    // 个人基础信息
-    optional msg.EntityBase base = 1;
-
-    // 个人游戏统计
-    //optional int32 maxGold = 12;
-    //optional int32 maxGoldOnetimes = 13;
-    //optional int32 friendNum = 14;
-    //optional int32 gameTimes = 15;
-    //optional int32 winTimes = 16;
-    //repeated int32 maxHand = 17;
-    //optional int32 championTimes = 18;
-    //optional int32 vipExp = 19;
-    //optional int32 vipTime = 20;
-    //optional int32 yearVipTime = 21;
-    //optional int32 vipLevel = 22;
-    //optional int32 createdTime = 23;
-    //optional int32 isOffline = 24;
-    //optional int32 stateId = 25;
-    //optional int32 stateConfId = 26;
-    //optional int32 entryTimes = 27;
-    //optional int32 showdownTimes = 28;
-    //optional int32 mttJoinTimes = 29;
-    //optional int32 mttPrizeTimes = 30;
-    //optional int32 gameTimes2 = 31;
-    //optional int32 winTimes2 = 32;
-    //optional int32 entryTimes2 = 33;
-    //optional int32 showdownTimes2 = 34;
-}
+//// 请求获取好友详细信息
+//message C2GW_ReqFriendDetail {
+//    optional int64 roleid = 1;
+//}
+//message GW2C_RetFriendDetail {
+//    // 个人基础信息
+//    optional msg.EntityBase base = 1;
+//
+//    // 个人游戏统计
+//    //optional int32 maxGold = 12;
+//    //optional int32 maxGoldOnetimes = 13;
+//    //optional int32 friendNum = 14;
+//    //optional int32 gameTimes = 15;
+//    //optional int32 winTimes = 16;
+//    //repeated int32 maxHand = 17;
+//    //optional int32 championTimes = 18;
+//    //optional int32 vipExp = 19;
+//    //optional int32 vipTime = 20;
+//    //optional int32 yearVipTime = 21;
+//    //optional int32 vipLevel = 22;
+//    //optional int32 createdTime = 23;
+//    //optional int32 isOffline = 24;
+//    //optional int32 stateId = 25;
+//    //optional int32 stateConfId = 26;
+//    //optional int32 entryTimes = 27;
+//    //optional int32 showdownTimes = 28;
+//    //optional int32 mttJoinTimes = 29;
+//    //optional int32 mttPrizeTimes = 30;
+//    //optional int32 gameTimes2 = 31;
+//    //optional int32 winTimes2 = 32;
+//    //optional int32 entryTimes2 = 33;
+//    //optional int32 showdownTimes2 = 34;
+//}
 
 
 // 请求领取好友赠送的金币
@@ -149,7 +149,8 @@ message GW2C_RetFriendSearch {
 // 好友在线通知推送
 message GW2C_PushFriendLogin {
     optional int64 roleid = 1;
-    optional int32 offlinetime = 2;
+    optional int64 offlinetime = 2;
+    repeated int64 friends = 3;     // 服务器使用
 }
 
 
