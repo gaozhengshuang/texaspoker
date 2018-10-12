@@ -17,7 +17,7 @@ class LoginLocalPanel extends BasePanel
 	protected onAwake(event: eui.UIEvent)
 	{
 		super.onAwake(event);
-		this.maskAlpha = 0;
+		// this.maskAlpha = 0;
 		this.accountLabel.type = egret.TextFieldType.INPUT;
 		this.pwdLabel.type = egret.TextFieldType.INPUT;
 		this.pwdLabel.inputType = egret.TextFieldInputType.PASSWORD;

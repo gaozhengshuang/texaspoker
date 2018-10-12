@@ -67,7 +67,7 @@ module game
             let d = defer();
             NotificationCenter.once(LoginManager, () =>
             {
-                SocketManager.pollingConnect($gameNetIp.replace("{gamePort}", `${gwResult.gatehost.port}`));
+                SocketManager.pollingConnect(game.serverInfo.$gameNetIp.replace("{gamePort}", `${gwResult.gatehost.port}`));
                 NotificationCenter.once(LoginManager, async () =>
                 {
                     NotificationCenter.once(LoginManager, (data: msg.IGW2C_RetLogin) =>
@@ -88,7 +88,7 @@ module game
         private static connectLoginGW()
         {
             let d = defer();
-            SocketManager.pollingConnect($netIp);
+            SocketManager.pollingConnect(game.serverInfo.$netIp);
             NotificationCenter.once(LoginManager, () =>
             {
                 SocketManager.Send("msg.C2L_ReqLogin", LoginManager.loginUserInfo);
