@@ -88,7 +88,10 @@ func (this *UserStatistics) PackBin() *msg.UserStatistics {
 	msg.Mttjointimes = pb.Int32(this.mttjointimes)
 	msg.Mttprizetimes = pb.Int32(this.mttprizetimes)
 	msg.Championtimes = pb.Int32(this.championtimes)
-	msg.Maxhand = this.maxhand[:]
+	msg.Maxhand = make([]int32,0)
+	for _, v := range this.maxhand {
+		msg.Maxhand = append(msg.Maxhand, v)
+	}
 	msg.Isoffline = pb.Int32(this.isoffline)
 	msg.Stateid = pb.Int32(this.stateid)
 	msg.Stateconfid = pb.Int32(this.stateconfid)
