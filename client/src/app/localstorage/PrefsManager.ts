@@ -47,6 +47,10 @@ class PrefsManager
 	 * 登录文本通知
 	 */
 	public static LoginTextNotify: string = "logintextnotify";
+	/**
+	 * 默认的登录服务器信息
+	 */
+	public static DefalutServerInfo:string = "default_server_info";
 
 	public static setValue(key: string, value: string, isPrivate: boolean = false)
 	{
