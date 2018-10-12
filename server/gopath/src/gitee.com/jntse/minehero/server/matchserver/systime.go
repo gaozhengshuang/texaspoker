@@ -178,7 +178,7 @@ func (stm *SysTimerManager) Handler1sTick(now int64) {
 			continue
 		}
 		stm.starttimeid[t.timeid] = t.timeid
-		log.Info("系统定时器 添加开始时间%d subid%d", t.timeid, t.subid)
+		//log.Info("系统定时器 添加开始时间%d subid%d", t.timeid, t.subid)
 	}
 	for _, t := range stm.timers {
 		if t.endyear != 0 && t.endyear != nowtime.Year(){
@@ -200,6 +200,6 @@ func (stm *SysTimerManager) Handler1sTick(now int64) {
 			continue
 		}
 		stm.endtimeid[t.timeid] = t.timeid
-		log.Info("系统定时器 添加结束时间%d subid%d", t.timeid, t.subid)
+		//log.Info("系统定时器 添加结束时间%d subid%d", t.timeid, t.subid)
 	}
 }
