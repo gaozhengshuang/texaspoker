@@ -48,4 +48,3 @@ class ActivityDefined
         return null;
     }
 }
-ActivityDefined.GetInstance().initialize();

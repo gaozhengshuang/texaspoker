@@ -117,13 +117,19 @@ class Main extends eui.UILayer
     private createScene()
     {
         this.setLoadingText('正在进入游戏...');
+        this.configInitialize();
         GameManager.initialize(this.stage, this);
         UIManager.initialize(this.stage);
         game.Tick.initialize(this.stage);
         SceneManager.initialize();
-
         ChannelManager.OnInitComplete.addListener(this.OnChannelInitComplete, this);
         ChannelManager.initialize();
+    }
+    private configInitialize()
+    {
+        TextDefined.GetInstance().initialize();
+        ActivityDefined.GetInstance().initialize();
+        MorePlayDefined.GetInstance().initialize();
     }
     private OnChannelInitComplete()
     {

@@ -145,10 +145,16 @@ class UserManager
 		let callback: Function = function (result: game.SpRpcResult)
 		{
 			UserManager.otherUserInfo = new UserInfo();
-			if (result.data)
+			let data:msg.GW2C_RetPlayerRoleInfo = result.data;
+			if (data)
 			{
-				UserManager.playerNameOper(result.data);
-				UserManager.otherUserInfo.copyValueFromIgnoreCase(result.data);
+				UserManager.otherUserInfo.copyValueFromIgnoreCase(data);
+				UserManager.otherUserInfo.copyValueFromIgnoreCase(data.entity);
+				UserManager.otherUserInfo.copyValueFromIgnoreCase(data.vip);
+				UserManager.otherUserInfo.copyValueFromIgnoreCase(data.statistics);
+
+				UserManager.playerNameOper(UserManager.otherUserInfo);
+
 				AchievementManager.reqUserAchieveList(UserManager.otherUserInfo);
 				UserManager.otherUserInfo.vipType = VipManager.getVipType(UserManager.otherUserInfo.vipTime, UserManager.otherUserInfo.yearVipTime);
 				UserManager.otherUserInfo.vipSpeed = ProjectDefined.getVipSpeedDefinition(UserManager.otherUserInfo.vipType).speed;
@@ -169,16 +175,16 @@ class UserManager
 	/**
 	 * 获取其他用户信息
 	 */
-	public static sendGetUserInfo(roleId: number, callback: Function, errorCallBack?: Function, isInRoom: boolean = false)
+	public static sendGetUserInfo(roleId: number, callback: Function, errorCallBack?: Function)
 	{
-		if (isInRoom)
-		{
-			MsgTransferSend.sendRoomProto(Command.C2RS_ReqFriendGetRoleInfo, { roleid: roleId }, callback, errorCallBack, this);
-		}
-		else
-		{
-			SocketManager.call(Command.C2RS_ReqFriendGetRoleInfo, { roleid: roleId }, callback, errorCallBack, this);
-		}
+		// if (isInRoom)
+		// {
+		// 	MsgTransferSend.sendRoomProto(Command.C2GW_ReqPlayerRoleInfo, { roleid: roleId }, callback, errorCallBack, this);
+		// }
+		// else
+		// {
+			SocketManager.call(Command.C2GW_ReqPlayerRoleInfo, { roleid: roleId }, callback, errorCallBack, this);
+		// }
 	}
 
 	public static reqSimpleUserInfo(roleId: number)

@@ -16,11 +16,17 @@ import (
 	_ "time"
 )
 
+const(
+	SILVER_MONTHCARD int32 = 827
+	GOLD_MONTHCARD int32 = 828
+)
+
 //处理活动信息请求
 func (u *GateUser) OnReqActivityInfo(id int32) {
 	send := &msg.GW2C_RetActivityInfo{}
 	if id == 0 {
 		u.DailySignInfoToMsg(send)
+		u.BankruptcySubsidyInfoToMsg(send)
 	} else {
 		if id == int32(msg.ActivityType_DailySign) {
 			u.DailySignInfoToMsg(send)
@@ -53,12 +59,31 @@ func (u *GateUser) CheckActivityTimeEnable(activityid int32) bool {
 	return true
 }
 
-//兑换活动奖励
+//发奖励表中的奖励
 func (u *GateUser) GetActivityAwardByAwardId(awardid int32, reason string) bool {
 	config, ok := tbl.AwardBase.AwardById[awardid]
 	if !ok {
 		log.Error("玩家[%d %s] 领取活动奖励失败，未找到奖励配置 %d", u.Id(), u.Name(), awardid)
 		return false
+	}
+	if awardid == SILVER_MONTHCARD {
+		addtime := 60*60*24*30
+		u.AddSilverCardTime(int32(addtime))
+	}else if awardid == GOLD_MONTHCARD {
+		addtime := 60*60*24*30
+		u.AddGoldCardTime(int32(addtime))
+	}
+
+	if config.PreId == SILVER_MONTHCARD {
+		if int32(util.CURTIME()) > u.silvercardtime {
+			log.Error("玩家[%d %s] 领取白银月卡奖励失败，白银月卡已过期 %d", u.Id(), u.Name(), awardid)
+			return false
+		}
+	} else if config.PreId == GOLD_MONTHCARD {
+		if int32(util.CURTIME()) > u.goldcardtime {
+			log.Error("玩家[%d %s] 领取黄金月卡奖励失败，黄金月卡已过期 %d", u.Id(), u.Name(), awardid)
+			return false
+		}
 	}
 	items := config.RewardId
 	num := config.RewardNum
@@ -122,7 +147,6 @@ func (u *GateUser) DailySign() string {
 			return errcode
 		}
 	}
-	//u.SendNotify("签到配置出错")
 	log.Error("玩家[%d %s] 签到失败 签到配置出错 第%d天", u.Id(), u.Name(), u.signdays+1)
 	errcode = "签到配置出错"
 	return errcode
@@ -220,7 +244,16 @@ func (u *GateUser) ReqAwardExchange (id, count int32) {
 		log.Error("玩家[%d %s] 兑换奖励失败，本奖励不允许客户端发起领奖 %d", u.Id(), u.Name(), id)
 		return
 	}
-	u.GetActivityAwardByAwardId(id, "玩家兑换奖励")
+	
+	for _, v := range config.CostType {
+		if v == 10 {
+			log.Error("玩家[%d %s] 兑换奖励失败，本奖励涉及充值 不能直接兑换 %d", u.Id(), u.Name(), id)
+			return
+		}
+	}
+	if u.GetActivityAwardByAwardId(id, "玩家兑换奖励") == false {
+		return
+	}
 	if config.LogId > 0 {
 		tmp := &msg.AwardRecord{}
 		tmp.Logid = pb.Int32(int32(config.LogId))
@@ -322,6 +355,7 @@ func (u *GateUser) AddSilverCardTime (addtime int32) {
 	} else {
 		u.silvercardtime = u.silvercardtime + addtime
 	}
+	u.SendPropertyChange()
 }
 
 //增加黄金卡时间 单位秒 例如月卡 60*60*24*30
@@ -332,6 +366,7 @@ func (u *GateUser) AddGoldCardTime (addtime int32) {
 	} else {
 		u.goldcardtime = u.goldcardtime + addtime
 	}
+	u.SendPropertyChange()
 }
 
 
