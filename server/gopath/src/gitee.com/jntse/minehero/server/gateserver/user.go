@@ -47,6 +47,7 @@ type DBUserData struct {
 	luckydraw      []*msg.LuckyDrawItem
 	luckydrawtotal int64
 	statistics	   UserStatistics
+	vip			   UserVip
 	totalrecharge  int32 // 总充值
 	lastgoldtime   int32 // 上次领取系统金币的时间
 	awardrecord    []*msg.AwardRecord  
@@ -438,6 +439,7 @@ func (u *GateUser) PackBin() *msg.Serialize {
 
 	userbase := bin.GetBase()
 	userbase.Statics = u.statistics.PackBin()
+	userbase.Vip = u.vip.PackBin()
 	userbase.Sign.Signdays = pb.Int32(u.signdays)
 	userbase.Sign.Signtime = pb.Int32(u.signtime)
 	userbase.Misc.Invitationcode = pb.String(u.invitationcode)
@@ -508,6 +510,7 @@ func (u *GateUser) LoadBin() {
 	}
 
 	u.statistics.LoadBin(u.bin)
+	u.vip.LoadBin(u.bin)
 	// 道具信息
 	u.bag.Clean()
 	u.bag.LoadBin(u.bin)
