@@ -158,7 +158,7 @@ class Command
     /**
      * 被好友邀请推送
     */
-    public static readonly GW2C_PushFriendInvitation: string = "msg.GW2C_PushFriendInvitation";
+    public static readonly RS2C_PushFriendInvitation: string = "msg.RS2C_PushFriendInvitation";
     /**
      * 0点定时重置推送
     */

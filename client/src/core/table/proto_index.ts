@@ -93,7 +93,7 @@ export var ProtoId : table.IProtoIdDefine[] = [
 		{ Id : 88, Name : "msg.C2GW_ReqFriendSearch" 	},
 		{ Id : 89, Name : "msg.GW2C_RetFriendSearch" 	},
 		{ Id : 90, Name : "msg.GW2C_PushFriendLogin" 	},
-		{ Id : 91, Name : "msg.GW2C_PushFriendInvitation" 	},
+		{ Id : 91, Name : "RS2C_PushFriendInvitation" 	},
 		{ Id : 92, Name : "msg.C2GW_BuyItem" 	},
 		{ Id : 93, Name : "msg.GW2C_PushPackageItemAdd" 	},
 		{ Id : 94, Name : "msg.GW2C_PushPackageItemRemove" 	},

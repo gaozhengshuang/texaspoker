@@ -57,7 +57,7 @@ class FriendManager
         SocketManager.AddCommandListener(Command.GW2C_PushFriendLogin, FriendManager.onOnlineStateChangeRec, this);
         SocketManager.AddCommandListener(Command.GW2C_PushFriendPresent, FriendManager.onGiveGoldRec, this);
         SocketManager.AddCommandListener(Command.GW2C_PushAddYouFriend, FriendManager.onRequestFriendRec, this);
-        SocketManager.AddCommandListener(Command.GW2C_PushFriendInvitation, FriendManager.pushInviteMsgHandler, this)
+        SocketManager.AddCommandListener(Command.RS2C_PushFriendInvitation, FriendManager.pushInviteMsgHandler, this)
         SocketManager.AddCommandListener(Command.Friend_Push_Reset_2015, FriendManager.onResetPush, this)
     }
     /**
