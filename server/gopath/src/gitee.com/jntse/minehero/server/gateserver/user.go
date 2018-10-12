@@ -438,7 +438,6 @@ func (u *GateUser) PackBin() *msg.Serialize {
 
 	userbase := bin.GetBase()
 	userbase.Statics = u.statistics.PackBin()
-	userbase.Vip = &msg.UserVip{}
 	userbase.Sign.Signdays = pb.Int32(u.signdays)
 	userbase.Sign.Signtime = pb.Int32(u.signtime)
 	userbase.Misc.Invitationcode = pb.String(u.invitationcode)
@@ -473,7 +472,6 @@ func (u *GateUser) PackBin() *msg.Serialize {
 func (u *GateUser) PackGateBin() *msg.GateSerialize {
 	gatebin := &msg.GateSerialize{}
 	gatebin.Bankruptcount = pb.Int32(u.bankruptcount)
-	log.Info("SSSSSSSSSSSSSSSSSSSSSSSSSSSSS-----------> %d", u.bankruptcount)
 	return gatebin
 }
 
@@ -536,7 +534,6 @@ func (u *GateUser) LoadBin() {
 
 func (u *GateUser) LoadGateBin () {
 	u.bankruptcount = u.gatebin.GetBankruptcount()
-	log.Info("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL-----------> %d", u.bankruptcount)
 }
 
 // TODO: 存盘可以单独协程

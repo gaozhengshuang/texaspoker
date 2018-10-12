@@ -145,10 +145,16 @@ class UserManager
 		let callback: Function = function (result: game.SpRpcResult)
 		{
 			UserManager.otherUserInfo = new UserInfo();
-			if (result.data)
+			let data:msg.GW2C_RetPlayerRoleInfo = result.data;
+			if (data)
 			{
-				UserManager.playerNameOper(result.data);
-				UserManager.otherUserInfo.copyValueFromIgnoreCase(result.data);
+				UserManager.otherUserInfo.copyValueFromIgnoreCase(data);
+				UserManager.otherUserInfo.copyValueFromIgnoreCase(data.entity);
+				UserManager.otherUserInfo.copyValueFromIgnoreCase(data.vip);
+				UserManager.otherUserInfo.copyValueFromIgnoreCase(data.statistics);
+
+				UserManager.playerNameOper(UserManager.otherUserInfo);
+
 				AchievementManager.reqUserAchieveList(UserManager.otherUserInfo);
 				UserManager.otherUserInfo.vipType = VipManager.getVipType(UserManager.otherUserInfo.vipTime, UserManager.otherUserInfo.yearVipTime);
 				UserManager.otherUserInfo.vipSpeed = ProjectDefined.getVipSpeedDefinition(UserManager.otherUserInfo.vipType).speed;
