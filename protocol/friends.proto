@@ -118,13 +118,22 @@ message GW2C_RetFriendSearch {
 //    repeated int64 friends = 3;     // 服务器使用
 //}
 
+// 邀请好友进房间
+message C2GW_ReqInviteFriendJoin {
+    optional int64 id = 1;
+    repeated int64 roleid = 2;
+}
+
+message GW2C_RetInviteFriendJoin {
+}
 
 // 被好友邀请推送
-message RS2C_PushFriendInvitation {
-    optional int64 id = 1;
-    optional int64 roleid = 2;
-    optional string pwd = 3;
-    optional int64 roomid = 4;
+message GW2C_PushFriendInvitation {
+    repeated int64 handler = 1;     // 服务器使用
+    optional int64 id = 2;
+    optional int64 roleid = 3;
+    optional string pwd = 4;
+    optional int32 roomid = 5;
 }
 
 

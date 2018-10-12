@@ -440,6 +440,8 @@ func (u *User) DoInputCmd(cmd string) {
 		u.RemoveFriend(subcmd[1])
 	case "fsearch":
 		u.SearchFriend(subcmd[1])
+	case "finvite":
+		u.InviteFriend(subcmd[1:])
 	}
 }
 

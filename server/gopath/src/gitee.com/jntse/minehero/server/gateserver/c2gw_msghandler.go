@@ -88,6 +88,7 @@ func (mh *C2GWMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqGetFriendPresent{}, on_C2GW_ReqGetFriendPresent)
 	//mh.msgparser.RegistProtoMsg(msg.C2GW_ReqFriendDetail{}, on_C2GW_ReqFriendDetail)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqFriendSearch{}, on_C2GW_ReqFriendSearch)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqInviteFriendJoin{}, on_C2GW_ReqInviteFriendJoin)
 
 	//活动
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqActivityInfo{}, on_C2GW_ReqActivityInfo)
@@ -719,6 +720,18 @@ func on_C2GW_ReqFriendSearch(session network.IBaseNetSession, message interface{
 	}
 	u.SearchUser(tmsg.GetVal())
 }
+
+func on_C2GW_ReqInviteFriendJoin(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqInviteFriendJoin)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.InviteFriendsJoin(tmsg.GetId(), tmsg.Roleid)
+}
+
 
 func on_C2GW_ReqTaskList(session network.IBaseNetSession, message interface{}) {
 	//tmsg := message.(*msg.C2GW_ReqTaskList)
