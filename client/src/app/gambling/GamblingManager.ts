@@ -1236,7 +1236,7 @@ class GamblingManager
 				GamblingManager._getUserInfoQueue.shift();
 				GamblingManager.getNext();
 			};
-			UserManager.sendGetUserInfo(target.roleId, callBack, errorCallBack);
+			UserManager.sendGetUserInfo(target.roleId, callBack, errorCallBack, false);
 		}
 	}
 	private static getNext()

@@ -142,6 +142,8 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 		this.bindRoleId = 0;
 		this.shareId = undefined;
 		this.yuanbao = 0;
+		this.silvercardtime = 0;
+		this.goldcardtime = 0;
 	}
 	/**
 	 * 登录时间
@@ -529,4 +531,12 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 	 * 绑定的邀请码的角色id
 	*/
 	public bindRoleId: number;
+	/**
+	 * 白银月卡
+	 */
+	public silvercardtime: number;
+	/**
+	 * 黄金月卡
+	 */
+	public goldcardtime: number;
 }

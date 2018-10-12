@@ -85,6 +85,8 @@ class UserManager
 			UserManager.setNumProperty("diamond", result.data);
 			UserManager.setNumProperty("safeGold", result.data);
 			UserManager.setNumProperty("yuanbao", result.data);
+			UserManager.setNumProperty("silvercardtime", result.data);
+			UserManager.setNumProperty("goldcardtime", result.data);
 			UserManager.propertyChangeEvent.dispatch();
 		}
 	}
@@ -145,7 +147,7 @@ class UserManager
 		let callback: Function = function (result: game.SpRpcResult)
 		{
 			UserManager.otherUserInfo = new UserInfo();
-			let data:msg.GW2C_RetPlayerRoleInfo = result.data;
+			let data: msg.GW2C_RetPlayerRoleInfo = result.data;
 			if (data)
 			{
 				UserManager.otherUserInfo.copyValueFromIgnoreCase(data);
@@ -175,7 +177,7 @@ class UserManager
 	/**
 	 * 获取其他用户信息
 	 */
-	public static sendGetUserInfo(roleId: number, callback: Function, errorCallBack?: Function)
+	public static sendGetUserInfo(roleId: number, callback: Function, errorCallBack?: Function, isShowTips: boolean = true)
 	{
 		// if (isInRoom)
 		// {
@@ -183,7 +185,14 @@ class UserManager
 		// }
 		// else
 		// {
+		if (roleId > 200)
+		{
 			SocketManager.call(Command.C2GW_ReqPlayerRoleInfo, { roleid: roleId }, callback, errorCallBack, this);
+		}
+		else if(isShowTips)
+		{
+			UIManager.showFloatTips("玩家信息为私密！");
+		}
 		// }
 	}
 

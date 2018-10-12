@@ -8371,7 +8371,6 @@ $root.msg = (function() {
          * @interface IUserMiscData
          * @property {string|null} [invitationcode] UserMiscData invitationcode
          * @property {number|null} [lastgoldtime] UserMiscData lastgoldtime
-         * @property {number|null} [bankruptcount] UserMiscData bankruptcount
          * @property {number|null} [silvercardtime] UserMiscData silvercardtime
          * @property {number|null} [silvercardawardstate] UserMiscData silvercardawardstate
          * @property {number|null} [goldcardtime] UserMiscData goldcardtime
@@ -8408,14 +8407,6 @@ $root.msg = (function() {
          * @instance
          */
         UserMiscData.prototype.lastgoldtime = 0;
-
-        /**
-         * UserMiscData bankruptcount.
-         * @member {number} bankruptcount
-         * @memberof msg.UserMiscData
-         * @instance
-         */
-        UserMiscData.prototype.bankruptcount = 0;
 
         /**
          * UserMiscData silvercardtime.
@@ -8477,16 +8468,14 @@ $root.msg = (function() {
                 writer.uint32(/* id 1, wireType 2 =*/10).string(message.invitationcode);
             if (message.lastgoldtime != null && message.hasOwnProperty("lastgoldtime"))
                 writer.uint32(/* id 2, wireType 0 =*/16).int32(message.lastgoldtime);
-            if (message.bankruptcount != null && message.hasOwnProperty("bankruptcount"))
-                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.bankruptcount);
             if (message.silvercardtime != null && message.hasOwnProperty("silvercardtime"))
-                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.silvercardtime);
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.silvercardtime);
             if (message.silvercardawardstate != null && message.hasOwnProperty("silvercardawardstate"))
-                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.silvercardawardstate);
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.silvercardawardstate);
             if (message.goldcardtime != null && message.hasOwnProperty("goldcardtime"))
-                writer.uint32(/* id 6, wireType 0 =*/48).int32(message.goldcardtime);
+                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.goldcardtime);
             if (message.goldcardawardstate != null && message.hasOwnProperty("goldcardawardstate"))
-                writer.uint32(/* id 7, wireType 0 =*/56).int32(message.goldcardawardstate);
+                writer.uint32(/* id 6, wireType 0 =*/48).int32(message.goldcardawardstate);
             return writer;
         };
 
@@ -8528,18 +8517,15 @@ $root.msg = (function() {
                     message.lastgoldtime = reader.int32();
                     break;
                 case 3:
-                    message.bankruptcount = reader.int32();
-                    break;
-                case 4:
                     message.silvercardtime = reader.int32();
                     break;
-                case 5:
+                case 4:
                     message.silvercardawardstate = reader.int32();
                     break;
-                case 6:
+                case 5:
                     message.goldcardtime = reader.int32();
                     break;
-                case 7:
+                case 6:
                     message.goldcardawardstate = reader.int32();
                     break;
                 default:
@@ -8583,9 +8569,6 @@ $root.msg = (function() {
             if (message.lastgoldtime != null && message.hasOwnProperty("lastgoldtime"))
                 if (!$util.isInteger(message.lastgoldtime))
                     return "lastgoldtime: integer expected";
-            if (message.bankruptcount != null && message.hasOwnProperty("bankruptcount"))
-                if (!$util.isInteger(message.bankruptcount))
-                    return "bankruptcount: integer expected";
             if (message.silvercardtime != null && message.hasOwnProperty("silvercardtime"))
                 if (!$util.isInteger(message.silvercardtime))
                     return "silvercardtime: integer expected";
@@ -8617,8 +8600,6 @@ $root.msg = (function() {
                 message.invitationcode = String(object.invitationcode);
             if (object.lastgoldtime != null)
                 message.lastgoldtime = object.lastgoldtime | 0;
-            if (object.bankruptcount != null)
-                message.bankruptcount = object.bankruptcount | 0;
             if (object.silvercardtime != null)
                 message.silvercardtime = object.silvercardtime | 0;
             if (object.silvercardawardstate != null)
@@ -8646,7 +8627,6 @@ $root.msg = (function() {
             if (options.defaults) {
                 object.invitationcode = "";
                 object.lastgoldtime = 0;
-                object.bankruptcount = 0;
                 object.silvercardtime = 0;
                 object.silvercardawardstate = 0;
                 object.goldcardtime = 0;
@@ -8656,8 +8636,6 @@ $root.msg = (function() {
                 object.invitationcode = message.invitationcode;
             if (message.lastgoldtime != null && message.hasOwnProperty("lastgoldtime"))
                 object.lastgoldtime = message.lastgoldtime;
-            if (message.bankruptcount != null && message.hasOwnProperty("bankruptcount"))
-                object.bankruptcount = message.bankruptcount;
             if (message.silvercardtime != null && message.hasOwnProperty("silvercardtime"))
                 object.silvercardtime = message.silvercardtime;
             if (message.silvercardawardstate != null && message.hasOwnProperty("silvercardawardstate"))
@@ -15817,399 +15795,6 @@ $root.msg = (function() {
         return GW2C_PushFriendPresent;
     })();
 
-    msg.C2GW_ReqFriendDetail = (function() {
-
-        /**
-         * Properties of a C2GW_ReqFriendDetail.
-         * @memberof msg
-         * @interface IC2GW_ReqFriendDetail
-         * @property {number|Long|null} [roleid] C2GW_ReqFriendDetail roleid
-         */
-
-        /**
-         * Constructs a new C2GW_ReqFriendDetail.
-         * @memberof msg
-         * @classdesc Represents a C2GW_ReqFriendDetail.
-         * @implements IC2GW_ReqFriendDetail
-         * @constructor
-         * @param {msg.IC2GW_ReqFriendDetail=} [properties] Properties to set
-         */
-        function C2GW_ReqFriendDetail(properties) {
-            if (properties)
-                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * C2GW_ReqFriendDetail roleid.
-         * @member {number|Long} roleid
-         * @memberof msg.C2GW_ReqFriendDetail
-         * @instance
-         */
-        C2GW_ReqFriendDetail.prototype.roleid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
-
-        /**
-         * Creates a new C2GW_ReqFriendDetail instance using the specified properties.
-         * @function create
-         * @memberof msg.C2GW_ReqFriendDetail
-         * @static
-         * @param {msg.IC2GW_ReqFriendDetail=} [properties] Properties to set
-         * @returns {msg.C2GW_ReqFriendDetail} C2GW_ReqFriendDetail instance
-         */
-        C2GW_ReqFriendDetail.create = function create(properties) {
-            return new C2GW_ReqFriendDetail(properties);
-        };
-
-        /**
-         * Encodes the specified C2GW_ReqFriendDetail message. Does not implicitly {@link msg.C2GW_ReqFriendDetail.verify|verify} messages.
-         * @function encode
-         * @memberof msg.C2GW_ReqFriendDetail
-         * @static
-         * @param {msg.IC2GW_ReqFriendDetail} message C2GW_ReqFriendDetail message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        C2GW_ReqFriendDetail.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.roleid != null && message.hasOwnProperty("roleid"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.roleid);
-            return writer;
-        };
-
-        /**
-         * Encodes the specified C2GW_ReqFriendDetail message, length delimited. Does not implicitly {@link msg.C2GW_ReqFriendDetail.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof msg.C2GW_ReqFriendDetail
-         * @static
-         * @param {msg.IC2GW_ReqFriendDetail} message C2GW_ReqFriendDetail message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        C2GW_ReqFriendDetail.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a C2GW_ReqFriendDetail message from the specified reader or buffer.
-         * @function decode
-         * @memberof msg.C2GW_ReqFriendDetail
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {msg.C2GW_ReqFriendDetail} C2GW_ReqFriendDetail
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        C2GW_ReqFriendDetail.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqFriendDetail();
-            while (reader.pos < end) {
-                var tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 1:
-                    message.roleid = reader.int64();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a C2GW_ReqFriendDetail message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof msg.C2GW_ReqFriendDetail
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.C2GW_ReqFriendDetail} C2GW_ReqFriendDetail
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        C2GW_ReqFriendDetail.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a C2GW_ReqFriendDetail message.
-         * @function verify
-         * @memberof msg.C2GW_ReqFriendDetail
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        C2GW_ReqFriendDetail.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.roleid != null && message.hasOwnProperty("roleid"))
-                if (!$util.isInteger(message.roleid) && !(message.roleid && $util.isInteger(message.roleid.low) && $util.isInteger(message.roleid.high)))
-                    return "roleid: integer|Long expected";
-            return null;
-        };
-
-        /**
-         * Creates a C2GW_ReqFriendDetail message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof msg.C2GW_ReqFriendDetail
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {msg.C2GW_ReqFriendDetail} C2GW_ReqFriendDetail
-         */
-        C2GW_ReqFriendDetail.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.C2GW_ReqFriendDetail)
-                return object;
-            var message = new $root.msg.C2GW_ReqFriendDetail();
-            if (object.roleid != null)
-                if ($util.Long)
-                    (message.roleid = $util.Long.fromValue(object.roleid)).unsigned = false;
-                else if (typeof object.roleid === "string")
-                    message.roleid = parseInt(object.roleid, 10);
-                else if (typeof object.roleid === "number")
-                    message.roleid = object.roleid;
-                else if (typeof object.roleid === "object")
-                    message.roleid = new $util.LongBits(object.roleid.low >>> 0, object.roleid.high >>> 0).toNumber();
-            return message;
-        };
-
-        /**
-         * Creates a plain object from a C2GW_ReqFriendDetail message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof msg.C2GW_ReqFriendDetail
-         * @static
-         * @param {msg.C2GW_ReqFriendDetail} message C2GW_ReqFriendDetail
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        C2GW_ReqFriendDetail.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            var object = {};
-            if (options.defaults)
-                if ($util.Long) {
-                    var long = new $util.Long(0, 0, false);
-                    object.roleid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.roleid = options.longs === String ? "0" : 0;
-            if (message.roleid != null && message.hasOwnProperty("roleid"))
-                if (typeof message.roleid === "number")
-                    object.roleid = options.longs === String ? String(message.roleid) : message.roleid;
-                else
-                    object.roleid = options.longs === String ? $util.Long.prototype.toString.call(message.roleid) : options.longs === Number ? new $util.LongBits(message.roleid.low >>> 0, message.roleid.high >>> 0).toNumber() : message.roleid;
-            return object;
-        };
-
-        /**
-         * Converts this C2GW_ReqFriendDetail to JSON.
-         * @function toJSON
-         * @memberof msg.C2GW_ReqFriendDetail
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        C2GW_ReqFriendDetail.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return C2GW_ReqFriendDetail;
-    })();
-
-    msg.GW2C_RetFriendDetail = (function() {
-
-        /**
-         * Properties of a GW2C_RetFriendDetail.
-         * @memberof msg
-         * @interface IGW2C_RetFriendDetail
-         * @property {msg.IEntityBase|null} [base] GW2C_RetFriendDetail base
-         */
-
-        /**
-         * Constructs a new GW2C_RetFriendDetail.
-         * @memberof msg
-         * @classdesc Represents a GW2C_RetFriendDetail.
-         * @implements IGW2C_RetFriendDetail
-         * @constructor
-         * @param {msg.IGW2C_RetFriendDetail=} [properties] Properties to set
-         */
-        function GW2C_RetFriendDetail(properties) {
-            if (properties)
-                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * GW2C_RetFriendDetail base.
-         * @member {msg.IEntityBase|null|undefined} base
-         * @memberof msg.GW2C_RetFriendDetail
-         * @instance
-         */
-        GW2C_RetFriendDetail.prototype.base = null;
-
-        /**
-         * Creates a new GW2C_RetFriendDetail instance using the specified properties.
-         * @function create
-         * @memberof msg.GW2C_RetFriendDetail
-         * @static
-         * @param {msg.IGW2C_RetFriendDetail=} [properties] Properties to set
-         * @returns {msg.GW2C_RetFriendDetail} GW2C_RetFriendDetail instance
-         */
-        GW2C_RetFriendDetail.create = function create(properties) {
-            return new GW2C_RetFriendDetail(properties);
-        };
-
-        /**
-         * Encodes the specified GW2C_RetFriendDetail message. Does not implicitly {@link msg.GW2C_RetFriendDetail.verify|verify} messages.
-         * @function encode
-         * @memberof msg.GW2C_RetFriendDetail
-         * @static
-         * @param {msg.IGW2C_RetFriendDetail} message GW2C_RetFriendDetail message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        GW2C_RetFriendDetail.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.base != null && message.hasOwnProperty("base"))
-                $root.msg.EntityBase.encode(message.base, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-            return writer;
-        };
-
-        /**
-         * Encodes the specified GW2C_RetFriendDetail message, length delimited. Does not implicitly {@link msg.GW2C_RetFriendDetail.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof msg.GW2C_RetFriendDetail
-         * @static
-         * @param {msg.IGW2C_RetFriendDetail} message GW2C_RetFriendDetail message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        GW2C_RetFriendDetail.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a GW2C_RetFriendDetail message from the specified reader or buffer.
-         * @function decode
-         * @memberof msg.GW2C_RetFriendDetail
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {msg.GW2C_RetFriendDetail} GW2C_RetFriendDetail
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        GW2C_RetFriendDetail.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RetFriendDetail();
-            while (reader.pos < end) {
-                var tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 1:
-                    message.base = $root.msg.EntityBase.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a GW2C_RetFriendDetail message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof msg.GW2C_RetFriendDetail
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.GW2C_RetFriendDetail} GW2C_RetFriendDetail
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        GW2C_RetFriendDetail.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a GW2C_RetFriendDetail message.
-         * @function verify
-         * @memberof msg.GW2C_RetFriendDetail
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        GW2C_RetFriendDetail.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.base != null && message.hasOwnProperty("base")) {
-                var error = $root.msg.EntityBase.verify(message.base);
-                if (error)
-                    return "base." + error;
-            }
-            return null;
-        };
-
-        /**
-         * Creates a GW2C_RetFriendDetail message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof msg.GW2C_RetFriendDetail
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {msg.GW2C_RetFriendDetail} GW2C_RetFriendDetail
-         */
-        GW2C_RetFriendDetail.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.GW2C_RetFriendDetail)
-                return object;
-            var message = new $root.msg.GW2C_RetFriendDetail();
-            if (object.base != null) {
-                if (typeof object.base !== "object")
-                    throw TypeError(".msg.GW2C_RetFriendDetail.base: object expected");
-                message.base = $root.msg.EntityBase.fromObject(object.base);
-            }
-            return message;
-        };
-
-        /**
-         * Creates a plain object from a GW2C_RetFriendDetail message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof msg.GW2C_RetFriendDetail
-         * @static
-         * @param {msg.GW2C_RetFriendDetail} message GW2C_RetFriendDetail
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        GW2C_RetFriendDetail.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            var object = {};
-            if (options.defaults)
-                object.base = null;
-            if (message.base != null && message.hasOwnProperty("base"))
-                object.base = $root.msg.EntityBase.toObject(message.base, options);
-            return object;
-        };
-
-        /**
-         * Converts this GW2C_RetFriendDetail to JSON.
-         * @function toJSON
-         * @memberof msg.GW2C_RetFriendDetail
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        GW2C_RetFriendDetail.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return GW2C_RetFriendDetail;
-    })();
-
     msg.C2GW_ReqGetFriendPresent = (function() {
 
         /**
@@ -19242,7 +18827,8 @@ $root.msg = (function() {
          * @memberof msg
          * @interface IGW2C_PushFriendLogin
          * @property {number|Long|null} [roleid] GW2C_PushFriendLogin roleid
-         * @property {number|null} [offlinetime] GW2C_PushFriendLogin offlinetime
+         * @property {number|Long|null} [offlinetime] GW2C_PushFriendLogin offlinetime
+         * @property {Array.<number|Long>|null} [friends] GW2C_PushFriendLogin friends
          */
 
         /**
@@ -19254,6 +18840,7 @@ $root.msg = (function() {
          * @param {msg.IGW2C_PushFriendLogin=} [properties] Properties to set
          */
         function GW2C_PushFriendLogin(properties) {
+            this.friends = [];
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
@@ -19270,11 +18857,19 @@ $root.msg = (function() {
 
         /**
          * GW2C_PushFriendLogin offlinetime.
-         * @member {number} offlinetime
+         * @member {number|Long} offlinetime
          * @memberof msg.GW2C_PushFriendLogin
          * @instance
          */
-        GW2C_PushFriendLogin.prototype.offlinetime = 0;
+        GW2C_PushFriendLogin.prototype.offlinetime = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * GW2C_PushFriendLogin friends.
+         * @member {Array.<number|Long>} friends
+         * @memberof msg.GW2C_PushFriendLogin
+         * @instance
+         */
+        GW2C_PushFriendLogin.prototype.friends = $util.emptyArray;
 
         /**
          * Creates a new GW2C_PushFriendLogin instance using the specified properties.
@@ -19303,7 +18898,10 @@ $root.msg = (function() {
             if (message.roleid != null && message.hasOwnProperty("roleid"))
                 writer.uint32(/* id 1, wireType 0 =*/8).int64(message.roleid);
             if (message.offlinetime != null && message.hasOwnProperty("offlinetime"))
-                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.offlinetime);
+                writer.uint32(/* id 2, wireType 0 =*/16).int64(message.offlinetime);
+            if (message.friends != null && message.friends.length)
+                for (var i = 0; i < message.friends.length; ++i)
+                    writer.uint32(/* id 3, wireType 0 =*/24).int64(message.friends[i]);
             return writer;
         };
 
@@ -19342,7 +18940,17 @@ $root.msg = (function() {
                     message.roleid = reader.int64();
                     break;
                 case 2:
-                    message.offlinetime = reader.int32();
+                    message.offlinetime = reader.int64();
+                    break;
+                case 3:
+                    if (!(message.friends && message.friends.length))
+                        message.friends = [];
+                    if ((tag & 7) === 2) {
+                        var end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2)
+                            message.friends.push(reader.int64());
+                    } else
+                        message.friends.push(reader.int64());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -19383,8 +18991,15 @@ $root.msg = (function() {
                 if (!$util.isInteger(message.roleid) && !(message.roleid && $util.isInteger(message.roleid.low) && $util.isInteger(message.roleid.high)))
                     return "roleid: integer|Long expected";
             if (message.offlinetime != null && message.hasOwnProperty("offlinetime"))
-                if (!$util.isInteger(message.offlinetime))
-                    return "offlinetime: integer expected";
+                if (!$util.isInteger(message.offlinetime) && !(message.offlinetime && $util.isInteger(message.offlinetime.low) && $util.isInteger(message.offlinetime.high)))
+                    return "offlinetime: integer|Long expected";
+            if (message.friends != null && message.hasOwnProperty("friends")) {
+                if (!Array.isArray(message.friends))
+                    return "friends: array expected";
+                for (var i = 0; i < message.friends.length; ++i)
+                    if (!$util.isInteger(message.friends[i]) && !(message.friends[i] && $util.isInteger(message.friends[i].low) && $util.isInteger(message.friends[i].high)))
+                        return "friends: integer|Long[] expected";
+            }
             return null;
         };
 
@@ -19410,7 +19025,28 @@ $root.msg = (function() {
                 else if (typeof object.roleid === "object")
                     message.roleid = new $util.LongBits(object.roleid.low >>> 0, object.roleid.high >>> 0).toNumber();
             if (object.offlinetime != null)
-                message.offlinetime = object.offlinetime | 0;
+                if ($util.Long)
+                    (message.offlinetime = $util.Long.fromValue(object.offlinetime)).unsigned = false;
+                else if (typeof object.offlinetime === "string")
+                    message.offlinetime = parseInt(object.offlinetime, 10);
+                else if (typeof object.offlinetime === "number")
+                    message.offlinetime = object.offlinetime;
+                else if (typeof object.offlinetime === "object")
+                    message.offlinetime = new $util.LongBits(object.offlinetime.low >>> 0, object.offlinetime.high >>> 0).toNumber();
+            if (object.friends) {
+                if (!Array.isArray(object.friends))
+                    throw TypeError(".msg.GW2C_PushFriendLogin.friends: array expected");
+                message.friends = [];
+                for (var i = 0; i < object.friends.length; ++i)
+                    if ($util.Long)
+                        (message.friends[i] = $util.Long.fromValue(object.friends[i])).unsigned = false;
+                    else if (typeof object.friends[i] === "string")
+                        message.friends[i] = parseInt(object.friends[i], 10);
+                    else if (typeof object.friends[i] === "number")
+                        message.friends[i] = object.friends[i];
+                    else if (typeof object.friends[i] === "object")
+                        message.friends[i] = new $util.LongBits(object.friends[i].low >>> 0, object.friends[i].high >>> 0).toNumber();
+            }
             return message;
         };
 
@@ -19427,13 +19063,19 @@ $root.msg = (function() {
             if (!options)
                 options = {};
             var object = {};
+            if (options.arrays || options.defaults)
+                object.friends = [];
             if (options.defaults) {
                 if ($util.Long) {
                     var long = new $util.Long(0, 0, false);
                     object.roleid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.roleid = options.longs === String ? "0" : 0;
-                object.offlinetime = 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.offlinetime = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.offlinetime = options.longs === String ? "0" : 0;
             }
             if (message.roleid != null && message.hasOwnProperty("roleid"))
                 if (typeof message.roleid === "number")
@@ -19441,7 +19083,18 @@ $root.msg = (function() {
                 else
                     object.roleid = options.longs === String ? $util.Long.prototype.toString.call(message.roleid) : options.longs === Number ? new $util.LongBits(message.roleid.low >>> 0, message.roleid.high >>> 0).toNumber() : message.roleid;
             if (message.offlinetime != null && message.hasOwnProperty("offlinetime"))
-                object.offlinetime = message.offlinetime;
+                if (typeof message.offlinetime === "number")
+                    object.offlinetime = options.longs === String ? String(message.offlinetime) : message.offlinetime;
+                else
+                    object.offlinetime = options.longs === String ? $util.Long.prototype.toString.call(message.offlinetime) : options.longs === Number ? new $util.LongBits(message.offlinetime.low >>> 0, message.offlinetime.high >>> 0).toNumber() : message.offlinetime;
+            if (message.friends && message.friends.length) {
+                object.friends = [];
+                for (var j = 0; j < message.friends.length; ++j)
+                    if (typeof message.friends[j] === "number")
+                        object.friends[j] = options.longs === String ? String(message.friends[j]) : message.friends[j];
+                    else
+                        object.friends[j] = options.longs === String ? $util.Long.prototype.toString.call(message.friends[j]) : options.longs === Number ? new $util.LongBits(message.friends[j].low >>> 0, message.friends[j].high >>> 0).toNumber() : message.friends[j];
+            }
             return object;
         };
 
@@ -30945,6 +30598,8 @@ $root.msg = (function() {
          * @property {number|null} [gold] RS2C_RolePushPropertyChange gold
          * @property {number|null} [safegold] RS2C_RolePushPropertyChange safegold
          * @property {number|null} [yuanbao] RS2C_RolePushPropertyChange yuanbao
+         * @property {number|null} [silvercardtime] RS2C_RolePushPropertyChange silvercardtime
+         * @property {number|null} [goldcardtime] RS2C_RolePushPropertyChange goldcardtime
          */
 
         /**
@@ -30995,6 +30650,22 @@ $root.msg = (function() {
         RS2C_RolePushPropertyChange.prototype.yuanbao = 0;
 
         /**
+         * RS2C_RolePushPropertyChange silvercardtime.
+         * @member {number} silvercardtime
+         * @memberof msg.RS2C_RolePushPropertyChange
+         * @instance
+         */
+        RS2C_RolePushPropertyChange.prototype.silvercardtime = 0;
+
+        /**
+         * RS2C_RolePushPropertyChange goldcardtime.
+         * @member {number} goldcardtime
+         * @memberof msg.RS2C_RolePushPropertyChange
+         * @instance
+         */
+        RS2C_RolePushPropertyChange.prototype.goldcardtime = 0;
+
+        /**
          * Creates a new RS2C_RolePushPropertyChange instance using the specified properties.
          * @function create
          * @memberof msg.RS2C_RolePushPropertyChange
@@ -31026,6 +30697,10 @@ $root.msg = (function() {
                 writer.uint32(/* id 3, wireType 0 =*/24).int32(message.safegold);
             if (message.yuanbao != null && message.hasOwnProperty("yuanbao"))
                 writer.uint32(/* id 4, wireType 0 =*/32).int32(message.yuanbao);
+            if (message.silvercardtime != null && message.hasOwnProperty("silvercardtime"))
+                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.silvercardtime);
+            if (message.goldcardtime != null && message.hasOwnProperty("goldcardtime"))
+                writer.uint32(/* id 6, wireType 0 =*/48).int32(message.goldcardtime);
             return writer;
         };
 
@@ -31071,6 +30746,12 @@ $root.msg = (function() {
                     break;
                 case 4:
                     message.yuanbao = reader.int32();
+                    break;
+                case 5:
+                    message.silvercardtime = reader.int32();
+                    break;
+                case 6:
+                    message.goldcardtime = reader.int32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -31119,6 +30800,12 @@ $root.msg = (function() {
             if (message.yuanbao != null && message.hasOwnProperty("yuanbao"))
                 if (!$util.isInteger(message.yuanbao))
                     return "yuanbao: integer expected";
+            if (message.silvercardtime != null && message.hasOwnProperty("silvercardtime"))
+                if (!$util.isInteger(message.silvercardtime))
+                    return "silvercardtime: integer expected";
+            if (message.goldcardtime != null && message.hasOwnProperty("goldcardtime"))
+                if (!$util.isInteger(message.goldcardtime))
+                    return "goldcardtime: integer expected";
             return null;
         };
 
@@ -31142,6 +30829,10 @@ $root.msg = (function() {
                 message.safegold = object.safegold | 0;
             if (object.yuanbao != null)
                 message.yuanbao = object.yuanbao | 0;
+            if (object.silvercardtime != null)
+                message.silvercardtime = object.silvercardtime | 0;
+            if (object.goldcardtime != null)
+                message.goldcardtime = object.goldcardtime | 0;
             return message;
         };
 
@@ -31163,6 +30854,8 @@ $root.msg = (function() {
                 object.gold = 0;
                 object.safegold = 0;
                 object.yuanbao = 0;
+                object.silvercardtime = 0;
+                object.goldcardtime = 0;
             }
             if (message.diamond != null && message.hasOwnProperty("diamond"))
                 object.diamond = message.diamond;
@@ -31172,6 +30865,10 @@ $root.msg = (function() {
                 object.safegold = message.safegold;
             if (message.yuanbao != null && message.hasOwnProperty("yuanbao"))
                 object.yuanbao = message.yuanbao;
+            if (message.silvercardtime != null && message.hasOwnProperty("silvercardtime"))
+                object.silvercardtime = message.silvercardtime;
+            if (message.goldcardtime != null && message.hasOwnProperty("goldcardtime"))
+                object.goldcardtime = message.goldcardtime;
             return object;
         };
 

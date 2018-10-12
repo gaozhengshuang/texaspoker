@@ -27,6 +27,14 @@ enum AwardFixedId
 	 * 礼物商店年vip
 	 */
 	GShopYearVip = 510,
+	/**
+	 * 白银月卡
+	 */
+	SliverMonthCard = 827,
+	/**
+	 * 黄金月卡
+	 */
+	GoldMonthCard = 828
 }
 
 /**
