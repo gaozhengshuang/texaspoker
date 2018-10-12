@@ -604,6 +604,7 @@ func (u *GateUser) Online(session network.IBaseNetSession, way string) bool {
 	u.asynev.Start(int64(u.Id()), 100)
 	u.LoginStatistics()
 	u.online = true
+	Redis().HSet(fmt.Sprintf("charbase_%d", uid), "offlinetime", 0)
 	u.client = session
 	u.statistics.tm_login = curtime
 	u.tm_disconnect = 0
