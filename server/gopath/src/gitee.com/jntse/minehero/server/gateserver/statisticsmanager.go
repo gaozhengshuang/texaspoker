@@ -22,7 +22,7 @@ func (this *StatisticsManager) GetPlayerRoleInfo(id int64) *msg.GW2C_RetPlayerRo
 		send.Errcode = pb.String("")
 		send.Entity = pb.Clone(user.bin.GetEntity()).(*msg.EntityBase)
 		send.Vip = pb.Clone(user.bin.GetBase().GetVip()).(*msg.UserVip)
-		send.Statistics = pb.Clone(user.bin.GetBase().GetStatics()).(*msg.UserStatistics)
+		send.Statistics = pb.Clone(user.statistics.PackBin()).(*msg.UserStatistics)
 	} else {
 		send.Roleid = pb.Int64(id)
 		send.Errcode = pb.String("")

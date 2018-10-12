@@ -36,7 +36,7 @@ func (this *UserStatistics) LoadBin(bin *msg.Serialize) {
 	userBaseBin := bin.GetBase()
 	if userBaseBin == nil { return }
 	userStatisticsBin := userBaseBin.GetStatics()
-	if userBaseBin == nil { return }
+	if userStatisticsBin == nil { return }
 	this.tm_login = userStatisticsBin.GetTmlogin()
 	this.tm_logout = userStatisticsBin.GetTmlogout()
 	this.continuelogin = userStatisticsBin.GetContinuelogin()

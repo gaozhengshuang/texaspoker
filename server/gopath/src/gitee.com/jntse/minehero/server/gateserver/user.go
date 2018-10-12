@@ -402,6 +402,7 @@ func (u *GateUser) OnDBLoad(way string) {
 	if u.bin.Base.Task == nil { u.bin.Base.Task = &msg.UserTask{} }
 	if u.bin.Base.Luckydraw == nil { u.bin.Base.Luckydraw = &msg.LuckyDrawRecord{Drawlist: make([]*msg.LuckyDrawItem, 0)} }
 	if u.bin.Base.Arvalues == nil { u.bin.Base.Arvalues = &msg.AutoResetValues{Values: make([]*msg.AutoResetValue, 0)} }
+	if u.bin.Base.Vip == nil { u.bin.Base.Vip = &msg.UserVip{} }
 	//if u.bin.Base.Images == nil { u.bin.Base.Images = &msg.PersonalImage{Lists: make([]*msg.ImageData, 0)} }
 
 	// 加载二进制
