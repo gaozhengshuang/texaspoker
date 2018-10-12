@@ -66,13 +66,6 @@ func (u *GateUser) GetActivityAwardByAwardId(awardid int32, reason string) bool 
 		log.Error("玩家[%d %s] 领取活动奖励失败，未找到奖励配置 %d", u.Id(), u.Name(), awardid)
 		return false
 	}
-	if awardid == SILVER_MONTHCARD {
-		addtime := 60*60*24*30
-		u.AddSilverCardTime(int32(addtime))
-	}else if awardid == GOLD_MONTHCARD {
-		addtime := 60*60*24*30
-		u.AddGoldCardTime(int32(addtime))
-	}
 
 	if config.PreId == SILVER_MONTHCARD {
 		if int32(util.CURTIME()) > u.silvercardtime {
@@ -105,6 +98,15 @@ func (u *GateUser) GetActivityAwardByAwardId(awardid int32, reason string) bool 
 			}
 		}
 	}
+	//月卡
+	if awardid == SILVER_MONTHCARD {
+		addtime := 60*60*24*30
+		u.AddSilverCardTime(int32(addtime))
+	}else if awardid == GOLD_MONTHCARD {
+		addtime := 60*60*24*30
+		u.AddGoldCardTime(int32(addtime))
+	}
+
 	if len(costid) > 0 {
 		for i := 0; i < len(costid); i++ {
 			u.RemoveItem(costid[i], costnum[i], "兑换奖励花费")

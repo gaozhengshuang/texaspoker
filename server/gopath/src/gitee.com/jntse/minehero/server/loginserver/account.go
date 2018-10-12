@@ -372,6 +372,7 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 		gold := int32(tbl.Global.NewUser.Gold)
 		Redis().HSet(fmt.Sprintf("charbase_%d", userid), "gold", gold)
 		yuanbao := int32(tbl.Global.NewUser.Yuanbao)
+		diamond := int32(tbl.Global.NewUser.Diamond)
 		userinfo := &msg.Serialize{
 			Entity: &msg.EntityBase{
 				Roleid: pb.Int64(userid),
@@ -380,7 +381,7 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 				Account: pb.String(account),
 				//Gold: pb.Int32(gold), 
 				Yuanbao: pb.Int32(yuanbao), 
-				Diamond: pb.Int32(0),
+				Diamond: pb.Int32(diamond),
 				Level: pb.Int32(1),
 				Sex: pb.Int32(int32(msg.Sex_Female)),
 			},
