@@ -3,4 +3,10 @@
 	<e:Image id="bgImg" width="100%" y="0" x="0" height="100%" source="assets/bg/login_background_1_jpg"/>
 	<e:Image y="28" id="logoImg" horizontalCenter="0"/>
 	<e:Label id="versionLabel" size="22" verticalAlign="middle" fontFamily="Microsoft YaHei" text="" anchorOffsetX="0" bold="false" textColor="0xFFFFFF" alpha="0.8" y="273" textAlign="center" x="478"/>
+	<e:Scroller id="scroller" width="720" height="386" y="851" anchorOffsetX="0" anchorOffsetY="0" x="0"/>
+	<e:List id="list" width="720" height="386" x="0" y="851" anchorOffsetX="0" anchorOffsetY="0">
+		<e:layout>
+		<e:VerticalLayout gap="2"/>
+		</e:layout>
+	</e:List>
 </e:Skin>
