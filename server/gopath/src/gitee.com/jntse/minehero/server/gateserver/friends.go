@@ -279,6 +279,9 @@ func (m *Friends) AddFriend(brief *msg.FriendBrief, reason string, save bool) *F
 	if save == true {
 		f.AddBin()
 	}
+
+	pushmsg := &msg.GW2C_PushFriendAddSuccess{Handler:pb.Int64(0), Friend:brief}
+	m.owner.SendMsg(pushmsg)
 	log.Info("[好友] 玩家[%s %d] 添加好友[%s %d]成功 原因[%s]", m.Name(), m.Id(), f.Name(), f.Id(), reason)
 	return f
 }
@@ -380,7 +383,8 @@ func (m *Friends) ProcessFriendRequest(uid int64, accept bool) {
 		log.Error("[好友] 玩家[%s %d] 获取玩家Charbase失败 RedisError[%s]", m.Name(), m.Id(), err)
 		return
 	}
-	m.AddFriend(FillFriendBrief(cmdmap),"同意好友请求", true)
+	fbrief := FillFriendBrief(cmdmap)
+	m.AddFriend(fbrief,"同意好友请求", true)
 
 	pipe := Redis().Pipeline()
 	defer pipe.Close()
@@ -424,7 +428,6 @@ func (m *Friends) OnFriendRequestRecv(reqmsg *msg.GW2C_PushAddYouFriend) {
 // 收到申请通过消息
 func (m *Friends) OnFriendRequestPass(push *msg.GW2C_PushFriendAddSuccess) {
 	m.AddFriend(push.Friend, "对方同意", false)
-	m.owner.SendMsg(push)
 }
 
 // 收到申请礼物消息
