@@ -169,16 +169,16 @@ class UserManager
 	/**
 	 * 获取其他用户信息
 	 */
-	public static sendGetUserInfo(roleId: number, callback: Function, errorCallBack?: Function, isInRoom: boolean = false)
+	public static sendGetUserInfo(roleId: number, callback: Function, errorCallBack?: Function)
 	{
-		if (isInRoom)
-		{
-			MsgTransferSend.sendRoomProto(Command.C2RS_ReqFriendGetRoleInfo, { roleid: roleId }, callback, errorCallBack, this);
-		}
-		else
-		{
-			SocketManager.call(Command.C2RS_ReqFriendGetRoleInfo, { roleid: roleId }, callback, errorCallBack, this);
-		}
+		// if (isInRoom)
+		// {
+		// 	MsgTransferSend.sendRoomProto(Command.C2GW_ReqPlayerRoleInfo, { roleid: roleId }, callback, errorCallBack, this);
+		// }
+		// else
+		// {
+			SocketManager.call(Command.C2GW_ReqPlayerRoleInfo, { roleid: roleId }, callback, errorCallBack, this);
+		// }
 	}
 
 	public static reqSimpleUserInfo(roleId: number)
