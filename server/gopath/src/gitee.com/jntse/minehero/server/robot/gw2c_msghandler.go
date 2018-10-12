@@ -74,6 +74,7 @@ func (mh* GW2CMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.GW2C_RetFriendSearch{}, on_GW2C_RetFriendSearch)
 	//mh.msgparser.RegistProtoMsg(msg.GW2C_PushFriendLogin{}, on_GW2C_PushFriendLogin)
 	//mh.msgparser.RegistProtoMsg(msg.GW2C_PushFriendInvitation{}, on_GW2C_PushFriendInvitation)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_PushFriendInvitation{}, on_GW2C_PushFriendInvitation)
 
 
 	// 收room消息
@@ -268,7 +269,7 @@ func on_GW2C_RetCreateRoom(session network.IBaseNetSession, message interface{})
 	}
 	client.roomid, client.roompwd = roomid, passwd
 	client.EnterRoom()
-	client.ReqSitDown()
+	//client.ReqSitDown()
 
 	log.Info("玩家[%s %d] 开启游戏成功，进入房间[%d]", name, id, roomid)
 
