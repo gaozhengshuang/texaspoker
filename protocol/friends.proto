@@ -149,7 +149,8 @@ message GW2C_RetFriendSearch {
 // 好友在线通知推送
 message GW2C_PushFriendLogin {
     optional int64 roleid = 1;
-    optional int32 offlinetime = 2;
+    optional int64 offlinetime = 2;
+    repeated int64 friends = 3;     // 服务器使用
 }
 
 

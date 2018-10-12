@@ -47,6 +47,7 @@ type DBUserData struct {
 	luckydraw      []*msg.LuckyDrawItem
 	luckydrawtotal int64
 	statistics	   UserStatistics
+	vip			   UserVip
 	totalrecharge  int32 // 总充值
 	lastgoldtime   int32 // 上次领取系统金币的时间
 	awardrecord    []*msg.AwardRecord  
@@ -438,6 +439,7 @@ func (u *GateUser) PackBin() *msg.Serialize {
 
 	userbase := bin.GetBase()
 	userbase.Statics = u.statistics.PackBin()
+	userbase.Vip = u.vip.PackBin()
 	userbase.Sign.Signdays = pb.Int32(u.signdays)
 	userbase.Sign.Signtime = pb.Int32(u.signtime)
 	userbase.Misc.Invitationcode = pb.String(u.invitationcode)
@@ -508,6 +510,7 @@ func (u *GateUser) LoadBin() {
 	}
 
 	u.statistics.LoadBin(u.bin)
+	u.vip.LoadBin(u.bin)
 	// 道具信息
 	u.bag.Clean()
 	u.bag.LoadBin(u.bin)
@@ -586,6 +589,8 @@ func (u *GateUser) AsynSaveFeedback() {
 
 // 新用户回调
 func (u *GateUser) OnCreateNew() {
+	//玩家创建时间
+	u.statistics.createdtime = util.CURTIME()
 }
 
 // 上线回调，玩家数据在LoginOk中发送
@@ -608,6 +613,9 @@ func (u *GateUser) Online(session network.IBaseNetSession, way string) bool {
 	u.tm_heartbeat = util.CURTIMEMS()
 	u.roomdata.Online(u)
 	log.Info("Sid[%d] 账户[%s] 玩家[%d] 名字[%s] 登录成功[%s]", u.Sid(), u.account, u.Id(), u.Name(), way)
+
+	// 更新charbase
+	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "offlinetime", 0)
 
 	// 上线任务检查
 	u.OnlineTaskCheck()
@@ -692,7 +700,9 @@ func (u *GateUser) CheckDisconnectTimeOut(now int64) {
 // 真下线，清理玩家数据
 func (u *GateUser) Logout() {
 	u.online = false
-	u.statistics.tm_logout = util.CURTIME()
+	nowtime := util.CURTIME()
+	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "offlinetime", nowtime)
+	u.statistics.tm_logout = nowtime
 	u.cleanup = true
 	//u.DBSave()
 	UnBindingAccountGateWay(u.account)
