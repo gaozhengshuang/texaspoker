@@ -50,6 +50,7 @@ func (mh *MS2GWMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.GW2C_PushFriendAddSuccess{}, on_GW2C_PushFriendAddSuccess)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_PushRemoveFriend{}, on_GW2C_PushRemoveFriend)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_PushFriendPresent{}, on_GW2C_PushFriendPresent)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_PushUserOnline{}, on_GW2C_PushUserOnline)
 }
 
 func on_MS2GW_RetRegist(session network.IBaseNetSession, message interface{}) {

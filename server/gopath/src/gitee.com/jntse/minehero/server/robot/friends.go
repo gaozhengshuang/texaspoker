@@ -24,9 +24,9 @@ func (u *User) AddFriend(subcmd string) {
 	u.SendGateMsg(send)
 }
 
-func (u *User) ProcessFriend(subcmd string) {
-	uid := util.Atol(subcmd)
-	send := &msg.C2GW_ReqProcessFriendRequest{Roleid:pb.Int64(uid)}
+func (u *User) ProcessFriend(subcmd, subcmd2 string) {
+	uid, accept := util.Atol(subcmd), util.Atoi(subcmd2)
+	send := &msg.C2GW_ReqProcessFriendRequest{Roleid:pb.Int64(uid), Isaccept:pb.Bool(accept!=0)}
 	u.SendGateMsg(send)
 }
 
@@ -35,6 +35,13 @@ func (u *User) FriendPresent(subcmd string) {
 	send := &msg.C2GW_ReqPresentToFriend{Roleid:pb.Int64(uid)}
 	u.SendGateMsg(send)
 }
+
+func (u *User) GetFriendPresent(subcmd string) {
+	uid := util.Atol(subcmd)
+	send := &msg.C2GW_ReqGetFriendPresent{Roleid:pb.Int64(uid)}
+	u.SendGateMsg(send)
+}
+
 
 func (u *User) RemoveFriend(subcmd string) {
 	uid := util.Atol(subcmd)
@@ -59,6 +66,11 @@ func on_GW2C_RetPresentToFriend(session network.IBaseNetSession, message interfa
 
 func on_GW2C_RetGetFriendPresent(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2C_RetGetFriendPresent)
+	log.Info("%+v", tmsg)
+}
+
+func on_GW2C_PushFriendPresent(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2C_PushFriendPresent)
 	log.Info("%+v", tmsg)
 }
 
