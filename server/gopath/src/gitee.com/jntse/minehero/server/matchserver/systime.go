@@ -3,7 +3,7 @@ package main
 import (
 	"time"
 	"gitee.com/jntse/gotoolkit/util"
-	"gitee.com/jntse/gotoolkit/log"
+	_"gitee.com/jntse/gotoolkit/log"
 	"gitee.com/jntse/minehero/server/tbl"
 	//"gitee.com/jntse/minehero/server/tbl/excel"
 )
