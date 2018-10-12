@@ -72,11 +72,21 @@ func (u *GateUser) GetActivityAwardByAwardId(awardid int32, reason string) bool 
 			log.Error("玩家[%d %s] 领取白银月卡奖励失败，白银月卡已过期 %d", u.Id(), u.Name(), awardid)
 			return false
 		}
+		if u.silvercardawardstate > 0 {
+			log.Error("玩家[%d %s] 领取白银月卡奖励失败，本日已经领取过 %d", u.Id(), u.Name(), awardid)
+			return false
+		}
+		u.silvercardawardstate = 1
 	} else if config.PreId == GOLD_MONTHCARD {
 		if int32(util.CURTIME()) > u.goldcardtime {
 			log.Error("玩家[%d %s] 领取黄金月卡奖励失败，黄金月卡已过期 %d", u.Id(), u.Name(), awardid)
 			return false
 		}
+		if u.goldcardawardstate > 0 {
+			log.Error("玩家[%d %s] 领取黄金月卡奖励失败，本日已经领取过 %d", u.Id(), u.Name(), awardid)
+			return false
+		}
+		u.goldcardawardstate = 1
 	}
 	items := config.RewardId
 	num := config.RewardNum
@@ -186,6 +196,7 @@ func (u *GateUser) DailySignInfoToMsg(bin *msg.GW2C_RetActivityInfo) {
 //跨天重置的活动
 func (u *GateUser) ActivityResetByDay() {
 	u.ResetBankruptCount()
+	u.ResetCardRewardState()
 }
 
 //跨周重置的活动
@@ -371,4 +382,9 @@ func (u *GateUser) AddGoldCardTime (addtime int32) {
 	u.SendPropertyChange()
 }
 
+//月卡每日领取重置
+func (u *GateUser) ResetCardRewardState () {
+	u.silvercardawardstate = 0
+	u.goldcardawardstate = 0
+}
 

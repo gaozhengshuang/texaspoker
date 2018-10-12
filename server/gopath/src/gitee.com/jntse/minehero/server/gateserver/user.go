@@ -510,6 +510,7 @@ func (u *GateUser) LoadBin() {
 	}
 
 	u.statistics.LoadBin(u.bin)
+	userbase.GetStatics().Tmlogin = pb.Int64(util.CURTIME())
 	u.vip.LoadBin(u.bin)
 	// 道具信息
 	u.bag.Clean()
@@ -602,6 +603,7 @@ func (u *GateUser) Online(session network.IBaseNetSession, way string) bool {
 	}
 
 	curtime := util.CURTIME()
+
 	u.RegistTicker()
 	u.tickers.Start()
 	u.asynev.Start(int64(u.Id()), 100)
