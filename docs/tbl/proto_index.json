@@ -143,7 +143,7 @@
 		{ "Id": 139, "Name": "msg.C2RS_ReqFriendGetRoleInfo" },
 		{ "Id": 140, "Name": "msg.RS2C_RetFriendGetRoleInfo" },
 		{ "Id": 141, "Name": "msg.RS2C_RolePushPropertyChange" },
-		{ "Id": 142, "Name": "msg.GW2C_MsgNotify" },
+		{ "Id": 142, "Name": "msg.GW2C_PushMsgNotify" },
 		{ "Id": 143, "Name": "msg.GW2C_MsgNotice" },
 		{ "Id": 144, "Name": "msg.GW2MS_MsgNotice" },
 		{ "Id": 145, "Name": "msg.RS2MS_MsgNotice" },

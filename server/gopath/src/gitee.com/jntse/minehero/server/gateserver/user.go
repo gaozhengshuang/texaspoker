@@ -723,7 +723,7 @@ func (u *GateUser) OnCleanUp() {
 
 // 发送个人通知
 func (u *GateUser) SendNotify(text string) {
-	send := &msg.GW2C_MsgNotify{Text: pb.String(text)}
+	send := &msg.GW2C_PushMsgNotify{Text: pb.String(text)}
 	u.SendMsg(send)
 }
 

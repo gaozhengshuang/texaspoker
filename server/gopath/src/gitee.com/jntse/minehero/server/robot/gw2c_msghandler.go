@@ -34,7 +34,7 @@ func (mh* GW2CMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.GW2C_RetLogin{}, on_GW2C_RetLogin)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_PushUserInfo{}, on_GW2C_PushUserInfo)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_RetHeartBeat{}, on_GW2C_RetHeartBeat)
-	mh.msgparser.RegistProtoMsg(msg.GW2C_MsgNotify{}, on_GW2C_MsgNotify)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_PushMsgNotify{}, on_GW2C_PushMsgNotify)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_MsgNotice{}, on_GW2C_MsgNotice)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_PushPackageItemAdd{}, on_GW2C_PushPackageItemAdd)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_PushPackageItemRemove{}, on_GW2C_PushPackageItemRemove)
@@ -114,8 +114,8 @@ func on_GW2C_PushPackageItemAdd(session network.IBaseNetSession, message interfa
 	log.Info("%+v", tmsg)
 }
 
-func on_GW2C_MsgNotify(session network.IBaseNetSession, message interface{}) {
-	//tmsg := message.(*msg.GW2C_MsgNotify)
+func on_GW2C_PushMsgNotify(session network.IBaseNetSession, message interface{}) {
+	//tmsg := message.(*msg.GW2C_PushMsgNotify)
 	//log.Info(reflect.TypeOf(tmsg).String())
 	//log.Info("%v", tmsg)
 }
