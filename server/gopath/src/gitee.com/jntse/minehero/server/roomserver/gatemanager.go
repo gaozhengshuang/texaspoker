@@ -121,3 +121,13 @@ func (g *GateManager) AddNew(session network.IBaseNetSession, name, ip string ,p
 	log.Info("注册网关 id=%d [%s:%d] 当前总数:%d", agent.Id(), agent.ip, agent.port, g.Num())
 }
 
+func (g *GateManager) Broadcast(msg pb.Message, except ...int) {
+	loop:
+	for id, gate := range g.gates {
+		for _, exc := range except {
+			if id == exc { continue loop }
+		}
+		gate.SendMsg(msg)
+	}
+}
+

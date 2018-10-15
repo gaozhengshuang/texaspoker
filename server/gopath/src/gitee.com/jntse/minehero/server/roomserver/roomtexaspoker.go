@@ -75,6 +75,8 @@ type TexasPokerRoom struct {
 	lastrecord []*msg.UserReviewInfo	//上一局记录
 	posfold map[int32]int32
 	recordstep int32
+	mttuid int32
+	mtttid int32
 }
 
 func (this *TexasPokerRoom) Id() int64 { return this.id }
