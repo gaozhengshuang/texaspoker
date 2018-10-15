@@ -39,11 +39,15 @@ func (mh *MS2GWMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.MS2GW_HeartBeat{}, on_MS2GW_HeartBeat)
 	mh.msgparser.RegistProtoMsg(msg.MS2GW_MsgNotice{}, on_MS2GW_MsgNotice)
 	mh.msgparser.RegistProtoMsg(msg.MS2GW_MsgTransfer{}, on_MS2GW_MsgTransfer)
+	mh.msgparser.RegistProtoMsg(msg.MS2Server_BroadCast{}, on_MS2Server_BroadCast)
+
+	// 房间
+	mh.msgparser.RegistProtoMsg(msg.MS2GW_RetCreateRoom{}, on_MS2GW_RetCreateRoom)
 	//mh.msgparser.RegistProtoMsg(msg.MS2GW_RetStartMatch{}, on_MS2GW_RetStartMatch)
 	//mh.msgparser.RegistProtoMsg(msg.MS2GW_RetCancelMatch{}, on_MS2GW_RetCancelMatch)
 	//mh.msgparser.RegistProtoMsg(msg.MS2GW_MatchOk{}, on_MS2GW_MatchOk)
-	mh.msgparser.RegistProtoMsg(msg.MS2GW_RetCreateRoom{}, on_MS2GW_RetCreateRoom)
-	mh.msgparser.RegistProtoMsg(msg.MS2Server_BroadCast{}, on_MS2Server_BroadCast)
+
+	// 邮件
 	mh.msgparser.RegistProtoMsg(msg.MS2GW_PushNewMail{}, on_MS2GW_PushNewMail)
 
 	// GW2GW

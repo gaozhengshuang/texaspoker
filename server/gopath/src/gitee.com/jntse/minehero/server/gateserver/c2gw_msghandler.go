@@ -224,6 +224,10 @@ func on_C2GW_ReqEnterRoom(session network.IBaseNetSession, message interface{}) 
 		return
 	}
 
+	// 背包立即同步DB
+	u.bag.DBSave()
+
+
 	// 重新进入房间，不需要上传玩家二进制数据
 	if u.RoomId() != roomid {
 		u.SendUserBinToRoom(sid, roomid)
