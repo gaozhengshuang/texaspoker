@@ -144,12 +144,12 @@ class LoginTelPanel extends BasePanel
         SoundManager.playButtonEffect(event.target);
         if (!this.isEmpty())
         {
-            if (this.tabCom.lastIndex == 0)
+            if (this.tabCom.selectIndex == 0)
             {
                 let pw: string = this.pwdText.text.trim();
                 let isPwMd5: boolean = AccountPlayerPrefs.IsMatchAccountPassword(account, pw);
                 AccountManager.Login(account, pw, isPwMd5);
-            } else if (this.tabCom.lastIndex == 1)
+            } else if (this.tabCom.selectIndex == 1)
             {
                 let code: string = this.codeLabel.text.trim();
                 AccountManager.PhoneSmsLoginVerify(code, account);
@@ -177,7 +177,7 @@ class LoginTelPanel extends BasePanel
     private isEmpty(): boolean
     {
         let account: string = this.accountText.text.trim();
-        if (this.tabCom.lastIndex == 0)
+        if (this.tabCom.selectIndex == 0)
         {
             let pw: string = this.pwdText.text.trim();
             if (!account || !pw)
@@ -185,7 +185,7 @@ class LoginTelPanel extends BasePanel
                 AlertManager.showAlert("您的账号或密码为空，请重新输入！");
                 return true;
             }
-        } else if (this.tabCom.lastIndex == 1)
+        } else if (this.tabCom.selectIndex == 1)
         {
             let code: string = this.codeLabel.text.trim();
             if (!account || !code)

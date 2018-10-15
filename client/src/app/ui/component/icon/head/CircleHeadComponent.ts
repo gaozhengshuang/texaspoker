@@ -37,7 +37,7 @@ class CircleHeadComponent extends HeadComponent
         super.drawHead(idDefault);
         egret.callLater(() =>
         {
-            if (game.StringUtil.isNullOrEmpty(this.headPath))
+            if (this.headPath != game.StringConstants.Empty && game.StringUtil.isNullOrEmpty(this.headPath)) //move todo
             {
                 return;
             }
