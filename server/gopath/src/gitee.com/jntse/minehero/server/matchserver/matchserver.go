@@ -52,10 +52,8 @@ type MatchServer struct {
 	hredis  *redis.Client
 	mutex   sync.Mutex
 	gatemgr GateManager
-	//usermgr		UserManager
-	systimermgr  SysTimerManager
-	championmgr  ChampionManager
 	roomsvrmgr   RoomSvrManager
+	usermgr		 UserManager
 	authens      map[string]int
 	msghandlers  []network.IBaseMsgHandler
 	tblloader    *tbl.TblLoader
@@ -93,12 +91,8 @@ func Redis() *redis.Client {
 	return Match().hredis
 }
 
-func SysTimerMgr() *SysTimerManager {
-	return &Match().systimermgr
-}
-
-func ChampionMgr() *ChampionManager {
-	return &Match().championmgr
+func UserMgr() *UserManager {
+	return &Match().usermgr
 }
 
 func ClientMsgAgent() *ClientMsgHandler {
@@ -177,7 +171,7 @@ func (ma *MatchServer) SendMsg(id int, msg pb.Message) bool {
 	return ma.net.SendMsg(id, msg)
 }
 
-func (ma *MatchServer) SendClientMsg(m pb.Message) bool {
+func (ma *MatchServer) SendClientMsg(gateid int, uid int64, m pb.Message) bool {
 	name := pb.MessageName(m)
 	if name == "" {
 		log.Fatal("SendClientMsg 获取proto名字失败[%s]", m)
@@ -189,8 +183,8 @@ func (ma *MatchServer) SendClientMsg(m pb.Message) bool {
 		return false
 	}
 
-	send := &msg.MS2GW_MsgTransfer{Uid: pb.Int64(0), Name: pb.String(name), Buf: msgbuf}
-	return ma.net.SendMsg(0, send)
+	send := &msg.MS2GW_MsgTransfer{Uid: pb.Int64(uid), Name: pb.String(name), Buf: msgbuf}
+	return ma.net.SendMsg(gateid, send)
 }
 
 func (ma *MatchServer) GetSession(id int) network.IBaseNetSession {
@@ -219,10 +213,8 @@ func (ma *MatchServer) Init(fileconf string) bool {
 
 	// 杂项
 	ma.gatemgr.Init()
-	//ma.usermgr.Init()
+	ma.usermgr.Init()
 	ma.roomsvrmgr.Init()
-	ma.systimermgr.Init()
-	ma.championmgr.Init()
 	//ma.sessions = make(map[int]network.IBaseNetSession)
 	ma.authens = make(map[string]int)
 	ma.runtimestamp = 0
@@ -303,8 +295,6 @@ func (ma *MatchServer) Run() {
 
 	//
 	ma.roomsvrmgr.Tick(now)
-	ma.systimermgr.Tick(now)
-	ma.championmgr.Tick(now)
 	tm_roomtick := util.CURTIMEMS()
 	//
 	delay := tm_roomtick - now

@@ -36,6 +36,7 @@ func (mh* RS2GWMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.RS2GW_ReqRegist{}, on_RS2GW_ReqRegist)
 	mh.msgparser.RegistProtoMsg(msg.RS2GW_RetUserDisconnect{}, on_RS2GW_RetUserDisconnect)
 	mh.msgparser.RegistProtoMsg(msg.RS2GW_MsgTransfer{}, on_RS2GW_MsgTransfer)
+	mh.msgparser.RegistProtoMsg(msg.RS2GW_MTTRoomMember{}, on_RS2GW_MTTRoomMember)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_MsgNotify{}, on_GW2C_MsgNotify)
 
 	// 房间
@@ -64,6 +65,20 @@ func on_GW2C_MsgNotify(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2C_MsgNotify)
 	if user := UserMgr().FindById(tmsg.GetUserid()); user != nil {
 		user.SendMsg(tmsg)
+	}
+}
+
+func on_RS2GW_MTTRoomMember(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.RS2GW_MTTRoomMember)
+	for _, room := range tmsg.GetRooms() {
+		for _, member := range room.GetMembers() {
+			if user := UserMgr().FindById(member); user != nil {
+				send := &msg.RS2C_PushMTTRoomId{}
+				send.Mttid = pb.Int32(room.GetMttuid())
+				send.Id = pb.Int64(room.GetRoomuid())
+				user.SendMsg(send)
+			}
+		}
 	}
 }
 

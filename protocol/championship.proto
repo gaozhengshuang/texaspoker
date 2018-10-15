@@ -18,9 +18,9 @@ message MTTInfo
     optional int32 leftjoin = 8;        //剩余人数
 }
 
-message RS2C_ReqMTTList 
+message RS2C_RetMTTList 
 {
-    repeated MTTInfo MTTList = 1;
+    repeated MTTInfo mttlist = 1;
 }
 
 //请求加入锦标赛
@@ -32,6 +32,7 @@ message C2RS_ReqMTTJoin {
 
 message RS2C_RetMTTJoin {
     optional int32 recordid = 1;
+    optional string errcode = 2;
 }
 
 //请求退出锦标赛
@@ -40,6 +41,7 @@ message C2RS_ReqMTTQuit {
 }
 
 message C2RS_RetMTTQuit {
+    optional string errcode = 1;
 }
 
 //请求加入的锦标赛
@@ -61,7 +63,7 @@ message JoinedMTTInfo
 
 message RS2C_RetJoinedMTTList
 {
-    repeated JoinedMTTInfo MTTList = 1;
+    repeated JoinedMTTInfo mttlist = 1;
 }
 
 //请求拉取所在房间列表
@@ -77,7 +79,7 @@ message InsideRoomInfo
 
 message C2RS_RetInsideRoomInfoList 
 {
-    repeated InsideRoomInfo roomList = 1;
+    repeated InsideRoomInfo roomlist = 1;
     optional int32 lastid = 2;      //最新房间id
 }
 
@@ -96,7 +98,7 @@ message MTTRecordInfo {
 }
 
 message RS2C_RetMTTRecordList {
-    repeated MTTRecordInfo recordList = 1;
+    repeated MTTRecordInfo recordlist = 1;
 }
 
 //拉取最近赛况名次信息
@@ -146,7 +148,7 @@ message MTTRankInfo {
 
 message RS2C_RetMTTRankInfo 
 {
-    repeated MTTRankInfo rankList = 1;
+    repeated MTTRankInfo ranklist = 1;
 }
 
 //MMT房间消息 增购或者重购
@@ -163,7 +165,7 @@ message RS2C_RetMTTRebuyOrAddon
 //推送报名人数变化
 message RS2C_PushMTTJoinNumChange 
 {
-    repeated MMTJoinNum MTTList = 1;
+    repeated MMTJoinNum mttlist = 1;
 }
 
 message MMTJoinNum
@@ -176,7 +178,7 @@ message MMTJoinNum
 message RS2C_PushMTTRoomId 
 {
     optional int32 mttid = 1;
-    optional int32 id = 2;
+    optional int64 id = 2;
 }
 
 //推送赛事排名

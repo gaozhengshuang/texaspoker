@@ -605,6 +605,13 @@ func (u *GateUser) Syn() {
 	//u.TestItem()
 }
 
+func (u *GateUser) SynMatch(online bool) {
+	//send := &msg.GW2MS_UserLoginState{}
+	//send.Uid = pb.Int64(u.Id())
+	//send.Online = pb.Bool(online)
+	//Match().SendMsg(send)
+}
+
 func (u *GateUser) TestItem() {
 	for k, _ := range tbl.ItemBase.ItemBaseDataById {
 		u.AddItem(k, 100, "测试", true)
