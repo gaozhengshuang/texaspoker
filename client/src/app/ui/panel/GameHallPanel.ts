@@ -172,7 +172,7 @@ class GameHallPanel extends BasePanel
 	{
 		this.userNameLabel.text = UserManager.userInfo.name.toString();
 		this.userHeadComp.init(UserManager.userInfo, 120);
-		if (false &&  VipManager.isVip())
+		if (false && VipManager.isVip())
 		{
 			this.vipLevelLabel.text = "VIP" + UserManager.userInfo.vipLevel; //move todo
 			this.vipGroup.visible = true;
@@ -369,7 +369,10 @@ class GameHallPanel extends BasePanel
 				break;
 			case this.bindBtn:
 				SoundManager.playEffect(MusicAction.buttonClick);
-				this.gotoBinding();
+				if (FuncOpenUtils.isOpened(FuncType.Bind))
+				{
+					this.gotoBinding();
+				}
 				break;
 			case this.rankingImg0:
 				SoundManager.playEffect(MusicAction.buttonClick);
@@ -416,7 +419,10 @@ class GameHallPanel extends BasePanel
 				break;
 			case this.inviteBtn:
 				SoundManager.playEffect(MusicAction.buttonClick);
-				JumpUtil.JumpToInvite();
+				if (FuncOpenUtils.isOpened(FuncType.Invite))
+				{
+					JumpUtil.JumpToInvite();
+				}
 				break;
 		}
 	}

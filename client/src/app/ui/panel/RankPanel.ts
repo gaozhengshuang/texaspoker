@@ -34,11 +34,10 @@ class RankPanel extends BasePanel
 	public init(appendData: any)
 	{
 		super.init(appendData);
-		this.rankTypeTab.init(0);
-		this.listTypeTab.init(0);
-		this._currentRankType = this.rankTypeTab.lastIndex;
-		this._currentListType = this.listTypeTab.lastIndex;
-		this.reqRankList();
+		this._currentRankType = this.rankTypeTab.lastIndex == undefined ? 0 : this.rankTypeTab.lastIndex;
+		this._currentListType = this.listTypeTab.lastIndex == undefined ? 0 : this.listTypeTab.lastIndex;
+		this.rankTypeTab.init(this._currentRankType);
+		this.listTypeTab.init(this._currentListType);
 		this.setEnterAnime();
 	}
 	protected onEnable(event: eui.UIEvent): void
@@ -76,7 +75,6 @@ class RankPanel extends BasePanel
 	private onListTypeTabTap(index: number)
 	{
 		this._currentListType = index;
-		this.reqRankList();
 		this.rankScroller.stopAnimation();
 		this.rankScroller.viewport.scrollV = 0;
 	}
