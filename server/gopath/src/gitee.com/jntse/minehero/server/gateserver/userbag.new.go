@@ -43,7 +43,7 @@ func (t *Item) Inc(num int32) {
 func (t *Item) Dec(num int32) {
 	if t.Num() < num { num = t.Num() }
 	t.num -= num
-	t.dirty = false
+	t.dirty = true
 }
 
 func (t *Item) Dirty() bool {
@@ -51,7 +51,7 @@ func (t *Item) Dirty() bool {
 }
 
 func (t *Item) LoadBin(id int32, pipe redis.Pipeliner) {
-	Redis().HGetAll(fmt.Sprintf("userbagitem_%d_%d", t.u.Id(), id))
+	pipe.HGetAll(fmt.Sprintf("userbagitem_%d_%d", t.u.Id(), id))
 }
 
 func (t *Item) SaveBin(pipe redis.Pipeliner) {
@@ -68,6 +68,7 @@ func (t *Item) AddBin() {
 	t.dirty = false
 	mfields := map[string]interface{}{"id":t.Id(), "num":t.Num()}
 	Redis().HMSet(fmt.Sprintf("userbagitem_%d_%d", t.u.Id(), t.Id()), mfields)
+	Redis().SAdd(fmt.Sprintf("userbagitems_%d", t.u.Id()), t.Id())
 }
 
 func (t *Item) RemoveBin() {
@@ -76,19 +77,24 @@ func (t *Item) RemoveBin() {
 	Redis().SRem(fmt.Sprintf("userbagitems_%d", t.u.Id()), t.Id())
 }
 
-func (t *Item) LoadDetail(cmd redis.Cmder) bool {
+func LoadDetail(u* GateUser, cmd redis.Cmder) *Item {
 	cmdbase , ok := cmd.(*redis.StringStringMapCmd)
 	if ok == false {
-		log.Error("[背包] 玩家[%s %d] 加载DB详情失败 [%d]", t.u.Name(), t.u.Id())
-		return false
+		log.Error("[背包] 玩家[%s %d] 加载DB详情失败 [%d]", u.Name(), u.Id())
+		return nil
 	}
 
+	var id, num int32 = 0, 0
 	for k, v := range cmdbase.Val() {
-		if k == "id" { t.id = util.NewVarType(v).Int32() }
-		if k == "num" { t.num = util.NewVarType(v).Int32() }
+		if k == "id" 	{ id = util.NewVarType(v).Int32() }
+		if k == "num" 	{ num = util.NewVarType(v).Int32() }
 	}
 
-	return true
+	if num == 0 {
+		return nil
+	}
+
+	return NewItem(id, num, u)
 }
 
 func NewItem(id, num int32, u *GateUser) *Item {
@@ -152,9 +158,8 @@ func (b *UserBag) DBLoad() {
 		return
 	}
 
-	for i:=0; i+1<len(cmds); i+=1 {
-		item := &Item{u:b.owner, dirty:false}
-		if item.LoadDetail(cmds[i]) {
+	for i:=0; i < len(cmds); i++ {
+		if item := LoadDetail(b.owner, cmds[i]); item != nil {
 			b.items[item.Id()] = item
 		}
 	}
