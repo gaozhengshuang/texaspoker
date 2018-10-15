@@ -66,11 +66,14 @@ class AchieveProcessManager
     public static getAchieveProcessListByTag(tag: AchieveTag): Array<BaseAchieveProcessInfo>
     {
         let list: Array<BaseAchieveProcessInfo> = new Array<BaseAchieveProcessInfo>();
-        for (let info of AchieveProcessManager._list)
+        if (AchieveProcessManager._list)
         {
-            if (info.tag == tag)
+            for (let info of AchieveProcessManager._list)
             {
-                list.push(info);
+                if (info.tag == tag)
+                {
+                    list.push(info);
+                }
             }
         }
         return list;
