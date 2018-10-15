@@ -89,7 +89,7 @@ class ActivityManager
             // ActivityManager._subHandlerList.add(ActivityType.PayPrize, ActivityManager.payPrizeHandler);
             // ActivityManager._subHandlerList.add(ActivityType.HappyGift, ActivityManager.happyGiftHandler);
             // ActivityManager._subHandlerList.add(ActivityType.LaBa, ActivityManager.shimTaeYoonHandler);
-            // ActivityManager._subHandlerList.add(ActivityType.BankruptSubsidy, ActivityManager.bankruptSubsidyHandler);
+            ActivityManager._subHandlerList.add(ActivityType.BankruptSubsidy, ActivityManager.bankruptSubsidyHandler);
             // ActivityManager._subHandlerList.add(ActivityType.PilePrize, ActivityManager.pilePrizeHandler);
             // ActivityManager._subHandlerList.add(ActivityType.BindChannel, ActivityManager.bindPhoneAwardHandler);
             // ActivityManager._subHandlerList.add(ActivityType.Share, ActivityManager.shareLuckDrawHandler);
@@ -244,6 +244,24 @@ class ActivityManager
                 }
             }
         }
+    }
+    /**
+    * 获取
+    */
+    public static getSubDefinition(id: number, subId: number, targetList: any[]): any
+    {
+        if (targetList)
+        {
+            for (let def of targetList)
+            {
+                if (def.ActivityId == id && def.SubId == subId)
+                {
+                    return def;
+                }
+            }
+        }
+        game.Console.log("获取活动子表定义异常！Id:" + id + " " + "subId:" + subId);
+        return null;
     }
     /**
      * 0点重置

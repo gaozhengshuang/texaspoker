@@ -43,7 +43,8 @@ class DefinedManager
 	 */
 	public static IsParsed(name: string, suffix: string = AssetsSuffixName.JSON): boolean
 	{
-		return DefinedManager._parseSet[name + suffix] == true;
+		return false;
+		// return DefinedManager._parseSet[name + suffix] == true; //move todo
 	}
 	/**
 	 * 设置配置数据,仅在开发模式使用

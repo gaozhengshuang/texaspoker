@@ -61,6 +61,7 @@ func (mh *C2GWMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.C2GW_SendWechatAuthCode{}, on_C2GW_SendWechatAuthCode)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_StartLuckyDraw{}, on_C2GW_StartLuckyDraw)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqTaskList{}, on_C2GW_ReqTaskList)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqPlayerRoleInfo{}, on_C2GW_ReqPlayerRoleInfo)
 
 	// 地图事件
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqEnterEvents{}, on_C2GW_ReqEnterEvents)
@@ -85,8 +86,9 @@ func (mh *C2GWMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqProcessFriendRequest{}, on_C2GW_ReqProcessFriendRequest)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqPresentToFriend{}, on_C2GW_ReqPresentToFriend)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqGetFriendPresent{}, on_C2GW_ReqGetFriendPresent)
-	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqFriendDetail{}, on_C2GW_ReqFriendDetail)
+	//mh.msgparser.RegistProtoMsg(msg.C2GW_ReqFriendDetail{}, on_C2GW_ReqFriendDetail)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqFriendSearch{}, on_C2GW_ReqFriendSearch)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqInviteFriendJoin{}, on_C2GW_ReqInviteFriendJoin)
 
 	//活动
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqActivityInfo{}, on_C2GW_ReqActivityInfo)
@@ -683,7 +685,7 @@ func on_C2GW_ReqPresentToFriend(session network.IBaseNetSession, message interfa
 		session.Close()
 		return
 	}
-	u.friends.PresentToFriend(tmsg.GetRoleid())
+	u.friends.RequestPresentToFriend(tmsg.GetRoleid())
 }
 
 func on_C2GW_ReqGetFriendPresent(session network.IBaseNetSession, message interface{}) {
@@ -694,19 +696,19 @@ func on_C2GW_ReqGetFriendPresent(session network.IBaseNetSession, message interf
 		session.Close()
 		return
 	}
-	u.friends.GetFriendPresent(tmsg.GetRoleid())
+	u.friends.RequestGetFriendPresent(tmsg.GetRoleid())
 }
 
-func on_C2GW_ReqFriendDetail(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_ReqFriendDetail)
-	u := ExtractSessionUser(session)
-	if u == nil {
-		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
-		session.Close()
-		return
-	}
-	u.friends.SendFriendDetail(tmsg.GetRoleid())
-}
+//func on_C2GW_ReqFriendDetail(session network.IBaseNetSession, message interface{}) {
+//	tmsg := message.(*msg.C2GW_ReqFriendDetail)
+//	u := ExtractSessionUser(session)
+//	if u == nil {
+//		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+//		session.Close()
+//		return
+//	}
+//	u.friends.SendFriendDetail(tmsg.GetRoleid())
+//}
 
 func on_C2GW_ReqFriendSearch(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_ReqFriendSearch)
@@ -718,6 +720,18 @@ func on_C2GW_ReqFriendSearch(session network.IBaseNetSession, message interface{
 	}
 	u.SearchUser(tmsg.GetVal())
 }
+
+func on_C2GW_ReqInviteFriendJoin(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqInviteFriendJoin)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.InviteFriendsJoin(tmsg.GetId(), tmsg.Roleid)
+}
+
 
 func on_C2GW_ReqTaskList(session network.IBaseNetSession, message interface{}) {
 	//tmsg := message.(*msg.C2GW_ReqTaskList)
@@ -733,6 +747,17 @@ func on_C2GW_ReqTaskList(session network.IBaseNetSession, message interface{}) {
 	//	return
 	//}
 	u.task.SendTaskList()
+}
+func on_C2GW_ReqPlayerRoleInfo(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqPlayerRoleInfo)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	send := StatisticsMgr().GetPlayerRoleInfo(tmsg.GetRoleid())
+	u.SendMsg(send)
 }
 
 func on_C2GW_ReqActivityInfo(session network.IBaseNetSession, message interface{}) {

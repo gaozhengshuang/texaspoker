@@ -264,10 +264,11 @@ class ChannelManager
 	 */
 	public static PaySend(shopId: number)
 	{
-		let payDef: ShopDefinition = ShopDefined.GetInstance().getDefinition(shopId);
+		let payDef: table.IPayListDefine = table.PayListById[shopId];
 		if (payDef)
 		{
-			let costList = AwardManager.getCostInfoDefinitionList(payDef.awardId);
+			let awardDef = table.AwardById[payDef.AwardId];
+			let costList = AwardManager.getCostInfoDefinitionList(payDef.AwardId);
 			if (costList)
 			{
 				let payState: number = BundleManager.getPayState();
@@ -276,13 +277,13 @@ class ChannelManager
 					AlertManager.showAlertByString('支付已关闭，无法支付');
 					return;
 				}
-				if (costList.length > 0 && costList[0].type == CostType.RMB)//消耗为rmb时调用支付
+				if (costList.length > 0)// && costList[0].type == CostType.RMB move todo //消耗为rmb时调用支付  
 				{
 					let price: number = costList[0].count;
 					if (price > 0)
 					{
-						let orderId: string = ChannelUtil.GenerateOrder(payDef.awardId, VersionManager.isServerTest);//订单id		
-						// ChannelManager._channel.PaySend(payState, payDef.awardId, UserManager.serverInfo.id, orderId, price, awardDef.name);
+						let orderId: string = ChannelUtil.GenerateOrder(payDef.AwardId, VersionManager.isServerTest);//订单id		
+						ChannelManager._channel.PaySend(payState, payDef.AwardId, 0, orderId, price, awardDef.Name);
 					}
 					else
 					{

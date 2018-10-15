@@ -15,6 +15,8 @@ message EntityBase {
     optional int32  yuanbao = 10;       // 元宝
     optional int32  age     = 11;
     optional string bio     = 12;       // 个人简介签名
+    optional string sign    = 13;       // 个性签名
+    optional string ip      = 14;       // ip
 }
 
 // 简单计数器
@@ -86,17 +88,43 @@ message UserStatistics {
     optional int32 continuelogin = 3;  // 连续登陆
     optional int32 nocountlogin = 4;   // 不统计
     optional int32 totalrecharge = 5;  // 总充值
+
+    optional int64 createdtime = 6;             //创建时间
+    optional int32 maxgold = 7;                 //最高拥有金币
+    optional int32 maxgoldonetimes = 8;         //一把最高赢取金币
+    optional int32 friendnum = 9;               //好友数量
+    optional int32 gametimes = 10;              //游戏总局数
+    optional int32 wintimes = 11;               //游戏胜局
+    optional int32 entrytimes = 12;             //入局次数
+    optional int32 showdowntimes = 13;          //摊牌次数
+    optional int32 gametimes2 = 14;             //比赛总局数         
+    optional int32 wintimes2 = 15;              //比赛胜局
+    optional int32 entrytimes2 = 16;            //比赛入局次数
+    optional int32 showdowntimes2 = 17;         //比赛摊牌次数
+    optional int32 mttjointimes = 18;           //锦标赛参与次数
+    optional int32 mttprizetimes = 19;          //锦标赛奖励次数
+    optional int32 championtimes = 20;          //竞标赛夺冠次数
+    repeated int32 maxhand = 21;                //最大手牌
+    optional int32 isoffline = 22;              //是否离线
+    optional int32 stateid = 23;                //房间号
+    optional int32 stateconfid = 24;            //房间id
+}
+//玩家vip
+message UserVip {
+    optional int32 vipexp = 1;                 // 会员成长值
+    optional int32 viptime = 2;                // 普通vip到期时间戳  
+    optional int32 yearviptime = 3;            // 年度vip到期时间戳
+    optional int32 viplevel = 4;               // vip等级(貌似前端会根据成长值自己计算)
 }
 
 // 杂项数据
 message UserMiscData {
     optional string invitationcode = 1; // 邀请码
 	optional int32 lastgoldtime = 2; // 定时领金币领取的时间戳
-	optional int32 bankruptcount = 3; //当天领取破产补助的次数
-	optional int32 silvercardtime = 4; //白银卡到期时间
-	optional int32 silvercardawardstate = 5; //白银卡每日奖励状态
-	optional int32 goldcardtime = 6; //黄金卡到期时间
-	optional int32 goldcardawardstate = 7; //黄金卡每日奖励状态
+	optional int32 silvercardtime = 3; //白银卡到期时间
+	optional int32 silvercardawardstate = 4; //白银卡每日奖励状态
+	optional int32 goldcardtime = 5; //黄金卡到期时间
+	optional int32 goldcardawardstate = 6; //黄金卡每日奖励状态
 }
 
 //兑换记录针对有配置logid的奖品做的记录
@@ -126,6 +154,7 @@ message UserBase {
     optional AutoResetValues arvalues = 10; // 变量自动重置
 	repeated AwardRecord awardrecord = 11; 	// 兑换记录
 	repeated AwardGetInfo awardgetinfo = 12; // 兑换信息	
+    optional UserVip vip = 13;              //vip
 }
 
 message UserAddress {
@@ -148,5 +177,10 @@ message Serialize {
     optional EntityBase entity  = 1;
     optional UserBase   base    = 2;
     optional ItemBin    item    = 3;
+}
+
+//只在gateserver上应用的数据
+message GateSerialize {
+	optional int32 bankruptcount = 1; //当天领取破产补助的次数
 }
 

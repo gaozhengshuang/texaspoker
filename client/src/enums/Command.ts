@@ -20,6 +20,10 @@ class Command
      */
     public static readonly System_GetNotice_3004: string = "c3004";
     /**
+     * 服务器推送消息提示
+     */
+    public static readonly GW2C_PushMsgNotify:string =  "msg.GW2C_PushMsgNotify";
+    /**
      * 抢占登录
      */
     public static readonly System_Response_Login_2013: string = "c2013";
@@ -112,9 +116,9 @@ class Command
      */
     public static readonly GW2C_PushFriendPresent = "msg.GW2C_PushFriendPresent";
     /**
-     * 请求获取好友详细信息
+     * 请求获取用户详细信息
      */
-    public static readonly C2RS_ReqFriendGetRoleInfo: string = "msg.C2RS_ReqFriendGetRoleInfo";
+    public static readonly C2GW_ReqPlayerRoleInfo: string = "msg.C2GW_ReqPlayerRoleInfo";
     /**
      * 请求领取好友赠送的金币
      */
@@ -146,9 +150,9 @@ class Command
     /**
      *被好友删除的通知推送
      */
-    public static readonly GW2C_PushFriendRemove = "msg.GW2C_PushFriendRemove";
+    public static readonly GW2C_PushRemoveFriend = "msg.GW2C_PushRemoveFriend";
     /**
-     * 好友在线通知推送
+     * 好友在线通知推送 (已废弃 改为每次切标签拉信息列表)
      */
     public static readonly GW2C_PushFriendLogin = "msg.GW2C_PushFriendLogin";
     /**
@@ -271,7 +275,7 @@ class Command
     /**
      * 发送好友邀请
     */
-    public static readonly Req_SendGameInvite_3608 = "c3608";
+    public static readonly C2GW_ReqInviteFriendJoin = "msg.C2GW_ReqInviteFriendJoin";
     /**
      * 拉取排行榜信息
      */

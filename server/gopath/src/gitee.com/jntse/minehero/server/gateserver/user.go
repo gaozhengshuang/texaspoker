@@ -29,6 +29,7 @@ import (
 // --------------------------------------------------------------------------
 type DBUserData struct {
 	bin            *msg.Serialize // db二进制数据
+	gatebin 	   *msg.GateSerialize
 	tm_login       int64
 	tm_logout      int64
 	gold           int32
@@ -36,8 +37,6 @@ type DBUserData struct {
 	yuanbao        int32
 	level          int32
 	exp            int32
-	continuelogin  int32
-	nocountlogin   int32
 	signdays       int32
 	signtime       int32
 	addrlist       []*msg.UserAddress
@@ -47,6 +46,8 @@ type DBUserData struct {
 	invitationcode string
 	luckydraw      []*msg.LuckyDrawItem
 	luckydrawtotal int64
+	statistics	   UserStatistics
+	vip			   UserVip
 	totalrecharge  int32 // 总充值
 	lastgoldtime   int32 // 上次领取系统金币的时间
 	awardrecord    []*msg.AwardRecord  
@@ -103,7 +104,7 @@ func NewGateUser(account, key, token string) *GateUser {
 	u.tickers.Init()
 	u.cleanup = false
 	u.tm_disconnect = 0
-	u.continuelogin = 1
+	u.statistics.continuelogin = 1
 	u.tm_asynsave = 0
 	u.token = token
 	u.broadcastbuffer = make([]int64, 0)
@@ -313,16 +314,8 @@ func (u *GateUser) Inviter() int64 {
 	return 0
 }
 
-func (u *GateUser) TotalRecharge() int32 {
-	return u.totalrecharge
-}
-
-func (u *GateUser) SetTotalRecharge(r int32) {
-	u.totalrecharge = r
-}
-
-func (u *GateUser) IsCleanUp() bool {
-	return u.cleanup
+func (this *GateUser) IsCleanUp() bool {
+	return this.cleanup
 }
 
 func (u *GateUser) GetUserPos() (float32, float32) {
@@ -348,6 +341,7 @@ func (u *GateUser) SendUserBase() {
 	entity, base, item := u.bin.GetEntity(), u.bin.GetBase(), u.bin.GetItem()
 	// clone类似c++的copyfrom
 	send.Entity = pb.Clone(entity).(*msg.EntityBase)
+	send.Entity.Gold = pb.Int32(u.GetGold())
 	send.Base = pb.Clone(base).(*msg.UserBase)
 	send.Item = pb.Clone(item).(*msg.ItemBin)
 	u.SendMsg(send)
@@ -369,6 +363,13 @@ func (u *GateUser) DBLoad() bool {
 	userkey := fmt.Sprintf("userbin_%d", info.GetUserid())
 	if err := utredis.GetProtoBin(Redis(), userkey, u.bin); err != nil {
 		log.Error("账户%s 获取玩家数据失败，err: %s", u.account, err)
+		return false
+	}
+	
+	u.gatebin = new(msg.GateSerialize)
+	userkey2 := fmt.Sprintf("gateuserbin_%d", info.GetUserid())
+	if err := utredis.GetProtoBin(Redis(), userkey2, u.gatebin); err != nil {
+		log.Error("账户%s 获取玩家gate数据失败，err: %s", u.account, err)
 		return false
 	}
 
@@ -402,13 +403,15 @@ func (u *GateUser) OnDBLoad(way string) {
 	if u.bin.Base.Task == nil { u.bin.Base.Task = &msg.UserTask{} }
 	if u.bin.Base.Luckydraw == nil { u.bin.Base.Luckydraw = &msg.LuckyDrawRecord{Drawlist: make([]*msg.LuckyDrawItem, 0)} }
 	if u.bin.Base.Arvalues == nil { u.bin.Base.Arvalues = &msg.AutoResetValues{Values: make([]*msg.AutoResetValue, 0)} }
+	if u.bin.Base.Vip == nil { u.bin.Base.Vip = &msg.UserVip{} }
 	//if u.bin.Base.Images == nil { u.bin.Base.Images = &msg.PersonalImage{Lists: make([]*msg.ImageData, 0)} }
 
 	// 加载二进制
 	u.LoadBin()
+	u.LoadGateBin()
 
 	// 新用户回调
-	if u.tm_login == 0 {
+	if u.statistics.tm_login == 0 {
 		u.OnCreateNew()
 	}
 }
@@ -435,16 +438,12 @@ func (u *GateUser) PackBin() *msg.Serialize {
 	entity.Exp = pb.Int32(u.exp)
 
 	userbase := bin.GetBase()
-	userbase.Statics.Tmlogin = pb.Int64(u.tm_login)
-	userbase.Statics.Tmlogout = pb.Int64(u.tm_logout)
-	userbase.Statics.Continuelogin = pb.Int32(u.continuelogin)
-	userbase.Statics.Nocountlogin = pb.Int32(u.nocountlogin)
-	userbase.Statics.Totalrecharge = pb.Int32(u.totalrecharge)
+	userbase.Statics = u.statistics.PackBin()
+	userbase.Vip = u.vip.PackBin()
 	userbase.Sign.Signdays = pb.Int32(u.signdays)
 	userbase.Sign.Signtime = pb.Int32(u.signtime)
 	userbase.Misc.Invitationcode = pb.String(u.invitationcode)
 	userbase.Misc.Lastgoldtime = pb.Int32(u.lastgoldtime)
-	userbase.Misc.Bankruptcount = pb.Int32(u.bankruptcount)
 	userbase.Misc.Silvercardtime = pb.Int32(u.silvercardtime)
 	userbase.Misc.Silvercardawardstate = pb.Int32(u.silvercardawardstate)
 	userbase.Misc.Goldcardtime = pb.Int32(u.goldcardtime)
@@ -472,6 +471,12 @@ func (u *GateUser) PackBin() *msg.Serialize {
 	return bin
 }
 
+func (u *GateUser) PackGateBin() *msg.GateSerialize {
+	gatebin := &msg.GateSerialize{}
+	gatebin.Bankruptcount = pb.Int32(u.bankruptcount)
+	return gatebin
+}
+
 // 将二进制解析出来
 func (u *GateUser) LoadBin() {
 
@@ -485,17 +490,9 @@ func (u *GateUser) LoadBin() {
 	u.level = entity.GetLevel()
 	u.exp = entity.GetExp()
 
-	u.tm_login = userbase.Statics.GetTmlogin()
-	u.tm_logout = userbase.Statics.GetTmlogout()
-	u.continuelogin = userbase.Statics.GetContinuelogin()
-	u.nocountlogin = userbase.Statics.GetNocountlogin()
-	u.totalrecharge = userbase.Statics.GetTotalrecharge()
-
-	u.signdays = userbase.Sign.GetSigndays()
 	u.signtime = userbase.Sign.GetSigntime()
 	u.invitationcode = userbase.Misc.GetInvitationcode()
 	u.lastgoldtime = userbase.Misc.GetLastgoldtime()
-	u.bankruptcount = userbase.Misc.GetBankruptcount()
 	u.silvercardtime= userbase.Misc.GetSilvercardtime()
 	u.silvercardawardstate = userbase.Misc.GetSilvercardawardstate()
 	u.goldcardtime = userbase.Misc.GetGoldcardtime()
@@ -512,6 +509,9 @@ func (u *GateUser) LoadBin() {
 		u.luckydraw = append(u.luckydraw, v)
 	}
 
+	u.statistics.LoadBin(u.bin)
+	userbase.GetStatics().Tmlogin = pb.Int64(util.CURTIME())
+	u.vip.LoadBin(u.bin)
 	// 道具信息
 	u.bag.Clean()
 	u.bag.LoadBin(u.bin)
@@ -536,16 +536,44 @@ func (u *GateUser) LoadBin() {
 	//u.image.LoadBin(u.bin)
 }
 
+func (u *GateUser) LoadGateBin () {
+	u.bankruptcount = u.gatebin.GetBankruptcount()
+}
+
 // TODO: 存盘可以单独协程
 func (u *GateUser) DBSave() {
 	u.mailbox.DBSave()
 	u.friends.DBSave()
 	key := fmt.Sprintf("userbin_%d", u.Id())
-	if err := utredis.SetProtoBin(Redis(), key, u.PackBin()); err != nil {
+	userbin := u.PackBin()
+	if err := utredis.SetProtoBin(Redis(), key, userbin); err != nil {
 		log.Error("玩家[%s %d] 数据存盘失败", u.Name(), u.Id())
 		return
 	}
+
+	key2 := fmt.Sprintf("gateuserbin_%d", u.Id())
+	if err := utredis.SetProtoBin(Redis(), key2, u.PackGateBin()); err != nil {
+		log.Error("玩家[%s %d] gate数据存盘失败", u.Name(), u.Id())
+		return
+	}
 	log.Info("玩家[%s %d] 数据存盘成功", u.Name(), u.Id())
+	//存储浏览数据
+	key = fmt.Sprintf("userentity_%d", u.Id())
+	if err := utredis.SetProtoBin(Redis(), key, userbin.Entity); err != nil {
+		log.Error("保存玩家[%s %d] entity 数据失败", u.Name(), u.Id())
+		return
+	}
+	key = fmt.Sprintf("uservip_%d", u.Id())
+	if err := utredis.SetProtoBin(Redis(), key, userbin.GetBase().Vip); err != nil {
+		log.Error("保存玩家[%s %d] vip 数据失败", u.Name(), u.Id())
+		return
+	}
+	key = fmt.Sprintf("userstatistics_%d", u.Id())
+	if err := utredis.SetProtoBin(Redis(), key, userbin.GetBase().Statics); err != nil {
+		log.Error("保存玩家[%s %d] statistics 数据失败", u.Name(), u.Id())
+		return
+	}
+	log.Info("保存玩家[%s %d]展示数据成功", u.Name(), u.Id())
 }
 
 // 异步存盘
@@ -562,6 +590,8 @@ func (u *GateUser) AsynSaveFeedback() {
 
 // 新用户回调
 func (u *GateUser) OnCreateNew() {
+	//玩家创建时间
+	u.statistics.createdtime = util.CURTIME()
 }
 
 // 上线回调，玩家数据在LoginOk中发送
@@ -573,17 +603,22 @@ func (u *GateUser) Online(session network.IBaseNetSession, way string) bool {
 	}
 
 	curtime := util.CURTIME()
+
 	u.RegistTicker()
 	u.tickers.Start()
 	u.asynev.Start(int64(u.Id()), 100)
 	u.LoginStatistics()
 	u.online = true
 	u.client = session
-	u.tm_login = curtime
+	u.statistics.tm_login = curtime
+	u.statistics.tm_logout = 0
 	u.tm_disconnect = 0
 	u.tm_heartbeat = util.CURTIMEMS()
 	u.roomdata.Online(u)
 	log.Info("Sid[%d] 账户[%s] 玩家[%d] 名字[%s] 登录成功[%s]", u.Sid(), u.account, u.Id(), u.Name(), way)
+
+	// 更新charbase
+	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "offlinetime", 0)
 
 	// 上线任务检查
 	u.OnlineTaskCheck()
@@ -675,7 +710,9 @@ func (u *GateUser) CheckDisconnectTimeOut(now int64) {
 // 真下线，清理玩家数据
 func (u *GateUser) Logout() {
 	u.online = false
-	u.tm_logout = util.CURTIME()
+	nowtime := util.CURTIME()
+	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "offlinetime", nowtime)
+	u.statistics.tm_logout = nowtime
 	u.cleanup = true
 	//u.DBSave()
 	UnBindingAccountGateWay(u.account)
@@ -693,7 +730,7 @@ func (u *GateUser) OnCleanUp() {
 
 // 发送个人通知
 func (u *GateUser) SendNotify(text string) {
-	send := &msg.GW2C_MsgNotify{Text: pb.String(text)}
+	send := &msg.GW2C_PushMsgNotify{Text: pb.String(text)}
 	u.SendMsg(send)
 }
 

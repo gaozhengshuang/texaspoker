@@ -12,33 +12,23 @@ class ActivityDefined
         }
         return ActivityDefined._instance;
     }
-
     public initialize()
     {
-        // this.dataList = DefinedManager.GetData(ActivityDefined.config) as Array<ActivityDefintion>;
-        // if (this.dataList)
-        // {
-        //     for (let def of this.dataList)
-        //     {
-        //         def.triggerParams = game.StringUtil.toStringArray(def.trigger);
-        //         if (def.startTime)
-        //         {
-        //             def.startDt = this.getDate(def, def.startTime);
-        //         }
-        //         else
-        //         {
-        //             def.startDt = TimeManager.Utc1970;
-        //         }
-        //         if (def.endTime)
-        //         {
-        //             def.endDt = this.getDate(def, def.endTime);
-        //         }
-        //         else
-        //         {
-        //             def.endDt = new Date(2099, 0, 1, 0, 0, 0);
-        //         }
-        //     }
-        // }
+        if (table.Activity_list)
+        {
+            for (let def of table.Activity_list)
+            {
+                // def.TriggerParams = game.StringUtil.toStringArray(def.trigger);
+                if (def.StartTime.length == 0)
+                {
+                    def.StartTime = [2000, 0, 1, 0, 0, 0];
+                }
+                if (def.EndTime.length == 0)
+                {
+                    def.EndTime = [2099, 0, 1, 0, 0, 0];
+                }
+            }
+        }
     }
     public getDate(def: table.IActivity_listDefine, timeStr: string): Date
     {

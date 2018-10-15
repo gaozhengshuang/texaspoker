@@ -37,10 +37,10 @@ class AwardManager
                 }
                 AwardManager._awardInfoMap.add(def.Id, list);
             }
-            if (def.CostId)
+            if (def.CostType)
             {
                 let list = [];
-                for (let i: number = 0; i < def.CostId.length; i++)
+                for (let i: number = 0; i < def.CostType.length; i++)
                 {
                     let awInfo = new AwardInfoDefinition();
                     awInfo.id = def.CostId[i];

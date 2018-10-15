@@ -82,7 +82,7 @@ abstract class BaseServerValueInfo
 			{
 				let lowerKey = key.toLowerCase();
 				let property: any = this[key];
-				if (!(property instanceof Function)) //函数属性不拷贝
+				if (data.hasOwnProperty(lowerKey) && !(property instanceof Function)) //函数属性不拷贝
 				{
 					if (data[lowerKey] == undefined)
 					{

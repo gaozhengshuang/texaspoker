@@ -127,11 +127,11 @@ class VipManager
         let monthCardsList: Array<ShopInfo> = new Array<ShopInfo>();
         let activiteMonthCardList: Array<ShopInfo> = new Array<ShopInfo>();
         let info: ShopInfo;
-        for (let i: number = 0; i < ShopDefined.GetInstance().dataList.length; i++)
+        for (let i: number = 0; i < table.PayList.length; i++)
         {
             info = new ShopInfo();
-            info.id = ShopDefined.GetInstance().dataList[i].Id;
-            if (info.definition && info.definition.type == ShopType.MonthCard)
+            info.id = table.PayList[i].Id;
+            if (info.definition && info.definition.Type == ShopType.MonthCard)
             {
                 monthCardsList.push(info);
             }
@@ -140,7 +140,7 @@ class VipManager
         {
             if (monthCard.definition)
             {
-                let info: msg.IAwardGetInfo = AwardManager.GetExchangeInfo(monthCard.definition.awardId);
+                let info: msg.IAwardGetInfo = AwardManager.GetExchangeInfo(monthCard.definition.AwardId);
                 if (info)
                 {
                     let left: number = info.time - TimeManager.GetServerUtcTimestamp();
@@ -183,7 +183,7 @@ class VipManager
             {
                 if (monthCard.definition)
                 {
-                    let info: msg.IAwardGetInfo = AwardManager.GetExchangeInfo(monthCard.definition.awardId);
+                    let info: msg.IAwardGetInfo = AwardManager.GetExchangeInfo(monthCard.definition.AwardId);
                     if (info)
                     {
                         bringAwardDef = table.AwardById[info.id];

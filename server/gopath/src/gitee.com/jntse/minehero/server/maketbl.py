@@ -238,6 +238,8 @@ gen.maketbl_excel('GoldenBeanAwardBase','goldenbeanawardbase','TGoldenBeanAward.
 gen.maketbl_excel('BankruptBase','bankruptbase','TActivity_bankruptSubsidy.xlsx')
 gen.maketbl_excel('GiftShopBase','giftshopbase','TGiftShop.xlsx')
 gen.maketbl_excel('PayListBase','paylistbase','TPayList.xlsx')
+gen.maketbl_excel('TextBase','textbase','TText.xlsx')
+gen.maketbl_excel('MorePlayBase','moreplaybase','TMorePlay.xlsx')
 
 gen.maketbl_json('table', 'Global', 'global.json')
 gen.maketbl_json('table', 'Room', 'room.json')

@@ -25,10 +25,10 @@ class DiamondItemComponent extends BaseComponent<ShopInfo>{
         if (InfoUtil.checkAvailable(info))
         {
             this._info = info;
-            this._awardDef = table.AwardById[info.definition.awardId];
+            this._awardDef = table.AwardById[info.definition.AwardId];
             if (this._awardDef && this._awardDef.CostId)
             {
-                this.diamondImg.source = info.definition.iconName + ResSuffixName.PNG;
+                this.diamondImg.source = info.definition.IconName + ResSuffixName.PNG;
                 this.diamondNum.text = this._awardDef.Name;
                 for (let i: number = 0; i < this._awardDef.CostType.length; i++)
                 {
@@ -45,18 +45,18 @@ class DiamondItemComponent extends BaseComponent<ShopInfo>{
     private buy()
     {
         ChannelManager.PaySend(this._info.id);
-        if (this._awardDef)
-        {
-            let count: number = 0;
-            for (let i: number = 0; i < this._awardDef.CostType.length; i++)
-            {
-                if (this._awardDef.CostType[i] == CostType.RMB)
-                {
-                    count = this._awardDef.CostNum[i];
-                    break;
-                }
-            }
-            AlertManager.showConfirm(game.StringUtil.format("是否花费{0}元，购买{1}？", count, this._awardDef.Name), ChannelManager.PaySend, null, this._info.id);
-        }
+        // if (this._awardDef)
+        // {
+        //     let count: number = 0;
+        //     for (let i: number = 0; i < this._awardDef.CostType.length; i++)
+        //     {
+        //         if (this._awardDef.CostType[i] == CostType.RMB)
+        //         {
+        //             count = this._awardDef.CostNum[i];
+        //             break;
+        //         }
+        //     }
+        //     AlertManager.showConfirm(game.StringUtil.format("是否花费{0}元，购买{1}？", count, this._awardDef.Name), ChannelManager.PaySend, null, this._info.id);
+        // }
     }
 }

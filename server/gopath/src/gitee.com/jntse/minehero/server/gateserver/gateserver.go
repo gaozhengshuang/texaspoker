@@ -82,6 +82,7 @@ type GateServer struct {
 	sdispatch		StatDispatch
 	mysqldb      	*sql.DB
 	rankmgr      	RankManager
+	statisticsmgr 	StatisticsManager
 }
 
 var g_GateServer *GateServer = nil
@@ -119,6 +120,10 @@ func WaitPool() *LoginWaitPool {
 
 func RoomSvrMgr() *RoomSvrManager {
 	return &GateSvr().roomsvrmgr
+}
+
+func StatisticsMgr() *StatisticsManager {
+	return &GateSvr().statisticsmgr
 }
 
 func RCounter() *util.RedisCounter {
@@ -276,6 +281,7 @@ func (g *GateServer) Init(fileconf string) bool {
 	g.usermgr.Init()
 	g.waitpool.Init()
 	g.roomsvrmgr.Init()
+	g.statisticsmgr.Init()
 	g.InitMySql()
 	//g.countmgr.Init()
 	//g.gamemgr.Init()

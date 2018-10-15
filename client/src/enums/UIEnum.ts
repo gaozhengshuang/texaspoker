@@ -869,6 +869,10 @@ class UIRendererSkinName
 	 * 礼物商店物品项
 	 */
 	public static GiftShopItemRenderer = UIRendererSkinName.ROOT_PATH + "GiftShopItemRenderer.exml";
+	/**
+	 * 服务器选择项
+	 */
+	public static ServerSelectItemRenderer = UIRendererSkinName.ROOT_PATH + "ServerSelectItemRenderer.exml";
 }
 
 /**

@@ -51,6 +51,8 @@ func (mh *MS2GWMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.GW2C_PushFriendAddSuccess{}, on_GW2C_PushFriendAddSuccess)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_PushRemoveFriend{}, on_GW2C_PushRemoveFriend)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_PushFriendPresent{}, on_GW2C_PushFriendPresent)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_PushUserOnline{}, on_GW2C_PushUserOnline)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_PushFriendInvitation{}, on_GW2C_PushFriendInvitation)
 }
 
 func on_MS2GW_RetRegist(session network.IBaseNetSession, message interface{}) {
@@ -191,4 +193,10 @@ func on_GW2C_PushFriendPresent(session network.IBaseNetSession, message interfac
 func on_GW2C_PushUserOnline(session network.IBaseNetSession, message interface{}) {
 	//tmsg := message.(*msg.GW2C_PushUserOnline)
 }
+
+func on_GW2C_PushFriendInvitation(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2C_PushFriendInvitation)
+	UserMgr().OnInviteJoinRoom(tmsg)
+}
+
 

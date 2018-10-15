@@ -50,7 +50,7 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 			{
 				let lowerKey = key.toLowerCase();
 				let property: any = this[key];
-				if (!(property instanceof Function)) //函数属性不拷贝
+				if (data.hasOwnProperty(lowerKey) && !(property instanceof Function)) //函数属性不拷贝
 				{
 					if (data[lowerKey] == undefined)
 					{
@@ -142,6 +142,8 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 		this.bindRoleId = 0;
 		this.shareId = undefined;
 		this.yuanbao = 0;
+		this.silvercardtime = 0;
+		this.goldcardtime = 0;
 	}
 	/**
 	 * 登录时间
@@ -150,7 +152,7 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 	/**
 	 * 金豆
 	 */
-	public yuanbao:number;
+	public yuanbao: number;
 	/**
 	 * 钻石数量
 	 */
@@ -439,10 +441,19 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 	 * 开服时间
 	 */
 	public openServerTime: number;
+
+	private _lastGoldTime: number;
 	/**
 	 * 上次领取金币时间戳
 	 */
-	public lastGoldTime: number;
+	public set lastGoldTime(value: number)
+	{
+		this._lastGoldTime = value;
+	}
+	public get lastGoldTime(): number
+	{
+		return this._lastGoldTime;
+	}
 	/**
  	* 头像宽高
  	*/
@@ -520,4 +531,12 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 	 * 绑定的邀请码的角色id
 	*/
 	public bindRoleId: number;
+	/**
+	 * 白银月卡
+	 */
+	public silvercardtime: number;
+	/**
+	 * 黄金月卡
+	 */
+	public goldcardtime: number;
 }

@@ -34,7 +34,7 @@ func (mh* GW2CMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.GW2C_RetLogin{}, on_GW2C_RetLogin)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_PushUserInfo{}, on_GW2C_PushUserInfo)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_RetHeartBeat{}, on_GW2C_RetHeartBeat)
-	mh.msgparser.RegistProtoMsg(msg.GW2C_MsgNotify{}, on_GW2C_MsgNotify)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_PushMsgNotify{}, on_GW2C_PushMsgNotify)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_MsgNotice{}, on_GW2C_MsgNotice)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_PushPackageItemAdd{}, on_GW2C_PushPackageItemAdd)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_PushPackageItemRemove{}, on_GW2C_PushPackageItemRemove)
@@ -63,6 +63,7 @@ func (mh* GW2CMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.GW2C_RetFriendsList{}, on_GW2C_RetFriendsList)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_RetPresentToFriend{}, on_GW2C_RetPresentToFriend)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_RetGetFriendPresent{}, on_GW2C_RetGetFriendPresent)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_PushFriendPresent{}, on_GW2C_PushFriendPresent)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_RetFriendRequestList{}, on_GW2C_RetFriendRequestList)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_RetRemoveFriend{}, on_GW2C_RetRemoveFriend)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_PushRemoveFriend{}, on_GW2C_PushRemoveFriend)
@@ -73,12 +74,14 @@ func (mh* GW2CMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.GW2C_RetFriendSearch{}, on_GW2C_RetFriendSearch)
 	//mh.msgparser.RegistProtoMsg(msg.GW2C_PushFriendLogin{}, on_GW2C_PushFriendLogin)
 	//mh.msgparser.RegistProtoMsg(msg.GW2C_PushFriendInvitation{}, on_GW2C_PushFriendInvitation)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_PushFriendInvitation{}, on_GW2C_PushFriendInvitation)
 
 
 	// 收room消息
 	//mh.msgparser.RegistProtoMsg(msg.BT_GameInit{}, on_BT_GameInit)
 	//mh.msgparser.RegistProtoMsg(msg.BT_GameStart{}, on_BT_GameStart)
 	//mh.msgparser.RegistProtoMsg(msg.BT_GameOver{}, on_BT_GameOver)
+	mh.msgparser.RegistProtoMsg(msg.RS2C_RolePushPropertyChange{}, on_RS2C_RolePushPropertyChange)
 }
 
 func on_GW2C_PushDiamondUpdate(session network.IBaseNetSession, message interface{}) {
@@ -111,8 +114,8 @@ func on_GW2C_PushPackageItemAdd(session network.IBaseNetSession, message interfa
 	log.Info("%+v", tmsg)
 }
 
-func on_GW2C_MsgNotify(session network.IBaseNetSession, message interface{}) {
-	//tmsg := message.(*msg.GW2C_MsgNotify)
+func on_GW2C_PushMsgNotify(session network.IBaseNetSession, message interface{}) {
+	//tmsg := message.(*msg.GW2C_PushMsgNotify)
 	//log.Info(reflect.TypeOf(tmsg).String())
 	//log.Info("%v", tmsg)
 }
@@ -266,7 +269,7 @@ func on_GW2C_RetCreateRoom(session network.IBaseNetSession, message interface{})
 	}
 	client.roomid, client.roompwd = roomid, passwd
 	client.EnterRoom()
-	client.ReqSitDown()
+	//client.ReqSitDown()
 
 	log.Info("玩家[%s %d] 开启游戏成功，进入房间[%d]", name, id, roomid)
 
@@ -276,4 +279,10 @@ func on_GW2C_PushNewMail(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2C_PushNewMail)
 	log.Info("%+v", tmsg)
 }
+
+func on_RS2C_RolePushPropertyChange(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.RS2C_RolePushPropertyChange)
+	log.Info("%+v", tmsg)
+}
+
 

@@ -46,7 +46,7 @@ class MonthCardItemRenderer extends BaseItemRenderer<ShopInfo>
     /**
      * 月卡的定义信息
     */
-    private _monthCardDefinition: table.IAwardDefine; 
+    private _monthCardDefinition: table.IAwardDefine;
 
     public constructor()
     {
@@ -58,8 +58,8 @@ class MonthCardItemRenderer extends BaseItemRenderer<ShopInfo>
         super.dataChanged();
         if (InfoUtil.checkAvailable(this.bindData))
         {
-            this.iconImg.source = this.bindData.definition.iconName + ResSuffixName.PNG;
-            this._monthCardDefinition = table.AwardById[this.bindData.definition.awardId];
+            this.iconImg.source = this.bindData.definition.IconName + ResSuffixName.PNG;
+            this._monthCardDefinition = table.AwardById[this.bindData.definition.AwardId];
             if (this._monthCardDefinition)
             {
                 if (this._monthCardDefinition.CostId)
@@ -81,7 +81,8 @@ class MonthCardItemRenderer extends BaseItemRenderer<ShopInfo>
             this.buyBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onBuyBtnClick, this);
             this.bringBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onBringBtnClick, this);
             AwardManager.OnExchanged.addListener(this.bringSuccess, this);
-            AwardManager.OnAwardValueChanged.addListener(this.buySuccess, this);
+            // AwardManager.OnAwardValueChanged.addListener(this.buySuccess, this);
+            UserManager.propertyChangeEvent.addListener(this.buySuccess, this);
         }
     }
     private onDisable(event: egret.Event)
@@ -90,7 +91,8 @@ class MonthCardItemRenderer extends BaseItemRenderer<ShopInfo>
         this.buyBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onBuyBtnClick, this);
         this.bringBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onBringBtnClick, this);
         AwardManager.OnExchanged.removeListener(this.bringSuccess, this);
-        AwardManager.OnAwardValueChanged.removeListener(this.buySuccess, this);
+        // AwardManager.OnAwardValueChanged.removeListener(this.buySuccess, this);
+        UserManager.propertyChangeEvent.removeListener(this.buySuccess, this);
     }
 
     /**
@@ -141,12 +143,12 @@ class MonthCardItemRenderer extends BaseItemRenderer<ShopInfo>
     /**
      * 购买成功
     */
-    private buySuccess(id: any)
+    private buySuccess()
     {
-        if (id == this._monthCardDefinition.Id)
-        {
-            this.setRendererInfo();
-        }
+        // if (id == this._monthCardDefinition.Id)
+        // {
+        this.setRendererInfo();
+        // }
     }
     /**
      * 购买按钮点击事件
@@ -172,10 +174,19 @@ class MonthCardItemRenderer extends BaseItemRenderer<ShopInfo>
     */
     private getSurplusTime(): number
     {
-        let info: msg.IAwardGetInfo = AwardManager.GetExchangeInfo(this.bindData.definition.awardId);
-        if (info)
+        let time = 0;
+        switch (this.bindData.definition.AwardId)
         {
-            return info.time - TimeManager.GetServerUtcTimestamp();
+            case AwardFixedId.SliverMonthCard:
+                time = UserManager.userInfo.silvercardtime;
+                break;
+            case AwardFixedId.GoldMonthCard:
+                time = UserManager.userInfo.goldcardtime;
+                break;
+        }
+        if (time > 0)
+        {
+            return time - TimeManager.GetServerUtcTimestamp();
         }
         return 0;
     }

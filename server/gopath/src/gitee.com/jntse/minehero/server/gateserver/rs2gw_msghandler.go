@@ -37,7 +37,7 @@ func (mh* RS2GWMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.RS2GW_RetUserDisconnect{}, on_RS2GW_RetUserDisconnect)
 	mh.msgparser.RegistProtoMsg(msg.RS2GW_MsgTransfer{}, on_RS2GW_MsgTransfer)
 	mh.msgparser.RegistProtoMsg(msg.RS2GW_MTTRoomMember{}, on_RS2GW_MTTRoomMember)
-	mh.msgparser.RegistProtoMsg(msg.GW2C_MsgNotify{}, on_GW2C_MsgNotify)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_PushMsgNotify{}, on_GW2C_PushMsgNotify)
 
 	// 房间
 	mh.msgparser.RegistProtoMsg(msg.RS2GW_PushRoomDestory{}, on_RS2GW_PushRoomDestory)
@@ -61,8 +61,8 @@ func on_RS2GW_ReqRegist(session network.IBaseNetSession, message interface{}) {
 	session.SendCmd(&msg.GW2RS_RetRegist{Agentname:pb.String(GateSvr().Name())})
 }
 
-func on_GW2C_MsgNotify(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.GW2C_MsgNotify)
+func on_GW2C_PushMsgNotify(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2C_PushMsgNotify)
 	if user := UserMgr().FindById(tmsg.GetUserid()); user != nil {
 		user.SendMsg(tmsg)
 	}

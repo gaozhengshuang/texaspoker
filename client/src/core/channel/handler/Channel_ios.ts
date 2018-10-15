@@ -98,7 +98,7 @@ class Channel_ios extends ChannelBase
 		if (data)
 		{
 			let awardId: number = this.ParseAwardId(data.productId);
-			let def: ShopDefinition = ShopDefined.GetInstance().getDefinitionByAwardId(awardId);
+			let def: table.IPayListDefine = ShopDefined.GetInstance().getDefinitionByAwardId(awardId);
 			if (def != null)
 			{
 				this.PostDataToServer(data.passData, data.receipt, awardId);

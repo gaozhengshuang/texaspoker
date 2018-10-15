@@ -17,11 +17,11 @@ class VipListItemRenderer extends BaseItemRenderer<ShopInfo>{
         super.dataChanged();
         if (InfoUtil.checkAvailable(this.bindData) && this.vipImg != null)
         {
-            let awardDef = table.AwardById[this.bindData.definition.awardId];
-            this.vipImg.source = this.bindData.definition.iconName + ResSuffixName.PNG;
+            let awardDef = table.AwardById[this.bindData.definition.AwardId];
+            this.vipImg.source = this.bindData.definition.IconName + ResSuffixName.PNG;
             if (awardDef)
             {
-                if (this.bindData.definition.type == ShopType.Prop)
+                if (this.bindData.definition.Type == ShopType.Prop)
                 {
                     this.desVip.text = awardDef.Des;
                 }
