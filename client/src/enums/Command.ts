@@ -20,6 +20,10 @@ class Command
      */
     public static readonly System_GetNotice_3004: string = "c3004";
     /**
+     * 服务器推送消息提示
+     */
+    public static readonly GW2C_PushMsgNotify:string =  "msg.GW2C_PushMsgNotify";
+    /**
      * 抢占登录
      */
     public static readonly System_Response_Login_2013: string = "c2013";
@@ -158,7 +162,7 @@ class Command
     /**
      * 被好友邀请推送
     */
-    public static readonly RS2C_PushFriendInvitation: string = "msg.RS2C_PushFriendInvitation";
+    public static readonly GW2C_PushFriendInvitation: string = "msg.GW2C_PushFriendInvitation";
     /**
      * 0点定时重置推送
     */
@@ -271,7 +275,7 @@ class Command
     /**
      * 发送好友邀请
     */
-    public static readonly Req_SendGameInvite_3608 = "c3608";
+    public static readonly C2GW_ReqInviteFriendJoin = "msg.C2GW_ReqInviteFriendJoin";
     /**
      * 拉取排行榜信息
      */
