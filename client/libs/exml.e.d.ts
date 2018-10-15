@@ -1,3 +1,213 @@
+declare class activity_buttonSkin extends eui.Skin{
+}
+declare class addButtonSkin extends eui.Skin{
+}
+declare class awards_buttonSkin extends eui.Skin{
+}
+declare class bangding_buttonSkin extends eui.Skin{
+}
+declare class BannerEnterButtonSkin extends eui.Skin{
+}
+declare class bindAccount_PhoneBtnSkin extends eui.Skin{
+}
+declare class bindAccount_WxBtnSkin extends eui.Skin{
+}
+declare class bindphone_buttonSkin extends eui.Skin{
+}
+declare class brdz_buttonSkin extends eui.Skin{
+}
+declare class bringAwardBtnSkin extends eui.Skin{
+}
+declare class buyGiftButtonSkin extends eui.Skin{
+}
+declare class buyItemButtonSkin extends eui.Skin{
+}
+declare class buyVipButtonSkin extends eui.Skin{
+}
+declare class CheckBoxSkin1 extends eui.Skin{
+}
+declare class checkBoxSkin2 extends eui.Skin{
+}
+declare class chooseShareWayCloseBtnSkin extends eui.Skin{
+}
+declare class closeButtonSkin extends eui.Skin{
+}
+declare class closeButton2Skin extends eui.Skin{
+}
+declare class closeButton3Skin extends eui.Skin{
+}
+declare class closeButton4Skin extends eui.Skin{
+}
+declare class commonButtonBSkin extends eui.Skin{
+}
+declare class commonButtonB2Skin extends eui.Skin{
+}
+declare class commonButtonGSkin extends eui.Skin{
+}
+declare class commonButtonGYSkin extends eui.Skin{
+}
+declare class commonButtonGY60x60Skin extends eui.Skin{
+}
+declare class commonButtonY135x55Skin extends eui.Skin{
+}
+declare class commonButtonYSkin extends eui.Skin{
+}
+declare class commonButtonY2Skin extends eui.Skin{
+}
+declare class commonButtonY2_323x74Skin extends eui.Skin{
+}
+declare class DiamondItemComponentSkin extends eui.Skin{
+}
+declare class dzpk_buttonSkin extends eui.Skin{
+}
+declare class FirstPayItemComponentSkin extends eui.Skin{
+}
+declare class firstpay_buttonSkin extends eui.Skin{
+}
+declare class freeGold_buttonSkin extends eui.Skin{
+}
+declare class friend_buttonSkin extends eui.Skin{
+}
+declare class getGoldButtonSkin extends eui.Skin{
+}
+declare class get_buttonSkin extends eui.Skin{
+}
+declare class GoldItemComponentSkin extends eui.Skin{
+}
+declare class goToBindBtnSkin extends eui.Skin{
+}
+declare class happyGiftItemButton160x50Skin extends eui.Skin{
+}
+declare class happyGiftTabtButton4Skin extends eui.Skin{
+}
+declare class helpButtonSkin extends eui.Skin{
+}
+declare class HSliderSkin1 extends eui.Skin{
+}
+declare class ImageNumComponentSkin extends eui.Skin{
+}
+declare class inviteBindBtnSkin extends eui.Skin{
+}
+declare class inviteFriendBtnSkin extends eui.Skin{
+}
+declare class invite_buttonSkin extends eui.Skin{
+}
+declare class keyBoardButton30Skin extends eui.Skin{
+}
+declare class keyBoardButtonSkin extends eui.Skin{
+}
+declare class loginTel_buttonSkin extends eui.Skin{
+}
+declare class mailTakePrizeButtonSkin extends eui.Skin{
+}
+declare class mail_buttonSkin extends eui.Skin{
+}
+declare class monthCardBringBtnSkin extends eui.Skin{
+}
+declare class monthCardButtonSkin extends eui.Skin{
+}
+declare class monthCardBuyBtnSkin extends eui.Skin{
+}
+declare class moreplay_buttonSkin extends eui.Skin{
+}
+declare class more_buttonSkin extends eui.Skin{
+}
+declare class MTTEnterBtnSkin extends eui.Skin{
+}
+declare class MTTJoinBtnSkin extends eui.Skin{
+}
+declare class myPrizeButtonSkin extends eui.Skin{
+}
+declare class newGiftTake_buttonSkin extends eui.Skin{
+}
+declare class newGift_buttonSkin extends eui.Skin{
+}
+declare class newPayGift_buttonSkin extends eui.Skin{
+}
+declare class NotifyComponentSkin extends eui.Skin{
+}
+declare class NumRenderer extends eui.Skin{
+}
+declare class option_buttonSkin extends eui.Skin{
+}
+declare class playWay_buttonSkin extends eui.Skin{
+}
+declare class ProgressBarSkin1 extends eui.Skin{
+}
+declare class pubButton55Skin extends eui.Skin{
+}
+declare class pubButton66Skin extends eui.Skin{
+}
+declare class pwdComponentSkin extends eui.Skin{
+}
+declare class question_buttonSkin extends eui.Skin{
+}
+declare class rankTabComponentButton2Skin extends eui.Skin{
+}
+declare class renwu_buttonSkin extends eui.Skin{
+}
+declare class ReqScrollerbottonSkin extends eui.Skin{
+}
+declare class retrieveCode_buttonSkin extends eui.Skin{
+}
+declare class retrievelPwdConfirm_buttonSkin extends eui.Skin{
+}
+declare class safeBox_buttonSkin extends eui.Skin{
+}
+declare class sc_buttonSkin extends eui.Skin{
+}
+declare class sc_button2Skin extends eui.Skin{
+}
+declare class shareLuckDrawBtnSkin extends eui.Skin{
+}
+declare class ShareLuckDrawItemComponentSkin extends eui.Skin{
+}
+declare class share_buttonSkin extends eui.Skin{
+}
+declare class shopping_ButtonSkin extends eui.Skin{
+}
+declare class shopping_ButtonSkin2 extends eui.Skin{
+}
+declare class shopVipButtonSkin extends eui.Skin{
+}
+declare class shop_buttonSkin extends eui.Skin{
+}
+declare class signin_buttonSkin extends eui.Skin{
+}
+declare class ssc_buttonSkin extends eui.Skin{
+}
+declare class TabComponentSkin extends eui.Skin{
+}
+declare class tabComponentButton2Skin extends eui.Skin{
+}
+declare class tabComponentButton3Skin extends eui.Skin{
+}
+declare class tabComponentButton4Skin extends eui.Skin{
+}
+declare class tabComponentButton5Skin extends eui.Skin{
+}
+declare class tabComponentButtonBig2Skin extends eui.Skin{
+}
+declare class tabComponentButtonBig3Skin extends eui.Skin{
+}
+declare class tabComponentButtonBig4Skin extends eui.Skin{
+}
+declare class tabComponentButtonSm5Skin extends eui.Skin{
+}
+declare class tabComponentInviteBtn3Skin extends eui.Skin{
+}
+declare class tabComponentInviteBtn4Skin extends eui.Skin{
+}
+declare class laBaRankTabComponentBtn4Skin extends eui.Skin{
+}
+declare class takeNow_BtnSkin extends eui.Skin{
+}
+declare class toggleSwitchSkin extends eui.Skin{
+}
+declare class WaitNextRoundComponentSkin extends eui.Skin{
+}
+declare class xialaMenuButtonSkin extends eui.Skin{
+}
 declare class 	AccountRetrievePwdPanelSkin extends eui.Skin{
 }
 declare class AchievementInGameSkin extends eui.Skin{
@@ -295,216 +505,6 @@ declare class timeAwardItemRenderer extends eui.Skin{
 declare class UserGiftItemRendererSkin extends eui.Skin{
 }
 declare class VipListItemRendererSkin extends eui.Skin{
-}
-declare class activity_buttonSkin extends eui.Skin{
-}
-declare class addButtonSkin extends eui.Skin{
-}
-declare class awards_buttonSkin extends eui.Skin{
-}
-declare class bangding_buttonSkin extends eui.Skin{
-}
-declare class BannerEnterButtonSkin extends eui.Skin{
-}
-declare class bindAccount_PhoneBtnSkin extends eui.Skin{
-}
-declare class bindAccount_WxBtnSkin extends eui.Skin{
-}
-declare class bindphone_buttonSkin extends eui.Skin{
-}
-declare class brdz_buttonSkin extends eui.Skin{
-}
-declare class bringAwardBtnSkin extends eui.Skin{
-}
-declare class buyGiftButtonSkin extends eui.Skin{
-}
-declare class buyItemButtonSkin extends eui.Skin{
-}
-declare class buyVipButtonSkin extends eui.Skin{
-}
-declare class CheckBoxSkin1 extends eui.Skin{
-}
-declare class checkBoxSkin2 extends eui.Skin{
-}
-declare class chooseShareWayCloseBtnSkin extends eui.Skin{
-}
-declare class closeButtonSkin extends eui.Skin{
-}
-declare class closeButton2Skin extends eui.Skin{
-}
-declare class closeButton3Skin extends eui.Skin{
-}
-declare class closeButton4Skin extends eui.Skin{
-}
-declare class commonButtonBSkin extends eui.Skin{
-}
-declare class commonButtonB2Skin extends eui.Skin{
-}
-declare class commonButtonGSkin extends eui.Skin{
-}
-declare class commonButtonGYSkin extends eui.Skin{
-}
-declare class commonButtonGY60x60Skin extends eui.Skin{
-}
-declare class commonButtonY135x55Skin extends eui.Skin{
-}
-declare class commonButtonYSkin extends eui.Skin{
-}
-declare class commonButtonY2Skin extends eui.Skin{
-}
-declare class commonButtonY2_323x74Skin extends eui.Skin{
-}
-declare class DiamondItemComponentSkin extends eui.Skin{
-}
-declare class dzpk_buttonSkin extends eui.Skin{
-}
-declare class FirstPayItemComponentSkin extends eui.Skin{
-}
-declare class firstpay_buttonSkin extends eui.Skin{
-}
-declare class freeGold_buttonSkin extends eui.Skin{
-}
-declare class friend_buttonSkin extends eui.Skin{
-}
-declare class getGoldButtonSkin extends eui.Skin{
-}
-declare class get_buttonSkin extends eui.Skin{
-}
-declare class GoldItemComponentSkin extends eui.Skin{
-}
-declare class goToBindBtnSkin extends eui.Skin{
-}
-declare class happyGiftItemButton160x50Skin extends eui.Skin{
-}
-declare class happyGiftTabtButton4Skin extends eui.Skin{
-}
-declare class helpButtonSkin extends eui.Skin{
-}
-declare class HSliderSkin1 extends eui.Skin{
-}
-declare class ImageNumComponentSkin extends eui.Skin{
-}
-declare class inviteBindBtnSkin extends eui.Skin{
-}
-declare class inviteFriendBtnSkin extends eui.Skin{
-}
-declare class invite_buttonSkin extends eui.Skin{
-}
-declare class keyBoardButton30Skin extends eui.Skin{
-}
-declare class keyBoardButtonSkin extends eui.Skin{
-}
-declare class loginTel_buttonSkin extends eui.Skin{
-}
-declare class mailTakePrizeButtonSkin extends eui.Skin{
-}
-declare class mail_buttonSkin extends eui.Skin{
-}
-declare class monthCardBringBtnSkin extends eui.Skin{
-}
-declare class monthCardButtonSkin extends eui.Skin{
-}
-declare class monthCardBuyBtnSkin extends eui.Skin{
-}
-declare class moreplay_buttonSkin extends eui.Skin{
-}
-declare class more_buttonSkin extends eui.Skin{
-}
-declare class MTTEnterBtnSkin extends eui.Skin{
-}
-declare class MTTJoinBtnSkin extends eui.Skin{
-}
-declare class myPrizeButtonSkin extends eui.Skin{
-}
-declare class newGiftTake_buttonSkin extends eui.Skin{
-}
-declare class newGift_buttonSkin extends eui.Skin{
-}
-declare class newPayGift_buttonSkin extends eui.Skin{
-}
-declare class NotifyComponentSkin extends eui.Skin{
-}
-declare class NumRenderer extends eui.Skin{
-}
-declare class option_buttonSkin extends eui.Skin{
-}
-declare class playWay_buttonSkin extends eui.Skin{
-}
-declare class ProgressBarSkin1 extends eui.Skin{
-}
-declare class pubButton55Skin extends eui.Skin{
-}
-declare class pubButton66Skin extends eui.Skin{
-}
-declare class pwdComponentSkin extends eui.Skin{
-}
-declare class question_buttonSkin extends eui.Skin{
-}
-declare class rankTabComponentButton2Skin extends eui.Skin{
-}
-declare class renwu_buttonSkin extends eui.Skin{
-}
-declare class ReqScrollerbottonSkin extends eui.Skin{
-}
-declare class retrieveCode_buttonSkin extends eui.Skin{
-}
-declare class retrievelPwdConfirm_buttonSkin extends eui.Skin{
-}
-declare class safeBox_buttonSkin extends eui.Skin{
-}
-declare class sc_buttonSkin extends eui.Skin{
-}
-declare class sc_button2Skin extends eui.Skin{
-}
-declare class shareLuckDrawBtnSkin extends eui.Skin{
-}
-declare class ShareLuckDrawItemComponentSkin extends eui.Skin{
-}
-declare class share_buttonSkin extends eui.Skin{
-}
-declare class shopping_ButtonSkin extends eui.Skin{
-}
-declare class shopping_ButtonSkin2 extends eui.Skin{
-}
-declare class shopVipButtonSkin extends eui.Skin{
-}
-declare class shop_buttonSkin extends eui.Skin{
-}
-declare class signin_buttonSkin extends eui.Skin{
-}
-declare class ssc_buttonSkin extends eui.Skin{
-}
-declare class TabComponentSkin extends eui.Skin{
-}
-declare class tabComponentButton2Skin extends eui.Skin{
-}
-declare class tabComponentButton3Skin extends eui.Skin{
-}
-declare class tabComponentButton4Skin extends eui.Skin{
-}
-declare class tabComponentButton5Skin extends eui.Skin{
-}
-declare class tabComponentButtonBig2Skin extends eui.Skin{
-}
-declare class tabComponentButtonBig3Skin extends eui.Skin{
-}
-declare class tabComponentButtonBig4Skin extends eui.Skin{
-}
-declare class tabComponentButtonSm5Skin extends eui.Skin{
-}
-declare class tabComponentInviteBtn3Skin extends eui.Skin{
-}
-declare class tabComponentInviteBtn4Skin extends eui.Skin{
-}
-declare class laBaRankTabComponentBtn4Skin extends eui.Skin{
-}
-declare class takeNow_BtnSkin extends eui.Skin{
-}
-declare class toggleSwitchSkin extends eui.Skin{
-}
-declare class WaitNextRoundComponentSkin extends eui.Skin{
-}
-declare class xialaMenuButtonSkin extends eui.Skin{
 }
 declare class chatBQJPSkin extends eui.Skin{
 }

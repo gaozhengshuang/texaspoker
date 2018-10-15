@@ -14,7 +14,7 @@ class InitAppHandler
 		{
 			//第一次登录初始化一次
 			this._isAppComplete = true;
-			// NotifyManager.initialize(); //move todo
+			NotifyManager.initialize();
 			UploadHeadManager.initialize();
 		}
 		else
