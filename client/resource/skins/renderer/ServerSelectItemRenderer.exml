@@ -5,6 +5,7 @@
     <e:Image width="720" height="64" anchorOffsetX="0" anchorOffsetY="0" y="0"
               source="assets/bg/pub_bg11_png" alpha="0"/>
 	<e:Image id="selectImg" width="720" height="60" source="qd_3_png" scale9Grid="14,14,28,15" x="0" y="2"/>
-    <e:Label id="nameLabel" text="11" x="37" height="30" width="71" size="24"  textAlign="center" verticalCenter="0" verticalAlign="middle" anchorOffsetX="0"/>
-    <e:Label id="adressLabel" text="1500/3000" x="158" height="30" width="502" size="24" textAlign="center"  verticalCenter="0" verticalAlign="middle" anchorOffsetX="0"/>
+    <e:Label id="nameLabel" text="11" x="11" height="30" width="71" size="24"  textAlign="center" verticalCenter="0" verticalAlign="middle" anchorOffsetX="0"/>
+    <e:Label id="adressLabel" text="1500/3000" x="85" height="30" width="473" size="24" textAlign="center"  verticalCenter="0" verticalAlign="middle" anchorOffsetX="0"/>
+	<ns1:ShadowButton id="defaultBtn" label="默认" x="558.16" skinName="commonButtonYSkin" verticalCenter="1"/>
 </e:Skin>

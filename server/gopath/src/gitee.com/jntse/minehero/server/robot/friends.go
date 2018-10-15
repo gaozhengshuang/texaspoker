@@ -54,6 +54,15 @@ func (u *User) SearchFriend(subcmd string) {
 	u.SendGateMsg(send)
 }
 
+func (u *User) InviteFriend(subcmd []string) {
+	send := &msg.C2GW_ReqInviteFriendJoin{Id:pb.Int64(u.roomid), Roleid:make([]int64, 0)}
+	for _, cmd := range subcmd {
+		send.Roleid = append(send.Roleid, util.Atol(cmd))
+	}
+	u.SendGateMsg(send)
+}
+
+
 func on_GW2C_RetFriendsList(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2C_RetFriendsList)
 	log.Info("%+v", tmsg)
@@ -111,6 +120,11 @@ func on_GW2C_RetProcessFriendRequest(session network.IBaseNetSession, message in
 
 func on_GW2C_RetFriendSearch(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2C_RetFriendSearch)
+	log.Info("%+v", tmsg)
+}
+
+func on_GW2C_PushFriendInvitation(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2C_PushFriendInvitation)
 	log.Info("%+v", tmsg)
 }
 

@@ -61,6 +61,13 @@ class FriendManager
         SocketManager.AddCommandListener(Command.Friend_Push_Reset_2015, FriendManager.onResetPush, this)
     }
     /**
+     * 拉取好友列表信息
+     */
+    public static reqFriendList()
+    {
+        SocketManager.ImplCall(Command.C2GW_ReqFriendsList, null, FriendManager.FriendListInfoResponse, null, this);
+    }
+    /**
      * 初始化好友列表信息
      */
     public static Initialize(result: game.SpRpcResult)
@@ -76,7 +83,12 @@ class FriendManager
         {
             FriendManager._givenGoldRoleIdList = new Array<number>();
         }
+        FriendManager.FriendListInfoResponse(result);
+    }
+    public static FriendListInfoResponse(result: game.SpRpcResult)
+    {
         let data: msg.GW2C_RetFriendsList = result.data;
+        FriendManager.friendList = [];
         if (data.friendlist)
         {
             for (let friendInfo of data.friendlist)
@@ -95,20 +107,7 @@ class FriendManager
                 }
             }
         }
-    }
-    public static FriendListInfoResponse(result: game.SpRpcResult)
-    {
-        if (result.data && result.data["friendList"])
-        {
-            game.ArrayUtil.Clear(FriendManager.friendList);
-            for (let friendInfo of result.data["friendList"])
-            {
-                let info: FriendInfo = new FriendInfo();
-                info.copyValueFrom(friendInfo);
-                FriendManager.friendList.push(info);
-            }
-            FriendManager.onGetFriendListEvent.dispatch();
-        }
+        FriendManager.onGetFriendListEvent.dispatch();
     }
     /**
      * 发送赠送好友金币请求
@@ -230,7 +229,7 @@ class FriendManager
     {
         let callback: Function = function (result: game.SpRpcResult)
         {
-            let data:msg.GW2C_RetFriendSearch = result.data;
+            let data: msg.GW2C_RetFriendSearch = result.data;
             if (data.brief)
             {
                 if (text)
@@ -334,8 +333,8 @@ class FriendManager
         if (flag == FriendUIType.FriendList)
         {
             let newFriendInfo: FriendInfo = new FriendInfo();
-            newFriendInfo.copyValueFrom(result.data);
-            if (FriendManager.isExitInRoleIdList(result.data.roleId))
+            newFriendInfo.copyValueFromIgnoreCase(result);
+            if (FriendManager.isExitInRoleIdList(result.roleId))
             {
                 newFriendInfo.giveGold = 1;
             }
@@ -367,7 +366,7 @@ class FriendManager
         {
             FriendManager.InviteFriendEvent.dispatch();
         };
-        SocketManager.call(Command.Req_SendGameInvite_3608, { "id": roomId, "roleId": roleIds }, callback, null, this);
+        SocketManager.call(Command.C2GW_ReqInviteFriendJoin, { "id": roomId, "roleid": roleIds }, callback, null, this);
     }
     /**********服务器推送通知的相应操作****************/
     /**
@@ -389,10 +388,11 @@ class FriendManager
     */
     public static onAddFriendSuccessRec(result: game.SpRpcResult)
     {
-        let data:msg.GW2C_PushFriendAddSuccess = result.data;
+        let data: msg.GW2C_PushFriendAddSuccess = result.data;
         if (data.friend)
         {
-            UserManager.reqGetOtherUserInfo(game.longToNumber(data.friend.roleid), FriendUIType.FriendList);
+            FriendManager.getUserInfoResult(data.friend, FriendUIType.FriendList);
+            // UserManager.reqGetOtherUserInfo(game.longToNumber(data.friend.roleid), FriendUIType.FriendList);
         }
     }
     /**
@@ -400,7 +400,7 @@ class FriendManager
     */
     public static onDelFriendSuccessRec(result: game.SpRpcResult)
     {
-        let data:msg.GW2C_PushRemoveFriend = result.data;
+        let data: msg.GW2C_PushRemoveFriend = result.data;
         if (data)
         {
             for (let i: number = 0; i < FriendManager.friendList.length; i++)
@@ -437,28 +437,28 @@ class FriendManager
     */
     public static onOnlineStateChangeRec(result: game.SpRpcResult)
     {
-        let data:msg.GW2C_PushFriendLogin = result.data;
-        if (data)
-        {
-            for (let i: number = 0; i < FriendManager.friendList.length; i++)
-            {
-                if (data.roleid == FriendManager.friendList[i].roleId)
-                {
-                    FriendManager.friendList[i].offlineTime = data.offlinetime;
-                    FriendManager.onRefreshInfoEvent.dispatch(FriendUIType.FriendList);
-                    break;
-                }
-            }
-        }
+        // let data: msg.GW2C_PushFriendLogin = result.data;
+        // if (data)
+        // {
+        //     for (let i: number = 0; i < FriendManager.friendList.length; i++)
+        //     {
+        //         if (data.roleid == FriendManager.friendList[i].roleId)
+        //         {
+        //             FriendManager.friendList[i].offlineTime = game.longToNumber(data.offlinetime);
+        //             FriendManager.onRefreshInfoEvent.dispatch(FriendUIType.FriendList);
+        //             break;
+        //         }
+        //     }
+        // }
     }
     /**
      * 好友赠送金币推送对应的操作
     */
     public static onGiveGoldRec(result: game.SpRpcResult)
     {
-        if (result.data["roleId"])
+        if (result.data["roleid"])
         {
-            UserManager.reqGetOtherUserInfo(result.data['roleId'], FriendUIType.GiftList);
+            UserManager.reqGetOtherUserInfo(result.data['roleid'], FriendUIType.GiftList);
         }
     }
     /**
@@ -466,7 +466,7 @@ class FriendManager
     */
     public static onRequestFriendRec(result: game.SpRpcResult)
     {
-        let data:msg.GW2C_PushAddYouFriend = result.data;
+        let data: msg.GW2C_PushAddYouFriend = result.data;
         if (data)
         {
             let info: BaseFriendInfo = new BaseFriendInfo();
@@ -502,7 +502,7 @@ class FriendManager
     */
     private static pushInviteMsgHandler(result: game.SpRpcResult)
     {
-        let data:msg.GW2C_PushFriendInvitation = result.data;
+        let data: msg.GW2C_PushFriendInvitation = result.data;
         if (data)
         {
             if (!FriendManager.requestNewsList)
@@ -611,6 +611,7 @@ class FriendManager
     */
     public static isFriendFull(isShowAlert: boolean = false): boolean
     {
+        return true; //move todo
         let maxNum: number;
         let vipDef: VipDefinition;
         if (VipManager.isVip(UserManager.userInfo))

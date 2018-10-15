@@ -452,7 +452,7 @@ func (u *RoomUser) RemoveItem(item int32, num int32, reason string) bool {
 }
 
 func (u *RoomUser) SendNotify(text string) {
-	send := &msg.GW2C_MsgNotify{Userid: pb.Int64(u.Id()), Text: pb.String(text)}
+	send := &msg.GW2C_PushMsgNotify{Userid: pb.Int64(u.Id()), Text: pb.String(text)}
 	u.SendMsg(send)
 }
 

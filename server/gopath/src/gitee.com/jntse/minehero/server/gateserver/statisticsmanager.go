@@ -21,8 +21,8 @@ func (this *StatisticsManager) GetPlayerRoleInfo(id int64) *msg.GW2C_RetPlayerRo
 		send.Roleid = pb.Int64(id)
 		send.Errcode = pb.String("")
 		send.Entity = pb.Clone(user.bin.GetEntity()).(*msg.EntityBase)
-		send.Vip = pb.Clone(user.bin.GetBase().GetVip()).(*msg.UserVip)
-		send.Statistics = pb.Clone(user.bin.GetBase().GetStatics()).(*msg.UserStatistics)
+		send.Vip = pb.Clone(user.vip.PackBin()).(*msg.UserVip)
+		send.Statistics = pb.Clone(user.statistics.PackBin()).(*msg.UserStatistics)
 	} else {
 		send.Roleid = pb.Int64(id)
 		send.Errcode = pb.String("")
@@ -36,6 +36,7 @@ func (this *StatisticsManager) GetPlayerRoleInfo(id int64) *msg.GW2C_RetPlayerRo
 			log.Error("加载玩家[%d] vip 数据失败", id)
 		}
 		send.Vip = vipInfo
+		// send.Vip = &msg.UserVip{};
 		key, statisticsInfo := fmt.Sprintf("userstatistics_%d", id), &msg.UserStatistics{}
 		if err := utredis.GetProtoBin(Redis(), key, statisticsInfo); err != nil {
 			log.Error("加载玩家[%d] statistics 数据失败", id)

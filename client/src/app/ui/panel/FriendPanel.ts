@@ -122,13 +122,15 @@ class FriendPanel extends BasePanel
         {
             this._tabFlag = appendData.tabFlag;
         }
-        this.friendTabCompontent.init(0);
         if (this._tabFlag)
         {
             this.friendTabCompontent.setSelectIndex(this._tabFlag - 1);
         }
+        else
+        {
+            this.friendTabCompontent.init(0);
+        }
         this.inviteGroup.visible = (game.System.isWeChat || game.System.isMicro) && !VersionManager.isSafe;
-        this.setFriendListInfo();
         this.setFriendRequestList();
         this.setGiftListInfo();
     }
@@ -173,6 +175,7 @@ class FriendPanel extends BasePanel
         FriendManager.onRefreshInfoEvent.removeListener(this.refreshUI, this);
         FriendManager.onGetFriendListEvent.removeListener(this.setFriendListInfo, this);
         FriendManager.allowFriendJumpEvent.removeListener(this.jumpFriendTab, this);
+
     }
 
     private jumpFriendTab()
@@ -343,7 +346,7 @@ class FriendPanel extends BasePanel
             }
         } else if (index == 0)
         {
-            this.setFriendListInfo();
+            FriendManager.reqFriendList();
         }
     }
     /**
@@ -394,6 +397,7 @@ class FriendPanel extends BasePanel
             UserManager.reqShowOtherUserInfoPanel(this.recList.selectedItem.roleId);
         }
     }
+
     private setFriendListInfo()
     {
         if (FriendManager.friendList && FriendManager.friendList.length > 0)

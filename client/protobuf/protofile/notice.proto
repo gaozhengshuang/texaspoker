@@ -2,7 +2,7 @@ syntax = "proto2";
 package msg;
 
 // 个人提示信息
-message GW2C_MsgNotify {
+message GW2C_PushMsgNotify {
     optional int64 userid = 1;
     optional string text = 2;
 }

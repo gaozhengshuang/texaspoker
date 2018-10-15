@@ -47,6 +47,7 @@ type DBUserData struct {
 	luckydraw      []*msg.LuckyDrawItem
 	luckydrawtotal int64
 	statistics	   UserStatistics
+	vip			   UserVip
 	totalrecharge  int32 // 总充值
 	lastgoldtime   int32 // 上次领取系统金币的时间
 	awardrecord    []*msg.AwardRecord  
@@ -402,6 +403,7 @@ func (u *GateUser) OnDBLoad(way string) {
 	if u.bin.Base.Task == nil { u.bin.Base.Task = &msg.UserTask{} }
 	if u.bin.Base.Luckydraw == nil { u.bin.Base.Luckydraw = &msg.LuckyDrawRecord{Drawlist: make([]*msg.LuckyDrawItem, 0)} }
 	if u.bin.Base.Arvalues == nil { u.bin.Base.Arvalues = &msg.AutoResetValues{Values: make([]*msg.AutoResetValue, 0)} }
+	if u.bin.Base.Vip == nil { u.bin.Base.Vip = &msg.UserVip{} }
 	//if u.bin.Base.Images == nil { u.bin.Base.Images = &msg.PersonalImage{Lists: make([]*msg.ImageData, 0)} }
 
 	// 加载二进制
@@ -437,7 +439,7 @@ func (u *GateUser) PackBin() *msg.Serialize {
 
 	userbase := bin.GetBase()
 	userbase.Statics = u.statistics.PackBin()
-	userbase.Vip = &msg.UserVip{}
+	userbase.Vip = u.vip.PackBin()
 	userbase.Sign.Signdays = pb.Int32(u.signdays)
 	userbase.Sign.Signtime = pb.Int32(u.signtime)
 	userbase.Misc.Invitationcode = pb.String(u.invitationcode)
@@ -472,7 +474,6 @@ func (u *GateUser) PackBin() *msg.Serialize {
 func (u *GateUser) PackGateBin() *msg.GateSerialize {
 	gatebin := &msg.GateSerialize{}
 	gatebin.Bankruptcount = pb.Int32(u.bankruptcount)
-	log.Info("SSSSSSSSSSSSSSSSSSSSSSSSSSSSS-----------> %d", u.bankruptcount)
 	return gatebin
 }
 
@@ -509,6 +510,8 @@ func (u *GateUser) LoadBin() {
 	}
 
 	u.statistics.LoadBin(u.bin)
+	userbase.GetStatics().Tmlogin = pb.Int64(util.CURTIME())
+	u.vip.LoadBin(u.bin)
 	// 道具信息
 	u.bag.Clean()
 	u.bag.LoadBin(u.bin)
@@ -535,7 +538,6 @@ func (u *GateUser) LoadBin() {
 
 func (u *GateUser) LoadGateBin () {
 	u.bankruptcount = u.gatebin.GetBankruptcount()
-	log.Info("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL-----------> %d", u.bankruptcount)
 }
 
 // TODO: 存盘可以单独协程
@@ -588,6 +590,8 @@ func (u *GateUser) AsynSaveFeedback() {
 
 // 新用户回调
 func (u *GateUser) OnCreateNew() {
+	//玩家创建时间
+	u.statistics.createdtime = util.CURTIME()
 }
 
 // 上线回调，玩家数据在LoginOk中发送
@@ -599,6 +603,7 @@ func (u *GateUser) Online(session network.IBaseNetSession, way string) bool {
 	}
 
 	curtime := util.CURTIME()
+
 	u.RegistTicker()
 	u.tickers.Start()
 	u.asynev.Start(int64(u.Id()), 100)
@@ -606,10 +611,14 @@ func (u *GateUser) Online(session network.IBaseNetSession, way string) bool {
 	u.online = true
 	u.client = session
 	u.statistics.tm_login = curtime
+	u.statistics.tm_logout = 0
 	u.tm_disconnect = 0
 	u.tm_heartbeat = util.CURTIMEMS()
 	u.roomdata.Online(u)
 	log.Info("Sid[%d] 账户[%s] 玩家[%d] 名字[%s] 登录成功[%s]", u.Sid(), u.account, u.Id(), u.Name(), way)
+
+	// 更新charbase
+	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "offlinetime", 0)
 
 	// 上线任务检查
 	u.OnlineTaskCheck()
@@ -694,7 +703,9 @@ func (u *GateUser) CheckDisconnectTimeOut(now int64) {
 // 真下线，清理玩家数据
 func (u *GateUser) Logout() {
 	u.online = false
-	u.statistics.tm_logout = util.CURTIME()
+	nowtime := util.CURTIME()
+	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "offlinetime", nowtime)
+	u.statistics.tm_logout = nowtime
 	u.cleanup = true
 	//u.DBSave()
 	UnBindingAccountGateWay(u.account)
@@ -712,7 +723,7 @@ func (u *GateUser) OnCleanUp() {
 
 // 发送个人通知
 func (u *GateUser) SendNotify(text string) {
-	send := &msg.GW2C_MsgNotify{Text: pb.String(text)}
+	send := &msg.GW2C_PushMsgNotify{Text: pb.String(text)}
 	u.SendMsg(send)
 }
 

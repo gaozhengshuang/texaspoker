@@ -48,6 +48,9 @@ func (f *Friend) GetStat() int32 {
 	return int32(stat)
 }
 
+func (f *Friend) SetOfflineTime(t int64) {
+	f.fbrief.Offlinetime = pb.Int64(t)
+}
 
 func (f *Friend) Bin() *msg.FriendData {
 	return &msg.FriendData{Base:f.fbrief, Givegold:pb.Int32(f.PresentStat()), Getgold:pb.Int32(f.GetStat())}
@@ -160,12 +163,13 @@ func (m *Friends) Name() string {
 }
 
 func (m *Friends) Online() {
-	// 跨服务器
-	pushmsg := &msg.GW2C_PushUserOnline{Uid : pb.Int64(m.Id())}
-	GateSvr().SendGateMsg(0, pushmsg)
 
 	// 上线检查
 	m.RemovedFriendCheck()
+
+	// 上线通知好友
+	//pushmsg := &msg.GW2C_PushFriendLogin{Roleid: pb.Int64(m.Id()), Offlinetime:pb.Int64(0)}
+	//GateSvr().SendGateMsg(0, pushmsg)
 }
 
 // 加载
@@ -217,16 +221,40 @@ func (m *Friends) DBSave() {
 
 // 1分钟tick
 func (m *Friends) Tick(now int64) {
-	m.DBSave()
 }
 
 // 好友列表
 func (m *Friends) SendFriendList() {
+	m.UpdateFriendsStat()
 	send := &msg.GW2C_RetFriendsList{Friendlist:make([]*msg.FriendData,0)}
 	for _, v := range m.friends {
 		send.Friendlist = append(send.Friendlist, v.Bin())
 	}
 	m.owner.SendMsg(send)
+}
+
+func (m *Friends) UpdateFriendsStat() {
+	pipe := Redis().Pipeline()
+	defer pipe.Close()
+
+	flist := make([]*Friend, 0, m.Size())
+	for _, f := range m.friends {
+		pipe.HGet(fmt.Sprintf("charbase_%d", f.Id()),"offlinetime")
+		flist = append(flist, f)
+	}
+
+	cmds, _ := pipe.Exec()
+	for i:=0; i < len(cmds); i++ {
+		t, err := cmds[i].(*redis.StringCmd).Int64()
+		if err != nil {
+			log.Error("[好友] 玩家[%s %d]更新好友列表状态失败，RedisError[%s]", m.Name(),m.Id(),err)
+			continue
+		}
+		if i >= len(flist) {
+			break
+		}
+		flist[i].SetOfflineTime(t)
+	}
 }
 
 func (m *Friends) RemoveFriend(id int64, reason string) {
@@ -251,6 +279,9 @@ func (m *Friends) AddFriend(brief *msg.FriendBrief, reason string, save bool) *F
 	if save == true {
 		f.AddBin()
 	}
+
+	pushmsg := &msg.GW2C_PushFriendAddSuccess{Handler:pb.Int64(0), Friend:brief}
+	m.owner.SendMsg(pushmsg)
 	log.Info("[好友] 玩家[%s %d] 添加好友[%s %d]成功 原因[%s]", m.Name(), m.Id(), f.Name(), f.Id(), reason)
 	return f
 }
@@ -352,7 +383,8 @@ func (m *Friends) ProcessFriendRequest(uid int64, accept bool) {
 		log.Error("[好友] 玩家[%s %d] 获取玩家Charbase失败 RedisError[%s]", m.Name(), m.Id(), err)
 		return
 	}
-	m.AddFriend(FillFriendBrief(cmdmap),"同意好友请求", true)
+	fbrief := FillFriendBrief(cmdmap)
+	m.AddFriend(fbrief,"同意好友请求", true)
 
 	pipe := Redis().Pipeline()
 	defer pipe.Close()
@@ -396,7 +428,6 @@ func (m *Friends) OnFriendRequestRecv(reqmsg *msg.GW2C_PushAddYouFriend) {
 // 收到申请通过消息
 func (m *Friends) OnFriendRequestPass(push *msg.GW2C_PushFriendAddSuccess) {
 	m.AddFriend(push.Friend, "对方同意", false)
-	m.owner.SendMsg(push)
 }
 
 // 收到申请礼物消息
@@ -544,7 +575,7 @@ func FillFriendBrief(charset map[string]string) *msg.FriendBrief {
 		if k == "sex"			{ fbrief.Sex = pb.Int32(vt.Int32()) }
 		if k == "gold"			{ fbrief.Gold = pb.Int32(vt.Int32()) }
 		if k == "viplevel"		{ fbrief.Viplevel = pb.Int32(vt.Int32()) }
-		if k == "offlinetime" 	{ fbrief.Offlinetime = pb.Int32(vt.Int32()) }
+		if k == "offlinetime" 	{ fbrief.Offlinetime = pb.Int64(vt.Int64()) }
 	}
 	return fbrief
 }
@@ -557,8 +588,8 @@ func (u *GateUser) FillUserBrief() *msg.FriendBrief {
 	fbrief.Level 	= pb.Int32(u.Level())
 	fbrief.Sex 		= pb.Int32(u.Sex())
 	fbrief.Gold 	= pb.Int32(u.GetGold())
+	fbrief.Offlinetime = pb.Int64(0)	// 玩家在线offlinetime 0
 	fbrief.Viplevel = pb.Int32(0)
-	fbrief.Offlinetime = pb.Int32(0)
 	return fbrief
 }
 
