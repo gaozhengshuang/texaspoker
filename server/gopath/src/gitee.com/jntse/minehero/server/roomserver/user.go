@@ -81,7 +81,8 @@ func NewRoomUserAI(id int64, name string, sex int32) *RoomUser {
 
 func (u *RoomUser) DBLoad(b *msg.Serialize) {
 	u.bin = b
-	u.bag.LoadBin(b)
+	//u.bag.LoadBin(b)
+	u.bag.DBLoad()
 	u.task.LoadBin(b)
 	u.arvalues.LoadBin(b.Base.Arvalues)
 }
@@ -231,7 +232,10 @@ func (u *RoomUser) PackBin() *msg.Serialize {
 	bin.Base = u.bin.GetBase()
 
 	// 背包
-	u.bag.PackBin(bin)
+	//u.bag.PackBin(bin)
+	u.bag.DBSave()
+
+	//
 	u.task.PackBin(bin)
 	//u.image.PackBin(bin)
 	u.PackAutoResetValues(bin)
