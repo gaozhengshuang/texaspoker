@@ -55,7 +55,11 @@ func (this *TexasPokerRoom) UserEnter(u *RoomUser) {
 	this.members[u.Id()] = u
 	player = NewTexasPlayer(u, this, false)
 	player.Init()
-	this.AddWatcher(player)
+	if this.IsChampionShip() {
+		player.SitDown(this.GetEmptySeat())
+	}else{
+		this.AddWatcher(player)
+	}
 	this.SendRoomInfo(player)
 	u.SendPropertyChange()
 }

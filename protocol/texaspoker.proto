@@ -274,3 +274,11 @@ message RS2C_RetReviewInfo
     repeated UserReviewInfo array = 1;
 }
 
+//推送盲注变化
+message RS2C_PushBlindChange {
+    optional int32 sblind = 1;          //小盲
+    optional int32 bblind = 2;          //大盲
+    optional int32 ante = 3;            //台前注
+    optional int32 blindlevel = 4;      //盲等级
+}
+

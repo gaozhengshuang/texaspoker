@@ -260,7 +260,8 @@ export var ProtoId : table.IProtoIdDefine[] = [
 		{ Id : 255, Name : "msg.C2RS_ReqReviewInfo" 	},
 		{ Id : 256, Name : "msg.UserOneRound" 	},
 		{ Id : 257, Name : "msg.UserReviewInfo" 	},
-		{ Id : 258, Name : "msg.RS2C_RetReviewInfo" 	}
+		{ Id : 258, Name : "msg.RS2C_RetReviewInfo" 	},
+		{ Id : 259, Name : "msg.RS2C_PushBlindChange" 	}
 	]
 
 
