@@ -21,6 +21,9 @@ const (
 	RedisKeyAccountGate  = "account_gateinfo"
 	RedisKeyGateAccounts = "gate_accounts"
 	Earth_Radius = float64(6371.0)
+	AchieveProcess = "achieveprocess" //成就任务组 进度记录 hash
+
+	AchieveToken = "achievetoken"	//已经领取的任务成就变量 set
 )
 
 // 组装带颜色字体的公告内容
