@@ -9,7 +9,7 @@ class WinMTTProcess extends BaseAchieveProcessInfo
         ChampionshipManager.OnMTTOverPushEvent.addListener(this.onProcessUpdate, this);
     }
 
-    public onProcessUpdate(record: any)
+    public onProcessUpdate(record: msg.RS2C_PushMTTWeedOut)
     {
         super.onProcessUpdate(record);
         if (record.rank && record.rank == 1)

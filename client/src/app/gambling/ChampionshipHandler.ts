@@ -196,8 +196,6 @@ class ChampionshipHandler
         }
         let callback: Function = function (result: game.SpRpcResult)
         {
-            SocketManager.RemoveCommandListener(Command.MTTRebuyOrAddon_3619, callback, this);
-            SocketManager.RemoveErrorListener(Command.MTTRebuyOrAddon_3619, callbackError, this);
             if (type == ChampionshipBuyType.Out)
             {
                 return;
@@ -248,8 +246,6 @@ class ChampionshipHandler
         };
         let callbackError: Function = function (result: game.SpRpcResult)
         {
-            SocketManager.RemoveCommandListener(Command.MTTRebuyOrAddon_3619, callback, this);
-            SocketManager.RemoveErrorListener(Command.MTTRebuyOrAddon_3619, callbackError, this);
             if (result.error == "3012") //move todo
             {
                 if (type == ChampionshipBuyType.Rebuy)
@@ -263,9 +259,7 @@ class ChampionshipHandler
             }
             GamblingManager.RebuyORAddonEvent.dispatch({ isSuccess: false })
         };
-        SocketManager.AddCommandListener(Command.MTTRebuyOrAddon_3619, callback, this);
-        SocketManager.AddErrorListener(Command.MTTRebuyOrAddon_3619, callbackError, this);
-        SocketManager.Send(Command.MTTRebuyOrAddon_3619, { type: type });
+        MsgTransferSend.sendRoomProto(Command.C2RS_ReqMTTRebuyOrAddon, { type: type }, callback, callback, this);
     }
     public outChampionship(recordId: number)
     {

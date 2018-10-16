@@ -66,17 +66,17 @@ class ChampionshipManager
     private static addPushListener()
     {
         //赛事报名人数数据推送
-        SocketManager.AddCommandListener(Command.MTTJoinNumChange_Push_2114, ChampionshipManager.onJoinNumPush, this);
+        SocketManager.AddCommandListener(Command.RS2C_PushMTTJoinNumChange, ChampionshipManager.onJoinNumPush, this);
         //比赛取消推送
-        SocketManager.AddCommandListener(Command.MTTCancel_Push_2115, ChampionshipManager.onCancelMTTPush, this);
+        SocketManager.AddCommandListener(Command.RS2C_PushMTTCancel, ChampionshipManager.onCancelMTTPush, this);
         //比赛结算推送(该玩家被淘汰)
-        SocketManager.AddCommandListener(Command.MTTWeedOut_Push_2118, ChampionshipManager.onMTTOverPush, this);
+        SocketManager.AddCommandListener(Command.RS2C_PushMTTWeedOut, ChampionshipManager.onMTTOverPush, this);
         //赛事房间id推送
-        SocketManager.AddCommandListener(Command.MTTRoomId_Push_2116, ChampionshipManager.onMTTRoomIdPush, this);
+        SocketManager.AddCommandListener(Command.RS2C_PushMTTRoomId, ChampionshipManager.onMTTRoomIdPush, this);
         //推送赛事排名
-        SocketManager.AddCommandListener(Command.MTTRank_Push_2117, ChampionshipManager.onMTTRankPush, this);
+        SocketManager.AddCommandListener(Command.RS2C_PushMTTRank, ChampionshipManager.onMTTRankPush, this);
         //推送有新的赛事
-        SocketManager.AddCommandListener(Command.MTTNew_Push_2121, ChampionshipManager.onMTTNewPush, this);
+        SocketManager.AddCommandListener(Command.RS2C_PushMTTNew, ChampionshipManager.onMTTNewPush, this);
     }
     public static initialize(result: game.SpRpcResult)
     {
@@ -170,20 +170,21 @@ class ChampionshipManager
     */
     public static reqGetMTTListInfo()
     {
-        SocketManager.call(Command.MTTList_Req_3611, null, ChampionshipManager.getMTTListInfoResponse, null, this);
+        MsgTransferSend.sendRoomProto(Command.C2RS_ReqMTTList, null, ChampionshipManager.getMTTListInfoResponse, null, this);
     }
     private static getMTTListInfoResponse(result: game.SpRpcResult)
     {
-        if (result.data && result.data["MTTList"])
+        let data: msg.RS2C_RetMTTList = result.data;
+        if (data)
         {
             let tmpProcessList: Array<MatchRoomInfo> = ChampionshipManager.processMTTList.concat();
             game.ArrayUtil.Clear(ChampionshipManager.processMTTList);
             game.ArrayUtil.Clear(ChampionshipManager.showMTTList);
 
-            for (let mttInfo of result.data["MTTList"])
+            for (let mttInfo of data.mttlist)
             {
                 let matchInfo: MatchRoomInfo = new MatchRoomInfo();
-                matchInfo.copyValueFrom(mttInfo);
+                matchInfo.copyValueFromIgnoreCase(mttInfo);
                 for (let existInfo of tmpProcessList)
                 {
                     if (existInfo.recordId == matchInfo.recordId)
@@ -280,13 +281,14 @@ class ChampionshipManager
     {
         let callback: Function = function (result: game.SpRpcResult)
         {
-            if (result.data && result.data.Array)
+            let data: msg.RS2C_RetJoinedMTTList = result.data;
+            if (data && data.mttlist)
             {
                 game.ArrayUtil.Clear(ChampionshipManager.joinMTTList);
-                for (let mttInfo of result.data.Array)
+                for (let mttInfo of data.mttlist)
                 {
                     let matchinfo: MatchRoomInfo = new MatchRoomInfo();
-                    matchinfo.copyValueFrom(mttInfo);
+                    matchinfo.copyValueFromIgnoreCase(mttInfo);
                     if (matchinfo.definition && matchinfo.definition.Type == MatchType.SNG)
                     {
                         ChampionshipManager.setOpenAndCloseTime(matchinfo);
@@ -306,7 +308,7 @@ class ChampionshipManager
                 ChampionshipManager.onGetJoinedMatchListEvent.dispatch();
             }
         };
-        SocketManager.call(Command.JoinedMTTList_Req_3706, null, callback, null, this);
+        MsgTransferSend.sendRoomProto(Command.C2RS_ReqJoinedMTTList, {}, callback, null, this);
     }
     /**
      * 开始进行赛事倒计时（用来通知赛事将要开始）
@@ -325,20 +327,21 @@ class ChampionshipManager
     */
     public static reqGetRecentActionInfo()
     {
-        SocketManager.call(Command.MTTRecordList_Req_3615, null, ChampionshipManager.getGetRecentActionInfoResponse, null, this);
+        MsgTransferSend.sendRoomProto(Command.C2RS_ReqMTTRecordList, {}, ChampionshipManager.getGetRecentActionInfoResponse, null, this);
     }
     public static getGetRecentActionInfoResponse(result: game.SpRpcResult)
     {
-        if (result.data)
+        let data: msg.RS2C_RetMTTRecordList = result.data;
+        if (data)
         {
             game.ArrayUtil.Clear(ChampionshipManager.outsList);
-            for (let recordInfo of result.data["recordList"])
+            for (let recordInfo of data.recordlist)
             {
                 let record: OutsInfo = new OutsInfo();
                 let rankInfo: ChampionshipRankInfo = new ChampionshipRankInfo();
                 record.id = recordInfo.id;
-                record.recordId = recordInfo.recordId;
-                record.time = recordInfo.startTime;
+                record.recordId = recordInfo.recordid;
+                record.time = recordInfo.starttime;
                 record.rankList = new Array<ChampionshipRankInfo>();
                 let def: table.IChampionshipDefine = table.ChampionshipById[recordInfo.id];
                 let championshipPrizeList: Array<table.IChampionshipPrizeDefine>;
@@ -347,15 +350,15 @@ class ChampionshipManager
                     record.name = def.Name;
                     championshipPrizeList = ChampionshipManager.getAwardList(def.Id);
                 }
-                rankInfo.name = recordInfo["name"];
+                rankInfo.name = recordInfo.name;
                 rankInfo.rank = 1;
-                if (recordInfo['head'])
+                if (recordInfo.head)
                 {
-                    rankInfo.head = recordInfo["head"];
+                    rankInfo.head = recordInfo.head;
                 }
-                if (recordInfo["sex"])
+                if (recordInfo.sex)
                 {
-                    rankInfo.sex = recordInfo["sex"];
+                    rankInfo.sex = recordInfo.sex;
                 } else
                 {
                     rankInfo.sex = 0;
@@ -390,12 +393,13 @@ class ChampionshipManager
     {
         let callback: Function = function (result: game.SpRpcResult)
         {
-            if (result.data && result.data["rankList"])
+            let data: msg.RS2C_RetMTTRecentlyRankList = result.data;
+            if (data && data.ranklist)
             {
-                for (let rankInfo of result.data["rankList"])
+                for (let rankInfo of data.ranklist)
                 {
                     let rank: ChampionshipRankInfo = new ChampionshipRankInfo();
-                    rank.copyValueFrom(rankInfo);
+                    rank.copyValueFromIgnoreCase(rankInfo);
                     let championshipPrizeList: Array<table.IChampionshipPrizeDefine> = ChampionshipManager.getAwardList(ChampionshipManager.recentMTTId);
                     if (championshipPrizeList)
                     {
@@ -425,7 +429,7 @@ class ChampionshipManager
                 ChampionshipManager.OnGetRankListEvent.dispatch(recordId);
             }
         };
-        SocketManager.call(Command.MTTRecentlyRankList_Req_3616, { recordId: recordId }, callback, null, this);
+        MsgTransferSend.sendRoomProto(Command.C2RS_ReqMTTRecentlyRankList, { recordid: recordId }, callback, null, this);
     }
     /**
      * 发送立即报名的请求
@@ -434,12 +438,13 @@ class ChampionshipManager
     {
         let callback: Function = function (result: game.SpRpcResult)
         {
+            let data: msg.RS2C_RetMTTJoin = result.data;
             if (type == MatchType.SNG)
             {
                 let isExist: boolean = false;
                 for (let sngInfo of ChampionshipManager.processMTTList)
                 {
-                    if (sngInfo.recordId == result.data.recordId)  //存在 更新
+                    if (sngInfo.recordId == data.recordid)  //存在 更新
                     {
                         isExist = true;
                         sngInfo.join++;
@@ -454,7 +459,7 @@ class ChampionshipManager
                 {
                     let info: MatchRoomInfo = new MatchRoomInfo();
                     info.id = id;
-                    info.recordId = result.data["recordId"];
+                    info.recordId = data.recordid;
                     info.isRemineded = false;
                     info.join = 1;
                     info.joinWay = flag;
@@ -469,7 +474,7 @@ class ChampionshipManager
                 let championshipInfo: MatchRoomInfo;
                 for (championshipInfo of ChampionshipManager.processMTTList)
                 {
-                    if (championshipInfo.recordId == result.data.recordId)
+                    if (championshipInfo.recordId == data.recordid)
                     {
                         championshipInfo.join++;
                         championshipInfo.joinWay = flag;
@@ -484,16 +489,16 @@ class ChampionshipManager
                     UIManager.showPanel(UIModuleName.JoinChampionshipSuccessPanel, { name: championshipInfo.definition.Name, time: championshipInfo.startTime, applyNum: championshipInfo.join, bNum: championshipInfo.definition.BNum, chip: championshipInfo.definition.InitialChips });
                 }
             }
-            ChampionshipManager.onRequestJoinEvent.dispatch({ flag: flag, recordId: result.data.recordId });
+            ChampionshipManager.onRequestJoinEvent.dispatch({ flag: flag, recordId: data.recordid });
         };
         if (ChampionshipManager.isNotFull(recordId, type))
         {
             if (type == MatchType.MTT)
             {
-                SocketManager.call(Command.MTTRequestJoin_Req_3612, { recordId: recordId, joinWay: flag }, callback, ChampionshipManager.MTTCancelErrorDispose, this);
+                MsgTransferSend.sendRoomProto(Command.C2RS_ReqMTTJoin, { recordid: recordId, joinway: flag }, callback, ChampionshipManager.MTTCancelErrorDispose, this);
             } else if (type == MatchType.SNG)
             {
-                SocketManager.call(Command.MTTRequestJoin_Req_3612, { joinWay: flag, id: id }, callback, null, this);
+                MsgTransferSend.sendRoomProto(Command.C2RS_ReqMTTJoin, { joinway: flag, id: id }, callback, null, this);
             }
         }
     }
@@ -547,7 +552,7 @@ class ChampionshipManager
     */
     public static MTTCancelErrorDispose(result: game.SpRpcResult)
     {
-        if (result.cmdId == Command.MTTRequestJoin_Req_3612)
+        if (result.cmdId == Command.C2RS_ReqMTTJoin)
         {
             AlertManager.showAlert("该赛事因为报名人数不足已经取消。", ChampionshipManager.reqGetMTTListInfo);
         }
@@ -559,23 +564,24 @@ class ChampionshipManager
     {
         let callback: Function = function (result: game.SpRpcResult)
         {
-            if (result.data)
+            let data:msg.RS2C_RetMTTOutsInfo = result.data;
+            if (data)
             {
                 ChampionshipManager.nowBlindId = blindType;
                 if (!ChampionshipManager.matchOutsInfo)
                 {
                     ChampionshipManager.matchOutsInfo = new MatchOutsInfo();
                 }
-                if (result.data["blindLevel"])  //如果赛事没开始，盲注级别应该为1
+                if (data.blindlevel)  //如果赛事没开始，盲注级别应该为1
                 {
-                    ChampionshipManager.nowBlindRank = result.data["blindLevel"];
-                    let addBlindTime: number = Math.floor(result.data["blindTime"] - TimeManager.GetServerUtcTimestamp());
+                    ChampionshipManager.nowBlindRank = data.blindlevel;
+                    let addBlindTime: number = Math.floor(data.blindtime - TimeManager.GetServerUtcTimestamp());
                     if (addBlindTime <= 0)
                     {
                         ChampionshipManager.matchOutsInfo.addBlindTime = 0;
                     } else
                     {
-                        ChampionshipManager.matchOutsInfo.addBlindTime = Math.floor(result.data["blindTime"] - TimeManager.GetServerUtcTimestamp());
+                        ChampionshipManager.matchOutsInfo.addBlindTime = Math.floor(data.blindtime - TimeManager.GetServerUtcTimestamp());
                     }
                 }
                 else
@@ -589,13 +595,13 @@ class ChampionshipManager
                 }
                 let blindDef: table.IChampionshipBlindDefine = ChampionshipBlindDefined.GetInstance().getBlindInfoByLevel(ChampionshipManager.nowBlindRank, blindType);
                 ChampionshipManager.setOutsBlindInfo(blindDef);
-                ChampionshipManager.matchOutsInfo.rank = result.data["rank"];
+                ChampionshipManager.matchOutsInfo.rank = data.rank;
                 ChampionshipManager.OnOutsInfoEvent.dispatch();
             }
         };
         if (recordId != undefined)
         {
-            SocketManager.call(Command.MTTOutsInfo_Req_3617, { recordId: recordId }, callback, ChampionshipManager.MTTOverErrorDispose, this);
+            MsgTransferSend.sendRoomProto(Command.C2RS_ReqMTTOutsInfo, { recordid: recordId }, callback, ChampionshipManager.MTTOverErrorDispose, this);
         }
     }
     /**
@@ -603,7 +609,7 @@ class ChampionshipManager
     */
     public static MTTOverErrorDispose(result: game.SpRpcResult)
     {
-        if (result.cmdId == Command.MTTOutsInfo_Req_3617 || result.cmdId == Command.C2GW_ReqEnterRoom)
+        if (result.cmdId == Command.C2RS_ReqMTTOutsInfo || result.cmdId == Command.C2GW_ReqEnterRoom)
         {
             UIManager.closePanel(UIModuleName.ChampionshipInfoPanel);
             AlertManager.showAlert("该赛事已经结束。", ChampionshipManager.reqGetMTTListInfo);
@@ -618,25 +624,26 @@ class ChampionshipManager
         {
             let isBottom: boolean = true;
             let mttRankInfo: Array<ChampionshipRankInfo> = new Array<ChampionshipRankInfo>();
-            if (result.data && result.data["rankList"])
+            let data:msg.RS2C_RetMTTRankInfo = result.data;
+            if (data && data.ranklist)
             {
-                if (result.data["rankList"].length < count)
+                if (data.ranklist.length < count)
                 {
                     isBottom = true;
                 } else
                 {
                     isBottom = false;
                 }
-                for (let rankInfo of result.data["rankList"])
+                for (let rankInfo of data.ranklist)
                 {
                     let info: ChampionshipRankInfo = new ChampionshipRankInfo();
-                    info.copyValueFrom(rankInfo);
+                    info.copyValueFromIgnoreCase(rankInfo);
                     mttRankInfo.push(info);
                 }
             }
             ChampionshipManager.OnRankInfoEvent.dispatch({ isBottom: isBottom, rankList: mttRankInfo });
         };
-        SocketManager.call(Command.MTTRankInfo_Req_3618, { recordId: recordId, startRank: startRank, count: count }, callback, null, this);
+        MsgTransferSend.sendRoomProto(Command.C2RS_ReqMTTRankInfo, { recordid: recordId, startrank: startRank, count: count }, callback, null, this);
     }
     /**
      * 发送退赛请求
@@ -675,7 +682,7 @@ class ChampionshipManager
                 ChampionshipManager.OnWithdrawEvent.dispatch({ joinWay: withdrawMatch.joinWay, recordId: recordId });
             }
         };
-        SocketManager.call(Command.MTTRequestWithdraw_Req_3613, { recordId: recordId }, callback, null, this);
+        MsgTransferSend.sendRoomProto(Command.C2RS_ReqMTTQuit, { recordid: recordId }, callback, null, this);
     }
     /**
      * 退赛时将该赛事在mtt列表中的报名方式置为0（未报名状态）
@@ -711,9 +718,10 @@ class ChampionshipManager
     */
     public static onJoinNumPush(result: game.SpRpcResult)
     {
-        if (result.data && result.data["MTTList"])
+        let data:msg.RS2C_PushMTTJoinNumChange = result.data;
+        if (data && data.mttlist)
         {
-            for (let mttInfo of result.data['MTTList'])  
+            for (let mttInfo of data.mttlist)  
             {
                 if (ChampionshipManager.processMTTList)
                 {
@@ -746,7 +754,7 @@ class ChampionshipManager
                 }
             }
             ChampionshipManager.mttRemindStartHandler.sitAndPlayStartRemind();
-            ChampionshipManager.onRefreshMTTListEvent.dispatch({ data: result.data["MTTList"], type: MTTRefreshType.MTTJOinNum });
+            ChampionshipManager.onRefreshMTTListEvent.dispatch({ data: data.mttlist, type: MTTRefreshType.MTTJOinNum });
         }
     }
     /**
@@ -754,12 +762,13 @@ class ChampionshipManager
      */
     public static onCancelMTTPush(result: game.SpRpcResult)
     {
-        if (result.data)
+        let data:msg.RS2C_PushMTTCancel = result.data;
+        if (data)
         {
             let info: MatchRoomInfo = new MatchRoomInfo();
             for (let matchInfo of ChampionshipManager.processMTTList)
             {
-                if (matchInfo.recordId == result.data["recordId"])
+                if (matchInfo.recordId == data.recordid)
                 {
                     info = matchInfo;
                 }
@@ -770,7 +779,7 @@ class ChampionshipManager
             }
             UIManager.closePanel(UIModuleName.SecondRemindPanel);
             ChampionshipManager.OnCancelMTTPushEvent.dispatch(info);
-            ChampionshipManager.refreshMTTMatchInfo(result.data["recordId"], true);
+            ChampionshipManager.refreshMTTMatchInfo(data.recordid, true);
         }
     }
     /**
@@ -778,16 +787,17 @@ class ChampionshipManager
     */
     public static onMTTOverPush(result: game.SpRpcResult)
     {
-        if (result.data && result.data["recordId"])
+        let data:msg.RS2C_PushMTTWeedOut = result.data;
+        if (data && data.recordid)
         {
             if (SceneManager.sceneType == SceneType.Game && InfoUtil.checkAvailable(GamblingManager.roomInfo) && GamblingManager.roomInfo.gamblingType == GamblingType.Match
-                && GamblingManager.matchRoomInfo && GamblingManager.matchRoomInfo.recordId == result.data["recordId"])
+                && GamblingManager.matchRoomInfo && GamblingManager.matchRoomInfo.recordId == data.recordid)
             {
-                game.Console.log("推送锦标赛结束，recordId：" + result.data["recordId"]);
-                GamblingManager.championshipHandler.outChampionship(result.data["recordId"]);
+                game.Console.log("推送锦标赛结束，recordId：" + data.recordid);
+                GamblingManager.championshipHandler.outChampionship(data.recordid);
             }
-            ChampionshipManager.refreshMTTMatchInfo(result.data["recordId"], true);
-            ChampionshipManager.OnMTTOverPushEvent.dispatch(result.data);
+            ChampionshipManager.refreshMTTMatchInfo(data.recordid, true);
+            ChampionshipManager.OnMTTOverPushEvent.dispatch(data);
         }
     }
     /**
@@ -795,16 +805,17 @@ class ChampionshipManager
     */
     public static onMTTRoomIdPush(result: game.SpRpcResult)
     {
-        if (result.data)
+        let data:msg.RS2C_PushMTTRoomId = result.data;
+        if (data)
         {
-            let matchRoomInfo: MatchRoomInfo = ChampionshipManager.getMathInfoByRecordId(result.data.mttId);
+            let matchRoomInfo: MatchRoomInfo = ChampionshipManager.getMathInfoByRecordId(data.mttid);
             if (matchRoomInfo)
             {
-                matchRoomInfo.roomId = result.data.id;
+                matchRoomInfo.roomId = game.longToNumber(data.id);
             }
-            if (GamblingManager.matchRoomInfo.recordId == result.data.mttId && GamblingManager.matchRoomInfo.roomId != result.data.id) //赛事的房间ID变更
+            if (GamblingManager.matchRoomInfo.recordId == data.mttid && GamblingManager.matchRoomInfo.roomId != data.id) //赛事的房间ID变更
             {
-                GamblingManager.matchRoomInfo.roomId = result.data.id;
+                GamblingManager.matchRoomInfo.roomId = game.longToNumber(data.id);
                 ChampionshipManager.enterMttHandler.enterMatch(GamblingManager.matchRoomInfo, game.StringConstants.Empty);
             }
             ChampionshipManager.OnMTTRoomIdPushEvent.dispatch();
@@ -815,9 +826,10 @@ class ChampionshipManager
      */
     public static onMTTRankPush(result: game.SpRpcResult)
     {
-        if (result.data && result.data["recordId"])
+        let data:msg.RS2C_PushMTTRank = result.data;
+        if (data && data.recordid)
         {
-            let rInfo: MatchRoomInfo = ChampionshipManager.getMathInfoByRecordId(result.data["recordId"]);
+            let rInfo: MatchRoomInfo = ChampionshipManager.getMathInfoByRecordId(data.recordid);
             if (rInfo != null)
             {
                 let leftJoin: number = rInfo.leftJoin;
@@ -826,7 +838,7 @@ class ChampionshipManager
                 {
                     leftJoin = GamblingManager.matchRoomInfo.leftJoin;
                 }
-                rInfo.leftJoin = result.data["join"];
+                rInfo.leftJoin = data.join;
 
                 rInfo.cloneTo(GamblingManager.matchRoomInfo);
                 ChampionshipManager.OnMTTRankPushEvent.dispatch({ recordId: rInfo.recordId, leftJoin: leftJoin });
@@ -838,7 +850,8 @@ class ChampionshipManager
     */
     public static onMTTNewPush(result: game.SpRpcResult)
     {
-        if (result.data)
+        let data:msg.RS2C_PushMTTNew = result.data;
+        if (data)
         {
             ChampionshipManager.OnNewMTTPushEvent.dispatch();
         }

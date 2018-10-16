@@ -54,5 +54,12 @@ class ChampionshipRankInfo extends BaseServerValueInfo implements IBaseHead
     public reset()
     {
         super.reset();
+        this.roleId = 0;
+        this.rank = 0;
+        this.head = undefined;
+        this.name = undefined;
+        this.sex = 0;
+        this.award = undefined;
+        this.chips = 0;
     }
 }
