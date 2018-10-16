@@ -34,10 +34,9 @@ class RankPanel extends BasePanel
 	public init(appendData: any)
 	{
 		super.init(appendData);
-		this._currentRankType = this.rankTypeTab.lastIndex == undefined ? 0 : this.rankTypeTab.lastIndex;
-		this._currentListType = this.listTypeTab.lastIndex == undefined ? 0 : this.listTypeTab.lastIndex;
+		this._currentRankType = this.rankTypeTab.selectIndex == undefined ? 0 : this.rankTypeTab.selectIndex;
+		this._currentListType = this.listTypeTab.selectIndex == undefined ? 0 : this.listTypeTab.selectIndex;
 		this.rankTypeTab.init(this._currentRankType);
-		this.listTypeTab.init(this._currentListType);
 		this.setEnterAnime();
 	}
 	protected onEnable(event: eui.UIEvent): void
@@ -58,17 +57,20 @@ class RankPanel extends BasePanel
 		this.rankScroller.stopAnimation();
 	}
 
-	private getRankList(type: number)
+	private getRankList()
 	{
 		UIUtil.writeListInfo(this.rankList, this._currentRankListInfo.list, "roleId", true);
 	}
-
+	private _listDefaultIdx: number;
 	private onRankTypeTabTap(index: number)
 	{
 		this._currentRankType = index;
 		this._currentListType = RankListType.All;
-		this.listTypeTab.setSelectIndex(0);
 		this.reqRankList();
+
+		this._listDefaultIdx = this.listTypeTab.selectIndex == undefined ? 0 : this.listTypeTab.selectIndex;
+
+		this.listTypeTab.setSelectIndex(0);
 		this.rankScroller.stopAnimation();
 		this.rankScroller.viewport.scrollV = 0;
 	}
@@ -77,21 +79,33 @@ class RankPanel extends BasePanel
 		this._currentListType = index;
 		this.rankScroller.stopAnimation();
 		this.rankScroller.viewport.scrollV = 0;
+		if (this._listDefaultIdx != index)
+		{
+			this.reqRankList();
+			this._listDefaultIdx = undefined;
+		}
 	}
 	/**
 	 * 发送排行榜请求
 	 */
 	private reqRankList()
 	{
-		let type = this.getListType(this._currentRankType, this._currentListType);
-		this._currentRankListInfo = RankManager.getRankListInfo(type);
+		let rankType = this.getListType(this._currentRankType, this._currentListType);
+		this._currentRankListInfo = RankManager.getRankListInfo(rankType);
+		switch (rankType) //好友榜请求好友数据 客户端自己组装
+		{
+			case RankType.FriendGold:
+			case RankType.FriendLevel:
+				RankManager.getFriendRankList(rankType, this._currentRankListInfo, this.getRankList, this);
+				return;
+		}
 		if (RankManager.isRefreshRank(this._currentRankListInfo))
 		{
-			RankManager.reqRankList(type);
+			RankManager.reqRankList(rankType);
 		}
 		else
 		{
-			this.getRankList(type);
+			this.getRankList();
 		}
 	}
 
@@ -137,6 +151,7 @@ class RankPanel extends BasePanel
 			egret.Tween.get(this).to({ left: -this.width }, 400, egret.Ease.backOut).call(this.tweenClose, this);
 		}
 	}
+	
 	private removeAnime()
 	{
 		egret.Tween.removeTweens(this);

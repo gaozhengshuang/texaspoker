@@ -64,7 +64,7 @@ class AssignmentPanel extends BasePanel
     }
     private refreshList()
     {
-        let list: Array<AchievementInfo> = AchievementManager.getShowAchieveListByType(this.assignmentTab.lastIndex + 1);
+        let list: Array<AchievementInfo> = AchievementManager.getShowAchieveListByType(this.assignmentTab.selectIndex + 1);
         UIUtil.writeListInfo(this.achieveList, list, "id", true, SortUtil.showAchieveListSort);
     }
     private onBarItemTap(index: number)
