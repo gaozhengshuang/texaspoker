@@ -10,11 +10,11 @@ abstract class BaseAchieveProcessInfo
         this.achieveList = new Array<AchievementInfo>();
         for (let info of UserManager.userInfo.allAchieveList)
         {
-            if (info.definition && info.definition.group == this.group)
+            if (info.definition && info.definition.Group == this.group)
             {
                 this.achieveList.push(info);
                 let curInfo: AchievementInfo = AchievementManager.getAchieveInfoById(UserManager.userInfo.allAchieveList, info.id);
-                let preInfo: AchievementInfo = AchievementManager.getAchieveInfoById(UserManager.userInfo.allAchieveList, info.definition.preId);
+                let preInfo: AchievementInfo = AchievementManager.getAchieveInfoById(UserManager.userInfo.allAchieveList, info.definition.PreId);
                 if ((!preInfo || preInfo.isComplete) && !curInfo.isComplete)
                 {
                     this.step = curInfo.id;
@@ -26,9 +26,9 @@ abstract class BaseAchieveProcessInfo
             let achieveDef = this.achieveList[0].definition;
             if (achieveDef)
             {
-                this.type = achieveDef.type;
-                this.tag = achieveDef.tag;
-                this.dailyQuest = achieveDef.dailyQuest;
+                this.type = achieveDef.Type;
+                this.tag = achieveDef.Tag;
+                this.dailyQuest = achieveDef.DailyQuest;
             }
         }
     }
@@ -57,7 +57,7 @@ abstract class BaseAchieveProcessInfo
             {
                 if (info.definition)
                 {
-                    if (info.definition.para1 <= value)
+                    if (info.definition.Para1 <= value)
                     {
                         info.isComplete = true;
                     }

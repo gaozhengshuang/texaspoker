@@ -26,7 +26,7 @@ class AchievementManager
         if (!AchievementManager.allList)
         {
             AchievementManager.allList = new Array<AchievementInfo>();
-            for (let def of AchieveDefined.GetInstance().dataList)
+            for (let def of table.Achieve)
             {
                 let info: AchievementInfo = new AchievementInfo();
                 info.id = def.Id;
@@ -80,7 +80,7 @@ class AchievementManager
                 AchievementManager.otherProcessList.add(userInfo["group"], userInfo["process"]);
                 for (let achieveInfo of achieveInfoList)
                 {
-                    if (InfoUtil.checkAvailable(achieveInfo) && achieveInfo.definition.para1 <= userInfo["process"])
+                    if (InfoUtil.checkAvailable(achieveInfo) && achieveInfo.definition.Para1 <= userInfo["process"])
                     {
                         let completeInfo: AchievementInfo = new AchievementInfo();
                         completeInfo.id = achieveInfo.id;
@@ -104,7 +104,7 @@ class AchievementManager
         let achieveInfoList: Array<AchievementInfo> = AchievementManager.getAchieveListByGroup(AchievementManager.allList, group);
         for (let achieveInfo of achieveInfoList)
         {
-            if (achieveInfo.definition && achieveInfo.definition.para1 <= process)
+            if (achieveInfo.definition && achieveInfo.definition.Para1 <= process)
             {
                 for (let achieveInfoTemp of info.allAchieveList)
                 {
@@ -162,7 +162,7 @@ class AchievementManager
         {
             for (let info of userInfo.allAchieveList)
             {
-                if (info.definition && info.definition.tag == tag)
+                if (info.definition && info.definition.Tag == tag)
                 {
                     result.push(info);
                 }
@@ -179,7 +179,7 @@ class AchievementManager
         let result: Array<AchievementInfo> = new Array<AchievementInfo>();
         for (let info of list)
         {
-            if (info.definition && info.definition.group == group)
+            if (info.definition && info.definition.Group == group)
             {
                 result.push(info);
             }
@@ -230,7 +230,7 @@ class AchievementManager
                 let achieveInfo: AchievementInfo = AchievementManager.getAchieveInfoById(UserManager.userInfo.allAchieveList, info.takeStep);
                 if (VersionManager.isSafe)
                 {
-                    if (achieveInfo.definition.isSafe)
+                    if (achieveInfo.definition.IsSafe)
                     {
                         result.push(achieveInfo);
                     }
@@ -252,7 +252,7 @@ class AchievementManager
         let result: Array<AchievementInfo> = new Array<AchievementInfo>();
         for (let info of list)
         {
-            if (info.definition && info.definition.dailyQuest == dailyType)
+            if (info.definition && info.definition.DailyQuest == dailyType)
             {
                 result.push(info);
             }
@@ -285,16 +285,20 @@ class AchievementManager
         {
             if (info.definition)
             {
-                let playingType: AchieveShowPattern = info.definition.playingFieldPattern;
-                if (playingType == AchieveShowPattern.All || playingType == type)
+                for (let playingType of info.definition.PlayingFieldPattern)
                 {
-                    result.push(info);
-                }
-                if (playingType == AchieveShowPattern.AllPattern)
-                {
-                    if (type == AchieveShowPattern.PrimaryPattern || type == AchieveShowPattern.MiddlePattern || type == AchieveShowPattern.HighPattern)
+                    if (playingType == AchieveShowPattern.All || playingType == type)
                     {
                         result.push(info);
+                        break;
+                    }
+                    if (playingType == AchieveShowPattern.AllPattern)
+                    {
+                        if (type == AchieveShowPattern.PrimaryPattern || type == AchieveShowPattern.MiddlePattern || type == AchieveShowPattern.HighPattern)
+                        {
+                            result.push(info);
+                            break;
+                        }
                     }
                 }
             }

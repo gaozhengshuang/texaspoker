@@ -119,3 +119,29 @@ message RetAwardRecord {
 message GW2C_RetAwardRecord {
 	repeated RetAwardRecord loglist = 1;
 }
+
+//客户端请求成就信息
+message C2GW_ReqAchieveInfo {
+	optional int64 roleid = 1;
+}
+
+message AchieveList {
+	optional int32 id = 1;
+	optional int32 istake = 2;
+}
+
+message AchieveGroup {
+	optional int32 groupid = 1;
+	optional int32 process = 2;
+}
+
+//返回成就信息
+message GW2C_RetAchieveInfo {
+	repeated AchieveList achievelist = 1;
+	repeated AchieveGroup grouplist = 2;
+}
+
+//成就任务领奖
+message C2GW_ReqTakeAchieveAward {
+	optional int32 id = 1;
+}

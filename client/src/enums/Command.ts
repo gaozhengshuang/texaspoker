@@ -190,10 +190,6 @@ class Command
     //--------------------------------------------------------------
 
     /**
-     * 推送成就更新
-     */
-    public static readonly Achievement_PushChange_2023: string = "c2023";
-    /**
      * 拉取成就列表
      */
     public static readonly Achievement_GetList_3090 = "c3090";
@@ -388,10 +384,6 @@ class Command
      * 推送玩家筹码变化
      */
     public static readonly RS2C_PushChipsChange = "msg.RS2C_PushChipsChange";
-    /**
-     * 推送等待操作的玩家列表
-     */
-    public static readonly PlayerListStateChange_Push_2113 = "c2113";
     /**
      *  推送进入托管
      */
