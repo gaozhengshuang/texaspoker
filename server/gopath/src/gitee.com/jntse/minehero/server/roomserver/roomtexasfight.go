@@ -19,7 +19,7 @@ import (
 // 百人大战
 type TexasFitghtRoom struct {
 	RoomBase
-	tconf *table.TexasRoomDefine
+	tconf *table.HundredWarDefine
 }
 
 
