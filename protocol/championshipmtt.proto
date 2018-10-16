@@ -206,4 +206,9 @@ message RS2C_PushMTTNew
     optional int32 recordid = 1;
 }
 
+//推送赛事取消
+message RS2C_PushMTTCancel {
+    optional int32 recordid = 1;
+}
+
 
