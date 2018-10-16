@@ -20,13 +20,16 @@ class AchieveInGameItemRenderer extends BaseItemRenderer<AchievementInfo>
         super.dataChanged();
         if (InfoUtil.checkAvailable(this.bindData))
         {
-            this.commonItem.init(this.bindData.definition.icon + ResSuffixName.PNG, 77);
-            this.desLabel.text = this.bindData.definition.name;
-            this.rewardLabel.text = this.bindData.definition.rewardNum.toString();
-            let def: table.IItemBaseDataDefine = table.ItemBaseDataById[this.bindData.definition.rewardId];
-            if (def)
+            this.commonItem.init(this.bindData.definition.Icon + ResSuffixName.PNG, 77);
+            this.desLabel.text = this.bindData.definition.Name;
+            this.rewardLabel.text = this.bindData.definition.RewardNum.toString();
+            if (this.bindData.definition.RewardId.length > 0)
             {
-                this.rewardImg.source = def.Icon + ResSuffixName.PNG;
+                let def: table.IItemBaseDataDefine = table.ItemBaseDataById[this.bindData.definition.RewardId[0]];
+                if (def)
+                {
+                    this.rewardImg.source = def.Icon + ResSuffixName.PNG;
+                }
             }
 
             this.refreshiUI();
@@ -37,11 +40,11 @@ class AchieveInGameItemRenderer extends BaseItemRenderer<AchievementInfo>
 
     private refreshiUI()
     {
-        let groupInfo: BaseAchieveProcessInfo = AchieveProcessManager.getAchieveProcessInfoByGroup(this.bindData.definition.group);
+        let groupInfo: BaseAchieveProcessInfo = AchieveProcessManager.getAchieveProcessInfoByGroup(this.bindData.definition.Group);
         if (!this.bindData.isComplete)
         {
             this.takeBtn.enabled = false;
-            this.takeBtn.label = groupInfo.process + "/" + this.bindData.definition.para1;
+            this.takeBtn.label = groupInfo.process + "/" + this.bindData.definition.Para1;
         }
         else
         {

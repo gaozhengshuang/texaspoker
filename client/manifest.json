@@ -567,6 +567,7 @@
 		"bin-debug/core/net/PollingRequest.js",
 		"bin-debug/core/net/PollingSocket.js",
 		"bin-debug/core/net/SocketManager.js",
+		"bin-debug/core/table/achievebase.js",
 		"bin-debug/core/table/activity_listbase.js",
 		"bin-debug/core/table/activity_signinbase.js",
 		"bin-debug/core/table/awardbase.js",

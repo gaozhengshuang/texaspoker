@@ -4480,6 +4480,1066 @@ $root.msg = (function() {
         return GW2C_RetAwardRecord;
     })();
 
+    msg.C2GW_ReqAchieveInfo = (function() {
+
+        /**
+         * Properties of a C2GW_ReqAchieveInfo.
+         * @memberof msg
+         * @interface IC2GW_ReqAchieveInfo
+         * @property {number|Long|null} [roleid] C2GW_ReqAchieveInfo roleid
+         */
+
+        /**
+         * Constructs a new C2GW_ReqAchieveInfo.
+         * @memberof msg
+         * @classdesc Represents a C2GW_ReqAchieveInfo.
+         * @implements IC2GW_ReqAchieveInfo
+         * @constructor
+         * @param {msg.IC2GW_ReqAchieveInfo=} [properties] Properties to set
+         */
+        function C2GW_ReqAchieveInfo(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_ReqAchieveInfo roleid.
+         * @member {number|Long} roleid
+         * @memberof msg.C2GW_ReqAchieveInfo
+         * @instance
+         */
+        C2GW_ReqAchieveInfo.prototype.roleid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * Creates a new C2GW_ReqAchieveInfo instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_ReqAchieveInfo
+         * @static
+         * @param {msg.IC2GW_ReqAchieveInfo=} [properties] Properties to set
+         * @returns {msg.C2GW_ReqAchieveInfo} C2GW_ReqAchieveInfo instance
+         */
+        C2GW_ReqAchieveInfo.create = function create(properties) {
+            return new C2GW_ReqAchieveInfo(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqAchieveInfo message. Does not implicitly {@link msg.C2GW_ReqAchieveInfo.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_ReqAchieveInfo
+         * @static
+         * @param {msg.IC2GW_ReqAchieveInfo} message C2GW_ReqAchieveInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqAchieveInfo.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.roleid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqAchieveInfo message, length delimited. Does not implicitly {@link msg.C2GW_ReqAchieveInfo.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_ReqAchieveInfo
+         * @static
+         * @param {msg.IC2GW_ReqAchieveInfo} message C2GW_ReqAchieveInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqAchieveInfo.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_ReqAchieveInfo message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_ReqAchieveInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_ReqAchieveInfo} C2GW_ReqAchieveInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqAchieveInfo.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqAchieveInfo();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.roleid = reader.int64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_ReqAchieveInfo message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_ReqAchieveInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_ReqAchieveInfo} C2GW_ReqAchieveInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqAchieveInfo.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_ReqAchieveInfo message.
+         * @function verify
+         * @memberof msg.C2GW_ReqAchieveInfo
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_ReqAchieveInfo.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                if (!$util.isInteger(message.roleid) && !(message.roleid && $util.isInteger(message.roleid.low) && $util.isInteger(message.roleid.high)))
+                    return "roleid: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_ReqAchieveInfo message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_ReqAchieveInfo
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_ReqAchieveInfo} C2GW_ReqAchieveInfo
+         */
+        C2GW_ReqAchieveInfo.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_ReqAchieveInfo)
+                return object;
+            var message = new $root.msg.C2GW_ReqAchieveInfo();
+            if (object.roleid != null)
+                if ($util.Long)
+                    (message.roleid = $util.Long.fromValue(object.roleid)).unsigned = false;
+                else if (typeof object.roleid === "string")
+                    message.roleid = parseInt(object.roleid, 10);
+                else if (typeof object.roleid === "number")
+                    message.roleid = object.roleid;
+                else if (typeof object.roleid === "object")
+                    message.roleid = new $util.LongBits(object.roleid.low >>> 0, object.roleid.high >>> 0).toNumber();
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_ReqAchieveInfo message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_ReqAchieveInfo
+         * @static
+         * @param {msg.C2GW_ReqAchieveInfo} message C2GW_ReqAchieveInfo
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_ReqAchieveInfo.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.roleid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.roleid = options.longs === String ? "0" : 0;
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                if (typeof message.roleid === "number")
+                    object.roleid = options.longs === String ? String(message.roleid) : message.roleid;
+                else
+                    object.roleid = options.longs === String ? $util.Long.prototype.toString.call(message.roleid) : options.longs === Number ? new $util.LongBits(message.roleid.low >>> 0, message.roleid.high >>> 0).toNumber() : message.roleid;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_ReqAchieveInfo to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_ReqAchieveInfo
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_ReqAchieveInfo.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_ReqAchieveInfo;
+    })();
+
+    msg.AchieveList = (function() {
+
+        /**
+         * Properties of an AchieveList.
+         * @memberof msg
+         * @interface IAchieveList
+         * @property {number|null} [id] AchieveList id
+         * @property {number|null} [istake] AchieveList istake
+         */
+
+        /**
+         * Constructs a new AchieveList.
+         * @memberof msg
+         * @classdesc Represents an AchieveList.
+         * @implements IAchieveList
+         * @constructor
+         * @param {msg.IAchieveList=} [properties] Properties to set
+         */
+        function AchieveList(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * AchieveList id.
+         * @member {number} id
+         * @memberof msg.AchieveList
+         * @instance
+         */
+        AchieveList.prototype.id = 0;
+
+        /**
+         * AchieveList istake.
+         * @member {number} istake
+         * @memberof msg.AchieveList
+         * @instance
+         */
+        AchieveList.prototype.istake = 0;
+
+        /**
+         * Creates a new AchieveList instance using the specified properties.
+         * @function create
+         * @memberof msg.AchieveList
+         * @static
+         * @param {msg.IAchieveList=} [properties] Properties to set
+         * @returns {msg.AchieveList} AchieveList instance
+         */
+        AchieveList.create = function create(properties) {
+            return new AchieveList(properties);
+        };
+
+        /**
+         * Encodes the specified AchieveList message. Does not implicitly {@link msg.AchieveList.verify|verify} messages.
+         * @function encode
+         * @memberof msg.AchieveList
+         * @static
+         * @param {msg.IAchieveList} message AchieveList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AchieveList.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && message.hasOwnProperty("id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.id);
+            if (message.istake != null && message.hasOwnProperty("istake"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.istake);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified AchieveList message, length delimited. Does not implicitly {@link msg.AchieveList.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.AchieveList
+         * @static
+         * @param {msg.IAchieveList} message AchieveList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AchieveList.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an AchieveList message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.AchieveList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.AchieveList} AchieveList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AchieveList.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.AchieveList();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.int32();
+                    break;
+                case 2:
+                    message.istake = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an AchieveList message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.AchieveList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.AchieveList} AchieveList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AchieveList.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an AchieveList message.
+         * @function verify
+         * @memberof msg.AchieveList
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        AchieveList.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isInteger(message.id))
+                    return "id: integer expected";
+            if (message.istake != null && message.hasOwnProperty("istake"))
+                if (!$util.isInteger(message.istake))
+                    return "istake: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates an AchieveList message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.AchieveList
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.AchieveList} AchieveList
+         */
+        AchieveList.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.AchieveList)
+                return object;
+            var message = new $root.msg.AchieveList();
+            if (object.id != null)
+                message.id = object.id | 0;
+            if (object.istake != null)
+                message.istake = object.istake | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an AchieveList message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.AchieveList
+         * @static
+         * @param {msg.AchieveList} message AchieveList
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        AchieveList.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.id = 0;
+                object.istake = 0;
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.istake != null && message.hasOwnProperty("istake"))
+                object.istake = message.istake;
+            return object;
+        };
+
+        /**
+         * Converts this AchieveList to JSON.
+         * @function toJSON
+         * @memberof msg.AchieveList
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        AchieveList.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return AchieveList;
+    })();
+
+    msg.AchieveGroup = (function() {
+
+        /**
+         * Properties of an AchieveGroup.
+         * @memberof msg
+         * @interface IAchieveGroup
+         * @property {number|null} [groupid] AchieveGroup groupid
+         * @property {number|null} [process] AchieveGroup process
+         */
+
+        /**
+         * Constructs a new AchieveGroup.
+         * @memberof msg
+         * @classdesc Represents an AchieveGroup.
+         * @implements IAchieveGroup
+         * @constructor
+         * @param {msg.IAchieveGroup=} [properties] Properties to set
+         */
+        function AchieveGroup(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * AchieveGroup groupid.
+         * @member {number} groupid
+         * @memberof msg.AchieveGroup
+         * @instance
+         */
+        AchieveGroup.prototype.groupid = 0;
+
+        /**
+         * AchieveGroup process.
+         * @member {number} process
+         * @memberof msg.AchieveGroup
+         * @instance
+         */
+        AchieveGroup.prototype.process = 0;
+
+        /**
+         * Creates a new AchieveGroup instance using the specified properties.
+         * @function create
+         * @memberof msg.AchieveGroup
+         * @static
+         * @param {msg.IAchieveGroup=} [properties] Properties to set
+         * @returns {msg.AchieveGroup} AchieveGroup instance
+         */
+        AchieveGroup.create = function create(properties) {
+            return new AchieveGroup(properties);
+        };
+
+        /**
+         * Encodes the specified AchieveGroup message. Does not implicitly {@link msg.AchieveGroup.verify|verify} messages.
+         * @function encode
+         * @memberof msg.AchieveGroup
+         * @static
+         * @param {msg.IAchieveGroup} message AchieveGroup message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AchieveGroup.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.groupid != null && message.hasOwnProperty("groupid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.groupid);
+            if (message.process != null && message.hasOwnProperty("process"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.process);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified AchieveGroup message, length delimited. Does not implicitly {@link msg.AchieveGroup.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.AchieveGroup
+         * @static
+         * @param {msg.IAchieveGroup} message AchieveGroup message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AchieveGroup.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an AchieveGroup message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.AchieveGroup
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.AchieveGroup} AchieveGroup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AchieveGroup.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.AchieveGroup();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.groupid = reader.int32();
+                    break;
+                case 2:
+                    message.process = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an AchieveGroup message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.AchieveGroup
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.AchieveGroup} AchieveGroup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AchieveGroup.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an AchieveGroup message.
+         * @function verify
+         * @memberof msg.AchieveGroup
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        AchieveGroup.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.groupid != null && message.hasOwnProperty("groupid"))
+                if (!$util.isInteger(message.groupid))
+                    return "groupid: integer expected";
+            if (message.process != null && message.hasOwnProperty("process"))
+                if (!$util.isInteger(message.process))
+                    return "process: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates an AchieveGroup message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.AchieveGroup
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.AchieveGroup} AchieveGroup
+         */
+        AchieveGroup.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.AchieveGroup)
+                return object;
+            var message = new $root.msg.AchieveGroup();
+            if (object.groupid != null)
+                message.groupid = object.groupid | 0;
+            if (object.process != null)
+                message.process = object.process | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an AchieveGroup message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.AchieveGroup
+         * @static
+         * @param {msg.AchieveGroup} message AchieveGroup
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        AchieveGroup.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.groupid = 0;
+                object.process = 0;
+            }
+            if (message.groupid != null && message.hasOwnProperty("groupid"))
+                object.groupid = message.groupid;
+            if (message.process != null && message.hasOwnProperty("process"))
+                object.process = message.process;
+            return object;
+        };
+
+        /**
+         * Converts this AchieveGroup to JSON.
+         * @function toJSON
+         * @memberof msg.AchieveGroup
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        AchieveGroup.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return AchieveGroup;
+    })();
+
+    msg.GW2C_RetAchieveInfo = (function() {
+
+        /**
+         * Properties of a GW2C_RetAchieveInfo.
+         * @memberof msg
+         * @interface IGW2C_RetAchieveInfo
+         * @property {Array.<msg.IAchieveList>|null} [achievelist] GW2C_RetAchieveInfo achievelist
+         * @property {Array.<msg.IAchieveGroup>|null} [grouplist] GW2C_RetAchieveInfo grouplist
+         */
+
+        /**
+         * Constructs a new GW2C_RetAchieveInfo.
+         * @memberof msg
+         * @classdesc Represents a GW2C_RetAchieveInfo.
+         * @implements IGW2C_RetAchieveInfo
+         * @constructor
+         * @param {msg.IGW2C_RetAchieveInfo=} [properties] Properties to set
+         */
+        function GW2C_RetAchieveInfo(properties) {
+            this.achievelist = [];
+            this.grouplist = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2C_RetAchieveInfo achievelist.
+         * @member {Array.<msg.IAchieveList>} achievelist
+         * @memberof msg.GW2C_RetAchieveInfo
+         * @instance
+         */
+        GW2C_RetAchieveInfo.prototype.achievelist = $util.emptyArray;
+
+        /**
+         * GW2C_RetAchieveInfo grouplist.
+         * @member {Array.<msg.IAchieveGroup>} grouplist
+         * @memberof msg.GW2C_RetAchieveInfo
+         * @instance
+         */
+        GW2C_RetAchieveInfo.prototype.grouplist = $util.emptyArray;
+
+        /**
+         * Creates a new GW2C_RetAchieveInfo instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_RetAchieveInfo
+         * @static
+         * @param {msg.IGW2C_RetAchieveInfo=} [properties] Properties to set
+         * @returns {msg.GW2C_RetAchieveInfo} GW2C_RetAchieveInfo instance
+         */
+        GW2C_RetAchieveInfo.create = function create(properties) {
+            return new GW2C_RetAchieveInfo(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_RetAchieveInfo message. Does not implicitly {@link msg.GW2C_RetAchieveInfo.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_RetAchieveInfo
+         * @static
+         * @param {msg.IGW2C_RetAchieveInfo} message GW2C_RetAchieveInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetAchieveInfo.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.achievelist != null && message.achievelist.length)
+                for (var i = 0; i < message.achievelist.length; ++i)
+                    $root.msg.AchieveList.encode(message.achievelist[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            if (message.grouplist != null && message.grouplist.length)
+                for (var i = 0; i < message.grouplist.length; ++i)
+                    $root.msg.AchieveGroup.encode(message.grouplist[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_RetAchieveInfo message, length delimited. Does not implicitly {@link msg.GW2C_RetAchieveInfo.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_RetAchieveInfo
+         * @static
+         * @param {msg.IGW2C_RetAchieveInfo} message GW2C_RetAchieveInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetAchieveInfo.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_RetAchieveInfo message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_RetAchieveInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_RetAchieveInfo} GW2C_RetAchieveInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetAchieveInfo.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RetAchieveInfo();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.achievelist && message.achievelist.length))
+                        message.achievelist = [];
+                    message.achievelist.push($root.msg.AchieveList.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    if (!(message.grouplist && message.grouplist.length))
+                        message.grouplist = [];
+                    message.grouplist.push($root.msg.AchieveGroup.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_RetAchieveInfo message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_RetAchieveInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_RetAchieveInfo} GW2C_RetAchieveInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetAchieveInfo.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_RetAchieveInfo message.
+         * @function verify
+         * @memberof msg.GW2C_RetAchieveInfo
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_RetAchieveInfo.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.achievelist != null && message.hasOwnProperty("achievelist")) {
+                if (!Array.isArray(message.achievelist))
+                    return "achievelist: array expected";
+                for (var i = 0; i < message.achievelist.length; ++i) {
+                    var error = $root.msg.AchieveList.verify(message.achievelist[i]);
+                    if (error)
+                        return "achievelist." + error;
+                }
+            }
+            if (message.grouplist != null && message.hasOwnProperty("grouplist")) {
+                if (!Array.isArray(message.grouplist))
+                    return "grouplist: array expected";
+                for (var i = 0; i < message.grouplist.length; ++i) {
+                    var error = $root.msg.AchieveGroup.verify(message.grouplist[i]);
+                    if (error)
+                        return "grouplist." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_RetAchieveInfo message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_RetAchieveInfo
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_RetAchieveInfo} GW2C_RetAchieveInfo
+         */
+        GW2C_RetAchieveInfo.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_RetAchieveInfo)
+                return object;
+            var message = new $root.msg.GW2C_RetAchieveInfo();
+            if (object.achievelist) {
+                if (!Array.isArray(object.achievelist))
+                    throw TypeError(".msg.GW2C_RetAchieveInfo.achievelist: array expected");
+                message.achievelist = [];
+                for (var i = 0; i < object.achievelist.length; ++i) {
+                    if (typeof object.achievelist[i] !== "object")
+                        throw TypeError(".msg.GW2C_RetAchieveInfo.achievelist: object expected");
+                    message.achievelist[i] = $root.msg.AchieveList.fromObject(object.achievelist[i]);
+                }
+            }
+            if (object.grouplist) {
+                if (!Array.isArray(object.grouplist))
+                    throw TypeError(".msg.GW2C_RetAchieveInfo.grouplist: array expected");
+                message.grouplist = [];
+                for (var i = 0; i < object.grouplist.length; ++i) {
+                    if (typeof object.grouplist[i] !== "object")
+                        throw TypeError(".msg.GW2C_RetAchieveInfo.grouplist: object expected");
+                    message.grouplist[i] = $root.msg.AchieveGroup.fromObject(object.grouplist[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2C_RetAchieveInfo message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_RetAchieveInfo
+         * @static
+         * @param {msg.GW2C_RetAchieveInfo} message GW2C_RetAchieveInfo
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_RetAchieveInfo.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults) {
+                object.achievelist = [];
+                object.grouplist = [];
+            }
+            if (message.achievelist && message.achievelist.length) {
+                object.achievelist = [];
+                for (var j = 0; j < message.achievelist.length; ++j)
+                    object.achievelist[j] = $root.msg.AchieveList.toObject(message.achievelist[j], options);
+            }
+            if (message.grouplist && message.grouplist.length) {
+                object.grouplist = [];
+                for (var j = 0; j < message.grouplist.length; ++j)
+                    object.grouplist[j] = $root.msg.AchieveGroup.toObject(message.grouplist[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this GW2C_RetAchieveInfo to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_RetAchieveInfo
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_RetAchieveInfo.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_RetAchieveInfo;
+    })();
+
+    msg.C2GW_ReqTakeAchieveAward = (function() {
+
+        /**
+         * Properties of a C2GW_ReqTakeAchieveAward.
+         * @memberof msg
+         * @interface IC2GW_ReqTakeAchieveAward
+         * @property {number|null} [id] C2GW_ReqTakeAchieveAward id
+         */
+
+        /**
+         * Constructs a new C2GW_ReqTakeAchieveAward.
+         * @memberof msg
+         * @classdesc Represents a C2GW_ReqTakeAchieveAward.
+         * @implements IC2GW_ReqTakeAchieveAward
+         * @constructor
+         * @param {msg.IC2GW_ReqTakeAchieveAward=} [properties] Properties to set
+         */
+        function C2GW_ReqTakeAchieveAward(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2GW_ReqTakeAchieveAward id.
+         * @member {number} id
+         * @memberof msg.C2GW_ReqTakeAchieveAward
+         * @instance
+         */
+        C2GW_ReqTakeAchieveAward.prototype.id = 0;
+
+        /**
+         * Creates a new C2GW_ReqTakeAchieveAward instance using the specified properties.
+         * @function create
+         * @memberof msg.C2GW_ReqTakeAchieveAward
+         * @static
+         * @param {msg.IC2GW_ReqTakeAchieveAward=} [properties] Properties to set
+         * @returns {msg.C2GW_ReqTakeAchieveAward} C2GW_ReqTakeAchieveAward instance
+         */
+        C2GW_ReqTakeAchieveAward.create = function create(properties) {
+            return new C2GW_ReqTakeAchieveAward(properties);
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqTakeAchieveAward message. Does not implicitly {@link msg.C2GW_ReqTakeAchieveAward.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2GW_ReqTakeAchieveAward
+         * @static
+         * @param {msg.IC2GW_ReqTakeAchieveAward} message C2GW_ReqTakeAchieveAward message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqTakeAchieveAward.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && message.hasOwnProperty("id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.id);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2GW_ReqTakeAchieveAward message, length delimited. Does not implicitly {@link msg.C2GW_ReqTakeAchieveAward.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2GW_ReqTakeAchieveAward
+         * @static
+         * @param {msg.IC2GW_ReqTakeAchieveAward} message C2GW_ReqTakeAchieveAward message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2GW_ReqTakeAchieveAward.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2GW_ReqTakeAchieveAward message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2GW_ReqTakeAchieveAward
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2GW_ReqTakeAchieveAward} C2GW_ReqTakeAchieveAward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqTakeAchieveAward.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqTakeAchieveAward();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2GW_ReqTakeAchieveAward message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2GW_ReqTakeAchieveAward
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2GW_ReqTakeAchieveAward} C2GW_ReqTakeAchieveAward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2GW_ReqTakeAchieveAward.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2GW_ReqTakeAchieveAward message.
+         * @function verify
+         * @memberof msg.C2GW_ReqTakeAchieveAward
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2GW_ReqTakeAchieveAward.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isInteger(message.id))
+                    return "id: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2GW_ReqTakeAchieveAward message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2GW_ReqTakeAchieveAward
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2GW_ReqTakeAchieveAward} C2GW_ReqTakeAchieveAward
+         */
+        C2GW_ReqTakeAchieveAward.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_ReqTakeAchieveAward)
+                return object;
+            var message = new $root.msg.C2GW_ReqTakeAchieveAward();
+            if (object.id != null)
+                message.id = object.id | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2GW_ReqTakeAchieveAward message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2GW_ReqTakeAchieveAward
+         * @static
+         * @param {msg.C2GW_ReqTakeAchieveAward} message C2GW_ReqTakeAchieveAward
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2GW_ReqTakeAchieveAward.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.id = 0;
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            return object;
+        };
+
+        /**
+         * Converts this C2GW_ReqTakeAchieveAward to JSON.
+         * @function toJSON
+         * @memberof msg.C2GW_ReqTakeAchieveAward
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2GW_ReqTakeAchieveAward.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2GW_ReqTakeAchieveAward;
+    })();
+
     msg.EntityBase = (function() {
 
         /**
@@ -60750,6 +61810,883 @@ $root.table = (function() {
      * @namespace
      */
     var table = {};
+
+    table.AchieveBase = (function() {
+
+        /**
+         * Properties of an AchieveBase.
+         * @memberof table
+         * @interface IAchieveBase
+         * @property {Array.<table.IAchieveDefine>|null} [Achieve] AchieveBase Achieve
+         */
+
+        /**
+         * Constructs a new AchieveBase.
+         * @memberof table
+         * @classdesc Represents an AchieveBase.
+         * @implements IAchieveBase
+         * @constructor
+         * @param {table.IAchieveBase=} [properties] Properties to set
+         */
+        function AchieveBase(properties) {
+            this.Achieve = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * AchieveBase Achieve.
+         * @member {Array.<table.IAchieveDefine>} Achieve
+         * @memberof table.AchieveBase
+         * @instance
+         */
+        AchieveBase.prototype.Achieve = $util.emptyArray;
+
+        /**
+         * Creates a new AchieveBase instance using the specified properties.
+         * @function create
+         * @memberof table.AchieveBase
+         * @static
+         * @param {table.IAchieveBase=} [properties] Properties to set
+         * @returns {table.AchieveBase} AchieveBase instance
+         */
+        AchieveBase.create = function create(properties) {
+            return new AchieveBase(properties);
+        };
+
+        /**
+         * Encodes the specified AchieveBase message. Does not implicitly {@link table.AchieveBase.verify|verify} messages.
+         * @function encode
+         * @memberof table.AchieveBase
+         * @static
+         * @param {table.IAchieveBase} message AchieveBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AchieveBase.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Achieve != null && message.Achieve.length)
+                for (var i = 0; i < message.Achieve.length; ++i)
+                    $root.table.AchieveDefine.encode(message.Achieve[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified AchieveBase message, length delimited. Does not implicitly {@link table.AchieveBase.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.AchieveBase
+         * @static
+         * @param {table.IAchieveBase} message AchieveBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AchieveBase.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an AchieveBase message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.AchieveBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.AchieveBase} AchieveBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AchieveBase.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.AchieveBase();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.Achieve && message.Achieve.length))
+                        message.Achieve = [];
+                    message.Achieve.push($root.table.AchieveDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an AchieveBase message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.AchieveBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.AchieveBase} AchieveBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AchieveBase.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an AchieveBase message.
+         * @function verify
+         * @memberof table.AchieveBase
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        AchieveBase.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Achieve != null && message.hasOwnProperty("Achieve")) {
+                if (!Array.isArray(message.Achieve))
+                    return "Achieve: array expected";
+                for (var i = 0; i < message.Achieve.length; ++i) {
+                    var error = $root.table.AchieveDefine.verify(message.Achieve[i]);
+                    if (error)
+                        return "Achieve." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates an AchieveBase message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.AchieveBase
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.AchieveBase} AchieveBase
+         */
+        AchieveBase.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.AchieveBase)
+                return object;
+            var message = new $root.table.AchieveBase();
+            if (object.Achieve) {
+                if (!Array.isArray(object.Achieve))
+                    throw TypeError(".table.AchieveBase.Achieve: array expected");
+                message.Achieve = [];
+                for (var i = 0; i < object.Achieve.length; ++i) {
+                    if (typeof object.Achieve[i] !== "object")
+                        throw TypeError(".table.AchieveBase.Achieve: object expected");
+                    message.Achieve[i] = $root.table.AchieveDefine.fromObject(object.Achieve[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an AchieveBase message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.AchieveBase
+         * @static
+         * @param {table.AchieveBase} message AchieveBase
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        AchieveBase.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.Achieve = [];
+            if (message.Achieve && message.Achieve.length) {
+                object.Achieve = [];
+                for (var j = 0; j < message.Achieve.length; ++j)
+                    object.Achieve[j] = $root.table.AchieveDefine.toObject(message.Achieve[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this AchieveBase to JSON.
+         * @function toJSON
+         * @memberof table.AchieveBase
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        AchieveBase.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return AchieveBase;
+    })();
+
+    table.AchieveDefine = (function() {
+
+        /**
+         * Properties of an AchieveDefine.
+         * @memberof table
+         * @interface IAchieveDefine
+         * @property {number|null} [Id] AchieveDefine Id
+         * @property {number|null} [Group] AchieveDefine Group
+         * @property {string|null} [Name] AchieveDefine Name
+         * @property {number|null} [Tran] AchieveDefine Tran
+         * @property {string|null} [Description] AchieveDefine Description
+         * @property {number|null} [Tag] AchieveDefine Tag
+         * @property {number|null} [DailyQuest] AchieveDefine DailyQuest
+         * @property {number|null} [PreId] AchieveDefine PreId
+         * @property {number|null} [Type] AchieveDefine Type
+         * @property {number|null} [Para1] AchieveDefine Para1
+         * @property {Array.<number>|null} [Para2] AchieveDefine Para2
+         * @property {string|null} [Icon] AchieveDefine Icon
+         * @property {number|null} [Grade] AchieveDefine Grade
+         * @property {Array.<number>|null} [RewardType] AchieveDefine RewardType
+         * @property {Array.<number>|null} [RewardId] AchieveDefine RewardId
+         * @property {Array.<number>|null} [RewardNum] AchieveDefine RewardNum
+         * @property {Array.<number>|null} [PlayingFieldPattern] AchieveDefine PlayingFieldPattern
+         * @property {number|null} [IsSafe] AchieveDefine IsSafe
+         */
+
+        /**
+         * Constructs a new AchieveDefine.
+         * @memberof table
+         * @classdesc Represents an AchieveDefine.
+         * @implements IAchieveDefine
+         * @constructor
+         * @param {table.IAchieveDefine=} [properties] Properties to set
+         */
+        function AchieveDefine(properties) {
+            this.Para2 = [];
+            this.RewardType = [];
+            this.RewardId = [];
+            this.RewardNum = [];
+            this.PlayingFieldPattern = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * AchieveDefine Id.
+         * @member {number} Id
+         * @memberof table.AchieveDefine
+         * @instance
+         */
+        AchieveDefine.prototype.Id = 0;
+
+        /**
+         * AchieveDefine Group.
+         * @member {number} Group
+         * @memberof table.AchieveDefine
+         * @instance
+         */
+        AchieveDefine.prototype.Group = 0;
+
+        /**
+         * AchieveDefine Name.
+         * @member {string} Name
+         * @memberof table.AchieveDefine
+         * @instance
+         */
+        AchieveDefine.prototype.Name = "";
+
+        /**
+         * AchieveDefine Tran.
+         * @member {number} Tran
+         * @memberof table.AchieveDefine
+         * @instance
+         */
+        AchieveDefine.prototype.Tran = 0;
+
+        /**
+         * AchieveDefine Description.
+         * @member {string} Description
+         * @memberof table.AchieveDefine
+         * @instance
+         */
+        AchieveDefine.prototype.Description = "";
+
+        /**
+         * AchieveDefine Tag.
+         * @member {number} Tag
+         * @memberof table.AchieveDefine
+         * @instance
+         */
+        AchieveDefine.prototype.Tag = 0;
+
+        /**
+         * AchieveDefine DailyQuest.
+         * @member {number} DailyQuest
+         * @memberof table.AchieveDefine
+         * @instance
+         */
+        AchieveDefine.prototype.DailyQuest = 0;
+
+        /**
+         * AchieveDefine PreId.
+         * @member {number} PreId
+         * @memberof table.AchieveDefine
+         * @instance
+         */
+        AchieveDefine.prototype.PreId = 0;
+
+        /**
+         * AchieveDefine Type.
+         * @member {number} Type
+         * @memberof table.AchieveDefine
+         * @instance
+         */
+        AchieveDefine.prototype.Type = 0;
+
+        /**
+         * AchieveDefine Para1.
+         * @member {number} Para1
+         * @memberof table.AchieveDefine
+         * @instance
+         */
+        AchieveDefine.prototype.Para1 = 0;
+
+        /**
+         * AchieveDefine Para2.
+         * @member {Array.<number>} Para2
+         * @memberof table.AchieveDefine
+         * @instance
+         */
+        AchieveDefine.prototype.Para2 = $util.emptyArray;
+
+        /**
+         * AchieveDefine Icon.
+         * @member {string} Icon
+         * @memberof table.AchieveDefine
+         * @instance
+         */
+        AchieveDefine.prototype.Icon = "";
+
+        /**
+         * AchieveDefine Grade.
+         * @member {number} Grade
+         * @memberof table.AchieveDefine
+         * @instance
+         */
+        AchieveDefine.prototype.Grade = 0;
+
+        /**
+         * AchieveDefine RewardType.
+         * @member {Array.<number>} RewardType
+         * @memberof table.AchieveDefine
+         * @instance
+         */
+        AchieveDefine.prototype.RewardType = $util.emptyArray;
+
+        /**
+         * AchieveDefine RewardId.
+         * @member {Array.<number>} RewardId
+         * @memberof table.AchieveDefine
+         * @instance
+         */
+        AchieveDefine.prototype.RewardId = $util.emptyArray;
+
+        /**
+         * AchieveDefine RewardNum.
+         * @member {Array.<number>} RewardNum
+         * @memberof table.AchieveDefine
+         * @instance
+         */
+        AchieveDefine.prototype.RewardNum = $util.emptyArray;
+
+        /**
+         * AchieveDefine PlayingFieldPattern.
+         * @member {Array.<number>} PlayingFieldPattern
+         * @memberof table.AchieveDefine
+         * @instance
+         */
+        AchieveDefine.prototype.PlayingFieldPattern = $util.emptyArray;
+
+        /**
+         * AchieveDefine IsSafe.
+         * @member {number} IsSafe
+         * @memberof table.AchieveDefine
+         * @instance
+         */
+        AchieveDefine.prototype.IsSafe = 0;
+
+        /**
+         * Creates a new AchieveDefine instance using the specified properties.
+         * @function create
+         * @memberof table.AchieveDefine
+         * @static
+         * @param {table.IAchieveDefine=} [properties] Properties to set
+         * @returns {table.AchieveDefine} AchieveDefine instance
+         */
+        AchieveDefine.create = function create(properties) {
+            return new AchieveDefine(properties);
+        };
+
+        /**
+         * Encodes the specified AchieveDefine message. Does not implicitly {@link table.AchieveDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.AchieveDefine
+         * @static
+         * @param {table.IAchieveDefine} message AchieveDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AchieveDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.Id);
+            if (message.Group != null && message.hasOwnProperty("Group"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.Group);
+            if (message.Name != null && message.hasOwnProperty("Name"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.Name);
+            if (message.Tran != null && message.hasOwnProperty("Tran"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.Tran);
+            if (message.Description != null && message.hasOwnProperty("Description"))
+                writer.uint32(/* id 5, wireType 2 =*/42).string(message.Description);
+            if (message.Tag != null && message.hasOwnProperty("Tag"))
+                writer.uint32(/* id 6, wireType 0 =*/48).int32(message.Tag);
+            if (message.DailyQuest != null && message.hasOwnProperty("DailyQuest"))
+                writer.uint32(/* id 7, wireType 0 =*/56).int32(message.DailyQuest);
+            if (message.PreId != null && message.hasOwnProperty("PreId"))
+                writer.uint32(/* id 8, wireType 0 =*/64).int32(message.PreId);
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                writer.uint32(/* id 9, wireType 0 =*/72).int32(message.Type);
+            if (message.Para1 != null && message.hasOwnProperty("Para1"))
+                writer.uint32(/* id 10, wireType 0 =*/80).int32(message.Para1);
+            if (message.Para2 != null && message.Para2.length)
+                for (var i = 0; i < message.Para2.length; ++i)
+                    writer.uint32(/* id 11, wireType 0 =*/88).int32(message.Para2[i]);
+            if (message.Icon != null && message.hasOwnProperty("Icon"))
+                writer.uint32(/* id 12, wireType 2 =*/98).string(message.Icon);
+            if (message.Grade != null && message.hasOwnProperty("Grade"))
+                writer.uint32(/* id 13, wireType 0 =*/104).int32(message.Grade);
+            if (message.RewardType != null && message.RewardType.length)
+                for (var i = 0; i < message.RewardType.length; ++i)
+                    writer.uint32(/* id 14, wireType 0 =*/112).int32(message.RewardType[i]);
+            if (message.RewardId != null && message.RewardId.length)
+                for (var i = 0; i < message.RewardId.length; ++i)
+                    writer.uint32(/* id 15, wireType 0 =*/120).int32(message.RewardId[i]);
+            if (message.RewardNum != null && message.RewardNum.length)
+                for (var i = 0; i < message.RewardNum.length; ++i)
+                    writer.uint32(/* id 16, wireType 0 =*/128).int32(message.RewardNum[i]);
+            if (message.PlayingFieldPattern != null && message.PlayingFieldPattern.length)
+                for (var i = 0; i < message.PlayingFieldPattern.length; ++i)
+                    writer.uint32(/* id 17, wireType 0 =*/136).int32(message.PlayingFieldPattern[i]);
+            if (message.IsSafe != null && message.hasOwnProperty("IsSafe"))
+                writer.uint32(/* id 18, wireType 0 =*/144).int32(message.IsSafe);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified AchieveDefine message, length delimited. Does not implicitly {@link table.AchieveDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.AchieveDefine
+         * @static
+         * @param {table.IAchieveDefine} message AchieveDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AchieveDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an AchieveDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.AchieveDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.AchieveDefine} AchieveDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AchieveDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.AchieveDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.int32();
+                    break;
+                case 2:
+                    message.Group = reader.int32();
+                    break;
+                case 3:
+                    message.Name = reader.string();
+                    break;
+                case 4:
+                    message.Tran = reader.int32();
+                    break;
+                case 5:
+                    message.Description = reader.string();
+                    break;
+                case 6:
+                    message.Tag = reader.int32();
+                    break;
+                case 7:
+                    message.DailyQuest = reader.int32();
+                    break;
+                case 8:
+                    message.PreId = reader.int32();
+                    break;
+                case 9:
+                    message.Type = reader.int32();
+                    break;
+                case 10:
+                    message.Para1 = reader.int32();
+                    break;
+                case 11:
+                    if (!(message.Para2 && message.Para2.length))
+                        message.Para2 = [];
+                    if ((tag & 7) === 2) {
+                        var end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2)
+                            message.Para2.push(reader.int32());
+                    } else
+                        message.Para2.push(reader.int32());
+                    break;
+                case 12:
+                    message.Icon = reader.string();
+                    break;
+                case 13:
+                    message.Grade = reader.int32();
+                    break;
+                case 14:
+                    if (!(message.RewardType && message.RewardType.length))
+                        message.RewardType = [];
+                    if ((tag & 7) === 2) {
+                        var end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2)
+                            message.RewardType.push(reader.int32());
+                    } else
+                        message.RewardType.push(reader.int32());
+                    break;
+                case 15:
+                    if (!(message.RewardId && message.RewardId.length))
+                        message.RewardId = [];
+                    if ((tag & 7) === 2) {
+                        var end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2)
+                            message.RewardId.push(reader.int32());
+                    } else
+                        message.RewardId.push(reader.int32());
+                    break;
+                case 16:
+                    if (!(message.RewardNum && message.RewardNum.length))
+                        message.RewardNum = [];
+                    if ((tag & 7) === 2) {
+                        var end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2)
+                            message.RewardNum.push(reader.int32());
+                    } else
+                        message.RewardNum.push(reader.int32());
+                    break;
+                case 17:
+                    if (!(message.PlayingFieldPattern && message.PlayingFieldPattern.length))
+                        message.PlayingFieldPattern = [];
+                    if ((tag & 7) === 2) {
+                        var end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2)
+                            message.PlayingFieldPattern.push(reader.int32());
+                    } else
+                        message.PlayingFieldPattern.push(reader.int32());
+                    break;
+                case 18:
+                    message.IsSafe = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an AchieveDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.AchieveDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.AchieveDefine} AchieveDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AchieveDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an AchieveDefine message.
+         * @function verify
+         * @memberof table.AchieveDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        AchieveDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.Group != null && message.hasOwnProperty("Group"))
+                if (!$util.isInteger(message.Group))
+                    return "Group: integer expected";
+            if (message.Name != null && message.hasOwnProperty("Name"))
+                if (!$util.isString(message.Name))
+                    return "Name: string expected";
+            if (message.Tran != null && message.hasOwnProperty("Tran"))
+                if (!$util.isInteger(message.Tran))
+                    return "Tran: integer expected";
+            if (message.Description != null && message.hasOwnProperty("Description"))
+                if (!$util.isString(message.Description))
+                    return "Description: string expected";
+            if (message.Tag != null && message.hasOwnProperty("Tag"))
+                if (!$util.isInteger(message.Tag))
+                    return "Tag: integer expected";
+            if (message.DailyQuest != null && message.hasOwnProperty("DailyQuest"))
+                if (!$util.isInteger(message.DailyQuest))
+                    return "DailyQuest: integer expected";
+            if (message.PreId != null && message.hasOwnProperty("PreId"))
+                if (!$util.isInteger(message.PreId))
+                    return "PreId: integer expected";
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                if (!$util.isInteger(message.Type))
+                    return "Type: integer expected";
+            if (message.Para1 != null && message.hasOwnProperty("Para1"))
+                if (!$util.isInteger(message.Para1))
+                    return "Para1: integer expected";
+            if (message.Para2 != null && message.hasOwnProperty("Para2")) {
+                if (!Array.isArray(message.Para2))
+                    return "Para2: array expected";
+                for (var i = 0; i < message.Para2.length; ++i)
+                    if (!$util.isInteger(message.Para2[i]))
+                        return "Para2: integer[] expected";
+            }
+            if (message.Icon != null && message.hasOwnProperty("Icon"))
+                if (!$util.isString(message.Icon))
+                    return "Icon: string expected";
+            if (message.Grade != null && message.hasOwnProperty("Grade"))
+                if (!$util.isInteger(message.Grade))
+                    return "Grade: integer expected";
+            if (message.RewardType != null && message.hasOwnProperty("RewardType")) {
+                if (!Array.isArray(message.RewardType))
+                    return "RewardType: array expected";
+                for (var i = 0; i < message.RewardType.length; ++i)
+                    if (!$util.isInteger(message.RewardType[i]))
+                        return "RewardType: integer[] expected";
+            }
+            if (message.RewardId != null && message.hasOwnProperty("RewardId")) {
+                if (!Array.isArray(message.RewardId))
+                    return "RewardId: array expected";
+                for (var i = 0; i < message.RewardId.length; ++i)
+                    if (!$util.isInteger(message.RewardId[i]))
+                        return "RewardId: integer[] expected";
+            }
+            if (message.RewardNum != null && message.hasOwnProperty("RewardNum")) {
+                if (!Array.isArray(message.RewardNum))
+                    return "RewardNum: array expected";
+                for (var i = 0; i < message.RewardNum.length; ++i)
+                    if (!$util.isInteger(message.RewardNum[i]))
+                        return "RewardNum: integer[] expected";
+            }
+            if (message.PlayingFieldPattern != null && message.hasOwnProperty("PlayingFieldPattern")) {
+                if (!Array.isArray(message.PlayingFieldPattern))
+                    return "PlayingFieldPattern: array expected";
+                for (var i = 0; i < message.PlayingFieldPattern.length; ++i)
+                    if (!$util.isInteger(message.PlayingFieldPattern[i]))
+                        return "PlayingFieldPattern: integer[] expected";
+            }
+            if (message.IsSafe != null && message.hasOwnProperty("IsSafe"))
+                if (!$util.isInteger(message.IsSafe))
+                    return "IsSafe: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates an AchieveDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.AchieveDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.AchieveDefine} AchieveDefine
+         */
+        AchieveDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.AchieveDefine)
+                return object;
+            var message = new $root.table.AchieveDefine();
+            if (object.Id != null)
+                message.Id = object.Id | 0;
+            if (object.Group != null)
+                message.Group = object.Group | 0;
+            if (object.Name != null)
+                message.Name = String(object.Name);
+            if (object.Tran != null)
+                message.Tran = object.Tran | 0;
+            if (object.Description != null)
+                message.Description = String(object.Description);
+            if (object.Tag != null)
+                message.Tag = object.Tag | 0;
+            if (object.DailyQuest != null)
+                message.DailyQuest = object.DailyQuest | 0;
+            if (object.PreId != null)
+                message.PreId = object.PreId | 0;
+            if (object.Type != null)
+                message.Type = object.Type | 0;
+            if (object.Para1 != null)
+                message.Para1 = object.Para1 | 0;
+            if (object.Para2) {
+                if (!Array.isArray(object.Para2))
+                    throw TypeError(".table.AchieveDefine.Para2: array expected");
+                message.Para2 = [];
+                for (var i = 0; i < object.Para2.length; ++i)
+                    message.Para2[i] = object.Para2[i] | 0;
+            }
+            if (object.Icon != null)
+                message.Icon = String(object.Icon);
+            if (object.Grade != null)
+                message.Grade = object.Grade | 0;
+            if (object.RewardType) {
+                if (!Array.isArray(object.RewardType))
+                    throw TypeError(".table.AchieveDefine.RewardType: array expected");
+                message.RewardType = [];
+                for (var i = 0; i < object.RewardType.length; ++i)
+                    message.RewardType[i] = object.RewardType[i] | 0;
+            }
+            if (object.RewardId) {
+                if (!Array.isArray(object.RewardId))
+                    throw TypeError(".table.AchieveDefine.RewardId: array expected");
+                message.RewardId = [];
+                for (var i = 0; i < object.RewardId.length; ++i)
+                    message.RewardId[i] = object.RewardId[i] | 0;
+            }
+            if (object.RewardNum) {
+                if (!Array.isArray(object.RewardNum))
+                    throw TypeError(".table.AchieveDefine.RewardNum: array expected");
+                message.RewardNum = [];
+                for (var i = 0; i < object.RewardNum.length; ++i)
+                    message.RewardNum[i] = object.RewardNum[i] | 0;
+            }
+            if (object.PlayingFieldPattern) {
+                if (!Array.isArray(object.PlayingFieldPattern))
+                    throw TypeError(".table.AchieveDefine.PlayingFieldPattern: array expected");
+                message.PlayingFieldPattern = [];
+                for (var i = 0; i < object.PlayingFieldPattern.length; ++i)
+                    message.PlayingFieldPattern[i] = object.PlayingFieldPattern[i] | 0;
+            }
+            if (object.IsSafe != null)
+                message.IsSafe = object.IsSafe | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an AchieveDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.AchieveDefine
+         * @static
+         * @param {table.AchieveDefine} message AchieveDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        AchieveDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults) {
+                object.Para2 = [];
+                object.RewardType = [];
+                object.RewardId = [];
+                object.RewardNum = [];
+                object.PlayingFieldPattern = [];
+            }
+            if (options.defaults) {
+                object.Id = 0;
+                object.Group = 0;
+                object.Name = "";
+                object.Tran = 0;
+                object.Description = "";
+                object.Tag = 0;
+                object.DailyQuest = 0;
+                object.PreId = 0;
+                object.Type = 0;
+                object.Para1 = 0;
+                object.Icon = "";
+                object.Grade = 0;
+                object.IsSafe = 0;
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.Group != null && message.hasOwnProperty("Group"))
+                object.Group = message.Group;
+            if (message.Name != null && message.hasOwnProperty("Name"))
+                object.Name = message.Name;
+            if (message.Tran != null && message.hasOwnProperty("Tran"))
+                object.Tran = message.Tran;
+            if (message.Description != null && message.hasOwnProperty("Description"))
+                object.Description = message.Description;
+            if (message.Tag != null && message.hasOwnProperty("Tag"))
+                object.Tag = message.Tag;
+            if (message.DailyQuest != null && message.hasOwnProperty("DailyQuest"))
+                object.DailyQuest = message.DailyQuest;
+            if (message.PreId != null && message.hasOwnProperty("PreId"))
+                object.PreId = message.PreId;
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                object.Type = message.Type;
+            if (message.Para1 != null && message.hasOwnProperty("Para1"))
+                object.Para1 = message.Para1;
+            if (message.Para2 && message.Para2.length) {
+                object.Para2 = [];
+                for (var j = 0; j < message.Para2.length; ++j)
+                    object.Para2[j] = message.Para2[j];
+            }
+            if (message.Icon != null && message.hasOwnProperty("Icon"))
+                object.Icon = message.Icon;
+            if (message.Grade != null && message.hasOwnProperty("Grade"))
+                object.Grade = message.Grade;
+            if (message.RewardType && message.RewardType.length) {
+                object.RewardType = [];
+                for (var j = 0; j < message.RewardType.length; ++j)
+                    object.RewardType[j] = message.RewardType[j];
+            }
+            if (message.RewardId && message.RewardId.length) {
+                object.RewardId = [];
+                for (var j = 0; j < message.RewardId.length; ++j)
+                    object.RewardId[j] = message.RewardId[j];
+            }
+            if (message.RewardNum && message.RewardNum.length) {
+                object.RewardNum = [];
+                for (var j = 0; j < message.RewardNum.length; ++j)
+                    object.RewardNum[j] = message.RewardNum[j];
+            }
+            if (message.PlayingFieldPattern && message.PlayingFieldPattern.length) {
+                object.PlayingFieldPattern = [];
+                for (var j = 0; j < message.PlayingFieldPattern.length; ++j)
+                    object.PlayingFieldPattern[j] = message.PlayingFieldPattern[j];
+            }
+            if (message.IsSafe != null && message.hasOwnProperty("IsSafe"))
+                object.IsSafe = message.IsSafe;
+            return object;
+        };
+
+        /**
+         * Converts this AchieveDefine to JSON.
+         * @function toJSON
+         * @memberof table.AchieveDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        AchieveDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return AchieveDefine;
+    })();
 
     table.Activity_listBase = (function() {
 

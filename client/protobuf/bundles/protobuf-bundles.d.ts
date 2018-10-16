@@ -1972,6 +1972,474 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a C2GW_ReqAchieveInfo. */
+    interface IC2GW_ReqAchieveInfo {
+
+        /** C2GW_ReqAchieveInfo roleid */
+        roleid?: (number|Long|null);
+    }
+
+    /** Represents a C2GW_ReqAchieveInfo. */
+    class C2GW_ReqAchieveInfo implements IC2GW_ReqAchieveInfo {
+
+        /**
+         * Constructs a new C2GW_ReqAchieveInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqAchieveInfo);
+
+        /** C2GW_ReqAchieveInfo roleid. */
+        public roleid: (number|Long);
+
+        /**
+         * Creates a new C2GW_ReqAchieveInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqAchieveInfo instance
+         */
+        public static create(properties?: msg.IC2GW_ReqAchieveInfo): msg.C2GW_ReqAchieveInfo;
+
+        /**
+         * Encodes the specified C2GW_ReqAchieveInfo message. Does not implicitly {@link msg.C2GW_ReqAchieveInfo.verify|verify} messages.
+         * @param message C2GW_ReqAchieveInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqAchieveInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqAchieveInfo message, length delimited. Does not implicitly {@link msg.C2GW_ReqAchieveInfo.verify|verify} messages.
+         * @param message C2GW_ReqAchieveInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqAchieveInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqAchieveInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqAchieveInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqAchieveInfo;
+
+        /**
+         * Decodes a C2GW_ReqAchieveInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqAchieveInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqAchieveInfo;
+
+        /**
+         * Verifies a C2GW_ReqAchieveInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqAchieveInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqAchieveInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqAchieveInfo;
+
+        /**
+         * Creates a plain object from a C2GW_ReqAchieveInfo message. Also converts values to other types if specified.
+         * @param message C2GW_ReqAchieveInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqAchieveInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqAchieveInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an AchieveList. */
+    interface IAchieveList {
+
+        /** AchieveList id */
+        id?: (number|null);
+
+        /** AchieveList istake */
+        istake?: (number|null);
+    }
+
+    /** Represents an AchieveList. */
+    class AchieveList implements IAchieveList {
+
+        /**
+         * Constructs a new AchieveList.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IAchieveList);
+
+        /** AchieveList id. */
+        public id: number;
+
+        /** AchieveList istake. */
+        public istake: number;
+
+        /**
+         * Creates a new AchieveList instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns AchieveList instance
+         */
+        public static create(properties?: msg.IAchieveList): msg.AchieveList;
+
+        /**
+         * Encodes the specified AchieveList message. Does not implicitly {@link msg.AchieveList.verify|verify} messages.
+         * @param message AchieveList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IAchieveList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified AchieveList message, length delimited. Does not implicitly {@link msg.AchieveList.verify|verify} messages.
+         * @param message AchieveList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IAchieveList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes an AchieveList message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns AchieveList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.AchieveList;
+
+        /**
+         * Decodes an AchieveList message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns AchieveList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.AchieveList;
+
+        /**
+         * Verifies an AchieveList message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an AchieveList message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns AchieveList
+         */
+        public static fromObject(object: { [k: string]: any }): msg.AchieveList;
+
+        /**
+         * Creates a plain object from an AchieveList message. Also converts values to other types if specified.
+         * @param message AchieveList
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.AchieveList, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this AchieveList to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an AchieveGroup. */
+    interface IAchieveGroup {
+
+        /** AchieveGroup groupid */
+        groupid?: (number|null);
+
+        /** AchieveGroup process */
+        process?: (number|null);
+    }
+
+    /** Represents an AchieveGroup. */
+    class AchieveGroup implements IAchieveGroup {
+
+        /**
+         * Constructs a new AchieveGroup.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IAchieveGroup);
+
+        /** AchieveGroup groupid. */
+        public groupid: number;
+
+        /** AchieveGroup process. */
+        public process: number;
+
+        /**
+         * Creates a new AchieveGroup instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns AchieveGroup instance
+         */
+        public static create(properties?: msg.IAchieveGroup): msg.AchieveGroup;
+
+        /**
+         * Encodes the specified AchieveGroup message. Does not implicitly {@link msg.AchieveGroup.verify|verify} messages.
+         * @param message AchieveGroup message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IAchieveGroup, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified AchieveGroup message, length delimited. Does not implicitly {@link msg.AchieveGroup.verify|verify} messages.
+         * @param message AchieveGroup message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IAchieveGroup, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes an AchieveGroup message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns AchieveGroup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.AchieveGroup;
+
+        /**
+         * Decodes an AchieveGroup message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns AchieveGroup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.AchieveGroup;
+
+        /**
+         * Verifies an AchieveGroup message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an AchieveGroup message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns AchieveGroup
+         */
+        public static fromObject(object: { [k: string]: any }): msg.AchieveGroup;
+
+        /**
+         * Creates a plain object from an AchieveGroup message. Also converts values to other types if specified.
+         * @param message AchieveGroup
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.AchieveGroup, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this AchieveGroup to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetAchieveInfo. */
+    interface IGW2C_RetAchieveInfo {
+
+        /** GW2C_RetAchieveInfo achievelist */
+        achievelist?: (msg.IAchieveList[]|null);
+
+        /** GW2C_RetAchieveInfo grouplist */
+        grouplist?: (msg.IAchieveGroup[]|null);
+    }
+
+    /** Represents a GW2C_RetAchieveInfo. */
+    class GW2C_RetAchieveInfo implements IGW2C_RetAchieveInfo {
+
+        /**
+         * Constructs a new GW2C_RetAchieveInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetAchieveInfo);
+
+        /** GW2C_RetAchieveInfo achievelist. */
+        public achievelist: msg.IAchieveList[];
+
+        /** GW2C_RetAchieveInfo grouplist. */
+        public grouplist: msg.IAchieveGroup[];
+
+        /**
+         * Creates a new GW2C_RetAchieveInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetAchieveInfo instance
+         */
+        public static create(properties?: msg.IGW2C_RetAchieveInfo): msg.GW2C_RetAchieveInfo;
+
+        /**
+         * Encodes the specified GW2C_RetAchieveInfo message. Does not implicitly {@link msg.GW2C_RetAchieveInfo.verify|verify} messages.
+         * @param message GW2C_RetAchieveInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetAchieveInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetAchieveInfo message, length delimited. Does not implicitly {@link msg.GW2C_RetAchieveInfo.verify|verify} messages.
+         * @param message GW2C_RetAchieveInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetAchieveInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetAchieveInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetAchieveInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetAchieveInfo;
+
+        /**
+         * Decodes a GW2C_RetAchieveInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetAchieveInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetAchieveInfo;
+
+        /**
+         * Verifies a GW2C_RetAchieveInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetAchieveInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetAchieveInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetAchieveInfo;
+
+        /**
+         * Creates a plain object from a GW2C_RetAchieveInfo message. Also converts values to other types if specified.
+         * @param message GW2C_RetAchieveInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetAchieveInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetAchieveInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqTakeAchieveAward. */
+    interface IC2GW_ReqTakeAchieveAward {
+
+        /** C2GW_ReqTakeAchieveAward id */
+        id?: (number|null);
+    }
+
+    /** Represents a C2GW_ReqTakeAchieveAward. */
+    class C2GW_ReqTakeAchieveAward implements IC2GW_ReqTakeAchieveAward {
+
+        /**
+         * Constructs a new C2GW_ReqTakeAchieveAward.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqTakeAchieveAward);
+
+        /** C2GW_ReqTakeAchieveAward id. */
+        public id: number;
+
+        /**
+         * Creates a new C2GW_ReqTakeAchieveAward instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqTakeAchieveAward instance
+         */
+        public static create(properties?: msg.IC2GW_ReqTakeAchieveAward): msg.C2GW_ReqTakeAchieveAward;
+
+        /**
+         * Encodes the specified C2GW_ReqTakeAchieveAward message. Does not implicitly {@link msg.C2GW_ReqTakeAchieveAward.verify|verify} messages.
+         * @param message C2GW_ReqTakeAchieveAward message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqTakeAchieveAward, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqTakeAchieveAward message, length delimited. Does not implicitly {@link msg.C2GW_ReqTakeAchieveAward.verify|verify} messages.
+         * @param message C2GW_ReqTakeAchieveAward message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqTakeAchieveAward, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqTakeAchieveAward message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqTakeAchieveAward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqTakeAchieveAward;
+
+        /**
+         * Decodes a C2GW_ReqTakeAchieveAward message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqTakeAchieveAward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqTakeAchieveAward;
+
+        /**
+         * Verifies a C2GW_ReqTakeAchieveAward message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqTakeAchieveAward message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqTakeAchieveAward
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqTakeAchieveAward;
+
+        /**
+         * Creates a plain object from a C2GW_ReqTakeAchieveAward message. Also converts values to other types if specified.
+         * @param message C2GW_ReqTakeAchieveAward
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqTakeAchieveAward, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqTakeAchieveAward to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of an EntityBase. */
     interface IEntityBase {
 
@@ -26021,6 +26489,288 @@ declare namespace msg {
 
 /** Namespace table. */
 declare namespace table {
+
+    /** Properties of an AchieveBase. */
+    interface IAchieveBase {
+
+        /** AchieveBase Achieve */
+        Achieve?: (table.IAchieveDefine[]|null);
+    }
+
+    /** Represents an AchieveBase. */
+    class AchieveBase implements IAchieveBase {
+
+        /**
+         * Constructs a new AchieveBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IAchieveBase);
+
+        /** AchieveBase Achieve. */
+        public Achieve: table.IAchieveDefine[];
+
+        /**
+         * Creates a new AchieveBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns AchieveBase instance
+         */
+        public static create(properties?: table.IAchieveBase): table.AchieveBase;
+
+        /**
+         * Encodes the specified AchieveBase message. Does not implicitly {@link table.AchieveBase.verify|verify} messages.
+         * @param message AchieveBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IAchieveBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified AchieveBase message, length delimited. Does not implicitly {@link table.AchieveBase.verify|verify} messages.
+         * @param message AchieveBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IAchieveBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes an AchieveBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns AchieveBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.AchieveBase;
+
+        /**
+         * Decodes an AchieveBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns AchieveBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.AchieveBase;
+
+        /**
+         * Verifies an AchieveBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an AchieveBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns AchieveBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.AchieveBase;
+
+        /**
+         * Creates a plain object from an AchieveBase message. Also converts values to other types if specified.
+         * @param message AchieveBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.AchieveBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this AchieveBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an AchieveDefine. */
+    interface IAchieveDefine {
+
+        /** AchieveDefine Id */
+        Id?: (number|null);
+
+        /** AchieveDefine Group */
+        Group?: (number|null);
+
+        /** AchieveDefine Name */
+        Name?: (string|null);
+
+        /** AchieveDefine Tran */
+        Tran?: (number|null);
+
+        /** AchieveDefine Description */
+        Description?: (string|null);
+
+        /** AchieveDefine Tag */
+        Tag?: (number|null);
+
+        /** AchieveDefine DailyQuest */
+        DailyQuest?: (number|null);
+
+        /** AchieveDefine PreId */
+        PreId?: (number|null);
+
+        /** AchieveDefine Type */
+        Type?: (number|null);
+
+        /** AchieveDefine Para1 */
+        Para1?: (number|null);
+
+        /** AchieveDefine Para2 */
+        Para2?: (number[]|null);
+
+        /** AchieveDefine Icon */
+        Icon?: (string|null);
+
+        /** AchieveDefine Grade */
+        Grade?: (number|null);
+
+        /** AchieveDefine RewardType */
+        RewardType?: (number[]|null);
+
+        /** AchieveDefine RewardId */
+        RewardId?: (number[]|null);
+
+        /** AchieveDefine RewardNum */
+        RewardNum?: (number[]|null);
+
+        /** AchieveDefine PlayingFieldPattern */
+        PlayingFieldPattern?: (number[]|null);
+
+        /** AchieveDefine IsSafe */
+        IsSafe?: (number|null);
+    }
+
+    /** Represents an AchieveDefine. */
+    class AchieveDefine implements IAchieveDefine {
+
+        /**
+         * Constructs a new AchieveDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IAchieveDefine);
+
+        /** AchieveDefine Id. */
+        public Id: number;
+
+        /** AchieveDefine Group. */
+        public Group: number;
+
+        /** AchieveDefine Name. */
+        public Name: string;
+
+        /** AchieveDefine Tran. */
+        public Tran: number;
+
+        /** AchieveDefine Description. */
+        public Description: string;
+
+        /** AchieveDefine Tag. */
+        public Tag: number;
+
+        /** AchieveDefine DailyQuest. */
+        public DailyQuest: number;
+
+        /** AchieveDefine PreId. */
+        public PreId: number;
+
+        /** AchieveDefine Type. */
+        public Type: number;
+
+        /** AchieveDefine Para1. */
+        public Para1: number;
+
+        /** AchieveDefine Para2. */
+        public Para2: number[];
+
+        /** AchieveDefine Icon. */
+        public Icon: string;
+
+        /** AchieveDefine Grade. */
+        public Grade: number;
+
+        /** AchieveDefine RewardType. */
+        public RewardType: number[];
+
+        /** AchieveDefine RewardId. */
+        public RewardId: number[];
+
+        /** AchieveDefine RewardNum. */
+        public RewardNum: number[];
+
+        /** AchieveDefine PlayingFieldPattern. */
+        public PlayingFieldPattern: number[];
+
+        /** AchieveDefine IsSafe. */
+        public IsSafe: number;
+
+        /**
+         * Creates a new AchieveDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns AchieveDefine instance
+         */
+        public static create(properties?: table.IAchieveDefine): table.AchieveDefine;
+
+        /**
+         * Encodes the specified AchieveDefine message. Does not implicitly {@link table.AchieveDefine.verify|verify} messages.
+         * @param message AchieveDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IAchieveDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified AchieveDefine message, length delimited. Does not implicitly {@link table.AchieveDefine.verify|verify} messages.
+         * @param message AchieveDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IAchieveDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes an AchieveDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns AchieveDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.AchieveDefine;
+
+        /**
+         * Decodes an AchieveDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns AchieveDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.AchieveDefine;
+
+        /**
+         * Verifies an AchieveDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an AchieveDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns AchieveDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.AchieveDefine;
+
+        /**
+         * Creates a plain object from an AchieveDefine message. Also converts values to other types if specified.
+         * @param message AchieveDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.AchieveDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this AchieveDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
 
     /** Properties of an Activity_listBase. */
     interface IActivity_listBase {

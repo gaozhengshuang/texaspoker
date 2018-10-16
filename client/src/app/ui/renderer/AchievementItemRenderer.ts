@@ -26,8 +26,8 @@ class AchievementItemRenderer extends BaseItemRenderer<AchievementInfo>
 		this.scaleX = this.scaleY = this._width / this.width;
 		if (InfoUtil.checkAvailable(this.bindData))
 		{
-			this.itemImg.source = this.bindData.definition.icon + ResSuffixName.PNG;
-			this._numContentInfo.content = game.MathUtil.formatNum(this.bindData.definition.para1);
+			this.itemImg.source = this.bindData.definition.Icon + ResSuffixName.PNG;
+			this._numContentInfo.content = game.MathUtil.formatNum(this.bindData.definition.Para1);
 			this.numImg.init(this._numContentInfo);
 			this.refreshiUI();
 			this.addEventListener(egret.Event.REMOVED_FROM_STAGE, this.onDisable, this);
@@ -53,11 +53,11 @@ class AchievementItemRenderer extends BaseItemRenderer<AchievementInfo>
 		{
 			this.achieveMask.visible = false;
 		}
-		else if (this.bindData.definition.preId == 0)
+		else if (this.bindData.definition.PreId == 0)
 		{
 			this.achieveMask.visible = true;
 		}
-		else if (AchievementManager.getAchieveInfoById(userInfo.allAchieveList, this.bindData.definition.preId).isComplete)
+		else if (AchievementManager.getAchieveInfoById(userInfo.allAchieveList, this.bindData.definition.PreId).isComplete)
 		{
 			this.achieveMask.visible = true;
 		}
@@ -73,8 +73,8 @@ class AchievementItemRenderer extends BaseItemRenderer<AchievementInfo>
 	public init(info: AchievementInfo, width: number)
 	{
 		this.info = info;
-		this.itemImg.source = info.definition.icon + ResSuffixName.PNG;
-		this._numContentInfo.content = game.MathUtil.formatNum(info.definition.para1);
+		this.itemImg.source = info.definition.Icon + ResSuffixName.PNG;
+		this._numContentInfo.content = game.MathUtil.formatNum(info.definition.Para1);
 		this.numImg.init(this._numContentInfo);
 		this.achieveGroup.visible = true;
 		this.achieveMask.visible = false;

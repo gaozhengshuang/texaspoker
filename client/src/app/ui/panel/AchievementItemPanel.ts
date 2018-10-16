@@ -37,21 +37,21 @@ class AchievementItemPanel extends BasePanel
         let itemDef = this.info.definition;
         if (itemDef)
         {
-            this.achieveName.text = itemDef.name;
+            this.achieveName.text = itemDef.Name;
             if (this.info.isComplete)
             {
-                this.progress.text = itemDef.para1.toString() + "/" + itemDef.para1.toString();
+                this.progress.text = itemDef.Para1.toString() + "/" + itemDef.Para1.toString();
             }
             else if (!this.info.isOther)
             {
-                this.progress.text = AchieveProcessManager.getAchieveProcessInfoByGroup(itemDef.group).process + "/" + itemDef.para1.toString();
+                this.progress.text = AchieveProcessManager.getAchieveProcessInfoByGroup(itemDef.Group).process + "/" + itemDef.Para1.toString();
             }
             else
             {
-                let process: number = AchievementManager.otherProcessList.getValue(itemDef.group);
-                this.progress.text = (process == undefined ? 0 : process) + "/" + itemDef.para1.toString();
+                let process: number = AchievementManager.otherProcessList.getValue(itemDef.Group);
+                this.progress.text = (process == undefined ? 0 : process) + "/" + itemDef.Para1.toString();
             }
-            this.des.text = itemDef.description;
+            this.des.text = itemDef.Description;
         }
 
         this.complete.visible = this.info.isComplete;
