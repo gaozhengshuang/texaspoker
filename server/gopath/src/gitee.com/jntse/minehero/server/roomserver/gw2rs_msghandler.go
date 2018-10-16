@@ -170,6 +170,9 @@ func on_C2GW_ReqEnterRoom(session network.IBaseNetSession, message interface{}) 
 		return
 	}
 	u.OnPreEnterRoom()
+	if session.Id() != u.AgentId() {
+		u.UpdateGateAgent(session)
+	}
 	room.UserEnter(u)
 }
 
