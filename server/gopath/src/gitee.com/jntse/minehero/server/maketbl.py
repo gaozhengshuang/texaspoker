@@ -229,6 +229,9 @@ gen.maketbl_excel('CardBase','card','TCard.xlsx')
 gen.maketbl_excel('MusicBase','music','TMusic.xlsx')
 gen.maketbl_excel('ChipsBase','chips','TChips.xlsx')
 
+gen.maketbl_excel('HundredWarBase','hundredwar','HundredWar.xlsx')
+gen.maketbl_excel('HundredWarTypeBase','hundredwartype','HundredWarType.xlsx')
+
 gen.maketbl_excel('Activity_listBase','activity_listbase','TActivity_list.xlsx')
 gen.maketbl_excel('Activity_signinBase','activity_signinbase','TActivity_signin.xlsx')
 gen.maketbl_excel('AwardBase','awardbase','TAward.xlsx')
