@@ -240,6 +240,7 @@ gen.maketbl_excel('GiftShopBase','giftshopbase','TGiftShop.xlsx')
 gen.maketbl_excel('PayListBase','paylistbase','TPayList.xlsx')
 gen.maketbl_excel('TextBase','textbase','TText.xlsx')
 gen.maketbl_excel('MorePlayBase','moreplaybase','TMorePlay.xlsx')
+gen.maketbl_excel('AchieveBase','achievebase','TAchieve.xlsx')
 
 gen.maketbl_json('table', 'Global', 'global.json')
 gen.maketbl_json('table', 'Room', 'room.json')

@@ -49,3 +49,8 @@ func (m *UserManager) CreateRoomUser(roomid int64, bin *msg.Serialize, gate netw
 	return u
 }
 
+func (m *UserManager) CreateSimpleUser(userid int64) *RoomUser {
+	u := NewSimpleUser(userid)
+	m.ids[u.Id()] = u
+	return u
+}

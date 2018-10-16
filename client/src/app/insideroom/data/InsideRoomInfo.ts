@@ -20,9 +20,9 @@ class InsideRoomInfo extends BaseServerValueInfo
 	/**
 	 * 房间的配置ID
 	 */
-	public tid:number;
+	// public tid:number;
 	/**
 	 * 房间的密码
 	 */
-	public passwd:string;
+	// public passwd:string;
 }

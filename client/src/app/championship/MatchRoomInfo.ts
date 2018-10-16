@@ -113,5 +113,21 @@ class MatchRoomInfo extends BaseServerValueInfo implements IHaveDefintionInfo
     public reset()
     {
         super.reset();
+        this.id = 0;
+        this.recordId = 0;
+        this.roomId = 0;
+        this.join = 0;
+        this.leftJoin = 0;
+        this.startTime = 0;
+        this.joinWay = 0;
+        this.isShow = 0;
+        this.avgChips = 0;
+        this.rank = 0;
+        this.maxAwardRank = 0;
+        this.outTime = 0;
+        this.endTime = 0;
+        this.openTime = 0;
+        this.closeTime = 0;
+        this.isRemineded = false;
     }
 }

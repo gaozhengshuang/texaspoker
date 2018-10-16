@@ -56,6 +56,23 @@ func NewRoomUser(rid int64, gate network.IBaseNetSession, gamekind int32) *RoomU
 	return user
 }
 
+func NewSimpleUser(id int64) *RoomUser {
+	user := &RoomUser{}
+	user.bin = new(msg.Serialize)
+	user.bin.Entity = &msg.EntityBase{Roleid: pb.Int64(id)}
+	user.bin.Base = &msg.UserBase{}
+	user.bin.Base.Misc = &msg.UserMiscData{}
+	user.bin.Base.Statics = &msg.UserStatistics{}
+	user.bin.Base.Sign = &msg.UserSignIn{}
+	user.bin.Base.Wechat = &msg.UserWechat{}
+	user.bin.Item = &msg.ItemBin{}
+	user.bin.Base.Addrlist = make([]*msg.UserAddress, 0)
+	user.bin.Base.Task = &msg.UserTask{}
+	user.bin.Base.Luckydraw = &msg.LuckyDrawRecord{Drawlist: make([]*msg.LuckyDrawItem, 0)}
+	user.arvalues.Init()
+	return user
+}
+
 func NewRoomUserAI(id int64, name string, sex int32) *RoomUser {
 	user := &RoomUser{}
 	user.bin = new(msg.Serialize)

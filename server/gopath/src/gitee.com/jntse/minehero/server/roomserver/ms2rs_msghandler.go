@@ -105,7 +105,7 @@ func on_MS2RS_CreateRoom(session network.IBaseNetSession, message interface{}) {
 			room = NewTanTanLeRoom(userid, roomid)
 		}else if msg.RoomKind(gamekind) == msg.RoomKind_TexasPoker {
 			if texas.GetPwd() == "" { errcode = "密码不能为空"; break }
-			room = NewTexasRoom(userid, roomid, texas.GetRoomId(), texas.GetAnte(), texas.GetPwd(), 0)
+			room = NewTexasRoom(userid, roomid, texas.GetRoomId(), texas.GetAnte(), texas.GetPwd(), nil)
 		}else {
 			errcode = "无效的游戏类型"
 			break

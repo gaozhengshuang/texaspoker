@@ -52,6 +52,7 @@ type TexasPokerRoom struct {
 	smallblinder *TexasPlayer			//小盲
 	bigblindnum int32					//大盲钱
 	smallblindnum int32					//小盲钱
+	preblindnum int32					//前盲
 	ticker1s *util.GameTicker
 	curbet int32						//当前总压注
 	restarttime int32	
@@ -75,8 +76,7 @@ type TexasPokerRoom struct {
 	lastrecord []*msg.UserReviewInfo	//上一局记录
 	posfold map[int32]int32
 	recordstep int32
-	mttuid int32
-	mtttid int32
+	mtt *ChampionShip
 }
 
 func (this *TexasPokerRoom) Id() int64 { return this.id }
@@ -90,6 +90,13 @@ func (this *TexasPokerRoom) PlayersNum() int32{
 		}
 	}
 	return count
+}
+
+func (this *TexasPokerRoom) IsChampionShip() bool {
+	if this.mtt != nil {
+		return true
+	}
+	return false
 }
 
 func (this *TexasPokerRoom) GetRoomType() int32 {
@@ -112,6 +119,23 @@ func (this *TexasPokerRoom) CheckPos(pos int32) bool {
 		return false
 	}
 	return true
+}
+
+func (this *TexasPokerRoom) GetEmptySeat() int32 {
+	for k, p := range this.players {
+		if p == nil {
+			return int32(k)
+		}
+	}
+	return 0
+}
+
+func (this *TexasPokerRoom) SetPlayerBankRoll(userid int64, num int32) {
+	player := this.FindPlayerByID(userid)
+	if player == nil {
+		return
+	}
+	player.bankroll = num
 }
 
 func (this *TexasPokerRoom) InGame(player *TexasPlayer) bool {
@@ -774,6 +798,9 @@ func (this *TexasPokerRoom) ShowDown() int32{
 			continue
 		}
 		player.SendTimeAward(false)
+	}
+	if this.IsChampionShip() {
+		this.mtt.CalcRank(this.Id())
 	}
 	return TPRestart
 }

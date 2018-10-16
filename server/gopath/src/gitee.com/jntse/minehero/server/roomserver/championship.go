@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"time"
 	"gitee.com/jntse/minehero/server/def"
 	"gitee.com/jntse/minehero/server/tbl"
@@ -9,6 +10,7 @@ import (
 	"gitee.com/jntse/minehero/pbmsg"
 	pb "github.com/gogo/protobuf/proto"
 	"gitee.com/jntse/gotoolkit/log"
+	"github.com/go-redis/redis"
 )
 
 const (
@@ -30,11 +32,21 @@ type ChampionShip struct {
 	ticker1s *util.GameTicker
 	state int32
 	minroomnum	int32							//最小人数房间
+	bconf *table.ChampionshipBlindDefine
+	blindtick int32
+	blindtype int32
+	blindlevel int32
+	overblind bool
+	memberbankroll map[int64]int32			//玩家筹码
+	maxuser int32
+	sumbankroll int32						//总筹码
+	curmembernum int32						//当前总人数
 }
 
 func (cs *ChampionShip) Init() bool {
 	cs.memberroom = make(map[int64]int64)
 	cs.roommember = make(map[int64]map[int64]int64)
+	cs.memberbankroll = make(map[int64]int32)
 	tconf, ok := tbl.TChampionship.ChampionshipById[cs.tid]
 	if ok == false {
 		log.Error("[锦标赛] not found Championship tconf[%d]", cs.tid)
@@ -49,19 +61,73 @@ func (cs *ChampionShip) Init() bool {
 	cs.rconf = rconf
 	cs.ticker1s = util.NewGameTicker(time.Second, cs.Handler1sTick)
 	cs.ticker1s.Start()
+	for _, data := range tbl.TChampionshipBlind.ChampionshipBlindById {
+		if tconf.BlindType == data.BlindId && data.Level == 1 {
+			cs.bconf = data
+			cs.blindtype = data.BlindId
+			cs.blindlevel = data.Level
+		}
+	}
 	return true
 }
 
-func (cs *ChampionShip) Handler1sTick(now int64) {
-	if !cs.IsStart() && int32(util.CURTIME()) > cs.starttime {
-		if !cs.StartMatch() {
-			cs.state = CSDel
+func (cs *ChampionShip) BlindTick() {
+	if cs.overblind {
+		return
+	}
+	cs.blindtick++
+	if cs.blindtick > cs.bconf.UpTime {
+		for _, data := range tbl.TChampionshipBlind.ChampionshipBlindById {
+			if cs.tconf.BlindType == data.BlindId && data.Level == cs.blindlevel {
+				cs.bconf = data
+				cs.blindtype = data.BlindId
+				cs.blindlevel = data.Level
+				if data.UpTime == 0 {
+					cs.overblind = true
+				}
+			}
 		}
+		cs.blindtick = 0
+		cs.NotifyUserBlind(cs.roommember)
+		cs.SetRoomBlind()
+	}
+}
+
+func (cs *ChampionShip) SetRoomBlind() {
+	for key, _ := range cs.roommember {
+		room := RoomMgr().FindTexas(key)
+		if room == nil {
+			continue
+		}
+		room.bigblindnum = cs.bconf.SBlind
+		room.smallblindnum = cs.bconf.BBlind
+		room.preblindnum = cs.bconf.PreBet
+	}
+}
+
+func (cs *ChampionShip) Handler1sTick(now int64) {
+	if !cs.IsStart() {
+		if int32(util.CURTIME()) > cs.starttime {
+			if !cs.StartMatch() {
+				cs.state = CSDel
+			} else {
+				cs.state = CSGoing
+			}
+		}
+	} else {
+		cs.BlindTick()
 	}
 }
 
 func (cs *ChampionShip) IsStart() bool {
 	if cs.state == CSGoing {
+		return true
+	}
+	return false
+}
+
+func (cs *ChampionShip) IsDel() bool {
+	if cs.state == CSDel {
 		return true
 	}
 	return false
@@ -91,6 +157,7 @@ func (cs *ChampionShip) IsMember(uid int64) bool {
 
 func (cs *ChampionShip) AddMember(uid int64) {
 	cs.memberroom[uid] = 0
+	cs.memberbankroll[uid] = cs.tconf.InitialChips
 }
 
 func (cs *ChampionShip) DelMember(uid int64) {
@@ -101,6 +168,7 @@ func (cs *ChampionShip) DelMember(uid int64) {
 		}
 	}
 	delete(cs.memberroom, uid)
+	delete(cs.memberbankroll, uid)
 }
 
 func (cs *ChampionShip) GetRankById(uid int64) int32 {
@@ -124,7 +192,7 @@ func (cs *ChampionShip) StartMatch() bool {
 		}
 	}
 	cs.DispatchRoom()
-	cs.NotifyUser(cs.roommember)
+	cs.NotifyUserRoom(cs.roommember)
 	cs.state = CSGoing
 
 	start := SysTimerMgr().GetStartTimeByTimeId(cs.tconf.TimeId)
@@ -133,7 +201,7 @@ func (cs *ChampionShip) StartMatch() bool {
 }
 
 func (cs *ChampionShip) CreateRoom() {
-	roomuid := RoomMgr().CreatTexasRoom(cs.tconf.RoomId, cs.uid)
+	roomuid := RoomMgr().CreatTexasRoomForChampion(cs.tconf.RoomId, cs)
 	if roomuid != 0 {
 		if _, ok := cs.roommember[roomuid]; !ok {
 			roomuser := make(map[int64]int64)
@@ -155,6 +223,11 @@ func (cs *ChampionShip) DispatchRoom() {
 			cs.memberroom[member] = key
 			room[member] = member
 			dispatched[key] = key
+			cs.maxuser++
+			cs.sumbankroll += cs.memberbankroll[member] 
+			cs.curmembernum++ 
+			cs.JoinOneMatch(member, key)
+			cs.AddUserRank(member)
 			break
 		}
 		if len(dispatched) == len(cs.roommember){
@@ -162,6 +235,41 @@ func (cs *ChampionShip) DispatchRoom() {
 		}
 	}
 	cs.SetMinRoom()
+}
+
+func (cs *ChampionShip) JoinOneMatch(userid int64, roomid int64) {
+	texas := RoomMgr().FindTexas(roomid)
+	if texas != nil {
+		u := UserMgr().FindUser(userid)
+		if u == nil {
+			u = UserMgr().CreateSimpleUser(userid)
+		}
+		if u == nil {
+			return
+		}
+		texas.UserEnter(u)
+		texas.SetPlayerBankRoll(userid, cs.memberbankroll[userid])
+	}
+}
+
+func (cs *ChampionShip) UpdateUserBankRoll(userid int64, num int32) {
+	cs.memberbankroll[userid] = num
+	if num == 0 {
+		cs.UserGameOver(userid)
+	}
+}
+
+func (cs *ChampionShip) UserGameOver(userid int64) {
+	send := &msg.RS2C_PushMTTWeedOut{}
+	send.Rank = pb.Int32(0)
+	send.Join = pb.Int32(cs.maxuser)
+	send.Maxrank = pb.Int32(0)
+	send.Recordid = pb.Int32(cs.uid)
+	send.Id = pb.Int32(0)
+	u := UserMgr().FindUser(userid)
+	if u != nil {
+		u.SendClientMsg(send)
+	}
 }
 
 func (cs *ChampionShip) SetMinRoom() {
@@ -221,16 +329,17 @@ func (cs *ChampionShip) ReDispatchRoom(roomuid int64) {
 				} else {
 					tmproommember[key][m] = m
 				}
+				cs.JoinOneMatch(m, key)
 			}
 			if len(dispatched) == len(cs.roommember){
 				dispatched = make(map[int64]int64)
 			}
-			cs.NotifyUser(tmproommember)
+			cs.NotifyUserRoom(tmproommember)
 		}
 	}
 }
 
-func (cs *ChampionShip) NotifyUser(roommember map[int64]map[int64]int64) {
+func (cs *ChampionShip) NotifyUserRoom(roommember map[int64]map[int64]int64) {
 	send := &msg.RS2GW_MTTRoomMember{}
 	for key, room := range roommember {
 		mttroom := &msg.MTTRoomMember{}
@@ -242,6 +351,41 @@ func (cs *ChampionShip) NotifyUser(roommember map[int64]map[int64]int64) {
 		send.Rooms = append(send.Rooms, mttroom)
 	}
 	GateMgr().Broadcast(send)
+}
+
+func (cs *ChampionShip) NotifyUserBlind(roommember map[int64]map[int64]int64) {
+	send := &msg.RS2C_PushBlindChange{}
+	send.Sblind = pb.Int32(cs.bconf.SBlind)
+	send.Bblind = pb.Int32(cs.bconf.BBlind)
+	send.Ante = pb.Int32(cs.bconf.PreBet)
+	send.Blindlevel = pb.Int32(cs.blindlevel)
+	for _, room := range roommember {
+		for _, member := range room {
+			u := UserMgr().FindUser(member)
+			if u != nil {
+				u.SendClientMsg(send)
+			}
+		}
+	}
+}
+
+func (cs *ChampionShip) AddUserRank(userid int64) {
+	bankroll, ok := cs.memberbankroll[userid]
+	if !ok {
+		return
+	}
+	zMem := redis.Z{Score: float64(bankroll), Member: userid}
+	Redis().ZAdd(fmt.Sprintf("championship_%d", cs.uid), zMem)
+}
+
+func (cs *ChampionShip) CalcRank(roomuid int64) {
+	room, ok := cs.roommember[roomuid]
+	if !ok {
+		return
+	}
+	for _, member := range room {
+		cs.AddUserRank(member)
+	}
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -284,8 +428,11 @@ func (cm *ChampionManager) Handler1sTick(now int64) {
 
 func (cm *ChampionManager) Tick(now int64) {
 	cm.ticker1s.Run(now)
-	for _, cs := range cm.championships {
+	for key, cs := range cm.championships {
 		cs.Tick(now)
+		if cs.IsDel() {
+			delete(cm.championships, key)
+		}
 	}
 }
 

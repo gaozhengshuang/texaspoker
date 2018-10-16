@@ -1,0 +1,214 @@
+syntax = "proto2";
+package msg;
+
+//请求锦标赛列表
+message C2RS_ReqMTTList 
+{
+}
+
+message MTTInfo
+{
+    optional int32 id = 1;              //锦标赛表id
+    optional int32 starttime = 2;       //开始时间
+    optional int32 joinway = 3;         //报名方式  1 金币   2 门票
+    optional int32 join = 4;            //参加人数
+    optional int32 recordid = 5;        //赛事唯一id
+    optional int32 endtime = 6;         //比赛结束时间
+    optional int32 outtime = 7;         //淘汰时间
+    optional int32 leftjoin = 8;        //剩余人数
+}
+
+message RS2C_RetMTTList 
+{
+    repeated MTTInfo mttlist = 1;
+}
+
+//请求加入锦标赛
+message C2RS_ReqMTTJoin {
+    optional int32 recordid = 1;
+    optional int32 joinway = 2;
+    optional int32 id = 3;
+}
+
+message RS2C_RetMTTJoin {
+    optional int32 recordid = 1;
+    optional string errcode = 2;
+}
+
+//请求退出锦标赛
+message C2RS_ReqMTTQuit {
+    optional int32 recordid = 1;
+}
+
+message C2RS_RetMTTQuit {
+    optional string errcode = 1;
+}
+
+//请求加入的锦标赛
+message C2RS_ReqJoinedMTTList
+{
+}
+
+message JoinedMTTInfo 
+{
+    optional int32 id = 1;
+    optional int32 starttime = 2;
+    optional int32 joinway = 3;
+    optional int32 join = 4;
+    optional int32 recordid = 5;
+    optional int32 endtime = 6;
+    optional int32 outtime = 7;
+    optional int32 rank = 8;
+}
+
+message RS2C_RetJoinedMTTList
+{
+    repeated JoinedMTTInfo mttlist = 1;
+}
+
+//请求拉取所在房间列表
+message C2RS_ReqInsideRoomInfoList 
+{
+}
+
+message InsideRoomInfo
+{
+    optional int32 mttid = 1;       //锦标赛id
+    optional int32 id = 2;      //房间id
+}
+
+message C2RS_RetInsideRoomInfoList 
+{
+    repeated InsideRoomInfo roomlist = 1;
+    optional int32 lastid = 2;      //最新房间id
+}
+
+//拉取最近赛况列表信息
+message C2RS_ReqMTTRecordList 
+{
+}
+
+message MTTRecordInfo {
+    optional int32 id = 1;
+    optional int32 starttime = 2;
+    optional string name = 3;
+    optional int32 sex = 4;
+    optional string head = 5;
+    optional int32 recordid = 6;
+}
+
+message RS2C_RetMTTRecordList {
+    repeated MTTRecordInfo recordlist = 1;
+}
+
+//拉取最近赛况名次信息
+message C2RS_ReqMTTRecentlyRankList 
+{
+    optional int32 recordid = 1;
+}
+
+message MTTRecentlyRankInfo {
+    optional int32 rank = 1;
+    optional string name = 2;
+    optional string head = 3;
+    optional int32 sex = 4;
+    optional int32 roleid = 5;
+}
+
+message RS2C_RetMTTRecentlyRankList {
+    repeated MTTRecentlyRankInfo ranklist = 1;
+}
+
+//拉取当前赛况信息
+message C2RS_ReqMTTOutsInfo {
+    optional int32 recordid = 1;
+}
+
+message RS2C_RetMTTOutsInfo {
+    optional int32 blindlevel = 1;
+    optional int32 rank = 2;
+    optional int32 blindtime = 3;
+}
+
+//拉取当前赛况名次信息
+message C2RS_ReqMTTRankInfo {
+    optional int32 recordid = 1;
+    optional int32 startrank = 2;
+    optional int32 count = 3;
+}
+
+message MTTRankInfo {
+    optional int32 rank = 1;
+    optional string name = 2;
+    optional string head = 3;
+    optional int32 sex = 4;
+    optional int32 chips = 5;
+    optional int32 roleid = 6;
+}
+
+message RS2C_RetMTTRankInfo 
+{
+    repeated MTTRankInfo ranklist = 1;
+}
+
+//MMT房间消息 增购或者重购
+message C2RS_ReqMTTRebuyOrAddon 
+{
+    optional int32 type = 1;
+}
+
+message RS2C_RetMTTRebuyOrAddon
+{
+    optional string errcode = 1;
+}
+
+//推送报名人数变化
+message RS2C_PushMTTJoinNumChange 
+{
+    repeated MMTJoinNum mttlist = 1;
+}
+
+message MMTJoinNum
+{
+    optional int32 id = 1;
+    optional int32 join = 2;
+}
+
+//推送赛事房间id
+message RS2C_PushMTTRoomId 
+{
+    optional int32 mttid = 1;
+    optional int64 id = 2;
+}
+
+//推送赛事排名
+message RS2C_PushMTTRank 
+{
+    optional int32 rank = 1;
+    optional int32 join = 2;
+    optional int32 avgchips = 3;
+    optional int32 recordid = 4;
+}
+
+//推送赛事结算
+message RS2C_PushMTTWeedOut
+{
+    optional int32 rank = 1;
+    optional int32 join = 2;
+    optional int32 maxrank = 3;
+    optional int32 recordid = 4;
+    optional int32 id = 5;
+}
+
+//推送有新的赛事
+message RS2C_PushMTTNew
+{
+    optional int32 recordid = 1;
+}
+
+//推送赛事取消
+message RS2C_PushMTTCancel {
+    optional int32 recordid = 1;
+}
+
+
