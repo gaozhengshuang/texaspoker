@@ -39,6 +39,9 @@ func (f *Friend) PresentTime() int64 {
 }
 
 func (f *Friend) PresentStat() int32 {
+	if !util.IsSameDay(util.CURTIME(), f.time_present) {
+		f.stat_present = 0
+	}
 	return f.stat_present
 }
 

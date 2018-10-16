@@ -10,9 +10,13 @@ class TabComponent extends BaseComponent<any>
 
     public _radioButtonGroup: eui.RadioButtonGroup = new eui.RadioButtonGroup();
     /**
+     * 当前选项
+     */
+    public selectIndex: number;
+    /**
      * 上次选项
      */
-    public lastIndex: number;
+    public lastSelectIndex: number;
     /**
      * 是否开启缓动
      */
@@ -150,7 +154,7 @@ class TabComponent extends BaseComponent<any>
                 this.setEnableTabIndex(param.enableTabIndex, param.flag);
             }
         }
-        this.setEnterAnime(this._tabInfoList[this.lastIndex].group);
+        this.setEnterAnime(this._tabInfoList[this.selectIndex].group);
     }
 
     protected onEnable(event: eui.UIEvent): void
@@ -171,7 +175,7 @@ class TabComponent extends BaseComponent<any>
 
     private onBarItemTap(e: egret.TouchEvent)
     {
-        if (this.tabGroup.getChildIndex(e.target) == this.lastIndex || this.tabGroup.getChildIndex(e.target) == -1)
+        if (this.tabGroup.getChildIndex(e.target) == this.selectIndex || this.tabGroup.getChildIndex(e.target) == -1)
         {
             return;
         }
@@ -181,25 +185,26 @@ class TabComponent extends BaseComponent<any>
     /**
      * 设置选中某个选项
      */
-    public setSelectIndex(index: number)
+    public setSelectIndex(idx: number)
     {
-        if (index == undefined)
+        if (idx == undefined)
         {
-            index = 0;
+            idx = 0;
         }
-        if (this.lastIndex != undefined)
+        if (this.selectIndex != undefined)
         {
-            this._tabInfoList[this.lastIndex].group.visible = false;
-            this._tabInfoList[this.lastIndex].tabButton.selected = false;
-            let label: eui.Label = this._tabInfoList[this.lastIndex].tabButton.labelDisplay as eui.Label;
+            this._tabInfoList[this.selectIndex].group.visible = false;
+            this._tabInfoList[this.selectIndex].tabButton.selected = false;
+            let label: eui.Label = this._tabInfoList[this.selectIndex].tabButton.labelDisplay as eui.Label;
             //label.textColor = TabComponent.defaultColor;
         }
-        this._tabInfoList[index].group.visible = true;
-        this._tabInfoList[index].tabButton.selected = true;
-        let label: eui.Label = this._tabInfoList[index].tabButton.labelDisplay as eui.Label;
+        this._tabInfoList[idx].group.visible = true;
+        this._tabInfoList[idx].tabButton.selected = true;
+        let label: eui.Label = this._tabInfoList[idx].tabButton.labelDisplay as eui.Label;
         //label.textColor = TabComponent.selectColor;
-        this.lastIndex = index;
-        this.tabChangeEvent.dispatch(this.lastIndex);
+        this.lastSelectIndex = this.selectIndex;
+        this.selectIndex = idx;
+        this.tabChangeEvent.dispatch(idx);
     }
     /**
      * 禁用/启用某个选项卡
@@ -235,11 +240,11 @@ class TabComponent extends BaseComponent<any>
         {
             if (this.bindData[i] == item)
             {
-                this.lastIndex = i;
+                this.selectIndex = i;
                 break;
             }
         }
-        this.setSelectIndex(this.lastIndex);
+        this.setSelectIndex(this.selectIndex);
     }
     private setEnterAnime(targetStack: eui.Group)
     {

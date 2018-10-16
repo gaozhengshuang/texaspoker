@@ -21,7 +21,7 @@ class HeadComponent extends BaseComponent<IBaseHead>
     {
         super.init(data);
         this.touchChildren = false;
-        if (this.headPath != this.bindData.head || this.headPath == undefined)
+        if (this.headPath != this.bindData.head || this.headPath == undefined || this.headPath == game.StringConstants.Empty)
         {
             this.headPath = this.bindData.head;
             this.loadHead(this.bindData.head);
@@ -37,7 +37,7 @@ class HeadComponent extends BaseComponent<IBaseHead>
     }
     protected loadHead(head: string)
     {
-        if (!head)
+        if (head != game.StringConstants.Empty && !head) //move todo
         {
             game.Console.log("头像为空");
             this.userImg.texture = null;

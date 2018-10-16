@@ -183,7 +183,7 @@ class ChampionshipPanel extends BasePanel
 	*/
 	private getNewMatchListInfo()
 	{
-		if (this.matchTab.lastIndex == 0)
+		if (this.matchTab.selectIndex == 0)
 		{
 			ChampionshipManager.reqGetMTTListInfo();
 		}
@@ -263,15 +263,15 @@ class ChampionshipPanel extends BasePanel
 	*/
 	private setMatchListInfo()
 	{
-		if (this.matchTab.lastIndex == 0)
+		if (this.matchTab.selectIndex == 0)
 		{
 			this.setMTTListInfo();
-		} else if (this.matchTab.lastIndex == 1)
+		} else if (this.matchTab.selectIndex == 1)
 		{
 			this.setSitAndPlayListInfo();
 		}
 
-		if (this.matchTab.lastIndex == 2 && this.selfMatchTab.lastIndex == 0)
+		if (this.matchTab.selectIndex == 2 && this.selfMatchTab.selectIndex == 0)
 		{
 			ChampionshipManager.reqJoinedMTTList();
 		}

@@ -89,13 +89,63 @@ class RankManager
     }
 
     /**
+     * 获取好友排行榜
+     */
+    public static getFriendRankList(type: RankType, rankListInfo: RankListInfo, cb: Function, target: any)
+    {
+        let callBack = function ()
+        {
+            FriendManager.onGetFriendListEvent.removeListener(callBack, this);
+            rankListInfo.list = [];
+            let rankInfo: RankInfo;
+            if (FriendManager.friendList)
+            {
+                let list = FriendManager.friendList.concat();
+                switch (type)
+                {
+                    case RankType.FriendGold:
+                        list.sort((a, b) => { return b.gold - a.gold });
+                        break;
+                    case RankType.FriendLevel:
+                        list.sort((a, b) => { return b.level - a.level });
+                        break;
+                }
+                for (let i: number = 0; i < list.length; i++)
+                {
+                    let info: FriendInfo = list[i];
+                    rankInfo = new RankInfo();
+                    rankInfo.type = type;
+                    rankInfo.head = info.head;
+                    rankInfo.name = info.name
+                    rankInfo.rank = i + 1;
+                    rankInfo.roleId = info.roleId;
+                    rankInfo.sex = info.sex;
+                    switch (type)
+                    {
+                        case RankType.FriendGold:
+                            rankInfo.score = info.gold;
+                            break;
+                        case RankType.FriendLevel:
+                            rankInfo.score = info.level;
+                            break;
+                    }
+                    rankListInfo.list.push(rankInfo);
+                }
+                game.FuncUtil.invoke(cb, target);
+            }
+        };
+        FriendManager.onGetFriendListEvent.addListener(callBack, this);
+        FriendManager.reqFriendList();
+    }
+
+    /**
      * 拉取排行榜列表
      */
     public static reqRankList(type: RankType, isGetMyRank: number = 1, param1?: number, param2?: number, param3?: number)
     {
         let callback: Function = function (result: game.SpRpcResult)
         {
-            let data:msg.GW2C_RetRankList = result.data;
+            let data: msg.GW2C_RetRankList = result.data;
             if (result.data)
             {
                 let list: Array<RankInfo> = new Array<RankInfo>();
