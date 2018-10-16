@@ -746,6 +746,7 @@ func (this *TexasPokerRoom) ShowDown() int32{
 			player := this.players[winner]
 			if player != nil {
 				potplayer = append(potplayer, player.owner.Id())
+				player.owner.OnAchieveWinPoker(this.SubKind(), player.hand.level)
 			}
 
 		}
@@ -791,6 +792,7 @@ func (this *TexasPokerRoom) ShowDown() int32{
 				}   
 			}
 		}
+		player.owner.OnAchievePlayPoker(this.SubKind())
 	}
 	this.BroadCastRoomMsg(send)
 	for _, player := range this.players {

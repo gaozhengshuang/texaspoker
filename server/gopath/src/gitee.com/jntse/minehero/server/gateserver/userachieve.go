@@ -23,7 +23,7 @@ const (
 	AchieveGroup_FullHouse = 261 //以葫芦胜出牌局数
 	AchieveGroup_FourOfAKind = 281 //以四条胜出牌局数
 	AchieveGroup_StraightFlush = 301 //以四条胜出牌局数
-	AchieveGroup_Royal_Flush = 321 //以皇家同花顺胜出牌局数
+	AchieveGroup_RoyalFlush = 321 //以皇家同花顺胜出牌局数
 	AchieveGroup_TexasPlay1 = 1001 //在德州扑克初级场对局数
 	AchieveGroup_TexasPlay2 = 1021 //在德州扑克中级场对局数
 	AchieveGroup_TexasPlay3 = 1041 //德州扑克高级场对局数
@@ -116,6 +116,7 @@ func (u *GateUser) SetAchieveTokenState (taskid int32) bool {
 	return erradd == nil
 }
 
+
 func (u *GateUser) OnAchieveProcessChanged(group int32) {
 	process := u.GetAchieveProcessByGroup(group)
 	if group == AchieveGroup_Gold {
@@ -124,7 +125,10 @@ func (u *GateUser) OnAchieveProcessChanged(group int32) {
 			u.SetAchieveProcessByGroup(group, gold)
 		}
 	} else if group == AchieveGroup_Friend {
-			
+		friendnum := u.friends.Size()
+		if friendnum > process {
+			u.SetAchieveProcessByGroup(group, friendnum)
+		}
 	} else if group == AchieveGroup_Level || group == AchieveGroup_LevelEx {
 		level := u.Level()
 		if level > process {
