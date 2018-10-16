@@ -65,7 +65,7 @@ class HWBetItemRenderer extends BaseItemRenderer<HWBetInfo>
     */
     public setBg(id: number)
     {
-        if (HundredWarManager.roomInfo && HundredWarManager.roomInfo.definition && HundredWarManager.roomInfo.definition.type == HundredWarType.FunPattern)
+        if (HundredWarManager.roomInfo && HundredWarManager.roomInfo.definition && HundredWarManager.roomInfo.definition.Type == HundredWarType.FunPattern)
         {
             switch (id)
             {

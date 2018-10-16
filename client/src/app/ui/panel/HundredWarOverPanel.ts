@@ -199,7 +199,7 @@ class HundredWarOverPanel extends BasePanel
         {
             SoundManager.playButtonEffect(event.target);
         }
-        if (!HundredWarManager.isBanker(UserManager.userInfo.roleId) && InfoUtil.checkAvailable(HundredWarManager.roomInfo) && UserManager.userInfo.gold < HundredWarManager.roomInfo.definition.minBuyin)
+        if (!HundredWarManager.isBanker(UserManager.userInfo.roleId) && InfoUtil.checkAvailable(HundredWarManager.roomInfo) && UserManager.userInfo.gold < HundredWarManager.roomInfo.definition.MinBuyin)
         {
             AlertManager.showConfirm("您的金币不足，快去商城补充点金币吧！", this.goToShopping, this.outRoom, null, null, null, "前往商城");
         }
@@ -221,7 +221,7 @@ class HundredWarOverPanel extends BasePanel
     }
     private reset()
     {
-        this._countDownTime = HundredWarManager.roomInfo.definition.confirmTime;
+        this._countDownTime = HundredWarManager.roomInfo.definition.ConfirmTime;
         for (let i: number = 0; i < this.userGroup.numChildren; i++)
         {
             this.userGroup.getChildAt(i).visible = false;
