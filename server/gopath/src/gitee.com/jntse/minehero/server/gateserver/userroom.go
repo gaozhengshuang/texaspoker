@@ -195,7 +195,7 @@ func (u *GateUser) OnCreateRoom(errmsg, agentname string, roomid int64) {
 		u.roomdata.roomid = roomid
 		u.roomdata.roomsid = agent.Id()
 		u.roomdata.creating = false
-		u.SendUserBinToRoom(agent.Id(), roomid)
+		//u.SendUserBinToRoom(agent.Id(), roomid)
 		log.Info("[房间] 玩家[%s %d] 创建房间[%d]成功 ts[%d]", u.Name(), u.Id(), roomid, util.CURTIMEMS())
 	}
 	u.CreateRoomResponse(errmsg)

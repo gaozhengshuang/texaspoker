@@ -158,14 +158,21 @@ func on_C2GW_ReqEnterRoom(session network.IBaseNetSession, message interface{}) 
 	u := UserMgr().FindUser(userid)
 	if u == nil {
 		log.Error("玩家[%d] 请求进入房间[%d]，但没有玩家实例", userid, roomid)
-		return
+		u = UserMgr().CreateSimpleUser(userid)
+		if u == nil {
+			log.Error("玩家[%d] 请求进入房间[%d], 玩家不存在", userid, roomid)
+			return
+		}
 	}
 
 	if room.Passwd() != tmsg.GetPasswd() {
 		log.Error("玩家[%d] 请求进入房间[%d]，但密码不正确", userid, roomid)
 		return
 	}
-
+	u.OnPreEnterRoom()
+	if session.Id() != u.AgentId() {
+		u.UpdateGateAgent(session)
+	}
 	room.UserEnter(u)
 }
 
