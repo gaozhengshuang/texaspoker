@@ -195,7 +195,7 @@ func (u *GateUser) OnCreateRoom(errmsg, agentname string, roomid int64) {
 		u.roomdata.roomid = roomid
 		u.roomdata.roomsid = agent.Id()
 		u.roomdata.creating = false
-		u.SendUserBinToRoom(agent.Id(), roomid)
+		//u.SendUserBinToRoom(agent.Id(), roomid)
 		log.Info("[房间] 玩家[%s %d] 创建房间[%d]成功 ts[%d]", u.Name(), u.Id(), roomid, util.CURTIMEMS())
 	}
 	u.CreateRoomResponse(errmsg)
@@ -292,4 +292,35 @@ func (u *GateUser) SendTexasRoomList(rtype int32) {
 	u.SendMsg(send)
 }
 
+// 邀请好友进入房间
+func (u *GateUser) InviteFriendsJoin(ruid int64, friends []int64) {
+	if u.IsInRoom() == false {
+		u.SendNotify("你不在房间中")
+		return
+	}
+	resp := &msg.GW2C_RetInviteFriendJoin{}
+	u.SendMsg(resp)
+
+	pushmsg := &msg.GW2C_PushFriendInvitation{
+		Handler:make([]int64, 0),
+		Id:pb.Int64(u.RoomId()),
+		Roleid:pb.Int64(u.Id()),
+		Pwd:pb.String(u.RoomPwd()),
+		Roomid:pb.Int32(u.RoomTid()),
+	}
+
+	// 通知本服好友
+	for _, fid := range friends {
+		if fu := UserMgr().FindById(fid); fu != nil {
+			fu.SendMsg(pushmsg)
+		}else {
+			pushmsg.Handler = append(pushmsg.Handler, fid)
+		}
+	}
+
+	// 跨服通知好友
+	if len(pushmsg.Handler) != 0 {
+		GateSvr().SendGateMsg(0, pushmsg)
+	}
+}
 

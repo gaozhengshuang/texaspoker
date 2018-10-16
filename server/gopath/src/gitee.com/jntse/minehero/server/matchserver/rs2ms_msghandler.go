@@ -96,13 +96,16 @@ func on_RS2MS_RetCreateRoom(session network.IBaseNetSession, message interface{}
 		agentname = agent.Name()
 	}
 
-	rsend := &msg.MS2GW_RetCreateRoom  { 
-		Userid : pb.Int64(userid),
-		Errcode : pb.String(errcode),
-		Roomid : pb.Int64(roomid),
-		Roomagent : pb.String(agentname),
+	//玩家私人创建
+	if userid != 0 { 
+		rsend := &msg.MS2GW_RetCreateRoom  { 
+			Userid : pb.Int64(userid),
+			Errcode : pb.String(errcode),
+			Roomid : pb.Int64(roomid),
+			Roomagent : pb.String(agentname),
+		}
+		Match().SendMsg(int(sid_gate), rsend)
 	}
-	Match().SendMsg(int(sid_gate), rsend)
 
 	if errcode == "" {
 		log.Error("RS返回 创建房间成功[%d] 玩家[%d] ts[%d]", roomid, userid, util.CURTIMEMS())

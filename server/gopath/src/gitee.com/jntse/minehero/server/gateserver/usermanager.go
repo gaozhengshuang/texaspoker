@@ -9,7 +9,7 @@ import (
 	pb "github.com/gogo/protobuf/proto"
 	"time"
 
-	_ "gitee.com/jntse/minehero/pbmsg"
+	"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/minehero/server/tbl"
 	_ "reflect"
 )
@@ -290,4 +290,12 @@ func (m *UserManager) IntHourClockCallback(now int64) {
 	log.Info("当前整点[%d]点", inthour)
 }
 
+// 好友被邀请进入房间
+func (m *UserManager) OnInviteJoinRoom(tmsg *msg.GW2C_PushFriendInvitation) {
+	for _, id := range tmsg.Handler {
+		u := m.FindById(id)
+		if u == nil { continue }
+		u.SendMsg(tmsg)
+	}
+}
 

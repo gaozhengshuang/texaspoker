@@ -364,6 +364,10 @@ func (this *TexasPlayer) AddBankRoll(num int32){
 	send.Roleid = pb.Int64(this.owner.Id())
 	send.Bankroll = pb.Int32(this.bankroll)
 	this.room.BroadCastRoomMsg(send)
+	if this.room.IsChampionShip() {
+		this.room.mtt.UpdateUserBankRoll(this.owner.Id(), this.bankroll)
+	}
+
 	log.Info("房间%d 玩家%d 增加筹码%d", this.room.Id(), this.owner.Id(), num)
 }
 
@@ -418,6 +422,10 @@ func (this *TexasPlayer)RemoveBankRoll(num int32) bool{
 	send.Roleid = pb.Int64(this.owner.Id())
 	send.Bankroll = pb.Int32(this.bankroll)
 	this.room.BroadCastRoomMsg(send)
+	if this.room.IsChampionShip() {
+		this.room.mtt.UpdateUserBankRoll(this.owner.Id(), this.bankroll)
+	}
+
 	log.Info("房间%d 玩家%d 扣除筹码%d", this.room.Id(), this.owner.Id(), num)
 	return true
 }

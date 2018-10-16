@@ -57,7 +57,7 @@ class FriendManager
         SocketManager.AddCommandListener(Command.GW2C_PushFriendLogin, FriendManager.onOnlineStateChangeRec, this);
         SocketManager.AddCommandListener(Command.GW2C_PushFriendPresent, FriendManager.onGiveGoldRec, this);
         SocketManager.AddCommandListener(Command.GW2C_PushAddYouFriend, FriendManager.onRequestFriendRec, this);
-        SocketManager.AddCommandListener(Command.RS2C_PushFriendInvitation, FriendManager.pushInviteMsgHandler, this)
+        SocketManager.AddCommandListener(Command.GW2C_PushFriendInvitation, FriendManager.pushInviteMsgHandler, this)
         SocketManager.AddCommandListener(Command.Friend_Push_Reset_2015, FriendManager.onResetPush, this)
     }
     /**
@@ -366,7 +366,7 @@ class FriendManager
         {
             FriendManager.InviteFriendEvent.dispatch();
         };
-        SocketManager.call(Command.Req_SendGameInvite_3608, { "id": roomId, "roleId": roleIds }, callback, null, this);
+        SocketManager.call(Command.C2GW_ReqInviteFriendJoin, { "id": roomId, "roleid": roleIds }, callback, null, this);
     }
     /**********服务器推送通知的相应操作****************/
     /**
@@ -437,28 +437,28 @@ class FriendManager
     */
     public static onOnlineStateChangeRec(result: game.SpRpcResult)
     {
-        let data: msg.GW2C_PushFriendLogin = result.data;
-        if (data)
-        {
-            for (let i: number = 0; i < FriendManager.friendList.length; i++)
-            {
-                if (data.roleid == FriendManager.friendList[i].roleId)
-                {
-                    FriendManager.friendList[i].offlineTime = game.longToNumber(data.offlinetime);
-                    FriendManager.onRefreshInfoEvent.dispatch(FriendUIType.FriendList);
-                    break;
-                }
-            }
-        }
+        // let data: msg.GW2C_PushFriendLogin = result.data;
+        // if (data)
+        // {
+        //     for (let i: number = 0; i < FriendManager.friendList.length; i++)
+        //     {
+        //         if (data.roleid == FriendManager.friendList[i].roleId)
+        //         {
+        //             FriendManager.friendList[i].offlineTime = game.longToNumber(data.offlinetime);
+        //             FriendManager.onRefreshInfoEvent.dispatch(FriendUIType.FriendList);
+        //             break;
+        //         }
+        //     }
+        // }
     }
     /**
      * 好友赠送金币推送对应的操作
     */
     public static onGiveGoldRec(result: game.SpRpcResult)
     {
-        if (result.data["roleId"])
+        if (result.data["roleid"])
         {
-            UserManager.reqGetOtherUserInfo(result.data['roleId'], FriendUIType.GiftList);
+            UserManager.reqGetOtherUserInfo(result.data['roleid'], FriendUIType.GiftList);
         }
     }
     /**

@@ -11288,6 +11288,7257 @@ $root.msg = (function() {
         return AutoResetValues;
     })();
 
+    msg.C2RS_ReqMTTList = (function() {
+
+        /**
+         * Properties of a C2RS_ReqMTTList.
+         * @memberof msg
+         * @interface IC2RS_ReqMTTList
+         */
+
+        /**
+         * Constructs a new C2RS_ReqMTTList.
+         * @memberof msg
+         * @classdesc Represents a C2RS_ReqMTTList.
+         * @implements IC2RS_ReqMTTList
+         * @constructor
+         * @param {msg.IC2RS_ReqMTTList=} [properties] Properties to set
+         */
+        function C2RS_ReqMTTList(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Creates a new C2RS_ReqMTTList instance using the specified properties.
+         * @function create
+         * @memberof msg.C2RS_ReqMTTList
+         * @static
+         * @param {msg.IC2RS_ReqMTTList=} [properties] Properties to set
+         * @returns {msg.C2RS_ReqMTTList} C2RS_ReqMTTList instance
+         */
+        C2RS_ReqMTTList.create = function create(properties) {
+            return new C2RS_ReqMTTList(properties);
+        };
+
+        /**
+         * Encodes the specified C2RS_ReqMTTList message. Does not implicitly {@link msg.C2RS_ReqMTTList.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2RS_ReqMTTList
+         * @static
+         * @param {msg.IC2RS_ReqMTTList} message C2RS_ReqMTTList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2RS_ReqMTTList.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2RS_ReqMTTList message, length delimited. Does not implicitly {@link msg.C2RS_ReqMTTList.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2RS_ReqMTTList
+         * @static
+         * @param {msg.IC2RS_ReqMTTList} message C2RS_ReqMTTList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2RS_ReqMTTList.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2RS_ReqMTTList message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2RS_ReqMTTList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2RS_ReqMTTList} C2RS_ReqMTTList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2RS_ReqMTTList.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2RS_ReqMTTList();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2RS_ReqMTTList message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2RS_ReqMTTList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2RS_ReqMTTList} C2RS_ReqMTTList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2RS_ReqMTTList.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2RS_ReqMTTList message.
+         * @function verify
+         * @memberof msg.C2RS_ReqMTTList
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2RS_ReqMTTList.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2RS_ReqMTTList message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2RS_ReqMTTList
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2RS_ReqMTTList} C2RS_ReqMTTList
+         */
+        C2RS_ReqMTTList.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2RS_ReqMTTList)
+                return object;
+            return new $root.msg.C2RS_ReqMTTList();
+        };
+
+        /**
+         * Creates a plain object from a C2RS_ReqMTTList message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2RS_ReqMTTList
+         * @static
+         * @param {msg.C2RS_ReqMTTList} message C2RS_ReqMTTList
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2RS_ReqMTTList.toObject = function toObject() {
+            return {};
+        };
+
+        /**
+         * Converts this C2RS_ReqMTTList to JSON.
+         * @function toJSON
+         * @memberof msg.C2RS_ReqMTTList
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2RS_ReqMTTList.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2RS_ReqMTTList;
+    })();
+
+    msg.MTTInfo = (function() {
+
+        /**
+         * Properties of a MTTInfo.
+         * @memberof msg
+         * @interface IMTTInfo
+         * @property {number|null} [id] MTTInfo id
+         * @property {number|null} [starttime] MTTInfo starttime
+         * @property {number|null} [joinway] MTTInfo joinway
+         * @property {number|null} [join] MTTInfo join
+         * @property {number|null} [recordid] MTTInfo recordid
+         * @property {number|null} [endtime] MTTInfo endtime
+         * @property {number|null} [outtime] MTTInfo outtime
+         * @property {number|null} [leftjoin] MTTInfo leftjoin
+         */
+
+        /**
+         * Constructs a new MTTInfo.
+         * @memberof msg
+         * @classdesc Represents a MTTInfo.
+         * @implements IMTTInfo
+         * @constructor
+         * @param {msg.IMTTInfo=} [properties] Properties to set
+         */
+        function MTTInfo(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * MTTInfo id.
+         * @member {number} id
+         * @memberof msg.MTTInfo
+         * @instance
+         */
+        MTTInfo.prototype.id = 0;
+
+        /**
+         * MTTInfo starttime.
+         * @member {number} starttime
+         * @memberof msg.MTTInfo
+         * @instance
+         */
+        MTTInfo.prototype.starttime = 0;
+
+        /**
+         * MTTInfo joinway.
+         * @member {number} joinway
+         * @memberof msg.MTTInfo
+         * @instance
+         */
+        MTTInfo.prototype.joinway = 0;
+
+        /**
+         * MTTInfo join.
+         * @member {number} join
+         * @memberof msg.MTTInfo
+         * @instance
+         */
+        MTTInfo.prototype.join = 0;
+
+        /**
+         * MTTInfo recordid.
+         * @member {number} recordid
+         * @memberof msg.MTTInfo
+         * @instance
+         */
+        MTTInfo.prototype.recordid = 0;
+
+        /**
+         * MTTInfo endtime.
+         * @member {number} endtime
+         * @memberof msg.MTTInfo
+         * @instance
+         */
+        MTTInfo.prototype.endtime = 0;
+
+        /**
+         * MTTInfo outtime.
+         * @member {number} outtime
+         * @memberof msg.MTTInfo
+         * @instance
+         */
+        MTTInfo.prototype.outtime = 0;
+
+        /**
+         * MTTInfo leftjoin.
+         * @member {number} leftjoin
+         * @memberof msg.MTTInfo
+         * @instance
+         */
+        MTTInfo.prototype.leftjoin = 0;
+
+        /**
+         * Creates a new MTTInfo instance using the specified properties.
+         * @function create
+         * @memberof msg.MTTInfo
+         * @static
+         * @param {msg.IMTTInfo=} [properties] Properties to set
+         * @returns {msg.MTTInfo} MTTInfo instance
+         */
+        MTTInfo.create = function create(properties) {
+            return new MTTInfo(properties);
+        };
+
+        /**
+         * Encodes the specified MTTInfo message. Does not implicitly {@link msg.MTTInfo.verify|verify} messages.
+         * @function encode
+         * @memberof msg.MTTInfo
+         * @static
+         * @param {msg.IMTTInfo} message MTTInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MTTInfo.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && message.hasOwnProperty("id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.id);
+            if (message.starttime != null && message.hasOwnProperty("starttime"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.starttime);
+            if (message.joinway != null && message.hasOwnProperty("joinway"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.joinway);
+            if (message.join != null && message.hasOwnProperty("join"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.join);
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.recordid);
+            if (message.endtime != null && message.hasOwnProperty("endtime"))
+                writer.uint32(/* id 6, wireType 0 =*/48).int32(message.endtime);
+            if (message.outtime != null && message.hasOwnProperty("outtime"))
+                writer.uint32(/* id 7, wireType 0 =*/56).int32(message.outtime);
+            if (message.leftjoin != null && message.hasOwnProperty("leftjoin"))
+                writer.uint32(/* id 8, wireType 0 =*/64).int32(message.leftjoin);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified MTTInfo message, length delimited. Does not implicitly {@link msg.MTTInfo.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.MTTInfo
+         * @static
+         * @param {msg.IMTTInfo} message MTTInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MTTInfo.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a MTTInfo message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.MTTInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.MTTInfo} MTTInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MTTInfo.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.MTTInfo();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.int32();
+                    break;
+                case 2:
+                    message.starttime = reader.int32();
+                    break;
+                case 3:
+                    message.joinway = reader.int32();
+                    break;
+                case 4:
+                    message.join = reader.int32();
+                    break;
+                case 5:
+                    message.recordid = reader.int32();
+                    break;
+                case 6:
+                    message.endtime = reader.int32();
+                    break;
+                case 7:
+                    message.outtime = reader.int32();
+                    break;
+                case 8:
+                    message.leftjoin = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a MTTInfo message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.MTTInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.MTTInfo} MTTInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MTTInfo.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a MTTInfo message.
+         * @function verify
+         * @memberof msg.MTTInfo
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        MTTInfo.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isInteger(message.id))
+                    return "id: integer expected";
+            if (message.starttime != null && message.hasOwnProperty("starttime"))
+                if (!$util.isInteger(message.starttime))
+                    return "starttime: integer expected";
+            if (message.joinway != null && message.hasOwnProperty("joinway"))
+                if (!$util.isInteger(message.joinway))
+                    return "joinway: integer expected";
+            if (message.join != null && message.hasOwnProperty("join"))
+                if (!$util.isInteger(message.join))
+                    return "join: integer expected";
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                if (!$util.isInteger(message.recordid))
+                    return "recordid: integer expected";
+            if (message.endtime != null && message.hasOwnProperty("endtime"))
+                if (!$util.isInteger(message.endtime))
+                    return "endtime: integer expected";
+            if (message.outtime != null && message.hasOwnProperty("outtime"))
+                if (!$util.isInteger(message.outtime))
+                    return "outtime: integer expected";
+            if (message.leftjoin != null && message.hasOwnProperty("leftjoin"))
+                if (!$util.isInteger(message.leftjoin))
+                    return "leftjoin: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a MTTInfo message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.MTTInfo
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.MTTInfo} MTTInfo
+         */
+        MTTInfo.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.MTTInfo)
+                return object;
+            var message = new $root.msg.MTTInfo();
+            if (object.id != null)
+                message.id = object.id | 0;
+            if (object.starttime != null)
+                message.starttime = object.starttime | 0;
+            if (object.joinway != null)
+                message.joinway = object.joinway | 0;
+            if (object.join != null)
+                message.join = object.join | 0;
+            if (object.recordid != null)
+                message.recordid = object.recordid | 0;
+            if (object.endtime != null)
+                message.endtime = object.endtime | 0;
+            if (object.outtime != null)
+                message.outtime = object.outtime | 0;
+            if (object.leftjoin != null)
+                message.leftjoin = object.leftjoin | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a MTTInfo message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.MTTInfo
+         * @static
+         * @param {msg.MTTInfo} message MTTInfo
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        MTTInfo.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.id = 0;
+                object.starttime = 0;
+                object.joinway = 0;
+                object.join = 0;
+                object.recordid = 0;
+                object.endtime = 0;
+                object.outtime = 0;
+                object.leftjoin = 0;
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.starttime != null && message.hasOwnProperty("starttime"))
+                object.starttime = message.starttime;
+            if (message.joinway != null && message.hasOwnProperty("joinway"))
+                object.joinway = message.joinway;
+            if (message.join != null && message.hasOwnProperty("join"))
+                object.join = message.join;
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                object.recordid = message.recordid;
+            if (message.endtime != null && message.hasOwnProperty("endtime"))
+                object.endtime = message.endtime;
+            if (message.outtime != null && message.hasOwnProperty("outtime"))
+                object.outtime = message.outtime;
+            if (message.leftjoin != null && message.hasOwnProperty("leftjoin"))
+                object.leftjoin = message.leftjoin;
+            return object;
+        };
+
+        /**
+         * Converts this MTTInfo to JSON.
+         * @function toJSON
+         * @memberof msg.MTTInfo
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        MTTInfo.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return MTTInfo;
+    })();
+
+    msg.RS2C_RetMTTList = (function() {
+
+        /**
+         * Properties of a RS2C_RetMTTList.
+         * @memberof msg
+         * @interface IRS2C_RetMTTList
+         * @property {Array.<msg.IMTTInfo>|null} [mttlist] RS2C_RetMTTList mttlist
+         */
+
+        /**
+         * Constructs a new RS2C_RetMTTList.
+         * @memberof msg
+         * @classdesc Represents a RS2C_RetMTTList.
+         * @implements IRS2C_RetMTTList
+         * @constructor
+         * @param {msg.IRS2C_RetMTTList=} [properties] Properties to set
+         */
+        function RS2C_RetMTTList(properties) {
+            this.mttlist = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * RS2C_RetMTTList mttlist.
+         * @member {Array.<msg.IMTTInfo>} mttlist
+         * @memberof msg.RS2C_RetMTTList
+         * @instance
+         */
+        RS2C_RetMTTList.prototype.mttlist = $util.emptyArray;
+
+        /**
+         * Creates a new RS2C_RetMTTList instance using the specified properties.
+         * @function create
+         * @memberof msg.RS2C_RetMTTList
+         * @static
+         * @param {msg.IRS2C_RetMTTList=} [properties] Properties to set
+         * @returns {msg.RS2C_RetMTTList} RS2C_RetMTTList instance
+         */
+        RS2C_RetMTTList.create = function create(properties) {
+            return new RS2C_RetMTTList(properties);
+        };
+
+        /**
+         * Encodes the specified RS2C_RetMTTList message. Does not implicitly {@link msg.RS2C_RetMTTList.verify|verify} messages.
+         * @function encode
+         * @memberof msg.RS2C_RetMTTList
+         * @static
+         * @param {msg.IRS2C_RetMTTList} message RS2C_RetMTTList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_RetMTTList.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.mttlist != null && message.mttlist.length)
+                for (var i = 0; i < message.mttlist.length; ++i)
+                    $root.msg.MTTInfo.encode(message.mttlist[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified RS2C_RetMTTList message, length delimited. Does not implicitly {@link msg.RS2C_RetMTTList.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.RS2C_RetMTTList
+         * @static
+         * @param {msg.IRS2C_RetMTTList} message RS2C_RetMTTList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_RetMTTList.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a RS2C_RetMTTList message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.RS2C_RetMTTList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.RS2C_RetMTTList} RS2C_RetMTTList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_RetMTTList.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.RS2C_RetMTTList();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.mttlist && message.mttlist.length))
+                        message.mttlist = [];
+                    message.mttlist.push($root.msg.MTTInfo.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a RS2C_RetMTTList message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.RS2C_RetMTTList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.RS2C_RetMTTList} RS2C_RetMTTList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_RetMTTList.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a RS2C_RetMTTList message.
+         * @function verify
+         * @memberof msg.RS2C_RetMTTList
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        RS2C_RetMTTList.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.mttlist != null && message.hasOwnProperty("mttlist")) {
+                if (!Array.isArray(message.mttlist))
+                    return "mttlist: array expected";
+                for (var i = 0; i < message.mttlist.length; ++i) {
+                    var error = $root.msg.MTTInfo.verify(message.mttlist[i]);
+                    if (error)
+                        return "mttlist." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a RS2C_RetMTTList message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.RS2C_RetMTTList
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.RS2C_RetMTTList} RS2C_RetMTTList
+         */
+        RS2C_RetMTTList.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.RS2C_RetMTTList)
+                return object;
+            var message = new $root.msg.RS2C_RetMTTList();
+            if (object.mttlist) {
+                if (!Array.isArray(object.mttlist))
+                    throw TypeError(".msg.RS2C_RetMTTList.mttlist: array expected");
+                message.mttlist = [];
+                for (var i = 0; i < object.mttlist.length; ++i) {
+                    if (typeof object.mttlist[i] !== "object")
+                        throw TypeError(".msg.RS2C_RetMTTList.mttlist: object expected");
+                    message.mttlist[i] = $root.msg.MTTInfo.fromObject(object.mttlist[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a RS2C_RetMTTList message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.RS2C_RetMTTList
+         * @static
+         * @param {msg.RS2C_RetMTTList} message RS2C_RetMTTList
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        RS2C_RetMTTList.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.mttlist = [];
+            if (message.mttlist && message.mttlist.length) {
+                object.mttlist = [];
+                for (var j = 0; j < message.mttlist.length; ++j)
+                    object.mttlist[j] = $root.msg.MTTInfo.toObject(message.mttlist[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this RS2C_RetMTTList to JSON.
+         * @function toJSON
+         * @memberof msg.RS2C_RetMTTList
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        RS2C_RetMTTList.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return RS2C_RetMTTList;
+    })();
+
+    msg.C2RS_ReqMTTJoin = (function() {
+
+        /**
+         * Properties of a C2RS_ReqMTTJoin.
+         * @memberof msg
+         * @interface IC2RS_ReqMTTJoin
+         * @property {number|null} [recordid] C2RS_ReqMTTJoin recordid
+         * @property {number|null} [joinway] C2RS_ReqMTTJoin joinway
+         * @property {number|null} [id] C2RS_ReqMTTJoin id
+         */
+
+        /**
+         * Constructs a new C2RS_ReqMTTJoin.
+         * @memberof msg
+         * @classdesc Represents a C2RS_ReqMTTJoin.
+         * @implements IC2RS_ReqMTTJoin
+         * @constructor
+         * @param {msg.IC2RS_ReqMTTJoin=} [properties] Properties to set
+         */
+        function C2RS_ReqMTTJoin(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2RS_ReqMTTJoin recordid.
+         * @member {number} recordid
+         * @memberof msg.C2RS_ReqMTTJoin
+         * @instance
+         */
+        C2RS_ReqMTTJoin.prototype.recordid = 0;
+
+        /**
+         * C2RS_ReqMTTJoin joinway.
+         * @member {number} joinway
+         * @memberof msg.C2RS_ReqMTTJoin
+         * @instance
+         */
+        C2RS_ReqMTTJoin.prototype.joinway = 0;
+
+        /**
+         * C2RS_ReqMTTJoin id.
+         * @member {number} id
+         * @memberof msg.C2RS_ReqMTTJoin
+         * @instance
+         */
+        C2RS_ReqMTTJoin.prototype.id = 0;
+
+        /**
+         * Creates a new C2RS_ReqMTTJoin instance using the specified properties.
+         * @function create
+         * @memberof msg.C2RS_ReqMTTJoin
+         * @static
+         * @param {msg.IC2RS_ReqMTTJoin=} [properties] Properties to set
+         * @returns {msg.C2RS_ReqMTTJoin} C2RS_ReqMTTJoin instance
+         */
+        C2RS_ReqMTTJoin.create = function create(properties) {
+            return new C2RS_ReqMTTJoin(properties);
+        };
+
+        /**
+         * Encodes the specified C2RS_ReqMTTJoin message. Does not implicitly {@link msg.C2RS_ReqMTTJoin.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2RS_ReqMTTJoin
+         * @static
+         * @param {msg.IC2RS_ReqMTTJoin} message C2RS_ReqMTTJoin message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2RS_ReqMTTJoin.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.recordid);
+            if (message.joinway != null && message.hasOwnProperty("joinway"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.joinway);
+            if (message.id != null && message.hasOwnProperty("id"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.id);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2RS_ReqMTTJoin message, length delimited. Does not implicitly {@link msg.C2RS_ReqMTTJoin.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2RS_ReqMTTJoin
+         * @static
+         * @param {msg.IC2RS_ReqMTTJoin} message C2RS_ReqMTTJoin message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2RS_ReqMTTJoin.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2RS_ReqMTTJoin message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2RS_ReqMTTJoin
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2RS_ReqMTTJoin} C2RS_ReqMTTJoin
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2RS_ReqMTTJoin.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2RS_ReqMTTJoin();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.recordid = reader.int32();
+                    break;
+                case 2:
+                    message.joinway = reader.int32();
+                    break;
+                case 3:
+                    message.id = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2RS_ReqMTTJoin message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2RS_ReqMTTJoin
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2RS_ReqMTTJoin} C2RS_ReqMTTJoin
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2RS_ReqMTTJoin.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2RS_ReqMTTJoin message.
+         * @function verify
+         * @memberof msg.C2RS_ReqMTTJoin
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2RS_ReqMTTJoin.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                if (!$util.isInteger(message.recordid))
+                    return "recordid: integer expected";
+            if (message.joinway != null && message.hasOwnProperty("joinway"))
+                if (!$util.isInteger(message.joinway))
+                    return "joinway: integer expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isInteger(message.id))
+                    return "id: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2RS_ReqMTTJoin message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2RS_ReqMTTJoin
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2RS_ReqMTTJoin} C2RS_ReqMTTJoin
+         */
+        C2RS_ReqMTTJoin.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2RS_ReqMTTJoin)
+                return object;
+            var message = new $root.msg.C2RS_ReqMTTJoin();
+            if (object.recordid != null)
+                message.recordid = object.recordid | 0;
+            if (object.joinway != null)
+                message.joinway = object.joinway | 0;
+            if (object.id != null)
+                message.id = object.id | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2RS_ReqMTTJoin message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2RS_ReqMTTJoin
+         * @static
+         * @param {msg.C2RS_ReqMTTJoin} message C2RS_ReqMTTJoin
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2RS_ReqMTTJoin.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.recordid = 0;
+                object.joinway = 0;
+                object.id = 0;
+            }
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                object.recordid = message.recordid;
+            if (message.joinway != null && message.hasOwnProperty("joinway"))
+                object.joinway = message.joinway;
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            return object;
+        };
+
+        /**
+         * Converts this C2RS_ReqMTTJoin to JSON.
+         * @function toJSON
+         * @memberof msg.C2RS_ReqMTTJoin
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2RS_ReqMTTJoin.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2RS_ReqMTTJoin;
+    })();
+
+    msg.RS2C_RetMTTJoin = (function() {
+
+        /**
+         * Properties of a RS2C_RetMTTJoin.
+         * @memberof msg
+         * @interface IRS2C_RetMTTJoin
+         * @property {number|null} [recordid] RS2C_RetMTTJoin recordid
+         * @property {string|null} [errcode] RS2C_RetMTTJoin errcode
+         */
+
+        /**
+         * Constructs a new RS2C_RetMTTJoin.
+         * @memberof msg
+         * @classdesc Represents a RS2C_RetMTTJoin.
+         * @implements IRS2C_RetMTTJoin
+         * @constructor
+         * @param {msg.IRS2C_RetMTTJoin=} [properties] Properties to set
+         */
+        function RS2C_RetMTTJoin(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * RS2C_RetMTTJoin recordid.
+         * @member {number} recordid
+         * @memberof msg.RS2C_RetMTTJoin
+         * @instance
+         */
+        RS2C_RetMTTJoin.prototype.recordid = 0;
+
+        /**
+         * RS2C_RetMTTJoin errcode.
+         * @member {string} errcode
+         * @memberof msg.RS2C_RetMTTJoin
+         * @instance
+         */
+        RS2C_RetMTTJoin.prototype.errcode = "";
+
+        /**
+         * Creates a new RS2C_RetMTTJoin instance using the specified properties.
+         * @function create
+         * @memberof msg.RS2C_RetMTTJoin
+         * @static
+         * @param {msg.IRS2C_RetMTTJoin=} [properties] Properties to set
+         * @returns {msg.RS2C_RetMTTJoin} RS2C_RetMTTJoin instance
+         */
+        RS2C_RetMTTJoin.create = function create(properties) {
+            return new RS2C_RetMTTJoin(properties);
+        };
+
+        /**
+         * Encodes the specified RS2C_RetMTTJoin message. Does not implicitly {@link msg.RS2C_RetMTTJoin.verify|verify} messages.
+         * @function encode
+         * @memberof msg.RS2C_RetMTTJoin
+         * @static
+         * @param {msg.IRS2C_RetMTTJoin} message RS2C_RetMTTJoin message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_RetMTTJoin.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.recordid);
+            if (message.errcode != null && message.hasOwnProperty("errcode"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.errcode);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified RS2C_RetMTTJoin message, length delimited. Does not implicitly {@link msg.RS2C_RetMTTJoin.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.RS2C_RetMTTJoin
+         * @static
+         * @param {msg.IRS2C_RetMTTJoin} message RS2C_RetMTTJoin message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_RetMTTJoin.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a RS2C_RetMTTJoin message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.RS2C_RetMTTJoin
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.RS2C_RetMTTJoin} RS2C_RetMTTJoin
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_RetMTTJoin.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.RS2C_RetMTTJoin();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.recordid = reader.int32();
+                    break;
+                case 2:
+                    message.errcode = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a RS2C_RetMTTJoin message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.RS2C_RetMTTJoin
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.RS2C_RetMTTJoin} RS2C_RetMTTJoin
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_RetMTTJoin.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a RS2C_RetMTTJoin message.
+         * @function verify
+         * @memberof msg.RS2C_RetMTTJoin
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        RS2C_RetMTTJoin.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                if (!$util.isInteger(message.recordid))
+                    return "recordid: integer expected";
+            if (message.errcode != null && message.hasOwnProperty("errcode"))
+                if (!$util.isString(message.errcode))
+                    return "errcode: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a RS2C_RetMTTJoin message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.RS2C_RetMTTJoin
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.RS2C_RetMTTJoin} RS2C_RetMTTJoin
+         */
+        RS2C_RetMTTJoin.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.RS2C_RetMTTJoin)
+                return object;
+            var message = new $root.msg.RS2C_RetMTTJoin();
+            if (object.recordid != null)
+                message.recordid = object.recordid | 0;
+            if (object.errcode != null)
+                message.errcode = String(object.errcode);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a RS2C_RetMTTJoin message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.RS2C_RetMTTJoin
+         * @static
+         * @param {msg.RS2C_RetMTTJoin} message RS2C_RetMTTJoin
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        RS2C_RetMTTJoin.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.recordid = 0;
+                object.errcode = "";
+            }
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                object.recordid = message.recordid;
+            if (message.errcode != null && message.hasOwnProperty("errcode"))
+                object.errcode = message.errcode;
+            return object;
+        };
+
+        /**
+         * Converts this RS2C_RetMTTJoin to JSON.
+         * @function toJSON
+         * @memberof msg.RS2C_RetMTTJoin
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        RS2C_RetMTTJoin.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return RS2C_RetMTTJoin;
+    })();
+
+    msg.C2RS_ReqMTTQuit = (function() {
+
+        /**
+         * Properties of a C2RS_ReqMTTQuit.
+         * @memberof msg
+         * @interface IC2RS_ReqMTTQuit
+         * @property {number|null} [recordid] C2RS_ReqMTTQuit recordid
+         */
+
+        /**
+         * Constructs a new C2RS_ReqMTTQuit.
+         * @memberof msg
+         * @classdesc Represents a C2RS_ReqMTTQuit.
+         * @implements IC2RS_ReqMTTQuit
+         * @constructor
+         * @param {msg.IC2RS_ReqMTTQuit=} [properties] Properties to set
+         */
+        function C2RS_ReqMTTQuit(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2RS_ReqMTTQuit recordid.
+         * @member {number} recordid
+         * @memberof msg.C2RS_ReqMTTQuit
+         * @instance
+         */
+        C2RS_ReqMTTQuit.prototype.recordid = 0;
+
+        /**
+         * Creates a new C2RS_ReqMTTQuit instance using the specified properties.
+         * @function create
+         * @memberof msg.C2RS_ReqMTTQuit
+         * @static
+         * @param {msg.IC2RS_ReqMTTQuit=} [properties] Properties to set
+         * @returns {msg.C2RS_ReqMTTQuit} C2RS_ReqMTTQuit instance
+         */
+        C2RS_ReqMTTQuit.create = function create(properties) {
+            return new C2RS_ReqMTTQuit(properties);
+        };
+
+        /**
+         * Encodes the specified C2RS_ReqMTTQuit message. Does not implicitly {@link msg.C2RS_ReqMTTQuit.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2RS_ReqMTTQuit
+         * @static
+         * @param {msg.IC2RS_ReqMTTQuit} message C2RS_ReqMTTQuit message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2RS_ReqMTTQuit.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.recordid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2RS_ReqMTTQuit message, length delimited. Does not implicitly {@link msg.C2RS_ReqMTTQuit.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2RS_ReqMTTQuit
+         * @static
+         * @param {msg.IC2RS_ReqMTTQuit} message C2RS_ReqMTTQuit message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2RS_ReqMTTQuit.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2RS_ReqMTTQuit message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2RS_ReqMTTQuit
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2RS_ReqMTTQuit} C2RS_ReqMTTQuit
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2RS_ReqMTTQuit.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2RS_ReqMTTQuit();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.recordid = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2RS_ReqMTTQuit message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2RS_ReqMTTQuit
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2RS_ReqMTTQuit} C2RS_ReqMTTQuit
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2RS_ReqMTTQuit.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2RS_ReqMTTQuit message.
+         * @function verify
+         * @memberof msg.C2RS_ReqMTTQuit
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2RS_ReqMTTQuit.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                if (!$util.isInteger(message.recordid))
+                    return "recordid: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2RS_ReqMTTQuit message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2RS_ReqMTTQuit
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2RS_ReqMTTQuit} C2RS_ReqMTTQuit
+         */
+        C2RS_ReqMTTQuit.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2RS_ReqMTTQuit)
+                return object;
+            var message = new $root.msg.C2RS_ReqMTTQuit();
+            if (object.recordid != null)
+                message.recordid = object.recordid | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2RS_ReqMTTQuit message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2RS_ReqMTTQuit
+         * @static
+         * @param {msg.C2RS_ReqMTTQuit} message C2RS_ReqMTTQuit
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2RS_ReqMTTQuit.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.recordid = 0;
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                object.recordid = message.recordid;
+            return object;
+        };
+
+        /**
+         * Converts this C2RS_ReqMTTQuit to JSON.
+         * @function toJSON
+         * @memberof msg.C2RS_ReqMTTQuit
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2RS_ReqMTTQuit.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2RS_ReqMTTQuit;
+    })();
+
+    msg.C2RS_RetMTTQuit = (function() {
+
+        /**
+         * Properties of a C2RS_RetMTTQuit.
+         * @memberof msg
+         * @interface IC2RS_RetMTTQuit
+         * @property {string|null} [errcode] C2RS_RetMTTQuit errcode
+         */
+
+        /**
+         * Constructs a new C2RS_RetMTTQuit.
+         * @memberof msg
+         * @classdesc Represents a C2RS_RetMTTQuit.
+         * @implements IC2RS_RetMTTQuit
+         * @constructor
+         * @param {msg.IC2RS_RetMTTQuit=} [properties] Properties to set
+         */
+        function C2RS_RetMTTQuit(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2RS_RetMTTQuit errcode.
+         * @member {string} errcode
+         * @memberof msg.C2RS_RetMTTQuit
+         * @instance
+         */
+        C2RS_RetMTTQuit.prototype.errcode = "";
+
+        /**
+         * Creates a new C2RS_RetMTTQuit instance using the specified properties.
+         * @function create
+         * @memberof msg.C2RS_RetMTTQuit
+         * @static
+         * @param {msg.IC2RS_RetMTTQuit=} [properties] Properties to set
+         * @returns {msg.C2RS_RetMTTQuit} C2RS_RetMTTQuit instance
+         */
+        C2RS_RetMTTQuit.create = function create(properties) {
+            return new C2RS_RetMTTQuit(properties);
+        };
+
+        /**
+         * Encodes the specified C2RS_RetMTTQuit message. Does not implicitly {@link msg.C2RS_RetMTTQuit.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2RS_RetMTTQuit
+         * @static
+         * @param {msg.IC2RS_RetMTTQuit} message C2RS_RetMTTQuit message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2RS_RetMTTQuit.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.errcode != null && message.hasOwnProperty("errcode"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.errcode);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2RS_RetMTTQuit message, length delimited. Does not implicitly {@link msg.C2RS_RetMTTQuit.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2RS_RetMTTQuit
+         * @static
+         * @param {msg.IC2RS_RetMTTQuit} message C2RS_RetMTTQuit message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2RS_RetMTTQuit.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2RS_RetMTTQuit message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2RS_RetMTTQuit
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2RS_RetMTTQuit} C2RS_RetMTTQuit
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2RS_RetMTTQuit.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2RS_RetMTTQuit();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.errcode = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2RS_RetMTTQuit message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2RS_RetMTTQuit
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2RS_RetMTTQuit} C2RS_RetMTTQuit
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2RS_RetMTTQuit.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2RS_RetMTTQuit message.
+         * @function verify
+         * @memberof msg.C2RS_RetMTTQuit
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2RS_RetMTTQuit.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.errcode != null && message.hasOwnProperty("errcode"))
+                if (!$util.isString(message.errcode))
+                    return "errcode: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2RS_RetMTTQuit message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2RS_RetMTTQuit
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2RS_RetMTTQuit} C2RS_RetMTTQuit
+         */
+        C2RS_RetMTTQuit.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2RS_RetMTTQuit)
+                return object;
+            var message = new $root.msg.C2RS_RetMTTQuit();
+            if (object.errcode != null)
+                message.errcode = String(object.errcode);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2RS_RetMTTQuit message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2RS_RetMTTQuit
+         * @static
+         * @param {msg.C2RS_RetMTTQuit} message C2RS_RetMTTQuit
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2RS_RetMTTQuit.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.errcode = "";
+            if (message.errcode != null && message.hasOwnProperty("errcode"))
+                object.errcode = message.errcode;
+            return object;
+        };
+
+        /**
+         * Converts this C2RS_RetMTTQuit to JSON.
+         * @function toJSON
+         * @memberof msg.C2RS_RetMTTQuit
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2RS_RetMTTQuit.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2RS_RetMTTQuit;
+    })();
+
+    msg.C2RS_ReqJoinedMTTList = (function() {
+
+        /**
+         * Properties of a C2RS_ReqJoinedMTTList.
+         * @memberof msg
+         * @interface IC2RS_ReqJoinedMTTList
+         */
+
+        /**
+         * Constructs a new C2RS_ReqJoinedMTTList.
+         * @memberof msg
+         * @classdesc Represents a C2RS_ReqJoinedMTTList.
+         * @implements IC2RS_ReqJoinedMTTList
+         * @constructor
+         * @param {msg.IC2RS_ReqJoinedMTTList=} [properties] Properties to set
+         */
+        function C2RS_ReqJoinedMTTList(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Creates a new C2RS_ReqJoinedMTTList instance using the specified properties.
+         * @function create
+         * @memberof msg.C2RS_ReqJoinedMTTList
+         * @static
+         * @param {msg.IC2RS_ReqJoinedMTTList=} [properties] Properties to set
+         * @returns {msg.C2RS_ReqJoinedMTTList} C2RS_ReqJoinedMTTList instance
+         */
+        C2RS_ReqJoinedMTTList.create = function create(properties) {
+            return new C2RS_ReqJoinedMTTList(properties);
+        };
+
+        /**
+         * Encodes the specified C2RS_ReqJoinedMTTList message. Does not implicitly {@link msg.C2RS_ReqJoinedMTTList.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2RS_ReqJoinedMTTList
+         * @static
+         * @param {msg.IC2RS_ReqJoinedMTTList} message C2RS_ReqJoinedMTTList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2RS_ReqJoinedMTTList.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2RS_ReqJoinedMTTList message, length delimited. Does not implicitly {@link msg.C2RS_ReqJoinedMTTList.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2RS_ReqJoinedMTTList
+         * @static
+         * @param {msg.IC2RS_ReqJoinedMTTList} message C2RS_ReqJoinedMTTList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2RS_ReqJoinedMTTList.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2RS_ReqJoinedMTTList message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2RS_ReqJoinedMTTList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2RS_ReqJoinedMTTList} C2RS_ReqJoinedMTTList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2RS_ReqJoinedMTTList.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2RS_ReqJoinedMTTList();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2RS_ReqJoinedMTTList message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2RS_ReqJoinedMTTList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2RS_ReqJoinedMTTList} C2RS_ReqJoinedMTTList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2RS_ReqJoinedMTTList.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2RS_ReqJoinedMTTList message.
+         * @function verify
+         * @memberof msg.C2RS_ReqJoinedMTTList
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2RS_ReqJoinedMTTList.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2RS_ReqJoinedMTTList message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2RS_ReqJoinedMTTList
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2RS_ReqJoinedMTTList} C2RS_ReqJoinedMTTList
+         */
+        C2RS_ReqJoinedMTTList.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2RS_ReqJoinedMTTList)
+                return object;
+            return new $root.msg.C2RS_ReqJoinedMTTList();
+        };
+
+        /**
+         * Creates a plain object from a C2RS_ReqJoinedMTTList message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2RS_ReqJoinedMTTList
+         * @static
+         * @param {msg.C2RS_ReqJoinedMTTList} message C2RS_ReqJoinedMTTList
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2RS_ReqJoinedMTTList.toObject = function toObject() {
+            return {};
+        };
+
+        /**
+         * Converts this C2RS_ReqJoinedMTTList to JSON.
+         * @function toJSON
+         * @memberof msg.C2RS_ReqJoinedMTTList
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2RS_ReqJoinedMTTList.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2RS_ReqJoinedMTTList;
+    })();
+
+    msg.JoinedMTTInfo = (function() {
+
+        /**
+         * Properties of a JoinedMTTInfo.
+         * @memberof msg
+         * @interface IJoinedMTTInfo
+         * @property {number|null} [id] JoinedMTTInfo id
+         * @property {number|null} [starttime] JoinedMTTInfo starttime
+         * @property {number|null} [joinway] JoinedMTTInfo joinway
+         * @property {number|null} [join] JoinedMTTInfo join
+         * @property {number|null} [recordid] JoinedMTTInfo recordid
+         * @property {number|null} [endtime] JoinedMTTInfo endtime
+         * @property {number|null} [outtime] JoinedMTTInfo outtime
+         * @property {number|null} [rank] JoinedMTTInfo rank
+         */
+
+        /**
+         * Constructs a new JoinedMTTInfo.
+         * @memberof msg
+         * @classdesc Represents a JoinedMTTInfo.
+         * @implements IJoinedMTTInfo
+         * @constructor
+         * @param {msg.IJoinedMTTInfo=} [properties] Properties to set
+         */
+        function JoinedMTTInfo(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * JoinedMTTInfo id.
+         * @member {number} id
+         * @memberof msg.JoinedMTTInfo
+         * @instance
+         */
+        JoinedMTTInfo.prototype.id = 0;
+
+        /**
+         * JoinedMTTInfo starttime.
+         * @member {number} starttime
+         * @memberof msg.JoinedMTTInfo
+         * @instance
+         */
+        JoinedMTTInfo.prototype.starttime = 0;
+
+        /**
+         * JoinedMTTInfo joinway.
+         * @member {number} joinway
+         * @memberof msg.JoinedMTTInfo
+         * @instance
+         */
+        JoinedMTTInfo.prototype.joinway = 0;
+
+        /**
+         * JoinedMTTInfo join.
+         * @member {number} join
+         * @memberof msg.JoinedMTTInfo
+         * @instance
+         */
+        JoinedMTTInfo.prototype.join = 0;
+
+        /**
+         * JoinedMTTInfo recordid.
+         * @member {number} recordid
+         * @memberof msg.JoinedMTTInfo
+         * @instance
+         */
+        JoinedMTTInfo.prototype.recordid = 0;
+
+        /**
+         * JoinedMTTInfo endtime.
+         * @member {number} endtime
+         * @memberof msg.JoinedMTTInfo
+         * @instance
+         */
+        JoinedMTTInfo.prototype.endtime = 0;
+
+        /**
+         * JoinedMTTInfo outtime.
+         * @member {number} outtime
+         * @memberof msg.JoinedMTTInfo
+         * @instance
+         */
+        JoinedMTTInfo.prototype.outtime = 0;
+
+        /**
+         * JoinedMTTInfo rank.
+         * @member {number} rank
+         * @memberof msg.JoinedMTTInfo
+         * @instance
+         */
+        JoinedMTTInfo.prototype.rank = 0;
+
+        /**
+         * Creates a new JoinedMTTInfo instance using the specified properties.
+         * @function create
+         * @memberof msg.JoinedMTTInfo
+         * @static
+         * @param {msg.IJoinedMTTInfo=} [properties] Properties to set
+         * @returns {msg.JoinedMTTInfo} JoinedMTTInfo instance
+         */
+        JoinedMTTInfo.create = function create(properties) {
+            return new JoinedMTTInfo(properties);
+        };
+
+        /**
+         * Encodes the specified JoinedMTTInfo message. Does not implicitly {@link msg.JoinedMTTInfo.verify|verify} messages.
+         * @function encode
+         * @memberof msg.JoinedMTTInfo
+         * @static
+         * @param {msg.IJoinedMTTInfo} message JoinedMTTInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        JoinedMTTInfo.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && message.hasOwnProperty("id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.id);
+            if (message.starttime != null && message.hasOwnProperty("starttime"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.starttime);
+            if (message.joinway != null && message.hasOwnProperty("joinway"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.joinway);
+            if (message.join != null && message.hasOwnProperty("join"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.join);
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.recordid);
+            if (message.endtime != null && message.hasOwnProperty("endtime"))
+                writer.uint32(/* id 6, wireType 0 =*/48).int32(message.endtime);
+            if (message.outtime != null && message.hasOwnProperty("outtime"))
+                writer.uint32(/* id 7, wireType 0 =*/56).int32(message.outtime);
+            if (message.rank != null && message.hasOwnProperty("rank"))
+                writer.uint32(/* id 8, wireType 0 =*/64).int32(message.rank);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified JoinedMTTInfo message, length delimited. Does not implicitly {@link msg.JoinedMTTInfo.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.JoinedMTTInfo
+         * @static
+         * @param {msg.IJoinedMTTInfo} message JoinedMTTInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        JoinedMTTInfo.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a JoinedMTTInfo message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.JoinedMTTInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.JoinedMTTInfo} JoinedMTTInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        JoinedMTTInfo.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.JoinedMTTInfo();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.int32();
+                    break;
+                case 2:
+                    message.starttime = reader.int32();
+                    break;
+                case 3:
+                    message.joinway = reader.int32();
+                    break;
+                case 4:
+                    message.join = reader.int32();
+                    break;
+                case 5:
+                    message.recordid = reader.int32();
+                    break;
+                case 6:
+                    message.endtime = reader.int32();
+                    break;
+                case 7:
+                    message.outtime = reader.int32();
+                    break;
+                case 8:
+                    message.rank = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a JoinedMTTInfo message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.JoinedMTTInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.JoinedMTTInfo} JoinedMTTInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        JoinedMTTInfo.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a JoinedMTTInfo message.
+         * @function verify
+         * @memberof msg.JoinedMTTInfo
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        JoinedMTTInfo.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isInteger(message.id))
+                    return "id: integer expected";
+            if (message.starttime != null && message.hasOwnProperty("starttime"))
+                if (!$util.isInteger(message.starttime))
+                    return "starttime: integer expected";
+            if (message.joinway != null && message.hasOwnProperty("joinway"))
+                if (!$util.isInteger(message.joinway))
+                    return "joinway: integer expected";
+            if (message.join != null && message.hasOwnProperty("join"))
+                if (!$util.isInteger(message.join))
+                    return "join: integer expected";
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                if (!$util.isInteger(message.recordid))
+                    return "recordid: integer expected";
+            if (message.endtime != null && message.hasOwnProperty("endtime"))
+                if (!$util.isInteger(message.endtime))
+                    return "endtime: integer expected";
+            if (message.outtime != null && message.hasOwnProperty("outtime"))
+                if (!$util.isInteger(message.outtime))
+                    return "outtime: integer expected";
+            if (message.rank != null && message.hasOwnProperty("rank"))
+                if (!$util.isInteger(message.rank))
+                    return "rank: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a JoinedMTTInfo message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.JoinedMTTInfo
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.JoinedMTTInfo} JoinedMTTInfo
+         */
+        JoinedMTTInfo.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.JoinedMTTInfo)
+                return object;
+            var message = new $root.msg.JoinedMTTInfo();
+            if (object.id != null)
+                message.id = object.id | 0;
+            if (object.starttime != null)
+                message.starttime = object.starttime | 0;
+            if (object.joinway != null)
+                message.joinway = object.joinway | 0;
+            if (object.join != null)
+                message.join = object.join | 0;
+            if (object.recordid != null)
+                message.recordid = object.recordid | 0;
+            if (object.endtime != null)
+                message.endtime = object.endtime | 0;
+            if (object.outtime != null)
+                message.outtime = object.outtime | 0;
+            if (object.rank != null)
+                message.rank = object.rank | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a JoinedMTTInfo message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.JoinedMTTInfo
+         * @static
+         * @param {msg.JoinedMTTInfo} message JoinedMTTInfo
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        JoinedMTTInfo.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.id = 0;
+                object.starttime = 0;
+                object.joinway = 0;
+                object.join = 0;
+                object.recordid = 0;
+                object.endtime = 0;
+                object.outtime = 0;
+                object.rank = 0;
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.starttime != null && message.hasOwnProperty("starttime"))
+                object.starttime = message.starttime;
+            if (message.joinway != null && message.hasOwnProperty("joinway"))
+                object.joinway = message.joinway;
+            if (message.join != null && message.hasOwnProperty("join"))
+                object.join = message.join;
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                object.recordid = message.recordid;
+            if (message.endtime != null && message.hasOwnProperty("endtime"))
+                object.endtime = message.endtime;
+            if (message.outtime != null && message.hasOwnProperty("outtime"))
+                object.outtime = message.outtime;
+            if (message.rank != null && message.hasOwnProperty("rank"))
+                object.rank = message.rank;
+            return object;
+        };
+
+        /**
+         * Converts this JoinedMTTInfo to JSON.
+         * @function toJSON
+         * @memberof msg.JoinedMTTInfo
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        JoinedMTTInfo.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return JoinedMTTInfo;
+    })();
+
+    msg.RS2C_RetJoinedMTTList = (function() {
+
+        /**
+         * Properties of a RS2C_RetJoinedMTTList.
+         * @memberof msg
+         * @interface IRS2C_RetJoinedMTTList
+         * @property {Array.<msg.IJoinedMTTInfo>|null} [mttlist] RS2C_RetJoinedMTTList mttlist
+         */
+
+        /**
+         * Constructs a new RS2C_RetJoinedMTTList.
+         * @memberof msg
+         * @classdesc Represents a RS2C_RetJoinedMTTList.
+         * @implements IRS2C_RetJoinedMTTList
+         * @constructor
+         * @param {msg.IRS2C_RetJoinedMTTList=} [properties] Properties to set
+         */
+        function RS2C_RetJoinedMTTList(properties) {
+            this.mttlist = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * RS2C_RetJoinedMTTList mttlist.
+         * @member {Array.<msg.IJoinedMTTInfo>} mttlist
+         * @memberof msg.RS2C_RetJoinedMTTList
+         * @instance
+         */
+        RS2C_RetJoinedMTTList.prototype.mttlist = $util.emptyArray;
+
+        /**
+         * Creates a new RS2C_RetJoinedMTTList instance using the specified properties.
+         * @function create
+         * @memberof msg.RS2C_RetJoinedMTTList
+         * @static
+         * @param {msg.IRS2C_RetJoinedMTTList=} [properties] Properties to set
+         * @returns {msg.RS2C_RetJoinedMTTList} RS2C_RetJoinedMTTList instance
+         */
+        RS2C_RetJoinedMTTList.create = function create(properties) {
+            return new RS2C_RetJoinedMTTList(properties);
+        };
+
+        /**
+         * Encodes the specified RS2C_RetJoinedMTTList message. Does not implicitly {@link msg.RS2C_RetJoinedMTTList.verify|verify} messages.
+         * @function encode
+         * @memberof msg.RS2C_RetJoinedMTTList
+         * @static
+         * @param {msg.IRS2C_RetJoinedMTTList} message RS2C_RetJoinedMTTList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_RetJoinedMTTList.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.mttlist != null && message.mttlist.length)
+                for (var i = 0; i < message.mttlist.length; ++i)
+                    $root.msg.JoinedMTTInfo.encode(message.mttlist[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified RS2C_RetJoinedMTTList message, length delimited. Does not implicitly {@link msg.RS2C_RetJoinedMTTList.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.RS2C_RetJoinedMTTList
+         * @static
+         * @param {msg.IRS2C_RetJoinedMTTList} message RS2C_RetJoinedMTTList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_RetJoinedMTTList.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a RS2C_RetJoinedMTTList message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.RS2C_RetJoinedMTTList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.RS2C_RetJoinedMTTList} RS2C_RetJoinedMTTList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_RetJoinedMTTList.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.RS2C_RetJoinedMTTList();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.mttlist && message.mttlist.length))
+                        message.mttlist = [];
+                    message.mttlist.push($root.msg.JoinedMTTInfo.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a RS2C_RetJoinedMTTList message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.RS2C_RetJoinedMTTList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.RS2C_RetJoinedMTTList} RS2C_RetJoinedMTTList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_RetJoinedMTTList.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a RS2C_RetJoinedMTTList message.
+         * @function verify
+         * @memberof msg.RS2C_RetJoinedMTTList
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        RS2C_RetJoinedMTTList.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.mttlist != null && message.hasOwnProperty("mttlist")) {
+                if (!Array.isArray(message.mttlist))
+                    return "mttlist: array expected";
+                for (var i = 0; i < message.mttlist.length; ++i) {
+                    var error = $root.msg.JoinedMTTInfo.verify(message.mttlist[i]);
+                    if (error)
+                        return "mttlist." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a RS2C_RetJoinedMTTList message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.RS2C_RetJoinedMTTList
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.RS2C_RetJoinedMTTList} RS2C_RetJoinedMTTList
+         */
+        RS2C_RetJoinedMTTList.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.RS2C_RetJoinedMTTList)
+                return object;
+            var message = new $root.msg.RS2C_RetJoinedMTTList();
+            if (object.mttlist) {
+                if (!Array.isArray(object.mttlist))
+                    throw TypeError(".msg.RS2C_RetJoinedMTTList.mttlist: array expected");
+                message.mttlist = [];
+                for (var i = 0; i < object.mttlist.length; ++i) {
+                    if (typeof object.mttlist[i] !== "object")
+                        throw TypeError(".msg.RS2C_RetJoinedMTTList.mttlist: object expected");
+                    message.mttlist[i] = $root.msg.JoinedMTTInfo.fromObject(object.mttlist[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a RS2C_RetJoinedMTTList message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.RS2C_RetJoinedMTTList
+         * @static
+         * @param {msg.RS2C_RetJoinedMTTList} message RS2C_RetJoinedMTTList
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        RS2C_RetJoinedMTTList.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.mttlist = [];
+            if (message.mttlist && message.mttlist.length) {
+                object.mttlist = [];
+                for (var j = 0; j < message.mttlist.length; ++j)
+                    object.mttlist[j] = $root.msg.JoinedMTTInfo.toObject(message.mttlist[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this RS2C_RetJoinedMTTList to JSON.
+         * @function toJSON
+         * @memberof msg.RS2C_RetJoinedMTTList
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        RS2C_RetJoinedMTTList.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return RS2C_RetJoinedMTTList;
+    })();
+
+    msg.C2RS_ReqInsideRoomInfoList = (function() {
+
+        /**
+         * Properties of a C2RS_ReqInsideRoomInfoList.
+         * @memberof msg
+         * @interface IC2RS_ReqInsideRoomInfoList
+         */
+
+        /**
+         * Constructs a new C2RS_ReqInsideRoomInfoList.
+         * @memberof msg
+         * @classdesc Represents a C2RS_ReqInsideRoomInfoList.
+         * @implements IC2RS_ReqInsideRoomInfoList
+         * @constructor
+         * @param {msg.IC2RS_ReqInsideRoomInfoList=} [properties] Properties to set
+         */
+        function C2RS_ReqInsideRoomInfoList(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Creates a new C2RS_ReqInsideRoomInfoList instance using the specified properties.
+         * @function create
+         * @memberof msg.C2RS_ReqInsideRoomInfoList
+         * @static
+         * @param {msg.IC2RS_ReqInsideRoomInfoList=} [properties] Properties to set
+         * @returns {msg.C2RS_ReqInsideRoomInfoList} C2RS_ReqInsideRoomInfoList instance
+         */
+        C2RS_ReqInsideRoomInfoList.create = function create(properties) {
+            return new C2RS_ReqInsideRoomInfoList(properties);
+        };
+
+        /**
+         * Encodes the specified C2RS_ReqInsideRoomInfoList message. Does not implicitly {@link msg.C2RS_ReqInsideRoomInfoList.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2RS_ReqInsideRoomInfoList
+         * @static
+         * @param {msg.IC2RS_ReqInsideRoomInfoList} message C2RS_ReqInsideRoomInfoList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2RS_ReqInsideRoomInfoList.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2RS_ReqInsideRoomInfoList message, length delimited. Does not implicitly {@link msg.C2RS_ReqInsideRoomInfoList.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2RS_ReqInsideRoomInfoList
+         * @static
+         * @param {msg.IC2RS_ReqInsideRoomInfoList} message C2RS_ReqInsideRoomInfoList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2RS_ReqInsideRoomInfoList.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2RS_ReqInsideRoomInfoList message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2RS_ReqInsideRoomInfoList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2RS_ReqInsideRoomInfoList} C2RS_ReqInsideRoomInfoList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2RS_ReqInsideRoomInfoList.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2RS_ReqInsideRoomInfoList();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2RS_ReqInsideRoomInfoList message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2RS_ReqInsideRoomInfoList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2RS_ReqInsideRoomInfoList} C2RS_ReqInsideRoomInfoList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2RS_ReqInsideRoomInfoList.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2RS_ReqInsideRoomInfoList message.
+         * @function verify
+         * @memberof msg.C2RS_ReqInsideRoomInfoList
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2RS_ReqInsideRoomInfoList.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2RS_ReqInsideRoomInfoList message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2RS_ReqInsideRoomInfoList
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2RS_ReqInsideRoomInfoList} C2RS_ReqInsideRoomInfoList
+         */
+        C2RS_ReqInsideRoomInfoList.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2RS_ReqInsideRoomInfoList)
+                return object;
+            return new $root.msg.C2RS_ReqInsideRoomInfoList();
+        };
+
+        /**
+         * Creates a plain object from a C2RS_ReqInsideRoomInfoList message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2RS_ReqInsideRoomInfoList
+         * @static
+         * @param {msg.C2RS_ReqInsideRoomInfoList} message C2RS_ReqInsideRoomInfoList
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2RS_ReqInsideRoomInfoList.toObject = function toObject() {
+            return {};
+        };
+
+        /**
+         * Converts this C2RS_ReqInsideRoomInfoList to JSON.
+         * @function toJSON
+         * @memberof msg.C2RS_ReqInsideRoomInfoList
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2RS_ReqInsideRoomInfoList.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2RS_ReqInsideRoomInfoList;
+    })();
+
+    msg.InsideRoomInfo = (function() {
+
+        /**
+         * Properties of an InsideRoomInfo.
+         * @memberof msg
+         * @interface IInsideRoomInfo
+         * @property {number|null} [mttid] InsideRoomInfo mttid
+         * @property {number|null} [id] InsideRoomInfo id
+         */
+
+        /**
+         * Constructs a new InsideRoomInfo.
+         * @memberof msg
+         * @classdesc Represents an InsideRoomInfo.
+         * @implements IInsideRoomInfo
+         * @constructor
+         * @param {msg.IInsideRoomInfo=} [properties] Properties to set
+         */
+        function InsideRoomInfo(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * InsideRoomInfo mttid.
+         * @member {number} mttid
+         * @memberof msg.InsideRoomInfo
+         * @instance
+         */
+        InsideRoomInfo.prototype.mttid = 0;
+
+        /**
+         * InsideRoomInfo id.
+         * @member {number} id
+         * @memberof msg.InsideRoomInfo
+         * @instance
+         */
+        InsideRoomInfo.prototype.id = 0;
+
+        /**
+         * Creates a new InsideRoomInfo instance using the specified properties.
+         * @function create
+         * @memberof msg.InsideRoomInfo
+         * @static
+         * @param {msg.IInsideRoomInfo=} [properties] Properties to set
+         * @returns {msg.InsideRoomInfo} InsideRoomInfo instance
+         */
+        InsideRoomInfo.create = function create(properties) {
+            return new InsideRoomInfo(properties);
+        };
+
+        /**
+         * Encodes the specified InsideRoomInfo message. Does not implicitly {@link msg.InsideRoomInfo.verify|verify} messages.
+         * @function encode
+         * @memberof msg.InsideRoomInfo
+         * @static
+         * @param {msg.IInsideRoomInfo} message InsideRoomInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        InsideRoomInfo.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.mttid != null && message.hasOwnProperty("mttid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.mttid);
+            if (message.id != null && message.hasOwnProperty("id"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.id);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified InsideRoomInfo message, length delimited. Does not implicitly {@link msg.InsideRoomInfo.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.InsideRoomInfo
+         * @static
+         * @param {msg.IInsideRoomInfo} message InsideRoomInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        InsideRoomInfo.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an InsideRoomInfo message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.InsideRoomInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.InsideRoomInfo} InsideRoomInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        InsideRoomInfo.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.InsideRoomInfo();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.mttid = reader.int32();
+                    break;
+                case 2:
+                    message.id = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an InsideRoomInfo message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.InsideRoomInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.InsideRoomInfo} InsideRoomInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        InsideRoomInfo.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an InsideRoomInfo message.
+         * @function verify
+         * @memberof msg.InsideRoomInfo
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        InsideRoomInfo.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.mttid != null && message.hasOwnProperty("mttid"))
+                if (!$util.isInteger(message.mttid))
+                    return "mttid: integer expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isInteger(message.id))
+                    return "id: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates an InsideRoomInfo message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.InsideRoomInfo
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.InsideRoomInfo} InsideRoomInfo
+         */
+        InsideRoomInfo.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.InsideRoomInfo)
+                return object;
+            var message = new $root.msg.InsideRoomInfo();
+            if (object.mttid != null)
+                message.mttid = object.mttid | 0;
+            if (object.id != null)
+                message.id = object.id | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an InsideRoomInfo message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.InsideRoomInfo
+         * @static
+         * @param {msg.InsideRoomInfo} message InsideRoomInfo
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        InsideRoomInfo.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.mttid = 0;
+                object.id = 0;
+            }
+            if (message.mttid != null && message.hasOwnProperty("mttid"))
+                object.mttid = message.mttid;
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            return object;
+        };
+
+        /**
+         * Converts this InsideRoomInfo to JSON.
+         * @function toJSON
+         * @memberof msg.InsideRoomInfo
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        InsideRoomInfo.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return InsideRoomInfo;
+    })();
+
+    msg.C2RS_RetInsideRoomInfoList = (function() {
+
+        /**
+         * Properties of a C2RS_RetInsideRoomInfoList.
+         * @memberof msg
+         * @interface IC2RS_RetInsideRoomInfoList
+         * @property {Array.<msg.IInsideRoomInfo>|null} [roomlist] C2RS_RetInsideRoomInfoList roomlist
+         * @property {number|null} [lastid] C2RS_RetInsideRoomInfoList lastid
+         */
+
+        /**
+         * Constructs a new C2RS_RetInsideRoomInfoList.
+         * @memberof msg
+         * @classdesc Represents a C2RS_RetInsideRoomInfoList.
+         * @implements IC2RS_RetInsideRoomInfoList
+         * @constructor
+         * @param {msg.IC2RS_RetInsideRoomInfoList=} [properties] Properties to set
+         */
+        function C2RS_RetInsideRoomInfoList(properties) {
+            this.roomlist = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2RS_RetInsideRoomInfoList roomlist.
+         * @member {Array.<msg.IInsideRoomInfo>} roomlist
+         * @memberof msg.C2RS_RetInsideRoomInfoList
+         * @instance
+         */
+        C2RS_RetInsideRoomInfoList.prototype.roomlist = $util.emptyArray;
+
+        /**
+         * C2RS_RetInsideRoomInfoList lastid.
+         * @member {number} lastid
+         * @memberof msg.C2RS_RetInsideRoomInfoList
+         * @instance
+         */
+        C2RS_RetInsideRoomInfoList.prototype.lastid = 0;
+
+        /**
+         * Creates a new C2RS_RetInsideRoomInfoList instance using the specified properties.
+         * @function create
+         * @memberof msg.C2RS_RetInsideRoomInfoList
+         * @static
+         * @param {msg.IC2RS_RetInsideRoomInfoList=} [properties] Properties to set
+         * @returns {msg.C2RS_RetInsideRoomInfoList} C2RS_RetInsideRoomInfoList instance
+         */
+        C2RS_RetInsideRoomInfoList.create = function create(properties) {
+            return new C2RS_RetInsideRoomInfoList(properties);
+        };
+
+        /**
+         * Encodes the specified C2RS_RetInsideRoomInfoList message. Does not implicitly {@link msg.C2RS_RetInsideRoomInfoList.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2RS_RetInsideRoomInfoList
+         * @static
+         * @param {msg.IC2RS_RetInsideRoomInfoList} message C2RS_RetInsideRoomInfoList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2RS_RetInsideRoomInfoList.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.roomlist != null && message.roomlist.length)
+                for (var i = 0; i < message.roomlist.length; ++i)
+                    $root.msg.InsideRoomInfo.encode(message.roomlist[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            if (message.lastid != null && message.hasOwnProperty("lastid"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.lastid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2RS_RetInsideRoomInfoList message, length delimited. Does not implicitly {@link msg.C2RS_RetInsideRoomInfoList.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2RS_RetInsideRoomInfoList
+         * @static
+         * @param {msg.IC2RS_RetInsideRoomInfoList} message C2RS_RetInsideRoomInfoList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2RS_RetInsideRoomInfoList.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2RS_RetInsideRoomInfoList message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2RS_RetInsideRoomInfoList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2RS_RetInsideRoomInfoList} C2RS_RetInsideRoomInfoList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2RS_RetInsideRoomInfoList.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2RS_RetInsideRoomInfoList();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.roomlist && message.roomlist.length))
+                        message.roomlist = [];
+                    message.roomlist.push($root.msg.InsideRoomInfo.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    message.lastid = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2RS_RetInsideRoomInfoList message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2RS_RetInsideRoomInfoList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2RS_RetInsideRoomInfoList} C2RS_RetInsideRoomInfoList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2RS_RetInsideRoomInfoList.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2RS_RetInsideRoomInfoList message.
+         * @function verify
+         * @memberof msg.C2RS_RetInsideRoomInfoList
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2RS_RetInsideRoomInfoList.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.roomlist != null && message.hasOwnProperty("roomlist")) {
+                if (!Array.isArray(message.roomlist))
+                    return "roomlist: array expected";
+                for (var i = 0; i < message.roomlist.length; ++i) {
+                    var error = $root.msg.InsideRoomInfo.verify(message.roomlist[i]);
+                    if (error)
+                        return "roomlist." + error;
+                }
+            }
+            if (message.lastid != null && message.hasOwnProperty("lastid"))
+                if (!$util.isInteger(message.lastid))
+                    return "lastid: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2RS_RetInsideRoomInfoList message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2RS_RetInsideRoomInfoList
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2RS_RetInsideRoomInfoList} C2RS_RetInsideRoomInfoList
+         */
+        C2RS_RetInsideRoomInfoList.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2RS_RetInsideRoomInfoList)
+                return object;
+            var message = new $root.msg.C2RS_RetInsideRoomInfoList();
+            if (object.roomlist) {
+                if (!Array.isArray(object.roomlist))
+                    throw TypeError(".msg.C2RS_RetInsideRoomInfoList.roomlist: array expected");
+                message.roomlist = [];
+                for (var i = 0; i < object.roomlist.length; ++i) {
+                    if (typeof object.roomlist[i] !== "object")
+                        throw TypeError(".msg.C2RS_RetInsideRoomInfoList.roomlist: object expected");
+                    message.roomlist[i] = $root.msg.InsideRoomInfo.fromObject(object.roomlist[i]);
+                }
+            }
+            if (object.lastid != null)
+                message.lastid = object.lastid | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2RS_RetInsideRoomInfoList message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2RS_RetInsideRoomInfoList
+         * @static
+         * @param {msg.C2RS_RetInsideRoomInfoList} message C2RS_RetInsideRoomInfoList
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2RS_RetInsideRoomInfoList.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.roomlist = [];
+            if (options.defaults)
+                object.lastid = 0;
+            if (message.roomlist && message.roomlist.length) {
+                object.roomlist = [];
+                for (var j = 0; j < message.roomlist.length; ++j)
+                    object.roomlist[j] = $root.msg.InsideRoomInfo.toObject(message.roomlist[j], options);
+            }
+            if (message.lastid != null && message.hasOwnProperty("lastid"))
+                object.lastid = message.lastid;
+            return object;
+        };
+
+        /**
+         * Converts this C2RS_RetInsideRoomInfoList to JSON.
+         * @function toJSON
+         * @memberof msg.C2RS_RetInsideRoomInfoList
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2RS_RetInsideRoomInfoList.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2RS_RetInsideRoomInfoList;
+    })();
+
+    msg.C2RS_ReqMTTRecordList = (function() {
+
+        /**
+         * Properties of a C2RS_ReqMTTRecordList.
+         * @memberof msg
+         * @interface IC2RS_ReqMTTRecordList
+         */
+
+        /**
+         * Constructs a new C2RS_ReqMTTRecordList.
+         * @memberof msg
+         * @classdesc Represents a C2RS_ReqMTTRecordList.
+         * @implements IC2RS_ReqMTTRecordList
+         * @constructor
+         * @param {msg.IC2RS_ReqMTTRecordList=} [properties] Properties to set
+         */
+        function C2RS_ReqMTTRecordList(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Creates a new C2RS_ReqMTTRecordList instance using the specified properties.
+         * @function create
+         * @memberof msg.C2RS_ReqMTTRecordList
+         * @static
+         * @param {msg.IC2RS_ReqMTTRecordList=} [properties] Properties to set
+         * @returns {msg.C2RS_ReqMTTRecordList} C2RS_ReqMTTRecordList instance
+         */
+        C2RS_ReqMTTRecordList.create = function create(properties) {
+            return new C2RS_ReqMTTRecordList(properties);
+        };
+
+        /**
+         * Encodes the specified C2RS_ReqMTTRecordList message. Does not implicitly {@link msg.C2RS_ReqMTTRecordList.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2RS_ReqMTTRecordList
+         * @static
+         * @param {msg.IC2RS_ReqMTTRecordList} message C2RS_ReqMTTRecordList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2RS_ReqMTTRecordList.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2RS_ReqMTTRecordList message, length delimited. Does not implicitly {@link msg.C2RS_ReqMTTRecordList.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2RS_ReqMTTRecordList
+         * @static
+         * @param {msg.IC2RS_ReqMTTRecordList} message C2RS_ReqMTTRecordList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2RS_ReqMTTRecordList.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2RS_ReqMTTRecordList message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2RS_ReqMTTRecordList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2RS_ReqMTTRecordList} C2RS_ReqMTTRecordList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2RS_ReqMTTRecordList.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2RS_ReqMTTRecordList();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2RS_ReqMTTRecordList message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2RS_ReqMTTRecordList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2RS_ReqMTTRecordList} C2RS_ReqMTTRecordList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2RS_ReqMTTRecordList.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2RS_ReqMTTRecordList message.
+         * @function verify
+         * @memberof msg.C2RS_ReqMTTRecordList
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2RS_ReqMTTRecordList.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2RS_ReqMTTRecordList message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2RS_ReqMTTRecordList
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2RS_ReqMTTRecordList} C2RS_ReqMTTRecordList
+         */
+        C2RS_ReqMTTRecordList.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2RS_ReqMTTRecordList)
+                return object;
+            return new $root.msg.C2RS_ReqMTTRecordList();
+        };
+
+        /**
+         * Creates a plain object from a C2RS_ReqMTTRecordList message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2RS_ReqMTTRecordList
+         * @static
+         * @param {msg.C2RS_ReqMTTRecordList} message C2RS_ReqMTTRecordList
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2RS_ReqMTTRecordList.toObject = function toObject() {
+            return {};
+        };
+
+        /**
+         * Converts this C2RS_ReqMTTRecordList to JSON.
+         * @function toJSON
+         * @memberof msg.C2RS_ReqMTTRecordList
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2RS_ReqMTTRecordList.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2RS_ReqMTTRecordList;
+    })();
+
+    msg.MTTRecordInfo = (function() {
+
+        /**
+         * Properties of a MTTRecordInfo.
+         * @memberof msg
+         * @interface IMTTRecordInfo
+         * @property {number|null} [id] MTTRecordInfo id
+         * @property {number|null} [starttime] MTTRecordInfo starttime
+         * @property {string|null} [name] MTTRecordInfo name
+         * @property {number|null} [sex] MTTRecordInfo sex
+         * @property {string|null} [head] MTTRecordInfo head
+         * @property {number|null} [recordid] MTTRecordInfo recordid
+         */
+
+        /**
+         * Constructs a new MTTRecordInfo.
+         * @memberof msg
+         * @classdesc Represents a MTTRecordInfo.
+         * @implements IMTTRecordInfo
+         * @constructor
+         * @param {msg.IMTTRecordInfo=} [properties] Properties to set
+         */
+        function MTTRecordInfo(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * MTTRecordInfo id.
+         * @member {number} id
+         * @memberof msg.MTTRecordInfo
+         * @instance
+         */
+        MTTRecordInfo.prototype.id = 0;
+
+        /**
+         * MTTRecordInfo starttime.
+         * @member {number} starttime
+         * @memberof msg.MTTRecordInfo
+         * @instance
+         */
+        MTTRecordInfo.prototype.starttime = 0;
+
+        /**
+         * MTTRecordInfo name.
+         * @member {string} name
+         * @memberof msg.MTTRecordInfo
+         * @instance
+         */
+        MTTRecordInfo.prototype.name = "";
+
+        /**
+         * MTTRecordInfo sex.
+         * @member {number} sex
+         * @memberof msg.MTTRecordInfo
+         * @instance
+         */
+        MTTRecordInfo.prototype.sex = 0;
+
+        /**
+         * MTTRecordInfo head.
+         * @member {string} head
+         * @memberof msg.MTTRecordInfo
+         * @instance
+         */
+        MTTRecordInfo.prototype.head = "";
+
+        /**
+         * MTTRecordInfo recordid.
+         * @member {number} recordid
+         * @memberof msg.MTTRecordInfo
+         * @instance
+         */
+        MTTRecordInfo.prototype.recordid = 0;
+
+        /**
+         * Creates a new MTTRecordInfo instance using the specified properties.
+         * @function create
+         * @memberof msg.MTTRecordInfo
+         * @static
+         * @param {msg.IMTTRecordInfo=} [properties] Properties to set
+         * @returns {msg.MTTRecordInfo} MTTRecordInfo instance
+         */
+        MTTRecordInfo.create = function create(properties) {
+            return new MTTRecordInfo(properties);
+        };
+
+        /**
+         * Encodes the specified MTTRecordInfo message. Does not implicitly {@link msg.MTTRecordInfo.verify|verify} messages.
+         * @function encode
+         * @memberof msg.MTTRecordInfo
+         * @static
+         * @param {msg.IMTTRecordInfo} message MTTRecordInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MTTRecordInfo.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && message.hasOwnProperty("id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.id);
+            if (message.starttime != null && message.hasOwnProperty("starttime"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.starttime);
+            if (message.name != null && message.hasOwnProperty("name"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.name);
+            if (message.sex != null && message.hasOwnProperty("sex"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.sex);
+            if (message.head != null && message.hasOwnProperty("head"))
+                writer.uint32(/* id 5, wireType 2 =*/42).string(message.head);
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                writer.uint32(/* id 6, wireType 0 =*/48).int32(message.recordid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified MTTRecordInfo message, length delimited. Does not implicitly {@link msg.MTTRecordInfo.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.MTTRecordInfo
+         * @static
+         * @param {msg.IMTTRecordInfo} message MTTRecordInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MTTRecordInfo.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a MTTRecordInfo message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.MTTRecordInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.MTTRecordInfo} MTTRecordInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MTTRecordInfo.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.MTTRecordInfo();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.int32();
+                    break;
+                case 2:
+                    message.starttime = reader.int32();
+                    break;
+                case 3:
+                    message.name = reader.string();
+                    break;
+                case 4:
+                    message.sex = reader.int32();
+                    break;
+                case 5:
+                    message.head = reader.string();
+                    break;
+                case 6:
+                    message.recordid = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a MTTRecordInfo message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.MTTRecordInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.MTTRecordInfo} MTTRecordInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MTTRecordInfo.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a MTTRecordInfo message.
+         * @function verify
+         * @memberof msg.MTTRecordInfo
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        MTTRecordInfo.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isInteger(message.id))
+                    return "id: integer expected";
+            if (message.starttime != null && message.hasOwnProperty("starttime"))
+                if (!$util.isInteger(message.starttime))
+                    return "starttime: integer expected";
+            if (message.name != null && message.hasOwnProperty("name"))
+                if (!$util.isString(message.name))
+                    return "name: string expected";
+            if (message.sex != null && message.hasOwnProperty("sex"))
+                if (!$util.isInteger(message.sex))
+                    return "sex: integer expected";
+            if (message.head != null && message.hasOwnProperty("head"))
+                if (!$util.isString(message.head))
+                    return "head: string expected";
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                if (!$util.isInteger(message.recordid))
+                    return "recordid: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a MTTRecordInfo message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.MTTRecordInfo
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.MTTRecordInfo} MTTRecordInfo
+         */
+        MTTRecordInfo.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.MTTRecordInfo)
+                return object;
+            var message = new $root.msg.MTTRecordInfo();
+            if (object.id != null)
+                message.id = object.id | 0;
+            if (object.starttime != null)
+                message.starttime = object.starttime | 0;
+            if (object.name != null)
+                message.name = String(object.name);
+            if (object.sex != null)
+                message.sex = object.sex | 0;
+            if (object.head != null)
+                message.head = String(object.head);
+            if (object.recordid != null)
+                message.recordid = object.recordid | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a MTTRecordInfo message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.MTTRecordInfo
+         * @static
+         * @param {msg.MTTRecordInfo} message MTTRecordInfo
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        MTTRecordInfo.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.id = 0;
+                object.starttime = 0;
+                object.name = "";
+                object.sex = 0;
+                object.head = "";
+                object.recordid = 0;
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.starttime != null && message.hasOwnProperty("starttime"))
+                object.starttime = message.starttime;
+            if (message.name != null && message.hasOwnProperty("name"))
+                object.name = message.name;
+            if (message.sex != null && message.hasOwnProperty("sex"))
+                object.sex = message.sex;
+            if (message.head != null && message.hasOwnProperty("head"))
+                object.head = message.head;
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                object.recordid = message.recordid;
+            return object;
+        };
+
+        /**
+         * Converts this MTTRecordInfo to JSON.
+         * @function toJSON
+         * @memberof msg.MTTRecordInfo
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        MTTRecordInfo.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return MTTRecordInfo;
+    })();
+
+    msg.RS2C_RetMTTRecordList = (function() {
+
+        /**
+         * Properties of a RS2C_RetMTTRecordList.
+         * @memberof msg
+         * @interface IRS2C_RetMTTRecordList
+         * @property {Array.<msg.IMTTRecordInfo>|null} [recordlist] RS2C_RetMTTRecordList recordlist
+         */
+
+        /**
+         * Constructs a new RS2C_RetMTTRecordList.
+         * @memberof msg
+         * @classdesc Represents a RS2C_RetMTTRecordList.
+         * @implements IRS2C_RetMTTRecordList
+         * @constructor
+         * @param {msg.IRS2C_RetMTTRecordList=} [properties] Properties to set
+         */
+        function RS2C_RetMTTRecordList(properties) {
+            this.recordlist = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * RS2C_RetMTTRecordList recordlist.
+         * @member {Array.<msg.IMTTRecordInfo>} recordlist
+         * @memberof msg.RS2C_RetMTTRecordList
+         * @instance
+         */
+        RS2C_RetMTTRecordList.prototype.recordlist = $util.emptyArray;
+
+        /**
+         * Creates a new RS2C_RetMTTRecordList instance using the specified properties.
+         * @function create
+         * @memberof msg.RS2C_RetMTTRecordList
+         * @static
+         * @param {msg.IRS2C_RetMTTRecordList=} [properties] Properties to set
+         * @returns {msg.RS2C_RetMTTRecordList} RS2C_RetMTTRecordList instance
+         */
+        RS2C_RetMTTRecordList.create = function create(properties) {
+            return new RS2C_RetMTTRecordList(properties);
+        };
+
+        /**
+         * Encodes the specified RS2C_RetMTTRecordList message. Does not implicitly {@link msg.RS2C_RetMTTRecordList.verify|verify} messages.
+         * @function encode
+         * @memberof msg.RS2C_RetMTTRecordList
+         * @static
+         * @param {msg.IRS2C_RetMTTRecordList} message RS2C_RetMTTRecordList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_RetMTTRecordList.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.recordlist != null && message.recordlist.length)
+                for (var i = 0; i < message.recordlist.length; ++i)
+                    $root.msg.MTTRecordInfo.encode(message.recordlist[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified RS2C_RetMTTRecordList message, length delimited. Does not implicitly {@link msg.RS2C_RetMTTRecordList.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.RS2C_RetMTTRecordList
+         * @static
+         * @param {msg.IRS2C_RetMTTRecordList} message RS2C_RetMTTRecordList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_RetMTTRecordList.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a RS2C_RetMTTRecordList message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.RS2C_RetMTTRecordList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.RS2C_RetMTTRecordList} RS2C_RetMTTRecordList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_RetMTTRecordList.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.RS2C_RetMTTRecordList();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.recordlist && message.recordlist.length))
+                        message.recordlist = [];
+                    message.recordlist.push($root.msg.MTTRecordInfo.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a RS2C_RetMTTRecordList message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.RS2C_RetMTTRecordList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.RS2C_RetMTTRecordList} RS2C_RetMTTRecordList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_RetMTTRecordList.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a RS2C_RetMTTRecordList message.
+         * @function verify
+         * @memberof msg.RS2C_RetMTTRecordList
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        RS2C_RetMTTRecordList.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.recordlist != null && message.hasOwnProperty("recordlist")) {
+                if (!Array.isArray(message.recordlist))
+                    return "recordlist: array expected";
+                for (var i = 0; i < message.recordlist.length; ++i) {
+                    var error = $root.msg.MTTRecordInfo.verify(message.recordlist[i]);
+                    if (error)
+                        return "recordlist." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a RS2C_RetMTTRecordList message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.RS2C_RetMTTRecordList
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.RS2C_RetMTTRecordList} RS2C_RetMTTRecordList
+         */
+        RS2C_RetMTTRecordList.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.RS2C_RetMTTRecordList)
+                return object;
+            var message = new $root.msg.RS2C_RetMTTRecordList();
+            if (object.recordlist) {
+                if (!Array.isArray(object.recordlist))
+                    throw TypeError(".msg.RS2C_RetMTTRecordList.recordlist: array expected");
+                message.recordlist = [];
+                for (var i = 0; i < object.recordlist.length; ++i) {
+                    if (typeof object.recordlist[i] !== "object")
+                        throw TypeError(".msg.RS2C_RetMTTRecordList.recordlist: object expected");
+                    message.recordlist[i] = $root.msg.MTTRecordInfo.fromObject(object.recordlist[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a RS2C_RetMTTRecordList message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.RS2C_RetMTTRecordList
+         * @static
+         * @param {msg.RS2C_RetMTTRecordList} message RS2C_RetMTTRecordList
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        RS2C_RetMTTRecordList.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.recordlist = [];
+            if (message.recordlist && message.recordlist.length) {
+                object.recordlist = [];
+                for (var j = 0; j < message.recordlist.length; ++j)
+                    object.recordlist[j] = $root.msg.MTTRecordInfo.toObject(message.recordlist[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this RS2C_RetMTTRecordList to JSON.
+         * @function toJSON
+         * @memberof msg.RS2C_RetMTTRecordList
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        RS2C_RetMTTRecordList.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return RS2C_RetMTTRecordList;
+    })();
+
+    msg.C2RS_ReqMTTRecentlyRankList = (function() {
+
+        /**
+         * Properties of a C2RS_ReqMTTRecentlyRankList.
+         * @memberof msg
+         * @interface IC2RS_ReqMTTRecentlyRankList
+         * @property {number|null} [recordid] C2RS_ReqMTTRecentlyRankList recordid
+         */
+
+        /**
+         * Constructs a new C2RS_ReqMTTRecentlyRankList.
+         * @memberof msg
+         * @classdesc Represents a C2RS_ReqMTTRecentlyRankList.
+         * @implements IC2RS_ReqMTTRecentlyRankList
+         * @constructor
+         * @param {msg.IC2RS_ReqMTTRecentlyRankList=} [properties] Properties to set
+         */
+        function C2RS_ReqMTTRecentlyRankList(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2RS_ReqMTTRecentlyRankList recordid.
+         * @member {number} recordid
+         * @memberof msg.C2RS_ReqMTTRecentlyRankList
+         * @instance
+         */
+        C2RS_ReqMTTRecentlyRankList.prototype.recordid = 0;
+
+        /**
+         * Creates a new C2RS_ReqMTTRecentlyRankList instance using the specified properties.
+         * @function create
+         * @memberof msg.C2RS_ReqMTTRecentlyRankList
+         * @static
+         * @param {msg.IC2RS_ReqMTTRecentlyRankList=} [properties] Properties to set
+         * @returns {msg.C2RS_ReqMTTRecentlyRankList} C2RS_ReqMTTRecentlyRankList instance
+         */
+        C2RS_ReqMTTRecentlyRankList.create = function create(properties) {
+            return new C2RS_ReqMTTRecentlyRankList(properties);
+        };
+
+        /**
+         * Encodes the specified C2RS_ReqMTTRecentlyRankList message. Does not implicitly {@link msg.C2RS_ReqMTTRecentlyRankList.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2RS_ReqMTTRecentlyRankList
+         * @static
+         * @param {msg.IC2RS_ReqMTTRecentlyRankList} message C2RS_ReqMTTRecentlyRankList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2RS_ReqMTTRecentlyRankList.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.recordid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2RS_ReqMTTRecentlyRankList message, length delimited. Does not implicitly {@link msg.C2RS_ReqMTTRecentlyRankList.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2RS_ReqMTTRecentlyRankList
+         * @static
+         * @param {msg.IC2RS_ReqMTTRecentlyRankList} message C2RS_ReqMTTRecentlyRankList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2RS_ReqMTTRecentlyRankList.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2RS_ReqMTTRecentlyRankList message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2RS_ReqMTTRecentlyRankList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2RS_ReqMTTRecentlyRankList} C2RS_ReqMTTRecentlyRankList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2RS_ReqMTTRecentlyRankList.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2RS_ReqMTTRecentlyRankList();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.recordid = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2RS_ReqMTTRecentlyRankList message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2RS_ReqMTTRecentlyRankList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2RS_ReqMTTRecentlyRankList} C2RS_ReqMTTRecentlyRankList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2RS_ReqMTTRecentlyRankList.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2RS_ReqMTTRecentlyRankList message.
+         * @function verify
+         * @memberof msg.C2RS_ReqMTTRecentlyRankList
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2RS_ReqMTTRecentlyRankList.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                if (!$util.isInteger(message.recordid))
+                    return "recordid: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2RS_ReqMTTRecentlyRankList message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2RS_ReqMTTRecentlyRankList
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2RS_ReqMTTRecentlyRankList} C2RS_ReqMTTRecentlyRankList
+         */
+        C2RS_ReqMTTRecentlyRankList.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2RS_ReqMTTRecentlyRankList)
+                return object;
+            var message = new $root.msg.C2RS_ReqMTTRecentlyRankList();
+            if (object.recordid != null)
+                message.recordid = object.recordid | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2RS_ReqMTTRecentlyRankList message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2RS_ReqMTTRecentlyRankList
+         * @static
+         * @param {msg.C2RS_ReqMTTRecentlyRankList} message C2RS_ReqMTTRecentlyRankList
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2RS_ReqMTTRecentlyRankList.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.recordid = 0;
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                object.recordid = message.recordid;
+            return object;
+        };
+
+        /**
+         * Converts this C2RS_ReqMTTRecentlyRankList to JSON.
+         * @function toJSON
+         * @memberof msg.C2RS_ReqMTTRecentlyRankList
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2RS_ReqMTTRecentlyRankList.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2RS_ReqMTTRecentlyRankList;
+    })();
+
+    msg.MTTRecentlyRankInfo = (function() {
+
+        /**
+         * Properties of a MTTRecentlyRankInfo.
+         * @memberof msg
+         * @interface IMTTRecentlyRankInfo
+         * @property {number|null} [rank] MTTRecentlyRankInfo rank
+         * @property {string|null} [name] MTTRecentlyRankInfo name
+         * @property {string|null} [head] MTTRecentlyRankInfo head
+         * @property {number|null} [sex] MTTRecentlyRankInfo sex
+         * @property {number|null} [roleid] MTTRecentlyRankInfo roleid
+         */
+
+        /**
+         * Constructs a new MTTRecentlyRankInfo.
+         * @memberof msg
+         * @classdesc Represents a MTTRecentlyRankInfo.
+         * @implements IMTTRecentlyRankInfo
+         * @constructor
+         * @param {msg.IMTTRecentlyRankInfo=} [properties] Properties to set
+         */
+        function MTTRecentlyRankInfo(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * MTTRecentlyRankInfo rank.
+         * @member {number} rank
+         * @memberof msg.MTTRecentlyRankInfo
+         * @instance
+         */
+        MTTRecentlyRankInfo.prototype.rank = 0;
+
+        /**
+         * MTTRecentlyRankInfo name.
+         * @member {string} name
+         * @memberof msg.MTTRecentlyRankInfo
+         * @instance
+         */
+        MTTRecentlyRankInfo.prototype.name = "";
+
+        /**
+         * MTTRecentlyRankInfo head.
+         * @member {string} head
+         * @memberof msg.MTTRecentlyRankInfo
+         * @instance
+         */
+        MTTRecentlyRankInfo.prototype.head = "";
+
+        /**
+         * MTTRecentlyRankInfo sex.
+         * @member {number} sex
+         * @memberof msg.MTTRecentlyRankInfo
+         * @instance
+         */
+        MTTRecentlyRankInfo.prototype.sex = 0;
+
+        /**
+         * MTTRecentlyRankInfo roleid.
+         * @member {number} roleid
+         * @memberof msg.MTTRecentlyRankInfo
+         * @instance
+         */
+        MTTRecentlyRankInfo.prototype.roleid = 0;
+
+        /**
+         * Creates a new MTTRecentlyRankInfo instance using the specified properties.
+         * @function create
+         * @memberof msg.MTTRecentlyRankInfo
+         * @static
+         * @param {msg.IMTTRecentlyRankInfo=} [properties] Properties to set
+         * @returns {msg.MTTRecentlyRankInfo} MTTRecentlyRankInfo instance
+         */
+        MTTRecentlyRankInfo.create = function create(properties) {
+            return new MTTRecentlyRankInfo(properties);
+        };
+
+        /**
+         * Encodes the specified MTTRecentlyRankInfo message. Does not implicitly {@link msg.MTTRecentlyRankInfo.verify|verify} messages.
+         * @function encode
+         * @memberof msg.MTTRecentlyRankInfo
+         * @static
+         * @param {msg.IMTTRecentlyRankInfo} message MTTRecentlyRankInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MTTRecentlyRankInfo.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.rank != null && message.hasOwnProperty("rank"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.rank);
+            if (message.name != null && message.hasOwnProperty("name"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
+            if (message.head != null && message.hasOwnProperty("head"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.head);
+            if (message.sex != null && message.hasOwnProperty("sex"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.sex);
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.roleid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified MTTRecentlyRankInfo message, length delimited. Does not implicitly {@link msg.MTTRecentlyRankInfo.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.MTTRecentlyRankInfo
+         * @static
+         * @param {msg.IMTTRecentlyRankInfo} message MTTRecentlyRankInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MTTRecentlyRankInfo.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a MTTRecentlyRankInfo message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.MTTRecentlyRankInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.MTTRecentlyRankInfo} MTTRecentlyRankInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MTTRecentlyRankInfo.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.MTTRecentlyRankInfo();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.rank = reader.int32();
+                    break;
+                case 2:
+                    message.name = reader.string();
+                    break;
+                case 3:
+                    message.head = reader.string();
+                    break;
+                case 4:
+                    message.sex = reader.int32();
+                    break;
+                case 5:
+                    message.roleid = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a MTTRecentlyRankInfo message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.MTTRecentlyRankInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.MTTRecentlyRankInfo} MTTRecentlyRankInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MTTRecentlyRankInfo.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a MTTRecentlyRankInfo message.
+         * @function verify
+         * @memberof msg.MTTRecentlyRankInfo
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        MTTRecentlyRankInfo.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.rank != null && message.hasOwnProperty("rank"))
+                if (!$util.isInteger(message.rank))
+                    return "rank: integer expected";
+            if (message.name != null && message.hasOwnProperty("name"))
+                if (!$util.isString(message.name))
+                    return "name: string expected";
+            if (message.head != null && message.hasOwnProperty("head"))
+                if (!$util.isString(message.head))
+                    return "head: string expected";
+            if (message.sex != null && message.hasOwnProperty("sex"))
+                if (!$util.isInteger(message.sex))
+                    return "sex: integer expected";
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                if (!$util.isInteger(message.roleid))
+                    return "roleid: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a MTTRecentlyRankInfo message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.MTTRecentlyRankInfo
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.MTTRecentlyRankInfo} MTTRecentlyRankInfo
+         */
+        MTTRecentlyRankInfo.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.MTTRecentlyRankInfo)
+                return object;
+            var message = new $root.msg.MTTRecentlyRankInfo();
+            if (object.rank != null)
+                message.rank = object.rank | 0;
+            if (object.name != null)
+                message.name = String(object.name);
+            if (object.head != null)
+                message.head = String(object.head);
+            if (object.sex != null)
+                message.sex = object.sex | 0;
+            if (object.roleid != null)
+                message.roleid = object.roleid | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a MTTRecentlyRankInfo message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.MTTRecentlyRankInfo
+         * @static
+         * @param {msg.MTTRecentlyRankInfo} message MTTRecentlyRankInfo
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        MTTRecentlyRankInfo.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.rank = 0;
+                object.name = "";
+                object.head = "";
+                object.sex = 0;
+                object.roleid = 0;
+            }
+            if (message.rank != null && message.hasOwnProperty("rank"))
+                object.rank = message.rank;
+            if (message.name != null && message.hasOwnProperty("name"))
+                object.name = message.name;
+            if (message.head != null && message.hasOwnProperty("head"))
+                object.head = message.head;
+            if (message.sex != null && message.hasOwnProperty("sex"))
+                object.sex = message.sex;
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                object.roleid = message.roleid;
+            return object;
+        };
+
+        /**
+         * Converts this MTTRecentlyRankInfo to JSON.
+         * @function toJSON
+         * @memberof msg.MTTRecentlyRankInfo
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        MTTRecentlyRankInfo.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return MTTRecentlyRankInfo;
+    })();
+
+    msg.RS2C_RetMTTRecentlyRankList = (function() {
+
+        /**
+         * Properties of a RS2C_RetMTTRecentlyRankList.
+         * @memberof msg
+         * @interface IRS2C_RetMTTRecentlyRankList
+         * @property {Array.<msg.IMTTRecentlyRankInfo>|null} [ranklist] RS2C_RetMTTRecentlyRankList ranklist
+         */
+
+        /**
+         * Constructs a new RS2C_RetMTTRecentlyRankList.
+         * @memberof msg
+         * @classdesc Represents a RS2C_RetMTTRecentlyRankList.
+         * @implements IRS2C_RetMTTRecentlyRankList
+         * @constructor
+         * @param {msg.IRS2C_RetMTTRecentlyRankList=} [properties] Properties to set
+         */
+        function RS2C_RetMTTRecentlyRankList(properties) {
+            this.ranklist = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * RS2C_RetMTTRecentlyRankList ranklist.
+         * @member {Array.<msg.IMTTRecentlyRankInfo>} ranklist
+         * @memberof msg.RS2C_RetMTTRecentlyRankList
+         * @instance
+         */
+        RS2C_RetMTTRecentlyRankList.prototype.ranklist = $util.emptyArray;
+
+        /**
+         * Creates a new RS2C_RetMTTRecentlyRankList instance using the specified properties.
+         * @function create
+         * @memberof msg.RS2C_RetMTTRecentlyRankList
+         * @static
+         * @param {msg.IRS2C_RetMTTRecentlyRankList=} [properties] Properties to set
+         * @returns {msg.RS2C_RetMTTRecentlyRankList} RS2C_RetMTTRecentlyRankList instance
+         */
+        RS2C_RetMTTRecentlyRankList.create = function create(properties) {
+            return new RS2C_RetMTTRecentlyRankList(properties);
+        };
+
+        /**
+         * Encodes the specified RS2C_RetMTTRecentlyRankList message. Does not implicitly {@link msg.RS2C_RetMTTRecentlyRankList.verify|verify} messages.
+         * @function encode
+         * @memberof msg.RS2C_RetMTTRecentlyRankList
+         * @static
+         * @param {msg.IRS2C_RetMTTRecentlyRankList} message RS2C_RetMTTRecentlyRankList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_RetMTTRecentlyRankList.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.ranklist != null && message.ranklist.length)
+                for (var i = 0; i < message.ranklist.length; ++i)
+                    $root.msg.MTTRecentlyRankInfo.encode(message.ranklist[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified RS2C_RetMTTRecentlyRankList message, length delimited. Does not implicitly {@link msg.RS2C_RetMTTRecentlyRankList.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.RS2C_RetMTTRecentlyRankList
+         * @static
+         * @param {msg.IRS2C_RetMTTRecentlyRankList} message RS2C_RetMTTRecentlyRankList message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_RetMTTRecentlyRankList.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a RS2C_RetMTTRecentlyRankList message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.RS2C_RetMTTRecentlyRankList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.RS2C_RetMTTRecentlyRankList} RS2C_RetMTTRecentlyRankList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_RetMTTRecentlyRankList.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.RS2C_RetMTTRecentlyRankList();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.ranklist && message.ranklist.length))
+                        message.ranklist = [];
+                    message.ranklist.push($root.msg.MTTRecentlyRankInfo.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a RS2C_RetMTTRecentlyRankList message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.RS2C_RetMTTRecentlyRankList
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.RS2C_RetMTTRecentlyRankList} RS2C_RetMTTRecentlyRankList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_RetMTTRecentlyRankList.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a RS2C_RetMTTRecentlyRankList message.
+         * @function verify
+         * @memberof msg.RS2C_RetMTTRecentlyRankList
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        RS2C_RetMTTRecentlyRankList.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.ranklist != null && message.hasOwnProperty("ranklist")) {
+                if (!Array.isArray(message.ranklist))
+                    return "ranklist: array expected";
+                for (var i = 0; i < message.ranklist.length; ++i) {
+                    var error = $root.msg.MTTRecentlyRankInfo.verify(message.ranklist[i]);
+                    if (error)
+                        return "ranklist." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a RS2C_RetMTTRecentlyRankList message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.RS2C_RetMTTRecentlyRankList
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.RS2C_RetMTTRecentlyRankList} RS2C_RetMTTRecentlyRankList
+         */
+        RS2C_RetMTTRecentlyRankList.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.RS2C_RetMTTRecentlyRankList)
+                return object;
+            var message = new $root.msg.RS2C_RetMTTRecentlyRankList();
+            if (object.ranklist) {
+                if (!Array.isArray(object.ranklist))
+                    throw TypeError(".msg.RS2C_RetMTTRecentlyRankList.ranklist: array expected");
+                message.ranklist = [];
+                for (var i = 0; i < object.ranklist.length; ++i) {
+                    if (typeof object.ranklist[i] !== "object")
+                        throw TypeError(".msg.RS2C_RetMTTRecentlyRankList.ranklist: object expected");
+                    message.ranklist[i] = $root.msg.MTTRecentlyRankInfo.fromObject(object.ranklist[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a RS2C_RetMTTRecentlyRankList message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.RS2C_RetMTTRecentlyRankList
+         * @static
+         * @param {msg.RS2C_RetMTTRecentlyRankList} message RS2C_RetMTTRecentlyRankList
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        RS2C_RetMTTRecentlyRankList.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.ranklist = [];
+            if (message.ranklist && message.ranklist.length) {
+                object.ranklist = [];
+                for (var j = 0; j < message.ranklist.length; ++j)
+                    object.ranklist[j] = $root.msg.MTTRecentlyRankInfo.toObject(message.ranklist[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this RS2C_RetMTTRecentlyRankList to JSON.
+         * @function toJSON
+         * @memberof msg.RS2C_RetMTTRecentlyRankList
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        RS2C_RetMTTRecentlyRankList.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return RS2C_RetMTTRecentlyRankList;
+    })();
+
+    msg.C2RS_ReqMTTOutsInfo = (function() {
+
+        /**
+         * Properties of a C2RS_ReqMTTOutsInfo.
+         * @memberof msg
+         * @interface IC2RS_ReqMTTOutsInfo
+         * @property {number|null} [recordid] C2RS_ReqMTTOutsInfo recordid
+         */
+
+        /**
+         * Constructs a new C2RS_ReqMTTOutsInfo.
+         * @memberof msg
+         * @classdesc Represents a C2RS_ReqMTTOutsInfo.
+         * @implements IC2RS_ReqMTTOutsInfo
+         * @constructor
+         * @param {msg.IC2RS_ReqMTTOutsInfo=} [properties] Properties to set
+         */
+        function C2RS_ReqMTTOutsInfo(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2RS_ReqMTTOutsInfo recordid.
+         * @member {number} recordid
+         * @memberof msg.C2RS_ReqMTTOutsInfo
+         * @instance
+         */
+        C2RS_ReqMTTOutsInfo.prototype.recordid = 0;
+
+        /**
+         * Creates a new C2RS_ReqMTTOutsInfo instance using the specified properties.
+         * @function create
+         * @memberof msg.C2RS_ReqMTTOutsInfo
+         * @static
+         * @param {msg.IC2RS_ReqMTTOutsInfo=} [properties] Properties to set
+         * @returns {msg.C2RS_ReqMTTOutsInfo} C2RS_ReqMTTOutsInfo instance
+         */
+        C2RS_ReqMTTOutsInfo.create = function create(properties) {
+            return new C2RS_ReqMTTOutsInfo(properties);
+        };
+
+        /**
+         * Encodes the specified C2RS_ReqMTTOutsInfo message. Does not implicitly {@link msg.C2RS_ReqMTTOutsInfo.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2RS_ReqMTTOutsInfo
+         * @static
+         * @param {msg.IC2RS_ReqMTTOutsInfo} message C2RS_ReqMTTOutsInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2RS_ReqMTTOutsInfo.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.recordid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2RS_ReqMTTOutsInfo message, length delimited. Does not implicitly {@link msg.C2RS_ReqMTTOutsInfo.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2RS_ReqMTTOutsInfo
+         * @static
+         * @param {msg.IC2RS_ReqMTTOutsInfo} message C2RS_ReqMTTOutsInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2RS_ReqMTTOutsInfo.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2RS_ReqMTTOutsInfo message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2RS_ReqMTTOutsInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2RS_ReqMTTOutsInfo} C2RS_ReqMTTOutsInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2RS_ReqMTTOutsInfo.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2RS_ReqMTTOutsInfo();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.recordid = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2RS_ReqMTTOutsInfo message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2RS_ReqMTTOutsInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2RS_ReqMTTOutsInfo} C2RS_ReqMTTOutsInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2RS_ReqMTTOutsInfo.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2RS_ReqMTTOutsInfo message.
+         * @function verify
+         * @memberof msg.C2RS_ReqMTTOutsInfo
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2RS_ReqMTTOutsInfo.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                if (!$util.isInteger(message.recordid))
+                    return "recordid: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2RS_ReqMTTOutsInfo message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2RS_ReqMTTOutsInfo
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2RS_ReqMTTOutsInfo} C2RS_ReqMTTOutsInfo
+         */
+        C2RS_ReqMTTOutsInfo.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2RS_ReqMTTOutsInfo)
+                return object;
+            var message = new $root.msg.C2RS_ReqMTTOutsInfo();
+            if (object.recordid != null)
+                message.recordid = object.recordid | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2RS_ReqMTTOutsInfo message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2RS_ReqMTTOutsInfo
+         * @static
+         * @param {msg.C2RS_ReqMTTOutsInfo} message C2RS_ReqMTTOutsInfo
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2RS_ReqMTTOutsInfo.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.recordid = 0;
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                object.recordid = message.recordid;
+            return object;
+        };
+
+        /**
+         * Converts this C2RS_ReqMTTOutsInfo to JSON.
+         * @function toJSON
+         * @memberof msg.C2RS_ReqMTTOutsInfo
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2RS_ReqMTTOutsInfo.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2RS_ReqMTTOutsInfo;
+    })();
+
+    msg.RS2C_RetMTTOutsInfo = (function() {
+
+        /**
+         * Properties of a RS2C_RetMTTOutsInfo.
+         * @memberof msg
+         * @interface IRS2C_RetMTTOutsInfo
+         * @property {number|null} [blindlevel] RS2C_RetMTTOutsInfo blindlevel
+         * @property {number|null} [rank] RS2C_RetMTTOutsInfo rank
+         * @property {number|null} [blindtime] RS2C_RetMTTOutsInfo blindtime
+         */
+
+        /**
+         * Constructs a new RS2C_RetMTTOutsInfo.
+         * @memberof msg
+         * @classdesc Represents a RS2C_RetMTTOutsInfo.
+         * @implements IRS2C_RetMTTOutsInfo
+         * @constructor
+         * @param {msg.IRS2C_RetMTTOutsInfo=} [properties] Properties to set
+         */
+        function RS2C_RetMTTOutsInfo(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * RS2C_RetMTTOutsInfo blindlevel.
+         * @member {number} blindlevel
+         * @memberof msg.RS2C_RetMTTOutsInfo
+         * @instance
+         */
+        RS2C_RetMTTOutsInfo.prototype.blindlevel = 0;
+
+        /**
+         * RS2C_RetMTTOutsInfo rank.
+         * @member {number} rank
+         * @memberof msg.RS2C_RetMTTOutsInfo
+         * @instance
+         */
+        RS2C_RetMTTOutsInfo.prototype.rank = 0;
+
+        /**
+         * RS2C_RetMTTOutsInfo blindtime.
+         * @member {number} blindtime
+         * @memberof msg.RS2C_RetMTTOutsInfo
+         * @instance
+         */
+        RS2C_RetMTTOutsInfo.prototype.blindtime = 0;
+
+        /**
+         * Creates a new RS2C_RetMTTOutsInfo instance using the specified properties.
+         * @function create
+         * @memberof msg.RS2C_RetMTTOutsInfo
+         * @static
+         * @param {msg.IRS2C_RetMTTOutsInfo=} [properties] Properties to set
+         * @returns {msg.RS2C_RetMTTOutsInfo} RS2C_RetMTTOutsInfo instance
+         */
+        RS2C_RetMTTOutsInfo.create = function create(properties) {
+            return new RS2C_RetMTTOutsInfo(properties);
+        };
+
+        /**
+         * Encodes the specified RS2C_RetMTTOutsInfo message. Does not implicitly {@link msg.RS2C_RetMTTOutsInfo.verify|verify} messages.
+         * @function encode
+         * @memberof msg.RS2C_RetMTTOutsInfo
+         * @static
+         * @param {msg.IRS2C_RetMTTOutsInfo} message RS2C_RetMTTOutsInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_RetMTTOutsInfo.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.blindlevel != null && message.hasOwnProperty("blindlevel"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.blindlevel);
+            if (message.rank != null && message.hasOwnProperty("rank"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.rank);
+            if (message.blindtime != null && message.hasOwnProperty("blindtime"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.blindtime);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified RS2C_RetMTTOutsInfo message, length delimited. Does not implicitly {@link msg.RS2C_RetMTTOutsInfo.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.RS2C_RetMTTOutsInfo
+         * @static
+         * @param {msg.IRS2C_RetMTTOutsInfo} message RS2C_RetMTTOutsInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_RetMTTOutsInfo.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a RS2C_RetMTTOutsInfo message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.RS2C_RetMTTOutsInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.RS2C_RetMTTOutsInfo} RS2C_RetMTTOutsInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_RetMTTOutsInfo.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.RS2C_RetMTTOutsInfo();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.blindlevel = reader.int32();
+                    break;
+                case 2:
+                    message.rank = reader.int32();
+                    break;
+                case 3:
+                    message.blindtime = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a RS2C_RetMTTOutsInfo message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.RS2C_RetMTTOutsInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.RS2C_RetMTTOutsInfo} RS2C_RetMTTOutsInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_RetMTTOutsInfo.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a RS2C_RetMTTOutsInfo message.
+         * @function verify
+         * @memberof msg.RS2C_RetMTTOutsInfo
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        RS2C_RetMTTOutsInfo.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.blindlevel != null && message.hasOwnProperty("blindlevel"))
+                if (!$util.isInteger(message.blindlevel))
+                    return "blindlevel: integer expected";
+            if (message.rank != null && message.hasOwnProperty("rank"))
+                if (!$util.isInteger(message.rank))
+                    return "rank: integer expected";
+            if (message.blindtime != null && message.hasOwnProperty("blindtime"))
+                if (!$util.isInteger(message.blindtime))
+                    return "blindtime: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a RS2C_RetMTTOutsInfo message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.RS2C_RetMTTOutsInfo
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.RS2C_RetMTTOutsInfo} RS2C_RetMTTOutsInfo
+         */
+        RS2C_RetMTTOutsInfo.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.RS2C_RetMTTOutsInfo)
+                return object;
+            var message = new $root.msg.RS2C_RetMTTOutsInfo();
+            if (object.blindlevel != null)
+                message.blindlevel = object.blindlevel | 0;
+            if (object.rank != null)
+                message.rank = object.rank | 0;
+            if (object.blindtime != null)
+                message.blindtime = object.blindtime | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a RS2C_RetMTTOutsInfo message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.RS2C_RetMTTOutsInfo
+         * @static
+         * @param {msg.RS2C_RetMTTOutsInfo} message RS2C_RetMTTOutsInfo
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        RS2C_RetMTTOutsInfo.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.blindlevel = 0;
+                object.rank = 0;
+                object.blindtime = 0;
+            }
+            if (message.blindlevel != null && message.hasOwnProperty("blindlevel"))
+                object.blindlevel = message.blindlevel;
+            if (message.rank != null && message.hasOwnProperty("rank"))
+                object.rank = message.rank;
+            if (message.blindtime != null && message.hasOwnProperty("blindtime"))
+                object.blindtime = message.blindtime;
+            return object;
+        };
+
+        /**
+         * Converts this RS2C_RetMTTOutsInfo to JSON.
+         * @function toJSON
+         * @memberof msg.RS2C_RetMTTOutsInfo
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        RS2C_RetMTTOutsInfo.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return RS2C_RetMTTOutsInfo;
+    })();
+
+    msg.C2RS_ReqMTTRankInfo = (function() {
+
+        /**
+         * Properties of a C2RS_ReqMTTRankInfo.
+         * @memberof msg
+         * @interface IC2RS_ReqMTTRankInfo
+         * @property {number|null} [recordid] C2RS_ReqMTTRankInfo recordid
+         * @property {number|null} [startrank] C2RS_ReqMTTRankInfo startrank
+         * @property {number|null} [count] C2RS_ReqMTTRankInfo count
+         */
+
+        /**
+         * Constructs a new C2RS_ReqMTTRankInfo.
+         * @memberof msg
+         * @classdesc Represents a C2RS_ReqMTTRankInfo.
+         * @implements IC2RS_ReqMTTRankInfo
+         * @constructor
+         * @param {msg.IC2RS_ReqMTTRankInfo=} [properties] Properties to set
+         */
+        function C2RS_ReqMTTRankInfo(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2RS_ReqMTTRankInfo recordid.
+         * @member {number} recordid
+         * @memberof msg.C2RS_ReqMTTRankInfo
+         * @instance
+         */
+        C2RS_ReqMTTRankInfo.prototype.recordid = 0;
+
+        /**
+         * C2RS_ReqMTTRankInfo startrank.
+         * @member {number} startrank
+         * @memberof msg.C2RS_ReqMTTRankInfo
+         * @instance
+         */
+        C2RS_ReqMTTRankInfo.prototype.startrank = 0;
+
+        /**
+         * C2RS_ReqMTTRankInfo count.
+         * @member {number} count
+         * @memberof msg.C2RS_ReqMTTRankInfo
+         * @instance
+         */
+        C2RS_ReqMTTRankInfo.prototype.count = 0;
+
+        /**
+         * Creates a new C2RS_ReqMTTRankInfo instance using the specified properties.
+         * @function create
+         * @memberof msg.C2RS_ReqMTTRankInfo
+         * @static
+         * @param {msg.IC2RS_ReqMTTRankInfo=} [properties] Properties to set
+         * @returns {msg.C2RS_ReqMTTRankInfo} C2RS_ReqMTTRankInfo instance
+         */
+        C2RS_ReqMTTRankInfo.create = function create(properties) {
+            return new C2RS_ReqMTTRankInfo(properties);
+        };
+
+        /**
+         * Encodes the specified C2RS_ReqMTTRankInfo message. Does not implicitly {@link msg.C2RS_ReqMTTRankInfo.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2RS_ReqMTTRankInfo
+         * @static
+         * @param {msg.IC2RS_ReqMTTRankInfo} message C2RS_ReqMTTRankInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2RS_ReqMTTRankInfo.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.recordid);
+            if (message.startrank != null && message.hasOwnProperty("startrank"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.startrank);
+            if (message.count != null && message.hasOwnProperty("count"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.count);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2RS_ReqMTTRankInfo message, length delimited. Does not implicitly {@link msg.C2RS_ReqMTTRankInfo.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2RS_ReqMTTRankInfo
+         * @static
+         * @param {msg.IC2RS_ReqMTTRankInfo} message C2RS_ReqMTTRankInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2RS_ReqMTTRankInfo.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2RS_ReqMTTRankInfo message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2RS_ReqMTTRankInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2RS_ReqMTTRankInfo} C2RS_ReqMTTRankInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2RS_ReqMTTRankInfo.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2RS_ReqMTTRankInfo();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.recordid = reader.int32();
+                    break;
+                case 2:
+                    message.startrank = reader.int32();
+                    break;
+                case 3:
+                    message.count = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2RS_ReqMTTRankInfo message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2RS_ReqMTTRankInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2RS_ReqMTTRankInfo} C2RS_ReqMTTRankInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2RS_ReqMTTRankInfo.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2RS_ReqMTTRankInfo message.
+         * @function verify
+         * @memberof msg.C2RS_ReqMTTRankInfo
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2RS_ReqMTTRankInfo.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                if (!$util.isInteger(message.recordid))
+                    return "recordid: integer expected";
+            if (message.startrank != null && message.hasOwnProperty("startrank"))
+                if (!$util.isInteger(message.startrank))
+                    return "startrank: integer expected";
+            if (message.count != null && message.hasOwnProperty("count"))
+                if (!$util.isInteger(message.count))
+                    return "count: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2RS_ReqMTTRankInfo message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2RS_ReqMTTRankInfo
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2RS_ReqMTTRankInfo} C2RS_ReqMTTRankInfo
+         */
+        C2RS_ReqMTTRankInfo.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2RS_ReqMTTRankInfo)
+                return object;
+            var message = new $root.msg.C2RS_ReqMTTRankInfo();
+            if (object.recordid != null)
+                message.recordid = object.recordid | 0;
+            if (object.startrank != null)
+                message.startrank = object.startrank | 0;
+            if (object.count != null)
+                message.count = object.count | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2RS_ReqMTTRankInfo message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2RS_ReqMTTRankInfo
+         * @static
+         * @param {msg.C2RS_ReqMTTRankInfo} message C2RS_ReqMTTRankInfo
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2RS_ReqMTTRankInfo.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.recordid = 0;
+                object.startrank = 0;
+                object.count = 0;
+            }
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                object.recordid = message.recordid;
+            if (message.startrank != null && message.hasOwnProperty("startrank"))
+                object.startrank = message.startrank;
+            if (message.count != null && message.hasOwnProperty("count"))
+                object.count = message.count;
+            return object;
+        };
+
+        /**
+         * Converts this C2RS_ReqMTTRankInfo to JSON.
+         * @function toJSON
+         * @memberof msg.C2RS_ReqMTTRankInfo
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2RS_ReqMTTRankInfo.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2RS_ReqMTTRankInfo;
+    })();
+
+    msg.MTTRankInfo = (function() {
+
+        /**
+         * Properties of a MTTRankInfo.
+         * @memberof msg
+         * @interface IMTTRankInfo
+         * @property {number|null} [rank] MTTRankInfo rank
+         * @property {string|null} [name] MTTRankInfo name
+         * @property {string|null} [head] MTTRankInfo head
+         * @property {number|null} [sex] MTTRankInfo sex
+         * @property {number|null} [chips] MTTRankInfo chips
+         * @property {number|null} [roleid] MTTRankInfo roleid
+         */
+
+        /**
+         * Constructs a new MTTRankInfo.
+         * @memberof msg
+         * @classdesc Represents a MTTRankInfo.
+         * @implements IMTTRankInfo
+         * @constructor
+         * @param {msg.IMTTRankInfo=} [properties] Properties to set
+         */
+        function MTTRankInfo(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * MTTRankInfo rank.
+         * @member {number} rank
+         * @memberof msg.MTTRankInfo
+         * @instance
+         */
+        MTTRankInfo.prototype.rank = 0;
+
+        /**
+         * MTTRankInfo name.
+         * @member {string} name
+         * @memberof msg.MTTRankInfo
+         * @instance
+         */
+        MTTRankInfo.prototype.name = "";
+
+        /**
+         * MTTRankInfo head.
+         * @member {string} head
+         * @memberof msg.MTTRankInfo
+         * @instance
+         */
+        MTTRankInfo.prototype.head = "";
+
+        /**
+         * MTTRankInfo sex.
+         * @member {number} sex
+         * @memberof msg.MTTRankInfo
+         * @instance
+         */
+        MTTRankInfo.prototype.sex = 0;
+
+        /**
+         * MTTRankInfo chips.
+         * @member {number} chips
+         * @memberof msg.MTTRankInfo
+         * @instance
+         */
+        MTTRankInfo.prototype.chips = 0;
+
+        /**
+         * MTTRankInfo roleid.
+         * @member {number} roleid
+         * @memberof msg.MTTRankInfo
+         * @instance
+         */
+        MTTRankInfo.prototype.roleid = 0;
+
+        /**
+         * Creates a new MTTRankInfo instance using the specified properties.
+         * @function create
+         * @memberof msg.MTTRankInfo
+         * @static
+         * @param {msg.IMTTRankInfo=} [properties] Properties to set
+         * @returns {msg.MTTRankInfo} MTTRankInfo instance
+         */
+        MTTRankInfo.create = function create(properties) {
+            return new MTTRankInfo(properties);
+        };
+
+        /**
+         * Encodes the specified MTTRankInfo message. Does not implicitly {@link msg.MTTRankInfo.verify|verify} messages.
+         * @function encode
+         * @memberof msg.MTTRankInfo
+         * @static
+         * @param {msg.IMTTRankInfo} message MTTRankInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MTTRankInfo.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.rank != null && message.hasOwnProperty("rank"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.rank);
+            if (message.name != null && message.hasOwnProperty("name"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
+            if (message.head != null && message.hasOwnProperty("head"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.head);
+            if (message.sex != null && message.hasOwnProperty("sex"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.sex);
+            if (message.chips != null && message.hasOwnProperty("chips"))
+                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.chips);
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                writer.uint32(/* id 6, wireType 0 =*/48).int32(message.roleid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified MTTRankInfo message, length delimited. Does not implicitly {@link msg.MTTRankInfo.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.MTTRankInfo
+         * @static
+         * @param {msg.IMTTRankInfo} message MTTRankInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MTTRankInfo.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a MTTRankInfo message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.MTTRankInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.MTTRankInfo} MTTRankInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MTTRankInfo.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.MTTRankInfo();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.rank = reader.int32();
+                    break;
+                case 2:
+                    message.name = reader.string();
+                    break;
+                case 3:
+                    message.head = reader.string();
+                    break;
+                case 4:
+                    message.sex = reader.int32();
+                    break;
+                case 5:
+                    message.chips = reader.int32();
+                    break;
+                case 6:
+                    message.roleid = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a MTTRankInfo message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.MTTRankInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.MTTRankInfo} MTTRankInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MTTRankInfo.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a MTTRankInfo message.
+         * @function verify
+         * @memberof msg.MTTRankInfo
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        MTTRankInfo.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.rank != null && message.hasOwnProperty("rank"))
+                if (!$util.isInteger(message.rank))
+                    return "rank: integer expected";
+            if (message.name != null && message.hasOwnProperty("name"))
+                if (!$util.isString(message.name))
+                    return "name: string expected";
+            if (message.head != null && message.hasOwnProperty("head"))
+                if (!$util.isString(message.head))
+                    return "head: string expected";
+            if (message.sex != null && message.hasOwnProperty("sex"))
+                if (!$util.isInteger(message.sex))
+                    return "sex: integer expected";
+            if (message.chips != null && message.hasOwnProperty("chips"))
+                if (!$util.isInteger(message.chips))
+                    return "chips: integer expected";
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                if (!$util.isInteger(message.roleid))
+                    return "roleid: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a MTTRankInfo message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.MTTRankInfo
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.MTTRankInfo} MTTRankInfo
+         */
+        MTTRankInfo.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.MTTRankInfo)
+                return object;
+            var message = new $root.msg.MTTRankInfo();
+            if (object.rank != null)
+                message.rank = object.rank | 0;
+            if (object.name != null)
+                message.name = String(object.name);
+            if (object.head != null)
+                message.head = String(object.head);
+            if (object.sex != null)
+                message.sex = object.sex | 0;
+            if (object.chips != null)
+                message.chips = object.chips | 0;
+            if (object.roleid != null)
+                message.roleid = object.roleid | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a MTTRankInfo message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.MTTRankInfo
+         * @static
+         * @param {msg.MTTRankInfo} message MTTRankInfo
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        MTTRankInfo.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.rank = 0;
+                object.name = "";
+                object.head = "";
+                object.sex = 0;
+                object.chips = 0;
+                object.roleid = 0;
+            }
+            if (message.rank != null && message.hasOwnProperty("rank"))
+                object.rank = message.rank;
+            if (message.name != null && message.hasOwnProperty("name"))
+                object.name = message.name;
+            if (message.head != null && message.hasOwnProperty("head"))
+                object.head = message.head;
+            if (message.sex != null && message.hasOwnProperty("sex"))
+                object.sex = message.sex;
+            if (message.chips != null && message.hasOwnProperty("chips"))
+                object.chips = message.chips;
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                object.roleid = message.roleid;
+            return object;
+        };
+
+        /**
+         * Converts this MTTRankInfo to JSON.
+         * @function toJSON
+         * @memberof msg.MTTRankInfo
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        MTTRankInfo.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return MTTRankInfo;
+    })();
+
+    msg.RS2C_RetMTTRankInfo = (function() {
+
+        /**
+         * Properties of a RS2C_RetMTTRankInfo.
+         * @memberof msg
+         * @interface IRS2C_RetMTTRankInfo
+         * @property {Array.<msg.IMTTRankInfo>|null} [ranklist] RS2C_RetMTTRankInfo ranklist
+         */
+
+        /**
+         * Constructs a new RS2C_RetMTTRankInfo.
+         * @memberof msg
+         * @classdesc Represents a RS2C_RetMTTRankInfo.
+         * @implements IRS2C_RetMTTRankInfo
+         * @constructor
+         * @param {msg.IRS2C_RetMTTRankInfo=} [properties] Properties to set
+         */
+        function RS2C_RetMTTRankInfo(properties) {
+            this.ranklist = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * RS2C_RetMTTRankInfo ranklist.
+         * @member {Array.<msg.IMTTRankInfo>} ranklist
+         * @memberof msg.RS2C_RetMTTRankInfo
+         * @instance
+         */
+        RS2C_RetMTTRankInfo.prototype.ranklist = $util.emptyArray;
+
+        /**
+         * Creates a new RS2C_RetMTTRankInfo instance using the specified properties.
+         * @function create
+         * @memberof msg.RS2C_RetMTTRankInfo
+         * @static
+         * @param {msg.IRS2C_RetMTTRankInfo=} [properties] Properties to set
+         * @returns {msg.RS2C_RetMTTRankInfo} RS2C_RetMTTRankInfo instance
+         */
+        RS2C_RetMTTRankInfo.create = function create(properties) {
+            return new RS2C_RetMTTRankInfo(properties);
+        };
+
+        /**
+         * Encodes the specified RS2C_RetMTTRankInfo message. Does not implicitly {@link msg.RS2C_RetMTTRankInfo.verify|verify} messages.
+         * @function encode
+         * @memberof msg.RS2C_RetMTTRankInfo
+         * @static
+         * @param {msg.IRS2C_RetMTTRankInfo} message RS2C_RetMTTRankInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_RetMTTRankInfo.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.ranklist != null && message.ranklist.length)
+                for (var i = 0; i < message.ranklist.length; ++i)
+                    $root.msg.MTTRankInfo.encode(message.ranklist[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified RS2C_RetMTTRankInfo message, length delimited. Does not implicitly {@link msg.RS2C_RetMTTRankInfo.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.RS2C_RetMTTRankInfo
+         * @static
+         * @param {msg.IRS2C_RetMTTRankInfo} message RS2C_RetMTTRankInfo message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_RetMTTRankInfo.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a RS2C_RetMTTRankInfo message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.RS2C_RetMTTRankInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.RS2C_RetMTTRankInfo} RS2C_RetMTTRankInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_RetMTTRankInfo.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.RS2C_RetMTTRankInfo();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.ranklist && message.ranklist.length))
+                        message.ranklist = [];
+                    message.ranklist.push($root.msg.MTTRankInfo.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a RS2C_RetMTTRankInfo message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.RS2C_RetMTTRankInfo
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.RS2C_RetMTTRankInfo} RS2C_RetMTTRankInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_RetMTTRankInfo.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a RS2C_RetMTTRankInfo message.
+         * @function verify
+         * @memberof msg.RS2C_RetMTTRankInfo
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        RS2C_RetMTTRankInfo.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.ranklist != null && message.hasOwnProperty("ranklist")) {
+                if (!Array.isArray(message.ranklist))
+                    return "ranklist: array expected";
+                for (var i = 0; i < message.ranklist.length; ++i) {
+                    var error = $root.msg.MTTRankInfo.verify(message.ranklist[i]);
+                    if (error)
+                        return "ranklist." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a RS2C_RetMTTRankInfo message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.RS2C_RetMTTRankInfo
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.RS2C_RetMTTRankInfo} RS2C_RetMTTRankInfo
+         */
+        RS2C_RetMTTRankInfo.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.RS2C_RetMTTRankInfo)
+                return object;
+            var message = new $root.msg.RS2C_RetMTTRankInfo();
+            if (object.ranklist) {
+                if (!Array.isArray(object.ranklist))
+                    throw TypeError(".msg.RS2C_RetMTTRankInfo.ranklist: array expected");
+                message.ranklist = [];
+                for (var i = 0; i < object.ranklist.length; ++i) {
+                    if (typeof object.ranklist[i] !== "object")
+                        throw TypeError(".msg.RS2C_RetMTTRankInfo.ranklist: object expected");
+                    message.ranklist[i] = $root.msg.MTTRankInfo.fromObject(object.ranklist[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a RS2C_RetMTTRankInfo message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.RS2C_RetMTTRankInfo
+         * @static
+         * @param {msg.RS2C_RetMTTRankInfo} message RS2C_RetMTTRankInfo
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        RS2C_RetMTTRankInfo.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.ranklist = [];
+            if (message.ranklist && message.ranklist.length) {
+                object.ranklist = [];
+                for (var j = 0; j < message.ranklist.length; ++j)
+                    object.ranklist[j] = $root.msg.MTTRankInfo.toObject(message.ranklist[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this RS2C_RetMTTRankInfo to JSON.
+         * @function toJSON
+         * @memberof msg.RS2C_RetMTTRankInfo
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        RS2C_RetMTTRankInfo.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return RS2C_RetMTTRankInfo;
+    })();
+
+    msg.C2RS_ReqMTTRebuyOrAddon = (function() {
+
+        /**
+         * Properties of a C2RS_ReqMTTRebuyOrAddon.
+         * @memberof msg
+         * @interface IC2RS_ReqMTTRebuyOrAddon
+         * @property {number|null} [type] C2RS_ReqMTTRebuyOrAddon type
+         */
+
+        /**
+         * Constructs a new C2RS_ReqMTTRebuyOrAddon.
+         * @memberof msg
+         * @classdesc Represents a C2RS_ReqMTTRebuyOrAddon.
+         * @implements IC2RS_ReqMTTRebuyOrAddon
+         * @constructor
+         * @param {msg.IC2RS_ReqMTTRebuyOrAddon=} [properties] Properties to set
+         */
+        function C2RS_ReqMTTRebuyOrAddon(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2RS_ReqMTTRebuyOrAddon type.
+         * @member {number} type
+         * @memberof msg.C2RS_ReqMTTRebuyOrAddon
+         * @instance
+         */
+        C2RS_ReqMTTRebuyOrAddon.prototype.type = 0;
+
+        /**
+         * Creates a new C2RS_ReqMTTRebuyOrAddon instance using the specified properties.
+         * @function create
+         * @memberof msg.C2RS_ReqMTTRebuyOrAddon
+         * @static
+         * @param {msg.IC2RS_ReqMTTRebuyOrAddon=} [properties] Properties to set
+         * @returns {msg.C2RS_ReqMTTRebuyOrAddon} C2RS_ReqMTTRebuyOrAddon instance
+         */
+        C2RS_ReqMTTRebuyOrAddon.create = function create(properties) {
+            return new C2RS_ReqMTTRebuyOrAddon(properties);
+        };
+
+        /**
+         * Encodes the specified C2RS_ReqMTTRebuyOrAddon message. Does not implicitly {@link msg.C2RS_ReqMTTRebuyOrAddon.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2RS_ReqMTTRebuyOrAddon
+         * @static
+         * @param {msg.IC2RS_ReqMTTRebuyOrAddon} message C2RS_ReqMTTRebuyOrAddon message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2RS_ReqMTTRebuyOrAddon.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.type != null && message.hasOwnProperty("type"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.type);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2RS_ReqMTTRebuyOrAddon message, length delimited. Does not implicitly {@link msg.C2RS_ReqMTTRebuyOrAddon.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2RS_ReqMTTRebuyOrAddon
+         * @static
+         * @param {msg.IC2RS_ReqMTTRebuyOrAddon} message C2RS_ReqMTTRebuyOrAddon message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2RS_ReqMTTRebuyOrAddon.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2RS_ReqMTTRebuyOrAddon message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2RS_ReqMTTRebuyOrAddon
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2RS_ReqMTTRebuyOrAddon} C2RS_ReqMTTRebuyOrAddon
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2RS_ReqMTTRebuyOrAddon.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2RS_ReqMTTRebuyOrAddon();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.type = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2RS_ReqMTTRebuyOrAddon message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2RS_ReqMTTRebuyOrAddon
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2RS_ReqMTTRebuyOrAddon} C2RS_ReqMTTRebuyOrAddon
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2RS_ReqMTTRebuyOrAddon.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2RS_ReqMTTRebuyOrAddon message.
+         * @function verify
+         * @memberof msg.C2RS_ReqMTTRebuyOrAddon
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2RS_ReqMTTRebuyOrAddon.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.type != null && message.hasOwnProperty("type"))
+                if (!$util.isInteger(message.type))
+                    return "type: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2RS_ReqMTTRebuyOrAddon message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2RS_ReqMTTRebuyOrAddon
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2RS_ReqMTTRebuyOrAddon} C2RS_ReqMTTRebuyOrAddon
+         */
+        C2RS_ReqMTTRebuyOrAddon.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2RS_ReqMTTRebuyOrAddon)
+                return object;
+            var message = new $root.msg.C2RS_ReqMTTRebuyOrAddon();
+            if (object.type != null)
+                message.type = object.type | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2RS_ReqMTTRebuyOrAddon message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2RS_ReqMTTRebuyOrAddon
+         * @static
+         * @param {msg.C2RS_ReqMTTRebuyOrAddon} message C2RS_ReqMTTRebuyOrAddon
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2RS_ReqMTTRebuyOrAddon.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.type = 0;
+            if (message.type != null && message.hasOwnProperty("type"))
+                object.type = message.type;
+            return object;
+        };
+
+        /**
+         * Converts this C2RS_ReqMTTRebuyOrAddon to JSON.
+         * @function toJSON
+         * @memberof msg.C2RS_ReqMTTRebuyOrAddon
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2RS_ReqMTTRebuyOrAddon.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2RS_ReqMTTRebuyOrAddon;
+    })();
+
+    msg.RS2C_RetMTTRebuyOrAddon = (function() {
+
+        /**
+         * Properties of a RS2C_RetMTTRebuyOrAddon.
+         * @memberof msg
+         * @interface IRS2C_RetMTTRebuyOrAddon
+         * @property {string|null} [errcode] RS2C_RetMTTRebuyOrAddon errcode
+         */
+
+        /**
+         * Constructs a new RS2C_RetMTTRebuyOrAddon.
+         * @memberof msg
+         * @classdesc Represents a RS2C_RetMTTRebuyOrAddon.
+         * @implements IRS2C_RetMTTRebuyOrAddon
+         * @constructor
+         * @param {msg.IRS2C_RetMTTRebuyOrAddon=} [properties] Properties to set
+         */
+        function RS2C_RetMTTRebuyOrAddon(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * RS2C_RetMTTRebuyOrAddon errcode.
+         * @member {string} errcode
+         * @memberof msg.RS2C_RetMTTRebuyOrAddon
+         * @instance
+         */
+        RS2C_RetMTTRebuyOrAddon.prototype.errcode = "";
+
+        /**
+         * Creates a new RS2C_RetMTTRebuyOrAddon instance using the specified properties.
+         * @function create
+         * @memberof msg.RS2C_RetMTTRebuyOrAddon
+         * @static
+         * @param {msg.IRS2C_RetMTTRebuyOrAddon=} [properties] Properties to set
+         * @returns {msg.RS2C_RetMTTRebuyOrAddon} RS2C_RetMTTRebuyOrAddon instance
+         */
+        RS2C_RetMTTRebuyOrAddon.create = function create(properties) {
+            return new RS2C_RetMTTRebuyOrAddon(properties);
+        };
+
+        /**
+         * Encodes the specified RS2C_RetMTTRebuyOrAddon message. Does not implicitly {@link msg.RS2C_RetMTTRebuyOrAddon.verify|verify} messages.
+         * @function encode
+         * @memberof msg.RS2C_RetMTTRebuyOrAddon
+         * @static
+         * @param {msg.IRS2C_RetMTTRebuyOrAddon} message RS2C_RetMTTRebuyOrAddon message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_RetMTTRebuyOrAddon.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.errcode != null && message.hasOwnProperty("errcode"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.errcode);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified RS2C_RetMTTRebuyOrAddon message, length delimited. Does not implicitly {@link msg.RS2C_RetMTTRebuyOrAddon.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.RS2C_RetMTTRebuyOrAddon
+         * @static
+         * @param {msg.IRS2C_RetMTTRebuyOrAddon} message RS2C_RetMTTRebuyOrAddon message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_RetMTTRebuyOrAddon.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a RS2C_RetMTTRebuyOrAddon message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.RS2C_RetMTTRebuyOrAddon
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.RS2C_RetMTTRebuyOrAddon} RS2C_RetMTTRebuyOrAddon
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_RetMTTRebuyOrAddon.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.RS2C_RetMTTRebuyOrAddon();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.errcode = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a RS2C_RetMTTRebuyOrAddon message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.RS2C_RetMTTRebuyOrAddon
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.RS2C_RetMTTRebuyOrAddon} RS2C_RetMTTRebuyOrAddon
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_RetMTTRebuyOrAddon.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a RS2C_RetMTTRebuyOrAddon message.
+         * @function verify
+         * @memberof msg.RS2C_RetMTTRebuyOrAddon
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        RS2C_RetMTTRebuyOrAddon.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.errcode != null && message.hasOwnProperty("errcode"))
+                if (!$util.isString(message.errcode))
+                    return "errcode: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a RS2C_RetMTTRebuyOrAddon message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.RS2C_RetMTTRebuyOrAddon
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.RS2C_RetMTTRebuyOrAddon} RS2C_RetMTTRebuyOrAddon
+         */
+        RS2C_RetMTTRebuyOrAddon.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.RS2C_RetMTTRebuyOrAddon)
+                return object;
+            var message = new $root.msg.RS2C_RetMTTRebuyOrAddon();
+            if (object.errcode != null)
+                message.errcode = String(object.errcode);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a RS2C_RetMTTRebuyOrAddon message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.RS2C_RetMTTRebuyOrAddon
+         * @static
+         * @param {msg.RS2C_RetMTTRebuyOrAddon} message RS2C_RetMTTRebuyOrAddon
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        RS2C_RetMTTRebuyOrAddon.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.errcode = "";
+            if (message.errcode != null && message.hasOwnProperty("errcode"))
+                object.errcode = message.errcode;
+            return object;
+        };
+
+        /**
+         * Converts this RS2C_RetMTTRebuyOrAddon to JSON.
+         * @function toJSON
+         * @memberof msg.RS2C_RetMTTRebuyOrAddon
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        RS2C_RetMTTRebuyOrAddon.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return RS2C_RetMTTRebuyOrAddon;
+    })();
+
+    msg.RS2C_PushMTTJoinNumChange = (function() {
+
+        /**
+         * Properties of a RS2C_PushMTTJoinNumChange.
+         * @memberof msg
+         * @interface IRS2C_PushMTTJoinNumChange
+         * @property {Array.<msg.IMMTJoinNum>|null} [mttlist] RS2C_PushMTTJoinNumChange mttlist
+         */
+
+        /**
+         * Constructs a new RS2C_PushMTTJoinNumChange.
+         * @memberof msg
+         * @classdesc Represents a RS2C_PushMTTJoinNumChange.
+         * @implements IRS2C_PushMTTJoinNumChange
+         * @constructor
+         * @param {msg.IRS2C_PushMTTJoinNumChange=} [properties] Properties to set
+         */
+        function RS2C_PushMTTJoinNumChange(properties) {
+            this.mttlist = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * RS2C_PushMTTJoinNumChange mttlist.
+         * @member {Array.<msg.IMMTJoinNum>} mttlist
+         * @memberof msg.RS2C_PushMTTJoinNumChange
+         * @instance
+         */
+        RS2C_PushMTTJoinNumChange.prototype.mttlist = $util.emptyArray;
+
+        /**
+         * Creates a new RS2C_PushMTTJoinNumChange instance using the specified properties.
+         * @function create
+         * @memberof msg.RS2C_PushMTTJoinNumChange
+         * @static
+         * @param {msg.IRS2C_PushMTTJoinNumChange=} [properties] Properties to set
+         * @returns {msg.RS2C_PushMTTJoinNumChange} RS2C_PushMTTJoinNumChange instance
+         */
+        RS2C_PushMTTJoinNumChange.create = function create(properties) {
+            return new RS2C_PushMTTJoinNumChange(properties);
+        };
+
+        /**
+         * Encodes the specified RS2C_PushMTTJoinNumChange message. Does not implicitly {@link msg.RS2C_PushMTTJoinNumChange.verify|verify} messages.
+         * @function encode
+         * @memberof msg.RS2C_PushMTTJoinNumChange
+         * @static
+         * @param {msg.IRS2C_PushMTTJoinNumChange} message RS2C_PushMTTJoinNumChange message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_PushMTTJoinNumChange.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.mttlist != null && message.mttlist.length)
+                for (var i = 0; i < message.mttlist.length; ++i)
+                    $root.msg.MMTJoinNum.encode(message.mttlist[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified RS2C_PushMTTJoinNumChange message, length delimited. Does not implicitly {@link msg.RS2C_PushMTTJoinNumChange.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.RS2C_PushMTTJoinNumChange
+         * @static
+         * @param {msg.IRS2C_PushMTTJoinNumChange} message RS2C_PushMTTJoinNumChange message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_PushMTTJoinNumChange.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a RS2C_PushMTTJoinNumChange message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.RS2C_PushMTTJoinNumChange
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.RS2C_PushMTTJoinNumChange} RS2C_PushMTTJoinNumChange
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_PushMTTJoinNumChange.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.RS2C_PushMTTJoinNumChange();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.mttlist && message.mttlist.length))
+                        message.mttlist = [];
+                    message.mttlist.push($root.msg.MMTJoinNum.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a RS2C_PushMTTJoinNumChange message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.RS2C_PushMTTJoinNumChange
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.RS2C_PushMTTJoinNumChange} RS2C_PushMTTJoinNumChange
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_PushMTTJoinNumChange.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a RS2C_PushMTTJoinNumChange message.
+         * @function verify
+         * @memberof msg.RS2C_PushMTTJoinNumChange
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        RS2C_PushMTTJoinNumChange.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.mttlist != null && message.hasOwnProperty("mttlist")) {
+                if (!Array.isArray(message.mttlist))
+                    return "mttlist: array expected";
+                for (var i = 0; i < message.mttlist.length; ++i) {
+                    var error = $root.msg.MMTJoinNum.verify(message.mttlist[i]);
+                    if (error)
+                        return "mttlist." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a RS2C_PushMTTJoinNumChange message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.RS2C_PushMTTJoinNumChange
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.RS2C_PushMTTJoinNumChange} RS2C_PushMTTJoinNumChange
+         */
+        RS2C_PushMTTJoinNumChange.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.RS2C_PushMTTJoinNumChange)
+                return object;
+            var message = new $root.msg.RS2C_PushMTTJoinNumChange();
+            if (object.mttlist) {
+                if (!Array.isArray(object.mttlist))
+                    throw TypeError(".msg.RS2C_PushMTTJoinNumChange.mttlist: array expected");
+                message.mttlist = [];
+                for (var i = 0; i < object.mttlist.length; ++i) {
+                    if (typeof object.mttlist[i] !== "object")
+                        throw TypeError(".msg.RS2C_PushMTTJoinNumChange.mttlist: object expected");
+                    message.mttlist[i] = $root.msg.MMTJoinNum.fromObject(object.mttlist[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a RS2C_PushMTTJoinNumChange message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.RS2C_PushMTTJoinNumChange
+         * @static
+         * @param {msg.RS2C_PushMTTJoinNumChange} message RS2C_PushMTTJoinNumChange
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        RS2C_PushMTTJoinNumChange.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.mttlist = [];
+            if (message.mttlist && message.mttlist.length) {
+                object.mttlist = [];
+                for (var j = 0; j < message.mttlist.length; ++j)
+                    object.mttlist[j] = $root.msg.MMTJoinNum.toObject(message.mttlist[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this RS2C_PushMTTJoinNumChange to JSON.
+         * @function toJSON
+         * @memberof msg.RS2C_PushMTTJoinNumChange
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        RS2C_PushMTTJoinNumChange.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return RS2C_PushMTTJoinNumChange;
+    })();
+
+    msg.MMTJoinNum = (function() {
+
+        /**
+         * Properties of a MMTJoinNum.
+         * @memberof msg
+         * @interface IMMTJoinNum
+         * @property {number|null} [id] MMTJoinNum id
+         * @property {number|null} [join] MMTJoinNum join
+         */
+
+        /**
+         * Constructs a new MMTJoinNum.
+         * @memberof msg
+         * @classdesc Represents a MMTJoinNum.
+         * @implements IMMTJoinNum
+         * @constructor
+         * @param {msg.IMMTJoinNum=} [properties] Properties to set
+         */
+        function MMTJoinNum(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * MMTJoinNum id.
+         * @member {number} id
+         * @memberof msg.MMTJoinNum
+         * @instance
+         */
+        MMTJoinNum.prototype.id = 0;
+
+        /**
+         * MMTJoinNum join.
+         * @member {number} join
+         * @memberof msg.MMTJoinNum
+         * @instance
+         */
+        MMTJoinNum.prototype.join = 0;
+
+        /**
+         * Creates a new MMTJoinNum instance using the specified properties.
+         * @function create
+         * @memberof msg.MMTJoinNum
+         * @static
+         * @param {msg.IMMTJoinNum=} [properties] Properties to set
+         * @returns {msg.MMTJoinNum} MMTJoinNum instance
+         */
+        MMTJoinNum.create = function create(properties) {
+            return new MMTJoinNum(properties);
+        };
+
+        /**
+         * Encodes the specified MMTJoinNum message. Does not implicitly {@link msg.MMTJoinNum.verify|verify} messages.
+         * @function encode
+         * @memberof msg.MMTJoinNum
+         * @static
+         * @param {msg.IMMTJoinNum} message MMTJoinNum message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MMTJoinNum.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.id != null && message.hasOwnProperty("id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.id);
+            if (message.join != null && message.hasOwnProperty("join"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.join);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified MMTJoinNum message, length delimited. Does not implicitly {@link msg.MMTJoinNum.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.MMTJoinNum
+         * @static
+         * @param {msg.IMMTJoinNum} message MMTJoinNum message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MMTJoinNum.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a MMTJoinNum message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.MMTJoinNum
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.MMTJoinNum} MMTJoinNum
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MMTJoinNum.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.MMTJoinNum();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.int32();
+                    break;
+                case 2:
+                    message.join = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a MMTJoinNum message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.MMTJoinNum
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.MMTJoinNum} MMTJoinNum
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MMTJoinNum.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a MMTJoinNum message.
+         * @function verify
+         * @memberof msg.MMTJoinNum
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        MMTJoinNum.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isInteger(message.id))
+                    return "id: integer expected";
+            if (message.join != null && message.hasOwnProperty("join"))
+                if (!$util.isInteger(message.join))
+                    return "join: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a MMTJoinNum message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.MMTJoinNum
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.MMTJoinNum} MMTJoinNum
+         */
+        MMTJoinNum.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.MMTJoinNum)
+                return object;
+            var message = new $root.msg.MMTJoinNum();
+            if (object.id != null)
+                message.id = object.id | 0;
+            if (object.join != null)
+                message.join = object.join | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a MMTJoinNum message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.MMTJoinNum
+         * @static
+         * @param {msg.MMTJoinNum} message MMTJoinNum
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        MMTJoinNum.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.id = 0;
+                object.join = 0;
+            }
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            if (message.join != null && message.hasOwnProperty("join"))
+                object.join = message.join;
+            return object;
+        };
+
+        /**
+         * Converts this MMTJoinNum to JSON.
+         * @function toJSON
+         * @memberof msg.MMTJoinNum
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        MMTJoinNum.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return MMTJoinNum;
+    })();
+
+    msg.RS2C_PushMTTRoomId = (function() {
+
+        /**
+         * Properties of a RS2C_PushMTTRoomId.
+         * @memberof msg
+         * @interface IRS2C_PushMTTRoomId
+         * @property {number|null} [mttid] RS2C_PushMTTRoomId mttid
+         * @property {number|Long|null} [id] RS2C_PushMTTRoomId id
+         */
+
+        /**
+         * Constructs a new RS2C_PushMTTRoomId.
+         * @memberof msg
+         * @classdesc Represents a RS2C_PushMTTRoomId.
+         * @implements IRS2C_PushMTTRoomId
+         * @constructor
+         * @param {msg.IRS2C_PushMTTRoomId=} [properties] Properties to set
+         */
+        function RS2C_PushMTTRoomId(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * RS2C_PushMTTRoomId mttid.
+         * @member {number} mttid
+         * @memberof msg.RS2C_PushMTTRoomId
+         * @instance
+         */
+        RS2C_PushMTTRoomId.prototype.mttid = 0;
+
+        /**
+         * RS2C_PushMTTRoomId id.
+         * @member {number|Long} id
+         * @memberof msg.RS2C_PushMTTRoomId
+         * @instance
+         */
+        RS2C_PushMTTRoomId.prototype.id = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * Creates a new RS2C_PushMTTRoomId instance using the specified properties.
+         * @function create
+         * @memberof msg.RS2C_PushMTTRoomId
+         * @static
+         * @param {msg.IRS2C_PushMTTRoomId=} [properties] Properties to set
+         * @returns {msg.RS2C_PushMTTRoomId} RS2C_PushMTTRoomId instance
+         */
+        RS2C_PushMTTRoomId.create = function create(properties) {
+            return new RS2C_PushMTTRoomId(properties);
+        };
+
+        /**
+         * Encodes the specified RS2C_PushMTTRoomId message. Does not implicitly {@link msg.RS2C_PushMTTRoomId.verify|verify} messages.
+         * @function encode
+         * @memberof msg.RS2C_PushMTTRoomId
+         * @static
+         * @param {msg.IRS2C_PushMTTRoomId} message RS2C_PushMTTRoomId message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_PushMTTRoomId.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.mttid != null && message.hasOwnProperty("mttid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.mttid);
+            if (message.id != null && message.hasOwnProperty("id"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int64(message.id);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified RS2C_PushMTTRoomId message, length delimited. Does not implicitly {@link msg.RS2C_PushMTTRoomId.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.RS2C_PushMTTRoomId
+         * @static
+         * @param {msg.IRS2C_PushMTTRoomId} message RS2C_PushMTTRoomId message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_PushMTTRoomId.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a RS2C_PushMTTRoomId message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.RS2C_PushMTTRoomId
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.RS2C_PushMTTRoomId} RS2C_PushMTTRoomId
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_PushMTTRoomId.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.RS2C_PushMTTRoomId();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.mttid = reader.int32();
+                    break;
+                case 2:
+                    message.id = reader.int64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a RS2C_PushMTTRoomId message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.RS2C_PushMTTRoomId
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.RS2C_PushMTTRoomId} RS2C_PushMTTRoomId
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_PushMTTRoomId.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a RS2C_PushMTTRoomId message.
+         * @function verify
+         * @memberof msg.RS2C_PushMTTRoomId
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        RS2C_PushMTTRoomId.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.mttid != null && message.hasOwnProperty("mttid"))
+                if (!$util.isInteger(message.mttid))
+                    return "mttid: integer expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isInteger(message.id) && !(message.id && $util.isInteger(message.id.low) && $util.isInteger(message.id.high)))
+                    return "id: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a RS2C_PushMTTRoomId message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.RS2C_PushMTTRoomId
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.RS2C_PushMTTRoomId} RS2C_PushMTTRoomId
+         */
+        RS2C_PushMTTRoomId.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.RS2C_PushMTTRoomId)
+                return object;
+            var message = new $root.msg.RS2C_PushMTTRoomId();
+            if (object.mttid != null)
+                message.mttid = object.mttid | 0;
+            if (object.id != null)
+                if ($util.Long)
+                    (message.id = $util.Long.fromValue(object.id)).unsigned = false;
+                else if (typeof object.id === "string")
+                    message.id = parseInt(object.id, 10);
+                else if (typeof object.id === "number")
+                    message.id = object.id;
+                else if (typeof object.id === "object")
+                    message.id = new $util.LongBits(object.id.low >>> 0, object.id.high >>> 0).toNumber();
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a RS2C_PushMTTRoomId message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.RS2C_PushMTTRoomId
+         * @static
+         * @param {msg.RS2C_PushMTTRoomId} message RS2C_PushMTTRoomId
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        RS2C_PushMTTRoomId.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.mttid = 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.id = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.id = options.longs === String ? "0" : 0;
+            }
+            if (message.mttid != null && message.hasOwnProperty("mttid"))
+                object.mttid = message.mttid;
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (typeof message.id === "number")
+                    object.id = options.longs === String ? String(message.id) : message.id;
+                else
+                    object.id = options.longs === String ? $util.Long.prototype.toString.call(message.id) : options.longs === Number ? new $util.LongBits(message.id.low >>> 0, message.id.high >>> 0).toNumber() : message.id;
+            return object;
+        };
+
+        /**
+         * Converts this RS2C_PushMTTRoomId to JSON.
+         * @function toJSON
+         * @memberof msg.RS2C_PushMTTRoomId
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        RS2C_PushMTTRoomId.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return RS2C_PushMTTRoomId;
+    })();
+
+    msg.RS2C_PushMTTRank = (function() {
+
+        /**
+         * Properties of a RS2C_PushMTTRank.
+         * @memberof msg
+         * @interface IRS2C_PushMTTRank
+         * @property {number|null} [rank] RS2C_PushMTTRank rank
+         * @property {number|null} [join] RS2C_PushMTTRank join
+         * @property {number|null} [avgchips] RS2C_PushMTTRank avgchips
+         * @property {number|null} [recordid] RS2C_PushMTTRank recordid
+         */
+
+        /**
+         * Constructs a new RS2C_PushMTTRank.
+         * @memberof msg
+         * @classdesc Represents a RS2C_PushMTTRank.
+         * @implements IRS2C_PushMTTRank
+         * @constructor
+         * @param {msg.IRS2C_PushMTTRank=} [properties] Properties to set
+         */
+        function RS2C_PushMTTRank(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * RS2C_PushMTTRank rank.
+         * @member {number} rank
+         * @memberof msg.RS2C_PushMTTRank
+         * @instance
+         */
+        RS2C_PushMTTRank.prototype.rank = 0;
+
+        /**
+         * RS2C_PushMTTRank join.
+         * @member {number} join
+         * @memberof msg.RS2C_PushMTTRank
+         * @instance
+         */
+        RS2C_PushMTTRank.prototype.join = 0;
+
+        /**
+         * RS2C_PushMTTRank avgchips.
+         * @member {number} avgchips
+         * @memberof msg.RS2C_PushMTTRank
+         * @instance
+         */
+        RS2C_PushMTTRank.prototype.avgchips = 0;
+
+        /**
+         * RS2C_PushMTTRank recordid.
+         * @member {number} recordid
+         * @memberof msg.RS2C_PushMTTRank
+         * @instance
+         */
+        RS2C_PushMTTRank.prototype.recordid = 0;
+
+        /**
+         * Creates a new RS2C_PushMTTRank instance using the specified properties.
+         * @function create
+         * @memberof msg.RS2C_PushMTTRank
+         * @static
+         * @param {msg.IRS2C_PushMTTRank=} [properties] Properties to set
+         * @returns {msg.RS2C_PushMTTRank} RS2C_PushMTTRank instance
+         */
+        RS2C_PushMTTRank.create = function create(properties) {
+            return new RS2C_PushMTTRank(properties);
+        };
+
+        /**
+         * Encodes the specified RS2C_PushMTTRank message. Does not implicitly {@link msg.RS2C_PushMTTRank.verify|verify} messages.
+         * @function encode
+         * @memberof msg.RS2C_PushMTTRank
+         * @static
+         * @param {msg.IRS2C_PushMTTRank} message RS2C_PushMTTRank message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_PushMTTRank.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.rank != null && message.hasOwnProperty("rank"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.rank);
+            if (message.join != null && message.hasOwnProperty("join"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.join);
+            if (message.avgchips != null && message.hasOwnProperty("avgchips"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.avgchips);
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.recordid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified RS2C_PushMTTRank message, length delimited. Does not implicitly {@link msg.RS2C_PushMTTRank.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.RS2C_PushMTTRank
+         * @static
+         * @param {msg.IRS2C_PushMTTRank} message RS2C_PushMTTRank message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_PushMTTRank.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a RS2C_PushMTTRank message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.RS2C_PushMTTRank
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.RS2C_PushMTTRank} RS2C_PushMTTRank
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_PushMTTRank.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.RS2C_PushMTTRank();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.rank = reader.int32();
+                    break;
+                case 2:
+                    message.join = reader.int32();
+                    break;
+                case 3:
+                    message.avgchips = reader.int32();
+                    break;
+                case 4:
+                    message.recordid = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a RS2C_PushMTTRank message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.RS2C_PushMTTRank
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.RS2C_PushMTTRank} RS2C_PushMTTRank
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_PushMTTRank.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a RS2C_PushMTTRank message.
+         * @function verify
+         * @memberof msg.RS2C_PushMTTRank
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        RS2C_PushMTTRank.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.rank != null && message.hasOwnProperty("rank"))
+                if (!$util.isInteger(message.rank))
+                    return "rank: integer expected";
+            if (message.join != null && message.hasOwnProperty("join"))
+                if (!$util.isInteger(message.join))
+                    return "join: integer expected";
+            if (message.avgchips != null && message.hasOwnProperty("avgchips"))
+                if (!$util.isInteger(message.avgchips))
+                    return "avgchips: integer expected";
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                if (!$util.isInteger(message.recordid))
+                    return "recordid: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a RS2C_PushMTTRank message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.RS2C_PushMTTRank
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.RS2C_PushMTTRank} RS2C_PushMTTRank
+         */
+        RS2C_PushMTTRank.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.RS2C_PushMTTRank)
+                return object;
+            var message = new $root.msg.RS2C_PushMTTRank();
+            if (object.rank != null)
+                message.rank = object.rank | 0;
+            if (object.join != null)
+                message.join = object.join | 0;
+            if (object.avgchips != null)
+                message.avgchips = object.avgchips | 0;
+            if (object.recordid != null)
+                message.recordid = object.recordid | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a RS2C_PushMTTRank message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.RS2C_PushMTTRank
+         * @static
+         * @param {msg.RS2C_PushMTTRank} message RS2C_PushMTTRank
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        RS2C_PushMTTRank.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.rank = 0;
+                object.join = 0;
+                object.avgchips = 0;
+                object.recordid = 0;
+            }
+            if (message.rank != null && message.hasOwnProperty("rank"))
+                object.rank = message.rank;
+            if (message.join != null && message.hasOwnProperty("join"))
+                object.join = message.join;
+            if (message.avgchips != null && message.hasOwnProperty("avgchips"))
+                object.avgchips = message.avgchips;
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                object.recordid = message.recordid;
+            return object;
+        };
+
+        /**
+         * Converts this RS2C_PushMTTRank to JSON.
+         * @function toJSON
+         * @memberof msg.RS2C_PushMTTRank
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        RS2C_PushMTTRank.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return RS2C_PushMTTRank;
+    })();
+
+    msg.RS2C_PushMTTWeedOut = (function() {
+
+        /**
+         * Properties of a RS2C_PushMTTWeedOut.
+         * @memberof msg
+         * @interface IRS2C_PushMTTWeedOut
+         * @property {number|null} [rank] RS2C_PushMTTWeedOut rank
+         * @property {number|null} [join] RS2C_PushMTTWeedOut join
+         * @property {number|null} [maxrank] RS2C_PushMTTWeedOut maxrank
+         * @property {number|null} [recordid] RS2C_PushMTTWeedOut recordid
+         * @property {number|null} [id] RS2C_PushMTTWeedOut id
+         */
+
+        /**
+         * Constructs a new RS2C_PushMTTWeedOut.
+         * @memberof msg
+         * @classdesc Represents a RS2C_PushMTTWeedOut.
+         * @implements IRS2C_PushMTTWeedOut
+         * @constructor
+         * @param {msg.IRS2C_PushMTTWeedOut=} [properties] Properties to set
+         */
+        function RS2C_PushMTTWeedOut(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * RS2C_PushMTTWeedOut rank.
+         * @member {number} rank
+         * @memberof msg.RS2C_PushMTTWeedOut
+         * @instance
+         */
+        RS2C_PushMTTWeedOut.prototype.rank = 0;
+
+        /**
+         * RS2C_PushMTTWeedOut join.
+         * @member {number} join
+         * @memberof msg.RS2C_PushMTTWeedOut
+         * @instance
+         */
+        RS2C_PushMTTWeedOut.prototype.join = 0;
+
+        /**
+         * RS2C_PushMTTWeedOut maxrank.
+         * @member {number} maxrank
+         * @memberof msg.RS2C_PushMTTWeedOut
+         * @instance
+         */
+        RS2C_PushMTTWeedOut.prototype.maxrank = 0;
+
+        /**
+         * RS2C_PushMTTWeedOut recordid.
+         * @member {number} recordid
+         * @memberof msg.RS2C_PushMTTWeedOut
+         * @instance
+         */
+        RS2C_PushMTTWeedOut.prototype.recordid = 0;
+
+        /**
+         * RS2C_PushMTTWeedOut id.
+         * @member {number} id
+         * @memberof msg.RS2C_PushMTTWeedOut
+         * @instance
+         */
+        RS2C_PushMTTWeedOut.prototype.id = 0;
+
+        /**
+         * Creates a new RS2C_PushMTTWeedOut instance using the specified properties.
+         * @function create
+         * @memberof msg.RS2C_PushMTTWeedOut
+         * @static
+         * @param {msg.IRS2C_PushMTTWeedOut=} [properties] Properties to set
+         * @returns {msg.RS2C_PushMTTWeedOut} RS2C_PushMTTWeedOut instance
+         */
+        RS2C_PushMTTWeedOut.create = function create(properties) {
+            return new RS2C_PushMTTWeedOut(properties);
+        };
+
+        /**
+         * Encodes the specified RS2C_PushMTTWeedOut message. Does not implicitly {@link msg.RS2C_PushMTTWeedOut.verify|verify} messages.
+         * @function encode
+         * @memberof msg.RS2C_PushMTTWeedOut
+         * @static
+         * @param {msg.IRS2C_PushMTTWeedOut} message RS2C_PushMTTWeedOut message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_PushMTTWeedOut.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.rank != null && message.hasOwnProperty("rank"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.rank);
+            if (message.join != null && message.hasOwnProperty("join"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.join);
+            if (message.maxrank != null && message.hasOwnProperty("maxrank"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.maxrank);
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.recordid);
+            if (message.id != null && message.hasOwnProperty("id"))
+                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.id);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified RS2C_PushMTTWeedOut message, length delimited. Does not implicitly {@link msg.RS2C_PushMTTWeedOut.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.RS2C_PushMTTWeedOut
+         * @static
+         * @param {msg.IRS2C_PushMTTWeedOut} message RS2C_PushMTTWeedOut message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_PushMTTWeedOut.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a RS2C_PushMTTWeedOut message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.RS2C_PushMTTWeedOut
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.RS2C_PushMTTWeedOut} RS2C_PushMTTWeedOut
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_PushMTTWeedOut.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.RS2C_PushMTTWeedOut();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.rank = reader.int32();
+                    break;
+                case 2:
+                    message.join = reader.int32();
+                    break;
+                case 3:
+                    message.maxrank = reader.int32();
+                    break;
+                case 4:
+                    message.recordid = reader.int32();
+                    break;
+                case 5:
+                    message.id = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a RS2C_PushMTTWeedOut message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.RS2C_PushMTTWeedOut
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.RS2C_PushMTTWeedOut} RS2C_PushMTTWeedOut
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_PushMTTWeedOut.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a RS2C_PushMTTWeedOut message.
+         * @function verify
+         * @memberof msg.RS2C_PushMTTWeedOut
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        RS2C_PushMTTWeedOut.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.rank != null && message.hasOwnProperty("rank"))
+                if (!$util.isInteger(message.rank))
+                    return "rank: integer expected";
+            if (message.join != null && message.hasOwnProperty("join"))
+                if (!$util.isInteger(message.join))
+                    return "join: integer expected";
+            if (message.maxrank != null && message.hasOwnProperty("maxrank"))
+                if (!$util.isInteger(message.maxrank))
+                    return "maxrank: integer expected";
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                if (!$util.isInteger(message.recordid))
+                    return "recordid: integer expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isInteger(message.id))
+                    return "id: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a RS2C_PushMTTWeedOut message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.RS2C_PushMTTWeedOut
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.RS2C_PushMTTWeedOut} RS2C_PushMTTWeedOut
+         */
+        RS2C_PushMTTWeedOut.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.RS2C_PushMTTWeedOut)
+                return object;
+            var message = new $root.msg.RS2C_PushMTTWeedOut();
+            if (object.rank != null)
+                message.rank = object.rank | 0;
+            if (object.join != null)
+                message.join = object.join | 0;
+            if (object.maxrank != null)
+                message.maxrank = object.maxrank | 0;
+            if (object.recordid != null)
+                message.recordid = object.recordid | 0;
+            if (object.id != null)
+                message.id = object.id | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a RS2C_PushMTTWeedOut message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.RS2C_PushMTTWeedOut
+         * @static
+         * @param {msg.RS2C_PushMTTWeedOut} message RS2C_PushMTTWeedOut
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        RS2C_PushMTTWeedOut.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.rank = 0;
+                object.join = 0;
+                object.maxrank = 0;
+                object.recordid = 0;
+                object.id = 0;
+            }
+            if (message.rank != null && message.hasOwnProperty("rank"))
+                object.rank = message.rank;
+            if (message.join != null && message.hasOwnProperty("join"))
+                object.join = message.join;
+            if (message.maxrank != null && message.hasOwnProperty("maxrank"))
+                object.maxrank = message.maxrank;
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                object.recordid = message.recordid;
+            if (message.id != null && message.hasOwnProperty("id"))
+                object.id = message.id;
+            return object;
+        };
+
+        /**
+         * Converts this RS2C_PushMTTWeedOut to JSON.
+         * @function toJSON
+         * @memberof msg.RS2C_PushMTTWeedOut
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        RS2C_PushMTTWeedOut.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return RS2C_PushMTTWeedOut;
+    })();
+
+    msg.RS2C_PushMTTNew = (function() {
+
+        /**
+         * Properties of a RS2C_PushMTTNew.
+         * @memberof msg
+         * @interface IRS2C_PushMTTNew
+         * @property {number|null} [recordid] RS2C_PushMTTNew recordid
+         */
+
+        /**
+         * Constructs a new RS2C_PushMTTNew.
+         * @memberof msg
+         * @classdesc Represents a RS2C_PushMTTNew.
+         * @implements IRS2C_PushMTTNew
+         * @constructor
+         * @param {msg.IRS2C_PushMTTNew=} [properties] Properties to set
+         */
+        function RS2C_PushMTTNew(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * RS2C_PushMTTNew recordid.
+         * @member {number} recordid
+         * @memberof msg.RS2C_PushMTTNew
+         * @instance
+         */
+        RS2C_PushMTTNew.prototype.recordid = 0;
+
+        /**
+         * Creates a new RS2C_PushMTTNew instance using the specified properties.
+         * @function create
+         * @memberof msg.RS2C_PushMTTNew
+         * @static
+         * @param {msg.IRS2C_PushMTTNew=} [properties] Properties to set
+         * @returns {msg.RS2C_PushMTTNew} RS2C_PushMTTNew instance
+         */
+        RS2C_PushMTTNew.create = function create(properties) {
+            return new RS2C_PushMTTNew(properties);
+        };
+
+        /**
+         * Encodes the specified RS2C_PushMTTNew message. Does not implicitly {@link msg.RS2C_PushMTTNew.verify|verify} messages.
+         * @function encode
+         * @memberof msg.RS2C_PushMTTNew
+         * @static
+         * @param {msg.IRS2C_PushMTTNew} message RS2C_PushMTTNew message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_PushMTTNew.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.recordid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified RS2C_PushMTTNew message, length delimited. Does not implicitly {@link msg.RS2C_PushMTTNew.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.RS2C_PushMTTNew
+         * @static
+         * @param {msg.IRS2C_PushMTTNew} message RS2C_PushMTTNew message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_PushMTTNew.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a RS2C_PushMTTNew message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.RS2C_PushMTTNew
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.RS2C_PushMTTNew} RS2C_PushMTTNew
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_PushMTTNew.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.RS2C_PushMTTNew();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.recordid = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a RS2C_PushMTTNew message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.RS2C_PushMTTNew
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.RS2C_PushMTTNew} RS2C_PushMTTNew
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_PushMTTNew.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a RS2C_PushMTTNew message.
+         * @function verify
+         * @memberof msg.RS2C_PushMTTNew
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        RS2C_PushMTTNew.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                if (!$util.isInteger(message.recordid))
+                    return "recordid: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a RS2C_PushMTTNew message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.RS2C_PushMTTNew
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.RS2C_PushMTTNew} RS2C_PushMTTNew
+         */
+        RS2C_PushMTTNew.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.RS2C_PushMTTNew)
+                return object;
+            var message = new $root.msg.RS2C_PushMTTNew();
+            if (object.recordid != null)
+                message.recordid = object.recordid | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a RS2C_PushMTTNew message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.RS2C_PushMTTNew
+         * @static
+         * @param {msg.RS2C_PushMTTNew} message RS2C_PushMTTNew
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        RS2C_PushMTTNew.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.recordid = 0;
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                object.recordid = message.recordid;
+            return object;
+        };
+
+        /**
+         * Converts this RS2C_PushMTTNew to JSON.
+         * @function toJSON
+         * @memberof msg.RS2C_PushMTTNew
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        RS2C_PushMTTNew.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return RS2C_PushMTTNew;
+    })();
+
+    msg.RS2C_PushMTTCancel = (function() {
+
+        /**
+         * Properties of a RS2C_PushMTTCancel.
+         * @memberof msg
+         * @interface IRS2C_PushMTTCancel
+         * @property {number|null} [recordid] RS2C_PushMTTCancel recordid
+         */
+
+        /**
+         * Constructs a new RS2C_PushMTTCancel.
+         * @memberof msg
+         * @classdesc Represents a RS2C_PushMTTCancel.
+         * @implements IRS2C_PushMTTCancel
+         * @constructor
+         * @param {msg.IRS2C_PushMTTCancel=} [properties] Properties to set
+         */
+        function RS2C_PushMTTCancel(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * RS2C_PushMTTCancel recordid.
+         * @member {number} recordid
+         * @memberof msg.RS2C_PushMTTCancel
+         * @instance
+         */
+        RS2C_PushMTTCancel.prototype.recordid = 0;
+
+        /**
+         * Creates a new RS2C_PushMTTCancel instance using the specified properties.
+         * @function create
+         * @memberof msg.RS2C_PushMTTCancel
+         * @static
+         * @param {msg.IRS2C_PushMTTCancel=} [properties] Properties to set
+         * @returns {msg.RS2C_PushMTTCancel} RS2C_PushMTTCancel instance
+         */
+        RS2C_PushMTTCancel.create = function create(properties) {
+            return new RS2C_PushMTTCancel(properties);
+        };
+
+        /**
+         * Encodes the specified RS2C_PushMTTCancel message. Does not implicitly {@link msg.RS2C_PushMTTCancel.verify|verify} messages.
+         * @function encode
+         * @memberof msg.RS2C_PushMTTCancel
+         * @static
+         * @param {msg.IRS2C_PushMTTCancel} message RS2C_PushMTTCancel message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_PushMTTCancel.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.recordid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified RS2C_PushMTTCancel message, length delimited. Does not implicitly {@link msg.RS2C_PushMTTCancel.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.RS2C_PushMTTCancel
+         * @static
+         * @param {msg.IRS2C_PushMTTCancel} message RS2C_PushMTTCancel message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_PushMTTCancel.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a RS2C_PushMTTCancel message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.RS2C_PushMTTCancel
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.RS2C_PushMTTCancel} RS2C_PushMTTCancel
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_PushMTTCancel.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.RS2C_PushMTTCancel();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.recordid = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a RS2C_PushMTTCancel message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.RS2C_PushMTTCancel
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.RS2C_PushMTTCancel} RS2C_PushMTTCancel
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_PushMTTCancel.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a RS2C_PushMTTCancel message.
+         * @function verify
+         * @memberof msg.RS2C_PushMTTCancel
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        RS2C_PushMTTCancel.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                if (!$util.isInteger(message.recordid))
+                    return "recordid: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a RS2C_PushMTTCancel message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.RS2C_PushMTTCancel
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.RS2C_PushMTTCancel} RS2C_PushMTTCancel
+         */
+        RS2C_PushMTTCancel.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.RS2C_PushMTTCancel)
+                return object;
+            var message = new $root.msg.RS2C_PushMTTCancel();
+            if (object.recordid != null)
+                message.recordid = object.recordid | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a RS2C_PushMTTCancel message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.RS2C_PushMTTCancel
+         * @static
+         * @param {msg.RS2C_PushMTTCancel} message RS2C_PushMTTCancel
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        RS2C_PushMTTCancel.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.recordid = 0;
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                object.recordid = message.recordid;
+            return object;
+        };
+
+        /**
+         * Converts this RS2C_PushMTTCancel to JSON.
+         * @function toJSON
+         * @memberof msg.RS2C_PushMTTCancel
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        RS2C_PushMTTCancel.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return RS2C_PushMTTCancel;
+    })();
+
     msg.IpHost = (function() {
 
         /**
@@ -14248,7 +21499,7 @@ $root.msg = (function() {
          * @property {number|null} [level] FriendBrief level
          * @property {number|null} [gold] FriendBrief gold
          * @property {number|null} [viplevel] FriendBrief viplevel
-         * @property {number|null} [offlinetime] FriendBrief offlinetime
+         * @property {number|Long|null} [offlinetime] FriendBrief offlinetime
          */
 
         /**
@@ -14324,11 +21575,11 @@ $root.msg = (function() {
 
         /**
          * FriendBrief offlinetime.
-         * @member {number} offlinetime
+         * @member {number|Long} offlinetime
          * @memberof msg.FriendBrief
          * @instance
          */
-        FriendBrief.prototype.offlinetime = 0;
+        FriendBrief.prototype.offlinetime = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
          * Creates a new FriendBrief instance using the specified properties.
@@ -14369,7 +21620,7 @@ $root.msg = (function() {
             if (message.viplevel != null && message.hasOwnProperty("viplevel"))
                 writer.uint32(/* id 7, wireType 0 =*/56).int32(message.viplevel);
             if (message.offlinetime != null && message.hasOwnProperty("offlinetime"))
-                writer.uint32(/* id 8, wireType 0 =*/64).int32(message.offlinetime);
+                writer.uint32(/* id 8, wireType 0 =*/64).int64(message.offlinetime);
             return writer;
         };
 
@@ -14426,7 +21677,7 @@ $root.msg = (function() {
                     message.viplevel = reader.int32();
                     break;
                 case 8:
-                    message.offlinetime = reader.int32();
+                    message.offlinetime = reader.int64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -14485,8 +21736,8 @@ $root.msg = (function() {
                 if (!$util.isInteger(message.viplevel))
                     return "viplevel: integer expected";
             if (message.offlinetime != null && message.hasOwnProperty("offlinetime"))
-                if (!$util.isInteger(message.offlinetime))
-                    return "offlinetime: integer expected";
+                if (!$util.isInteger(message.offlinetime) && !(message.offlinetime && $util.isInteger(message.offlinetime.low) && $util.isInteger(message.offlinetime.high)))
+                    return "offlinetime: integer|Long expected";
             return null;
         };
 
@@ -14524,7 +21775,14 @@ $root.msg = (function() {
             if (object.viplevel != null)
                 message.viplevel = object.viplevel | 0;
             if (object.offlinetime != null)
-                message.offlinetime = object.offlinetime | 0;
+                if ($util.Long)
+                    (message.offlinetime = $util.Long.fromValue(object.offlinetime)).unsigned = false;
+                else if (typeof object.offlinetime === "string")
+                    message.offlinetime = parseInt(object.offlinetime, 10);
+                else if (typeof object.offlinetime === "number")
+                    message.offlinetime = object.offlinetime;
+                else if (typeof object.offlinetime === "object")
+                    message.offlinetime = new $util.LongBits(object.offlinetime.low >>> 0, object.offlinetime.high >>> 0).toNumber();
             return message;
         };
 
@@ -14553,7 +21811,11 @@ $root.msg = (function() {
                 object.level = 0;
                 object.gold = 0;
                 object.viplevel = 0;
-                object.offlinetime = 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.offlinetime = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.offlinetime = options.longs === String ? "0" : 0;
             }
             if (message.roleid != null && message.hasOwnProperty("roleid"))
                 if (typeof message.roleid === "number")
@@ -14573,7 +21835,10 @@ $root.msg = (function() {
             if (message.viplevel != null && message.hasOwnProperty("viplevel"))
                 object.viplevel = message.viplevel;
             if (message.offlinetime != null && message.hasOwnProperty("offlinetime"))
-                object.offlinetime = message.offlinetime;
+                if (typeof message.offlinetime === "number")
+                    object.offlinetime = options.longs === String ? String(message.offlinetime) : message.offlinetime;
+                else
+                    object.offlinetime = options.longs === String ? $util.Long.prototype.toString.call(message.offlinetime) : options.longs === Number ? new $util.LongBits(message.offlinetime.low >>> 0, message.offlinetime.high >>> 0).toNumber() : message.offlinetime;
             return object;
         };
 
@@ -18820,27 +26085,26 @@ $root.msg = (function() {
         return GW2C_RetFriendSearch;
     })();
 
-    msg.GW2C_PushFriendLogin = (function() {
+    msg.C2GW_ReqInviteFriendJoin = (function() {
 
         /**
-         * Properties of a GW2C_PushFriendLogin.
+         * Properties of a C2GW_ReqInviteFriendJoin.
          * @memberof msg
-         * @interface IGW2C_PushFriendLogin
-         * @property {number|Long|null} [roleid] GW2C_PushFriendLogin roleid
-         * @property {number|Long|null} [offlinetime] GW2C_PushFriendLogin offlinetime
-         * @property {Array.<number|Long>|null} [friends] GW2C_PushFriendLogin friends
+         * @interface IC2GW_ReqInviteFriendJoin
+         * @property {number|Long|null} [id] C2GW_ReqInviteFriendJoin id
+         * @property {Array.<number|Long>|null} [roleid] C2GW_ReqInviteFriendJoin roleid
          */
 
         /**
-         * Constructs a new GW2C_PushFriendLogin.
+         * Constructs a new C2GW_ReqInviteFriendJoin.
          * @memberof msg
-         * @classdesc Represents a GW2C_PushFriendLogin.
-         * @implements IGW2C_PushFriendLogin
+         * @classdesc Represents a C2GW_ReqInviteFriendJoin.
+         * @implements IC2GW_ReqInviteFriendJoin
          * @constructor
-         * @param {msg.IGW2C_PushFriendLogin=} [properties] Properties to set
+         * @param {msg.IC2GW_ReqInviteFriendJoin=} [properties] Properties to set
          */
-        function GW2C_PushFriendLogin(properties) {
-            this.friends = [];
+        function C2GW_ReqInviteFriendJoin(properties) {
+            this.roleid = [];
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
@@ -18848,109 +26112,96 @@ $root.msg = (function() {
         }
 
         /**
-         * GW2C_PushFriendLogin roleid.
-         * @member {number|Long} roleid
-         * @memberof msg.GW2C_PushFriendLogin
+         * C2GW_ReqInviteFriendJoin id.
+         * @member {number|Long} id
+         * @memberof msg.C2GW_ReqInviteFriendJoin
          * @instance
          */
-        GW2C_PushFriendLogin.prototype.roleid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+        C2GW_ReqInviteFriendJoin.prototype.id = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
-         * GW2C_PushFriendLogin offlinetime.
-         * @member {number|Long} offlinetime
-         * @memberof msg.GW2C_PushFriendLogin
+         * C2GW_ReqInviteFriendJoin roleid.
+         * @member {Array.<number|Long>} roleid
+         * @memberof msg.C2GW_ReqInviteFriendJoin
          * @instance
          */
-        GW2C_PushFriendLogin.prototype.offlinetime = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+        C2GW_ReqInviteFriendJoin.prototype.roleid = $util.emptyArray;
 
         /**
-         * GW2C_PushFriendLogin friends.
-         * @member {Array.<number|Long>} friends
-         * @memberof msg.GW2C_PushFriendLogin
-         * @instance
-         */
-        GW2C_PushFriendLogin.prototype.friends = $util.emptyArray;
-
-        /**
-         * Creates a new GW2C_PushFriendLogin instance using the specified properties.
+         * Creates a new C2GW_ReqInviteFriendJoin instance using the specified properties.
          * @function create
-         * @memberof msg.GW2C_PushFriendLogin
+         * @memberof msg.C2GW_ReqInviteFriendJoin
          * @static
-         * @param {msg.IGW2C_PushFriendLogin=} [properties] Properties to set
-         * @returns {msg.GW2C_PushFriendLogin} GW2C_PushFriendLogin instance
+         * @param {msg.IC2GW_ReqInviteFriendJoin=} [properties] Properties to set
+         * @returns {msg.C2GW_ReqInviteFriendJoin} C2GW_ReqInviteFriendJoin instance
          */
-        GW2C_PushFriendLogin.create = function create(properties) {
-            return new GW2C_PushFriendLogin(properties);
+        C2GW_ReqInviteFriendJoin.create = function create(properties) {
+            return new C2GW_ReqInviteFriendJoin(properties);
         };
 
         /**
-         * Encodes the specified GW2C_PushFriendLogin message. Does not implicitly {@link msg.GW2C_PushFriendLogin.verify|verify} messages.
+         * Encodes the specified C2GW_ReqInviteFriendJoin message. Does not implicitly {@link msg.C2GW_ReqInviteFriendJoin.verify|verify} messages.
          * @function encode
-         * @memberof msg.GW2C_PushFriendLogin
+         * @memberof msg.C2GW_ReqInviteFriendJoin
          * @static
-         * @param {msg.IGW2C_PushFriendLogin} message GW2C_PushFriendLogin message or plain object to encode
+         * @param {msg.IC2GW_ReqInviteFriendJoin} message C2GW_ReqInviteFriendJoin message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        GW2C_PushFriendLogin.encode = function encode(message, writer) {
+        C2GW_ReqInviteFriendJoin.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
-            if (message.roleid != null && message.hasOwnProperty("roleid"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.roleid);
-            if (message.offlinetime != null && message.hasOwnProperty("offlinetime"))
-                writer.uint32(/* id 2, wireType 0 =*/16).int64(message.offlinetime);
-            if (message.friends != null && message.friends.length)
-                for (var i = 0; i < message.friends.length; ++i)
-                    writer.uint32(/* id 3, wireType 0 =*/24).int64(message.friends[i]);
+            if (message.id != null && message.hasOwnProperty("id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.id);
+            if (message.roleid != null && message.roleid.length)
+                for (var i = 0; i < message.roleid.length; ++i)
+                    writer.uint32(/* id 2, wireType 0 =*/16).int64(message.roleid[i]);
             return writer;
         };
 
         /**
-         * Encodes the specified GW2C_PushFriendLogin message, length delimited. Does not implicitly {@link msg.GW2C_PushFriendLogin.verify|verify} messages.
+         * Encodes the specified C2GW_ReqInviteFriendJoin message, length delimited. Does not implicitly {@link msg.C2GW_ReqInviteFriendJoin.verify|verify} messages.
          * @function encodeDelimited
-         * @memberof msg.GW2C_PushFriendLogin
+         * @memberof msg.C2GW_ReqInviteFriendJoin
          * @static
-         * @param {msg.IGW2C_PushFriendLogin} message GW2C_PushFriendLogin message or plain object to encode
+         * @param {msg.IC2GW_ReqInviteFriendJoin} message C2GW_ReqInviteFriendJoin message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        GW2C_PushFriendLogin.encodeDelimited = function encodeDelimited(message, writer) {
+        C2GW_ReqInviteFriendJoin.encodeDelimited = function encodeDelimited(message, writer) {
             return this.encode(message, writer).ldelim();
         };
 
         /**
-         * Decodes a GW2C_PushFriendLogin message from the specified reader or buffer.
+         * Decodes a C2GW_ReqInviteFriendJoin message from the specified reader or buffer.
          * @function decode
-         * @memberof msg.GW2C_PushFriendLogin
+         * @memberof msg.C2GW_ReqInviteFriendJoin
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
          * @param {number} [length] Message length if known beforehand
-         * @returns {msg.GW2C_PushFriendLogin} GW2C_PushFriendLogin
+         * @returns {msg.C2GW_ReqInviteFriendJoin} C2GW_ReqInviteFriendJoin
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        GW2C_PushFriendLogin.decode = function decode(reader, length) {
+        C2GW_ReqInviteFriendJoin.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_PushFriendLogin();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2GW_ReqInviteFriendJoin();
             while (reader.pos < end) {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.roleid = reader.int64();
+                    message.id = reader.int64();
                     break;
                 case 2:
-                    message.offlinetime = reader.int64();
-                    break;
-                case 3:
-                    if (!(message.friends && message.friends.length))
-                        message.friends = [];
+                    if (!(message.roleid && message.roleid.length))
+                        message.roleid = [];
                     if ((tag & 7) === 2) {
                         var end2 = reader.uint32() + reader.pos;
                         while (reader.pos < end2)
-                            message.friends.push(reader.int64());
+                            message.roleid.push(reader.int64());
                     } else
-                        message.friends.push(reader.int64());
+                        message.roleid.push(reader.int64());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -18961,155 +26212,292 @@ $root.msg = (function() {
         };
 
         /**
-         * Decodes a GW2C_PushFriendLogin message from the specified reader or buffer, length delimited.
+         * Decodes a C2GW_ReqInviteFriendJoin message from the specified reader or buffer, length delimited.
          * @function decodeDelimited
-         * @memberof msg.GW2C_PushFriendLogin
+         * @memberof msg.C2GW_ReqInviteFriendJoin
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.GW2C_PushFriendLogin} GW2C_PushFriendLogin
+         * @returns {msg.C2GW_ReqInviteFriendJoin} C2GW_ReqInviteFriendJoin
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        GW2C_PushFriendLogin.decodeDelimited = function decodeDelimited(reader) {
+        C2GW_ReqInviteFriendJoin.decodeDelimited = function decodeDelimited(reader) {
             if (!(reader instanceof $Reader))
                 reader = new $Reader(reader);
             return this.decode(reader, reader.uint32());
         };
 
         /**
-         * Verifies a GW2C_PushFriendLogin message.
+         * Verifies a C2GW_ReqInviteFriendJoin message.
          * @function verify
-         * @memberof msg.GW2C_PushFriendLogin
+         * @memberof msg.C2GW_ReqInviteFriendJoin
          * @static
          * @param {Object.<string,*>} message Plain object to verify
          * @returns {string|null} `null` if valid, otherwise the reason why it is not
          */
-        GW2C_PushFriendLogin.verify = function verify(message) {
+        C2GW_ReqInviteFriendJoin.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
-            if (message.roleid != null && message.hasOwnProperty("roleid"))
-                if (!$util.isInteger(message.roleid) && !(message.roleid && $util.isInteger(message.roleid.low) && $util.isInteger(message.roleid.high)))
-                    return "roleid: integer|Long expected";
-            if (message.offlinetime != null && message.hasOwnProperty("offlinetime"))
-                if (!$util.isInteger(message.offlinetime) && !(message.offlinetime && $util.isInteger(message.offlinetime.low) && $util.isInteger(message.offlinetime.high)))
-                    return "offlinetime: integer|Long expected";
-            if (message.friends != null && message.hasOwnProperty("friends")) {
-                if (!Array.isArray(message.friends))
-                    return "friends: array expected";
-                for (var i = 0; i < message.friends.length; ++i)
-                    if (!$util.isInteger(message.friends[i]) && !(message.friends[i] && $util.isInteger(message.friends[i].low) && $util.isInteger(message.friends[i].high)))
-                        return "friends: integer|Long[] expected";
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (!$util.isInteger(message.id) && !(message.id && $util.isInteger(message.id.low) && $util.isInteger(message.id.high)))
+                    return "id: integer|Long expected";
+            if (message.roleid != null && message.hasOwnProperty("roleid")) {
+                if (!Array.isArray(message.roleid))
+                    return "roleid: array expected";
+                for (var i = 0; i < message.roleid.length; ++i)
+                    if (!$util.isInteger(message.roleid[i]) && !(message.roleid[i] && $util.isInteger(message.roleid[i].low) && $util.isInteger(message.roleid[i].high)))
+                        return "roleid: integer|Long[] expected";
             }
             return null;
         };
 
         /**
-         * Creates a GW2C_PushFriendLogin message from a plain object. Also converts values to their respective internal types.
+         * Creates a C2GW_ReqInviteFriendJoin message from a plain object. Also converts values to their respective internal types.
          * @function fromObject
-         * @memberof msg.GW2C_PushFriendLogin
+         * @memberof msg.C2GW_ReqInviteFriendJoin
          * @static
          * @param {Object.<string,*>} object Plain object
-         * @returns {msg.GW2C_PushFriendLogin} GW2C_PushFriendLogin
+         * @returns {msg.C2GW_ReqInviteFriendJoin} C2GW_ReqInviteFriendJoin
          */
-        GW2C_PushFriendLogin.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.GW2C_PushFriendLogin)
+        C2GW_ReqInviteFriendJoin.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2GW_ReqInviteFriendJoin)
                 return object;
-            var message = new $root.msg.GW2C_PushFriendLogin();
-            if (object.roleid != null)
+            var message = new $root.msg.C2GW_ReqInviteFriendJoin();
+            if (object.id != null)
                 if ($util.Long)
-                    (message.roleid = $util.Long.fromValue(object.roleid)).unsigned = false;
-                else if (typeof object.roleid === "string")
-                    message.roleid = parseInt(object.roleid, 10);
-                else if (typeof object.roleid === "number")
-                    message.roleid = object.roleid;
-                else if (typeof object.roleid === "object")
-                    message.roleid = new $util.LongBits(object.roleid.low >>> 0, object.roleid.high >>> 0).toNumber();
-            if (object.offlinetime != null)
-                if ($util.Long)
-                    (message.offlinetime = $util.Long.fromValue(object.offlinetime)).unsigned = false;
-                else if (typeof object.offlinetime === "string")
-                    message.offlinetime = parseInt(object.offlinetime, 10);
-                else if (typeof object.offlinetime === "number")
-                    message.offlinetime = object.offlinetime;
-                else if (typeof object.offlinetime === "object")
-                    message.offlinetime = new $util.LongBits(object.offlinetime.low >>> 0, object.offlinetime.high >>> 0).toNumber();
-            if (object.friends) {
-                if (!Array.isArray(object.friends))
-                    throw TypeError(".msg.GW2C_PushFriendLogin.friends: array expected");
-                message.friends = [];
-                for (var i = 0; i < object.friends.length; ++i)
+                    (message.id = $util.Long.fromValue(object.id)).unsigned = false;
+                else if (typeof object.id === "string")
+                    message.id = parseInt(object.id, 10);
+                else if (typeof object.id === "number")
+                    message.id = object.id;
+                else if (typeof object.id === "object")
+                    message.id = new $util.LongBits(object.id.low >>> 0, object.id.high >>> 0).toNumber();
+            if (object.roleid) {
+                if (!Array.isArray(object.roleid))
+                    throw TypeError(".msg.C2GW_ReqInviteFriendJoin.roleid: array expected");
+                message.roleid = [];
+                for (var i = 0; i < object.roleid.length; ++i)
                     if ($util.Long)
-                        (message.friends[i] = $util.Long.fromValue(object.friends[i])).unsigned = false;
-                    else if (typeof object.friends[i] === "string")
-                        message.friends[i] = parseInt(object.friends[i], 10);
-                    else if (typeof object.friends[i] === "number")
-                        message.friends[i] = object.friends[i];
-                    else if (typeof object.friends[i] === "object")
-                        message.friends[i] = new $util.LongBits(object.friends[i].low >>> 0, object.friends[i].high >>> 0).toNumber();
+                        (message.roleid[i] = $util.Long.fromValue(object.roleid[i])).unsigned = false;
+                    else if (typeof object.roleid[i] === "string")
+                        message.roleid[i] = parseInt(object.roleid[i], 10);
+                    else if (typeof object.roleid[i] === "number")
+                        message.roleid[i] = object.roleid[i];
+                    else if (typeof object.roleid[i] === "object")
+                        message.roleid[i] = new $util.LongBits(object.roleid[i].low >>> 0, object.roleid[i].high >>> 0).toNumber();
             }
             return message;
         };
 
         /**
-         * Creates a plain object from a GW2C_PushFriendLogin message. Also converts values to other types if specified.
+         * Creates a plain object from a C2GW_ReqInviteFriendJoin message. Also converts values to other types if specified.
          * @function toObject
-         * @memberof msg.GW2C_PushFriendLogin
+         * @memberof msg.C2GW_ReqInviteFriendJoin
          * @static
-         * @param {msg.GW2C_PushFriendLogin} message GW2C_PushFriendLogin
+         * @param {msg.C2GW_ReqInviteFriendJoin} message C2GW_ReqInviteFriendJoin
          * @param {$protobuf.IConversionOptions} [options] Conversion options
          * @returns {Object.<string,*>} Plain object
          */
-        GW2C_PushFriendLogin.toObject = function toObject(message, options) {
+        C2GW_ReqInviteFriendJoin.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
             var object = {};
             if (options.arrays || options.defaults)
-                object.friends = [];
-            if (options.defaults) {
+                object.roleid = [];
+            if (options.defaults)
                 if ($util.Long) {
                     var long = new $util.Long(0, 0, false);
-                    object.roleid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                    object.id = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
-                    object.roleid = options.longs === String ? "0" : 0;
-                if ($util.Long) {
-                    var long = new $util.Long(0, 0, false);
-                    object.offlinetime = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.offlinetime = options.longs === String ? "0" : 0;
-            }
-            if (message.roleid != null && message.hasOwnProperty("roleid"))
-                if (typeof message.roleid === "number")
-                    object.roleid = options.longs === String ? String(message.roleid) : message.roleid;
+                    object.id = options.longs === String ? "0" : 0;
+            if (message.id != null && message.hasOwnProperty("id"))
+                if (typeof message.id === "number")
+                    object.id = options.longs === String ? String(message.id) : message.id;
                 else
-                    object.roleid = options.longs === String ? $util.Long.prototype.toString.call(message.roleid) : options.longs === Number ? new $util.LongBits(message.roleid.low >>> 0, message.roleid.high >>> 0).toNumber() : message.roleid;
-            if (message.offlinetime != null && message.hasOwnProperty("offlinetime"))
-                if (typeof message.offlinetime === "number")
-                    object.offlinetime = options.longs === String ? String(message.offlinetime) : message.offlinetime;
-                else
-                    object.offlinetime = options.longs === String ? $util.Long.prototype.toString.call(message.offlinetime) : options.longs === Number ? new $util.LongBits(message.offlinetime.low >>> 0, message.offlinetime.high >>> 0).toNumber() : message.offlinetime;
-            if (message.friends && message.friends.length) {
-                object.friends = [];
-                for (var j = 0; j < message.friends.length; ++j)
-                    if (typeof message.friends[j] === "number")
-                        object.friends[j] = options.longs === String ? String(message.friends[j]) : message.friends[j];
+                    object.id = options.longs === String ? $util.Long.prototype.toString.call(message.id) : options.longs === Number ? new $util.LongBits(message.id.low >>> 0, message.id.high >>> 0).toNumber() : message.id;
+            if (message.roleid && message.roleid.length) {
+                object.roleid = [];
+                for (var j = 0; j < message.roleid.length; ++j)
+                    if (typeof message.roleid[j] === "number")
+                        object.roleid[j] = options.longs === String ? String(message.roleid[j]) : message.roleid[j];
                     else
-                        object.friends[j] = options.longs === String ? $util.Long.prototype.toString.call(message.friends[j]) : options.longs === Number ? new $util.LongBits(message.friends[j].low >>> 0, message.friends[j].high >>> 0).toNumber() : message.friends[j];
+                        object.roleid[j] = options.longs === String ? $util.Long.prototype.toString.call(message.roleid[j]) : options.longs === Number ? new $util.LongBits(message.roleid[j].low >>> 0, message.roleid[j].high >>> 0).toNumber() : message.roleid[j];
             }
             return object;
         };
 
         /**
-         * Converts this GW2C_PushFriendLogin to JSON.
+         * Converts this C2GW_ReqInviteFriendJoin to JSON.
          * @function toJSON
-         * @memberof msg.GW2C_PushFriendLogin
+         * @memberof msg.C2GW_ReqInviteFriendJoin
          * @instance
          * @returns {Object.<string,*>} JSON object
          */
-        GW2C_PushFriendLogin.prototype.toJSON = function toJSON() {
+        C2GW_ReqInviteFriendJoin.prototype.toJSON = function toJSON() {
             return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
         };
 
-        return GW2C_PushFriendLogin;
+        return C2GW_ReqInviteFriendJoin;
+    })();
+
+    msg.GW2C_RetInviteFriendJoin = (function() {
+
+        /**
+         * Properties of a GW2C_RetInviteFriendJoin.
+         * @memberof msg
+         * @interface IGW2C_RetInviteFriendJoin
+         */
+
+        /**
+         * Constructs a new GW2C_RetInviteFriendJoin.
+         * @memberof msg
+         * @classdesc Represents a GW2C_RetInviteFriendJoin.
+         * @implements IGW2C_RetInviteFriendJoin
+         * @constructor
+         * @param {msg.IGW2C_RetInviteFriendJoin=} [properties] Properties to set
+         */
+        function GW2C_RetInviteFriendJoin(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Creates a new GW2C_RetInviteFriendJoin instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2C_RetInviteFriendJoin
+         * @static
+         * @param {msg.IGW2C_RetInviteFriendJoin=} [properties] Properties to set
+         * @returns {msg.GW2C_RetInviteFriendJoin} GW2C_RetInviteFriendJoin instance
+         */
+        GW2C_RetInviteFriendJoin.create = function create(properties) {
+            return new GW2C_RetInviteFriendJoin(properties);
+        };
+
+        /**
+         * Encodes the specified GW2C_RetInviteFriendJoin message. Does not implicitly {@link msg.GW2C_RetInviteFriendJoin.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2C_RetInviteFriendJoin
+         * @static
+         * @param {msg.IGW2C_RetInviteFriendJoin} message GW2C_RetInviteFriendJoin message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetInviteFriendJoin.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2C_RetInviteFriendJoin message, length delimited. Does not implicitly {@link msg.GW2C_RetInviteFriendJoin.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2C_RetInviteFriendJoin
+         * @static
+         * @param {msg.IGW2C_RetInviteFriendJoin} message GW2C_RetInviteFriendJoin message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2C_RetInviteFriendJoin.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2C_RetInviteFriendJoin message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2C_RetInviteFriendJoin
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2C_RetInviteFriendJoin} GW2C_RetInviteFriendJoin
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetInviteFriendJoin.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_RetInviteFriendJoin();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2C_RetInviteFriendJoin message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2C_RetInviteFriendJoin
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2C_RetInviteFriendJoin} GW2C_RetInviteFriendJoin
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2C_RetInviteFriendJoin.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2C_RetInviteFriendJoin message.
+         * @function verify
+         * @memberof msg.GW2C_RetInviteFriendJoin
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2C_RetInviteFriendJoin.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            return null;
+        };
+
+        /**
+         * Creates a GW2C_RetInviteFriendJoin message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2C_RetInviteFriendJoin
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2C_RetInviteFriendJoin} GW2C_RetInviteFriendJoin
+         */
+        GW2C_RetInviteFriendJoin.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_RetInviteFriendJoin)
+                return object;
+            return new $root.msg.GW2C_RetInviteFriendJoin();
+        };
+
+        /**
+         * Creates a plain object from a GW2C_RetInviteFriendJoin message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2C_RetInviteFriendJoin
+         * @static
+         * @param {msg.GW2C_RetInviteFriendJoin} message GW2C_RetInviteFriendJoin
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2C_RetInviteFriendJoin.toObject = function toObject() {
+            return {};
+        };
+
+        /**
+         * Converts this GW2C_RetInviteFriendJoin to JSON.
+         * @function toJSON
+         * @memberof msg.GW2C_RetInviteFriendJoin
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2C_RetInviteFriendJoin.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2C_RetInviteFriendJoin;
     })();
 
     msg.GW2C_PushFriendInvitation = (function() {
@@ -19118,10 +26506,11 @@ $root.msg = (function() {
          * Properties of a GW2C_PushFriendInvitation.
          * @memberof msg
          * @interface IGW2C_PushFriendInvitation
+         * @property {Array.<number|Long>|null} [handler] GW2C_PushFriendInvitation handler
          * @property {number|Long|null} [id] GW2C_PushFriendInvitation id
          * @property {number|Long|null} [roleid] GW2C_PushFriendInvitation roleid
          * @property {string|null} [pwd] GW2C_PushFriendInvitation pwd
-         * @property {number|Long|null} [roomid] GW2C_PushFriendInvitation roomid
+         * @property {number|null} [roomid] GW2C_PushFriendInvitation roomid
          */
 
         /**
@@ -19133,11 +26522,20 @@ $root.msg = (function() {
          * @param {msg.IGW2C_PushFriendInvitation=} [properties] Properties to set
          */
         function GW2C_PushFriendInvitation(properties) {
+            this.handler = [];
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
+
+        /**
+         * GW2C_PushFriendInvitation handler.
+         * @member {Array.<number|Long>} handler
+         * @memberof msg.GW2C_PushFriendInvitation
+         * @instance
+         */
+        GW2C_PushFriendInvitation.prototype.handler = $util.emptyArray;
 
         /**
          * GW2C_PushFriendInvitation id.
@@ -19165,11 +26563,11 @@ $root.msg = (function() {
 
         /**
          * GW2C_PushFriendInvitation roomid.
-         * @member {number|Long} roomid
+         * @member {number} roomid
          * @memberof msg.GW2C_PushFriendInvitation
          * @instance
          */
-        GW2C_PushFriendInvitation.prototype.roomid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+        GW2C_PushFriendInvitation.prototype.roomid = 0;
 
         /**
          * Creates a new GW2C_PushFriendInvitation instance using the specified properties.
@@ -19195,14 +26593,17 @@ $root.msg = (function() {
         GW2C_PushFriendInvitation.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
+            if (message.handler != null && message.handler.length)
+                for (var i = 0; i < message.handler.length; ++i)
+                    writer.uint32(/* id 1, wireType 0 =*/8).int64(message.handler[i]);
             if (message.id != null && message.hasOwnProperty("id"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.id);
+                writer.uint32(/* id 2, wireType 0 =*/16).int64(message.id);
             if (message.roleid != null && message.hasOwnProperty("roleid"))
-                writer.uint32(/* id 2, wireType 0 =*/16).int64(message.roleid);
+                writer.uint32(/* id 3, wireType 0 =*/24).int64(message.roleid);
             if (message.pwd != null && message.hasOwnProperty("pwd"))
-                writer.uint32(/* id 3, wireType 2 =*/26).string(message.pwd);
+                writer.uint32(/* id 4, wireType 2 =*/34).string(message.pwd);
             if (message.roomid != null && message.hasOwnProperty("roomid"))
-                writer.uint32(/* id 4, wireType 0 =*/32).int64(message.roomid);
+                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.roomid);
             return writer;
         };
 
@@ -19238,16 +26639,26 @@ $root.msg = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.id = reader.int64();
+                    if (!(message.handler && message.handler.length))
+                        message.handler = [];
+                    if ((tag & 7) === 2) {
+                        var end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2)
+                            message.handler.push(reader.int64());
+                    } else
+                        message.handler.push(reader.int64());
                     break;
                 case 2:
-                    message.roleid = reader.int64();
+                    message.id = reader.int64();
                     break;
                 case 3:
-                    message.pwd = reader.string();
+                    message.roleid = reader.int64();
                     break;
                 case 4:
-                    message.roomid = reader.int64();
+                    message.pwd = reader.string();
+                    break;
+                case 5:
+                    message.roomid = reader.int32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -19284,6 +26695,13 @@ $root.msg = (function() {
         GW2C_PushFriendInvitation.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
+            if (message.handler != null && message.hasOwnProperty("handler")) {
+                if (!Array.isArray(message.handler))
+                    return "handler: array expected";
+                for (var i = 0; i < message.handler.length; ++i)
+                    if (!$util.isInteger(message.handler[i]) && !(message.handler[i] && $util.isInteger(message.handler[i].low) && $util.isInteger(message.handler[i].high)))
+                        return "handler: integer|Long[] expected";
+            }
             if (message.id != null && message.hasOwnProperty("id"))
                 if (!$util.isInteger(message.id) && !(message.id && $util.isInteger(message.id.low) && $util.isInteger(message.id.high)))
                     return "id: integer|Long expected";
@@ -19294,8 +26712,8 @@ $root.msg = (function() {
                 if (!$util.isString(message.pwd))
                     return "pwd: string expected";
             if (message.roomid != null && message.hasOwnProperty("roomid"))
-                if (!$util.isInteger(message.roomid) && !(message.roomid && $util.isInteger(message.roomid.low) && $util.isInteger(message.roomid.high)))
-                    return "roomid: integer|Long expected";
+                if (!$util.isInteger(message.roomid))
+                    return "roomid: integer expected";
             return null;
         };
 
@@ -19311,6 +26729,20 @@ $root.msg = (function() {
             if (object instanceof $root.msg.GW2C_PushFriendInvitation)
                 return object;
             var message = new $root.msg.GW2C_PushFriendInvitation();
+            if (object.handler) {
+                if (!Array.isArray(object.handler))
+                    throw TypeError(".msg.GW2C_PushFriendInvitation.handler: array expected");
+                message.handler = [];
+                for (var i = 0; i < object.handler.length; ++i)
+                    if ($util.Long)
+                        (message.handler[i] = $util.Long.fromValue(object.handler[i])).unsigned = false;
+                    else if (typeof object.handler[i] === "string")
+                        message.handler[i] = parseInt(object.handler[i], 10);
+                    else if (typeof object.handler[i] === "number")
+                        message.handler[i] = object.handler[i];
+                    else if (typeof object.handler[i] === "object")
+                        message.handler[i] = new $util.LongBits(object.handler[i].low >>> 0, object.handler[i].high >>> 0).toNumber();
+            }
             if (object.id != null)
                 if ($util.Long)
                     (message.id = $util.Long.fromValue(object.id)).unsigned = false;
@@ -19332,14 +26764,7 @@ $root.msg = (function() {
             if (object.pwd != null)
                 message.pwd = String(object.pwd);
             if (object.roomid != null)
-                if ($util.Long)
-                    (message.roomid = $util.Long.fromValue(object.roomid)).unsigned = false;
-                else if (typeof object.roomid === "string")
-                    message.roomid = parseInt(object.roomid, 10);
-                else if (typeof object.roomid === "number")
-                    message.roomid = object.roomid;
-                else if (typeof object.roomid === "object")
-                    message.roomid = new $util.LongBits(object.roomid.low >>> 0, object.roomid.high >>> 0).toNumber();
+                message.roomid = object.roomid | 0;
             return message;
         };
 
@@ -19356,6 +26781,8 @@ $root.msg = (function() {
             if (!options)
                 options = {};
             var object = {};
+            if (options.arrays || options.defaults)
+                object.handler = [];
             if (options.defaults) {
                 if ($util.Long) {
                     var long = new $util.Long(0, 0, false);
@@ -19368,11 +26795,15 @@ $root.msg = (function() {
                 } else
                     object.roleid = options.longs === String ? "0" : 0;
                 object.pwd = "";
-                if ($util.Long) {
-                    var long = new $util.Long(0, 0, false);
-                    object.roomid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.roomid = options.longs === String ? "0" : 0;
+                object.roomid = 0;
+            }
+            if (message.handler && message.handler.length) {
+                object.handler = [];
+                for (var j = 0; j < message.handler.length; ++j)
+                    if (typeof message.handler[j] === "number")
+                        object.handler[j] = options.longs === String ? String(message.handler[j]) : message.handler[j];
+                    else
+                        object.handler[j] = options.longs === String ? $util.Long.prototype.toString.call(message.handler[j]) : options.longs === Number ? new $util.LongBits(message.handler[j].low >>> 0, message.handler[j].high >>> 0).toNumber() : message.handler[j];
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 if (typeof message.id === "number")
@@ -19387,10 +26818,7 @@ $root.msg = (function() {
             if (message.pwd != null && message.hasOwnProperty("pwd"))
                 object.pwd = message.pwd;
             if (message.roomid != null && message.hasOwnProperty("roomid"))
-                if (typeof message.roomid === "number")
-                    object.roomid = options.longs === String ? String(message.roomid) : message.roomid;
-                else
-                    object.roomid = options.longs === String ? $util.Long.prototype.toString.call(message.roomid) : options.longs === Number ? new $util.LongBits(message.roomid.low >>> 0, message.roomid.high >>> 0).toNumber() : message.roomid;
+                object.roomid = message.roomid;
             return object;
         };
 
@@ -30886,25 +38314,25 @@ $root.msg = (function() {
         return RS2C_RolePushPropertyChange;
     })();
 
-    msg.GW2C_MsgNotify = (function() {
+    msg.GW2C_PushMsgNotify = (function() {
 
         /**
-         * Properties of a GW2C_MsgNotify.
+         * Properties of a GW2C_PushMsgNotify.
          * @memberof msg
-         * @interface IGW2C_MsgNotify
-         * @property {number|Long|null} [userid] GW2C_MsgNotify userid
-         * @property {string|null} [text] GW2C_MsgNotify text
+         * @interface IGW2C_PushMsgNotify
+         * @property {number|Long|null} [userid] GW2C_PushMsgNotify userid
+         * @property {string|null} [text] GW2C_PushMsgNotify text
          */
 
         /**
-         * Constructs a new GW2C_MsgNotify.
+         * Constructs a new GW2C_PushMsgNotify.
          * @memberof msg
-         * @classdesc Represents a GW2C_MsgNotify.
-         * @implements IGW2C_MsgNotify
+         * @classdesc Represents a GW2C_PushMsgNotify.
+         * @implements IGW2C_PushMsgNotify
          * @constructor
-         * @param {msg.IGW2C_MsgNotify=} [properties] Properties to set
+         * @param {msg.IGW2C_PushMsgNotify=} [properties] Properties to set
          */
-        function GW2C_MsgNotify(properties) {
+        function GW2C_PushMsgNotify(properties) {
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
@@ -30912,43 +38340,43 @@ $root.msg = (function() {
         }
 
         /**
-         * GW2C_MsgNotify userid.
+         * GW2C_PushMsgNotify userid.
          * @member {number|Long} userid
-         * @memberof msg.GW2C_MsgNotify
+         * @memberof msg.GW2C_PushMsgNotify
          * @instance
          */
-        GW2C_MsgNotify.prototype.userid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+        GW2C_PushMsgNotify.prototype.userid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
-         * GW2C_MsgNotify text.
+         * GW2C_PushMsgNotify text.
          * @member {string} text
-         * @memberof msg.GW2C_MsgNotify
+         * @memberof msg.GW2C_PushMsgNotify
          * @instance
          */
-        GW2C_MsgNotify.prototype.text = "";
+        GW2C_PushMsgNotify.prototype.text = "";
 
         /**
-         * Creates a new GW2C_MsgNotify instance using the specified properties.
+         * Creates a new GW2C_PushMsgNotify instance using the specified properties.
          * @function create
-         * @memberof msg.GW2C_MsgNotify
+         * @memberof msg.GW2C_PushMsgNotify
          * @static
-         * @param {msg.IGW2C_MsgNotify=} [properties] Properties to set
-         * @returns {msg.GW2C_MsgNotify} GW2C_MsgNotify instance
+         * @param {msg.IGW2C_PushMsgNotify=} [properties] Properties to set
+         * @returns {msg.GW2C_PushMsgNotify} GW2C_PushMsgNotify instance
          */
-        GW2C_MsgNotify.create = function create(properties) {
-            return new GW2C_MsgNotify(properties);
+        GW2C_PushMsgNotify.create = function create(properties) {
+            return new GW2C_PushMsgNotify(properties);
         };
 
         /**
-         * Encodes the specified GW2C_MsgNotify message. Does not implicitly {@link msg.GW2C_MsgNotify.verify|verify} messages.
+         * Encodes the specified GW2C_PushMsgNotify message. Does not implicitly {@link msg.GW2C_PushMsgNotify.verify|verify} messages.
          * @function encode
-         * @memberof msg.GW2C_MsgNotify
+         * @memberof msg.GW2C_PushMsgNotify
          * @static
-         * @param {msg.IGW2C_MsgNotify} message GW2C_MsgNotify message or plain object to encode
+         * @param {msg.IGW2C_PushMsgNotify} message GW2C_PushMsgNotify message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        GW2C_MsgNotify.encode = function encode(message, writer) {
+        GW2C_PushMsgNotify.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
             if (message.userid != null && message.hasOwnProperty("userid"))
@@ -30959,33 +38387,33 @@ $root.msg = (function() {
         };
 
         /**
-         * Encodes the specified GW2C_MsgNotify message, length delimited. Does not implicitly {@link msg.GW2C_MsgNotify.verify|verify} messages.
+         * Encodes the specified GW2C_PushMsgNotify message, length delimited. Does not implicitly {@link msg.GW2C_PushMsgNotify.verify|verify} messages.
          * @function encodeDelimited
-         * @memberof msg.GW2C_MsgNotify
+         * @memberof msg.GW2C_PushMsgNotify
          * @static
-         * @param {msg.IGW2C_MsgNotify} message GW2C_MsgNotify message or plain object to encode
+         * @param {msg.IGW2C_PushMsgNotify} message GW2C_PushMsgNotify message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        GW2C_MsgNotify.encodeDelimited = function encodeDelimited(message, writer) {
+        GW2C_PushMsgNotify.encodeDelimited = function encodeDelimited(message, writer) {
             return this.encode(message, writer).ldelim();
         };
 
         /**
-         * Decodes a GW2C_MsgNotify message from the specified reader or buffer.
+         * Decodes a GW2C_PushMsgNotify message from the specified reader or buffer.
          * @function decode
-         * @memberof msg.GW2C_MsgNotify
+         * @memberof msg.GW2C_PushMsgNotify
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
          * @param {number} [length] Message length if known beforehand
-         * @returns {msg.GW2C_MsgNotify} GW2C_MsgNotify
+         * @returns {msg.GW2C_PushMsgNotify} GW2C_PushMsgNotify
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        GW2C_MsgNotify.decode = function decode(reader, length) {
+        GW2C_PushMsgNotify.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_MsgNotify();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2C_PushMsgNotify();
             while (reader.pos < end) {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
@@ -31004,30 +38432,30 @@ $root.msg = (function() {
         };
 
         /**
-         * Decodes a GW2C_MsgNotify message from the specified reader or buffer, length delimited.
+         * Decodes a GW2C_PushMsgNotify message from the specified reader or buffer, length delimited.
          * @function decodeDelimited
-         * @memberof msg.GW2C_MsgNotify
+         * @memberof msg.GW2C_PushMsgNotify
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.GW2C_MsgNotify} GW2C_MsgNotify
+         * @returns {msg.GW2C_PushMsgNotify} GW2C_PushMsgNotify
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        GW2C_MsgNotify.decodeDelimited = function decodeDelimited(reader) {
+        GW2C_PushMsgNotify.decodeDelimited = function decodeDelimited(reader) {
             if (!(reader instanceof $Reader))
                 reader = new $Reader(reader);
             return this.decode(reader, reader.uint32());
         };
 
         /**
-         * Verifies a GW2C_MsgNotify message.
+         * Verifies a GW2C_PushMsgNotify message.
          * @function verify
-         * @memberof msg.GW2C_MsgNotify
+         * @memberof msg.GW2C_PushMsgNotify
          * @static
          * @param {Object.<string,*>} message Plain object to verify
          * @returns {string|null} `null` if valid, otherwise the reason why it is not
          */
-        GW2C_MsgNotify.verify = function verify(message) {
+        GW2C_PushMsgNotify.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
             if (message.userid != null && message.hasOwnProperty("userid"))
@@ -31040,17 +38468,17 @@ $root.msg = (function() {
         };
 
         /**
-         * Creates a GW2C_MsgNotify message from a plain object. Also converts values to their respective internal types.
+         * Creates a GW2C_PushMsgNotify message from a plain object. Also converts values to their respective internal types.
          * @function fromObject
-         * @memberof msg.GW2C_MsgNotify
+         * @memberof msg.GW2C_PushMsgNotify
          * @static
          * @param {Object.<string,*>} object Plain object
-         * @returns {msg.GW2C_MsgNotify} GW2C_MsgNotify
+         * @returns {msg.GW2C_PushMsgNotify} GW2C_PushMsgNotify
          */
-        GW2C_MsgNotify.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.GW2C_MsgNotify)
+        GW2C_PushMsgNotify.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2C_PushMsgNotify)
                 return object;
-            var message = new $root.msg.GW2C_MsgNotify();
+            var message = new $root.msg.GW2C_PushMsgNotify();
             if (object.userid != null)
                 if ($util.Long)
                     (message.userid = $util.Long.fromValue(object.userid)).unsigned = false;
@@ -31066,15 +38494,15 @@ $root.msg = (function() {
         };
 
         /**
-         * Creates a plain object from a GW2C_MsgNotify message. Also converts values to other types if specified.
+         * Creates a plain object from a GW2C_PushMsgNotify message. Also converts values to other types if specified.
          * @function toObject
-         * @memberof msg.GW2C_MsgNotify
+         * @memberof msg.GW2C_PushMsgNotify
          * @static
-         * @param {msg.GW2C_MsgNotify} message GW2C_MsgNotify
+         * @param {msg.GW2C_PushMsgNotify} message GW2C_PushMsgNotify
          * @param {$protobuf.IConversionOptions} [options] Conversion options
          * @returns {Object.<string,*>} Plain object
          */
-        GW2C_MsgNotify.toObject = function toObject(message, options) {
+        GW2C_PushMsgNotify.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
             var object = {};
@@ -31097,17 +38525,17 @@ $root.msg = (function() {
         };
 
         /**
-         * Converts this GW2C_MsgNotify to JSON.
+         * Converts this GW2C_PushMsgNotify to JSON.
          * @function toJSON
-         * @memberof msg.GW2C_MsgNotify
+         * @memberof msg.GW2C_PushMsgNotify
          * @instance
          * @returns {Object.<string,*>} JSON object
          */
-        GW2C_MsgNotify.prototype.toJSON = function toJSON() {
+        GW2C_PushMsgNotify.prototype.toJSON = function toJSON() {
             return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
         };
 
-        return GW2C_MsgNotify;
+        return GW2C_PushMsgNotify;
     })();
 
     /**
@@ -40189,6 +47617,230 @@ $root.msg = (function() {
         return MS2GW_MsgTransfer;
     })();
 
+    msg.GW2MS_UserLoginState = (function() {
+
+        /**
+         * Properties of a GW2MS_UserLoginState.
+         * @memberof msg
+         * @interface IGW2MS_UserLoginState
+         * @property {boolean|null} [online] GW2MS_UserLoginState online
+         * @property {number|Long|null} [uid] GW2MS_UserLoginState uid
+         */
+
+        /**
+         * Constructs a new GW2MS_UserLoginState.
+         * @memberof msg
+         * @classdesc Represents a GW2MS_UserLoginState.
+         * @implements IGW2MS_UserLoginState
+         * @constructor
+         * @param {msg.IGW2MS_UserLoginState=} [properties] Properties to set
+         */
+        function GW2MS_UserLoginState(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GW2MS_UserLoginState online.
+         * @member {boolean} online
+         * @memberof msg.GW2MS_UserLoginState
+         * @instance
+         */
+        GW2MS_UserLoginState.prototype.online = false;
+
+        /**
+         * GW2MS_UserLoginState uid.
+         * @member {number|Long} uid
+         * @memberof msg.GW2MS_UserLoginState
+         * @instance
+         */
+        GW2MS_UserLoginState.prototype.uid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * Creates a new GW2MS_UserLoginState instance using the specified properties.
+         * @function create
+         * @memberof msg.GW2MS_UserLoginState
+         * @static
+         * @param {msg.IGW2MS_UserLoginState=} [properties] Properties to set
+         * @returns {msg.GW2MS_UserLoginState} GW2MS_UserLoginState instance
+         */
+        GW2MS_UserLoginState.create = function create(properties) {
+            return new GW2MS_UserLoginState(properties);
+        };
+
+        /**
+         * Encodes the specified GW2MS_UserLoginState message. Does not implicitly {@link msg.GW2MS_UserLoginState.verify|verify} messages.
+         * @function encode
+         * @memberof msg.GW2MS_UserLoginState
+         * @static
+         * @param {msg.IGW2MS_UserLoginState} message GW2MS_UserLoginState message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2MS_UserLoginState.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.online != null && message.hasOwnProperty("online"))
+                writer.uint32(/* id 1, wireType 0 =*/8).bool(message.online);
+            if (message.uid != null && message.hasOwnProperty("uid"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int64(message.uid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GW2MS_UserLoginState message, length delimited. Does not implicitly {@link msg.GW2MS_UserLoginState.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.GW2MS_UserLoginState
+         * @static
+         * @param {msg.IGW2MS_UserLoginState} message GW2MS_UserLoginState message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GW2MS_UserLoginState.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GW2MS_UserLoginState message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.GW2MS_UserLoginState
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.GW2MS_UserLoginState} GW2MS_UserLoginState
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2MS_UserLoginState.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.GW2MS_UserLoginState();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.online = reader.bool();
+                    break;
+                case 2:
+                    message.uid = reader.int64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GW2MS_UserLoginState message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.GW2MS_UserLoginState
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.GW2MS_UserLoginState} GW2MS_UserLoginState
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GW2MS_UserLoginState.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GW2MS_UserLoginState message.
+         * @function verify
+         * @memberof msg.GW2MS_UserLoginState
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GW2MS_UserLoginState.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.online != null && message.hasOwnProperty("online"))
+                if (typeof message.online !== "boolean")
+                    return "online: boolean expected";
+            if (message.uid != null && message.hasOwnProperty("uid"))
+                if (!$util.isInteger(message.uid) && !(message.uid && $util.isInteger(message.uid.low) && $util.isInteger(message.uid.high)))
+                    return "uid: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a GW2MS_UserLoginState message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.GW2MS_UserLoginState
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.GW2MS_UserLoginState} GW2MS_UserLoginState
+         */
+        GW2MS_UserLoginState.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.GW2MS_UserLoginState)
+                return object;
+            var message = new $root.msg.GW2MS_UserLoginState();
+            if (object.online != null)
+                message.online = Boolean(object.online);
+            if (object.uid != null)
+                if ($util.Long)
+                    (message.uid = $util.Long.fromValue(object.uid)).unsigned = false;
+                else if (typeof object.uid === "string")
+                    message.uid = parseInt(object.uid, 10);
+                else if (typeof object.uid === "number")
+                    message.uid = object.uid;
+                else if (typeof object.uid === "object")
+                    message.uid = new $util.LongBits(object.uid.low >>> 0, object.uid.high >>> 0).toNumber();
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GW2MS_UserLoginState message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.GW2MS_UserLoginState
+         * @static
+         * @param {msg.GW2MS_UserLoginState} message GW2MS_UserLoginState
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GW2MS_UserLoginState.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.online = false;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.uid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.uid = options.longs === String ? "0" : 0;
+            }
+            if (message.online != null && message.hasOwnProperty("online"))
+                object.online = message.online;
+            if (message.uid != null && message.hasOwnProperty("uid"))
+                if (typeof message.uid === "number")
+                    object.uid = options.longs === String ? String(message.uid) : message.uid;
+                else
+                    object.uid = options.longs === String ? $util.Long.prototype.toString.call(message.uid) : options.longs === Number ? new $util.LongBits(message.uid.low >>> 0, message.uid.high >>> 0).toNumber() : message.uid;
+            return object;
+        };
+
+        /**
+         * Converts this GW2MS_UserLoginState to JSON.
+         * @function toJSON
+         * @memberof msg.GW2MS_UserLoginState
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GW2MS_UserLoginState.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GW2MS_UserLoginState;
+    })();
+
     msg.RS2GW_ReqRegist = (function() {
 
         /**
@@ -41765,6 +49417,492 @@ $root.msg = (function() {
         };
 
         return RS2GW_MsgTransfer;
+    })();
+
+    msg.MTTRoomMember = (function() {
+
+        /**
+         * Properties of a MTTRoomMember.
+         * @memberof msg
+         * @interface IMTTRoomMember
+         * @property {number|null} [mttuid] MTTRoomMember mttuid
+         * @property {number|Long|null} [roomuid] MTTRoomMember roomuid
+         * @property {Array.<number|Long>|null} [members] MTTRoomMember members
+         */
+
+        /**
+         * Constructs a new MTTRoomMember.
+         * @memberof msg
+         * @classdesc Represents a MTTRoomMember.
+         * @implements IMTTRoomMember
+         * @constructor
+         * @param {msg.IMTTRoomMember=} [properties] Properties to set
+         */
+        function MTTRoomMember(properties) {
+            this.members = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * MTTRoomMember mttuid.
+         * @member {number} mttuid
+         * @memberof msg.MTTRoomMember
+         * @instance
+         */
+        MTTRoomMember.prototype.mttuid = 0;
+
+        /**
+         * MTTRoomMember roomuid.
+         * @member {number|Long} roomuid
+         * @memberof msg.MTTRoomMember
+         * @instance
+         */
+        MTTRoomMember.prototype.roomuid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * MTTRoomMember members.
+         * @member {Array.<number|Long>} members
+         * @memberof msg.MTTRoomMember
+         * @instance
+         */
+        MTTRoomMember.prototype.members = $util.emptyArray;
+
+        /**
+         * Creates a new MTTRoomMember instance using the specified properties.
+         * @function create
+         * @memberof msg.MTTRoomMember
+         * @static
+         * @param {msg.IMTTRoomMember=} [properties] Properties to set
+         * @returns {msg.MTTRoomMember} MTTRoomMember instance
+         */
+        MTTRoomMember.create = function create(properties) {
+            return new MTTRoomMember(properties);
+        };
+
+        /**
+         * Encodes the specified MTTRoomMember message. Does not implicitly {@link msg.MTTRoomMember.verify|verify} messages.
+         * @function encode
+         * @memberof msg.MTTRoomMember
+         * @static
+         * @param {msg.IMTTRoomMember} message MTTRoomMember message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MTTRoomMember.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.mttuid != null && message.hasOwnProperty("mttuid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.mttuid);
+            if (message.roomuid != null && message.hasOwnProperty("roomuid"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int64(message.roomuid);
+            if (message.members != null && message.members.length)
+                for (var i = 0; i < message.members.length; ++i)
+                    writer.uint32(/* id 3, wireType 0 =*/24).int64(message.members[i]);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified MTTRoomMember message, length delimited. Does not implicitly {@link msg.MTTRoomMember.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.MTTRoomMember
+         * @static
+         * @param {msg.IMTTRoomMember} message MTTRoomMember message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MTTRoomMember.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a MTTRoomMember message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.MTTRoomMember
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.MTTRoomMember} MTTRoomMember
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MTTRoomMember.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.MTTRoomMember();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.mttuid = reader.int32();
+                    break;
+                case 2:
+                    message.roomuid = reader.int64();
+                    break;
+                case 3:
+                    if (!(message.members && message.members.length))
+                        message.members = [];
+                    if ((tag & 7) === 2) {
+                        var end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2)
+                            message.members.push(reader.int64());
+                    } else
+                        message.members.push(reader.int64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a MTTRoomMember message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.MTTRoomMember
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.MTTRoomMember} MTTRoomMember
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MTTRoomMember.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a MTTRoomMember message.
+         * @function verify
+         * @memberof msg.MTTRoomMember
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        MTTRoomMember.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.mttuid != null && message.hasOwnProperty("mttuid"))
+                if (!$util.isInteger(message.mttuid))
+                    return "mttuid: integer expected";
+            if (message.roomuid != null && message.hasOwnProperty("roomuid"))
+                if (!$util.isInteger(message.roomuid) && !(message.roomuid && $util.isInteger(message.roomuid.low) && $util.isInteger(message.roomuid.high)))
+                    return "roomuid: integer|Long expected";
+            if (message.members != null && message.hasOwnProperty("members")) {
+                if (!Array.isArray(message.members))
+                    return "members: array expected";
+                for (var i = 0; i < message.members.length; ++i)
+                    if (!$util.isInteger(message.members[i]) && !(message.members[i] && $util.isInteger(message.members[i].low) && $util.isInteger(message.members[i].high)))
+                        return "members: integer|Long[] expected";
+            }
+            return null;
+        };
+
+        /**
+         * Creates a MTTRoomMember message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.MTTRoomMember
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.MTTRoomMember} MTTRoomMember
+         */
+        MTTRoomMember.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.MTTRoomMember)
+                return object;
+            var message = new $root.msg.MTTRoomMember();
+            if (object.mttuid != null)
+                message.mttuid = object.mttuid | 0;
+            if (object.roomuid != null)
+                if ($util.Long)
+                    (message.roomuid = $util.Long.fromValue(object.roomuid)).unsigned = false;
+                else if (typeof object.roomuid === "string")
+                    message.roomuid = parseInt(object.roomuid, 10);
+                else if (typeof object.roomuid === "number")
+                    message.roomuid = object.roomuid;
+                else if (typeof object.roomuid === "object")
+                    message.roomuid = new $util.LongBits(object.roomuid.low >>> 0, object.roomuid.high >>> 0).toNumber();
+            if (object.members) {
+                if (!Array.isArray(object.members))
+                    throw TypeError(".msg.MTTRoomMember.members: array expected");
+                message.members = [];
+                for (var i = 0; i < object.members.length; ++i)
+                    if ($util.Long)
+                        (message.members[i] = $util.Long.fromValue(object.members[i])).unsigned = false;
+                    else if (typeof object.members[i] === "string")
+                        message.members[i] = parseInt(object.members[i], 10);
+                    else if (typeof object.members[i] === "number")
+                        message.members[i] = object.members[i];
+                    else if (typeof object.members[i] === "object")
+                        message.members[i] = new $util.LongBits(object.members[i].low >>> 0, object.members[i].high >>> 0).toNumber();
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a MTTRoomMember message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.MTTRoomMember
+         * @static
+         * @param {msg.MTTRoomMember} message MTTRoomMember
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        MTTRoomMember.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.members = [];
+            if (options.defaults) {
+                object.mttuid = 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.roomuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.roomuid = options.longs === String ? "0" : 0;
+            }
+            if (message.mttuid != null && message.hasOwnProperty("mttuid"))
+                object.mttuid = message.mttuid;
+            if (message.roomuid != null && message.hasOwnProperty("roomuid"))
+                if (typeof message.roomuid === "number")
+                    object.roomuid = options.longs === String ? String(message.roomuid) : message.roomuid;
+                else
+                    object.roomuid = options.longs === String ? $util.Long.prototype.toString.call(message.roomuid) : options.longs === Number ? new $util.LongBits(message.roomuid.low >>> 0, message.roomuid.high >>> 0).toNumber() : message.roomuid;
+            if (message.members && message.members.length) {
+                object.members = [];
+                for (var j = 0; j < message.members.length; ++j)
+                    if (typeof message.members[j] === "number")
+                        object.members[j] = options.longs === String ? String(message.members[j]) : message.members[j];
+                    else
+                        object.members[j] = options.longs === String ? $util.Long.prototype.toString.call(message.members[j]) : options.longs === Number ? new $util.LongBits(message.members[j].low >>> 0, message.members[j].high >>> 0).toNumber() : message.members[j];
+            }
+            return object;
+        };
+
+        /**
+         * Converts this MTTRoomMember to JSON.
+         * @function toJSON
+         * @memberof msg.MTTRoomMember
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        MTTRoomMember.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return MTTRoomMember;
+    })();
+
+    msg.RS2GW_MTTRoomMember = (function() {
+
+        /**
+         * Properties of a RS2GW_MTTRoomMember.
+         * @memberof msg
+         * @interface IRS2GW_MTTRoomMember
+         * @property {Array.<msg.IMTTRoomMember>|null} [rooms] RS2GW_MTTRoomMember rooms
+         */
+
+        /**
+         * Constructs a new RS2GW_MTTRoomMember.
+         * @memberof msg
+         * @classdesc Represents a RS2GW_MTTRoomMember.
+         * @implements IRS2GW_MTTRoomMember
+         * @constructor
+         * @param {msg.IRS2GW_MTTRoomMember=} [properties] Properties to set
+         */
+        function RS2GW_MTTRoomMember(properties) {
+            this.rooms = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * RS2GW_MTTRoomMember rooms.
+         * @member {Array.<msg.IMTTRoomMember>} rooms
+         * @memberof msg.RS2GW_MTTRoomMember
+         * @instance
+         */
+        RS2GW_MTTRoomMember.prototype.rooms = $util.emptyArray;
+
+        /**
+         * Creates a new RS2GW_MTTRoomMember instance using the specified properties.
+         * @function create
+         * @memberof msg.RS2GW_MTTRoomMember
+         * @static
+         * @param {msg.IRS2GW_MTTRoomMember=} [properties] Properties to set
+         * @returns {msg.RS2GW_MTTRoomMember} RS2GW_MTTRoomMember instance
+         */
+        RS2GW_MTTRoomMember.create = function create(properties) {
+            return new RS2GW_MTTRoomMember(properties);
+        };
+
+        /**
+         * Encodes the specified RS2GW_MTTRoomMember message. Does not implicitly {@link msg.RS2GW_MTTRoomMember.verify|verify} messages.
+         * @function encode
+         * @memberof msg.RS2GW_MTTRoomMember
+         * @static
+         * @param {msg.IRS2GW_MTTRoomMember} message RS2GW_MTTRoomMember message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2GW_MTTRoomMember.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.rooms != null && message.rooms.length)
+                for (var i = 0; i < message.rooms.length; ++i)
+                    $root.msg.MTTRoomMember.encode(message.rooms[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified RS2GW_MTTRoomMember message, length delimited. Does not implicitly {@link msg.RS2GW_MTTRoomMember.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.RS2GW_MTTRoomMember
+         * @static
+         * @param {msg.IRS2GW_MTTRoomMember} message RS2GW_MTTRoomMember message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2GW_MTTRoomMember.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a RS2GW_MTTRoomMember message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.RS2GW_MTTRoomMember
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.RS2GW_MTTRoomMember} RS2GW_MTTRoomMember
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2GW_MTTRoomMember.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.RS2GW_MTTRoomMember();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.rooms && message.rooms.length))
+                        message.rooms = [];
+                    message.rooms.push($root.msg.MTTRoomMember.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a RS2GW_MTTRoomMember message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.RS2GW_MTTRoomMember
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.RS2GW_MTTRoomMember} RS2GW_MTTRoomMember
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2GW_MTTRoomMember.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a RS2GW_MTTRoomMember message.
+         * @function verify
+         * @memberof msg.RS2GW_MTTRoomMember
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        RS2GW_MTTRoomMember.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.rooms != null && message.hasOwnProperty("rooms")) {
+                if (!Array.isArray(message.rooms))
+                    return "rooms: array expected";
+                for (var i = 0; i < message.rooms.length; ++i) {
+                    var error = $root.msg.MTTRoomMember.verify(message.rooms[i]);
+                    if (error)
+                        return "rooms." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a RS2GW_MTTRoomMember message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.RS2GW_MTTRoomMember
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.RS2GW_MTTRoomMember} RS2GW_MTTRoomMember
+         */
+        RS2GW_MTTRoomMember.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.RS2GW_MTTRoomMember)
+                return object;
+            var message = new $root.msg.RS2GW_MTTRoomMember();
+            if (object.rooms) {
+                if (!Array.isArray(object.rooms))
+                    throw TypeError(".msg.RS2GW_MTTRoomMember.rooms: array expected");
+                message.rooms = [];
+                for (var i = 0; i < object.rooms.length; ++i) {
+                    if (typeof object.rooms[i] !== "object")
+                        throw TypeError(".msg.RS2GW_MTTRoomMember.rooms: object expected");
+                    message.rooms[i] = $root.msg.MTTRoomMember.fromObject(object.rooms[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a RS2GW_MTTRoomMember message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.RS2GW_MTTRoomMember
+         * @static
+         * @param {msg.RS2GW_MTTRoomMember} message RS2GW_MTTRoomMember
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        RS2GW_MTTRoomMember.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.rooms = [];
+            if (message.rooms && message.rooms.length) {
+                object.rooms = [];
+                for (var j = 0; j < message.rooms.length; ++j)
+                    object.rooms[j] = $root.msg.MTTRoomMember.toObject(message.rooms[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this RS2GW_MTTRoomMember to JSON.
+         * @function toJSON
+         * @memberof msg.RS2GW_MTTRoomMember
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        RS2GW_MTTRoomMember.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return RS2GW_MTTRoomMember;
     })();
 
     msg.RS2MS_ReqRegist = (function() {
@@ -52057,6 +60195,260 @@ $root.msg = (function() {
         };
 
         return RS2C_RetReviewInfo;
+    })();
+
+    msg.RS2C_PushBlindChange = (function() {
+
+        /**
+         * Properties of a RS2C_PushBlindChange.
+         * @memberof msg
+         * @interface IRS2C_PushBlindChange
+         * @property {number|null} [sblind] RS2C_PushBlindChange sblind
+         * @property {number|null} [bblind] RS2C_PushBlindChange bblind
+         * @property {number|null} [ante] RS2C_PushBlindChange ante
+         * @property {number|null} [blindlevel] RS2C_PushBlindChange blindlevel
+         */
+
+        /**
+         * Constructs a new RS2C_PushBlindChange.
+         * @memberof msg
+         * @classdesc Represents a RS2C_PushBlindChange.
+         * @implements IRS2C_PushBlindChange
+         * @constructor
+         * @param {msg.IRS2C_PushBlindChange=} [properties] Properties to set
+         */
+        function RS2C_PushBlindChange(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * RS2C_PushBlindChange sblind.
+         * @member {number} sblind
+         * @memberof msg.RS2C_PushBlindChange
+         * @instance
+         */
+        RS2C_PushBlindChange.prototype.sblind = 0;
+
+        /**
+         * RS2C_PushBlindChange bblind.
+         * @member {number} bblind
+         * @memberof msg.RS2C_PushBlindChange
+         * @instance
+         */
+        RS2C_PushBlindChange.prototype.bblind = 0;
+
+        /**
+         * RS2C_PushBlindChange ante.
+         * @member {number} ante
+         * @memberof msg.RS2C_PushBlindChange
+         * @instance
+         */
+        RS2C_PushBlindChange.prototype.ante = 0;
+
+        /**
+         * RS2C_PushBlindChange blindlevel.
+         * @member {number} blindlevel
+         * @memberof msg.RS2C_PushBlindChange
+         * @instance
+         */
+        RS2C_PushBlindChange.prototype.blindlevel = 0;
+
+        /**
+         * Creates a new RS2C_PushBlindChange instance using the specified properties.
+         * @function create
+         * @memberof msg.RS2C_PushBlindChange
+         * @static
+         * @param {msg.IRS2C_PushBlindChange=} [properties] Properties to set
+         * @returns {msg.RS2C_PushBlindChange} RS2C_PushBlindChange instance
+         */
+        RS2C_PushBlindChange.create = function create(properties) {
+            return new RS2C_PushBlindChange(properties);
+        };
+
+        /**
+         * Encodes the specified RS2C_PushBlindChange message. Does not implicitly {@link msg.RS2C_PushBlindChange.verify|verify} messages.
+         * @function encode
+         * @memberof msg.RS2C_PushBlindChange
+         * @static
+         * @param {msg.IRS2C_PushBlindChange} message RS2C_PushBlindChange message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_PushBlindChange.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.sblind != null && message.hasOwnProperty("sblind"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.sblind);
+            if (message.bblind != null && message.hasOwnProperty("bblind"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.bblind);
+            if (message.ante != null && message.hasOwnProperty("ante"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.ante);
+            if (message.blindlevel != null && message.hasOwnProperty("blindlevel"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.blindlevel);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified RS2C_PushBlindChange message, length delimited. Does not implicitly {@link msg.RS2C_PushBlindChange.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.RS2C_PushBlindChange
+         * @static
+         * @param {msg.IRS2C_PushBlindChange} message RS2C_PushBlindChange message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2C_PushBlindChange.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a RS2C_PushBlindChange message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.RS2C_PushBlindChange
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.RS2C_PushBlindChange} RS2C_PushBlindChange
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_PushBlindChange.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.RS2C_PushBlindChange();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.sblind = reader.int32();
+                    break;
+                case 2:
+                    message.bblind = reader.int32();
+                    break;
+                case 3:
+                    message.ante = reader.int32();
+                    break;
+                case 4:
+                    message.blindlevel = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a RS2C_PushBlindChange message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.RS2C_PushBlindChange
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.RS2C_PushBlindChange} RS2C_PushBlindChange
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2C_PushBlindChange.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a RS2C_PushBlindChange message.
+         * @function verify
+         * @memberof msg.RS2C_PushBlindChange
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        RS2C_PushBlindChange.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.sblind != null && message.hasOwnProperty("sblind"))
+                if (!$util.isInteger(message.sblind))
+                    return "sblind: integer expected";
+            if (message.bblind != null && message.hasOwnProperty("bblind"))
+                if (!$util.isInteger(message.bblind))
+                    return "bblind: integer expected";
+            if (message.ante != null && message.hasOwnProperty("ante"))
+                if (!$util.isInteger(message.ante))
+                    return "ante: integer expected";
+            if (message.blindlevel != null && message.hasOwnProperty("blindlevel"))
+                if (!$util.isInteger(message.blindlevel))
+                    return "blindlevel: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a RS2C_PushBlindChange message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.RS2C_PushBlindChange
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.RS2C_PushBlindChange} RS2C_PushBlindChange
+         */
+        RS2C_PushBlindChange.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.RS2C_PushBlindChange)
+                return object;
+            var message = new $root.msg.RS2C_PushBlindChange();
+            if (object.sblind != null)
+                message.sblind = object.sblind | 0;
+            if (object.bblind != null)
+                message.bblind = object.bblind | 0;
+            if (object.ante != null)
+                message.ante = object.ante | 0;
+            if (object.blindlevel != null)
+                message.blindlevel = object.blindlevel | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a RS2C_PushBlindChange message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.RS2C_PushBlindChange
+         * @static
+         * @param {msg.RS2C_PushBlindChange} message RS2C_PushBlindChange
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        RS2C_PushBlindChange.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.sblind = 0;
+                object.bblind = 0;
+                object.ante = 0;
+                object.blindlevel = 0;
+            }
+            if (message.sblind != null && message.hasOwnProperty("sblind"))
+                object.sblind = message.sblind;
+            if (message.bblind != null && message.hasOwnProperty("bblind"))
+                object.bblind = message.bblind;
+            if (message.ante != null && message.hasOwnProperty("ante"))
+                object.ante = message.ante;
+            if (message.blindlevel != null && message.hasOwnProperty("blindlevel"))
+                object.blindlevel = message.blindlevel;
+            return object;
+        };
+
+        /**
+         * Converts this RS2C_PushBlindChange to JSON.
+         * @function toJSON
+         * @memberof msg.RS2C_PushBlindChange
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        RS2C_PushBlindChange.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return RS2C_PushBlindChange;
     })();
 
     /**

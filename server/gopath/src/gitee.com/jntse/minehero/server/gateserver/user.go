@@ -69,7 +69,7 @@ type UserBaseData struct {
 	verifykey     string
 	online        bool
 	tickers       UserTicker
-	bag           UserBag // 背包
+	//bag         UserBag // 背包
 	cleanup       bool    // 清理标记
 	tm_disconnect int64
 	tm_heartbeat  int64                   // 心跳时间
@@ -88,6 +88,7 @@ type GateUser struct {
 	events          UserMapEvent // 地图事件
 	mailbox         MailBox      // 邮箱
 	friends			Friends		 // 好友
+	bag         	UserBag 	 // 背包
 	arvalues        def.AutoResetValues
 }
 
@@ -461,7 +462,7 @@ func (u *GateUser) PackBin() *msg.Serialize {
 	}
 
 	// 道具信息
-	u.bag.PackBin(bin)
+	//u.bag.PackBin(bin)
 	u.task.PackBin(bin)
 	u.events.PackBin(bin)
 	u.PackAutoResetValues(bin)
@@ -513,8 +514,8 @@ func (u *GateUser) LoadBin() {
 	userbase.GetStatics().Tmlogin = pb.Int64(util.CURTIME())
 	u.vip.LoadBin(u.bin)
 	// 道具信息
-	u.bag.Clean()
-	u.bag.LoadBin(u.bin)
+	//u.bag.LoadBin(u.bin)
+	u.bag.DBLoad()
 
 	// 任务
 	u.task.LoadBin(u.bin)
@@ -542,6 +543,7 @@ func (u *GateUser) LoadGateBin () {
 
 // TODO: 存盘可以单独协程
 func (u *GateUser) DBSave() {
+	u.bag.DBSave()
 	u.mailbox.DBSave()
 	u.friends.DBSave()
 	key := fmt.Sprintf("userbin_%d", u.Id())
@@ -611,6 +613,7 @@ func (u *GateUser) Online(session network.IBaseNetSession, way string) bool {
 	u.online = true
 	u.client = session
 	u.statistics.tm_login = curtime
+	u.statistics.tm_logout = 0
 	u.tm_disconnect = 0
 	u.tm_heartbeat = util.CURTIMEMS()
 	u.roomdata.Online(u)
@@ -637,6 +640,13 @@ func (u *GateUser) Syn() {
 	u.CheckHaveCompensation()
 	//u.QueryPlatformCoins()
 	//u.TestItem()
+}
+
+func (u *GateUser) SynMatch(online bool) {
+	//send := &msg.GW2MS_UserLoginState{}
+	//send.Uid = pb.Int64(u.Id())
+	//send.Online = pb.Bool(online)
+	//Match().SendMsg(send)
 }
 
 func (u *GateUser) TestItem() {
@@ -722,7 +732,7 @@ func (u *GateUser) OnCleanUp() {
 
 // 发送个人通知
 func (u *GateUser) SendNotify(text string) {
-	send := &msg.GW2C_MsgNotify{Text: pb.String(text)}
+	send := &msg.GW2C_PushMsgNotify{Text: pb.String(text)}
 	u.SendMsg(send)
 }
 

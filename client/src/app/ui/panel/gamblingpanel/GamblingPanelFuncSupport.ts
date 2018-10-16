@@ -116,6 +116,10 @@ class GamblingPanelFuncSupport extends BaseGamblingPanelSupport
 				break;
 			case this.target.guessCardBtn://手牌竞猜
 				SoundManager.playEffect(MusicAction.buttonClick);
+				if (!FuncOpenUtils.isOpened(FuncType.GuessCard))
+				{
+					return;
+				}
 				if (this.target.moveTouchEnd(event))
 				{
 					return;
@@ -124,6 +128,10 @@ class GamblingPanelFuncSupport extends BaseGamblingPanelSupport
 				break;
 			case this.target.chatBtn://聊天
 				SoundManager.playEffect(MusicAction.buttonClick);
+				if (!FuncOpenUtils.isOpened(FuncType.Chat))
+				{
+					return;
+				}
 				if (this.target.moveTouchEnd(event))
 				{
 					return;

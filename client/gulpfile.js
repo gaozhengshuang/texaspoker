@@ -27,7 +27,7 @@ const LibsrcNameList = ['jszip', 'particle', 'md5'];
 const ExcludeConfigFileList = ['autoName.json', 'autoAction.json'];
 var requireDir = require('require-dir');
 requireDir('./gulp-tasks');
-Gulp.task('default', ['replace-lang', "lang-complex"], function ()
+Gulp.task('default', ['replace-lang', "lang-complex", "publish"], function ()
 {
 });
 //--------------------------------------------------------------

@@ -84,9 +84,9 @@ class GamblingPanelMatchSupport extends BaseGamblingPanelSupport
             UIManager.showPanel(UIModuleName.ChampionshipInfoPanel, { championshipInfo: GamblingManager.matchRoomInfo, isInRoom: true });
         }
     }
-    private onMTTOverPushEvent(data: any)
+    private onMTTOverPushEvent(data: msg.RS2C_PushMTTWeedOut)
     {
-        if (InfoUtil.checkAvailable(GamblingManager.matchRoomInfo) && data.recordId == GamblingManager.matchRoomInfo.recordId)
+        if (InfoUtil.checkAvailable(GamblingManager.matchRoomInfo) && data.recordid == GamblingManager.matchRoomInfo.recordId)
         {
             UIManager.closePanel(UIModuleName.ChampionshipBuyChipsPanel);
             UIManager.closePanel(UIModuleName.ChatPanel);

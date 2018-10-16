@@ -56,6 +56,13 @@ class ActivityPanelJumpManager
      */
     public static async JumpToPanel(activityInfo: ActivityInfo)
     {
+        switch(activityInfo.definition.Type) //move todo
+        {
+            case ActivityType.PayPrize:
+            case ActivityType.BindChannel:
+            AlertManager.showAlertByString("暂未开放！");
+            return;
+        }
         if (ActivityPanelJumpManager._isLoading)
         {
             return;
@@ -100,7 +107,10 @@ class ActivityPanelJumpManager
 
     private static onResourceProgress(event: RES.ResourceEvent)
     {
-        game.Console.log("资源加载地址：" + event.resItem.url);
+        if (event.resItem)
+        {
+            game.Console.log("资源加载地址groupName：" + event.groupName);
+        }
     }
 
     private static jumpToActivity(info: ActivityInfo)

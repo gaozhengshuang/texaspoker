@@ -70,11 +70,23 @@ func (rm *RoomManager) InitPublicTexas() bool {
 			log.Error("初始化德州公共房间失败[%s]", errcode)
 			return false
 		}
-		room := NewTexasRoom(0, roomid, tconf.Id, 0, "")
+		room := NewTexasRoom(0, roomid, tconf.Id, 0, "", nil)
 		room.Init()
 		rm.Add(room)
 	}
 	return true
+}
+
+func (rm *RoomManager) CreatTexasRoomForChampion(roomtid int32, cs *ChampionShip) int64 {
+	uid, errcode := def.GenerateRoomId(Redis())
+	if errcode != "" {
+		log.Error("初始化锦标赛房间失败[%s]", errcode)
+		return 0
+	}
+	room := NewTexasRoom(0, uid, roomtid, 0, "", cs)
+	room.Init()
+	rm.Add(room)
+	return room.Id()
 }
 
 func (rm *RoomManager) GetRewardTime(round int32) int32 {
@@ -216,7 +228,7 @@ func (rm *RoomManager) AutoIncTexasRoomAmount(subtype int32) bool {
 			log.Error("初始化德州公共房间失败[%s]", errcode)
 			return false
 		}
-		room := NewTexasRoom(0, roomid, tconf.Id, 0, "")
+		room := NewTexasRoom(0, roomid, tconf.Id, 0, "", nil)
 		room.Init()
 		rm.Add(room)
 		log.Info("[房间] 自动创建德州新房间[%d] 子类型[%d]", room.Id(), subtype)
@@ -255,7 +267,7 @@ func NewTanTanLeRoom(ownerid, uid int64) *TanTanLe {
 	return room
 }
 
-func NewTexasRoom(ownerid, uid int64, tid int32, ante int32, pwd string) *TexasPokerRoom {
+func NewTexasRoom(ownerid, uid int64, tid int32, ante int32, pwd string, cs *ChampionShip) *TexasPokerRoom {
 	room := &TexasPokerRoom{}
 	room.id = uid
 	room.tm_create = util.CURTIME()
@@ -266,6 +278,7 @@ func NewTexasRoom(ownerid, uid int64, tid int32, ante int32, pwd string) *TexasP
 	room.tid = tid
 	room.passwd = pwd
 	room.members = make(map[int64]*RoomUser)
+	room.mtt = cs
 	//room.watchmembers = make(map[int64]*RoomUser)
 	return room
 }

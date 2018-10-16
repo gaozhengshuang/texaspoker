@@ -8,7 +8,7 @@ import (
 	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/minehero/server/tbl"
-	_ "github.com/gogo/protobuf/proto"
+	pb "github.com/gogo/protobuf/proto"
 	"reflect"
 )
 
@@ -38,11 +38,16 @@ func (mh *MS2GWMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.MS2GW_RetRegist{}, on_MS2GW_RetRegist)
 	mh.msgparser.RegistProtoMsg(msg.MS2GW_HeartBeat{}, on_MS2GW_HeartBeat)
 	mh.msgparser.RegistProtoMsg(msg.MS2GW_MsgNotice{}, on_MS2GW_MsgNotice)
+	mh.msgparser.RegistProtoMsg(msg.MS2GW_MsgTransfer{}, on_MS2GW_MsgTransfer)
+	mh.msgparser.RegistProtoMsg(msg.MS2Server_BroadCast{}, on_MS2Server_BroadCast)
+
+	// 房间
+	mh.msgparser.RegistProtoMsg(msg.MS2GW_RetCreateRoom{}, on_MS2GW_RetCreateRoom)
 	//mh.msgparser.RegistProtoMsg(msg.MS2GW_RetStartMatch{}, on_MS2GW_RetStartMatch)
 	//mh.msgparser.RegistProtoMsg(msg.MS2GW_RetCancelMatch{}, on_MS2GW_RetCancelMatch)
 	//mh.msgparser.RegistProtoMsg(msg.MS2GW_MatchOk{}, on_MS2GW_MatchOk)
-	mh.msgparser.RegistProtoMsg(msg.MS2GW_RetCreateRoom{}, on_MS2GW_RetCreateRoom)
-	mh.msgparser.RegistProtoMsg(msg.MS2Server_BroadCast{}, on_MS2Server_BroadCast)
+
+	// 邮件
 	mh.msgparser.RegistProtoMsg(msg.MS2GW_PushNewMail{}, on_MS2GW_PushNewMail)
 
 	// GW2GW
@@ -51,6 +56,7 @@ func (mh *MS2GWMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.GW2C_PushRemoveFriend{}, on_GW2C_PushRemoveFriend)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_PushFriendPresent{}, on_GW2C_PushFriendPresent)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_PushUserOnline{}, on_GW2C_PushUserOnline)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_PushFriendInvitation{}, on_GW2C_PushFriendInvitation)
 }
 
 func on_MS2GW_RetRegist(session network.IBaseNetSession, message interface{}) {
@@ -65,6 +71,27 @@ func on_MS2GW_RetRegist(session network.IBaseNetSession, message interface{}) {
 func on_MS2GW_HeartBeat(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.MS2GW_HeartBeat)
 	log.Info(reflect.TypeOf(tmsg).String())
+}
+
+// 消息转发
+func on_MS2GW_MsgTransfer(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.MS2GW_MsgTransfer)
+	msg_type := pb.MessageType(tmsg.GetName())
+	if msg_type == nil {
+		log.Fatal("消息转发解析失败，找不到proto msg=%s" , tmsg.GetName())
+		return
+	}
+
+	protomsg := reflect.New(msg_type.Elem()).Interface()
+	err := pb.Unmarshal(tmsg.GetBuf(), protomsg.(pb.Message))
+	if err != nil {
+		log.Fatal("消息转发解析失败，Unmarshal失败 msg=%s" , tmsg.GetName())
+		return
+	}
+
+	user := UserMgr().FindById(tmsg.GetUid())
+	if user == nil { return }
+	user.SendMsg(protomsg.(pb.Message))
 }
 
 // 公告
@@ -170,4 +197,10 @@ func on_GW2C_PushFriendPresent(session network.IBaseNetSession, message interfac
 func on_GW2C_PushUserOnline(session network.IBaseNetSession, message interface{}) {
 	//tmsg := message.(*msg.GW2C_PushUserOnline)
 }
+
+func on_GW2C_PushFriendInvitation(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2C_PushFriendInvitation)
+	UserMgr().OnInviteJoinRoom(tmsg)
+}
+
 

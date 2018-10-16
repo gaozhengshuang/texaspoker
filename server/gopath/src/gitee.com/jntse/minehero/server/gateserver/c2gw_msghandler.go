@@ -88,6 +88,7 @@ func (mh *C2GWMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqGetFriendPresent{}, on_C2GW_ReqGetFriendPresent)
 	//mh.msgparser.RegistProtoMsg(msg.C2GW_ReqFriendDetail{}, on_C2GW_ReqFriendDetail)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqFriendSearch{}, on_C2GW_ReqFriendSearch)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqInviteFriendJoin{}, on_C2GW_ReqInviteFriendJoin)
 
 	//活动
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqActivityInfo{}, on_C2GW_ReqActivityInfo)
@@ -215,6 +216,13 @@ func on_C2GW_ReqEnterRoom(session network.IBaseNetSession, message interface{}) 
 		return
 	}
 
+	//TODO: 测试
+	items := []int32{101, 102, 103, 104, 105}
+	index := 4
+	u.RemoveItem(items[index], 1, "测试删除")
+	u.RemoveItem(items[index], 5, "测试删除")
+
+
 	roomid := tmsg.GetRoomid()
 	if roomid == 0 {
 		log.Error("[房间] 玩家[%s %d]请求进入无效的房间[%d]", u.Name(), u.Id(), roomid)
@@ -227,10 +235,14 @@ func on_C2GW_ReqEnterRoom(session network.IBaseNetSession, message interface{}) 
 		return
 	}
 
+	// 背包立即同步DB
+	u.bag.DBSave()
+
+
 	// 重新进入房间，不需要上传玩家二进制数据
-	if u.RoomId() != roomid {
-		u.SendUserBinToRoom(sid, roomid)
-	}
+	//if u.RoomId() != roomid {
+	//	u.SendUserBinToRoom(sid, roomid)
+	//}
 
 	// 进入游戏房间
 	log.Info("玩家[%s %d] 请求进入房间[%d] ts[%d]", u.Name(), u.Id(), tmsg.GetRoomid(), util.CURTIMEMS())
@@ -252,6 +264,12 @@ func on_C2GW_ReqLeaveRoom(session network.IBaseNetSession, message interface{}) 
 		log.Error("[房间] 玩家[%s %d]请求离开房间，使用错误的id[%d]", u.Name(), u.Id(), tmsg.GetUserid())
 		return
 	}
+
+	// TODO: 测试
+	items := []int32{101, 102, 103, 104, 105}
+	index := util.RandBetween(0,4)
+	u.AddItem(items[index], 1, "测试添加", true)
+	u.AddItem(items[index], 5, "测试添加", true)
 
 	// 离开游戏房间
 	u.SendRoomMsg(tmsg)
@@ -723,6 +741,18 @@ func on_C2GW_ReqFriendSearch(session network.IBaseNetSession, message interface{
 	}
 	u.SearchUser(tmsg.GetVal())
 }
+
+func on_C2GW_ReqInviteFriendJoin(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqInviteFriendJoin)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.InviteFriendsJoin(tmsg.GetId(), tmsg.Roleid)
+}
+
 
 func on_C2GW_ReqTaskList(session network.IBaseNetSession, message interface{}) {
 	//tmsg := message.(*msg.C2GW_ReqTaskList)

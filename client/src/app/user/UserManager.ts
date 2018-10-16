@@ -58,6 +58,7 @@ class UserManager
 		SocketManager.AddCommandListener(Command.Role_Push_ExpChange_2028, UserManager.onExpChangeResult, this);
 		SocketManager.AddCommandListener(Command.RS2C_RolePushPropertyChange, UserManager.onPropetyChangeHandler, this);
 		SocketManager.AddCommandListener(Command.Role_Push_HeadReviewPass_2120, UserManager.onHeadReviewPass, this);
+		SocketManager.AddCommandListener(Command.GW2C_PushMsgNotify, UserManager.GW2C_PushMsgNotify, this);
 		UserManager.setIsFirstLoginToday();
 	}
 	/**
@@ -100,6 +101,11 @@ class UserManager
 			UserManager.userInfo.head = result.data["head"];
 			UserManager.headImageUpdateEvent.dispatch();
 		}
+	}
+	private static GW2C_PushMsgNotify(result: game.SpRpcResult)
+	{
+		let data: msg.GW2C_PushMsgNotify = result.data;
+		AlertManager.showAlertByString(data.text);
 	}
 	/**
 	 * 仅限于number类型
@@ -189,7 +195,7 @@ class UserManager
 		{
 			SocketManager.call(Command.C2GW_ReqPlayerRoleInfo, { roleid: roleId }, callback, errorCallBack, this);
 		}
-		else if(isShowTips)
+		else if (isShowTips)
 		{
 			UIManager.showFloatTips("玩家信息为私密！");
 		}

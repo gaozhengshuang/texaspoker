@@ -95,6 +95,11 @@ message MS2GW_MsgTransfer {
     optional bytes buf = 3;
 }
 
+message GW2MS_UserLoginState {
+    optional bool online = 1;
+    optional int64 uid = 2;
+}
+
 // --------------------------------------------------------------------------
 /// @brief GateServer <----> RoomServer
 // --------------------------------------------------------------------------
@@ -140,6 +145,17 @@ message RS2GW_MsgTransfer {
     optional int64 uid  = 1;
     optional string name = 2;
     optional bytes buf = 3;
+}
+
+message MTTRoomMember {
+    optional int32 mttuid = 1;
+    optional int64 roomuid = 2;
+    repeated int64 members = 3;
+}
+
+//锦标赛房间成员信息
+message RS2GW_MTTRoomMember {
+    repeated MTTRoomMember rooms = 1;
 }
 
 

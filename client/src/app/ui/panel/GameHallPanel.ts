@@ -172,7 +172,7 @@ class GameHallPanel extends BasePanel
 	{
 		this.userNameLabel.text = UserManager.userInfo.name.toString();
 		this.userHeadComp.init(UserManager.userInfo, 120);
-		if (false &&  VipManager.isVip())
+		if (false && VipManager.isVip())
 		{
 			this.vipLevelLabel.text = "VIP" + UserManager.userInfo.vipLevel; //move todo
 			this.vipGroup.visible = true;
@@ -203,13 +203,14 @@ class GameHallPanel extends BasePanel
 		this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onClickHandler, this);
 		// VipManager.vipUpgradeEvent.addListener(this.refreshUserInfoUI, this); //move todo
 		UserManager.propertyChangeEvent.addListener(this.refreshGold, this);
-		RankManager.getRankListEvent.addListener(this.getRankList, this);
 		UserManager.onCreateRoleEvent.addListener(this.refreshUserInfoUI, this);
 		UserManager.onSetUserInfoComplete.addListener(this.refreshUserInfoUI, this);
 		UserManager.headImageUpdateEvent.addListener(this.refreshUserInfoUI, this);
 		game.Tick.AddSecondsInvoke(this.refreshFreeGoldTime, this);
 		UserManager.getFreeGoldEvent.addListener(this.resetFreeGoldTime, this);
 		UIManager.onPanelCloseEvent.addListener(this._panelAnime.setRankEnterAnime.bind(this._panelAnime), this);
+
+		RankManager.getFriendRankList(RankType.FriendGold, this._rankListInfo, this.getRankList, this);
 	}
 	protected onDisable(event: eui.UIEvent): void
 	{
@@ -220,7 +221,6 @@ class GameHallPanel extends BasePanel
 		this.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onClickHandler, this);
 		// VipManager.vipUpgradeEvent.removeListener(this.refreshUserInfoUI, this);//move todo
 		UserManager.propertyChangeEvent.removeListener(this.refreshGold, this);
-		RankManager.getRankListEvent.removeListener(this.getRankList, this);
 		UserManager.onCreateRoleEvent.removeListener(this.refreshUserInfoUI, this);
 		UserManager.onSetUserInfoComplete.removeListener(this.refreshUserInfoUI, this);
 		UserManager.headImageUpdateEvent.removeListener(this.refreshUserInfoUI, this);
@@ -231,27 +231,24 @@ class GameHallPanel extends BasePanel
 
 	private getRankList()
 	{
+		this._rankList = this._rankListInfo.list;
 		if (!this._rankList)
 		{
 			this._rankList = new Array<RankInfo>();
 		}
-		else
-		{
-			game.ArrayUtil.Clear(this._rankList);
-		}
 		if (this._rankListInfo && this._rankListInfo.list)
 		{
-			for (let i = 0; i < this.listNum; i++)
-			{
-				if (i < this._rankListInfo.list.length)
-				{
-					this._rankList.push(this._rankListInfo.list[i]);
-				}
-				else
-				{
-					this._rankList.push(null);
-				}
-			}
+			// for (let i = 0; i < this.listNum; i++)
+			// {
+			// 	if (i < this._rankListInfo.list.length)
+			// 	{
+			// 		this._rankList.push(this._rankListInfo.list[i]);
+			// 	}
+			// 	else
+			// 	{
+			// 		this._rankList.push(null);
+			// 	}
+			// }
 			this.setRankInfo(this.rankingImg0, this.rank0Group, this._rankList[0]);
 			this.setRankInfo(this.rankingImg1, this.rank1Group, this._rankList[1]);
 			this.setRankInfo(this.rankingImg2, this.rank2Group, this._rankList[2]);
@@ -369,7 +366,10 @@ class GameHallPanel extends BasePanel
 				break;
 			case this.bindBtn:
 				SoundManager.playEffect(MusicAction.buttonClick);
-				this.gotoBinding();
+				if (FuncOpenUtils.isOpened(FuncType.Bind))
+				{
+					this.gotoBinding();
+				}
 				break;
 			case this.rankingImg0:
 				SoundManager.playEffect(MusicAction.buttonClick);
@@ -416,7 +416,10 @@ class GameHallPanel extends BasePanel
 				break;
 			case this.inviteBtn:
 				SoundManager.playEffect(MusicAction.buttonClick);
-				JumpUtil.JumpToInvite();
+				if (FuncOpenUtils.isOpened(FuncType.Invite))
+				{
+					JumpUtil.JumpToInvite();
+				}
 				break;
 		}
 	}

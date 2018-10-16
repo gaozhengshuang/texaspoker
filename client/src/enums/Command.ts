@@ -20,6 +20,10 @@ class Command
      */
     public static readonly System_GetNotice_3004: string = "c3004";
     /**
+     * 服务器推送消息提示
+     */
+    public static readonly GW2C_PushMsgNotify:string =  "msg.GW2C_PushMsgNotify";
+    /**
      * 抢占登录
      */
     public static readonly System_Response_Login_2013: string = "c2013";
@@ -158,7 +162,7 @@ class Command
     /**
      * 被好友邀请推送
     */
-    public static readonly RS2C_PushFriendInvitation: string = "msg.RS2C_PushFriendInvitation";
+    public static readonly GW2C_PushFriendInvitation: string = "msg.GW2C_PushFriendInvitation";
     /**
      * 0点定时重置推送
     */
@@ -271,7 +275,7 @@ class Command
     /**
      * 发送好友邀请
     */
-    public static readonly Req_SendGameInvite_3608 = "c3608";
+    public static readonly C2GW_ReqInviteFriendJoin = "msg.C2GW_ReqInviteFriendJoin";
     /**
      * 拉取排行榜信息
      */
@@ -339,7 +343,7 @@ class Command
     /**
      * 1为重购，2为增购
      */
-    public static readonly MTTRebuyOrAddon_3619 = "c3619";
+    public static readonly C2RS_ReqMTTRebuyOrAddon = "msg.C2RS_ReqMTTRebuyOrAddon";
     /**
      * 推送牌局结束
      */
@@ -406,63 +410,63 @@ class Command
     /**
      * 拉取锦标赛赛事列表信息
     */
-    public static readonly MTTList_Req_3611 = "c3611";
+    public static readonly C2RS_ReqMTTList = "msg.C2RS_ReqMTTList";
     /**
      * 拉取锦标赛已报名赛事列表信息
     */
-    public static readonly JoinedMTTList_Req_3706 = "c3706";
+    public static readonly C2RS_ReqJoinedMTTList = "msg.C2RS_ReqJoinedMTTList";
     /**
      * 发送报名请求
     */
-    public static readonly MTTRequestJoin_Req_3612 = "c3612";
+    public static readonly C2RS_ReqMTTJoin = "msg.C2RS_ReqMTTJoin";
     /**
      * 发送退赛请求
     */
-    public static readonly MTTRequestWithdraw_Req_3613 = "c3613";
+    public static readonly C2RS_ReqMTTQuit = "msg.C2RS_ReqMTTQuit";
     /**
      * 拉取所在房间列表
     */
-    public static readonly C2GW_ReqUserRoomInfo = "msg.C2GW_ReqUserRoomInfo";
+    public static readonly C2RS_ReqInsideRoomInfoList = "msg.C2RS_ReqInsideRoomInfoList";
     /**
      * 拉取最近赛况列表信息
     */
-    public static readonly MTTRecordList_Req_3615 = "c3615";
+    public static readonly C2RS_ReqMTTRecordList = "msg.C2RS_ReqMTTRecordList";
     /**
      * 拉取最近赛况名次信息
     */
-    public static readonly MTTRecentlyRankList_Req_3616 = "c3616";
+    public static readonly C2RS_ReqMTTRecentlyRankList = "msg.C2RS_ReqMTTRecentlyRankList";
     /**
      * 拉取当前赛况信息
     */
-    public static readonly MTTOutsInfo_Req_3617 = "c3617";
+    public static readonly C2RS_ReqMTTOutsInfo = "msg.C2RS_ReqMTTOutsInfo";
     /**
      * 拉取当前赛况名次信息
     */
-    public static readonly MTTRankInfo_Req_3618 = "c3618";
+    public static readonly C2RS_ReqMTTRankInfo = "msg.C2RS_ReqMTTRankInfo";
     /**
      * 推送赛事人数变更
     */
-    public static readonly MTTJoinNumChange_Push_2114 = "c2114";
+    public static readonly RS2C_PushMTTJoinNumChange = "msg.RS2C_PushMTTJoinNumChange";
     /**
      * 推送赛事取消
     */
-    public static readonly MTTCancel_Push_2115 = "c2115";
+    public static readonly RS2C_PushMTTCancel = "msg.RS2C_PushMTTCancel";
     /**
      * 推送赛事房间id
     */
-    public static readonly MTTRoomId_Push_2116 = "c2116";
+    public static readonly RS2C_PushMTTRoomId = "msg.RS2C_PushMTTRoomId";
     /**
      * 推送赛事排名
      */
-    public static readonly MTTRank_Push_2117 = "c2117";
+    public static readonly RS2C_PushMTTRank = "msg.RS2C_PushMTTRank";
     /**
      * 推送赛事结算
     */
-    public static readonly MTTWeedOut_Push_2118 = "c2118";
+    public static readonly RS2C_PushMTTWeedOut = "msg.RS2C_PushMTTWeedOut";
     /**
      * 推送有新的赛事
     */
-    public static readonly MTTNew_Push_2121 = "c2121";
+    public static readonly RS2C_PushMTTNew = "msg.RS2C_PushMTTNew";
     //--------------------------------------------------------------
     // 锦标赛 end
     //--------------------------------------------------------------
