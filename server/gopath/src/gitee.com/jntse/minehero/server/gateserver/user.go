@@ -69,7 +69,7 @@ type UserBaseData struct {
 	verifykey     string
 	online        bool
 	tickers       UserTicker
-	bag           UserBag // 背包
+	//bag         UserBag // 背包
 	cleanup       bool    // 清理标记
 	tm_disconnect int64
 	tm_heartbeat  int64                   // 心跳时间
@@ -88,6 +88,7 @@ type GateUser struct {
 	events          UserMapEvent // 地图事件
 	mailbox         MailBox      // 邮箱
 	friends			Friends		 // 好友
+	bag         	UserBag 	 // 背包
 	arvalues        def.AutoResetValues
 }
 
@@ -461,7 +462,7 @@ func (u *GateUser) PackBin() *msg.Serialize {
 	}
 
 	// 道具信息
-	u.bag.PackBin(bin)
+	//u.bag.PackBin(bin)
 	u.task.PackBin(bin)
 	u.events.PackBin(bin)
 	u.PackAutoResetValues(bin)
@@ -513,8 +514,8 @@ func (u *GateUser) LoadBin() {
 	userbase.GetStatics().Tmlogin = pb.Int64(util.CURTIME())
 	u.vip.LoadBin(u.bin)
 	// 道具信息
-	u.bag.Clean()
-	u.bag.LoadBin(u.bin)
+	//u.bag.LoadBin(u.bin)
+	u.bag.DBLoad()
 
 	// 任务
 	u.task.LoadBin(u.bin)
@@ -542,6 +543,7 @@ func (u *GateUser) LoadGateBin () {
 
 // TODO: 存盘可以单独协程
 func (u *GateUser) DBSave() {
+	u.bag.DBSave()
 	u.mailbox.DBSave()
 	u.friends.DBSave()
 	key := fmt.Sprintf("userbin_%d", u.Id())

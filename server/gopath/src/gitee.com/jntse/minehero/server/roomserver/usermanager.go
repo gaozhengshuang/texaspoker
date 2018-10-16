@@ -43,7 +43,8 @@ func (m *UserManager) Tick(now int64) {
 }
 
 func (m *UserManager) CreateRoomUser(roomid int64, bin *msg.Serialize, gate network.IBaseNetSession, gamekind int32) *RoomUser {
-	u := NewRoomUser(roomid, bin, gate, gamekind)
+	u := NewRoomUser(roomid, gate, gamekind)
+	u.DBLoad(bin)
 	m.ids[u.Id()] = u
 	return u
 }

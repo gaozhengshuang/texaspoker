@@ -42,20 +42,17 @@ type RoomUser struct {
 	arvalues		def.AutoResetValues
 }
 
-func NewRoomUser(rid int64, b *msg.Serialize, gate network.IBaseNetSession, gamekind int32) *RoomUser {
-	user := &RoomUser{roomid: rid, bin: b, agentid: gate.Id(), agentname: gate.Name(), gamekind: gamekind}
+func NewRoomUser(rid int64, gate network.IBaseNetSession, gamekind int32) *RoomUser {
+	user := &RoomUser{roomid: rid, bin: nil, agentid: gate.Id(), agentname: gate.Name(), gamekind: gamekind}
 	user.ticker1s = util.NewGameTicker(1*time.Second, user.Handler1sTick)
 	user.ticker10ms = util.NewGameTicker(10*time.Millisecond, user.Handler10msTick)
 	user.ticker1s.Start()
 	user.ticker10ms.Start()
 	user.bag.Init(user)
 	user.task.Init(user)
-	user.bag.LoadBin(b)
-	user.task.LoadBin(b)
 	user.asynev.Start(int64(user.Id()), 10)
 	user.maxenergy = tbl.Game.MaxEnergy
 	user.arvalues.Init()
-	user.arvalues.LoadBin(user.bin.Base.Arvalues)
 	return user
 }
 
@@ -80,6 +77,14 @@ func NewRoomUserAI(id int64, name string, sex int32) *RoomUser {
 	user.isai = true
 	user.arvalues.Init()
 	return user
+}
+
+func (u *RoomUser) DBLoad(b *msg.Serialize) {
+	u.bin = b
+	//u.bag.LoadBin(b)
+	u.bag.DBLoad()
+	u.task.LoadBin(b)
+	u.arvalues.LoadBin(b.Base.Arvalues)
 }
 
 func (u *RoomUser) Entity() *msg.EntityBase {
@@ -227,7 +232,10 @@ func (u *RoomUser) PackBin() *msg.Serialize {
 	bin.Base = u.bin.GetBase()
 
 	// 背包
-	u.bag.PackBin(bin)
+	//u.bag.PackBin(bin)
+	u.bag.DBSave()
+
+	//
 	u.task.PackBin(bin)
 	//u.image.PackBin(bin)
 	u.PackAutoResetValues(bin)

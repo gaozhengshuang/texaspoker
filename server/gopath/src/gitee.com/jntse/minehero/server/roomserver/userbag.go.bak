@@ -168,6 +168,10 @@ func (b *UserBag) RemoveItem(id int32, num int32, reason string) bool {
 		delete(b.items, id)
 		delete(b.names, item.Name())
 	}
+
+	send := &msg.GW2C_PushPackageItemRemove{Itemid:pb.Int32(id), Num:pb.Int32(num) }
+	b.owner.SendClientMsg(send)
+
 	log.Info("玩家[%d] 扣除道具[%d] 数量[%d] 库存[%d] 原因[%s]", b.owner.Id(), id, num, leftnum, reason)
 	return true
 }
