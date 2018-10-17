@@ -32,7 +32,7 @@ func (this *TexasPokerRoom) OnDestory(now int64) {
 
 	// 等待房间信息回传网关
 	time.Sleep(time.Millisecond*10)
-	log.Info("[房间] 销毁房间[%d]", this.Id())
+	//log.Info("[房间] 销毁房间[%d]", this.Id())
 }
 
 // 单局游戏开始
