@@ -220,6 +220,7 @@ func on_C2GW_ReqEnterTFRoom(session network.IBaseNetSession, message interface{}
 		return
 	}
 
+	// 如果玩家不在RoomSever，创建实例
 	u := UserMgr().FindUser(userid)
 	if u == nil {
 		u = UserMgr().CreateSimpleUser(userid)

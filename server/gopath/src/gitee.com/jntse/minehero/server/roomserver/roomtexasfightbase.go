@@ -6,42 +6,84 @@ import (
 	//"errors"
 	//"math/rand"
 
-	//pb "github.com/gogo/protobuf/proto"
+	pb "github.com/gogo/protobuf/proto"
 
 	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/gotoolkit/log"
 	//"gitee.com/jntse/gotoolkit/net"
 
 	"gitee.com/jntse/minehero/server/def"
-	//"gitee.com/jntse/minehero/pbmsg"
+	"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/minehero/server/tbl"
 	"gitee.com/jntse/minehero/server/tbl/excel"
 )
 
 const (
-	kBetPoolNum = 5		// 下注池数量
+	kBetPoolNum = 4		// 下注池数量
 	kHandCardNum = 5	// 手牌数量
-	kBankerPos = 0		// 下注池庄家位置
+	kBankerPos = 0		// 庄家位置
 	kMaxCardNum = 52	// 最大牌数量
 )
 
+// 下注池位置
+const (
+	kBetPoolPosBanker = 0
+	kBetPoolPosP1 = 1
+	kBetPoolPosP2 = 2
+	kBetPoolPosP3 = 3
+	kBetPoolPosP4 = 4
+)
+
+// 房间状态
 const (
 	kStatWaitNextRound = 0	// 等待下一局
 	kStatBetting = 1		// 下注阶段
 )
 
-// 百人大招玩家
+
+// --------------------------------------------------------------------------
+/// @brief 百人大战玩家
+// --------------------------------------------------------------------------
+type TFPlayerBet struct {
+	pos int32
+	bet int32
+}
+func (b *TFPlayerBet) Pos() int32 { return b.pos }
+func (b *TFPlayerBet) Bet() int32 { return b.bet }
+
 type TexasFightPlayer struct {
 	owner *RoomUser
-	sitpos int32		// 坐下位置
-	betpos int32		// 押注位置
-	betmoney int32		// 押注金额
+	sitpos int32		// 坐下位置，0是庄家位置，-1表示站起没有位置
+	betlist	[kBetPoolNum]*TFPlayerBet	// 下注列表，闲家从左到右1-4
 }
 
-// 百人大战下注池
+func NewTexasFightPlayer(u *RoomUser) *TexasFightPlayer {
+	p := &TexasFightPlayer{owner:u, sitpos:-1}
+	return p
+}
+
+func (p *TexasFightPlayer) Id() int64 {
+	return p.owner.Id()
+}
+
+func (p *TexasFightPlayer) Name() string {
+	return p.owner.Name()
+}
+
+func (p *TexasFightPlayer) SitPos() int32 {
+	return p.sitpos
+}
+
+func (p *TexasFightPlayer) BetInfo() [kBetPoolNum]*TFPlayerBet {
+	return p.betlist
+}
+
+// --------------------------------------------------------------------------
+/// @brief 百人大战下注池
+// --------------------------------------------------------------------------
 type TexasFightBetPool struct {
 	total int32
-	betpos int32
+	pos int32
 	cards [kHandCardNum]*Card
 	players []*TexasFightPlayer
 	hand *Hand
@@ -80,23 +122,49 @@ func (t *TexasFightBetPool) GetCardFightValue() int32 {
 	return t.hand.GetFightValue()
 }
 
+func (t *TexasFightBetPool) FillBetPoolInfo() *msg.TFBetPoolInfo {
+	info := &msg.TFBetPoolInfo{Bet:pb.Int32(t.total), Pos:pb.Int32(t.pos)}
+	for _, card := range t.cards {
+		info.Cards = append(info.Cards, card.Suit)
+		info.Cards = append(info.Cards, card.Value)
+	}
+	return info
+}
 
-// 百人大战
+
+// --------------------------------------------------------------------------
+/// @brief 百人大战核心逻辑
+// --------------------------------------------------------------------------
 type TexasFightRoom struct {
 	RoomBase
 	tconf *table.HundredWarDefine
 	ticker1s *util.GameTicker
 	ticker100ms *util.GameTicker
-	stat int32		// 状态
-	stattimeout int64	// 状态超时
-	sitplayers []*TexasFightPlayer				// 坐下玩家列表
-	standplayers map[int64]*TexasFightPlayer	// 站起玩家列表
+	stat int32			// 状态
+	statstart int64		// 状态开始时间
+	stattimeout int64	// 状态超时时间
 
-	awardpool int32	// 奖池
+	players map[int64]*TexasFightPlayer	// 所有玩家
+	sitplayers []*TexasFightPlayer		// 坐下玩家列表
+	bankerplayers []*TexasFightPlayer	// 庄家列表
+
+	awardpoolsize int32	// 奖池大小
 	betpool [kBetPoolNum]*TexasFightBetPool		// 押注池，0庄家，闲家从左到右1-4
 	cards [kMaxCardNum]*Card
 }
 
+func (tf *TexasFightRoom) Stat() int32 { return tf.stat }
+func (tf *TexasFightRoom) StatStartTime() int64 { return tf.statstart }
+func (tf *TexasFightRoom) IsStateTimeOut(now int64) bool { return now >= tf.stattimeout }
+func (tf *TexasFightRoom) AwardPoolSize() int32 { return tf.awardpoolsize }
+
+
+
+// --------------------------------------------------------------------------
+/// @brief 初始化
+///
+/// @param 
+// --------------------------------------------------------------------------
 func (tf *TexasFightRoom) Init() string {
 	tconf, ok := tbl.HundredWarBase.HundredWarById[tf.tid]
 	if ok == false {
@@ -106,7 +174,8 @@ func (tf *TexasFightRoom) Init() string {
 	tf.tconf = tconf
 	tf.subkind = tconf.Type
 	tf.stat = kStatWaitNextRound
-	tf.stattimeout = util.CURTIME() + int64(tf.tconf.TimeOut)
+	tf.statstart = util.CURTIME()
+	tf.stattimeout = tf.statstart + int64(tf.tconf.TimeOut)
 	Redis().SAdd(def.RoomAgentLoadRedisKey(RoomSvr().Name()), tf.Id())
 
 	tf.ticker1s = util.NewGameTicker(1 * time.Second, tf.Handler1sTick)
@@ -115,13 +184,14 @@ func (tf *TexasFightRoom) Init() string {
 	tf.ticker100ms.Start()
 	
 	tf.sitplayers = make([]*TexasFightPlayer, tconf.Seat)
-	tf.standplayers = make(map[int64]*TexasFightPlayer)
-	tf.awardpool = 0
+	tf.players = make(map[int64]*TexasFightPlayer)
+	tf.bankerplayers = make([]*TexasFightPlayer, 0)
+	tf.awardpoolsize = 0
 
 	// 初始下注池
 	tf.betpool = [kBetPoolNum]*TexasFightBetPool{}
 	for i := int32(0); i < kBetPoolNum; i++ {
-		betpool := &TexasFightBetPool{betpos:i}
+		betpool := &TexasFightBetPool{pos:i}
 		betpool.Init()
 		tf.betpool[i] = betpool
 	}
@@ -141,25 +211,66 @@ func (tf *TexasFightRoom) Init() string {
 	return ""
 }
 
+
 // 房间销毁
 func (tf *TexasFightRoom) OnDestory(now int64) {
 	tf.ticker1s.Stop()
+	tf.ticker100ms.Stop()
 }
+
 
 // 单局游戏开始
 func (tf *TexasFightRoom) OnGameStart() {
 }
 
+
 // 单局游戏结束
 func (tf *TexasFightRoom) OnGameOver() {
 }
 
+
 // 玩家进入房间，首次/断线重进
 func (tf *TexasFightRoom) UserEnter(u *RoomUser) {
-	log.Info("[百人大战] 玩家[%s %d] 进入房间[%d]", u.Name(), u.Id(), tf.Id())
+	player := tf.FindPlayer(u.Id())
+	if player == nil {
+		player = tf.AddPlayer(u)
+	}
+
+	// 执行玩家进房间事件
 	u.OnPreEnterRoom()
 	u.OnEnterRoom(tf)
+
+	//
+	infomsg := &msg.GW2C_RetEnterTFRoom{Playerlist:make([]*msg.TFPlayerPos,0), Betlist:make([]*msg.TFBetPoolInfo,0)}
+	infomsg.State = pb.Int32(tf.Stat())
+	infomsg.Statetime = pb.Int64(tf.StatStartTime())
+	infomsg.Pool = pb.Int32(tf.AwardPoolSize())
+	infomsg.Hwid = pb.Int32(tf.Tid())
+	infomsg.Bankergold = pb.Int32(0)
+
+	// 坐下玩家列表
+	for _, p := range tf.sitplayers {
+		situser := &msg.TFPlayerPos{Roleid:pb.Int64(p.Id()), Pos:pb.Int32(p.SitPos())}
+		infomsg.Playerlist = append(infomsg.Playerlist, situser)
+	}
+
+	// 注池信息
+	for _, pool := range tf.betpool {
+		info := pool.FillBetPoolInfo()
+		infomsg.Betlist = append(infomsg.Betlist, info)
+	}
+
+	// 自己下注列表
+	for _, bet := range player.BetInfo() {
+		if bet == nil { continue }
+		infomsg.Mybet = append(infomsg.Mybet, bet.Bet())
+	}
+
+	u.SendClientMsg(infomsg)
+
+	log.Info("[百人大战] 玩家[%s %d] 进入房间[%d]", u.Name(), u.Id(), tf.Id())
 }
+
 
 // 玩家离开房间
 func (tf *TexasFightRoom) UserLeave(u *RoomUser) {
@@ -167,6 +278,7 @@ func (tf *TexasFightRoom) UserLeave(u *RoomUser) {
 	delete(tf.members, u.Id())
 	u.OnLeaveRoom()
 }
+
 
 // 棋牌类站起
 func (tf *TexasFightRoom) UserStandUp(u *RoomUser) {
@@ -176,6 +288,7 @@ func (tf *TexasFightRoom) UserStandUp(u *RoomUser) {
 	//Redis().HSet(fmt.Sprintf("roombrief_%d", tf.Id()), "members", tf.PlayersNum())
 	//log.Info("[百人大战] 玩家[%s %d] 站起观战[%d]", u.Name(), u.Id(), tf.Id())
 }
+
 
 // 棋牌类坐下
 func (tf *TexasFightRoom) UserSitDown(u *RoomUser, pos int32) {
@@ -214,14 +327,17 @@ func (tf *TexasFightRoom) UserSitDown(u *RoomUser, pos int32) {
 //	log.Info("[百人大战] 玩家[%s %d] 上传个人数据到房间[%d]", u.Name(), u.Id(), tf.Id())
 //}
 
+
 func (tf *TexasFightRoom) Tick(now int64) {
 	tf.ticker1s.Run(now)
 }
+
 
 // 玩家断开连接(托管/踢掉)
 func (tf *TexasFightRoom) UserDisconnect(u *RoomUser) {
 	log.Info("[百人大战] 玩家[%s %d] 网络断开 房间[%d]", u.Name(), u.Id(), tf.Id())
 }
+
 
 // 网关断开
 func (tf *TexasFightRoom) GateLeave(sid int) {

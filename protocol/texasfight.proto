@@ -27,23 +27,23 @@ message C2GW_ReqEnterTFRoom {
 
 message GW2C_RetEnterTFRoom {
     repeated TFPlayerPos playerlist = 1; // 坐下玩家列表
-    repeated TFBetInfo betlist = 2;         // 
+    repeated TFBetPoolInfo betlist = 2; // 
     repeated int32 mybet = 3;       // 自己下注数量
     optional int32 state = 4;       // 房间状态 (用来表示房间是处于下注 休息 还是其他的阶段)
-    optional int32 statetime = 5;   // 
+    optional int64 statetime = 5;   // 状态开始时间戳
     optional int32 pool = 6;        // 奖池
     optional int32 hwid = 7;        // 配置表id
     optional int32 bankergold = 8;  // 庄家金币
 }  
 
 message TFPlayerPos {
-    optional int32 roleid = 1;
+    optional int64 roleid = 1;
     optional int32 pos = 2;
 }
 
-message TFBetInfo {
-    repeated int32 cards = 1;   //
-    optional int32 bet = 2;     //
+message TFBetPoolInfo {
+    repeated int32 cards = 1;   // 牌信息
+    optional int32 bet = 2;     // 总下注额
     optional int32 pos = 3;     // 押注位置，0庄家，从左到右1-4
 }
 

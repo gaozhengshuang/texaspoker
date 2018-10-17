@@ -36,17 +36,21 @@ func (tf *TexasFightRoom) Handler1sTick(now int64) {
 func (tf *TexasFightRoom) Handler100msTick(now int64) {
 }
 
-func (tf *TexasFightRoom) IsStateTimeOut(now int64) bool {
-	return now >= tf.stattimeout
+func (tf *TexasFightRoom) FindPlayer(uid int64) *TexasFightPlayer {
+	p, _ := tf.players[uid]
+	return p
 }
 
-func (tf *TexasFightRoom) AwardPoolSize() int32 {
-	return tf.awardpool
+func (tf *TexasFightRoom) AddPlayer(u *RoomUser) *TexasFightPlayer {
+	p := NewTexasFightPlayer(u)
+	tf.players[u.Id()] = p
+	return p
 }
 
 // 切换状态
 func (tf *TexasFightRoom) ChangeToWaitNextRoundStat(now int64) {
 	tf.stat = kStatWaitNextRound
+	tf.statstart = now
 	tf.stattimeout = now + int64(tf.tconf.TimeOut)
 	tf.CardDeal()
 
@@ -57,6 +61,7 @@ func (tf *TexasFightRoom) ChangeToWaitNextRoundStat(now int64) {
 
 func (tf *TexasFightRoom) ChangeToBettingStat(now int64) {
 	tf.stat = kStatBetting
+	tf.statstart = now
 	tf.stattimeout = now + int64(tf.tconf.BetTime)
 	tf.CardShuffle()
 }
