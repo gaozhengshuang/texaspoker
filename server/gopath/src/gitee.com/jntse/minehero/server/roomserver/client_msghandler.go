@@ -46,6 +46,9 @@ func (mh *ClientMsgHandler) Init() {
 	mh.RegistProtoMsg(msg.C2RS_ReqTimeAwardGet{}, on_C2RS_ReqTimeAwardGet)
 	mh.RegistProtoMsg(msg.C2RS_ReqReviewInfo{}, on_C2RS_ReqReviewInfo)
 
+	//百人大战
+
+
 	//锦标赛消息
 	mh.RegistProtoMsg(msg.C2RS_ReqMTTList{}, on_C2RS_ReqMTTList)
 	mh.RegistProtoMsg(msg.C2RS_ReqMTTJoin{}, on_C2RS_ReqMTTJoin)

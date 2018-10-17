@@ -90,6 +90,9 @@ func (mh *C2GWMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqFriendSearch{}, on_C2GW_ReqFriendSearch)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqInviteFriendJoin{}, on_C2GW_ReqInviteFriendJoin)
 
+	// 百人大战
+
+
 	//活动
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqActivityInfo{}, on_C2GW_ReqActivityInfo)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqGetActivityReward{}, on_C2GW_ReqGetActivityReward)
