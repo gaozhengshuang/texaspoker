@@ -47,8 +47,8 @@ type IRoomBase interface {
 	UserEnter(u *RoomUser)
 	UserLeave(u *RoomUser)
 	UserDisconnect(u *RoomUser)
-	//UserStandUp(u *RoomUser)				// 棋牌类站起
-	//UserSitDown(u *RoomUser, seat int32)	// 棋牌类坐下
+	UserStandUp(u *RoomUser)				// 棋牌类站起
+	UserSitDown(u *RoomUser, seat int32)	// 棋牌类坐下
 }
 
 
@@ -85,8 +85,8 @@ func (r *RoomBase) MembersNum() int32 { return int32(len(r.members)) }
 func (r *RoomBase) Passwd() string { return r.passwd }
 func (r *RoomBase) SubKind() int32 { return r.subkind }
 func (r *RoomBase) IsFull() bool { return false }
-//func (r *RoomBase) UserStandUp(u *RoomUser)	 {}
-//func (r *RoomBase) UserSitDown(u *RoomUser, seat int32)	{}
+func (r *RoomBase) UserStandUp(u *RoomUser)	 {}
+func (r *RoomBase) UserSitDown(u *RoomUser, seat int32)	{}
 
 func (r *RoomBase) SendGateMsg(userid int64, m pb.Message) {
 	if u, find := r.members[userid]; find == true {

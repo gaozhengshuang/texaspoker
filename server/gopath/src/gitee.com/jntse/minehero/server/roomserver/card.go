@@ -13,6 +13,10 @@ type Card struct{
 	IsHand bool		//是否是手里的牌
 }
 
+func NewCard(suit, val int32) *Card {
+	return &Card{Suit:suit, Value:val}
+}
+
 
 //实现sort包中的排序接口
 type Cards []*Card

@@ -39,6 +39,7 @@ func (rm *RoomManager) Init() bool {
 	rm.CleanCache()
 	rm.InitPublicTexas()
 	rm.InitTimeReward()
+	rm.InitTexasFightRoom()
 	return true
 }
 
@@ -71,6 +72,24 @@ func (rm *RoomManager) InitPublicTexas() bool {
 			return false
 		}
 		room := NewTexasRoom(0, roomid, tconf.Id, 0, "", nil)
+		room.Init()
+		rm.Add(room)
+	}
+	return true
+}
+
+// 初始德州百人大战房间
+func (rm *RoomManager) InitTexasFightRoom() bool {
+	if RoomSvr().Name() != tbl.Room.TexasFightRoomName {
+		return false
+	}
+	for _, tconf := range tbl.HundredWarBase.HundredWarById {
+		roomid, errcode := def.GenerateRoomId(Redis())
+		if errcode != "" {
+			log.Error("初始化百人大战失败[%s]", errcode)
+			return false
+		}
+		room := NewTexasFightRoom(roomid, tconf.Id)
 		room.Init()
 		rm.Add(room)
 	}
@@ -120,12 +139,12 @@ func (rm *RoomManager) Add(room IRoomBase) {
 		if rm.texasrooms[subkind] == nil { rm.texasrooms[subkind] = make([]IRoomBase, 0) }
 		rm.texasrooms[subkind] = append(rm.texasrooms[subkind], room)
 	}
-	log.Info("[房间] 添加房间[%d]----------当前房间数[%d]", id, len(rm.rooms))
+	log.Info("[房间] 添加房间[%d] 当前房间数[%d]", id, len(rm.rooms))
 }
 
 func (rm* RoomManager) Del(id int64) {
 	delete(rm.rooms, id)
-	log.Info("[房间] 删除房间[%d]----------当前房间数[%d]", id, len(rm.rooms))
+	log.Info("[房间] 删除房间[%d] 当前房间数[%d]", id, len(rm.rooms))
 }
 
 func (rm* RoomManager) Find(id int64) IRoomBase {
@@ -282,4 +301,20 @@ func NewTexasRoom(ownerid, uid int64, tid int32, ante int32, pwd string, cs *Cha
 	//room.watchmembers = make(map[int64]*RoomUser)
 	return room
 }
+
+func NewTexasFightRoom(uid int64, tid int32) *TexasFightRoom {
+	room := &TexasFightRoom{}
+	room.id = uid
+	room.tm_create = util.CURTIME()
+	room.tm_start = 0
+	room.tm_end = 0
+	room.gamekind = int32(msg.RoomKind_TexasFight)
+	room.owner = nil
+	room.ownerid = 0
+	room.tid = tid
+	room.passwd = ""
+	room.members = make(map[int64]*RoomUser)
+	return room
+}
+
 
