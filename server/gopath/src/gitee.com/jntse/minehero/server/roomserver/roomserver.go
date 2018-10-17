@@ -192,7 +192,7 @@ func (rs *RoomServer) SendClientMsg(gateid int, uid int64, m pb.Message) bool {
 		return false
 	}
 
-	send := &msg.MS2GW_MsgTransfer{Uid: pb.Int64(uid), Name: pb.String(name), Buf: msgbuf}
+	send := &msg.RS2GW_MsgTransfer{Uid: pb.Int64(uid), Name: pb.String(name), Buf: msgbuf}
 	return rs.net.SendMsg(gateid, send)
 }
 

@@ -280,14 +280,11 @@ func (cs *ChampionShip) JoinOneMatch(userid int64, roomid int64) {
 
 func (cs *ChampionShip) UpdateUserBankRoll(userid int64, num int32) {
 	cs.memberbankroll[userid] = num
-	if num == 0 {
-		cs.UserGameOver(userid)
-	}
 }
 
 func (cs *ChampionShip) UserGameOver(userid int64) {
 	send := &msg.RS2C_PushMTTWeedOut{}
-	send.Rank = pb.Int32(0)
+	send.Rank = pb.Int32(cs.GetFinalRank(userid))
 	send.Join = pb.Int32(cs.maxuser)
 	send.Maxrank = pb.Int32(0)
 	send.Recordid = pb.Int32(cs.uid)
@@ -393,6 +390,15 @@ func (cs *ChampionShip) NotifyUserBlind(roommember map[int64]map[int64]int64) {
 			}
 		}
 	}
+}
+
+func (cs *ChampionShip) GetFinalRank(uid int64) int32{
+	for k, v := range cs.finalrank {
+		if v == uid {
+			return int32(len(cs.finalrank) - k)
+		}
+	}
+	return 0
 }
 
 func (cs *ChampionShip) AddUserRank(userid int64) {
@@ -610,6 +616,7 @@ func (cm *ChampionManager) ReqInsideRoomInfoList(gid int, uid int64) {
 	lastroom, _ := Redis().Get(fmt.Sprintf("userinroom_%d", uid)).Int64()
 	send.Lastid = pb.Int64(lastroom)
 	RoomSvr().SendClientMsg(gid, uid, send)
+	log.Info("玩家%d gid%d 请求房间列表", uid, gid)
 }
 
 func (cm *ChampionManager) ReqMTTRecordList(gid int, uid int64) {

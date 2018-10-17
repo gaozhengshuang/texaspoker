@@ -180,10 +180,10 @@ func on_C2RS_MsgTransfer(session network.IBaseNetSession, message interface{}) {
 		return
 	}
 
-	if u.IsInRoom() == false {
-		log.Warn("消息转发失败，玩家[%s %d]没有在任何房间中", u.Name(), u.Id())
-		return
-	}
+	//if u.IsInRoom() == false {
+	//	log.Warn("消息转发失败，玩家[%s %d]没有在任何房间中", u.Name(), u.Id())
+	//	return
+	//}
 	u.SendRoomMsg(tmsg)
 }
 

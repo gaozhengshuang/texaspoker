@@ -96,6 +96,8 @@ func (r *RoomSvrManager) BroadCast(msg pb.Message) {
 func (r *RoomSvrManager) SendMsg(sid int, msg pb.Message) {
 	if agent := r.FindRoom(sid); agent != nil {
 		agent.SendMsg(msg)
+	} else {
+		r.BroadCast(msg)
 	}
 }
 
