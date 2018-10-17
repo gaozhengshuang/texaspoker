@@ -145,3 +145,9 @@ message GW2C_RetAchieveInfo {
 message C2GW_ReqTakeAchieveAward {
 	optional int32 id = 1;
 }
+
+//成就任务领奖返回
+message GW2C_RetTakeAchieveAward {
+	optional int32 id = 1;
+	optional string errcode = 2;
+}

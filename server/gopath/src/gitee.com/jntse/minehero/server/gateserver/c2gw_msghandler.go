@@ -887,5 +887,9 @@ func on_C2GW_ReqTakeAchieveAward(session network.IBaseNetSession, message interf
 	}
 	tmsg := message.(*msg.C2GW_ReqTakeAchieveAward)
 	taskid := tmsg.GetId()
-	u.OnReqTakeAchieveAward(taskid)
+	send := &msg.GW2C_RetTakeAchieveAward{}
+	send.Id = pb.Int32(taskid)
+	err := u.OnReqTakeAchieveAward(taskid)
+	send.Errcode = pb.String(err)
+	u.SendMsg(send)
 }
