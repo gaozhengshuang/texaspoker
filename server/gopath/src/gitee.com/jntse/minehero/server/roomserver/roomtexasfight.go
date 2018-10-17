@@ -8,7 +8,7 @@ import (
 
 	pb "github.com/gogo/protobuf/proto"
 
-	//"gitee.com/jntse/gotoolkit/util"
+	"gitee.com/jntse/gotoolkit/util"
 	//"gitee.com/jntse/gotoolkit/log"
 	//"gitee.com/jntse/gotoolkit/net"
 
@@ -63,7 +63,19 @@ func (tf *TexasFightRoom) ChangeToBettingStat(now int64) {
 	tf.stat = kStatBetting
 	tf.statstart = now
 	tf.stattimeout = now + int64(tf.tconf.BetTime)
+
+	// 洗牌
 	tf.CardShuffle()
+
+	// 重置押注池
+	for _, pool := range  tf.betpool {
+		pool.Reset()
+	}
+	
+	// 重置玩家数据
+	for _, p := range tf.players {
+		p.Reset()
+	}
 }
 
 // 洗牌
@@ -88,7 +100,13 @@ func (tf *TexasFightRoom) SendStandPlayerList(u *RoomUser, start, count int32) {
 	u.SendMsg(send)
 }
 
+// 请求下一局开局
 func (tf *TexasFightRoom) RequestGameStart(u *RoomUser) {
+	// 只有自己一个人
+	if _, find := tf.players[u.Id()]; find == true && len(tf.players) == 1 {
+		tf.ChangeToBettingStat(util.CURTIME())
+		return
+	}
 }
 
 // 请求房间列表

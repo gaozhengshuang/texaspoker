@@ -62,6 +62,10 @@ func NewTexasFightPlayer(u *RoomUser) *TexasFightPlayer {
 	return p
 }
 
+func (p *TexasFightPlayer) Reset() {
+	p.betlist = [kBetPoolNum]*TFPlayerBet{}
+}
+
 func (p *TexasFightPlayer) Id() int64 {
 	return p.owner.Id()
 }
@@ -98,11 +102,15 @@ type TexasFightBetPool struct {
 	pos int32
 	cards [kHandCardNum]*Card
 	players []*TexasFightPlayer
-	hand *Hand
+	hand Hand
 }
 
-func (t *TexasFightBetPool) Init() {
-	t.Reset()
+func (t *TexasFightBetPool) Init(pos int32) {
+	t.total = 0
+	t.pos = pos
+	t.cards = [kHandCardNum]*Card{}
+	t.players = make([]*TexasFightPlayer, 0)
+	t.hand.Init()
 }
 
 func (t* TexasFightBetPool) Total() int32 {
@@ -112,9 +120,8 @@ func (t* TexasFightBetPool) Total() int32 {
 func (t *TexasFightBetPool) Reset() {
 	t.total = 0
 	t.cards = [kHandCardNum]*Card{}
-	t.players = make([]*TexasFightPlayer,0)
-	t.hand = &Hand{}
-	t.hand.Init()
+	t.players = t.players[:0]
+	t.hand.ClearAnalyse()
 }
 
 func (t *TexasFightBetPool) InsertCards(cards []*Card) {
@@ -203,8 +210,8 @@ func (tf *TexasFightRoom) Init() string {
 	// 初始下注池
 	tf.betpool = [kBetPoolNum]*TexasFightBetPool{}
 	for i := int32(0); i < kBetPoolNum; i++ {
-		betpool := &TexasFightBetPool{pos:i}
-		betpool.Init()
+		betpool := &TexasFightBetPool{}
+		betpool.Init(i)
 		tf.betpool[i] = betpool
 	}
 
