@@ -4,7 +4,7 @@ import (
 	pb "github.com/gogo/protobuf/proto"
 
 	"gitee.com/jntse/gotoolkit/util"
-	"gitee.com/jntse/gotoolkit/net"
+	//"gitee.com/jntse/gotoolkit/net"
 	"gitee.com/jntse/gotoolkit/log"
 
 	"gitee.com/jntse/minehero/pbmsg"
@@ -43,7 +43,7 @@ type IRoomBase interface {
 	OnGameStart()
 	OnGameOver()
 
-	UserLoad(tmsg *msg.GW2RS_UploadUserBin, session network.IBaseNetSession)
+	//UserLoad(tmsg *msg.GW2RS_UploadUserBin, session network.IBaseNetSession)
 	UserEnter(u *RoomUser)
 	UserLeave(u *RoomUser)
 	UserDisconnect(u *RoomUser)

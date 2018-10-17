@@ -4,6 +4,7 @@ package msg;
 
 // 拉取百人大战房间列表
 message C2GW_ReqTFRoomList {
+    optional int64 uid = 1;     // 服务器使用
 }
 
 message GW2C_RetTFRoomList {
@@ -11,7 +12,7 @@ message GW2C_RetTFRoomList {
 }
 
 message TexasFightRoom {
-    optional int32 id = 1;      // 唯一id
+    optional int64 id = 1;      // 唯一id
     optional int32 hwid = 2;    // 配置表id
     optional int32 join = 3;    // 已经参加人数
     optional int32 pool = 4;    // 奖池   
@@ -20,7 +21,8 @@ message TexasFightRoom {
 
 // 请求进入百人大战
 message C2GW_ReqEnterTFRoom {
-    optional int32 id = 1;
+    optional int64 id = 1;      // 房间uid
+    optional int64 userid = 2;  // 玩家id，服务器使用
 }
 
 message GW2C_RetEnterTFRoom {

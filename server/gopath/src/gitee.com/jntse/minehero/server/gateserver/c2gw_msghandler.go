@@ -91,7 +91,8 @@ func (mh *C2GWMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqInviteFriendJoin{}, on_C2GW_ReqInviteFriendJoin)
 
 	// 百人大战
-
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqTFRoomList{}, on_C2GW_ReqTFRoomList)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqEnterTFRoom{}, on_C2GW_ReqEnterTFRoom)
 
 	//活动
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqActivityInfo{}, on_C2GW_ReqActivityInfo)
@@ -219,13 +220,6 @@ func on_C2GW_ReqEnterRoom(session network.IBaseNetSession, message interface{}) 
 		return
 	}
 
-	//TODO: 测试
-	items := []int32{101, 102, 103, 104, 105}
-	index := 4
-	u.RemoveItem(items[index], 1, "测试删除")
-	u.RemoveItem(items[index], 5, "测试删除")
-
-
 	roomid := tmsg.GetRoomid()
 	if roomid == 0 {
 		log.Error("[房间] 玩家[%s %d]请求进入无效的房间[%d]", u.Name(), u.Id(), roomid)
@@ -267,12 +261,6 @@ func on_C2GW_ReqLeaveRoom(session network.IBaseNetSession, message interface{}) 
 		log.Error("[房间] 玩家[%s %d]请求离开房间，使用错误的id[%d]", u.Name(), u.Id(), tmsg.GetUserid())
 		return
 	}
-
-	// TODO: 测试
-	items := []int32{101, 102, 103, 104, 105}
-	index := util.RandBetween(0,4)
-	u.AddItem(items[index], 1, "测试添加", true)
-	u.AddItem(items[index], 5, "测试添加", true)
 
 	// 离开游戏房间
 	u.SendRoomMsg(tmsg)
@@ -754,6 +742,59 @@ func on_C2GW_ReqInviteFriendJoin(session network.IBaseNetSession, message interf
 		return
 	}
 	u.InviteFriendsJoin(tmsg.GetId(), tmsg.Roleid)
+}
+
+func on_C2GW_ReqTFRoomList(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqTFRoomList)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+
+	agent := RoomSvrMgr().FindByName(tbl.Room.TexasFightRoomName)
+	if agent == nil {
+		log.Error("[百人大战] 玩家[%s %d]请求房间列表失败，找不到RoomServer", u.Name(), u.Id())
+		return
+	}
+
+	tmsg.Uid = pb.Int64(u.Id())
+	agent.SendMsg(tmsg)
+}
+
+func on_C2GW_ReqEnterTFRoom(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqEnterTFRoom)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+
+	if u.Id() != tmsg.GetUserid() {
+		log.Error("[百人大战] 玩家[%s %d]请求进入房间，使用错误的id[%d]", u.Name(), u.Id(), tmsg.GetUserid())
+		return
+	}
+
+	roomid := tmsg.GetId()
+	if roomid == 0 {
+		log.Error("[百人大战] 玩家[%s %d]请求进入无效的房间[%d]", u.Name(), u.Id(), roomid)
+		return
+	}
+
+	sid := GetRoomSid(roomid)
+	if sid == 0 {
+		log.Error("[百人大战] 玩家[%s %d]请求进入的房间[%d]已经销毁", u.Name(), u.Id(), roomid)
+		return
+	}
+
+	// 背包立即同步DB
+	u.bag.DBSave()
+
+	// 进入游戏房间
+	log.Info("玩家[%s %d] 请求进入百人大战房间[%d] ts[%d]", u.Name(), u.Id(), roomid, util.CURTIMEMS())
+	RoomSvrMgr().SendMsg(sid, tmsg)
 }
 
 

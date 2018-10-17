@@ -10,10 +10,10 @@ import (
 
 	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/gotoolkit/log"
-	"gitee.com/jntse/gotoolkit/net"
+	//"gitee.com/jntse/gotoolkit/net"
 
 	"gitee.com/jntse/minehero/server/def"
-	"gitee.com/jntse/minehero/pbmsg"
+	//"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/minehero/server/tbl"
 	"gitee.com/jntse/minehero/server/tbl/excel"
 )
@@ -157,6 +157,7 @@ func (tf *TexasFightRoom) OnGameOver() {
 // 玩家进入房间，首次/断线重进
 func (tf *TexasFightRoom) UserEnter(u *RoomUser) {
 	log.Info("[百人大战] 玩家[%s %d] 进入房间[%d]", u.Name(), u.Id(), tf.Id())
+	u.OnPreEnterRoom()
 	u.OnEnterRoom(tf)
 }
 
@@ -201,17 +202,17 @@ func (tf *TexasFightRoom) UserSitDown(u *RoomUser, pos int32) {
 
 
 // 加载玩家
-func (tf *TexasFightRoom) UserLoad(tmsg *msg.GW2RS_UploadUserBin, gate network.IBaseNetSession) {
-	u := UserMgr().FindUser(tmsg.GetUserid())
-	if u != nil {
-		log.Error("[百人大战] 玩家[%s %d] 个人信息已经存在了", u.Name(), u.Id())
-		return
-	}
-
-	u = UserMgr().CreateRoomUser(tf.Id(), tmsg.Bin, gate, tf.Kind())
-	u.OnPreEnterRoom()
-	log.Info("[百人大战] 玩家[%s %d] 上传个人数据到房间[%d]", u.Name(), u.Id(), tf.Id())
-}
+//func (tf *TexasFightRoom) UserLoad(tmsg *msg.GW2RS_UploadUserBin, gate network.IBaseNetSession) {
+//	u := UserMgr().FindUser(tmsg.GetUserid())
+//	if u != nil {
+//		log.Error("[百人大战] 玩家[%s %d] 个人信息已经存在了", u.Name(), u.Id())
+//		return
+//	}
+//
+//	u = UserMgr().CreateRoomUser(tf.Id(), tmsg.Bin, gate, tf.Kind())
+//	u.OnPreEnterRoom()
+//	log.Info("[百人大战] 玩家[%s %d] 上传个人数据到房间[%d]", u.Name(), u.Id(), tf.Id())
+//}
 
 func (tf *TexasFightRoom) Tick(now int64) {
 	tf.ticker1s.Run(now)

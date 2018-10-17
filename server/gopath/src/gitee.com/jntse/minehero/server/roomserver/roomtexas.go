@@ -6,8 +6,8 @@ import (
 	//_"strconv"
 	"gitee.com/jntse/gotoolkit/log"
 	//_"gitee.com/jntse/gotoolkit/util"
-	"gitee.com/jntse/gotoolkit/net"
-	"gitee.com/jntse/minehero/pbmsg"
+	//"gitee.com/jntse/gotoolkit/net"
+	//"gitee.com/jntse/minehero/pbmsg"
 	//pb"github.com/gogo/protobuf/proto"
 	//"gitee.com/jntse/minehero/server/tbl"
 	//"gitee.com/jntse/minehero/server/tbl/excel"
@@ -98,18 +98,18 @@ func (this *TexasPokerRoom) UserSitDown(u *RoomUser, pos int32) {
 
 
 // 加载玩家
-func (this *TexasPokerRoom) UserLoad(tmsg *msg.GW2RS_UploadUserBin, gate network.IBaseNetSession) {
-	u := UserMgr().FindUser(tmsg.GetUserid())
-	if u != nil {
-		log.Error("[房间] 玩家[%s %d] 个人信息已经存在了", u.Name(), u.Id())
-		return
-	}
-
-	u = UserMgr().CreateRoomUser(this.Id(), tmsg.Bin, gate, this.Kind())
-	u.OnPreEnterRoom()
-	//this.watchmembers[u.Id()]= u
-	log.Info("[房间] 玩家[%s %d] 上传个人数据到房间[%d]", u.Name(), u.Id(), this.Id())
-}
+//func (this *TexasPokerRoom) UserLoad(tmsg *msg.GW2RS_UploadUserBin, gate network.IBaseNetSession) {
+//	u := UserMgr().FindUser(tmsg.GetUserid())
+//	if u != nil {
+//		log.Error("[房间] 玩家[%s %d] 个人信息已经存在了", u.Name(), u.Id())
+//		return
+//	}
+//
+//	u = UserMgr().CreateRoomUser(this.Id(), tmsg.Bin, gate, this.Kind())
+//	u.OnPreEnterRoom()
+//	//this.watchmembers[u.Id()]= u
+//	log.Info("[房间] 玩家[%s %d] 上传个人数据到房间[%d]", u.Name(), u.Id(), this.Id())
+//}
 
 func (this *TexasPokerRoom) Tick(now int64) {
 	this.ticker1s.Run(now)

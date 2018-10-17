@@ -40,6 +40,10 @@ func (tf *TexasFightRoom) IsStateTimeOut(now int64) bool {
 	return now >= tf.stattimeout
 }
 
+func (tf *TexasFightRoom) AwardPoolSize() int32 {
+	return tf.awardpool
+}
+
 // 切换状态
 func (tf *TexasFightRoom) ChangeToWaitNextRoundStat(now int64) {
 	tf.stat = kStatWaitNextRound
@@ -67,6 +71,21 @@ func (tf *TexasFightRoom) CardShuffle() {
 // 发牌
 func (tf *TexasFightRoom) CardDeal() {
 	
+}
+
+// 请求房间列表
+func SendTexasFightRoomList(agent int, userid int64) {
+	send := &msg.GW2C_RetTFRoomList{Array:make([]*msg.TexasFightRoom,0)}
+	for _, room := range RoomMgr().TexasFightRoomList() {
+		tf := room.(*TexasFightRoom)
+		info := &msg.TexasFightRoom{}
+		info.Id = pb.Int64(tf.Id())
+		info.Hwid = pb.Int32(tf.Tid())
+		info.Join = pb.Int32(tf.MembersNum())
+		info.Pool = pb.Int32(tf.AwardPoolSize())
+		send.Array = append(send.Array, info)
+	}
+	RoomSvr().SendClientMsg(agent, userid, send)
 }
 
 
