@@ -285,7 +285,7 @@ func on_C2RS_ReqReviewInfo(session network.IBaseNetSession, message interface{},
 }
 
 func on_C2RS_ReqMTTList(session network.IBaseNetSession, message interface{}, uid int64) {
-	ChampionMgr().ReqMMTList(session.Id(), uid)
+	ChampionMgr().ReqMTTList(session.Id(), uid)
 }
 
 func on_C2RS_ReqMTTJoin(session network.IBaseNetSession, message interface{}, uid int64) {

@@ -193,7 +193,12 @@ func (rs *RoomServer) SendClientMsg(gateid int, uid int64, m pb.Message) bool {
 	}
 
 	send := &msg.RS2GW_MsgTransfer{Uid: pb.Int64(uid), Name: pb.String(name), Buf: msgbuf}
-	return rs.net.SendMsg(gateid, send)
+	if gateid != 0 {
+		return rs.net.SendMsg(gateid, send)
+	} else {
+		GateMgr().Broadcast(send) 
+		return true
+	}
 }
 
 
@@ -316,6 +321,7 @@ func (rs *RoomServer) OnStart() {
 	rs.cleanRoom()	// 删除房间
 	rs.rcounter.Init(Redis())	// 计数器
 	rs.roommgr.Init()
+	rs.championmgr.InitChampionShip()
 
 	log.Info("结束执行OnStart")
 }
@@ -361,6 +367,7 @@ func (rs *RoomServer) Run() {
 	//
 	rs.roommgr.Tick(now)
 	rs.usermgr.Tick(now)
+	rs.championmgr.Tick(now)
 	tm_roomticker := util.CURTIMEMS()
 
 	//

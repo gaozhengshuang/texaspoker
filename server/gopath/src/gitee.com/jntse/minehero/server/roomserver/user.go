@@ -339,6 +339,17 @@ func RemoveUserGold(gid int, uid int64, gold int32, reason string) bool {
 	return false
 }
 
+func AddUserGold(gid int, uid int64, gold int32, reason string) bool {
+	goldsrc := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", uid), "gold").Val())
+	newgold := goldsrc + gold
+	Redis().HSet(fmt.Sprintf("charbase_%d", uid), "gold", newgold)
+	send := &msg.RS2C_RolePushPropertyChange{}
+	send.Gold = pb.Int32(newgold)
+	RoomSvr().SendClientMsg(gid, uid, send)
+	log.Info("玩家[%d] 添加金币[%d] 原因[%s]", uid, gold, reason)
+	return false
+}
+
 func (u *RoomUser) RemoveGold(gold int32, reason string, syn bool) bool {
 	if u.isai == true {
 		return true

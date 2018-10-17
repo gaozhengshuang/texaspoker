@@ -37,6 +37,7 @@ func (mh* RS2GWMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.RS2GW_RetUserDisconnect{}, on_RS2GW_RetUserDisconnect)
 	mh.msgparser.RegistProtoMsg(msg.RS2GW_MsgTransfer{}, on_RS2GW_MsgTransfer)
 	mh.msgparser.RegistProtoMsg(msg.RS2GW_MTTRoomMember{}, on_RS2GW_MTTRoomMember)
+	mh.msgparser.RegistProtoMsg(msg.RS2GW_MTTCancel{}, on_RS2GW_MTTCancel)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_PushMsgNotify{}, on_GW2C_PushMsgNotify)
 
 	// 房间
@@ -78,6 +79,17 @@ func on_RS2GW_MTTRoomMember(session network.IBaseNetSession, message interface{}
 				send.Id = pb.Int64(room.GetRoomuid())
 				user.SendMsg(send)
 			}
+		}
+	}
+}
+
+func on_RS2GW_MTTCancel(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.RS2GW_MTTCancel)
+	send := &msg.RS2C_PushMTTCancel{}
+	send.Recordid = pb.Int32(tmsg.GetRecordid())
+	for _, member := range tmsg.GetMembers() {
+		if user := UserMgr().FindById(member); user != nil {
+			user.SendMsg(send)
 		}
 	}
 }

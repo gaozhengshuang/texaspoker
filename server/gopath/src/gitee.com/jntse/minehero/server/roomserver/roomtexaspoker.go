@@ -1016,6 +1016,17 @@ func (this *TexasPokerRoom) SendRoomInfo(player *TexasPlayer) {
 	}
 	send.Isshowcard = pb.Bool(player.isshowcard)
 	send.Handcard = player.ToHandCard()
+	if this.IsChampionShip() {
+		send.Blindlevel = pb.Int32(this.mtt.blindlevel);
+		send.Blindtime = pb.Int32(this.mtt.GetBlindUpTime());
+		send.Rebuytimes = pb.Int32(this.mtt.GetUserRebuy(this.Id()));
+		send.Addontimes = pb.Int32(this.mtt.GetUserAddon(this.Id()));
+		send.Addbuy = pb.Int32(player.addrebuy+player.addaddon);
+		send.Rank = pb.Int32(this.mtt.GetUserRank(this.Id()));
+		send.Avgchips = pb.Int32(this.mtt.sumbankroll/this.mtt.curmembernum);
+		send.Join = pb.Int32(this.mtt.curmembernum);
+	}
+
 	player.owner.SendClientMsg(send)
 }
 
@@ -1136,6 +1147,9 @@ func (this *TexasPokerRoom) GetFreePos() int32 {
 }
 
 func (this *TexasPokerRoom) CreateAI(num int32) {
+	if this.IsChampionShip() {
+		return
+	}
 	users := AIUserMgr().GetUserByNum(num)
 	if len(users) != int(num) {
 		return
