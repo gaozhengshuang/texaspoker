@@ -70659,6 +70659,1370 @@ $root.table = (function() {
         return GoldenBeanAwardDefine;
     })();
 
+    table.HundredWarBase = (function() {
+
+        /**
+         * Properties of a HundredWarBase.
+         * @memberof table
+         * @interface IHundredWarBase
+         * @property {Array.<table.IHundredWarDefine>|null} [HundredWar] HundredWarBase HundredWar
+         */
+
+        /**
+         * Constructs a new HundredWarBase.
+         * @memberof table
+         * @classdesc Represents a HundredWarBase.
+         * @implements IHundredWarBase
+         * @constructor
+         * @param {table.IHundredWarBase=} [properties] Properties to set
+         */
+        function HundredWarBase(properties) {
+            this.HundredWar = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * HundredWarBase HundredWar.
+         * @member {Array.<table.IHundredWarDefine>} HundredWar
+         * @memberof table.HundredWarBase
+         * @instance
+         */
+        HundredWarBase.prototype.HundredWar = $util.emptyArray;
+
+        /**
+         * Creates a new HundredWarBase instance using the specified properties.
+         * @function create
+         * @memberof table.HundredWarBase
+         * @static
+         * @param {table.IHundredWarBase=} [properties] Properties to set
+         * @returns {table.HundredWarBase} HundredWarBase instance
+         */
+        HundredWarBase.create = function create(properties) {
+            return new HundredWarBase(properties);
+        };
+
+        /**
+         * Encodes the specified HundredWarBase message. Does not implicitly {@link table.HundredWarBase.verify|verify} messages.
+         * @function encode
+         * @memberof table.HundredWarBase
+         * @static
+         * @param {table.IHundredWarBase} message HundredWarBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        HundredWarBase.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.HundredWar != null && message.HundredWar.length)
+                for (var i = 0; i < message.HundredWar.length; ++i)
+                    $root.table.HundredWarDefine.encode(message.HundredWar[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified HundredWarBase message, length delimited. Does not implicitly {@link table.HundredWarBase.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.HundredWarBase
+         * @static
+         * @param {table.IHundredWarBase} message HundredWarBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        HundredWarBase.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a HundredWarBase message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.HundredWarBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.HundredWarBase} HundredWarBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        HundredWarBase.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.HundredWarBase();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.HundredWar && message.HundredWar.length))
+                        message.HundredWar = [];
+                    message.HundredWar.push($root.table.HundredWarDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a HundredWarBase message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.HundredWarBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.HundredWarBase} HundredWarBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        HundredWarBase.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a HundredWarBase message.
+         * @function verify
+         * @memberof table.HundredWarBase
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        HundredWarBase.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.HundredWar != null && message.hasOwnProperty("HundredWar")) {
+                if (!Array.isArray(message.HundredWar))
+                    return "HundredWar: array expected";
+                for (var i = 0; i < message.HundredWar.length; ++i) {
+                    var error = $root.table.HundredWarDefine.verify(message.HundredWar[i]);
+                    if (error)
+                        return "HundredWar." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a HundredWarBase message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.HundredWarBase
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.HundredWarBase} HundredWarBase
+         */
+        HundredWarBase.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.HundredWarBase)
+                return object;
+            var message = new $root.table.HundredWarBase();
+            if (object.HundredWar) {
+                if (!Array.isArray(object.HundredWar))
+                    throw TypeError(".table.HundredWarBase.HundredWar: array expected");
+                message.HundredWar = [];
+                for (var i = 0; i < object.HundredWar.length; ++i) {
+                    if (typeof object.HundredWar[i] !== "object")
+                        throw TypeError(".table.HundredWarBase.HundredWar: object expected");
+                    message.HundredWar[i] = $root.table.HundredWarDefine.fromObject(object.HundredWar[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a HundredWarBase message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.HundredWarBase
+         * @static
+         * @param {table.HundredWarBase} message HundredWarBase
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        HundredWarBase.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.HundredWar = [];
+            if (message.HundredWar && message.HundredWar.length) {
+                object.HundredWar = [];
+                for (var j = 0; j < message.HundredWar.length; ++j)
+                    object.HundredWar[j] = $root.table.HundredWarDefine.toObject(message.HundredWar[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this HundredWarBase to JSON.
+         * @function toJSON
+         * @memberof table.HundredWarBase
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        HundredWarBase.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return HundredWarBase;
+    })();
+
+    table.HundredWarDefine = (function() {
+
+        /**
+         * Properties of a HundredWarDefine.
+         * @memberof table
+         * @interface IHundredWarDefine
+         * @property {number|null} [Id] HundredWarDefine Id
+         * @property {number|null} [Type] HundredWarDefine Type
+         * @property {string|null} [Name] HundredWarDefine Name
+         * @property {string|null} [Icon] HundredWarDefine Icon
+         * @property {number|null} [MinBuyin] HundredWarDefine MinBuyin
+         * @property {number|null} [MaxRole] HundredWarDefine MaxRole
+         * @property {Array.<number>|null} [Bet] HundredWarDefine Bet
+         * @property {number|null} [BankerGold] HundredWarDefine BankerGold
+         * @property {number|null} [SeatGold] HundredWarDefine SeatGold
+         * @property {number|null} [BettingRatio] HundredWarDefine BettingRatio
+         * @property {number|null} [BankerRatio] HundredWarDefine BankerRatio
+         * @property {number|null} [TaxRate] HundredWarDefine TaxRate
+         * @property {number|null} [Seat] HundredWarDefine Seat
+         * @property {number|null} [WaitTime] HundredWarDefine WaitTime
+         * @property {number|null} [BetTime] HundredWarDefine BetTime
+         * @property {number|null} [ConfirmTime] HundredWarDefine ConfirmTime
+         * @property {number|null} [TimeOut] HundredWarDefine TimeOut
+         * @property {number|null} [Kick] HundredWarDefine Kick
+         * @property {number|null} [BankerRound] HundredWarDefine BankerRound
+         * @property {number|null} [BankerMinGold] HundredWarDefine BankerMinGold
+         * @property {string|null} [TitleImg] HundredWarDefine TitleImg
+         * @property {string|null} [PoolImg] HundredWarDefine PoolImg
+         * @property {string|null} [FontColor] HundredWarDefine FontColor
+         */
+
+        /**
+         * Constructs a new HundredWarDefine.
+         * @memberof table
+         * @classdesc Represents a HundredWarDefine.
+         * @implements IHundredWarDefine
+         * @constructor
+         * @param {table.IHundredWarDefine=} [properties] Properties to set
+         */
+        function HundredWarDefine(properties) {
+            this.Bet = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * HundredWarDefine Id.
+         * @member {number} Id
+         * @memberof table.HundredWarDefine
+         * @instance
+         */
+        HundredWarDefine.prototype.Id = 0;
+
+        /**
+         * HundredWarDefine Type.
+         * @member {number} Type
+         * @memberof table.HundredWarDefine
+         * @instance
+         */
+        HundredWarDefine.prototype.Type = 0;
+
+        /**
+         * HundredWarDefine Name.
+         * @member {string} Name
+         * @memberof table.HundredWarDefine
+         * @instance
+         */
+        HundredWarDefine.prototype.Name = "";
+
+        /**
+         * HundredWarDefine Icon.
+         * @member {string} Icon
+         * @memberof table.HundredWarDefine
+         * @instance
+         */
+        HundredWarDefine.prototype.Icon = "";
+
+        /**
+         * HundredWarDefine MinBuyin.
+         * @member {number} MinBuyin
+         * @memberof table.HundredWarDefine
+         * @instance
+         */
+        HundredWarDefine.prototype.MinBuyin = 0;
+
+        /**
+         * HundredWarDefine MaxRole.
+         * @member {number} MaxRole
+         * @memberof table.HundredWarDefine
+         * @instance
+         */
+        HundredWarDefine.prototype.MaxRole = 0;
+
+        /**
+         * HundredWarDefine Bet.
+         * @member {Array.<number>} Bet
+         * @memberof table.HundredWarDefine
+         * @instance
+         */
+        HundredWarDefine.prototype.Bet = $util.emptyArray;
+
+        /**
+         * HundredWarDefine BankerGold.
+         * @member {number} BankerGold
+         * @memberof table.HundredWarDefine
+         * @instance
+         */
+        HundredWarDefine.prototype.BankerGold = 0;
+
+        /**
+         * HundredWarDefine SeatGold.
+         * @member {number} SeatGold
+         * @memberof table.HundredWarDefine
+         * @instance
+         */
+        HundredWarDefine.prototype.SeatGold = 0;
+
+        /**
+         * HundredWarDefine BettingRatio.
+         * @member {number} BettingRatio
+         * @memberof table.HundredWarDefine
+         * @instance
+         */
+        HundredWarDefine.prototype.BettingRatio = 0;
+
+        /**
+         * HundredWarDefine BankerRatio.
+         * @member {number} BankerRatio
+         * @memberof table.HundredWarDefine
+         * @instance
+         */
+        HundredWarDefine.prototype.BankerRatio = 0;
+
+        /**
+         * HundredWarDefine TaxRate.
+         * @member {number} TaxRate
+         * @memberof table.HundredWarDefine
+         * @instance
+         */
+        HundredWarDefine.prototype.TaxRate = 0;
+
+        /**
+         * HundredWarDefine Seat.
+         * @member {number} Seat
+         * @memberof table.HundredWarDefine
+         * @instance
+         */
+        HundredWarDefine.prototype.Seat = 0;
+
+        /**
+         * HundredWarDefine WaitTime.
+         * @member {number} WaitTime
+         * @memberof table.HundredWarDefine
+         * @instance
+         */
+        HundredWarDefine.prototype.WaitTime = 0;
+
+        /**
+         * HundredWarDefine BetTime.
+         * @member {number} BetTime
+         * @memberof table.HundredWarDefine
+         * @instance
+         */
+        HundredWarDefine.prototype.BetTime = 0;
+
+        /**
+         * HundredWarDefine ConfirmTime.
+         * @member {number} ConfirmTime
+         * @memberof table.HundredWarDefine
+         * @instance
+         */
+        HundredWarDefine.prototype.ConfirmTime = 0;
+
+        /**
+         * HundredWarDefine TimeOut.
+         * @member {number} TimeOut
+         * @memberof table.HundredWarDefine
+         * @instance
+         */
+        HundredWarDefine.prototype.TimeOut = 0;
+
+        /**
+         * HundredWarDefine Kick.
+         * @member {number} Kick
+         * @memberof table.HundredWarDefine
+         * @instance
+         */
+        HundredWarDefine.prototype.Kick = 0;
+
+        /**
+         * HundredWarDefine BankerRound.
+         * @member {number} BankerRound
+         * @memberof table.HundredWarDefine
+         * @instance
+         */
+        HundredWarDefine.prototype.BankerRound = 0;
+
+        /**
+         * HundredWarDefine BankerMinGold.
+         * @member {number} BankerMinGold
+         * @memberof table.HundredWarDefine
+         * @instance
+         */
+        HundredWarDefine.prototype.BankerMinGold = 0;
+
+        /**
+         * HundredWarDefine TitleImg.
+         * @member {string} TitleImg
+         * @memberof table.HundredWarDefine
+         * @instance
+         */
+        HundredWarDefine.prototype.TitleImg = "";
+
+        /**
+         * HundredWarDefine PoolImg.
+         * @member {string} PoolImg
+         * @memberof table.HundredWarDefine
+         * @instance
+         */
+        HundredWarDefine.prototype.PoolImg = "";
+
+        /**
+         * HundredWarDefine FontColor.
+         * @member {string} FontColor
+         * @memberof table.HundredWarDefine
+         * @instance
+         */
+        HundredWarDefine.prototype.FontColor = "";
+
+        /**
+         * Creates a new HundredWarDefine instance using the specified properties.
+         * @function create
+         * @memberof table.HundredWarDefine
+         * @static
+         * @param {table.IHundredWarDefine=} [properties] Properties to set
+         * @returns {table.HundredWarDefine} HundredWarDefine instance
+         */
+        HundredWarDefine.create = function create(properties) {
+            return new HundredWarDefine(properties);
+        };
+
+        /**
+         * Encodes the specified HundredWarDefine message. Does not implicitly {@link table.HundredWarDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.HundredWarDefine
+         * @static
+         * @param {table.IHundredWarDefine} message HundredWarDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        HundredWarDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.Id);
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.Type);
+            if (message.Name != null && message.hasOwnProperty("Name"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.Name);
+            if (message.Icon != null && message.hasOwnProperty("Icon"))
+                writer.uint32(/* id 4, wireType 2 =*/34).string(message.Icon);
+            if (message.MinBuyin != null && message.hasOwnProperty("MinBuyin"))
+                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.MinBuyin);
+            if (message.MaxRole != null && message.hasOwnProperty("MaxRole"))
+                writer.uint32(/* id 6, wireType 0 =*/48).int32(message.MaxRole);
+            if (message.Bet != null && message.Bet.length)
+                for (var i = 0; i < message.Bet.length; ++i)
+                    writer.uint32(/* id 7, wireType 0 =*/56).int32(message.Bet[i]);
+            if (message.BankerGold != null && message.hasOwnProperty("BankerGold"))
+                writer.uint32(/* id 8, wireType 0 =*/64).int32(message.BankerGold);
+            if (message.SeatGold != null && message.hasOwnProperty("SeatGold"))
+                writer.uint32(/* id 9, wireType 0 =*/72).int32(message.SeatGold);
+            if (message.BettingRatio != null && message.hasOwnProperty("BettingRatio"))
+                writer.uint32(/* id 10, wireType 5 =*/85).float(message.BettingRatio);
+            if (message.BankerRatio != null && message.hasOwnProperty("BankerRatio"))
+                writer.uint32(/* id 11, wireType 5 =*/93).float(message.BankerRatio);
+            if (message.TaxRate != null && message.hasOwnProperty("TaxRate"))
+                writer.uint32(/* id 12, wireType 5 =*/101).float(message.TaxRate);
+            if (message.Seat != null && message.hasOwnProperty("Seat"))
+                writer.uint32(/* id 13, wireType 0 =*/104).int32(message.Seat);
+            if (message.WaitTime != null && message.hasOwnProperty("WaitTime"))
+                writer.uint32(/* id 14, wireType 0 =*/112).int32(message.WaitTime);
+            if (message.BetTime != null && message.hasOwnProperty("BetTime"))
+                writer.uint32(/* id 15, wireType 0 =*/120).int32(message.BetTime);
+            if (message.ConfirmTime != null && message.hasOwnProperty("ConfirmTime"))
+                writer.uint32(/* id 16, wireType 0 =*/128).int32(message.ConfirmTime);
+            if (message.TimeOut != null && message.hasOwnProperty("TimeOut"))
+                writer.uint32(/* id 17, wireType 0 =*/136).int32(message.TimeOut);
+            if (message.Kick != null && message.hasOwnProperty("Kick"))
+                writer.uint32(/* id 18, wireType 0 =*/144).int32(message.Kick);
+            if (message.BankerRound != null && message.hasOwnProperty("BankerRound"))
+                writer.uint32(/* id 19, wireType 0 =*/152).int32(message.BankerRound);
+            if (message.BankerMinGold != null && message.hasOwnProperty("BankerMinGold"))
+                writer.uint32(/* id 20, wireType 0 =*/160).int32(message.BankerMinGold);
+            if (message.TitleImg != null && message.hasOwnProperty("TitleImg"))
+                writer.uint32(/* id 21, wireType 2 =*/170).string(message.TitleImg);
+            if (message.PoolImg != null && message.hasOwnProperty("PoolImg"))
+                writer.uint32(/* id 22, wireType 2 =*/178).string(message.PoolImg);
+            if (message.FontColor != null && message.hasOwnProperty("FontColor"))
+                writer.uint32(/* id 23, wireType 2 =*/186).string(message.FontColor);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified HundredWarDefine message, length delimited. Does not implicitly {@link table.HundredWarDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.HundredWarDefine
+         * @static
+         * @param {table.IHundredWarDefine} message HundredWarDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        HundredWarDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a HundredWarDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.HundredWarDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.HundredWarDefine} HundredWarDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        HundredWarDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.HundredWarDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.int32();
+                    break;
+                case 2:
+                    message.Type = reader.int32();
+                    break;
+                case 3:
+                    message.Name = reader.string();
+                    break;
+                case 4:
+                    message.Icon = reader.string();
+                    break;
+                case 5:
+                    message.MinBuyin = reader.int32();
+                    break;
+                case 6:
+                    message.MaxRole = reader.int32();
+                    break;
+                case 7:
+                    if (!(message.Bet && message.Bet.length))
+                        message.Bet = [];
+                    if ((tag & 7) === 2) {
+                        var end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2)
+                            message.Bet.push(reader.int32());
+                    } else
+                        message.Bet.push(reader.int32());
+                    break;
+                case 8:
+                    message.BankerGold = reader.int32();
+                    break;
+                case 9:
+                    message.SeatGold = reader.int32();
+                    break;
+                case 10:
+                    message.BettingRatio = reader.float();
+                    break;
+                case 11:
+                    message.BankerRatio = reader.float();
+                    break;
+                case 12:
+                    message.TaxRate = reader.float();
+                    break;
+                case 13:
+                    message.Seat = reader.int32();
+                    break;
+                case 14:
+                    message.WaitTime = reader.int32();
+                    break;
+                case 15:
+                    message.BetTime = reader.int32();
+                    break;
+                case 16:
+                    message.ConfirmTime = reader.int32();
+                    break;
+                case 17:
+                    message.TimeOut = reader.int32();
+                    break;
+                case 18:
+                    message.Kick = reader.int32();
+                    break;
+                case 19:
+                    message.BankerRound = reader.int32();
+                    break;
+                case 20:
+                    message.BankerMinGold = reader.int32();
+                    break;
+                case 21:
+                    message.TitleImg = reader.string();
+                    break;
+                case 22:
+                    message.PoolImg = reader.string();
+                    break;
+                case 23:
+                    message.FontColor = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a HundredWarDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.HundredWarDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.HundredWarDefine} HundredWarDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        HundredWarDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a HundredWarDefine message.
+         * @function verify
+         * @memberof table.HundredWarDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        HundredWarDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                if (!$util.isInteger(message.Type))
+                    return "Type: integer expected";
+            if (message.Name != null && message.hasOwnProperty("Name"))
+                if (!$util.isString(message.Name))
+                    return "Name: string expected";
+            if (message.Icon != null && message.hasOwnProperty("Icon"))
+                if (!$util.isString(message.Icon))
+                    return "Icon: string expected";
+            if (message.MinBuyin != null && message.hasOwnProperty("MinBuyin"))
+                if (!$util.isInteger(message.MinBuyin))
+                    return "MinBuyin: integer expected";
+            if (message.MaxRole != null && message.hasOwnProperty("MaxRole"))
+                if (!$util.isInteger(message.MaxRole))
+                    return "MaxRole: integer expected";
+            if (message.Bet != null && message.hasOwnProperty("Bet")) {
+                if (!Array.isArray(message.Bet))
+                    return "Bet: array expected";
+                for (var i = 0; i < message.Bet.length; ++i)
+                    if (!$util.isInteger(message.Bet[i]))
+                        return "Bet: integer[] expected";
+            }
+            if (message.BankerGold != null && message.hasOwnProperty("BankerGold"))
+                if (!$util.isInteger(message.BankerGold))
+                    return "BankerGold: integer expected";
+            if (message.SeatGold != null && message.hasOwnProperty("SeatGold"))
+                if (!$util.isInteger(message.SeatGold))
+                    return "SeatGold: integer expected";
+            if (message.BettingRatio != null && message.hasOwnProperty("BettingRatio"))
+                if (typeof message.BettingRatio !== "number")
+                    return "BettingRatio: number expected";
+            if (message.BankerRatio != null && message.hasOwnProperty("BankerRatio"))
+                if (typeof message.BankerRatio !== "number")
+                    return "BankerRatio: number expected";
+            if (message.TaxRate != null && message.hasOwnProperty("TaxRate"))
+                if (typeof message.TaxRate !== "number")
+                    return "TaxRate: number expected";
+            if (message.Seat != null && message.hasOwnProperty("Seat"))
+                if (!$util.isInteger(message.Seat))
+                    return "Seat: integer expected";
+            if (message.WaitTime != null && message.hasOwnProperty("WaitTime"))
+                if (!$util.isInteger(message.WaitTime))
+                    return "WaitTime: integer expected";
+            if (message.BetTime != null && message.hasOwnProperty("BetTime"))
+                if (!$util.isInteger(message.BetTime))
+                    return "BetTime: integer expected";
+            if (message.ConfirmTime != null && message.hasOwnProperty("ConfirmTime"))
+                if (!$util.isInteger(message.ConfirmTime))
+                    return "ConfirmTime: integer expected";
+            if (message.TimeOut != null && message.hasOwnProperty("TimeOut"))
+                if (!$util.isInteger(message.TimeOut))
+                    return "TimeOut: integer expected";
+            if (message.Kick != null && message.hasOwnProperty("Kick"))
+                if (!$util.isInteger(message.Kick))
+                    return "Kick: integer expected";
+            if (message.BankerRound != null && message.hasOwnProperty("BankerRound"))
+                if (!$util.isInteger(message.BankerRound))
+                    return "BankerRound: integer expected";
+            if (message.BankerMinGold != null && message.hasOwnProperty("BankerMinGold"))
+                if (!$util.isInteger(message.BankerMinGold))
+                    return "BankerMinGold: integer expected";
+            if (message.TitleImg != null && message.hasOwnProperty("TitleImg"))
+                if (!$util.isString(message.TitleImg))
+                    return "TitleImg: string expected";
+            if (message.PoolImg != null && message.hasOwnProperty("PoolImg"))
+                if (!$util.isString(message.PoolImg))
+                    return "PoolImg: string expected";
+            if (message.FontColor != null && message.hasOwnProperty("FontColor"))
+                if (!$util.isString(message.FontColor))
+                    return "FontColor: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a HundredWarDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.HundredWarDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.HundredWarDefine} HundredWarDefine
+         */
+        HundredWarDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.HundredWarDefine)
+                return object;
+            var message = new $root.table.HundredWarDefine();
+            if (object.Id != null)
+                message.Id = object.Id | 0;
+            if (object.Type != null)
+                message.Type = object.Type | 0;
+            if (object.Name != null)
+                message.Name = String(object.Name);
+            if (object.Icon != null)
+                message.Icon = String(object.Icon);
+            if (object.MinBuyin != null)
+                message.MinBuyin = object.MinBuyin | 0;
+            if (object.MaxRole != null)
+                message.MaxRole = object.MaxRole | 0;
+            if (object.Bet) {
+                if (!Array.isArray(object.Bet))
+                    throw TypeError(".table.HundredWarDefine.Bet: array expected");
+                message.Bet = [];
+                for (var i = 0; i < object.Bet.length; ++i)
+                    message.Bet[i] = object.Bet[i] | 0;
+            }
+            if (object.BankerGold != null)
+                message.BankerGold = object.BankerGold | 0;
+            if (object.SeatGold != null)
+                message.SeatGold = object.SeatGold | 0;
+            if (object.BettingRatio != null)
+                message.BettingRatio = Number(object.BettingRatio);
+            if (object.BankerRatio != null)
+                message.BankerRatio = Number(object.BankerRatio);
+            if (object.TaxRate != null)
+                message.TaxRate = Number(object.TaxRate);
+            if (object.Seat != null)
+                message.Seat = object.Seat | 0;
+            if (object.WaitTime != null)
+                message.WaitTime = object.WaitTime | 0;
+            if (object.BetTime != null)
+                message.BetTime = object.BetTime | 0;
+            if (object.ConfirmTime != null)
+                message.ConfirmTime = object.ConfirmTime | 0;
+            if (object.TimeOut != null)
+                message.TimeOut = object.TimeOut | 0;
+            if (object.Kick != null)
+                message.Kick = object.Kick | 0;
+            if (object.BankerRound != null)
+                message.BankerRound = object.BankerRound | 0;
+            if (object.BankerMinGold != null)
+                message.BankerMinGold = object.BankerMinGold | 0;
+            if (object.TitleImg != null)
+                message.TitleImg = String(object.TitleImg);
+            if (object.PoolImg != null)
+                message.PoolImg = String(object.PoolImg);
+            if (object.FontColor != null)
+                message.FontColor = String(object.FontColor);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a HundredWarDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.HundredWarDefine
+         * @static
+         * @param {table.HundredWarDefine} message HundredWarDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        HundredWarDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.Bet = [];
+            if (options.defaults) {
+                object.Id = 0;
+                object.Type = 0;
+                object.Name = "";
+                object.Icon = "";
+                object.MinBuyin = 0;
+                object.MaxRole = 0;
+                object.BankerGold = 0;
+                object.SeatGold = 0;
+                object.BettingRatio = 0;
+                object.BankerRatio = 0;
+                object.TaxRate = 0;
+                object.Seat = 0;
+                object.WaitTime = 0;
+                object.BetTime = 0;
+                object.ConfirmTime = 0;
+                object.TimeOut = 0;
+                object.Kick = 0;
+                object.BankerRound = 0;
+                object.BankerMinGold = 0;
+                object.TitleImg = "";
+                object.PoolImg = "";
+                object.FontColor = "";
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                object.Type = message.Type;
+            if (message.Name != null && message.hasOwnProperty("Name"))
+                object.Name = message.Name;
+            if (message.Icon != null && message.hasOwnProperty("Icon"))
+                object.Icon = message.Icon;
+            if (message.MinBuyin != null && message.hasOwnProperty("MinBuyin"))
+                object.MinBuyin = message.MinBuyin;
+            if (message.MaxRole != null && message.hasOwnProperty("MaxRole"))
+                object.MaxRole = message.MaxRole;
+            if (message.Bet && message.Bet.length) {
+                object.Bet = [];
+                for (var j = 0; j < message.Bet.length; ++j)
+                    object.Bet[j] = message.Bet[j];
+            }
+            if (message.BankerGold != null && message.hasOwnProperty("BankerGold"))
+                object.BankerGold = message.BankerGold;
+            if (message.SeatGold != null && message.hasOwnProperty("SeatGold"))
+                object.SeatGold = message.SeatGold;
+            if (message.BettingRatio != null && message.hasOwnProperty("BettingRatio"))
+                object.BettingRatio = options.json && !isFinite(message.BettingRatio) ? String(message.BettingRatio) : message.BettingRatio;
+            if (message.BankerRatio != null && message.hasOwnProperty("BankerRatio"))
+                object.BankerRatio = options.json && !isFinite(message.BankerRatio) ? String(message.BankerRatio) : message.BankerRatio;
+            if (message.TaxRate != null && message.hasOwnProperty("TaxRate"))
+                object.TaxRate = options.json && !isFinite(message.TaxRate) ? String(message.TaxRate) : message.TaxRate;
+            if (message.Seat != null && message.hasOwnProperty("Seat"))
+                object.Seat = message.Seat;
+            if (message.WaitTime != null && message.hasOwnProperty("WaitTime"))
+                object.WaitTime = message.WaitTime;
+            if (message.BetTime != null && message.hasOwnProperty("BetTime"))
+                object.BetTime = message.BetTime;
+            if (message.ConfirmTime != null && message.hasOwnProperty("ConfirmTime"))
+                object.ConfirmTime = message.ConfirmTime;
+            if (message.TimeOut != null && message.hasOwnProperty("TimeOut"))
+                object.TimeOut = message.TimeOut;
+            if (message.Kick != null && message.hasOwnProperty("Kick"))
+                object.Kick = message.Kick;
+            if (message.BankerRound != null && message.hasOwnProperty("BankerRound"))
+                object.BankerRound = message.BankerRound;
+            if (message.BankerMinGold != null && message.hasOwnProperty("BankerMinGold"))
+                object.BankerMinGold = message.BankerMinGold;
+            if (message.TitleImg != null && message.hasOwnProperty("TitleImg"))
+                object.TitleImg = message.TitleImg;
+            if (message.PoolImg != null && message.hasOwnProperty("PoolImg"))
+                object.PoolImg = message.PoolImg;
+            if (message.FontColor != null && message.hasOwnProperty("FontColor"))
+                object.FontColor = message.FontColor;
+            return object;
+        };
+
+        /**
+         * Converts this HundredWarDefine to JSON.
+         * @function toJSON
+         * @memberof table.HundredWarDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        HundredWarDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return HundredWarDefine;
+    })();
+
+    table.HundredWarCardTypeBase = (function() {
+
+        /**
+         * Properties of a HundredWarCardTypeBase.
+         * @memberof table
+         * @interface IHundredWarCardTypeBase
+         * @property {Array.<table.IHundredWarCardTypeDefine>|null} [HundredWarCardType] HundredWarCardTypeBase HundredWarCardType
+         */
+
+        /**
+         * Constructs a new HundredWarCardTypeBase.
+         * @memberof table
+         * @classdesc Represents a HundredWarCardTypeBase.
+         * @implements IHundredWarCardTypeBase
+         * @constructor
+         * @param {table.IHundredWarCardTypeBase=} [properties] Properties to set
+         */
+        function HundredWarCardTypeBase(properties) {
+            this.HundredWarCardType = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * HundredWarCardTypeBase HundredWarCardType.
+         * @member {Array.<table.IHundredWarCardTypeDefine>} HundredWarCardType
+         * @memberof table.HundredWarCardTypeBase
+         * @instance
+         */
+        HundredWarCardTypeBase.prototype.HundredWarCardType = $util.emptyArray;
+
+        /**
+         * Creates a new HundredWarCardTypeBase instance using the specified properties.
+         * @function create
+         * @memberof table.HundredWarCardTypeBase
+         * @static
+         * @param {table.IHundredWarCardTypeBase=} [properties] Properties to set
+         * @returns {table.HundredWarCardTypeBase} HundredWarCardTypeBase instance
+         */
+        HundredWarCardTypeBase.create = function create(properties) {
+            return new HundredWarCardTypeBase(properties);
+        };
+
+        /**
+         * Encodes the specified HundredWarCardTypeBase message. Does not implicitly {@link table.HundredWarCardTypeBase.verify|verify} messages.
+         * @function encode
+         * @memberof table.HundredWarCardTypeBase
+         * @static
+         * @param {table.IHundredWarCardTypeBase} message HundredWarCardTypeBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        HundredWarCardTypeBase.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.HundredWarCardType != null && message.HundredWarCardType.length)
+                for (var i = 0; i < message.HundredWarCardType.length; ++i)
+                    $root.table.HundredWarCardTypeDefine.encode(message.HundredWarCardType[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified HundredWarCardTypeBase message, length delimited. Does not implicitly {@link table.HundredWarCardTypeBase.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.HundredWarCardTypeBase
+         * @static
+         * @param {table.IHundredWarCardTypeBase} message HundredWarCardTypeBase message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        HundredWarCardTypeBase.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a HundredWarCardTypeBase message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.HundredWarCardTypeBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.HundredWarCardTypeBase} HundredWarCardTypeBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        HundredWarCardTypeBase.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.HundredWarCardTypeBase();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.HundredWarCardType && message.HundredWarCardType.length))
+                        message.HundredWarCardType = [];
+                    message.HundredWarCardType.push($root.table.HundredWarCardTypeDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a HundredWarCardTypeBase message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.HundredWarCardTypeBase
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.HundredWarCardTypeBase} HundredWarCardTypeBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        HundredWarCardTypeBase.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a HundredWarCardTypeBase message.
+         * @function verify
+         * @memberof table.HundredWarCardTypeBase
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        HundredWarCardTypeBase.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.HundredWarCardType != null && message.hasOwnProperty("HundredWarCardType")) {
+                if (!Array.isArray(message.HundredWarCardType))
+                    return "HundredWarCardType: array expected";
+                for (var i = 0; i < message.HundredWarCardType.length; ++i) {
+                    var error = $root.table.HundredWarCardTypeDefine.verify(message.HundredWarCardType[i]);
+                    if (error)
+                        return "HundredWarCardType." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a HundredWarCardTypeBase message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.HundredWarCardTypeBase
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.HundredWarCardTypeBase} HundredWarCardTypeBase
+         */
+        HundredWarCardTypeBase.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.HundredWarCardTypeBase)
+                return object;
+            var message = new $root.table.HundredWarCardTypeBase();
+            if (object.HundredWarCardType) {
+                if (!Array.isArray(object.HundredWarCardType))
+                    throw TypeError(".table.HundredWarCardTypeBase.HundredWarCardType: array expected");
+                message.HundredWarCardType = [];
+                for (var i = 0; i < object.HundredWarCardType.length; ++i) {
+                    if (typeof object.HundredWarCardType[i] !== "object")
+                        throw TypeError(".table.HundredWarCardTypeBase.HundredWarCardType: object expected");
+                    message.HundredWarCardType[i] = $root.table.HundredWarCardTypeDefine.fromObject(object.HundredWarCardType[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a HundredWarCardTypeBase message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.HundredWarCardTypeBase
+         * @static
+         * @param {table.HundredWarCardTypeBase} message HundredWarCardTypeBase
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        HundredWarCardTypeBase.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.HundredWarCardType = [];
+            if (message.HundredWarCardType && message.HundredWarCardType.length) {
+                object.HundredWarCardType = [];
+                for (var j = 0; j < message.HundredWarCardType.length; ++j)
+                    object.HundredWarCardType[j] = $root.table.HundredWarCardTypeDefine.toObject(message.HundredWarCardType[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this HundredWarCardTypeBase to JSON.
+         * @function toJSON
+         * @memberof table.HundredWarCardTypeBase
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        HundredWarCardTypeBase.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return HundredWarCardTypeBase;
+    })();
+
+    table.HundredWarCardTypeDefine = (function() {
+
+        /**
+         * Properties of a HundredWarCardTypeDefine.
+         * @memberof table
+         * @interface IHundredWarCardTypeDefine
+         * @property {number|null} [Id] HundredWarCardTypeDefine Id
+         * @property {number|null} [Type] HundredWarCardTypeDefine Type
+         * @property {number|null} [Odds] HundredWarCardTypeDefine Odds
+         * @property {number|null} [PoolOdds] HundredWarCardTypeDefine PoolOdds
+         */
+
+        /**
+         * Constructs a new HundredWarCardTypeDefine.
+         * @memberof table
+         * @classdesc Represents a HundredWarCardTypeDefine.
+         * @implements IHundredWarCardTypeDefine
+         * @constructor
+         * @param {table.IHundredWarCardTypeDefine=} [properties] Properties to set
+         */
+        function HundredWarCardTypeDefine(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * HundredWarCardTypeDefine Id.
+         * @member {number} Id
+         * @memberof table.HundredWarCardTypeDefine
+         * @instance
+         */
+        HundredWarCardTypeDefine.prototype.Id = 0;
+
+        /**
+         * HundredWarCardTypeDefine Type.
+         * @member {number} Type
+         * @memberof table.HundredWarCardTypeDefine
+         * @instance
+         */
+        HundredWarCardTypeDefine.prototype.Type = 0;
+
+        /**
+         * HundredWarCardTypeDefine Odds.
+         * @member {number} Odds
+         * @memberof table.HundredWarCardTypeDefine
+         * @instance
+         */
+        HundredWarCardTypeDefine.prototype.Odds = 0;
+
+        /**
+         * HundredWarCardTypeDefine PoolOdds.
+         * @member {number} PoolOdds
+         * @memberof table.HundredWarCardTypeDefine
+         * @instance
+         */
+        HundredWarCardTypeDefine.prototype.PoolOdds = 0;
+
+        /**
+         * Creates a new HundredWarCardTypeDefine instance using the specified properties.
+         * @function create
+         * @memberof table.HundredWarCardTypeDefine
+         * @static
+         * @param {table.IHundredWarCardTypeDefine=} [properties] Properties to set
+         * @returns {table.HundredWarCardTypeDefine} HundredWarCardTypeDefine instance
+         */
+        HundredWarCardTypeDefine.create = function create(properties) {
+            return new HundredWarCardTypeDefine(properties);
+        };
+
+        /**
+         * Encodes the specified HundredWarCardTypeDefine message. Does not implicitly {@link table.HundredWarCardTypeDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.HundredWarCardTypeDefine
+         * @static
+         * @param {table.IHundredWarCardTypeDefine} message HundredWarCardTypeDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        HundredWarCardTypeDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.Id);
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.Type);
+            if (message.Odds != null && message.hasOwnProperty("Odds"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.Odds);
+            if (message.PoolOdds != null && message.hasOwnProperty("PoolOdds"))
+                writer.uint32(/* id 4, wireType 5 =*/37).float(message.PoolOdds);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified HundredWarCardTypeDefine message, length delimited. Does not implicitly {@link table.HundredWarCardTypeDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.HundredWarCardTypeDefine
+         * @static
+         * @param {table.IHundredWarCardTypeDefine} message HundredWarCardTypeDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        HundredWarCardTypeDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a HundredWarCardTypeDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.HundredWarCardTypeDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.HundredWarCardTypeDefine} HundredWarCardTypeDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        HundredWarCardTypeDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.HundredWarCardTypeDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.int32();
+                    break;
+                case 2:
+                    message.Type = reader.int32();
+                    break;
+                case 3:
+                    message.Odds = reader.int32();
+                    break;
+                case 4:
+                    message.PoolOdds = reader.float();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a HundredWarCardTypeDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.HundredWarCardTypeDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.HundredWarCardTypeDefine} HundredWarCardTypeDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        HundredWarCardTypeDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a HundredWarCardTypeDefine message.
+         * @function verify
+         * @memberof table.HundredWarCardTypeDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        HundredWarCardTypeDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                if (!$util.isInteger(message.Type))
+                    return "Type: integer expected";
+            if (message.Odds != null && message.hasOwnProperty("Odds"))
+                if (!$util.isInteger(message.Odds))
+                    return "Odds: integer expected";
+            if (message.PoolOdds != null && message.hasOwnProperty("PoolOdds"))
+                if (typeof message.PoolOdds !== "number")
+                    return "PoolOdds: number expected";
+            return null;
+        };
+
+        /**
+         * Creates a HundredWarCardTypeDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.HundredWarCardTypeDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.HundredWarCardTypeDefine} HundredWarCardTypeDefine
+         */
+        HundredWarCardTypeDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.HundredWarCardTypeDefine)
+                return object;
+            var message = new $root.table.HundredWarCardTypeDefine();
+            if (object.Id != null)
+                message.Id = object.Id | 0;
+            if (object.Type != null)
+                message.Type = object.Type | 0;
+            if (object.Odds != null)
+                message.Odds = object.Odds | 0;
+            if (object.PoolOdds != null)
+                message.PoolOdds = Number(object.PoolOdds);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a HundredWarCardTypeDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.HundredWarCardTypeDefine
+         * @static
+         * @param {table.HundredWarCardTypeDefine} message HundredWarCardTypeDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        HundredWarCardTypeDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.Id = 0;
+                object.Type = 0;
+                object.Odds = 0;
+                object.PoolOdds = 0;
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                object.Type = message.Type;
+            if (message.Odds != null && message.hasOwnProperty("Odds"))
+                object.Odds = message.Odds;
+            if (message.PoolOdds != null && message.hasOwnProperty("PoolOdds"))
+                object.PoolOdds = options.json && !isFinite(message.PoolOdds) ? String(message.PoolOdds) : message.PoolOdds;
+            return object;
+        };
+
+        /**
+         * Converts this HundredWarCardTypeDefine to JSON.
+         * @function toJSON
+         * @memberof table.HundredWarCardTypeDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        HundredWarCardTypeDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return HundredWarCardTypeDefine;
+    })();
+
     table.ItemBase = (function() {
 
         /**
