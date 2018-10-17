@@ -58,10 +58,10 @@ message RS2C_RetTexasFightBet {
 
 
 // 拉取奖池信息
-message C2GW_ReqTFAwardPool {
+message C2RS_ReqTFAwardPool {
 }
 
-message GW2C_RetTFAwardPool {
+message RS2C_RetTFAwardPool {
     repeated int32 cards = 1;
     optional int32 gold = 2;
     optional int32 time = 3;
@@ -81,7 +81,7 @@ message RS2C_RetTFStandPlayer {
 }
 
 message TFPlayer {
-    optional int32 roleid = 1;
+    optional int64 roleid = 1;
     optional string name = 2;
     optional string head = 3;
     optional int32 sex = 4;

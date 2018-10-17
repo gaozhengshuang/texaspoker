@@ -78,6 +78,19 @@ func (tf *TexasFightRoom) CardDeal() {
 	
 }
 
+// 请求站起玩家列表
+func (tf *TexasFightRoom) SendStandPlayerList(u *RoomUser, start, count int32) {
+	send := &msg.RS2C_RetTFStandPlayer{Playerlist:make([]*msg.TFPlayer,0)}
+	for _, p := range tf.players {
+		info := p.FillPlayerInfo()
+		send.Playerlist = append(send.Playerlist, info)
+	}
+	u.SendMsg(send)
+}
+
+func (tf *TexasFightRoom) RequestGameStart(u *RoomUser) {
+}
+
 // 请求房间列表
 func SendTexasFightRoomList(agent int, userid int64) {
 	send := &msg.GW2C_RetTFRoomList{Array:make([]*msg.TexasFightRoom,0)}

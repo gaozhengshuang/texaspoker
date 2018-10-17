@@ -78,6 +78,18 @@ func (p *TexasFightPlayer) BetInfo() [kBetPoolNum]*TFPlayerBet {
 	return p.betlist
 }
 
+func (p *TexasFightPlayer) FillPlayerInfo() *msg.TFPlayer {
+	info := &msg.TFPlayer{}
+	info.Roleid = pb.Int64(p.owner.Id())
+	info.Name = pb.String(p.owner.Name())
+	info.Head = pb.String(p.owner.Head())
+	info.Sex = pb.Int32(p.owner.Sex())
+	info.Gold = pb.Int32(p.owner.GetGold())
+	info.Pos = pb.Int32(p.SitPos())
+	return info
+}
+
+
 // --------------------------------------------------------------------------
 /// @brief 百人大战下注池
 // --------------------------------------------------------------------------
