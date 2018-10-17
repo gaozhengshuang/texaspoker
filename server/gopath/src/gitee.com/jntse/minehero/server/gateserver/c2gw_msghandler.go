@@ -180,10 +180,10 @@ func on_C2RS_MsgTransfer(session network.IBaseNetSession, message interface{}) {
 		return
 	}
 
-	if u.IsInRoom() == false {
-		log.Warn("消息转发失败，玩家[%s %d]没有在任何房间中", u.Name(), u.Id())
-		return
-	}
+	//if u.IsInRoom() == false {
+	//	log.Warn("消息转发失败，玩家[%s %d]没有在任何房间中", u.Name(), u.Id())
+	//	return
+	//}
 	u.SendRoomMsg(tmsg)
 }
 
@@ -887,5 +887,9 @@ func on_C2GW_ReqTakeAchieveAward(session network.IBaseNetSession, message interf
 	}
 	tmsg := message.(*msg.C2GW_ReqTakeAchieveAward)
 	taskid := tmsg.GetId()
-	u.OnReqTakeAchieveAward(taskid)
+	send := &msg.GW2C_RetTakeAchieveAward{}
+	send.Id = pb.Int32(taskid)
+	err := u.OnReqTakeAchieveAward(taskid)
+	send.Errcode = pb.String(err)
+	u.SendMsg(send)
 }

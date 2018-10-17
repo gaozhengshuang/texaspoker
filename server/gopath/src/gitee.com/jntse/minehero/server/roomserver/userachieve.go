@@ -23,7 +23,7 @@ const (
 	AchieveGroup_FullHouse = 261 //以葫芦胜出牌局数
 	AchieveGroup_FourOfAKind = 281 //以四条胜出牌局数
 	AchieveGroup_StraightFlush = 301 //以四条胜出牌局数
-	AchieveGroup_Royal_Flush = 321 //以皇家同花顺胜出牌局数
+	AchieveGroup_RoyalFlush = 321 //以皇家同花顺胜出牌局数
 	AchieveGroup_TexasPlay1 = 1001 //在德州扑克初级场对局数
 	AchieveGroup_TexasPlay2 = 1021 //在德州扑克中级场对局数
 	AchieveGroup_TexasPlay3 = 1041 //德州扑克高级场对局数
@@ -114,6 +114,37 @@ func (u *RoomUser) SetAchieveTokenState (taskid int32) bool {
 	strtaskid := strconv.FormatInt(int64(taskid), 10)
 	_, erradd := Redis().SAdd(fmt.Sprintf("%s_%d", def.AchieveToken, u.Id()), strtaskid).Result()
 	return erradd == nil
+}
+
+func (u *RoomUser) OnAchieveWinPoker (gamekind, hand int32) {
+	group := u.GetAchieveGroupIdByHand(hand)
+	if group > 0 {
+		u.OnAchieveProcessChanged(group)
+	}
+	if gamekind == int32(msg.PlayingFieldType_Primary) || gamekind == int32(msg.PlayingFieldType_Middle) || gamekind == int32(msg.PlayingFieldType_High) {
+		u.OnAchieveProcessChanged(int32(AchieveGroup_TexasWin))
+	} 
+}
+
+func (u *RoomUser) GetAchieveGroupIdByHand(hand int32) int32 {
+	tmp := []int{0, 0, AchieveGroup_OnePair, AchieveGroup_TwoPairs, AchieveGroup_ThreeOfAKind, AchieveGroup_Straight, 
+	AchieveGroup_Flush, AchieveGroup_FullHouse, AchieveGroup_FourOfAKind, AchieveGroup_StraightFlush, AchieveGroup_RoyalFlush}
+	if hand >= 0 && hand <= 10 {
+		return int32(tmp[hand])
+	}
+	return 0
+}
+
+func (u *RoomUser) OnAchievePlayPoker (gametype int32) {
+	if gametype == int32(msg.PlayingFieldType_Primary) {
+		u.OnAchieveProcessChanged(int32(AchieveGroup_TexasPlay1))
+	} else if gametype == int32(msg.PlayingFieldType_Middle) {
+		u.OnAchieveProcessChanged(int32(AchieveGroup_TexasPlay2))
+	} else if gametype == int32(msg.PlayingFieldType_High) {
+		u.OnAchieveProcessChanged(int32(AchieveGroup_TexasPlay3))
+	} else if gametype == int32(msg.PlayingFieldType_Mtt) {
+		u.OnAchieveProcessChanged(int32(AchieveGroup_MTTPlay))
+	}
 }
 
 func (u *RoomUser) OnAchieveProcessChanged(group int32) {

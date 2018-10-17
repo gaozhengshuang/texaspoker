@@ -380,9 +380,9 @@ class HundredWarManager
             let beforeId: number;
             if (HundredWarManager.roomInfo && HundredWarManager.roomInfo.playerList)
             {
-                if (result.data.pos == 0 && !result.data.roleId && HundredWarManager.isBanker(UserManager.userInfo.roleId) && InfoUtil.checkAvailable(HundredWarManager.roomInfo) && HundredWarManager.roomInfo.bankerGold < HundredWarManager.roomInfo.definition.bankerMinGold)
+                if (result.data.pos == 0 && !result.data.roleId && HundredWarManager.isBanker(UserManager.userInfo.roleId) && InfoUtil.checkAvailable(HundredWarManager.roomInfo) && HundredWarManager.roomInfo.bankerGold < HundredWarManager.roomInfo.definition.BankerMinGold)
                 {
-                    AlertManager.showAlert("您的当前金币低于" + game.MathUtil.formatNum(HundredWarManager.roomInfo.definition.bankerMinGold) + "金币，已从庄家列表退出。");
+                    AlertManager.showAlert("您的当前金币低于" + game.MathUtil.formatNum(HundredWarManager.roomInfo.definition.BankerMinGold) + "金币，已从庄家列表退出。");
                 }
                 if (HundredWarManager.roomInfo.playerList.length > 0)
                 {

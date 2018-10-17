@@ -87,6 +87,7 @@ func (u *GateUser) AddGold(gold int32, reason string, syn bool) {
 	}
 	log.Info("玩家[%d] 添加金币[%d] 库存[%d] 原因[%s]", u.Id(), gold, newgold, reason)
 	u.SyncGoldRankRedis()
+	u.OnAchieveProcessChanged(int32(AchieveGroup_Gold))
 }
 func (u *GateUser) RemoveGold(gold int32, reason string, syn bool) bool {
 	goldsrc := u.GetGold()
@@ -441,10 +442,12 @@ func (u *GateUser) LoginStatistics() {
 
 	if diffday {
 		u.ActivityResetByDay()
+		u.DailyResetAchieve()
 	}
 
 	if !util.IsSameWeek(u.statistics.tm_login, util.CURTIME()) {
 		u.ActivityResetByWeek()
+		u.WeekResetAchieve()
 	}
 }
 

@@ -69,11 +69,11 @@ class MarqueeHandler
         let marqueeDef: MarqueeDefinition = MarqueeDefined.GetInstance().getInfoByType(marquee["type"]);
         let msg: string;
         msg = marqueeDef.message;  //"百人大战{0}爆出奖池{1}，快来一起参与吧！"
-        let hundredWarDef: HundredWarDefinition = HundredWarDefined.GetInstance().getDefinition(marquee["id"]);
+        let hundredWarDef: table.IHundredWarDefine =  table.HundredWarById[marquee["id"]];
         let hundredWarName: string;
         if (hundredWarDef)
         {
-            hundredWarName = hundredWarDef.name;
+            hundredWarName = hundredWarDef.Name;
         }
         msg = game.StringUtil.format(msg, hundredWarName, marquee["gold"] + "金币");
         return msg;

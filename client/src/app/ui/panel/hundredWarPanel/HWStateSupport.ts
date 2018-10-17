@@ -92,19 +92,19 @@ class HWStateSupport extends BaseHWPanelSupport
             {
                 if (HundredWarManager.roomInfo.stateTime)
                 {
-                    this._betCountDownTime = HundredWarManager.roomInfo.definition.betTime - (Math.ceil(TimeManager.GetServerUtcTimestamp() - HundredWarManager.roomInfo.stateTime));
+                    this._betCountDownTime = HundredWarManager.roomInfo.definition.BetTime - (Math.ceil(TimeManager.GetServerUtcTimestamp() - HundredWarManager.roomInfo.stateTime));
                 } else
                 {
-                    this._betCountDownTime = HundredWarManager.roomInfo.definition.betTime;
+                    this._betCountDownTime = HundredWarManager.roomInfo.definition.BetTime;
                 }
             } else
             {
                 if (HundredWarManager.roomInfo.stateTime)
                 {
-                    this._restCountDownTime = HundredWarManager.roomInfo.definition.waitTime - (Math.ceil(TimeManager.GetServerUtcTimestamp() - HundredWarManager.roomInfo.stateTime));
+                    this._restCountDownTime = HundredWarManager.roomInfo.definition.WaitTime - (Math.ceil(TimeManager.GetServerUtcTimestamp() - HundredWarManager.roomInfo.stateTime));
                 } else
                 {
-                    this._restCountDownTime = HundredWarManager.roomInfo.definition.waitTime;
+                    this._restCountDownTime = HundredWarManager.roomInfo.definition.WaitTime;
                 }
             }
         }

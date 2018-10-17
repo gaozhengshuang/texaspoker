@@ -1,6 +1,7 @@
 package main
 
 import (
+	"strconv"
 	"fmt"
 	"time"
 	"gitee.com/jntse/minehero/server/def"
@@ -11,6 +12,7 @@ import (
 	pb "github.com/gogo/protobuf/proto"
 	"gitee.com/jntse/gotoolkit/log"
 	"github.com/go-redis/redis"
+	"gitee.com/jntse/gotoolkit/redis"
 )
 
 const (
@@ -41,12 +43,18 @@ type ChampionShip struct {
 	maxuser int32
 	sumbankroll int32						//总筹码
 	curmembernum int32						//当前总人数
+	finalrank []int64						//最终排名
+	memberrebuy map[int64]int32				//重购次数
+	memberaddon map[int64]int32				//
 }
 
 func (cs *ChampionShip) Init() bool {
 	cs.memberroom = make(map[int64]int64)
 	cs.roommember = make(map[int64]map[int64]int64)
 	cs.memberbankroll = make(map[int64]int32)
+	cs.memberrebuy = make(map[int64]int32)
+	cs.memberaddon = make(map[int64]int32)
+	cs.finalrank = make([]int64, 0)
 	tconf, ok := tbl.TChampionship.ChampionshipById[cs.tid]
 	if ok == false {
 		log.Error("[锦标赛] not found Championship tconf[%d]", cs.tid)
@@ -93,6 +101,14 @@ func (cs *ChampionShip) BlindTick() {
 	}
 }
 
+func (cs *ChampionShip) GetBlindUpTime() int32 {
+	if cs.blindtick < cs.bconf.UpTime {
+		return int32(util.CURTIME()) + cs.bconf.UpTime - cs.blindtick
+	} else {
+		return int32(util.CURTIME())
+	}
+}
+
 func (cs *ChampionShip) SetRoomBlind() {
 	for key, _ := range cs.roommember {
 		room := RoomMgr().FindTexas(key)
@@ -117,6 +133,13 @@ func (cs *ChampionShip) Handler1sTick(now int64) {
 	} else {
 		cs.BlindTick()
 	}
+}
+
+func (cs *ChampionShip) GetUserRoom(userid int64) int64 {
+	if room, ok := cs.memberroom[userid]; ok {
+		return room
+	}
+	return 0
 }
 
 func (cs *ChampionShip) IsStart() bool {
@@ -158,6 +181,8 @@ func (cs *ChampionShip) IsMember(uid int64) bool {
 func (cs *ChampionShip) AddMember(uid int64) {
 	cs.memberroom[uid] = 0
 	cs.memberbankroll[uid] = cs.tconf.InitialChips
+	cs.memberrebuy[uid] = 0
+	cs.memberaddon[uid] = 0
 }
 
 func (cs *ChampionShip) DelMember(uid int64) {
@@ -169,10 +194,11 @@ func (cs *ChampionShip) DelMember(uid int64) {
 	}
 	delete(cs.memberroom, uid)
 	delete(cs.memberbankroll, uid)
-}
-
-func (cs *ChampionShip) GetRankById(uid int64) int32 {
-	return 0
+	delete(cs.memberrebuy, uid)
+	delete(cs.memberaddon, uid)
+	if cs.IsStart() {
+		cs.finalrank = append(cs.finalrank, uid)
+	}
 }
 
 func (cs *ChampionShip) StartMatch() bool {
@@ -254,14 +280,11 @@ func (cs *ChampionShip) JoinOneMatch(userid int64, roomid int64) {
 
 func (cs *ChampionShip) UpdateUserBankRoll(userid int64, num int32) {
 	cs.memberbankroll[userid] = num
-	if num == 0 {
-		cs.UserGameOver(userid)
-	}
 }
 
 func (cs *ChampionShip) UserGameOver(userid int64) {
 	send := &msg.RS2C_PushMTTWeedOut{}
-	send.Rank = pb.Int32(0)
+	send.Rank = pb.Int32(cs.GetFinalRank(userid))
 	send.Join = pb.Int32(cs.maxuser)
 	send.Maxrank = pb.Int32(0)
 	send.Recordid = pb.Int32(cs.uid)
@@ -369,13 +392,22 @@ func (cs *ChampionShip) NotifyUserBlind(roommember map[int64]map[int64]int64) {
 	}
 }
 
+func (cs *ChampionShip) GetFinalRank(uid int64) int32{
+	for k, v := range cs.finalrank {
+		if v == uid {
+			return int32(len(cs.finalrank) - k)
+		}
+	}
+	return 0
+}
+
 func (cs *ChampionShip) AddUserRank(userid int64) {
 	bankroll, ok := cs.memberbankroll[userid]
 	if !ok {
 		return
 	}
 	zMem := redis.Z{Score: float64(bankroll), Member: userid}
-	Redis().ZAdd(fmt.Sprintf("championship_%d", cs.uid), zMem)
+	Redis().ZAdd(fmt.Sprintf("csrank_%d", cs.uid), zMem)
 }
 
 func (cs *ChampionShip) CalcRank(roomuid int64) {
@@ -386,6 +418,53 @@ func (cs *ChampionShip) CalcRank(roomuid int64) {
 	for _, member := range room {
 		cs.AddUserRank(member)
 	}
+}
+
+func (cs *ChampionShip) GameOver() {
+
+}
+
+func (cs *ChampionShip) GetRankById(uid int64) int32 {
+	rank := Redis().ZRevRank(fmt.Sprintf("csrank_%d", cs.uid), fmt.Sprintf("%d", uid))
+	if rank.Err() == nil {
+		return int32(rank.Val())+1
+	}else {
+		return 0
+	}
+}
+
+func (cs *ChampionShip) CanRebuy(uid int64) bool {
+	if !cs.IsMember(uid) {
+		return false
+	}
+	if cs.bconf.Rebuy != 1 {
+		return false
+	}
+	if cs.memberrebuy[uid] >= cs.tconf.Rebuy {
+		return false
+	}
+	return true
+}
+
+func (cs *ChampionShip) AddRebuy(uid int64) {
+	cs.memberrebuy[uid] = cs.memberrebuy[uid]+1
+}
+
+func (cs *ChampionShip) CanAddon(uid int64) bool {
+	if !cs.IsMember(uid) {
+		return false
+	}
+	if cs.bconf.Addon != 1 {
+		return false
+	}
+	if cs.memberaddon[uid] >= cs.tconf.Addon {
+		return false
+	}
+	return true
+}
+
+func (cs *ChampionShip) AddAddon(uid int64) {
+	cs.memberaddon[uid] = cs.memberaddon[uid]+1
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -456,43 +535,48 @@ func (cm *ChampionManager) ReqMMTList(gid int, uid int64) {
 		mmt.Recordid = pb.Int32(cs.uid)
 		send.Mttlist = append(send.Mttlist, mmt)
 	}
-	//Match().SendClientMsg(gid, uid, send)
+	RoomSvr().SendClientMsg(gid, uid, send)
 }
 
 func (cm *ChampionManager) ReqMTTJoin(gid int, uid int64, rev *msg.C2RS_ReqMTTJoin) {
 	send := &msg.RS2C_RetMTTJoin{}
-	cs, ok := cm.championships[rev.GetRecordid()]
-	if !ok {
+	cs := cm.FindCShipById(rev.GetRecordid())
+	if cs == nil {
 		send.Errcode = pb.String("比赛不存在")
-		//Match().SendClientMsg(gid, uid, send)
+		RoomSvr().SendClientMsg(gid, uid, send)
 		return
-	}		
+	}
 	if cs.IsMember(uid) {
 		send.Errcode = pb.String("已经报名该比赛")
-		//Match().SendClientMsg(gid, uid, send)
+		RoomSvr().SendClientMsg(gid, uid, send)
+		return
+	}
+	if !RemoveUserGold(gid, uid, cs.tconf.SignCost+cs.tconf.ServeCost, "报名参加锦标赛") {
+		send.Errcode = pb.String("金币不足")
+		RoomSvr().SendClientMsg(gid, uid, send)
 		return
 	}
 	cs.AddMember(uid)
 	send.Recordid = pb.Int32(cs.uid)
-	//Match().SendClientMsg(gid, uid, send)
+	RoomSvr().SendClientMsg(gid, uid, send)
 	log.Info("玩家%d 报名参加竞标赛%d", uid, cs.uid)
 }
 
 func (cm *ChampionManager) ReqMTTQuit(gid int, uid int64, rev *msg.C2RS_ReqMTTQuit) {
 	send := &msg.RS2C_RetMTTJoin{}
-	cs, ok := cm.championships[rev.GetRecordid()]
-	if !ok {
+	cs := cm.FindCShipById(rev.GetRecordid())
+	if cs == nil {
 		send.Errcode = pb.String("比赛不存在")
-		//Match().SendClientMsg(gid, uid, send)
+		RoomSvr().SendClientMsg(gid, uid, send)
 		return
 	}
 	if !cs.IsMember(uid) {
 		send.Errcode = pb.String("没有报名该比赛")
-		//Match().SendClientMsg(gid, uid, send)
+		RoomSvr().SendClientMsg(gid, uid, send)
 		return
 	}
 	cs.DelMember(uid)
-	//Match().SendClientMsg(gid, uid, send)
+	RoomSvr().SendClientMsg(gid, uid, send)
 	log.Info("玩家%d 退出竞标赛%d", uid, cs.uid)
 }
 
@@ -512,9 +596,152 @@ func (cm *ChampionManager) ReqJoinedMTTList(gid int, uid int64, rev *msg.C2RS_Re
 		mmt.Recordid = pb.Int32(cs.uid)
 		send.Mttlist = append(send.Mttlist, mmt)
 	}
-	//Match().SendClientMsg(gid, uid, send)
+	RoomSvr().SendClientMsg(gid, uid, send)
 }
 
-func (cm *ChampionManager) ReqMTTRecordList(gid int, uid int64, rev *msg.C2RS_ReqMTTRecordList) {
+func (cm *ChampionManager) ReqInsideRoomInfoList(gid int, uid int64) {
+	send := &msg.RS2C_RetInsideRoomInfoList{}
+	for _, cs := range cm.championships {
+		if !cs.IsStart() {
+			continue
+		}
+		if !cs.IsMember(uid) {
+			continue
+		}
+		mtt := &msg.InsideRoomInfo{}
+		mtt.Mttid = pb.Int32(cs.uid)
+		mtt.Id = pb.Int64(cs.GetUserRoom(uid))
+		send.Roomlist = append(send.Roomlist, mtt)
+	}
+	lastroom, _ := Redis().Get(fmt.Sprintf("userinroom_%d", uid)).Int64()
+	send.Lastid = pb.Int64(lastroom)
+	RoomSvr().SendClientMsg(gid, uid, send)
+	log.Info("玩家%d gid%d 请求房间列表", uid, gid)
+}
+
+func (cm *ChampionManager) ReqMTTRecordList(gid int, uid int64) {
+	send := &msg.RS2C_RetMTTRecordList{}
+	key := fmt.Sprintf("usercsrecord_%d", uid)
+	rlist, err := Redis().LRange(key, 0, 10).Result()
+	if err != nil {
+		return
+	}
+	for _, v := range rlist {
+		key, record := fmt.Sprintf("cssimplerecord_%s", v), &msg.MTTRecordInfo{}
+		if err := utredis.GetProtoBin(Redis(), key, record); err != nil {
+			continue
+		}
+		send.Recordlist	= append(send.Recordlist, record)
+	}
+	RoomSvr().SendClientMsg(gid, uid, send)
+}
+
+func (cm *ChampionManager) ReqMTTRecentlyRankList(gid int, uid int64, rev *msg.C2RS_ReqMTTRecentlyRankList) {
+	send := &msg.RS2C_RetMTTRecentlyRankList{}
+	key := fmt.Sprintf("csdetailrecord_%d", rev.GetRecordid())
+	if err := utredis.GetProtoBin(Redis(), key, send); err != nil {
+		return
+	}
+	RoomSvr().SendClientMsg(gid, uid, send)
+}
+
+func (cm *ChampionManager) ReqMTTOutsInfo(gid int, uid int64, rev *msg.C2RS_ReqMTTOutsInfo) {
+	cs := cm.FindCShipById(rev.GetRecordid())
+	if cs == nil {
+		return
+	}
+	send := &msg.RS2C_RetMTTOutsInfo{}
+	send.Blindlevel = pb.Int32(cs.blindlevel)
+	send.Blindtime = pb.Int32(cs.GetBlindUpTime())
+	send.Rank = pb.Int32(cs.GetRankById(uid))
+	RoomSvr().SendClientMsg(gid, uid, send)
+}
+
+func (cm *ChampionManager) ReqMTTRankInfo(gid int, uid int64, rev *msg.C2RS_ReqMTTRankInfo) {
+	cs := cm.FindCShipById(rev.GetRecordid())
+	if cs == nil {
+		return
+	}
+	picklist, err := Redis().ZRevRangeWithScores(fmt.Sprintf("csrank_%d", cs.uid), int64(rev.GetStartrank()), int64(rev.GetCount())).Result()
+	if err != nil {
+		return
+	}
+	send := &msg.RS2C_RetMTTRankInfo{}
+	pipe := Redis().Pipeline()
+	defer pipe.Close()
+	for k, v := range picklist {
+		data := &msg.MTTRankInfo{}
+		uidstr := v.Member.(string)
+		userid,_ := strconv.ParseInt(uidstr, 10, 64)
+		data.Roleid = pb.Int64(userid)
+		data.Chips = pb.Int32(int32(v.Score))
+		data.Rank = pb.Int32(int32(k + 1))
+		send.Ranklist = append(send.Ranklist, data)
+		key := fmt.Sprintf("charbase_%d", userid)
+		pipe.HMGet(key, "name", "face", "sex")
+	}
+	cmds, err := pipe.Exec()
+	if err != nil && err != redis.Nil {
+		log.Error("批量读取玩家信息 redis 出错:%s", err)
+		return
+	}
+	for k, v := range cmds {
+		if v.Err() != nil && v.Err() == redis.Nil {
+			log.Error("读取单个玩家信息 redis 出错:%s", v.Err())
+			continue
+		}
+		vals, err2 := v.(*redis.SliceCmd).Result()
+		if err2 != nil && err == redis.Nil {
+			log.Error("读取单个玩家信息 redis 出错:%s", err2)
+			continue
+		}
+		if len(vals) < 3 {
+			log.Error("读取单个玩家信息 字段个数不对")
+			continue
+		}
+		if name, ok := vals[0].(string); ok {
+			send.Ranklist[k].Name = pb.String(name)
+		}
+
+		if head, ok := vals[1].(string); ok {
+			send.Ranklist[k].Head = pb.String(head)
+		}
+
+		if sexstr, ok := vals[2].(string); ok {
+			sex, _ := strconv.ParseInt(sexstr, 10, 32)
+			send.Ranklist[k].Sex = pb.Int32(int32(sex))
+		}
+	}
+	RoomSvr().SendClientMsg(gid, uid, send)
+}
+
+func (cm *ChampionManager) ReqMTTRebuyOrAddon(gid int, uid int64, rev *msg.C2RS_ReqMTTRebuyOrAddon) {
+	u := UserMgr().FindUser(uid) 
+	if u == nil {
+		return
+	}
+	texas := RoomMgr().FindTexas(u.RoomId())
+	if texas == nil {
+		return
+	}
+	cs := texas.mtt
+	if cs == nil {
+		return
+	}
+	send := &msg.RS2C_RetMTTRebuyOrAddon{}
+	if rev.GetType() == 1{
+		if cs.CanRebuy(uid) {
+			texas.AddRebuy(uid, cs.tconf.InitialChips, cs.tconf.RebuyCost)
+		}else {
+			send.Errcode = pb.String("不能Rebuy")
+		}
+	} else {
+		if cs.CanAddon(uid) {
+			texas.AddAddon(uid, cs.tconf.AddonChips, cs.tconf.AddonCost)
+		}else{
+			send.Errcode = pb.String("不能Addon")
+		}
+	}
+	RoomSvr().SendClientMsg(gid, uid, send)
 }
 

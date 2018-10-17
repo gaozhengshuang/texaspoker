@@ -29898,6 +29898,516 @@ declare namespace table {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a HundredWarBase. */
+    interface IHundredWarBase {
+
+        /** HundredWarBase HundredWar */
+        HundredWar?: (table.IHundredWarDefine[]|null);
+    }
+
+    /** Represents a HundredWarBase. */
+    class HundredWarBase implements IHundredWarBase {
+
+        /**
+         * Constructs a new HundredWarBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IHundredWarBase);
+
+        /** HundredWarBase HundredWar. */
+        public HundredWar: table.IHundredWarDefine[];
+
+        /**
+         * Creates a new HundredWarBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns HundredWarBase instance
+         */
+        public static create(properties?: table.IHundredWarBase): table.HundredWarBase;
+
+        /**
+         * Encodes the specified HundredWarBase message. Does not implicitly {@link table.HundredWarBase.verify|verify} messages.
+         * @param message HundredWarBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IHundredWarBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified HundredWarBase message, length delimited. Does not implicitly {@link table.HundredWarBase.verify|verify} messages.
+         * @param message HundredWarBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IHundredWarBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a HundredWarBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns HundredWarBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.HundredWarBase;
+
+        /**
+         * Decodes a HundredWarBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns HundredWarBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.HundredWarBase;
+
+        /**
+         * Verifies a HundredWarBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a HundredWarBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns HundredWarBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.HundredWarBase;
+
+        /**
+         * Creates a plain object from a HundredWarBase message. Also converts values to other types if specified.
+         * @param message HundredWarBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.HundredWarBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this HundredWarBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a HundredWarDefine. */
+    interface IHundredWarDefine {
+
+        /** HundredWarDefine Id */
+        Id?: (number|null);
+
+        /** HundredWarDefine Type */
+        Type?: (number|null);
+
+        /** HundredWarDefine Name */
+        Name?: (string|null);
+
+        /** HundredWarDefine Icon */
+        Icon?: (string|null);
+
+        /** HundredWarDefine MinBuyin */
+        MinBuyin?: (number|null);
+
+        /** HundredWarDefine MaxRole */
+        MaxRole?: (number|null);
+
+        /** HundredWarDefine Bet */
+        Bet?: (number[]|null);
+
+        /** HundredWarDefine BankerGold */
+        BankerGold?: (number|null);
+
+        /** HundredWarDefine SeatGold */
+        SeatGold?: (number|null);
+
+        /** HundredWarDefine BettingRatio */
+        BettingRatio?: (number|null);
+
+        /** HundredWarDefine BankerRatio */
+        BankerRatio?: (number|null);
+
+        /** HundredWarDefine TaxRate */
+        TaxRate?: (number|null);
+
+        /** HundredWarDefine Seat */
+        Seat?: (number|null);
+
+        /** HundredWarDefine WaitTime */
+        WaitTime?: (number|null);
+
+        /** HundredWarDefine BetTime */
+        BetTime?: (number|null);
+
+        /** HundredWarDefine ConfirmTime */
+        ConfirmTime?: (number|null);
+
+        /** HundredWarDefine TimeOut */
+        TimeOut?: (number|null);
+
+        /** HundredWarDefine Kick */
+        Kick?: (number|null);
+
+        /** HundredWarDefine BankerRound */
+        BankerRound?: (number|null);
+
+        /** HundredWarDefine BankerMinGold */
+        BankerMinGold?: (number|null);
+
+        /** HundredWarDefine TitleImg */
+        TitleImg?: (string|null);
+
+        /** HundredWarDefine PoolImg */
+        PoolImg?: (string|null);
+
+        /** HundredWarDefine FontColor */
+        FontColor?: (string|null);
+    }
+
+    /** Represents a HundredWarDefine. */
+    class HundredWarDefine implements IHundredWarDefine {
+
+        /**
+         * Constructs a new HundredWarDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IHundredWarDefine);
+
+        /** HundredWarDefine Id. */
+        public Id: number;
+
+        /** HundredWarDefine Type. */
+        public Type: number;
+
+        /** HundredWarDefine Name. */
+        public Name: string;
+
+        /** HundredWarDefine Icon. */
+        public Icon: string;
+
+        /** HundredWarDefine MinBuyin. */
+        public MinBuyin: number;
+
+        /** HundredWarDefine MaxRole. */
+        public MaxRole: number;
+
+        /** HundredWarDefine Bet. */
+        public Bet: number[];
+
+        /** HundredWarDefine BankerGold. */
+        public BankerGold: number;
+
+        /** HundredWarDefine SeatGold. */
+        public SeatGold: number;
+
+        /** HundredWarDefine BettingRatio. */
+        public BettingRatio: number;
+
+        /** HundredWarDefine BankerRatio. */
+        public BankerRatio: number;
+
+        /** HundredWarDefine TaxRate. */
+        public TaxRate: number;
+
+        /** HundredWarDefine Seat. */
+        public Seat: number;
+
+        /** HundredWarDefine WaitTime. */
+        public WaitTime: number;
+
+        /** HundredWarDefine BetTime. */
+        public BetTime: number;
+
+        /** HundredWarDefine ConfirmTime. */
+        public ConfirmTime: number;
+
+        /** HundredWarDefine TimeOut. */
+        public TimeOut: number;
+
+        /** HundredWarDefine Kick. */
+        public Kick: number;
+
+        /** HundredWarDefine BankerRound. */
+        public BankerRound: number;
+
+        /** HundredWarDefine BankerMinGold. */
+        public BankerMinGold: number;
+
+        /** HundredWarDefine TitleImg. */
+        public TitleImg: string;
+
+        /** HundredWarDefine PoolImg. */
+        public PoolImg: string;
+
+        /** HundredWarDefine FontColor. */
+        public FontColor: string;
+
+        /**
+         * Creates a new HundredWarDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns HundredWarDefine instance
+         */
+        public static create(properties?: table.IHundredWarDefine): table.HundredWarDefine;
+
+        /**
+         * Encodes the specified HundredWarDefine message. Does not implicitly {@link table.HundredWarDefine.verify|verify} messages.
+         * @param message HundredWarDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IHundredWarDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified HundredWarDefine message, length delimited. Does not implicitly {@link table.HundredWarDefine.verify|verify} messages.
+         * @param message HundredWarDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IHundredWarDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a HundredWarDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns HundredWarDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.HundredWarDefine;
+
+        /**
+         * Decodes a HundredWarDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns HundredWarDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.HundredWarDefine;
+
+        /**
+         * Verifies a HundredWarDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a HundredWarDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns HundredWarDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.HundredWarDefine;
+
+        /**
+         * Creates a plain object from a HundredWarDefine message. Also converts values to other types if specified.
+         * @param message HundredWarDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.HundredWarDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this HundredWarDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a HundredWarCardTypeBase. */
+    interface IHundredWarCardTypeBase {
+
+        /** HundredWarCardTypeBase HundredWarCardType */
+        HundredWarCardType?: (table.IHundredWarCardTypeDefine[]|null);
+    }
+
+    /** Represents a HundredWarCardTypeBase. */
+    class HundredWarCardTypeBase implements IHundredWarCardTypeBase {
+
+        /**
+         * Constructs a new HundredWarCardTypeBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IHundredWarCardTypeBase);
+
+        /** HundredWarCardTypeBase HundredWarCardType. */
+        public HundredWarCardType: table.IHundredWarCardTypeDefine[];
+
+        /**
+         * Creates a new HundredWarCardTypeBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns HundredWarCardTypeBase instance
+         */
+        public static create(properties?: table.IHundredWarCardTypeBase): table.HundredWarCardTypeBase;
+
+        /**
+         * Encodes the specified HundredWarCardTypeBase message. Does not implicitly {@link table.HundredWarCardTypeBase.verify|verify} messages.
+         * @param message HundredWarCardTypeBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IHundredWarCardTypeBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified HundredWarCardTypeBase message, length delimited. Does not implicitly {@link table.HundredWarCardTypeBase.verify|verify} messages.
+         * @param message HundredWarCardTypeBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IHundredWarCardTypeBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a HundredWarCardTypeBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns HundredWarCardTypeBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.HundredWarCardTypeBase;
+
+        /**
+         * Decodes a HundredWarCardTypeBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns HundredWarCardTypeBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.HundredWarCardTypeBase;
+
+        /**
+         * Verifies a HundredWarCardTypeBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a HundredWarCardTypeBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns HundredWarCardTypeBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.HundredWarCardTypeBase;
+
+        /**
+         * Creates a plain object from a HundredWarCardTypeBase message. Also converts values to other types if specified.
+         * @param message HundredWarCardTypeBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.HundredWarCardTypeBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this HundredWarCardTypeBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a HundredWarCardTypeDefine. */
+    interface IHundredWarCardTypeDefine {
+
+        /** HundredWarCardTypeDefine Id */
+        Id?: (number|null);
+
+        /** HundredWarCardTypeDefine Type */
+        Type?: (number|null);
+
+        /** HundredWarCardTypeDefine Odds */
+        Odds?: (number|null);
+
+        /** HundredWarCardTypeDefine PoolOdds */
+        PoolOdds?: (number|null);
+    }
+
+    /** Represents a HundredWarCardTypeDefine. */
+    class HundredWarCardTypeDefine implements IHundredWarCardTypeDefine {
+
+        /**
+         * Constructs a new HundredWarCardTypeDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IHundredWarCardTypeDefine);
+
+        /** HundredWarCardTypeDefine Id. */
+        public Id: number;
+
+        /** HundredWarCardTypeDefine Type. */
+        public Type: number;
+
+        /** HundredWarCardTypeDefine Odds. */
+        public Odds: number;
+
+        /** HundredWarCardTypeDefine PoolOdds. */
+        public PoolOdds: number;
+
+        /**
+         * Creates a new HundredWarCardTypeDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns HundredWarCardTypeDefine instance
+         */
+        public static create(properties?: table.IHundredWarCardTypeDefine): table.HundredWarCardTypeDefine;
+
+        /**
+         * Encodes the specified HundredWarCardTypeDefine message. Does not implicitly {@link table.HundredWarCardTypeDefine.verify|verify} messages.
+         * @param message HundredWarCardTypeDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IHundredWarCardTypeDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified HundredWarCardTypeDefine message, length delimited. Does not implicitly {@link table.HundredWarCardTypeDefine.verify|verify} messages.
+         * @param message HundredWarCardTypeDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IHundredWarCardTypeDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a HundredWarCardTypeDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns HundredWarCardTypeDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.HundredWarCardTypeDefine;
+
+        /**
+         * Decodes a HundredWarCardTypeDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns HundredWarCardTypeDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.HundredWarCardTypeDefine;
+
+        /**
+         * Verifies a HundredWarCardTypeDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a HundredWarCardTypeDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns HundredWarCardTypeDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.HundredWarCardTypeDefine;
+
+        /**
+         * Creates a plain object from a HundredWarCardTypeDefine message. Also converts values to other types if specified.
+         * @param message HundredWarCardTypeDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.HundredWarCardTypeDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this HundredWarCardTypeDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of an ItemBase. */
     interface IItemBase {
 

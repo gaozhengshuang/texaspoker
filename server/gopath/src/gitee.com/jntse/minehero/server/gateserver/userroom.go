@@ -109,10 +109,10 @@ func (u *GateUser) SendRsUserDisconnect() {
 
 // 发送房间消息
 func (u *GateUser) SendRoomMsg(msg pb.Message) {
-	if u.IsInRoom() == false {
-		log.Error("[房间] 玩家[%s %d]没有房间，发送房间消息失败", u.Name(), u.Id())
-		return
-	}
+	//if u.IsInRoom() == false {
+	//	log.Error("[房间] 玩家[%s %d]没有房间，发送房间消息失败", u.Name(), u.Id())
+	//	return
+	//}
 	RoomSvrMgr().SendMsg(u.roomdata.roomsid, msg)
 }
 

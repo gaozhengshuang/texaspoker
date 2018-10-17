@@ -180,6 +180,22 @@ func (rs *RoomServer) SendMsg(id int, msg pb.Message) bool {
 	return rs.net.SendMsg(id, msg)
 }
 
+func (rs *RoomServer) SendClientMsg(gateid int, uid int64, m pb.Message) bool {
+	name := pb.MessageName(m)
+	if name == "" {
+		log.Fatal("SendClientMsg 获取proto名字失败[%s]", m)
+		return false
+	}
+	msgbuf, err := pb.Marshal(m)
+	if err != nil {
+		log.Fatal("SendClientMsg 序列化proto失败[%s][%s]", name, err)
+		return false
+	}
+
+	send := &msg.RS2GW_MsgTransfer{Uid: pb.Int64(uid), Name: pb.String(name), Buf: msgbuf}
+	return rs.net.SendMsg(gateid, send)
+}
+
 
 func (rs *RoomServer) GetSession(id int) network.IBaseNetSession {
 	//session, _ := rs.sessions[id]

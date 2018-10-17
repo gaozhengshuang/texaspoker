@@ -746,6 +746,7 @@ func (this *TexasPokerRoom) ShowDown() int32{
 			player := this.players[winner]
 			if player != nil {
 				potplayer = append(potplayer, player.owner.Id())
+				player.owner.OnAchieveWinPoker(this.SubKind(), player.hand.level)
 			}
 
 		}
@@ -791,6 +792,7 @@ func (this *TexasPokerRoom) ShowDown() int32{
 				}   
 			}
 		}
+		player.owner.OnAchievePlayPoker(this.SubKind())
 	}
 	this.BroadCastRoomMsg(send)
 	for _, player := range this.players {
@@ -1022,6 +1024,9 @@ func (this *TexasPokerRoom) UpdateMember() {
 }
 
 func (this *TexasPokerRoom) BuyInGame(uid int64, rev *msg.C2RS_ReqBuyInGame){
+	if this.IsChampionShip() {
+		return
+	}
 	player := this.FindAllByID(uid)
 	if player != nil {
 		player.BuyInGame(rev)
@@ -1071,6 +1076,9 @@ func (this *TexasPokerRoom) BrightCardInTime(uid int64) {
 }
 
 func (this *TexasPokerRoom) ReqTimeAwardInfo(uid int64, rev *msg.C2RS_ReqTimeAwardInfo) {
+	if this.IsChampionShip() {
+		return
+	}
 	player := this.FindAllByID(uid)
 	if player != nil {
 		player.ReqTimeAwardInfo(rev)
@@ -1078,6 +1086,9 @@ func (this *TexasPokerRoom) ReqTimeAwardInfo(uid int64, rev *msg.C2RS_ReqTimeAwa
 }
 
 func (this *TexasPokerRoom) ReqTimeAwardGet(uid int64) {
+	if this.IsChampionShip() {
+		return
+	}
 	player := this.FindAllByID(uid)
 	if player != nil {
 		player.ReqTimeAwardGet()
@@ -1085,6 +1096,9 @@ func (this *TexasPokerRoom) ReqTimeAwardGet(uid int64) {
 }
 
 func (this *TexasPokerRoom) ReqStandUp(uid int64) {
+	if this.IsChampionShip() {
+		return
+	}
 	player := this.FindAllByID(uid)
 	if player != nil {
 		player.ReqStandUp()
@@ -1146,5 +1160,21 @@ func (this *TexasPokerRoom) ReqReviewInfo(uid int64) {
 			log.Info("记录数据 %v", record)
 		}
 	}
+}
+
+func (this *TexasPokerRoom) AddRebuy(uid int64, num int32, cost int32) {
+	player := this.FindAllByID(uid)
+	if player == nil {
+		return
+	}
+	player.AddRebuy(num, cost)
+}
+
+func (this *TexasPokerRoom) AddAddon(uid int64, num int32, cost int32) {
+	player := this.FindAllByID(uid)
+	if player == nil {
+		return
+	}   
+	player.AddAddon(num, cost)
 }
 

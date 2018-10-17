@@ -35,13 +35,13 @@ class HWRoomInfo extends BaseServerValueInfo implements IHaveDefintionInfo
     public set hwId(value: number) 
     {
         this._roomId = value;
-        this._definition = HundredWarDefined.GetInstance().getDefinition(value);
+        this._definition = table.HundredWarById[value];
     }
 	/**
  	* 房间定义
  	*/
-    private _definition: HundredWarDefinition;
-    public get definition(): HundredWarDefinition
+    private _definition: table.IHundredWarDefine;
+    public get definition(): table.IHundredWarDefine
     {
         return this._definition;
     }
