@@ -1,3 +1,9 @@
+
+/**
+ * 资源配置文件
+ */
+declare var resJsonUrl;
+
 class Main extends eui.UILayer
 {
     protected createChildren(): void
@@ -32,7 +38,7 @@ class Main extends eui.UILayer
     {
         if (game.System.isWeb || game.System.isMicro)
         {
-            await RES.loadConfig(WebConfig.resUrl + WebConfig.defaultResJson, WebConfig.resUrl + 'resource/');
+            await RES.loadConfig(resJsonUrl, 'resource/');
         }
         else
         {

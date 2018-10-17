@@ -1,9 +1,8 @@
 /**
  *百人大战牌型赔率信息
 */
-class HundredWarCardTypeDefined extends BaseDefined<HundredWarCardTypeDefinition>
+class HundredWarCardTypeDefined
 {
-    public static readonly hundredWarCardTypeConfig: string = "hundredWarCardType";
     private static _instance: HundredWarCardTypeDefined;
     public static GetInstance(): HundredWarCardTypeDefined
     {
@@ -11,53 +10,24 @@ class HundredWarCardTypeDefined extends BaseDefined<HundredWarCardTypeDefinition
         {
             HundredWarCardTypeDefined._instance = new HundredWarCardTypeDefined();
         }
-        if (DefinedManager.IsParsed(HundredWarCardTypeDefined.hundredWarCardTypeConfig) == false)
-        {
-            HundredWarCardTypeDefined._instance.initialize();
-        }
         return HundredWarCardTypeDefined._instance;
-    }
-    private initialize()
-    {
-        this.dataList = DefinedManager.GetData(HundredWarCardTypeDefined.hundredWarCardTypeConfig) as Array<HundredWarCardTypeDefinition>;
     }
     /**
      * 根据类型获得赔率
     */
     public getOddsByType(type: number): number
     {
-        if (this.dataList != null)
+        if (table.HundredWarCardType)
         {
-            for (let i: number = 0; i < this.dataList.length; i++)
+            for (let i: number = 0; i < table.HundredWarCardType.length; i++)
             {
-                if (this.dataList[i].type == type)
+                let def = table.HundredWarCardType[i];
+                if (def.Type == type)
                 {
-                    return this.dataList[i].odds;
+                    return def[i].Odds;
                 }
             }
         }
         return null;
     }
-}
-/**
-* 百人大战牌型赔率定义
-*/
-class HundredWarCardTypeDefinition implements IBaseDefintion
-{
-    /**
-     * ID
-    */
-    public Id: number;
-    /**
-     * 类型
-    */
-    public type: number;
-    /**
-     * 赔率
-    */
-    public odds: number;
-    /**
-     * 爆奖池赔率
-    */
-    public poolOdds: number;
 }

@@ -32,10 +32,10 @@ class HundredWarBankerListPanel extends BasePanel
         super.init(appendData);
         HundredWarManager.panelHandler.reqHundredWarBankerList();
         this.refreshGold();
-        if (InfoUtil.checkAvailable(HundredWarManager.roomInfo) && HundredWarManager.roomInfo.definition.bankerRound)
+        if (InfoUtil.checkAvailable(HundredWarManager.roomInfo) && HundredWarManager.roomInfo.definition.BankerRound)
         {
             this.tipsLabel1.visible = true;
-            this.tipsLabel1.text = "每次最多坐庄" + HundredWarManager.roomInfo.definition.bankerRound + "轮比赛！";
+            this.tipsLabel1.text = "每次最多坐庄" + HundredWarManager.roomInfo.definition.BankerRound + "轮比赛！";
         }
         else
         {
@@ -92,18 +92,18 @@ class HundredWarBankerListPanel extends BasePanel
             this.bankBtn.enabled = true;
             if (InfoUtil.checkAvailable(HundredWarManager.roomInfo))
             {
-                if (UserManager.userInfo.gold > HundredWarManager.roomInfo.definition.bankerGold)
+                if (UserManager.userInfo.gold > HundredWarManager.roomInfo.definition.BankerGold)
                 {
                     this.bankerGoldHs.maximum = UserManager.userInfo.gold;
                     this.bankerGoldHs.touchChildren = true;
-                    this.bankerGoldHs.minimum = this.bankerGoldHs.value = HundredWarManager.roomInfo.definition.bankerGold;
+                    this.bankerGoldHs.minimum = this.bankerGoldHs.value = HundredWarManager.roomInfo.definition.BankerGold;
                     this.tipsLabel.text = game.MathUtil.formatNum(this.bankerGoldHs.value);
                 }
                 else
                 {
-                    this.bankerGoldHs.maximum = this.bankerGoldHs.value = HundredWarManager.roomInfo.definition.bankerGold;
+                    this.bankerGoldHs.maximum = this.bankerGoldHs.value = HundredWarManager.roomInfo.definition.BankerGold;
                     this.bankerGoldHs.touchChildren = false;
-                    this.tipsLabel.text = "上庄至少需要" + game.MathUtil.formatNum(HundredWarManager.roomInfo.definition.bankerGold);
+                    this.tipsLabel.text = "上庄至少需要" + game.MathUtil.formatNum(HundredWarManager.roomInfo.definition.BankerGold);
                 }
             }
         }
@@ -114,13 +114,13 @@ class HundredWarBankerListPanel extends BasePanel
     {
         if (InfoUtil.checkAvailable(HundredWarManager.roomInfo))
         {
-            if (UserManager.userInfo.gold > HundredWarManager.roomInfo.definition.bankerGold)
+            if (UserManager.userInfo.gold > HundredWarManager.roomInfo.definition.BankerGold)
             {
                 this.tipsLabel.text = game.MathUtil.formatNum(this.bankerGoldHs.value);
             }
             else
             {
-                this.bankerGoldHs.value = HundredWarManager.roomInfo.definition.bankerGold;
+                this.bankerGoldHs.value = HundredWarManager.roomInfo.definition.BankerGold;
             }
         }
     }
@@ -138,13 +138,13 @@ class HundredWarBankerListPanel extends BasePanel
             {
                 if (InfoUtil.checkAvailable(HundredWarManager.roomInfo))
                 {
-                    if (UserManager.userInfo.gold > HundredWarManager.roomInfo.definition.bankerGold)
+                    if (UserManager.userInfo.gold > HundredWarManager.roomInfo.definition.BankerGold)
                     {
                         HundredWarManager.panelHandler.reqUpBanker(this.bankerGoldHs.value);
                     }
                     else
                     {
-                        AlertManager.showConfirm("您的金币不足" + game.MathUtil.formatNum(HundredWarManager.roomInfo.definition.bankerGold) + "，无法上庄！", null, () => 
+                        AlertManager.showConfirm("您的金币不足" + game.MathUtil.formatNum(HundredWarManager.roomInfo.definition.BankerGold) + "，无法上庄！", null, () => 
                         {
                             JumpUtil.JumpToShopping(ShopGroupIndex.Gold, UIModuleName.HundredWarBankerListPanel)
                         }, null, "系统提示", null, "确定", "充值", null);

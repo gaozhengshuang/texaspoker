@@ -14,18 +14,18 @@ class HundredWarListInfo extends BaseServerValueInfo implements IHaveDefintionIn
     /**
      * 定义
     */
-    private _definition: HundredWarDefinition;
+    private _definition: table.IHundredWarDefine;
     public set hwId(value: number)
     {
         this._hwId = value;
-        this._definition = HundredWarDefined.GetInstance().getDefinition(value);
+        this._definition = table.HundredWarById[value];
     }
     public get hwId(): number
     {
         return this._hwId;
     }
 
-    public get definition(): HundredWarDefinition
+    public get definition(): table.IHundredWarDefine
     {
         return this._definition;
     }

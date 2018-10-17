@@ -125,7 +125,8 @@ class InitServerHandler
 	private reqGetInsideRoomIdList()
 	{
 		//拉取锦标赛赛事所在房间信息列表
-		MsgTransferSend.sendRoomProto(Command.C2RS_ReqInsideRoomInfoList, {}, this.onGetInsideRoomListInfo, null, this);
+		// MsgTransferSend.sendRoomProto(Command.C2RS_ReqInsideRoomInfoList, {}, this.onGetInsideRoomListInfo, null, this);
+				SocketManager.ImplCall(Command.C2GW_ReqUserRoomInfo, {}, this.onGetInsideRoomListInfo, null, this);
 	}
 	private onGetInsideRoomListInfo(result: game.SpRpcResult)
 	{
