@@ -39,8 +39,11 @@ Gulp.task('publish', function (cb) {
 Gulp.task('copy', function (cb) {
     return gulpSequence('copy-sth', 'copy-js', cb);
 });
+/**
+ * 合并压缩js
+ */
 Gulp.task('concat', function (cb) {
-    return gulpSequence('libs-js', 'third-js', 'uglify-js', 'main-js', 'del-js', cb);
+    return gulpSequence('uglify-js', 'main-js', 'del-js', cb);
 });
 
 Gulp.task('version', function (cb) {
@@ -49,27 +52,11 @@ Gulp.task('version', function (cb) {
         'version-resource2',
         'version-resource3',
 
-        'version-texpack1',
-        'version-texpack2',
-        'version-texpack3',
-
-        'version-bones1',
-        'bones-rev',
-        'version-bones2',
-        'version-bones3',
-
-        'version-css1',
-        'version-css2',
-        'version-css3',
-        'version-css4',
-        'version-css5',
-        'version-css6',
+        'version-sheet1',
+        'version-sheet2',
 
         'version-js1',
         'version-js2',
-
-        'version-sth1',
-        'version-sth2',
 
         'del-resource',
         'rename-resource',
@@ -82,8 +69,7 @@ Gulp.task('version-resource1', function () {
     return Gulp.src([
         out_path + 'resource/**/*',
         '!' + out_path + 'resource/default*.thm.json',
-        '!' + out_path + 'resource/others/**/*',
-        '!' + out_path + 'resource/assets/texpack/**/*',
+        '!' + out_path + 'resource/images/**/*',
     ]).pipe(GulpRev())
         .pipe(Gulp.dest(out_path + 'resource-rev'))
         .pipe(GulpRev.manifest({
@@ -100,6 +86,21 @@ Gulp.task('version-resource3', function () {
     return Gulp.src([out_path + 'rev/resource/rev-manifest-js.json', out_path + 'index.html'])
         .pipe(revCollector())
         .pipe(Gulp.dest(out_path));
+});
+
+//图集
+Gulp.task('version-sheet1', function () {
+    return Gulp.src([out_path + 'resource/assets/sheet/**/*']).pipe(GulpRev())
+        .pipe(Gulp.dest(out_path + 'resource-rev/assets/sheet/'))
+        .pipe(GulpRev.manifest({
+            path: 'rev-manifest-js.json'
+        }))
+        .pipe(Gulp.dest(out_path + 'rev/resource/assets/sheet'));
+});
+Gulp.task('version-sheet2', function () {
+    return Gulp.src([out_path + 'rev/resource/assets/sheet/rev-manifest-js.json', out_path + 'resource-rev/assets/sheet/**/*.json'])
+        .pipe(revCollector())
+        .pipe(Gulp.dest(out_path + 'resource-rev/assets/sheet/'));
 });
 
 //代码文件
@@ -122,7 +123,8 @@ Gulp.task('del-resource', function (cb) {
         out_path + 'resource',
         out_path + 'js',
         out_path + 'rev',
-        out_path + 'manifest*.json'
+        out_path + 'manifest*.json',
+        out_path + 'resource-rev/images'
     ].concat(sthList));
 });
 Gulp.task('rename-resource', function (cb) {
@@ -144,18 +146,6 @@ Gulp.task('copy-js', function () {
 //合并js
 Gulp.task('libs-js', function (cb) {
     return Gulp.src([
-        // out_path + 'js/egret*.js',
-        // out_path + 'js/egret.web*.js',
-        // out_path + 'js/eui*.js',
-        // out_path + 'js/assetsmanager*.js',
-        // out_path + 'js/tween*.js',
-        // out_path + 'js/game*.js',
-        // out_path + 'js/socket*.js',
-        // out_path + 'js/dragonBones*.js',
-        // out_path + 'js/promise*.js',
-        // out_path + 'js/physics*.js',
-        // out_path + 'js/particle*.js',
-        // out_path + 'js/puremvc*.js'
         out_path + 'js/egret.min*.js',
         out_path + 'js/egret.web.min*.js',
         out_path + 'js/eui.min*.js',
@@ -165,9 +155,8 @@ Gulp.task('libs-js', function (cb) {
         out_path + 'js/socket.min*.js',
         out_path + 'js/dragonBones.min*.js',
         out_path + 'js/promise.min*.js',
-        out_path + 'js/physics.min*.js',
+        // out_path + 'js/physics.min*.js',
         out_path + 'js/particle.min*.js',
-        out_path + 'js/puremvc.min*.js'
     ]).pipe(GulpConcat('libs.min.js')).pipe(Gulp.dest(out_path + 'js/')); //.pipe(GulpUglify())
 });
 Gulp.task('third-js', function (cb) {
@@ -183,20 +172,26 @@ Gulp.task('uglify-js', function (cb) {
 });
 Gulp.task('main-js', function (cb) {
     return Gulp.src([
+        out_path + 'js/egret.min*.js',
+        out_path + 'js/egret.web.min*.js',
+        out_path + 'js/eui.min*.js',
+        out_path + 'js/assetsmanager.min*.js',
+        out_path + 'js/tween.min*.js',
+        out_path + 'js/game.min*.js',
+        out_path + 'js/socket.min*.js',
+        out_path + 'js/dragonBones.min*.js',
+        out_path + 'js/promise.min*.js',
         out_path + 'js/protobuf-library.min*.js',
         out_path + 'js/protobuf-bundles.min*.js',
+        out_path + 'js/thirdlib.min*.js',
         out_path + 'js/default.thm*.js',
         out_path + 'js/main.min*.js',
     ]).pipe(GulpConcat('main.min.js')).pipe(Gulp.dest(out_path + 'js/'));;
 });
 Gulp.task('del-js', function (cb) {
     return del([
-        out_path + 'libs',
         out_path + 'js/**/*.js',
         '!' + out_path + 'js/main.min.js',
-        '!' + out_path + 'js/libs.min.js',
-        // '!' + out_path + 'js/default.thm*.js',
-        '!' + out_path + 'js/third.min.js',
     ]);
 });
 

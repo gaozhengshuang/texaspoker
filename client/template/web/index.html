@@ -51,12 +51,8 @@
          data-show-fps-style="x:0,y:0,size:12,textColor:0xffffff,bgAlpha:0.2">
     </div>
 <script>
-//以下为自动修改，请勿修改
-//----auto-web_config-start----
-window.web_config_scripts = ['libs/modules.min.js','libs/bundle.min.js','libs/main.min.js'];
-window.web_config_defaultResJson = 'resource/default.res.json';
-window.web_config_defaultThmJson = 'resource/default.thm.json';
-//----auto-web_config-end----
+//资源文件外部声明用于版本控制
+var resJsonUrl = "default.res.json";
 //
 (function() {
     //web_config_subPath是index.php传过来的，没有为直接访问,读取相对路径
@@ -97,8 +93,9 @@ window.web_config_defaultThmJson = 'resource/default.thm.json';
         }, false);
         document.body.appendChild(s);
     };
-    //
-   if(isWeiXin())
+    //脚本合起来
+    window.web_config_scripts = ['js/main.min.js'];
+    if(isWeiXin())
     {
         window.web_config_scripts.push('http://res.wx.qq.com/open/js/jweixin-1.2.0.js');
     }
