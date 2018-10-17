@@ -192,11 +192,11 @@ class Command
     /**
      * 拉取成就列表
      */
-    public static readonly Achievement_GetList_3090 = "c3090";
+    public static readonly C2GW_ReqAchieveInfo = "msg.C2GW_ReqAchieveInfo";
     /**
      * 领取成就奖励
      */
-    public static readonly Achievement_GetPrize_3088 = "c3088";
+    public static readonly C2GW_ReqTakeAchieveAward = "msg.C2GW_ReqTakeAchieveAward";
 
     //--------------------------------------------------------------
     // Activity

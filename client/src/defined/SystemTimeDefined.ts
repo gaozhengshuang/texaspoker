@@ -1,9 +1,8 @@
 /**
  * 活动时间定义
 */
-class SystemTimeDefined extends BaseDefined<SystemTimeDefinition>
+class SystemTimeDefined
 {
-    private static readonly systemTimeConfig: string = "systemTime";
     private static _instance: SystemTimeDefined;
     public static GetInstance(): SystemTimeDefined
     {
@@ -11,25 +10,18 @@ class SystemTimeDefined extends BaseDefined<SystemTimeDefinition>
         {
             SystemTimeDefined._instance = new SystemTimeDefined();
         }
-        if (DefinedManager.IsParsed(SystemTimeDefined.systemTimeConfig) == false)
-        {
-            SystemTimeDefined._instance.initialize();
-        }
+     
         return SystemTimeDefined._instance;
-    }
-    private initialize()
-    {
-        this.dataList = DefinedManager.GetData(SystemTimeDefined.systemTimeConfig) as Array<SystemTimeDefinition>;
     }
     /**
      * 根据类型获得子类型列表
      */
-    public getSubListById(timeId: number): Array<SystemTimeDefinition>
+    public getSubListById(timeId: number): Array<table.ISystemTimeDefine>
     {
-        let result: Array<SystemTimeDefinition> = new Array<SystemTimeDefinition>();
-        for (let def of this.dataList)
+        let result: Array<table.ISystemTimeDefine> = new Array<table.ISystemTimeDefine>();
+        for (let def of table.SystemTime)
         {
-            if (def.timeId == timeId)
+            if (def.TimeId == timeId)
             {
                 result.push(def);
             }
@@ -39,13 +31,13 @@ class SystemTimeDefined extends BaseDefined<SystemTimeDefinition>
     /**
      * 获取系统时间类型
      */
-    public getSystemType(def: SystemTimeDefinition): SystemTimeType
+    public getSystemType(def: table.ISystemTimeDefine): SystemTimeType
     {
-        if (def.start[6] != -1)
+        if (def.Start[6] != -1)
         {
             return SystemTimeType.Week;
         }
-        else if (def.start[0] == 0 && def.start[1] == 0 && def.start[2] == 0 && def.end[0] == 0 && def.end[1] == 0 && def.end[2] == 0)
+        else if (def.Start[0] == 0 && def.Start[1] == 0 && def.Start[2] == 0 && def.End[0] == 0 && def.End[1] == 0 && def.End[2] == 0)
         {
             return SystemTimeType.EveryDay;
         }
@@ -55,30 +47,4 @@ class SystemTimeDefined extends BaseDefined<SystemTimeDefinition>
         }
 
     }
-}
-/**
- * 活动时间定义
-*/
-class SystemTimeDefinition implements IBaseDefintion
-{
-    /**
-     * id
-     */
-    public Id: number;
-    /**
-     * 类型
-     */
-    public timeId: number;
-    /**
-     * 子类型id
-    */
-    public subId: number;
-    /**
-     * 开始时间
-     */
-    public start: Array<number>;
-    /**
-     * 结束时间
-     */
-    public end: Array<number>;
 }

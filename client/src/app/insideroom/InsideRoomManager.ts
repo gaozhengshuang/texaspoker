@@ -73,7 +73,7 @@ class InsideRoomManager
     {
         InsideRoomManager.list.length = 0;
         InsideRoomManager.lastTId = undefined;
-        let data: msg.C2RS_RetInsideRoomInfoList = result.data;
+        let data: msg.RS2C_RetInsideRoomInfoList = result.data;
         if (data)
         {
             // InsideRoomManager.lastId = game.longToNumber(data.roomid);
@@ -86,7 +86,7 @@ class InsideRoomManager
 
             // InsideRoomManager.list.push(info);
 
-            InsideRoomManager.lastId = data.lastid;
+            InsideRoomManager.lastId = game.longToNumber(data.lastid);
             if (data.roomlist)
             {
                 for (let roomInfo of data.roomlist)

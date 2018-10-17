@@ -139,7 +139,7 @@ class ChampionshipPanel extends BasePanel
 			this.matchTab.init(0);
 		}
 		this.hiddenSelfMatchTab();
-		ChampionshipManager.reqGetMTTListInfo();
+		// ChampionshipManager.reqGetMTTListInfo();
 	}
 	protected onEnable(event: eui.UIEvent): void
 	{
@@ -377,7 +377,7 @@ class ChampionshipPanel extends BasePanel
 			this.setSitAndPlayListInfo();
 		} else if (index == 2)
 		{
-			ChampionshipManager.reqJoinedMTTList();
+			// ChampionshipManager.reqJoinedMTTList();
 			this.selfMatchTab.init(0);
 		} else if (index == 3)
 		{

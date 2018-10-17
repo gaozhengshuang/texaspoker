@@ -30,7 +30,7 @@ class PathName
 	/**
 	 * 表情目录
 	*/
-	// public static readonly EmojiDirectory: string = PathName.AssetsDirectory + "emoji/";
+	public static readonly EmojiDirectory: string = PathName.AssetsDirectory + "emoji/";
 	/**
 	 * 语言目录
 	 */
