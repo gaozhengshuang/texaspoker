@@ -137,6 +137,7 @@ func (tf *TexasFightRoom) Init() string {
 	tf.cards = cards
 
 	//
+	log.Info("[百人大战] 百人大战初始化成功 Id[%d] 子类型[%d] Tid[%d]", tf.Id(), tf.SubKind(), tf.Tid())
 	return ""
 }
 
