@@ -145,7 +145,7 @@ func on_RS2GW_UserLeaveRoom(session network.IBaseNetSession, message interface{}
 		log.Error("RS2GW_UserLeaveRoom 找不到玩家[%d]", userid)
 		return
 	}
-	user.OnLeaveRoom(tmsg.Bin)
+	user.OnLeaveRoom()
 }
 
 // 进入房间

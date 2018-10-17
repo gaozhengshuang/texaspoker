@@ -202,10 +202,10 @@ func (u *GateUser) OnCreateRoom(errmsg, agentname string, roomid int64) {
 }
 
 // 离开房间返回
-func (u *GateUser) OnLeaveRoom(bin *msg.Serialize) {
+func (u *GateUser) OnLeaveRoom() {
 	log.Info("[房间] 玩家[%s %d] 离开房间[%d] 回传房间个人数据", u.Name(), u.Id(), u.RoomId())
 	u.roomdata.Reset(u)
-	u.bin = pb.Clone(bin).(*msg.Serialize)		// 加载最新玩家数据
+	//u.bin = pb.Clone(bin).(*msg.Serialize)		// 加载最新玩家数据
 	u.OnDBLoad("离开房间")
 	if u.IsOnline() {
 		u.SendMsg(&msg.GW2C_RetLeaveRoom{})
