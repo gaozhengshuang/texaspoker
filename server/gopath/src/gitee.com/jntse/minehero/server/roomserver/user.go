@@ -148,6 +148,10 @@ func (u *RoomUser) RoomId() int64 {
 	return u.roomid
 }
 
+func (u *RoomUser) SetRoomId(uid int64) {
+	u.roomid = uid
+}
+
 func (u *RoomUser) OpenId() string {
 	userbase := u.UserBase()
 	return userbase.GetWechat().GetOpenid()
@@ -309,6 +313,21 @@ func (u *RoomUser) GetGold() int32 {
 	//return u.Entity().GetGold()
 	gold := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "gold").Val())
 	return gold
+}
+
+func RemoveUserGold(gid int, uid int64, gold int32, reason string) bool {
+	goldsrc := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", uid), "gold").Val())
+	if goldsrc >= gold {
+		newgold := goldsrc - gold
+		Redis().HSet(fmt.Sprintf("charbase_%d", uid), "gold", newgold)
+		send := &msg.RS2C_RolePushPropertyChange{}
+		send.Gold = pb.Int32(newgold)
+		RoomSvr().SendClientMsg(gid, uid, send)
+		log.Info("玩家[%d] 扣除金币[%d] 库存[%d] 原因[%s]", uid, gold, newgold, reason)
+		return true
+	}
+	log.Info("玩家[%d] 扣除金币失败[%d] 原因[%s]", uid, gold, reason)
+	return false
 }
 
 func (u *RoomUser) RemoveGold(gold int32, reason string, syn bool) bool {
