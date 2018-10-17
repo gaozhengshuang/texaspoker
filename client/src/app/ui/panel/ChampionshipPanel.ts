@@ -311,7 +311,7 @@ class ChampionshipPanel extends BasePanel
 	/**
 	 * 更新赛事人数
 	*/
-	private refreshMatchNumInfo(list: Array<any>, matchList: eui.List)
+	private refreshMatchNumInfo(list: Array<msg.MMTJoinNum>, matchList: eui.List)
 	{
 		if (list)
 		{

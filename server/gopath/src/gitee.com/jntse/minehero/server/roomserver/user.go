@@ -196,6 +196,7 @@ func (u *RoomUser) Level() int32 {
 
 func (u *RoomUser) AddLevel(num int32) {
 	u.Entity().Level = pb.Int32(u.Level() + num)
+	u.OnAchieveProcessChanged(int32(AchieveGroup_Level))
 }
 
 func (u *RoomUser) Exp() int32 {
@@ -364,6 +365,7 @@ func (u *RoomUser) AddGold(gold int32, reason string, syn bool) {
 		u.SendPropertyChange()
 	}
 	u.SyncGoldRankRedis()
+	u.OnAchieveProcessChanged(int32(AchieveGroup_Gold))
 	log.Info("玩家[%d] 添加金币[%d] 库存[%d] 原因[%s]", u.Id(), gold, newgold, reason)
 }
 

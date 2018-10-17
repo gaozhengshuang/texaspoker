@@ -11,14 +11,14 @@ class AchievementInfo implements IHaveDefintionInfo
     public set id(value: number)
     {
         this._id = value;
-        this._definition = AchieveDefined.GetInstance().getDefinition(value);
+        this._definition = table.AchieveById[value];
     }
-    private _definition: AchieveDefintion
-    public get definition(): AchieveDefintion
+    private _definition: table.IAchieveDefine
+    public get definition(): table.IAchieveDefine
     {
         return this._definition;
     }
-    public set definition(value: AchieveDefintion)
+    public set definition(value: table.IAchieveDefine)
     {
         this._definition = value;
     }

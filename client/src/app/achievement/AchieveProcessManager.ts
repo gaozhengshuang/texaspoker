@@ -270,7 +270,7 @@ class AchieveProcessManager
      */
     public static onPlayHWField(processInfo: BaseAchieveProcessInfo, type: HundredWarType)
     {
-        if (InfoUtil.checkAvailable(HundredWarManager.roomInfo) && HundredWarManager.roomInfo.definition.type == type && HundredWarManager.getThisBetGold() != 0)
+        if (InfoUtil.checkAvailable(HundredWarManager.roomInfo) && HundredWarManager.roomInfo.definition.Type == type && HundredWarManager.getThisBetGold() != 0)
         {
             processInfo.process++;
         }

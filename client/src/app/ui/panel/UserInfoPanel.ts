@@ -195,10 +195,10 @@ class UserInfoPanel extends BasePanel
 				}
 				break;
 			case UserState.InHundredWar:
-				let hundredWarDef: HundredWarDefinition = HundredWarDefined.GetInstance().getDefinition(info.stateConfId);
+				let hundredWarDef: table.IHundredWarDefine =  table.HundredWarById[info.stateConfId];
 				if (hundredWarDef)
 				{
-					this.stateLabel.text = game.StringUtil.format("百人大战：{0}中", hundredWarDef.name);
+					this.stateLabel.text = game.StringUtil.format("百人大战：{0}中", hundredWarDef.Name);
 				}
 				break;
 		}

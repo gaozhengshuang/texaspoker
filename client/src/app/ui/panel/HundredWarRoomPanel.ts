@@ -396,14 +396,14 @@ class HundredWarRoomPanel extends BasePanel
     */
     private setBetInfo()
     {
-        let hwDef: HundredWarDefinition = HundredWarManager.roomInfo.definition;
-        if (hwDef && hwDef.bet)
+        let hwDef: table.IHundredWarDefine = HundredWarManager.roomInfo.definition;
+        if (hwDef && hwDef.Bet)
         {
             let hwBetInfo: HWBetInfo;
-            for (let i: number = 0; i < hwDef.bet.length; i++)
+            for (let i: number = 0; i < hwDef.Bet.length; i++)
             {
                 hwBetInfo = new HWBetInfo();
-                hwBetInfo.bet = hwDef.bet[i];
+                hwBetInfo.bet = hwDef.Bet[i];
                 hwBetInfo.id = i;
                 this._betListInfo[i] = hwBetInfo;
             }

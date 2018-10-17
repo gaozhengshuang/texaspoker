@@ -1972,6 +1972,474 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a C2GW_ReqAchieveInfo. */
+    interface IC2GW_ReqAchieveInfo {
+
+        /** C2GW_ReqAchieveInfo roleid */
+        roleid?: (number|Long|null);
+    }
+
+    /** Represents a C2GW_ReqAchieveInfo. */
+    class C2GW_ReqAchieveInfo implements IC2GW_ReqAchieveInfo {
+
+        /**
+         * Constructs a new C2GW_ReqAchieveInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqAchieveInfo);
+
+        /** C2GW_ReqAchieveInfo roleid. */
+        public roleid: (number|Long);
+
+        /**
+         * Creates a new C2GW_ReqAchieveInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqAchieveInfo instance
+         */
+        public static create(properties?: msg.IC2GW_ReqAchieveInfo): msg.C2GW_ReqAchieveInfo;
+
+        /**
+         * Encodes the specified C2GW_ReqAchieveInfo message. Does not implicitly {@link msg.C2GW_ReqAchieveInfo.verify|verify} messages.
+         * @param message C2GW_ReqAchieveInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqAchieveInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqAchieveInfo message, length delimited. Does not implicitly {@link msg.C2GW_ReqAchieveInfo.verify|verify} messages.
+         * @param message C2GW_ReqAchieveInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqAchieveInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqAchieveInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqAchieveInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqAchieveInfo;
+
+        /**
+         * Decodes a C2GW_ReqAchieveInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqAchieveInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqAchieveInfo;
+
+        /**
+         * Verifies a C2GW_ReqAchieveInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqAchieveInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqAchieveInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqAchieveInfo;
+
+        /**
+         * Creates a plain object from a C2GW_ReqAchieveInfo message. Also converts values to other types if specified.
+         * @param message C2GW_ReqAchieveInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqAchieveInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqAchieveInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an AchieveList. */
+    interface IAchieveList {
+
+        /** AchieveList id */
+        id?: (number|null);
+
+        /** AchieveList istake */
+        istake?: (number|null);
+    }
+
+    /** Represents an AchieveList. */
+    class AchieveList implements IAchieveList {
+
+        /**
+         * Constructs a new AchieveList.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IAchieveList);
+
+        /** AchieveList id. */
+        public id: number;
+
+        /** AchieveList istake. */
+        public istake: number;
+
+        /**
+         * Creates a new AchieveList instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns AchieveList instance
+         */
+        public static create(properties?: msg.IAchieveList): msg.AchieveList;
+
+        /**
+         * Encodes the specified AchieveList message. Does not implicitly {@link msg.AchieveList.verify|verify} messages.
+         * @param message AchieveList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IAchieveList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified AchieveList message, length delimited. Does not implicitly {@link msg.AchieveList.verify|verify} messages.
+         * @param message AchieveList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IAchieveList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes an AchieveList message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns AchieveList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.AchieveList;
+
+        /**
+         * Decodes an AchieveList message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns AchieveList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.AchieveList;
+
+        /**
+         * Verifies an AchieveList message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an AchieveList message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns AchieveList
+         */
+        public static fromObject(object: { [k: string]: any }): msg.AchieveList;
+
+        /**
+         * Creates a plain object from an AchieveList message. Also converts values to other types if specified.
+         * @param message AchieveList
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.AchieveList, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this AchieveList to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an AchieveGroup. */
+    interface IAchieveGroup {
+
+        /** AchieveGroup groupid */
+        groupid?: (number|null);
+
+        /** AchieveGroup process */
+        process?: (number|null);
+    }
+
+    /** Represents an AchieveGroup. */
+    class AchieveGroup implements IAchieveGroup {
+
+        /**
+         * Constructs a new AchieveGroup.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IAchieveGroup);
+
+        /** AchieveGroup groupid. */
+        public groupid: number;
+
+        /** AchieveGroup process. */
+        public process: number;
+
+        /**
+         * Creates a new AchieveGroup instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns AchieveGroup instance
+         */
+        public static create(properties?: msg.IAchieveGroup): msg.AchieveGroup;
+
+        /**
+         * Encodes the specified AchieveGroup message. Does not implicitly {@link msg.AchieveGroup.verify|verify} messages.
+         * @param message AchieveGroup message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IAchieveGroup, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified AchieveGroup message, length delimited. Does not implicitly {@link msg.AchieveGroup.verify|verify} messages.
+         * @param message AchieveGroup message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IAchieveGroup, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes an AchieveGroup message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns AchieveGroup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.AchieveGroup;
+
+        /**
+         * Decodes an AchieveGroup message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns AchieveGroup
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.AchieveGroup;
+
+        /**
+         * Verifies an AchieveGroup message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an AchieveGroup message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns AchieveGroup
+         */
+        public static fromObject(object: { [k: string]: any }): msg.AchieveGroup;
+
+        /**
+         * Creates a plain object from an AchieveGroup message. Also converts values to other types if specified.
+         * @param message AchieveGroup
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.AchieveGroup, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this AchieveGroup to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetAchieveInfo. */
+    interface IGW2C_RetAchieveInfo {
+
+        /** GW2C_RetAchieveInfo achievelist */
+        achievelist?: (msg.IAchieveList[]|null);
+
+        /** GW2C_RetAchieveInfo grouplist */
+        grouplist?: (msg.IAchieveGroup[]|null);
+    }
+
+    /** Represents a GW2C_RetAchieveInfo. */
+    class GW2C_RetAchieveInfo implements IGW2C_RetAchieveInfo {
+
+        /**
+         * Constructs a new GW2C_RetAchieveInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetAchieveInfo);
+
+        /** GW2C_RetAchieveInfo achievelist. */
+        public achievelist: msg.IAchieveList[];
+
+        /** GW2C_RetAchieveInfo grouplist. */
+        public grouplist: msg.IAchieveGroup[];
+
+        /**
+         * Creates a new GW2C_RetAchieveInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetAchieveInfo instance
+         */
+        public static create(properties?: msg.IGW2C_RetAchieveInfo): msg.GW2C_RetAchieveInfo;
+
+        /**
+         * Encodes the specified GW2C_RetAchieveInfo message. Does not implicitly {@link msg.GW2C_RetAchieveInfo.verify|verify} messages.
+         * @param message GW2C_RetAchieveInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetAchieveInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetAchieveInfo message, length delimited. Does not implicitly {@link msg.GW2C_RetAchieveInfo.verify|verify} messages.
+         * @param message GW2C_RetAchieveInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetAchieveInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetAchieveInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetAchieveInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetAchieveInfo;
+
+        /**
+         * Decodes a GW2C_RetAchieveInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetAchieveInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetAchieveInfo;
+
+        /**
+         * Verifies a GW2C_RetAchieveInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetAchieveInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetAchieveInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetAchieveInfo;
+
+        /**
+         * Creates a plain object from a GW2C_RetAchieveInfo message. Also converts values to other types if specified.
+         * @param message GW2C_RetAchieveInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetAchieveInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetAchieveInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqTakeAchieveAward. */
+    interface IC2GW_ReqTakeAchieveAward {
+
+        /** C2GW_ReqTakeAchieveAward id */
+        id?: (number|null);
+    }
+
+    /** Represents a C2GW_ReqTakeAchieveAward. */
+    class C2GW_ReqTakeAchieveAward implements IC2GW_ReqTakeAchieveAward {
+
+        /**
+         * Constructs a new C2GW_ReqTakeAchieveAward.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqTakeAchieveAward);
+
+        /** C2GW_ReqTakeAchieveAward id. */
+        public id: number;
+
+        /**
+         * Creates a new C2GW_ReqTakeAchieveAward instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqTakeAchieveAward instance
+         */
+        public static create(properties?: msg.IC2GW_ReqTakeAchieveAward): msg.C2GW_ReqTakeAchieveAward;
+
+        /**
+         * Encodes the specified C2GW_ReqTakeAchieveAward message. Does not implicitly {@link msg.C2GW_ReqTakeAchieveAward.verify|verify} messages.
+         * @param message C2GW_ReqTakeAchieveAward message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqTakeAchieveAward, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqTakeAchieveAward message, length delimited. Does not implicitly {@link msg.C2GW_ReqTakeAchieveAward.verify|verify} messages.
+         * @param message C2GW_ReqTakeAchieveAward message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqTakeAchieveAward, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqTakeAchieveAward message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqTakeAchieveAward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqTakeAchieveAward;
+
+        /**
+         * Decodes a C2GW_ReqTakeAchieveAward message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqTakeAchieveAward
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqTakeAchieveAward;
+
+        /**
+         * Verifies a C2GW_ReqTakeAchieveAward message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqTakeAchieveAward message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqTakeAchieveAward
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqTakeAchieveAward;
+
+        /**
+         * Creates a plain object from a C2GW_ReqTakeAchieveAward message. Also converts values to other types if specified.
+         * @param message C2GW_ReqTakeAchieveAward
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqTakeAchieveAward, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqTakeAchieveAward to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of an EntityBase. */
     interface IEntityBase {
 
@@ -4631,6 +5099,3228 @@ declare namespace msg {
 
         /**
          * Converts this AutoResetValues to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2RS_ReqMTTList. */
+    interface IC2RS_ReqMTTList {
+    }
+
+    /** Represents a C2RS_ReqMTTList. */
+    class C2RS_ReqMTTList implements IC2RS_ReqMTTList {
+
+        /**
+         * Constructs a new C2RS_ReqMTTList.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2RS_ReqMTTList);
+
+        /**
+         * Creates a new C2RS_ReqMTTList instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2RS_ReqMTTList instance
+         */
+        public static create(properties?: msg.IC2RS_ReqMTTList): msg.C2RS_ReqMTTList;
+
+        /**
+         * Encodes the specified C2RS_ReqMTTList message. Does not implicitly {@link msg.C2RS_ReqMTTList.verify|verify} messages.
+         * @param message C2RS_ReqMTTList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2RS_ReqMTTList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2RS_ReqMTTList message, length delimited. Does not implicitly {@link msg.C2RS_ReqMTTList.verify|verify} messages.
+         * @param message C2RS_ReqMTTList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2RS_ReqMTTList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2RS_ReqMTTList message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2RS_ReqMTTList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2RS_ReqMTTList;
+
+        /**
+         * Decodes a C2RS_ReqMTTList message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2RS_ReqMTTList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2RS_ReqMTTList;
+
+        /**
+         * Verifies a C2RS_ReqMTTList message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2RS_ReqMTTList message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2RS_ReqMTTList
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2RS_ReqMTTList;
+
+        /**
+         * Creates a plain object from a C2RS_ReqMTTList message. Also converts values to other types if specified.
+         * @param message C2RS_ReqMTTList
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2RS_ReqMTTList, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2RS_ReqMTTList to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a MTTInfo. */
+    interface IMTTInfo {
+
+        /** MTTInfo id */
+        id?: (number|null);
+
+        /** MTTInfo starttime */
+        starttime?: (number|null);
+
+        /** MTTInfo joinway */
+        joinway?: (number|null);
+
+        /** MTTInfo join */
+        join?: (number|null);
+
+        /** MTTInfo recordid */
+        recordid?: (number|null);
+
+        /** MTTInfo endtime */
+        endtime?: (number|null);
+
+        /** MTTInfo outtime */
+        outtime?: (number|null);
+
+        /** MTTInfo leftjoin */
+        leftjoin?: (number|null);
+    }
+
+    /** Represents a MTTInfo. */
+    class MTTInfo implements IMTTInfo {
+
+        /**
+         * Constructs a new MTTInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IMTTInfo);
+
+        /** MTTInfo id. */
+        public id: number;
+
+        /** MTTInfo starttime. */
+        public starttime: number;
+
+        /** MTTInfo joinway. */
+        public joinway: number;
+
+        /** MTTInfo join. */
+        public join: number;
+
+        /** MTTInfo recordid. */
+        public recordid: number;
+
+        /** MTTInfo endtime. */
+        public endtime: number;
+
+        /** MTTInfo outtime. */
+        public outtime: number;
+
+        /** MTTInfo leftjoin. */
+        public leftjoin: number;
+
+        /**
+         * Creates a new MTTInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MTTInfo instance
+         */
+        public static create(properties?: msg.IMTTInfo): msg.MTTInfo;
+
+        /**
+         * Encodes the specified MTTInfo message. Does not implicitly {@link msg.MTTInfo.verify|verify} messages.
+         * @param message MTTInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IMTTInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified MTTInfo message, length delimited. Does not implicitly {@link msg.MTTInfo.verify|verify} messages.
+         * @param message MTTInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IMTTInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a MTTInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MTTInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MTTInfo;
+
+        /**
+         * Decodes a MTTInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MTTInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MTTInfo;
+
+        /**
+         * Verifies a MTTInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MTTInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MTTInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.MTTInfo;
+
+        /**
+         * Creates a plain object from a MTTInfo message. Also converts values to other types if specified.
+         * @param message MTTInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.MTTInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MTTInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RS2C_RetMTTList. */
+    interface IRS2C_RetMTTList {
+
+        /** RS2C_RetMTTList mttlist */
+        mttlist?: (msg.IMTTInfo[]|null);
+    }
+
+    /** Represents a RS2C_RetMTTList. */
+    class RS2C_RetMTTList implements IRS2C_RetMTTList {
+
+        /**
+         * Constructs a new RS2C_RetMTTList.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IRS2C_RetMTTList);
+
+        /** RS2C_RetMTTList mttlist. */
+        public mttlist: msg.IMTTInfo[];
+
+        /**
+         * Creates a new RS2C_RetMTTList instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RS2C_RetMTTList instance
+         */
+        public static create(properties?: msg.IRS2C_RetMTTList): msg.RS2C_RetMTTList;
+
+        /**
+         * Encodes the specified RS2C_RetMTTList message. Does not implicitly {@link msg.RS2C_RetMTTList.verify|verify} messages.
+         * @param message RS2C_RetMTTList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IRS2C_RetMTTList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified RS2C_RetMTTList message, length delimited. Does not implicitly {@link msg.RS2C_RetMTTList.verify|verify} messages.
+         * @param message RS2C_RetMTTList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IRS2C_RetMTTList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a RS2C_RetMTTList message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RS2C_RetMTTList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2C_RetMTTList;
+
+        /**
+         * Decodes a RS2C_RetMTTList message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RS2C_RetMTTList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2C_RetMTTList;
+
+        /**
+         * Verifies a RS2C_RetMTTList message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RS2C_RetMTTList message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RS2C_RetMTTList
+         */
+        public static fromObject(object: { [k: string]: any }): msg.RS2C_RetMTTList;
+
+        /**
+         * Creates a plain object from a RS2C_RetMTTList message. Also converts values to other types if specified.
+         * @param message RS2C_RetMTTList
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.RS2C_RetMTTList, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RS2C_RetMTTList to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2RS_ReqMTTJoin. */
+    interface IC2RS_ReqMTTJoin {
+
+        /** C2RS_ReqMTTJoin recordid */
+        recordid?: (number|null);
+
+        /** C2RS_ReqMTTJoin joinway */
+        joinway?: (number|null);
+
+        /** C2RS_ReqMTTJoin id */
+        id?: (number|null);
+    }
+
+    /** Represents a C2RS_ReqMTTJoin. */
+    class C2RS_ReqMTTJoin implements IC2RS_ReqMTTJoin {
+
+        /**
+         * Constructs a new C2RS_ReqMTTJoin.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2RS_ReqMTTJoin);
+
+        /** C2RS_ReqMTTJoin recordid. */
+        public recordid: number;
+
+        /** C2RS_ReqMTTJoin joinway. */
+        public joinway: number;
+
+        /** C2RS_ReqMTTJoin id. */
+        public id: number;
+
+        /**
+         * Creates a new C2RS_ReqMTTJoin instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2RS_ReqMTTJoin instance
+         */
+        public static create(properties?: msg.IC2RS_ReqMTTJoin): msg.C2RS_ReqMTTJoin;
+
+        /**
+         * Encodes the specified C2RS_ReqMTTJoin message. Does not implicitly {@link msg.C2RS_ReqMTTJoin.verify|verify} messages.
+         * @param message C2RS_ReqMTTJoin message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2RS_ReqMTTJoin, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2RS_ReqMTTJoin message, length delimited. Does not implicitly {@link msg.C2RS_ReqMTTJoin.verify|verify} messages.
+         * @param message C2RS_ReqMTTJoin message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2RS_ReqMTTJoin, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2RS_ReqMTTJoin message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2RS_ReqMTTJoin
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2RS_ReqMTTJoin;
+
+        /**
+         * Decodes a C2RS_ReqMTTJoin message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2RS_ReqMTTJoin
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2RS_ReqMTTJoin;
+
+        /**
+         * Verifies a C2RS_ReqMTTJoin message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2RS_ReqMTTJoin message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2RS_ReqMTTJoin
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2RS_ReqMTTJoin;
+
+        /**
+         * Creates a plain object from a C2RS_ReqMTTJoin message. Also converts values to other types if specified.
+         * @param message C2RS_ReqMTTJoin
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2RS_ReqMTTJoin, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2RS_ReqMTTJoin to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RS2C_RetMTTJoin. */
+    interface IRS2C_RetMTTJoin {
+
+        /** RS2C_RetMTTJoin recordid */
+        recordid?: (number|null);
+
+        /** RS2C_RetMTTJoin errcode */
+        errcode?: (string|null);
+    }
+
+    /** Represents a RS2C_RetMTTJoin. */
+    class RS2C_RetMTTJoin implements IRS2C_RetMTTJoin {
+
+        /**
+         * Constructs a new RS2C_RetMTTJoin.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IRS2C_RetMTTJoin);
+
+        /** RS2C_RetMTTJoin recordid. */
+        public recordid: number;
+
+        /** RS2C_RetMTTJoin errcode. */
+        public errcode: string;
+
+        /**
+         * Creates a new RS2C_RetMTTJoin instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RS2C_RetMTTJoin instance
+         */
+        public static create(properties?: msg.IRS2C_RetMTTJoin): msg.RS2C_RetMTTJoin;
+
+        /**
+         * Encodes the specified RS2C_RetMTTJoin message. Does not implicitly {@link msg.RS2C_RetMTTJoin.verify|verify} messages.
+         * @param message RS2C_RetMTTJoin message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IRS2C_RetMTTJoin, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified RS2C_RetMTTJoin message, length delimited. Does not implicitly {@link msg.RS2C_RetMTTJoin.verify|verify} messages.
+         * @param message RS2C_RetMTTJoin message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IRS2C_RetMTTJoin, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a RS2C_RetMTTJoin message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RS2C_RetMTTJoin
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2C_RetMTTJoin;
+
+        /**
+         * Decodes a RS2C_RetMTTJoin message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RS2C_RetMTTJoin
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2C_RetMTTJoin;
+
+        /**
+         * Verifies a RS2C_RetMTTJoin message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RS2C_RetMTTJoin message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RS2C_RetMTTJoin
+         */
+        public static fromObject(object: { [k: string]: any }): msg.RS2C_RetMTTJoin;
+
+        /**
+         * Creates a plain object from a RS2C_RetMTTJoin message. Also converts values to other types if specified.
+         * @param message RS2C_RetMTTJoin
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.RS2C_RetMTTJoin, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RS2C_RetMTTJoin to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2RS_ReqMTTQuit. */
+    interface IC2RS_ReqMTTQuit {
+
+        /** C2RS_ReqMTTQuit recordid */
+        recordid?: (number|null);
+    }
+
+    /** Represents a C2RS_ReqMTTQuit. */
+    class C2RS_ReqMTTQuit implements IC2RS_ReqMTTQuit {
+
+        /**
+         * Constructs a new C2RS_ReqMTTQuit.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2RS_ReqMTTQuit);
+
+        /** C2RS_ReqMTTQuit recordid. */
+        public recordid: number;
+
+        /**
+         * Creates a new C2RS_ReqMTTQuit instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2RS_ReqMTTQuit instance
+         */
+        public static create(properties?: msg.IC2RS_ReqMTTQuit): msg.C2RS_ReqMTTQuit;
+
+        /**
+         * Encodes the specified C2RS_ReqMTTQuit message. Does not implicitly {@link msg.C2RS_ReqMTTQuit.verify|verify} messages.
+         * @param message C2RS_ReqMTTQuit message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2RS_ReqMTTQuit, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2RS_ReqMTTQuit message, length delimited. Does not implicitly {@link msg.C2RS_ReqMTTQuit.verify|verify} messages.
+         * @param message C2RS_ReqMTTQuit message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2RS_ReqMTTQuit, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2RS_ReqMTTQuit message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2RS_ReqMTTQuit
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2RS_ReqMTTQuit;
+
+        /**
+         * Decodes a C2RS_ReqMTTQuit message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2RS_ReqMTTQuit
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2RS_ReqMTTQuit;
+
+        /**
+         * Verifies a C2RS_ReqMTTQuit message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2RS_ReqMTTQuit message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2RS_ReqMTTQuit
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2RS_ReqMTTQuit;
+
+        /**
+         * Creates a plain object from a C2RS_ReqMTTQuit message. Also converts values to other types if specified.
+         * @param message C2RS_ReqMTTQuit
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2RS_ReqMTTQuit, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2RS_ReqMTTQuit to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2RS_RetMTTQuit. */
+    interface IC2RS_RetMTTQuit {
+
+        /** C2RS_RetMTTQuit errcode */
+        errcode?: (string|null);
+    }
+
+    /** Represents a C2RS_RetMTTQuit. */
+    class C2RS_RetMTTQuit implements IC2RS_RetMTTQuit {
+
+        /**
+         * Constructs a new C2RS_RetMTTQuit.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2RS_RetMTTQuit);
+
+        /** C2RS_RetMTTQuit errcode. */
+        public errcode: string;
+
+        /**
+         * Creates a new C2RS_RetMTTQuit instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2RS_RetMTTQuit instance
+         */
+        public static create(properties?: msg.IC2RS_RetMTTQuit): msg.C2RS_RetMTTQuit;
+
+        /**
+         * Encodes the specified C2RS_RetMTTQuit message. Does not implicitly {@link msg.C2RS_RetMTTQuit.verify|verify} messages.
+         * @param message C2RS_RetMTTQuit message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2RS_RetMTTQuit, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2RS_RetMTTQuit message, length delimited. Does not implicitly {@link msg.C2RS_RetMTTQuit.verify|verify} messages.
+         * @param message C2RS_RetMTTQuit message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2RS_RetMTTQuit, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2RS_RetMTTQuit message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2RS_RetMTTQuit
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2RS_RetMTTQuit;
+
+        /**
+         * Decodes a C2RS_RetMTTQuit message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2RS_RetMTTQuit
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2RS_RetMTTQuit;
+
+        /**
+         * Verifies a C2RS_RetMTTQuit message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2RS_RetMTTQuit message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2RS_RetMTTQuit
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2RS_RetMTTQuit;
+
+        /**
+         * Creates a plain object from a C2RS_RetMTTQuit message. Also converts values to other types if specified.
+         * @param message C2RS_RetMTTQuit
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2RS_RetMTTQuit, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2RS_RetMTTQuit to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2RS_ReqJoinedMTTList. */
+    interface IC2RS_ReqJoinedMTTList {
+    }
+
+    /** Represents a C2RS_ReqJoinedMTTList. */
+    class C2RS_ReqJoinedMTTList implements IC2RS_ReqJoinedMTTList {
+
+        /**
+         * Constructs a new C2RS_ReqJoinedMTTList.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2RS_ReqJoinedMTTList);
+
+        /**
+         * Creates a new C2RS_ReqJoinedMTTList instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2RS_ReqJoinedMTTList instance
+         */
+        public static create(properties?: msg.IC2RS_ReqJoinedMTTList): msg.C2RS_ReqJoinedMTTList;
+
+        /**
+         * Encodes the specified C2RS_ReqJoinedMTTList message. Does not implicitly {@link msg.C2RS_ReqJoinedMTTList.verify|verify} messages.
+         * @param message C2RS_ReqJoinedMTTList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2RS_ReqJoinedMTTList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2RS_ReqJoinedMTTList message, length delimited. Does not implicitly {@link msg.C2RS_ReqJoinedMTTList.verify|verify} messages.
+         * @param message C2RS_ReqJoinedMTTList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2RS_ReqJoinedMTTList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2RS_ReqJoinedMTTList message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2RS_ReqJoinedMTTList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2RS_ReqJoinedMTTList;
+
+        /**
+         * Decodes a C2RS_ReqJoinedMTTList message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2RS_ReqJoinedMTTList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2RS_ReqJoinedMTTList;
+
+        /**
+         * Verifies a C2RS_ReqJoinedMTTList message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2RS_ReqJoinedMTTList message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2RS_ReqJoinedMTTList
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2RS_ReqJoinedMTTList;
+
+        /**
+         * Creates a plain object from a C2RS_ReqJoinedMTTList message. Also converts values to other types if specified.
+         * @param message C2RS_ReqJoinedMTTList
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2RS_ReqJoinedMTTList, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2RS_ReqJoinedMTTList to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a JoinedMTTInfo. */
+    interface IJoinedMTTInfo {
+
+        /** JoinedMTTInfo id */
+        id?: (number|null);
+
+        /** JoinedMTTInfo starttime */
+        starttime?: (number|null);
+
+        /** JoinedMTTInfo joinway */
+        joinway?: (number|null);
+
+        /** JoinedMTTInfo join */
+        join?: (number|null);
+
+        /** JoinedMTTInfo recordid */
+        recordid?: (number|null);
+
+        /** JoinedMTTInfo endtime */
+        endtime?: (number|null);
+
+        /** JoinedMTTInfo outtime */
+        outtime?: (number|null);
+
+        /** JoinedMTTInfo rank */
+        rank?: (number|null);
+    }
+
+    /** Represents a JoinedMTTInfo. */
+    class JoinedMTTInfo implements IJoinedMTTInfo {
+
+        /**
+         * Constructs a new JoinedMTTInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IJoinedMTTInfo);
+
+        /** JoinedMTTInfo id. */
+        public id: number;
+
+        /** JoinedMTTInfo starttime. */
+        public starttime: number;
+
+        /** JoinedMTTInfo joinway. */
+        public joinway: number;
+
+        /** JoinedMTTInfo join. */
+        public join: number;
+
+        /** JoinedMTTInfo recordid. */
+        public recordid: number;
+
+        /** JoinedMTTInfo endtime. */
+        public endtime: number;
+
+        /** JoinedMTTInfo outtime. */
+        public outtime: number;
+
+        /** JoinedMTTInfo rank. */
+        public rank: number;
+
+        /**
+         * Creates a new JoinedMTTInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns JoinedMTTInfo instance
+         */
+        public static create(properties?: msg.IJoinedMTTInfo): msg.JoinedMTTInfo;
+
+        /**
+         * Encodes the specified JoinedMTTInfo message. Does not implicitly {@link msg.JoinedMTTInfo.verify|verify} messages.
+         * @param message JoinedMTTInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IJoinedMTTInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified JoinedMTTInfo message, length delimited. Does not implicitly {@link msg.JoinedMTTInfo.verify|verify} messages.
+         * @param message JoinedMTTInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IJoinedMTTInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a JoinedMTTInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns JoinedMTTInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.JoinedMTTInfo;
+
+        /**
+         * Decodes a JoinedMTTInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns JoinedMTTInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.JoinedMTTInfo;
+
+        /**
+         * Verifies a JoinedMTTInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a JoinedMTTInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns JoinedMTTInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.JoinedMTTInfo;
+
+        /**
+         * Creates a plain object from a JoinedMTTInfo message. Also converts values to other types if specified.
+         * @param message JoinedMTTInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.JoinedMTTInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this JoinedMTTInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RS2C_RetJoinedMTTList. */
+    interface IRS2C_RetJoinedMTTList {
+
+        /** RS2C_RetJoinedMTTList mttlist */
+        mttlist?: (msg.IJoinedMTTInfo[]|null);
+    }
+
+    /** Represents a RS2C_RetJoinedMTTList. */
+    class RS2C_RetJoinedMTTList implements IRS2C_RetJoinedMTTList {
+
+        /**
+         * Constructs a new RS2C_RetJoinedMTTList.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IRS2C_RetJoinedMTTList);
+
+        /** RS2C_RetJoinedMTTList mttlist. */
+        public mttlist: msg.IJoinedMTTInfo[];
+
+        /**
+         * Creates a new RS2C_RetJoinedMTTList instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RS2C_RetJoinedMTTList instance
+         */
+        public static create(properties?: msg.IRS2C_RetJoinedMTTList): msg.RS2C_RetJoinedMTTList;
+
+        /**
+         * Encodes the specified RS2C_RetJoinedMTTList message. Does not implicitly {@link msg.RS2C_RetJoinedMTTList.verify|verify} messages.
+         * @param message RS2C_RetJoinedMTTList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IRS2C_RetJoinedMTTList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified RS2C_RetJoinedMTTList message, length delimited. Does not implicitly {@link msg.RS2C_RetJoinedMTTList.verify|verify} messages.
+         * @param message RS2C_RetJoinedMTTList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IRS2C_RetJoinedMTTList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a RS2C_RetJoinedMTTList message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RS2C_RetJoinedMTTList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2C_RetJoinedMTTList;
+
+        /**
+         * Decodes a RS2C_RetJoinedMTTList message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RS2C_RetJoinedMTTList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2C_RetJoinedMTTList;
+
+        /**
+         * Verifies a RS2C_RetJoinedMTTList message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RS2C_RetJoinedMTTList message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RS2C_RetJoinedMTTList
+         */
+        public static fromObject(object: { [k: string]: any }): msg.RS2C_RetJoinedMTTList;
+
+        /**
+         * Creates a plain object from a RS2C_RetJoinedMTTList message. Also converts values to other types if specified.
+         * @param message RS2C_RetJoinedMTTList
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.RS2C_RetJoinedMTTList, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RS2C_RetJoinedMTTList to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2RS_ReqInsideRoomInfoList. */
+    interface IC2RS_ReqInsideRoomInfoList {
+    }
+
+    /** Represents a C2RS_ReqInsideRoomInfoList. */
+    class C2RS_ReqInsideRoomInfoList implements IC2RS_ReqInsideRoomInfoList {
+
+        /**
+         * Constructs a new C2RS_ReqInsideRoomInfoList.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2RS_ReqInsideRoomInfoList);
+
+        /**
+         * Creates a new C2RS_ReqInsideRoomInfoList instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2RS_ReqInsideRoomInfoList instance
+         */
+        public static create(properties?: msg.IC2RS_ReqInsideRoomInfoList): msg.C2RS_ReqInsideRoomInfoList;
+
+        /**
+         * Encodes the specified C2RS_ReqInsideRoomInfoList message. Does not implicitly {@link msg.C2RS_ReqInsideRoomInfoList.verify|verify} messages.
+         * @param message C2RS_ReqInsideRoomInfoList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2RS_ReqInsideRoomInfoList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2RS_ReqInsideRoomInfoList message, length delimited. Does not implicitly {@link msg.C2RS_ReqInsideRoomInfoList.verify|verify} messages.
+         * @param message C2RS_ReqInsideRoomInfoList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2RS_ReqInsideRoomInfoList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2RS_ReqInsideRoomInfoList message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2RS_ReqInsideRoomInfoList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2RS_ReqInsideRoomInfoList;
+
+        /**
+         * Decodes a C2RS_ReqInsideRoomInfoList message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2RS_ReqInsideRoomInfoList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2RS_ReqInsideRoomInfoList;
+
+        /**
+         * Verifies a C2RS_ReqInsideRoomInfoList message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2RS_ReqInsideRoomInfoList message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2RS_ReqInsideRoomInfoList
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2RS_ReqInsideRoomInfoList;
+
+        /**
+         * Creates a plain object from a C2RS_ReqInsideRoomInfoList message. Also converts values to other types if specified.
+         * @param message C2RS_ReqInsideRoomInfoList
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2RS_ReqInsideRoomInfoList, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2RS_ReqInsideRoomInfoList to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an InsideRoomInfo. */
+    interface IInsideRoomInfo {
+
+        /** InsideRoomInfo mttid */
+        mttid?: (number|null);
+
+        /** InsideRoomInfo id */
+        id?: (number|null);
+    }
+
+    /** Represents an InsideRoomInfo. */
+    class InsideRoomInfo implements IInsideRoomInfo {
+
+        /**
+         * Constructs a new InsideRoomInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IInsideRoomInfo);
+
+        /** InsideRoomInfo mttid. */
+        public mttid: number;
+
+        /** InsideRoomInfo id. */
+        public id: number;
+
+        /**
+         * Creates a new InsideRoomInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns InsideRoomInfo instance
+         */
+        public static create(properties?: msg.IInsideRoomInfo): msg.InsideRoomInfo;
+
+        /**
+         * Encodes the specified InsideRoomInfo message. Does not implicitly {@link msg.InsideRoomInfo.verify|verify} messages.
+         * @param message InsideRoomInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IInsideRoomInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified InsideRoomInfo message, length delimited. Does not implicitly {@link msg.InsideRoomInfo.verify|verify} messages.
+         * @param message InsideRoomInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IInsideRoomInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes an InsideRoomInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns InsideRoomInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.InsideRoomInfo;
+
+        /**
+         * Decodes an InsideRoomInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns InsideRoomInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.InsideRoomInfo;
+
+        /**
+         * Verifies an InsideRoomInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an InsideRoomInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns InsideRoomInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.InsideRoomInfo;
+
+        /**
+         * Creates a plain object from an InsideRoomInfo message. Also converts values to other types if specified.
+         * @param message InsideRoomInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.InsideRoomInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this InsideRoomInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2RS_RetInsideRoomInfoList. */
+    interface IC2RS_RetInsideRoomInfoList {
+
+        /** C2RS_RetInsideRoomInfoList roomlist */
+        roomlist?: (msg.IInsideRoomInfo[]|null);
+
+        /** C2RS_RetInsideRoomInfoList lastid */
+        lastid?: (number|null);
+    }
+
+    /** Represents a C2RS_RetInsideRoomInfoList. */
+    class C2RS_RetInsideRoomInfoList implements IC2RS_RetInsideRoomInfoList {
+
+        /**
+         * Constructs a new C2RS_RetInsideRoomInfoList.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2RS_RetInsideRoomInfoList);
+
+        /** C2RS_RetInsideRoomInfoList roomlist. */
+        public roomlist: msg.IInsideRoomInfo[];
+
+        /** C2RS_RetInsideRoomInfoList lastid. */
+        public lastid: number;
+
+        /**
+         * Creates a new C2RS_RetInsideRoomInfoList instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2RS_RetInsideRoomInfoList instance
+         */
+        public static create(properties?: msg.IC2RS_RetInsideRoomInfoList): msg.C2RS_RetInsideRoomInfoList;
+
+        /**
+         * Encodes the specified C2RS_RetInsideRoomInfoList message. Does not implicitly {@link msg.C2RS_RetInsideRoomInfoList.verify|verify} messages.
+         * @param message C2RS_RetInsideRoomInfoList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2RS_RetInsideRoomInfoList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2RS_RetInsideRoomInfoList message, length delimited. Does not implicitly {@link msg.C2RS_RetInsideRoomInfoList.verify|verify} messages.
+         * @param message C2RS_RetInsideRoomInfoList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2RS_RetInsideRoomInfoList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2RS_RetInsideRoomInfoList message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2RS_RetInsideRoomInfoList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2RS_RetInsideRoomInfoList;
+
+        /**
+         * Decodes a C2RS_RetInsideRoomInfoList message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2RS_RetInsideRoomInfoList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2RS_RetInsideRoomInfoList;
+
+        /**
+         * Verifies a C2RS_RetInsideRoomInfoList message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2RS_RetInsideRoomInfoList message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2RS_RetInsideRoomInfoList
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2RS_RetInsideRoomInfoList;
+
+        /**
+         * Creates a plain object from a C2RS_RetInsideRoomInfoList message. Also converts values to other types if specified.
+         * @param message C2RS_RetInsideRoomInfoList
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2RS_RetInsideRoomInfoList, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2RS_RetInsideRoomInfoList to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2RS_ReqMTTRecordList. */
+    interface IC2RS_ReqMTTRecordList {
+    }
+
+    /** Represents a C2RS_ReqMTTRecordList. */
+    class C2RS_ReqMTTRecordList implements IC2RS_ReqMTTRecordList {
+
+        /**
+         * Constructs a new C2RS_ReqMTTRecordList.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2RS_ReqMTTRecordList);
+
+        /**
+         * Creates a new C2RS_ReqMTTRecordList instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2RS_ReqMTTRecordList instance
+         */
+        public static create(properties?: msg.IC2RS_ReqMTTRecordList): msg.C2RS_ReqMTTRecordList;
+
+        /**
+         * Encodes the specified C2RS_ReqMTTRecordList message. Does not implicitly {@link msg.C2RS_ReqMTTRecordList.verify|verify} messages.
+         * @param message C2RS_ReqMTTRecordList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2RS_ReqMTTRecordList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2RS_ReqMTTRecordList message, length delimited. Does not implicitly {@link msg.C2RS_ReqMTTRecordList.verify|verify} messages.
+         * @param message C2RS_ReqMTTRecordList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2RS_ReqMTTRecordList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2RS_ReqMTTRecordList message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2RS_ReqMTTRecordList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2RS_ReqMTTRecordList;
+
+        /**
+         * Decodes a C2RS_ReqMTTRecordList message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2RS_ReqMTTRecordList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2RS_ReqMTTRecordList;
+
+        /**
+         * Verifies a C2RS_ReqMTTRecordList message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2RS_ReqMTTRecordList message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2RS_ReqMTTRecordList
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2RS_ReqMTTRecordList;
+
+        /**
+         * Creates a plain object from a C2RS_ReqMTTRecordList message. Also converts values to other types if specified.
+         * @param message C2RS_ReqMTTRecordList
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2RS_ReqMTTRecordList, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2RS_ReqMTTRecordList to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a MTTRecordInfo. */
+    interface IMTTRecordInfo {
+
+        /** MTTRecordInfo id */
+        id?: (number|null);
+
+        /** MTTRecordInfo starttime */
+        starttime?: (number|null);
+
+        /** MTTRecordInfo name */
+        name?: (string|null);
+
+        /** MTTRecordInfo sex */
+        sex?: (number|null);
+
+        /** MTTRecordInfo head */
+        head?: (string|null);
+
+        /** MTTRecordInfo recordid */
+        recordid?: (number|null);
+    }
+
+    /** Represents a MTTRecordInfo. */
+    class MTTRecordInfo implements IMTTRecordInfo {
+
+        /**
+         * Constructs a new MTTRecordInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IMTTRecordInfo);
+
+        /** MTTRecordInfo id. */
+        public id: number;
+
+        /** MTTRecordInfo starttime. */
+        public starttime: number;
+
+        /** MTTRecordInfo name. */
+        public name: string;
+
+        /** MTTRecordInfo sex. */
+        public sex: number;
+
+        /** MTTRecordInfo head. */
+        public head: string;
+
+        /** MTTRecordInfo recordid. */
+        public recordid: number;
+
+        /**
+         * Creates a new MTTRecordInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MTTRecordInfo instance
+         */
+        public static create(properties?: msg.IMTTRecordInfo): msg.MTTRecordInfo;
+
+        /**
+         * Encodes the specified MTTRecordInfo message. Does not implicitly {@link msg.MTTRecordInfo.verify|verify} messages.
+         * @param message MTTRecordInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IMTTRecordInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified MTTRecordInfo message, length delimited. Does not implicitly {@link msg.MTTRecordInfo.verify|verify} messages.
+         * @param message MTTRecordInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IMTTRecordInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a MTTRecordInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MTTRecordInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MTTRecordInfo;
+
+        /**
+         * Decodes a MTTRecordInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MTTRecordInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MTTRecordInfo;
+
+        /**
+         * Verifies a MTTRecordInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MTTRecordInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MTTRecordInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.MTTRecordInfo;
+
+        /**
+         * Creates a plain object from a MTTRecordInfo message. Also converts values to other types if specified.
+         * @param message MTTRecordInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.MTTRecordInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MTTRecordInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RS2C_RetMTTRecordList. */
+    interface IRS2C_RetMTTRecordList {
+
+        /** RS2C_RetMTTRecordList recordlist */
+        recordlist?: (msg.IMTTRecordInfo[]|null);
+    }
+
+    /** Represents a RS2C_RetMTTRecordList. */
+    class RS2C_RetMTTRecordList implements IRS2C_RetMTTRecordList {
+
+        /**
+         * Constructs a new RS2C_RetMTTRecordList.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IRS2C_RetMTTRecordList);
+
+        /** RS2C_RetMTTRecordList recordlist. */
+        public recordlist: msg.IMTTRecordInfo[];
+
+        /**
+         * Creates a new RS2C_RetMTTRecordList instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RS2C_RetMTTRecordList instance
+         */
+        public static create(properties?: msg.IRS2C_RetMTTRecordList): msg.RS2C_RetMTTRecordList;
+
+        /**
+         * Encodes the specified RS2C_RetMTTRecordList message. Does not implicitly {@link msg.RS2C_RetMTTRecordList.verify|verify} messages.
+         * @param message RS2C_RetMTTRecordList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IRS2C_RetMTTRecordList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified RS2C_RetMTTRecordList message, length delimited. Does not implicitly {@link msg.RS2C_RetMTTRecordList.verify|verify} messages.
+         * @param message RS2C_RetMTTRecordList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IRS2C_RetMTTRecordList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a RS2C_RetMTTRecordList message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RS2C_RetMTTRecordList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2C_RetMTTRecordList;
+
+        /**
+         * Decodes a RS2C_RetMTTRecordList message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RS2C_RetMTTRecordList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2C_RetMTTRecordList;
+
+        /**
+         * Verifies a RS2C_RetMTTRecordList message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RS2C_RetMTTRecordList message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RS2C_RetMTTRecordList
+         */
+        public static fromObject(object: { [k: string]: any }): msg.RS2C_RetMTTRecordList;
+
+        /**
+         * Creates a plain object from a RS2C_RetMTTRecordList message. Also converts values to other types if specified.
+         * @param message RS2C_RetMTTRecordList
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.RS2C_RetMTTRecordList, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RS2C_RetMTTRecordList to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2RS_ReqMTTRecentlyRankList. */
+    interface IC2RS_ReqMTTRecentlyRankList {
+
+        /** C2RS_ReqMTTRecentlyRankList recordid */
+        recordid?: (number|null);
+    }
+
+    /** Represents a C2RS_ReqMTTRecentlyRankList. */
+    class C2RS_ReqMTTRecentlyRankList implements IC2RS_ReqMTTRecentlyRankList {
+
+        /**
+         * Constructs a new C2RS_ReqMTTRecentlyRankList.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2RS_ReqMTTRecentlyRankList);
+
+        /** C2RS_ReqMTTRecentlyRankList recordid. */
+        public recordid: number;
+
+        /**
+         * Creates a new C2RS_ReqMTTRecentlyRankList instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2RS_ReqMTTRecentlyRankList instance
+         */
+        public static create(properties?: msg.IC2RS_ReqMTTRecentlyRankList): msg.C2RS_ReqMTTRecentlyRankList;
+
+        /**
+         * Encodes the specified C2RS_ReqMTTRecentlyRankList message. Does not implicitly {@link msg.C2RS_ReqMTTRecentlyRankList.verify|verify} messages.
+         * @param message C2RS_ReqMTTRecentlyRankList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2RS_ReqMTTRecentlyRankList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2RS_ReqMTTRecentlyRankList message, length delimited. Does not implicitly {@link msg.C2RS_ReqMTTRecentlyRankList.verify|verify} messages.
+         * @param message C2RS_ReqMTTRecentlyRankList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2RS_ReqMTTRecentlyRankList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2RS_ReqMTTRecentlyRankList message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2RS_ReqMTTRecentlyRankList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2RS_ReqMTTRecentlyRankList;
+
+        /**
+         * Decodes a C2RS_ReqMTTRecentlyRankList message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2RS_ReqMTTRecentlyRankList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2RS_ReqMTTRecentlyRankList;
+
+        /**
+         * Verifies a C2RS_ReqMTTRecentlyRankList message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2RS_ReqMTTRecentlyRankList message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2RS_ReqMTTRecentlyRankList
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2RS_ReqMTTRecentlyRankList;
+
+        /**
+         * Creates a plain object from a C2RS_ReqMTTRecentlyRankList message. Also converts values to other types if specified.
+         * @param message C2RS_ReqMTTRecentlyRankList
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2RS_ReqMTTRecentlyRankList, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2RS_ReqMTTRecentlyRankList to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a MTTRecentlyRankInfo. */
+    interface IMTTRecentlyRankInfo {
+
+        /** MTTRecentlyRankInfo rank */
+        rank?: (number|null);
+
+        /** MTTRecentlyRankInfo name */
+        name?: (string|null);
+
+        /** MTTRecentlyRankInfo head */
+        head?: (string|null);
+
+        /** MTTRecentlyRankInfo sex */
+        sex?: (number|null);
+
+        /** MTTRecentlyRankInfo roleid */
+        roleid?: (number|null);
+    }
+
+    /** Represents a MTTRecentlyRankInfo. */
+    class MTTRecentlyRankInfo implements IMTTRecentlyRankInfo {
+
+        /**
+         * Constructs a new MTTRecentlyRankInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IMTTRecentlyRankInfo);
+
+        /** MTTRecentlyRankInfo rank. */
+        public rank: number;
+
+        /** MTTRecentlyRankInfo name. */
+        public name: string;
+
+        /** MTTRecentlyRankInfo head. */
+        public head: string;
+
+        /** MTTRecentlyRankInfo sex. */
+        public sex: number;
+
+        /** MTTRecentlyRankInfo roleid. */
+        public roleid: number;
+
+        /**
+         * Creates a new MTTRecentlyRankInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MTTRecentlyRankInfo instance
+         */
+        public static create(properties?: msg.IMTTRecentlyRankInfo): msg.MTTRecentlyRankInfo;
+
+        /**
+         * Encodes the specified MTTRecentlyRankInfo message. Does not implicitly {@link msg.MTTRecentlyRankInfo.verify|verify} messages.
+         * @param message MTTRecentlyRankInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IMTTRecentlyRankInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified MTTRecentlyRankInfo message, length delimited. Does not implicitly {@link msg.MTTRecentlyRankInfo.verify|verify} messages.
+         * @param message MTTRecentlyRankInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IMTTRecentlyRankInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a MTTRecentlyRankInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MTTRecentlyRankInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MTTRecentlyRankInfo;
+
+        /**
+         * Decodes a MTTRecentlyRankInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MTTRecentlyRankInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MTTRecentlyRankInfo;
+
+        /**
+         * Verifies a MTTRecentlyRankInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MTTRecentlyRankInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MTTRecentlyRankInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.MTTRecentlyRankInfo;
+
+        /**
+         * Creates a plain object from a MTTRecentlyRankInfo message. Also converts values to other types if specified.
+         * @param message MTTRecentlyRankInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.MTTRecentlyRankInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MTTRecentlyRankInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RS2C_RetMTTRecentlyRankList. */
+    interface IRS2C_RetMTTRecentlyRankList {
+
+        /** RS2C_RetMTTRecentlyRankList ranklist */
+        ranklist?: (msg.IMTTRecentlyRankInfo[]|null);
+    }
+
+    /** Represents a RS2C_RetMTTRecentlyRankList. */
+    class RS2C_RetMTTRecentlyRankList implements IRS2C_RetMTTRecentlyRankList {
+
+        /**
+         * Constructs a new RS2C_RetMTTRecentlyRankList.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IRS2C_RetMTTRecentlyRankList);
+
+        /** RS2C_RetMTTRecentlyRankList ranklist. */
+        public ranklist: msg.IMTTRecentlyRankInfo[];
+
+        /**
+         * Creates a new RS2C_RetMTTRecentlyRankList instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RS2C_RetMTTRecentlyRankList instance
+         */
+        public static create(properties?: msg.IRS2C_RetMTTRecentlyRankList): msg.RS2C_RetMTTRecentlyRankList;
+
+        /**
+         * Encodes the specified RS2C_RetMTTRecentlyRankList message. Does not implicitly {@link msg.RS2C_RetMTTRecentlyRankList.verify|verify} messages.
+         * @param message RS2C_RetMTTRecentlyRankList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IRS2C_RetMTTRecentlyRankList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified RS2C_RetMTTRecentlyRankList message, length delimited. Does not implicitly {@link msg.RS2C_RetMTTRecentlyRankList.verify|verify} messages.
+         * @param message RS2C_RetMTTRecentlyRankList message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IRS2C_RetMTTRecentlyRankList, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a RS2C_RetMTTRecentlyRankList message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RS2C_RetMTTRecentlyRankList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2C_RetMTTRecentlyRankList;
+
+        /**
+         * Decodes a RS2C_RetMTTRecentlyRankList message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RS2C_RetMTTRecentlyRankList
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2C_RetMTTRecentlyRankList;
+
+        /**
+         * Verifies a RS2C_RetMTTRecentlyRankList message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RS2C_RetMTTRecentlyRankList message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RS2C_RetMTTRecentlyRankList
+         */
+        public static fromObject(object: { [k: string]: any }): msg.RS2C_RetMTTRecentlyRankList;
+
+        /**
+         * Creates a plain object from a RS2C_RetMTTRecentlyRankList message. Also converts values to other types if specified.
+         * @param message RS2C_RetMTTRecentlyRankList
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.RS2C_RetMTTRecentlyRankList, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RS2C_RetMTTRecentlyRankList to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2RS_ReqMTTOutsInfo. */
+    interface IC2RS_ReqMTTOutsInfo {
+
+        /** C2RS_ReqMTTOutsInfo recordid */
+        recordid?: (number|null);
+    }
+
+    /** Represents a C2RS_ReqMTTOutsInfo. */
+    class C2RS_ReqMTTOutsInfo implements IC2RS_ReqMTTOutsInfo {
+
+        /**
+         * Constructs a new C2RS_ReqMTTOutsInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2RS_ReqMTTOutsInfo);
+
+        /** C2RS_ReqMTTOutsInfo recordid. */
+        public recordid: number;
+
+        /**
+         * Creates a new C2RS_ReqMTTOutsInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2RS_ReqMTTOutsInfo instance
+         */
+        public static create(properties?: msg.IC2RS_ReqMTTOutsInfo): msg.C2RS_ReqMTTOutsInfo;
+
+        /**
+         * Encodes the specified C2RS_ReqMTTOutsInfo message. Does not implicitly {@link msg.C2RS_ReqMTTOutsInfo.verify|verify} messages.
+         * @param message C2RS_ReqMTTOutsInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2RS_ReqMTTOutsInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2RS_ReqMTTOutsInfo message, length delimited. Does not implicitly {@link msg.C2RS_ReqMTTOutsInfo.verify|verify} messages.
+         * @param message C2RS_ReqMTTOutsInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2RS_ReqMTTOutsInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2RS_ReqMTTOutsInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2RS_ReqMTTOutsInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2RS_ReqMTTOutsInfo;
+
+        /**
+         * Decodes a C2RS_ReqMTTOutsInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2RS_ReqMTTOutsInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2RS_ReqMTTOutsInfo;
+
+        /**
+         * Verifies a C2RS_ReqMTTOutsInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2RS_ReqMTTOutsInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2RS_ReqMTTOutsInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2RS_ReqMTTOutsInfo;
+
+        /**
+         * Creates a plain object from a C2RS_ReqMTTOutsInfo message. Also converts values to other types if specified.
+         * @param message C2RS_ReqMTTOutsInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2RS_ReqMTTOutsInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2RS_ReqMTTOutsInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RS2C_RetMTTOutsInfo. */
+    interface IRS2C_RetMTTOutsInfo {
+
+        /** RS2C_RetMTTOutsInfo blindlevel */
+        blindlevel?: (number|null);
+
+        /** RS2C_RetMTTOutsInfo rank */
+        rank?: (number|null);
+
+        /** RS2C_RetMTTOutsInfo blindtime */
+        blindtime?: (number|null);
+    }
+
+    /** Represents a RS2C_RetMTTOutsInfo. */
+    class RS2C_RetMTTOutsInfo implements IRS2C_RetMTTOutsInfo {
+
+        /**
+         * Constructs a new RS2C_RetMTTOutsInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IRS2C_RetMTTOutsInfo);
+
+        /** RS2C_RetMTTOutsInfo blindlevel. */
+        public blindlevel: number;
+
+        /** RS2C_RetMTTOutsInfo rank. */
+        public rank: number;
+
+        /** RS2C_RetMTTOutsInfo blindtime. */
+        public blindtime: number;
+
+        /**
+         * Creates a new RS2C_RetMTTOutsInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RS2C_RetMTTOutsInfo instance
+         */
+        public static create(properties?: msg.IRS2C_RetMTTOutsInfo): msg.RS2C_RetMTTOutsInfo;
+
+        /**
+         * Encodes the specified RS2C_RetMTTOutsInfo message. Does not implicitly {@link msg.RS2C_RetMTTOutsInfo.verify|verify} messages.
+         * @param message RS2C_RetMTTOutsInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IRS2C_RetMTTOutsInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified RS2C_RetMTTOutsInfo message, length delimited. Does not implicitly {@link msg.RS2C_RetMTTOutsInfo.verify|verify} messages.
+         * @param message RS2C_RetMTTOutsInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IRS2C_RetMTTOutsInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a RS2C_RetMTTOutsInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RS2C_RetMTTOutsInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2C_RetMTTOutsInfo;
+
+        /**
+         * Decodes a RS2C_RetMTTOutsInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RS2C_RetMTTOutsInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2C_RetMTTOutsInfo;
+
+        /**
+         * Verifies a RS2C_RetMTTOutsInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RS2C_RetMTTOutsInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RS2C_RetMTTOutsInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.RS2C_RetMTTOutsInfo;
+
+        /**
+         * Creates a plain object from a RS2C_RetMTTOutsInfo message. Also converts values to other types if specified.
+         * @param message RS2C_RetMTTOutsInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.RS2C_RetMTTOutsInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RS2C_RetMTTOutsInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2RS_ReqMTTRankInfo. */
+    interface IC2RS_ReqMTTRankInfo {
+
+        /** C2RS_ReqMTTRankInfo recordid */
+        recordid?: (number|null);
+
+        /** C2RS_ReqMTTRankInfo startrank */
+        startrank?: (number|null);
+
+        /** C2RS_ReqMTTRankInfo count */
+        count?: (number|null);
+    }
+
+    /** Represents a C2RS_ReqMTTRankInfo. */
+    class C2RS_ReqMTTRankInfo implements IC2RS_ReqMTTRankInfo {
+
+        /**
+         * Constructs a new C2RS_ReqMTTRankInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2RS_ReqMTTRankInfo);
+
+        /** C2RS_ReqMTTRankInfo recordid. */
+        public recordid: number;
+
+        /** C2RS_ReqMTTRankInfo startrank. */
+        public startrank: number;
+
+        /** C2RS_ReqMTTRankInfo count. */
+        public count: number;
+
+        /**
+         * Creates a new C2RS_ReqMTTRankInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2RS_ReqMTTRankInfo instance
+         */
+        public static create(properties?: msg.IC2RS_ReqMTTRankInfo): msg.C2RS_ReqMTTRankInfo;
+
+        /**
+         * Encodes the specified C2RS_ReqMTTRankInfo message. Does not implicitly {@link msg.C2RS_ReqMTTRankInfo.verify|verify} messages.
+         * @param message C2RS_ReqMTTRankInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2RS_ReqMTTRankInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2RS_ReqMTTRankInfo message, length delimited. Does not implicitly {@link msg.C2RS_ReqMTTRankInfo.verify|verify} messages.
+         * @param message C2RS_ReqMTTRankInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2RS_ReqMTTRankInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2RS_ReqMTTRankInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2RS_ReqMTTRankInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2RS_ReqMTTRankInfo;
+
+        /**
+         * Decodes a C2RS_ReqMTTRankInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2RS_ReqMTTRankInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2RS_ReqMTTRankInfo;
+
+        /**
+         * Verifies a C2RS_ReqMTTRankInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2RS_ReqMTTRankInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2RS_ReqMTTRankInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2RS_ReqMTTRankInfo;
+
+        /**
+         * Creates a plain object from a C2RS_ReqMTTRankInfo message. Also converts values to other types if specified.
+         * @param message C2RS_ReqMTTRankInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2RS_ReqMTTRankInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2RS_ReqMTTRankInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a MTTRankInfo. */
+    interface IMTTRankInfo {
+
+        /** MTTRankInfo rank */
+        rank?: (number|null);
+
+        /** MTTRankInfo name */
+        name?: (string|null);
+
+        /** MTTRankInfo head */
+        head?: (string|null);
+
+        /** MTTRankInfo sex */
+        sex?: (number|null);
+
+        /** MTTRankInfo chips */
+        chips?: (number|null);
+
+        /** MTTRankInfo roleid */
+        roleid?: (number|null);
+    }
+
+    /** Represents a MTTRankInfo. */
+    class MTTRankInfo implements IMTTRankInfo {
+
+        /**
+         * Constructs a new MTTRankInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IMTTRankInfo);
+
+        /** MTTRankInfo rank. */
+        public rank: number;
+
+        /** MTTRankInfo name. */
+        public name: string;
+
+        /** MTTRankInfo head. */
+        public head: string;
+
+        /** MTTRankInfo sex. */
+        public sex: number;
+
+        /** MTTRankInfo chips. */
+        public chips: number;
+
+        /** MTTRankInfo roleid. */
+        public roleid: number;
+
+        /**
+         * Creates a new MTTRankInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MTTRankInfo instance
+         */
+        public static create(properties?: msg.IMTTRankInfo): msg.MTTRankInfo;
+
+        /**
+         * Encodes the specified MTTRankInfo message. Does not implicitly {@link msg.MTTRankInfo.verify|verify} messages.
+         * @param message MTTRankInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IMTTRankInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified MTTRankInfo message, length delimited. Does not implicitly {@link msg.MTTRankInfo.verify|verify} messages.
+         * @param message MTTRankInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IMTTRankInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a MTTRankInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MTTRankInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MTTRankInfo;
+
+        /**
+         * Decodes a MTTRankInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MTTRankInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MTTRankInfo;
+
+        /**
+         * Verifies a MTTRankInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MTTRankInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MTTRankInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.MTTRankInfo;
+
+        /**
+         * Creates a plain object from a MTTRankInfo message. Also converts values to other types if specified.
+         * @param message MTTRankInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.MTTRankInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MTTRankInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RS2C_RetMTTRankInfo. */
+    interface IRS2C_RetMTTRankInfo {
+
+        /** RS2C_RetMTTRankInfo ranklist */
+        ranklist?: (msg.IMTTRankInfo[]|null);
+    }
+
+    /** Represents a RS2C_RetMTTRankInfo. */
+    class RS2C_RetMTTRankInfo implements IRS2C_RetMTTRankInfo {
+
+        /**
+         * Constructs a new RS2C_RetMTTRankInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IRS2C_RetMTTRankInfo);
+
+        /** RS2C_RetMTTRankInfo ranklist. */
+        public ranklist: msg.IMTTRankInfo[];
+
+        /**
+         * Creates a new RS2C_RetMTTRankInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RS2C_RetMTTRankInfo instance
+         */
+        public static create(properties?: msg.IRS2C_RetMTTRankInfo): msg.RS2C_RetMTTRankInfo;
+
+        /**
+         * Encodes the specified RS2C_RetMTTRankInfo message. Does not implicitly {@link msg.RS2C_RetMTTRankInfo.verify|verify} messages.
+         * @param message RS2C_RetMTTRankInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IRS2C_RetMTTRankInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified RS2C_RetMTTRankInfo message, length delimited. Does not implicitly {@link msg.RS2C_RetMTTRankInfo.verify|verify} messages.
+         * @param message RS2C_RetMTTRankInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IRS2C_RetMTTRankInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a RS2C_RetMTTRankInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RS2C_RetMTTRankInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2C_RetMTTRankInfo;
+
+        /**
+         * Decodes a RS2C_RetMTTRankInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RS2C_RetMTTRankInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2C_RetMTTRankInfo;
+
+        /**
+         * Verifies a RS2C_RetMTTRankInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RS2C_RetMTTRankInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RS2C_RetMTTRankInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.RS2C_RetMTTRankInfo;
+
+        /**
+         * Creates a plain object from a RS2C_RetMTTRankInfo message. Also converts values to other types if specified.
+         * @param message RS2C_RetMTTRankInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.RS2C_RetMTTRankInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RS2C_RetMTTRankInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2RS_ReqMTTRebuyOrAddon. */
+    interface IC2RS_ReqMTTRebuyOrAddon {
+
+        /** C2RS_ReqMTTRebuyOrAddon type */
+        type?: (number|null);
+    }
+
+    /** Represents a C2RS_ReqMTTRebuyOrAddon. */
+    class C2RS_ReqMTTRebuyOrAddon implements IC2RS_ReqMTTRebuyOrAddon {
+
+        /**
+         * Constructs a new C2RS_ReqMTTRebuyOrAddon.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2RS_ReqMTTRebuyOrAddon);
+
+        /** C2RS_ReqMTTRebuyOrAddon type. */
+        public type: number;
+
+        /**
+         * Creates a new C2RS_ReqMTTRebuyOrAddon instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2RS_ReqMTTRebuyOrAddon instance
+         */
+        public static create(properties?: msg.IC2RS_ReqMTTRebuyOrAddon): msg.C2RS_ReqMTTRebuyOrAddon;
+
+        /**
+         * Encodes the specified C2RS_ReqMTTRebuyOrAddon message. Does not implicitly {@link msg.C2RS_ReqMTTRebuyOrAddon.verify|verify} messages.
+         * @param message C2RS_ReqMTTRebuyOrAddon message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2RS_ReqMTTRebuyOrAddon, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2RS_ReqMTTRebuyOrAddon message, length delimited. Does not implicitly {@link msg.C2RS_ReqMTTRebuyOrAddon.verify|verify} messages.
+         * @param message C2RS_ReqMTTRebuyOrAddon message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2RS_ReqMTTRebuyOrAddon, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2RS_ReqMTTRebuyOrAddon message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2RS_ReqMTTRebuyOrAddon
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2RS_ReqMTTRebuyOrAddon;
+
+        /**
+         * Decodes a C2RS_ReqMTTRebuyOrAddon message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2RS_ReqMTTRebuyOrAddon
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2RS_ReqMTTRebuyOrAddon;
+
+        /**
+         * Verifies a C2RS_ReqMTTRebuyOrAddon message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2RS_ReqMTTRebuyOrAddon message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2RS_ReqMTTRebuyOrAddon
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2RS_ReqMTTRebuyOrAddon;
+
+        /**
+         * Creates a plain object from a C2RS_ReqMTTRebuyOrAddon message. Also converts values to other types if specified.
+         * @param message C2RS_ReqMTTRebuyOrAddon
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2RS_ReqMTTRebuyOrAddon, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2RS_ReqMTTRebuyOrAddon to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RS2C_RetMTTRebuyOrAddon. */
+    interface IRS2C_RetMTTRebuyOrAddon {
+
+        /** RS2C_RetMTTRebuyOrAddon errcode */
+        errcode?: (string|null);
+    }
+
+    /** Represents a RS2C_RetMTTRebuyOrAddon. */
+    class RS2C_RetMTTRebuyOrAddon implements IRS2C_RetMTTRebuyOrAddon {
+
+        /**
+         * Constructs a new RS2C_RetMTTRebuyOrAddon.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IRS2C_RetMTTRebuyOrAddon);
+
+        /** RS2C_RetMTTRebuyOrAddon errcode. */
+        public errcode: string;
+
+        /**
+         * Creates a new RS2C_RetMTTRebuyOrAddon instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RS2C_RetMTTRebuyOrAddon instance
+         */
+        public static create(properties?: msg.IRS2C_RetMTTRebuyOrAddon): msg.RS2C_RetMTTRebuyOrAddon;
+
+        /**
+         * Encodes the specified RS2C_RetMTTRebuyOrAddon message. Does not implicitly {@link msg.RS2C_RetMTTRebuyOrAddon.verify|verify} messages.
+         * @param message RS2C_RetMTTRebuyOrAddon message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IRS2C_RetMTTRebuyOrAddon, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified RS2C_RetMTTRebuyOrAddon message, length delimited. Does not implicitly {@link msg.RS2C_RetMTTRebuyOrAddon.verify|verify} messages.
+         * @param message RS2C_RetMTTRebuyOrAddon message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IRS2C_RetMTTRebuyOrAddon, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a RS2C_RetMTTRebuyOrAddon message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RS2C_RetMTTRebuyOrAddon
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2C_RetMTTRebuyOrAddon;
+
+        /**
+         * Decodes a RS2C_RetMTTRebuyOrAddon message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RS2C_RetMTTRebuyOrAddon
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2C_RetMTTRebuyOrAddon;
+
+        /**
+         * Verifies a RS2C_RetMTTRebuyOrAddon message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RS2C_RetMTTRebuyOrAddon message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RS2C_RetMTTRebuyOrAddon
+         */
+        public static fromObject(object: { [k: string]: any }): msg.RS2C_RetMTTRebuyOrAddon;
+
+        /**
+         * Creates a plain object from a RS2C_RetMTTRebuyOrAddon message. Also converts values to other types if specified.
+         * @param message RS2C_RetMTTRebuyOrAddon
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.RS2C_RetMTTRebuyOrAddon, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RS2C_RetMTTRebuyOrAddon to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RS2C_PushMTTJoinNumChange. */
+    interface IRS2C_PushMTTJoinNumChange {
+
+        /** RS2C_PushMTTJoinNumChange mttlist */
+        mttlist?: (msg.IMMTJoinNum[]|null);
+    }
+
+    /** Represents a RS2C_PushMTTJoinNumChange. */
+    class RS2C_PushMTTJoinNumChange implements IRS2C_PushMTTJoinNumChange {
+
+        /**
+         * Constructs a new RS2C_PushMTTJoinNumChange.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IRS2C_PushMTTJoinNumChange);
+
+        /** RS2C_PushMTTJoinNumChange mttlist. */
+        public mttlist: msg.IMMTJoinNum[];
+
+        /**
+         * Creates a new RS2C_PushMTTJoinNumChange instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RS2C_PushMTTJoinNumChange instance
+         */
+        public static create(properties?: msg.IRS2C_PushMTTJoinNumChange): msg.RS2C_PushMTTJoinNumChange;
+
+        /**
+         * Encodes the specified RS2C_PushMTTJoinNumChange message. Does not implicitly {@link msg.RS2C_PushMTTJoinNumChange.verify|verify} messages.
+         * @param message RS2C_PushMTTJoinNumChange message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IRS2C_PushMTTJoinNumChange, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified RS2C_PushMTTJoinNumChange message, length delimited. Does not implicitly {@link msg.RS2C_PushMTTJoinNumChange.verify|verify} messages.
+         * @param message RS2C_PushMTTJoinNumChange message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IRS2C_PushMTTJoinNumChange, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a RS2C_PushMTTJoinNumChange message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RS2C_PushMTTJoinNumChange
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2C_PushMTTJoinNumChange;
+
+        /**
+         * Decodes a RS2C_PushMTTJoinNumChange message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RS2C_PushMTTJoinNumChange
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2C_PushMTTJoinNumChange;
+
+        /**
+         * Verifies a RS2C_PushMTTJoinNumChange message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RS2C_PushMTTJoinNumChange message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RS2C_PushMTTJoinNumChange
+         */
+        public static fromObject(object: { [k: string]: any }): msg.RS2C_PushMTTJoinNumChange;
+
+        /**
+         * Creates a plain object from a RS2C_PushMTTJoinNumChange message. Also converts values to other types if specified.
+         * @param message RS2C_PushMTTJoinNumChange
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.RS2C_PushMTTJoinNumChange, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RS2C_PushMTTJoinNumChange to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a MMTJoinNum. */
+    interface IMMTJoinNum {
+
+        /** MMTJoinNum id */
+        id?: (number|null);
+
+        /** MMTJoinNum join */
+        join?: (number|null);
+    }
+
+    /** Represents a MMTJoinNum. */
+    class MMTJoinNum implements IMMTJoinNum {
+
+        /**
+         * Constructs a new MMTJoinNum.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IMMTJoinNum);
+
+        /** MMTJoinNum id. */
+        public id: number;
+
+        /** MMTJoinNum join. */
+        public join: number;
+
+        /**
+         * Creates a new MMTJoinNum instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MMTJoinNum instance
+         */
+        public static create(properties?: msg.IMMTJoinNum): msg.MMTJoinNum;
+
+        /**
+         * Encodes the specified MMTJoinNum message. Does not implicitly {@link msg.MMTJoinNum.verify|verify} messages.
+         * @param message MMTJoinNum message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IMMTJoinNum, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified MMTJoinNum message, length delimited. Does not implicitly {@link msg.MMTJoinNum.verify|verify} messages.
+         * @param message MMTJoinNum message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IMMTJoinNum, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a MMTJoinNum message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MMTJoinNum
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MMTJoinNum;
+
+        /**
+         * Decodes a MMTJoinNum message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MMTJoinNum
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MMTJoinNum;
+
+        /**
+         * Verifies a MMTJoinNum message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MMTJoinNum message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MMTJoinNum
+         */
+        public static fromObject(object: { [k: string]: any }): msg.MMTJoinNum;
+
+        /**
+         * Creates a plain object from a MMTJoinNum message. Also converts values to other types if specified.
+         * @param message MMTJoinNum
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.MMTJoinNum, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MMTJoinNum to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RS2C_PushMTTRoomId. */
+    interface IRS2C_PushMTTRoomId {
+
+        /** RS2C_PushMTTRoomId mttid */
+        mttid?: (number|null);
+
+        /** RS2C_PushMTTRoomId id */
+        id?: (number|Long|null);
+    }
+
+    /** Represents a RS2C_PushMTTRoomId. */
+    class RS2C_PushMTTRoomId implements IRS2C_PushMTTRoomId {
+
+        /**
+         * Constructs a new RS2C_PushMTTRoomId.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IRS2C_PushMTTRoomId);
+
+        /** RS2C_PushMTTRoomId mttid. */
+        public mttid: number;
+
+        /** RS2C_PushMTTRoomId id. */
+        public id: (number|Long);
+
+        /**
+         * Creates a new RS2C_PushMTTRoomId instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RS2C_PushMTTRoomId instance
+         */
+        public static create(properties?: msg.IRS2C_PushMTTRoomId): msg.RS2C_PushMTTRoomId;
+
+        /**
+         * Encodes the specified RS2C_PushMTTRoomId message. Does not implicitly {@link msg.RS2C_PushMTTRoomId.verify|verify} messages.
+         * @param message RS2C_PushMTTRoomId message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IRS2C_PushMTTRoomId, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified RS2C_PushMTTRoomId message, length delimited. Does not implicitly {@link msg.RS2C_PushMTTRoomId.verify|verify} messages.
+         * @param message RS2C_PushMTTRoomId message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IRS2C_PushMTTRoomId, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a RS2C_PushMTTRoomId message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RS2C_PushMTTRoomId
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2C_PushMTTRoomId;
+
+        /**
+         * Decodes a RS2C_PushMTTRoomId message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RS2C_PushMTTRoomId
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2C_PushMTTRoomId;
+
+        /**
+         * Verifies a RS2C_PushMTTRoomId message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RS2C_PushMTTRoomId message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RS2C_PushMTTRoomId
+         */
+        public static fromObject(object: { [k: string]: any }): msg.RS2C_PushMTTRoomId;
+
+        /**
+         * Creates a plain object from a RS2C_PushMTTRoomId message. Also converts values to other types if specified.
+         * @param message RS2C_PushMTTRoomId
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.RS2C_PushMTTRoomId, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RS2C_PushMTTRoomId to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RS2C_PushMTTRank. */
+    interface IRS2C_PushMTTRank {
+
+        /** RS2C_PushMTTRank rank */
+        rank?: (number|null);
+
+        /** RS2C_PushMTTRank join */
+        join?: (number|null);
+
+        /** RS2C_PushMTTRank avgchips */
+        avgchips?: (number|null);
+
+        /** RS2C_PushMTTRank recordid */
+        recordid?: (number|null);
+    }
+
+    /** Represents a RS2C_PushMTTRank. */
+    class RS2C_PushMTTRank implements IRS2C_PushMTTRank {
+
+        /**
+         * Constructs a new RS2C_PushMTTRank.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IRS2C_PushMTTRank);
+
+        /** RS2C_PushMTTRank rank. */
+        public rank: number;
+
+        /** RS2C_PushMTTRank join. */
+        public join: number;
+
+        /** RS2C_PushMTTRank avgchips. */
+        public avgchips: number;
+
+        /** RS2C_PushMTTRank recordid. */
+        public recordid: number;
+
+        /**
+         * Creates a new RS2C_PushMTTRank instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RS2C_PushMTTRank instance
+         */
+        public static create(properties?: msg.IRS2C_PushMTTRank): msg.RS2C_PushMTTRank;
+
+        /**
+         * Encodes the specified RS2C_PushMTTRank message. Does not implicitly {@link msg.RS2C_PushMTTRank.verify|verify} messages.
+         * @param message RS2C_PushMTTRank message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IRS2C_PushMTTRank, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified RS2C_PushMTTRank message, length delimited. Does not implicitly {@link msg.RS2C_PushMTTRank.verify|verify} messages.
+         * @param message RS2C_PushMTTRank message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IRS2C_PushMTTRank, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a RS2C_PushMTTRank message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RS2C_PushMTTRank
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2C_PushMTTRank;
+
+        /**
+         * Decodes a RS2C_PushMTTRank message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RS2C_PushMTTRank
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2C_PushMTTRank;
+
+        /**
+         * Verifies a RS2C_PushMTTRank message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RS2C_PushMTTRank message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RS2C_PushMTTRank
+         */
+        public static fromObject(object: { [k: string]: any }): msg.RS2C_PushMTTRank;
+
+        /**
+         * Creates a plain object from a RS2C_PushMTTRank message. Also converts values to other types if specified.
+         * @param message RS2C_PushMTTRank
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.RS2C_PushMTTRank, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RS2C_PushMTTRank to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RS2C_PushMTTWeedOut. */
+    interface IRS2C_PushMTTWeedOut {
+
+        /** RS2C_PushMTTWeedOut rank */
+        rank?: (number|null);
+
+        /** RS2C_PushMTTWeedOut join */
+        join?: (number|null);
+
+        /** RS2C_PushMTTWeedOut maxrank */
+        maxrank?: (number|null);
+
+        /** RS2C_PushMTTWeedOut recordid */
+        recordid?: (number|null);
+
+        /** RS2C_PushMTTWeedOut id */
+        id?: (number|null);
+    }
+
+    /** Represents a RS2C_PushMTTWeedOut. */
+    class RS2C_PushMTTWeedOut implements IRS2C_PushMTTWeedOut {
+
+        /**
+         * Constructs a new RS2C_PushMTTWeedOut.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IRS2C_PushMTTWeedOut);
+
+        /** RS2C_PushMTTWeedOut rank. */
+        public rank: number;
+
+        /** RS2C_PushMTTWeedOut join. */
+        public join: number;
+
+        /** RS2C_PushMTTWeedOut maxrank. */
+        public maxrank: number;
+
+        /** RS2C_PushMTTWeedOut recordid. */
+        public recordid: number;
+
+        /** RS2C_PushMTTWeedOut id. */
+        public id: number;
+
+        /**
+         * Creates a new RS2C_PushMTTWeedOut instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RS2C_PushMTTWeedOut instance
+         */
+        public static create(properties?: msg.IRS2C_PushMTTWeedOut): msg.RS2C_PushMTTWeedOut;
+
+        /**
+         * Encodes the specified RS2C_PushMTTWeedOut message. Does not implicitly {@link msg.RS2C_PushMTTWeedOut.verify|verify} messages.
+         * @param message RS2C_PushMTTWeedOut message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IRS2C_PushMTTWeedOut, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified RS2C_PushMTTWeedOut message, length delimited. Does not implicitly {@link msg.RS2C_PushMTTWeedOut.verify|verify} messages.
+         * @param message RS2C_PushMTTWeedOut message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IRS2C_PushMTTWeedOut, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a RS2C_PushMTTWeedOut message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RS2C_PushMTTWeedOut
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2C_PushMTTWeedOut;
+
+        /**
+         * Decodes a RS2C_PushMTTWeedOut message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RS2C_PushMTTWeedOut
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2C_PushMTTWeedOut;
+
+        /**
+         * Verifies a RS2C_PushMTTWeedOut message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RS2C_PushMTTWeedOut message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RS2C_PushMTTWeedOut
+         */
+        public static fromObject(object: { [k: string]: any }): msg.RS2C_PushMTTWeedOut;
+
+        /**
+         * Creates a plain object from a RS2C_PushMTTWeedOut message. Also converts values to other types if specified.
+         * @param message RS2C_PushMTTWeedOut
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.RS2C_PushMTTWeedOut, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RS2C_PushMTTWeedOut to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RS2C_PushMTTNew. */
+    interface IRS2C_PushMTTNew {
+
+        /** RS2C_PushMTTNew recordid */
+        recordid?: (number|null);
+    }
+
+    /** Represents a RS2C_PushMTTNew. */
+    class RS2C_PushMTTNew implements IRS2C_PushMTTNew {
+
+        /**
+         * Constructs a new RS2C_PushMTTNew.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IRS2C_PushMTTNew);
+
+        /** RS2C_PushMTTNew recordid. */
+        public recordid: number;
+
+        /**
+         * Creates a new RS2C_PushMTTNew instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RS2C_PushMTTNew instance
+         */
+        public static create(properties?: msg.IRS2C_PushMTTNew): msg.RS2C_PushMTTNew;
+
+        /**
+         * Encodes the specified RS2C_PushMTTNew message. Does not implicitly {@link msg.RS2C_PushMTTNew.verify|verify} messages.
+         * @param message RS2C_PushMTTNew message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IRS2C_PushMTTNew, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified RS2C_PushMTTNew message, length delimited. Does not implicitly {@link msg.RS2C_PushMTTNew.verify|verify} messages.
+         * @param message RS2C_PushMTTNew message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IRS2C_PushMTTNew, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a RS2C_PushMTTNew message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RS2C_PushMTTNew
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2C_PushMTTNew;
+
+        /**
+         * Decodes a RS2C_PushMTTNew message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RS2C_PushMTTNew
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2C_PushMTTNew;
+
+        /**
+         * Verifies a RS2C_PushMTTNew message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RS2C_PushMTTNew message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RS2C_PushMTTNew
+         */
+        public static fromObject(object: { [k: string]: any }): msg.RS2C_PushMTTNew;
+
+        /**
+         * Creates a plain object from a RS2C_PushMTTNew message. Also converts values to other types if specified.
+         * @param message RS2C_PushMTTNew
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.RS2C_PushMTTNew, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RS2C_PushMTTNew to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RS2C_PushMTTCancel. */
+    interface IRS2C_PushMTTCancel {
+
+        /** RS2C_PushMTTCancel recordid */
+        recordid?: (number|null);
+    }
+
+    /** Represents a RS2C_PushMTTCancel. */
+    class RS2C_PushMTTCancel implements IRS2C_PushMTTCancel {
+
+        /**
+         * Constructs a new RS2C_PushMTTCancel.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IRS2C_PushMTTCancel);
+
+        /** RS2C_PushMTTCancel recordid. */
+        public recordid: number;
+
+        /**
+         * Creates a new RS2C_PushMTTCancel instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RS2C_PushMTTCancel instance
+         */
+        public static create(properties?: msg.IRS2C_PushMTTCancel): msg.RS2C_PushMTTCancel;
+
+        /**
+         * Encodes the specified RS2C_PushMTTCancel message. Does not implicitly {@link msg.RS2C_PushMTTCancel.verify|verify} messages.
+         * @param message RS2C_PushMTTCancel message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IRS2C_PushMTTCancel, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified RS2C_PushMTTCancel message, length delimited. Does not implicitly {@link msg.RS2C_PushMTTCancel.verify|verify} messages.
+         * @param message RS2C_PushMTTCancel message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IRS2C_PushMTTCancel, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a RS2C_PushMTTCancel message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RS2C_PushMTTCancel
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2C_PushMTTCancel;
+
+        /**
+         * Decodes a RS2C_PushMTTCancel message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RS2C_PushMTTCancel
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2C_PushMTTCancel;
+
+        /**
+         * Verifies a RS2C_PushMTTCancel message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RS2C_PushMTTCancel message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RS2C_PushMTTCancel
+         */
+        public static fromObject(object: { [k: string]: any }): msg.RS2C_PushMTTCancel;
+
+        /**
+         * Creates a plain object from a RS2C_PushMTTCancel message. Also converts values to other types if specified.
+         * @param message RS2C_PushMTTCancel
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.RS2C_PushMTTCancel, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RS2C_PushMTTCancel to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -17157,6 +20847,102 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a GW2MS_UserLoginState. */
+    interface IGW2MS_UserLoginState {
+
+        /** GW2MS_UserLoginState online */
+        online?: (boolean|null);
+
+        /** GW2MS_UserLoginState uid */
+        uid?: (number|Long|null);
+    }
+
+    /** Represents a GW2MS_UserLoginState. */
+    class GW2MS_UserLoginState implements IGW2MS_UserLoginState {
+
+        /**
+         * Constructs a new GW2MS_UserLoginState.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2MS_UserLoginState);
+
+        /** GW2MS_UserLoginState online. */
+        public online: boolean;
+
+        /** GW2MS_UserLoginState uid. */
+        public uid: (number|Long);
+
+        /**
+         * Creates a new GW2MS_UserLoginState instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2MS_UserLoginState instance
+         */
+        public static create(properties?: msg.IGW2MS_UserLoginState): msg.GW2MS_UserLoginState;
+
+        /**
+         * Encodes the specified GW2MS_UserLoginState message. Does not implicitly {@link msg.GW2MS_UserLoginState.verify|verify} messages.
+         * @param message GW2MS_UserLoginState message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2MS_UserLoginState, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2MS_UserLoginState message, length delimited. Does not implicitly {@link msg.GW2MS_UserLoginState.verify|verify} messages.
+         * @param message GW2MS_UserLoginState message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2MS_UserLoginState, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2MS_UserLoginState message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2MS_UserLoginState
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2MS_UserLoginState;
+
+        /**
+         * Decodes a GW2MS_UserLoginState message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2MS_UserLoginState
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2MS_UserLoginState;
+
+        /**
+         * Verifies a GW2MS_UserLoginState message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2MS_UserLoginState message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2MS_UserLoginState
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2MS_UserLoginState;
+
+        /**
+         * Creates a plain object from a GW2MS_UserLoginState message. Also converts values to other types if specified.
+         * @param message GW2MS_UserLoginState
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2MS_UserLoginState, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2MS_UserLoginState to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a RS2GW_ReqRegist. */
     interface IRS2GW_ReqRegist {
 
@@ -17830,6 +21616,198 @@ declare namespace msg {
 
         /**
          * Converts this RS2GW_MsgTransfer to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a MTTRoomMember. */
+    interface IMTTRoomMember {
+
+        /** MTTRoomMember mttuid */
+        mttuid?: (number|null);
+
+        /** MTTRoomMember roomuid */
+        roomuid?: (number|Long|null);
+
+        /** MTTRoomMember members */
+        members?: ((number|Long)[]|null);
+    }
+
+    /** Represents a MTTRoomMember. */
+    class MTTRoomMember implements IMTTRoomMember {
+
+        /**
+         * Constructs a new MTTRoomMember.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IMTTRoomMember);
+
+        /** MTTRoomMember mttuid. */
+        public mttuid: number;
+
+        /** MTTRoomMember roomuid. */
+        public roomuid: (number|Long);
+
+        /** MTTRoomMember members. */
+        public members: (number|Long)[];
+
+        /**
+         * Creates a new MTTRoomMember instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MTTRoomMember instance
+         */
+        public static create(properties?: msg.IMTTRoomMember): msg.MTTRoomMember;
+
+        /**
+         * Encodes the specified MTTRoomMember message. Does not implicitly {@link msg.MTTRoomMember.verify|verify} messages.
+         * @param message MTTRoomMember message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IMTTRoomMember, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified MTTRoomMember message, length delimited. Does not implicitly {@link msg.MTTRoomMember.verify|verify} messages.
+         * @param message MTTRoomMember message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IMTTRoomMember, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a MTTRoomMember message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MTTRoomMember
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.MTTRoomMember;
+
+        /**
+         * Decodes a MTTRoomMember message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MTTRoomMember
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.MTTRoomMember;
+
+        /**
+         * Verifies a MTTRoomMember message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MTTRoomMember message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MTTRoomMember
+         */
+        public static fromObject(object: { [k: string]: any }): msg.MTTRoomMember;
+
+        /**
+         * Creates a plain object from a MTTRoomMember message. Also converts values to other types if specified.
+         * @param message MTTRoomMember
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.MTTRoomMember, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MTTRoomMember to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RS2GW_MTTRoomMember. */
+    interface IRS2GW_MTTRoomMember {
+
+        /** RS2GW_MTTRoomMember rooms */
+        rooms?: (msg.IMTTRoomMember[]|null);
+    }
+
+    /** Represents a RS2GW_MTTRoomMember. */
+    class RS2GW_MTTRoomMember implements IRS2GW_MTTRoomMember {
+
+        /**
+         * Constructs a new RS2GW_MTTRoomMember.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IRS2GW_MTTRoomMember);
+
+        /** RS2GW_MTTRoomMember rooms. */
+        public rooms: msg.IMTTRoomMember[];
+
+        /**
+         * Creates a new RS2GW_MTTRoomMember instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RS2GW_MTTRoomMember instance
+         */
+        public static create(properties?: msg.IRS2GW_MTTRoomMember): msg.RS2GW_MTTRoomMember;
+
+        /**
+         * Encodes the specified RS2GW_MTTRoomMember message. Does not implicitly {@link msg.RS2GW_MTTRoomMember.verify|verify} messages.
+         * @param message RS2GW_MTTRoomMember message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IRS2GW_MTTRoomMember, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified RS2GW_MTTRoomMember message, length delimited. Does not implicitly {@link msg.RS2GW_MTTRoomMember.verify|verify} messages.
+         * @param message RS2GW_MTTRoomMember message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IRS2GW_MTTRoomMember, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a RS2GW_MTTRoomMember message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RS2GW_MTTRoomMember
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2GW_MTTRoomMember;
+
+        /**
+         * Decodes a RS2GW_MTTRoomMember message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RS2GW_MTTRoomMember
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2GW_MTTRoomMember;
+
+        /**
+         * Verifies a RS2GW_MTTRoomMember message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RS2GW_MTTRoomMember message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RS2GW_MTTRoomMember
+         */
+        public static fromObject(object: { [k: string]: any }): msg.RS2GW_MTTRoomMember;
+
+        /**
+         * Creates a plain object from a RS2GW_MTTRoomMember message. Also converts values to other types if specified.
+         * @param message RS2GW_MTTRoomMember
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.RS2GW_MTTRoomMember, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RS2GW_MTTRoomMember to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -22269,6 +26247,114 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a RS2C_PushBlindChange. */
+    interface IRS2C_PushBlindChange {
+
+        /** RS2C_PushBlindChange sblind */
+        sblind?: (number|null);
+
+        /** RS2C_PushBlindChange bblind */
+        bblind?: (number|null);
+
+        /** RS2C_PushBlindChange ante */
+        ante?: (number|null);
+
+        /** RS2C_PushBlindChange blindlevel */
+        blindlevel?: (number|null);
+    }
+
+    /** Represents a RS2C_PushBlindChange. */
+    class RS2C_PushBlindChange implements IRS2C_PushBlindChange {
+
+        /**
+         * Constructs a new RS2C_PushBlindChange.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IRS2C_PushBlindChange);
+
+        /** RS2C_PushBlindChange sblind. */
+        public sblind: number;
+
+        /** RS2C_PushBlindChange bblind. */
+        public bblind: number;
+
+        /** RS2C_PushBlindChange ante. */
+        public ante: number;
+
+        /** RS2C_PushBlindChange blindlevel. */
+        public blindlevel: number;
+
+        /**
+         * Creates a new RS2C_PushBlindChange instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RS2C_PushBlindChange instance
+         */
+        public static create(properties?: msg.IRS2C_PushBlindChange): msg.RS2C_PushBlindChange;
+
+        /**
+         * Encodes the specified RS2C_PushBlindChange message. Does not implicitly {@link msg.RS2C_PushBlindChange.verify|verify} messages.
+         * @param message RS2C_PushBlindChange message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IRS2C_PushBlindChange, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified RS2C_PushBlindChange message, length delimited. Does not implicitly {@link msg.RS2C_PushBlindChange.verify|verify} messages.
+         * @param message RS2C_PushBlindChange message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IRS2C_PushBlindChange, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a RS2C_PushBlindChange message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RS2C_PushBlindChange
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2C_PushBlindChange;
+
+        /**
+         * Decodes a RS2C_PushBlindChange message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RS2C_PushBlindChange
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2C_PushBlindChange;
+
+        /**
+         * Verifies a RS2C_PushBlindChange message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RS2C_PushBlindChange message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RS2C_PushBlindChange
+         */
+        public static fromObject(object: { [k: string]: any }): msg.RS2C_PushBlindChange;
+
+        /**
+         * Creates a plain object from a RS2C_PushBlindChange message. Also converts values to other types if specified.
+         * @param message RS2C_PushBlindChange
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.RS2C_PushBlindChange, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RS2C_PushBlindChange to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** 牌局模式 */
     enum GamblingPattern {
         _Fast = 1,
@@ -22403,6 +26489,288 @@ declare namespace msg {
 
 /** Namespace table. */
 declare namespace table {
+
+    /** Properties of an AchieveBase. */
+    interface IAchieveBase {
+
+        /** AchieveBase Achieve */
+        Achieve?: (table.IAchieveDefine[]|null);
+    }
+
+    /** Represents an AchieveBase. */
+    class AchieveBase implements IAchieveBase {
+
+        /**
+         * Constructs a new AchieveBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IAchieveBase);
+
+        /** AchieveBase Achieve. */
+        public Achieve: table.IAchieveDefine[];
+
+        /**
+         * Creates a new AchieveBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns AchieveBase instance
+         */
+        public static create(properties?: table.IAchieveBase): table.AchieveBase;
+
+        /**
+         * Encodes the specified AchieveBase message. Does not implicitly {@link table.AchieveBase.verify|verify} messages.
+         * @param message AchieveBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IAchieveBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified AchieveBase message, length delimited. Does not implicitly {@link table.AchieveBase.verify|verify} messages.
+         * @param message AchieveBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IAchieveBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes an AchieveBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns AchieveBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.AchieveBase;
+
+        /**
+         * Decodes an AchieveBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns AchieveBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.AchieveBase;
+
+        /**
+         * Verifies an AchieveBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an AchieveBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns AchieveBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.AchieveBase;
+
+        /**
+         * Creates a plain object from an AchieveBase message. Also converts values to other types if specified.
+         * @param message AchieveBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.AchieveBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this AchieveBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an AchieveDefine. */
+    interface IAchieveDefine {
+
+        /** AchieveDefine Id */
+        Id?: (number|null);
+
+        /** AchieveDefine Group */
+        Group?: (number|null);
+
+        /** AchieveDefine Name */
+        Name?: (string|null);
+
+        /** AchieveDefine Tran */
+        Tran?: (number|null);
+
+        /** AchieveDefine Description */
+        Description?: (string|null);
+
+        /** AchieveDefine Tag */
+        Tag?: (number|null);
+
+        /** AchieveDefine DailyQuest */
+        DailyQuest?: (number|null);
+
+        /** AchieveDefine PreId */
+        PreId?: (number|null);
+
+        /** AchieveDefine Type */
+        Type?: (number|null);
+
+        /** AchieveDefine Para1 */
+        Para1?: (number|null);
+
+        /** AchieveDefine Para2 */
+        Para2?: (number[]|null);
+
+        /** AchieveDefine Icon */
+        Icon?: (string|null);
+
+        /** AchieveDefine Grade */
+        Grade?: (number|null);
+
+        /** AchieveDefine RewardType */
+        RewardType?: (number[]|null);
+
+        /** AchieveDefine RewardId */
+        RewardId?: (number[]|null);
+
+        /** AchieveDefine RewardNum */
+        RewardNum?: (number[]|null);
+
+        /** AchieveDefine PlayingFieldPattern */
+        PlayingFieldPattern?: (number[]|null);
+
+        /** AchieveDefine IsSafe */
+        IsSafe?: (number|null);
+    }
+
+    /** Represents an AchieveDefine. */
+    class AchieveDefine implements IAchieveDefine {
+
+        /**
+         * Constructs a new AchieveDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IAchieveDefine);
+
+        /** AchieveDefine Id. */
+        public Id: number;
+
+        /** AchieveDefine Group. */
+        public Group: number;
+
+        /** AchieveDefine Name. */
+        public Name: string;
+
+        /** AchieveDefine Tran. */
+        public Tran: number;
+
+        /** AchieveDefine Description. */
+        public Description: string;
+
+        /** AchieveDefine Tag. */
+        public Tag: number;
+
+        /** AchieveDefine DailyQuest. */
+        public DailyQuest: number;
+
+        /** AchieveDefine PreId. */
+        public PreId: number;
+
+        /** AchieveDefine Type. */
+        public Type: number;
+
+        /** AchieveDefine Para1. */
+        public Para1: number;
+
+        /** AchieveDefine Para2. */
+        public Para2: number[];
+
+        /** AchieveDefine Icon. */
+        public Icon: string;
+
+        /** AchieveDefine Grade. */
+        public Grade: number;
+
+        /** AchieveDefine RewardType. */
+        public RewardType: number[];
+
+        /** AchieveDefine RewardId. */
+        public RewardId: number[];
+
+        /** AchieveDefine RewardNum. */
+        public RewardNum: number[];
+
+        /** AchieveDefine PlayingFieldPattern. */
+        public PlayingFieldPattern: number[];
+
+        /** AchieveDefine IsSafe. */
+        public IsSafe: number;
+
+        /**
+         * Creates a new AchieveDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns AchieveDefine instance
+         */
+        public static create(properties?: table.IAchieveDefine): table.AchieveDefine;
+
+        /**
+         * Encodes the specified AchieveDefine message. Does not implicitly {@link table.AchieveDefine.verify|verify} messages.
+         * @param message AchieveDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IAchieveDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified AchieveDefine message, length delimited. Does not implicitly {@link table.AchieveDefine.verify|verify} messages.
+         * @param message AchieveDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IAchieveDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes an AchieveDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns AchieveDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.AchieveDefine;
+
+        /**
+         * Decodes an AchieveDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns AchieveDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.AchieveDefine;
+
+        /**
+         * Verifies an AchieveDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an AchieveDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns AchieveDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.AchieveDefine;
+
+        /**
+         * Creates a plain object from an AchieveDefine message. Also converts values to other types if specified.
+         * @param message AchieveDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.AchieveDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this AchieveDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
 
     /** Properties of an Activity_listBase. */
     interface IActivity_listBase {
@@ -25525,6 +29893,516 @@ declare namespace table {
 
         /**
          * Converts this GoldenBeanAwardDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a HundredWarBase. */
+    interface IHundredWarBase {
+
+        /** HundredWarBase HundredWar */
+        HundredWar?: (table.IHundredWarDefine[]|null);
+    }
+
+    /** Represents a HundredWarBase. */
+    class HundredWarBase implements IHundredWarBase {
+
+        /**
+         * Constructs a new HundredWarBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IHundredWarBase);
+
+        /** HundredWarBase HundredWar. */
+        public HundredWar: table.IHundredWarDefine[];
+
+        /**
+         * Creates a new HundredWarBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns HundredWarBase instance
+         */
+        public static create(properties?: table.IHundredWarBase): table.HundredWarBase;
+
+        /**
+         * Encodes the specified HundredWarBase message. Does not implicitly {@link table.HundredWarBase.verify|verify} messages.
+         * @param message HundredWarBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IHundredWarBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified HundredWarBase message, length delimited. Does not implicitly {@link table.HundredWarBase.verify|verify} messages.
+         * @param message HundredWarBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IHundredWarBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a HundredWarBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns HundredWarBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.HundredWarBase;
+
+        /**
+         * Decodes a HundredWarBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns HundredWarBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.HundredWarBase;
+
+        /**
+         * Verifies a HundredWarBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a HundredWarBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns HundredWarBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.HundredWarBase;
+
+        /**
+         * Creates a plain object from a HundredWarBase message. Also converts values to other types if specified.
+         * @param message HundredWarBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.HundredWarBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this HundredWarBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a HundredWarDefine. */
+    interface IHundredWarDefine {
+
+        /** HundredWarDefine Id */
+        Id?: (number|null);
+
+        /** HundredWarDefine Type */
+        Type?: (number|null);
+
+        /** HundredWarDefine Name */
+        Name?: (string|null);
+
+        /** HundredWarDefine Icon */
+        Icon?: (string|null);
+
+        /** HundredWarDefine MinBuyin */
+        MinBuyin?: (number|null);
+
+        /** HundredWarDefine MaxRole */
+        MaxRole?: (number|null);
+
+        /** HundredWarDefine Bet */
+        Bet?: (number[]|null);
+
+        /** HundredWarDefine BankerGold */
+        BankerGold?: (number|null);
+
+        /** HundredWarDefine SeatGold */
+        SeatGold?: (number|null);
+
+        /** HundredWarDefine BettingRatio */
+        BettingRatio?: (number|null);
+
+        /** HundredWarDefine BankerRatio */
+        BankerRatio?: (number|null);
+
+        /** HundredWarDefine TaxRate */
+        TaxRate?: (number|null);
+
+        /** HundredWarDefine Seat */
+        Seat?: (number|null);
+
+        /** HundredWarDefine WaitTime */
+        WaitTime?: (number|null);
+
+        /** HundredWarDefine BetTime */
+        BetTime?: (number|null);
+
+        /** HundredWarDefine ConfirmTime */
+        ConfirmTime?: (number|null);
+
+        /** HundredWarDefine TimeOut */
+        TimeOut?: (number|null);
+
+        /** HundredWarDefine Kick */
+        Kick?: (number|null);
+
+        /** HundredWarDefine BankerRound */
+        BankerRound?: (number|null);
+
+        /** HundredWarDefine BankerMinGold */
+        BankerMinGold?: (number|null);
+
+        /** HundredWarDefine TitleImg */
+        TitleImg?: (string|null);
+
+        /** HundredWarDefine PoolImg */
+        PoolImg?: (string|null);
+
+        /** HundredWarDefine FontColor */
+        FontColor?: (string|null);
+    }
+
+    /** Represents a HundredWarDefine. */
+    class HundredWarDefine implements IHundredWarDefine {
+
+        /**
+         * Constructs a new HundredWarDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IHundredWarDefine);
+
+        /** HundredWarDefine Id. */
+        public Id: number;
+
+        /** HundredWarDefine Type. */
+        public Type: number;
+
+        /** HundredWarDefine Name. */
+        public Name: string;
+
+        /** HundredWarDefine Icon. */
+        public Icon: string;
+
+        /** HundredWarDefine MinBuyin. */
+        public MinBuyin: number;
+
+        /** HundredWarDefine MaxRole. */
+        public MaxRole: number;
+
+        /** HundredWarDefine Bet. */
+        public Bet: number[];
+
+        /** HundredWarDefine BankerGold. */
+        public BankerGold: number;
+
+        /** HundredWarDefine SeatGold. */
+        public SeatGold: number;
+
+        /** HundredWarDefine BettingRatio. */
+        public BettingRatio: number;
+
+        /** HundredWarDefine BankerRatio. */
+        public BankerRatio: number;
+
+        /** HundredWarDefine TaxRate. */
+        public TaxRate: number;
+
+        /** HundredWarDefine Seat. */
+        public Seat: number;
+
+        /** HundredWarDefine WaitTime. */
+        public WaitTime: number;
+
+        /** HundredWarDefine BetTime. */
+        public BetTime: number;
+
+        /** HundredWarDefine ConfirmTime. */
+        public ConfirmTime: number;
+
+        /** HundredWarDefine TimeOut. */
+        public TimeOut: number;
+
+        /** HundredWarDefine Kick. */
+        public Kick: number;
+
+        /** HundredWarDefine BankerRound. */
+        public BankerRound: number;
+
+        /** HundredWarDefine BankerMinGold. */
+        public BankerMinGold: number;
+
+        /** HundredWarDefine TitleImg. */
+        public TitleImg: string;
+
+        /** HundredWarDefine PoolImg. */
+        public PoolImg: string;
+
+        /** HundredWarDefine FontColor. */
+        public FontColor: string;
+
+        /**
+         * Creates a new HundredWarDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns HundredWarDefine instance
+         */
+        public static create(properties?: table.IHundredWarDefine): table.HundredWarDefine;
+
+        /**
+         * Encodes the specified HundredWarDefine message. Does not implicitly {@link table.HundredWarDefine.verify|verify} messages.
+         * @param message HundredWarDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IHundredWarDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified HundredWarDefine message, length delimited. Does not implicitly {@link table.HundredWarDefine.verify|verify} messages.
+         * @param message HundredWarDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IHundredWarDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a HundredWarDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns HundredWarDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.HundredWarDefine;
+
+        /**
+         * Decodes a HundredWarDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns HundredWarDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.HundredWarDefine;
+
+        /**
+         * Verifies a HundredWarDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a HundredWarDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns HundredWarDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.HundredWarDefine;
+
+        /**
+         * Creates a plain object from a HundredWarDefine message. Also converts values to other types if specified.
+         * @param message HundredWarDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.HundredWarDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this HundredWarDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a HundredWarCardTypeBase. */
+    interface IHundredWarCardTypeBase {
+
+        /** HundredWarCardTypeBase HundredWarCardType */
+        HundredWarCardType?: (table.IHundredWarCardTypeDefine[]|null);
+    }
+
+    /** Represents a HundredWarCardTypeBase. */
+    class HundredWarCardTypeBase implements IHundredWarCardTypeBase {
+
+        /**
+         * Constructs a new HundredWarCardTypeBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IHundredWarCardTypeBase);
+
+        /** HundredWarCardTypeBase HundredWarCardType. */
+        public HundredWarCardType: table.IHundredWarCardTypeDefine[];
+
+        /**
+         * Creates a new HundredWarCardTypeBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns HundredWarCardTypeBase instance
+         */
+        public static create(properties?: table.IHundredWarCardTypeBase): table.HundredWarCardTypeBase;
+
+        /**
+         * Encodes the specified HundredWarCardTypeBase message. Does not implicitly {@link table.HundredWarCardTypeBase.verify|verify} messages.
+         * @param message HundredWarCardTypeBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IHundredWarCardTypeBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified HundredWarCardTypeBase message, length delimited. Does not implicitly {@link table.HundredWarCardTypeBase.verify|verify} messages.
+         * @param message HundredWarCardTypeBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IHundredWarCardTypeBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a HundredWarCardTypeBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns HundredWarCardTypeBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.HundredWarCardTypeBase;
+
+        /**
+         * Decodes a HundredWarCardTypeBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns HundredWarCardTypeBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.HundredWarCardTypeBase;
+
+        /**
+         * Verifies a HundredWarCardTypeBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a HundredWarCardTypeBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns HundredWarCardTypeBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.HundredWarCardTypeBase;
+
+        /**
+         * Creates a plain object from a HundredWarCardTypeBase message. Also converts values to other types if specified.
+         * @param message HundredWarCardTypeBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.HundredWarCardTypeBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this HundredWarCardTypeBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a HundredWarCardTypeDefine. */
+    interface IHundredWarCardTypeDefine {
+
+        /** HundredWarCardTypeDefine Id */
+        Id?: (number|null);
+
+        /** HundredWarCardTypeDefine Type */
+        Type?: (number|null);
+
+        /** HundredWarCardTypeDefine Odds */
+        Odds?: (number|null);
+
+        /** HundredWarCardTypeDefine PoolOdds */
+        PoolOdds?: (number|null);
+    }
+
+    /** Represents a HundredWarCardTypeDefine. */
+    class HundredWarCardTypeDefine implements IHundredWarCardTypeDefine {
+
+        /**
+         * Constructs a new HundredWarCardTypeDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IHundredWarCardTypeDefine);
+
+        /** HundredWarCardTypeDefine Id. */
+        public Id: number;
+
+        /** HundredWarCardTypeDefine Type. */
+        public Type: number;
+
+        /** HundredWarCardTypeDefine Odds. */
+        public Odds: number;
+
+        /** HundredWarCardTypeDefine PoolOdds. */
+        public PoolOdds: number;
+
+        /**
+         * Creates a new HundredWarCardTypeDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns HundredWarCardTypeDefine instance
+         */
+        public static create(properties?: table.IHundredWarCardTypeDefine): table.HundredWarCardTypeDefine;
+
+        /**
+         * Encodes the specified HundredWarCardTypeDefine message. Does not implicitly {@link table.HundredWarCardTypeDefine.verify|verify} messages.
+         * @param message HundredWarCardTypeDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IHundredWarCardTypeDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified HundredWarCardTypeDefine message, length delimited. Does not implicitly {@link table.HundredWarCardTypeDefine.verify|verify} messages.
+         * @param message HundredWarCardTypeDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IHundredWarCardTypeDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a HundredWarCardTypeDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns HundredWarCardTypeDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.HundredWarCardTypeDefine;
+
+        /**
+         * Decodes a HundredWarCardTypeDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns HundredWarCardTypeDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.HundredWarCardTypeDefine;
+
+        /**
+         * Verifies a HundredWarCardTypeDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a HundredWarCardTypeDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns HundredWarCardTypeDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.HundredWarCardTypeDefine;
+
+        /**
+         * Creates a plain object from a HundredWarCardTypeDefine message. Also converts values to other types if specified.
+         * @param message HundredWarCardTypeDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.HundredWarCardTypeDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this HundredWarCardTypeDefine to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };

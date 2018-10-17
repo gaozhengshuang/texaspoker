@@ -68,7 +68,7 @@ class PilePrizeHandler extends BaseActivitySubHandler<any>
         }
     }
 
-    private updateMttProcess(record: any)
+    private updateMttProcess(record: msg.RS2C_PushMTTWeedOut)
     {
         if (record.rank)
         {

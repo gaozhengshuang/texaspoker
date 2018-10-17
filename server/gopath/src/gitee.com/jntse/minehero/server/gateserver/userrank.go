@@ -62,7 +62,7 @@ func (this *RankManager) UpdateGoldRankList() {
 	for k, v := range picklist {
 		data := &UserRankInfo{}
 		uidstr := v.Member.(string)
-		data.uid, _ = strconv.ParseInt(uidstr, 10, 32)
+		data.uid, _ = strconv.ParseInt(uidstr, 10, 64)
 		data.score = int32(v.Score)
 		data.rank = int32(k + 1)
 		this.goldranklist = append(this.goldranklist, data)
@@ -126,7 +126,7 @@ func (this *RankManager) UpdateLevelRankList() {
 	for k, v := range picklist {
 		data := &UserRankInfo{}
 		uidstr := v.Member.(string)
-		data.uid, _ = strconv.ParseInt(uidstr, 10, 32)
+		data.uid, _ = strconv.ParseInt(uidstr, 10, 64)
 		data.score = int32(v.Score)/1000000
 		data.rank = int32(k + 1)
 		this.levelranklist = append(this.levelranklist, data)

@@ -286,6 +286,7 @@ func (m *Friends) AddFriend(brief *msg.FriendBrief, reason string, save bool) *F
 	pushmsg := &msg.GW2C_PushFriendAddSuccess{Handler:pb.Int64(0), Friend:brief}
 	m.owner.SendMsg(pushmsg)
 	log.Info("[好友] 玩家[%s %d] 添加好友[%s %d]成功 原因[%s]", m.Name(), m.Id(), f.Name(), f.Id(), reason)
+	m.owner.OnAchieveProcessChanged(int32(AchieveGroup_Friend))
 	return f
 }
 

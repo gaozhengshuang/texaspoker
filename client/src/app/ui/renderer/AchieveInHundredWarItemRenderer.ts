@@ -23,12 +23,15 @@ class AchieveInHundredWarItemRenderer extends BaseItemRenderer<AchievementInfo>
         super.dataChanged();
         if (InfoUtil.checkAvailable(this.bindData))
         {
-            this.desLabel.text = this.bindData.definition.name;
-            this.rewardLabel.text = this.bindData.definition.rewardNum.toString();
-            let def: table.IItemBaseDataDefine = table.ItemBaseDataById[this.bindData.definition.rewardId];
-            if (def)
+            this.desLabel.text = this.bindData.definition.Name;
+            this.rewardLabel.text = this.bindData.definition.RewardNum.toString();
+            if (this.bindData.definition.RewardId.length > 0)
             {
-                this.rewardImg.source = def.Icon + ResSuffixName.PNG;
+                let def: table.IItemBaseDataDefine = table.ItemBaseDataById[this.bindData.definition.RewardId[0]];
+                if (def)
+                {
+                    this.rewardImg.source = def.Icon + ResSuffixName.PNG;
+                }
             }
 
             this.refreshiUI();
@@ -39,14 +42,14 @@ class AchieveInHundredWarItemRenderer extends BaseItemRenderer<AchievementInfo>
 
     private refreshiUI()
     {
-        let groupInfo: BaseAchieveProcessInfo = AchieveProcessManager.getAchieveProcessInfoByGroup(this.bindData.definition.group);
+        let groupInfo: BaseAchieveProcessInfo = AchieveProcessManager.getAchieveProcessInfoByGroup(this.bindData.definition.Group);
         if (!this.bindData.isComplete)
         {
             this.takeBtn.visible = false;
             this.progresGroup.visible = true;
-            this.achieveProgresLabel.text = groupInfo.process + " / " + this.bindData.definition.para1;
+            this.achieveProgresLabel.text = groupInfo.process + " / " + this.bindData.definition.Para1;
             this.achieveProgressImg.width = 150;
-            this.achieveProgressImg.width *= groupInfo.process / this.bindData.definition.para1;
+            this.achieveProgressImg.width *= groupInfo.process / this.bindData.definition.Para1;
         }
         else
         {

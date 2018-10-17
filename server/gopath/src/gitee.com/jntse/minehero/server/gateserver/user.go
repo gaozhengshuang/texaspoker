@@ -210,6 +210,7 @@ func (u *GateUser) Level() int32 {
 
 func (u *GateUser) AddLevel(num int32) {
 	u.level += num
+	u.OnAchieveProcessChanged(int32(AchieveGroup_Level))
 }
 
 func (u *GateUser) Exp() int32 {

@@ -51,18 +51,18 @@ class HundredWarItemRenderer extends BaseItemRenderer<HundredWarListInfo>
     {
         if (InfoUtil.checkAvailable(this.bindData))
         {
-            this.bgImage.source = ResPrefixPathName.Bg + this.bindData.definition.icon + ResSuffixName.PNG;
-            this.titleImg.source = this.bindData.definition.titleImg + ResSuffixName.PNG;
-            this.poolImg.source = this.bindData.definition.poolImg + ResSuffixName.PNG;
-            this.numLabel.text = this.bindData.join + "/" + this.bindData.definition.maxRole;
-            this.priceLabel.text = game.MathUtil.formatNum(this.bindData.definition.minBuyin);
+            this.bgImage.source = ResPrefixPathName.Bg + this.bindData.definition.Icon + ResSuffixName.PNG;
+            this.titleImg.source = this.bindData.definition.TitleImg + ResSuffixName.PNG;
+            this.poolImg.source = this.bindData.definition.PoolImg + ResSuffixName.PNG;
+            this.numLabel.text = this.bindData.join + "/" + this.bindData.definition.MaxRole;
+            this.priceLabel.text = game.MathUtil.formatNum(this.bindData.definition.MinBuyin);
             this.numComp.init("$" + game.MathUtil.numAddSpace(this.bindData.pool), NumResType.HundredWar2, 2);
             for (let i: number = 0; i < this.labelGroup.numChildren; i++)
             {
                 let label: eui.Label = this.labelGroup.getChildAt(i) as eui.Label;
                 if (label)
                 {
-                    label.textColor = this.bindData.definition.fontColor;
+                    label.textColor = parseInt(this.bindData.definition.FontColor, 16);
                 }
             }
         }
@@ -74,7 +74,7 @@ class HundredWarItemRenderer extends BaseItemRenderer<HundredWarListInfo>
         if (InfoUtil.checkAvailable(this.bindData))
         {
             //判断金币是否足够
-            if (UserManager.userInfo.gold >= this.bindData.definition.minBuyin)
+            if (UserManager.userInfo.gold >= this.bindData.definition.MinBuyin)
             {
                 HundredWarManager.reqEnterRoom(this.bindData.id);
             } else

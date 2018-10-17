@@ -63,36 +63,42 @@ class InsideRoomManager
     /**
      * 最后所在的房间的唯一id
      */
-    public static lastId:number;
+    public static lastId: number;
     /**
      * 最后房间的密码
      */
-    public static lastPasswd:string;
+    public static lastPasswd: string;
 
     public static initialize(result: game.SpRpcResult)
     {
         InsideRoomManager.list.length = 0;
         InsideRoomManager.lastTId = undefined;
-        let data: msg.GW2C_RetUserRoomInfo = result.data;
-        if (data && data.roomid > 0)
+        let data: msg.C2RS_RetInsideRoomInfoList = result.data;
+        if (data)
         {
-            InsideRoomManager.lastId = game.longToNumber(data.roomid);
-            InsideRoomManager.lastTId = data.tid;
-            InsideRoomManager.lastPasswd = data.passwd;
-            let info = new InsideRoomInfo();
-            info.id = game.longToNumber(data.roomid);
-            info.tid = data.tid;
-            info.passwd = data.passwd;
-            
-            InsideRoomManager.list.push(info);
-            // InsideRoomManager.lastId = result.data.lastId
-            // if (result.data.roomList)
-            // {
-            //     for (let roomInfo of result.data.roomList)
-            //     {
-            //         InsideRoomManager.list.push(new InsideRoomInfo(roomInfo));
-            //     }
-            // }
+            // InsideRoomManager.lastId = game.longToNumber(data.roomid);
+            // InsideRoomManager.lastTId = data.tid;
+            // InsideRoomManager.lastPasswd = data.passwd;
+            // let info = new InsideRoomInfo();
+            // info.id = game.longToNumber(data.roomid);
+            // info.tid = data.tid;
+            // info.passwd = data.passwd;
+
+            // InsideRoomManager.list.push(info);
+
+            InsideRoomManager.lastId = data.lastid;
+            if (data.roomlist)
+            {
+                for (let roomInfo of data.roomlist)
+                {
+                    let info = new InsideRoomInfo();
+                    info.id = game.longToNumber(roomInfo.id);
+                    // info.tid = roomInfo.tid;
+                    info.mttId = roomInfo.mttid;
+                    // info.passwd = roomInfo.passwd;
+                    InsideRoomManager.list.push(info);
+                }
+            }
         }
     }
     /**
