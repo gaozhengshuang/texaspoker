@@ -36,8 +36,8 @@ func (u *RoomUser) OnDestoryRoom() {
 func (u *RoomUser) OnLeaveRoom() {
 	u.Logout()
 	Redis().Del(fmt.Sprintf("userinroom_%d", u.Id()))
-	msgleave := &msg.RS2GW_UserLeaveRoom{Userid:pb.Int64(u.Id()), Bin:u.PackBin() }
-	u.SendMsg(msgleave)
+	//msgleave := &msg.RS2GW_UserLeaveRoom{Userid:pb.Int64(u.Id()), Bin:u.PackBin() }
+	//u.SendMsg(msgleave)
 	log.Trace("[房间] 玩家[%s %d] 回传个人数据，离开房间[%d]", u.Name(), u.Id(), u.RoomId()) 
 }
 

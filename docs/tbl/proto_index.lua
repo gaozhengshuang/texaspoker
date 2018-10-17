@@ -43,7 +43,7 @@ export var ProtoId : table.IProtoIdDefine[] = [
 		{ Id : 38, Name : "msg.RS2C_RetJoinedMTTList" 	},
 		{ Id : 39, Name : "msg.C2RS_ReqInsideRoomInfoList" 	},
 		{ Id : 40, Name : "msg.InsideRoomInfo" 	},
-		{ Id : 41, Name : "msg.C2RS_RetInsideRoomInfoList" 	},
+		{ Id : 41, Name : "msg.RS2C_RetInsideRoomInfoList" 	},
 		{ Id : 42, Name : "msg.C2RS_ReqMTTRecordList" 	},
 		{ Id : 43, Name : "msg.MTTRecordInfo" 	},
 		{ Id : 44, Name : "msg.RS2C_RetMTTRecordList" 	},

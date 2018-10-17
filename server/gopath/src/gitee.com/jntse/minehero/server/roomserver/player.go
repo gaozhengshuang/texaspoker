@@ -36,6 +36,8 @@ type TexasPlayer struct{
 	isready bool
 	autobuy int32
 	addcoin int32
+	addrebuy int32
+	addaddon int32
 	isai bool
 	aiacttime int32
 	readytime int32
@@ -560,8 +562,12 @@ func (this *TexasPlayer) BrightCard() {
 }
 
 func (this *TexasPlayer) AddCoin(rev *msg.C2RS_ReqAddCoin) {
-	this.addcoin = rev.GetNum()
 	send := &msg.RS2C_RetAddCoin{}
+	if !this.owner.RemoveGold(this.addcoin, "金币兑换筹码", true) {
+		send.Errcode = pb.String("金币不足")
+	}else{
+		this.addcoin = rev.GetNum()
+	}
 	this.owner.SendClientMsg(send)
 	log.Info("房间%d 玩家%d 下次添加金币%d", this.room.Id(), this.owner.Id(), this.addcoin)
 }
@@ -570,16 +576,45 @@ func (this *TexasPlayer) AutoCoin() {
 	if this.addcoin == 0 {
 		return
 	}
-	if !this.owner.RemoveGold(this.addcoin, "金币兑换筹码", true) {
-		return
-	}
 	this.AddBankRoll(this.addcoin)
 	this.addcoin = 0
+}
+
+func (this *TexasPlayer) AddRebuy(num int32, cost int32) {
+	if this.owner.RemoveGold(cost, "金币兑换筹码", true) {
+		this.addrebuy = num
+		log.Info("房间%d 玩家%d Rebuy下次添加金币%d", this.room.Id(), this.owner.Id(), this.addcoin)
+	}
+}
+
+func (this *TexasPlayer) AutoRebuy() {
+	if this.addrebuy == 0 {
+		return
+	}
+	this.AddBankRoll(this.addrebuy)
+	this.addrebuy = 0
+}
+
+func (this *TexasPlayer) AddAddon(num int32, cost int32){
+	if this.owner.RemoveGold(cost, "金币兑换筹码", true) {
+		this.addaddon = num
+		log.Info("房间%d 玩家%d Addon下次添加金币%d", this.room.Id(), this.owner.Id(), this.addcoin)
+	}
+}
+
+func (this *TexasPlayer) AutoAddon() {
+	if this.addaddon == 0 {
+		return
+	}
+	this.AddBankRoll(this.addaddon)
+	this.addaddon = 0
 }
 
 func (this *TexasPlayer) AddBankRollNext() {
 	this.AutoBuy()
 	this.AutoCoin()
+	this.AutoRebuy()
+	this.AutoAddon()
 }
 
 func (this *TexasPlayer) ChangeState(state int32) {
