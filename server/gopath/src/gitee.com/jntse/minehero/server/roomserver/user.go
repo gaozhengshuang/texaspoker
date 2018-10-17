@@ -70,6 +70,10 @@ func NewSimpleUser(id int64) *RoomUser {
 	user.bin.Base.Task = &msg.UserTask{}
 	user.bin.Base.Luckydraw = &msg.LuckyDrawRecord{Drawlist: make([]*msg.LuckyDrawItem, 0)}
 	user.arvalues.Init()
+	user.ticker1s = util.NewGameTicker(1*time.Second, user.Handler1sTick)
+	user.ticker10ms = util.NewGameTicker(10*time.Millisecond, user.Handler10msTick)
+	user.ticker1s.Start()
+	user.ticker10ms.Start()
 	return user
 }
 
@@ -93,6 +97,10 @@ func NewRoomUserAI(id int64, name string, sex int32) *RoomUser {
 	user.bin.Base.Luckydraw = &msg.LuckyDrawRecord{Drawlist: make([]*msg.LuckyDrawItem, 0)}
 	user.isai = true
 	user.arvalues.Init()
+	user.ticker1s = util.NewGameTicker(1*time.Second, user.Handler1sTick)
+	user.ticker10ms = util.NewGameTicker(10*time.Millisecond, user.Handler10msTick)
+	user.ticker1s.Start()
+	user.ticker10ms.Start()
 	return user
 }
 

@@ -198,6 +198,9 @@ func (cs *ChampionShip) DelMember(uid int64) {
 	delete(cs.memberaddon, uid)
 	if cs.IsStart() {
 		cs.finalrank = append(cs.finalrank, uid)
+		if len(cs.memberroom) == 1 {
+			cs.GameOver()
+		}
 	}
 }
 
@@ -421,7 +424,15 @@ func (cs *ChampionShip) CalcRank(roomuid int64) {
 }
 
 func (cs *ChampionShip) GameOver() {
+	cs.RewardAll()
+	cs.SaveData()
+	cs.state = CSDel
+}
 
+func (cs *ChampionShip) RewardAll() {
+}
+
+func (cs *ChampionShip) SaveData() {
 }
 
 func (cs *ChampionShip) GetRankById(uid int64) int32 {
