@@ -107,7 +107,6 @@ class InitServerHandler
 	{
 		FriendManager.FriendRequestResponse(result);
 		this.reqGetMTTListInfo();
-		// this.reqAchievementList();
 	}
 	/**
 	 * 拉取成就
@@ -120,7 +119,7 @@ class InitServerHandler
 	{
 		AchievementManager.initialize(result);
 		AchieveProcessManager.Initialize(result);
-		this.reqGetInsideRoomIdList();
+		this.reqGetActivityList(); //活动最后拉去
 	}
 	private reqGetInsideRoomIdList()
 	{
@@ -142,8 +141,12 @@ class InitServerHandler
 	private onGetMTTListInfo(result: game.SpRpcResult)
 	{
 		ChampionshipManager.initialize(result);
-		this.reqGetMailList();
-		// this.reqInviteAwardInfo();
+		//拉取已报名的赛事列表
+		let callback: Function = function (result: game.SpRpcResult)
+		{
+			this.reqGetMailList();
+		};
+		MsgTransferSend.sendRoomProto(Command.C2RS_ReqJoinedMTTList, {}, callback, null, this);
 	}
 	/**
 	 * 拉取邀请奖励信息
@@ -168,7 +171,7 @@ class InitServerHandler
 	{
 		MailManager.Reset();
 		MailManager.initialize(result);
-		this.reqGetActivityList();
+		this.reqAchievementList();
 	}
 	/**
 	 * 拉取活动列表 最后拉取

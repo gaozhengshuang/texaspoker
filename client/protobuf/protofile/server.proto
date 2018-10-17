@@ -158,6 +158,10 @@ message RS2GW_MTTRoomMember {
     repeated MTTRoomMember rooms = 1;
 }
 
+message RS2GW_MTTCancel {
+    repeated int64 members = 1;
+    optional int32 recordid = 2;
+}
 
 // --------------------------------------------------------------------------
 /// @brief MatchServer <----> RoomServer

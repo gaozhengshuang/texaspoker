@@ -21,9 +21,9 @@
 		<e:Group id="awardsRecordGroup" y="190" anchorOffsetY="0" height="640" width="666">
 			<e:Group y="0" height="60" horizontalCenter="0">
 				<e:Image id="listTabBg" width="626" height="60" source="ld_4_png" scale9Grid="3,8,25,52" y="0" horizontalCenter="0"/>
-				<e:Label text="兑换时间" verticalCenter="0" horizontalCenter="-210" textColor="0x4bc6b7"/>
-				<e:Label text="兑换内容" verticalCenter="0" horizontalCenter="0" textColor="0x4bc6b7"/>
-				<e:Label text="消耗" verticalCenter="0" horizontalCenter="210" textColor="0x4bc6b7"/>
+				<e:Label text="兑换时间" verticalCenter="0" horizontalCenter="-210" textColor="0x53bae4"/>
+				<e:Label text="兑换内容" verticalCenter="0" horizontalCenter="0" textColor="0x53bae4"/>
+				<e:Label text="消耗" verticalCenter="0" horizontalCenter="210" textColor="0x53bae4"/>
 			</e:Group>
 			<e:Scroller id="recordScroller" width="600" height="560" scaleX="1" scaleY="1" horizontalCenter="0" x="0" y="70"/>
 			<e:List id="recordList" width="600" height="560" horizontalCenter="0" x="10" y="70">

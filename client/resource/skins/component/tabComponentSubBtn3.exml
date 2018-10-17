@@ -3,5 +3,5 @@
         width="220" height="63" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Image id="btnImg" y="58" source.upAndSelected="ld_3_png" horizontalCenter.upAndSelected="0"
 	         source.downAndSelected="ld_3_png" horizontalCenter.downAndSelected="0" />
-	<e:Label id="labelDisplay" text="{data}" horizontalCenter="0" verticalCenter="0" verticalAlign="middle"            textAlign="center" size.upAndSelected="28" width.upAndSelected="160" height.upAndSelected="50" width="160"            height="50" size="28" width.downAndSelected="160" width.disabledAndSelected="160"            textColor="0x4bc6b7"  textColor.upAndSelected="0xffffff" textColor.downAndSelected="0xffffff" textColor.disabledAndSelected="0xffffff"/>
+	<e:Label id="labelDisplay" text="{data}" horizontalCenter="0" verticalCenter="0" verticalAlign="middle"            textAlign="center" size.upAndSelected="28" width.upAndSelected="160" height.upAndSelected="50" width="160"            height="50" size="28" width.downAndSelected="160" width.disabledAndSelected="160"            textColor="0x53bae4"  textColor.upAndSelected="0xffffff" textColor.downAndSelected="0xffffff" textColor.disabledAndSelected="0xffffff"/>
 </e:Skin>

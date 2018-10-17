@@ -13897,24 +13897,24 @@ $root.msg = (function() {
         return C2RS_ReqMTTQuit;
     })();
 
-    msg.C2RS_RetMTTQuit = (function() {
+    msg.RS2C_RetMTTQuit = (function() {
 
         /**
-         * Properties of a C2RS_RetMTTQuit.
+         * Properties of a RS2C_RetMTTQuit.
          * @memberof msg
-         * @interface IC2RS_RetMTTQuit
-         * @property {string|null} [errcode] C2RS_RetMTTQuit errcode
+         * @interface IRS2C_RetMTTQuit
+         * @property {string|null} [errcode] RS2C_RetMTTQuit errcode
          */
 
         /**
-         * Constructs a new C2RS_RetMTTQuit.
+         * Constructs a new RS2C_RetMTTQuit.
          * @memberof msg
-         * @classdesc Represents a C2RS_RetMTTQuit.
-         * @implements IC2RS_RetMTTQuit
+         * @classdesc Represents a RS2C_RetMTTQuit.
+         * @implements IRS2C_RetMTTQuit
          * @constructor
-         * @param {msg.IC2RS_RetMTTQuit=} [properties] Properties to set
+         * @param {msg.IRS2C_RetMTTQuit=} [properties] Properties to set
          */
-        function C2RS_RetMTTQuit(properties) {
+        function RS2C_RetMTTQuit(properties) {
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
@@ -13922,35 +13922,35 @@ $root.msg = (function() {
         }
 
         /**
-         * C2RS_RetMTTQuit errcode.
+         * RS2C_RetMTTQuit errcode.
          * @member {string} errcode
-         * @memberof msg.C2RS_RetMTTQuit
+         * @memberof msg.RS2C_RetMTTQuit
          * @instance
          */
-        C2RS_RetMTTQuit.prototype.errcode = "";
+        RS2C_RetMTTQuit.prototype.errcode = "";
 
         /**
-         * Creates a new C2RS_RetMTTQuit instance using the specified properties.
+         * Creates a new RS2C_RetMTTQuit instance using the specified properties.
          * @function create
-         * @memberof msg.C2RS_RetMTTQuit
+         * @memberof msg.RS2C_RetMTTQuit
          * @static
-         * @param {msg.IC2RS_RetMTTQuit=} [properties] Properties to set
-         * @returns {msg.C2RS_RetMTTQuit} C2RS_RetMTTQuit instance
+         * @param {msg.IRS2C_RetMTTQuit=} [properties] Properties to set
+         * @returns {msg.RS2C_RetMTTQuit} RS2C_RetMTTQuit instance
          */
-        C2RS_RetMTTQuit.create = function create(properties) {
-            return new C2RS_RetMTTQuit(properties);
+        RS2C_RetMTTQuit.create = function create(properties) {
+            return new RS2C_RetMTTQuit(properties);
         };
 
         /**
-         * Encodes the specified C2RS_RetMTTQuit message. Does not implicitly {@link msg.C2RS_RetMTTQuit.verify|verify} messages.
+         * Encodes the specified RS2C_RetMTTQuit message. Does not implicitly {@link msg.RS2C_RetMTTQuit.verify|verify} messages.
          * @function encode
-         * @memberof msg.C2RS_RetMTTQuit
+         * @memberof msg.RS2C_RetMTTQuit
          * @static
-         * @param {msg.IC2RS_RetMTTQuit} message C2RS_RetMTTQuit message or plain object to encode
+         * @param {msg.IRS2C_RetMTTQuit} message RS2C_RetMTTQuit message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        C2RS_RetMTTQuit.encode = function encode(message, writer) {
+        RS2C_RetMTTQuit.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
             if (message.errcode != null && message.hasOwnProperty("errcode"))
@@ -13959,33 +13959,33 @@ $root.msg = (function() {
         };
 
         /**
-         * Encodes the specified C2RS_RetMTTQuit message, length delimited. Does not implicitly {@link msg.C2RS_RetMTTQuit.verify|verify} messages.
+         * Encodes the specified RS2C_RetMTTQuit message, length delimited. Does not implicitly {@link msg.RS2C_RetMTTQuit.verify|verify} messages.
          * @function encodeDelimited
-         * @memberof msg.C2RS_RetMTTQuit
+         * @memberof msg.RS2C_RetMTTQuit
          * @static
-         * @param {msg.IC2RS_RetMTTQuit} message C2RS_RetMTTQuit message or plain object to encode
+         * @param {msg.IRS2C_RetMTTQuit} message RS2C_RetMTTQuit message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        C2RS_RetMTTQuit.encodeDelimited = function encodeDelimited(message, writer) {
+        RS2C_RetMTTQuit.encodeDelimited = function encodeDelimited(message, writer) {
             return this.encode(message, writer).ldelim();
         };
 
         /**
-         * Decodes a C2RS_RetMTTQuit message from the specified reader or buffer.
+         * Decodes a RS2C_RetMTTQuit message from the specified reader or buffer.
          * @function decode
-         * @memberof msg.C2RS_RetMTTQuit
+         * @memberof msg.RS2C_RetMTTQuit
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
          * @param {number} [length] Message length if known beforehand
-         * @returns {msg.C2RS_RetMTTQuit} C2RS_RetMTTQuit
+         * @returns {msg.RS2C_RetMTTQuit} RS2C_RetMTTQuit
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        C2RS_RetMTTQuit.decode = function decode(reader, length) {
+        RS2C_RetMTTQuit.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2RS_RetMTTQuit();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.RS2C_RetMTTQuit();
             while (reader.pos < end) {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
@@ -14001,30 +14001,30 @@ $root.msg = (function() {
         };
 
         /**
-         * Decodes a C2RS_RetMTTQuit message from the specified reader or buffer, length delimited.
+         * Decodes a RS2C_RetMTTQuit message from the specified reader or buffer, length delimited.
          * @function decodeDelimited
-         * @memberof msg.C2RS_RetMTTQuit
+         * @memberof msg.RS2C_RetMTTQuit
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {msg.C2RS_RetMTTQuit} C2RS_RetMTTQuit
+         * @returns {msg.RS2C_RetMTTQuit} RS2C_RetMTTQuit
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        C2RS_RetMTTQuit.decodeDelimited = function decodeDelimited(reader) {
+        RS2C_RetMTTQuit.decodeDelimited = function decodeDelimited(reader) {
             if (!(reader instanceof $Reader))
                 reader = new $Reader(reader);
             return this.decode(reader, reader.uint32());
         };
 
         /**
-         * Verifies a C2RS_RetMTTQuit message.
+         * Verifies a RS2C_RetMTTQuit message.
          * @function verify
-         * @memberof msg.C2RS_RetMTTQuit
+         * @memberof msg.RS2C_RetMTTQuit
          * @static
          * @param {Object.<string,*>} message Plain object to verify
          * @returns {string|null} `null` if valid, otherwise the reason why it is not
          */
-        C2RS_RetMTTQuit.verify = function verify(message) {
+        RS2C_RetMTTQuit.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
             if (message.errcode != null && message.hasOwnProperty("errcode"))
@@ -14034,32 +14034,32 @@ $root.msg = (function() {
         };
 
         /**
-         * Creates a C2RS_RetMTTQuit message from a plain object. Also converts values to their respective internal types.
+         * Creates a RS2C_RetMTTQuit message from a plain object. Also converts values to their respective internal types.
          * @function fromObject
-         * @memberof msg.C2RS_RetMTTQuit
+         * @memberof msg.RS2C_RetMTTQuit
          * @static
          * @param {Object.<string,*>} object Plain object
-         * @returns {msg.C2RS_RetMTTQuit} C2RS_RetMTTQuit
+         * @returns {msg.RS2C_RetMTTQuit} RS2C_RetMTTQuit
          */
-        C2RS_RetMTTQuit.fromObject = function fromObject(object) {
-            if (object instanceof $root.msg.C2RS_RetMTTQuit)
+        RS2C_RetMTTQuit.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.RS2C_RetMTTQuit)
                 return object;
-            var message = new $root.msg.C2RS_RetMTTQuit();
+            var message = new $root.msg.RS2C_RetMTTQuit();
             if (object.errcode != null)
                 message.errcode = String(object.errcode);
             return message;
         };
 
         /**
-         * Creates a plain object from a C2RS_RetMTTQuit message. Also converts values to other types if specified.
+         * Creates a plain object from a RS2C_RetMTTQuit message. Also converts values to other types if specified.
          * @function toObject
-         * @memberof msg.C2RS_RetMTTQuit
+         * @memberof msg.RS2C_RetMTTQuit
          * @static
-         * @param {msg.C2RS_RetMTTQuit} message C2RS_RetMTTQuit
+         * @param {msg.RS2C_RetMTTQuit} message RS2C_RetMTTQuit
          * @param {$protobuf.IConversionOptions} [options] Conversion options
          * @returns {Object.<string,*>} Plain object
          */
-        C2RS_RetMTTQuit.toObject = function toObject(message, options) {
+        RS2C_RetMTTQuit.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
             var object = {};
@@ -14071,17 +14071,17 @@ $root.msg = (function() {
         };
 
         /**
-         * Converts this C2RS_RetMTTQuit to JSON.
+         * Converts this RS2C_RetMTTQuit to JSON.
          * @function toJSON
-         * @memberof msg.C2RS_RetMTTQuit
+         * @memberof msg.RS2C_RetMTTQuit
          * @instance
          * @returns {Object.<string,*>} JSON object
          */
-        C2RS_RetMTTQuit.prototype.toJSON = function toJSON() {
+        RS2C_RetMTTQuit.prototype.toJSON = function toJSON() {
             return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
         };
 
-        return C2RS_RetMTTQuit;
+        return RS2C_RetMTTQuit;
     })();
 
     msg.C2RS_ReqJoinedMTTList = (function() {
@@ -51217,6 +51217,247 @@ $root.msg = (function() {
         };
 
         return RS2GW_MTTRoomMember;
+    })();
+
+    msg.RS2GW_MTTCancel = (function() {
+
+        /**
+         * Properties of a RS2GW_MTTCancel.
+         * @memberof msg
+         * @interface IRS2GW_MTTCancel
+         * @property {Array.<number|Long>|null} [members] RS2GW_MTTCancel members
+         * @property {number|null} [recordid] RS2GW_MTTCancel recordid
+         */
+
+        /**
+         * Constructs a new RS2GW_MTTCancel.
+         * @memberof msg
+         * @classdesc Represents a RS2GW_MTTCancel.
+         * @implements IRS2GW_MTTCancel
+         * @constructor
+         * @param {msg.IRS2GW_MTTCancel=} [properties] Properties to set
+         */
+        function RS2GW_MTTCancel(properties) {
+            this.members = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * RS2GW_MTTCancel members.
+         * @member {Array.<number|Long>} members
+         * @memberof msg.RS2GW_MTTCancel
+         * @instance
+         */
+        RS2GW_MTTCancel.prototype.members = $util.emptyArray;
+
+        /**
+         * RS2GW_MTTCancel recordid.
+         * @member {number} recordid
+         * @memberof msg.RS2GW_MTTCancel
+         * @instance
+         */
+        RS2GW_MTTCancel.prototype.recordid = 0;
+
+        /**
+         * Creates a new RS2GW_MTTCancel instance using the specified properties.
+         * @function create
+         * @memberof msg.RS2GW_MTTCancel
+         * @static
+         * @param {msg.IRS2GW_MTTCancel=} [properties] Properties to set
+         * @returns {msg.RS2GW_MTTCancel} RS2GW_MTTCancel instance
+         */
+        RS2GW_MTTCancel.create = function create(properties) {
+            return new RS2GW_MTTCancel(properties);
+        };
+
+        /**
+         * Encodes the specified RS2GW_MTTCancel message. Does not implicitly {@link msg.RS2GW_MTTCancel.verify|verify} messages.
+         * @function encode
+         * @memberof msg.RS2GW_MTTCancel
+         * @static
+         * @param {msg.IRS2GW_MTTCancel} message RS2GW_MTTCancel message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2GW_MTTCancel.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.members != null && message.members.length)
+                for (var i = 0; i < message.members.length; ++i)
+                    writer.uint32(/* id 1, wireType 0 =*/8).int64(message.members[i]);
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.recordid);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified RS2GW_MTTCancel message, length delimited. Does not implicitly {@link msg.RS2GW_MTTCancel.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.RS2GW_MTTCancel
+         * @static
+         * @param {msg.IRS2GW_MTTCancel} message RS2GW_MTTCancel message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        RS2GW_MTTCancel.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a RS2GW_MTTCancel message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.RS2GW_MTTCancel
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.RS2GW_MTTCancel} RS2GW_MTTCancel
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2GW_MTTCancel.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.RS2GW_MTTCancel();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.members && message.members.length))
+                        message.members = [];
+                    if ((tag & 7) === 2) {
+                        var end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2)
+                            message.members.push(reader.int64());
+                    } else
+                        message.members.push(reader.int64());
+                    break;
+                case 2:
+                    message.recordid = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a RS2GW_MTTCancel message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.RS2GW_MTTCancel
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.RS2GW_MTTCancel} RS2GW_MTTCancel
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        RS2GW_MTTCancel.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a RS2GW_MTTCancel message.
+         * @function verify
+         * @memberof msg.RS2GW_MTTCancel
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        RS2GW_MTTCancel.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.members != null && message.hasOwnProperty("members")) {
+                if (!Array.isArray(message.members))
+                    return "members: array expected";
+                for (var i = 0; i < message.members.length; ++i)
+                    if (!$util.isInteger(message.members[i]) && !(message.members[i] && $util.isInteger(message.members[i].low) && $util.isInteger(message.members[i].high)))
+                        return "members: integer|Long[] expected";
+            }
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                if (!$util.isInteger(message.recordid))
+                    return "recordid: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a RS2GW_MTTCancel message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.RS2GW_MTTCancel
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.RS2GW_MTTCancel} RS2GW_MTTCancel
+         */
+        RS2GW_MTTCancel.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.RS2GW_MTTCancel)
+                return object;
+            var message = new $root.msg.RS2GW_MTTCancel();
+            if (object.members) {
+                if (!Array.isArray(object.members))
+                    throw TypeError(".msg.RS2GW_MTTCancel.members: array expected");
+                message.members = [];
+                for (var i = 0; i < object.members.length; ++i)
+                    if ($util.Long)
+                        (message.members[i] = $util.Long.fromValue(object.members[i])).unsigned = false;
+                    else if (typeof object.members[i] === "string")
+                        message.members[i] = parseInt(object.members[i], 10);
+                    else if (typeof object.members[i] === "number")
+                        message.members[i] = object.members[i];
+                    else if (typeof object.members[i] === "object")
+                        message.members[i] = new $util.LongBits(object.members[i].low >>> 0, object.members[i].high >>> 0).toNumber();
+            }
+            if (object.recordid != null)
+                message.recordid = object.recordid | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a RS2GW_MTTCancel message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.RS2GW_MTTCancel
+         * @static
+         * @param {msg.RS2GW_MTTCancel} message RS2GW_MTTCancel
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        RS2GW_MTTCancel.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.members = [];
+            if (options.defaults)
+                object.recordid = 0;
+            if (message.members && message.members.length) {
+                object.members = [];
+                for (var j = 0; j < message.members.length; ++j)
+                    if (typeof message.members[j] === "number")
+                        object.members[j] = options.longs === String ? String(message.members[j]) : message.members[j];
+                    else
+                        object.members[j] = options.longs === String ? $util.Long.prototype.toString.call(message.members[j]) : options.longs === Number ? new $util.LongBits(message.members[j].low >>> 0, message.members[j].high >>> 0).toNumber() : message.members[j];
+            }
+            if (message.recordid != null && message.hasOwnProperty("recordid"))
+                object.recordid = message.recordid;
+            return object;
+        };
+
+        /**
+         * Converts this RS2GW_MTTCancel to JSON.
+         * @function toJSON
+         * @memberof msg.RS2GW_MTTCancel
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        RS2GW_MTTCancel.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return RS2GW_MTTCancel;
     })();
 
     msg.RS2MS_ReqRegist = (function() {
