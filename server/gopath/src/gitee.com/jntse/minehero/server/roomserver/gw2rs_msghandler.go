@@ -192,7 +192,7 @@ func on_C2GW_ReqLeaveRoom(session network.IBaseNetSession, message interface{}) 
 		log.Error("玩家[%d] 请求离开房间，找不到房间[%d]", userid, roomid)
 		return
 	}
-
+	u.DelRoomId(roomid)
 	room.UserLeave(u) 
 }
 

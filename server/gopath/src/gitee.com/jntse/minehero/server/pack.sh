@@ -40,24 +40,24 @@ case $cmd in
 test)
 ## 测试环境
 echo "测试环境版本生成中..."
-wainum=$(ssh brickcrush@210.73.214.74 "ls -d -l /home/brickcrush/version/${today}R* | wc -l")
+wainum=$(ssh poker@210.73.214.74 "ls -d -l /home/poker/version/${today}R* | wc -l")
 wainum=$((wainum + 1))
 waibuildDirName=${today}R${wainum}_PP
 echo $waibuildDirName
 
-ssh brickcrush@210.73.214.74 "mkdir -p /home/brickcrush/version/${waibuildDirName}"
-scp pack/$filename brickcrush@210.73.214.74:/home/brickcrush/version/${waibuildDirName}
-ssh brickcrush@210.73.214.74 "cd /home/brickcrush/version/${waibuildDirName}/ && tar xzvf *.tar.gz"
-ssh brickcrush@210.73.214.74 "rm /home/brickcrush/version/${waibuildDirName}/release/conf -rf"
-ssh brickcrush@210.73.214.74 "cp /home/brickcrush/version/config/conf /home/brickcrush/version/${waibuildDirName}/release/ -rvf"
-ssh brickcrush@210.73.214.74 "cp /home/brickcrush/version/config/runserver.sh /home/brickcrush/version/${waibuildDirName}/release/ -rvf"
-ssh brickcrush@210.73.214.74 "cp /home/brickcrush/version/config/watch.sh /home/brickcrush/version/${waibuildDirName}/release/ -rvf"
-ssh brickcrush@210.73.214.74 "cp /home/brickcrush/version/config/tbl /home/brickcrush/version/${waibuildDirName}/release/ -rvf"
+ssh poker@210.73.214.74 "mkdir -p /home/poker/version/${waibuildDirName}"
+scp pack/$filename poker@210.73.214.74:/home/poker/version/${waibuildDirName}
+ssh poker@210.73.214.74 "cd /home/poker/version/${waibuildDirName}/ && tar xzvf *.tar.gz"
+ssh poker@210.73.214.74 "rm /home/poker/version/${waibuildDirName}/release/conf -rf"
+ssh poker@210.73.214.74 "cp /home/poker/version/config/conf /home/poker/version/${waibuildDirName}/release/ -rvf"
+ssh poker@210.73.214.74 "cp /home/poker/version/config/runserver.sh /home/poker/version/${waibuildDirName}/release/ -rvf"
+ssh poker@210.73.214.74 "cp /home/poker/version/config/watch.sh /home/poker/version/${waibuildDirName}/release/ -rvf"
+ssh poker@210.73.214.74 "cp /home/poker/version/config/tbl /home/poker/version/${waibuildDirName}/release/ -rvf"
 ;;
 
 banshu)
 ## 版署版本
-wainum=$(ssh brickcrush@210.73.214.68 "ls -d -l /home/brickcrush/version/${today}R* | wc -l")
+wainum=$(ssh poker@210.73.214.68 "ls -d -l /home/poker/version/${today}R* | wc -l")
 wainum=$((wainum + 1))
 waibuildDirName=${today}R${wainum}_PP
 echo $waibuildDirName
@@ -74,23 +74,23 @@ ssh brickbanshu@210.73.214.68 "cp /home/brickbanshu/version/config/watch.sh /hom
 
 release)
 ## 正式环境版本
-wainum=$(ssh brickcrush@210.73.214.71 "ls -d -l /home/brickcrush/version/${today}R* | wc -l")
+wainum=$(ssh poker@210.73.214.71 "ls -d -l /home/poker/version/${today}R* | wc -l")
 wainum=$((wainum + 1))
 waibuildDirName=${today}R${wainum}_PP
 echo $waibuildDirName
 
 echo "正式环境版本生成中..."
-ssh brickcrush@210.73.214.71 "mkdir -p /home/brickcrush/version/${waibuildDirName}"
-scp pack/$filename brickcrush@210.73.214.71:/home/brickcrush/version/${waibuildDirName}
-ssh brickcrush@210.73.214.71 "cd /home/brickcrush/version/${waibuildDirName}/ && tar xzvf *.tar.gz"
-ssh brickcrush@210.73.214.71 "rm /home/brickcrush/version/${waibuildDirName}/release/conf -rf"
-ssh brickcrush@210.73.214.71 "cp /home/brickcrush/version/config/conf /home/brickcrush/version/${waibuildDirName}/release/ -rvf"
-ssh brickcrush@210.73.214.71 "cp /home/brickcrush/version/config/runserver.sh /home/brickcrush/version/${waibuildDirName}/release/ -rvf"
-ssh brickcrush@210.73.214.71 "cp /home/brickcrush/version/config/watch.sh /home/brickcrush/version/${waibuildDirName}/release/ -rvf"
+ssh poker@210.73.214.74 "mkdir -p /home/poker/version/${waibuildDirName}"
+scp pack/$filename poker@210.73.214.71:/home/poker/version/${waibuildDirName}
+ssh poker@210.73.214.74 "cd /home/poker/version/${waibuildDirName}/ && tar xzvf *.tar.gz"
+ssh poker@210.73.214.74 "rm /home/poker/version/${waibuildDirName}/release/conf -rf"
+ssh poker@210.73.214.74 "cp /home/poker/version/config/conf /home/poker/version/${waibuildDirName}/release/ -rvf"
+ssh poker@210.73.214.74 "cp /home/poker/version/config/runserver.sh /home/poker/version/${waibuildDirName}/release/ -rvf"
+ssh poker@210.73.214.74 "cp /home/poker/version/config/watch.sh /home/poker/version/${waibuildDirName}/release/ -rvf"
 
-#ssh brickcrush@210.73.214.68 "scp -r /home/brickcrush/version/${waibuildDirName} brickcrush@210.73.214.71:/home/brickcrush/version/"
-#ssh brickcrush@210.73.214.68 "scp -r /home/brickcrush/version/${waibuildDirName} brickcrush@210.73.214.76:/home/brickcrush/version/"
-#ssh brickcrush@210.73.214.68 "scp -r /home/brickcrush/version/${waibuildDirName} brickcrush@210.73.214.77:/home/brickcrush/version/"
+#ssh poker@210.73.214.68 "scp -r /home/poker/version/${waibuildDirName} poker@210.73.214.71:/home/poker/version/"
+#ssh poker@210.73.214.68 "scp -r /home/poker/version/${waibuildDirName} poker@210.73.214.76:/home/poker/version/"
+#ssh poker@210.73.214.68 "scp -r /home/poker/version/${waibuildDirName} poker@210.73.214.77:/home/poker/version/"
 ;;
 
 esac

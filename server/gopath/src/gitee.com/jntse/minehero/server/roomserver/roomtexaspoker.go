@@ -60,7 +60,7 @@ type TexasPokerRoom struct {
 	chips []int32						// 玩家最终下注筹码，摊牌时为玩家最终获得筹码
 	remain	int32						// 剩余人
 	allin int32							// allin人数
-	publiccard []int32					// 公共牌
+	publiccard []int32					// 每轮公共牌
 	curactpos int32
 	starttime int32
 	bettime int32						//当前下注时间
@@ -840,7 +840,7 @@ func (this *TexasPokerRoom) RestartGame() int32{
 		this.posfold = make(map[int32]int32)
 		this.lastrecord = make([]*msg.UserReviewInfo, 0)
 		this.recordstep = 0
-		this.publiccard = make([]int32, 0) 
+		this.publiccard = make([]int32, 0)
 		for _, v := range this.currecord {
 			this.lastrecord = append(this.lastrecord, v)
 		}
@@ -1014,7 +1014,7 @@ func (this *TexasPokerRoom) SendRoomInfo(player *TexasPlayer) {
 	send.Pos = pb.Int32(this.curactpos+1)
 	send.Postime = pb.Int32(10)
 	send.Starttime = pb.Int32(this.starttime)
-	send.Publiccard = this.publiccard
+	send.Publiccard = this.publichand.ToAllCard()
 	for _, p := range this.players {
 		if p == nil {
 			continue
@@ -1030,12 +1030,13 @@ func (this *TexasPokerRoom) SendRoomInfo(player *TexasPlayer) {
 		send.Addontimes = pb.Int32(this.mtt.GetUserAddon(this.Id()));
 		send.Addbuy = pb.Int32(player.addrebuy+player.addaddon);
 		send.Rank = pb.Int32(this.mtt.GetUserRank(player.owner.Id()));
-		send.Avgchips = pb.Int32(this.mtt.sumbankroll/this.mtt.curmembernum);
+		send.Avgchips = pb.Int32(this.mtt.GetAvgChips());
 		send.Join = pb.Int32(this.mtt.curmembernum);
 		log.Info("锦标赛%d 玩家%d进入房间 Rank%d Avg%d", this.mtt.uid, player.owner.Id(), send.GetRank(), send.GetAvgchips())
 	}
 
 	player.owner.SendClientMsg(send)
+	player.SendMttRank()
 }
 
 func (this *TexasPokerRoom) UpdateMember() {
@@ -1115,9 +1116,6 @@ func (this *TexasPokerRoom) ReqTimeAwardGet(uid int64) {
 }
 
 func (this *TexasPokerRoom) ReqStandUp(uid int64) {
-	if this.IsChampionShip() {
-		return
-	}
 	player := this.FindAllByID(uid)
 	if player != nil {
 		player.ReqStandUp()
