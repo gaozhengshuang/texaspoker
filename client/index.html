@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>德州-debug</title>
@@ -9,7 +10,7 @@
     <meta name="screen-orientation" content="portrait" />
     <meta name="x5-fullscreen" content="true" />
     <meta name="360-fullscreen" content="true" />
-    <meta name="wap-font-scale" content="no"/>
+    <meta name="wap-font-scale" content="no" />
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
@@ -35,102 +36,124 @@
             bottom: 100px;
         }
     </style>
-     <script egret="libs" src="libs/modules/jszip/jszip.min.js"></script>
+<script egret="libs" src="libs/modules/jszip/jszip.min.js"></script>
+<script egret="libs" src="libs/modules/i18n/i18n.min.js"></script>
 </head>
+
 <body>
     <div class="web-loading">正在启动...</div>
-    <div style="margin: auto;width: 100%;height: 100%;" class="egret-player"
-         data-entry-class="Main"
-         data-orientation="portrait"
-         data-scale-mode="fixedWidth"
-         data-frame-rate="60"
-         data-content-width="720"
-         data-content-height="1280"
-         data-show-paint-rect="true"
-         data-multi-fingered="2"
-         data-show-fps="true" data-show-log="true"
-         data-show-fps-style="x:0,y:0,size:12,textColor:0xffffff,bgAlpha:0.2">
-    </div>
+    <div style="margin: auto;width: 100%;height: 100%;" class="egret-player" data-entry-class="Main" data-orientation="portrait" data-scale-mode="fixedWidth" data-frame-rate="60"
+data-content-width="720" data-content-height="1280" data-show-paint-rect="true" data-multi-fingered="2" data-show-fps="true"
+data-show-log="true" data-show-fps-style="x:0,y:0,size:12,textColor:0xffffff,bgAlpha:0.2">
+</div>
 <script>
-var resJsonUrl = "default.res.json";
-window.web_config_scripts = ['libs/modules.min.js','libs/bundle.min.js','libs/main.min.js'];
-window.web_config_defaultResJson = 'resource/default.res.json';
-window.web_config_defaultThmJson = 'resource/default.thm.json';
-(function() {
-    function isWeiXin()
-    {
-        var ua = window.navigator.userAgent.toLowerCase();
-        return (ua.match(/MicroMessenger/i) == 'micromessenger');
+    var resJsonUrl = "default.res.json";
+    window.web_config_scripts = ['libs/modules.min.js', 'libs/bundle.min.js', 'libs/main.min.js'];
+    window.web_config_defaultResJson = 'resource/default.res.json';
+    window.web_config_defaultThmJson = 'resource/default.thm.json';
+    I18n.initSystem("", ['zh-tw']);
+    var langUrl = "resource/assets/lang/zh-tw.zip";
+    loadZip(langUrl, "zh-tw.json", jszipParse);
+    //加载单个zip文件，成功后进行回调
+    function loadZip(url, filename, callBack) {
+        var xhrZip = new XMLHttpRequest();
+        xhrZip.open("GET", url, true);
+        xhrZip.responseType = "arraybuffer";
+        xhrZip.addEventListener("load", function (oEvent) {
+            var arrayBuffer = xhrZip.response; // 注意:不是oReq.responseText
+            if (!arrayBuffer) {
+                console.log(url + "解析异常:" + xhrZip);
+                throw new Error("zip异常");
+            }
+            callBack(arrayBuffer, filename);
+        });
+        xhrZip.send(null);
     }
-    //
-    var loadScript = function (list, callback) {
-        var loaded = 0;
-        var loadNext = function () {
-            loadSingleScript(list[loaded], function () {
-                loaded++;
-                if (loaded >= list.length) {
-                    callback();
+    //jszip解析zip文件，并转换为javascript脚本运行
+    function jszipParse(data, filename) {
+        JSZip.loadAsync(data).then(function (zip) {
+            return zip.file(filename).async("string");
+        }).then(function (text) {
+            console.log("语言文件：", text);
+            I18n.initMap(text);
+            //使用eval
+            // eval(text);
+            (function () {
+                function isWeiXin() {
+                    var ua = window.navigator.userAgent.toLowerCase();
+                    return (ua.match(/MicroMessenger/i) == 'micromessenger');
                 }
-                else {
+                //
+                var loadScript = function (list, callback) {
+                    var loaded = 0;
+                    var loadNext = function () {
+                        loadSingleScript(list[loaded], function () {
+                            loaded++;
+                            if (loaded >= list.length) {
+                                callback();
+                            }
+                            else {
+                                loadNext();
+                            }
+                        })
+                    };
                     loadNext();
+                };
+                var loadSingleScript = function (src, callback) {
+                    var s = document.createElement('script');
+                    s.async = false;
+                    s.src = src;
+                    s.addEventListener('load', function () {
+                        s.parentNode.removeChild(s);
+                        s.removeEventListener('load', arguments.callee, false);
+                        callback();
+                    }, false);
+                    document.body.appendChild(s);
+                };
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', './manifest.json?v=' + Math.random(), true);
+                xhr.addEventListener("load", function () {
+                    var manifest = JSON.parse(xhr.response);
+                    var list = manifest.initial.concat(manifest.game);
+                    if (isWeiXin()) {
+                        list.push('http://res.wx.qq.com/open/js/jweixin-1.2.0.js');
+                    }
+                    loadScript(list, function () {
+                        /**
+                        * {
+                        * "renderMode":, //引擎渲染模式，"canvas" 或者 "webgl"
+                        * "audioType": 0 //使用的音频类型，0:默认，2:web audio，3:audio
+                        * "antialias": //WebGL模式下是否开启抗锯齿，true:开启，false:关闭，默认为false
+                        * "retina": //是否基于devicePixelRatio缩放画布
+                        * }
+                        **/
+                        egret.runEgret({ renderMode: "webgl", audioType: 0 });
+                    });
+                });
+                xhr.send(null);
+            })();
+            (function () {
+                function onBridgeReady() {
+                    WeixinJSBridge.invoke('setFontSizeCallback', { 'fontSize': 0 });
+                    WeixinJSBridge.on('menu:setfont', function () {
+                        WeixinJSBridge.invoke('setFontSizeCallback', { 'fontSize': 0 });
+                    });
                 }
-            })
-        };
-        loadNext();
-    };
-    var loadSingleScript = function (src, callback) {
-        var s = document.createElement('script');
-        s.async = false;
-        s.src = src;
-        s.addEventListener('load', function () {
-            s.parentNode.removeChild(s);
-            s.removeEventListener('load', arguments.callee, false);
-            callback();
-        }, false);
-        document.body.appendChild(s);
-    };
-    
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', './manifest.json?v=' + Math.random(), true);
-    xhr.addEventListener("load", function () {
-        var manifest = JSON.parse(xhr.response);
-        var list = manifest.initial.concat(manifest.game);
-        if(isWeiXin())
-        {
-            list.push('http://res.wx.qq.com/open/js/jweixin-1.2.0.js');
-        }
-        loadScript(list, function () {
-             /**
-             * {
-             * "renderMode":, //引擎渲染模式，"canvas" 或者 "webgl"
-             * "audioType": 0 //使用的音频类型，0:默认，2:web audio，3:audio
-             * "antialias": //WebGL模式下是否开启抗锯齿，true:开启，false:关闭，默认为false
-             * "retina": //是否基于devicePixelRatio缩放画布
-             * }
-             **/
-            egret.runEgret({ renderMode: "webgl", audioType: 0 });
-        });
-    });
-    xhr.send(null);
-})();
-(function(){
-    function onBridgeReady(){
-        WeixinJSBridge.invoke('setFontSizeCallback', { 'fontSize' : 0 });
-        WeixinJSBridge.on('menu:setfont', function() {
-            WeixinJSBridge.invoke('setFontSizeCallback', { 'fontSize' : 0 });
+                if (typeof WeixinJSBridge == "undefined") {
+                    if (document.addEventListener) {
+                        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+                    } else if (document.attachEvent) {
+                        document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                        document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+                    }
+                } else {
+                    onBridgeReady();
+                }
+            })();
         });
     }
-    if (typeof WeixinJSBridge == "undefined"){
-        if(document.addEventListener){
-            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-        }else if(document.attachEvent){
-            document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
-            document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
-        }
-    }else{
-        onBridgeReady();
-    }
-})();
 </script>
 </body>
+
 </html>

@@ -75,6 +75,10 @@
 		{
 			"name": "jszip",
 			"path": "../../tools/egret/jszip/libsrc"
+		},
+		{
+			"name": "i18n",
+			"path": "../../tools/egret/i18n/libsrc"
 		}
 	]
 }

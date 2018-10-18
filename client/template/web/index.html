@@ -45,11 +45,41 @@ data-content-width="720" data-content-height="1280" data-show-paint-rect="false"
 data-show-log="true" data-show-fps-style="x:0,y:0,size:12,textColor:0xffffff,bgAlpha:0.2">
 </div>
 <script egret="libs" src="js/jszip.min.js"></script>
+<script egret="libs" src="js/i18n.min.js"></script>
+
 <script>
     //资源文件外部声明用于版本控制
-    var resJsonUrl = "default.json";
-    //
-    (function () {
+    var resJsonUrl = "default.res.json";
+    //多语言处理
+    I18n.initSystem("", ['zh-tw']);
+    var langUrl = "resource/assets/lang/zh-tw.zip";
+    loadZip(langUrl, onLangLoadComplete);
+    //加载单个zip文件，成功后进行回调
+    function loadZip(url, callBack) {
+        var xhrZip = new XMLHttpRequest();
+        xhrZip.open("GET", url, true);
+        xhrZip.responseType = "arraybuffer";
+        xhrZip.addEventListener("load", function (oEvent) {
+            var arrayBuffer = xhrZip.response; // 注意:不是oReq.responseText
+            if (!arrayBuffer) {
+                console.log(url + "解析异常:" + xhrZip);
+                throw new Error("zip异常");
+            }
+            callBack(arrayBuffer);
+        });
+        xhrZip.send(null);
+    }
+    //jszip解析zip文件，并转换为javascript脚本运行
+    function onLangLoadComplete(data) {
+        JSZip.loadAsync(data).then(function (zip) {
+            return zip.file("zh-tw.json").async("string");
+        }).then(function (text) {
+            console.log("语言文件：", text);
+            I18n.initMap(text);
+            runMain();
+        });
+    }
+    function runMain() {
         //web_config_subPath是index.php传过来的，没有为直接访问,读取相对路径
         if (window.web_config_subPath == null) {
             window.web_config_subPath = '';
@@ -147,21 +177,6 @@ data-show-log="true" data-show-fps-style="x:0,y:0,size:12,textColor:0xffffff,bgA
             //压缩失败，实际项目这里需要改为加载没压缩的js文件。
             console.error("jszip解压文件报错，进行普通文件加载");
         }
-        //加载单个zip文件，成功后进行回调
-        function loadZip(url, callBack) {
-            var xhrZip = new XMLHttpRequest();
-            xhrZip.open("GET", url, true);
-            xhrZip.responseType = "arraybuffer";
-            xhrZip.addEventListener("load", function (oEvent) {
-                var arrayBuffer = xhrZip.response; // 注意:不是oReq.responseText
-                if (!arrayBuffer) {
-                    console.log(url + "解析异常:" + xhrZip);
-                    throw new Error("zip异常");
-                }
-                callBack(arrayBuffer);
-            });
-            xhrZip.send(null);
-        }
         //jszip解析zip文件，并转换为javascript脚本运行
         function jszipParse(data, filename, callback) {
             JSZip.loadAsync(data).then(function (zip) {
@@ -182,8 +197,7 @@ data-show-log="true" data-show-fps-style="x:0,y:0,size:12,textColor:0xffffff,bgA
             document.body.appendChild(script);
             document.body.removeChild(script);
         }
-    })();
-
+    }
     //处理微信平台打开
     (function () {
         function onBridgeReady() {
