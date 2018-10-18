@@ -830,7 +830,7 @@ class ChampionshipManager
             if (rInfo != null)
             {
                 let leftJoin: number = rInfo.leftJoin;
-                rInfo.copyValueFrom(result.data);
+                rInfo.copyValueFromIgnoreCase(data);
                 if (!leftJoin && GamblingManager.matchRoomInfo.leftJoin)
                 {
                     leftJoin = GamblingManager.matchRoomInfo.leftJoin;

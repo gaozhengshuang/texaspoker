@@ -16286,7 +16286,7 @@ $root.msg = (function() {
          * @property {string|null} [name] MTTRecentlyRankInfo name
          * @property {string|null} [head] MTTRecentlyRankInfo head
          * @property {number|null} [sex] MTTRecentlyRankInfo sex
-         * @property {number|null} [roleid] MTTRecentlyRankInfo roleid
+         * @property {number|Long|null} [roleid] MTTRecentlyRankInfo roleid
          */
 
         /**
@@ -16338,11 +16338,11 @@ $root.msg = (function() {
 
         /**
          * MTTRecentlyRankInfo roleid.
-         * @member {number} roleid
+         * @member {number|Long} roleid
          * @memberof msg.MTTRecentlyRankInfo
          * @instance
          */
-        MTTRecentlyRankInfo.prototype.roleid = 0;
+        MTTRecentlyRankInfo.prototype.roleid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
          * Creates a new MTTRecentlyRankInfo instance using the specified properties.
@@ -16377,7 +16377,7 @@ $root.msg = (function() {
             if (message.sex != null && message.hasOwnProperty("sex"))
                 writer.uint32(/* id 4, wireType 0 =*/32).int32(message.sex);
             if (message.roleid != null && message.hasOwnProperty("roleid"))
-                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.roleid);
+                writer.uint32(/* id 5, wireType 0 =*/40).int64(message.roleid);
             return writer;
         };
 
@@ -16425,7 +16425,7 @@ $root.msg = (function() {
                     message.sex = reader.int32();
                     break;
                 case 5:
-                    message.roleid = reader.int32();
+                    message.roleid = reader.int64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -16475,8 +16475,8 @@ $root.msg = (function() {
                 if (!$util.isInteger(message.sex))
                     return "sex: integer expected";
             if (message.roleid != null && message.hasOwnProperty("roleid"))
-                if (!$util.isInteger(message.roleid))
-                    return "roleid: integer expected";
+                if (!$util.isInteger(message.roleid) && !(message.roleid && $util.isInteger(message.roleid.low) && $util.isInteger(message.roleid.high)))
+                    return "roleid: integer|Long expected";
             return null;
         };
 
@@ -16501,7 +16501,14 @@ $root.msg = (function() {
             if (object.sex != null)
                 message.sex = object.sex | 0;
             if (object.roleid != null)
-                message.roleid = object.roleid | 0;
+                if ($util.Long)
+                    (message.roleid = $util.Long.fromValue(object.roleid)).unsigned = false;
+                else if (typeof object.roleid === "string")
+                    message.roleid = parseInt(object.roleid, 10);
+                else if (typeof object.roleid === "number")
+                    message.roleid = object.roleid;
+                else if (typeof object.roleid === "object")
+                    message.roleid = new $util.LongBits(object.roleid.low >>> 0, object.roleid.high >>> 0).toNumber();
             return message;
         };
 
@@ -16523,7 +16530,11 @@ $root.msg = (function() {
                 object.name = "";
                 object.head = "";
                 object.sex = 0;
-                object.roleid = 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.roleid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.roleid = options.longs === String ? "0" : 0;
             }
             if (message.rank != null && message.hasOwnProperty("rank"))
                 object.rank = message.rank;
@@ -16534,7 +16545,10 @@ $root.msg = (function() {
             if (message.sex != null && message.hasOwnProperty("sex"))
                 object.sex = message.sex;
             if (message.roleid != null && message.hasOwnProperty("roleid"))
-                object.roleid = message.roleid;
+                if (typeof message.roleid === "number")
+                    object.roleid = options.longs === String ? String(message.roleid) : message.roleid;
+                else
+                    object.roleid = options.longs === String ? $util.Long.prototype.toString.call(message.roleid) : options.longs === Number ? new $util.LongBits(message.roleid.low >>> 0, message.roleid.high >>> 0).toNumber() : message.roleid;
             return object;
         };
 
