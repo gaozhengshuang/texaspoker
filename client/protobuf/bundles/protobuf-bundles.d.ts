@@ -16375,20 +16375,107 @@ declare namespace msg {
     /** Properties of a GW2C_RetPlayerRoleInfo. */
     interface IGW2C_RetPlayerRoleInfo {
 
+        /** GW2C_RetPlayerRoleInfo diamond */
+        diamond?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo gold */
+        gold?: (number|null);
+
         /** GW2C_RetPlayerRoleInfo roleid */
         roleid?: (number|Long|null);
 
-        /** GW2C_RetPlayerRoleInfo errcode */
-        errcode?: (string|null);
+        /** GW2C_RetPlayerRoleInfo name */
+        name?: (string|null);
 
-        /** GW2C_RetPlayerRoleInfo entity */
-        entity?: (msg.IEntityBase|null);
+        /** GW2C_RetPlayerRoleInfo head */
+        head?: (string|null);
 
-        /** GW2C_RetPlayerRoleInfo vip */
-        vip?: (msg.IUserVip|null);
+        /** GW2C_RetPlayerRoleInfo sex */
+        sex?: (number|null);
 
-        /** GW2C_RetPlayerRoleInfo statistics */
-        statistics?: (msg.IUserStatistics|null);
+        /** GW2C_RetPlayerRoleInfo level */
+        level?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo exp */
+        exp?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo ip */
+        ip?: (string|null);
+
+        /** GW2C_RetPlayerRoleInfo sign */
+        sign?: (string|null);
+
+        /** GW2C_RetPlayerRoleInfo age */
+        age?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo maxgold */
+        maxgold?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo maxgoldonetimes */
+        maxgoldonetimes?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo friendnum */
+        friendnum?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo gametimes */
+        gametimes?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo wintimes */
+        wintimes?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo maxhand */
+        maxhand?: (number[]|null);
+
+        /** GW2C_RetPlayerRoleInfo championtimes */
+        championtimes?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo vipexp */
+        vipexp?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo viptime */
+        viptime?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo yearviptime */
+        yearviptime?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo viplevel */
+        viplevel?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo createdtime */
+        createdtime?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo isoffline */
+        isoffline?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo stateid */
+        stateid?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo stateconfid */
+        stateconfid?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo entrytimes */
+        entrytimes?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo showdowntimes */
+        showdowntimes?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo mttjointimes */
+        mttjointimes?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo mttprizetimes */
+        mttprizetimes?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo gametimes2 */
+        gametimes2?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo wintimes2 */
+        wintimes2?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo entrytimes2 */
+        entrytimes2?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo showdowntimes2 */
+        showdowntimes2?: (number|null);
     }
 
     /** Represents a GW2C_RetPlayerRoleInfo. */
@@ -16400,20 +16487,107 @@ declare namespace msg {
          */
         constructor(properties?: msg.IGW2C_RetPlayerRoleInfo);
 
+        /** GW2C_RetPlayerRoleInfo diamond. */
+        public diamond: number;
+
+        /** GW2C_RetPlayerRoleInfo gold. */
+        public gold: number;
+
         /** GW2C_RetPlayerRoleInfo roleid. */
         public roleid: (number|Long);
 
-        /** GW2C_RetPlayerRoleInfo errcode. */
-        public errcode: string;
+        /** GW2C_RetPlayerRoleInfo name. */
+        public name: string;
 
-        /** GW2C_RetPlayerRoleInfo entity. */
-        public entity?: (msg.IEntityBase|null);
+        /** GW2C_RetPlayerRoleInfo head. */
+        public head: string;
 
-        /** GW2C_RetPlayerRoleInfo vip. */
-        public vip?: (msg.IUserVip|null);
+        /** GW2C_RetPlayerRoleInfo sex. */
+        public sex: number;
 
-        /** GW2C_RetPlayerRoleInfo statistics. */
-        public statistics?: (msg.IUserStatistics|null);
+        /** GW2C_RetPlayerRoleInfo level. */
+        public level: number;
+
+        /** GW2C_RetPlayerRoleInfo exp. */
+        public exp: number;
+
+        /** GW2C_RetPlayerRoleInfo ip. */
+        public ip: string;
+
+        /** GW2C_RetPlayerRoleInfo sign. */
+        public sign: string;
+
+        /** GW2C_RetPlayerRoleInfo age. */
+        public age: number;
+
+        /** GW2C_RetPlayerRoleInfo maxgold. */
+        public maxgold: number;
+
+        /** GW2C_RetPlayerRoleInfo maxgoldonetimes. */
+        public maxgoldonetimes: number;
+
+        /** GW2C_RetPlayerRoleInfo friendnum. */
+        public friendnum: number;
+
+        /** GW2C_RetPlayerRoleInfo gametimes. */
+        public gametimes: number;
+
+        /** GW2C_RetPlayerRoleInfo wintimes. */
+        public wintimes: number;
+
+        /** GW2C_RetPlayerRoleInfo maxhand. */
+        public maxhand: number[];
+
+        /** GW2C_RetPlayerRoleInfo championtimes. */
+        public championtimes: number;
+
+        /** GW2C_RetPlayerRoleInfo vipexp. */
+        public vipexp: number;
+
+        /** GW2C_RetPlayerRoleInfo viptime. */
+        public viptime: number;
+
+        /** GW2C_RetPlayerRoleInfo yearviptime. */
+        public yearviptime: number;
+
+        /** GW2C_RetPlayerRoleInfo viplevel. */
+        public viplevel: number;
+
+        /** GW2C_RetPlayerRoleInfo createdtime. */
+        public createdtime: number;
+
+        /** GW2C_RetPlayerRoleInfo isoffline. */
+        public isoffline: number;
+
+        /** GW2C_RetPlayerRoleInfo stateid. */
+        public stateid: number;
+
+        /** GW2C_RetPlayerRoleInfo stateconfid. */
+        public stateconfid: number;
+
+        /** GW2C_RetPlayerRoleInfo entrytimes. */
+        public entrytimes: number;
+
+        /** GW2C_RetPlayerRoleInfo showdowntimes. */
+        public showdowntimes: number;
+
+        /** GW2C_RetPlayerRoleInfo mttjointimes. */
+        public mttjointimes: number;
+
+        /** GW2C_RetPlayerRoleInfo mttprizetimes. */
+        public mttprizetimes: number;
+
+        /** GW2C_RetPlayerRoleInfo gametimes2. */
+        public gametimes2: number;
+
+        /** GW2C_RetPlayerRoleInfo wintimes2. */
+        public wintimes2: number;
+
+        /** GW2C_RetPlayerRoleInfo entrytimes2. */
+        public entrytimes2: number;
+
+        /** GW2C_RetPlayerRoleInfo showdowntimes2. */
+        public showdowntimes2: number;
 
         /**
          * Creates a new GW2C_RetPlayerRoleInfo instance using the specified properties.
@@ -16680,9 +16854,6 @@ declare namespace msg {
 
         /** RS2C_RetFriendGetRoleInfo showdowntimes2 */
         showdowntimes2?: (number|null);
-
-        /** RS2C_RetFriendGetRoleInfo errcode */
-        errcode?: (string|null);
     }
 
     /** Represents a RS2C_RetFriendGetRoleInfo. */
@@ -16795,9 +16966,6 @@ declare namespace msg {
 
         /** RS2C_RetFriendGetRoleInfo showdowntimes2. */
         public showdowntimes2: number;
-
-        /** RS2C_RetFriendGetRoleInfo errcode. */
-        public errcode: string;
 
         /**
          * Creates a new RS2C_RetFriendGetRoleInfo instance using the specified properties.

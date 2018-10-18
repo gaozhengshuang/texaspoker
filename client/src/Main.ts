@@ -3,7 +3,6 @@
  * 资源配置文件
  */
 declare var resJsonUrl;
-declare var I18n;
 class Main extends eui.UILayer
 {
     protected createChildren(): void
