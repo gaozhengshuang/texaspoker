@@ -116,14 +116,26 @@ func (u *RoomUser) SetAchieveTokenState (taskid int32) bool {
 	return erradd == nil
 }
 
-func (u *RoomUser) OnAchieveWinPoker (gamekind, hand int32) {
+func (u *RoomUser) OnAchieveWinPoker (kind, subkind, hand, wingold int32 ) {
 	group := u.GetAchieveGroupIdByHand(hand)
 	if group > 0 {
 		u.OnAchieveProcessChanged(group)
 	}
-	if gamekind == int32(msg.PlayingFieldType_Primary) || gamekind == int32(msg.PlayingFieldType_Middle) || gamekind == int32(msg.PlayingFieldType_High) {
+	if subkind == int32(msg.PlayingFieldType_Primary) || subkind == int32(msg.PlayingFieldType_Middle) || subkind == int32(msg.PlayingFieldType_High) {
 		u.OnAchieveProcessChanged(int32(AchieveGroup_TexasWin))
-	} 
+		Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "wintimes", 1)
+	} else if subkind == int32(msg.PlayingFieldType_Mtt) {
+		Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "wintimes2", 1)
+	}
+	var goldmaxwin int32
+	cmdval, err := Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "maxgoldonetimes").Result()
+	if err == nil {
+		goldmaxwin = util.Atoi(cmdval)
+	}
+	if wingold > goldmaxwin {
+		Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "maxgoldonetimes", wingold)
+	}
+	
 }
 
 func (u *RoomUser) GetAchieveGroupIdByHand(hand int32) int32 {
@@ -135,15 +147,19 @@ func (u *RoomUser) GetAchieveGroupIdByHand(hand int32) int32 {
 	return 0
 }
 
-func (u *RoomUser) OnAchievePlayPoker (gametype int32) {
-	if gametype == int32(msg.PlayingFieldType_Primary) {
+func (u *RoomUser) OnAchievePlayPoker (kind, subkind int32) {
+	if subkind == int32(msg.PlayingFieldType_Primary) {
 		u.OnAchieveProcessChanged(int32(AchieveGroup_TexasPlay1))
-	} else if gametype == int32(msg.PlayingFieldType_Middle) {
+		Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "gametimes", 1)
+	} else if subkind == int32(msg.PlayingFieldType_Middle) {
 		u.OnAchieveProcessChanged(int32(AchieveGroup_TexasPlay2))
-	} else if gametype == int32(msg.PlayingFieldType_High) {
+		Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "gametimes", 1)
+	} else if subkind == int32(msg.PlayingFieldType_High) {
 		u.OnAchieveProcessChanged(int32(AchieveGroup_TexasPlay3))
-	} else if gametype == int32(msg.PlayingFieldType_Mtt) {
+		Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "gametimes", 1)
+	} else if subkind == int32(msg.PlayingFieldType_Mtt) {
 		u.OnAchieveProcessChanged(int32(AchieveGroup_MTTPlay))
+		Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "gametimes2", 1)
 	}
 }
 
@@ -153,6 +169,7 @@ func (u *RoomUser) OnAchieveProcessChanged(group int32) {
 		gold := u.GetGold()
 		if gold > process {
 			u.SetAchieveProcessByGroup(group, gold)
+			Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "maxgold", gold)
 		}
 	} else if group == AchieveGroup_Friend {
 			
@@ -255,4 +272,22 @@ func (u *RoomUser) OnReqTakeAchieveAward(taskid int32) string {
 		}
 	}
 	return errcode
+}
+
+//进入入局阶段
+func (u *RoomUser) OnFlop(subkind int32) {
+	if subkind == int32(msg.PlayingFieldType_Primary) || subkind == int32(msg.PlayingFieldType_Middle) || subkind == int32(msg.PlayingFieldType_High) {
+		Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "entrytimes", 1)
+	} else if subkind == int32(msg.PlayingFieldType_Mtt) {
+		Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "entrytimes2", 1)
+	}
+}
+
+//进入摊牌阶段
+func (u *RoomUser) OnShowDown (subkind int32) {
+	if subkind == int32(msg.PlayingFieldType_Primary) || subkind == int32(msg.PlayingFieldType_Middle) || subkind == int32(msg.PlayingFieldType_High) {
+		Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "showdowntimes", 1)
+	} else if subkind == int32(msg.PlayingFieldType_Mtt) {
+		Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "showdowntimes2", 1)
+	}
 }
