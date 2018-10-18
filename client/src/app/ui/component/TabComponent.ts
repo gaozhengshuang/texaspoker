@@ -22,7 +22,7 @@ class TabComponent extends BaseComponent<any>
      */
     public isTween: boolean = true;
 
-    // private static readonly defaultColor: number = 0x4bc6b7;
+    // private static readonly defaultColor: number = 0x53bae4;
     // private static readonly selectColor: number = 0xffffff;
 
     protected onAwake(event: eui.UIEvent)

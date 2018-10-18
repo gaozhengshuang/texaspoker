@@ -59,7 +59,7 @@ class InsideRoomManager
     /**
      * 最后所在的房间配置表ID
      */
-    private static lastTId: number;
+    // private static lastTId: number;
     /**
      * 最后所在的房间的唯一id
      */
@@ -72,7 +72,7 @@ class InsideRoomManager
     public static initialize(result: game.SpRpcResult)
     {
         InsideRoomManager.list.length = 0;
-        InsideRoomManager.lastTId = undefined;
+        // InsideRoomManager.lastTId = undefined;
         let data: msg.RS2C_RetInsideRoomInfoList = result.data;
         if (data)
         {
@@ -106,9 +106,9 @@ class InsideRoomManager
      */
     public static get lastInsideRoomType(): InsideRoomType
     {
-        if (InsideRoomManager.lastTId != undefined)
+        if (InsideRoomManager.lastId != undefined && InsideRoomManager.lastId != 0)
         {
-            return InsideRoomManager.getRoomType(InsideRoomManager.lastTId);
+            return InsideRoomManager.getRoomType(InsideRoomManager.lastId);
         }
         return InsideRoomType.None;
     }
@@ -119,46 +119,45 @@ class InsideRoomManager
     {
         let start: number;
         let end: number;
+        let list: Array<InsideRoomInfo> = new Array<InsideRoomInfo>();
         switch (type)
         {
-            case InsideRoomType.Game:
-                start = InsideRoomManager.ID_GAME_START;
-                end = InsideRoomManager.ID_GAME_END;
-                break;
-            case InsideRoomType.HundredWar:
-                start = InsideRoomManager.ID_HUNDREDWAR_START;
-                end = InsideRoomManager.ID_HUNDREDWAR_END;
-                break;
+            // case InsideRoomType.Game:
+            //     start = InsideRoomManager.ID_GAME_START;
+            //     end = InsideRoomManager.ID_GAME_END;
+            //     break;
+            // case InsideRoomType.HundredWar:
+            //     start = InsideRoomManager.ID_HUNDREDWAR_START;
+            //     end = InsideRoomManager.ID_HUNDREDWAR_END;
+            //     break;
             case InsideRoomType.Match:
-                start = InsideRoomManager.ID_MTT_START;
-                end = InsideRoomManager.ID_MTT_END;
+                let info: InsideRoomInfo;
+                for (let i: number = 0; i < InsideRoomManager.list.length; i++)
+                {
+                    info = InsideRoomManager.list[i];
+                    if (info.mttId > 0)
+                    {
+                        list.push(info);
+                    }
+                }
                 break;
-            case InsideRoomType.Omaha:
-                start = InsideRoomManager.ID_OMAHA_START;
-                end = InsideRoomManager.ID_OMAHA_END;
-                break;
-            case InsideRoomType.GamePerson:
-                start = InsideRoomManager.ID_GAMEPERSON_START;
-                end = InsideRoomManager.ID_GAMEPERSON_END;
-                break;
-            case InsideRoomType.OmahaPerson:
-                start = InsideRoomManager.ID_OMAHAPERSON_START;
-                end = InsideRoomManager.ID_OMAHAPERSON_END;
-                break;
+            // case InsideRoomType.Omaha:
+            //     start = InsideRoomManager.ID_OMAHA_START;
+            //     end = InsideRoomManager.ID_OMAHA_END;
+            //     break;
+            // case InsideRoomType.GamePerson:
+            //     start = InsideRoomManager.ID_GAMEPERSON_START;
+            //     end = InsideRoomManager.ID_GAMEPERSON_END;
+            //     break;
+            // case InsideRoomType.OmahaPerson:
+            //     start = InsideRoomManager.ID_OMAHAPERSON_START;
+            //     end = InsideRoomManager.ID_OMAHAPERSON_END;
+            //     break;
             default:
                 game.Console.logError("根据类型获取房间列表异常！type：" + type);
                 return null;
         }
-        let list: Array<InsideRoomInfo> = new Array<InsideRoomInfo>();
-        let info: InsideRoomInfo;
-        for (let i: number = 0; i < InsideRoomManager.list.length; i++)
-        {
-            info = InsideRoomManager.list[i];
-            if (info.id >= start && info.id <= end)
-            {
-                list.push(info);
-            }
-        }
+
         return list;
     }
 

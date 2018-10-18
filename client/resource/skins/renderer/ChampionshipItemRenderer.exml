@@ -31,7 +31,7 @@
 		<e:Label id="timeDesLabel" text="即将开始" y="4" anchorOffsetX="0" width="129" textAlign="center" horizontalCenter="0.5"
 		         size="24" textColor="0xe6c21d" fontFamily="Microsoft YaHei" />
 		<e:Label id="timeLabel" text="00:00" y="42.12" anchorOffsetY="0" height="26" horizontalCenter="0.5" textAlign="center"
-		         size="24" fontFamily="Microsoft YaHei" textColor="0x4bc6b7" />
+		         size="24" fontFamily="Microsoft YaHei" textColor="0x53bae4" />
 	</e:Group>
 	<e:Group id="sitAndPlayAwardGroup" x="400" anchorOffsetY="0" verticalCenter="-5">
 		<e:Image x="4" y="1" source="game_icon_18_png" />

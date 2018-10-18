@@ -9,7 +9,7 @@
 
 
 	<e:Label id="itemTitleLabel" text="iPhone7" x="125.67" y="20.08" height="30" width="193.94"  anchorOffsetX="0" textColor="0xdfe5e5" size="26"/>
-	<e:Label id="itemDesLabel" text="您可获得Iphone7一台，颜色随机。" x="125.67" y="56.08" width="283.94" size="24"  anchorOffsetX="0" lineSpacing="2" textColor="0x4bc6b7"/>
+	<e:Label id="itemDesLabel" text="您可获得Iphone7一台，颜色随机。" x="125.67" y="56.08" width="283.94" size="24"  anchorOffsetX="0" lineSpacing="2" textColor="0x53bae4"/>
 
 	<e:Label id="takeDesLabel" text="等待发货" x="436" height="40" width="134.85" textAlign="center" verticalAlign="middle"
 	          verticalCenter="0" textColor="0xebc355" size="26" anchorOffsetX="0"/>

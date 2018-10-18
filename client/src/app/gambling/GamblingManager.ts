@@ -269,7 +269,6 @@ class GamblingManager
 		GamblingManager.timeAwardHandler.addPushListener();
 
 		SocketManager.OnReconnectSynchronize.addListener(GamblingManager.onReconnectHandler, this);
-		// SocketManager.AddCommandListener(Command.Push_PlayerListStateChange_2113, GamblingManager.pushPlayerListStateChange);
 	}
 	/**
 	 * 推送离开房间
@@ -278,12 +277,8 @@ class GamblingManager
 	{
 		if (InfoUtil.checkAvailable(GamblingManager.roomInfo) && result.data && GamblingManager.roomInfo.id == result.data["id"])
 		{
-			let type: GamblingType = GamblingType.Common;
-			if (GamblingManager.roomInfo)
-			{
-				type = GamblingManager.roomInfo.gamblingType;
-			}
-			switch (GamblingManager.roomInfo.gamblingType)
+			let type: GamblingType = GamblingManager.roomInfo.gamblingType;
+			switch (type)
 			{
 				case GamblingType.Match:
 					if (GamblingManager.roomInfo.isOnWatch) 
@@ -334,23 +329,23 @@ class GamblingManager
 	{
 		GamblingManager.reset();
 		let data: msg.RS2C_RetEnterRoom = result.data;
-		if (data && data["id"] > 0)
+		if (data && data.id > 0)
 		{
 			GamblingManager.roomInfo = new RoomInfo();
-			GamblingManager.roomInfo.data = result.data;
+			GamblingManager.roomInfo.data = data;
 			GamblingManager.roomInfo.isTrusteeship = undefined;
 			GamblingManager.roomInfo.isMatchOut = undefined;
 			GamblingManager.roomInfo.isFlopCardOver = true;
-			GamblingManager.championshipHandler.initializeRoomInfo(result);
+			GamblingManager.championshipHandler.initializeRoomInfo(data);
 			GamblingManager.roomInfo.handCard = new Array<CardInfo>();
-			GamblingUtil.cardArr2CardInfoList(result.data["handcard"], GamblingManager.roomInfo.handCard);
+			GamblingUtil.cardArr2CardInfoList(data.handcard, GamblingManager.roomInfo.handCard);
 			if (GamblingManager.roomInfo.handCard.length == 0)
 			{
 				GamblingManager.roomInfo.handCard = undefined;
 			}
 
 			GamblingManager.roomInfo.publicCard = new Array<CardInfo>();
-			GamblingUtil.cardArr2CardInfoList(result.data["publiccard"], GamblingManager.roomInfo.publicCard);
+			GamblingUtil.cardArr2CardInfoList(data.publiccard, GamblingManager.roomInfo.publicCard);
 			if (GamblingManager.roomInfo.publicCard.length == 0)
 			{
 				GamblingManager.roomInfo.publicCard = undefined;
@@ -376,9 +371,9 @@ class GamblingManager
 				GamblingManager.getPlayerUserInfoOver();
 			}
 			//设置计时奖励数据	
-			if (result.data.roomid)
+			if (data.roomid)
 			{
-				let roomDef: table.ITexasRoomDefine = table.TexasRoomById[result.data.roomid];
+				let roomDef: table.ITexasRoomDefine = table.TexasRoomById[data.roomid];
 				if (roomDef)
 				{
 					this.timeAwardHandler.reqGetTimeAwardInfo(roomDef.Type);
@@ -554,7 +549,7 @@ class GamblingManager
 			}
 			else if (state == BuyInGameState.Stand)
 			{
-				let roleId: number = result.data["roleid"];
+				let roleId: number = game.longToNumber(data.roleid);
 				let playerInfo: PlayerInfo = GamblingManager.getPlayerInfo(roleId);
 
 				if (playerInfo)
@@ -793,30 +788,6 @@ class GamblingManager
 			}
 		}
 	}
-	/**
-	 * 推送玩家列表状态变更
-	 */
-	private static pushPlayerListStateChange(result: game.SpRpcResult)
-	{
-		if (result.data)
-		{
-			let list: Array<number> = result.data["roleid"];
-			let state: PlayerState = result.data["state"];
-			if (list && state != undefined)
-			{
-				let pInfo: PlayerInfo
-				for (let roleId of list)
-				{
-					pInfo = GamblingManager.getPlayerInfo(roleId);
-					if (pInfo)
-					{
-						pInfo.state = state;
-					}
-				}
-				GamblingManager.PlayerListStateChangeEvent.dispatch();
-			}
-		}
-	}
 	public static pushInTrusteeship(result: game.SpRpcResult)
 	{
 		// GamblingManager.roomDataPushHandler.writeResult(Command.InTrusteeship_Push_2119, result);
@@ -839,7 +810,7 @@ class GamblingManager
 			info.roleId = game.longToNumber(data.roleid);
 			info.cardList = [];
 			GamblingUtil.cardArr2CardInfoList(data.card, info.cardList);
-			GamblingManager.SomeBodyBrightCardEvent.dispatch({allin:data.allin, info:info});
+			GamblingManager.SomeBodyBrightCardEvent.dispatch({ allin: data.allin, info: info });
 		}
 	}
 	public static onReconnectHandler()

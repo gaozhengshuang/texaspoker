@@ -374,7 +374,8 @@ class ChampionshipPanel extends BasePanel
 			ChampionshipManager.reqGetMTTListInfo();
 		} else if (index == 1)
 		{
-			this.setSitAndPlayListInfo();
+			AlertManager.showAlertByString("暂未开放！");
+			// this.setSitAndPlayListInfo();
 		} else if (index == 2)
 		{
 			// ChampionshipManager.reqJoinedMTTList();

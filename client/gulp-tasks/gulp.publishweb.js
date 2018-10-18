@@ -31,21 +31,25 @@ if (!fs.existsSync(out_path)) {
 
 let sthList = [
 ];
-
+//发布 合并js 压缩js 版本控制
 Gulp.task('publish', function (cb) {
-    gulpSequence('concat', 'version', cb);
+    gulpSequence('concat', 'zip-js', 'version', cb);
 });
-
+//copy一些引擎不copy的文件
 Gulp.task('copy', function (cb) {
     return gulpSequence('copy-sth', 'copy-js', cb);
 });
 /**
- * 合并压缩js
+ * 合并js 压缩主题js
  */
 Gulp.task('concat', function (cb) {
-    return gulpSequence('uglify-js', 'main-js', 'del-js', cb);
+    return gulpSequence('libs-js', 'uglify-js', 'main-js', 'del-js', cb);
 });
-
+//将JS压缩成zip文件
+Gulp.task('zip-js', function(cb){
+    return gulpSequence('zip-libjs', 'zip-mainjs','del-js2', cb);
+});
+//添加文件名后缀crc扩展
 Gulp.task('version', function (cb) {
     return gulpSequence(
         'version-resource1',
@@ -102,8 +106,14 @@ Gulp.task('version-sheet2', function () {
         .pipe(revCollector())
         .pipe(Gulp.dest(out_path + 'resource-rev/assets/sheet/'));
 });
-
-//代码文件
+//压缩js文件
+Gulp.task('zip-libjs',function(){
+    return Gulp.src([out_path + 'js/lib.min.js']).pipe(GulpZip("lib.zip")).pipe(Gulp.dest(out_path + "js/"));
+});
+Gulp.task('zip-mainjs',function(){
+    return Gulp.src([out_path + 'js/main.min.js']).pipe(GulpZip("main.zip")).pipe(Gulp.dest(out_path + "js/"));
+});
+//js代码文件
 Gulp.task('version-js1', function () {
     return Gulp.src([out_path + 'js/**/*']).pipe(GulpRev())
         .pipe(Gulp.dest(out_path + 'js-rev'))
@@ -155,9 +165,10 @@ Gulp.task('libs-js', function (cb) {
         out_path + 'js/socket.min*.js',
         out_path + 'js/dragonBones.min*.js',
         out_path + 'js/promise.min*.js',
-        // out_path + 'js/physics.min*.js',
         out_path + 'js/particle.min*.js',
-    ]).pipe(GulpConcat('libs.min.js')).pipe(Gulp.dest(out_path + 'js/')); //.pipe(GulpUglify())
+        out_path + 'js/md5.min*.js',
+        out_path + 'js/protobuf-library.min*.js',
+    ]).pipe(GulpConcat('lib.min.js')).pipe(Gulp.dest(out_path + 'js/')); //.pipe(GulpUglify())
 });
 Gulp.task('third-js', function (cb) {
     return Gulp.src([
@@ -172,18 +183,7 @@ Gulp.task('uglify-js', function (cb) {
 });
 Gulp.task('main-js', function (cb) {
     return Gulp.src([
-        out_path + 'js/egret.min*.js',
-        out_path + 'js/egret.web.min*.js',
-        out_path + 'js/eui.min*.js',
-        out_path + 'js/assetsmanager.min*.js',
-        out_path + 'js/tween.min*.js',
-        out_path + 'js/game.min*.js',
-        out_path + 'js/socket.min*.js',
-        out_path + 'js/dragonBones.min*.js',
-        out_path + 'js/promise.min*.js',
-        out_path + 'js/protobuf-library.min*.js',
         out_path + 'js/protobuf-bundles.min*.js',
-        out_path + 'js/thirdlib.min*.js',
         out_path + 'js/default.thm*.js',
         out_path + 'js/main.min*.js',
     ]).pipe(GulpConcat('main.min.js')).pipe(Gulp.dest(out_path + 'js/'));;
@@ -191,7 +191,15 @@ Gulp.task('main-js', function (cb) {
 Gulp.task('del-js', function (cb) {
     return del([
         out_path + 'js/**/*.js',
+        '!' + out_path + 'js/jszip.min.js',
+        '!' + out_path + 'js/lib.min.js',
         '!' + out_path + 'js/main.min.js',
+    ]);
+});
+Gulp.task('del-js2', function (cb) {
+    return del([
+        out_path + 'js/**/*.js',
+        '!' + out_path + 'js/jszip.min.js',
     ]);
 });
 

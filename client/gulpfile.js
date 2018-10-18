@@ -22,12 +22,12 @@ const ProjectMicroPath = 'micro';
 //第三方扩展库的根路径
 const LibsrcRootPath = '../../tools/egret/';
 //当前项目使用的第三方扩展库列表
-const LibsrcNameList = ['jszip', 'particle', 'md5'];
+const LibsrcNameList = [];
 //排除的配置表文件列表
 const ExcludeConfigFileList = ['autoName.json', 'autoAction.json'];
 var requireDir = require('require-dir');
 requireDir('./gulp-tasks');
-Gulp.task('default', ['replace-lang', "lang-complex", "publish"], function ()
+Gulp.task('default', ['replace-lang', "lang-complex", "publish", "concat", "zip-js", "libs-js"], function ()
 {
 });
 //--------------------------------------------------------------

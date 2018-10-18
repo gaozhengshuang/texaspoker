@@ -75,10 +75,10 @@
 		<e:Group id="situationGroup" y="190" name="概况" height="680" width="600" horizontalCenter="0" visible="false">
 			<e:Group width="600" height="163" x="0" y="18">
 				<e:Image width="600" height="163" x="0" y="0" anchorOffsetX="0" scaleX="1" scaleY="1" anchorOffsetY="0" source="pub_lines_png" scale9Grid="13,13,4,1"/>
-				<e:Label id="" text="加入游戏时间" y="12" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x4bc6b7" left="20"/>
-				<e:Label id="" text="最高拥有金币" y="50" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x4bc6b7" left="20"/>
-				<e:Label id="" text="一把最高赢取金币" y="88" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x4bc6b7" left="20"/>
-				<e:Label id="" text="好友" y="126" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x4bc6b7" left="20"/>
+				<e:Label id="" text="加入游戏时间" y="12" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x53bae4" left="20"/>
+				<e:Label id="" text="最高拥有金币" y="50" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x53bae4" left="20"/>
+				<e:Label id="" text="一把最高赢取金币" y="88" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x53bae4" left="20"/>
+				<e:Label id="" text="好友" y="126" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x53bae4" left="20"/>
 				<e:Label id="joinTimeLabel" text="2017-06-05" y="12" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" anchorOffsetX="0" width="300" anchorOffsetY="0" height="26" textAlign="right" textColor="0xffffff" right="25"/>
 				<e:Label id="maxGoldLabel" text="1,234,567,890,123" y="50" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" width="300" textAlign="right" anchorOffsetX="0" textColor="0xffffff" right="25"/>
 				<e:Label id="maxGoldOnetimeLabel" text="1,234,567,890,123" y="88" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" width="300" textAlign="right" anchorOffsetX="0" textColor="0xffffff" right="25"/>
@@ -89,8 +89,8 @@
 				<e:Image id="listTabBg" width="600" height="60" horizontalCenter="0" source="ld_4_png" scale9Grid="3,8,25,52" x="0" scaleX="1" scaleY="1" top="0"/>
 				<ns1:TabComponent id="situationTab" skinName="TabComponentSkin" horizontalCenter="0" top="0"/>
 				<e:Group id="playGroup" x="0" y="60" height="330">
-					<e:Label id="" text="胜局/游戏总局数:" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x4bc6b7" x="20" y="20"/>
-					<e:Label id="" text="胜率:" x="20" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x4bc6b7" y="70"/>
+					<e:Label id="" text="胜局/游戏总局数:" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x53bae4" x="20" y="20"/>
+					<e:Label id="" text="胜率:" x="20" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x53bae4" y="70"/>
 					<e:Label id="" text="入局率:" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x4BC6B7" x="20" y="120"/>
 					<e:Label id="" text="摊牌率:" x="20" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x4BC6B7" y="170"/>
 					<e:Label id="winTimeLabel" text="50000/100000" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textAlign="right" textColor="0xffffff" width="300" verticalAlign="middle" y="21" right="25"/>
@@ -99,7 +99,7 @@
 					<e:Label id="showdownRateLabel" text="100%" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textAlign="left" textColor="0xFFFFFF" y="170" right="25"/>
 					<e:Group width="600" height="92" x="0" y="220" scaleX="1" scaleY="1">
 						<e:Label id="maxHandLabel" text="皇家同花顺" size="26" bold="false" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0xedc80b" bottom="15" left="20"/>
-						<e:Label id="" text="最大手牌" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x4bc6b7" top="10" left="20"/>
+						<e:Label id="" text="最大手牌" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x53bae4" top="10" left="20"/>
 						<e:Group id="maxHandGroup" height="42" x="230" y="0">
 						<ns1:CardFaceComponent id="card0" x="298" skinName="CardFaceComponentSkin" scaleX="0.9" scaleY="0.9" y="48"/>
 						<ns1:CardFaceComponent id="card1" x="234" skinName="CardFaceComponentSkin" scaleX="0.9" scaleY="0.9" y="48"/>
@@ -123,7 +123,7 @@
 					<e:Label id="matchShowdownRateLabel" text="100%" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textAlign="left" textColor="0xFFFFFF" y="170" right="25"/>
 					<e:Group y="240" horizontalCenter="0">
 						<e:Group x="0" y="0">
-							<e:Label id="" text="参赛次数" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x4bc6b7" y="0" horizontalCenter="0"/>
+							<e:Label id="" text="参赛次数" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x53bae4" y="0" horizontalCenter="0"/>
 							<e:Label id="joinMatchTimes" text="999" x="0" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" width="150" textAlign="center" y="40" textColor="0xedc80b"/>
 						</e:Group>
 						<e:Group x="0" y="0">
