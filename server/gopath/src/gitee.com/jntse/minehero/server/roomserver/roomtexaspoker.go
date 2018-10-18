@@ -798,7 +798,6 @@ func (this *TexasPokerRoom) ShowDown() int32{
 				}   
 			}
 		}
-		player.owner.OnAchievePlayPoker(this.Kind(), this.SubKind())
 	}
 	this.BroadCastRoomMsg(send)
 	for _, player := range this.players {
@@ -806,6 +805,10 @@ func (this *TexasPokerRoom) ShowDown() int32{
 			continue
 		}
 		player.SendTimeAward(false)
+		player.owner.OnAchievePlayPoker(this.Kind(), this.SubKind())
+		if player.IsFold() == false {
+			player.owner.OnShowDown(this.SubKind())
+		}
 	}
 	if this.IsChampionShip() {
 		this.mtt.CalcRank(this.Id())

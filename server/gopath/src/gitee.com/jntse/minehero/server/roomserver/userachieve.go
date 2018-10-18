@@ -161,6 +161,7 @@ func (u *RoomUser) OnAchievePlayPoker (kind, subkind int32) {
 		u.OnAchieveProcessChanged(int32(AchieveGroup_MTTPlay))
 		Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "gametimes2", 1)
 	}
+
 }
 
 func (u *RoomUser) OnAchieveProcessChanged(group int32) {
