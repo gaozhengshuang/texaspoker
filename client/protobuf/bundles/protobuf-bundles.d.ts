@@ -5794,91 +5794,91 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a C2RS_RetMTTQuit. */
-    interface IC2RS_RetMTTQuit {
+    /** Properties of a RS2C_RetMTTQuit. */
+    interface IRS2C_RetMTTQuit {
 
-        /** C2RS_RetMTTQuit errcode */
+        /** RS2C_RetMTTQuit errcode */
         errcode?: (string|null);
     }
 
-    /** Represents a C2RS_RetMTTQuit. */
-    class C2RS_RetMTTQuit implements IC2RS_RetMTTQuit {
+    /** Represents a RS2C_RetMTTQuit. */
+    class RS2C_RetMTTQuit implements IRS2C_RetMTTQuit {
 
         /**
-         * Constructs a new C2RS_RetMTTQuit.
+         * Constructs a new RS2C_RetMTTQuit.
          * @param [properties] Properties to set
          */
-        constructor(properties?: msg.IC2RS_RetMTTQuit);
+        constructor(properties?: msg.IRS2C_RetMTTQuit);
 
-        /** C2RS_RetMTTQuit errcode. */
+        /** RS2C_RetMTTQuit errcode. */
         public errcode: string;
 
         /**
-         * Creates a new C2RS_RetMTTQuit instance using the specified properties.
+         * Creates a new RS2C_RetMTTQuit instance using the specified properties.
          * @param [properties] Properties to set
-         * @returns C2RS_RetMTTQuit instance
+         * @returns RS2C_RetMTTQuit instance
          */
-        public static create(properties?: msg.IC2RS_RetMTTQuit): msg.C2RS_RetMTTQuit;
+        public static create(properties?: msg.IRS2C_RetMTTQuit): msg.RS2C_RetMTTQuit;
 
         /**
-         * Encodes the specified C2RS_RetMTTQuit message. Does not implicitly {@link msg.C2RS_RetMTTQuit.verify|verify} messages.
-         * @param message C2RS_RetMTTQuit message or plain object to encode
+         * Encodes the specified RS2C_RetMTTQuit message. Does not implicitly {@link msg.RS2C_RetMTTQuit.verify|verify} messages.
+         * @param message RS2C_RetMTTQuit message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: msg.IC2RS_RetMTTQuit, writer?: protobuf.Writer): protobuf.Writer;
+        public static encode(message: msg.IRS2C_RetMTTQuit, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Encodes the specified C2RS_RetMTTQuit message, length delimited. Does not implicitly {@link msg.C2RS_RetMTTQuit.verify|verify} messages.
-         * @param message C2RS_RetMTTQuit message or plain object to encode
+         * Encodes the specified RS2C_RetMTTQuit message, length delimited. Does not implicitly {@link msg.RS2C_RetMTTQuit.verify|verify} messages.
+         * @param message RS2C_RetMTTQuit message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: msg.IC2RS_RetMTTQuit, writer?: protobuf.Writer): protobuf.Writer;
+        public static encodeDelimited(message: msg.IRS2C_RetMTTQuit, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Decodes a C2RS_RetMTTQuit message from the specified reader or buffer.
+         * Decodes a RS2C_RetMTTQuit message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns C2RS_RetMTTQuit
+         * @returns RS2C_RetMTTQuit
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2RS_RetMTTQuit;
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2C_RetMTTQuit;
 
         /**
-         * Decodes a C2RS_RetMTTQuit message from the specified reader or buffer, length delimited.
+         * Decodes a RS2C_RetMTTQuit message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns C2RS_RetMTTQuit
+         * @returns RS2C_RetMTTQuit
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2RS_RetMTTQuit;
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2C_RetMTTQuit;
 
         /**
-         * Verifies a C2RS_RetMTTQuit message.
+         * Verifies a RS2C_RetMTTQuit message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a C2RS_RetMTTQuit message from a plain object. Also converts values to their respective internal types.
+         * Creates a RS2C_RetMTTQuit message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns C2RS_RetMTTQuit
+         * @returns RS2C_RetMTTQuit
          */
-        public static fromObject(object: { [k: string]: any }): msg.C2RS_RetMTTQuit;
+        public static fromObject(object: { [k: string]: any }): msg.RS2C_RetMTTQuit;
 
         /**
-         * Creates a plain object from a C2RS_RetMTTQuit message. Also converts values to other types if specified.
-         * @param message C2RS_RetMTTQuit
+         * Creates a plain object from a RS2C_RetMTTQuit message. Also converts values to other types if specified.
+         * @param message RS2C_RetMTTQuit
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: msg.C2RS_RetMTTQuit, options?: protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: msg.RS2C_RetMTTQuit, options?: protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this C2RS_RetMTTQuit to JSON.
+         * Converts this RS2C_RetMTTQuit to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -16375,20 +16375,107 @@ declare namespace msg {
     /** Properties of a GW2C_RetPlayerRoleInfo. */
     interface IGW2C_RetPlayerRoleInfo {
 
+        /** GW2C_RetPlayerRoleInfo diamond */
+        diamond?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo gold */
+        gold?: (number|null);
+
         /** GW2C_RetPlayerRoleInfo roleid */
         roleid?: (number|Long|null);
 
-        /** GW2C_RetPlayerRoleInfo errcode */
-        errcode?: (string|null);
+        /** GW2C_RetPlayerRoleInfo name */
+        name?: (string|null);
 
-        /** GW2C_RetPlayerRoleInfo entity */
-        entity?: (msg.IEntityBase|null);
+        /** GW2C_RetPlayerRoleInfo head */
+        head?: (string|null);
 
-        /** GW2C_RetPlayerRoleInfo vip */
-        vip?: (msg.IUserVip|null);
+        /** GW2C_RetPlayerRoleInfo sex */
+        sex?: (number|null);
 
-        /** GW2C_RetPlayerRoleInfo statistics */
-        statistics?: (msg.IUserStatistics|null);
+        /** GW2C_RetPlayerRoleInfo level */
+        level?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo exp */
+        exp?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo ip */
+        ip?: (string|null);
+
+        /** GW2C_RetPlayerRoleInfo sign */
+        sign?: (string|null);
+
+        /** GW2C_RetPlayerRoleInfo age */
+        age?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo maxgold */
+        maxgold?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo maxgoldonetimes */
+        maxgoldonetimes?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo friendnum */
+        friendnum?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo gametimes */
+        gametimes?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo wintimes */
+        wintimes?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo maxhand */
+        maxhand?: (number[]|null);
+
+        /** GW2C_RetPlayerRoleInfo championtimes */
+        championtimes?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo vipexp */
+        vipexp?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo viptime */
+        viptime?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo yearviptime */
+        yearviptime?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo viplevel */
+        viplevel?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo createdtime */
+        createdtime?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo isoffline */
+        isoffline?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo stateid */
+        stateid?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo stateconfid */
+        stateconfid?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo entrytimes */
+        entrytimes?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo showdowntimes */
+        showdowntimes?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo mttjointimes */
+        mttjointimes?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo mttprizetimes */
+        mttprizetimes?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo gametimes2 */
+        gametimes2?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo wintimes2 */
+        wintimes2?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo entrytimes2 */
+        entrytimes2?: (number|null);
+
+        /** GW2C_RetPlayerRoleInfo showdowntimes2 */
+        showdowntimes2?: (number|null);
     }
 
     /** Represents a GW2C_RetPlayerRoleInfo. */
@@ -16400,20 +16487,107 @@ declare namespace msg {
          */
         constructor(properties?: msg.IGW2C_RetPlayerRoleInfo);
 
+        /** GW2C_RetPlayerRoleInfo diamond. */
+        public diamond: number;
+
+        /** GW2C_RetPlayerRoleInfo gold. */
+        public gold: number;
+
         /** GW2C_RetPlayerRoleInfo roleid. */
         public roleid: (number|Long);
 
-        /** GW2C_RetPlayerRoleInfo errcode. */
-        public errcode: string;
+        /** GW2C_RetPlayerRoleInfo name. */
+        public name: string;
 
-        /** GW2C_RetPlayerRoleInfo entity. */
-        public entity?: (msg.IEntityBase|null);
+        /** GW2C_RetPlayerRoleInfo head. */
+        public head: string;
 
-        /** GW2C_RetPlayerRoleInfo vip. */
-        public vip?: (msg.IUserVip|null);
+        /** GW2C_RetPlayerRoleInfo sex. */
+        public sex: number;
 
-        /** GW2C_RetPlayerRoleInfo statistics. */
-        public statistics?: (msg.IUserStatistics|null);
+        /** GW2C_RetPlayerRoleInfo level. */
+        public level: number;
+
+        /** GW2C_RetPlayerRoleInfo exp. */
+        public exp: number;
+
+        /** GW2C_RetPlayerRoleInfo ip. */
+        public ip: string;
+
+        /** GW2C_RetPlayerRoleInfo sign. */
+        public sign: string;
+
+        /** GW2C_RetPlayerRoleInfo age. */
+        public age: number;
+
+        /** GW2C_RetPlayerRoleInfo maxgold. */
+        public maxgold: number;
+
+        /** GW2C_RetPlayerRoleInfo maxgoldonetimes. */
+        public maxgoldonetimes: number;
+
+        /** GW2C_RetPlayerRoleInfo friendnum. */
+        public friendnum: number;
+
+        /** GW2C_RetPlayerRoleInfo gametimes. */
+        public gametimes: number;
+
+        /** GW2C_RetPlayerRoleInfo wintimes. */
+        public wintimes: number;
+
+        /** GW2C_RetPlayerRoleInfo maxhand. */
+        public maxhand: number[];
+
+        /** GW2C_RetPlayerRoleInfo championtimes. */
+        public championtimes: number;
+
+        /** GW2C_RetPlayerRoleInfo vipexp. */
+        public vipexp: number;
+
+        /** GW2C_RetPlayerRoleInfo viptime. */
+        public viptime: number;
+
+        /** GW2C_RetPlayerRoleInfo yearviptime. */
+        public yearviptime: number;
+
+        /** GW2C_RetPlayerRoleInfo viplevel. */
+        public viplevel: number;
+
+        /** GW2C_RetPlayerRoleInfo createdtime. */
+        public createdtime: number;
+
+        /** GW2C_RetPlayerRoleInfo isoffline. */
+        public isoffline: number;
+
+        /** GW2C_RetPlayerRoleInfo stateid. */
+        public stateid: number;
+
+        /** GW2C_RetPlayerRoleInfo stateconfid. */
+        public stateconfid: number;
+
+        /** GW2C_RetPlayerRoleInfo entrytimes. */
+        public entrytimes: number;
+
+        /** GW2C_RetPlayerRoleInfo showdowntimes. */
+        public showdowntimes: number;
+
+        /** GW2C_RetPlayerRoleInfo mttjointimes. */
+        public mttjointimes: number;
+
+        /** GW2C_RetPlayerRoleInfo mttprizetimes. */
+        public mttprizetimes: number;
+
+        /** GW2C_RetPlayerRoleInfo gametimes2. */
+        public gametimes2: number;
+
+        /** GW2C_RetPlayerRoleInfo wintimes2. */
+        public wintimes2: number;
+
+        /** GW2C_RetPlayerRoleInfo entrytimes2. */
+        public entrytimes2: number;
+
+        /** GW2C_RetPlayerRoleInfo showdowntimes2. */
+        public showdowntimes2: number;
 
         /**
          * Creates a new GW2C_RetPlayerRoleInfo instance using the specified properties.
@@ -16680,9 +16854,6 @@ declare namespace msg {
 
         /** RS2C_RetFriendGetRoleInfo showdowntimes2 */
         showdowntimes2?: (number|null);
-
-        /** RS2C_RetFriendGetRoleInfo errcode */
-        errcode?: (string|null);
     }
 
     /** Represents a RS2C_RetFriendGetRoleInfo. */
@@ -16795,9 +16966,6 @@ declare namespace msg {
 
         /** RS2C_RetFriendGetRoleInfo showdowntimes2. */
         public showdowntimes2: number;
-
-        /** RS2C_RetFriendGetRoleInfo errcode. */
-        public errcode: string;
 
         /**
          * Creates a new RS2C_RetFriendGetRoleInfo instance using the specified properties.
@@ -21905,6 +22073,102 @@ declare namespace msg {
 
         /**
          * Converts this RS2GW_MTTRoomMember to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RS2GW_MTTCancel. */
+    interface IRS2GW_MTTCancel {
+
+        /** RS2GW_MTTCancel members */
+        members?: ((number|Long)[]|null);
+
+        /** RS2GW_MTTCancel recordid */
+        recordid?: (number|null);
+    }
+
+    /** Represents a RS2GW_MTTCancel. */
+    class RS2GW_MTTCancel implements IRS2GW_MTTCancel {
+
+        /**
+         * Constructs a new RS2GW_MTTCancel.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IRS2GW_MTTCancel);
+
+        /** RS2GW_MTTCancel members. */
+        public members: (number|Long)[];
+
+        /** RS2GW_MTTCancel recordid. */
+        public recordid: number;
+
+        /**
+         * Creates a new RS2GW_MTTCancel instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RS2GW_MTTCancel instance
+         */
+        public static create(properties?: msg.IRS2GW_MTTCancel): msg.RS2GW_MTTCancel;
+
+        /**
+         * Encodes the specified RS2GW_MTTCancel message. Does not implicitly {@link msg.RS2GW_MTTCancel.verify|verify} messages.
+         * @param message RS2GW_MTTCancel message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IRS2GW_MTTCancel, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified RS2GW_MTTCancel message, length delimited. Does not implicitly {@link msg.RS2GW_MTTCancel.verify|verify} messages.
+         * @param message RS2GW_MTTCancel message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IRS2GW_MTTCancel, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a RS2GW_MTTCancel message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RS2GW_MTTCancel
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2GW_MTTCancel;
+
+        /**
+         * Decodes a RS2GW_MTTCancel message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RS2GW_MTTCancel
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2GW_MTTCancel;
+
+        /**
+         * Verifies a RS2GW_MTTCancel message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RS2GW_MTTCancel message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RS2GW_MTTCancel
+         */
+        public static fromObject(object: { [k: string]: any }): msg.RS2GW_MTTCancel;
+
+        /**
+         * Creates a plain object from a RS2GW_MTTCancel message. Also converts values to other types if specified.
+         * @param message RS2GW_MTTCancel
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.RS2GW_MTTCancel, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RS2GW_MTTCancel to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };

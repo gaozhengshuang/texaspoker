@@ -112,9 +112,6 @@ class ChampionshipManager
         ChampionshipManager.getMTTListInfoResponse(result);
         //设置赛事的房间信息
         ChampionshipManager.initMTTRoomListInfo();
-        //拉取已报名的赛事列表
-        ChampionshipManager.reqJoinedMTTList();
-
     }
     /**
      * 初始化设置锦标赛所在房间列表

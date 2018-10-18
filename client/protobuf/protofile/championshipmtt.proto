@@ -40,7 +40,7 @@ message C2RS_ReqMTTQuit {
     optional int32 recordid = 1;
 }
 
-message C2RS_RetMTTQuit {
+message RS2C_RetMTTQuit {
     optional string errcode = 1;
 }
 

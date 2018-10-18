@@ -65,8 +65,16 @@
 			"path": "protobuf/bundles"
 		},
 		{
-			"name": "thirdlib",
-			"path": "libs/thirdlib"
+			"name": "particle",
+			"path": "../../tools/egret/particle/libsrc"
+		},
+		{
+			"name": "md5",
+			"path": "../../tools/egret/md5/libsrc"
+		},
+		{
+			"name": "jszip",
+			"path": "../../tools/egret/jszip/libsrc"
 		}
 	]
 }

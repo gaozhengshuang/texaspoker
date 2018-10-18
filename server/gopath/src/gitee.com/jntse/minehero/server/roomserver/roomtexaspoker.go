@@ -752,7 +752,7 @@ func (this *TexasPokerRoom) ShowDown() int32{
 			player := this.players[winner]
 			if player != nil {
 				potplayer = append(potplayer, player.owner.Id())
-				player.owner.OnAchieveWinPoker(this.SubKind(), player.hand.level)
+				player.owner.OnAchieveWinPoker(this.Kind(), this.SubKind(), player.hand.level, this.chips[winner])
 			}
 
 		}
@@ -798,7 +798,7 @@ func (this *TexasPokerRoom) ShowDown() int32{
 				}   
 			}
 		}
-		player.owner.OnAchievePlayPoker(this.SubKind())
+		player.owner.OnAchievePlayPoker(this.Kind(), this.SubKind())
 	}
 	this.BroadCastRoomMsg(send)
 	for _, player := range this.players {

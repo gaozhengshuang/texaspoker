@@ -20,11 +20,11 @@
 				</e:Scroller>
 				<e:Image width="720" height="45" y="0" anchorOffsetY="0" source="game_bg1_png"/>
 				<e:Label text="赛事" x="6" y="10" anchorOffsetX="0" width="112" anchorOffsetY="0" verticalAlign="middle"
-				         textAlign="center"  size="24" textColor="0x4bc6b7" fontFamily="Microsoft YaHei"/>
+				         textAlign="center"  size="24" textColor="0x53bae4" fontFamily="Microsoft YaHei"/>
 				<e:Label text="赛事信息" x="162" y="10" anchorOffsetX="0" width="130" anchorOffsetY="0" textAlign="center"
-				         verticalAlign="middle"  size="24" textColor="0x4bc6b7" fontFamily="Microsoft YaHei"/>
+				         verticalAlign="middle"  size="24" textColor="0x53bae4" fontFamily="Microsoft YaHei"/>
 				<e:Label text="开始时间" x="394" y="10" anchorOffsetX="0" width="138" anchorOffsetY="0" textAlign="center"
-				         verticalAlign="middle"  size="24" textColor="0x4bc6b7" fontFamily="Microsoft YaHei"/>
+				         verticalAlign="middle"  size="24" textColor="0x53bae4" fontFamily="Microsoft YaHei"/>
 			</e:Group>
 			<e:Group id="noMatchGroup" x="0" width="720" height="1070">
 				<e:Label text="暂无赛事" anchorOffsetX="0" anchorOffsetY="0" height="56" textAlign="center" verticalAlign="middle"
@@ -63,9 +63,9 @@
 					<e:Group/>
 				</e:Scroller>
 				<e:Image width="720" height="45" y="0" anchorOffsetY="0" source="game_bg1_png"/>
-				<e:Label text="赛事" x="6" y="10" anchorOffsetX="0" width="112" anchorOffsetY="0" verticalAlign="middle" textAlign="center" size="24" scaleX="1" scaleY="1" textColor="0x4bc6b7" fontFamily="Microsoft YaHei"/>
-				<e:Label text="赛事信息" x="162" y="10" anchorOffsetX="0" width="130" anchorOffsetY="0" textAlign="center" verticalAlign="middle" size="24" scaleX="1" scaleY="1" textColor="0x4bc6b7" fontFamily="Microsoft YaHei"/>
-				<e:Label text="开始时间" x="394" y="10" anchorOffsetX="0" width="138" anchorOffsetY="0" textAlign="center" verticalAlign="middle" size="24" scaleX="1" scaleY="1" textColor="0x4bc6b7" fontFamily="Microsoft YaHei"/>
+				<e:Label text="赛事" x="6" y="10" anchorOffsetX="0" width="112" anchorOffsetY="0" verticalAlign="middle" textAlign="center" size="24" scaleX="1" scaleY="1" textColor="0x53bae4" fontFamily="Microsoft YaHei"/>
+				<e:Label text="赛事信息" x="162" y="10" anchorOffsetX="0" width="130" anchorOffsetY="0" textAlign="center" verticalAlign="middle" size="24" scaleX="1" scaleY="1" textColor="0x53bae4" fontFamily="Microsoft YaHei"/>
+				<e:Label text="开始时间" x="394" y="10" anchorOffsetX="0" width="138" anchorOffsetY="0" textAlign="center" verticalAlign="middle" size="24" scaleX="1" scaleY="1" textColor="0x53bae4" fontFamily="Microsoft YaHei"/>
 				</e:Group>
 				<e:Group id="noSignedUpGroup" x="0" width="720" scaleX="1" scaleY="1" height="1000">
 				<e:Label text="您还未参加任何赛事" anchorOffsetX="0" anchorOffsetY="0" height="56" textAlign="center" verticalAlign="middle" horizontalCenter="0" verticalCenter="0" fontFamily="Microsoft YaHei"/>
@@ -118,8 +118,8 @@
 					<e:Group anchorOffsetY="0" height="955" />
 				</e:Scroller>
 				<e:Image width="720" height="45" y="0" anchorOffsetY="0" source="game_bg1_png"/>
-				<e:Label text="赛事时间" x="30" size="24" scaleX="1" scaleY="1" y="10" textColor="0x4bc6b7" fontFamily="Microsoft YaHei"/>
-				<e:Label text="赛事信息" x="280" size="24" scaleX="1" scaleY="1" y="10" textColor="0x4bc6b7" fontFamily="Microsoft YaHei"/>
+				<e:Label text="赛事时间" x="30" size="24" scaleX="1" scaleY="1" y="10" textColor="0x53bae4" fontFamily="Microsoft YaHei"/>
+				<e:Label text="赛事信息" x="280" size="24" scaleX="1" scaleY="1" y="10" textColor="0x53bae4" fontFamily="Microsoft YaHei"/>
 			</e:Group>
 			<e:Group id="noResultGroup" x="0" width="720" height="1070" scaleX="1" scaleY="1" anchorOffsetY="0">
 				<e:Label text="暂无任何最近赛况" anchorOffsetX="0" anchorOffsetY="0" height="56" textAlign="center" verticalAlign="middle"

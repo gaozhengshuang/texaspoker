@@ -390,6 +390,11 @@ class LoginScene extends BaseScene
         ChatManager.initialzie();
 
         // UIManager.closePanel(UIModuleName.LoginSceneBgPanel); //这里从逻辑上将，需要关闭，但是由于，这个将要切换到大厅场景还会显示loadingpanel，为了体验则不关闭了
+        if (InsideRoomManager.lastId)
+        {
+            this.enterGambling();
+            return;
+        }
         let type: InsideRoomType = InsideRoomManager.lastInsideRoomType;
         switch (type)
         {

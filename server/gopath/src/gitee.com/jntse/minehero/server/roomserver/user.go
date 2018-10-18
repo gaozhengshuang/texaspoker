@@ -205,6 +205,7 @@ func (u *RoomUser) Level() int32 {
 func (u *RoomUser) AddLevel(num int32) {
 	u.Entity().Level = pb.Int32(u.Level() + num)
 	u.OnAchieveProcessChanged(int32(AchieveGroup_Level))
+	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "level", u.Entity().Level)
 }
 
 func (u *RoomUser) Exp() int32 {
@@ -213,6 +214,7 @@ func (u *RoomUser) Exp() int32 {
 
 func (u *RoomUser) SetExp(num int32) {
 	u.Entity().Exp = pb.Int32(num)
+	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "exp", u.Entity().Exp)
 }
 
 // 添加经验

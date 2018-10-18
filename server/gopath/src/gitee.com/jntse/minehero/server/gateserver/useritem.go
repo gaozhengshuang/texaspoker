@@ -142,6 +142,7 @@ func (u *GateUser) AddDiamond(num int32, reason string, syn bool) {
 	if syn {
 		u.SendPropertyChange()
 	}
+	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "diamond", u.diamond)
 	log.Info("玩家[%d] 添加钻石[%d] 库存[%d] 原因[%s]", u.Id(), num, u.GetDiamond(), reason)
 }
 func (u *GateUser) RemoveDiamond(num int32, reason string, syn bool) bool {
@@ -153,6 +154,7 @@ func (u *GateUser) RemoveDiamond(num int32, reason string, syn bool) bool {
 		}
 		log.Info("玩家[%d] 添加钻石[%d] 库存[%d] 原因[%s]", u.Id(), num, u.GetDiamond(), reason)
 		RCounter().IncrByDate("item_remove", int32(msg.ItemId_Diamond), num)
+		Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "diamond", u.diamond)
 		return true
 	}
 	log.Info("玩家[%d] 添加钻石[%d]失败 库存[%d] 原因[%s]", u.Id(), num, u.GetDiamond(), reason)

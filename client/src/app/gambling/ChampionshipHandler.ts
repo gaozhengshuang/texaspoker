@@ -3,7 +3,7 @@
  */
 class ChampionshipHandler
 {
-    public initializeRoomInfo(result: game.SpRpcResult)
+    public initializeRoomInfo(data: msg.RS2C_RetEnterRoom)
     {
         if (InfoUtil.checkAvailable(GamblingManager.roomInfo) && GamblingManager.roomInfo.gamblingType == GamblingType.Match) 
         {
@@ -11,20 +11,11 @@ class ChampionshipHandler
             if (matchRoomInfo)
             {
                 matchRoomInfo.cloneTo(GamblingManager.matchRoomInfo);
-                if (result && result.data)
+                if (data)
                 {
-                    if (result.data["rank"])
-                    {
-                        GamblingManager.matchRoomInfo.rank = result.data["rank"];
-                    }
-                    if (result.data["join"])
-                    {
-                        GamblingManager.matchRoomInfo.leftJoin = result.data["join"];
-                    }
-                    if (result.data["avgChips"])
-                    {
-                        GamblingManager.matchRoomInfo.avgChips = result.data["avgChips"];
-                    }
+                    GamblingManager.matchRoomInfo.rank = data.rank;
+                    GamblingManager.matchRoomInfo.leftJoin = data.join;
+                    GamblingManager.matchRoomInfo.avgChips = data.avgchips;
                 }
             }
             if (!GamblingManager.roomInfo.blindLevel)
@@ -188,7 +179,7 @@ class ChampionshipHandler
     /**
      * 请求重购/增购
      */
-    public addShip(type: number)
+    public reqAddShip(type: number)
     {
         if (!GamblingManager.roomInfo || GamblingManager.roomInfo.isMatchOut) //如果已经被淘汰了则不发请求
         {

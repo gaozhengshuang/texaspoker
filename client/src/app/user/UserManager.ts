@@ -157,9 +157,9 @@ class UserManager
 			if (data)
 			{
 				UserManager.otherUserInfo.copyValueFromIgnoreCase(data);
-				UserManager.otherUserInfo.copyValueFromIgnoreCase(data.entity);
-				UserManager.otherUserInfo.copyValueFromIgnoreCase(data.vip);
-				UserManager.otherUserInfo.copyValueFromIgnoreCase(data.statistics);
+				// UserManager.otherUserInfo.copyValueFromIgnoreCase(data.entity);
+				// UserManager.otherUserInfo.copyValueFromIgnoreCase(data.vip);
+				// UserManager.otherUserInfo.copyValueFromIgnoreCase(data.statistics);
 
 				UserManager.playerNameOper(UserManager.otherUserInfo);
 

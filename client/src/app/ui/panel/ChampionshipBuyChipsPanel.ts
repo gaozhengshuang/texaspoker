@@ -123,7 +123,7 @@ class ChampionshipBuyChipsPanel extends BasePanel
 			{
 				if (CostManager.verifyGold(GamblingManager.matchRoomInfo.definition.RebuyCost, true))
 				{
-					GamblingManager.championshipHandler.addShip(ChampionshipBuyType.Rebuy)
+					GamblingManager.championshipHandler.reqAddShip(ChampionshipBuyType.Rebuy)
 				}
 			}
 			else
@@ -138,7 +138,7 @@ class ChampionshipBuyChipsPanel extends BasePanel
 			{
 				if (CostManager.verifyGold(GamblingManager.matchRoomInfo.definition.AddonCost, true))
 				{
-					GamblingManager.championshipHandler.addShip(ChampionshipBuyType.Addon)
+					GamblingManager.championshipHandler.reqAddShip(ChampionshipBuyType.Addon)
 				}
 			}
 			else
@@ -171,7 +171,7 @@ class ChampionshipBuyChipsPanel extends BasePanel
 	{
 		if (this.panelData && this.panelData.isOver)
 		{
-			GamblingManager.championshipHandler.addShip(ChampionshipBuyType.Out)
+			GamblingManager.championshipHandler.reqAddShip(ChampionshipBuyType.Out)
 		}
 	}
 	private onNextRoundStartEvent()
