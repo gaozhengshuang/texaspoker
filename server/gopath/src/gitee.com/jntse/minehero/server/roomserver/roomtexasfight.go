@@ -9,7 +9,7 @@ import (
 	pb "github.com/gogo/protobuf/proto"
 
 	"gitee.com/jntse/gotoolkit/util"
-	//"gitee.com/jntse/gotoolkit/log"
+	"gitee.com/jntse/gotoolkit/log"
 	//"gitee.com/jntse/gotoolkit/net"
 
 	//"gitee.com/jntse/minehero/server/def"
@@ -57,6 +57,9 @@ func (tf *TexasFightRoom) ChangeToWaitNextRoundStat(now int64) {
 	// 房间状态变更推送
 	statmsg := &msg.RS2C_PushTFStateChange{State:pb.Int32(tf.stat), Statetime:pb.Int64(tf.stattimeout)}
 	tf.BroadCastMemberMsg(statmsg)
+
+	//
+	log.Info("[百人大战] 房间[%d] 切换到等待下一局状态", tf.Id())
 }
 
 func (tf *TexasFightRoom) ChangeToBettingStat(now int64) {
@@ -76,6 +79,13 @@ func (tf *TexasFightRoom) ChangeToBettingStat(now int64) {
 	for _, p := range tf.players {
 		p.Reset()
 	}
+
+	// 房间状态变更推送
+	statmsg := &msg.RS2C_PushTFStateChange{State:pb.Int32(tf.stat), Statetime:pb.Int64(tf.stattimeout)}
+	tf.BroadCastMemberMsg(statmsg)
+
+	//
+	log.Info("[百人大战] 房间[%d] 切换到下注状态", tf.Id())
 }
 
 // 洗牌
@@ -97,7 +107,7 @@ func (tf *TexasFightRoom) SendStandPlayerList(u *RoomUser, start, count int32) {
 		info := p.FillPlayerInfo()
 		send.Playerlist = append(send.Playerlist, info)
 	}
-	u.SendMsg(send)
+	u.SendClientMsg(send)
 }
 
 // 请求下一局开局
@@ -109,6 +119,35 @@ func (tf *TexasFightRoom) RequestGameStart(u *RoomUser) {
 	}
 }
 
+// 请求下注
+func (tf *TexasFightRoom) RequestBet(u *RoomUser, pos int32, num int32) {
+	player := tf.FindPlayer(u.Id())
+	if player == nil {
+		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 请求下注找不到玩家Player", u.Name(), u.Id(), tf.Id())
+		return
+	}
+
+	if tf.stat != kStatBetting {
+		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 请求下注失败，当前不在下注状态中", u.Name(), u.Id(), tf.Id())
+		return
+	}
+
+	// 下注的总金额不得大于身上携带金额的七分之一
+	betlimit, bettotal := u.GetGold() / 7, player.TotalBet() + num
+	if bettotal > betlimit {
+		u.SendNotify("下注总额超过携带金额七分之一")
+		return
+	}
+
+	//
+	player.Bet(pos, num)
+
+	//
+	resp := &msg.RS2C_RetTexasFightBet{}
+	u.SendClientMsg(resp)
+	log.Trace("[百人大战] 玩家[%s %d] 房间[%d] 下注[%d]成功，金额[%d]", u.Name(), u.Id(), tf.Id(), pos, num)
+}
+
 // 请求房间列表
 func SendTexasFightRoomList(agent int, userid int64) {
 	send := &msg.GW2C_RetTFRoomList{Array:make([]*msg.TexasFightRoom,0)}
@@ -117,7 +156,7 @@ func SendTexasFightRoomList(agent int, userid int64) {
 		info := &msg.TexasFightRoom{}
 		info.Id = pb.Int64(tf.Id())
 		info.Hwid = pb.Int32(tf.Tid())
-		info.Join = pb.Int32(tf.MembersNum())
+		info.Join = pb.Int32(tf.PlayersNum())
 		info.Pool = pb.Int32(tf.AwardPoolSize())
 		send.Array = append(send.Array, info)
 	}

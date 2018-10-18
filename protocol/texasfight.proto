@@ -49,8 +49,8 @@ message TFBetPoolInfo {
 
 // 请求下注
 message C2RS_ReqTexasFightBet {
-    optional int32 pos = 1;
-    optional int32 num = 2;
+    optional int32 pos = 1;     // 押注位置 0庄家，从左到右1-4
+    optional int32 num = 2;     // 押注金额
 }
 
 message RS2C_RetTexasFightBet {
@@ -213,8 +213,8 @@ message RS2C_PushTFPosChange {
 }
 
 
-// 玩家退出房间推送
-message RS2C_PushTFPlayerLeave {
+// 玩家被踢出房间推送(只是通知本人)
+message RS2C_PushTFPlayerKickOut {
     optional int32 id = 1;
 }
 

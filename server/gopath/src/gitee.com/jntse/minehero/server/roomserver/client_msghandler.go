@@ -328,15 +328,67 @@ func on_C2RS_ReqTFStart(session network.IBaseNetSession, message interface{}, ui
 }
 
 func on_C2RS_ReqTFSitDown(session network.IBaseNetSession, message interface{}, uid int64) {
+	tmsg := message.(*msg.C2RS_ReqTFSitDown)
+	u := UserMgr().FindUser(uid)
+	if u == nil { 
+		log.Error("[房间] 玩家[%d] 在RoomServer中不存在", uid)
+		return
+	}
+
+	room := RoomMgr().FindTexasFight(u.RoomId())
+	if room == nil {
+		log.Error("[房间] 玩家[%s %d] 无效房间 房间[%d]", u.Name(), u.Id(), u.RoomId())
+		return
+	}
+	room.UserSitDown(u, tmsg.GetPos())
 }
 
 func on_C2RS_ReqTFStandUp(session network.IBaseNetSession, message interface{}, uid int64) {
+	//tmsg := message.(*msg.C2RS_ReqTFStandUp)
+	u := UserMgr().FindUser(uid)
+	if u == nil { 
+		log.Error("[房间] 玩家[%d] 在RoomServer中不存在", uid)
+		return
+	}
+
+	room := RoomMgr().FindTexasFight(u.RoomId())
+	if room == nil {
+		log.Error("[房间] 玩家[%s %d] 无效房间 房间[%d]", u.Name(), u.Id(), u.RoomId())
+		return
+	}
+	room.UserStandUp(u)
 }
 
 func on_C2RS_ReqTFLeave(session network.IBaseNetSession, message interface{}, uid int64) {
+	u := UserMgr().FindUser(uid)
+	if u == nil { 
+		log.Error("[房间] 玩家[%d] 在RoomServer中不存在", uid)
+		return
+	}
+
+	room := RoomMgr().FindTexasFight(u.RoomId())
+	if room == nil {
+		log.Error("[房间] 玩家[%s %d] 无效房间 房间[%d]", u.Name(), u.Id(), u.RoomId())
+		return
+	}
+	room.UserLeave(u)
 }
 
 func on_C2RS_ReqTexasFightBet(session network.IBaseNetSession, message interface{}, uid int64) {
+	tmsg := message.(*msg.C2RS_ReqTexasFightBet)
+	u := UserMgr().FindUser(uid)
+	if u == nil { 
+		log.Error("[房间] 玩家[%d] 在RoomServer中不存在", uid)
+		return
+	}
+
+	room := RoomMgr().FindTexasFight(u.RoomId())
+	if room == nil {
+		log.Error("[房间] 玩家[%s %d] 无效房间 房间[%d]", u.Name(), u.Id(), u.RoomId())
+		return
+	}
+	room.RequestBet(u, tmsg.GetPos(), tmsg.GetNum())
+
 }
 
 func on_C2RS_ReqTFAwardPool(session network.IBaseNetSession, message interface{}, uid int64) {
