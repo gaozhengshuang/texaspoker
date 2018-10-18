@@ -12,7 +12,7 @@ class SystemTimeManager
         {
             return true;
         }
-        let subDefList: Array<SystemTimeDefinition> = SystemTimeDefined.GetInstance().getSubListById(timeId);
+        let subDefList: Array<table.ISystemTimeDefine> = SystemTimeDefined.GetInstance().getSubListById(timeId);
         for (let i: number = 0; i < subDefList.length; i++)
         {
             if (SystemTimeManager.IsSystemTimeDefInTime(subDefList[i], startOffsetTime, isGetDate))
@@ -35,7 +35,7 @@ class SystemTimeManager
         }
     }
 
-    private static IsSystemTimeDefInTime(def: SystemTimeDefinition, startOffsetTime: number = 0, isGetDate: boolean = false): boolean | Date
+    private static IsSystemTimeDefInTime(def: table.ISystemTimeDefine, startOffsetTime: number = 0, isGetDate: boolean = false): boolean | Date
     {
         let serverTime: Date = TimeManager.GetServerLocalDateTime();
         let startTime: Date;
@@ -48,12 +48,12 @@ class SystemTimeManager
                 {
                     week = 7;//按计算习惯，用7表示周日
                 }
-                if (def.start[6] <= def.end[6]) //正常情况，不进行日期翻转
+                if (def.Start[6] <= def.End[6]) //正常情况，不进行日期翻转
                 {
-                    if (week >= def.start[6] && week <= def.end[6])
+                    if (week >= def.Start[6] && week <= def.End[6])
                     {
-                        startTime = SystemTimeManager.GetWeekDate(new Date(serverTime.getFullYear(), serverTime.getMonth(), serverTime.getDate(), def.start[3], def.start[4], def.start[5]), def.start[6], true);
-                        endTime = SystemTimeManager.GetWeekDate(new Date(serverTime.getFullYear(), serverTime.getMonth(), serverTime.getDate(), def.end[3], def.end[4], def.end[5]), def.end[6], false);
+                        startTime = SystemTimeManager.GetWeekDate(new Date(serverTime.getFullYear(), serverTime.getMonth(), serverTime.getDate(), def.Start[3], def.Start[4], def.Start[5]), def.Start[6], true);
+                        endTime = SystemTimeManager.GetWeekDate(new Date(serverTime.getFullYear(), serverTime.getMonth(), serverTime.getDate(), def.End[3], def.End[4], def.End[5]), def.End[6], false);
                     }
                     else
                     {
@@ -68,7 +68,7 @@ class SystemTimeManager
                 }
                 else //分两段的
                 {
-                    if (week > def.end[6] && week < def.start[6])
+                    if (week > def.End[6] && week < def.Start[6])
                     {
                         if (isGetDate) //在中间
                         {
@@ -78,23 +78,23 @@ class SystemTimeManager
                             return false;
                         }
                     }
-                    else if (week <= def.end[6])//在第一段
+                    else if (week <= def.End[6])//在第一段
                     {
                         startTime = SystemTimeManager.GetWeekDate(new Date(serverTime.getFullYear(), serverTime.getMonth(), serverTime.getDate(), 0, 0, 0), 1, true);
-                        endTime = SystemTimeManager.GetWeekDate(new Date(serverTime.getFullYear(), serverTime.getMonth(), serverTime.getDate(), def.end[3], def.end[4], def.end[5]), def.end[6], false);
+                        endTime = SystemTimeManager.GetWeekDate(new Date(serverTime.getFullYear(), serverTime.getMonth(), serverTime.getDate(), def.End[3], def.End[4], def.End[5]), def.End[6], false);
                     }
                     else //在第二段
                     {
-                        startTime = SystemTimeManager.GetWeekDate(new Date(serverTime.getFullYear(), serverTime.getMonth(), serverTime.getDate(), def.start[3], def.start[4], def.start[5]), def.start[6], true);
+                        startTime = SystemTimeManager.GetWeekDate(new Date(serverTime.getFullYear(), serverTime.getMonth(), serverTime.getDate(), def.Start[3], def.Start[4], def.Start[5]), def.Start[6], true);
                         endTime = SystemTimeManager.GetWeekDate(new Date(serverTime.getFullYear(), serverTime.getMonth(), serverTime.getDate(), 23, 59, 59, 999), 7, false);
                     }
                 }
                 break;
             case SystemTimeType.EveryDay:
-                if (SystemTimeManager.IsInBigDate(def.start, def.end, serverTime))
+                if (SystemTimeManager.IsInBigDate(def.Start, def.End, serverTime))
                 {
-                    startTime = SystemTimeManager.GetDateTimeByArray(def.start, serverTime);
-                    endTime = SystemTimeManager.GetDateTimeByArray(def.end, serverTime);
+                    startTime = SystemTimeManager.GetDateTimeByArray(def.Start, serverTime);
+                    endTime = SystemTimeManager.GetDateTimeByArray(def.End, serverTime);
                 }
                 else
                 {
@@ -108,8 +108,8 @@ class SystemTimeManager
                 }
                 break;
             case SystemTimeType.Normal:
-                startTime = new Date(def.start[0], def.start[1] - 1, def.start[2], def.start[3], def.start[4], def.start[5]);
-                endTime = new Date(def.end[0], def.end[1] - 1, def.end[2], def.end[3], def.end[4], def.end[5]);
+                startTime = new Date(def.Start[0], def.Start[1] - 1, def.Start[2], def.Start[3], def.Start[4], def.Start[5]);
+                endTime = new Date(def.End[0], def.End[1] - 1, def.End[2], def.End[3], def.End[4], def.End[5]);
                 break;
         }
         if (serverTime.getTime() >= (startTime.getTime() - startOffsetTime) && serverTime.getTime() <= endTime.getTime())
@@ -213,7 +213,7 @@ class SystemTimeManager
     public static GetTodayLastTime(id: number): Date
     {
         let result: Date = TimeManager.Utc1970;
-        let subDefList: Array<SystemTimeDefinition> = SystemTimeDefined.GetInstance().getSubListById(id);
+        let subDefList: Array<table.ISystemTimeDefine> = SystemTimeDefined.GetInstance().getSubListById(id);
         for (let i = 0; i < subDefList.length; i++)
         {
             let spanTime: Date = SystemTimeManager.GetTodayLastTimeDate(subDefList[i]);
@@ -225,25 +225,25 @@ class SystemTimeManager
         return result;
     }
 
-    public static GetTodayLastTimeDate(def: SystemTimeDefinition): Date
+    public static GetTodayLastTimeDate(def: table.ISystemTimeDefine): Date
     {
-        if (def.start[6] == -1 && def.start[0] != 0)
+        if (def.Start[6] == -1 && def.Start[0] != 0)
         {
-            return new Date(def.end[0], def.end[1], def.end[2], def.end[3], def.end[4], def.end[5]);
+            return new Date(def.End[0], def.End[1], def.End[2], def.End[3], def.End[4], def.End[5]);
         }
         else
         {
             let serverTime: Date = TimeManager.GetServerLocalDateTime();
-            if (SystemTimeManager.IsInBigDate(def.start, def.end, serverTime))
+            if (SystemTimeManager.IsInBigDate(def.Start, def.End, serverTime))
             {
-                return SystemTimeManager.GetDateTimeByArray(def.end, serverTime);//返回今日的最后时间
+                return SystemTimeManager.GetDateTimeByArray(def.End, serverTime);//返回今日的最后时间
             }
             else
             {
                 let year: number, month: number, day: number;
-                year = def.end[0] == 0 ? serverTime.getFullYear() : def.end[0];
-                month = def.end[1] == 0 ? serverTime.getMonth() : def.end[1];
-                day = def.end[2] == 0 ? serverTime.getDate() : def.end[2];
+                year = def.End[0] == 0 ? serverTime.getFullYear() : def.End[0];
+                month = def.End[1] == 0 ? serverTime.getMonth() : def.End[1];
+                day = def.End[2] == 0 ? serverTime.getDate() : def.End[2];
                 return new Date(year, month, day, 23, 59, 59);
             }
         }

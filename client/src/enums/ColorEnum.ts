@@ -40,7 +40,7 @@ class ColorEnum
 	/**
 	 * 锦标赛时间绿色
 	*/
-	public static readonly MTT_time_Green: number = 0x4bc6b7;
+	public static readonly MTT_time_Green: number = 0x53bae4;
 	//---------------------拉霸------------------------
 	public static readonly LaBa_Win_Com: number = 0xe29504;
 	public static readonly LaBa_Win_Golden: number = 0xfdb900;

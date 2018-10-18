@@ -112,9 +112,6 @@ class ChampionshipManager
         ChampionshipManager.getMTTListInfoResponse(result);
         //设置赛事的房间信息
         ChampionshipManager.initMTTRoomListInfo();
-        //拉取已报名的赛事列表
-        ChampionshipManager.reqJoinedMTTList();
-
     }
     /**
      * 初始化设置锦标赛所在房间列表
@@ -155,13 +152,13 @@ class ChampionshipManager
     */
     private static setOpenAndCloseTime(matchInfo: MatchRoomInfo)
     {
-        let subDefList: Array<SystemTimeDefinition> = SystemTimeDefined.GetInstance().getSubListById(matchInfo.definition.TimeId);
+        let subDefList: Array<table.ISystemTimeDefine> = SystemTimeDefined.GetInstance().getSubListById(matchInfo.definition.TimeId);
         if (subDefList)
         {
-            matchInfo.openTime = SystemTimeManager.GetDateTimeByArray(subDefList[0].start, TimeManager.GetServerLocalDateTime()).getTime();
-            if (subDefList[0].end)
+            matchInfo.openTime = SystemTimeManager.GetDateTimeByArray(subDefList[0].Start, TimeManager.GetServerLocalDateTime()).getTime();
+            if (subDefList[0].End)
             {
-                matchInfo.closeTime = SystemTimeManager.GetDateTimeByArray(subDefList[0].end, TimeManager.GetServerLocalDateTime()).getTime();
+                matchInfo.closeTime = SystemTimeManager.GetDateTimeByArray(subDefList[0].End, TimeManager.GetServerLocalDateTime()).getTime();
             }
         }
     }

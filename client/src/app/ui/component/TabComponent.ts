@@ -22,8 +22,9 @@ class TabComponent extends BaseComponent<any>
      */
     public isTween: boolean = true;
 
-    // private static readonly defaultColor: number = 0x4bc6b7;
+    // private static readonly defaultColor: number = 0x53bae4;
     // private static readonly selectColor: number = 0xffffff;
+    public appendData: TabComponentData;
 
     protected onAwake(event: eui.UIEvent)
     {
@@ -34,7 +35,7 @@ class TabComponent extends BaseComponent<any>
      */
     public build(data: TabComponentData)
     {
-        this.bindData = data;
+        this.appendData = data;
         if (data.groupList == null || data.nameList == null)
         {
             game.Console.log("传入数据为空");
@@ -191,6 +192,12 @@ class TabComponent extends BaseComponent<any>
         {
             idx = 0;
         }
+        let obj = this.isDisabled(idx);
+        if (obj)
+        {
+            AlertManager.showAlertByString(obj.tips);
+            return;
+        }
         if (this.selectIndex != undefined)
         {
             this._tabInfoList[this.selectIndex].group.visible = false;
@@ -258,13 +265,13 @@ class TabComponent extends BaseComponent<any>
         }
     }
 
-    public static CreatData(nameList: Array<string>, groupList: Array<eui.Group>, skinName: TabButtonType, disableTabDes?: string): TabComponentData
+    public static CreatData(nameList: Array<string>, groupList: Array<eui.Group>, skinName: TabButtonType, disableTabDes?: any[]): TabComponentData
     {
         let resultData: TabComponentData = new TabComponentData();
         resultData.nameList = nameList;
         resultData.groupList = groupList;
         resultData.tabSkinName = skinName;
-        resultData.disableTabDes = disableTabDes;
+        resultData.disableTabDesList = disableTabDes;
         return resultData;
     }
     public getBtnByLabel(label: string): eui.RadioButton
@@ -289,6 +296,20 @@ class TabComponent extends BaseComponent<any>
         }
         return null;
     }
+    private isDisabled(idx: number): any
+    {
+        if (this.appendData.disableTabDesList)
+        {
+            for (let obj of this.appendData.disableTabDesList)
+            {
+                if (obj.idx == idx)
+                {
+                    return obj;
+                }
+            }
+        }
+        return null;
+    }
     /**
      * 选项卡改变事件
      */
@@ -309,7 +330,7 @@ class TabComponentData
     /**
      * 禁用提示
      */
-    public disableTabDes: string;
+    public disableTabDesList: any[];
 }
 class TabInfo
 {

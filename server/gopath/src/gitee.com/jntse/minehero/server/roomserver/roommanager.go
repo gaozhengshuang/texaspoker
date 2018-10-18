@@ -39,7 +39,7 @@ func (rm *RoomManager) Init() bool {
 	rm.ticker1s.Start()
 
 	rm.CleanCache()
-	rm.InitPublicTexas()
+	//rm.InitPublicTexas()
 	rm.InitTimeReward()
 	rm.InitTexasFightRoom()
 	return true
@@ -106,6 +106,8 @@ func (rm *RoomManager) CreatTexasRoomForChampion(roomtid int32, cs *ChampionShip
 	}
 	room := NewTexasRoom(0, uid, roomtid, 0, "", cs)
 	room.Init()
+	room.bigblindnum = cs.bconf.BBlind
+	room.smallblindnum = cs.bconf.SBlind
 	rm.Add(room)
 	return room.Id()
 }

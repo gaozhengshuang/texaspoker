@@ -7,9 +7,9 @@
 			<e:Image width="668" y="80" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" height="54" source="pub_biankuang1_png" scale9Grid="24,23,18,8"/>
 			<ns1:TabComponent id="tabComponent" y="80" anchorOffsetY="0" skinName="TabComponentSkin" horizontalCenter="0"/>
 			<e:Group id="buyGroup" x="0" y="140" width="720" height="390" anchorOffsetY="0" name="购买">
-			<e:Label text="类型" x="93" y="10" size="26" textColor="0x4bc6b7"/>
-			<e:Label text="赔率" x="286" y="10" size="26" textColor="0x4bc6b7"/>
-			<e:Label text="注数" x="566" y="10" size="26" textColor="0x4bc6b7"/>
+			<e:Label text="类型" x="93" y="10" size="26" textColor="0x53bae4"/>
+			<e:Label text="赔率" x="286" y="10" size="26" textColor="0x53bae4"/>
+			<e:Label text="注数" x="566" y="10" size="26" textColor="0x53bae4"/>
 			<e:Scroller id="buyScroller" width="720" height="220" y="50" anchorOffsetY="0">
 				<e:Group>
 				<e:List id="buyList" width="720" height="220">
@@ -30,10 +30,10 @@
 			<e:ToggleButton id="buyEveryRB" label="2" x="489" y="297.98" skinName="guessAnteBuyRadioButtonSkin"/>
 			</e:Group>
 			<e:Group id="weekGroup" y="140" width="720" height="390" anchorOffsetY="0" name="本周榜单">
-			<e:Label text="排名" x="36" y="10" size="26" textColor="0x4bc6b7"/>
-			<e:Label text="玩家" x="166" y="10" size="26" textColor="0x4bc6b7"/>
-			<e:Label text="中奖注数" x="334" y="10" size="26" textColor="0x4bc6b7"/>
-			<e:Label text="中奖金币" x="542" y="10" size="26" textColor="0x4bc6b7"/>
+			<e:Label text="排名" x="36" y="10" size="26" textColor="0x53bae4"/>
+			<e:Label text="玩家" x="166" y="10" size="26" textColor="0x53bae4"/>
+			<e:Label text="中奖注数" x="334" y="10" size="26" textColor="0x53bae4"/>
+			<e:Label text="中奖金币" x="542" y="10" size="26" textColor="0x53bae4"/>
 			<e:Scroller id="weekScroller" width="720" height="340" y="50" anchorOffsetY="0">
 				<e:Group>
 				<e:List id="weekList" width="720" height="340">
@@ -45,9 +45,9 @@
 			</e:Scroller>
 			</e:Group>
 			<e:Group id="resultGroup" y="140" width="720" height="390" anchorOffsetY="0" name="开奖信息">
-			<e:Label text="时间" x="75" y="10" size="26" textColor="0x4bc6b7"/>
-			<e:Label text="手牌" x="292" y="10" size="26" textColor="0x4bc6b7"/>
-			<e:Label text="中奖注数" x="525" y="10" size="26" textColor="0x4bc6b7"/>
+			<e:Label text="时间" x="75" y="10" size="26" textColor="0x53bae4"/>
+			<e:Label text="手牌" x="292" y="10" size="26" textColor="0x53bae4"/>
+			<e:Label text="中奖注数" x="525" y="10" size="26" textColor="0x53bae4"/>
 			<e:Scroller id="resultScroller" width="720" height="340" y="50" anchorOffsetY="0">
 				<e:Group>
 				<e:List id="resultList" width="720" height="340">
@@ -59,11 +59,11 @@
 			</e:Scroller>
 			</e:Group>
 			<e:Group id="buyrRecordGroup" y="140" width="720" height="390" anchorOffsetY="0" name="购买记录">
-			<e:Label text="时间" x="55.28" y="10" size="26" textColor="0x4bc6b7"/>
-			<e:Label text="手牌" x="164.81" y="10" size="26" textColor="0x4bc6b7"/>
-			<e:Label text="购买记录" x="283.93" y="10" size="26" textColor="0x4bc6b7"/>
-			<e:Label text="总注数" x="433.93" y="10" size="26" textColor="0x4bc6b7"/>
-			<e:Label text="中奖金额" x="563.93" y="10" size="26" textColor="0x4bc6b7"/>
+			<e:Label text="时间" x="55.28" y="10" size="26" textColor="0x53bae4"/>
+			<e:Label text="手牌" x="164.81" y="10" size="26" textColor="0x53bae4"/>
+			<e:Label text="购买记录" x="283.93" y="10" size="26" textColor="0x53bae4"/>
+			<e:Label text="总注数" x="433.93" y="10" size="26" textColor="0x53bae4"/>
+			<e:Label text="中奖金额" x="563.93" y="10" size="26" textColor="0x53bae4"/>
 			<e:Scroller id="buyrRecordScroller" width="720" height="340" y="50" anchorOffsetY="0">
 				<e:Group>
 				<e:List id="buyrRecordList" width="720" height="340">

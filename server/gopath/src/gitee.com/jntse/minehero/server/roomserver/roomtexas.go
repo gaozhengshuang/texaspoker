@@ -24,6 +24,7 @@ func (this *TexasPokerRoom) OnDestory(now int64) {
 
 	// 回传玩家信息，通知网关房间销毁
 	for _, u := range this.members {
+		u.DelRoomId(this.Id())
 		u.OnDestoryRoom()
 	}
 

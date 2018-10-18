@@ -123,9 +123,10 @@ enum UserInfoType {
 	NewPlayerStep = 11; //新手引导
 }
 
-enum RoomKind {
-    TanTanLe = 1;
-    TexasPoker = 2;
+enum RoomKind { 
+    TanTanLe = 1;       // 弹弹乐
+    TexasPoker = 2;     // 德州扑克
+    TexasFight = 3;     // 百人大战
 }
 
 //活动类别

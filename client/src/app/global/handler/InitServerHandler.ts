@@ -106,33 +106,30 @@ class InitServerHandler
 	private addFriendListInfoResponse(result: game.SpRpcResult)
 	{
 		FriendManager.FriendRequestResponse(result);
-		this.reqGetMailList();
-		// this.reqAchievementList();
+		this.reqGetMTTListInfo();
 	}
 	/**
 	 * 拉取成就
 	 */
 	private reqAchievementList()
 	{
-		SocketManager.ImplCall(Command.Achievement_GetList_3090, { "roleId": UserManager.userInfo.roleId }, this.OnAchievementListInfo, null, this);
+		SocketManager.ImplCall(Command.C2GW_ReqAchieveInfo, { "roleid": UserManager.userInfo.roleId }, this.OnAchievementListInfo, null, this);
 	}
 	private OnAchievementListInfo(result: game.SpRpcResult)
 	{
 		AchievementManager.initialize(result);
 		AchieveProcessManager.Initialize(result);
-		this.reqGetInsideRoomIdList();
+		this.reqGetActivityList(); //活动最后拉去
 	}
 	private reqGetInsideRoomIdList()
 	{
 		//拉取锦标赛赛事所在房间信息列表
-		// MsgTransferSend.sendRoomProto(Command.C2RS_ReqInsideRoomInfoList, {}, this.onGetInsideRoomListInfo, null, this);
-				SocketManager.ImplCall(Command.C2GW_ReqUserRoomInfo, {}, this.onGetInsideRoomListInfo, null, this);
+		MsgTransferSend.sendRoomProto(Command.C2RS_ReqInsideRoomInfoList, {}, this.onGetInsideRoomListInfo, null, this);
 	}
 	private onGetInsideRoomListInfo(result: game.SpRpcResult)
 	{
 		InsideRoomManager.initialize(result);
 		this.reqFriendListInfo();
-		// this.reqGetMTTListInfo();
 	}
 	/**
 	 * 拉取锦标赛赛事列表信息
@@ -144,7 +141,12 @@ class InitServerHandler
 	private onGetMTTListInfo(result: game.SpRpcResult)
 	{
 		ChampionshipManager.initialize(result);
-		this.reqInviteAwardInfo();
+		//拉取已报名的赛事列表
+		let callback: Function = function (result: game.SpRpcResult)
+		{
+			this.reqGetMailList();
+		};
+		MsgTransferSend.sendRoomProto(Command.C2RS_ReqJoinedMTTList, {}, callback, null, this);
 	}
 	/**
 	 * 拉取邀请奖励信息
@@ -169,7 +171,7 @@ class InitServerHandler
 	{
 		MailManager.Reset();
 		MailManager.initialize(result);
-		this.reqGetActivityList();
+		this.reqAchievementList();
 	}
 	/**
 	 * 拉取活动列表 最后拉取

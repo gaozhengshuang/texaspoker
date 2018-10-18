@@ -1,12 +1,12 @@
 package main
 
 import (
-		//"fmt"
+	"fmt"
 	"gitee.com/jntse/minehero/pbmsg"
 	pb "github.com/gogo/protobuf/proto"
 	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/gotoolkit/log"
-	"gitee.com/jntse/minehero/server/def"
+	//"gitee.com/jntse/minehero/server/def"
 )
 
 const (
@@ -44,6 +44,9 @@ type TexasPlayer struct{
 	rewardtime int32
 	rewardround int32
 	isallinshow bool
+	delaystandup int32
+	mttranktime int32
+	rankinfo *msg.RS2C_PushMTTRank
 }
 
 type TexasPlayers []*TexasPlayer
@@ -62,6 +65,7 @@ func NewTexasPlayer(user *RoomUser, room *TexasPokerRoom, isai bool) *TexasPlaye
 	player.gamestate = GSWaitNext
 	player.isai = isai
 	player.InitTimeReward()
+	player.rankinfo = &msg.RS2C_PushMTTRank{}
 	return player
 }
 
@@ -72,7 +76,7 @@ func (this *TexasPlayer)Init(){
 	this.betover = false
 	this.isshowcard = false
 	this.bettime = 0
-	this.isready = false
+	//this.isready = false
 	this.gamestate = GSWaitNext
 	this.aiacttime = 0
 	this.isallinshow = false
@@ -81,16 +85,13 @@ func (this *TexasPlayer)Init(){
 func (this *TexasPlayer) InitTimeReward() {
 	var tmpsec, tmpround int64
 	//var err error
-	switch this.room.GetRoomType() {
-	case 1:
-		tmpsec,_ = this.owner.arvalues.Val(def.CTTimeRewardSec1)
-		tmpround,_ = this.owner.arvalues.Val(def.CTTimeRewardRound1)
-	case 2:
-		tmpsec,_ = this.owner.arvalues.Val(def.CTTimeRewardSec2)
-		tmpround,_ = this.owner.arvalues.Val(def.CTTimeRewardRound2)
-	case 3:
-		tmpsec,_ = this.owner.arvalues.Val(def.CTTimeRewardSec3)
-		tmpround,_ = this.owner.arvalues.Val(def.CTTimeRewardRound3)
+	lasttime, _ := Redis().Get(fmt.Sprintf("trtime%d_%d", this.room.GetRoomType(), this.owner.Id())).Int64()
+	if util.IsSameDay(lasttime, util.CURTIME()) {
+		tmpround, _ = Redis().Get(fmt.Sprintf("trround%d_%d", this.room.GetRoomType(), this.owner.Id())).Int64()
+		tmpsec, _ = Redis().Get(fmt.Sprintf("trtick%d_%d", this.room.GetRoomType(), this.owner.Id())).Int64()   
+	}else{
+		tmpsec = 0
+		tmpround = 0
 	}
 	this.rewardtime = int32(tmpsec)
 	this.rewardround = int32(tmpround)+1
@@ -98,23 +99,14 @@ func (this *TexasPlayer) InitTimeReward() {
 }
 
 func (this *TexasPlayer) SetTimeReward() {
-	switch this.room.GetRoomType() {
-	case 1:
-		this.owner.arvalues.Remove(def.CTTimeRewardSec1)
-		this.owner.arvalues.Remove(def.CTTimeRewardRound1)
-		this.owner.arvalues.AddDayDefault(def.CTTimeRewardRound1, int64(this.rewardround))
-		this.owner.arvalues.AddDayDefault(def.CTTimeRewardSec1, int64(this.rewardtime))
-	case 2:
-		this.owner.arvalues.Remove(def.CTTimeRewardSec2)
-		this.owner.arvalues.Remove(def.CTTimeRewardRound2)
-		this.owner.arvalues.AddDayDefault(def.CTTimeRewardRound2, int64(this.rewardround))
-		this.owner.arvalues.AddDayDefault(def.CTTimeRewardSec2, int64(this.rewardtime))
-	case 3:
-		this.owner.arvalues.Remove(def.CTTimeRewardSec3)
-		this.owner.arvalues.Remove(def.CTTimeRewardRound3)
-		this.owner.arvalues.AddDayDefault(def.CTTimeRewardRound3, int64(this.rewardround))
-		this.owner.arvalues.AddDayDefault(def.CTTimeRewardSec3, int64(this.rewardtime))
+	lasttime, _ := Redis().Get(fmt.Sprintf("trtime%d_%d", this.room.GetRoomType(), this.owner.Id())).Int64()
+	if !util.IsSameDay(lasttime, util.CURTIME()) {
+		this.rewardtime = 0
+		this.rewardround = 0
+		Redis().Set(fmt.Sprintf("trtime_%d", this.owner.Id()), util.CURTIME(), 0)
 	}
+	Redis().Set(fmt.Sprintf("trround%d_%d", this.room.GetRoomType(), this.owner.Id()), this.rewardround, 0)
+	Redis().Set(fmt.Sprintf("trtick%d_%d", this.room.GetRoomType(), this.owner.Id()), this.rewardtime, 0)
 }
 
 func (this *TexasPlayer) IsRaise() bool{
@@ -343,6 +335,9 @@ func (this *TexasPlayer)SetFlop(c1 *Card, c2 *Card, c3 *Card){
 	this.hand.SetCard(c1, false)
 	this.hand.SetCard(c2, false)
 	this.hand.SetCard(c3, false)
+	if this.IsFold() == false && this.IsWait() == false {
+		this.owner.OnFlop(this.room.subkind)
+	}
 	this.hand.AnalyseHand()
 }
 
@@ -358,6 +353,13 @@ func (this *TexasPlayer)SetRiver(c1 *Card){
 
 func (this *TexasPlayer) GetBankRoll() int32{
 	return this.bankroll
+}
+
+func (this *TexasPlayer) HasBankRoll() bool {
+	if this.bankroll == 0 || this.bankroll < this.room.ante{
+		return false
+	}
+	return true
 }
 
 func (this *TexasPlayer) AddBankRoll(num int32){
@@ -524,6 +526,30 @@ func (this *TexasPlayer) Tick (){
 	if !this.IsWait() {
 		this.AddRewardTime()
 	}
+	if this.delaystandup > 0 {
+		this.delaystandup--
+		if this.delaystandup == 0 {
+			this.StandUp()
+		}
+	}
+	if this.mttranktime >= 10 {
+		this.SendMttRank()	
+	}else{
+		if this.room.IsChampionShip() {
+			this.mttranktime++
+		}
+	}
+}
+
+func (this *TexasPlayer) SendMttRank() {
+	if !this.room.IsChampionShip() {
+		return 
+	}
+	this.rankinfo.Rank = pb.Int32(this.room.mtt.GetUserRank(this.owner.Id()))
+	this.rankinfo.Join = pb.Int32(this.room.mtt.maxuser)
+	this.rankinfo.Avgchips = pb.Int32(this.room.mtt.GetAvgChips())
+	this.rankinfo.Recordid = pb.Int32(this.room.mtt.uid)
+	this.owner.SendClientMsg(this.rankinfo)
 }
 
 func (this *TexasPlayer) AddRewardTime() {
@@ -583,7 +609,8 @@ func (this *TexasPlayer) AutoCoin() {
 func (this *TexasPlayer) AddRebuy(num int32, cost int32) {
 	if this.owner.RemoveGold(cost, "金币兑换筹码", true) {
 		this.addrebuy = num
-		log.Info("房间%d 玩家%d Rebuy下次添加金币%d", this.room.Id(), this.owner.Id(), this.addcoin)
+		this.delaystandup = 0
+		log.Info("房间%d 玩家%d Rebuy下次添加金币%d", this.room.Id(), this.owner.Id(), this.addrebuy)
 	}
 }
 
@@ -598,7 +625,8 @@ func (this *TexasPlayer) AutoRebuy() {
 func (this *TexasPlayer) AddAddon(num int32, cost int32){
 	if this.owner.RemoveGold(cost, "金币兑换筹码", true) {
 		this.addaddon = num
-		log.Info("房间%d 玩家%d Addon下次添加金币%d", this.room.Id(), this.owner.Id(), this.addcoin)
+		this.delaystandup = 0
+		log.Info("房间%d 玩家%d Addon下次添加金币%d", this.room.Id(), this.owner.Id(), this.addaddon)
 	}
 }
 
@@ -715,16 +743,22 @@ func (this *TexasPlayer) BrightCardInTime() {
 }
 
 func (this *TexasPlayer) CheckLeave() bool{
-	if this.GetBankRoll() == 0 {
-		this.StandUp()
-		return true
+	if !this.HasBankRoll() {
+		if !this.room.IsChampionShip() {
+			this.StandUp()
+			return true
+		}else{
+			this.delaystandup = 20
+		}
 	}
 	return false
 }
 
 func (this *TexasPlayer) StandUp() bool {
 	if this.room.InGame(this) {
-		this.owner.AddGold(this.bankroll, "离开房间", true)
+		if !this.room.IsChampionShip() {
+			this.owner.AddGold(this.bankroll, "离开房间", true)
+		}
 		if !this.IsWait() {
 			this.room.remain--
 			this.room.playerstate[this.pos] = GSFold
@@ -737,12 +771,15 @@ func (this *TexasPlayer) StandUp() bool {
 		log.Info("房间%d 玩家%d 站起", this.room.Id(), this.owner.Id())
 		this.room.DelPlayer(this.pos)
 		if !this.isai {
+			if this.room.IsChampionShip() {
+				this.room.mtt.SetMemberOut(this.owner.Id())
+			}
 			this.Init()
 			this.room.AddWatcher(this)
-			send1 := &msg.RS2C_PushSitOrStand{}
-			send1.Roleid = pb.Int64(this.owner.Id())
-			send1.State = pb.Int32(2)
-			this.room.BroadCastRoomMsg(send1)
+			send := &msg.RS2C_PushSitOrStand{}
+			send.Roleid = pb.Int64(this.owner.Id())
+			send.State = pb.Int32(2)
+			this.room.BroadCastRoomMsg(send)
 			this.SetTimeReward()
 		}
 		this.room.UpdateMember()

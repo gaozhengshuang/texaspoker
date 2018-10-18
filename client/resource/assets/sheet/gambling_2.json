@@ -1,4 +1,8 @@
 {"file":"gambling_2.png","frames":{
+"n_game_21_png":{"x":1,"y":302,"w":90,"h":91,"offX":0,"offY":0,"sourceW":90,"sourceH":91},
+"n_game_22_png":{"x":1,"y":114,"w":96,"h":96,"offX":0,"offY":0,"sourceW":96,"sourceH":96},
+"n_game_24_png":{"x":198,"y":179,"w":23,"h":28,"offX":0,"offY":0,"sourceW":23,"sourceH":28},
+"n_game_25_png":{"x":154,"y":104,"w":28,"h":28,"offX":0,"offY":0,"sourceW":28,"sourceH":28},
 "n_game_26_png":{"x":93,"y":394,"w":90,"h":90,"offX":0,"offY":0,"sourceW":90,"sourceH":90},
 "allin_png":{"x":99,"y":280,"w":71,"h":17,"offX":0,"offY":0,"sourceW":71,"sourceH":17},
 "bg_jishi_png":{"x":198,"y":1,"w":36,"h":36,"offX":0,"offY":0,"sourceW":36,"sourceH":36},
@@ -23,10 +27,6 @@
 "n_game_4_png":{"x":1,"y":1,"w":96,"h":111,"offX":0,"offY":0,"sourceW":96,"sourceH":111},
 "n_game_6_png":{"x":1,"y":212,"w":96,"h":88,"offX":0,"offY":0,"sourceW":96,"sourceH":88},
 "n_game_19_png":{"x":198,"y":39,"w":38,"h":26,"offX":0,"offY":0,"sourceW":38,"sourceH":26},
-"n_game_20_png":{"x":198,"y":151,"w":34,"h":26,"offX":0,"offY":0,"sourceW":34,"sourceH":26},
-"n_game_20_1_png":{"x":198,"y":123,"w":34,"h":26,"offX":0,"offY":0,"sourceW":34,"sourceH":26},
-"n_game_20_2_png":{"x":198,"y":95,"w":34,"h":26,"offX":0,"offY":0,"sourceW":34,"sourceH":26},
-"n_game_21_png":{"x":1,"y":302,"w":90,"h":91,"offX":0,"offY":0,"sourceW":90,"sourceH":91},
-"n_game_22_png":{"x":1,"y":114,"w":96,"h":96,"offX":0,"offY":0,"sourceW":96,"sourceH":96},
-"n_game_24_png":{"x":198,"y":179,"w":23,"h":28,"offX":0,"offY":0,"sourceW":23,"sourceH":28},
-"n_game_25_png":{"x":154,"y":104,"w":28,"h":28,"offX":0,"offY":0,"sourceW":28,"sourceH":28}}}
+"n_game_20_png":{"x":198,"y":95,"w":34,"h":26,"offX":0,"offY":0,"sourceW":34,"sourceH":26},
+"n_game_20_1_png":{"x":198,"y":151,"w":34,"h":26,"offX":0,"offY":0,"sourceW":34,"sourceH":26},
+"n_game_20_2_png":{"x":198,"y":123,"w":34,"h":26,"offX":0,"offY":0,"sourceW":34,"sourceH":26}}}

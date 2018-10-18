@@ -40,6 +40,7 @@ type RoomUser struct {
 	roomid         int64 // 房间id
 	isai           bool
 	arvalues		def.AutoResetValues
+	roomlist		map[int64]int64
 }
 
 func NewRoomUser(rid int64, gate network.IBaseNetSession, gamekind int32) *RoomUser {
@@ -53,6 +54,7 @@ func NewRoomUser(rid int64, gate network.IBaseNetSession, gamekind int32) *RoomU
 	user.asynev.Start(int64(user.Id()), 10)
 	user.maxenergy = tbl.Game.MaxEnergy
 	user.arvalues.Init()
+	user.roomlist = make(map[int64]int64) 
 	return user
 }
 
@@ -70,6 +72,11 @@ func NewSimpleUser(id int64) *RoomUser {
 	user.bin.Base.Task = &msg.UserTask{}
 	user.bin.Base.Luckydraw = &msg.LuckyDrawRecord{Drawlist: make([]*msg.LuckyDrawItem, 0)}
 	user.arvalues.Init()
+	user.ticker1s = util.NewGameTicker(1*time.Second, user.Handler1sTick)
+	user.ticker10ms = util.NewGameTicker(10*time.Millisecond, user.Handler10msTick)
+	user.ticker1s.Start()
+	user.ticker10ms.Start()
+	user.roomlist = make(map[int64]int64)
 	return user
 }
 
@@ -93,6 +100,11 @@ func NewRoomUserAI(id int64, name string, sex int32) *RoomUser {
 	user.bin.Base.Luckydraw = &msg.LuckyDrawRecord{Drawlist: make([]*msg.LuckyDrawItem, 0)}
 	user.isai = true
 	user.arvalues.Init()
+	user.ticker1s = util.NewGameTicker(1*time.Second, user.Handler1sTick)
+	user.ticker10ms = util.NewGameTicker(10*time.Millisecond, user.Handler10msTick)
+	user.ticker1s.Start()
+	user.ticker10ms.Start()
+	user.roomlist = make(map[int64]int64)
 	return user
 }
 
@@ -150,6 +162,11 @@ func (u *RoomUser) RoomId() int64 {
 
 func (u *RoomUser) SetRoomId(uid int64) {
 	u.roomid = uid
+	u.roomlist[uid] = uid
+}
+
+func (u *RoomUser) DelRoomId(uid int64) {	
+	delete(u.roomlist, uid)
 }
 
 func (u *RoomUser) OpenId() string {
@@ -197,6 +214,7 @@ func (u *RoomUser) Level() int32 {
 func (u *RoomUser) AddLevel(num int32) {
 	u.Entity().Level = pb.Int32(u.Level() + num)
 	u.OnAchieveProcessChanged(int32(AchieveGroup_Level))
+	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "level", u.Entity().Level)
 }
 
 func (u *RoomUser) Exp() int32 {
@@ -205,6 +223,7 @@ func (u *RoomUser) Exp() int32 {
 
 func (u *RoomUser) SetExp(num int32) {
 	u.Entity().Exp = pb.Int32(num)
+	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "exp", u.Entity().Exp)
 }
 
 // 添加经验
@@ -328,6 +347,17 @@ func RemoveUserGold(gid int, uid int64, gold int32, reason string) bool {
 		return true
 	}
 	log.Info("玩家[%d] 扣除金币失败[%d] 原因[%s]", uid, gold, reason)
+	return false
+}
+
+func AddUserGold(gid int, uid int64, gold int32, reason string) bool {
+	goldsrc := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", uid), "gold").Val())
+	newgold := goldsrc + gold
+	Redis().HSet(fmt.Sprintf("charbase_%d", uid), "gold", newgold)
+	send := &msg.RS2C_RolePushPropertyChange{}
+	send.Gold = pb.Int32(newgold)
+	RoomSvr().SendClientMsg(gid, uid, send)
+	log.Info("玩家[%d] 添加金币[%d] 原因[%s]", uid, gold, reason)
 	return false
 }
 

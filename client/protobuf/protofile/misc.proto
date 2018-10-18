@@ -67,11 +67,40 @@ message C2GW_ReqPlayerRoleInfo
 }
 message GW2C_RetPlayerRoleInfo
 {
-    optional int64 roleid = 1;
-    optional string errcode = 2;
-    optional msg.EntityBase entity = 3;
-    optional msg.UserVip vip = 4;
-    optional msg.UserStatistics statistics = 5;
+    optional int32 diamond = 1;
+    optional int32 gold = 2;
+    optional int64 roleid = 3;
+    optional string name = 4;
+    optional string head = 5;
+    optional int32 sex = 6;
+    optional int32 level = 7;
+    optional int32 exp = 8;
+    optional string ip = 9;                     
+    optional string sign = 10;                  
+    optional int32 age = 11;                    
+    optional int32 maxgold = 12;
+    optional int32 maxgoldonetimes = 13;
+    optional int32 friendnum = 14;
+    optional int32 gametimes = 15;	//对局数
+    optional int32 wintimes = 16; 	//赢局数
+    repeated int32 maxhand = 17;	
+    optional int32 championtimes = 18; //mtt冠军数
+    optional int32 vipexp = 19;
+    optional int32 viptime = 20;
+    optional int32 yearviptime = 21;
+    optional int32 viplevel = 22;
+    optional int32 createdtime = 23;
+    optional int32 isoffline = 24;
+    optional int32 stateid = 25;	//房间状态
+    optional int32 stateconfid = 26; //房间号
+    optional int32 entrytimes = 27;   //入局次数
+    optional int32 showdowntimes = 28; //摊牌次数
+    optional int32 mttjointimes = 29; //mtt参加次数
+    optional int32 mttprizetimes = 30;//mtt奖励圈次数
+    optional int32 gametimes2 = 31; //mtt对局数
+    optional int32 wintimes2 = 32;  //mtt赢局数
+    optional int32 entrytimes2 = 33; //mtt入局次数
+    optional int32 showdowntimes2 = 34; //mtt摊牌次数
 }
 
 //请求个人数据
@@ -90,33 +119,32 @@ message RS2C_RetFriendGetRoleInfo
     optional int32 sex = 6;
     optional int32 level = 7;
     optional int32 exp = 8;
-    optional string ip = 9;                     //none
-    optional string sign = 10;                  //none
-    optional int32 age = 11;                    //none
+    optional string ip = 9;                     
+    optional string sign = 10;                  
+    optional int32 age = 11;                    
     optional int32 maxgold = 12;
     optional int32 maxgoldonetimes = 13;
     optional int32 friendnum = 14;
-    optional int32 gametimes = 15;
-    optional int32 wintimes = 16;
-    repeated int32 maxhand = 17;
-    optional int32 championtimes = 18;
+    optional int32 gametimes = 15;	//对局数
+    optional int32 wintimes = 16; 	//赢局数
+    repeated int32 maxhand = 17;	
+    optional int32 championtimes = 18; //mtt冠军数
     optional int32 vipexp = 19;
     optional int32 viptime = 20;
     optional int32 yearviptime = 21;
     optional int32 viplevel = 22;
     optional int32 createdtime = 23;
     optional int32 isoffline = 24;
-    optional int32 stateid = 25;
-    optional int32 stateconfid = 26;
-    optional int32 entrytimes = 27;
-    optional int32 showdowntimes = 28;
-    optional int32 mttjointimes = 29;
-    optional int32 mttprizetimes = 30;
-    optional int32 gametimes2 = 31;
-    optional int32 wintimes2 = 32;
-    optional int32 entrytimes2 = 33;
-    optional int32 showdowntimes2 = 34;
-    optional string errcode = 35;
+    optional int32 stateid = 25;	//房间状态
+    optional int32 stateconfid = 26; //房间号
+    optional int32 entrytimes = 27;   //入局次数
+    optional int32 showdowntimes = 28; //摊牌次数
+    optional int32 mttjointimes = 29; //mtt参加次数
+    optional int32 mttprizetimes = 30;//mtt奖励圈次数
+    optional int32 gametimes2 = 31; //mtt对局数
+    optional int32 wintimes2 = 32;  //mtt赢局数
+    optional int32 entrytimes2 = 33; //mtt入局次数
+    optional int32 showdowntimes2 = 34; //mtt摊牌次数
 }
 
 //服务器推送玩家资产

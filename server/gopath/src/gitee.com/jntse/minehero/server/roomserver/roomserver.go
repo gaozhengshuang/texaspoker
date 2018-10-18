@@ -180,7 +180,7 @@ func (rs *RoomServer) SendMsg(id int, msg pb.Message) bool {
 	return rs.net.SendMsg(id, msg)
 }
 
-func (rs *RoomServer) SendClientMsg(agentid int, uid int64, m pb.Message) bool {
+func (rs *RoomServer) SendClientMsg(gateid int, uid int64, m pb.Message) bool {
 	name := pb.MessageName(m)
 	if name == "" {
 		log.Fatal("SendClientMsg 获取proto名字失败[%s]", m)
@@ -193,7 +193,12 @@ func (rs *RoomServer) SendClientMsg(agentid int, uid int64, m pb.Message) bool {
 	}
 
 	send := &msg.RS2GW_MsgTransfer{Uid: pb.Int64(uid), Name: pb.String(name), Buf: msgbuf}
-	return rs.net.SendMsg(agentid, send)
+	if gateid != 0 {
+		return rs.net.SendMsg(gateid, send)
+	} else {
+		GateMgr().Broadcast(send) 
+		return true
+	}
 }
 
 
@@ -316,6 +321,7 @@ func (rs *RoomServer) OnStart() {
 	rs.cleanRoom()	// 删除房间
 	rs.rcounter.Init(Redis())	// 计数器
 	rs.roommgr.Init()
+	rs.championmgr.InitChampionShip()
 
 	log.Info("结束执行OnStart")
 }
@@ -361,6 +367,7 @@ func (rs *RoomServer) Run() {
 	//
 	rs.roommgr.Tick(now)
 	rs.usermgr.Tick(now)
+	rs.championmgr.Tick(now)
 	tm_roomticker := util.CURTIMEMS()
 
 	//

@@ -40,11 +40,11 @@ message C2RS_ReqMTTQuit {
     optional int32 recordid = 1;
 }
 
-message C2RS_RetMTTQuit {
+message RS2C_RetMTTQuit {
     optional string errcode = 1;
 }
 
-//请求加入的锦标赛
+//请求加入的锦标赛列表
 message C2RS_ReqJoinedMTTList
 {
 }
@@ -74,16 +74,16 @@ message C2RS_ReqInsideRoomInfoList
 message InsideRoomInfo
 {
     optional int32 mttid = 1;       //锦标赛id
-    optional int32 id = 2;      //房间id
+    optional int64 id = 2;      //房间id
 }
 
-message C2RS_RetInsideRoomInfoList 
+message RS2C_RetInsideRoomInfoList 
 {
     repeated InsideRoomInfo roomlist = 1;
-    optional int32 lastid = 2;      //最新房间id
+    optional int64 lastid = 2;      //最新房间id
 }
 
-//拉取最近赛况列表信息
+//拉取最近赛况列表信息 前十场第一名信息
 message C2RS_ReqMTTRecordList 
 {
 }
@@ -101,7 +101,7 @@ message RS2C_RetMTTRecordList {
     repeated MTTRecordInfo recordlist = 1;
 }
 
-//拉取最近赛况名次信息
+//拉取每场比赛的前十名次信息
 message C2RS_ReqMTTRecentlyRankList 
 {
     optional int32 recordid = 1;
@@ -143,7 +143,7 @@ message MTTRankInfo {
     optional string head = 3;
     optional int32 sex = 4;
     optional int32 chips = 5;
-    optional int32 roleid = 6;
+    optional int64 roleid = 6;
 }
 
 message RS2C_RetMTTRankInfo 
@@ -151,7 +151,7 @@ message RS2C_RetMTTRankInfo
     repeated MTTRankInfo ranklist = 1;
 }
 
-//MMT房间消息 增购或者重购
+//MMT房间消息 1增购或者2重购
 message C2RS_ReqMTTRebuyOrAddon 
 {
     optional int32 type = 1;

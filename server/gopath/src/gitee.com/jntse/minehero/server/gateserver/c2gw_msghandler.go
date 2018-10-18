@@ -105,7 +105,6 @@ func (mh *C2GWMsgHandler) Init() {
 	//成就任务
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqAchieveInfo{}, on_C2GW_ReqAchieveInfo)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqTakeAchieveAward{}, on_C2GW_ReqTakeAchieveAward)
-
 }
 
 // 客户端心跳
@@ -821,8 +820,7 @@ func on_C2GW_ReqPlayerRoleInfo(session network.IBaseNetSession, message interfac
 		session.Close()
 		return
 	}
-	send := StatisticsMgr().GetPlayerRoleInfo(tmsg.GetRoleid())
-	u.SendMsg(send)
+	u.OnReqPlayerRoleInfo(tmsg.GetRoleid())
 }
 
 func on_C2GW_ReqActivityInfo(session network.IBaseNetSession, message interface{}) {

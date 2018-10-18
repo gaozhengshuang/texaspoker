@@ -14,27 +14,28 @@ class AchieveProcessManager
     {
         AchieveProcessManager.ClearList();
         AchieveProcessManager.initList();
-        if (result.data["groupList"])
+        let data:msg.GW2C_RetAchieveInfo = result.data;
+        if (data.grouplist)
         {
-            for (let info of result.data["groupList"])
+            for (let info of data.grouplist)
             {
                 for (let process of AchieveProcessManager._list)
                 {
-                    if (process.group == info["group"])
+                    if (process.group == info.groupid)
                     {
-                        process.init(info["process"]);
+                        process.init(info.process);
                         break;
                     }
                 }
             }
         }
-        if (result.data["achieveList"])
+        if (data.achievelist)
         {
-            for (let info of result.data["achieveList"])
+            for (let info of data.achievelist)
             {
                 for (let achieveInfo of UserManager.userInfo.allAchieveList)
                 {
-                    if (achieveInfo.id == info["id"])
+                    if (achieveInfo.id == info.id)
                     {
                         achieveInfo.isTake = true;
                     }

@@ -1,10 +1,10 @@
 package main
 import (
-	"fmt"
-	"gitee.com/jntse/gotoolkit/log"
-	"gitee.com/jntse/minehero/pbmsg"
-	pb "github.com/gogo/protobuf/proto"
-	"gitee.com/jntse/gotoolkit/redis"
+//	"fmt"
+//	"gitee.com/jntse/gotoolkit/log"
+//	"gitee.com/jntse/minehero/pbmsg"
+//	pb "github.com/gogo/protobuf/proto"
+//	"gitee.com/jntse/gotoolkit/redis"
 )
 
 type StatisticsManager struct {
@@ -13,7 +13,7 @@ type StatisticsManager struct {
 func (this *StatisticsManager) Init() {
 
 }
-
+/*
 func (this *StatisticsManager) GetPlayerRoleInfo(id int64) *msg.GW2C_RetPlayerRoleInfo{
 	send := &msg.GW2C_RetPlayerRoleInfo{}
 	user := UserMgr().FindById(id)
@@ -45,3 +45,4 @@ func (this *StatisticsManager) GetPlayerRoleInfo(id int64) *msg.GW2C_RetPlayerRo
 	}
 	return send
 }
+*/

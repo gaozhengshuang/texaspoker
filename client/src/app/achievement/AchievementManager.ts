@@ -56,7 +56,7 @@ class AchievementManager
             // AchievementManager.setAchieveInfoByGroupInfo(info, AchieveGroup.FriendGroup, info.friendNum);
             // AchievementManager.setAchieveInfoByGroupInfo(info, AchieveGroup.LevelGroup, info.level);
         }
-        SocketManager.call(Command.Achievement_GetList_3090, { "roleId": info.roleId }, callback, null, this);
+        SocketManager.call(Command.C2GW_ReqAchieveInfo, { "roleid": info.roleId }, callback, null, this);
     }
     /**
      * 设置某用户已解锁的成就信息
@@ -72,15 +72,16 @@ class AchievementManager
         {
             AchievementManager.otherProcessList = new game.Map<number, number>();
         }
-        if (result.data["groupList"])
+        let data: msg.GW2C_RetAchieveInfo = result.data;
+        if (data.grouplist)
         {
-            for (let userInfo of result.data["groupList"])
+            for (let aInfo of data.grouplist)
             {
-                let achieveInfoList: Array<AchievementInfo> = AchievementManager.getAchieveListByGroup(AchievementManager.allList, userInfo["group"]);
-                AchievementManager.otherProcessList.add(userInfo["group"], userInfo["process"]);
+                let achieveInfoList: Array<AchievementInfo> = AchievementManager.getAchieveListByGroup(AchievementManager.allList, aInfo.groupid);
+                AchievementManager.otherProcessList.add(aInfo.groupid, aInfo.process);
                 for (let achieveInfo of achieveInfoList)
                 {
-                    if (InfoUtil.checkAvailable(achieveInfo) && achieveInfo.definition.Para1 <= userInfo["process"])
+                    if (InfoUtil.checkAvailable(achieveInfo) && achieveInfo.definition.Para1 <= aInfo.process)
                     {
                         let completeInfo: AchievementInfo = new AchievementInfo();
                         completeInfo.id = achieveInfo.id;
@@ -343,22 +344,23 @@ class AchievementManager
     public static reqTakeAchievePrize(id: number[])
     {
         PropertyManager.OpenGet();
-        SocketManager.call(Command.Achievement_GetPrize_3088, { "Id": id }, AchievementManager.onTakeAchievePrize, null, this);
+        SocketManager.call(Command.C2GW_ReqTakeAchieveAward, { "id": id }, AchievementManager.onTakeAchievePrize, null, this);
     }
 
     private static onTakeAchievePrize(result: game.SpRpcResult)
     {
-        if (result.data && result.data["Id"])
+        let data: msg.GW2C_RetTakeAchieveAward = result.data;
+        if (data.id)
         {
             PropertyManager.ShowItemList();
-            for (let id of result.data["Id"])
+            // for (let id of result.data["Id"]) //move todo
+            // {
+            let info: AchievementInfo = AchievementManager.getAchieveInfoById(UserManager.userInfo.allAchieveList, data.id);
+            if (info && !info.isTake)
             {
-                let info: AchievementInfo = AchievementManager.getAchieveInfoById(UserManager.userInfo.allAchieveList, id);
-                if (info && !info.isTake)
-                {
-                    info.isTake = true;
-                }
+                info.isTake = true;
             }
+            // }
             AchievementManager.getAchievementPrizeEvent.dispatch();
         }
         else

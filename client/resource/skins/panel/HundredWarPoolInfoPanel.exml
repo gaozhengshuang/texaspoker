@@ -15,11 +15,11 @@
 		<e:Image y="290" width="100" source="line_png" scale9Grid="0,0,18,1" rotation="90" x="483" scaleY="-1"/>
 		<e:Image y="340" horizontalCenter="0" source="line_png" scale9Grid="0,0,18,1" width="600" height="2"/>
 		<e:Group width="600" height="100" y="290" horizontalCenter="0">
-			<e:Label text="开奖类型" x="370" y="43" border="false" borderColor="0xffffff" textAlign="center" verticalAlign="middle" height="50" width="150" size="26" textColor="0x4bc6b7"/>
-			<e:Label text="四条" x="420" y="93" border="false" borderColor="0xFFFFFF" textAlign="center" verticalAlign="middle" height="50" width="150" size="26" textColor="0x4bc6b7"/>
-			<e:Label text="同花顺" x="430" y="103" border="false" borderColor="0xFFFFFF" textAlign="center" verticalAlign="middle" height="50" width="150" size="26" textColor="0x4bc6b7"/>
-			<e:Label text="皇家同花顺" x="440" y="113" border="false" borderColor="0xFFFFFF" textAlign="center" verticalAlign="middle" height="50" width="150" size="26" textColor="0x4bc6b7"/>
-			<e:Label text="开奖比例" x="450" y="123" border="false" borderColor="0xFFFFFF" textAlign="center" verticalAlign="middle" height="50" width="150" size="26" textColor="0x4bc6b7"/>
+			<e:Label text="开奖类型" x="370" y="43" border="false" borderColor="0xffffff" textAlign="center" verticalAlign="middle" height="50" width="150" size="26" textColor="0x53bae4"/>
+			<e:Label text="四条" x="420" y="93" border="false" borderColor="0xFFFFFF" textAlign="center" verticalAlign="middle" height="50" width="150" size="26" textColor="0x53bae4"/>
+			<e:Label text="同花顺" x="430" y="103" border="false" borderColor="0xFFFFFF" textAlign="center" verticalAlign="middle" height="50" width="150" size="26" textColor="0x53bae4"/>
+			<e:Label text="皇家同花顺" x="440" y="113" border="false" borderColor="0xFFFFFF" textAlign="center" verticalAlign="middle" height="50" width="150" size="26" textColor="0x53bae4"/>
+			<e:Label text="开奖比例" x="450" y="123" border="false" borderColor="0xFFFFFF" textAlign="center" verticalAlign="middle" height="50" width="150" size="26" textColor="0x53bae4"/>
 			<e:Label text="30%" x="460" y="133" border="false" borderColor="0xFFFFFF" textAlign="center" verticalAlign="middle" height="50" width="150" size="26" textColor="0xfbca54"/>
 			<e:Label text="40%" x="470" y="143" border="false" borderColor="0xFFFFFF" textAlign="center" verticalAlign="middle" height="50" width="150" size="26" textColor="0xfbca54"/>
 			<e:Label text="50%" x="480" y="153" border="false" borderColor="0xFFFFFF" textAlign="center" verticalAlign="middle" height="50" width="150" size="26" textColor="0xfbca54"/>

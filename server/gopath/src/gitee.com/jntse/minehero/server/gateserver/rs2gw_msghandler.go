@@ -37,6 +37,7 @@ func (mh* RS2GWMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.RS2GW_RetUserDisconnect{}, on_RS2GW_RetUserDisconnect)
 	mh.msgparser.RegistProtoMsg(msg.RS2GW_MsgTransfer{}, on_RS2GW_MsgTransfer)
 	mh.msgparser.RegistProtoMsg(msg.RS2GW_MTTRoomMember{}, on_RS2GW_MTTRoomMember)
+	mh.msgparser.RegistProtoMsg(msg.RS2GW_MTTCancel{}, on_RS2GW_MTTCancel)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_PushMsgNotify{}, on_GW2C_PushMsgNotify)
 
 	// 房间
@@ -82,6 +83,17 @@ func on_RS2GW_MTTRoomMember(session network.IBaseNetSession, message interface{}
 	}
 }
 
+func on_RS2GW_MTTCancel(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.RS2GW_MTTCancel)
+	send := &msg.RS2C_PushMTTCancel{}
+	send.Recordid = pb.Int32(tmsg.GetRecordid())
+	for _, member := range tmsg.GetMembers() {
+		if user := UserMgr().FindById(member); user != nil {
+			user.SendMsg(send)
+		}
+	}
+}
+
 //func on_BT_GameInit(session network.IBaseNetSession, message interface{}) {
 //	tmsg := message.(*msg.BT_GameInit)
 //	user := UserMgr().FindById(tmsg.GetOwnerid())
@@ -121,7 +133,7 @@ func on_RS2GW_PushRoomDestory(session network.IBaseNetSession, message interface
 		log.Error("RS2GW_PushRoomDestory 找不到玩家[%d]", userid)
 		return
 	}
-	user.OnDestoryRoom(tmsg.Bin)
+	user.OnDestoryRoom()
 }
 
 // 离开房间
@@ -133,7 +145,7 @@ func on_RS2GW_UserLeaveRoom(session network.IBaseNetSession, message interface{}
 		log.Error("RS2GW_UserLeaveRoom 找不到玩家[%d]", userid)
 		return
 	}
-	user.OnLeaveRoom(tmsg.Bin)
+	user.OnLeaveRoom()
 }
 
 // 进入房间

@@ -9,5 +9,5 @@
              size="24" anchorOffsetX.upAndSelected="0" width.upAndSelected="114.5" size.upAndSelected="30" y="0"
              height.upAndSelected="43" top.upAndSelected="2" horizontalCenter.upAndSelected="-0.5"
              height.downAndSelected="43" anchorOffsetX.downAndSelected="0" width.downAndSelected="114.17"
-             y.downAndSelected="2.17" size.downAndSelected="30"  textColor="0x4bc6b7" textColor.upAndSelected="0xffffff" textColor.downAndSelected="0xffffff" textColor.disabledAndSelected="0xffffff"/>
+             y.downAndSelected="2.17" size.downAndSelected="30"  textColor="0x53bae4" textColor.upAndSelected="0xffffff" textColor.downAndSelected="0xffffff" textColor.disabledAndSelected="0xffffff"/>
 </e:Skin>

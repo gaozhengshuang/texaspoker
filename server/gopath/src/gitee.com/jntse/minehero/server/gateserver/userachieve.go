@@ -123,12 +123,14 @@ func (u *GateUser) OnAchieveProcessChanged(group int32) {
 		gold := u.GetGold()
 		if gold > process {
 			u.SetAchieveProcessByGroup(group, gold)
+			Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "maxgold", gold)
 		}
 	} else if group == AchieveGroup_Friend {
 		friendnum := u.friends.Size()
 		if friendnum > process {
 			u.SetAchieveProcessByGroup(group, friendnum)
 		}
+		Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "friendnum", friendnum)
 	} else if group == AchieveGroup_Level || group == AchieveGroup_LevelEx {
 		level := u.Level()
 		if level > process {
@@ -228,4 +230,72 @@ func (u *GateUser) OnReqTakeAchieveAward(taskid int32) string {
 		}
 	}
 	return errcode
+}
+
+
+
+//
+func (u *GateUser) OnReqPlayerRoleInfo(roleid int64) {
+	send := &msg.GW2C_RetPlayerRoleInfo{}
+	send.Roleid = pb.Int64(roleid)
+	cmdmap, err := Redis().HGetAll(fmt.Sprintf("charbase_%d", roleid)).Result()
+	if err == nil {
+		for k, v := range cmdmap {
+
+			switch k {
+				case "diamond":
+					send.Diamond = pb.Int32(util.Atoi(v))
+				case "gold":
+					send.Gold = pb.Int32(util.Atoi(v))
+				case "name":
+					send.Name = pb.String(v)
+				case "head":
+					send.Head = pb.String(v)
+				case "sex":
+					send.Sex = pb.Int32(util.Atoi(v))
+				case "level":
+					send.Level = pb.Int32(util.Atoi(v))
+				case "exp":
+					send.Exp = pb.Int32(util.Atoi(v))
+				case "sign":
+					send.Sign = pb.String(v)
+				case "age":
+					send.Age = pb.Int32(util.Atoi(v))
+				case "maxgold":
+					send.Maxgold = pb.Int32(util.Atoi(v))
+				case "maxgoldonetimes":
+					send.Maxgoldonetimes = pb.Int32(util.Atoi(v))
+				case "friendnum":
+					send.Friendnum = pb.Int32(util.Atoi(v))
+				case "gametimes":
+					send.Gametimes = pb.Int32(util.Atoi(v))
+				case "wintimes":
+					send.Wintimes = pb.Int32(util.Atoi(v))
+				case "gametimes2":
+					send.Gametimes2 = pb.Int32(util.Atoi(v))
+				case "wintimes2":
+					send.Wintimes2 = pb.Int32(util.Atoi(v))
+				case "championtimes":
+					send.Championtimes = pb.Int32(util.Atoi(v))
+				case "mttjointimes":
+					send.Mttjointimes = pb.Int32(util.Atoi(v))
+				case "createdtime":
+					send.Createdtime = pb.Int32(util.Atoi(v))
+				case "roomtype":
+					send.Stateid = pb.Int32(util.Atoi(v))
+				case "roomid":
+					send.Stateconfid = pb.Int32(util.Atoi(v))
+				case "entrytimes":
+					send.Entrytimes = pb.Int32(util.Atoi(v))
+				case "entrytimes2":	
+					send.Entrytimes2 = pb.Int32(util.Atoi(v))
+				case "showdowntimes": 
+					send.Showdowntimes = pb.Int32(util.Atoi(v))
+				case "showdowntimes2": 
+					send.Showdowntimes2 = pb.Int32(util.Atoi(v))
+			
+			}
+		}
+	}
+	u.SendMsg(send)
 }

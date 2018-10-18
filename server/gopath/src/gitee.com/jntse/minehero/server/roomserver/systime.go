@@ -5,6 +5,7 @@ import (
 	"gitee.com/jntse/gotoolkit/util"
 	_"gitee.com/jntse/gotoolkit/log"
 	"gitee.com/jntse/minehero/server/tbl"
+	//"gitee.com/jntse/gotoolkit/log"
 	//"gitee.com/jntse/minehero/server/tbl/excel"
 )
 
@@ -45,17 +46,8 @@ func (st *SysTimer) GetStartTime() int64 {
 		day = now.Day()
 	}
 	hour := st.starthour
-	if hour == 0 {
-		hour = now.Hour()
-	}
 	min := st.startmin
-	if min == 0 {
-		min = now.Minute()
-	}
 	sec := st.startsec
-	if sec == 0 {
-		sec = now.Second()
-	}
 	start := time.Date(year, time.Month(month), day, hour, min, sec, 0, time.Local)
 	return start.Unix()
 }
@@ -108,12 +100,12 @@ func (stm *SysTimerManager) InitTimer() {
 		}	
 		stm.timers = append(stm.timers, tmptime)
 		stm.timersmap[t.TimeId*100+t.SubId] = tmptime
-		if _, ok := stm.maxsubid[t.Id]; ok {
-			if stm.maxsubid[t.Id] < t.SubId {
-				stm.maxsubid[t.Id] = t.SubId
+		if _, ok := stm.maxsubid[t.TimeId]; ok {
+			if stm.maxsubid[t.TimeId] < t.SubId {
+				stm.maxsubid[t.TimeId] = t.SubId
 			}
 		}else{
-			stm.maxsubid[t.Id] = t.SubId
+			stm.maxsubid[t.TimeId] = t.SubId
 		}
 	}
 }
@@ -138,6 +130,7 @@ func (stm *SysTimerManager) Tick(now int64) {
 
 func (stm *SysTimerManager) GetStartTimeByTimeId(timeid int32) int32 {
 	if _, ok := stm.maxsubid[timeid]; !ok {
+		//log.Info("timeid%d", timeid)
 		return 0
 	}
 	now := time.Now().Unix() 
@@ -146,7 +139,8 @@ func (stm *SysTimerManager) GetStartTimeByTimeId(timeid int32) int32 {
 		if !ok {
 			continue
 		}
-		start := systimer.GetStartTime() 
+		start := systimer.GetStartTime()
+		//log.Info("start%d now%d", start, now)
 		if now < start {
 			return int32(start)
 		}
