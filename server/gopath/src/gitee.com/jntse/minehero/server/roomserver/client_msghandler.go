@@ -53,7 +53,7 @@ func (mh *ClientMsgHandler) Init() {
 	mh.RegistProtoMsg(msg.C2RS_ReqTFLeave{}, on_C2RS_ReqTFLeave)
 	mh.RegistProtoMsg(msg.C2RS_ReqTFStandPlayer{}, on_C2RS_ReqTFStandPlayer)
 	mh.RegistProtoMsg(msg.C2RS_ReqTexasFightBet{}, on_C2RS_ReqTexasFightBet)
-	mh.RegistProtoMsg(msg.C2RS_ReqTFAwardPool{}, on_C2RS_ReqTFAwardPool)
+	mh.RegistProtoMsg(msg.C2RS_ReqTFLastAwardPoolHit{}, on_C2RS_ReqTFLastAwardPoolHit)
 	mh.RegistProtoMsg(msg.C2RS_ReqWinLoseTrend{}, on_C2RS_ReqWinLoseTrend)
 	mh.RegistProtoMsg(msg.C2RS_ReqTFBankerList{}, on_C2RS_ReqTFBankerList)
 	mh.RegistProtoMsg(msg.C2RS_ReqTFBecomeBanker{}, on_C2RS_ReqTFBecomeBanker)
@@ -391,19 +391,80 @@ func on_C2RS_ReqTexasFightBet(session network.IBaseNetSession, message interface
 
 }
 
-func on_C2RS_ReqTFAwardPool(session network.IBaseNetSession, message interface{}, uid int64) {
+func on_C2RS_ReqTFLastAwardPoolHit(session network.IBaseNetSession, message interface{}, uid int64) {
+	u := UserMgr().FindUser(uid)
+	if u == nil { 
+		log.Error("[房间] 玩家[%d] 在RoomServer中不存在", uid)
+		return
+	}
+
+	room := RoomMgr().FindTexasFight(u.RoomId())
+	if room == nil {
+		log.Error("[房间] 玩家[%s %d] 无效房间 房间[%d]", u.Name(), u.Id(), u.RoomId())
+		return
+	}
+
+	room.RequestLastAwardPoolHit(u)
 }
 
 func on_C2RS_ReqWinLoseTrend(session network.IBaseNetSession, message interface{}, uid int64) {
+	u := UserMgr().FindUser(uid)
+	if u == nil { 
+		log.Error("[房间] 玩家[%d] 在RoomServer中不存在", uid)
+		return
+	}
+
+	room := RoomMgr().FindTexasFight(u.RoomId())
+	if room == nil {
+		log.Error("[房间] 玩家[%s %d] 无效房间 房间[%d]", u.Name(), u.Id(), u.RoomId())
+		return
+	}
+	room.SendWinLoseTrend(u)
 }
 
 func on_C2RS_ReqTFBankerList(session network.IBaseNetSession, message interface{}, uid int64) {
+	u := UserMgr().FindUser(uid)
+	if u == nil { 
+		log.Error("[房间] 玩家[%d] 在RoomServer中不存在", uid)
+		return
+	}
+
+	room := RoomMgr().FindTexasFight(u.RoomId())
+	if room == nil {
+		log.Error("[房间] 玩家[%s %d] 无效房间 房间[%d]", u.Name(), u.Id(), u.RoomId())
+		return
+	}
+	room.SendBankerList(u)
 }
 
 func on_C2RS_ReqTFBecomeBanker(session network.IBaseNetSession, message interface{}, uid int64) {
+	u := UserMgr().FindUser(uid)
+	if u == nil { 
+		log.Error("[房间] 玩家[%d] 在RoomServer中不存在", uid)
+		return
+	}
+
+	room := RoomMgr().FindTexasFight(u.RoomId())
+	if room == nil {
+		log.Error("[房间] 玩家[%s %d] 无效房间 房间[%d]", u.Name(), u.Id(), u.RoomId())
+		return
+	}
+	room.RequestBecomeBanker(u)
 }
 
 func on_C2RS_ReqTFQuitBanker(session network.IBaseNetSession, message interface{}, uid int64) {
+	u := UserMgr().FindUser(uid)
+	if u == nil { 
+		log.Error("[房间] 玩家[%d] 在RoomServer中不存在", uid)
+		return
+	}
+
+	room := RoomMgr().FindTexasFight(u.RoomId())
+	if room == nil {
+		log.Error("[房间] 玩家[%s %d] 无效房间 房间[%d]", u.Name(), u.Id(), u.RoomId())
+		return
+	}
+	room.RequestQuitBanker(u)
 }
 
 func on_C2RS_ReqMTTList(session network.IBaseNetSession, message interface{}, uid int64) {

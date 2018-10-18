@@ -19,7 +19,7 @@ import (
 )
 
 const (
-	kBetPoolNum = 4		// 下注池数量
+	kBetPoolNum = 5		// 下注池数量，(0庄家，从左到右1-4)
 	kHandCardNum = 5	// 手牌数量
 	kBankerPos = 0		// 庄家位置
 	kMaxCardNum = 52	// 最大牌数量
@@ -47,17 +47,17 @@ const (
 ///
 // --------------------------------------------------------------------------
 type TFPlayerBet struct {
-	pos int32
-	num int32
+	pos int32	// 下注位置
+	num int32	// 下注数量
 }
 func (b *TFPlayerBet) Pos() int32 { return b.pos }
 func (b *TFPlayerBet) Num() int32 { return b.num }
 
 type TexasFightPlayer struct {
 	owner *RoomUser
-	seat int32	// 坐下位置，0是庄家位置，-1表示站起没有位置
-	totalbet int32 // 总下注额
-	betlist	[kBetPoolNum]*TFPlayerBet	// 下注列表，闲家从左到右1-4
+	seat int32		// 坐下位置，0是庄家位置，-1表示站起没有位置
+	totalbet int32 	// 总下注额
+	betlist	[kBetPoolNum]*TFPlayerBet	// 下注列表
 }
 
 func NewTexasFightPlayer(u *RoomUser) *TexasFightPlayer {
@@ -177,6 +177,46 @@ func (t *TexasFightBetPool) FillBetPoolInfo() *msg.TFBetPoolInfo {
 
 
 // --------------------------------------------------------------------------
+/// @brief 下注池临时统计
+/// 
+/// 
+// --------------------------------------------------------------------------
+type SitPlayerBetInfo struct {
+	seat int32
+	poolbet [kBetPoolNum]int32	// 注池下注额
+}
+type BetPoolTempStat struct {
+	seats []*SitPlayerBetInfo	// 坐下玩家下注统计
+	maxseat int32
+	dirty bool
+}
+func (s *BetPoolTempStat) Dirty() bool { return s.dirty }
+func (s *BetPoolTempStat) MarkDirty() { s.dirty = true }
+func (s *BetPoolTempStat) Init(maxseat int32) {
+	s.maxseat = maxseat
+	s.seats = make([]*SitPlayerBetInfo, s.maxseat)
+	s.dirty = false
+}
+func (s *BetPoolTempStat) Reset() {
+	s.seats = make([]*SitPlayerBetInfo, s.maxseat)
+	s.dirty = false
+}
+
+
+// --------------------------------------------------------------------------
+/// @brief 奖池命中记录
+/// 
+/// 
+// --------------------------------------------------------------------------
+type AwardPoolHitRecord struct {
+	cards [kHandCardNum]*Card
+	gold int32
+	time int64
+	players []*msg.TFPlayer		//TODO: 可优化，人数很多时数据块可能会很大
+}
+
+
+// --------------------------------------------------------------------------
 /// @brief 百人大战核心逻辑
 ///
 ///
@@ -194,10 +234,13 @@ type TexasFightRoom struct {
 	sitplayers []*TexasFightPlayer		// 坐下玩家列表
 	bankerqueue []*TexasFightPlayer		// 做庄排队列表
 	banker *TexasFightPlayer			// 庄家
+	bankersys *TexasFightPlayer			// 系统庄家
 
-	awardpoolsize int32	// 奖池大小
+	awardpoolsize int32					// 奖池大小
 	betpool [kBetPoolNum]*TexasFightBetPool		// 押注池，0庄家，闲家从左到右1-4
-	cards [kMaxCardNum]*Card
+	cards [kMaxCardNum]*Card			// 52张牌
+	betstat BetPoolTempStat				// 下注池临时统计
+	poolhit AwardPoolHitRecord			// 奖池命中记录
 }
 
 func (tf *TexasFightRoom) Stat() int32 { return tf.stat }
@@ -231,10 +274,12 @@ func (tf *TexasFightRoom) Init() string {
 	tf.ticker1s.Start()
 	tf.ticker100ms.Start()
 	
-	tf.sitplayers = make([]*TexasFightPlayer, tconf.Seat)
+	tf.sitplayers = make([]*TexasFightPlayer, tconf.Seat+1)	// +1 庄家位
 	tf.players = make(map[int64]*TexasFightPlayer)
 	tf.bankerqueue = make([]*TexasFightPlayer, 0)
 	tf.awardpoolsize = 0
+	tf.betstat.Init(tconf.Seat+1)	// +1 庄家位
+
 
 	// 初始下注池
 	tf.betpool = [kBetPoolNum]*TexasFightBetPool{}
@@ -289,30 +334,34 @@ func (tf *TexasFightRoom) UserEnter(u *RoomUser) {
 	u.OnEnterRoom(tf)
 
 	//
-	infomsg := &msg.GW2C_RetEnterTFRoom{Playerlist:make([]*msg.TFPlayerPos,0), Betlist:make([]*msg.TFBetPoolInfo,0)}
+	infomsg := &msg.GW2C_RetEnterTFRoom{Playerlist:make([]*msg.TFPlayerPos,0) }
 	infomsg.State = pb.Int32(tf.Stat())
 	infomsg.Statetime = pb.Int64(tf.StatStartTime())
 	infomsg.Pool = pb.Int32(tf.AwardPoolSize())
 	infomsg.Hwid = pb.Int32(tf.Tid())
 	infomsg.Bankergold = pb.Int32(0)
+	infomsg.Mybet = make([]int32, kBetPoolNum)
+	infomsg.Betlist = make([]*msg.TFBetPoolInfo, 0)
 
 	// 坐下玩家列表
-	for _, p := range tf.sitplayers {
+	for k, p := range tf.sitplayers {
+		if k == 0 { continue }
 		if p == nil { continue }
 		situser := &msg.TFPlayerPos{Roleid:pb.Int64(p.Id()), Pos:pb.Int32(p.Seat())}
 		infomsg.Playerlist = append(infomsg.Playerlist, situser)
 	}
 
-	// 注池信息
-	for _, pool := range tf.betpool {
+	// 注池信息，只发闲家4个池
+	for k, pool := range tf.betpool {
+		if k == 0 { continue }
 		info := pool.FillBetPoolInfo()
 		infomsg.Betlist = append(infomsg.Betlist, info)
 	}
 
 	// 自己下注列表
-	for _, bet := range player.BetInfo() {
+	for k, bet := range player.BetInfo() {
 		if bet == nil { continue }
-		infomsg.Mybet = append(infomsg.Mybet, bet.Num())
+		infomsg.Mybet[k] = bet.Num()
 	}
 
 	u.SendClientMsg(infomsg)
@@ -370,7 +419,8 @@ func (tf *TexasFightRoom) UserLeave(u *RoomUser) {
 // 棋牌类站起
 func (tf *TexasFightRoom) UserStandUp(u *RoomUser) {
 	var seat int32 = -1
-	for _, p := range tf.sitplayers {
+	for k, p := range tf.sitplayers {
+		if k == 0 { continue }
 		if p != nil && p.Id() == u.Id() {
 			seat = p.Seat()
 			break
@@ -395,6 +445,11 @@ func (tf *TexasFightRoom) UserSitDown(u *RoomUser, seat int32) {
 	// 检查位置是否有效
 	if seat > int32(len(tf.sitplayers)) || seat < 0 {
 		log.Error("[百人大战] 玩家[%s %d] 请求坐下无效的位置seat[%d]", u.Name(), u.Id(), seat)
+		return
+	}
+
+	if seat == 0 {
+		log.Error("[百人大战] 玩家[%s %d] 庄家位置只能上庄", u.Name(), u.Id())
 		return
 	}
 
