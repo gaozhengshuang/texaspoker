@@ -297,6 +297,7 @@ func (this *TexasPokerRoom) ForStartPlayer(start int32, f func(p *TexasPlayer) b
 	i := start % this.maxplayer
 	for ; i != end; i = (i + 1) % this.maxplayer {
 		if this.players[i] != nil && this.players[i].IsWait() &&
+		this.players[i].HasBankRoll() &&
 		!f(this.players[i]) {
 			return
 		}
@@ -310,14 +311,18 @@ func (this *TexasPokerRoom) ForStartPlayer(start int32, f func(p *TexasPlayer) b
 func (this *TexasPokerRoom) CanStart() bool {
 	count := 0
 	for _, p := range this.players {
-		if p != nil && p.isready == true {
-			count++
-		}   
+		if p != nil {
+			p.AddBankRollNext()
+			if p.isready == true && p.HasBankRoll(){
+				count++
+				log.Info("玩家%d 等待开启", p.owner.Id())
+			}   
+		}
 	}
 	if count >= 2 {
 		return true
 	}else{
-		if this.HasRealPlayer() {
+		if !this.IsChampionShip() && this.HasRealPlayer() {
 			this.waittime++
 		}
 		return false
@@ -353,7 +358,7 @@ func (this *TexasPokerRoom) StartGame() int32 {
 		record.Name = pb.String(p.owner.Name())
 		record.Face = pb.String(p.owner.Face())
 		record.Sex = pb.Int32(p.owner.Sex())
-		log.Info("机器人数据%d 名字%s 头像%s 性别%d", p.owner.Id(), p.owner.Name(), p.owner.Face(), p.owner.Sex())
+		//log.Info("机器人数据%d 名字%s 头像%s 性别%d", p.owner.Id(), p.owner.Name(), p.owner.Face(), p.owner.Sex())
 		record.Seatpos = pb.Int32(p.pos+1)
 		p.RemoveBankRoll(this.ante)
 		if p == this.bigblinder {
@@ -374,6 +379,7 @@ func (this *TexasPokerRoom) StartGame() int32 {
 		record.Bankroll = pb.Int32(0)
 		this.currecord = append(this.currecord, record)
 		p.SendTimeAward(true)
+		p.isready = false
 		this.remain++
 		return true
 	})
@@ -975,6 +981,7 @@ func (this *TexasPokerRoom) AddPlayer(pos int32, player *TexasPlayer) bool {
 
 func (this *TexasPokerRoom) DelPlayer(pos int32) {
 	this.players[pos] = nil
+	log.Info("房间%d, 位置%d设置空", this.Id(), pos)
 }
 
 func (this *TexasPokerRoom) AddWatcher(player *TexasPlayer ) {
@@ -1022,9 +1029,10 @@ func (this *TexasPokerRoom) SendRoomInfo(player *TexasPlayer) {
 		send.Rebuytimes = pb.Int32(this.mtt.GetUserRebuy(this.Id()));
 		send.Addontimes = pb.Int32(this.mtt.GetUserAddon(this.Id()));
 		send.Addbuy = pb.Int32(player.addrebuy+player.addaddon);
-		send.Rank = pb.Int32(this.mtt.GetUserRank(this.Id()));
+		send.Rank = pb.Int32(this.mtt.GetUserRank(player.owner.Id()));
 		send.Avgchips = pb.Int32(this.mtt.sumbankroll/this.mtt.curmembernum);
 		send.Join = pb.Int32(this.mtt.curmembernum);
+		log.Info("锦标赛%d 玩家%d进入房间 Rank%d Avg%d", this.mtt.uid, player.owner.Id(), send.GetRank(), send.GetAvgchips())
 	}
 
 	player.owner.SendClientMsg(send)
