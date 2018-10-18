@@ -343,6 +343,9 @@ func (this *TexasPlayer)SetFlop(c1 *Card, c2 *Card, c3 *Card){
 	this.hand.SetCard(c1, false)
 	this.hand.SetCard(c2, false)
 	this.hand.SetCard(c3, false)
+	if this.IsFold() == false && this.IsWait() == false {
+		this.owner.OnFlop(this.room.subkind)
+	}
 	this.hand.AnalyseHand()
 }
 
