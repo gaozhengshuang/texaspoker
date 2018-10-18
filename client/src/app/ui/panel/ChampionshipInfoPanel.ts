@@ -162,8 +162,6 @@ class ChampionshipInfoPanel extends BasePanel
         if (appendData && appendData.isInRoom)
         {
             this._isInRoom = true;
-            this.matchInfoTab.setSelectIndex(this._outsIndex);
-            this.withdrawBtn.visible = false;
         }
         if (appendData.championshipInfo.definition.type == MatchType.SNG)
         {
@@ -171,6 +169,11 @@ class ChampionshipInfoPanel extends BasePanel
         } else 
         {
             this._championshipInfo = appendData.championshipInfo;
+        }
+        if (appendData && appendData.isInRoom)
+        {
+            this.matchInfoTab.setSelectIndex(this._outsIndex);
+            this.withdrawBtn.visible = false;
         }
         this.rebuyGroup.visible = this.addonGroup.visible = this.applicationBtn.visible = this.withdrawBtn.visible = this.hasJoinGroup.visible = this.noJoinGroup.visible = false;
         this.setAwardInfo();
@@ -183,7 +186,7 @@ class ChampionshipInfoPanel extends BasePanel
                 this.setOutsInfo();
                 return;
             }
-            ChampionshipManager.reqOutsInfo(this._championshipInfo.recordId, this._championshipInfo.definition.BlindType);
+            // ChampionshipManager.reqOutsInfo(this._championshipInfo.recordId, this._championshipInfo.definition.BlindType);
         }
     }
     protected onEnable(event: eui.UIEvent): void
