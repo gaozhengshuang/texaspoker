@@ -37858,11 +37858,40 @@ $root.msg = (function() {
          * Properties of a GW2C_RetPlayerRoleInfo.
          * @memberof msg
          * @interface IGW2C_RetPlayerRoleInfo
+         * @property {number|null} [diamond] GW2C_RetPlayerRoleInfo diamond
+         * @property {number|null} [gold] GW2C_RetPlayerRoleInfo gold
          * @property {number|Long|null} [roleid] GW2C_RetPlayerRoleInfo roleid
-         * @property {string|null} [errcode] GW2C_RetPlayerRoleInfo errcode
-         * @property {msg.IEntityBase|null} [entity] GW2C_RetPlayerRoleInfo entity
-         * @property {msg.IUserVip|null} [vip] GW2C_RetPlayerRoleInfo vip
-         * @property {msg.IUserStatistics|null} [statistics] GW2C_RetPlayerRoleInfo statistics
+         * @property {string|null} [name] GW2C_RetPlayerRoleInfo name
+         * @property {string|null} [head] GW2C_RetPlayerRoleInfo head
+         * @property {number|null} [sex] GW2C_RetPlayerRoleInfo sex
+         * @property {number|null} [level] GW2C_RetPlayerRoleInfo level
+         * @property {number|null} [exp] GW2C_RetPlayerRoleInfo exp
+         * @property {string|null} [ip] GW2C_RetPlayerRoleInfo ip
+         * @property {string|null} [sign] GW2C_RetPlayerRoleInfo sign
+         * @property {number|null} [age] GW2C_RetPlayerRoleInfo age
+         * @property {number|null} [maxgold] GW2C_RetPlayerRoleInfo maxgold
+         * @property {number|null} [maxgoldonetimes] GW2C_RetPlayerRoleInfo maxgoldonetimes
+         * @property {number|null} [friendnum] GW2C_RetPlayerRoleInfo friendnum
+         * @property {number|null} [gametimes] GW2C_RetPlayerRoleInfo gametimes
+         * @property {number|null} [wintimes] GW2C_RetPlayerRoleInfo wintimes
+         * @property {Array.<number>|null} [maxhand] GW2C_RetPlayerRoleInfo maxhand
+         * @property {number|null} [championtimes] GW2C_RetPlayerRoleInfo championtimes
+         * @property {number|null} [vipexp] GW2C_RetPlayerRoleInfo vipexp
+         * @property {number|null} [viptime] GW2C_RetPlayerRoleInfo viptime
+         * @property {number|null} [yearviptime] GW2C_RetPlayerRoleInfo yearviptime
+         * @property {number|null} [viplevel] GW2C_RetPlayerRoleInfo viplevel
+         * @property {number|null} [createdtime] GW2C_RetPlayerRoleInfo createdtime
+         * @property {number|null} [isoffline] GW2C_RetPlayerRoleInfo isoffline
+         * @property {number|null} [stateid] GW2C_RetPlayerRoleInfo stateid
+         * @property {number|null} [stateconfid] GW2C_RetPlayerRoleInfo stateconfid
+         * @property {number|null} [entrytimes] GW2C_RetPlayerRoleInfo entrytimes
+         * @property {number|null} [showdowntimes] GW2C_RetPlayerRoleInfo showdowntimes
+         * @property {number|null} [mttjointimes] GW2C_RetPlayerRoleInfo mttjointimes
+         * @property {number|null} [mttprizetimes] GW2C_RetPlayerRoleInfo mttprizetimes
+         * @property {number|null} [gametimes2] GW2C_RetPlayerRoleInfo gametimes2
+         * @property {number|null} [wintimes2] GW2C_RetPlayerRoleInfo wintimes2
+         * @property {number|null} [entrytimes2] GW2C_RetPlayerRoleInfo entrytimes2
+         * @property {number|null} [showdowntimes2] GW2C_RetPlayerRoleInfo showdowntimes2
          */
 
         /**
@@ -37874,11 +37903,28 @@ $root.msg = (function() {
          * @param {msg.IGW2C_RetPlayerRoleInfo=} [properties] Properties to set
          */
         function GW2C_RetPlayerRoleInfo(properties) {
+            this.maxhand = [];
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
+
+        /**
+         * GW2C_RetPlayerRoleInfo diamond.
+         * @member {number} diamond
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.diamond = 0;
+
+        /**
+         * GW2C_RetPlayerRoleInfo gold.
+         * @member {number} gold
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.gold = 0;
 
         /**
          * GW2C_RetPlayerRoleInfo roleid.
@@ -37889,36 +37935,252 @@ $root.msg = (function() {
         GW2C_RetPlayerRoleInfo.prototype.roleid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
-         * GW2C_RetPlayerRoleInfo errcode.
-         * @member {string} errcode
+         * GW2C_RetPlayerRoleInfo name.
+         * @member {string} name
          * @memberof msg.GW2C_RetPlayerRoleInfo
          * @instance
          */
-        GW2C_RetPlayerRoleInfo.prototype.errcode = "";
+        GW2C_RetPlayerRoleInfo.prototype.name = "";
 
         /**
-         * GW2C_RetPlayerRoleInfo entity.
-         * @member {msg.IEntityBase|null|undefined} entity
+         * GW2C_RetPlayerRoleInfo head.
+         * @member {string} head
          * @memberof msg.GW2C_RetPlayerRoleInfo
          * @instance
          */
-        GW2C_RetPlayerRoleInfo.prototype.entity = null;
+        GW2C_RetPlayerRoleInfo.prototype.head = "";
 
         /**
-         * GW2C_RetPlayerRoleInfo vip.
-         * @member {msg.IUserVip|null|undefined} vip
+         * GW2C_RetPlayerRoleInfo sex.
+         * @member {number} sex
          * @memberof msg.GW2C_RetPlayerRoleInfo
          * @instance
          */
-        GW2C_RetPlayerRoleInfo.prototype.vip = null;
+        GW2C_RetPlayerRoleInfo.prototype.sex = 0;
 
         /**
-         * GW2C_RetPlayerRoleInfo statistics.
-         * @member {msg.IUserStatistics|null|undefined} statistics
+         * GW2C_RetPlayerRoleInfo level.
+         * @member {number} level
          * @memberof msg.GW2C_RetPlayerRoleInfo
          * @instance
          */
-        GW2C_RetPlayerRoleInfo.prototype.statistics = null;
+        GW2C_RetPlayerRoleInfo.prototype.level = 0;
+
+        /**
+         * GW2C_RetPlayerRoleInfo exp.
+         * @member {number} exp
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.exp = 0;
+
+        /**
+         * GW2C_RetPlayerRoleInfo ip.
+         * @member {string} ip
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.ip = "";
+
+        /**
+         * GW2C_RetPlayerRoleInfo sign.
+         * @member {string} sign
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.sign = "";
+
+        /**
+         * GW2C_RetPlayerRoleInfo age.
+         * @member {number} age
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.age = 0;
+
+        /**
+         * GW2C_RetPlayerRoleInfo maxgold.
+         * @member {number} maxgold
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.maxgold = 0;
+
+        /**
+         * GW2C_RetPlayerRoleInfo maxgoldonetimes.
+         * @member {number} maxgoldonetimes
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.maxgoldonetimes = 0;
+
+        /**
+         * GW2C_RetPlayerRoleInfo friendnum.
+         * @member {number} friendnum
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.friendnum = 0;
+
+        /**
+         * GW2C_RetPlayerRoleInfo gametimes.
+         * @member {number} gametimes
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.gametimes = 0;
+
+        /**
+         * GW2C_RetPlayerRoleInfo wintimes.
+         * @member {number} wintimes
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.wintimes = 0;
+
+        /**
+         * GW2C_RetPlayerRoleInfo maxhand.
+         * @member {Array.<number>} maxhand
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.maxhand = $util.emptyArray;
+
+        /**
+         * GW2C_RetPlayerRoleInfo championtimes.
+         * @member {number} championtimes
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.championtimes = 0;
+
+        /**
+         * GW2C_RetPlayerRoleInfo vipexp.
+         * @member {number} vipexp
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.vipexp = 0;
+
+        /**
+         * GW2C_RetPlayerRoleInfo viptime.
+         * @member {number} viptime
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.viptime = 0;
+
+        /**
+         * GW2C_RetPlayerRoleInfo yearviptime.
+         * @member {number} yearviptime
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.yearviptime = 0;
+
+        /**
+         * GW2C_RetPlayerRoleInfo viplevel.
+         * @member {number} viplevel
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.viplevel = 0;
+
+        /**
+         * GW2C_RetPlayerRoleInfo createdtime.
+         * @member {number} createdtime
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.createdtime = 0;
+
+        /**
+         * GW2C_RetPlayerRoleInfo isoffline.
+         * @member {number} isoffline
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.isoffline = 0;
+
+        /**
+         * GW2C_RetPlayerRoleInfo stateid.
+         * @member {number} stateid
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.stateid = 0;
+
+        /**
+         * GW2C_RetPlayerRoleInfo stateconfid.
+         * @member {number} stateconfid
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.stateconfid = 0;
+
+        /**
+         * GW2C_RetPlayerRoleInfo entrytimes.
+         * @member {number} entrytimes
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.entrytimes = 0;
+
+        /**
+         * GW2C_RetPlayerRoleInfo showdowntimes.
+         * @member {number} showdowntimes
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.showdowntimes = 0;
+
+        /**
+         * GW2C_RetPlayerRoleInfo mttjointimes.
+         * @member {number} mttjointimes
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.mttjointimes = 0;
+
+        /**
+         * GW2C_RetPlayerRoleInfo mttprizetimes.
+         * @member {number} mttprizetimes
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.mttprizetimes = 0;
+
+        /**
+         * GW2C_RetPlayerRoleInfo gametimes2.
+         * @member {number} gametimes2
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.gametimes2 = 0;
+
+        /**
+         * GW2C_RetPlayerRoleInfo wintimes2.
+         * @member {number} wintimes2
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.wintimes2 = 0;
+
+        /**
+         * GW2C_RetPlayerRoleInfo entrytimes2.
+         * @member {number} entrytimes2
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.entrytimes2 = 0;
+
+        /**
+         * GW2C_RetPlayerRoleInfo showdowntimes2.
+         * @member {number} showdowntimes2
+         * @memberof msg.GW2C_RetPlayerRoleInfo
+         * @instance
+         */
+        GW2C_RetPlayerRoleInfo.prototype.showdowntimes2 = 0;
 
         /**
          * Creates a new GW2C_RetPlayerRoleInfo instance using the specified properties.
@@ -37944,16 +38206,75 @@ $root.msg = (function() {
         GW2C_RetPlayerRoleInfo.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
+            if (message.diamond != null && message.hasOwnProperty("diamond"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.diamond);
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.gold);
             if (message.roleid != null && message.hasOwnProperty("roleid"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.roleid);
-            if (message.errcode != null && message.hasOwnProperty("errcode"))
-                writer.uint32(/* id 2, wireType 2 =*/18).string(message.errcode);
-            if (message.entity != null && message.hasOwnProperty("entity"))
-                $root.msg.EntityBase.encode(message.entity, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
-            if (message.vip != null && message.hasOwnProperty("vip"))
-                $root.msg.UserVip.encode(message.vip, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
-            if (message.statistics != null && message.hasOwnProperty("statistics"))
-                $root.msg.UserStatistics.encode(message.statistics, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                writer.uint32(/* id 3, wireType 0 =*/24).int64(message.roleid);
+            if (message.name != null && message.hasOwnProperty("name"))
+                writer.uint32(/* id 4, wireType 2 =*/34).string(message.name);
+            if (message.head != null && message.hasOwnProperty("head"))
+                writer.uint32(/* id 5, wireType 2 =*/42).string(message.head);
+            if (message.sex != null && message.hasOwnProperty("sex"))
+                writer.uint32(/* id 6, wireType 0 =*/48).int32(message.sex);
+            if (message.level != null && message.hasOwnProperty("level"))
+                writer.uint32(/* id 7, wireType 0 =*/56).int32(message.level);
+            if (message.exp != null && message.hasOwnProperty("exp"))
+                writer.uint32(/* id 8, wireType 0 =*/64).int32(message.exp);
+            if (message.ip != null && message.hasOwnProperty("ip"))
+                writer.uint32(/* id 9, wireType 2 =*/74).string(message.ip);
+            if (message.sign != null && message.hasOwnProperty("sign"))
+                writer.uint32(/* id 10, wireType 2 =*/82).string(message.sign);
+            if (message.age != null && message.hasOwnProperty("age"))
+                writer.uint32(/* id 11, wireType 0 =*/88).int32(message.age);
+            if (message.maxgold != null && message.hasOwnProperty("maxgold"))
+                writer.uint32(/* id 12, wireType 0 =*/96).int32(message.maxgold);
+            if (message.maxgoldonetimes != null && message.hasOwnProperty("maxgoldonetimes"))
+                writer.uint32(/* id 13, wireType 0 =*/104).int32(message.maxgoldonetimes);
+            if (message.friendnum != null && message.hasOwnProperty("friendnum"))
+                writer.uint32(/* id 14, wireType 0 =*/112).int32(message.friendnum);
+            if (message.gametimes != null && message.hasOwnProperty("gametimes"))
+                writer.uint32(/* id 15, wireType 0 =*/120).int32(message.gametimes);
+            if (message.wintimes != null && message.hasOwnProperty("wintimes"))
+                writer.uint32(/* id 16, wireType 0 =*/128).int32(message.wintimes);
+            if (message.maxhand != null && message.maxhand.length)
+                for (var i = 0; i < message.maxhand.length; ++i)
+                    writer.uint32(/* id 17, wireType 0 =*/136).int32(message.maxhand[i]);
+            if (message.championtimes != null && message.hasOwnProperty("championtimes"))
+                writer.uint32(/* id 18, wireType 0 =*/144).int32(message.championtimes);
+            if (message.vipexp != null && message.hasOwnProperty("vipexp"))
+                writer.uint32(/* id 19, wireType 0 =*/152).int32(message.vipexp);
+            if (message.viptime != null && message.hasOwnProperty("viptime"))
+                writer.uint32(/* id 20, wireType 0 =*/160).int32(message.viptime);
+            if (message.yearviptime != null && message.hasOwnProperty("yearviptime"))
+                writer.uint32(/* id 21, wireType 0 =*/168).int32(message.yearviptime);
+            if (message.viplevel != null && message.hasOwnProperty("viplevel"))
+                writer.uint32(/* id 22, wireType 0 =*/176).int32(message.viplevel);
+            if (message.createdtime != null && message.hasOwnProperty("createdtime"))
+                writer.uint32(/* id 23, wireType 0 =*/184).int32(message.createdtime);
+            if (message.isoffline != null && message.hasOwnProperty("isoffline"))
+                writer.uint32(/* id 24, wireType 0 =*/192).int32(message.isoffline);
+            if (message.stateid != null && message.hasOwnProperty("stateid"))
+                writer.uint32(/* id 25, wireType 0 =*/200).int32(message.stateid);
+            if (message.stateconfid != null && message.hasOwnProperty("stateconfid"))
+                writer.uint32(/* id 26, wireType 0 =*/208).int32(message.stateconfid);
+            if (message.entrytimes != null && message.hasOwnProperty("entrytimes"))
+                writer.uint32(/* id 27, wireType 0 =*/216).int32(message.entrytimes);
+            if (message.showdowntimes != null && message.hasOwnProperty("showdowntimes"))
+                writer.uint32(/* id 28, wireType 0 =*/224).int32(message.showdowntimes);
+            if (message.mttjointimes != null && message.hasOwnProperty("mttjointimes"))
+                writer.uint32(/* id 29, wireType 0 =*/232).int32(message.mttjointimes);
+            if (message.mttprizetimes != null && message.hasOwnProperty("mttprizetimes"))
+                writer.uint32(/* id 30, wireType 0 =*/240).int32(message.mttprizetimes);
+            if (message.gametimes2 != null && message.hasOwnProperty("gametimes2"))
+                writer.uint32(/* id 31, wireType 0 =*/248).int32(message.gametimes2);
+            if (message.wintimes2 != null && message.hasOwnProperty("wintimes2"))
+                writer.uint32(/* id 32, wireType 0 =*/256).int32(message.wintimes2);
+            if (message.entrytimes2 != null && message.hasOwnProperty("entrytimes2"))
+                writer.uint32(/* id 33, wireType 0 =*/264).int32(message.entrytimes2);
+            if (message.showdowntimes2 != null && message.hasOwnProperty("showdowntimes2"))
+                writer.uint32(/* id 34, wireType 0 =*/272).int32(message.showdowntimes2);
             return writer;
         };
 
@@ -37989,19 +38310,113 @@ $root.msg = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.roleid = reader.int64();
+                    message.diamond = reader.int32();
                     break;
                 case 2:
-                    message.errcode = reader.string();
+                    message.gold = reader.int32();
                     break;
                 case 3:
-                    message.entity = $root.msg.EntityBase.decode(reader, reader.uint32());
+                    message.roleid = reader.int64();
                     break;
                 case 4:
-                    message.vip = $root.msg.UserVip.decode(reader, reader.uint32());
+                    message.name = reader.string();
                     break;
                 case 5:
-                    message.statistics = $root.msg.UserStatistics.decode(reader, reader.uint32());
+                    message.head = reader.string();
+                    break;
+                case 6:
+                    message.sex = reader.int32();
+                    break;
+                case 7:
+                    message.level = reader.int32();
+                    break;
+                case 8:
+                    message.exp = reader.int32();
+                    break;
+                case 9:
+                    message.ip = reader.string();
+                    break;
+                case 10:
+                    message.sign = reader.string();
+                    break;
+                case 11:
+                    message.age = reader.int32();
+                    break;
+                case 12:
+                    message.maxgold = reader.int32();
+                    break;
+                case 13:
+                    message.maxgoldonetimes = reader.int32();
+                    break;
+                case 14:
+                    message.friendnum = reader.int32();
+                    break;
+                case 15:
+                    message.gametimes = reader.int32();
+                    break;
+                case 16:
+                    message.wintimes = reader.int32();
+                    break;
+                case 17:
+                    if (!(message.maxhand && message.maxhand.length))
+                        message.maxhand = [];
+                    if ((tag & 7) === 2) {
+                        var end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2)
+                            message.maxhand.push(reader.int32());
+                    } else
+                        message.maxhand.push(reader.int32());
+                    break;
+                case 18:
+                    message.championtimes = reader.int32();
+                    break;
+                case 19:
+                    message.vipexp = reader.int32();
+                    break;
+                case 20:
+                    message.viptime = reader.int32();
+                    break;
+                case 21:
+                    message.yearviptime = reader.int32();
+                    break;
+                case 22:
+                    message.viplevel = reader.int32();
+                    break;
+                case 23:
+                    message.createdtime = reader.int32();
+                    break;
+                case 24:
+                    message.isoffline = reader.int32();
+                    break;
+                case 25:
+                    message.stateid = reader.int32();
+                    break;
+                case 26:
+                    message.stateconfid = reader.int32();
+                    break;
+                case 27:
+                    message.entrytimes = reader.int32();
+                    break;
+                case 28:
+                    message.showdowntimes = reader.int32();
+                    break;
+                case 29:
+                    message.mttjointimes = reader.int32();
+                    break;
+                case 30:
+                    message.mttprizetimes = reader.int32();
+                    break;
+                case 31:
+                    message.gametimes2 = reader.int32();
+                    break;
+                case 32:
+                    message.wintimes2 = reader.int32();
+                    break;
+                case 33:
+                    message.entrytimes2 = reader.int32();
+                    break;
+                case 34:
+                    message.showdowntimes2 = reader.int32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -38038,27 +38453,112 @@ $root.msg = (function() {
         GW2C_RetPlayerRoleInfo.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
+            if (message.diamond != null && message.hasOwnProperty("diamond"))
+                if (!$util.isInteger(message.diamond))
+                    return "diamond: integer expected";
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                if (!$util.isInteger(message.gold))
+                    return "gold: integer expected";
             if (message.roleid != null && message.hasOwnProperty("roleid"))
                 if (!$util.isInteger(message.roleid) && !(message.roleid && $util.isInteger(message.roleid.low) && $util.isInteger(message.roleid.high)))
                     return "roleid: integer|Long expected";
-            if (message.errcode != null && message.hasOwnProperty("errcode"))
-                if (!$util.isString(message.errcode))
-                    return "errcode: string expected";
-            if (message.entity != null && message.hasOwnProperty("entity")) {
-                var error = $root.msg.EntityBase.verify(message.entity);
-                if (error)
-                    return "entity." + error;
+            if (message.name != null && message.hasOwnProperty("name"))
+                if (!$util.isString(message.name))
+                    return "name: string expected";
+            if (message.head != null && message.hasOwnProperty("head"))
+                if (!$util.isString(message.head))
+                    return "head: string expected";
+            if (message.sex != null && message.hasOwnProperty("sex"))
+                if (!$util.isInteger(message.sex))
+                    return "sex: integer expected";
+            if (message.level != null && message.hasOwnProperty("level"))
+                if (!$util.isInteger(message.level))
+                    return "level: integer expected";
+            if (message.exp != null && message.hasOwnProperty("exp"))
+                if (!$util.isInteger(message.exp))
+                    return "exp: integer expected";
+            if (message.ip != null && message.hasOwnProperty("ip"))
+                if (!$util.isString(message.ip))
+                    return "ip: string expected";
+            if (message.sign != null && message.hasOwnProperty("sign"))
+                if (!$util.isString(message.sign))
+                    return "sign: string expected";
+            if (message.age != null && message.hasOwnProperty("age"))
+                if (!$util.isInteger(message.age))
+                    return "age: integer expected";
+            if (message.maxgold != null && message.hasOwnProperty("maxgold"))
+                if (!$util.isInteger(message.maxgold))
+                    return "maxgold: integer expected";
+            if (message.maxgoldonetimes != null && message.hasOwnProperty("maxgoldonetimes"))
+                if (!$util.isInteger(message.maxgoldonetimes))
+                    return "maxgoldonetimes: integer expected";
+            if (message.friendnum != null && message.hasOwnProperty("friendnum"))
+                if (!$util.isInteger(message.friendnum))
+                    return "friendnum: integer expected";
+            if (message.gametimes != null && message.hasOwnProperty("gametimes"))
+                if (!$util.isInteger(message.gametimes))
+                    return "gametimes: integer expected";
+            if (message.wintimes != null && message.hasOwnProperty("wintimes"))
+                if (!$util.isInteger(message.wintimes))
+                    return "wintimes: integer expected";
+            if (message.maxhand != null && message.hasOwnProperty("maxhand")) {
+                if (!Array.isArray(message.maxhand))
+                    return "maxhand: array expected";
+                for (var i = 0; i < message.maxhand.length; ++i)
+                    if (!$util.isInteger(message.maxhand[i]))
+                        return "maxhand: integer[] expected";
             }
-            if (message.vip != null && message.hasOwnProperty("vip")) {
-                var error = $root.msg.UserVip.verify(message.vip);
-                if (error)
-                    return "vip." + error;
-            }
-            if (message.statistics != null && message.hasOwnProperty("statistics")) {
-                var error = $root.msg.UserStatistics.verify(message.statistics);
-                if (error)
-                    return "statistics." + error;
-            }
+            if (message.championtimes != null && message.hasOwnProperty("championtimes"))
+                if (!$util.isInteger(message.championtimes))
+                    return "championtimes: integer expected";
+            if (message.vipexp != null && message.hasOwnProperty("vipexp"))
+                if (!$util.isInteger(message.vipexp))
+                    return "vipexp: integer expected";
+            if (message.viptime != null && message.hasOwnProperty("viptime"))
+                if (!$util.isInteger(message.viptime))
+                    return "viptime: integer expected";
+            if (message.yearviptime != null && message.hasOwnProperty("yearviptime"))
+                if (!$util.isInteger(message.yearviptime))
+                    return "yearviptime: integer expected";
+            if (message.viplevel != null && message.hasOwnProperty("viplevel"))
+                if (!$util.isInteger(message.viplevel))
+                    return "viplevel: integer expected";
+            if (message.createdtime != null && message.hasOwnProperty("createdtime"))
+                if (!$util.isInteger(message.createdtime))
+                    return "createdtime: integer expected";
+            if (message.isoffline != null && message.hasOwnProperty("isoffline"))
+                if (!$util.isInteger(message.isoffline))
+                    return "isoffline: integer expected";
+            if (message.stateid != null && message.hasOwnProperty("stateid"))
+                if (!$util.isInteger(message.stateid))
+                    return "stateid: integer expected";
+            if (message.stateconfid != null && message.hasOwnProperty("stateconfid"))
+                if (!$util.isInteger(message.stateconfid))
+                    return "stateconfid: integer expected";
+            if (message.entrytimes != null && message.hasOwnProperty("entrytimes"))
+                if (!$util.isInteger(message.entrytimes))
+                    return "entrytimes: integer expected";
+            if (message.showdowntimes != null && message.hasOwnProperty("showdowntimes"))
+                if (!$util.isInteger(message.showdowntimes))
+                    return "showdowntimes: integer expected";
+            if (message.mttjointimes != null && message.hasOwnProperty("mttjointimes"))
+                if (!$util.isInteger(message.mttjointimes))
+                    return "mttjointimes: integer expected";
+            if (message.mttprizetimes != null && message.hasOwnProperty("mttprizetimes"))
+                if (!$util.isInteger(message.mttprizetimes))
+                    return "mttprizetimes: integer expected";
+            if (message.gametimes2 != null && message.hasOwnProperty("gametimes2"))
+                if (!$util.isInteger(message.gametimes2))
+                    return "gametimes2: integer expected";
+            if (message.wintimes2 != null && message.hasOwnProperty("wintimes2"))
+                if (!$util.isInteger(message.wintimes2))
+                    return "wintimes2: integer expected";
+            if (message.entrytimes2 != null && message.hasOwnProperty("entrytimes2"))
+                if (!$util.isInteger(message.entrytimes2))
+                    return "entrytimes2: integer expected";
+            if (message.showdowntimes2 != null && message.hasOwnProperty("showdowntimes2"))
+                if (!$util.isInteger(message.showdowntimes2))
+                    return "showdowntimes2: integer expected";
             return null;
         };
 
@@ -38074,6 +38574,10 @@ $root.msg = (function() {
             if (object instanceof $root.msg.GW2C_RetPlayerRoleInfo)
                 return object;
             var message = new $root.msg.GW2C_RetPlayerRoleInfo();
+            if (object.diamond != null)
+                message.diamond = object.diamond | 0;
+            if (object.gold != null)
+                message.gold = object.gold | 0;
             if (object.roleid != null)
                 if ($util.Long)
                     (message.roleid = $util.Long.fromValue(object.roleid)).unsigned = false;
@@ -38083,23 +38587,73 @@ $root.msg = (function() {
                     message.roleid = object.roleid;
                 else if (typeof object.roleid === "object")
                     message.roleid = new $util.LongBits(object.roleid.low >>> 0, object.roleid.high >>> 0).toNumber();
-            if (object.errcode != null)
-                message.errcode = String(object.errcode);
-            if (object.entity != null) {
-                if (typeof object.entity !== "object")
-                    throw TypeError(".msg.GW2C_RetPlayerRoleInfo.entity: object expected");
-                message.entity = $root.msg.EntityBase.fromObject(object.entity);
+            if (object.name != null)
+                message.name = String(object.name);
+            if (object.head != null)
+                message.head = String(object.head);
+            if (object.sex != null)
+                message.sex = object.sex | 0;
+            if (object.level != null)
+                message.level = object.level | 0;
+            if (object.exp != null)
+                message.exp = object.exp | 0;
+            if (object.ip != null)
+                message.ip = String(object.ip);
+            if (object.sign != null)
+                message.sign = String(object.sign);
+            if (object.age != null)
+                message.age = object.age | 0;
+            if (object.maxgold != null)
+                message.maxgold = object.maxgold | 0;
+            if (object.maxgoldonetimes != null)
+                message.maxgoldonetimes = object.maxgoldonetimes | 0;
+            if (object.friendnum != null)
+                message.friendnum = object.friendnum | 0;
+            if (object.gametimes != null)
+                message.gametimes = object.gametimes | 0;
+            if (object.wintimes != null)
+                message.wintimes = object.wintimes | 0;
+            if (object.maxhand) {
+                if (!Array.isArray(object.maxhand))
+                    throw TypeError(".msg.GW2C_RetPlayerRoleInfo.maxhand: array expected");
+                message.maxhand = [];
+                for (var i = 0; i < object.maxhand.length; ++i)
+                    message.maxhand[i] = object.maxhand[i] | 0;
             }
-            if (object.vip != null) {
-                if (typeof object.vip !== "object")
-                    throw TypeError(".msg.GW2C_RetPlayerRoleInfo.vip: object expected");
-                message.vip = $root.msg.UserVip.fromObject(object.vip);
-            }
-            if (object.statistics != null) {
-                if (typeof object.statistics !== "object")
-                    throw TypeError(".msg.GW2C_RetPlayerRoleInfo.statistics: object expected");
-                message.statistics = $root.msg.UserStatistics.fromObject(object.statistics);
-            }
+            if (object.championtimes != null)
+                message.championtimes = object.championtimes | 0;
+            if (object.vipexp != null)
+                message.vipexp = object.vipexp | 0;
+            if (object.viptime != null)
+                message.viptime = object.viptime | 0;
+            if (object.yearviptime != null)
+                message.yearviptime = object.yearviptime | 0;
+            if (object.viplevel != null)
+                message.viplevel = object.viplevel | 0;
+            if (object.createdtime != null)
+                message.createdtime = object.createdtime | 0;
+            if (object.isoffline != null)
+                message.isoffline = object.isoffline | 0;
+            if (object.stateid != null)
+                message.stateid = object.stateid | 0;
+            if (object.stateconfid != null)
+                message.stateconfid = object.stateconfid | 0;
+            if (object.entrytimes != null)
+                message.entrytimes = object.entrytimes | 0;
+            if (object.showdowntimes != null)
+                message.showdowntimes = object.showdowntimes | 0;
+            if (object.mttjointimes != null)
+                message.mttjointimes = object.mttjointimes | 0;
+            if (object.mttprizetimes != null)
+                message.mttprizetimes = object.mttprizetimes | 0;
+            if (object.gametimes2 != null)
+                message.gametimes2 = object.gametimes2 | 0;
+            if (object.wintimes2 != null)
+                message.wintimes2 = object.wintimes2 | 0;
+            if (object.entrytimes2 != null)
+                message.entrytimes2 = object.entrytimes2 | 0;
+            if (object.showdowntimes2 != null)
+                message.showdowntimes2 = object.showdowntimes2 | 0;
             return message;
         };
 
@@ -38116,30 +38670,121 @@ $root.msg = (function() {
             if (!options)
                 options = {};
             var object = {};
+            if (options.arrays || options.defaults)
+                object.maxhand = [];
             if (options.defaults) {
+                object.diamond = 0;
+                object.gold = 0;
                 if ($util.Long) {
                     var long = new $util.Long(0, 0, false);
                     object.roleid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.roleid = options.longs === String ? "0" : 0;
-                object.errcode = "";
-                object.entity = null;
-                object.vip = null;
-                object.statistics = null;
+                object.name = "";
+                object.head = "";
+                object.sex = 0;
+                object.level = 0;
+                object.exp = 0;
+                object.ip = "";
+                object.sign = "";
+                object.age = 0;
+                object.maxgold = 0;
+                object.maxgoldonetimes = 0;
+                object.friendnum = 0;
+                object.gametimes = 0;
+                object.wintimes = 0;
+                object.championtimes = 0;
+                object.vipexp = 0;
+                object.viptime = 0;
+                object.yearviptime = 0;
+                object.viplevel = 0;
+                object.createdtime = 0;
+                object.isoffline = 0;
+                object.stateid = 0;
+                object.stateconfid = 0;
+                object.entrytimes = 0;
+                object.showdowntimes = 0;
+                object.mttjointimes = 0;
+                object.mttprizetimes = 0;
+                object.gametimes2 = 0;
+                object.wintimes2 = 0;
+                object.entrytimes2 = 0;
+                object.showdowntimes2 = 0;
             }
+            if (message.diamond != null && message.hasOwnProperty("diamond"))
+                object.diamond = message.diamond;
+            if (message.gold != null && message.hasOwnProperty("gold"))
+                object.gold = message.gold;
             if (message.roleid != null && message.hasOwnProperty("roleid"))
                 if (typeof message.roleid === "number")
                     object.roleid = options.longs === String ? String(message.roleid) : message.roleid;
                 else
                     object.roleid = options.longs === String ? $util.Long.prototype.toString.call(message.roleid) : options.longs === Number ? new $util.LongBits(message.roleid.low >>> 0, message.roleid.high >>> 0).toNumber() : message.roleid;
-            if (message.errcode != null && message.hasOwnProperty("errcode"))
-                object.errcode = message.errcode;
-            if (message.entity != null && message.hasOwnProperty("entity"))
-                object.entity = $root.msg.EntityBase.toObject(message.entity, options);
-            if (message.vip != null && message.hasOwnProperty("vip"))
-                object.vip = $root.msg.UserVip.toObject(message.vip, options);
-            if (message.statistics != null && message.hasOwnProperty("statistics"))
-                object.statistics = $root.msg.UserStatistics.toObject(message.statistics, options);
+            if (message.name != null && message.hasOwnProperty("name"))
+                object.name = message.name;
+            if (message.head != null && message.hasOwnProperty("head"))
+                object.head = message.head;
+            if (message.sex != null && message.hasOwnProperty("sex"))
+                object.sex = message.sex;
+            if (message.level != null && message.hasOwnProperty("level"))
+                object.level = message.level;
+            if (message.exp != null && message.hasOwnProperty("exp"))
+                object.exp = message.exp;
+            if (message.ip != null && message.hasOwnProperty("ip"))
+                object.ip = message.ip;
+            if (message.sign != null && message.hasOwnProperty("sign"))
+                object.sign = message.sign;
+            if (message.age != null && message.hasOwnProperty("age"))
+                object.age = message.age;
+            if (message.maxgold != null && message.hasOwnProperty("maxgold"))
+                object.maxgold = message.maxgold;
+            if (message.maxgoldonetimes != null && message.hasOwnProperty("maxgoldonetimes"))
+                object.maxgoldonetimes = message.maxgoldonetimes;
+            if (message.friendnum != null && message.hasOwnProperty("friendnum"))
+                object.friendnum = message.friendnum;
+            if (message.gametimes != null && message.hasOwnProperty("gametimes"))
+                object.gametimes = message.gametimes;
+            if (message.wintimes != null && message.hasOwnProperty("wintimes"))
+                object.wintimes = message.wintimes;
+            if (message.maxhand && message.maxhand.length) {
+                object.maxhand = [];
+                for (var j = 0; j < message.maxhand.length; ++j)
+                    object.maxhand[j] = message.maxhand[j];
+            }
+            if (message.championtimes != null && message.hasOwnProperty("championtimes"))
+                object.championtimes = message.championtimes;
+            if (message.vipexp != null && message.hasOwnProperty("vipexp"))
+                object.vipexp = message.vipexp;
+            if (message.viptime != null && message.hasOwnProperty("viptime"))
+                object.viptime = message.viptime;
+            if (message.yearviptime != null && message.hasOwnProperty("yearviptime"))
+                object.yearviptime = message.yearviptime;
+            if (message.viplevel != null && message.hasOwnProperty("viplevel"))
+                object.viplevel = message.viplevel;
+            if (message.createdtime != null && message.hasOwnProperty("createdtime"))
+                object.createdtime = message.createdtime;
+            if (message.isoffline != null && message.hasOwnProperty("isoffline"))
+                object.isoffline = message.isoffline;
+            if (message.stateid != null && message.hasOwnProperty("stateid"))
+                object.stateid = message.stateid;
+            if (message.stateconfid != null && message.hasOwnProperty("stateconfid"))
+                object.stateconfid = message.stateconfid;
+            if (message.entrytimes != null && message.hasOwnProperty("entrytimes"))
+                object.entrytimes = message.entrytimes;
+            if (message.showdowntimes != null && message.hasOwnProperty("showdowntimes"))
+                object.showdowntimes = message.showdowntimes;
+            if (message.mttjointimes != null && message.hasOwnProperty("mttjointimes"))
+                object.mttjointimes = message.mttjointimes;
+            if (message.mttprizetimes != null && message.hasOwnProperty("mttprizetimes"))
+                object.mttprizetimes = message.mttprizetimes;
+            if (message.gametimes2 != null && message.hasOwnProperty("gametimes2"))
+                object.gametimes2 = message.gametimes2;
+            if (message.wintimes2 != null && message.hasOwnProperty("wintimes2"))
+                object.wintimes2 = message.wintimes2;
+            if (message.entrytimes2 != null && message.hasOwnProperty("entrytimes2"))
+                object.entrytimes2 = message.entrytimes2;
+            if (message.showdowntimes2 != null && message.hasOwnProperty("showdowntimes2"))
+                object.showdowntimes2 = message.showdowntimes2;
             return object;
         };
 
@@ -38398,7 +39043,6 @@ $root.msg = (function() {
          * @property {number|null} [wintimes2] RS2C_RetFriendGetRoleInfo wintimes2
          * @property {number|null} [entrytimes2] RS2C_RetFriendGetRoleInfo entrytimes2
          * @property {number|null} [showdowntimes2] RS2C_RetFriendGetRoleInfo showdowntimes2
-         * @property {string|null} [errcode] RS2C_RetFriendGetRoleInfo errcode
          */
 
         /**
@@ -38690,14 +39334,6 @@ $root.msg = (function() {
         RS2C_RetFriendGetRoleInfo.prototype.showdowntimes2 = 0;
 
         /**
-         * RS2C_RetFriendGetRoleInfo errcode.
-         * @member {string} errcode
-         * @memberof msg.RS2C_RetFriendGetRoleInfo
-         * @instance
-         */
-        RS2C_RetFriendGetRoleInfo.prototype.errcode = "";
-
-        /**
          * Creates a new RS2C_RetFriendGetRoleInfo instance using the specified properties.
          * @function create
          * @memberof msg.RS2C_RetFriendGetRoleInfo
@@ -38790,8 +39426,6 @@ $root.msg = (function() {
                 writer.uint32(/* id 33, wireType 0 =*/264).int32(message.entrytimes2);
             if (message.showdowntimes2 != null && message.hasOwnProperty("showdowntimes2"))
                 writer.uint32(/* id 34, wireType 0 =*/272).int32(message.showdowntimes2);
-            if (message.errcode != null && message.hasOwnProperty("errcode"))
-                writer.uint32(/* id 35, wireType 2 =*/282).string(message.errcode);
             return writer;
         };
 
@@ -38935,9 +39569,6 @@ $root.msg = (function() {
                 case 34:
                     message.showdowntimes2 = reader.int32();
                     break;
-                case 35:
-                    message.errcode = reader.string();
-                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -39079,9 +39710,6 @@ $root.msg = (function() {
             if (message.showdowntimes2 != null && message.hasOwnProperty("showdowntimes2"))
                 if (!$util.isInteger(message.showdowntimes2))
                     return "showdowntimes2: integer expected";
-            if (message.errcode != null && message.hasOwnProperty("errcode"))
-                if (!$util.isString(message.errcode))
-                    return "errcode: string expected";
             return null;
         };
 
@@ -39177,8 +39805,6 @@ $root.msg = (function() {
                 message.entrytimes2 = object.entrytimes2 | 0;
             if (object.showdowntimes2 != null)
                 message.showdowntimes2 = object.showdowntimes2 | 0;
-            if (object.errcode != null)
-                message.errcode = String(object.errcode);
             return message;
         };
 
@@ -39235,7 +39861,6 @@ $root.msg = (function() {
                 object.wintimes2 = 0;
                 object.entrytimes2 = 0;
                 object.showdowntimes2 = 0;
-                object.errcode = "";
             }
             if (message.diamond != null && message.hasOwnProperty("diamond"))
                 object.diamond = message.diamond;
@@ -39311,8 +39936,6 @@ $root.msg = (function() {
                 object.entrytimes2 = message.entrytimes2;
             if (message.showdowntimes2 != null && message.hasOwnProperty("showdowntimes2"))
                 object.showdowntimes2 = message.showdowntimes2;
-            if (message.errcode != null && message.hasOwnProperty("errcode"))
-                object.errcode = message.errcode;
             return object;
         };
 

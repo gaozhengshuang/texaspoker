@@ -529,6 +529,7 @@ class HundredWarManager
     {
         if (result.data)
         {
+            // let data:msg.
             HundredWarManager._isHadLeave = true;
             HundredWarManager.onOutRoomEvent.dispatch(result.data["id"]);
         }

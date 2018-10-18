@@ -25,7 +25,14 @@ class OperatePlatform
 	public static getCurrent(): string
 	{
 		//todo 不支持条件编译，只能一个个写死
-		return OperatePlatform.cn;
+		if (DEBUG && false)
+		{
+			return OperatePlatform.cn;
+		}
+		else
+		{
+			return OperatePlatform.hmt;
+		}
 	}
 	/**
 	 * 当前运营平台支持的语言列表
@@ -107,11 +114,11 @@ class ChannelLoginType
 	/**
 	 * 获取登录类型的token有效期(秒)
 	 */
-	public static getTokenExpire(loginType: string):number
+	public static getTokenExpire(loginType: string): number
 	{
-		if(loginType == ChannelLoginType.Weixin)
+		if (loginType == ChannelLoginType.Weixin)
 		{
-			return 3600*24*30;//30天
+			return 3600 * 24 * 30;//30天
 		}
 		return 0;
 	}
@@ -123,7 +130,7 @@ class ChannelLoginType
 		let list: string[] = [];
 		if (DEBUG || game.System.isLocalhost)
 		{
-			if(game.System.isMicro || game.System.isWeChat || game.System.isLocalhost == false)
+			if (game.System.isMicro || game.System.isWeChat || game.System.isLocalhost == false)
 			{
 				list.push(ChannelLoginType.Weixin);
 			}

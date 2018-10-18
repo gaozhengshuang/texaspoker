@@ -112,7 +112,7 @@ message MTTRecentlyRankInfo {
     optional string name = 2;
     optional string head = 3;
     optional int32 sex = 4;
-    optional int32 roleid = 5;
+    optional int64 roleid = 5;
 }
 
 message RS2C_RetMTTRecentlyRankList {

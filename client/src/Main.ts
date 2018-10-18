@@ -3,7 +3,6 @@
  * 资源配置文件
  */
 declare var resJsonUrl;
-
 class Main extends eui.UILayer
 {
     protected createChildren(): void
@@ -28,6 +27,7 @@ class Main extends eui.UILayer
         }
         RES.setMaxLoadingThread(game.System.isMicro ? 8 : 4);
         I18n.initSystem(PrefsManager.getValue(PrefsManager.Language), OperatePlatform.getLangs());
+        console.log("初始化语言");
         //注入自定义的素材解析器
         egret.registerImplementation("eui.IAssetAdapter", new AssetAdapter());
         egret.registerImplementation("eui.IThemeAdapter", new ThemeAdapter());
@@ -57,7 +57,7 @@ class Main extends eui.UILayer
         }
         else
         {
-            if (DEBUG)
+            if (DEBUG && false)
             {
                 await RES.getResByUrl(PathName.LangDirectory + I18n.lang + AssetsSuffixName.JSON, this.onLangComplete, this);
             }

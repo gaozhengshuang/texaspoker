@@ -179,7 +179,7 @@ class ChampionshipHandler
     /**
      * 请求重购/增购
      */
-    public addShip(type: number)
+    public reqAddShip(type: number)
     {
         if (!GamblingManager.roomInfo || GamblingManager.roomInfo.isMatchOut) //如果已经被淘汰了则不发请求
         {
