@@ -102,17 +102,6 @@ class InsideRoomManager
         }
     }
     /**
-     * 最后所在房间类型
-     */
-    public static get lastInsideRoomType(): InsideRoomType
-    {
-        if (InsideRoomManager.lastId != undefined && InsideRoomManager.lastId != 0)
-        {
-            return InsideRoomManager.getRoomType(InsideRoomManager.lastId);
-        }
-        return InsideRoomType.None;
-    }
-    /**
      * 根据类型获取类型的房间列表
      */
     public static getInfoListByType(type: InsideRoomType): Array<InsideRoomInfo>

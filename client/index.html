@@ -74,7 +74,6 @@ data-show-log="true" data-show-fps-style="x:0,y:0,size:12,textColor:0xffffff,bgA
         JSZip.loadAsync(data).then(function (zip) {
             return zip.file(filename).async("string");
         }).then(function (text) {
-            console.log("语言文件：", text);
             I18n.initMap(text);
             //使用eval
             // eval(text);
