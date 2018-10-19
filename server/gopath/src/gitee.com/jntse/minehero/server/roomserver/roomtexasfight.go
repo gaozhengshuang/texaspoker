@@ -56,7 +56,7 @@ func (tf *TexasFightRoom) SynBetPoolChange() {
 }
 
 // 检查玩家上庄和下庄
-func (tf *TexasFightRoom) CheckPlayerBanker() {
+func (tf *TexasFightRoom) PlayerBankerCheck() {
 
 	//  检查玩家庄家是否还能继续坐庄
 	if false == tf.banker.IsSystem() {
@@ -137,10 +137,9 @@ func (tf *TexasFightRoom) ChangeToWaitNextRoundStat(now int64) {
 	statmsg := &msg.RS2C_PushTFStateChange{State:pb.Int32(tf.stat), Statetime:pb.Int64(tf.stattimeout)}
 	tf.BroadCastMemberMsg(statmsg)
 
-	// 回合结算
-	tf.RoundSettle()
+	// 回合结束
+	tf.RoundOver()
 
-	//
 	log.Info("[百人大战] 房间[%d] 切换到等待下一局状态", tf.Id())
 }
 
@@ -175,6 +174,19 @@ func (tf *TexasFightRoom) ChangeToBettingStat(now int64) {
 	log.Info("[百人大战] 房间[%d] 切换到下注状态", tf.Id())
 }
 
+
+// 回合结束
+func (tf *TexasFightRoom) RoundOver() {
+
+	// 结算
+	tf.RoundSettle()
+
+	// 检查玩家庄家
+	if tf.banker.IsSystem()  { 
+		tf.banker.AddBankerRound(1)
+	}
+	tf.PlayerBankerCheck()
+}
 
 // 回合结算
 func (tf *TexasFightRoom) RoundSettle() {
