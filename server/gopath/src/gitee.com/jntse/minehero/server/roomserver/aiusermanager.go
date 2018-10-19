@@ -1,6 +1,6 @@
 package main
 import (
-	_"fmt"
+	"fmt"
 	//"gitee.com/jntse/minehero/pbmsg"
 	//"gitee.com/jntse/gotoolkit/net"
 	_"gitee.com/jntse/gotoolkit/log"
@@ -33,7 +33,6 @@ type AIUserManager struct {
 func (this *AIUserManager) Init() {
 	this.ids = make(map[int64]*RoomUser)
 	this.aiactions = make(map[int32]*AIAction)
-	this.CreateRoomAIUser()
 	this.LoadAIAction()
 }
 
@@ -100,6 +99,9 @@ func (this *AIUserManager) CreateRoomAIUser() {
 		user := NewRoomUserAI(int64(v.Id), v.Name, int32(util.RandBetween(1,2)))		
 		if user != nil {
 			this.AddUser(user)
+			Redis().HSet(fmt.Sprintf("charbase_%d", v.Id), "name", v.Name)
+			Redis().HSet(fmt.Sprintf("charbase_%d", v.Id), "head", "")
+			Redis().HSet(fmt.Sprintf("charbase_%d", v.Id), "sex", user.Sex())
 		}
 	}
 }

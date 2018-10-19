@@ -2,10 +2,10 @@
 	"Tool": "github.com/davyxu/tabtoy",
 	"Version": "2.8.10",
 	"TimeAward":[
-		{ "Id": 1, "RoomType1": 100, "RoomType2": 200, "RoomType3": 1000, "Time": 30 },
-		{ "Id": 2, "RoomType1": 200, "RoomType2": 400, "RoomType3": 2000, "Time": 60 },
-		{ "Id": 3, "RoomType1": 300, "RoomType2": 600, "RoomType3": 3000, "Time": 90 },
-		{ "Id": 4, "RoomType1": 400, "RoomType2": 800, "RoomType3": 4000, "Time": 120 },
-		{ "Id": 5, "RoomType1": 500, "RoomType2": 1000, "RoomType3": 5000, "Time": 150 },
-		{ "Id": 6, "RoomType1": 600, "RoomType2": 1200, "RoomType3": 6000, "Time": 180 }
+		{ "Id": 1, "RoomType1": 100, "RoomType2": 200, "RoomType3": 1000, "Time": 300 },
+		{ "Id": 2, "RoomType1": 200, "RoomType2": 400, "RoomType3": 2000, "Time": 600 },
+		{ "Id": 3, "RoomType1": 300, "RoomType2": 600, "RoomType3": 3000, "Time": 900 },
+		{ "Id": 4, "RoomType1": 400, "RoomType2": 800, "RoomType3": 4000, "Time": 1200 },
+		{ "Id": 5, "RoomType1": 500, "RoomType2": 1000, "RoomType3": 5000, "Time": 1500 },
+		{ "Id": 6, "RoomType1": 600, "RoomType2": 1200, "RoomType3": 6000, "Time": 1800 }
 	]}

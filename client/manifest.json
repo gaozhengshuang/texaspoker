@@ -13,7 +13,8 @@
 		"protobuf/bundles/protobuf-bundles.js",
 		"libs/modules/particle/particle.js",
 		"libs/modules/md5/md5.js",
-		"libs/modules/jszip/jszip.js"
+		"libs/modules/jszip/jszip.js",
+		"libs/modules/i18n/i18n.js"
 	],
 	"game": [
 		"bin-debug/app/activity/BaseActivitySubHandler.js",
@@ -77,7 +78,7 @@
 		"bin-debug/libs/qin/enums/StringConstants.js",
 		"bin-debug/libs/qin/media/WebNode.js",
 		"bin-debug/libs/qin/net/BaseSocket.js",
-		"bin-debug/app/ui/panel/NewPayGiftPanel.js",
+		"bin-debug/app/ui/panel/NewGiftPanel.js",
 		"bin-debug/app/animation/CardFaceBoardAppear.js",
 		"bin-debug/app/animation/CardFaceBright.js",
 		"bin-debug/app/animation/CardFaceMoveToPoint.js",
@@ -375,8 +376,8 @@
 		"bin-debug/app/ui/panel/MorePlayPanel.js",
 		"bin-debug/app/ui/panel/MTTOverPanel.js",
 		"bin-debug/app/ui/panel/NetworkPanel.js",
-		"bin-debug/app/ui/panel/NewGiftPanel.js",
 		"bin-debug/LoadingUI.js",
+		"bin-debug/app/ui/panel/NewPayGiftPanel.js",
 		"bin-debug/app/ui/panel/NormalActivityPanel.js",
 		"bin-debug/app/ui/panel/OmahaCardTypePanel.js",
 		"bin-debug/app/ui/panel/OrderDetailPanel.js",
@@ -698,7 +699,6 @@
 		"bin-debug/libs/qin/collections/HashSet.js",
 		"bin-debug/libs/qin/enums/RuntimeTypeName.js",
 		"bin-debug/app/animation/AnimationFactory.js",
-		"bin-debug/libs/qin/i18n/I18n.js",
 		"bin-debug/libs/qin/log/Console.js",
 		"bin-debug/libs/qin/media/QRCodeShape.js",
 		"bin-debug/libs/qin/media/WebImageSelect.js",

@@ -61,8 +61,9 @@ class LoginScene extends BaseScene
         }
         else
         {
-            VersionManager.onServerComplete.addListener(this.onEnterLogin, this);
-            VersionManager.loadServerVersion();
+            this.onEnterLogin(); //move todo 暂时跳过版本检测
+            // VersionManager.onServerComplete.addListener(this.onEnterLogin, this);
+            // VersionManager.loadServerVersion();
         }
     }
     private onEnterLogin()

@@ -38,7 +38,7 @@ class FuncOpenUtils
 		}
 		if (needAlert)
 		{
-			AlertManager.showAlertByString("暂未开放！");
+			AlertManager.showAlertByString("暂未开启");
 		}
 		return false;
 	}

@@ -230,17 +230,17 @@ func (u *RoomUser) SetExp(num int32) {
 func (u *RoomUser) AddExp(num int32, reason string, syn bool) {
 	old, exp := u.Level(), u.Exp()+num
 	for {
-		lvlbase, ok := tbl.LevelBasee.TLevelById[u.Level()]
+		lvlbase, ok := tbl.LevelBasee.ExpById[u.Level() + 1]
 		if ok == false {
 			break
 		}
 
 		// 下一级需要经验
-		if exp < int32(lvlbase.ExpNums) || lvlbase.ExpNums == 0 {
+		if exp < int32(lvlbase.Exp) || lvlbase.Exp == 0 {
 			break
 		}
 
-		exp = exp - int32(lvlbase.ExpNums)
+		exp = exp - int32(lvlbase.Exp)
 		u.OnLevelUp()
 	}
 	u.SetExp(exp)
@@ -252,12 +252,6 @@ func (u *RoomUser) AddExp(num int32, reason string, syn bool) {
 // 升级
 func (u *RoomUser) OnLevelUp() {
 	u.AddLevel(1)
-
-	//升级拿元宝
-	lvlbase, ok := tbl.LevelBasee.TLevelById[u.Level()-1]
-	if ok == true {
-		u.AddYuanbao(int32(lvlbase.Reward), "升级奖元宝")
-	}
 }
 
 // 打包二进制数据
@@ -442,66 +436,71 @@ func (u *RoomUser) SendDiamond() {
 
 // 元宝
 func (u *RoomUser) GetYuanbao() int32 {
-	return u.Entity().GetYuanbao()
+	yuanbao := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "yuanbao").Val())
+	return yuanbao
 }
 
 func (u *RoomUser) AddYuanbao(yuanbao int32, reason string) {
-	entity := u.Entity()
-	entity.Yuanbao = pb.Int32(entity.GetYuanbao() + yuanbao)
+	newyuanbao := u.GetYuanbao() + yuanbao
+	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "yuanbao", newyuanbao)
+
 	RCounter().IncrByDate("room_output", int32(u.gamekind), yuanbao)
 	//u.PlatformPushLootMoney(float32(yuanbao))
-	log.Info("玩家[%d] 添加元宝[%d] 库存[%d] 原因[%s]", u.Id(), yuanbao, entity.GetYuanbao(), reason)
+	log.Info("玩家[%d] 添加元宝[%d] 库存[%d] 原因[%s]", u.Id(), yuanbao, newyuanbao, reason)
 }
 
 func (u *RoomUser) RemoveYuanbao(yuanbao int32, reason string) bool {
-	if u.GetYuanbao() >= yuanbao {
-		entity := u.Entity()
-		entity.Yuanbao = pb.Int32(u.GetYuanbao() - yuanbao)
+	yuanbaosrc := u.GetYuanbao()
+	if yuanbaosrc >= yuanbao {
+		newyuanbao := yuanbaosrc - yuanbao
+		Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "yuanbao", newyuanbao)
 		RCounter().IncrByDate("item_remove", int32(msg.ItemId_YuanBao), yuanbao)
 		RCounter().IncrByDate("room_income", int32(u.gamekind), yuanbao)
 		//u.PlatformPushConsumeMoney(float32(yuanbao))
-		log.Info("玩家[%d] 扣除元宝[%d] 库存[%d] 原因[%s]", u.Id(), yuanbao, u.GetYuanbao(), reason)
+		log.Info("玩家[%d] 扣除元宝[%d] 库存[%d] 原因[%s]", u.Id(), yuanbao, newyuanbao, reason)
 		return true
 	}
-	log.Info("玩家[%d] 扣除元宝[%d]失败 库存[%d] 原因[%s]", u.Id(), yuanbao, u.GetYuanbao(), reason)
+	log.Info("玩家[%d] 扣除元宝[%d]失败 库存[%d] 原因[%s]", u.Id(), yuanbao, yuanbaosrc, reason)
 	return false
 }
 
 func (u *RoomUser) GetDiamond() int32 {
-	return u.Entity().GetDiamond()
+	diamond := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "diamond").Val())
+	return diamond
 }
 
 // 移除金卷
 func (u *RoomUser) RemoveDiamond(num int32, reason string, syn bool) bool {
-	entity := u.Entity()
-	if entity.GetDiamond() >= num {
-		entity.Diamond = pb.Int32(entity.GetDiamond() - num)
+	diamondsrc := u.GetDiamond()
+	if diamondsrc >= num {
+		newdiamond := diamondsrc - num
+		Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "diamond", newdiamond)
 		if syn {
 			u.SendPropertyChange()
 		}
-		log.Info("玩家[%d] 扣除金卷[%d] 库存[%d] 原因[%s]", u.Id(), num, entity.GetDiamond(), reason)
+		log.Info("玩家[%d] 扣除金卷[%d] 库存[%d] 原因[%s]", u.Id(), num, newdiamond, reason)
 		RCounter().IncrByDate("item_remove", int32(msg.ItemId_Diamond), num)
 		return true
 	}
-	log.Info("玩家[%d] 扣除金卷[%d]失败 库存[%d] 原因[%s]", u.Id(), num, entity.GetDiamond(), reason)
+	log.Info("玩家[%d] 扣除金卷[%d]失败 库存[%d] 原因[%s]", u.Id(), num, diamondsrc, reason)
 	return false
 }
 
 // 添加金卷
 func (u *RoomUser) AddDiamond(num int32, reason string, syn bool) {
-	entity := u.Entity()
-	entity.Diamond = pb.Int32(entity.GetDiamond() + num)
-	//u.SynAddMidsMoney(int64(num), reason)
+	newdiamond := u.GetDiamond() + num
+	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "diamond", newdiamond)
 	if syn {
 		u.SendPropertyChange()
 	}
-	log.Info("玩家[%d] 添加钻石[%d] 库存[%d] 原因[%s]", u.Id(), num, entity.GetDiamond(), reason)
+	log.Info("玩家[%d] 添加钻石[%d] 库存[%d] 原因[%s]", u.Id(), num, newdiamond, reason)
 }
 
 func (u *RoomUser) SendPropertyChange() {
 	send := &msg.RS2C_RolePushPropertyChange{}
-	send.Diamond = pb.Int32(u.Entity().GetDiamond())
+	send.Diamond = pb.Int32(u.GetDiamond())
 	send.Gold = pb.Int32(u.GetGold())
+	send.Yuanbao =pb.Int32(u.GetYuanbao())
 	send.Safegold = pb.Int32(0)
 	u.SendClientMsg(send)
 }

@@ -191,14 +191,16 @@ class UserManager
 		// }
 		// else
 		// {
-		if (roleId > 200)
-		{
+
+		// if (roleId > 200)
+		// {
 			SocketManager.call(Command.C2GW_ReqPlayerRoleInfo, { roleid: roleId }, callback, errorCallBack, this);
-		}
-		else if (isShowTips)
-		{
-			UIManager.showFloatTips("玩家信息为私密！");
-		}
+		// }
+		// else if (isShowTips)
+		// {
+		// 	UIManager.showFloatTips("玩家信息为私密！");
+		// }
+		
 		// }
 	}
 

@@ -322,6 +322,7 @@ func (rs *RoomServer) OnStart() {
 	rs.rcounter.Init(Redis())	// 计数器
 	rs.roommgr.Init()
 	rs.championmgr.InitChampionShip()
+	rs.aiusermgr.CreateRoomAIUser()
 
 	log.Info("结束执行OnStart")
 }

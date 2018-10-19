@@ -61,6 +61,7 @@ type TexasPokerRoom struct {
 	remain	int32						// 剩余人
 	allin int32							// allin人数
 	publiccard []int32					// 每轮公共牌
+	allcard []int32						// 所有公共牌
 	curactpos int32
 	starttime int32
 	bettime int32						//当前下注时间
@@ -188,6 +189,8 @@ func (this *TexasPokerRoom) Init() string {
 	this.posfold = make(map[int32]int32)
 	this.lastrecord = make([]*msg.UserReviewInfo, 0)
 	this.currecord = make([]*msg.UserReviewInfo, 0)
+	this.allcard = make([]int32, 0)
+	this.publiccard = make([]int32, 0)
 	return ""
 }
 
@@ -526,18 +529,22 @@ func (this *TexasPokerRoom) PreFlopBet() int32{
 	return TPPreFlopBet
 }
 
+func (this *TexasPokerRoom) AddPublicCard(card *Card) {
+	this.publiccard = append(this.publiccard, card.Suit+1)
+	this.publiccard = append(this.publiccard, card.Value+2)
+	this.allcard = append(this.allcard, card.Suit+1)
+	this.allcard = append(this.allcard, card.Value+2)
+}
+
 func (this *TexasPokerRoom) Flop() int32{
 	this.SetPreFlopRecord()
 	card1 := this.Deal()
 	card2 := this.Deal()
 	card3 := this.Deal()
 	this.publiccard = make([]int32, 0)
-	this.publiccard = append(this.publiccard, card1.Suit+1)
-	this.publiccard = append(this.publiccard, card1.Value+2)
-	this.publiccard = append(this.publiccard, card2.Suit+1)
-	this.publiccard = append(this.publiccard, card2.Value+2)
-	this.publiccard = append(this.publiccard, card3.Suit+1)
-	this.publiccard = append(this.publiccard, card3.Value+2)
+	this.AddPublicCard(card1)
+	this.AddPublicCard(card2)
+	this.AddPublicCard(card3)
 	this.publichand.SetCard(card1,false)
 	this.publichand.SetCard(card2,false)
 	this.publichand.SetCard(card3,false)
@@ -604,8 +611,7 @@ func (this *TexasPokerRoom) Turn() int32{
 	this.SetOtherRecord()
 	card := this.Deal()
 	this.publiccard = make([]int32, 0)
-	this.publiccard = append(this.publiccard, card.Suit+1)
-	this.publiccard = append(this.publiccard, card.Value+2)
+	this.AddPublicCard(card)
 	this.publichand.ClearAnalyse()
 	this.publichand.AnalyseHand()
 	this.publichand.SetCard(card,false)
@@ -640,8 +646,7 @@ func (this *TexasPokerRoom) River() int32{
 	this.SetOtherRecord()
 	card := this.Deal()
 	this.publiccard = make([]int32, 0)
-	this.publiccard = append(this.publiccard, card.Suit+1)
-	this.publiccard = append(this.publiccard, card.Value+2)
+	this.AddPublicCard(card)
 	this.publichand.SetCard(card,false)
 	this.publichand.ClearAnalyse()
 	this.publichand.AnalyseHand()
@@ -844,6 +849,7 @@ func (this *TexasPokerRoom) RestartGame() int32{
 		this.lastrecord = make([]*msg.UserReviewInfo, 0)
 		this.recordstep = 0
 		this.publiccard = make([]int32, 0)
+		this.allcard = make([]int32, 0)
 		for _, v := range this.currecord {
 			this.lastrecord = append(this.lastrecord, v)
 		}
@@ -1017,7 +1023,7 @@ func (this *TexasPokerRoom) SendRoomInfo(player *TexasPlayer) {
 	send.Pos = pb.Int32(this.curactpos+1)
 	send.Postime = pb.Int32(10)
 	send.Starttime = pb.Int32(this.starttime)
-	send.Publiccard = this.publichand.ToAllCard()
+	send.Publiccard = this.allcard
 	for _, p := range this.players {
 		if p == nil {
 			continue

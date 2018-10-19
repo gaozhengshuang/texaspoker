@@ -63,6 +63,12 @@ message GW2MS_PushNewMail {
     optional MailDetail mail = 2;
 }
 
+// RS2MS
+message RS2MS_PushNewMail {
+    optional int64 receiver = 1;
+    optional MailDetail mail = 2;
+}
+
 // MS2GW
 message MS2GW_PushNewMail {
     optional int64 receiver = 1;

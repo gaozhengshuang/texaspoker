@@ -118,7 +118,7 @@ class HundredWarManager
                         HundredWarManager.roomInfo.betList = new Array<HWBetPotInfo>();
                         for (let betInfo of result.data.betList)
                         {
-                            betInfo.myBet = result.data.myBet[betInfo.pos - 1];
+                            betInfo.myBet = result.data.myBet[betInfo.pos]; //move todo result.data.myBet[betInfo.pos - 1];
                             HundredWarManager.roomInfo.betList.push(betInfo);
                         }
                     }

@@ -186,6 +186,7 @@ class ChampionshipInfoPanel extends BasePanel
                 this.setOutsInfo();
                 return;
             }
+            this.setOutsInfo(); //move todo 原来需要请求两次
             // ChampionshipManager.reqOutsInfo(this._championshipInfo.recordId, this._championshipInfo.definition.BlindType);
         }
     }

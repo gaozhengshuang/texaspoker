@@ -38,10 +38,10 @@ func (u *GateUser) AddItem(item int32, num int32, reason string, syn bool) {
 
 func (u *GateUser) SendPropertyChange() {
 	send := &msg.RS2C_RolePushPropertyChange{}
-	send.Diamond = pb.Int32(u.diamond)
+	send.Diamond = pb.Int32(u.GetDiamond())
 	send.Gold = pb.Int32(u.GetGold())
 	send.Safegold = pb.Int32(0)
-	send.Yuanbao = pb.Int32(u.yuanbao)
+	send.Yuanbao = pb.Int32(u.GetYuanbao())
 	send.Silvercardtime = pb.Int32(u.silvercardtime)
 	send.Goldcardtime = pb.Int32(u.goldcardtime)
 	u.SendMsg(send)
@@ -107,57 +107,63 @@ func (u *GateUser) RemoveGold(gold int32, reason string, syn bool) bool {
 }
 
 // 添加元宝
-func (u *GateUser) GetYuanbao() int32 { return u.yuanbao }
+func (u *GateUser) GetYuanbao() int32 {
+	yuanbao := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "yuanbao").Val())
+	return yuanbao 
+}
 func (u *GateUser) AddYuanbao(yuanbao int32, reason string, syn bool) {
-	u.yuanbao = u.GetYuanbao() + yuanbao
+	newyuanbao := u.GetYuanbao() + yuanbao
+	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "yuanbao", newyuanbao)
 	if syn {
-		//send := &msg.GW2C_PushYuanBaoUpdate{Num: pb.Int32(u.GetYuanbao())}
-		//u.SendMsg(send)
 		u.SendPropertyChange()
 	}
 	RCounter().IncrByDate("item_add", int32(msg.ItemId_YuanBao), yuanbao)
-	log.Info("玩家[%d] 添加元宝[%d] 库存[%d] 原因[%s]", u.Id(), yuanbao, u.GetYuanbao(), reason)
+	log.Info("玩家[%d] 添加元宝[%d] 库存[%d] 原因[%s]", u.Id(), yuanbao, newyuanbao, reason)
 }
 func (u *GateUser) RemoveYuanbao(yuanbao int32, reason string, syn bool) bool {
-	if u.GetYuanbao() >= yuanbao {
-		u.yuanbao = u.GetYuanbao() - yuanbao
+	yuanbaosrc := u.GetYuanbao()
+	if yuanbaosrc >= yuanbao {
+		newyuanbao := yuanbaosrc - yuanbao
+		Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "yuanbao", newyuanbao)
 		if syn {
 			//send := &msg.GW2C_PushYuanBaoUpdate{Num: pb.Int32(u.GetYuanbao())}
 			//u.SendMsg(send)
 			u.SendPropertyChange()
 		}
-		log.Info("玩家[%d] 扣除元宝[%d] 库存[%d] 原因[%s]", u.Id(), yuanbao, u.GetYuanbao(), reason)
+		log.Info("玩家[%d] 扣除元宝[%d] 库存[%d] 原因[%s]", u.Id(), yuanbao, newyuanbao, reason)
 		RCounter().IncrByDate("item_remove", int32(msg.ItemId_YuanBao), yuanbao)
 		return true
 	}
-	log.Info("玩家[%d] 扣除元宝[%d]失败 库存[%d] 原因[%s]", u.Id(), yuanbao, u.GetYuanbao(), reason)
+	log.Info("玩家[%d] 扣除元宝[%d]失败 库存[%d] 原因[%s]", u.Id(), yuanbao, yuanbaosrc, reason)
 	return false
 }
 
 // 添加钻石
-func (u *GateUser) GetDiamond() int32 { return u.diamond }
+func (u *GateUser) GetDiamond() int32 {
+	diamond := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "diamond").Val())
+	return diamond
+}
 func (u *GateUser) AddDiamond(num int32, reason string, syn bool) {
-	u.diamond = u.GetDiamond() + num
-	//u.SynAddMidsMoney(int64(num), reason)
+	newdiamond := u.GetDiamond() + num
+	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "diamond", newdiamond)
 	if syn {
 		u.SendPropertyChange()
 	}
-	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "diamond", u.diamond)
-	log.Info("玩家[%d] 添加钻石[%d] 库存[%d] 原因[%s]", u.Id(), num, u.GetDiamond(), reason)
+	log.Info("玩家[%d] 添加钻石[%d] 库存[%d] 原因[%s]", u.Id(), num, newdiamond, reason)
 }
 func (u *GateUser) RemoveDiamond(num int32, reason string, syn bool) bool {
-	if u.GetDiamond() >= num {
-		u.diamond = u.GetDiamond() - num
-		//u.SynRemoveMidsMoney(int64(num), reason)
+	diamondsrc := u.GetDiamond()
+	if diamondsrc >= num {
+		newdiamond := diamondsrc - num
+		Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "diamond", newdiamond)
 		if syn {
 			u.SendPropertyChange()
 		}
-		log.Info("玩家[%d] 添加钻石[%d] 库存[%d] 原因[%s]", u.Id(), num, u.GetDiamond(), reason)
+		log.Info("玩家[%d] 添加钻石[%d] 库存[%d] 原因[%s]", u.Id(), num, newdiamond, reason)
 		RCounter().IncrByDate("item_remove", int32(msg.ItemId_Diamond), num)
-		Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "diamond", u.diamond)
 		return true
 	}
-	log.Info("玩家[%d] 添加钻石[%d]失败 库存[%d] 原因[%s]", u.Id(), num, u.GetDiamond(), reason)
+	log.Info("玩家[%d] 添加钻石[%d]失败 库存[%d] 原因[%s]", u.Id(), num, diamondsrc, reason)
 	return false
 }
 
@@ -541,17 +547,17 @@ func (u *GateUser) LuckyDraw() {
 func (u *GateUser) AddExp(num int32, reason string) {
 	old, exp := u.Level(), u.Exp()+num
 	for {
-		lvlbase, ok := tbl.LevelBasee.TLevelById[u.Level()]
+		lvlbase, ok := tbl.LevelBasee.ExpById[u.Level() + 1]
 		if ok == false {
 			break
 		}
 
 		// 下一级需要经验
-		if exp < int32(lvlbase.ExpNums) || lvlbase.ExpNums == 0 {
+		if exp < int32(lvlbase.Exp) || lvlbase.Exp == 0 {
 			break
 		}
 
-		exp = exp - int32(lvlbase.ExpNums)
+		exp = exp - int32(lvlbase.Exp)
 		u.OnLevelUp()
 	}
 	u.SetExp(exp)

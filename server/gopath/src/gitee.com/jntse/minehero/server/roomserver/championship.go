@@ -230,12 +230,12 @@ func (cs *ChampionShip) SetMemberOut(uid int64) {
 	member.isout = true
 	member.outtime = int32(util.CURTIME())
 	cs.curmembernum--
-	cs.UserGameOver(uid)
 	if room, ok := cs.roommember[member.roomuid]; ok {
 		delete(room, uid)
 		cs.SetMinRoom()
 	}
 	cs.finalrank = append(cs.finalrank, uid)
+	cs.UserGameOver(uid)
 	if cs.curmembernum == 1 {
 		for key, member := range cs.members {
 			if member.isout {

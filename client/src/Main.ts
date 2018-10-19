@@ -26,8 +26,6 @@ class Main extends eui.UILayer
             egret.TextField.default_fontFamily = 'Microsoft YaHei';
         }
         RES.setMaxLoadingThread(game.System.isMicro ? 8 : 4);
-        I18n.initSystem(PrefsManager.getValue(PrefsManager.Language), OperatePlatform.getLangs());
-        console.log("初始化语言");
         //注入自定义的素材解析器
         egret.registerImplementation("eui.IAssetAdapter", new AssetAdapter());
         egret.registerImplementation("eui.IThemeAdapter", new ThemeAdapter());
@@ -44,53 +42,12 @@ class Main extends eui.UILayer
         {
             await RES.loadConfig(PathName.Default_res_json, 'resource/');
         }
-        this.onConfigComplete();
-    }
-    /**
-     * 配置文件加载完成,开始预加载皮肤主题资源和preload资源组。
-     */
-    private async onConfigComplete()
-    {
-        if (I18n.isDefault)
-        {
-            this.loadAssetText();
-        }
-        else
-        {
-            if (DEBUG && false)
-            {
-                await RES.getResByUrl(PathName.LangDirectory + I18n.lang + AssetsSuffixName.JSON, this.onLangComplete, this);
-            }
-            else
-            {
-                let langName = ResPrefixPathName.Lang + I18n.lang + ResSuffixName.ZIP;
-                // langName = ResPrefixPathName.Lang + "zh-tw" + ResSuffixName.ZIP;
-                await RES.getResAsync(langName, this.onLangZipComplete, this);
-            }
-        }
-    }
-    private onLangComplete(data: any)
-    {
-        if (data)
-        {
-            I18n.initMap(data);
-        }
         this.loadAssetText();
-    }
-    private async onLangZipComplete(data: any)
-    {
-        JSZip.loadAsync(data).then(function (zip)
-        {
-            return zip.file(I18n.lang + ".json").async("text");
-        }).then(function (text)
-        {
-            this.onLangComplete(text);
-        });
     }
     private async loadAssetText()
     {
-        let name = I18n.isDefault ? ResGroupName.Text : ResGroupName.Text + game.StringConstants.UnderLine + I18n.lang;
-        await RES.loadGroup(name);
+        // let name = I18n.isDefault ? ResGroupName.Text : ResGroupName.Text + game.StringConstants.UnderLine + I18n.lang;
+        // await RES.loadGroup(name); //move todo
         await this.loadTheme();
         await RES.loadGroup(ResGroupName.Login);
         egret.ImageLoader.crossOrigin = "anonymous"; //本机跨域访问问题
