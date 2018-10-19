@@ -56,7 +56,7 @@ const (
 type TFPlayerBet struct {
 	pos int32		// 下注位置
 	num int32		// 下注数量
-	profit int32	// 利润，大于0盈利，小于0亏损
+	profit int32	// 池利润，大于0盈利，小于0亏损
 }
 func (b *TFPlayerBet) Pos() int32 { return b.pos }
 func (b *TFPlayerBet) Num() int32 { return b.num }
@@ -64,10 +64,10 @@ func (b *TFPlayerBet) Profit() int32 { return b.profit }
 func (b *TFPlayerBet) SetProfit(n int32) { b.profit = n }
 
 type TexasFightPlayer struct {
-	sysflag bool	// 系统庄家
-	owner *RoomUser	//
-	seat int32		// 坐下位置，0是庄家位置，-1表示站起没有位置
-	totalbet int32 	// 总下注额
+	sysflag bool		// 系统庄家
+	owner *RoomUser		// 系统庄家时为nil
+	seat int32			// 坐下位置，0是庄家位置，-1表示站起没有位置
+	totalbet int32 		// 总下注额
 	betlist	[kBetPoolNum]*TFPlayerBet	// 下注列表
 	bankerround int32	// 玩家坐庄轮数
 	totalprofit int32 	// 总利润,大于0盈利，小于0亏损
@@ -136,13 +136,19 @@ func (p *TexasFightPlayer) Settle(tf *TexasFightRoom) {
 	bankerpool := tf.betpool[0]			// 庄家池
 	for k, bet := range p.betlist {
 		if k == 0 { continue }
-		pool := tf.betpool[k]
+		pool, profit := tf.betpool[k], int32(0)
 		switch pool.Result() {
-			case kBetResultLose:	bet.SetProfit(bankerpool.WinOdds() * bet.Num() * -1)
-			case kBetResultWin:		bet.SetProfit(pool.WinOdds() * bet.Num())
-			case kBetResultTie:		bet.SetProfit(0)
+			case kBetResultLose:	profit = bankerpool.WinOdds() * bet.Num() * -1
+			case kBetResultWin:		profit = pool.WinOdds() * bet.Num()
+			case kBetResultTie:		profit = 0
 		}
-		p.totalprofit += bet.Profit()
+
+		// 扣税，计数利润
+		tax := float32(profit) * tf.tconf.TaxRate
+		tf.IncAwardPool(int32(tax))
+		profit -= int32(tax)
+		bet.SetProfit(profit)
+		p.totalprofit += profit
 
 		// TODO: 将押注筹码归还玩家，封装单独接口使用pipeline
 		p.owner.AddGold(bet.Num(), "押注归还", true)
@@ -345,6 +351,7 @@ func (tf *TexasFightRoom) Stat() int32 { return tf.stat }
 func (tf *TexasFightRoom) StatStartTime() int64 { return tf.statstart }
 func (tf *TexasFightRoom) IsStateTimeOut(now int64) bool { return now >= tf.stattimeout }
 func (tf *TexasFightRoom) AwardPoolSize() int32 { return tf.awardpoolsize }
+func (tf *TexasFightRoom) IncAwardPool(n int32) { tf.awardpoolsize += n }
 func (tf *TexasFightRoom) PlayersNum() int32 { return tf.MembersNum() }
 
 
