@@ -464,9 +464,9 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 	 */
 	public isOffline: boolean;
 	/**
-	 * 房间号
+	 * 房间号 (move 字段意义变成了所在的房间状态ID)
 	 */
-	public stateId: number;
+	public stateId: InsideRoomType;
 	/**
 	 * 房间id
 	 */

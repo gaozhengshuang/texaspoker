@@ -26,8 +26,8 @@ func (u *RoomUser) OnDestoryRoom() {
 
 // 离开房间
 func (u *RoomUser) OnLeaveRoom() {
-	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "roomtype", 0)
-	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "roomid", 0)
+	Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "roomtype", 0)
+	Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "roomid", 0)
 	if u.RoomNum() == 0  {
 		u.Logout()
 	}
@@ -46,18 +46,18 @@ func (u *RoomUser) OnEnterRoom(room IRoomBase) {
 	u.SetRoomId(room.Id())
 	Redis().Set(fmt.Sprintf("userinroom_%d", u.Id()), u.RoomId(), 0)
 	if room.Kind() == int32(msg.RoomKind_TexasPoker) {
-		if room.SubKind() == int32(msg.PlayingFieldType_Primary) || 
-		   room.SubKind() == int32(msg.PlayingFieldType_Middle) || 
-		   room.SubKind() == int32(msg.PlayingFieldType_High) {
-			Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "roomtype", 1)
-			Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "roomid", room.Id())
+		if 	room.SubKind() == int32(msg.PlayingFieldType_Primary) || 
+			room.SubKind() == int32(msg.PlayingFieldType_Middle) || 
+			room.SubKind() == int32(msg.PlayingFieldType_High) {
+			Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "roomtype", 1)
+			Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "roomid", room.Id())
 		} else if room.SubKind() == int32(msg.PlayingFieldType_Mtt) {
-			Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "roomtype", 3)
-			Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "roomid", room.Id())
+			Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "roomtype", 3)
+			Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "roomid", room.Id())
 		}
 	} else if room.Kind() == int32(msg.RoomKind_TexasFight) {
-		Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "roomtype", 2)
-		Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "roomid", room.Id())
+		Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "roomtype", 2)
+		Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "roomid", room.Id())
 	}
 	send := &msg.RS2GW_RetEnterRoom{
 		Userid:pb.Int64(u.Id()), 

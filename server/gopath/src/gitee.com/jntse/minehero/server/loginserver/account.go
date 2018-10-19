@@ -367,7 +367,7 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 			log.Error("新建账户%s失败，err: %s", account, errsetbin)
 			break
 		}
-		Redis().HSet(fmt.Sprintf("charbase_%d", userid), "createdtime", util.CURTIME())
+		Redis().HSet(fmt.Sprintf("charstate_%d", userid), "createdtime", util.CURTIME())
 		// 初始元宝和金卷
 		gold := int32(tbl.Global.NewUser.Gold)
 		Redis().HSet(fmt.Sprintf("charbase_%d", userid), "gold", gold)

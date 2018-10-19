@@ -391,12 +391,7 @@ class LoginScene extends BaseScene
         ChatManager.initialzie();
 
         // UIManager.closePanel(UIModuleName.LoginSceneBgPanel); //这里从逻辑上将，需要关闭，但是由于，这个将要切换到大厅场景还会显示loadingpanel，为了体验则不关闭了
-        if (InsideRoomManager.lastId)
-        {
-            this.enterGambling();
-            return;
-        }
-        let type: InsideRoomType = InsideRoomManager.lastInsideRoomType;
+        let type: InsideRoomType = UserManager.userInfo.stateId;
         switch (type)
         {
             case InsideRoomType.Game:
@@ -420,7 +415,7 @@ class LoginScene extends BaseScene
     private enterGambling()
     {
         GamblingManager.OnGetRoomInfoEvent.addListener(this.onGetRoomInfoResult, this);
-        game.Console.log("游戏初始化进入房间：reqGetRoomInfo");
+        game.Console.log("游戏初始化进入房间：reqGetRoomInfo,----InsideRoomManager.lastId", InsideRoomManager.lastId);
         GamblingManager.reqEnterRoom(InsideRoomManager.lastId, InsideRoomManager.lastPasswd);
     }
     private onGetRoomInfoResult()

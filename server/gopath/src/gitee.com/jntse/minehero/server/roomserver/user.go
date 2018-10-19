@@ -79,6 +79,7 @@ func (u *UserEntity) DBSave() {
 
 	pipe := Redis().Pipeline()
 	defer pipe.Close()
+	u.dirty = false
 
 	// charbase 部分基础数据
 	uid := u.roleid
@@ -219,12 +220,12 @@ func (u *RoomUser) SendPropertyChange() {
 func (u *RoomUser) AddLevel(num int32) {
 	u.entity.SetLevel(u.Level() + num)
 	u.OnAchieveProcessChanged(int32(AchieveGroup_Level))
-	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "level", u.Level())
+	//Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "level", u.Level())
 }
 
 func (u *RoomUser) SetExp(num int32) {
 	u.entity.SetExp(num)
-	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "exp", u.Exp())
+	//Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "exp", u.Exp())
 }
 
 // 添加经验
@@ -502,6 +503,53 @@ func (u *RoomUser) UpdateToken(t string) {
 	u.token = t
 }
 
+func (u *RoomUser) Level() int32 {
+	return u.Entity().GetLevel()
+}
+
+func (u *RoomUser) AddLevel(num int32) {
+	newlevel := u.Level() + num
+	u.Entity().Level = pb.Int32(int32(newlevel))
+	u.OnAchieveProcessChanged(int32(AchieveGroup_Level))
+	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "level", newlevel)
+}
+
+func (u *RoomUser) Exp() int32 {
+	return u.Entity().GetExp()
+}
+
+func (u *RoomUser) SetExp(num int32) {
+	u.Entity().Exp = pb.Int32(num)
+	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "exp", num)
+}
+
+// 添加经验
+func (u *RoomUser) AddExp(num int32, reason string, syn bool) {
+	old, exp := u.Level(), u.Exp()+num
+	for {
+		lvlbase, ok := tbl.LevelBasee.ExpById[u.Level() + 1]
+		if ok == false {
+			break
+		}
+
+		// 下一级需要经验
+		if exp < int32(lvlbase.Exp) || lvlbase.Exp == 0 {
+			break
+		}
+
+		exp = exp - int32(lvlbase.Exp)
+		u.OnLevelUp()
+	}
+	u.SetExp(exp)
+	//if syn == true { u.SendBattleUser() }
+	u.SyncLevelRankRedis()
+	log.Info("玩家[%d] 添加经验[%d] 老等级[%d] 新等级[%d] 经验[%d] 原因[%s]", u.Id(), num, old, u.Level(), u.Exp(), reason)
+}
+
+// 升级
+func (u *RoomUser) OnLevelUp() {
+	u.AddLevel(1)
+}
 
 // 打包二进制数据
 func (u *RoomUser) PackBin() *msg.Serialize {
