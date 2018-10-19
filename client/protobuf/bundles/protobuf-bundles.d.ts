@@ -14404,17 +14404,8 @@ declare namespace msg {
         /** MailDetail id */
         id?: (number|Long|null);
 
-        /** MailDetail type */
-        type?: (number|null);
-
-        /** MailDetail content */
-        content?: (string|null);
-
-        /** MailDetail title */
-        title?: (string|null);
-
-        /** MailDetail subtype */
-        subtype?: (number|null);
+        /** MailDetail tid */
+        tid?: (number|null);
 
         /** MailDetail date */
         date?: (number|Long|null);
@@ -14433,6 +14424,15 @@ declare namespace msg {
 
         /** MailDetail items */
         items?: (msg.IMailItem[]|null);
+
+        /** MailDetail mtttid */
+        mtttid?: (number|null);
+
+        /** MailDetail mttrank */
+        mttrank?: (number|null);
+
+        /** MailDetail mttawardtid */
+        mttawardtid?: (number|null);
     }
 
     /** Represents a MailDetail. */
@@ -14447,17 +14447,8 @@ declare namespace msg {
         /** MailDetail id. */
         public id: (number|Long);
 
-        /** MailDetail type. */
-        public type: number;
-
-        /** MailDetail content. */
-        public content: string;
-
-        /** MailDetail title. */
-        public title: string;
-
-        /** MailDetail subtype. */
-        public subtype: number;
+        /** MailDetail tid. */
+        public tid: number;
 
         /** MailDetail date. */
         public date: (number|Long);
@@ -14476,6 +14467,15 @@ declare namespace msg {
 
         /** MailDetail items. */
         public items: msg.IMailItem[];
+
+        /** MailDetail mtttid. */
+        public mtttid: number;
+
+        /** MailDetail mttrank. */
+        public mttrank: number;
+
+        /** MailDetail mttawardtid. */
+        public mttawardtid: number;
 
         /**
          * Creates a new MailDetail instance using the specified properties.
@@ -34774,8 +34774,8 @@ declare namespace table {
     /** Properties of a LevelBasee. */
     interface ILevelBasee {
 
-        /** LevelBasee TLevel */
-        TLevel?: (table.ITLevelDefine[]|null);
+        /** LevelBasee Exp */
+        Exp?: (table.IExpDefine[]|null);
     }
 
     /** Represents a LevelBasee. */
@@ -34787,8 +34787,8 @@ declare namespace table {
          */
         constructor(properties?: table.ILevelBasee);
 
-        /** LevelBasee TLevel. */
-        public TLevel: table.ITLevelDefine[];
+        /** LevelBasee Exp. */
+        public Exp: table.IExpDefine[];
 
         /**
          * Creates a new LevelBasee instance using the specified properties.
@@ -34861,103 +34861,109 @@ declare namespace table {
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a TLevelDefine. */
-    interface ITLevelDefine {
+    /** Properties of an ExpDefine. */
+    interface IExpDefine {
 
-        /** TLevelDefine Id */
+        /** ExpDefine Id */
         Id?: (number|null);
 
-        /** TLevelDefine ExpNums */
-        ExpNums?: (number|null);
+        /** ExpDefine Level */
+        Level?: (number|null);
 
-        /** TLevelDefine Reward */
-        Reward?: (number|null);
+        /** ExpDefine Exp */
+        Exp?: (number|null);
+
+        /** ExpDefine Title */
+        Title?: (string|null);
     }
 
-    /** Represents a TLevelDefine. */
-    class TLevelDefine implements ITLevelDefine {
+    /** Represents an ExpDefine. */
+    class ExpDefine implements IExpDefine {
 
         /**
-         * Constructs a new TLevelDefine.
+         * Constructs a new ExpDefine.
          * @param [properties] Properties to set
          */
-        constructor(properties?: table.ITLevelDefine);
+        constructor(properties?: table.IExpDefine);
 
-        /** TLevelDefine Id. */
+        /** ExpDefine Id. */
         public Id: number;
 
-        /** TLevelDefine ExpNums. */
-        public ExpNums: number;
+        /** ExpDefine Level. */
+        public Level: number;
 
-        /** TLevelDefine Reward. */
-        public Reward: number;
+        /** ExpDefine Exp. */
+        public Exp: number;
+
+        /** ExpDefine Title. */
+        public Title: string;
 
         /**
-         * Creates a new TLevelDefine instance using the specified properties.
+         * Creates a new ExpDefine instance using the specified properties.
          * @param [properties] Properties to set
-         * @returns TLevelDefine instance
+         * @returns ExpDefine instance
          */
-        public static create(properties?: table.ITLevelDefine): table.TLevelDefine;
+        public static create(properties?: table.IExpDefine): table.ExpDefine;
 
         /**
-         * Encodes the specified TLevelDefine message. Does not implicitly {@link table.TLevelDefine.verify|verify} messages.
-         * @param message TLevelDefine message or plain object to encode
+         * Encodes the specified ExpDefine message. Does not implicitly {@link table.ExpDefine.verify|verify} messages.
+         * @param message ExpDefine message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: table.ITLevelDefine, writer?: protobuf.Writer): protobuf.Writer;
+        public static encode(message: table.IExpDefine, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Encodes the specified TLevelDefine message, length delimited. Does not implicitly {@link table.TLevelDefine.verify|verify} messages.
-         * @param message TLevelDefine message or plain object to encode
+         * Encodes the specified ExpDefine message, length delimited. Does not implicitly {@link table.ExpDefine.verify|verify} messages.
+         * @param message ExpDefine message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: table.ITLevelDefine, writer?: protobuf.Writer): protobuf.Writer;
+        public static encodeDelimited(message: table.IExpDefine, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Decodes a TLevelDefine message from the specified reader or buffer.
+         * Decodes an ExpDefine message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns TLevelDefine
+         * @returns ExpDefine
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TLevelDefine;
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.ExpDefine;
 
         /**
-         * Decodes a TLevelDefine message from the specified reader or buffer, length delimited.
+         * Decodes an ExpDefine message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns TLevelDefine
+         * @returns ExpDefine
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TLevelDefine;
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.ExpDefine;
 
         /**
-         * Verifies a TLevelDefine message.
+         * Verifies an ExpDefine message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a TLevelDefine message from a plain object. Also converts values to their respective internal types.
+         * Creates an ExpDefine message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns TLevelDefine
+         * @returns ExpDefine
          */
-        public static fromObject(object: { [k: string]: any }): table.TLevelDefine;
+        public static fromObject(object: { [k: string]: any }): table.ExpDefine;
 
         /**
-         * Creates a plain object from a TLevelDefine message. Also converts values to other types if specified.
-         * @param message TLevelDefine
+         * Creates a plain object from an ExpDefine message. Also converts values to other types if specified.
+         * @param message ExpDefine
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: table.TLevelDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: table.ExpDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this TLevelDefine to JSON.
+         * Converts this ExpDefine to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };

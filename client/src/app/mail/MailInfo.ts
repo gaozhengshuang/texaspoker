@@ -1,3 +1,6 @@
+/**
+ * 邮件信息
+ */
 class MailInfo extends BaseServerValueInfo
 {
     public reset()
@@ -6,7 +9,7 @@ class MailInfo extends BaseServerValueInfo
         this.IsRead = false;
         this.Type = 0;
         this.Title = game.StringConstants.Empty;
-        this.SubType = 0;
+        // this.SubType = 0;
         this.Content = game.StringConstants.Empty;
         this.Sender = game.StringConstants.Empty;
         this.SenderId = 0;
@@ -33,7 +36,7 @@ class MailInfo extends BaseServerValueInfo
     /**
      * 当type为0的时候的子类型，如果有这个值，则不传递Title
      */
-    public SubType: number;
+    // public SubType: number;
     /**
      * 邮件内容
      */
@@ -58,6 +61,21 @@ class MailInfo extends BaseServerValueInfo
      * 是否领取
      */
     public IsGot: boolean;
+
+    //---------------锦标赛邮件字段---------------
+    /**
+     * 锦标赛表id
+     */
+    public mtttid:number;
+    /**
+     * 锦标赛排名
+     */
+    public mttrank:number;
+    /**
+     * 锦标赛奖励award表id
+     */
+    public mttawardtid:number;
+
     /**
     * 是否有附件
     */
