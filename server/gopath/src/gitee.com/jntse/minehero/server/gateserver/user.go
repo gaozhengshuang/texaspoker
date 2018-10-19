@@ -349,6 +349,8 @@ func (u *GateUser) SendUserBase() {
 	send.Entity.Diamond = pb.Int32(u.GetDiamond())
 	send.Entity.Yuanbao = pb.Int32(u.GetYuanbao())
 	send.Base = pb.Clone(base).(*msg.UserBase)
+	u.FillUserStatistics(send.Base.Statics)
+
 	send.Item = pb.Clone(item).(*msg.ItemBin)
 	u.SendMsg(send)
 }
@@ -775,5 +777,4 @@ func (u *GateUser) OnlineTaskCheck() {
 func (u *GateUser) PackAutoResetValues(bin *msg.Serialize) {
 	u.bin.Base.Arvalues = u.arvalues.PackBin()
 }
-
 

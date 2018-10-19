@@ -147,7 +147,7 @@ func (u *RoomUser) GetAchieveGroupIdByHand(hand int32) int32 {
 	return 0
 }
 
-func (u *RoomUser) OnAchievePlayPoker (kind, subkind int32) {
+func (u *RoomUser) OnAchievePlayPoker (kind int32, subkind int32, hand *Hand) {
 	if subkind == int32(msg.PlayingFieldType_Primary) {
 		u.OnAchieveProcessChanged(int32(AchieveGroup_TexasPlay1))
 		Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "gametimes", 1)
@@ -162,6 +162,26 @@ func (u *RoomUser) OnAchievePlayPoker (kind, subkind int32) {
 		Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "gametimes2", 1)
 	}
 
+	handlevel := hand.level
+	handfinalvalue := hand.finalvalue
+	//弃牌不记录弃牌是负值
+	handpower := int64(handlevel) << 32 + int64(handfinalvalue)
+	oldpower := util.Atol(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "handpower").Val())
+	if handpower > oldpower {
+		Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "handpower", handpower)
+		tmp := hand.ToAllCard()
+		strmaxcard := ""
+		i := 0
+		for i < len(tmp) {
+			if i == 0 {
+				strmaxcard = util.Itoa(tmp[i])
+			}else {
+				strmaxcard = strmaxcard + "|" + util.Itoa(tmp[i])
+			}
+			i = i + 1 
+		}
+		Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "maxhand", strmaxcard)
+	}
 }
 
 func (u *RoomUser) OnAchieveProcessChanged(group int32) {

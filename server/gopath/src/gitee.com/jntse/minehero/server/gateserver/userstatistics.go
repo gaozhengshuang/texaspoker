@@ -3,6 +3,9 @@ package main
 import (
 	"gitee.com/jntse/minehero/pbmsg"
 	pb "github.com/gogo/protobuf/proto"
+	"gitee.com/jntse/gotoolkit/util"
+	"fmt"
+	"strings"
 )
 
 type UserStatistics struct {
@@ -104,4 +107,53 @@ func (this *GateUser) TotalRecharge() int32 {
 
 func (this *GateUser) SetTotalRecharge(r int32) {
 	this.statistics.totalrecharge = r
+}
+
+func (u *GateUser) FillUserStatistics(bin *msg.UserStatistics) {
+	cmdmap, err := Redis().HGetAll(fmt.Sprintf("charbase_%d", u.Id())).Result()
+	if err == nil {
+		for k, v := range cmdmap {
+			switch k {
+				case "maxgold":
+					bin.Maxgold = pb.Int32(util.Atoi(v))
+				case "maxgoldonetimes":
+					bin.Maxgoldonetimes = pb.Int32(util.Atoi(v))
+				case "friendnum":
+					bin.Friendnum = pb.Int32(util.Atoi(v))
+				case "gametimes":
+					bin.Gametimes = pb.Int32(util.Atoi(v))
+				case "wintimes":
+					bin.Wintimes = pb.Int32(util.Atoi(v))
+				case "gametimes2":
+					bin.Gametimes2 = pb.Int32(util.Atoi(v))
+				case "wintimes2":
+					bin.Wintimes2 = pb.Int32(util.Atoi(v))
+				case "championtimes":
+					bin.Championtimes = pb.Int32(util.Atoi(v))
+				case "mttjointimes":
+					bin.Mttjointimes = pb.Int32(util.Atoi(v))
+				case "createdtime":
+					bin.Createdtime = pb.Int64(util.Atol(v))
+				case "roomtype":
+					bin.Stateid = pb.Int32(util.Atoi(v))
+				case "roomid":
+					bin.Stateconfid = pb.Int32(util.Atoi(v))
+				case "entrytimes":
+					bin.Entrytimes = pb.Int32(util.Atoi(v))
+				case "entrytimes2":	
+					bin.Entrytimes2 = pb.Int32(util.Atoi(v))
+				case "showdowntimes": 
+					bin.Showdowntimes = pb.Int32(util.Atoi(v))
+				case "showdowntimes2": 
+					bin.Showdowntimes2 = pb.Int32(util.Atoi(v))
+				case "maxhand":
+					maxhandstr := strings.Split(v, "|")
+					for _, m := range maxhandstr {
+						bin.Maxhand = append(bin.Maxhand, util.Atoi(m))
+					}
+				default:
+
+			}
+		}
+	}
 }
