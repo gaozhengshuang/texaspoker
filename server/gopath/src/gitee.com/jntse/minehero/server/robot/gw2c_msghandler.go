@@ -76,6 +76,27 @@ func (mh* GW2CMsgHandler) Init() {
 	//mh.msgparser.RegistProtoMsg(msg.GW2C_PushFriendInvitation{}, on_GW2C_PushFriendInvitation)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_PushFriendInvitation{}, on_GW2C_PushFriendInvitation)
 
+	// 百人大战
+	mh.msgparser.RegistProtoMsg(msg.GW2C_RetTFRoomList{}, on_GW2C_PushFriendInvitation)
+	//mh.msgparser.RegistProtoMsg(msg.GW2C_RetEnterTFRoom{}, )
+	//mh.msgparser.RegistProtoMsg(msg.RS2C_RetTexasFightBet{}, )
+	//mh.msgparser.RegistProtoMsg(msg.RS2C_RetTFLastAwardPoolHit{}, )
+	//mh.msgparser.RegistProtoMsg(msg.RS2C_RetTFStandPlayer{}, )
+	//mh.msgparser.RegistProtoMsg(msg.RS2C_RetWinLoseTrend{}, )
+	//mh.msgparser.RegistProtoMsg(msg.RS2C_RetTFBankerList{}, )
+	//mh.msgparser.RegistProtoMsg(msg.RS2C_RetTFBecomeBanker{}, )
+	//mh.msgparser.RegistProtoMsg(msg.RS2C_RetTFQuitBanker{}, )
+	//mh.msgparser.RegistProtoMsg(msg.RS2C_RetTFSitDown{}, )
+	//mh.msgparser.RegistProtoMsg(msg.RS2C_ReqTFStandUp{}, )
+	//mh.msgparser.RegistProtoMsg(msg.RS2C_RetTFLeave{}, )
+	//mh.msgparser.RegistProtoMsg(msg.RS2C_RetTFStart{}, )
+	//mh.msgparser.RegistProtoMsg(msg.RS2C_PushBetPoolChange{}, )
+	//mh.msgparser.RegistProtoMsg(msg.RS2C_PushTFRoundOver{}, )
+	//mh.msgparser.RegistProtoMsg(msg.RS2C_PushTFStateChange{}, )
+	//mh.msgparser.RegistProtoMsg(msg.RS2C_PushTFPosChange{}, )
+	//mh.msgparser.RegistProtoMsg(msg.RS2C_PushTFPlayerKickOut{}, )
+
+
 
 	// 收room消息
 	//mh.msgparser.RegistProtoMsg(msg.BT_GameInit{}, on_BT_GameInit)

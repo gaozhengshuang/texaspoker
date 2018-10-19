@@ -40,6 +40,13 @@ const (
 	kStatBetting = 1		// 下注阶段
 )
 
+// 胜负平枚举
+const (
+	kBetLose = 0
+	kBetWin = 1
+	kBetTie = 2
+)
+
 
 // --------------------------------------------------------------------------
 /// @brief 百人大战玩家
@@ -155,6 +162,14 @@ func (p *TexasFightPlayer) FillPlayerInfo() *msg.TFPlayer {
 	return info
 }
 
+func (p *TexasFightPlayer) FillRankPlayerInfo() *msg.TFRankPlayer {
+	info := &msg.TFRankPlayer{}
+	info.Roleid = pb.Int64(p.Id())
+	info.Name = pb.String(p.Name())
+	info.Head = pb.String(p.Head())
+	info.Sex = pb.Int32(p.Sex())
+	return info
+}
 
 // --------------------------------------------------------------------------
 /// @brief 百人大战下注池
@@ -254,6 +269,30 @@ type AwardPoolHitRecord struct {
 	players []*msg.TFPlayer		//TODO: 可优化，人数很多时数据块可能会很大
 }
 
+func (a *AwardPoolHitRecord) Init() {
+	a.cards = [kHandCardNum]*Card{}
+	a.players = make([]*msg.TFPlayer, 0)
+}
+
+
+// 胜负走势记录
+type WinLoseRecord struct {
+	results [4]int32		// 下注池胜负结果 0负， 1胜，2平
+}
+
+func (w *WinLoseRecord) Init() {
+	w.results = [4]int32{}
+}
+
+func (w *WinLoseRecord) FillWinLoseTrend() *msg.TFWinLoseTrend {
+	info := &msg.TFWinLoseTrend{}
+	info.P1 = pb.Int32(w.results[0])
+	info.P2 = pb.Int32(w.results[1])
+	info.P3 = pb.Int32(w.results[2])
+	info.P4 = pb.Int32(w.results[3])
+	return info
+}
+
 
 // --------------------------------------------------------------------------
 /// @brief 百人大战核心逻辑
@@ -281,6 +320,7 @@ type TexasFightRoom struct {
 	cards [kMaxCardNum]*Card			// 52张牌
 	betstat BetPoolTempStat				// 下注池临时统计
 	poolhit AwardPoolHitRecord			// 奖池命中记录
+	winloserecord []*WinLoseRecord		// 胜负走势列表
 }
 
 func (tf *TexasFightRoom) Stat() int32 { return tf.stat }
@@ -323,6 +363,8 @@ func (tf *TexasFightRoom) Init() string {
 
 	tf.awardpoolsize = 0
 	tf.betstat.Init(tconf.Seat+1)	// +1 庄家位
+	tf.poolhit.Init()
+	tf.winloserecord = make([]*WinLoseRecord, 0)
 
 
 	// 初始下注池

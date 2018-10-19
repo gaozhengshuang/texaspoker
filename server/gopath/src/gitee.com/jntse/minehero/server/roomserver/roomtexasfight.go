@@ -129,11 +129,16 @@ func (tf *TexasFightRoom) ChangeToWaitNextRoundStat(now int64) {
 	tf.stat = kStatWaitNextRound
 	tf.statstart = now
 	tf.stattimeout = now + int64(tf.tconf.TimeOut) * 1000
+
+	// 发牌
 	tf.CardDeal()
 
 	// 房间状态变更推送
 	statmsg := &msg.RS2C_PushTFStateChange{State:pb.Int32(tf.stat), Statetime:pb.Int64(tf.stattimeout)}
 	tf.BroadCastMemberMsg(statmsg)
+
+	// 回合结算
+	tf.RoundSettle()
 
 	//
 	log.Info("[百人大战] 房间[%d] 切换到等待下一局状态", tf.Id())
@@ -168,6 +173,17 @@ func (tf *TexasFightRoom) ChangeToBettingStat(now int64) {
 
 	//
 	log.Info("[百人大战] 房间[%d] 切换到下注状态", tf.Id())
+}
+
+
+// 回合结算
+func (tf *TexasFightRoom) RoundSettle() {
+	roundmsg := &msg.RS2C_PushTFRoundOver{Betlist:make([]*msg.TFBetPool,0), Ranklist:make([]*msg.TFRankPlayer,0)}
+	roundmsg.Gold = pb.Int32(0)
+	roundmsg.Pool = pb.Int32(0)
+	roundmsg.Bankergold = pb.Int32(0)
+	roundmsg.Iswin = pb.Bool(false)
+	tf.BroadCastMemberMsg(roundmsg)
 }
 
 
@@ -363,8 +379,9 @@ func (tf *TexasFightRoom) SendBankerList(u *RoomUser) {
 // 拉取胜负走势列表
 func (tf *TexasFightRoom) SendWinLoseTrend(u *RoomUser) {
 	send := &msg.RS2C_RetWinLoseTrend{Trendlist:make([]*msg.TFWinLoseTrend, 0)}
-	info := &msg.TFWinLoseTrend{}
-	send.Trendlist = append(send.Trendlist, info)
+	for _, record := range tf.winloserecord {
+		send.Trendlist = append(send.Trendlist, record.FillWinLoseTrend())
+	}
 	u.SendClientMsg(send)
 }
 
