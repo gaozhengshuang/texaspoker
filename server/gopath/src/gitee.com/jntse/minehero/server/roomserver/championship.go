@@ -545,7 +545,23 @@ func (cs *ChampionShip) GameOver() {
 	log.Info("锦标赛%d 结束", cs.uid)
 }
 
+func (cs *ChampionShip) GetAwardByRank (rank int32) int32 {
+	for _, v := range tbl.TChampionshipPrize.ChampionshipPrizeById {
+		if cs.tconf.Prize == v.PrizeId && v.Start >= rank && rank <= v.End {
+			return v.Id
+		}
+	}
+	return 0	
+}
+
 func (cs *ChampionShip) RewardAll() {
+	var rank int32 = 1
+	for i := len(cs.finalrank)-1; i >= 0; i-- {
+		detail := def.MakeMTTMail(Redis(), cs.finalrank[i], cs.tid, rank, cs.GetAwardByRank(rank))
+		transmsg := &msg.RS2MS_PushNewMail{Receiver:pb.Int64(cs.finalrank[i]), Mail:detail}
+		Match().SendCmd(transmsg)
+		rank++
+	}
 }
 
 func (cs *ChampionShip) DestoryRoom() {

@@ -20,16 +20,16 @@ message MailItem {
 
 message MailDetail {
     optional int64 id = 1;          // 邮件uuid
-    optional int32 type = 2;        // 邮件类型
-    optional string content = 3;    // 内容
-    optional string title = 4;      // 标题
-    optional int32 subtype = 5;     // 子类型
-    optional int64 date = 6;        // 邮件创建日期
-    optional string sender = 7;     // 发件人
-    optional int64 senderid = 8;    // 发件人id
-    optional bool isread = 10;      // 已读标记
-    optional bool isgot = 11;       // 附件领取标记
-    repeated MailItem items = 9;    // 附件列表
+    optional int32 tid = 2;        // 邮件表id
+    optional int64 date = 3;        // 邮件创建日期
+    optional string sender = 4;     // 发件人
+    optional int64 senderid = 5;    // 发件人id
+    optional bool isread = 6;      // 已读标记
+    optional bool isgot = 7;       // 附件领取标记
+    repeated MailItem items = 8;    // 附件列表
+    optional int32 mtttid = 9;      //锦标赛表id
+    optional int32 mttrank = 10;    //锦标赛排名
+    optional int32 mttawardtid = 11;   //锦标赛奖励award表id
 }
 
 // 请求邮件列表
