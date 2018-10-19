@@ -374,7 +374,6 @@ func (tf *TexasFightRoom) UserEnter(u *RoomUser) {
 	}
 
 	// 执行玩家进房间事件
-	u.OnPreEnterRoom()
 	u.OnEnterRoom(tf)
 
 	//

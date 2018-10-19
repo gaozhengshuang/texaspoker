@@ -455,6 +455,7 @@ func SaveUserSimpleInfo(bin *msg.Serialize) {
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "level",	bin.Entity.GetLevel())
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "exp", bin.Entity.GetExp())
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "sign", "")
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "age", 0)
 	//pipe.HSet(fmt.Sprintf("charbase_%d", uid), "diamond", bin.Entity.GetDiamond())
 	//pipe.HSet(fmt.Sprintf("charbase_%d", uid), "gold",	bin.Entity.GetGold())
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "viplevel",  0)

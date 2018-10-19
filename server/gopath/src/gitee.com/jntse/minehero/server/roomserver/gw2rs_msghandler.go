@@ -113,9 +113,7 @@ func on_GW2RS_UserOnline(session network.IBaseNetSession, message interface{}) {
 		return
 	}
 
-	if session.Id() != u.AgentId() {
-		u.UpdateGateAgent(session)
-	}
+	u.CheckUpdateGateAgent(session)
 }
 
 
@@ -173,11 +171,8 @@ func on_C2GW_ReqEnterRoom(session network.IBaseNetSession, message interface{}) 
 		log.Error("玩家[%d] 请求进入房间[%d]，但密码不正确", userid, roomid)
 		return
 	}
-	u.SetRoomId(roomid)
-	u.OnPreEnterRoom()
-	if session.Id() != u.AgentId() {
-		u.UpdateGateAgent(session)
-	}
+
+	u.CheckUpdateGateAgent(session)
 	room.UserEnter(u)
 }
 
@@ -230,16 +225,16 @@ func on_C2GW_ReqEnterTFRoom(session network.IBaseNetSession, message interface{}
 }
 
 func on_C2GW_PlatformRechargeDone(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_PlatformRechargeDone)
-	u := UserMgr().FindUser(tmsg.GetUserid())
-	if u == nil { 
-		log.Error("C2GW_PlatformRechargeDone 玩家[%d]没有在Room中", tmsg.GetUserid())
-		return 
-	}
+	//tmsg := message.(*msg.C2GW_PlatformRechargeDone)
+	//u := UserMgr().FindUser(tmsg.GetUserid())
+	//if u == nil { 
+	//	log.Error("C2GW_PlatformRechargeDone 玩家[%d]没有在Room中", tmsg.GetUserid())
+	//	return 
+	//}
 
-	//
-	u.synbalance = true
-	u.SynMidasBalance()
+	////
+	//u.synbalance = true
+	//u.SynMidasBalance()
 }
 
 // 钻石兑换金币

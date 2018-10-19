@@ -6,19 +6,6 @@ import (
 	"gitee.com/jntse/minehero/pbmsg"
 )
 
-func (u *RoomUser) Login() {
-}
-
-func (u *RoomUser) Logout() {
-	if len(u.roomlist) != 0 {
-		return
-	}
-	u.ticker1s.Stop()
-	u.ticker10ms.Stop()
-	u.asynev.Shutdown()
-	UserMgr().DelUser(u)
-}
-
 // 游戏开始
 func (u *RoomUser) OnGameStart() {
 }
@@ -28,7 +15,9 @@ func (u *RoomUser) OnGameOver() {
 }
 
 func (u *RoomUser) OnDestoryRoom() {
-	u.Logout()
+	if u.RoomNum() == 0  {
+		u.Logout()
+	}
 	Redis().Del(fmt.Sprintf("userinroom_%d", u.Id()))
 	msgdestory := &msg.RS2GW_PushRoomDestory{Roomid:pb.Int64(u.RoomId()), Userid:pb.Int64(u.Id())}
 	u.SendMsg(msgdestory)
@@ -39,7 +28,9 @@ func (u *RoomUser) OnDestoryRoom() {
 func (u *RoomUser) OnLeaveRoom() {
 	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "roomtype", 0)
 	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "roomid", 0)
-	u.Logout()
+	if u.RoomNum() == 0  {
+		u.Logout()
+	}
 	Redis().Del(fmt.Sprintf("userinroom_%d", u.Id()))
 	msgleave := &msg.RS2GW_UserLeaveRoom{Userid:pb.Int64(u.Id())}
 	u.SendMsg(msgleave)
@@ -48,13 +39,16 @@ func (u *RoomUser) OnLeaveRoom() {
 
 // 进房间之前
 func (u *RoomUser) OnPreEnterRoom() {
-	Redis().Set(fmt.Sprintf("userinroom_%d", u.Id()), u.RoomId(), 0)
 }
 
 // 进入房间
 func (u *RoomUser) OnEnterRoom(room IRoomBase) {
+	u.SetRoomId(room.Id())
+	Redis().Set(fmt.Sprintf("userinroom_%d", u.Id()), u.RoomId(), 0)
 	if room.Kind() == int32(msg.RoomKind_TexasPoker) {
-		if room.SubKind() == int32(msg.PlayingFieldType_Primary) || room.SubKind() == int32(msg.PlayingFieldType_Middle) || room.SubKind() == int32(msg.PlayingFieldType_High) {
+		if room.SubKind() == int32(msg.PlayingFieldType_Primary) || 
+		   room.SubKind() == int32(msg.PlayingFieldType_Middle) || 
+		   room.SubKind() == int32(msg.PlayingFieldType_High) {
 			Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "roomtype", 1)
 			Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "roomid", room.Id())
 		} else if room.SubKind() == int32(msg.PlayingFieldType_Mtt) {
