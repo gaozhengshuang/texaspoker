@@ -300,8 +300,9 @@ class GameHallPanel extends BasePanel
 				break;
 			case this.hundredBattle:
 				SoundManager.playButtonEffect(event.target);
-				this._panelAnime.setOutAnime();
-				JumpUtil.JumpToHundredWar();
+				AlertManager.showAlertByString("暂未开启"); //move todo
+				// this._panelAnime.setOutAnime();
+				// JumpUtil.JumpToHundredWar();
 				break;
 			case this.signBtn:
 				SoundManager.playEffect(MusicAction.buttonClick);

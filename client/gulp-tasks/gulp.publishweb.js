@@ -34,7 +34,7 @@ let sthList = [
 //发布 合并js 压缩js 版本控制
 Gulp.task('publish', function (cb) {
     // gulpSequence('concat', 'zip-js', 'version', cb);
-    gulpSequence('replace-lang', 'concat', 'zip-js', 'version', cb);
+    gulpSequence('concat','replace-lang', 'zip-js', 'version', cb);
 });
 //copy一些引擎不copy的文件
 Gulp.task('copy', function (cb) {
@@ -237,6 +237,8 @@ Gulp.task('replace-lang', function (cb) {
                             key = key.replace('}', "\\}");
                             reg = new RegExp('"' + key + '"', "g");
                             outData = outData.replace(reg, "I18n.getText(" + '"' + initKey + '"' + ")");
+                            reg = new RegExp("returnI18n","g");
+                            outData = outData.replace(reg, "return I18n");
                         } catch (e) {
                             console.log(e);
                         }

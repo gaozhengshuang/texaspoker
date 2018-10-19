@@ -111,6 +111,8 @@ class Channel_web extends ChannelBase
 	}
 	public PaySend(payState: number, awardId: number, serverId: number, orderId: string, price: number, productName: string)
 	{
+		AwardManager.Exchange(awardId, 1, false);//直接兑换 move todo
+		return;
 		if (VersionManager.isServerTest && (ChannelManager.loginType == ChannelLoginType.Account || ChannelManager.loginType == ChannelLoginType.IntranetAccount))
 		{
 			AwardManager.Exchange(awardId, 1, false);//直接兑换
