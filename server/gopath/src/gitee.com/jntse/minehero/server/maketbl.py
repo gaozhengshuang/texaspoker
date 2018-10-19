@@ -206,7 +206,7 @@ gen.maketbl_excel('ShopBase', 'shopbase', 'TShop.xlsx')
 #gen.maketbl_excel('SignBase', 'signbase', 'TSign.xlsx')
 gen.maketbl_excel('RechargeBase', 'recharge', 'TRecharge.xlsx')
 gen.maketbl_excel('NoticeBase', 'noticebase', 'TNotice.xlsx')
-gen.maketbl_excel('LevelBasee', 'levelbase', 'TLevel.xlsx')
+gen.maketbl_excel('LevelBasee', 'levelbase', 'TExp.xlsx')
 gen.maketbl_excel('NameBase', 'namebase', 'TName.xlsx')
 
 gen.maketbl_excel('TBallGiftbase', 'ballgiftbase', 'TBallGift.xlsx')
