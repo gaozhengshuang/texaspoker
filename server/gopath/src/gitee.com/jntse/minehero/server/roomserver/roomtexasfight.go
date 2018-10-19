@@ -218,6 +218,15 @@ func (tf *TexasFightRoom) RequestBet(u *RoomUser, pos int32, num int32) {
 		return
 	}
 
+	bfind := false
+	for _, bet := range tf.tconf.Bet {
+		if bet == num { bfind = true }
+	}
+	if bfind == false {
+		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 请求下注失败，无效的注码")
+		return
+	}
+
 	// 下注的总金额不得大于身上携带金额的七分之一
 	betlimit, bettotal := u.GetGold() / 7, player.TotalBet() + num
 	if bettotal > betlimit {
