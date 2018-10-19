@@ -8,6 +8,10 @@ message C2GW_ReqSendMessage
     optional int32 type = 2;
 }
 
+message GW2C_RetSendMessage
+{
+}
+
 //推送聊天消息
 message GW2C_PushMessage
 {

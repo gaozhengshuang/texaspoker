@@ -786,17 +786,15 @@ func (u *GateUser) PackAutoResetValues(bin *msg.Serialize) {
 func (u *GateUser) SendChat(rev *msg.C2GW_ReqSendMessage) {
 	if rev.GetType() == ChatRoom {
 		sid := GetRoomSid(u.RoomId())
-		if sid == 0 {
-			log.Error("[房间] 玩家[%s %d]请求进入的房间[%d]已经销毁", u.Name(), u.Id(), u.RoomId())
-			return
+		if sid != 0 {
+			send := &msg.GW2RS_ChatInfo{}
+			send.Uid = pb.Int64(u.Id())
+			send.Name = pb.String(u.Name())
+			send.Txt = pb.String(rev.GetTxt())
+			send.Type = pb.Int32(rev.GetType())
+			send.Roomid = pb.Int64(u.RoomId())
+			RoomSvrMgr().SendMsg(sid, send)
 		}
-		send := &msg.GW2RS_ChatInfo{}
-		send.Uid = pb.Int64(u.Id())
-		send.Name = pb.String(u.Name())
-		send.Txt = pb.String(rev.GetTxt())
-		send.Type = pb.Int32(rev.GetType())
-		send.Roomid = pb.Int64(u.RoomId())
-		RoomSvrMgr().SendMsg(sid, send)
 	} else if rev.GetType() == ChatAll {
 		send := &msg.GW2MS_ChatInfo{}
 		send.Uid = pb.Int64(u.Id())
@@ -804,6 +802,8 @@ func (u *GateUser) SendChat(rev *msg.C2GW_ReqSendMessage) {
 		send.Txt = pb.String(rev.GetTxt())
 		Match().SendCmd(send)
 	}
+	send := &msg.GW2C_RetSendMessage{}
+	u.SendMsg(send)
 }
 
 
