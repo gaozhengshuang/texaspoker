@@ -15106,6 +15106,102 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a RS2MS_PushNewMail. */
+    interface IRS2MS_PushNewMail {
+
+        /** RS2MS_PushNewMail receiver */
+        receiver?: (number|Long|null);
+
+        /** RS2MS_PushNewMail mail */
+        mail?: (msg.IMailDetail|null);
+    }
+
+    /** Represents a RS2MS_PushNewMail. */
+    class RS2MS_PushNewMail implements IRS2MS_PushNewMail {
+
+        /**
+         * Constructs a new RS2MS_PushNewMail.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IRS2MS_PushNewMail);
+
+        /** RS2MS_PushNewMail receiver. */
+        public receiver: (number|Long);
+
+        /** RS2MS_PushNewMail mail. */
+        public mail?: (msg.IMailDetail|null);
+
+        /**
+         * Creates a new RS2MS_PushNewMail instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RS2MS_PushNewMail instance
+         */
+        public static create(properties?: msg.IRS2MS_PushNewMail): msg.RS2MS_PushNewMail;
+
+        /**
+         * Encodes the specified RS2MS_PushNewMail message. Does not implicitly {@link msg.RS2MS_PushNewMail.verify|verify} messages.
+         * @param message RS2MS_PushNewMail message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IRS2MS_PushNewMail, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified RS2MS_PushNewMail message, length delimited. Does not implicitly {@link msg.RS2MS_PushNewMail.verify|verify} messages.
+         * @param message RS2MS_PushNewMail message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IRS2MS_PushNewMail, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a RS2MS_PushNewMail message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RS2MS_PushNewMail
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2MS_PushNewMail;
+
+        /**
+         * Decodes a RS2MS_PushNewMail message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RS2MS_PushNewMail
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2MS_PushNewMail;
+
+        /**
+         * Verifies a RS2MS_PushNewMail message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RS2MS_PushNewMail message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RS2MS_PushNewMail
+         */
+        public static fromObject(object: { [k: string]: any }): msg.RS2MS_PushNewMail;
+
+        /**
+         * Creates a plain object from a RS2MS_PushNewMail message. Also converts values to other types if specified.
+         * @param message RS2MS_PushNewMail
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.RS2MS_PushNewMail, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RS2MS_PushNewMail to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a MS2GW_PushNewMail. */
     interface IMS2GW_PushNewMail {
 
@@ -22812,6 +22908,9 @@ declare namespace msg {
 
     /** Properties of a C2GW_ReqTFRoomList. */
     interface IC2GW_ReqTFRoomList {
+
+        /** C2GW_ReqTFRoomList uid */
+        uid?: (number|Long|null);
     }
 
     /** Represents a C2GW_ReqTFRoomList. */
@@ -22822,6 +22921,9 @@ declare namespace msg {
          * @param [properties] Properties to set
          */
         constructor(properties?: msg.IC2GW_ReqTFRoomList);
+
+        /** C2GW_ReqTFRoomList uid. */
+        public uid: (number|Long);
 
         /**
          * Creates a new C2GW_ReqTFRoomList instance using the specified properties.
@@ -22988,7 +23090,7 @@ declare namespace msg {
     interface ITexasFightRoom {
 
         /** TexasFightRoom id */
-        id?: (number|null);
+        id?: (number|Long|null);
 
         /** TexasFightRoom hwid */
         hwid?: (number|null);
@@ -23010,7 +23112,7 @@ declare namespace msg {
         constructor(properties?: msg.ITexasFightRoom);
 
         /** TexasFightRoom id. */
-        public id: number;
+        public id: (number|Long);
 
         /** TexasFightRoom hwid. */
         public hwid: number;
@@ -23096,7 +23198,10 @@ declare namespace msg {
     interface IC2GW_ReqEnterTFRoom {
 
         /** C2GW_ReqEnterTFRoom id */
-        id?: (number|null);
+        id?: (number|Long|null);
+
+        /** C2GW_ReqEnterTFRoom userid */
+        userid?: (number|Long|null);
     }
 
     /** Represents a C2GW_ReqEnterTFRoom. */
@@ -23109,7 +23214,10 @@ declare namespace msg {
         constructor(properties?: msg.IC2GW_ReqEnterTFRoom);
 
         /** C2GW_ReqEnterTFRoom id. */
-        public id: number;
+        public id: (number|Long);
+
+        /** C2GW_ReqEnterTFRoom userid. */
+        public userid: (number|Long);
 
         /**
          * Creates a new C2GW_ReqEnterTFRoom instance using the specified properties.
@@ -23189,7 +23297,7 @@ declare namespace msg {
         playerlist?: (msg.ITFPlayerPos[]|null);
 
         /** GW2C_RetEnterTFRoom betlist */
-        betlist?: (msg.ITFBetInfo[]|null);
+        betlist?: (msg.ITFBetPoolInfo[]|null);
 
         /** GW2C_RetEnterTFRoom mybet */
         mybet?: (number[]|null);
@@ -23198,7 +23306,7 @@ declare namespace msg {
         state?: (number|null);
 
         /** GW2C_RetEnterTFRoom statetime */
-        statetime?: (number|null);
+        statetime?: (number|Long|null);
 
         /** GW2C_RetEnterTFRoom pool */
         pool?: (number|null);
@@ -23223,7 +23331,7 @@ declare namespace msg {
         public playerlist: msg.ITFPlayerPos[];
 
         /** GW2C_RetEnterTFRoom betlist. */
-        public betlist: msg.ITFBetInfo[];
+        public betlist: msg.ITFBetPoolInfo[];
 
         /** GW2C_RetEnterTFRoom mybet. */
         public mybet: number[];
@@ -23232,7 +23340,7 @@ declare namespace msg {
         public state: number;
 
         /** GW2C_RetEnterTFRoom statetime. */
-        public statetime: number;
+        public statetime: (number|Long);
 
         /** GW2C_RetEnterTFRoom pool. */
         public pool: number;
@@ -23318,7 +23426,7 @@ declare namespace msg {
     interface ITFPlayerPos {
 
         /** TFPlayerPos roleid */
-        roleid?: (number|null);
+        roleid?: (number|Long|null);
 
         /** TFPlayerPos pos */
         pos?: (number|null);
@@ -23334,7 +23442,7 @@ declare namespace msg {
         constructor(properties?: msg.ITFPlayerPos);
 
         /** TFPlayerPos roleid. */
-        public roleid: number;
+        public roleid: (number|Long);
 
         /** TFPlayerPos pos. */
         public pos: number;
@@ -23410,103 +23518,103 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a TFBetInfo. */
-    interface ITFBetInfo {
+    /** Properties of a TFBetPoolInfo. */
+    interface ITFBetPoolInfo {
 
-        /** TFBetInfo cards */
+        /** TFBetPoolInfo cards */
         cards?: (number[]|null);
 
-        /** TFBetInfo bet */
+        /** TFBetPoolInfo bet */
         bet?: (number|null);
 
-        /** TFBetInfo pos */
+        /** TFBetPoolInfo pos */
         pos?: (number|null);
     }
 
-    /** Represents a TFBetInfo. */
-    class TFBetInfo implements ITFBetInfo {
+    /** Represents a TFBetPoolInfo. */
+    class TFBetPoolInfo implements ITFBetPoolInfo {
 
         /**
-         * Constructs a new TFBetInfo.
+         * Constructs a new TFBetPoolInfo.
          * @param [properties] Properties to set
          */
-        constructor(properties?: msg.ITFBetInfo);
+        constructor(properties?: msg.ITFBetPoolInfo);
 
-        /** TFBetInfo cards. */
+        /** TFBetPoolInfo cards. */
         public cards: number[];
 
-        /** TFBetInfo bet. */
+        /** TFBetPoolInfo bet. */
         public bet: number;
 
-        /** TFBetInfo pos. */
+        /** TFBetPoolInfo pos. */
         public pos: number;
 
         /**
-         * Creates a new TFBetInfo instance using the specified properties.
+         * Creates a new TFBetPoolInfo instance using the specified properties.
          * @param [properties] Properties to set
-         * @returns TFBetInfo instance
+         * @returns TFBetPoolInfo instance
          */
-        public static create(properties?: msg.ITFBetInfo): msg.TFBetInfo;
+        public static create(properties?: msg.ITFBetPoolInfo): msg.TFBetPoolInfo;
 
         /**
-         * Encodes the specified TFBetInfo message. Does not implicitly {@link msg.TFBetInfo.verify|verify} messages.
-         * @param message TFBetInfo message or plain object to encode
+         * Encodes the specified TFBetPoolInfo message. Does not implicitly {@link msg.TFBetPoolInfo.verify|verify} messages.
+         * @param message TFBetPoolInfo message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: msg.ITFBetInfo, writer?: protobuf.Writer): protobuf.Writer;
+        public static encode(message: msg.ITFBetPoolInfo, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Encodes the specified TFBetInfo message, length delimited. Does not implicitly {@link msg.TFBetInfo.verify|verify} messages.
-         * @param message TFBetInfo message or plain object to encode
+         * Encodes the specified TFBetPoolInfo message, length delimited. Does not implicitly {@link msg.TFBetPoolInfo.verify|verify} messages.
+         * @param message TFBetPoolInfo message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: msg.ITFBetInfo, writer?: protobuf.Writer): protobuf.Writer;
+        public static encodeDelimited(message: msg.ITFBetPoolInfo, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Decodes a TFBetInfo message from the specified reader or buffer.
+         * Decodes a TFBetPoolInfo message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns TFBetInfo
+         * @returns TFBetPoolInfo
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.TFBetInfo;
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.TFBetPoolInfo;
 
         /**
-         * Decodes a TFBetInfo message from the specified reader or buffer, length delimited.
+         * Decodes a TFBetPoolInfo message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns TFBetInfo
+         * @returns TFBetPoolInfo
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.TFBetInfo;
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.TFBetPoolInfo;
 
         /**
-         * Verifies a TFBetInfo message.
+         * Verifies a TFBetPoolInfo message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a TFBetInfo message from a plain object. Also converts values to their respective internal types.
+         * Creates a TFBetPoolInfo message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns TFBetInfo
+         * @returns TFBetPoolInfo
          */
-        public static fromObject(object: { [k: string]: any }): msg.TFBetInfo;
+        public static fromObject(object: { [k: string]: any }): msg.TFBetPoolInfo;
 
         /**
-         * Creates a plain object from a TFBetInfo message. Also converts values to other types if specified.
-         * @param message TFBetInfo
+         * Creates a plain object from a TFBetPoolInfo message. Also converts values to other types if specified.
+         * @param message TFBetPoolInfo
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: msg.TFBetInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: msg.TFBetPoolInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this TFBetInfo to JSON.
+         * Converts this TFBetPoolInfo to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -23692,193 +23800,193 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a C2GW_ReqTFAwardPool. */
-    interface IC2GW_ReqTFAwardPool {
+    /** Properties of a C2RS_ReqTFLastAwardPoolHit. */
+    interface IC2RS_ReqTFLastAwardPoolHit {
     }
 
-    /** Represents a C2GW_ReqTFAwardPool. */
-    class C2GW_ReqTFAwardPool implements IC2GW_ReqTFAwardPool {
+    /** Represents a C2RS_ReqTFLastAwardPoolHit. */
+    class C2RS_ReqTFLastAwardPoolHit implements IC2RS_ReqTFLastAwardPoolHit {
 
         /**
-         * Constructs a new C2GW_ReqTFAwardPool.
+         * Constructs a new C2RS_ReqTFLastAwardPoolHit.
          * @param [properties] Properties to set
          */
-        constructor(properties?: msg.IC2GW_ReqTFAwardPool);
+        constructor(properties?: msg.IC2RS_ReqTFLastAwardPoolHit);
 
         /**
-         * Creates a new C2GW_ReqTFAwardPool instance using the specified properties.
+         * Creates a new C2RS_ReqTFLastAwardPoolHit instance using the specified properties.
          * @param [properties] Properties to set
-         * @returns C2GW_ReqTFAwardPool instance
+         * @returns C2RS_ReqTFLastAwardPoolHit instance
          */
-        public static create(properties?: msg.IC2GW_ReqTFAwardPool): msg.C2GW_ReqTFAwardPool;
+        public static create(properties?: msg.IC2RS_ReqTFLastAwardPoolHit): msg.C2RS_ReqTFLastAwardPoolHit;
 
         /**
-         * Encodes the specified C2GW_ReqTFAwardPool message. Does not implicitly {@link msg.C2GW_ReqTFAwardPool.verify|verify} messages.
-         * @param message C2GW_ReqTFAwardPool message or plain object to encode
+         * Encodes the specified C2RS_ReqTFLastAwardPoolHit message. Does not implicitly {@link msg.C2RS_ReqTFLastAwardPoolHit.verify|verify} messages.
+         * @param message C2RS_ReqTFLastAwardPoolHit message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: msg.IC2GW_ReqTFAwardPool, writer?: protobuf.Writer): protobuf.Writer;
+        public static encode(message: msg.IC2RS_ReqTFLastAwardPoolHit, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Encodes the specified C2GW_ReqTFAwardPool message, length delimited. Does not implicitly {@link msg.C2GW_ReqTFAwardPool.verify|verify} messages.
-         * @param message C2GW_ReqTFAwardPool message or plain object to encode
+         * Encodes the specified C2RS_ReqTFLastAwardPoolHit message, length delimited. Does not implicitly {@link msg.C2RS_ReqTFLastAwardPoolHit.verify|verify} messages.
+         * @param message C2RS_ReqTFLastAwardPoolHit message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: msg.IC2GW_ReqTFAwardPool, writer?: protobuf.Writer): protobuf.Writer;
+        public static encodeDelimited(message: msg.IC2RS_ReqTFLastAwardPoolHit, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Decodes a C2GW_ReqTFAwardPool message from the specified reader or buffer.
+         * Decodes a C2RS_ReqTFLastAwardPoolHit message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns C2GW_ReqTFAwardPool
+         * @returns C2RS_ReqTFLastAwardPoolHit
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqTFAwardPool;
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2RS_ReqTFLastAwardPoolHit;
 
         /**
-         * Decodes a C2GW_ReqTFAwardPool message from the specified reader or buffer, length delimited.
+         * Decodes a C2RS_ReqTFLastAwardPoolHit message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns C2GW_ReqTFAwardPool
+         * @returns C2RS_ReqTFLastAwardPoolHit
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqTFAwardPool;
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2RS_ReqTFLastAwardPoolHit;
 
         /**
-         * Verifies a C2GW_ReqTFAwardPool message.
+         * Verifies a C2RS_ReqTFLastAwardPoolHit message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a C2GW_ReqTFAwardPool message from a plain object. Also converts values to their respective internal types.
+         * Creates a C2RS_ReqTFLastAwardPoolHit message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns C2GW_ReqTFAwardPool
+         * @returns C2RS_ReqTFLastAwardPoolHit
          */
-        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqTFAwardPool;
+        public static fromObject(object: { [k: string]: any }): msg.C2RS_ReqTFLastAwardPoolHit;
 
         /**
-         * Creates a plain object from a C2GW_ReqTFAwardPool message. Also converts values to other types if specified.
-         * @param message C2GW_ReqTFAwardPool
+         * Creates a plain object from a C2RS_ReqTFLastAwardPoolHit message. Also converts values to other types if specified.
+         * @param message C2RS_ReqTFLastAwardPoolHit
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: msg.C2GW_ReqTFAwardPool, options?: protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: msg.C2RS_ReqTFLastAwardPoolHit, options?: protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this C2GW_ReqTFAwardPool to JSON.
+         * Converts this C2RS_ReqTFLastAwardPoolHit to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a GW2C_RetTFAwardPool. */
-    interface IGW2C_RetTFAwardPool {
+    /** Properties of a RS2C_RetTFLastAwardPoolHit. */
+    interface IRS2C_RetTFLastAwardPoolHit {
 
-        /** GW2C_RetTFAwardPool cards */
+        /** RS2C_RetTFLastAwardPoolHit cards */
         cards?: (number[]|null);
 
-        /** GW2C_RetTFAwardPool gold */
+        /** RS2C_RetTFLastAwardPoolHit gold */
         gold?: (number|null);
 
-        /** GW2C_RetTFAwardPool time */
-        time?: (number|null);
+        /** RS2C_RetTFLastAwardPoolHit time */
+        time?: (number|Long|null);
 
-        /** GW2C_RetTFAwardPool prizeList */
-        prizeList?: (msg.ITFPlayer[]|null);
+        /** RS2C_RetTFLastAwardPoolHit prizelist */
+        prizelist?: (msg.ITFPlayer[]|null);
     }
 
-    /** Represents a GW2C_RetTFAwardPool. */
-    class GW2C_RetTFAwardPool implements IGW2C_RetTFAwardPool {
+    /** Represents a RS2C_RetTFLastAwardPoolHit. */
+    class RS2C_RetTFLastAwardPoolHit implements IRS2C_RetTFLastAwardPoolHit {
 
         /**
-         * Constructs a new GW2C_RetTFAwardPool.
+         * Constructs a new RS2C_RetTFLastAwardPoolHit.
          * @param [properties] Properties to set
          */
-        constructor(properties?: msg.IGW2C_RetTFAwardPool);
+        constructor(properties?: msg.IRS2C_RetTFLastAwardPoolHit);
 
-        /** GW2C_RetTFAwardPool cards. */
+        /** RS2C_RetTFLastAwardPoolHit cards. */
         public cards: number[];
 
-        /** GW2C_RetTFAwardPool gold. */
+        /** RS2C_RetTFLastAwardPoolHit gold. */
         public gold: number;
 
-        /** GW2C_RetTFAwardPool time. */
-        public time: number;
+        /** RS2C_RetTFLastAwardPoolHit time. */
+        public time: (number|Long);
 
-        /** GW2C_RetTFAwardPool prizeList. */
-        public prizeList: msg.ITFPlayer[];
+        /** RS2C_RetTFLastAwardPoolHit prizelist. */
+        public prizelist: msg.ITFPlayer[];
 
         /**
-         * Creates a new GW2C_RetTFAwardPool instance using the specified properties.
+         * Creates a new RS2C_RetTFLastAwardPoolHit instance using the specified properties.
          * @param [properties] Properties to set
-         * @returns GW2C_RetTFAwardPool instance
+         * @returns RS2C_RetTFLastAwardPoolHit instance
          */
-        public static create(properties?: msg.IGW2C_RetTFAwardPool): msg.GW2C_RetTFAwardPool;
+        public static create(properties?: msg.IRS2C_RetTFLastAwardPoolHit): msg.RS2C_RetTFLastAwardPoolHit;
 
         /**
-         * Encodes the specified GW2C_RetTFAwardPool message. Does not implicitly {@link msg.GW2C_RetTFAwardPool.verify|verify} messages.
-         * @param message GW2C_RetTFAwardPool message or plain object to encode
+         * Encodes the specified RS2C_RetTFLastAwardPoolHit message. Does not implicitly {@link msg.RS2C_RetTFLastAwardPoolHit.verify|verify} messages.
+         * @param message RS2C_RetTFLastAwardPoolHit message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: msg.IGW2C_RetTFAwardPool, writer?: protobuf.Writer): protobuf.Writer;
+        public static encode(message: msg.IRS2C_RetTFLastAwardPoolHit, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Encodes the specified GW2C_RetTFAwardPool message, length delimited. Does not implicitly {@link msg.GW2C_RetTFAwardPool.verify|verify} messages.
-         * @param message GW2C_RetTFAwardPool message or plain object to encode
+         * Encodes the specified RS2C_RetTFLastAwardPoolHit message, length delimited. Does not implicitly {@link msg.RS2C_RetTFLastAwardPoolHit.verify|verify} messages.
+         * @param message RS2C_RetTFLastAwardPoolHit message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: msg.IGW2C_RetTFAwardPool, writer?: protobuf.Writer): protobuf.Writer;
+        public static encodeDelimited(message: msg.IRS2C_RetTFLastAwardPoolHit, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Decodes a GW2C_RetTFAwardPool message from the specified reader or buffer.
+         * Decodes a RS2C_RetTFLastAwardPoolHit message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns GW2C_RetTFAwardPool
+         * @returns RS2C_RetTFLastAwardPoolHit
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetTFAwardPool;
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2C_RetTFLastAwardPoolHit;
 
         /**
-         * Decodes a GW2C_RetTFAwardPool message from the specified reader or buffer, length delimited.
+         * Decodes a RS2C_RetTFLastAwardPoolHit message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns GW2C_RetTFAwardPool
+         * @returns RS2C_RetTFLastAwardPoolHit
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetTFAwardPool;
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2C_RetTFLastAwardPoolHit;
 
         /**
-         * Verifies a GW2C_RetTFAwardPool message.
+         * Verifies a RS2C_RetTFLastAwardPoolHit message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a GW2C_RetTFAwardPool message from a plain object. Also converts values to their respective internal types.
+         * Creates a RS2C_RetTFLastAwardPoolHit message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns GW2C_RetTFAwardPool
+         * @returns RS2C_RetTFLastAwardPoolHit
          */
-        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetTFAwardPool;
+        public static fromObject(object: { [k: string]: any }): msg.RS2C_RetTFLastAwardPoolHit;
 
         /**
-         * Creates a plain object from a GW2C_RetTFAwardPool message. Also converts values to other types if specified.
-         * @param message GW2C_RetTFAwardPool
+         * Creates a plain object from a RS2C_RetTFLastAwardPoolHit message. Also converts values to other types if specified.
+         * @param message RS2C_RetTFLastAwardPoolHit
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: msg.GW2C_RetTFAwardPool, options?: protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: msg.RS2C_RetTFLastAwardPoolHit, options?: protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this GW2C_RetTFAwardPool to JSON.
+         * Converts this RS2C_RetTFLastAwardPoolHit to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -24080,7 +24188,7 @@ declare namespace msg {
     interface ITFPlayer {
 
         /** TFPlayer roleid */
-        roleid?: (number|null);
+        roleid?: (number|Long|null);
 
         /** TFPlayer name */
         name?: (string|null);
@@ -24108,7 +24216,7 @@ declare namespace msg {
         constructor(properties?: msg.ITFPlayer);
 
         /** TFPlayer roleid. */
-        public roleid: number;
+        public roleid: (number|Long);
 
         /** TFPlayer name. */
         public name: string;
@@ -24283,8 +24391,8 @@ declare namespace msg {
     /** Properties of a RS2C_RetWinLoseTrend. */
     interface IRS2C_RetWinLoseTrend {
 
-        /** RS2C_RetWinLoseTrend trendList */
-        trendList?: (msg.ITFWinLoseTrend[]|null);
+        /** RS2C_RetWinLoseTrend trendlist */
+        trendlist?: (msg.ITFWinLoseTrend[]|null);
     }
 
     /** Represents a RS2C_RetWinLoseTrend. */
@@ -24296,8 +24404,8 @@ declare namespace msg {
          */
         constructor(properties?: msg.IRS2C_RetWinLoseTrend);
 
-        /** RS2C_RetWinLoseTrend trendList. */
-        public trendList: msg.ITFWinLoseTrend[];
+        /** RS2C_RetWinLoseTrend trendlist. */
+        public trendlist: msg.ITFWinLoseTrend[];
 
         /**
          * Creates a new RS2C_RetWinLoseTrend instance using the specified properties.
@@ -26386,91 +26494,91 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a RS2C_PushTFPlayerLeave. */
-    interface IRS2C_PushTFPlayerLeave {
+    /** Properties of a RS2C_PushTFPlayerKickOut. */
+    interface IRS2C_PushTFPlayerKickOut {
 
-        /** RS2C_PushTFPlayerLeave id */
+        /** RS2C_PushTFPlayerKickOut id */
         id?: (number|null);
     }
 
-    /** Represents a RS2C_PushTFPlayerLeave. */
-    class RS2C_PushTFPlayerLeave implements IRS2C_PushTFPlayerLeave {
+    /** Represents a RS2C_PushTFPlayerKickOut. */
+    class RS2C_PushTFPlayerKickOut implements IRS2C_PushTFPlayerKickOut {
 
         /**
-         * Constructs a new RS2C_PushTFPlayerLeave.
+         * Constructs a new RS2C_PushTFPlayerKickOut.
          * @param [properties] Properties to set
          */
-        constructor(properties?: msg.IRS2C_PushTFPlayerLeave);
+        constructor(properties?: msg.IRS2C_PushTFPlayerKickOut);
 
-        /** RS2C_PushTFPlayerLeave id. */
+        /** RS2C_PushTFPlayerKickOut id. */
         public id: number;
 
         /**
-         * Creates a new RS2C_PushTFPlayerLeave instance using the specified properties.
+         * Creates a new RS2C_PushTFPlayerKickOut instance using the specified properties.
          * @param [properties] Properties to set
-         * @returns RS2C_PushTFPlayerLeave instance
+         * @returns RS2C_PushTFPlayerKickOut instance
          */
-        public static create(properties?: msg.IRS2C_PushTFPlayerLeave): msg.RS2C_PushTFPlayerLeave;
+        public static create(properties?: msg.IRS2C_PushTFPlayerKickOut): msg.RS2C_PushTFPlayerKickOut;
 
         /**
-         * Encodes the specified RS2C_PushTFPlayerLeave message. Does not implicitly {@link msg.RS2C_PushTFPlayerLeave.verify|verify} messages.
-         * @param message RS2C_PushTFPlayerLeave message or plain object to encode
+         * Encodes the specified RS2C_PushTFPlayerKickOut message. Does not implicitly {@link msg.RS2C_PushTFPlayerKickOut.verify|verify} messages.
+         * @param message RS2C_PushTFPlayerKickOut message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: msg.IRS2C_PushTFPlayerLeave, writer?: protobuf.Writer): protobuf.Writer;
+        public static encode(message: msg.IRS2C_PushTFPlayerKickOut, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Encodes the specified RS2C_PushTFPlayerLeave message, length delimited. Does not implicitly {@link msg.RS2C_PushTFPlayerLeave.verify|verify} messages.
-         * @param message RS2C_PushTFPlayerLeave message or plain object to encode
+         * Encodes the specified RS2C_PushTFPlayerKickOut message, length delimited. Does not implicitly {@link msg.RS2C_PushTFPlayerKickOut.verify|verify} messages.
+         * @param message RS2C_PushTFPlayerKickOut message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: msg.IRS2C_PushTFPlayerLeave, writer?: protobuf.Writer): protobuf.Writer;
+        public static encodeDelimited(message: msg.IRS2C_PushTFPlayerKickOut, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Decodes a RS2C_PushTFPlayerLeave message from the specified reader or buffer.
+         * Decodes a RS2C_PushTFPlayerKickOut message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns RS2C_PushTFPlayerLeave
+         * @returns RS2C_PushTFPlayerKickOut
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2C_PushTFPlayerLeave;
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2C_PushTFPlayerKickOut;
 
         /**
-         * Decodes a RS2C_PushTFPlayerLeave message from the specified reader or buffer, length delimited.
+         * Decodes a RS2C_PushTFPlayerKickOut message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns RS2C_PushTFPlayerLeave
+         * @returns RS2C_PushTFPlayerKickOut
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2C_PushTFPlayerLeave;
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2C_PushTFPlayerKickOut;
 
         /**
-         * Verifies a RS2C_PushTFPlayerLeave message.
+         * Verifies a RS2C_PushTFPlayerKickOut message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a RS2C_PushTFPlayerLeave message from a plain object. Also converts values to their respective internal types.
+         * Creates a RS2C_PushTFPlayerKickOut message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns RS2C_PushTFPlayerLeave
+         * @returns RS2C_PushTFPlayerKickOut
          */
-        public static fromObject(object: { [k: string]: any }): msg.RS2C_PushTFPlayerLeave;
+        public static fromObject(object: { [k: string]: any }): msg.RS2C_PushTFPlayerKickOut;
 
         /**
-         * Creates a plain object from a RS2C_PushTFPlayerLeave message. Also converts values to other types if specified.
-         * @param message RS2C_PushTFPlayerLeave
+         * Creates a plain object from a RS2C_PushTFPlayerKickOut message. Also converts values to other types if specified.
+         * @param message RS2C_PushTFPlayerKickOut
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: msg.RS2C_PushTFPlayerLeave, options?: protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: msg.RS2C_PushTFPlayerKickOut, options?: protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this RS2C_PushTFPlayerLeave to JSON.
+         * Converts this RS2C_PushTFPlayerKickOut to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
