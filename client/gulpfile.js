@@ -438,8 +438,8 @@ Gulp.task('lang', function ()
     {
         throw new Error('语言不能为空');
     }
-    const paths = [ProjectSrcPath, ProjectConfigPath];
-    const suffixs = ['.ts', '.json', '.txt', '.xml'];
+    const paths = [ProjectSrcPath, ProjectConfigPath, ProjectResourcePath + "/skins/"];
+    const suffixs = ['.ts', '.json', '.txt', '.xml', '.exml'];
     const filterKeywords = ['console.', 'game.Console.', 'egret.log'];
     const filterPaths = [ProjectConfigPath + '/name.json', ProjectConfigPath + '/forbidden.json'];
     //

@@ -215,7 +215,7 @@ func (u *GateUser) OnLeaveRoom() {
 
 // 进入房间
 func (u *GateUser) OnEnterRoom(agentid int, tmsg *msg.RS2GW_RetEnterRoom) {
-	u.roomdata.kind 		= tmsg.GetKind()
+	u.roomdata.kind 	= tmsg.GetKind()
 	u.roomdata.roomid 	= tmsg.GetRoomid()
 	u.roomdata.roomsid 	= agentid
 	u.roomdata.roomtid 	= tmsg.GetRoomtid()

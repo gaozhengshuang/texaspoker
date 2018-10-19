@@ -73,7 +73,15 @@ class MatchRoomInfo extends BaseServerValueInfo implements IHaveDefintionInfo
     /**
      * 排名
      */
-    public rank: number;
+    public _rank: number;
+    public get rank()
+    {
+        return this._rank;
+    }
+    public set rank(value:number)
+    {
+        this._rank = value;
+    }
     /**
      * 进入奖励圈排名
      */

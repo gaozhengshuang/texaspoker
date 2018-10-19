@@ -33,8 +33,8 @@ let sthList = [
 ];
 //发布 合并js 压缩js 版本控制
 Gulp.task('publish', function (cb) {
-    gulpSequence('concat', 'zip-js', 'version', cb);
-    // gulpSequence('replace-lang', 'concat', 'zip-js', 'version', cb);
+    // gulpSequence('concat', 'zip-js', 'version', cb);
+    gulpSequence('concat','replace-lang', 'zip-js', 'version', cb);
 });
 //copy一些引擎不copy的文件
 Gulp.task('copy', function (cb) {
@@ -135,6 +135,7 @@ Gulp.task('del-resource', function (cb) {
         out_path + 'js',
         out_path + 'rev',
         out_path + 'manifest*.json',
+        out_path + 'rev-manifest-js.json',
         out_path + 'resource-rev/images'
     ].concat(sthList));
 });
@@ -193,6 +194,7 @@ Gulp.task('del-js', function (cb) {
     return del([
         out_path + 'js/**/*.js',
         '!' + out_path + 'js/jszip.min.js',
+        '!' + out_path + 'js/i18n.min.js',
         '!' + out_path + 'js/lib.min.js',
         '!' + out_path + 'js/main.min.js',
     ]);
@@ -201,6 +203,7 @@ Gulp.task('del-js2', function (cb) {
     return del([
         out_path + 'js/**/*.js',
         '!' + out_path + 'js/jszip.min.js',
+        '!' + out_path + 'js/i18n.min.js',
     ]);
 });
 //-----------------------------语言处理-----------------------------
@@ -225,17 +228,25 @@ Gulp.task('replace-lang', function (cb) {
                     let v = langMap[key];
                     if (v != "") {
                         try {
-                            // reg = new RegExp('"' + key + '"', "g");
-                            // outData = outData.replace(reg, "I18n.getText(" + '"' + key + '"' + ")");
-                            outData = outData.replace('\"' + key + '\"', "I18n.getText(" + '"' + key + '"' + ")");
+                            let initKey = key;
+                            //过滤正则表达式关键字
+                            key = key.replace('*', "\\*");
+                            key = key.replace('(', "\\(");
+                            key = key.replace(')', "\\)");
+                            key = key.replace('{', "\\{");
+                            key = key.replace('}', "\\}");
+                            reg = new RegExp('"' + key + '"', "g");
+                            outData = outData.replace(reg, "I18n.getText(" + '"' + initKey + '"' + ")");
+                            reg = new RegExp("returnI18n","g");
+                            outData = outData.replace(reg, "return I18n");
                         } catch (e) {
                             console.log(e);
                         }
                     }
                 }
                 // console.log("outData", outData);
-                // fs.writeFileSync(jsPath, outData);
-                fs.writeFileSync(jsPath1, outData);
+                fs.writeFileSync(jsPath, outData);
+                // fs.writeFileSync(jsPath1, outData);
             }));
     }
     else {

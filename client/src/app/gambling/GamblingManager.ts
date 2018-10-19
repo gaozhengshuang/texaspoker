@@ -254,7 +254,7 @@ class GamblingManager
 	{
 		// GamblingManager.roomDataPushHandler.initialize();
 		SocketManager.AddCommandListener(Command.RS2C_PushNextRoundStart, GamblingManager.pushNextRoundStart, this);
-		SocketManager.AddCommandListener(Command.BlindChange_Push_2100, GamblingManager.pushBlindChange, this);
+		SocketManager.AddCommandListener(Command.RS2C_PushBlindChange, GamblingManager.pushBlindChange, this);
 		// SocketManager.AddCommandListener(Command.Push_PotChipsChange_2101, GamblingManager.pushPotChipsChange);
 		SocketManager.AddCommandListener(Command.RS2C_PushOneLoopOver, GamblingManager.pushOneLoopOver, this);
 		SocketManager.AddCommandListener(Command.RS2C_PushSitOrStand, GamblingManager.pushSitOrStand, this);

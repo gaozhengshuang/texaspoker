@@ -44,9 +44,13 @@ func (mh* C2GWMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.C2GW_PlatformRechargeDone{}, on_C2GW_PlatformRechargeDone)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_GoldExchange{}, on_C2GW_GoldExchange)
 
-	//房间
+	// 房间
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqEnterRoom{}, on_C2GW_ReqEnterRoom)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqLeaveRoom{}, on_C2GW_ReqLeaveRoom)
+
+	// 百人大战
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqTFRoomList{}, on_C2GW_ReqTFRoomList)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqEnterTFRoom{}, on_C2GW_ReqEnterTFRoom)
 }
 
 func on_GW2RS_RetRegist(session network.IBaseNetSession, message interface{}) {
@@ -116,15 +120,15 @@ func on_GW2RS_UserOnline(session network.IBaseNetSession, message interface{}) {
 
 
 func on_GW2RS_UploadUserBin(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.GW2RS_UploadUserBin)
-	roomid := tmsg.GetRoomid()
-	room := RoomMgr().Find(roomid)
-	if room == nil {
-		log.Error("收到玩家信息，但游戏房间[%d]不存在", roomid)
-		return
-	}
+	//tmsg := message.(*msg.GW2RS_UploadUserBin)
+	//roomid := tmsg.GetRoomid()
+	//room := RoomMgr().Find(roomid)
+	//if room == nil {
+	//	log.Error("收到玩家信息，但游戏房间[%d]不存在", roomid)
+	//	return
+	//}
 
-	room.UserLoad(tmsg, session)
+	//room.UserLoad(tmsg, session)
 }
 
 func on_C2RS_MsgTransfer(session network.IBaseNetSession, message interface{}) {
@@ -194,6 +198,35 @@ func on_C2GW_ReqLeaveRoom(session network.IBaseNetSession, message interface{}) 
 	}
 	u.DelRoomId(roomid)
 	room.UserLeave(u) 
+}
+
+// --------------------------------------------------------------------------
+/// @brief 百人大战列表
+// --------------------------------------------------------------------------
+func on_C2GW_ReqTFRoomList(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqTFRoomList)
+	SendTexasFightRoomList(session.Id(), tmsg.GetUid())
+}
+
+// --------------------------------------------------------------------------
+/// @brief 进入百人大战
+// --------------------------------------------------------------------------
+func on_C2GW_ReqEnterTFRoom(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqEnterTFRoom)
+	userid, roomid := tmsg.GetUserid(), tmsg.GetId()
+	room := RoomMgr().Find(roomid)
+	if room == nil {
+		log.Error("[百人大战] 玩家[%d] 请求离开房间，找不到房间[%d]", userid, roomid)
+		return
+	}
+
+	// 如果玩家不在RoomSever，创建实例
+	u := UserMgr().FindUser(userid)
+	if u == nil {
+		u = UserMgr().CreateSimpleUser(userid)
+	}
+
+	room.UserEnter(u)
 }
 
 func on_C2GW_PlatformRechargeDone(session network.IBaseNetSession, message interface{}) {

@@ -41,6 +41,7 @@ func (mh* RS2MSMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.RS2MS_HeartBeat{}, on_RS2MS_HeartBeat)
 	mh.msgparser.RegistProtoMsg(msg.RS2MS_RetCreateRoom{}, on_RS2MS_RetCreateRoom)
 	mh.msgparser.RegistProtoMsg(msg.RS2MS_MsgNotice{}, on_RS2MS_MsgNotice)
+	mh.msgparser.RegistProtoMsg(msg.RS2MS_PushNewMail{}, on_RS2MS_PushNewMail)
 
 	//// 发
 	//mh.msgparser.RegistSendProto(msg.MS2RS_RetRegist{})
@@ -112,5 +113,11 @@ func on_RS2MS_RetCreateRoom(session network.IBaseNetSession, message interface{}
 	} else {
 		log.Error("RS返回 创建房间失败[%d] 玩家[%d] errcode: %s", roomid, userid, errcode)
 	}
+}
+
+func on_RS2MS_PushNewMail(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.RS2MS_PushNewMail)
+	send := &msg.MS2GW_PushNewMail{Receiver:tmsg.Receiver, Mail:tmsg.Mail}
+	Match().BroadcastGateMsg(send)
 }
 

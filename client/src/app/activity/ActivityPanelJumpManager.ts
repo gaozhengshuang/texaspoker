@@ -60,7 +60,7 @@ class ActivityPanelJumpManager
         {
             case ActivityType.PayPrize:
             case ActivityType.BindChannel:
-            AlertManager.showAlertByString("暂未开放！");
+            AlertManager.showAlertByString("暂未开启");
             return;
         }
         if (ActivityPanelJumpManager._isLoading)

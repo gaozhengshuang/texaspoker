@@ -6866,7 +6866,7 @@ declare namespace msg {
         sex?: (number|null);
 
         /** MTTRecentlyRankInfo roleid */
-        roleid?: (number|null);
+        roleid?: (number|Long|null);
     }
 
     /** Represents a MTTRecentlyRankInfo. */
@@ -6891,7 +6891,7 @@ declare namespace msg {
         public sex: number;
 
         /** MTTRecentlyRankInfo roleid. */
-        public roleid: number;
+        public roleid: (number|Long);
 
         /**
          * Creates a new MTTRecentlyRankInfo instance using the specified properties.

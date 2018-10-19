@@ -10,6 +10,8 @@ class ImageNumComponent extends BaseComponent<NumContentInfo>
      */
     private static _numStr: string = "0123456789";
     private static _wordStr: string = "万亿";
+    private static _wan:string = "万";
+    private static _yi:string = "亿";
     public _numWidth;
     public _numHeight;
     public _wordWidth;
@@ -68,9 +70,9 @@ class ImageNumComponent extends BaseComponent<NumContentInfo>
     {
         switch (str)
         {
-            case "万":
+            case ImageNumComponent._wan:
                 return SheetSubName.Achieve_Million;
-            case "亿":
+            case ImageNumComponent._yi:
                 return SheetSubName.Achieve_Billion;
             case ":":
                 return SheetSubName.CountDown_Colon;

@@ -100,7 +100,7 @@ class ChampionshipPanel extends BasePanel
 		array.push(this.sitAndPlayMatchGroup);
 		array.push(this.selfMatchGroup);
 		array.push(this.resultsGroup);
-		this.matchTab.build(TabComponent.CreatData(["锦标赛", "坐满即玩", "我的比赛", "最近赛况"], array, TabButtonType.BigOf4, [{ idx: 1, tips: "暂未开放" }]));
+		this.matchTab.build(TabComponent.CreatData(["锦标赛", "坐满即玩", "我的比赛", "最近赛况"], array, TabButtonType.BigOf4, [{ idx: 1, tips: "暂未开启" }]));
 		let selfMatchArray: Array<eui.Group> = new Array<eui.Group>();
 		selfMatchArray.push(this.signedUpGroup);
 		selfMatchArray.push(this.outMatchGroup);

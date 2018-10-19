@@ -351,7 +351,7 @@ class Command
     /**
      * 推送盲注前注变化
      */
-    public static readonly BlindChange_Push_2100 = "c2100";
+    public static readonly RS2C_PushBlindChange = "msg.RS2C_PushBlindChange";
     /**
      * 推送一轮押注结束
      */
