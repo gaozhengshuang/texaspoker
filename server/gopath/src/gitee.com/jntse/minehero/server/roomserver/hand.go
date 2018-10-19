@@ -135,6 +135,10 @@ func (h *Hand) GetFightValue() int32 {
 	return h.finalvalue
 }
 
+func (h *Hand) GetFightLevel() int32 {
+	return h.level
+}
+
 func (h *Hand)SetCard(c *Card, ishand bool) error{
 	if h.initilized == false{
 		return errors.New("Hand must init first")

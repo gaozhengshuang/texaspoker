@@ -42,9 +42,9 @@ const (
 
 // 胜负平枚举
 const (
-	kBetLose = 0
-	kBetWin = 1
-	kBetTie = 2
+	kBetResultLose = 0
+	kBetResultWin = 1
+	kBetResultTie = 2
 )
 
 
@@ -165,9 +165,7 @@ func (p *TexasFightPlayer) FillPlayerInfo() *msg.TFPlayer {
 func (p *TexasFightPlayer) FillRankPlayerInfo() *msg.TFRankPlayer {
 	info := &msg.TFRankPlayer{}
 	info.Roleid = pb.Int64(p.Id())
-	info.Name = pb.String(p.Name())
 	info.Head = pb.String(p.Head())
-	info.Sex = pb.Int32(p.Sex())
 	return info
 }
 
@@ -181,6 +179,7 @@ type TexasFightBetPool struct {
 	pos int32
 	cards [kHandCardNum]*Card
 	//players map[int64]*TexasFightPlayer
+	result int32	// 胜负平结果
 	hand Hand
 }
 
@@ -192,12 +191,14 @@ func (t *TexasFightBetPool) Init(pos int32) {
 	t.hand.Init()
 }
 
-func (t* TexasFightBetPool) Total() int32 {
-	return t.total
-}
+func (t* TexasFightBetPool) Total() int32 { return t.total }
+func (t *TexasFightBetPool) Pos() int32 { return t.pos }
+func (t *TexasFightBetPool) Result() int32 { return t.result }
+func (t *TexasFightBetPool) SetResult(r int32) { t.result = r }
 
 func (t *TexasFightBetPool) Reset() {
 	t.total = 0
+	t.result = 0
 	t.cards = [kHandCardNum]*Card{}
 	//t.players = make(map[int64]*TexasFightPlayer)
 	t.hand.ClearAnalyse()
@@ -216,8 +217,12 @@ func (t *TexasFightBetPool) InsertCards(cards []*Card) {
 	t.hand.AnalyseHand()
 }
 
-func (t *TexasFightBetPool) GetCardFightValue() int32 {
+func (t *TexasFightBetPool) GetCardValue() int32 {
 	return t.hand.GetFightValue()
+}
+
+func (t *TexasFightBetPool) GetCardLevel() int32 {
+	return t.hand.GetFightLevel()
 }
 
 func (t *TexasFightBetPool) FillBetPoolInfo() *msg.TFBetPoolInfo {
