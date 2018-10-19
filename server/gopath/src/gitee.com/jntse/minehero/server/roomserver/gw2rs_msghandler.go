@@ -39,6 +39,7 @@ func (mh* C2GWMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.GW2RS_UploadUserBin{}, on_GW2RS_UploadUserBin)
 	mh.msgparser.RegistProtoMsg(msg.GW2RS_UserOnline{}, on_GW2RS_UserOnline)
 	mh.msgparser.RegistProtoMsg(msg.C2RS_MsgTransfer{}, on_C2RS_MsgTransfer)
+	mh.msgparser.RegistProtoMsg(msg.GW2RS_ChatInfo{}, on_GW2RS_ChatInfo)
 
 	// 功能
 	mh.msgparser.RegistProtoMsg(msg.C2GW_PlatformRechargeDone{}, on_C2GW_PlatformRechargeDone)
@@ -96,6 +97,15 @@ func on_GW2RS_UserDisconnect(session network.IBaseNetSession, message interface{
 
 	room.UserDisconnect(u)
 	session.SendCmd(rsend)
+}
+
+func on_GW2RS_ChatInfo(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2RS_ChatInfo)
+	room := RoomMgr().Find(tmsg.GetRoomid())
+	if room == nil {
+		return
+	}
+	room.SendChat(tmsg)
 }
 
 func on_GW2RS_UserOnline(session network.IBaseNetSession, message interface{}) {

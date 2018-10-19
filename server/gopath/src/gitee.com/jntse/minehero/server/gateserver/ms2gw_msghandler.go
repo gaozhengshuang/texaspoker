@@ -40,6 +40,7 @@ func (mh *MS2GWMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.MS2GW_MsgNotice{}, on_MS2GW_MsgNotice)
 	mh.msgparser.RegistProtoMsg(msg.MS2GW_MsgTransfer{}, on_MS2GW_MsgTransfer)
 	mh.msgparser.RegistProtoMsg(msg.MS2Server_BroadCast{}, on_MS2Server_BroadCast)
+	mh.msgparser.RegistProtoMsg(msg.MS2GW_ChatInfo{}, on_MS2GW_ChatInfo)
 
 	// 房间
 	mh.msgparser.RegistProtoMsg(msg.MS2GW_RetCreateRoom{}, on_MS2GW_RetCreateRoom)
@@ -71,6 +72,16 @@ func on_MS2GW_RetRegist(session network.IBaseNetSession, message interface{}) {
 func on_MS2GW_HeartBeat(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.MS2GW_HeartBeat)
 	log.Info(reflect.TypeOf(tmsg).String())
+}
+
+func on_MS2GW_ChatInfo(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.MS2GW_ChatInfo)
+	send := &msg.GW2C_PushMessage{}
+	send.Type = pb.Int32(tmsg.GetType())
+	send.Txt = pb.String(tmsg.GetTxt())
+	send.Roleid = pb.Int64(tmsg.GetUid())
+	send.Name = pb.String(tmsg.GetName())
+	UserMgr().BroadcastMsgFaster(send)
 }
 
 // 消息转发
