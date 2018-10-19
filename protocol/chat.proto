@@ -1,0 +1,18 @@
+syntax = "proto2";
+package msg;
+
+//发送聊天消息
+message C2GW_ReqSendMessage
+{
+    optional string txt = 1;
+    optional int32 type = 2;
+}
+
+//推送聊天消息
+message GW2C_PushMessage
+{
+    optional int32 type = 1;
+    optional string txt = 2;
+    optional int64 roleid = 3;
+    optional string name = 4;    
+}

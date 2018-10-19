@@ -162,7 +162,8 @@ func (t *TanTanLe) UserLoad(tmsg *msg.GW2RS_UploadUserBin, gate network.IBaseNet
 	}
 
 	// 
-	user := UserMgr().CreateRoomUser(t.id, tmsg.Bin, gate, t.gamekind)
+	//user := UserMgr().CreateRoomUser(t.id, tmsg.Bin, gate, t.gamekind)
+	user :=  UserMgr().CreateSimpleUser(t.id)
 	t.owner = user
 
 	// 

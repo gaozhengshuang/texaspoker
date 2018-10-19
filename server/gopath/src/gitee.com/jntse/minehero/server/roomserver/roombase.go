@@ -42,6 +42,7 @@ type IRoomBase interface {
 	IsGameOver() bool
 	OnGameStart()
 	OnGameOver()
+	SendChat(rev *msg.GW2RS_ChatInfo)
 
 	//UserLoad(tmsg *msg.GW2RS_UploadUserBin, session network.IBaseNetSession)
 	UserEnter(u *RoomUser)
@@ -87,6 +88,14 @@ func (r *RoomBase) SubKind() int32 { return r.subkind }
 func (r *RoomBase) IsFull() bool { return false }
 func (r *RoomBase) UserStandUp(u *RoomUser)	 {}
 func (r *RoomBase) UserSitDown(u *RoomUser, seat int32)	{}
+func (r *RoomBase) SendChat(rev *msg.GW2RS_ChatInfo) {
+	send := &msg.GW2C_PushMessage{}
+	send.Type = pb.Int32(rev.GetType())
+	send.Txt = pb.String(rev.GetTxt())
+	send.Roleid = pb.Int64(rev.GetUid())
+	send.Name = pb.String(rev.GetName())
+	r.BroadCastMemberMsg(send)
+}
 
 func (r *RoomBase) SendGateMsg(userid int64, m pb.Message) {
 	if u, find := r.members[userid]; find == true {

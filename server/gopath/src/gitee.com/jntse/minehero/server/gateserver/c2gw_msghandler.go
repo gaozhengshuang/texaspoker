@@ -62,6 +62,7 @@ func (mh *C2GWMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.C2GW_StartLuckyDraw{}, on_C2GW_StartLuckyDraw)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqTaskList{}, on_C2GW_ReqTaskList)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqPlayerRoleInfo{}, on_C2GW_ReqPlayerRoleInfo)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqSendMessage{}, on_C2GW_ReqSendMessage)
 
 	// 地图事件
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqEnterEvents{}, on_C2GW_ReqEnterEvents)
@@ -869,6 +870,17 @@ func on_C2GW_ReqGetFreeGold(session network.IBaseNetSession, message interface{}
 		return
 	}
 	u.GetFreeGold()
+}
+
+func on_C2GW_ReqSendMessage(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2GW_ReqSendMessage)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.SendChat(tmsg)
 }
 
 func on_C2GW_ReqAwardExchange(session network.IBaseNetSession, message interface{}) {

@@ -123,17 +123,17 @@ func (u *RoomUser) OnAchieveWinPoker (kind, subkind, hand, wingold int32 ) {
 	}
 	if subkind == int32(msg.PlayingFieldType_Primary) || subkind == int32(msg.PlayingFieldType_Middle) || subkind == int32(msg.PlayingFieldType_High) {
 		u.OnAchieveProcessChanged(int32(AchieveGroup_TexasWin))
-		Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "wintimes", 1)
+		Redis().HIncrBy(fmt.Sprintf("charstate_%d", u.Id()), "wintimes", 1)
 	} else if subkind == int32(msg.PlayingFieldType_Mtt) {
-		Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "wintimes2", 1)
+		Redis().HIncrBy(fmt.Sprintf("charstate_%d", u.Id()), "wintimes2", 1)
 	}
 	var goldmaxwin int32
-	cmdval, err := Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "maxgoldonetimes").Result()
+	cmdval, err := Redis().HGet(fmt.Sprintf("charstate_%d", u.Id()), "maxgoldonetimes").Result()
 	if err == nil {
 		goldmaxwin = util.Atoi(cmdval)
 	}
 	if wingold > goldmaxwin {
-		Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "maxgoldonetimes", wingold)
+		Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "maxgoldonetimes", wingold)
 	}
 	
 }
@@ -150,25 +150,25 @@ func (u *RoomUser) GetAchieveGroupIdByHand(hand int32) int32 {
 func (u *RoomUser) OnAchievePlayPoker (kind int32, subkind int32, hand *Hand) {
 	if subkind == int32(msg.PlayingFieldType_Primary) {
 		u.OnAchieveProcessChanged(int32(AchieveGroup_TexasPlay1))
-		Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "gametimes", 1)
+		Redis().HIncrBy(fmt.Sprintf("charstate_%d", u.Id()), "gametimes", 1)
 	} else if subkind == int32(msg.PlayingFieldType_Middle) {
 		u.OnAchieveProcessChanged(int32(AchieveGroup_TexasPlay2))
-		Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "gametimes", 1)
+		Redis().HIncrBy(fmt.Sprintf("charstate_%d", u.Id()), "gametimes", 1)
 	} else if subkind == int32(msg.PlayingFieldType_High) {
 		u.OnAchieveProcessChanged(int32(AchieveGroup_TexasPlay3))
-		Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "gametimes", 1)
+		Redis().HIncrBy(fmt.Sprintf("charstate_%d", u.Id()), "gametimes", 1)
 	} else if subkind == int32(msg.PlayingFieldType_Mtt) {
 		u.OnAchieveProcessChanged(int32(AchieveGroup_MTTPlay))
-		Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "gametimes2", 1)
+		Redis().HIncrBy(fmt.Sprintf("charstate_%d", u.Id()), "gametimes2", 1)
 	}
 
 	handlevel := hand.level
 	handfinalvalue := hand.finalvalue
 	//弃牌不记录弃牌是负值
 	handpower := int64(handlevel) << 32 + int64(handfinalvalue)
-	oldpower := util.Atol(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "handpower").Val())
+	oldpower := util.Atol(Redis().HGet(fmt.Sprintf("charstate_%d", u.Id()), "handpower").Val())
 	if handpower > oldpower {
-		Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "handpower", handpower)
+		Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "handpower", handpower)
 		tmp := hand.ToAllCard()
 		strmaxcard := ""
 		i := 0
@@ -180,7 +180,7 @@ func (u *RoomUser) OnAchievePlayPoker (kind int32, subkind int32, hand *Hand) {
 			}
 			i = i + 1 
 		}
-		Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "maxhand", strmaxcard)
+		Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "maxhand", strmaxcard)
 	}
 }
 
@@ -190,7 +190,7 @@ func (u *RoomUser) OnAchieveProcessChanged(group int32) {
 		gold := u.GetGold()
 		if gold > process {
 			u.SetAchieveProcessByGroup(group, gold)
-			Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "maxgold", gold)
+			Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "maxgold", gold)
 		}
 	} else if group == AchieveGroup_Friend {
 			
@@ -298,17 +298,17 @@ func (u *RoomUser) OnReqTakeAchieveAward(taskid int32) string {
 //进入入局阶段
 func (u *RoomUser) OnFlop(subkind int32) {
 	if subkind == int32(msg.PlayingFieldType_Primary) || subkind == int32(msg.PlayingFieldType_Middle) || subkind == int32(msg.PlayingFieldType_High) {
-		Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "entrytimes", 1)
+		Redis().HIncrBy(fmt.Sprintf("charstate_%d", u.Id()), "entrytimes", 1)
 	} else if subkind == int32(msg.PlayingFieldType_Mtt) {
-		Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "entrytimes2", 1)
+		Redis().HIncrBy(fmt.Sprintf("charstate_%d", u.Id()), "entrytimes2", 1)
 	}
 }
 
 //进入摊牌阶段
 func (u *RoomUser) OnShowDown (subkind int32) {
 	if subkind == int32(msg.PlayingFieldType_Primary) || subkind == int32(msg.PlayingFieldType_Middle) || subkind == int32(msg.PlayingFieldType_High) {
-		Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "showdowntimes", 1)
+		Redis().HIncrBy(fmt.Sprintf("charstate_%d", u.Id()), "showdowntimes", 1)
 	} else if subkind == int32(msg.PlayingFieldType_Mtt) {
-		Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "showdowntimes2", 1)
+		Redis().HIncrBy(fmt.Sprintf("charstate_%d", u.Id()), "showdowntimes2", 1)
 	}
 }

@@ -367,7 +367,7 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 			log.Error("新建账户%s失败，err: %s", account, errsetbin)
 			break
 		}
-		Redis().HSet(fmt.Sprintf("charbase_%d", userid), "createdtime", util.CURTIME())
+		Redis().HSet(fmt.Sprintf("charstate_%d", userid), "createdtime", util.CURTIME())
 		// 初始元宝和金卷
 		gold := int32(tbl.Global.NewUser.Gold)
 		Redis().HSet(fmt.Sprintf("charbase_%d", userid), "gold", gold)
@@ -455,6 +455,7 @@ func SaveUserSimpleInfo(bin *msg.Serialize) {
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "level",	bin.Entity.GetLevel())
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "exp", bin.Entity.GetExp())
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "sign", "")
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "age", 0)
 	//pipe.HSet(fmt.Sprintf("charbase_%d", uid), "diamond", bin.Entity.GetDiamond())
 	//pipe.HSet(fmt.Sprintf("charbase_%d", uid), "gold",	bin.Entity.GetGold())
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "viplevel",  0)

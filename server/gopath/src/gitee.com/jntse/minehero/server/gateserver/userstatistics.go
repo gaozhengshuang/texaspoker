@@ -110,7 +110,7 @@ func (this *GateUser) SetTotalRecharge(r int32) {
 }
 
 func (u *GateUser) FillUserStatistics(bin *msg.UserStatistics) {
-	cmdmap, err := Redis().HGetAll(fmt.Sprintf("charbase_%d", u.Id())).Result()
+	cmdmap, err := Redis().HGetAll(fmt.Sprintf("charstate_%d", u.Id())).Result()
 	if err == nil {
 		for k, v := range cmdmap {
 			switch k {

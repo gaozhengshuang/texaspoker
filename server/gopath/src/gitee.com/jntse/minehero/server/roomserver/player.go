@@ -167,6 +167,9 @@ func (this *TexasPlayer) BetStart() {
 }
 
 func (this *TexasPlayer) BlindBet(num int32, big bool) {
+	if this.GetBankRoll() == 0 {
+		return
+	}
 	if num > this.GetBankRoll() {
 		num = this.GetBankRoll()
 		this.RemoveBankRoll(num)
@@ -376,7 +379,7 @@ func (this *TexasPlayer) AddBankRoll(num int32){
 }
 
 func (this *TexasPlayer) AddExp(exp int32, reason string, syn bool) {
-	if this.owner != nil && this.owner.isai == false {
+	if this.owner != nil && this.owner.aiflag == false {
 		this.owner.AddExp(exp, reason, syn)
 	}
 }
@@ -667,7 +670,7 @@ func (this *TexasPlayer) AutoBuy() {
 		return
 	}
 	var buy int32 = 0
-	if this.owner.isai == false && this.autobuy > this.owner.GetGold() {
+	if this.owner.aiflag == false && this.autobuy > this.owner.GetGold() {
 		buy = this.owner.GetGold()
 	}else {
 		buy = this.autobuy

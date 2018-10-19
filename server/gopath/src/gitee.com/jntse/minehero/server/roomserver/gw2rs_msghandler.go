@@ -39,6 +39,7 @@ func (mh* C2GWMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.GW2RS_UploadUserBin{}, on_GW2RS_UploadUserBin)
 	mh.msgparser.RegistProtoMsg(msg.GW2RS_UserOnline{}, on_GW2RS_UserOnline)
 	mh.msgparser.RegistProtoMsg(msg.C2RS_MsgTransfer{}, on_C2RS_MsgTransfer)
+	mh.msgparser.RegistProtoMsg(msg.GW2RS_ChatInfo{}, on_GW2RS_ChatInfo)
 
 	// 功能
 	mh.msgparser.RegistProtoMsg(msg.C2GW_PlatformRechargeDone{}, on_C2GW_PlatformRechargeDone)
@@ -98,6 +99,15 @@ func on_GW2RS_UserDisconnect(session network.IBaseNetSession, message interface{
 	session.SendCmd(rsend)
 }
 
+func on_GW2RS_ChatInfo(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2RS_ChatInfo)
+	room := RoomMgr().Find(tmsg.GetRoomid())
+	if room == nil {
+		return
+	}
+	room.SendChat(tmsg)
+}
+
 func on_GW2RS_UserOnline(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2RS_UserOnline)
 	userid  := tmsg.GetUserid()
@@ -113,9 +123,7 @@ func on_GW2RS_UserOnline(session network.IBaseNetSession, message interface{}) {
 		return
 	}
 
-	if session.Id() != u.AgentId() {
-		u.UpdateGateAgent(session)
-	}
+	u.CheckUpdateGateAgent(session)
 }
 
 
@@ -173,11 +181,8 @@ func on_C2GW_ReqEnterRoom(session network.IBaseNetSession, message interface{}) 
 		log.Error("玩家[%d] 请求进入房间[%d]，但密码不正确", userid, roomid)
 		return
 	}
-	u.SetRoomId(roomid)
-	u.OnPreEnterRoom()
-	if session.Id() != u.AgentId() {
-		u.UpdateGateAgent(session)
-	}
+
+	u.CheckUpdateGateAgent(session)
 	room.UserEnter(u)
 }
 
@@ -230,16 +235,16 @@ func on_C2GW_ReqEnterTFRoom(session network.IBaseNetSession, message interface{}
 }
 
 func on_C2GW_PlatformRechargeDone(session network.IBaseNetSession, message interface{}) {
-	tmsg := message.(*msg.C2GW_PlatformRechargeDone)
-	u := UserMgr().FindUser(tmsg.GetUserid())
-	if u == nil { 
-		log.Error("C2GW_PlatformRechargeDone 玩家[%d]没有在Room中", tmsg.GetUserid())
-		return 
-	}
+	//tmsg := message.(*msg.C2GW_PlatformRechargeDone)
+	//u := UserMgr().FindUser(tmsg.GetUserid())
+	//if u == nil { 
+	//	log.Error("C2GW_PlatformRechargeDone 玩家[%d]没有在Room中", tmsg.GetUserid())
+	//	return 
+	//}
 
-	//
-	u.synbalance = true
-	u.SynMidasBalance()
+	////
+	//u.synbalance = true
+	//u.SynMidasBalance()
 }
 
 // 钻石兑换金币
