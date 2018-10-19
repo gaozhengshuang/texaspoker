@@ -8,7 +8,7 @@ class NetUtil
 	{
 		let alertInfo: AlertInfo = new AlertInfo();
 		// alertInfo.subTitle = game.StringUtil.format("protocol:{0} code:{1}", result.cmdId, result.error);
-		alertInfo.message = result.error;// ErrorDefined.GetInstance().getDetails(result.error);
+		alertInfo.message = JianTFanTTranser.tryTraditionalized(result.error);// ErrorDefined.GetInstance().getDetails(result.error);
 		alertInfo.OnConfirm = OnConfirm;
 		AlertManager.showAlertInfo(alertInfo);
 	}
