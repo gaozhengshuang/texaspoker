@@ -128,7 +128,7 @@ func (tf *TexasFightRoom) AddPlayer(u *RoomUser) *TexasFightPlayer {
 func (tf *TexasFightRoom) ChangeToWaitNextRoundStat(now int64) {
 	tf.stat = kStatWaitNextRound
 	tf.statstart = now
-	tf.stattimeout = now + int64(tf.tconf.TimeOut)
+	tf.stattimeout = now + int64(tf.tconf.TimeOut) * 1000
 	tf.CardDeal()
 
 	// 房间状态变更推送
@@ -144,7 +144,7 @@ func (tf *TexasFightRoom) ChangeToWaitNextRoundStat(now int64) {
 func (tf *TexasFightRoom) ChangeToBettingStat(now int64) {
 	tf.stat = kStatBetting
 	tf.statstart = now
-	tf.stattimeout = now + int64(tf.tconf.BetTime)
+	tf.stattimeout = now + int64(tf.tconf.BetTime) * 1000
 
 	// 洗牌
 	tf.CardShuffle()

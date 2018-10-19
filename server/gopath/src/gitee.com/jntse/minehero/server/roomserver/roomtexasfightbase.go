@@ -193,8 +193,8 @@ func (t *TexasFightBetPool) InsertCards(cards []*Card) {
 		return
 	}
 
-	for k, card := range t.cards {
-		t.cards[k] = cards[k]
+	for k, card := range cards {
+		t.cards[k] = card
 		t.hand.SetCard(card, false)
 	}
 
