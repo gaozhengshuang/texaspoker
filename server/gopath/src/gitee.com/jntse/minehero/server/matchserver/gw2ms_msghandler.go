@@ -41,6 +41,7 @@ func (mh *GW2MSMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.GW2MS_MsgNotice{}, on_GW2MS_MsgNotice)
 	mh.msgparser.RegistProtoMsg(msg.GW2GW_MsgTransfer{}, on_GW2GW_MsgTransfer)
 	mh.msgparser.RegistProtoMsg(msg.GW2MS_PushNewMail{}, on_GW2MS_PushNewMail)
+	mh.msgparser.RegistProtoMsg(msg.GW2MS_ChatInfo{}, on_GW2MS_ChatInfo)
 
 	//// 发
 	//mh.msgparser.RegistSendProto(msg.MS2GW_RetRegist{})
@@ -168,6 +169,16 @@ func on_GW2GW_MsgTransfer(session network.IBaseNetSession, message interface{}) 
 func on_GW2MS_PushNewMail(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2MS_PushNewMail)
 	send := &msg.MS2GW_PushNewMail{Receiver:tmsg.Receiver, Mail:tmsg.Mail}
+	Match().BroadcastGateMsg(send)
+}
+
+func on_GW2MS_ChatInfo(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.GW2MS_ChatInfo)
+	send := &msg.MS2GW_ChatInfo{}
+	send.Uid = pb.Int64(tmsg.GetUid())
+	send.Name = pb.String(tmsg.GetName())
+	send.Txt = pb.String(tmsg.GetTxt())
+	send.Type = pb.Int32(tmsg.GetType())
 	Match().BroadcastGateMsg(send)
 }
 

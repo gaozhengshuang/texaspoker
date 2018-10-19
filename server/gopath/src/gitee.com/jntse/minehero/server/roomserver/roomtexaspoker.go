@@ -363,6 +363,9 @@ func (this *TexasPokerRoom) StartGame() int32 {
 		record.Sex = pb.Int32(p.owner.Sex())
 		//log.Info("机器人数据%d 名字%s 头像%s 性别%d", p.owner.Id(), p.owner.Name(), p.owner.Face(), p.owner.Sex())
 		record.Seatpos = pb.Int32(p.pos+1)
+		if this.IsChampionShip() {
+			p.BlindBet(this.mtt.bconf.PreBet, true)
+		}
 		p.RemoveBankRoll(this.ante)
 		if p == this.bigblinder {
 			p.BlindBet(this.bigblindnum, true)
@@ -1011,6 +1014,24 @@ func (this *TexasPokerRoom) DelWatcher(player *TexasPlayer) {
 	}
 }
 
+func (this *TexasPokerRoom) AddRebuy(uid int64, num int32, cost int32) {
+	player := this.FindAllByID(uid)
+	if player == nil {
+		return
+	}
+	player.AddRebuy(num, cost)
+}
+
+func (this *TexasPokerRoom) AddAddon(uid int64, num int32, cost int32) {
+	player := this.FindAllByID(uid)
+	if player == nil {
+		return
+	}   
+	player.AddAddon(num, cost)
+}
+
+/////////////////////////////////////////消息处理/////////////////////////////////////////
+
 func (this *TexasPokerRoom) SendRoomInfo(player *TexasPlayer) {
 	send := &msg.RS2C_RetEnterRoom{}
 	send.Id = pb.Int64(this.Id())
@@ -1190,20 +1211,3 @@ func (this *TexasPokerRoom) ReqReviewInfo(uid int64) {
 		}
 	}
 }
-
-func (this *TexasPokerRoom) AddRebuy(uid int64, num int32, cost int32) {
-	player := this.FindAllByID(uid)
-	if player == nil {
-		return
-	}
-	player.AddRebuy(num, cost)
-}
-
-func (this *TexasPokerRoom) AddAddon(uid int64, num int32, cost int32) {
-	player := this.FindAllByID(uid)
-	if player == nil {
-		return
-	}   
-	player.AddAddon(num, cost)
-}
-

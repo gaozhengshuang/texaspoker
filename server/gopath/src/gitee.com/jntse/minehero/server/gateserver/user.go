@@ -17,6 +17,11 @@ import (
 	_ "time"
 )
 
+const (
+	ChatRoom = 1
+	ChatAll = 2
+)
+
 //const (
 //	StayHall = 1		// 待在大厅
 //	RoomCreating = 2	// 创建房间中
@@ -774,6 +779,29 @@ func (u *GateUser) OnlineTaskCheck() {
 
 func (u *GateUser) PackAutoResetValues(bin *msg.Serialize) {
 	u.bin.Base.Arvalues = u.arvalues.PackBin()
+}
+
+func (u *GateUser) SendChat(rev *msg.C2GW_ReqSendMessage) {
+	if rev.GetType() == ChatRoom {
+		sid := GetRoomSid(u.RoomId())
+		if sid == 0 {
+			log.Error("[房间] 玩家[%s %d]请求进入的房间[%d]已经销毁", u.Name(), u.Id(), u.RoomId())
+			return
+		}
+		send := &msg.GW2RS_ChatInfo{}
+		send.Uid = pb.Int64(u.Id())
+		send.Name = pb.String(u.Name())
+		send.Txt = pb.String(rev.GetTxt())
+		send.Type = pb.Int32(rev.GetType())
+		send.Roomid = pb.Int64(u.RoomId())
+		RoomSvrMgr().SendMsg(sid, send)
+	} else if rev.GetType() == ChatAll {
+		send := &msg.GW2MS_ChatInfo{}
+		send.Uid = pb.Int64(u.Id())
+		send.Name = pb.String(u.Name())
+		send.Txt = pb.String(rev.GetTxt())
+		Match().SendCmd(send)
+	}
 }
 
 

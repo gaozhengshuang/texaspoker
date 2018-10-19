@@ -167,6 +167,9 @@ func (this *TexasPlayer) BetStart() {
 }
 
 func (this *TexasPlayer) BlindBet(num int32, big bool) {
+	if this.GetBankRoll() == 0 {
+		return
+	}
 	if num > this.GetBankRoll() {
 		num = this.GetBankRoll()
 		this.RemoveBankRoll(num)
