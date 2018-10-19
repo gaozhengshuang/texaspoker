@@ -103,7 +103,7 @@ func (this *TexasPlayer) SetTimeReward() {
 	if !util.IsSameDay(lasttime, util.CURTIME()) {
 		this.rewardtime = 0
 		this.rewardround = 0
-		Redis().Set(fmt.Sprintf("trtime_%d", this.owner.Id()), util.CURTIME(), 0)
+		Redis().Set(fmt.Sprintf("trtime%d_%d", this.room.GetRoomType(), this.owner.Id()), util.CURTIME(), 0)
 	}
 	Redis().Set(fmt.Sprintf("trround%d_%d", this.room.GetRoomType(), this.owner.Id()), this.rewardround, 0)
 	Redis().Set(fmt.Sprintf("trtick%d_%d", this.room.GetRoomType(), this.owner.Id()), this.rewardtime, 0)

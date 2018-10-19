@@ -37,7 +37,7 @@ func (rm *RoomManager) Init() bool {
 	rm.ticker1s.Start()
 
 	rm.CleanCache()
-	//rm.InitPublicTexas()
+	rm.InitPublicTexas()
 	rm.InitTimeReward()
 	rm.InitTexasFightRoom()
 	return true

@@ -74,14 +74,14 @@ ssh brickbanshu@210.73.214.68 "cp /home/brickbanshu/version/config/watch.sh /hom
 
 release)
 ## 正式环境版本
-wainum=$(ssh poker@210.73.214.71 "ls -d -l /home/poker/version/${today}R* | wc -l")
+wainum=$(ssh poker@210.73.214.74 "ls -d -l /home/poker/version/${today}R* | wc -l")
 wainum=$((wainum + 1))
 waibuildDirName=${today}R${wainum}_PP
 echo $waibuildDirName
 
 echo "正式环境版本生成中..."
 ssh poker@210.73.214.74 "mkdir -p /home/poker/version/${waibuildDirName}"
-scp pack/$filename poker@210.73.214.71:/home/poker/version/${waibuildDirName}
+scp pack/$filename poker@210.73.214.74:/home/poker/version/${waibuildDirName}
 ssh poker@210.73.214.74 "cd /home/poker/version/${waibuildDirName}/ && tar xzvf *.tar.gz"
 ssh poker@210.73.214.74 "rm /home/poker/version/${waibuildDirName}/release/conf -rf"
 ssh poker@210.73.214.74 "cp /home/poker/version/config/conf /home/poker/version/${waibuildDirName}/release/ -rvf"
