@@ -810,7 +810,7 @@ func (this *TexasPokerRoom) ShowDown() int32{
 			continue
 		}
 		player.SendTimeAward(false)
-		player.owner.OnAchievePlayPoker(this.Kind(), this.SubKind())
+		player.owner.OnAchievePlayPoker(this.Kind(), this.SubKind(), player.hand)
 		if player.IsFold() == false {
 			player.owner.OnShowDown(this.SubKind())
 		}

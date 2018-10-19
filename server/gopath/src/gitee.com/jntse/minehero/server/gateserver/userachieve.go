@@ -9,6 +9,7 @@ import (
 	"gitee.com/jntse/minehero/server/def"
 	"gitee.com/jntse/minehero/pbmsg"
 	pb "github.com/gogo/protobuf/proto"
+	"strings"
 )
 
 const (
@@ -293,7 +294,14 @@ func (u *GateUser) OnReqPlayerRoleInfo(roleid int64) {
 					send.Showdowntimes = pb.Int32(util.Atoi(v))
 				case "showdowntimes2": 
 					send.Showdowntimes2 = pb.Int32(util.Atoi(v))
-			
+				case "maxhand":
+					maxhandstr := strings.Split(v, "|")
+					for _, m := range maxhandstr {
+						send.Maxhand = append(send.Maxhand, util.Atoi(m))
+					}
+
+				default:
+
 			}
 		}
 	}
