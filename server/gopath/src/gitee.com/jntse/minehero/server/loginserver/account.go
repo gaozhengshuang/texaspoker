@@ -373,6 +373,7 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 		Redis().HSet(fmt.Sprintf("charbase_%d", userid), "gold", gold)
 		Redis().HSet(fmt.Sprintf("charbase_%d", userid), "maxgold", gold)
 		yuanbao := int32(tbl.Global.NewUser.Yuanbao)
+		Redis().HSet(fmt.Sprintf("charbase_%d", userid), "yuanbao", yuanbao)
 		diamond := int32(tbl.Global.NewUser.Diamond)
 		Redis().HSet(fmt.Sprintf("charbase_%d", userid), "diamond", diamond)
 		userinfo := &msg.Serialize{

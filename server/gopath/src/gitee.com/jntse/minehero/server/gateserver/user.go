@@ -346,6 +346,8 @@ func (u *GateUser) SendUserBase() {
 	// clone类似c++的copyfrom
 	send.Entity = pb.Clone(entity).(*msg.EntityBase)
 	send.Entity.Gold = pb.Int32(u.GetGold())
+	send.Entity.Diamond = pb.Int32(u.GetDiamond())
+	send.Entity.Yuanbao = pb.Int32(u.GetYuanbao())
 	send.Base = pb.Clone(base).(*msg.UserBase)
 	send.Item = pb.Clone(item).(*msg.ItemBin)
 	u.SendMsg(send)
@@ -488,9 +490,9 @@ func (u *GateUser) LoadBin() {
 
 	// 玩家信息
 	userbase, entity := u.bin.GetBase(), u.bin.GetEntity()
-	u.gold = entity.GetGold()
-	u.diamond = entity.GetDiamond()
-	u.yuanbao = entity.GetYuanbao()
+	u.gold = u.GetGold()
+	u.diamond = u.GetDiamond()
+	u.yuanbao = u.GetYuanbao()
 	u.level = entity.GetLevel()
 	u.exp = entity.GetExp()
 

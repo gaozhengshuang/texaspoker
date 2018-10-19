@@ -230,11 +230,11 @@ Gulp.task('replace-lang', function (cb) {
                         try {
                             let initKey = key;
                             //过滤正则表达式关键字
-                            key = key.replace('*', "\\*");
-                            key = key.replace('(', "\\(");
-                            key = key.replace(')', "\\)");
-                            key = key.replace('{', "\\{");
-                            key = key.replace('}', "\\}");
+                            key = key.replace(new RegExp('*', 'g'), "\\*");
+                            key = key.replace(new RegExp('(', 'g'), "\\(");
+                            key = key.replace(new RegExp(')', 'g'), "\\)");
+                            key = key.replace(new RegExp('{', 'g'), "\\{");
+                            key = key.replace(new RegExp('}', 'g'), "\\}");
                             reg = new RegExp('"' + key + '"', "g");
                             outData = outData.replace(reg, "I18n.getText(" + '"' + initKey + '"' + ")");
                             reg = new RegExp("returnI18n","g");
