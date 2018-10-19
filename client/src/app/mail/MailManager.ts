@@ -52,70 +52,69 @@ class MailManager
     {
         let mail: MailInfo = new MailInfo();
         mail.copyValueFromIgnoreCase(data);
-        if (mail.SubType)
+        let def: table.IMailDefine = table.MailById[data.tid];
+        let content = def.Content;
+        if (def)
         {
-            let def: table.IMailDefine = table.MailById[mail.SubType];
-            if (def)
+            switch (def.Type)
             {
-                mail.Title = def.Title;
-                // let content: string = def.Content; //move todo
-                // if (def.Type == MailResolveType.RosolveAnnex)
-                // {
-                //     if (mail.items && mail.items.length > 0)
-                //     {
-                //         let itemDef: table.IItemBaseDataDefine = table.ItemBaseDataById[mail.items[0].id];
-                //         content = content.replace("{" + 0 + "}", itemDef.Name);
-                //     }
-                // }
-                // else if (def.Type == MailResolveType.RosolveServer)
-                // {
-                //     if (mail.Content)
-                //     {
-                //         let paramStr: Array<string> = mail.Content.split(game.StringConstants.VerticalLine);
-                //         for (let i: number = 0; i < paramStr.length; i++)
-                //         {
-                //             content = content.replace("{" + i + "}", paramStr[i]);
-                //         }
-                //     }
-                // }
-                // else if (def.Type == MailResolveType.MixRosolve)
-                // {
-                //     if (mail.items && mail.items.length > 0)
-                //     {
-                //         if (mail.items[0].id == ItemFixedId.gold)
-                //         {
-                //             content = content.replace("{" + 0 + "}", mail.items[0].num.toString());
-                //         }
-                //         else if (mail.items[0].id == ItemFixedId.vip)
-                //         {
-                //             content = content.replace("{" + 0 + "}", mail.items[0].num + "个月VIP");
-                //         }
-                //         else if (mail.items[0].id == ItemFixedId.yearVip)
-                //         {
-                //             content = content.replace("{" + 0 + "}", "年费VIP");
-                //         }
-                //         else
-                //         {
-                //             let itemDef: table.IItemBaseDataDefine = table.ItemBaseDataById[mail.items[0].id];
-                //             let itemDes: string = " * " + mail.items[0].num;
-                //             content = content.replace("{" + 0 + "}", itemDef.Name + itemDes);
-                //         }
-                //     }
-                //     if (mail.Content)
-                //     {
-                //         let paramStr: Array<string> = mail.Content.split(game.StringConstants.VerticalLine);
-                //         for (let i: number = 0; i < paramStr.length; i++)
-                //         {
-                //             let index: number = i + 1;
-                //             content = content.replace("{" + index + "}", paramStr[i]);
-                //         }
-                //     }
-                // }
-                // mail.Content = content;
+                case MailTempletType.MTT:
+                    content = MailManager.analyzeMtt(data, content);
+                    break;
             }
         }
+        mail.Content = content;
         MailManager.addOneMail(mail);
     }
+    /**
+     * 解析锦标赛邮件
+     */
+    private static analyzeMtt(data: msg.IMailDetail, content:string): string
+    {
+        let name = game.StringConstants.Empty;
+        let mttDef: table.IChampionshipDefine = table.ChampionshipById[data.mtttid];
+        if (mttDef)
+        {
+            name = mttDef.Name;
+        }
+        let rankStr = game.StringConstants.Empty;
+        switch (data.mttrank)
+        {
+            case 1:
+                rankStr = "冠军";
+                break;
+            default:
+                rankStr = "第" + data.mttrank + "名";
+                break;
+        }
+        let awardStr = MailManager.getAwardDes(data.mttawardtid);
+        game.StringUtil.format(content, [name, rankStr, awardStr]);
+        return content;
+    }
+    /**
+     * 获取奖励描述
+     */
+    private static getAwardDes(id: number): string
+    {
+        let awardStr = game.StringConstants.Empty;
+
+        let awardDef = table.AwardById[id];
+        if (awardDef && awardDef.RewardId)
+        {
+            for (let i: number = 0; i < awardDef.RewardId.length; i++)
+            {
+                let itemDef = table.ItemBaseDataById[awardDef.RewardId[i]];
+                if (itemDef)
+                {
+                    awardStr += itemDef.Name;
+                }
+                awardStr += "*" + awardDef.RewardNum[i] + "、";
+            }
+            awardStr = awardStr.replace(/、$/g, "");
+        }
+        return awardStr;
+    }
+
     public static newMailPush(result: game.SpRpcResult)
     {
         let data: msg.GW2C_PushNewMail = result.data;

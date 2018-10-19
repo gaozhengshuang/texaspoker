@@ -9,6 +9,7 @@ import (
 	"gitee.com/jntse/minehero/server/def"
 	"gitee.com/jntse/minehero/pbmsg"
 	pb "github.com/gogo/protobuf/proto"
+	"strings"
 )
 
 const (
@@ -123,14 +124,14 @@ func (u *GateUser) OnAchieveProcessChanged(group int32) {
 		gold := u.GetGold()
 		if gold > process {
 			u.SetAchieveProcessByGroup(group, gold)
-			Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "maxgold", gold)
+			Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "maxgold", gold)
 		}
 	} else if group == AchieveGroup_Friend {
 		friendnum := u.friends.Size()
 		if friendnum > process {
 			u.SetAchieveProcessByGroup(group, friendnum)
 		}
-		Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "friendnum", friendnum)
+		Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "friendnum", friendnum)
 	} else if group == AchieveGroup_Level || group == AchieveGroup_LevelEx {
 		level := u.Level()
 		if level > process {
@@ -232,9 +233,6 @@ func (u *GateUser) OnReqTakeAchieveAward(taskid int32) string {
 	return errcode
 }
 
-
-
-//
 func (u *GateUser) OnReqPlayerRoleInfo(roleid int64) {
 	send := &msg.GW2C_RetPlayerRoleInfo{}
 	send.Roleid = pb.Int64(roleid)
@@ -261,6 +259,17 @@ func (u *GateUser) OnReqPlayerRoleInfo(roleid int64) {
 					send.Sign = pb.String(v)
 				case "age":
 					send.Age = pb.Int32(util.Atoi(v))
+				default:
+			}
+		}
+	}
+
+	cmdmap2, err2 := Redis().HGetAll(fmt.Sprintf("charstate_%d", roleid)).Result()
+	if err2 == nil {
+		for k, v := range cmdmap2 {
+			switch k {
+				case "createdtime":
+					send.Createdtime = pb.Int32(util.Atoi(v))
 				case "maxgold":
 					send.Maxgold = pb.Int32(util.Atoi(v))
 				case "maxgoldonetimes":
@@ -279,8 +288,6 @@ func (u *GateUser) OnReqPlayerRoleInfo(roleid int64) {
 					send.Championtimes = pb.Int32(util.Atoi(v))
 				case "mttjointimes":
 					send.Mttjointimes = pb.Int32(util.Atoi(v))
-				case "createdtime":
-					send.Createdtime = pb.Int32(util.Atoi(v))
 				case "roomtype":
 					send.Stateid = pb.Int32(util.Atoi(v))
 				case "roomid":
@@ -293,7 +300,12 @@ func (u *GateUser) OnReqPlayerRoleInfo(roleid int64) {
 					send.Showdowntimes = pb.Int32(util.Atoi(v))
 				case "showdowntimes2": 
 					send.Showdowntimes2 = pb.Int32(util.Atoi(v))
-			
+				case "maxhand":
+					maxhandstr := strings.Split(v, "|")
+					for _, m := range maxhandstr {
+						send.Maxhand = append(send.Maxhand, util.Atoi(m))
+					}
+				default:
 			}
 		}
 	}

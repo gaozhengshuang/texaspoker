@@ -10,22 +10,25 @@ message LevelBasee
 {	
 	
 	
-	repeated TLevelDefine TLevel = 1; // TLevel
+	repeated ExpDefine Exp = 1; // Exp
 
 }
 
-// Defined in table: TLevel
-message TLevelDefine
+// Defined in table: Exp
+message ExpDefine
 {	
 	
 	
-	optional int32 Id = 1; // id
+	optional int32 Id = 1; 
 	
 	
-	optional int32 ExpNums = 2; // 经验
+	optional int32 Level = 2; 
 	
 	
-	optional int32 Reward = 3; // 奖励
+	optional int32 Exp = 3; 
+	
+	
+	optional string Title = 4; 
 
 }
 
