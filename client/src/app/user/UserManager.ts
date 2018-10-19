@@ -105,7 +105,7 @@ class UserManager
 	private static GW2C_PushMsgNotify(result: game.SpRpcResult)
 	{
 		let data: msg.GW2C_PushMsgNotify = result.data;
-		AlertManager.showAlertByString(data.text);
+		AlertManager.showAlertByString(JianTFanTTranser.tryTraditionalized(data.text));
 	}
 	/**
 	 * 仅限于number类型
@@ -194,13 +194,13 @@ class UserManager
 
 		// if (roleId > 200)
 		// {
-			SocketManager.call(Command.C2GW_ReqPlayerRoleInfo, { roleid: roleId }, callback, errorCallBack, this);
+		SocketManager.call(Command.C2GW_ReqPlayerRoleInfo, { roleid: roleId }, callback, errorCallBack, this);
 		// }
 		// else if (isShowTips)
 		// {
 		// 	UIManager.showFloatTips("玩家信息为私密！");
 		// }
-		
+
 		// }
 	}
 
