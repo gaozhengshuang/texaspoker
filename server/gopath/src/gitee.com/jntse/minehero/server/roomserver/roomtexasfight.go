@@ -55,6 +55,61 @@ func (tf *TexasFightRoom) SynBetPoolChange() {
 	tf.betstat.Reset()
 }
 
+// 检查玩家上庄和下庄
+func (tf *TexasFightRoom) CheckPlayerBanker() {
+
+	//  检查玩家庄家是否还能继续坐庄
+	if false == tf.banker.IsSystem() {
+		kickbanker, p := false, tf.banker
+		if tf.banker.Gold() < tf.tconf.BankerMinGold {
+			log.Info("[百人大战] 玩家[%s %d] 金币不足[%d] 不能继续坐庄", p.Name(), p.Id(), tf.tconf.BankerMinGold)
+			kickbanker = true 
+		} else if p.BeBankerRound() < tf.tconf.BankerRound {
+			kickbanker = true
+			log.Info("[百人大战] 玩家[%s %d] 坐庄达到最大轮数[%d] 不能继续坐庄", p.Name(), p.Id(), tf.tconf.BankerRound)
+		}
+
+		// 玩家庄家下庄
+		if kickbanker == true {
+			tf.banker.Sit(-1)
+			tf.banker.ResetBankerRound()
+			posmsg := &msg.RS2C_PushTFPosChange{ Pos:pb.Int32(0), Roleid:pb.Int64(0), Bankergold:pb.Int32(0) }
+			tf.BroadCastMemberMsg(posmsg)	// TODO: 下庄这个推送可以省掉
+		}
+
+		tf.banker = nil
+	}
+
+
+	// 下一个玩家庄家
+	if len(tf.bankerqueue) != 0 {
+		p := tf.bankerqueue[0]
+		if p.Seat() != -1 {	// 在座位上先离开座位
+			tf.UserStandUp(p.owner)
+		}
+
+		tf.banker = p
+		tf.banker.Sit(0)
+		tf.banker.ResetBankerRound()
+		tf.bankerqueue = tf.bankerqueue[1:]
+		posmsg := &msg.RS2C_PushTFPosChange{Pos:pb.Int32(0), Roleid:pb.Int64(tf.banker.Id()), Bankergold:pb.Int32(tf.banker.Gold()) }
+		tf.BroadCastMemberMsg(posmsg)
+		log.Info("[百人大战] 玩家[%s %d] 成为正式庄家", tf.banker.Name(), tf.banker.Id())
+		return
+	}
+
+
+	//系统庄家回归
+	if tf.banker == nil {
+		tf.banker = tf.bankersys
+		tf.banker.Sit(0)
+		posmsg := &msg.RS2C_PushTFPosChange{Pos:pb.Int32(0), Roleid:pb.Int64(tf.banker.Id()), Bankergold:pb.Int32(tf.banker.Gold()) }
+		tf.BroadCastMemberMsg(posmsg)
+		log.Info("[百人大战] 切换到系统庄家")
+	}
+
+}
+
 //
 func (tf *TexasFightRoom) FindPlayer(uid int64) *TexasFightPlayer {
 	p, _ := tf.players[uid]
@@ -63,7 +118,7 @@ func (tf *TexasFightRoom) FindPlayer(uid int64) *TexasFightPlayer {
 
 //
 func (tf *TexasFightRoom) AddPlayer(u *RoomUser) *TexasFightPlayer {
-	p := NewTexasFightPlayer(u)
+	p := NewTexasFightPlayer(u, false)
 	tf.players[u.Id()] = p
 	return p
 }
@@ -126,7 +181,12 @@ func (tf *TexasFightRoom) CardShuffle() {
 
 // 发牌
 func (tf *TexasFightRoom) CardDeal() {
-	;
+	begin, end := 0, 5
+	for _, pool := range tf.betpool {
+		pool.InsertCards(tf.cards[begin:end])
+		begin += 5
+		end += 5
+	}
 }
 
 
@@ -244,21 +304,24 @@ func (tf *TexasFightRoom) RequestQuitBanker(u *RoomUser) {
 		return
 	}
 
-	// TODO: 已经是庄家
-	if false && tf.stat == kStatBetting {
+	if tf.stat == kStatBetting {
 		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 下注中不能下庄", u.Name(), u.Id(), tf.Id())
 		return
 	}
 
-
-	for _, p := range tf.bankerqueue {
-		if p.Id() == u.Id() {
-			log.Error("[百人大战] 玩家[%s %d] 房间[%d] 不在庄家列表", u.Name(), u.Id(), tf.Id())
-			return
-		}
+	// TODO: 庄家
+	if player.Id() == tf.banker.Id() {
 	}
 
-	tf.bankerqueue = append(tf.bankerqueue, player)
+	// 上庄列表
+	qsize := len(tf.bankerqueue)
+	for i:=0; i < qsize; i++ {
+		if tf.bankerqueue[i].Id() != u.Id() { continue }
+		if i == qsize - 1 { tf.bankerqueue = tf.bankerqueue[:qsize-1]; break }
+		tf.bankerqueue = append(tf.bankerqueue[:i], tf.bankerqueue[i+1:]...)
+		break
+	}
+
 	send := &msg.C2RS_ReqTFQuitBanker{}
 	u.SendClientMsg(send)
 
