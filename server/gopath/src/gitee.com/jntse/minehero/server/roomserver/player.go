@@ -45,6 +45,8 @@ type TexasPlayer struct{
 	rewardround int32
 	isallinshow bool
 	delaystandup int32
+	mttranktime int32
+	rankinfo *msg.RS2C_PushMTTRank
 }
 
 type TexasPlayers []*TexasPlayer
@@ -63,6 +65,7 @@ func NewTexasPlayer(user *RoomUser, room *TexasPokerRoom, isai bool) *TexasPlaye
 	player.gamestate = GSWaitNext
 	player.isai = isai
 	player.InitTimeReward()
+	player.rankinfo = &msg.RS2C_PushMTTRank{}
 	return player
 }
 
@@ -529,6 +532,24 @@ func (this *TexasPlayer) Tick (){
 			this.StandUp()
 		}
 	}
+	if this.mttranktime >= 10 {
+		this.SendMttRank()	
+	}else{
+		if this.room.IsChampionShip() {
+			this.mttranktime++
+		}
+	}
+}
+
+func (this *TexasPlayer) SendMttRank() {
+	if !this.room.IsChampionShip() {
+		return 
+	}
+	this.rankinfo.Rank = pb.Int32(this.room.mtt.GetUserRank(this.owner.Id()))
+	this.rankinfo.Join = pb.Int32(this.room.mtt.maxuser)
+	this.rankinfo.Avgchips = pb.Int32(this.room.mtt.GetAvgChips())
+	this.rankinfo.Recordid = pb.Int32(this.room.mtt.uid)
+	this.owner.SendClientMsg(this.rankinfo)
 }
 
 func (this *TexasPlayer) AddRewardTime() {
@@ -735,7 +756,9 @@ func (this *TexasPlayer) CheckLeave() bool{
 
 func (this *TexasPlayer) StandUp() bool {
 	if this.room.InGame(this) {
-		this.owner.AddGold(this.bankroll, "离开房间", true)
+		if !this.room.IsChampionShip() {
+			this.owner.AddGold(this.bankroll, "离开房间", true)
+		}
 		if !this.IsWait() {
 			this.room.remain--
 			this.room.playerstate[this.pos] = GSFold

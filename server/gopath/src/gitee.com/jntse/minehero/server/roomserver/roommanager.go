@@ -24,7 +24,8 @@ type TimesReward struct {
 // --------------------------------------------------------------------------
 type RoomManager struct {
 	rooms map[int64]IRoomBase			// 所有房间
-	texasrooms map[int32][]IRoomBase	// 德州房间
+	texasrooms map[int32]map[int64]IRoomBase	// 德州房间
+	texasfightrooms map[int64]IRoomBase	// 百人大战
 	ticker1s *util.GameTicker
 	timerewards map[int32]*TimesReward
 	maxrewardround int32
@@ -32,7 +33,8 @@ type RoomManager struct {
 
 func (rm *RoomManager) Init() bool {
 	rm.rooms = make(map[int64]IRoomBase)
-	rm.texasrooms = make(map[int32][]IRoomBase)
+	rm.texasrooms = make(map[int32]map[int64]IRoomBase)
+	rm.texasfightrooms = make(map[int64]IRoomBase)
 	rm.ticker1s = util.NewGameTicker(time.Second, rm.Handler1sTick)
 	rm.ticker1s.Start()
 
@@ -138,14 +140,24 @@ func (rm *RoomManager) Add(room IRoomBase) {
 	room.InitCache()
 	if room.Kind() == int32(msg.RoomKind_TexasPoker) {
 		subkind := room.SubKind()
-		if rm.texasrooms[subkind] == nil { rm.texasrooms[subkind] = make([]IRoomBase, 0) }
-		rm.texasrooms[subkind] = append(rm.texasrooms[subkind], room)
+		if rm.texasrooms[subkind] == nil { rm.texasrooms[subkind] = make(map[int64]IRoomBase) }
+		rm.texasrooms[subkind][id] = room
+	}else if room.Kind() == int32(msg.RoomKind_TexasFight) {
+		rm.texasfightrooms[id] = room
 	}
-	log.Info("[房间] 添加房间[%d] 当前房间数[%d]", id, len(rm.rooms))
+	
+	log.Info("[房间] 添加房间[%d] 类型[%d] 当前房间数[%d]", id, room.Kind(), len(rm.rooms))
 }
 
 func (rm* RoomManager) Del(id int64) {
+	room, find := rm.rooms[id]
+	if find == false {
+		return
+	}
+
 	delete(rm.rooms, id)
+	delete(rm.texasrooms[room.SubKind()], id)
+	delete(rm.texasfightrooms, id)
 	log.Info("[房间] 删除房间[%d] 当前房间数[%d]", id, len(rm.rooms))
 }
 
@@ -167,6 +179,22 @@ func (rm* RoomManager) FindTexas(id int64) *TexasPokerRoom {
 		return nil
 	}
 	return ptr
+}
+
+func (rm* RoomManager) FindTexasFight(id int64) *TexasFightRoom {
+	room, ok := rm.texasfightrooms[id]
+	if ok == false {
+		return nil
+	}
+	ptr, ok := room.(*TexasFightRoom)
+	if ok == false {
+		return nil
+	}
+	return ptr
+}
+
+func (rm *RoomManager) TexasFightRoomList() map[int64]IRoomBase {
+	return rm.texasfightrooms
 }
 
 

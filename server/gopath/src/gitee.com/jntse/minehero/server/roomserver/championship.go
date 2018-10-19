@@ -377,6 +377,14 @@ func (cs *ChampionShip) GetUserOutTime(userid int64) int32 {
 	return 0
 }
 
+func (cs *ChampionShip) GetAvgChips() int32 {
+	if cs.curmembernum != 0 {
+		return cs.sumbankroll/cs.curmembernum
+	}else{
+		return cs.sumbankroll
+	}
+}
+
 func (cs *ChampionShip) UserGameOver(userid int64) {
 	send := &msg.RS2C_PushMTTWeedOut{}
 	send.Rank = pb.Int32(cs.GetFinalRank(userid))
@@ -459,7 +467,7 @@ func (cs *ChampionShip) ReDispatchRoom(roomuid int64) {
 		cs.NotifyUserRoom(tmproommember)
 		texas := RoomMgr().FindTexas(roomuid)
 		if texas != nil {
-			texas.Destory(1)
+			texas.Destory(3)
 		}
 	}
 }
@@ -497,7 +505,7 @@ func (cs *ChampionShip) NotifyUserBlind(roommember map[int64]map[int64]int64) {
 func (cs *ChampionShip) GetFinalRank(uid int64) int32{
 	for k, v := range cs.finalrank {
 		if v == uid {
-			return int32(len(cs.finalrank) - k)
+			return cs.maxuser - int32(k)
 		}
 	}
 	return 0
@@ -532,7 +540,7 @@ func (cs *ChampionShip) CalcRank(roomuid int64) {
 func (cs *ChampionShip) GameOver() {
 	cs.RewardAll()
 	cs.SaveData()
-	cs.DestoryRoom()
+	//cs.DestoryRoom()
 	cs.state = CSDel
 	log.Info("锦标赛%d 结束", cs.uid)
 }
@@ -673,6 +681,7 @@ type ChampionManager struct {
 	championships map[int32]*ChampionShip
 	ticker1s *util.GameTicker
 	championovers map[int32]*ChampionShip
+	lastinittime int32
 }
 
 func (cm *ChampionManager) Init() bool {
@@ -680,6 +689,7 @@ func (cm *ChampionManager) Init() bool {
 	cm.championovers = make(map[int32]*ChampionShip)
 	cm.ticker1s = util.NewGameTicker(time.Second, cm.Handler1sTick)
 	cm.ticker1s.Start()
+	cm.lastinittime = int32(util.CURTIME())
 	//cm.InitChampionShip()
 	return true
 }
@@ -706,6 +716,10 @@ func (cm *ChampionManager) CreateChampionShip(tid int32, start int32) {
 }
 
 func (cm *ChampionManager) Handler1sTick(now int64) {
+	if !util.IsSameDay(int64(cm.lastinittime), util.CURTIME()) {
+		cm.InitChampionShip()
+		cm.lastinittime = int32(util.CURTIME())
+	}
 }
 
 func (cm *ChampionManager) Tick(now int64) {

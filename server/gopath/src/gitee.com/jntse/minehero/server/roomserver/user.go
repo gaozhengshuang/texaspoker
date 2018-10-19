@@ -40,6 +40,7 @@ type RoomUser struct {
 	roomid         int64 // 房间id
 	isai           bool
 	arvalues		def.AutoResetValues
+	roomlist		map[int64]int64
 }
 
 func NewRoomUser(rid int64, gate network.IBaseNetSession, gamekind int32) *RoomUser {
@@ -53,6 +54,7 @@ func NewRoomUser(rid int64, gate network.IBaseNetSession, gamekind int32) *RoomU
 	user.asynev.Start(int64(user.Id()), 10)
 	user.maxenergy = tbl.Game.MaxEnergy
 	user.arvalues.Init()
+	user.roomlist = make(map[int64]int64) 
 	return user
 }
 
@@ -74,6 +76,7 @@ func NewSimpleUser(id int64) *RoomUser {
 	user.ticker10ms = util.NewGameTicker(10*time.Millisecond, user.Handler10msTick)
 	user.ticker1s.Start()
 	user.ticker10ms.Start()
+	user.roomlist = make(map[int64]int64)
 	return user
 }
 
@@ -101,6 +104,7 @@ func NewRoomUserAI(id int64, name string, sex int32) *RoomUser {
 	user.ticker10ms = util.NewGameTicker(10*time.Millisecond, user.Handler10msTick)
 	user.ticker1s.Start()
 	user.ticker10ms.Start()
+	user.roomlist = make(map[int64]int64)
 	return user
 }
 
@@ -158,6 +162,11 @@ func (u *RoomUser) RoomId() int64 {
 
 func (u *RoomUser) SetRoomId(uid int64) {
 	u.roomid = uid
+	u.roomlist[uid] = uid
+}
+
+func (u *RoomUser) DelRoomId(uid int64) {	
+	delete(u.roomlist, uid)
 }
 
 func (u *RoomUser) OpenId() string {

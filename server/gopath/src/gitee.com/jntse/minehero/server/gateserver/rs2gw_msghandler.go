@@ -133,7 +133,7 @@ func on_RS2GW_PushRoomDestory(session network.IBaseNetSession, message interface
 		log.Error("RS2GW_PushRoomDestory 找不到玩家[%d]", userid)
 		return
 	}
-	user.OnDestoryRoom(tmsg.Bin)
+	user.OnDestoryRoom()
 }
 
 // 离开房间

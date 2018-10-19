@@ -206,7 +206,7 @@ func (u *GateUser) OnLeaveRoom() {
 	log.Info("[房间] 玩家[%s %d] 离开房间[%d] 回传房间个人数据", u.Name(), u.Id(), u.RoomId())
 	u.roomdata.Reset(u)
 	//u.bin = pb.Clone(bin).(*msg.Serialize)		// 加载最新玩家数据
-	u.OnDBLoad("离开房间")
+	//u.OnDBLoad("离开房间")
 	if u.IsOnline() {
 		u.SendMsg(&msg.GW2C_RetLeaveRoom{})
 		u.SendUserBase()
@@ -215,7 +215,7 @@ func (u *GateUser) OnLeaveRoom() {
 
 // 进入房间
 func (u *GateUser) OnEnterRoom(agentid int, tmsg *msg.RS2GW_RetEnterRoom) {
-	u.roomdata.kind 		= tmsg.GetKind()
+	u.roomdata.kind 	= tmsg.GetKind()
 	u.roomdata.roomid 	= tmsg.GetRoomid()
 	u.roomdata.roomsid 	= agentid
 	u.roomdata.roomtid 	= tmsg.GetRoomtid()
@@ -224,11 +224,11 @@ func (u *GateUser) OnEnterRoom(agentid int, tmsg *msg.RS2GW_RetEnterRoom) {
 }
 
 // 房间销毁
-func (u *GateUser) OnDestoryRoom(bin *msg.Serialize) {
+func (u *GateUser) OnDestoryRoom() {
 	log.Info("[房间] 玩家[%s %d] 销毁房间[%d] 回传房间个人数据", u.Name(), u.Id(), u.RoomId())
 	u.roomdata.Reset(u)
-	u.bin = pb.Clone(bin).(*msg.Serialize)		// 加载最新玩家数据
-	u.OnDBLoad("房间销毁")
+	//u.bin = pb.Clone(bin).(*msg.Serialize)		// 加载最新玩家数据
+	//u.OnDBLoad("房间销毁")
 	if u.IsOnline() {
 		u.SendMsg(&msg.GW2C_RetLeaveRoom{})
 		u.SendUserBase()

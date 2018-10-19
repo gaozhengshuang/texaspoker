@@ -10,6 +10,9 @@ func (u *RoomUser) Login() {
 }
 
 func (u *RoomUser) Logout() {
+	if len(u.roomlist) != 0 {
+		return
+	}
 	u.ticker1s.Stop()
 	u.ticker10ms.Stop()
 	u.asynev.Shutdown()
@@ -27,7 +30,7 @@ func (u *RoomUser) OnGameOver() {
 func (u *RoomUser) OnDestoryRoom() {
 	u.Logout()
 	Redis().Del(fmt.Sprintf("userinroom_%d", u.Id()))
-	msgdestory := &msg.RS2GW_PushRoomDestory{Roomid:pb.Int64(u.RoomId()), Userid:pb.Int64(u.Id()), Bin:u.PackBin()}
+	msgdestory := &msg.RS2GW_PushRoomDestory{Roomid:pb.Int64(u.RoomId()), Userid:pb.Int64(u.Id())}
 	u.SendMsg(msgdestory)
 	log.Trace("[房间] 玩家[%s %d] 回传个人数据，房间销毁[%d]", u.Name(), u.Id(), u.RoomId())
 }
