@@ -1,22 +1,14 @@
 /**
- * 邮件解析类型
+ * 邮件模板类型
  */
-enum MailResolveType
+enum MailTempletType
 {
     /**
-     * 无解析
+     * 无类型
      */
     NONE = 0,
     /**
-     * 解析附件
+     * 锦标赛奖励
      */
-    RosolveAnnex = 1,
-    /**
-     * 解析服务器数据
-     */
-    RosolveServer = 2,
-    /**
-     * 混合解析
-     */
-    MixRosolve = 3,
+    MTT = 1
 }

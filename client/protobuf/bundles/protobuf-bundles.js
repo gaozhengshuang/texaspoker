@@ -33418,16 +33418,16 @@ $root.msg = (function() {
          * @memberof msg
          * @interface IMailDetail
          * @property {number|Long|null} [id] MailDetail id
-         * @property {number|null} [type] MailDetail type
-         * @property {string|null} [content] MailDetail content
-         * @property {string|null} [title] MailDetail title
-         * @property {number|null} [subtype] MailDetail subtype
+         * @property {number|null} [tid] MailDetail tid
          * @property {number|Long|null} [date] MailDetail date
          * @property {string|null} [sender] MailDetail sender
          * @property {number|Long|null} [senderid] MailDetail senderid
          * @property {boolean|null} [isread] MailDetail isread
          * @property {boolean|null} [isgot] MailDetail isgot
          * @property {Array.<msg.IMailItem>|null} [items] MailDetail items
+         * @property {number|null} [mtttid] MailDetail mtttid
+         * @property {number|null} [mttrank] MailDetail mttrank
+         * @property {number|null} [mttawardtid] MailDetail mttawardtid
          */
 
         /**
@@ -33455,36 +33455,12 @@ $root.msg = (function() {
         MailDetail.prototype.id = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
-         * MailDetail type.
-         * @member {number} type
+         * MailDetail tid.
+         * @member {number} tid
          * @memberof msg.MailDetail
          * @instance
          */
-        MailDetail.prototype.type = 0;
-
-        /**
-         * MailDetail content.
-         * @member {string} content
-         * @memberof msg.MailDetail
-         * @instance
-         */
-        MailDetail.prototype.content = "";
-
-        /**
-         * MailDetail title.
-         * @member {string} title
-         * @memberof msg.MailDetail
-         * @instance
-         */
-        MailDetail.prototype.title = "";
-
-        /**
-         * MailDetail subtype.
-         * @member {number} subtype
-         * @memberof msg.MailDetail
-         * @instance
-         */
-        MailDetail.prototype.subtype = 0;
+        MailDetail.prototype.tid = 0;
 
         /**
          * MailDetail date.
@@ -33535,6 +33511,30 @@ $root.msg = (function() {
         MailDetail.prototype.items = $util.emptyArray;
 
         /**
+         * MailDetail mtttid.
+         * @member {number} mtttid
+         * @memberof msg.MailDetail
+         * @instance
+         */
+        MailDetail.prototype.mtttid = 0;
+
+        /**
+         * MailDetail mttrank.
+         * @member {number} mttrank
+         * @memberof msg.MailDetail
+         * @instance
+         */
+        MailDetail.prototype.mttrank = 0;
+
+        /**
+         * MailDetail mttawardtid.
+         * @member {number} mttawardtid
+         * @memberof msg.MailDetail
+         * @instance
+         */
+        MailDetail.prototype.mttawardtid = 0;
+
+        /**
          * Creates a new MailDetail instance using the specified properties.
          * @function create
          * @memberof msg.MailDetail
@@ -33560,27 +33560,27 @@ $root.msg = (function() {
                 writer = $Writer.create();
             if (message.id != null && message.hasOwnProperty("id"))
                 writer.uint32(/* id 1, wireType 0 =*/8).int64(message.id);
-            if (message.type != null && message.hasOwnProperty("type"))
-                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.type);
-            if (message.content != null && message.hasOwnProperty("content"))
-                writer.uint32(/* id 3, wireType 2 =*/26).string(message.content);
-            if (message.title != null && message.hasOwnProperty("title"))
-                writer.uint32(/* id 4, wireType 2 =*/34).string(message.title);
-            if (message.subtype != null && message.hasOwnProperty("subtype"))
-                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.subtype);
+            if (message.tid != null && message.hasOwnProperty("tid"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.tid);
             if (message.date != null && message.hasOwnProperty("date"))
-                writer.uint32(/* id 6, wireType 0 =*/48).int64(message.date);
+                writer.uint32(/* id 3, wireType 0 =*/24).int64(message.date);
             if (message.sender != null && message.hasOwnProperty("sender"))
-                writer.uint32(/* id 7, wireType 2 =*/58).string(message.sender);
+                writer.uint32(/* id 4, wireType 2 =*/34).string(message.sender);
             if (message.senderid != null && message.hasOwnProperty("senderid"))
-                writer.uint32(/* id 8, wireType 0 =*/64).int64(message.senderid);
+                writer.uint32(/* id 5, wireType 0 =*/40).int64(message.senderid);
+            if (message.isread != null && message.hasOwnProperty("isread"))
+                writer.uint32(/* id 6, wireType 0 =*/48).bool(message.isread);
+            if (message.isgot != null && message.hasOwnProperty("isgot"))
+                writer.uint32(/* id 7, wireType 0 =*/56).bool(message.isgot);
             if (message.items != null && message.items.length)
                 for (var i = 0; i < message.items.length; ++i)
-                    $root.msg.MailItem.encode(message.items[i], writer.uint32(/* id 9, wireType 2 =*/74).fork()).ldelim();
-            if (message.isread != null && message.hasOwnProperty("isread"))
-                writer.uint32(/* id 10, wireType 0 =*/80).bool(message.isread);
-            if (message.isgot != null && message.hasOwnProperty("isgot"))
-                writer.uint32(/* id 11, wireType 0 =*/88).bool(message.isgot);
+                    $root.msg.MailItem.encode(message.items[i], writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
+            if (message.mtttid != null && message.hasOwnProperty("mtttid"))
+                writer.uint32(/* id 9, wireType 0 =*/72).int32(message.mtttid);
+            if (message.mttrank != null && message.hasOwnProperty("mttrank"))
+                writer.uint32(/* id 10, wireType 0 =*/80).int32(message.mttrank);
+            if (message.mttawardtid != null && message.hasOwnProperty("mttawardtid"))
+                writer.uint32(/* id 11, wireType 0 =*/88).int32(message.mttawardtid);
             return writer;
         };
 
@@ -33619,36 +33619,36 @@ $root.msg = (function() {
                     message.id = reader.int64();
                     break;
                 case 2:
-                    message.type = reader.int32();
+                    message.tid = reader.int32();
                     break;
                 case 3:
-                    message.content = reader.string();
-                    break;
-                case 4:
-                    message.title = reader.string();
-                    break;
-                case 5:
-                    message.subtype = reader.int32();
-                    break;
-                case 6:
                     message.date = reader.int64();
                     break;
-                case 7:
+                case 4:
                     message.sender = reader.string();
                     break;
-                case 8:
+                case 5:
                     message.senderid = reader.int64();
                     break;
-                case 10:
+                case 6:
                     message.isread = reader.bool();
                     break;
-                case 11:
+                case 7:
                     message.isgot = reader.bool();
                     break;
-                case 9:
+                case 8:
                     if (!(message.items && message.items.length))
                         message.items = [];
                     message.items.push($root.msg.MailItem.decode(reader, reader.uint32()));
+                    break;
+                case 9:
+                    message.mtttid = reader.int32();
+                    break;
+                case 10:
+                    message.mttrank = reader.int32();
+                    break;
+                case 11:
+                    message.mttawardtid = reader.int32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -33688,18 +33688,9 @@ $root.msg = (function() {
             if (message.id != null && message.hasOwnProperty("id"))
                 if (!$util.isInteger(message.id) && !(message.id && $util.isInteger(message.id.low) && $util.isInteger(message.id.high)))
                     return "id: integer|Long expected";
-            if (message.type != null && message.hasOwnProperty("type"))
-                if (!$util.isInteger(message.type))
-                    return "type: integer expected";
-            if (message.content != null && message.hasOwnProperty("content"))
-                if (!$util.isString(message.content))
-                    return "content: string expected";
-            if (message.title != null && message.hasOwnProperty("title"))
-                if (!$util.isString(message.title))
-                    return "title: string expected";
-            if (message.subtype != null && message.hasOwnProperty("subtype"))
-                if (!$util.isInteger(message.subtype))
-                    return "subtype: integer expected";
+            if (message.tid != null && message.hasOwnProperty("tid"))
+                if (!$util.isInteger(message.tid))
+                    return "tid: integer expected";
             if (message.date != null && message.hasOwnProperty("date"))
                 if (!$util.isInteger(message.date) && !(message.date && $util.isInteger(message.date.low) && $util.isInteger(message.date.high)))
                     return "date: integer|Long expected";
@@ -33724,6 +33715,15 @@ $root.msg = (function() {
                         return "items." + error;
                 }
             }
+            if (message.mtttid != null && message.hasOwnProperty("mtttid"))
+                if (!$util.isInteger(message.mtttid))
+                    return "mtttid: integer expected";
+            if (message.mttrank != null && message.hasOwnProperty("mttrank"))
+                if (!$util.isInteger(message.mttrank))
+                    return "mttrank: integer expected";
+            if (message.mttawardtid != null && message.hasOwnProperty("mttawardtid"))
+                if (!$util.isInteger(message.mttawardtid))
+                    return "mttawardtid: integer expected";
             return null;
         };
 
@@ -33748,14 +33748,8 @@ $root.msg = (function() {
                     message.id = object.id;
                 else if (typeof object.id === "object")
                     message.id = new $util.LongBits(object.id.low >>> 0, object.id.high >>> 0).toNumber();
-            if (object.type != null)
-                message.type = object.type | 0;
-            if (object.content != null)
-                message.content = String(object.content);
-            if (object.title != null)
-                message.title = String(object.title);
-            if (object.subtype != null)
-                message.subtype = object.subtype | 0;
+            if (object.tid != null)
+                message.tid = object.tid | 0;
             if (object.date != null)
                 if ($util.Long)
                     (message.date = $util.Long.fromValue(object.date)).unsigned = false;
@@ -33790,6 +33784,12 @@ $root.msg = (function() {
                     message.items[i] = $root.msg.MailItem.fromObject(object.items[i]);
                 }
             }
+            if (object.mtttid != null)
+                message.mtttid = object.mtttid | 0;
+            if (object.mttrank != null)
+                message.mttrank = object.mttrank | 0;
+            if (object.mttawardtid != null)
+                message.mttawardtid = object.mttawardtid | 0;
             return message;
         };
 
@@ -33814,10 +33814,7 @@ $root.msg = (function() {
                     object.id = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.id = options.longs === String ? "0" : 0;
-                object.type = 0;
-                object.content = "";
-                object.title = "";
-                object.subtype = 0;
+                object.tid = 0;
                 if ($util.Long) {
                     var long = new $util.Long(0, 0, false);
                     object.date = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
@@ -33831,20 +33828,17 @@ $root.msg = (function() {
                     object.senderid = options.longs === String ? "0" : 0;
                 object.isread = false;
                 object.isgot = false;
+                object.mtttid = 0;
+                object.mttrank = 0;
+                object.mttawardtid = 0;
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 if (typeof message.id === "number")
                     object.id = options.longs === String ? String(message.id) : message.id;
                 else
                     object.id = options.longs === String ? $util.Long.prototype.toString.call(message.id) : options.longs === Number ? new $util.LongBits(message.id.low >>> 0, message.id.high >>> 0).toNumber() : message.id;
-            if (message.type != null && message.hasOwnProperty("type"))
-                object.type = message.type;
-            if (message.content != null && message.hasOwnProperty("content"))
-                object.content = message.content;
-            if (message.title != null && message.hasOwnProperty("title"))
-                object.title = message.title;
-            if (message.subtype != null && message.hasOwnProperty("subtype"))
-                object.subtype = message.subtype;
+            if (message.tid != null && message.hasOwnProperty("tid"))
+                object.tid = message.tid;
             if (message.date != null && message.hasOwnProperty("date"))
                 if (typeof message.date === "number")
                     object.date = options.longs === String ? String(message.date) : message.date;
@@ -33857,15 +33851,21 @@ $root.msg = (function() {
                     object.senderid = options.longs === String ? String(message.senderid) : message.senderid;
                 else
                     object.senderid = options.longs === String ? $util.Long.prototype.toString.call(message.senderid) : options.longs === Number ? new $util.LongBits(message.senderid.low >>> 0, message.senderid.high >>> 0).toNumber() : message.senderid;
+            if (message.isread != null && message.hasOwnProperty("isread"))
+                object.isread = message.isread;
+            if (message.isgot != null && message.hasOwnProperty("isgot"))
+                object.isgot = message.isgot;
             if (message.items && message.items.length) {
                 object.items = [];
                 for (var j = 0; j < message.items.length; ++j)
                     object.items[j] = $root.msg.MailItem.toObject(message.items[j], options);
             }
-            if (message.isread != null && message.hasOwnProperty("isread"))
-                object.isread = message.isread;
-            if (message.isgot != null && message.hasOwnProperty("isgot"))
-                object.isgot = message.isgot;
+            if (message.mtttid != null && message.hasOwnProperty("mtttid"))
+                object.mtttid = message.mtttid;
+            if (message.mttrank != null && message.hasOwnProperty("mttrank"))
+                object.mttrank = message.mttrank;
+            if (message.mttawardtid != null && message.hasOwnProperty("mttawardtid"))
+                object.mttawardtid = message.mttawardtid;
             return object;
         };
 
@@ -82294,7 +82294,7 @@ $root.table = (function() {
          * Properties of a LevelBasee.
          * @memberof table
          * @interface ILevelBasee
-         * @property {Array.<table.ITLevelDefine>|null} [TLevel] LevelBasee TLevel
+         * @property {Array.<table.IExpDefine>|null} [Exp] LevelBasee Exp
          */
 
         /**
@@ -82306,7 +82306,7 @@ $root.table = (function() {
          * @param {table.ILevelBasee=} [properties] Properties to set
          */
         function LevelBasee(properties) {
-            this.TLevel = [];
+            this.Exp = [];
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
@@ -82314,12 +82314,12 @@ $root.table = (function() {
         }
 
         /**
-         * LevelBasee TLevel.
-         * @member {Array.<table.ITLevelDefine>} TLevel
+         * LevelBasee Exp.
+         * @member {Array.<table.IExpDefine>} Exp
          * @memberof table.LevelBasee
          * @instance
          */
-        LevelBasee.prototype.TLevel = $util.emptyArray;
+        LevelBasee.prototype.Exp = $util.emptyArray;
 
         /**
          * Creates a new LevelBasee instance using the specified properties.
@@ -82345,9 +82345,9 @@ $root.table = (function() {
         LevelBasee.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
-            if (message.TLevel != null && message.TLevel.length)
-                for (var i = 0; i < message.TLevel.length; ++i)
-                    $root.table.TLevelDefine.encode(message.TLevel[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            if (message.Exp != null && message.Exp.length)
+                for (var i = 0; i < message.Exp.length; ++i)
+                    $root.table.ExpDefine.encode(message.Exp[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
             return writer;
         };
 
@@ -82383,9 +82383,9 @@ $root.table = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    if (!(message.TLevel && message.TLevel.length))
-                        message.TLevel = [];
-                    message.TLevel.push($root.table.TLevelDefine.decode(reader, reader.uint32()));
+                    if (!(message.Exp && message.Exp.length))
+                        message.Exp = [];
+                    message.Exp.push($root.table.ExpDefine.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -82422,13 +82422,13 @@ $root.table = (function() {
         LevelBasee.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
-            if (message.TLevel != null && message.hasOwnProperty("TLevel")) {
-                if (!Array.isArray(message.TLevel))
-                    return "TLevel: array expected";
-                for (var i = 0; i < message.TLevel.length; ++i) {
-                    var error = $root.table.TLevelDefine.verify(message.TLevel[i]);
+            if (message.Exp != null && message.hasOwnProperty("Exp")) {
+                if (!Array.isArray(message.Exp))
+                    return "Exp: array expected";
+                for (var i = 0; i < message.Exp.length; ++i) {
+                    var error = $root.table.ExpDefine.verify(message.Exp[i]);
                     if (error)
-                        return "TLevel." + error;
+                        return "Exp." + error;
                 }
             }
             return null;
@@ -82446,14 +82446,14 @@ $root.table = (function() {
             if (object instanceof $root.table.LevelBasee)
                 return object;
             var message = new $root.table.LevelBasee();
-            if (object.TLevel) {
-                if (!Array.isArray(object.TLevel))
-                    throw TypeError(".table.LevelBasee.TLevel: array expected");
-                message.TLevel = [];
-                for (var i = 0; i < object.TLevel.length; ++i) {
-                    if (typeof object.TLevel[i] !== "object")
-                        throw TypeError(".table.LevelBasee.TLevel: object expected");
-                    message.TLevel[i] = $root.table.TLevelDefine.fromObject(object.TLevel[i]);
+            if (object.Exp) {
+                if (!Array.isArray(object.Exp))
+                    throw TypeError(".table.LevelBasee.Exp: array expected");
+                message.Exp = [];
+                for (var i = 0; i < object.Exp.length; ++i) {
+                    if (typeof object.Exp[i] !== "object")
+                        throw TypeError(".table.LevelBasee.Exp: object expected");
+                    message.Exp[i] = $root.table.ExpDefine.fromObject(object.Exp[i]);
                 }
             }
             return message;
@@ -82473,11 +82473,11 @@ $root.table = (function() {
                 options = {};
             var object = {};
             if (options.arrays || options.defaults)
-                object.TLevel = [];
-            if (message.TLevel && message.TLevel.length) {
-                object.TLevel = [];
-                for (var j = 0; j < message.TLevel.length; ++j)
-                    object.TLevel[j] = $root.table.TLevelDefine.toObject(message.TLevel[j], options);
+                object.Exp = [];
+            if (message.Exp && message.Exp.length) {
+                object.Exp = [];
+                for (var j = 0; j < message.Exp.length; ++j)
+                    object.Exp[j] = $root.table.ExpDefine.toObject(message.Exp[j], options);
             }
             return object;
         };
@@ -82496,26 +82496,27 @@ $root.table = (function() {
         return LevelBasee;
     })();
 
-    table.TLevelDefine = (function() {
+    table.ExpDefine = (function() {
 
         /**
-         * Properties of a TLevelDefine.
+         * Properties of an ExpDefine.
          * @memberof table
-         * @interface ITLevelDefine
-         * @property {number|null} [Id] TLevelDefine Id
-         * @property {number|null} [ExpNums] TLevelDefine ExpNums
-         * @property {number|null} [Reward] TLevelDefine Reward
+         * @interface IExpDefine
+         * @property {number|null} [Id] ExpDefine Id
+         * @property {number|null} [Level] ExpDefine Level
+         * @property {number|null} [Exp] ExpDefine Exp
+         * @property {string|null} [Title] ExpDefine Title
          */
 
         /**
-         * Constructs a new TLevelDefine.
+         * Constructs a new ExpDefine.
          * @memberof table
-         * @classdesc Represents a TLevelDefine.
-         * @implements ITLevelDefine
+         * @classdesc Represents an ExpDefine.
+         * @implements IExpDefine
          * @constructor
-         * @param {table.ITLevelDefine=} [properties] Properties to set
+         * @param {table.IExpDefine=} [properties] Properties to set
          */
-        function TLevelDefine(properties) {
+        function ExpDefine(properties) {
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
@@ -82523,90 +82524,100 @@ $root.table = (function() {
         }
 
         /**
-         * TLevelDefine Id.
+         * ExpDefine Id.
          * @member {number} Id
-         * @memberof table.TLevelDefine
+         * @memberof table.ExpDefine
          * @instance
          */
-        TLevelDefine.prototype.Id = 0;
+        ExpDefine.prototype.Id = 0;
 
         /**
-         * TLevelDefine ExpNums.
-         * @member {number} ExpNums
-         * @memberof table.TLevelDefine
+         * ExpDefine Level.
+         * @member {number} Level
+         * @memberof table.ExpDefine
          * @instance
          */
-        TLevelDefine.prototype.ExpNums = 0;
+        ExpDefine.prototype.Level = 0;
 
         /**
-         * TLevelDefine Reward.
-         * @member {number} Reward
-         * @memberof table.TLevelDefine
+         * ExpDefine Exp.
+         * @member {number} Exp
+         * @memberof table.ExpDefine
          * @instance
          */
-        TLevelDefine.prototype.Reward = 0;
+        ExpDefine.prototype.Exp = 0;
 
         /**
-         * Creates a new TLevelDefine instance using the specified properties.
+         * ExpDefine Title.
+         * @member {string} Title
+         * @memberof table.ExpDefine
+         * @instance
+         */
+        ExpDefine.prototype.Title = "";
+
+        /**
+         * Creates a new ExpDefine instance using the specified properties.
          * @function create
-         * @memberof table.TLevelDefine
+         * @memberof table.ExpDefine
          * @static
-         * @param {table.ITLevelDefine=} [properties] Properties to set
-         * @returns {table.TLevelDefine} TLevelDefine instance
+         * @param {table.IExpDefine=} [properties] Properties to set
+         * @returns {table.ExpDefine} ExpDefine instance
          */
-        TLevelDefine.create = function create(properties) {
-            return new TLevelDefine(properties);
+        ExpDefine.create = function create(properties) {
+            return new ExpDefine(properties);
         };
 
         /**
-         * Encodes the specified TLevelDefine message. Does not implicitly {@link table.TLevelDefine.verify|verify} messages.
+         * Encodes the specified ExpDefine message. Does not implicitly {@link table.ExpDefine.verify|verify} messages.
          * @function encode
-         * @memberof table.TLevelDefine
+         * @memberof table.ExpDefine
          * @static
-         * @param {table.ITLevelDefine} message TLevelDefine message or plain object to encode
+         * @param {table.IExpDefine} message ExpDefine message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        TLevelDefine.encode = function encode(message, writer) {
+        ExpDefine.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
             if (message.Id != null && message.hasOwnProperty("Id"))
                 writer.uint32(/* id 1, wireType 0 =*/8).int32(message.Id);
-            if (message.ExpNums != null && message.hasOwnProperty("ExpNums"))
-                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.ExpNums);
-            if (message.Reward != null && message.hasOwnProperty("Reward"))
-                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.Reward);
+            if (message.Level != null && message.hasOwnProperty("Level"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.Level);
+            if (message.Exp != null && message.hasOwnProperty("Exp"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.Exp);
+            if (message.Title != null && message.hasOwnProperty("Title"))
+                writer.uint32(/* id 4, wireType 2 =*/34).string(message.Title);
             return writer;
         };
 
         /**
-         * Encodes the specified TLevelDefine message, length delimited. Does not implicitly {@link table.TLevelDefine.verify|verify} messages.
+         * Encodes the specified ExpDefine message, length delimited. Does not implicitly {@link table.ExpDefine.verify|verify} messages.
          * @function encodeDelimited
-         * @memberof table.TLevelDefine
+         * @memberof table.ExpDefine
          * @static
-         * @param {table.ITLevelDefine} message TLevelDefine message or plain object to encode
+         * @param {table.IExpDefine} message ExpDefine message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        TLevelDefine.encodeDelimited = function encodeDelimited(message, writer) {
+        ExpDefine.encodeDelimited = function encodeDelimited(message, writer) {
             return this.encode(message, writer).ldelim();
         };
 
         /**
-         * Decodes a TLevelDefine message from the specified reader or buffer.
+         * Decodes an ExpDefine message from the specified reader or buffer.
          * @function decode
-         * @memberof table.TLevelDefine
+         * @memberof table.ExpDefine
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
          * @param {number} [length] Message length if known beforehand
-         * @returns {table.TLevelDefine} TLevelDefine
+         * @returns {table.ExpDefine} ExpDefine
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        TLevelDefine.decode = function decode(reader, length) {
+        ExpDefine.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TLevelDefine();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.ExpDefine();
             while (reader.pos < end) {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
@@ -82614,10 +82625,13 @@ $root.table = (function() {
                     message.Id = reader.int32();
                     break;
                 case 2:
-                    message.ExpNums = reader.int32();
+                    message.Level = reader.int32();
                     break;
                 case 3:
-                    message.Reward = reader.int32();
+                    message.Exp = reader.int32();
+                    break;
+                case 4:
+                    message.Title = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -82628,104 +82642,112 @@ $root.table = (function() {
         };
 
         /**
-         * Decodes a TLevelDefine message from the specified reader or buffer, length delimited.
+         * Decodes an ExpDefine message from the specified reader or buffer, length delimited.
          * @function decodeDelimited
-         * @memberof table.TLevelDefine
+         * @memberof table.ExpDefine
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {table.TLevelDefine} TLevelDefine
+         * @returns {table.ExpDefine} ExpDefine
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        TLevelDefine.decodeDelimited = function decodeDelimited(reader) {
+        ExpDefine.decodeDelimited = function decodeDelimited(reader) {
             if (!(reader instanceof $Reader))
                 reader = new $Reader(reader);
             return this.decode(reader, reader.uint32());
         };
 
         /**
-         * Verifies a TLevelDefine message.
+         * Verifies an ExpDefine message.
          * @function verify
-         * @memberof table.TLevelDefine
+         * @memberof table.ExpDefine
          * @static
          * @param {Object.<string,*>} message Plain object to verify
          * @returns {string|null} `null` if valid, otherwise the reason why it is not
          */
-        TLevelDefine.verify = function verify(message) {
+        ExpDefine.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
             if (message.Id != null && message.hasOwnProperty("Id"))
                 if (!$util.isInteger(message.Id))
                     return "Id: integer expected";
-            if (message.ExpNums != null && message.hasOwnProperty("ExpNums"))
-                if (!$util.isInteger(message.ExpNums))
-                    return "ExpNums: integer expected";
-            if (message.Reward != null && message.hasOwnProperty("Reward"))
-                if (!$util.isInteger(message.Reward))
-                    return "Reward: integer expected";
+            if (message.Level != null && message.hasOwnProperty("Level"))
+                if (!$util.isInteger(message.Level))
+                    return "Level: integer expected";
+            if (message.Exp != null && message.hasOwnProperty("Exp"))
+                if (!$util.isInteger(message.Exp))
+                    return "Exp: integer expected";
+            if (message.Title != null && message.hasOwnProperty("Title"))
+                if (!$util.isString(message.Title))
+                    return "Title: string expected";
             return null;
         };
 
         /**
-         * Creates a TLevelDefine message from a plain object. Also converts values to their respective internal types.
+         * Creates an ExpDefine message from a plain object. Also converts values to their respective internal types.
          * @function fromObject
-         * @memberof table.TLevelDefine
+         * @memberof table.ExpDefine
          * @static
          * @param {Object.<string,*>} object Plain object
-         * @returns {table.TLevelDefine} TLevelDefine
+         * @returns {table.ExpDefine} ExpDefine
          */
-        TLevelDefine.fromObject = function fromObject(object) {
-            if (object instanceof $root.table.TLevelDefine)
+        ExpDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.ExpDefine)
                 return object;
-            var message = new $root.table.TLevelDefine();
+            var message = new $root.table.ExpDefine();
             if (object.Id != null)
                 message.Id = object.Id | 0;
-            if (object.ExpNums != null)
-                message.ExpNums = object.ExpNums | 0;
-            if (object.Reward != null)
-                message.Reward = object.Reward | 0;
+            if (object.Level != null)
+                message.Level = object.Level | 0;
+            if (object.Exp != null)
+                message.Exp = object.Exp | 0;
+            if (object.Title != null)
+                message.Title = String(object.Title);
             return message;
         };
 
         /**
-         * Creates a plain object from a TLevelDefine message. Also converts values to other types if specified.
+         * Creates a plain object from an ExpDefine message. Also converts values to other types if specified.
          * @function toObject
-         * @memberof table.TLevelDefine
+         * @memberof table.ExpDefine
          * @static
-         * @param {table.TLevelDefine} message TLevelDefine
+         * @param {table.ExpDefine} message ExpDefine
          * @param {$protobuf.IConversionOptions} [options] Conversion options
          * @returns {Object.<string,*>} Plain object
          */
-        TLevelDefine.toObject = function toObject(message, options) {
+        ExpDefine.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
             var object = {};
             if (options.defaults) {
                 object.Id = 0;
-                object.ExpNums = 0;
-                object.Reward = 0;
+                object.Level = 0;
+                object.Exp = 0;
+                object.Title = "";
             }
             if (message.Id != null && message.hasOwnProperty("Id"))
                 object.Id = message.Id;
-            if (message.ExpNums != null && message.hasOwnProperty("ExpNums"))
-                object.ExpNums = message.ExpNums;
-            if (message.Reward != null && message.hasOwnProperty("Reward"))
-                object.Reward = message.Reward;
+            if (message.Level != null && message.hasOwnProperty("Level"))
+                object.Level = message.Level;
+            if (message.Exp != null && message.hasOwnProperty("Exp"))
+                object.Exp = message.Exp;
+            if (message.Title != null && message.hasOwnProperty("Title"))
+                object.Title = message.Title;
             return object;
         };
 
         /**
-         * Converts this TLevelDefine to JSON.
+         * Converts this ExpDefine to JSON.
          * @function toJSON
-         * @memberof table.TLevelDefine
+         * @memberof table.ExpDefine
          * @instance
          * @returns {Object.<string,*>} JSON object
          */
-        TLevelDefine.prototype.toJSON = function toJSON() {
+        ExpDefine.prototype.toJSON = function toJSON() {
             return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
         };
 
-        return TLevelDefine;
+        return ExpDefine;
     })();
 
     table.LoadingTextBase = (function() {
