@@ -181,17 +181,40 @@ func (tf *TexasFightRoom) RoundSettle() {
 
 	// 计算下注池胜负
 	bankerpool := tf.betpool[0]
+	winrecord := &WinLoseRecord{}
 	for k, pool := range tf.betpool {
 		if k == 0 { continue }
-		if pool.GetCardValue() < bankerpool.GetCardValue() { pool.SetResult(kBetResultLose) }
-		if pool.GetCardValue() > bankerpool.GetCardValue() { pool.SetResult(kBetResultWin) }
-		if pool.GetCardValue() == bankerpool.GetCardValue() { pool.SetResult(kBetResultTie) }
+		var result int32 = kBetResultLose
+		if pool.GetCardValue() < bankerpool.GetCardValue() { 
+			result = kBetResultLose
+		}else if pool.GetCardValue() > bankerpool.GetCardValue() {
+			result = kBetResultWin
+		}else if pool.GetCardValue() == bankerpool.GetCardValue() { 
+			result = kBetResultTie
+		}
+		pool.SetResult(result) 
+		winrecord.results[k-1] = result
 	}
 
-	// 计算玩家胜负
+	//  胜负历史记录
+	tf.winloserecord = append(tf.winloserecord, winrecord)
+
+
+	// 玩家利润结算
+	for _, player := range tf.players {
+		if player.IsSystem() { continue }
+		if player.IsBanker() { continue }
+		player.Settle(tf)
+	}
 
 
 	// 推送结算消息
+	tf.SendRoundOverMsg()
+
+}
+
+// 推送结算消息
+func (tf *TexasFightRoom) SendRoundOverMsg() {
 	roundmsg := &msg.RS2C_PushTFRoundOver{Betlist:make([]*msg.TFBetPool,0), Ranklist:make([]*msg.TFRankPlayer,0)}
 	roundmsg.Pool = pb.Int32(tf.AwardPoolSize())
 	roundmsg.Bankergold = pb.Int32(tf.banker.Gold())
@@ -208,12 +231,17 @@ func (tf *TexasFightRoom) RoundSettle() {
 	}
 
 	// 赢钱玩家列表
-	;
+	for _, player := range tf.players {
+		if player.TotalProfit() <= 0 { continue }
+		roundmsg.Ranklist = append(roundmsg.Ranklist, player.FillRankPlayerInfo())
+	}
 
 	// 个人信息
-	roundmsg.Gold = pb.Int32(0)
-	roundmsg.Iswin = pb.Bool(false)
-	tf.BroadCastMemberMsg(roundmsg)
+	for _, player := range tf.players {
+		roundmsg.Gold = pb.Int32(player.TotalProfit())
+		roundmsg.Iswin = pb.Bool(player.TotalProfit() >= 0)
+		player.owner.SendClientMsg(roundmsg)
+	}
 }
 
 
