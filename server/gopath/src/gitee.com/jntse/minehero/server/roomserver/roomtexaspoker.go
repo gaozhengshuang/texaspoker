@@ -776,7 +776,7 @@ func (this *TexasPokerRoom) ShowDown() int32{
 	for i := range this.chips {
 		if this.players[i] != nil {
 			this.players[i].AddBankRoll(this.chips[i])
-			this.players[i].AddExp(5, "每局结算", true)
+			this.players[i].AddExp(50, "每局结算", true)
 			log.Info("房间%d 玩家%d 获得筹码%d 手牌%v 等级%d 牌力%d", this.Id(), this.players[i].owner.Id(), this.chips[i], this.players[i].hand.ToAllCard(), this.players[i].hand.level, this.players[i].hand.finalvalue)
 			for _, record := range this.currecord {
 				if record.GetRoleid() == this.players[i].owner.Id() {

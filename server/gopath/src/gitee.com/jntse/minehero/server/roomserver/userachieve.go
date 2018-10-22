@@ -31,7 +31,7 @@ const (
 	AchieveGroup_BaiRenPlay1 = 1081 //参与百人大战欢乐场数
 	AchieveGroup_BaiRenPlay2 = 1101 //参与百人大战富豪场数
 	AchieveGroup_TexasWin = 2001 //在德州扑克内赢局数
-	AchieveGroup_MTTWin = 2021 	 //在MTT锦标赛夺冠数
+	AchieveGroup_MTTChampion = 2021 	 //在MTT锦标赛夺冠数
 	AchieveGroup_BaiRenWin = 2041 //百人大战胜利数
 	AchieveGroup_LevelEx = 3001  //等级跟Level一样只是多了一份成就
 )
@@ -193,6 +193,24 @@ func (u *RoomUser) OnAchievePlayPoker (kind int32, subkind int32, hand *Hand) {
 		}
 		Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "maxhand", strmaxcard)
 	}
+	//Redis().HIncrBy(fmt.Sprintf("charstate_%d", u.Id()), "totalplay", 1)
+	//Redis().HIncrBy(fmt.Sprintf("charstate_%d", u.Id()), "todayplay", 1)
+}
+
+//锦标赛报名
+func (u *RoomUser) OnAchieveJoinMtt() {
+	Redis().HIncrBy(fmt.Sprintf("charstate_%d", u.Id()), "mttjointimes", 1)
+}
+
+//锦标赛入围奖励圈
+func (u *RoomUser) OnAchieveMttReward() {
+	Redis().HIncrBy(fmt.Sprintf("charstate_%d", u.Id()), "mttprizetimes", 1)
+}
+
+//锦标赛夺冠
+func (u *RoomUser) OnAchieveMttGetChampion() {
+	u.OnAchieveProcessChanged(int32(AchieveGroup_MTTChampion))
+	Redis().HIncrBy(fmt.Sprintf("charstate_%d", u.Id()), "championtimes", 1)
 }
 
 func (u *RoomUser) OnAchieveProcessChanged(group int32) {

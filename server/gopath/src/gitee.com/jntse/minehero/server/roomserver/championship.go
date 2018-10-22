@@ -812,6 +812,10 @@ func (cm *ChampionManager) ReqMTTJoin(gid int, uid int64, rev *msg.C2RS_ReqMTTJo
 	send.Recordid = pb.Int32(cs.uid)
 	RoomSvr().SendClientMsg(gid, uid, send)
 	log.Info("玩家%d 报名参加竞标赛%d", uid, cs.uid)
+	u := UserMgr().FindUser(uid) 
+	if u != nil {
+		u.OnAchieveJoinMtt()
+	}
 }
 
 func (cm *ChampionManager) ReqMTTQuit(gid int, uid int64, rev *msg.C2RS_ReqMTTQuit) {
