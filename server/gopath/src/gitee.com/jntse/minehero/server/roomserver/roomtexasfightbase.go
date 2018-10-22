@@ -69,8 +69,14 @@ func (b *TFPlayerBet) Num() int32 { return b.num }
 func (b *TFPlayerBet) Profit() int32 { return b.profit }
 func (b *TFPlayerBet) SetProfit(n int32) { b.profit = n }
 
+type SortFightPlayer []*TexasFightPlayer
+func (a SortFightPlayer) Len() int { return len(a) }
+func (a SortFightPlayer) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
+func (a SortFightPlayer) Less(i, j int) bool { return a[i].TimeCreate() < a[j].TimeCreate() }
+
 type TexasFightPlayer struct {
 	sysflag bool		// 系统庄家
+	tmcreate int64		// 创建时间戳
 	owner *RoomUser		// 系统庄家时为nil
 	seat int32			// 坐下位置，0是庄家位置，-1表示站起没有位置
 	totalbet int32 		// 总下注额，0未下任何注
@@ -82,7 +88,14 @@ type TexasFightPlayer struct {
 }
 
 func NewTexasFightPlayer(u *RoomUser, sysflag bool) *TexasFightPlayer {
-	p := &TexasFightPlayer{sysflag:sysflag, owner:u, seat:-1, bankerround:0, watchcount:0, quitbankerflag:false }
+	p := &TexasFightPlayer{}
+	p.sysflag = sysflag
+	p.tmcreate = util.CURTIME()
+	p.owner = u
+	p.seat = -1
+	p.bankerround = 0
+	p.watchcount = 0
+	p.quitbankerflag = false
 	return p
 }
 
@@ -106,6 +119,7 @@ func (p *TexasFightPlayer) WatchCount() int32 { return p.watchcount }
 func (p *TexasFightPlayer) SetWatchCount(n int32) { p.watchcount = n }
 func (p *TexasFightPlayer) SetQuitBankerFlag() { p.quitbankerflag = true }
 func (p *TexasFightPlayer) QuitBankerFlag() bool { return p.quitbankerflag }
+func (p *TexasFightPlayer) TimeCreate() int64 { return p.tmcreate }
 
 func (p *TexasFightPlayer) Id() int64 {
 	if p.IsSystem() { return 1 }

@@ -1,6 +1,6 @@
 package main
 import (
-	//"sort"
+	"sort"
 	//"fmt"
 	//"time"
 	//"errors"
@@ -483,12 +483,19 @@ func (tf *TexasFightRoom) BankerQueueRemove(uid int64) {
 	}
 }
 
-
 // 请求站起玩家列表 TODO:玩家列表使用的HashMap，需要使用固定顺序列表才能支持分段拉取
 func (tf *TexasFightRoom) SendStandPlayerList(u *RoomUser, start, count int32) {
-	send := &msg.RS2C_RetTFStandPlayer{Playerlist:make([]*msg.TFPlayer,0)}
+
+	//TODO: 列表大量数据时，每次排序消耗会很大
+	sortlist := make(SortFightPlayer, 0)
 	for _, p := range tf.players {
 		if p.Seat() != -1 { continue } 
+		sortlist = append(sortlist, p)
+	}
+	sort.Sort(sortlist)
+
+	send := &msg.RS2C_RetTFStandPlayer{Playerlist:make([]*msg.TFPlayer,0)}
+	for _, p := range sortlist {
 		info := p.FillPlayerInfo()
 		send.Playerlist = append(send.Playerlist, info)
 	}
