@@ -536,7 +536,8 @@ func (this *TexasPlayer) Tick (){
 		}
 	}
 	if this.mttranktime >= 10 {
-		this.SendMttRank()	
+		this.SendMttRank()
+		this.mttranktime = 0
 	}else{
 		if this.room.IsChampionShip() {
 			this.mttranktime++

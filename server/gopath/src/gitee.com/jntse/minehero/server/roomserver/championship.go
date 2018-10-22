@@ -134,14 +134,26 @@ func (cs *ChampionShip) SetRoomBlind() {
 func (cs *ChampionShip) Handler1sTick(now int64) {
 	if cs.IsNone() {
 		//log.Info("锦标赛%d 开始时间%d 当前时间%d", cs.uid, cs.starttime, util.CURTIME())
-		if int32(util.CURTIME()) > cs.starttime {
-			log.Info("锦标赛%d 开始创建房间 开始时间%d", cs.uid, cs.starttime)
-			if !cs.StartMatch() {
-				cs.Refund()
-				cs.CancelMatch()
-				cs.state = CSDel
-			} else {
-				cs.state = CSGoing
+		if cs.tconf.Type == 1{
+			if int32(util.CURTIME()) > cs.starttime {
+				log.Info("锦标赛%d 开始创建房间 开始时间%d", cs.uid, cs.starttime)
+				if !cs.StartMatch() {
+					cs.Refund()
+					cs.CancelMatch()
+					cs.state = CSDel
+				} else {
+					cs.state = CSGoing
+				}
+			}
+		} else if cs.tconf.Type == 2 {
+			if int32(len(cs.members)) >= cs.tconf.SNum {
+				if !cs.StartMatch() {
+					cs.Refund()
+					cs.CancelMatch()
+					cs.state = CSDel
+				} else {
+					cs.state = CSGoing
+				}
 			}
 		}
 	}
@@ -286,7 +298,7 @@ func (cs *ChampionShip) StartMatch() bool {
 	cs.NotifyUserRoom(cs.roommember)
 	cs.state = CSGoing
 
-	start := SysTimerMgr().GetStartTimeByTimeId(cs.tconf.TimeId)
+	start := SysTimerMgr().GetStartTimeByTimeId(cs.tconf.TimeId, cs.tconf.Type)
 	ChampionMgr().CreateChampionShip(cs.tid, start)
 	log.Info("锦标赛%d tid%d开启", cs.uid, cs.tid)
 	return true
@@ -554,12 +566,27 @@ func (cs *ChampionShip) GetAwardByRank (rank int32) int32 {
 	return 0	
 }
 
+func (cs *ChampionShip) ChampionNotify(name string, tid int32, aid int32) {
+	txt := fmt.Sprintf("{\"0\":\"%s\",\"1\":%d,\"2\":%d,}", name, tid, aid)
+	send := &msg.RS2GW_ChatInfo{}
+	send.Chat = def.MakeChatInfo(def.ChatAll, txt, 0, "", def.MTTMsg, def.MsgShowAll)
+	GateMgr().Broadcast(send)
+}
+
 func (cs *ChampionShip) RewardAll() {
 	var rank int32 = 1
 	for i := len(cs.finalrank)-1; i >= 0; i-- {
-		detail := def.MakeMTTMail(Redis(), cs.finalrank[i], cs.tid, rank, cs.GetAwardByRank(rank))
+		awardid := cs.GetAwardByRank(rank)
+		memberid := cs.finalrank[i]
+		detail := def.MakeMTTMail(Redis(), memberid, cs.tid, rank, awardid)
 		transmsg := &msg.RS2MS_PushNewMail{Receiver:pb.Int64(cs.finalrank[i]), Mail:detail}
 		Match().SendCmd(transmsg)
+		if rank == 1 {
+			member := cs.GetMemberById(memberid)
+			if member != nil {
+				cs.ChampionNotify(member.name, cs.tid, awardid)
+			}
+		}
 		rank++
 	}
 }
@@ -712,7 +739,7 @@ func (cm *ChampionManager) Init() bool {
 
 func (cm *ChampionManager) InitChampionShip() {
 	for _, data := range tbl.TChampionship.ChampionshipById {
-		start := SysTimerMgr().GetStartTimeByTimeId(data.TimeId)
+		start := SysTimerMgr().GetStartTimeByTimeId(data.TimeId, data.Type)
 		cm.CreateChampionShip(data.Id, start)
 	}
 }
