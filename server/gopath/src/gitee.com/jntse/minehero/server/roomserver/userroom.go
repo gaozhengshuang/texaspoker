@@ -19,6 +19,8 @@ func (u *RoomUser) OnDestoryRoom() {
 		u.Logout()
 	}
 	Redis().Del(fmt.Sprintf("userinroom_%d", u.Id()))
+	Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "roomtype", 0)
+	Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "roomid", 0)
 	msgdestory := &msg.RS2GW_PushRoomDestory{Roomid:pb.Int64(u.RoomId()), Userid:pb.Int64(u.Id())}
 	u.SendMsg(msgdestory)
 	log.Trace("[房间] 玩家[%s %d] 回传个人数据，房间销毁[%d]", u.Name(), u.Id(), u.RoomId())
