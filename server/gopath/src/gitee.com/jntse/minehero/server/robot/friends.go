@@ -7,6 +7,34 @@ import (
 	pb "github.com/gogo/protobuf/proto"
 )
 
+func (u *User) DoFriendCmd(subcmd []string) {
+	if len(subcmd) == 0 {
+		return
+	}
+
+	cmd := subcmd[0]
+	switch cmd {
+	case "flist":
+		u.ReqFriendList()
+	case "frlist":
+		u.ReqFriendRequestList()
+	case "fadd":
+		u.AddFriend(subcmd[2])
+	case "fprocess":
+		u.ProcessFriend(subcmd[2], "1")
+	case "fpresent":
+		u.FriendPresent(subcmd[2])
+	case "fgetpresent":
+		u.GetFriendPresent(subcmd[2])
+	case "fdel":
+		u.RemoveFriend(subcmd[2])
+	case "fsearch":
+		u.SearchFriend(subcmd[2])
+	case "finvite":
+		u.InviteFriend(subcmd[2:])
+	}
+
+}
 
 func (u *User) ReqFriendList() {
 	send := &msg.C2GW_ReqFriendsList{}

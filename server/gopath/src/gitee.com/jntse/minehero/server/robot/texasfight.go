@@ -7,14 +7,50 @@ import (
 	pb "github.com/gogo/protobuf/proto"
 )
 
+func (u *User) DoTexasFightCmd(subcmd []string) {
+	if len(subcmd) == 0 {
+		return
+	}
+
+	cmd := subcmd[0]
+	switch cmd {
+	case "list":
+		u.ReqTFRoomList()
+	case "enter":
+		u.ReqEnterTFRoom(subcmd[1:])
+	case "leave":
+		u.ReqTFLeave()
+	case "bet":
+		u.ReqTexasFightBet(subcmd[1:])
+	case "lastaward":
+		u.ReqTFLastAwardPoolHit()
+	case "standlist":
+		u.ReqTFStandPlayer()
+	case "trend":
+		u.ReqWinLoseTrend()
+	case "bankers":
+		u.ReqTFBankerList()
+	case "bebanker":
+		u.ReqTFBecomeBanker()
+	case "quitbanker":
+		u.ReqTFQuitBanker()
+	case "sit":
+		u.ReqTFSitDown(subcmd[1:])
+	case "stand":
+		u.ReqTFStandUp()
+	case "start":
+		u.ReqTFStart()
+	}
+}
 
 func (u *User) ReqTFRoomList() {
 	send := &msg.C2GW_ReqTFRoomList{}
 	u.SendGateMsg(send)
 }
 
-func (u *User) ReqEnterTFRoom(subcmd string) {
-	uid := util.Atol(subcmd)
+func (u *User) ReqEnterTFRoom(subcmd []string) {
+	if len(subcmd) != 1 { return }
+	uid := util.Atol(subcmd[0])
 	send := &msg.C2GW_ReqEnterTFRoom{Id:pb.Int64(uid), Userid:pb.Int64(u.Id()) }
 	u.SendGateMsg(send)
 }
@@ -46,7 +82,7 @@ func (u *User) ReqTFBankerList() {
 	u.SendGateMsg(send)
 }
 
-func (u *User) C2RS_ReqTFBecomeBanker() {
+func (u *User) ReqTFBecomeBanker() {
 	send := &msg.C2RS_ReqTFBecomeBanker{}
 	u.SendGateMsg(send)
 }
@@ -63,7 +99,7 @@ func (u *User) ReqTFSitDown(subcmd []string) {
 	u.SendGateMsg(send)
 }
 
-func (u *User) C2RS_ReqTFStandUp() {
+func (u *User) ReqTFStandUp() {
 	send := &msg.C2RS_ReqTFStandUp{}
 	u.SendGateMsg(send)
 }
@@ -73,7 +109,7 @@ func (u *User) ReqTFLeave() {
 	u.SendGateMsg(send)
 }
 
-func (u *User) C2RS_ReqTFStart() {
+func (u *User) ReqTFStart() {
 	send := &msg.C2RS_ReqTFStart{}
 	u.SendGateMsg(send)
 }
