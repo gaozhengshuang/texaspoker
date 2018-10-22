@@ -20245,6 +20245,8 @@ $root.msg = (function() {
          * @property {string|null} [txt] GW2C_PushMessage txt
          * @property {number|Long|null} [roleid] GW2C_PushMessage roleid
          * @property {string|null} [name] GW2C_PushMessage name
+         * @property {number|null} [subtype] GW2C_PushMessage subtype
+         * @property {number|null} [showtype] GW2C_PushMessage showtype
          */
 
         /**
@@ -20295,6 +20297,22 @@ $root.msg = (function() {
         GW2C_PushMessage.prototype.name = "";
 
         /**
+         * GW2C_PushMessage subtype.
+         * @member {number} subtype
+         * @memberof msg.GW2C_PushMessage
+         * @instance
+         */
+        GW2C_PushMessage.prototype.subtype = 0;
+
+        /**
+         * GW2C_PushMessage showtype.
+         * @member {number} showtype
+         * @memberof msg.GW2C_PushMessage
+         * @instance
+         */
+        GW2C_PushMessage.prototype.showtype = 0;
+
+        /**
          * Creates a new GW2C_PushMessage instance using the specified properties.
          * @function create
          * @memberof msg.GW2C_PushMessage
@@ -20326,6 +20344,10 @@ $root.msg = (function() {
                 writer.uint32(/* id 3, wireType 0 =*/24).int64(message.roleid);
             if (message.name != null && message.hasOwnProperty("name"))
                 writer.uint32(/* id 4, wireType 2 =*/34).string(message.name);
+            if (message.subtype != null && message.hasOwnProperty("subtype"))
+                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.subtype);
+            if (message.showtype != null && message.hasOwnProperty("showtype"))
+                writer.uint32(/* id 6, wireType 0 =*/48).int32(message.showtype);
             return writer;
         };
 
@@ -20371,6 +20393,12 @@ $root.msg = (function() {
                     break;
                 case 4:
                     message.name = reader.string();
+                    break;
+                case 5:
+                    message.subtype = reader.int32();
+                    break;
+                case 6:
+                    message.showtype = reader.int32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -20419,6 +20447,12 @@ $root.msg = (function() {
             if (message.name != null && message.hasOwnProperty("name"))
                 if (!$util.isString(message.name))
                     return "name: string expected";
+            if (message.subtype != null && message.hasOwnProperty("subtype"))
+                if (!$util.isInteger(message.subtype))
+                    return "subtype: integer expected";
+            if (message.showtype != null && message.hasOwnProperty("showtype"))
+                if (!$util.isInteger(message.showtype))
+                    return "showtype: integer expected";
             return null;
         };
 
@@ -20449,6 +20483,10 @@ $root.msg = (function() {
                     message.roleid = new $util.LongBits(object.roleid.low >>> 0, object.roleid.high >>> 0).toNumber();
             if (object.name != null)
                 message.name = String(object.name);
+            if (object.subtype != null)
+                message.subtype = object.subtype | 0;
+            if (object.showtype != null)
+                message.showtype = object.showtype | 0;
             return message;
         };
 
@@ -20474,6 +20512,8 @@ $root.msg = (function() {
                 } else
                     object.roleid = options.longs === String ? "0" : 0;
                 object.name = "";
+                object.subtype = 0;
+                object.showtype = 0;
             }
             if (message.type != null && message.hasOwnProperty("type"))
                 object.type = message.type;
@@ -20486,6 +20526,10 @@ $root.msg = (function() {
                     object.roleid = options.longs === String ? $util.Long.prototype.toString.call(message.roleid) : options.longs === Number ? new $util.LongBits(message.roleid.low >>> 0, message.roleid.high >>> 0).toNumber() : message.roleid;
             if (message.name != null && message.hasOwnProperty("name"))
                 object.name = message.name;
+            if (message.subtype != null && message.hasOwnProperty("subtype"))
+                object.subtype = message.subtype;
+            if (message.showtype != null && message.hasOwnProperty("showtype"))
+                object.showtype = message.showtype;
             return object;
         };
 
@@ -50665,10 +50709,7 @@ $root.msg = (function() {
          * Properties of a GW2MS_ChatInfo.
          * @memberof msg
          * @interface IGW2MS_ChatInfo
-         * @property {number|Long|null} [uid] GW2MS_ChatInfo uid
-         * @property {string|null} [txt] GW2MS_ChatInfo txt
-         * @property {number|null} [type] GW2MS_ChatInfo type
-         * @property {string|null} [name] GW2MS_ChatInfo name
+         * @property {msg.IGW2C_PushMessage|null} [chat] GW2MS_ChatInfo chat
          */
 
         /**
@@ -50687,36 +50728,12 @@ $root.msg = (function() {
         }
 
         /**
-         * GW2MS_ChatInfo uid.
-         * @member {number|Long} uid
+         * GW2MS_ChatInfo chat.
+         * @member {msg.IGW2C_PushMessage|null|undefined} chat
          * @memberof msg.GW2MS_ChatInfo
          * @instance
          */
-        GW2MS_ChatInfo.prototype.uid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
-
-        /**
-         * GW2MS_ChatInfo txt.
-         * @member {string} txt
-         * @memberof msg.GW2MS_ChatInfo
-         * @instance
-         */
-        GW2MS_ChatInfo.prototype.txt = "";
-
-        /**
-         * GW2MS_ChatInfo type.
-         * @member {number} type
-         * @memberof msg.GW2MS_ChatInfo
-         * @instance
-         */
-        GW2MS_ChatInfo.prototype.type = 0;
-
-        /**
-         * GW2MS_ChatInfo name.
-         * @member {string} name
-         * @memberof msg.GW2MS_ChatInfo
-         * @instance
-         */
-        GW2MS_ChatInfo.prototype.name = "";
+        GW2MS_ChatInfo.prototype.chat = null;
 
         /**
          * Creates a new GW2MS_ChatInfo instance using the specified properties.
@@ -50742,14 +50759,8 @@ $root.msg = (function() {
         GW2MS_ChatInfo.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
-            if (message.uid != null && message.hasOwnProperty("uid"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.uid);
-            if (message.txt != null && message.hasOwnProperty("txt"))
-                writer.uint32(/* id 2, wireType 2 =*/18).string(message.txt);
-            if (message.type != null && message.hasOwnProperty("type"))
-                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.type);
-            if (message.name != null && message.hasOwnProperty("name"))
-                writer.uint32(/* id 4, wireType 2 =*/34).string(message.name);
+            if (message.chat != null && message.hasOwnProperty("chat"))
+                $root.msg.GW2C_PushMessage.encode(message.chat, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
             return writer;
         };
 
@@ -50785,16 +50796,7 @@ $root.msg = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.uid = reader.int64();
-                    break;
-                case 2:
-                    message.txt = reader.string();
-                    break;
-                case 3:
-                    message.type = reader.int32();
-                    break;
-                case 4:
-                    message.name = reader.string();
+                    message.chat = $root.msg.GW2C_PushMessage.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -50831,18 +50833,11 @@ $root.msg = (function() {
         GW2MS_ChatInfo.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
-            if (message.uid != null && message.hasOwnProperty("uid"))
-                if (!$util.isInteger(message.uid) && !(message.uid && $util.isInteger(message.uid.low) && $util.isInteger(message.uid.high)))
-                    return "uid: integer|Long expected";
-            if (message.txt != null && message.hasOwnProperty("txt"))
-                if (!$util.isString(message.txt))
-                    return "txt: string expected";
-            if (message.type != null && message.hasOwnProperty("type"))
-                if (!$util.isInteger(message.type))
-                    return "type: integer expected";
-            if (message.name != null && message.hasOwnProperty("name"))
-                if (!$util.isString(message.name))
-                    return "name: string expected";
+            if (message.chat != null && message.hasOwnProperty("chat")) {
+                var error = $root.msg.GW2C_PushMessage.verify(message.chat);
+                if (error)
+                    return "chat." + error;
+            }
             return null;
         };
 
@@ -50858,21 +50853,11 @@ $root.msg = (function() {
             if (object instanceof $root.msg.GW2MS_ChatInfo)
                 return object;
             var message = new $root.msg.GW2MS_ChatInfo();
-            if (object.uid != null)
-                if ($util.Long)
-                    (message.uid = $util.Long.fromValue(object.uid)).unsigned = false;
-                else if (typeof object.uid === "string")
-                    message.uid = parseInt(object.uid, 10);
-                else if (typeof object.uid === "number")
-                    message.uid = object.uid;
-                else if (typeof object.uid === "object")
-                    message.uid = new $util.LongBits(object.uid.low >>> 0, object.uid.high >>> 0).toNumber();
-            if (object.txt != null)
-                message.txt = String(object.txt);
-            if (object.type != null)
-                message.type = object.type | 0;
-            if (object.name != null)
-                message.name = String(object.name);
+            if (object.chat != null) {
+                if (typeof object.chat !== "object")
+                    throw TypeError(".msg.GW2MS_ChatInfo.chat: object expected");
+                message.chat = $root.msg.GW2C_PushMessage.fromObject(object.chat);
+            }
             return message;
         };
 
@@ -50889,27 +50874,10 @@ $root.msg = (function() {
             if (!options)
                 options = {};
             var object = {};
-            if (options.defaults) {
-                if ($util.Long) {
-                    var long = new $util.Long(0, 0, false);
-                    object.uid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.uid = options.longs === String ? "0" : 0;
-                object.txt = "";
-                object.type = 0;
-                object.name = "";
-            }
-            if (message.uid != null && message.hasOwnProperty("uid"))
-                if (typeof message.uid === "number")
-                    object.uid = options.longs === String ? String(message.uid) : message.uid;
-                else
-                    object.uid = options.longs === String ? $util.Long.prototype.toString.call(message.uid) : options.longs === Number ? new $util.LongBits(message.uid.low >>> 0, message.uid.high >>> 0).toNumber() : message.uid;
-            if (message.txt != null && message.hasOwnProperty("txt"))
-                object.txt = message.txt;
-            if (message.type != null && message.hasOwnProperty("type"))
-                object.type = message.type;
-            if (message.name != null && message.hasOwnProperty("name"))
-                object.name = message.name;
+            if (options.defaults)
+                object.chat = null;
+            if (message.chat != null && message.hasOwnProperty("chat"))
+                object.chat = $root.msg.GW2C_PushMessage.toObject(message.chat, options);
             return object;
         };
 
@@ -50933,10 +50901,7 @@ $root.msg = (function() {
          * Properties of a MS2GW_ChatInfo.
          * @memberof msg
          * @interface IMS2GW_ChatInfo
-         * @property {number|Long|null} [uid] MS2GW_ChatInfo uid
-         * @property {string|null} [txt] MS2GW_ChatInfo txt
-         * @property {number|null} [type] MS2GW_ChatInfo type
-         * @property {string|null} [name] MS2GW_ChatInfo name
+         * @property {msg.IGW2C_PushMessage|null} [chat] MS2GW_ChatInfo chat
          */
 
         /**
@@ -50955,36 +50920,12 @@ $root.msg = (function() {
         }
 
         /**
-         * MS2GW_ChatInfo uid.
-         * @member {number|Long} uid
+         * MS2GW_ChatInfo chat.
+         * @member {msg.IGW2C_PushMessage|null|undefined} chat
          * @memberof msg.MS2GW_ChatInfo
          * @instance
          */
-        MS2GW_ChatInfo.prototype.uid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
-
-        /**
-         * MS2GW_ChatInfo txt.
-         * @member {string} txt
-         * @memberof msg.MS2GW_ChatInfo
-         * @instance
-         */
-        MS2GW_ChatInfo.prototype.txt = "";
-
-        /**
-         * MS2GW_ChatInfo type.
-         * @member {number} type
-         * @memberof msg.MS2GW_ChatInfo
-         * @instance
-         */
-        MS2GW_ChatInfo.prototype.type = 0;
-
-        /**
-         * MS2GW_ChatInfo name.
-         * @member {string} name
-         * @memberof msg.MS2GW_ChatInfo
-         * @instance
-         */
-        MS2GW_ChatInfo.prototype.name = "";
+        MS2GW_ChatInfo.prototype.chat = null;
 
         /**
          * Creates a new MS2GW_ChatInfo instance using the specified properties.
@@ -51010,14 +50951,8 @@ $root.msg = (function() {
         MS2GW_ChatInfo.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
-            if (message.uid != null && message.hasOwnProperty("uid"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.uid);
-            if (message.txt != null && message.hasOwnProperty("txt"))
-                writer.uint32(/* id 2, wireType 2 =*/18).string(message.txt);
-            if (message.type != null && message.hasOwnProperty("type"))
-                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.type);
-            if (message.name != null && message.hasOwnProperty("name"))
-                writer.uint32(/* id 4, wireType 2 =*/34).string(message.name);
+            if (message.chat != null && message.hasOwnProperty("chat"))
+                $root.msg.GW2C_PushMessage.encode(message.chat, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
             return writer;
         };
 
@@ -51053,16 +50988,7 @@ $root.msg = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.uid = reader.int64();
-                    break;
-                case 2:
-                    message.txt = reader.string();
-                    break;
-                case 3:
-                    message.type = reader.int32();
-                    break;
-                case 4:
-                    message.name = reader.string();
+                    message.chat = $root.msg.GW2C_PushMessage.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -51099,18 +51025,11 @@ $root.msg = (function() {
         MS2GW_ChatInfo.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
-            if (message.uid != null && message.hasOwnProperty("uid"))
-                if (!$util.isInteger(message.uid) && !(message.uid && $util.isInteger(message.uid.low) && $util.isInteger(message.uid.high)))
-                    return "uid: integer|Long expected";
-            if (message.txt != null && message.hasOwnProperty("txt"))
-                if (!$util.isString(message.txt))
-                    return "txt: string expected";
-            if (message.type != null && message.hasOwnProperty("type"))
-                if (!$util.isInteger(message.type))
-                    return "type: integer expected";
-            if (message.name != null && message.hasOwnProperty("name"))
-                if (!$util.isString(message.name))
-                    return "name: string expected";
+            if (message.chat != null && message.hasOwnProperty("chat")) {
+                var error = $root.msg.GW2C_PushMessage.verify(message.chat);
+                if (error)
+                    return "chat." + error;
+            }
             return null;
         };
 
@@ -51126,21 +51045,11 @@ $root.msg = (function() {
             if (object instanceof $root.msg.MS2GW_ChatInfo)
                 return object;
             var message = new $root.msg.MS2GW_ChatInfo();
-            if (object.uid != null)
-                if ($util.Long)
-                    (message.uid = $util.Long.fromValue(object.uid)).unsigned = false;
-                else if (typeof object.uid === "string")
-                    message.uid = parseInt(object.uid, 10);
-                else if (typeof object.uid === "number")
-                    message.uid = object.uid;
-                else if (typeof object.uid === "object")
-                    message.uid = new $util.LongBits(object.uid.low >>> 0, object.uid.high >>> 0).toNumber();
-            if (object.txt != null)
-                message.txt = String(object.txt);
-            if (object.type != null)
-                message.type = object.type | 0;
-            if (object.name != null)
-                message.name = String(object.name);
+            if (object.chat != null) {
+                if (typeof object.chat !== "object")
+                    throw TypeError(".msg.MS2GW_ChatInfo.chat: object expected");
+                message.chat = $root.msg.GW2C_PushMessage.fromObject(object.chat);
+            }
             return message;
         };
 
@@ -51157,27 +51066,10 @@ $root.msg = (function() {
             if (!options)
                 options = {};
             var object = {};
-            if (options.defaults) {
-                if ($util.Long) {
-                    var long = new $util.Long(0, 0, false);
-                    object.uid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.uid = options.longs === String ? "0" : 0;
-                object.txt = "";
-                object.type = 0;
-                object.name = "";
-            }
-            if (message.uid != null && message.hasOwnProperty("uid"))
-                if (typeof message.uid === "number")
-                    object.uid = options.longs === String ? String(message.uid) : message.uid;
-                else
-                    object.uid = options.longs === String ? $util.Long.prototype.toString.call(message.uid) : options.longs === Number ? new $util.LongBits(message.uid.low >>> 0, message.uid.high >>> 0).toNumber() : message.uid;
-            if (message.txt != null && message.hasOwnProperty("txt"))
-                object.txt = message.txt;
-            if (message.type != null && message.hasOwnProperty("type"))
-                object.type = message.type;
-            if (message.name != null && message.hasOwnProperty("name"))
-                object.name = message.name;
+            if (options.defaults)
+                object.chat = null;
+            if (message.chat != null && message.hasOwnProperty("chat"))
+                object.chat = $root.msg.GW2C_PushMessage.toObject(message.chat, options);
             return object;
         };
 
@@ -53506,11 +53398,8 @@ $root.msg = (function() {
          * Properties of a GW2RS_ChatInfo.
          * @memberof msg
          * @interface IGW2RS_ChatInfo
-         * @property {number|Long|null} [uid] GW2RS_ChatInfo uid
-         * @property {string|null} [txt] GW2RS_ChatInfo txt
-         * @property {number|null} [type] GW2RS_ChatInfo type
          * @property {number|Long|null} [roomid] GW2RS_ChatInfo roomid
-         * @property {string|null} [name] GW2RS_ChatInfo name
+         * @property {msg.IGW2C_PushMessage|null} [chat] GW2RS_ChatInfo chat
          */
 
         /**
@@ -53529,30 +53418,6 @@ $root.msg = (function() {
         }
 
         /**
-         * GW2RS_ChatInfo uid.
-         * @member {number|Long} uid
-         * @memberof msg.GW2RS_ChatInfo
-         * @instance
-         */
-        GW2RS_ChatInfo.prototype.uid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
-
-        /**
-         * GW2RS_ChatInfo txt.
-         * @member {string} txt
-         * @memberof msg.GW2RS_ChatInfo
-         * @instance
-         */
-        GW2RS_ChatInfo.prototype.txt = "";
-
-        /**
-         * GW2RS_ChatInfo type.
-         * @member {number} type
-         * @memberof msg.GW2RS_ChatInfo
-         * @instance
-         */
-        GW2RS_ChatInfo.prototype.type = 0;
-
-        /**
          * GW2RS_ChatInfo roomid.
          * @member {number|Long} roomid
          * @memberof msg.GW2RS_ChatInfo
@@ -53561,12 +53426,12 @@ $root.msg = (function() {
         GW2RS_ChatInfo.prototype.roomid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
-         * GW2RS_ChatInfo name.
-         * @member {string} name
+         * GW2RS_ChatInfo chat.
+         * @member {msg.IGW2C_PushMessage|null|undefined} chat
          * @memberof msg.GW2RS_ChatInfo
          * @instance
          */
-        GW2RS_ChatInfo.prototype.name = "";
+        GW2RS_ChatInfo.prototype.chat = null;
 
         /**
          * Creates a new GW2RS_ChatInfo instance using the specified properties.
@@ -53592,16 +53457,10 @@ $root.msg = (function() {
         GW2RS_ChatInfo.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
-            if (message.uid != null && message.hasOwnProperty("uid"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.uid);
-            if (message.txt != null && message.hasOwnProperty("txt"))
-                writer.uint32(/* id 2, wireType 2 =*/18).string(message.txt);
-            if (message.type != null && message.hasOwnProperty("type"))
-                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.type);
             if (message.roomid != null && message.hasOwnProperty("roomid"))
-                writer.uint32(/* id 4, wireType 0 =*/32).int64(message.roomid);
-            if (message.name != null && message.hasOwnProperty("name"))
-                writer.uint32(/* id 5, wireType 2 =*/42).string(message.name);
+                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.roomid);
+            if (message.chat != null && message.hasOwnProperty("chat"))
+                $root.msg.GW2C_PushMessage.encode(message.chat, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
             return writer;
         };
 
@@ -53637,19 +53496,10 @@ $root.msg = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.uid = reader.int64();
-                    break;
-                case 2:
-                    message.txt = reader.string();
-                    break;
-                case 3:
-                    message.type = reader.int32();
-                    break;
-                case 4:
                     message.roomid = reader.int64();
                     break;
-                case 5:
-                    message.name = reader.string();
+                case 2:
+                    message.chat = $root.msg.GW2C_PushMessage.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -53686,21 +53536,14 @@ $root.msg = (function() {
         GW2RS_ChatInfo.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
-            if (message.uid != null && message.hasOwnProperty("uid"))
-                if (!$util.isInteger(message.uid) && !(message.uid && $util.isInteger(message.uid.low) && $util.isInteger(message.uid.high)))
-                    return "uid: integer|Long expected";
-            if (message.txt != null && message.hasOwnProperty("txt"))
-                if (!$util.isString(message.txt))
-                    return "txt: string expected";
-            if (message.type != null && message.hasOwnProperty("type"))
-                if (!$util.isInteger(message.type))
-                    return "type: integer expected";
             if (message.roomid != null && message.hasOwnProperty("roomid"))
                 if (!$util.isInteger(message.roomid) && !(message.roomid && $util.isInteger(message.roomid.low) && $util.isInteger(message.roomid.high)))
                     return "roomid: integer|Long expected";
-            if (message.name != null && message.hasOwnProperty("name"))
-                if (!$util.isString(message.name))
-                    return "name: string expected";
+            if (message.chat != null && message.hasOwnProperty("chat")) {
+                var error = $root.msg.GW2C_PushMessage.verify(message.chat);
+                if (error)
+                    return "chat." + error;
+            }
             return null;
         };
 
@@ -53716,19 +53559,6 @@ $root.msg = (function() {
             if (object instanceof $root.msg.GW2RS_ChatInfo)
                 return object;
             var message = new $root.msg.GW2RS_ChatInfo();
-            if (object.uid != null)
-                if ($util.Long)
-                    (message.uid = $util.Long.fromValue(object.uid)).unsigned = false;
-                else if (typeof object.uid === "string")
-                    message.uid = parseInt(object.uid, 10);
-                else if (typeof object.uid === "number")
-                    message.uid = object.uid;
-                else if (typeof object.uid === "object")
-                    message.uid = new $util.LongBits(object.uid.low >>> 0, object.uid.high >>> 0).toNumber();
-            if (object.txt != null)
-                message.txt = String(object.txt);
-            if (object.type != null)
-                message.type = object.type | 0;
             if (object.roomid != null)
                 if ($util.Long)
                     (message.roomid = $util.Long.fromValue(object.roomid)).unsigned = false;
@@ -53738,8 +53568,11 @@ $root.msg = (function() {
                     message.roomid = object.roomid;
                 else if (typeof object.roomid === "object")
                     message.roomid = new $util.LongBits(object.roomid.low >>> 0, object.roomid.high >>> 0).toNumber();
-            if (object.name != null)
-                message.name = String(object.name);
+            if (object.chat != null) {
+                if (typeof object.chat !== "object")
+                    throw TypeError(".msg.GW2RS_ChatInfo.chat: object expected");
+                message.chat = $root.msg.GW2C_PushMessage.fromObject(object.chat);
+            }
             return message;
         };
 
@@ -53759,34 +53592,18 @@ $root.msg = (function() {
             if (options.defaults) {
                 if ($util.Long) {
                     var long = new $util.Long(0, 0, false);
-                    object.uid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                } else
-                    object.uid = options.longs === String ? "0" : 0;
-                object.txt = "";
-                object.type = 0;
-                if ($util.Long) {
-                    var long = new $util.Long(0, 0, false);
                     object.roomid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.roomid = options.longs === String ? "0" : 0;
-                object.name = "";
+                object.chat = null;
             }
-            if (message.uid != null && message.hasOwnProperty("uid"))
-                if (typeof message.uid === "number")
-                    object.uid = options.longs === String ? String(message.uid) : message.uid;
-                else
-                    object.uid = options.longs === String ? $util.Long.prototype.toString.call(message.uid) : options.longs === Number ? new $util.LongBits(message.uid.low >>> 0, message.uid.high >>> 0).toNumber() : message.uid;
-            if (message.txt != null && message.hasOwnProperty("txt"))
-                object.txt = message.txt;
-            if (message.type != null && message.hasOwnProperty("type"))
-                object.type = message.type;
             if (message.roomid != null && message.hasOwnProperty("roomid"))
                 if (typeof message.roomid === "number")
                     object.roomid = options.longs === String ? String(message.roomid) : message.roomid;
                 else
                     object.roomid = options.longs === String ? $util.Long.prototype.toString.call(message.roomid) : options.longs === Number ? new $util.LongBits(message.roomid.low >>> 0, message.roomid.high >>> 0).toNumber() : message.roomid;
-            if (message.name != null && message.hasOwnProperty("name"))
-                object.name = message.name;
+            if (message.chat != null && message.hasOwnProperty("chat"))
+                object.chat = $root.msg.GW2C_PushMessage.toObject(message.chat, options);
             return object;
         };
 
@@ -62048,6 +61865,7 @@ $root.msg = (function() {
          * @property {number|null} [pool] RS2C_PushTFRoundOver pool
          * @property {number|null} [bankergold] RS2C_PushTFRoundOver bankergold
          * @property {boolean|null} [iswin] RS2C_PushTFRoundOver iswin
+         * @property {msg.ITFPlayer|null} [sitplayers] RS2C_PushTFRoundOver sitplayers
          */
 
         /**
@@ -62116,6 +61934,14 @@ $root.msg = (function() {
         RS2C_PushTFRoundOver.prototype.iswin = false;
 
         /**
+         * RS2C_PushTFRoundOver sitplayers.
+         * @member {msg.ITFPlayer|null|undefined} sitplayers
+         * @memberof msg.RS2C_PushTFRoundOver
+         * @instance
+         */
+        RS2C_PushTFRoundOver.prototype.sitplayers = null;
+
+        /**
          * Creates a new RS2C_PushTFRoundOver instance using the specified properties.
          * @function create
          * @memberof msg.RS2C_PushTFRoundOver
@@ -62153,6 +61979,8 @@ $root.msg = (function() {
                 writer.uint32(/* id 5, wireType 0 =*/40).int32(message.bankergold);
             if (message.iswin != null && message.hasOwnProperty("iswin"))
                 writer.uint32(/* id 6, wireType 0 =*/48).bool(message.iswin);
+            if (message.sitplayers != null && message.hasOwnProperty("sitplayers"))
+                $root.msg.TFPlayer.encode(message.sitplayers, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
             return writer;
         };
 
@@ -62208,6 +62036,9 @@ $root.msg = (function() {
                     break;
                 case 6:
                     message.iswin = reader.bool();
+                    break;
+                case 7:
+                    message.sitplayers = $root.msg.TFPlayer.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -62274,6 +62105,11 @@ $root.msg = (function() {
             if (message.iswin != null && message.hasOwnProperty("iswin"))
                 if (typeof message.iswin !== "boolean")
                     return "iswin: boolean expected";
+            if (message.sitplayers != null && message.hasOwnProperty("sitplayers")) {
+                var error = $root.msg.TFPlayer.verify(message.sitplayers);
+                if (error)
+                    return "sitplayers." + error;
+            }
             return null;
         };
 
@@ -62317,6 +62153,11 @@ $root.msg = (function() {
                 message.bankergold = object.bankergold | 0;
             if (object.iswin != null)
                 message.iswin = Boolean(object.iswin);
+            if (object.sitplayers != null) {
+                if (typeof object.sitplayers !== "object")
+                    throw TypeError(".msg.RS2C_PushTFRoundOver.sitplayers: object expected");
+                message.sitplayers = $root.msg.TFPlayer.fromObject(object.sitplayers);
+            }
             return message;
         };
 
@@ -62342,6 +62183,7 @@ $root.msg = (function() {
                 object.pool = 0;
                 object.bankergold = 0;
                 object.iswin = false;
+                object.sitplayers = null;
             }
             if (message.betlist && message.betlist.length) {
                 object.betlist = [];
@@ -62361,6 +62203,8 @@ $root.msg = (function() {
                 object.bankergold = message.bankergold;
             if (message.iswin != null && message.hasOwnProperty("iswin"))
                 object.iswin = message.iswin;
+            if (message.sitplayers != null && message.hasOwnProperty("sitplayers"))
+                object.sitplayers = $root.msg.TFPlayer.toObject(message.sitplayers, options);
             return object;
         };
 
@@ -62638,8 +62482,9 @@ $root.msg = (function() {
          * Properties of a TFRankPlayer.
          * @memberof msg
          * @interface ITFRankPlayer
-         * @property {number|null} [roleid] TFRankPlayer roleid
          * @property {number|null} [num] TFRankPlayer num
+         * @property {number|Long|null} [roleid] TFRankPlayer roleid
+         * @property {string|null} [head] TFRankPlayer head
          */
 
         /**
@@ -62658,20 +62503,28 @@ $root.msg = (function() {
         }
 
         /**
-         * TFRankPlayer roleid.
-         * @member {number} roleid
-         * @memberof msg.TFRankPlayer
-         * @instance
-         */
-        TFRankPlayer.prototype.roleid = 0;
-
-        /**
          * TFRankPlayer num.
          * @member {number} num
          * @memberof msg.TFRankPlayer
          * @instance
          */
         TFRankPlayer.prototype.num = 0;
+
+        /**
+         * TFRankPlayer roleid.
+         * @member {number|Long} roleid
+         * @memberof msg.TFRankPlayer
+         * @instance
+         */
+        TFRankPlayer.prototype.roleid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * TFRankPlayer head.
+         * @member {string} head
+         * @memberof msg.TFRankPlayer
+         * @instance
+         */
+        TFRankPlayer.prototype.head = "";
 
         /**
          * Creates a new TFRankPlayer instance using the specified properties.
@@ -62697,10 +62550,12 @@ $root.msg = (function() {
         TFRankPlayer.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
-            if (message.roleid != null && message.hasOwnProperty("roleid"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.roleid);
             if (message.num != null && message.hasOwnProperty("num"))
-                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.num);
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.num);
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int64(message.roleid);
+            if (message.head != null && message.hasOwnProperty("head"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.head);
             return writer;
         };
 
@@ -62736,10 +62591,13 @@ $root.msg = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.roleid = reader.int32();
+                    message.num = reader.int32();
                     break;
                 case 2:
-                    message.num = reader.int32();
+                    message.roleid = reader.int64();
+                    break;
+                case 3:
+                    message.head = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -62776,12 +62634,15 @@ $root.msg = (function() {
         TFRankPlayer.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
-            if (message.roleid != null && message.hasOwnProperty("roleid"))
-                if (!$util.isInteger(message.roleid))
-                    return "roleid: integer expected";
             if (message.num != null && message.hasOwnProperty("num"))
                 if (!$util.isInteger(message.num))
                     return "num: integer expected";
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                if (!$util.isInteger(message.roleid) && !(message.roleid && $util.isInteger(message.roleid.low) && $util.isInteger(message.roleid.high)))
+                    return "roleid: integer|Long expected";
+            if (message.head != null && message.hasOwnProperty("head"))
+                if (!$util.isString(message.head))
+                    return "head: string expected";
             return null;
         };
 
@@ -62797,10 +62658,19 @@ $root.msg = (function() {
             if (object instanceof $root.msg.TFRankPlayer)
                 return object;
             var message = new $root.msg.TFRankPlayer();
-            if (object.roleid != null)
-                message.roleid = object.roleid | 0;
             if (object.num != null)
                 message.num = object.num | 0;
+            if (object.roleid != null)
+                if ($util.Long)
+                    (message.roleid = $util.Long.fromValue(object.roleid)).unsigned = false;
+                else if (typeof object.roleid === "string")
+                    message.roleid = parseInt(object.roleid, 10);
+                else if (typeof object.roleid === "number")
+                    message.roleid = object.roleid;
+                else if (typeof object.roleid === "object")
+                    message.roleid = new $util.LongBits(object.roleid.low >>> 0, object.roleid.high >>> 0).toNumber();
+            if (object.head != null)
+                message.head = String(object.head);
             return message;
         };
 
@@ -62818,13 +62688,23 @@ $root.msg = (function() {
                 options = {};
             var object = {};
             if (options.defaults) {
-                object.roleid = 0;
                 object.num = 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.roleid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.roleid = options.longs === String ? "0" : 0;
+                object.head = "";
             }
-            if (message.roleid != null && message.hasOwnProperty("roleid"))
-                object.roleid = message.roleid;
             if (message.num != null && message.hasOwnProperty("num"))
                 object.num = message.num;
+            if (message.roleid != null && message.hasOwnProperty("roleid"))
+                if (typeof message.roleid === "number")
+                    object.roleid = options.longs === String ? String(message.roleid) : message.roleid;
+                else
+                    object.roleid = options.longs === String ? $util.Long.prototype.toString.call(message.roleid) : options.longs === Number ? new $util.LongBits(message.roleid.low >>> 0, message.roleid.high >>> 0).toNumber() : message.roleid;
+            if (message.head != null && message.hasOwnProperty("head"))
+                object.head = message.head;
             return object;
         };
 
@@ -86188,6 +86068,468 @@ $root.table = (function() {
         };
 
         return TMapEventRefreshDefine;
+    })();
+
+    table.TMarquee = (function() {
+
+        /**
+         * Properties of a TMarquee.
+         * @memberof table
+         * @interface ITMarquee
+         * @property {Array.<table.IMarqueeDefine>|null} [Marquee] TMarquee Marquee
+         */
+
+        /**
+         * Constructs a new TMarquee.
+         * @memberof table
+         * @classdesc Represents a TMarquee.
+         * @implements ITMarquee
+         * @constructor
+         * @param {table.ITMarquee=} [properties] Properties to set
+         */
+        function TMarquee(properties) {
+            this.Marquee = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * TMarquee Marquee.
+         * @member {Array.<table.IMarqueeDefine>} Marquee
+         * @memberof table.TMarquee
+         * @instance
+         */
+        TMarquee.prototype.Marquee = $util.emptyArray;
+
+        /**
+         * Creates a new TMarquee instance using the specified properties.
+         * @function create
+         * @memberof table.TMarquee
+         * @static
+         * @param {table.ITMarquee=} [properties] Properties to set
+         * @returns {table.TMarquee} TMarquee instance
+         */
+        TMarquee.create = function create(properties) {
+            return new TMarquee(properties);
+        };
+
+        /**
+         * Encodes the specified TMarquee message. Does not implicitly {@link table.TMarquee.verify|verify} messages.
+         * @function encode
+         * @memberof table.TMarquee
+         * @static
+         * @param {table.ITMarquee} message TMarquee message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TMarquee.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Marquee != null && message.Marquee.length)
+                for (var i = 0; i < message.Marquee.length; ++i)
+                    $root.table.MarqueeDefine.encode(message.Marquee[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified TMarquee message, length delimited. Does not implicitly {@link table.TMarquee.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.TMarquee
+         * @static
+         * @param {table.ITMarquee} message TMarquee message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        TMarquee.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a TMarquee message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.TMarquee
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.TMarquee} TMarquee
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TMarquee.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.TMarquee();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.Marquee && message.Marquee.length))
+                        message.Marquee = [];
+                    message.Marquee.push($root.table.MarqueeDefine.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a TMarquee message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.TMarquee
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.TMarquee} TMarquee
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        TMarquee.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a TMarquee message.
+         * @function verify
+         * @memberof table.TMarquee
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        TMarquee.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Marquee != null && message.hasOwnProperty("Marquee")) {
+                if (!Array.isArray(message.Marquee))
+                    return "Marquee: array expected";
+                for (var i = 0; i < message.Marquee.length; ++i) {
+                    var error = $root.table.MarqueeDefine.verify(message.Marquee[i]);
+                    if (error)
+                        return "Marquee." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a TMarquee message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.TMarquee
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.TMarquee} TMarquee
+         */
+        TMarquee.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.TMarquee)
+                return object;
+            var message = new $root.table.TMarquee();
+            if (object.Marquee) {
+                if (!Array.isArray(object.Marquee))
+                    throw TypeError(".table.TMarquee.Marquee: array expected");
+                message.Marquee = [];
+                for (var i = 0; i < object.Marquee.length; ++i) {
+                    if (typeof object.Marquee[i] !== "object")
+                        throw TypeError(".table.TMarquee.Marquee: object expected");
+                    message.Marquee[i] = $root.table.MarqueeDefine.fromObject(object.Marquee[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a TMarquee message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.TMarquee
+         * @static
+         * @param {table.TMarquee} message TMarquee
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        TMarquee.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.Marquee = [];
+            if (message.Marquee && message.Marquee.length) {
+                object.Marquee = [];
+                for (var j = 0; j < message.Marquee.length; ++j)
+                    object.Marquee[j] = $root.table.MarqueeDefine.toObject(message.Marquee[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this TMarquee to JSON.
+         * @function toJSON
+         * @memberof table.TMarquee
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        TMarquee.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return TMarquee;
+    })();
+
+    table.MarqueeDefine = (function() {
+
+        /**
+         * Properties of a MarqueeDefine.
+         * @memberof table
+         * @interface IMarqueeDefine
+         * @property {number|null} [Id] MarqueeDefine Id
+         * @property {number|null} [Type] MarqueeDefine Type
+         * @property {number|null} [Show] MarqueeDefine Show
+         * @property {string|null} [Message] MarqueeDefine Message
+         */
+
+        /**
+         * Constructs a new MarqueeDefine.
+         * @memberof table
+         * @classdesc Represents a MarqueeDefine.
+         * @implements IMarqueeDefine
+         * @constructor
+         * @param {table.IMarqueeDefine=} [properties] Properties to set
+         */
+        function MarqueeDefine(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * MarqueeDefine Id.
+         * @member {number} Id
+         * @memberof table.MarqueeDefine
+         * @instance
+         */
+        MarqueeDefine.prototype.Id = 0;
+
+        /**
+         * MarqueeDefine Type.
+         * @member {number} Type
+         * @memberof table.MarqueeDefine
+         * @instance
+         */
+        MarqueeDefine.prototype.Type = 0;
+
+        /**
+         * MarqueeDefine Show.
+         * @member {number} Show
+         * @memberof table.MarqueeDefine
+         * @instance
+         */
+        MarqueeDefine.prototype.Show = 0;
+
+        /**
+         * MarqueeDefine Message.
+         * @member {string} Message
+         * @memberof table.MarqueeDefine
+         * @instance
+         */
+        MarqueeDefine.prototype.Message = "";
+
+        /**
+         * Creates a new MarqueeDefine instance using the specified properties.
+         * @function create
+         * @memberof table.MarqueeDefine
+         * @static
+         * @param {table.IMarqueeDefine=} [properties] Properties to set
+         * @returns {table.MarqueeDefine} MarqueeDefine instance
+         */
+        MarqueeDefine.create = function create(properties) {
+            return new MarqueeDefine(properties);
+        };
+
+        /**
+         * Encodes the specified MarqueeDefine message. Does not implicitly {@link table.MarqueeDefine.verify|verify} messages.
+         * @function encode
+         * @memberof table.MarqueeDefine
+         * @static
+         * @param {table.IMarqueeDefine} message MarqueeDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MarqueeDefine.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.Id);
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.Type);
+            if (message.Show != null && message.hasOwnProperty("Show"))
+                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.Show);
+            if (message.Message != null && message.hasOwnProperty("Message"))
+                writer.uint32(/* id 4, wireType 2 =*/34).string(message.Message);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified MarqueeDefine message, length delimited. Does not implicitly {@link table.MarqueeDefine.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof table.MarqueeDefine
+         * @static
+         * @param {table.IMarqueeDefine} message MarqueeDefine message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        MarqueeDefine.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a MarqueeDefine message from the specified reader or buffer.
+         * @function decode
+         * @memberof table.MarqueeDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {table.MarqueeDefine} MarqueeDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MarqueeDefine.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.table.MarqueeDefine();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.Id = reader.int32();
+                    break;
+                case 2:
+                    message.Type = reader.int32();
+                    break;
+                case 3:
+                    message.Show = reader.int32();
+                    break;
+                case 4:
+                    message.Message = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a MarqueeDefine message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof table.MarqueeDefine
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {table.MarqueeDefine} MarqueeDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        MarqueeDefine.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a MarqueeDefine message.
+         * @function verify
+         * @memberof table.MarqueeDefine
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        MarqueeDefine.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                if (!$util.isInteger(message.Id))
+                    return "Id: integer expected";
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                if (!$util.isInteger(message.Type))
+                    return "Type: integer expected";
+            if (message.Show != null && message.hasOwnProperty("Show"))
+                if (!$util.isInteger(message.Show))
+                    return "Show: integer expected";
+            if (message.Message != null && message.hasOwnProperty("Message"))
+                if (!$util.isString(message.Message))
+                    return "Message: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a MarqueeDefine message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof table.MarqueeDefine
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {table.MarqueeDefine} MarqueeDefine
+         */
+        MarqueeDefine.fromObject = function fromObject(object) {
+            if (object instanceof $root.table.MarqueeDefine)
+                return object;
+            var message = new $root.table.MarqueeDefine();
+            if (object.Id != null)
+                message.Id = object.Id | 0;
+            if (object.Type != null)
+                message.Type = object.Type | 0;
+            if (object.Show != null)
+                message.Show = object.Show | 0;
+            if (object.Message != null)
+                message.Message = String(object.Message);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a MarqueeDefine message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof table.MarqueeDefine
+         * @static
+         * @param {table.MarqueeDefine} message MarqueeDefine
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        MarqueeDefine.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.Id = 0;
+                object.Type = 0;
+                object.Show = 0;
+                object.Message = "";
+            }
+            if (message.Id != null && message.hasOwnProperty("Id"))
+                object.Id = message.Id;
+            if (message.Type != null && message.hasOwnProperty("Type"))
+                object.Type = message.Type;
+            if (message.Show != null && message.hasOwnProperty("Show"))
+                object.Show = message.Show;
+            if (message.Message != null && message.hasOwnProperty("Message"))
+                object.Message = message.Message;
+            return object;
+        };
+
+        /**
+         * Converts this MarqueeDefine to JSON.
+         * @function toJSON
+         * @memberof table.MarqueeDefine
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        MarqueeDefine.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return MarqueeDefine;
     })();
 
     table.MorePlayBase = (function() {

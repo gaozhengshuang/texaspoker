@@ -1,9 +1,8 @@
 /**
  *跑马灯
 */
-class MarqueeDefined extends BaseDefined<MarqueeDefinition>
+class MarqueeDefined
 {
-    public static readonly marqueeConfig: string = "marquee";
     private static _instance: MarqueeDefined;
     public static GetInstance(): MarqueeDefined
     {
@@ -11,26 +10,18 @@ class MarqueeDefined extends BaseDefined<MarqueeDefinition>
         {
             MarqueeDefined._instance = new MarqueeDefined();
         }
-        if (DefinedManager.IsParsed(MarqueeDefined.marqueeConfig) == false)
-        {
-            MarqueeDefined._instance.initialize();
-        }
         return MarqueeDefined._instance;
-    }
-    private initialize()
-    {
-        this.dataList = DefinedManager.GetData(MarqueeDefined.marqueeConfig) as Array<MarqueeDefinition>;
     }
     /**
      * 通过type获得数据
     */
-    public getInfoByType(type: MarqueeMsgType): MarqueeDefinition
+    public getInfoByType(type: MarqueeMsgType): table.IMarqueeDefine
     {
-        if (this.dataList != null)
+        if (table.Marquee)
         {
-            for (let def of this.dataList)
+            for (let def of table.Marquee)
             {
-                if (def.type == type)
+                if (def.Type == type)
                 {
                     return def;
                 }
@@ -38,20 +29,4 @@ class MarqueeDefined extends BaseDefined<MarqueeDefinition>
         }
         return null;
     }
-}
-/**
-* 跑马灯定义
-*/
-class MarqueeDefinition implements IBaseDefintion
-{
-    public Id: number;
-    public type: number;
-    /**
-     * 显示位置
-    */
-    public show: number;
-    /**
-     * 信息
-    */
-    public message: string;
 }

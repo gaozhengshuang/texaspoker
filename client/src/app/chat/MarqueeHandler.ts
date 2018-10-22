@@ -6,33 +6,20 @@ class MarqueeHandler
     /**
 	 * 根据消息类型获得消息内容
 	*/
-    public getMsgByType(marqueeMsg: string, name: string): string
+    public getMsgByType(msgData: msg.GW2C_PushMessage): string
     {
-        let marquee: Object;
-        try
+        if (msgData.subtype == MarqueeMsgType.SystemMsg)
         {
-            marquee = JSON.parse(marqueeMsg);
-        }
-        catch (e)
+            return msgData.txt;
+        } else if (msgData.subtype == MarqueeMsgType.MTTMsg)
         {
-            game.Console.log(e);
-        }
-        if (marquee)
+            return this.getMTTMarqueeMsg(JSON.parse(msgData.txt), msgData.name);
+        } else if (msgData.subtype == MarqueeMsgType.HundredWarMsg)
         {
-            if (marquee["type"] == MarqueeMsgType.SystemMsg)
-            {
-                return marquee["msg"];
-            } else if (marquee["type"] == MarqueeMsgType.MTTMsg)
-            {
-
-                return this.getMTTMarqueeMsg(marquee, name);
-            } else if (marquee["type"] == MarqueeMsgType.HundredWarMsg)
-            {
-                return this.getHundredMarqueeMsg(marquee);
-            } else if (marquee["type"] == MarqueeMsgType.HornMag)
-            {
-                return name + "：" + marquee["msg"];
-            }
+            return this.getHundredMarqueeMsg(JSON.parse(msgData.txt));
+        } else if (msgData.subtype == MarqueeMsgType.HornMag)
+        {
+            return msgData.name + "：" + msgData.txt;
         }
         return null;
     }
@@ -41,22 +28,22 @@ class MarqueeHandler
     */
     private getMTTMarqueeMsg(marquee: Object, name: string): string
     {
-        let marqueeDef: MarqueeDefinition = MarqueeDefined.GetInstance().getInfoByType(marquee["type"]);
+        let marqueeDef: table.IMarqueeDefine = MarqueeDefined.GetInstance().getInfoByType(MarqueeMsgType.MTTMsg);
         let msg: string;
         if (marqueeDef)
         {
             let mttName: string;
             let awardName: string;
-            msg = marqueeDef.message;  //恭喜【{0}】在{1}中获得冠军，获得奖励{2}
-            let mttDef: table.IChampionshipDefine = table.ChampionshipById[marquee["id"]];
+            msg = marqueeDef.Message;  //恭喜【{0}】在{1}中获得冠军，获得奖励{2}
+            let mttDef: table.IChampionshipDefine = table.ChampionshipById[marquee["1"]];
             if (mttDef)
             {
                 mttName = mttDef.Name;
             }
-            awardName = AwardDefined.GetInstance().getAwardNameById(marquee["aid"], true);
+            awardName = AwardDefined.GetInstance().getAwardNameById(marquee["2"], true);
             if (awardName)
             {
-                msg = game.StringUtil.format(msg, name, mttName, awardName);
+                msg = game.StringUtil.format(msg, marquee["0"], mttName, awardName);
             }
         }
         return msg;
@@ -66,16 +53,16 @@ class MarqueeHandler
     */
     private getHundredMarqueeMsg(marquee: Object)
     {
-        let marqueeDef: MarqueeDefinition = MarqueeDefined.GetInstance().getInfoByType(marquee["type"]);
+        let marqueeDef: table.IMarqueeDefine = MarqueeDefined.GetInstance().getInfoByType(MarqueeMsgType.HundredWarMsg);
         let msg: string;
-        msg = marqueeDef.message;  //"百人大战{0}爆出奖池{1}，快来一起参与吧！"
-        let hundredWarDef: table.IHundredWarDefine =  table.HundredWarById[marquee["id"]];
+        msg = marqueeDef.Message;  //"百人大战{0}爆出奖池{1}，快来一起参与吧！"
+        let hundredWarDef: table.IHundredWarDefine = table.HundredWarById[marquee["0"]];
         let hundredWarName: string;
         if (hundredWarDef)
         {
             hundredWarName = hundredWarDef.Name;
         }
-        msg = game.StringUtil.format(msg, hundredWarName, marquee["gold"] + "金币");
+        msg = game.StringUtil.format(msg, hundredWarName, marquee["1"] + "金币");
         return msg;
     }
     /**
@@ -100,28 +87,20 @@ class MarqueeHandler
     /**
 	 * 判断是否显示跑马灯内容
 	*/
-    public isShowMarqueeMsg(marqueeMsg: string): boolean
+    public isShowMarqueeMsg(marquee: msg.GW2C_PushMessage): boolean
     {
-        let marquee: Object;
-        try
-        {
-            marquee = JSON.parse(marqueeMsg);
-        } catch (e)
-        {
-            game.Console.log(e);
-        }
         if (marquee)
         {
             let show: number;
-            if (marquee["type"] == MarqueeMsgType.SystemMsg)
+            if (marquee.subtype == MarqueeMsgType.SystemMsg)
             {
-                show = marquee["show"];
+                show = marquee.showtype;
             } else
             {
-                let marqueeDef: MarqueeDefinition = MarqueeDefined.GetInstance().getInfoByType(marquee["type"]);
+                let marqueeDef: table.IMarqueeDefine = MarqueeDefined.GetInstance().getInfoByType(marquee.subtype);
                 if (marqueeDef)
                 {
-                    show = marqueeDef.show;
+                    show = marqueeDef.Show;
                 }
             }
             if (show == MarqueeMsgShowTime.All)
