@@ -151,7 +151,7 @@ func (u *RoomUser) DBLoad() {
 func (u *RoomUser) DBSave() {
 	u.bag.DBSave()
 	u.entity.DBSave()
-	log.Info("玩家[%s %d] 存盘完毕")
+	log.Info("玩家[%s %d] 存盘完毕", u.Name(), u.Id())
 }
 
 func (u *RoomUser) Logout() {
@@ -159,15 +159,15 @@ func (u *RoomUser) Logout() {
 	u.ticker1s.Stop()
 	u.ticker10ms.Stop()
 	UserMgr().DelUser(u)
-	log.Info("玩家[%s %d] 完全退出RoomServer")
+	log.Info("玩家[%s %d] 完全退出RoomServer", u.Name(), u.Id())
 }
 
-func (u *RoomUser) KickOut() {
-	u.DBSave()
-	u.ticker1s.Stop()
-	u.ticker10ms.Stop()
-	UserMgr().DelUser(u)
-}
+//func (u *RoomUser) KickOut() {
+//	u.DBSave()
+//	u.ticker1s.Stop()
+//	u.ticker10ms.Stop()
+//	UserMgr().DelUser(u)
+//}
 
 func (u *RoomUser) SendNotify(text string) {
 	send := &msg.GW2C_PushMsgNotify{Userid: pb.Int64(u.Id()), Text: pb.String(text)}
@@ -212,7 +212,7 @@ func (u *RoomUser) CheckUpdateGateAgent(agent network.IBaseNetSession) {
 	}
 	u.agentid = agent.Id()
 	u.agentname = agent.Name()
-	log.Info("玩家[%s %d] 上线更新GateAgent信息[%s %d]", u.Name(), u.Id(), agent.Name(), agent.Id())
+	log.Info("玩家[%s %d] 更新GateAgent信息[%s %d]", u.Name(), u.Id(), agent.Name(), agent.Id())
 }
 
 

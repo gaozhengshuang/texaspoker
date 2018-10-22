@@ -82,7 +82,7 @@ type TexasFightPlayer struct {
 	totalbet int32 		// 总下注额，0未下任何注
 	betlist	[kBetPoolNum]*TFPlayerBet	// 下注列表
 	bankerround int32	// 玩家坐庄轮数
-	totalprofit int32 	// 总利润,大于0盈利，小于0亏损
+	totalprofit int32 	// 本轮总利润,大于0盈利，小于0亏损
 	watchcount	int32	// 连续观战计数，大于一定次数踢出房间
 	quitbankerflag bool	// 主动请求放弃庄位
 }
@@ -158,16 +158,17 @@ func (p *TexasFightPlayer) Bet(pos, num int32) {
 	}
 	p.SetWatchCount(0)
 	p.totalbet += num
+	p.owner.RemoveGold(num, "百人大战下注", true)
 }
 
 // 输赢结算
 func (p *TexasFightPlayer) Settle(tf *TexasFightRoom) {
 	bankerpool := tf.betpool[0]			// 庄家池
 	for k, bet := range p.betlist {
-		if k == 0 { continue }
+		if k == 0 || bet == nil { continue }
 		pool, profit := tf.betpool[k], int32(0)
 		switch pool.Result() {
-			case kBetResultLose:	profit = bankerpool.WinOdds() * bet.Num() * -1
+			case kBetResultLose:	profit = bankerpool.WinOdds() * bet.Num()
 			case kBetResultWin:		profit = pool.WinOdds() * bet.Num()
 			case kBetResultTie:		profit = 0
 		}
@@ -175,12 +176,25 @@ func (p *TexasFightPlayer) Settle(tf *TexasFightRoom) {
 		// 扣税，计数利润
 		tax := float32(profit) * tf.tconf.TaxRate
 		tf.IncAwardPool(int32(tax))
-		profit -= int32(tax)
-		bet.SetProfit(profit)
-		p.totalprofit += profit
+
+		if pool.Result() == kBetResultLose {
+			bet.SetProfit(profit)
+			p.totalprofit -= profit
+		}else {
+			profit -= int32(tax)
+			bet.SetProfit(profit)
+			p.totalprofit += profit
+		}
 
 		// TODO: 将押注筹码归还玩家，封装单独接口使用pipeline
 		p.owner.AddGold(bet.Num(), "押注归还", true)
+	}
+
+	//
+	if p.totalprofit > 0 {
+		p.owner.AddGold(p.totalprofit, "百人大战获胜", true)
+	}else {
+		p.owner.RemoveGold(p.totalprofit * -1, "百人大战失败", true)
 	}
 }
 
@@ -206,8 +220,6 @@ func (p *TexasFightPlayer) FillRankPlayerInfo() *msg.TFRankPlayer {
 
 //  被踢出房间
 func (p *TexasFightPlayer) OnKickOut() {
-	p.owner.KickOut()
-
 	send := &msg.RS2C_PushTFPlayerKickOut{Id:pb.Int64(p.Id())}
 	p.owner.SendClientMsg(send)
 }
@@ -217,6 +229,16 @@ func (p *TexasFightPlayer) OnKickOut() {
 ///
 ///
 // --------------------------------------------------------------------------
+type SortTexasFightBetPool []*TexasFightBetPool
+func (a SortTexasFightBetPool) Len() int { return len(a) }
+func (a SortTexasFightBetPool) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
+func (a SortTexasFightBetPool) Less(i, j int) bool { 
+	if a[i].GetCardLevel() != a[j].GetCardLevel()  { 
+		return a[i].GetCardLevel() > a[j].GetCardLevel() 
+	}
+	return a[i].GetCardValue() > a[j].GetCardValue()
+}
+
 type TexasFightBetPool struct {
 	tconf *table.HundredWarCardTypeDefine
 	total int32
@@ -293,12 +315,12 @@ func (t *TexasFightBetPool) FillBetPoolInfo() *msg.TFBetPoolInfo {
 
 
 // --------------------------------------------------------------------------
-/// @brief 下注池临时统计
+/// @brief 坐下玩家下注池临时统计
 /// 
 /// 
 // --------------------------------------------------------------------------
 type SitPlayerBetInfo struct {
-	seat int32
+	seat int32					// 座位号
 	poolbet [kBetPoolNum]int32	// 注池下注额
 }
 type BetPoolTempStat struct {

@@ -282,7 +282,7 @@ func on_RS2C_RetInsideRoomInfoList(session network.IBaseNetSession, message inte
 	//  进入百人大战
 	if tmsg.GetLastid() != 0 {
 		u, _ := session.UserDefData().(*User)
-		u.ReqEnterTFRoom([]string{util.Ltoa(u.Id())})
+		u.ReqEnterTFRoom([]string{util.Ltoa(tmsg.GetLastid())})
 	}
 }
 

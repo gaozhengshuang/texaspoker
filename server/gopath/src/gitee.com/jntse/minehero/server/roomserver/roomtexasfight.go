@@ -39,14 +39,16 @@ func (tf *TexasFightRoom) SynBetPoolChange() {
 		return
 	}
 
-	synbetmsg := &msg.RS2C_PushBetPoolChange{Posbetlist:make([]*msg.TFBetPoolChange, 0)}
-	for k, pool := range tf.betpool {
-		synbetmsg.Bet[k] = pool.Size()
+	synbetmsg := &msg.RS2C_PushBetPoolChange{Posbetlist:make([]*msg.TFBetPoolChange, 0), Bet:make([]int32, 0)}
+	for _, pool := range tf.betpool {
+		synbetmsg.Bet = append(synbetmsg.Bet, pool.Size())
 	}
 	for _, bs := range tf.betstat.seats {
 		if bs == nil { continue }
 		info := &msg.TFBetPoolChange{Pos:pb.Int32(bs.seat), Bet:make([]int32,0)}
-		for _, bet := range bs.poolbet { info.Bet = append(info.Bet, bet) }
+		for _, bet := range bs.poolbet { 
+			info.Bet = append(info.Bet, bet) 
+		}
 		synbetmsg.Posbetlist = append(synbetmsg.Posbetlist, info)
 	}
 	tf.BroadCastMemberMsg(synbetmsg)
@@ -198,6 +200,7 @@ func (tf *TexasFightRoom) RoundSettle() {
 	// 计算下注池胜负
 	bankerpool := tf.betpool[0]
 	winrecord := &WinLoseRecord{}
+	hitlist := make(SortTexasFightBetPool, 0)
 	for k, pool := range tf.betpool {
 		if k == 0 { continue }
 		var result int32 = kBetResultLose
@@ -210,10 +213,17 @@ func (tf *TexasFightRoom) RoundSettle() {
 		}
 		pool.SetResult(result) 
 		winrecord.results[k-1] = result
+		if pool.tconf.PoolOdds != 0 {
+			hitlist = append(hitlist, pool)
+		}
 	}
 
 	//  胜负历史记录
 	tf.winloserecord = append(tf.winloserecord, winrecord)
+
+
+	// 排序奖命中
+	sort.Sort(hitlist)
 
 
 	// 玩家利润结算
@@ -241,17 +251,18 @@ func (tf *TexasFightRoom) RoundSettle() {
 }
 
 func (tf *TexasFightRoom) OnPlayerKickOut(p *TexasFightPlayer) {
-	p.OnKickOut()
-
+	log.Info("[百人大战] 玩家[%s %d] 超过%d轮未下注，被踢出房间[%d]", p.Name(), p.Id(), tf.tconf.Kick, tf.Id())
 	// 坐下玩家
 	if p.Seat() != -1 {
 		tf.UserStandUp(p.owner)
 	}
 
+	//
+	p.OnKickOut()
+	p.owner.OnKickOutRoom()
+
 	// 清理上庄列表
 	tf.BankerQueueRemove(p.Id())
-
-	//
 	delete(tf.players, p.Id())
 	delete(tf.members, p.Id())
 }
@@ -337,7 +348,12 @@ func (tf *TexasFightRoom) RequestBet(u *RoomUser, pos int32, num int32) {
 	}
 
 	if tf.stat != kStatBetting {
-		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 请求下注失败，当前不在下注状态中", u.Name(), u.Id(), tf.Id())
+		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 请求下注失败，非下注状态中", u.Name(), u.Id(), tf.Id())
+		return
+	}
+
+	if pos == 0 {
+		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 请求下注失败，不能下注庄家注池", u.Name(), u.Id(), tf.Id())
 		return
 	}
 
@@ -346,7 +362,12 @@ func (tf *TexasFightRoom) RequestBet(u *RoomUser, pos int32, num int32) {
 		if bet == num { bfind = true }
 	}
 	if bfind == false {
-		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 请求下注失败，无效的注码")
+		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 请求下注失败，无效的注码[%d]", u.Name(), u.Id(), tf.Id(), num)
+		return
+	}
+
+	if num > u.GetGold() {
+		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 请求下注失败，身上没有足够的钱下注", u.Name(), u.Id(), tf.Id())
 		return
 	}
 
@@ -390,6 +411,11 @@ func (tf *TexasFightRoom) RequestBet(u *RoomUser, pos int32, num int32) {
 
 // 拉取上次奖池信息击中信息
 func (tf *TexasFightRoom) RequestLastAwardPoolHit(u *RoomUser) {
+	if tf.poolhit.time == 0 {
+		log.Warn("[百人大战] 玩家[%s %d] 房间[%d] 没有奖池信息击中历史信息", u.Name(), u.Id(), tf.Id())
+		return
+	}
+
 	send := &msg.RS2C_RetTFLastAwardPoolHit{Cards:make([]int32,0,10)}
 	send.Gold = pb.Int32(tf.poolhit.gold)
 	send.Time = pb.Int64(tf.poolhit.time)
