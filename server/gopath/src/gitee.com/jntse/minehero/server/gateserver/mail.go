@@ -203,6 +203,11 @@ func (m *MailBox) TakeMailItem(id int64) {
 		for _, item := range mail.Items() {
 			m.owner.AddItem(item.GetId(), item.GetNum(), "邮件附件", true)
 		}
+
+		if mail.Bin().GetMttawardtid() != 0 {
+			m.owner.GetActivityAwardByAwardId(mail.Bin().GetMttawardtid(), "邮件附件")
+		}
+
 		mail.SetGot()
 		mail.SetRead()
 		log.Info("[邮件] 玩家[%s %d]提取附件成功", m.owner.Name(), m.owner.Id())

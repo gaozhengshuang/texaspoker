@@ -715,12 +715,14 @@ func (this *TexasPokerRoom) ShowDown() int32{
 		this.chips[i] = 0
 	}
 	var timecount int32 = 0
-	this.ForEachPlayer(0, func(player *TexasPlayer) bool {
-		player.hand.AnalyseHand()
-		player.isshowcard = true
-		timecount++
-		return true
-	})
+	if this.remain > 1 {
+		this.ForEachPlayer(0, func(player *TexasPlayer) bool {
+			player.hand.AnalyseHand()
+			player.isshowcard = true
+			timecount++
+			return true
+		})
+	}
 	
 	this.restarttime = 3 + timecount
 	send := &msg.RS2C_PushOneRoundOver{}
@@ -1193,7 +1195,7 @@ func (this *TexasPokerRoom) CreateAI(num int32) {
 	for i := 0; i < int(num); i++ {
 		player := NewTexasPlayer(users[i], this,  true)
 		player.Init()
-		rev := &msg.C2RS_ReqBuyInGame{Num:pb.Int32(1000), Isautobuy:pb.Bool(true), Pos:pb.Int32(this.GetFreePos()+1)}
+		rev := &msg.C2RS_ReqBuyInGame{Num:pb.Int32(this.tconf.SBuyin), Isautobuy:pb.Bool(true), Pos:pb.Int32(this.GetFreePos()+1)}
 		player.BuyInGame(rev)
 		player.readytime = 3
 		log.Info("房间%d AI%d 位置%d 参加游戏", this.Id(), player.owner.Id(), rev.GetPos())

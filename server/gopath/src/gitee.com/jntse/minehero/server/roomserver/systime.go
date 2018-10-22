@@ -128,7 +128,7 @@ func (stm *SysTimerManager) Tick(now int64) {
 	stm.ticker1s.Run(now)
 }
 
-func (stm *SysTimerManager) GetStartTimeByTimeId(timeid int32) int32 {
+func (stm *SysTimerManager) GetStartTimeByTimeId(timeid int32, ctype int32) int32 {
 	if _, ok := stm.maxsubid[timeid]; !ok {
 		//log.Info("timeid%d", timeid)
 		return 0
@@ -141,7 +141,7 @@ func (stm *SysTimerManager) GetStartTimeByTimeId(timeid int32) int32 {
 		}
 		start := systimer.GetStartTime()
 		//log.Info("start%d now%d", start, now)
-		if now < start {
+		if now < start || ctype == 2{
 			return int32(start)
 		}
 	}
