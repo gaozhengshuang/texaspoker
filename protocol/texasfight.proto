@@ -54,6 +54,7 @@ message C2RS_ReqTexasFightBet {
 }
 
 message RS2C_RetTexasFightBet {
+    optional string errcode = 1;
 }
 
 

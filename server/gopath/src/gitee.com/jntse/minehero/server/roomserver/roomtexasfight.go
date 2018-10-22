@@ -41,7 +41,7 @@ func (tf *TexasFightRoom) SynBetPoolChange() {
 
 	synbetmsg := &msg.RS2C_PushBetPoolChange{Posbetlist:make([]*msg.TFBetPoolChange, 0)}
 	for k, pool := range tf.betpool {
-		synbetmsg.Bet[k] = pool.Total()
+		synbetmsg.Bet[k] = pool.Size()
 	}
 	for _, bs := range tf.betstat.seats {
 		if bs == nil { continue }
@@ -320,10 +320,22 @@ func (tf *TexasFightRoom) RequestBet(u *RoomUser, pos int32, num int32) {
 		return
 	}
 
-	//
-	player.Bet(pos, num)
+	// 所有玩家下注不能超过庄家金额的七分之一，系统庄家例外
+	if tf.banker.IsSystem() == false {
+		var totalbet int32 = 0
+		for _, pool := range tf.betpool {
+			totalbet += pool.Size()
+		}
+		if totalbet > tf.banker.Gold() / 7  {
+			resp := &msg.RS2C_RetTexasFightBet{Errcode:pb.String("下注金额超过庄家赔付能力")}
+			u.SendClientMsg(resp)
+			return
+		}
+	}
 
-	//
+	// 开始下注
+	tf.betpool[pos].Inc(num)
+	player.Bet(pos, num)
 	resp := &msg.RS2C_RetTexasFightBet{}
 	u.SendClientMsg(resp)
 

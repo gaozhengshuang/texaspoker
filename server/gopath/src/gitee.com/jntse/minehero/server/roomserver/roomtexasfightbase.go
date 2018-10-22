@@ -205,7 +205,8 @@ func (t *TexasFightBetPool) Init(pos int32) {
 	t.tconf = nil
 }
 
-func (t *TexasFightBetPool) Total() int32 { return t.total }
+func (t *TexasFightBetPool) Inc(n int32) { t.total += n }
+func (t *TexasFightBetPool) Size() int32 { return t.total }
 func (t *TexasFightBetPool) Pos() int32 { return t.pos }
 func (t *TexasFightBetPool) Result() int32 { return t.result }
 func (t *TexasFightBetPool) SetResult(r int32) { t.result = r }
@@ -220,6 +221,7 @@ func (t *TexasFightBetPool) Reset() {
 	//t.players = make(map[int64]*TexasFightPlayer)
 	t.hand.ClearAnalyse()
 }
+
 
 func (t *TexasFightBetPool) InsertCards(cards []*Card) {
 	if len(cards) != len(t.cards) {
