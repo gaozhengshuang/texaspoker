@@ -133,7 +133,7 @@ class HWHeadComponent extends BaseComponent<HWHundredWarRoomPlayerInfo>{
         let info: ChatInfo = msg as ChatInfo;
         if (info.param && info.param.length > 0)
         {
-            let data = await RES.getResAsync(ResPrefixPathName.Emoji + info.param[0] + ResSuffixName.PNG);
+            let data = await RES.getResAsync(info.param[0] + ResSuffixName.PNG);
             this.emojiImg.visible = true;
             this.emojiImg.texture = data;
             egret.Tween.removeTweens(this.emojiImg);

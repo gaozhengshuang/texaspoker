@@ -22,7 +22,7 @@ class FaceItemRenderer extends BaseItemRenderer<Emoji>
     {
         if (this.bindData)
         {
-            let data = await RES.getResAsync(ResPrefixPathName.Emoji + this.bindData.source);
+            let data = await RES.getResAsync(this.bindData.source);
             this.faceImg.texture = data;
         }
     }

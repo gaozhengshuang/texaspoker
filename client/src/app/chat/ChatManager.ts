@@ -25,20 +25,21 @@ class ChatManager
 	public static initialzie()
 	{
 		if (!ChatManager.emojiList)
-        {
-            ChatManager._emojiList = new Array<Emoji>();
+		{
+			ChatManager._emojiList = new Array<Emoji>();
 			for (let i = 1; i <= ChatManager.EmojiMax; i++)
-            {
-                ChatManager._emojiList[i - 1] = new Emoji();
-                ChatManager._emojiList[i - 1].id = i;
-                ChatManager._emojiList[i - 1].source = i + ResSuffixName.PNG;
-            }
-        }
+			{
+				ChatManager._emojiList[i - 1] = new Emoji();
+				let idStr = "emoj_" + i;
+				ChatManager._emojiList[i - 1].id = idStr
+				ChatManager._emojiList[i - 1].source = idStr + ResSuffixName.PNG;
+			}
+		}
 		game.ArrayUtil.Clear(ChatManager._marqueeList);
 		game.ArrayUtil.Clear(ChatManager.chatList);
 		ChatManager.isHaveNewChatMsg = false;
 		RecordAudioManager.OnPlayRecordComplete.addListener(ChatManager.CheckAndPlayAudioAutoList, this);
-		SocketManager.AddCommandListener(Command.Chat_PushMessage_2014, ChatManager.pushChatMessage, this);
+		SocketManager.AddCommandListener(Command.GW2C_PushMessage, ChatManager.pushChatMessage, this);
 		HundredWarManager.onLeaveEvent.addListener(ChatManager.clear, this);
 		HundredWarManager.OnGetRoomInfoEvent.addListener(ChatManager.clearNewMsg, this);
 		GamblingManager.LeaveRoomEvent.addListener(ChatManager.clear, this);
@@ -56,18 +57,19 @@ class ChatManager
 	}
 	private static pushChatMessage(result: game.SpRpcResult)
 	{
-		if (result.data)
+		let data: msg.GW2C_PushMessage = result.data;
+		if (data)
 		{
 			let chatInfo: ChatInfo = game.PoolUtil.GetObject<ChatInfo>(ChatInfo);
 			let inRoomChatInfo: ChatInfo = new ChatInfo();
-			chatInfo.roleId = result.data["roleId"];
-			chatInfo.type = result.data["type"];
+			chatInfo.roleId = game.longToNumber(data.roleid);
+			chatInfo.type = data.type;
 			if (chatInfo.type == ChatMessageType.Maquee)
 			{
-				chatInfo.message = ChatManager.marqueeHandler.getMsgByType(result.data["message"], result.data["name"]);
-				ChatManager.marqueeHandler.setMsgSendUserName(chatInfo, result.data["message"], result.data["name"]);
-				inRoomChatInfo.copyValueFrom(chatInfo);
-				if (ChatManager.marqueeHandler.isShowMarqueeMsg(result.data["message"]))
+				chatInfo.txt = ChatManager.marqueeHandler.getMsgByType(data.txt, data.name);
+				ChatManager.marqueeHandler.setMsgSendUserName(chatInfo, data.txt, data.name);
+				inRoomChatInfo.copyValueFromIgnoreCase(chatInfo);
+				if (ChatManager.marqueeHandler.isShowMarqueeMsg(data.txt))
 				{
 					ChatManager._marqueeList.push(chatInfo);
 				}
@@ -76,8 +78,8 @@ class ChatManager
 			}
 			else if (chatInfo.type == ChatMessageType.InRoom)
 			{
-				chatInfo.message = result.data["message"];
-				chatInfo.name = result.data["name"];
+				chatInfo.txt = data.txt;
+				chatInfo.name = data.name;
 				ChatManager.AddChatInfo(chatInfo);
 			}
 			if (!UIManager.isShowPanel(UIModuleName.ChatPanel) && chatInfo.type == ChatMessageType.InRoom
@@ -106,7 +108,7 @@ class ChatManager
 			ChatManager.OnMessageSend.dispatch();
 			SoundManager.playEffect(MusicAction.sentMessage);
 		};
-		SocketManager.call(Command.Chat_SendMessage_3019, { "message": message, "type": type }, callback, null, this);
+		SocketManager.call(Command.C2GW_ReqSendMessage, { "txt": message, "type": type }, callback, null, this);
 	}
 
 	public static AddChatInfo(info: ChatInfo)
@@ -208,7 +210,7 @@ class ChatManager
 		let info: ChatInfo = new ChatInfo();
 		info.roleId = UserManager.userInfo.roleId;
 		info.type = type;
-		info.message = message;
+		info.txt = message;
 		info.name = UserManager.userInfo.name;
 		return info;
 	}
@@ -221,7 +223,7 @@ class ChatManager
 				let chatInfo: ChatInfo = ChatManager._marqueeList.shift();
 				if (chatInfo.type == ChatMessageType.Maquee)
 				{
-					UIManager.showPanel(UIModuleName.MarqueePanel, chatInfo.message);
+					UIManager.showPanel(UIModuleName.MarqueePanel, chatInfo.txt);
 				}
 				game.PoolUtil.PutObject<ChatInfo>(chatInfo);
 			}
@@ -234,9 +236,9 @@ class ChatManager
 	}
 	private static CheckToClearAudioData(info: ChatInfo)
 	{
-		if (info.message.indexOf(ChatSpecialStrings.AudioRecordMessage) == 0)
+		if (info.txt.indexOf(ChatSpecialStrings.AudioRecordMessage) == 0)
 		{
-			let content: string = info.message.substring(ChatSpecialStrings.AudioRecordMessage.length);
+			let content: string = info.txt.substring(ChatSpecialStrings.AudioRecordMessage.length);
 			let splits: Array<string> = content.split(game.StringConstants.Comma);
 			if (splits.length == 4)
 			{
@@ -271,14 +273,14 @@ class ChatInfo extends BaseServerValueInfo implements game.IPoolObject
 	/**
 	 * 消息
 	 */
-	private _message: string;
-	public get message(): string
+	private _txt: string;
+	public get txt(): string
 	{
-		return this._message;
+		return this._txt;
 	}
-	public set message(value: string)
+	public set txt(value: string)
 	{
-		this._message = value;
+		this._txt = value;
 		this.ParseMessageParams();
 	}
 	/**
@@ -289,7 +291,7 @@ class ChatInfo extends BaseServerValueInfo implements game.IPoolObject
 	public reset()
 	{
 		this.roleId = undefined;
-		this.message = undefined;
+		this.txt = undefined;
 		this.type = undefined;
 		this.subType = undefined;
 		this.isPlay = false;
@@ -304,9 +306,9 @@ class ChatInfo extends BaseServerValueInfo implements game.IPoolObject
 			return;
 		}
 		this.subType = ChatSubType.Normal;
-		if (this.message && this.message.indexOf(ChatSpecialStrings.AudioRecordMessage) == 0)
+		if (this.txt && this.txt.indexOf(ChatSpecialStrings.AudioRecordMessage) == 0)
 		{
-			let content: string = this.message.substring(ChatSpecialStrings.AudioRecordMessage.length);
+			let content: string = this.txt.substring(ChatSpecialStrings.AudioRecordMessage.length);
 			let splits: Array<string> = content.split(game.StringConstants.Comma);
 			if (splits.length == 4)//分别是time，guid,sign,path
 			{
@@ -314,9 +316,9 @@ class ChatInfo extends BaseServerValueInfo implements game.IPoolObject
 				this.subType = ChatSubType.AudioRecordMessage;
 			}
 		}
-		else if (this.message && this.message.indexOf(ChatSpecialStrings.Emoji) == 0)
+		else if (this.txt && this.txt.indexOf(ChatSpecialStrings.Emoji) == 0)
 		{
-			let content: string = this.message.substring(ChatSpecialStrings.Emoji.length);
+			let content: string = this.txt.substring(ChatSpecialStrings.Emoji.length);
 			let splits: Array<string> = content.split(game.StringConstants.Comma);
 			if (splits.length == 1)
 			{

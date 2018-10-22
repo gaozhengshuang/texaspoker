@@ -64,12 +64,12 @@ class ChatItemRenderer extends BaseItemRenderer<ChatInfo>
                     break;
                 case ChatSubType.Horn:
                     this.setShow(this.textGroup);
-                    this.textLabel.text = this.bindData.message;
+                    this.textLabel.text = this.bindData.txt;
                     this.textLabel.textColor = ColorEnum.Golden;
                     break;
                 default:
                     this.setShow(this.textGroup);
-                    this.textLabel.text = this.bindData.name + "：" + this.bindData.message;
+                    this.textLabel.text = this.bindData.name + "：" + this.bindData.txt;
                     this.textLabel.textColor = ColorEnum.White;
                     break;
             }

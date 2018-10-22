@@ -386,7 +386,7 @@ class ResPrefixPathName
 	//assets
 	public static readonly Bg: string = 'assets/bg/';
 	public static readonly Bone: string = 'assets/bone/';
-	public static readonly Emoji: string = 'assets/emoji/';
+	// public static readonly Emoji: string = 'assets/emoji/';
 	public static readonly Icon: string = 'assets/icon/';
 	public static readonly Lang: string = 'assets/lang/';
 	public static readonly Particle: string = 'assets/particle/';

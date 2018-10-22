@@ -6,7 +6,7 @@ class Emoji
 	/**
 	 * id
 	*/
-    public id: number;
+    public id: string;
 	/**
 	 * 资源路径
 	*/

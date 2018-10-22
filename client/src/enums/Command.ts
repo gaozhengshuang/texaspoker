@@ -72,11 +72,11 @@ class Command
     /**
      * 聊天消息推送
      */
-    public static readonly Chat_PushMessage_2014: string = "c2014";
+    public static readonly GW2C_PushMessage: string = "msg.GW2C_PushMessage";
     /**
      * 发送聊天信息
      */
-    public static readonly Chat_SendMessage_3019: string = "c3019";
+    public static readonly C2GW_ReqSendMessage: string = "msg.C2GW_ReqSendMessage";
     /**
      * 请求上传签名
      */

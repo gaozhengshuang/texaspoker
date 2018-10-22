@@ -21,7 +21,7 @@
 			"name": "text_zh-tw"
 		},
 		{
-			"keys": "assets/sheet/common_2_json,assets/sheet/common_1_1_json,assets/sheet/common_1_2_json,assets/sheet/common_1_3_json,assets/sheet/common_1_4_json",
+			"keys": "assets/sheet/common_2_json,assets/sheet/common_1_1_json,assets/sheet/common_1_2_json,assets/sheet/common_1_3_json,assets/sheet/common_1_4_json,emoj_json",
 			"name": "common"
 		},
 		{
@@ -615,6 +615,12 @@
 			"url": "assets/bg/pub_bg11_1.png",
 			"type": "image",
 			"name": "assets/bg/pub_bg11_1_png"
+		},
+		{
+			"url": "assets/sheet/emoj.json",
+			"type": "sheet",
+			"name": "emoj_json",
+			"subkeys": "emoj_10_png,emoj_11_png,emoj_12_png,emoj_13_png,emoj_14_png,emoj_15_png,emoj_16_png,emoj_17_png,emoj_18_png,emoj_19_png,emoj_1_png,emoj_20_png,emoj_21_png,emoj_22_png,emoj_23_png,emoj_24_png,emoj_2_png,emoj_3_png,emoj_4_png,emoj_5_png,emoj_6_png,emoj_7_png,emoj_8_png,emoj_9_png"
 		}
 	]
 }

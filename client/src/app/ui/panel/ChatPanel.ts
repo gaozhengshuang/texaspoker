@@ -104,7 +104,7 @@ class ChatPanel extends BasePanel
         this.faceTB.addEventListener(egret.TouchEvent.TOUCH_TAP, this.changeActive, this);
         this.writeLabel.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onWriteLabelClick, this);
         this.writeLabel.addEventListener(egret.FocusEvent.FOCUS_OUT, this.writeLabelFocueout, this);
-        this.writeLabel.addEventListener(egret.Event.CHANGE, this.checkForbid, this);
+        // this.writeLabel.addEventListener(egret.Event.CHANGE, this.checkForbid, this); //move todo
         this.scroller.addEventListener(egret.TouchEvent.TOUCH_TAP, this.closePanel, this);
         this.faceList.addEventListener(eui.ItemTapEvent.ITEM_TAP, this.onFaceClick, this);
         this.fastList.addEventListener(eui.ItemTapEvent.ITEM_TAP, this.onFastChatClick, this);
@@ -123,7 +123,7 @@ class ChatPanel extends BasePanel
         this.faceTB.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.changeActive, this);
         this.writeLabel.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onWriteLabelClick, this);
         this.writeLabel.removeEventListener(egret.FocusEvent.FOCUS_OUT, this.writeLabelFocueout, this);
-        this.writeLabel.removeEventListener(egret.Event.CHANGE, this.checkForbid, this);
+        // this.writeLabel.removeEventListener(egret.Event.CHANGE, this.checkForbid, this);
         this.scroller.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.closePanel, this);
         this.faceList.removeEventListener(eui.ItemTapEvent.ITEM_TAP, this.onFaceClick, this);
         this.fastList.removeEventListener(eui.ItemTapEvent.ITEM_TAP, this.onFastChatClick, this);
@@ -254,11 +254,12 @@ class ChatPanel extends BasePanel
     */
     private userHorn()
     {
-        if (!AwardManager.IsToLimitClient(this._hornAwardId))  //判断是否达到当天喇叭喊话次数上限 
+        if (!AwardManager.IsToLimitClient(this._hornAwardId) || true)  //判断是否达到当天喇叭喊话次数上限   //move todo暂时不做限制
         {
-            if (this.getHornNum() > 0)  //判断是否有小喇叭道具
+            if (this.getHornNum() > 0 || true)  //判断是否有小喇叭道具
             {
-                ItemManager.reqUseItem(this._hornItemId, 1, this.writeLabel.text.trim());
+                ChatManager.SendChatMessage(this.writeLabel.text.trim(), ChatMessageType.Maquee); //move todo 原来走的道具接口
+                // ItemManager.reqUseItem(this._hornItemId, 1, this.writeLabel.text.trim());
             } else
             {
                 UIManager.showFloatTips("您还没有小喇叭，不可进行发送！");

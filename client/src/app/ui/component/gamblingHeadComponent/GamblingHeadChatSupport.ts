@@ -81,7 +81,7 @@ class GamblingHeadChatSupport
         let info: ChatInfo = msg as ChatInfo;
         if (info.param && info.param.length > 0)
         {
-            let data = await RES.getResAsync(ResPrefixPathName.Emoji + info.param[0] + ResSuffixName.PNG);
+            let data = await RES.getResAsync(info.param[0] + ResSuffixName.PNG);
             this.context.emojiImg.visible = true;
             this.context.emojiImg.texture = data;
             egret.Tween.removeTweens(this.context.emojiImg);

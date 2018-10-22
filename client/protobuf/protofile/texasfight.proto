@@ -208,7 +208,7 @@ message RS2C_PushTFStateChange {
 // 位置变更推送
 message RS2C_PushTFPosChange {
     optional int32 pos = 1;     // 0 庄家位子，其他座位顺时针 1-8
-    optional int32 roleid = 2;
+    optional int64 roleid = 2;
     optional int32 bankergold = 3;
 }
 
