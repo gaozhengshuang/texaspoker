@@ -203,14 +203,12 @@ func (u *RoomUser) OnAchieveJoinMtt() {
 }
 
 //锦标赛入围奖励圈
-func (u *RoomUser) OnAchieveMttReward() {
+func (u *RoomUser) OnAchieveMttReward(rank int32 ) {
 	Redis().HIncrBy(fmt.Sprintf("charstate_%d", u.Id()), "mttprizetimes", 1)
-}
-
-//锦标赛夺冠
-func (u *RoomUser) OnAchieveMttGetChampion() {
-	u.OnAchieveProcessChanged(int32(AchieveGroup_MTTChampion))
-	Redis().HIncrBy(fmt.Sprintf("charstate_%d", u.Id()), "championtimes", 1)
+	if rank == 1 {
+		u.OnAchieveProcessChanged(int32(AchieveGroup_MTTChampion))
+		Redis().HIncrBy(fmt.Sprintf("charstate_%d", u.Id()), "championtimes", 1)
+	}
 }
 
 func (u *RoomUser) OnAchieveProcessChanged(group int32) {

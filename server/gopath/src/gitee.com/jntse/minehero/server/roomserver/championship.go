@@ -590,6 +590,10 @@ func (cs *ChampionShip) RewardAll() {
 				cs.ChampionNotify(member.name, cs.tid, awardid)
 			}
 		}
+		u := UserMgr().FindUser(memberid) 
+		if u != nil {
+			u.OnAchieveMttReward(rank)
+		}
 		rank++
 	}
 }
