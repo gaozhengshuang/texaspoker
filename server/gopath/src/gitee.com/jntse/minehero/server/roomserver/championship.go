@@ -288,7 +288,7 @@ func (cs *ChampionShip) StartMatch() bool {
 
 	start := SysTimerMgr().GetStartTimeByTimeId(cs.tconf.TimeId)
 	ChampionMgr().CreateChampionShip(cs.tid, start)
-	log.Info("锦标赛%d 开启", cs.uid)
+	log.Info("锦标赛%d tid%d开启", cs.uid, cs.tid)
 	return true
 }
 

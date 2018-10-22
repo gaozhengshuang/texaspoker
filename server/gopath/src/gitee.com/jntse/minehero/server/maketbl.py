@@ -215,6 +215,7 @@ gen.maketbl_excel('TaskBase', 'taskbase', 'TTask.xlsx')
 gen.maketbl_excel('MapEventBase','mapevent','TMapEvent.xlsx')
 gen.maketbl_excel('MapEventRefreshBase','mapeventrefresh','TMapEventRefresh.xlsx')
 
+gen.maketbl_excel('TMarquee','marquee','TMarquee.xlsx')
 gen.maketbl_excel('TSystemTime','systemtime','TSystemTime.xlsx')
 gen.maketbl_excel('TChampionshipPrize','championshipprize','TChampionshipPrize.xlsx')
 gen.maketbl_excel('TChampionshipBlind','championshipblind', 'TChampionshipBlind.xlsx')
