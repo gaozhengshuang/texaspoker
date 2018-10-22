@@ -58,7 +58,7 @@ message HundredWarDefine
 	optional int32 Seat = 13; // 座位数
 	
 	
-	optional int32 WaitTime = 14; // 未压住踢出轮数
+	optional int32 WaitTime = 14; // 等待时间
 	
 	
 	optional int32 BetTime = 15; // 下注时间

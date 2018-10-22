@@ -76,12 +76,7 @@ func on_MS2GW_HeartBeat(session network.IBaseNetSession, message interface{}) {
 
 func on_MS2GW_ChatInfo(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.MS2GW_ChatInfo)
-	send := &msg.GW2C_PushMessage{}
-	send.Type = pb.Int32(tmsg.GetType())
-	send.Txt = pb.String(tmsg.GetTxt())
-	send.Roleid = pb.Int64(tmsg.GetUid())
-	send.Name = pb.String(tmsg.GetName())
-	UserMgr().BroadcastMsgFaster(send)
+	UserMgr().BroadcastMsgFaster(tmsg.Chat)
 }
 
 // 消息转发

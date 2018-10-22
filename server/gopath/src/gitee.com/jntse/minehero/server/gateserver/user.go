@@ -17,11 +17,6 @@ import (
 	_ "time"
 )
 
-const (
-	ChatRoom = 1
-	ChatAll = 2
-)
-
 //const (
 //	StayHall = 1		// 待在大厅
 //	RoomCreating = 2	// 创建房间中
@@ -784,22 +779,17 @@ func (u *GateUser) PackAutoResetValues(bin *msg.Serialize) {
 }
 
 func (u *GateUser) SendChat(rev *msg.C2GW_ReqSendMessage) {
-	if rev.GetType() == ChatRoom {
+	if rev.GetType() == def.ChatRoom {
 		sid := GetRoomSid(u.RoomId())
 		if sid != 0 {
 			send := &msg.GW2RS_ChatInfo{}
-			send.Uid = pb.Int64(u.Id())
-			send.Name = pb.String(u.Name())
-			send.Txt = pb.String(rev.GetTxt())
-			send.Type = pb.Int32(rev.GetType())
 			send.Roomid = pb.Int64(u.RoomId())
+			send.Chat = def.MakeChatInfo(def.ChatRoom, rev.GetTxt(), u.Id(), u.Name(), def.SystemMsg, def.MsgShowAll)
 			RoomSvrMgr().SendMsg(sid, send)
 		}
-	} else if rev.GetType() == ChatAll {
+	} else if rev.GetType() == def.ChatAll {
 		send := &msg.GW2MS_ChatInfo{}
-		send.Uid = pb.Int64(u.Id())
-		send.Name = pb.String(u.Name())
-		send.Txt = pb.String(rev.GetTxt())
+		send.Chat = def.MakeChatInfo(def.ChatAll, rev.GetTxt(), u.Id(), u.Name(), def.HornMsg, def.MsgShowAll)
 		Match().SendCmd(send)
 	}
 	send := &msg.GW2C_RetSendMessage{}

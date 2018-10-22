@@ -160,6 +160,13 @@ func (u *RoomUser) Logout() {
 	UserMgr().DelUser(u)
 }
 
+func (u *RoomUser) KickOut() {
+	u.DBSave()
+	u.ticker1s.Stop()
+	u.ticker10ms.Stop()
+	UserMgr().DelUser(u)
+}
+
 func (u *RoomUser) SendNotify(text string) {
 	send := &msg.GW2C_PushMsgNotify{Userid: pb.Int64(u.Id()), Text: pb.String(text)}
 	u.SendMsg(send)

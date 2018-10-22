@@ -1206,8 +1206,8 @@ func (this *TexasPokerRoom) ReqReviewInfo(uid int64) {
 		send := &msg.RS2C_RetReviewInfo{}
 		send.Array = this.lastrecord
 		player.owner.SendClientMsg(send)
-		for _, record := range this.lastrecord {
-			log.Info("记录数据 %v", record)
-		}
+		//for _, record := range this.lastrecord {
+		//	log.Info("记录数据 %v", record)
+		//}
 	}
 }

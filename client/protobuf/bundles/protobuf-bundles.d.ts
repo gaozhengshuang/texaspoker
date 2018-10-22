@@ -8616,6 +8616,12 @@ declare namespace msg {
 
         /** GW2C_PushMessage name */
         name?: (string|null);
+
+        /** GW2C_PushMessage subtype */
+        subtype?: (number|null);
+
+        /** GW2C_PushMessage showtype */
+        showtype?: (number|null);
     }
 
     /** Represents a GW2C_PushMessage. */
@@ -8638,6 +8644,12 @@ declare namespace msg {
 
         /** GW2C_PushMessage name. */
         public name: string;
+
+        /** GW2C_PushMessage subtype. */
+        public subtype: number;
+
+        /** GW2C_PushMessage showtype. */
+        public showtype: number;
 
         /**
          * Creates a new GW2C_PushMessage instance using the specified properties.
@@ -21595,17 +21607,8 @@ declare namespace msg {
     /** Properties of a GW2MS_ChatInfo. */
     interface IGW2MS_ChatInfo {
 
-        /** GW2MS_ChatInfo uid */
-        uid?: (number|Long|null);
-
-        /** GW2MS_ChatInfo txt */
-        txt?: (string|null);
-
-        /** GW2MS_ChatInfo type */
-        type?: (number|null);
-
-        /** GW2MS_ChatInfo name */
-        name?: (string|null);
+        /** GW2MS_ChatInfo chat */
+        chat?: (msg.IGW2C_PushMessage|null);
     }
 
     /** Represents a GW2MS_ChatInfo. */
@@ -21617,17 +21620,8 @@ declare namespace msg {
          */
         constructor(properties?: msg.IGW2MS_ChatInfo);
 
-        /** GW2MS_ChatInfo uid. */
-        public uid: (number|Long);
-
-        /** GW2MS_ChatInfo txt. */
-        public txt: string;
-
-        /** GW2MS_ChatInfo type. */
-        public type: number;
-
-        /** GW2MS_ChatInfo name. */
-        public name: string;
+        /** GW2MS_ChatInfo chat. */
+        public chat?: (msg.IGW2C_PushMessage|null);
 
         /**
          * Creates a new GW2MS_ChatInfo instance using the specified properties.
@@ -21703,17 +21697,8 @@ declare namespace msg {
     /** Properties of a MS2GW_ChatInfo. */
     interface IMS2GW_ChatInfo {
 
-        /** MS2GW_ChatInfo uid */
-        uid?: (number|Long|null);
-
-        /** MS2GW_ChatInfo txt */
-        txt?: (string|null);
-
-        /** MS2GW_ChatInfo type */
-        type?: (number|null);
-
-        /** MS2GW_ChatInfo name */
-        name?: (string|null);
+        /** MS2GW_ChatInfo chat */
+        chat?: (msg.IGW2C_PushMessage|null);
     }
 
     /** Represents a MS2GW_ChatInfo. */
@@ -21725,17 +21710,8 @@ declare namespace msg {
          */
         constructor(properties?: msg.IMS2GW_ChatInfo);
 
-        /** MS2GW_ChatInfo uid. */
-        public uid: (number|Long);
-
-        /** MS2GW_ChatInfo txt. */
-        public txt: string;
-
-        /** MS2GW_ChatInfo type. */
-        public type: number;
-
-        /** MS2GW_ChatInfo name. */
-        public name: string;
+        /** MS2GW_ChatInfo chat. */
+        public chat?: (msg.IGW2C_PushMessage|null);
 
         /**
          * Creates a new MS2GW_ChatInfo instance using the specified properties.
@@ -22777,20 +22753,11 @@ declare namespace msg {
     /** Properties of a GW2RS_ChatInfo. */
     interface IGW2RS_ChatInfo {
 
-        /** GW2RS_ChatInfo uid */
-        uid?: (number|Long|null);
-
-        /** GW2RS_ChatInfo txt */
-        txt?: (string|null);
-
-        /** GW2RS_ChatInfo type */
-        type?: (number|null);
-
         /** GW2RS_ChatInfo roomid */
         roomid?: (number|Long|null);
 
-        /** GW2RS_ChatInfo name */
-        name?: (string|null);
+        /** GW2RS_ChatInfo chat */
+        chat?: (msg.IGW2C_PushMessage|null);
     }
 
     /** Represents a GW2RS_ChatInfo. */
@@ -22802,20 +22769,11 @@ declare namespace msg {
          */
         constructor(properties?: msg.IGW2RS_ChatInfo);
 
-        /** GW2RS_ChatInfo uid. */
-        public uid: (number|Long);
-
-        /** GW2RS_ChatInfo txt. */
-        public txt: string;
-
-        /** GW2RS_ChatInfo type. */
-        public type: number;
-
         /** GW2RS_ChatInfo roomid. */
         public roomid: (number|Long);
 
-        /** GW2RS_ChatInfo name. */
-        public name: string;
+        /** GW2RS_ChatInfo chat. */
+        public chat?: (msg.IGW2C_PushMessage|null);
 
         /**
          * Creates a new GW2RS_ChatInfo instance using the specified properties.
@@ -26616,6 +26574,9 @@ declare namespace msg {
 
         /** RS2C_PushTFRoundOver iswin */
         iswin?: (boolean|null);
+
+        /** RS2C_PushTFRoundOver sitplayers */
+        sitplayers?: (msg.ITFPlayer|null);
     }
 
     /** Represents a RS2C_PushTFRoundOver. */
@@ -26644,6 +26605,9 @@ declare namespace msg {
 
         /** RS2C_PushTFRoundOver iswin. */
         public iswin: boolean;
+
+        /** RS2C_PushTFRoundOver sitplayers. */
+        public sitplayers?: (msg.ITFPlayer|null);
 
         /**
          * Creates a new RS2C_PushTFRoundOver instance using the specified properties.
@@ -26821,11 +26785,14 @@ declare namespace msg {
     /** Properties of a TFRankPlayer. */
     interface ITFRankPlayer {
 
-        /** TFRankPlayer roleid */
-        roleid?: (number|null);
-
         /** TFRankPlayer num */
         num?: (number|null);
+
+        /** TFRankPlayer roleid */
+        roleid?: (number|Long|null);
+
+        /** TFRankPlayer head */
+        head?: (string|null);
     }
 
     /** Represents a TFRankPlayer. */
@@ -26837,11 +26804,14 @@ declare namespace msg {
          */
         constructor(properties?: msg.ITFRankPlayer);
 
-        /** TFRankPlayer roleid. */
-        public roleid: number;
-
         /** TFRankPlayer num. */
         public num: number;
+
+        /** TFRankPlayer roleid. */
+        public roleid: (number|Long);
+
+        /** TFRankPlayer head. */
+        public head: string;
 
         /**
          * Creates a new TFRankPlayer instance using the specified properties.
@@ -36392,6 +36362,204 @@ declare namespace table {
 
         /**
          * Converts this TMapEventRefreshDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TMarquee. */
+    interface ITMarquee {
+
+        /** TMarquee Marquee */
+        Marquee?: (table.IMarqueeDefine[]|null);
+    }
+
+    /** Represents a TMarquee. */
+    class TMarquee implements ITMarquee {
+
+        /**
+         * Constructs a new TMarquee.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITMarquee);
+
+        /** TMarquee Marquee. */
+        public Marquee: table.IMarqueeDefine[];
+
+        /**
+         * Creates a new TMarquee instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TMarquee instance
+         */
+        public static create(properties?: table.ITMarquee): table.TMarquee;
+
+        /**
+         * Encodes the specified TMarquee message. Does not implicitly {@link table.TMarquee.verify|verify} messages.
+         * @param message TMarquee message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITMarquee, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TMarquee message, length delimited. Does not implicitly {@link table.TMarquee.verify|verify} messages.
+         * @param message TMarquee message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITMarquee, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TMarquee message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TMarquee
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TMarquee;
+
+        /**
+         * Decodes a TMarquee message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TMarquee
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TMarquee;
+
+        /**
+         * Verifies a TMarquee message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TMarquee message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TMarquee
+         */
+        public static fromObject(object: { [k: string]: any }): table.TMarquee;
+
+        /**
+         * Creates a plain object from a TMarquee message. Also converts values to other types if specified.
+         * @param message TMarquee
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TMarquee, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TMarquee to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a MarqueeDefine. */
+    interface IMarqueeDefine {
+
+        /** MarqueeDefine Id */
+        Id?: (number|null);
+
+        /** MarqueeDefine Type */
+        Type?: (number|null);
+
+        /** MarqueeDefine Show */
+        Show?: (number|null);
+
+        /** MarqueeDefine Message */
+        Message?: (string|null);
+    }
+
+    /** Represents a MarqueeDefine. */
+    class MarqueeDefine implements IMarqueeDefine {
+
+        /**
+         * Constructs a new MarqueeDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IMarqueeDefine);
+
+        /** MarqueeDefine Id. */
+        public Id: number;
+
+        /** MarqueeDefine Type. */
+        public Type: number;
+
+        /** MarqueeDefine Show. */
+        public Show: number;
+
+        /** MarqueeDefine Message. */
+        public Message: string;
+
+        /**
+         * Creates a new MarqueeDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MarqueeDefine instance
+         */
+        public static create(properties?: table.IMarqueeDefine): table.MarqueeDefine;
+
+        /**
+         * Encodes the specified MarqueeDefine message. Does not implicitly {@link table.MarqueeDefine.verify|verify} messages.
+         * @param message MarqueeDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IMarqueeDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified MarqueeDefine message, length delimited. Does not implicitly {@link table.MarqueeDefine.verify|verify} messages.
+         * @param message MarqueeDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IMarqueeDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a MarqueeDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MarqueeDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.MarqueeDefine;
+
+        /**
+         * Decodes a MarqueeDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MarqueeDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.MarqueeDefine;
+
+        /**
+         * Verifies a MarqueeDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MarqueeDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MarqueeDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.MarqueeDefine;
+
+        /**
+         * Creates a plain object from a MarqueeDefine message. Also converts values to other types if specified.
+         * @param message MarqueeDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.MarqueeDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MarqueeDefine to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };

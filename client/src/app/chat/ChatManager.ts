@@ -66,10 +66,10 @@ class ChatManager
 			chatInfo.type = data.type;
 			if (chatInfo.type == ChatMessageType.Maquee)
 			{
-				chatInfo.txt = ChatManager.marqueeHandler.getMsgByType(data.txt, data.name);
+				chatInfo.txt = ChatManager.marqueeHandler.getMsgByType(data);
 				ChatManager.marqueeHandler.setMsgSendUserName(chatInfo, data.txt, data.name);
 				inRoomChatInfo.copyValueFromIgnoreCase(chatInfo);
-				if (ChatManager.marqueeHandler.isShowMarqueeMsg(data.txt))
+				if (ChatManager.marqueeHandler.isShowMarqueeMsg(data))
 				{
 					ChatManager._marqueeList.push(chatInfo);
 				}

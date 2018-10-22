@@ -99,7 +99,7 @@ message RS2C_RetWinLoseTrend {
 }
 
 message TFWinLoseTrend {
-    optional int32 p1 = 1;
+    optional int32 p1 = 1;      // 0负， 1胜，2平
     optional int32 p2 = 2;
     optional int32 p3 = 3;
     optional int32 p4 = 4;
@@ -180,12 +180,13 @@ message TFBetPoolChange {
 
 // 发牌推送
 message RS2C_PushTFRoundOver {
-    repeated TFBetPool betlist = 1;     //
-    repeated TFRankPlayer ranklist = 2;    // 赢取排名
-    optional int32 gold = 3;        // 结算金币
-    optional int32 pool = 4;        // 总奖池大小
-    optional int32 bankergold = 5;  // 庄家金币
-    optional bool iswin = 6;        // 是否赢
+    repeated TFBetPool betlist = 1;     // 注池信息
+    repeated TFRankPlayer ranklist = 2; // 赢取玩家排名
+    optional int32 gold = 3;            // 个人金币结算
+    optional int32 pool = 4;            // 总奖池大小
+    optional int32 bankergold = 5;      // 庄家金币
+    optional bool iswin = 6;            // 个人是否赢
+    optional TFPlayer sitplayers = 7;   // 坐下玩家信息更新
 }
 message TFBetPool {
     optional int32 pos = 1;     // 注池位置  0是庄家  其他从左向右1-4
@@ -193,8 +194,9 @@ message TFBetPool {
     optional int32 win = 3;     // 是否赢了   0输  1赢  2平
 }
 message TFRankPlayer {
-    optional int32 roleid = 1;  // 玩家id
-    optional int32 num = 2;     // 赢取数量
+    optional int32 num = 1;     // 赢取数量
+    optional int64 roleid = 2;  // 玩家id
+    optional string head = 3;   // 头像
 }
 
 

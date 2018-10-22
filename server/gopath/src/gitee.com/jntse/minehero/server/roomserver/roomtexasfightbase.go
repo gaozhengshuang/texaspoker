@@ -73,19 +73,23 @@ type TexasFightPlayer struct {
 	sysflag bool		// 系统庄家
 	owner *RoomUser		// 系统庄家时为nil
 	seat int32			// 坐下位置，0是庄家位置，-1表示站起没有位置
-	totalbet int32 		// 总下注额
+	totalbet int32 		// 总下注额，0未下任何注
 	betlist	[kBetPoolNum]*TFPlayerBet	// 下注列表
 	bankerround int32	// 玩家坐庄轮数
 	totalprofit int32 	// 总利润,大于0盈利，小于0亏损
+	watchcount	int32	// 连续观战计数，大于一定次数踢出房间
+	quitbankerflag bool	// 主动请求放弃庄位
 }
 
 func NewTexasFightPlayer(u *RoomUser, sysflag bool) *TexasFightPlayer {
-	p := &TexasFightPlayer{sysflag:sysflag, owner:u, seat:-1, bankerround:0 }
+	p := &TexasFightPlayer{sysflag:sysflag, owner:u, seat:-1, bankerround:0, watchcount:0, quitbankerflag:false }
 	return p
 }
 
 func (p *TexasFightPlayer) Reset() {
 	p.betlist = [kBetPoolNum]*TFPlayerBet{}
+	p.totalbet = 0
+	p.totalprofit = 0
 }
 
 func (p *TexasFightPlayer) IsSystem() bool { return p.sysflag }
@@ -98,6 +102,10 @@ func (p *TexasFightPlayer) ResetBankerRound() { p.bankerround = 0 }
 func (p *TexasFightPlayer) BetInfo() [kBetPoolNum]*TFPlayerBet { return p.betlist }
 func (p *TexasFightPlayer) TotalBet() int32 { return p.totalbet }
 func (p *TexasFightPlayer) TotalProfit() int32 { return p.totalprofit }
+func (p *TexasFightPlayer) WatchCount() int32 { return p.watchcount }
+func (p *TexasFightPlayer) SetWatchCount(n int32) { p.watchcount = n }
+func (p *TexasFightPlayer) SetQuitBankerFlag() { p.quitbankerflag = true }
+func (p *TexasFightPlayer) QuitBankerFlag() bool { return p.quitbankerflag }
 
 func (p *TexasFightPlayer) Id() int64 {
 	if p.IsSystem() { return 1 }
@@ -134,6 +142,7 @@ func (p *TexasFightPlayer) Bet(pos, num int32) {
 	}else {
 		p.betlist[pos].num += num
 	}
+	p.SetWatchCount(0)
 	p.totalbet += num
 }
 
@@ -181,6 +190,14 @@ func (p *TexasFightPlayer) FillRankPlayerInfo() *msg.TFRankPlayer {
 	return info
 }
 
+//  被踢出房间
+func (p *TexasFightPlayer) OnKickOut() {
+	p.owner.KickOut()
+
+	send := &msg.RS2C_PushTFPlayerKickOut{Id:pb.Int64(p.Id())}
+	p.owner.SendClientMsg(send)
+}
+
 // --------------------------------------------------------------------------
 /// @brief 百人大战下注池
 ///
@@ -205,7 +222,8 @@ func (t *TexasFightBetPool) Init(pos int32) {
 	t.tconf = nil
 }
 
-func (t *TexasFightBetPool) Total() int32 { return t.total }
+func (t *TexasFightBetPool) Inc(n int32) { t.total += n }
+func (t *TexasFightBetPool) Size() int32 { return t.total }
 func (t *TexasFightBetPool) Pos() int32 { return t.pos }
 func (t *TexasFightBetPool) Result() int32 { return t.result }
 func (t *TexasFightBetPool) SetResult(r int32) { t.result = r }
@@ -220,6 +238,7 @@ func (t *TexasFightBetPool) Reset() {
 	//t.players = make(map[int64]*TexasFightPlayer)
 	t.hand.ClearAnalyse()
 }
+
 
 func (t *TexasFightBetPool) InsertCards(cards []*Card) {
 	if len(cards) != len(t.cards) {
@@ -514,13 +533,7 @@ func (tf *TexasFightRoom) UserLeave(u *RoomUser) {
 	}
 
 	// 离开上庄排队
-	qsize := len(tf.bankerqueue)
-	for i:=0; i < qsize; i++ {
-		if tf.bankerqueue[i].Id() != u.Id() { continue }
-		if i == qsize - 1 { tf.bankerqueue = tf.bankerqueue[:qsize-1]; break }
-		tf.bankerqueue = append(tf.bankerqueue[:i], tf.bankerqueue[i+1:]...)
-		break
-	}
+	tf.BankerQueueRemove(u.Id())
 
 	tf.sitplayers[player.Seat()] = nil
 	resp := &msg.RS2C_RetTFLeave{}

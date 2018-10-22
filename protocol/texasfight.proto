@@ -54,6 +54,7 @@ message C2RS_ReqTexasFightBet {
 }
 
 message RS2C_RetTexasFightBet {
+    optional string errcode = 1;
 }
 
 
@@ -186,7 +187,7 @@ message RS2C_PushTFRoundOver {
     optional int32 pool = 4;            // 总奖池大小
     optional int32 bankergold = 5;      // 庄家金币
     optional bool iswin = 6;            // 个人是否赢
-    optional TFPlayer sitplayers = 7;   // 坐下玩家信息更新
+    repeated TFPlayer sitplayers = 7;   // 坐下玩家信息更新
 }
 message TFBetPool {
     optional int32 pos = 1;     // 注池位置  0是庄家  其他从左向右1-4
@@ -217,7 +218,7 @@ message RS2C_PushTFPosChange {
 
 // 玩家被踢出房间推送(只是通知本人)
 message RS2C_PushTFPlayerKickOut {
-    optional int32 id = 1;
+    optional int64 id = 1;
 }
 
 
