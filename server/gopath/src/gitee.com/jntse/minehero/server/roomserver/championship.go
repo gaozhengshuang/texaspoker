@@ -590,9 +590,13 @@ func (cs *ChampionShip) RewardAll() {
 				cs.ChampionNotify(member.name, cs.tid, awardid)
 			}
 		}
-		u := UserMgr().FindUser(memberid) 
-		if u != nil {
-			u.OnAchieveMttReward(rank)
+		//进入锦标赛奖励圈
+		Redis().HIncrBy(fmt.Sprintf("charstate_%d", memberid), "mttprizetimes", 1)
+		if rank == 1 {
+			//锦标赛夺冠
+			Redis().HIncrBy(fmt.Sprintf("charstate_%d", memberid), "championtimes", 1)
+			strgroup := strconv.FormatInt(int64(AchieveGroup_MTTChampion), 10)
+			Redis().HIncrBy(fmt.Sprintf("charstate_%d", memberid), strgroup, 1)
 		}
 		rank++
 	}
@@ -846,10 +850,7 @@ func (cm *ChampionManager) ReqMTTJoin(gid int, uid int64, rev *msg.C2RS_ReqMTTJo
 	send.Recordid = pb.Int32(cs.uid)
 	RoomSvr().SendClientMsg(gid, uid, send)
 	log.Info("玩家%d 报名参加竞标赛%d", uid, cs.uid)
-	u := UserMgr().FindUser(uid) 
-	if u != nil {
-		u.OnAchieveJoinMtt()
-	}
+	Redis().HIncrBy(fmt.Sprintf("charstate_%d", uid), "mttjointimes", 1)
 }
 
 func (cm *ChampionManager) ReqMTTQuit(gid int, uid int64, rev *msg.C2RS_ReqMTTQuit) {
