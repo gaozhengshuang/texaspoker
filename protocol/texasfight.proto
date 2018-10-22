@@ -186,7 +186,7 @@ message RS2C_PushTFRoundOver {
     optional int32 pool = 4;            // 总奖池大小
     optional int32 bankergold = 5;      // 庄家金币
     optional bool iswin = 6;            // 个人是否赢
-    //optional TFPlayer sitplayers = 7;   // 坐下玩家信息更新
+    optional TFPlayer sitplayers = 7;   // 坐下玩家信息更新
 }
 message TFBetPool {
     optional int32 pos = 1;     // 注池位置  0是庄家  其他从左向右1-4
