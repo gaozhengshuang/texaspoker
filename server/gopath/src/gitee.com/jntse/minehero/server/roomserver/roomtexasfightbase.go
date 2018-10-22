@@ -50,8 +50,8 @@ const (
 
 // 百人大战子类型
 const (
-	kTexasFightHappyMode = 1
-	kTexasFightRichMode = 2
+	kTexasFightHappyMode = 1	// 欢乐场
+	kTexasFightRichMode = 2		// 富豪场
 )
 
 // --------------------------------------------------------------------------
