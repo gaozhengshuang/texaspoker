@@ -18,5 +18,7 @@ message GW2C_PushMessage
     optional int32 type = 1;
     optional string txt = 2;
     optional int64 roleid = 3;
-    optional string name = 4;    
+    optional string name = 4;
+    optional int32 subtype = 5;
+    optional int32 showtype = 6;    
 }

@@ -1,6 +1,7 @@
 syntax = "proto2";
 package msg;
 import "define.proto";
+import "chat.proto";
 
 // --------------------------------------------------------------------------
 /// @brief GateServer <----> LoginServer
@@ -101,17 +102,11 @@ message GW2MS_UserLoginState {
 }
 
 message GW2MS_ChatInfo {
-    optional int64 uid = 1;
-    optional string txt = 2;
-    optional int32 type = 3;
-    optional string name = 4;
+    optional msg.GW2C_PushMessage chat = 1;
 }
 
 message MS2GW_ChatInfo {
-    optional int64 uid = 1;
-    optional string txt = 2;
-    optional int32 type = 3;
-    optional string name = 4;
+     optional msg.GW2C_PushMessage chat = 1;
 }
 
 // --------------------------------------------------------------------------
@@ -180,11 +175,8 @@ message RS2GW_MTTCancel {
 
 //聊天消息
 message GW2RS_ChatInfo {
-    optional int64 uid = 1;
-    optional string txt = 2;
-    optional int32 type = 3;
-    optional int64 roomid = 4;
-    optional string name = 5;
+    optional int64 roomid = 1;
+    optional msg.GW2C_PushMessage chat = 2;
 }
 
 // --------------------------------------------------------------------------

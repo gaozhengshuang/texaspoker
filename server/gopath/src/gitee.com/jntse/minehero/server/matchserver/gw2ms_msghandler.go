@@ -175,10 +175,7 @@ func on_GW2MS_PushNewMail(session network.IBaseNetSession, message interface{}) 
 func on_GW2MS_ChatInfo(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2MS_ChatInfo)
 	send := &msg.MS2GW_ChatInfo{}
-	send.Uid = pb.Int64(tmsg.GetUid())
-	send.Name = pb.String(tmsg.GetName())
-	send.Txt = pb.String(tmsg.GetTxt())
-	send.Type = pb.Int32(tmsg.GetType())
+	send.Chat = tmsg.Chat
 	Match().BroadcastGateMsg(send)
 }
 

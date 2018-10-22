@@ -89,12 +89,7 @@ func (r *RoomBase) IsFull() bool { return false }
 func (r *RoomBase) UserStandUp(u *RoomUser)	 {}
 func (r *RoomBase) UserSitDown(u *RoomUser, seat int32)	{}
 func (r *RoomBase) SendChat(rev *msg.GW2RS_ChatInfo) {
-	send := &msg.GW2C_PushMessage{}
-	send.Type = pb.Int32(rev.GetType())
-	send.Txt = pb.String(rev.GetTxt())
-	send.Roleid = pb.Int64(rev.GetUid())
-	send.Name = pb.String(rev.GetName())
-	r.BroadCastMemberMsg(send)
+	r.BroadCastMemberMsg(rev.Chat)
 }
 
 func (r *RoomBase) SendGateMsg(userid int64, m pb.Message) {
