@@ -26,26 +26,6 @@ const (
 	AchieveToken = "achievetoken"	//已经领取的任务成就变量 set
 )
 
-const (
-	ChatRoom = 1		//房间内消息
-	ChatAll = 2			//全员消息
-)
-
-const (
-	SystemMsg = 0		//系统后台消息
-	MTTMsg = 1			//锦标赛消息
-	HWarMsg = 2			//百人大战消息
-	HornMsg = 3			//小喇叭消息
-)
-
-const (
-	MsgShowAll = 0		//全部显示
-	MsgOnRoom = 1		//只在房间显示
-	MsgOnMTT = 2		//只在锦标赛
-	MsgOnGambling = 3	//只在赌博局
-	MsgOnHWar = 4		//只在百人大战
-)
-
 // 组装带颜色字体的公告内容
 func MakeNoticeText(text string, color string, size int32) string {
 	return fmt.Sprintf(`<font color="%s" size=%d>%s</font>`, color, size, text)

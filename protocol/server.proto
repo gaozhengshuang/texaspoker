@@ -101,6 +101,7 @@ message GW2MS_UserLoginState {
     optional int64 uid = 2;
 }
 
+//聊天消息
 message GW2MS_ChatInfo {
     optional msg.GW2C_PushMessage chat = 1;
 }
@@ -177,6 +178,10 @@ message RS2GW_MTTCancel {
 message GW2RS_ChatInfo {
     optional int64 roomid = 1;
     optional msg.GW2C_PushMessage chat = 2;
+}
+
+message RS2GW_ChatInfo {
+    optional msg.GW2C_PushMessage chat = 1;
 }
 
 // --------------------------------------------------------------------------
