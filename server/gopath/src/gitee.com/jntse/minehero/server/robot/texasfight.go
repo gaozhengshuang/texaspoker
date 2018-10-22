@@ -26,6 +26,45 @@ func (u *User) ReqTexasFightBet(subcmd []string) {
 	u.SendGateMsg(send)
 }
 
+func (u *User) ReqTFLastAwardPoolHit() {
+	send := &msg.C2RS_ReqTFLastAwardPoolHit{}
+	u.SendGateMsg(send)
+}
+
+func (u *User) ReqTFStandPlayer() {
+	send := &msg.C2RS_ReqTFStandPlayer{Start:pb.Int32(0), Count:pb.Int32(100) }
+	u.SendGateMsg(send)
+}
+
+func (u *User) ReqTexasFightBet(subcmd []string) {
+	if len(subcmd) != 2 { return }
+	pos, num := util.Atoi(subcmd[0]), util.Atoi(subcmd[1])
+	send := &msg.C2RS_ReqTexasFightBet{Pos:pb.Int32(pos), Num:pb.Int32(num) }
+	u.SendGateMsg(send)
+}
+
+func (u *User) ReqTexasFightBet(subcmd []string) {
+	if len(subcmd) != 2 { return }
+	pos, num := util.Atoi(subcmd[0]), util.Atoi(subcmd[1])
+	send := &msg.C2RS_ReqTexasFightBet{Pos:pb.Int32(pos), Num:pb.Int32(num) }
+	u.SendGateMsg(send)
+}
+
+func (u *User) ReqTexasFightBet(subcmd []string) {
+	if len(subcmd) != 2 { return }
+	pos, num := util.Atoi(subcmd[0]), util.Atoi(subcmd[1])
+	send := &msg.C2RS_ReqTexasFightBet{Pos:pb.Int32(pos), Num:pb.Int32(num) }
+	u.SendGateMsg(send)
+}
+
+// --------------------------------------------------------------------------
+/// @brief 百人大战协议
+///
+/// @param network.IBaseNetSession
+/// @param interface{}
+///
+/// @return 
+// --------------------------------------------------------------------------
 func on_GW2C_RetTFRoomList(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2C_RetTFRoomList)
 	log.Info("%+v", tmsg)
