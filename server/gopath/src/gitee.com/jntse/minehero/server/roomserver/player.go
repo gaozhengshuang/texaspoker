@@ -752,7 +752,12 @@ func (this *TexasPlayer) CheckLeave() bool{
 			this.StandUp()
 			return true
 		}else{
-			this.delaystandup = 20
+			if this.room.mtt.tconf.Type == 2 {
+				this.StandUp()
+				return true
+			}else {
+				this.delaystandup = 20
+			}
 		}
 	}
 	return false
@@ -780,12 +785,12 @@ func (this *TexasPlayer) StandUp() bool {
 			}
 			this.Init()
 			this.room.AddWatcher(this)
-			send := &msg.RS2C_PushSitOrStand{}
-			send.Roleid = pb.Int64(this.owner.Id())
-			send.State = pb.Int32(2)
-			this.room.BroadCastRoomMsg(send)
 			this.SetTimeReward()
 		}
+		send := &msg.RS2C_PushSitOrStand{}
+		send.Roleid = pb.Int64(this.owner.Id())
+		send.State = pb.Int32(2)
+		this.room.BroadCastRoomMsg(send)
 		this.room.UpdateMember()
 		return true
 	}

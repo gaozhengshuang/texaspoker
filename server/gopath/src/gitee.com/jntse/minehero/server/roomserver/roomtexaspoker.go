@@ -715,12 +715,14 @@ func (this *TexasPokerRoom) ShowDown() int32{
 		this.chips[i] = 0
 	}
 	var timecount int32 = 0
-	this.ForEachPlayer(0, func(player *TexasPlayer) bool {
-		player.hand.AnalyseHand()
-		player.isshowcard = true
-		timecount++
-		return true
-	})
+	if this.remain > 1 {
+		this.ForEachPlayer(0, func(player *TexasPlayer) bool {
+			player.hand.AnalyseHand()
+			player.isshowcard = true
+			timecount++
+			return true
+		})
+	}
 	
 	this.restarttime = 3 + timecount
 	send := &msg.RS2C_PushOneRoundOver{}
