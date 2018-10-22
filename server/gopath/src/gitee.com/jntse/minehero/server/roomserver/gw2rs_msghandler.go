@@ -231,6 +231,7 @@ func on_C2GW_ReqEnterTFRoom(session network.IBaseNetSession, message interface{}
 		u = UserMgr().CreateSimpleUser(userid)
 	}
 
+	u.CheckUpdateGateAgent(session)
 	room.UserEnter(u)
 }
 

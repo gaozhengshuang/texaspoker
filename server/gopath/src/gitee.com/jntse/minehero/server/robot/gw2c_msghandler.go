@@ -3,6 +3,7 @@ import (
 	"reflect"
 	"gitee.com/jntse/gotoolkit/log"
 	"gitee.com/jntse/gotoolkit/net"
+	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/minehero/server/tbl"
 	//pb "github.com/gogo/protobuf/proto"
@@ -55,6 +56,7 @@ func (mh* GW2CMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.RS2C_RetSitDown{}, on_RS2C_RetSitDown)
 	mh.msgparser.RegistProtoMsg(msg.RS2C_RetStandUp{}, on_RS2C_RetStandUp)
 	mh.msgparser.RegistProtoMsg(msg.RS2C_RetEnterRoom{}, on_RS2C_RetEnterRoom)
+	mh.msgparser.RegistProtoMsg(msg.RS2C_RetInsideRoomInfoList{}, on_RS2C_RetInsideRoomInfoList)
 
 	// 邮件
 	mh.msgparser.RegistProtoMsg(msg.GW2C_PushNewMail{}, on_GW2C_PushNewMail)
@@ -272,6 +274,18 @@ func on_RS2C_RetEnterRoom(session network.IBaseNetSession, message interface{}) 
 	//log.Info(reflect.TypeOf(tmsg).String())
 	log.Info("%+v", tmsg)
 }
+
+func on_RS2C_RetInsideRoomInfoList(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.RS2C_RetInsideRoomInfoList)
+	log.Info("%+v", tmsg)
+
+	//  进入百人大战
+	if tmsg.GetLastid() != 0 {
+		u, _ := session.UserDefData().(*User)
+		u.ReqEnterTFRoom([]string{util.Ltoa(u.Id())})
+	}
+}
+
 
 func on_GW2C_RetCreateRoom(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.GW2C_RetCreateRoom)

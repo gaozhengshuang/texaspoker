@@ -218,13 +218,12 @@ func (p *TexasFightPlayer) OnKickOut() {
 ///
 // --------------------------------------------------------------------------
 type TexasFightBetPool struct {
+	tconf *table.HundredWarCardTypeDefine
 	total int32
 	pos int32
 	cards [kHandCardNum]*Card
-	//players map[int64]*TexasFightPlayer
 	result int32	// 胜负平结果
 	hand Hand
-	tconf *table.HundredWarCardTypeDefine
 }
 
 func (t *TexasFightBetPool) Init(pos int32) {
@@ -246,10 +245,9 @@ func (t *TexasFightBetPool) GetCardLevel() int32 { return t.hand.GetFightLevel()
 
 
 func (t *TexasFightBetPool) Reset() {
-	t.total = 0
+	t.total  = 0
 	t.result = 0
-	t.cards = [kHandCardNum]*Card{}
-	//t.players = make(map[int64]*TexasFightPlayer)
+	t.cards  = [kHandCardNum]*Card{}
 	t.hand.ClearAnalyse()
 }
 
@@ -284,8 +282,9 @@ func (t *TexasFightBetPool) WinOdds() int32 {
 }
 
 func (t *TexasFightBetPool) FillBetPoolInfo() *msg.TFBetPoolInfo {
-	info := &msg.TFBetPoolInfo{Bet:pb.Int32(t.total), Pos:pb.Int32(t.pos)}
+	info := &msg.TFBetPoolInfo{Bet:pb.Int32(t.total), Pos:pb.Int32(t.pos), Cards:make([]int32, 0)}
 	for _, card := range t.cards {
+		if card == nil { continue }
 		info.Cards = append(info.Cards, card.Suit)
 		info.Cards = append(info.Cards, card.Value)
 	}
@@ -521,7 +520,7 @@ func (tf *TexasFightRoom) UserEnter(u *RoomUser) {
 
 // 玩家离开房间
 func (tf *TexasFightRoom) UserLeave(u *RoomUser) {
-	log.Info("[百人大战] 玩家[%s %d] 离开房间[%d] ")
+	log.Info("[百人大战] 玩家[%s %d] 离开房间[%d] ", u.Name(), u.Id(), tf.Id())
 
 	player := tf.players[u.Id()]
 	if player == nil {
@@ -540,21 +539,21 @@ func (tf *TexasFightRoom) UserLeave(u *RoomUser) {
 		return
 	}
 
-	// 座位玩家
+	// 座位玩家先站起
 	if player.Seat() != -1 {
-		posmsg := &msg.RS2C_PushTFPosChange{Pos:pb.Int32(player.Seat()), Roleid:pb.Int64(0), Bankergold:pb.Int32(0) }
-		tf.BroadCastMemberMsg(posmsg)
+		tf.UserStandUp(u)
 	}
 
 	// 离开上庄排队
 	tf.BankerQueueRemove(u.Id())
 
-	tf.sitplayers[player.Seat()] = nil
+	//
 	resp := &msg.RS2C_RetTFLeave{}
 	u.SendClientMsg(resp)
-
 	delete(tf.members, u.Id())
 	delete(tf.players, u.Id())
+
+	//
 	u.OnLeaveRoom()
 }
 

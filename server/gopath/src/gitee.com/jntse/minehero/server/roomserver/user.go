@@ -151,6 +151,7 @@ func (u *RoomUser) DBLoad() {
 func (u *RoomUser) DBSave() {
 	u.bag.DBSave()
 	u.entity.DBSave()
+	log.Info("玩家[%s %d] 存盘完毕")
 }
 
 func (u *RoomUser) Logout() {
@@ -158,6 +159,7 @@ func (u *RoomUser) Logout() {
 	u.ticker1s.Stop()
 	u.ticker10ms.Stop()
 	UserMgr().DelUser(u)
+	log.Info("玩家[%s %d] 完全退出RoomServer")
 }
 
 func (u *RoomUser) KickOut() {

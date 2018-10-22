@@ -55,63 +55,63 @@ func (u *User) ReqEnterTFRoom(subcmd []string) {
 	u.SendGateMsg(send)
 }
 
+func (u *User) ReqTFLeave() {
+	send := &msg.C2RS_ReqTFLeave{}
+	u.SendRoomMsg(send)
+}
+
 func (u *User) ReqTexasFightBet(subcmd []string) {
 	if len(subcmd) != 2 { return }
 	pos, num := util.Atoi(subcmd[0]), util.Atoi(subcmd[1])
 	send := &msg.C2RS_ReqTexasFightBet{Pos:pb.Int32(pos), Num:pb.Int32(num) }
-	u.SendGateMsg(send)
+	u.SendRoomMsg(send)
 }
 
 func (u *User) ReqTFLastAwardPoolHit() {
 	send := &msg.C2RS_ReqTFLastAwardPoolHit{}
-	u.SendGateMsg(send)
+	u.SendRoomMsg(send)
 }
 
 func (u *User) ReqTFStandPlayer() {
 	send := &msg.C2RS_ReqTFStandPlayer{Start:pb.Int32(0), Count:pb.Int32(100) }
-	u.SendGateMsg(send)
+	u.SendRoomMsg(send)
 }
 
 func (u *User) ReqWinLoseTrend() {
 	send := &msg.C2RS_ReqWinLoseTrend{}
-	u.SendGateMsg(send)
+	u.SendRoomMsg(send)
 }
 
 func (u *User) ReqTFBankerList() {
 	send := &msg.C2RS_ReqTFBankerList{}
-	u.SendGateMsg(send)
+	u.SendRoomMsg(send)
 }
 
 func (u *User) ReqTFBecomeBanker() {
 	send := &msg.C2RS_ReqTFBecomeBanker{}
-	u.SendGateMsg(send)
+	u.SendRoomMsg(send)
 }
 
 func (u *User) ReqTFQuitBanker() {
 	send := &msg.C2RS_ReqTFQuitBanker{}
-	u.SendGateMsg(send)
+	u.SendRoomMsg(send)
 }
 
 func (u *User) ReqTFSitDown(subcmd []string) {
 	if len(subcmd) != 1 { return }
 	pos := util.Atoi(subcmd[0])
 	send := &msg.C2RS_ReqTFSitDown{Pos:pb.Int32(pos)}
-	u.SendGateMsg(send)
+	u.SendRoomMsg(send)
 }
 
 func (u *User) ReqTFStandUp() {
 	send := &msg.C2RS_ReqTFStandUp{}
-	u.SendGateMsg(send)
-}
-
-func (u *User) ReqTFLeave() {
-	send := &msg.C2RS_ReqTFLeave{}
-	u.SendGateMsg(send)
+	u.SendRoomMsg(send)
 }
 
 func (u *User) ReqTFStart() {
 	send := &msg.C2RS_ReqTFStart{}
-	u.SendGateMsg(send)
+	u.SendRoomMsg(send)
 }
 
 

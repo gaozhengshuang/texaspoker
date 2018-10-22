@@ -432,4 +432,7 @@ func (u *User) DoInputCmd(cmd string) {
 
 func (u *User) OnLoginGateOK() {
 
+	// 请求自己房间列表
+	roommsg := &msg.C2RS_ReqInsideRoomInfoList{}
+	u.SendRoomMsg(roommsg)
 }
