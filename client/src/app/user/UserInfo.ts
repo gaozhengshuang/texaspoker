@@ -281,7 +281,7 @@ class UserInfo extends BaseServerValueInfo implements IBaseHead
 	 */
 	public level: number;
 	/**
-	 * 总经验值
+	 * 当前等级经验值
 	 */
 	public exp: number;
 	/**

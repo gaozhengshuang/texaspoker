@@ -304,6 +304,8 @@
 		"resource/skins/panel/LoginPanel.exml",
 		"resource/skins/panel/LoginSceneBgPanel.exml",
 		"resource/skins/panel/LoginTelPanel.exml",
+		"resource/skins/component/item/GetItemComponent.exml",
+		"resource/skins/panel/LuckyTask.exml",
 		"resource/skins/panel/MailPanel.exml",
 		"resource/skins/panel/MarqueePanel.exml",
 		"resource/skins/panel/MinuteRemindPanel.exml",
@@ -380,7 +382,6 @@
 		"resource/skins/component/guide/GuideTipsComponent.exml",
 		"resource/skins/component/laba/laBaRankTabComponentBtn4.exml",
 		"resource/skins/component/laba/laBaTabCompontBtn2.exml",
-		"resource/skins/component/item/GetItemComponent.exml",
 		"resource/skins/component/mtt/enterBlueSkin.exml",
 		"resource/skins/component/playfield/playfieldBringTSSkin.exml",
 		"resource/skins/component/playfield/playfieldButtonSkin.exml"

@@ -227,7 +227,7 @@ class GamblingPanelActionSupport extends BaseGamblingPanelSupport
 			this.changeState(GamblingManager.getPlayerStateByRoleId(obj.roleId));
 		} else
 		{
-			if (obj.state == PlayerState.Raise && GamblingUtil.isOnProcess(GamblingManager.self))
+			if ((obj.state == PlayerState.Raise || obj.state == PlayerState.AllIn) && GamblingUtil.isOnProcess(GamblingManager.self)) //move todo 暂时还有问题在allin的时候
 			{
 				if (this.target.actionGroup.preActionGroup.visible)
 				{

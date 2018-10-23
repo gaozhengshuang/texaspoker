@@ -32,7 +32,7 @@ class Command
      */
     public static readonly System_Push_ResetTime0_2015: string = "c2015";
     /**
-     * 获取角色信息
+     * 获取角色信息 move todo 已被 msg.GW2C_PushUserInfo代替
      */
     public static readonly Role_GetInfo_3000: string = "c3000";
     /**
@@ -550,75 +550,75 @@ class Command
     /**
      * 拉取百人大战房间列表
     */
-    public static readonly HWRoomInfo_Req_3692 = "c3692";
+    public static readonly C2GW_ReqTFRoomList = "msg.C2GW_ReqTFRoomList";
     /**
      * 请求进入百人大战
     */
-    public static readonly EnterHW_Req_3693 = "c3693";
+    public static readonly C2GW_ReqEnterTFRoom = "msg.C2GW_ReqEnterTFRoom";
     /**
      * 请求下注
     */
-    public static readonly HWBet_Req_3694 = "c3694";
+    public static readonly C2RS_ReqTexasFightBet = "msg.C2RS_ReqTexasFightBet";
     /**
      * 拉取奖池信息
     */
-    public static readonly HWPoolInfo_Req_3695 = "c3695";
+    public static readonly C2RS_ReqTFLastAwardPoolHit = "msg.C2RS_ReqTFLastAwardPoolHit";
     /**
      * 拉取无座玩家列表
     */
-    public static readonly HWNoSeatInfo_Req_3696 = "c3696";
+    public static readonly C2RS_ReqTFStandPlayer = "msg.C2RS_ReqTFStandPlayer";
     /**
      * 拉取胜负走势列表
     */
-    public static readonly HWTrend_Req_3697 = "c3697";
+    public static readonly C2RS_ReqWinLoseTrend = "msg.C2RS_ReqWinLoseTrend";
     /**
      * 拉取庄家列表
     */
-    public static readonly HWbanker_Req_3698 = "c3698";
+    public static readonly C2RS_ReqTFBankerList = "msg.C2RS_ReqTFBankerList";
     /**
      * 请求上庄
     */
-    public static readonly HWKamisho_Req_3699 = "c3699";
+    public static readonly C2RS_ReqTFBecomeBanker = "msg.C2RS_ReqTFBecomeBanker";
     /**
      * 请求下庄
     */
-    public static readonly HWShimosho_Req_3700 = "c3700";
+    public static readonly C2RS_ReqTFQuitBanker = "msg.C2RS_ReqTFQuitBanker";
     /**
      * 请求坐下
     */
-    public static readonly HWSit_Req_3701 = "c3701";
+    public static readonly C2RS_ReqTFSitDown = "msg.C2RS_ReqTFSitDown";
     /**
      * 请求离开
     */
-    public static readonly HWLeave_Req_3702 = "c3702";
+    public static readonly C2RS_ReqTFLeave = "msg.C2RS_ReqTFLeave";
     /**
      * 请求下一局开局
     */
-    public static readonly HWNextRoundStart_Req_3703 = "c3703";
+    public static readonly C2RS_ReqTFStart = "msg.C2RS_ReqTFStart";
     /**
      * 请求站起
     */
-    public static readonly HWStandUp_Req_3704 = "c3704";
+    public static readonly C2RS_ReqTFStandUp = "msg.C2RS_ReqTFStandUp";
     /**
      * 注池变更推送
     */
-    public static readonly HWBetChange_Push_2123 = "c2123";
+    public static readonly RS2C_PushBetPoolChange = "msg.RS2C_PushBetPoolChange";
     /**
      * 牌推送
     */
-    public static readonly HWCards_Push_2124 = "c2124";
+    public static readonly RS2C_PushTFRoundOver = "msg.RS2C_PushTFRoundOver";
     /**
      * 房间状态变更推送
     */
-    public static readonly HWStateChange_Push_2126 = "c2126";
+    public static readonly RS2C_PushTFStateChange = "msg.RS2C_PushTFStateChange";
     /**
      * 位置变更推送
     */
-    public static readonly HWSeatChange_Push_2127 = "c2127";
+    public static readonly RS2C_PushTFPosChange = "msg.RS2C_PushTFPosChange";
     /**
      * 退出房间推送
     */
-    public static readonly OutRoom_Push_2128 = "c2128";
+    public static readonly RS2C_PushTFPlayerKickOut = "msg.RS2C_PushTFPlayerKickOut";
     /**
      * 兑换次数更新推送
     */

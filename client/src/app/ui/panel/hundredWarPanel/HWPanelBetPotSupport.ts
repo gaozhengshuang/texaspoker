@@ -133,7 +133,7 @@ class HWPanelBetPotSupport extends BaseHWPanelSupport
     /**
      * 玩家下注播放动画
     */
-    private showBetCoinAnim(data: any)
+    private showBetCoinAnim(data: msg.RS2C_PushBetPoolChange)
     {
         let bet: Array<number> = data.bet;
         if (bet && bet.length > 0)  //无座玩家下注动画
@@ -141,14 +141,17 @@ class HWPanelBetPotSupport extends BaseHWPanelSupport
             this.target.hwAnim.setCoinToBets(this.target.playersBtn, bet, -20, -5);
             this.setBetPotInfo();
         }
-        if (data.posBetList && data.posBetList.length > 0)  //坐下玩家下注动画
+        if (data.posbetlist && data.posbetlist.length > 0)  //坐下玩家下注动画
         {
             let pitInfo: HWPitInfo;
             let posBetInfo: PosBetInfo;
             let posList: Array<number> = new Array<number>();
-            for (let i: number = 0; i < data.posBetList.length; i++)
+            for (let i: number = 0; i < data.posbetlist.length; i++)
             {
-                posBetInfo = data.posBetList[i];
+                posBetInfo = new PosBetInfo();
+                let tmpInfo = data.posbetlist[i];
+                posBetInfo.bet = tmpInfo.bet;
+                posBetInfo.pos = tmpInfo.pos;
                 this.setPosBetInfo(posBetInfo);
                 if ((HundredWarManager.self && HundredWarManager.self.pos != posBetInfo.pos) || (!HundredWarManager.self))
                 {
