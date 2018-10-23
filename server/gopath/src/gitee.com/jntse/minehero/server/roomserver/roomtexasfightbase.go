@@ -270,7 +270,7 @@ func (t *TexasFightBetPool) Reset() {
 	t.total  = 0
 	t.result = 0
 	t.cards  = [kHandCardNum]*Card{}
-	t.hand.ClearAnalyse()
+	t.hand.Init()
 }
 
 
