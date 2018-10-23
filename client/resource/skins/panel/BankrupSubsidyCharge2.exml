@@ -23,6 +23,13 @@
 				<e:Label id="NeedMonerDes" text="仅需：9元" textAlign="center" width="200" height="50" verticalAlign="middle" horizontalCenter="0" verticalCenter="110" size="30"/>
 				<e:Label id="GoodsDes" text="直通中级场" textAlign="center" width="200" height="50" verticalAlign="middle" horizontalCenter="0" verticalCenter="-129" size="30" textColor="0xf97070" bold="true"/>
 			</e:Group>
+			<e:Group width="230" height="314" x="224" y="42">
+				<e:Image width="230" height="314" source="mall_bg_9_png" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" verticalCenter="0"/>
+				<e:Image width="163" height="113" source="match_5_png" horizontalCenter="0" verticalCenter="-30"/>
+				<e:Label id="GetGoldNumber0" text="9999金币" textAlign="center" width="200" height="50" verticalAlign="middle" horizontalCenter="0" verticalCenter="45" size="40"/>
+				<e:Label id="NeedMonerDes0" text="仅需：9元" textAlign="center" width="200" height="50" verticalAlign="middle" horizontalCenter="0" verticalCenter="110" size="30"/>
+				<e:Label id="GoodsDes0" text="直通中级场" textAlign="center" width="200" height="50" verticalAlign="middle" horizontalCenter="0" verticalCenter="-129" size="30" textColor="0xF97070" bold="true"/>
+			</e:Group>
 
 
 

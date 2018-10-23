@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ZhiTongCheItemComponentSkin" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Group width="230" height="314" horizontalCenter="0" verticalCenter="0">
+		<e:Image width="230" height="314" source="mall_bg_9_png" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" verticalCenter="0"/>
+		<e:Image id="selectedImg" width="230" height="314" source="mall_bg_9_png" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" verticalCenter="0" x="10" y="10"/>
+		<e:Image id="selectedImg1" width="230" height="314" source="mall_bg_9_png" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" verticalCenter="0" x="20" y="20"/>
+		<e:Image id="neccesaryFlagImg" width="230" height="314" source="mall_bg_9_png" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" verticalCenter="0" x="30" y="30"/>
+		<e:Image width="163" height="113" source="match_5_png" horizontalCenter="0" verticalCenter="-30"/>
+		<e:Label id="GetGoldNumber" text="9999金币" textAlign="center" width="200" height="50" verticalAlign="middle" horizontalCenter="0" verticalCenter="45" size="40"/>
+		<e:Label id="NeedMonerDes" text="仅需：9元" textAlign="center" width="200" height="50" verticalAlign="middle" horizontalCenter="0" verticalCenter="110" size="30"/>
+		<e:Label id="GoodsDes" text="直通中级场" textAlign="center" width="200" height="50" verticalAlign="middle" horizontalCenter="0" verticalCenter="-129" size="30" textColor="0xf97070" bold="true"/>
+	</e:Group>
+</e:Skin>
