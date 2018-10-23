@@ -5,6 +5,7 @@ import (
 	"time"
 	//"errors"
 	//"math/rand"
+	"container/list"
 
 	pb "github.com/gogo/protobuf/proto"
 
@@ -421,7 +422,8 @@ type TexasFightRoom struct {
 	cards [kMaxCardNum]*Card			// 52张牌
 	betstat BetPoolTempStat				// 下注池临时统计
 	poolhit AwardPoolHitRecord			// 奖池命中记录
-	winloserecord []*WinLoseRecord		// 胜负走势列表
+	//history []*WinLoseRecord		// 胜负走势列表
+	history *list.List					// 胜负历史记录列表
 }
 
 func (tf *TexasFightRoom) Stat() int32 { return tf.stat }
@@ -467,7 +469,8 @@ func (tf *TexasFightRoom) Init() string {
 	tf.totalawardpool = 0
 	tf.betstat.Init(tconf.Seat+1)	// +1 庄家位
 	tf.poolhit.Init()
-	tf.winloserecord = make([]*WinLoseRecord, 0)
+	//tf.history = make([]*WinLoseRecord, 0)
+	tf.history = list.New()
 
 
 	// 初始下注池
@@ -606,13 +609,14 @@ func (tf *TexasFightRoom) UserStandUp(u *RoomUser) {
 		return
 	}
 
-	if player.Seat() == -1 {
-		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 没有坐下位置[%d]", u.Name(), u.Id(), tf.Id(), player.Seat())
+	seat := player.Seat()
+	if seat == -1 {
+		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 没有坐下不需要站起", u.Name(), u.Id(), tf.Id())
 		return
 	}
 
-	if player.Seat() == 0 {
-		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 庄家需要先下庄才能站起 ", u.Name(), u.Id(), tf.Id())
+	if seat == 0 {
+		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 庄家请下庄 ", u.Name(), u.Id(), tf.Id())
 		return
 	}
 
@@ -625,7 +629,7 @@ func (tf *TexasFightRoom) UserStandUp(u *RoomUser) {
 	player.Sit(-1)
 
 	//u.OnStandUp()
-	log.Info("[百人大战] 玩家[%s %d] 房间[%d] 离开位置[%d]", u.Name(), u.Id(), tf.Id(), player.Seat())
+	log.Info("[百人大战] 玩家[%s %d] 房间[%d] 离开位置[%d]", u.Name(), u.Id(), tf.Id(), seat)
 }
 
 
@@ -638,7 +642,7 @@ func (tf *TexasFightRoom) UserSitDown(u *RoomUser, seat int32) {
 	}
 
 	if seat == 0 {
-		log.Error("[百人大战] 玩家[%s %d] 庄家位置只能上庄", u.Name(), u.Id())
+		log.Error("[百人大战] 玩家[%s %d] 庄家位只能通过上庄坐下", u.Name(), u.Id())
 		return
 	}
 

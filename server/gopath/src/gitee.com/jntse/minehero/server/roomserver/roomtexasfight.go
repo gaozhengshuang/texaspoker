@@ -215,7 +215,7 @@ func (tf *TexasFightRoom) BetPoolSettle() {
 	for k, pool := range tf.betpool {
 		if k == 0 {
 			// 归还庄家的下注
-			if tf.banker.IsSystem() == false {
+			if tf.banker.IsSystem() == false && pool.BetNum() != 0 {
 				tf.banker.owner.AddGold(pool.BetNum(), "归还坐庄跟注", true)
 			}
 		} else {
@@ -233,8 +233,11 @@ func (tf *TexasFightRoom) BetPoolSettle() {
 			tf.Id(), pool.Pos(), pool.BetNum(), pool.Result(), pool.CardLevel(), pool.CardValue())
 	}
 
-	//  胜负历史记录
-	tf.winloserecord = append(tf.winloserecord, winrecord)
+	//  胜负历史记录，最多记录30条
+	if tf.history.Len() >= 30 {
+		tf.history.Remove(tf.history.Back())
+	}
+	tf.history.PushFront(winrecord)
 
 	// 开始瓜分奖池
 	tf.CarveUpAwardPool(levelgroups)
@@ -557,6 +560,18 @@ func (tf *TexasFightRoom) RequestQuitBanker(u *RoomUser) {
 		return
 	}
 
+	bfind := false
+	for _ , p := range tf.bankerqueue {
+		if p.Id() == u.Id() {
+			bfind = true
+			break
+		}
+	}
+	if bfind == false {
+		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 请求下注失败，不在庄家列表中", u.Name(), u.Id(), tf.Id())
+		return
+	}
+
 	// TODO: 庄家
 	if player.Id() == tf.banker.Id() {
 		player.SetQuitBankerFlag()		// 标记庄家，本轮结束退出
@@ -620,7 +635,8 @@ func (tf *TexasFightRoom) SendBankerList(u *RoomUser) {
 // 拉取胜负走势列表
 func (tf *TexasFightRoom) SendWinLoseTrend(u *RoomUser) {
 	send := &msg.RS2C_RetWinLoseTrend{Trendlist:make([]*msg.TFWinLoseTrend, 0)}
-	for _, record := range tf.winloserecord {
+	for e := tf.history.Front(); e != nil; e = e.Next() {
+		record, _ := e.Value.(*WinLoseRecord)
 		send.Trendlist = append(send.Trendlist, record.FillWinLoseTrend())
 	}
 	u.SendClientMsg(send)
