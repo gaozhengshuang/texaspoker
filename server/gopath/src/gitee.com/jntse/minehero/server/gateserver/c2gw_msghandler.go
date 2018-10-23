@@ -106,6 +106,9 @@ func (mh *C2GWMsgHandler) Init() {
 	//成就任务
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqAchieveInfo{}, on_C2GW_ReqAchieveInfo)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqTakeAchieveAward{}, on_C2GW_ReqTakeAchieveAward)
+
+	//高级场破产弹窗
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqBankruptInfo{}, on_C2GW_ReqBankruptInfo)
 }
 
 // 客户端心跳
@@ -946,4 +949,14 @@ func on_C2GW_ReqTakeAchieveAward(session network.IBaseNetSession, message interf
 	err := u.OnReqTakeAchieveAward(taskid)
 	send.Errcode = pb.String(err)
 	u.SendMsg(send)
+}
+
+func on_C2GW_ReqBankruptInfo(session network.IBaseNetSession, message interface{}) {
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.OnReqBankruptInfo()
 }
