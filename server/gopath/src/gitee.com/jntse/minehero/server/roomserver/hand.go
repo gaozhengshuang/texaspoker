@@ -71,6 +71,9 @@ var SuitShift = []int32{0, 3, 6, 9}
 //各个顺子代表的值|10--A, 9--K, 8--Q..ect
 var StraightValue = []int32{15872, 7936, 3968, 1984, 992, 496, 248, 124, 62, 31}
 
+//顺子的牌值
+var StraightType = [][]int32{{8,9,10,11,12},{7,8,9,10,11},{6,7,8,9,10},{5,6,7,8,9},{4,5,6,7,8},{3,4,5,6,7},{2,3,4,5,6},{1,2,3,4,5},{0,1,2,3,4},{12,0,1,2,3}}
+
 type Hand struct{
 	flush int32						//用于判断是否有同花
 	straight []int32					//记录每种花色的牌集，用于判断同花顺
@@ -103,6 +106,10 @@ type Hand struct{
 	*/
 	finalvalue int32
 	highvalue int32
+
+	//记录牌型所用
+	cardsuit int32
+	straightindex int32
 }
 
 func GetHand() *Hand{
@@ -189,6 +196,7 @@ func (h *Hand)AnalyseHand() error{
 	for i:=0; i<SUITSIZE; i++{
 		if h.straight[i]&StraightValue[0] == StraightValue[0]{
 			h.level = 10
+			h.cardsuit = int32(i)
 			return nil
 		}
 	}
@@ -197,6 +205,7 @@ func (h *Hand)AnalyseHand() error{
 		for j:=1; j<len(StraightValue); j++{
 			if h.straight[i]&StraightValue[j] == StraightValue[j]{
 				h.level = 9
+				h.cardsuit = int32(i) 
 				h.finalvalue = int32(len(StraightValue)-j+4)
 				return nil
 			}
@@ -239,6 +248,7 @@ func (h *Hand)AnalyseHand() error{
 		tmp := (uint32(h.flush)>>uint32(SuitShift[i])) & 7
 		if tmp >=5{
 			h.level = 6
+			h.cardsuit = int32(i)
 			h.finalvalue = h.straight[i]
 			return nil
 		}
@@ -249,6 +259,7 @@ func (h *Hand)AnalyseHand() error{
 		if h.handvalue&StraightValue[i] == StraightValue[i]{
 			h.level = 5
 			h.finalvalue = int32(len(StraightValue)-i+4)
+			h.straightindex = int32(i)
 			return nil
 		}
 	}
@@ -345,6 +356,49 @@ func (h *Hand)ToAllCard() []int32{
 		}
 		tmpcard = append(tmpcard, v.Suit+1)
 		tmpcard = append(tmpcard, v.Value+2)
+	}
+	return tmpcard
+}
+
+func (h *Hand)ToRecordCard() []int32{
+	tmpcard := make([]int32, 0)
+	count := make(map[int32]int32)
+	for _, v := range h.cards {
+		if v == nil {
+			continue
+		}
+		//同花
+		if h.level == 9 || h.level == 6 || h.level == 10{
+			if h.cardsuit == v.Suit {
+				tmpcard = append(tmpcard, v.Suit+1)
+				tmpcard = append(tmpcard, v.Value+2)
+			}
+		} else if h.level == 5 {//顺子
+			straight := StraightType[h.straightindex]
+			var cards Cards
+			cards = make([]*Card, 0)
+			for _, v2 := range straight {
+				if v.Value == v2 {
+					if _, ok := count[v.Value]; ok {
+						continue
+					}
+					count[v.Value] = v.Value
+					cards = append(cards, v)
+					break
+				}
+			}
+			sort.Sort(cards)
+			for _, v3 := range cards {
+				tmpcard = append(tmpcard, v3.Suit+1)
+				tmpcard = append(tmpcard, v3.Value+2)
+			}
+		} else {//其他
+			tmpcard = append(tmpcard, v.Suit+1)
+			tmpcard = append(tmpcard, v.Value+2)
+		}
+		if len(tmpcard)	>= 5 {
+			break
+		}
 	}
 	return tmpcard
 }

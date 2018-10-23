@@ -333,7 +333,7 @@ func (this *TexasPokerRoom) CanStart() bool {
 	if this.IsChampionShip() && this.mttwait >= 3{
 		count = 0
 		for _, p := range this.players {
-			if p.HasBankRoll(){
+			if p != nil && p.HasBankRoll(){
 				count++
 			}
 		}
