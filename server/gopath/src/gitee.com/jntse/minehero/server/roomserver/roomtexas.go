@@ -46,11 +46,12 @@ func (this *TexasPokerRoom) OnGameOver() {
 
 // 玩家进入房间，首次/断线重进
 func (this *TexasPokerRoom) UserEnter(u *RoomUser) {
-	log.Info("[房间] 玩家[%s %d] 进入房间[%d]", u.Name(), u.Id(), this.Id())
 	u.OnEnterRoom(this)
 	player := this.FindAllByID(u.Id())
 	if player != nil {
 		this.SendRoomInfo(player)
+		this.members[u.Id()] = u
+		log.Info("[房间] 玩家[%s %d] 重新进入房间[%d]", u.Name(), u.Id(), this.Id())
 		return
 	}
 	this.members[u.Id()] = u
@@ -63,16 +64,17 @@ func (this *TexasPokerRoom) UserEnter(u *RoomUser) {
 	}
 	this.SendRoomInfo(player)
 	u.SendPropertyChange()
+	log.Info("[房间] 玩家[%s %d] 进入房间[%d]", u.Name(), u.Id(), this.Id())
 }
 
 // 玩家离开房间
 func (this *TexasPokerRoom) UserLeave(u *RoomUser) {
-	log.Info("[房间]离开")
+	log.Info("[房间] 玩家[%s %d] 离开房间[%d]", u.Name(), u.Id(), this.Id())
 	player := this.FindAllByID(u.Id())
 	if player == nil {
 		return
 	}
-	if this.InGame(player) {
+	if this.InGame(player) && !this.IsChampionShip(){
 		player.StandUp()
 	}
 	this.DelWatcher(player)

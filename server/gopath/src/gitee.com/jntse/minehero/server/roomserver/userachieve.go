@@ -191,41 +191,10 @@ func (u *RoomUser) SaveMaxCard(maxpower int64, hand *Hand) {
 	if hand == nil {
 		return
 	}
-	tmp := hand.ToAllCard()
-	if len(tmp) != 14 {
+	tmp := hand.ToRecordCard()
+	if len(tmp) != 10 {
 		return
 	}
-	//同花的时候处理一下 其他时候取前五张牌
-	if hand.level == 6 {
-		maptmp := make(map[int32][]int32)
-		i := 0
-		for i < len(tmp) {
-			if _, ok := maptmp[tmp[i]]; ok {
-				maptmp[tmp[i]] = append(maptmp[tmp[i]], tmp[i])
-				maptmp[tmp[i]] = append(maptmp[tmp[i]], tmp[i + 1])
-
-			} else {
-				maptmp[tmp[i]] = make([]int32,0)
-				maptmp[tmp[i]] = append(maptmp[tmp[i]], tmp[i])
-				maptmp[tmp[i]] = append(maptmp[tmp[i]], tmp[i + 1])
-			}
-			i = i + 2
-		}
-		maxlen := 0
-		var maxindex int32
-		for k, v := range maptmp {
-			if len(v) > maxlen { 
-				maxlen = len(v)
-				maxindex = k
-			}
-		}
-		if len(maptmp[maxindex]) >= 10 {
-			tmp = maptmp[maxindex][:]
-		} else {
-			return 
-		}
-	}
-
 	strmaxcard := ""
 	i := 0
 	for i < 10 {
