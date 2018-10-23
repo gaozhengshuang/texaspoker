@@ -42,9 +42,9 @@ const (
 
 // 胜负平枚举
 const (
-	kBetResultLose = 0
-	kBetResultWin = 1
-	kBetResultTie = 2
+	kBetResultLose = 0	// 负
+	kBetResultWin = 1	// 胜
+	kBetResultTie = 2	// 平
 )
 
 
@@ -233,7 +233,7 @@ func (p *TexasFightPlayer) OnKickOut() {
 //func (a SortTexasFightBetPool) Len() int { return len(a) }
 //func (a SortTexasFightBetPool) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
 //func (a SortTexasFightBetPool) Less(i, j int) bool { 
-//	return a[i].GetCardLevel() >= a[j].GetCardLevel() 
+//	return a[i].CardLevel() >= a[j].CardLevel() 
 //}
 
 type TexasFightBetPool struct {
@@ -260,8 +260,8 @@ func (t *TexasFightBetPool) BetNum() int32 { return t.total }
 func (t *TexasFightBetPool) Pos() int32 { return t.pos }
 func (t *TexasFightBetPool) Result() int32 { return t.result }
 func (t *TexasFightBetPool) SetResult(r int32) { t.result = r }
-func (t *TexasFightBetPool) GetCardValue() int32 { return t.hand.GetFightValue() }
-func (t *TexasFightBetPool) GetCardLevel() int32 { return t.hand.GetFightLevel() }
+func (t *TexasFightBetPool) CardValue() int32 { return t.hand.GetFightValue() }
+func (t *TexasFightBetPool) CardLevel() int32 { return t.hand.GetFightLevel() }
 func (t *TexasFightBetPool) SetAwardPool(n int32) { t.awardpool = n }
 func (t *TexasFightBetPool) AwardPool() int32 { return t.awardpool }
 
@@ -287,9 +287,9 @@ func (t *TexasFightBetPool) InsertCards(cards []*Card) {
 	t.hand.AnalyseHand()
 
 	//
-	conf, ok := tbl.HundredWarCardTypeBase.HundredWarCardTypeById[t.GetCardLevel()]
+	conf, ok := tbl.HundredWarCardTypeBase.HundredWarCardTypeById[t.CardLevel()]
 	if ok == false {
-		log.Error("[百人大战] 牌力[%d] 倍率配置查找失败", t.GetCardLevel())
+		log.Error("[百人大战] 牌力[%d] 倍率配置查找失败", t.CardLevel())
 		return
 	}
 	t.tconf = conf
@@ -312,6 +312,23 @@ func (t *TexasFightBetPool) FillBetPoolInfo() *msg.TFBetPoolInfo {
 	}
 	return info
 }
+
+// 大小比较
+func (t *TexasFightBetPool) Compare(pool *TexasFightBetPool) int32 {
+	if t.CardLevel() > pool.CardLevel() {
+		return kBetResultWin
+	}else if t.CardLevel() < pool.CardLevel() {
+		return kBetResultLose
+	}else {
+		if t.CardValue() > pool.CardValue() {
+			return kBetResultWin
+		}else if t.CardValue() < pool.CardValue() {
+			return kBetResultLose
+		}
+	}
+	return kBetResultTie
+}
+
 
 
 // --------------------------------------------------------------------------

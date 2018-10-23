@@ -425,7 +425,7 @@ func (u *User) DoInputCmd(cmd string) {
 		u.ReqRoomList()
 	case "friend":
 		u.DoFriendCmd(subcmd[1:])
-	case "tfight":
+	case "txf":
 		u.DoTexasFightCmd(subcmd[1:])
 	}
 }

@@ -219,20 +219,18 @@ func (tf *TexasFightRoom) BetPoolSettle() {
 				tf.banker.owner.AddGold(pool.BetNum(), "归还坐庄跟注", true)
 			}
 		} else {
-			var result int32 = kBetResultTie	// 默认平 
-			if pool.GetCardValue() < bankerpool.GetCardValue() { 
-				result = kBetResultLose
-			}else if pool.GetCardValue() > bankerpool.GetCardValue() {
-				result = kBetResultWin
-			}
+			result := pool.Compare(bankerpool)
 			pool.SetResult(result) 
 			winrecord.results[k-1] = result
 		}
 
-		if level := pool.GetCardLevel(); pool.tconf.PoolOdds > 0 {
+		if level := pool.CardLevel(); pool.tconf.PoolOdds > 0 {
 			if levelgroups[level] == nil { levelgroups[level] = make([]*TexasFightBetPool,0) }
 			levelgroups[level] = append(levelgroups[level], pool)
 		}
+
+		log.Trace("[百人大战] 房间[%d] 注池[%d] 结算完成，总注[%d] 胜负平[%d] 牌等级[%d] 牌力[%d]", 
+			tf.Id(), pool.Pos(), pool.BetNum(), pool.Result(), pool.CardLevel(), pool.CardValue())
 	}
 
 	//  胜负历史记录
@@ -392,9 +390,10 @@ func (tf *TexasFightRoom) CardShuffle() {
 func (tf *TexasFightRoom) CardDeal() {
 	begin, end := 0, 5
 	for _, pool := range tf.betpool {
-		pool.InsertCards(tf.cards[begin:end])
-		begin += 5
-		end += 5
+		cards := tf.cards[begin:end]
+		pool.InsertCards(cards)
+		begin, end = begin+5, end+5
+		log.Trace("[百人大战] 房间[%d] 注池[%d] 牌型[%v %v %v %v %v]", tf.Id(), pool.Pos(), cards[0], cards[1], cards[2], cards[3], cards[4])
 	}
 }
 
