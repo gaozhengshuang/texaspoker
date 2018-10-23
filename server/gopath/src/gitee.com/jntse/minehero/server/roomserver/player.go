@@ -573,7 +573,8 @@ func (this *TexasPlayer) SitDown(pos int32) {
 		this.room.DelWatcher(this)
 		if this.room.IsGameStart() {
 			this.gamestate = GSWaitNext
-		}  
+		} 
+		this.ResetBankrupt()
 	}
 }
 
@@ -825,4 +826,40 @@ func (this *TexasPlayer) ToHandCard() []int32{
 		tmpcard = append(tmpcard, v.Value+2)
 	}
 	return tmpcard
+}
+
+//一局牌结束真实玩家处理破产相关内容
+func (this *TexasPlayer) OnCheckBankrupt(gamekind, subkind int32) {
+	if this.isai == true {
+		return
+	}
+	if gamekind == int32(msg.RoomKind_TexasPoker) {
+		if subkind == int32(msg.PlayingFieldType_High) {
+			if this.bankroll == 0 && this.owner.GetGold() == 0 {
+				Redis().HSet(fmt.Sprintf("bankrupt_%d", this.owner.Id()), "time", util.CURTIME())
+			}
+		}
+		if subkind == int32(msg.PlayingFieldType_Primary) || subkind == int32(msg.PlayingFieldType_Middle) {
+			cmdval, err := Redis().HGet(fmt.Sprintf("bankrupt_%d", this.owner.Id()), "time").Result()
+			if err == nil {
+				time := util.Atol(cmdval)
+				if util.CURTIME() - time < 60*60*24 {
+					Redis().HIncrBy(fmt.Sprintf("bankrupt_%d", this.owner.Id()), "play", 1)
+				}
+				if this.bankroll == 0 && this.owner.GetGold() == 0 && util.CURTIME() - time < 60*60*24*3 {
+					Redis().HIncrBy(fmt.Sprintf("bankrupt_%d", this.owner.Id()), "count", 1)
+				}
+			}
+		}
+	}
+}
+
+//玩高级场重置破产相关信息
+func (this *TexasPlayer) ResetBankrupt() {
+	if this.isai == true {
+		return
+	}
+	if this.room.Kind() ==int32(msg.RoomKind_TexasPoker) && this.room.SubKind() == int32(msg.PlayingFieldType_High) {
+		Redis().Del(fmt.Sprintf("bankrupt_%d", this.owner.Id()))
+	}
 }

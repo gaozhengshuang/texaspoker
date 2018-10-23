@@ -814,6 +814,7 @@ func (this *TexasPokerRoom) ShowDown() int32{
 		if player == nil || player.IsWait(){
 			continue
 		}
+		player.OnCheckBankrupt(this.Kind(), this.SubKind())
 		player.SendTimeAward(false)
 		player.owner.OnAchievePlayPoker(this.Kind(), this.SubKind(), player.hand)
 		if player.IsFold() == false {
