@@ -186,7 +186,7 @@ func (p *TexasFightPlayer) Settle(tf *TexasFightRoom) {
 			p.totalprofit += profit
 		}
 
-		// TODO: 将押注筹码归还玩家，封装单独接口使用pipeline
+		// TODO: 将押注筹码归还玩家
 		p.owner.AddGold(bet.Num(), "押注归还", true)
 	}
 

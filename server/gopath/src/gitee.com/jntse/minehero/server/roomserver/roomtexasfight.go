@@ -15,7 +15,7 @@ import (
 	//"gitee.com/jntse/minehero/server/def"
 	"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/minehero/server/tbl"
-	//"gitee.com/jntse/minehero/server/tbl/excel"
+	"gitee.com/jntse/minehero/server/tbl/excel"
 )
 
 func (tf *TexasFightRoom) Handler1sTick(now int64) {
@@ -213,7 +213,12 @@ func (tf *TexasFightRoom) BetPoolSettle() {
 	winrecord := &WinLoseRecord{}
 	levelgroups := make(map[int32][]*TexasFightBetPool, 0)
 	for k, pool := range tf.betpool {
-		if k >= 1  {
+		if k == 0 {
+			// 归还庄家的下注
+			if tf.banker.IsSystem() == false {
+				tf.banker.owner.AddGold(pool.BetNum(), "归还坐庄跟注", true)
+			}
+		} else {
 			var result int32 = kBetResultTie	// 默认平 
 			if pool.GetCardValue() < bankerpool.GetCardValue() { 
 				result = kBetResultLose
@@ -259,9 +264,20 @@ func (tf *TexasFightRoom) PlayerSettle() {
 	}
 }
 
-// 瓜分奖池
+// 瓜分奖池(思路：注池按牌力顺序分割奖池，玩家按押注权重瓜分注池)
 func (tf *TexasFightRoom) CarveUpAwardPool(groups map[int32][]*TexasFightBetPool) {
+	// 注池按配置比例获得奖池奖金
+	sortconfs := make([]*table.HundredWarCardTypeDefine, 0)
 	for _, conf := range  tbl.HundredWarCardTypeBase.HundredWarCardTypeById {
+		sortconfs = append(sortconfs, conf)
+	}
+
+	// 注池牌力等级高优先分奖池
+	sort.Slice(sortconfs, func(i, j int) bool {
+		return sortconfs[i].Id > sortconfs[i].Id
+	})
+
+	for _, conf := range sortconfs {
 		if conf.PoolOdds <= 0 {
 			continue
 		}
@@ -280,6 +296,7 @@ func (tf *TexasFightRoom) CarveUpAwardPool(groups map[int32][]*TexasFightBetPool
 		}
 	}
 
+	// 玩家按押注权重瓜分注池
 	for _, pool := range tf.betpool {
 		if pool.AwardPool() == 0 {
 			continue 
@@ -297,7 +314,7 @@ func (tf *TexasFightRoom) CarveUpAwardPool(groups map[int32][]*TexasFightBetPool
 			continue
 		}
 
-		// 压中堵池的人，按权重分配奖励
+		// 押中的玩家，按权重分配奖励
 		for _, p := range tf.players {
 			if p.betlist[pool.Pos()] == nil { continue }
 			userbet := p.betlist[pool.Pos()].Num()
@@ -451,7 +468,11 @@ func (tf *TexasFightRoom) RequestBet(u *RoomUser, pos int32, num int32) {
 
 	// 开始下注
 	tf.betpool[pos].IncBet(num)
+	tf.betpool[0].IncBet(num)
 	player.Bet(pos, num)
+	if tf.banker.IsSystem() == false {
+		tf.banker.owner.RemoveGold(num, "坐庄跟注", true)
+	}
 	resp := &msg.RS2C_RetTexasFightBet{}
 	u.SendClientMsg(resp)
 
