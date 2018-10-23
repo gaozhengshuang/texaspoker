@@ -396,7 +396,7 @@ func (h *Hand)ToRecordCard() []int32{
 			tmpcard = append(tmpcard, v.Suit+1)
 			tmpcard = append(tmpcard, v.Value+2)
 		}
-		if len(tmpcard)	>= 5 {
+		if len(tmpcard)	>= 10 {
 			break
 		}
 	}
