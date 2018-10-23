@@ -202,17 +202,19 @@ func (tf *TexasFightRoom) RoundSettle() {
 	winrecord := &WinLoseRecord{}
 	hitlist := make(SortTexasFightBetPool, 0)
 	for k, pool := range tf.betpool {
-		if k == 0 { continue }
-		var result int32 = kBetResultLose
-		if pool.GetCardValue() < bankerpool.GetCardValue() { 
-			result = kBetResultLose
-		}else if pool.GetCardValue() > bankerpool.GetCardValue() {
-			result = kBetResultWin
-		}else if pool.GetCardValue() == bankerpool.GetCardValue() { 
-			result = kBetResultTie
+		if k >= 1  {
+			var result int32 = kBetResultLose
+			if pool.GetCardValue() < bankerpool.GetCardValue() { 
+				result = kBetResultLose
+			}else if pool.GetCardValue() > bankerpool.GetCardValue() {
+				result = kBetResultWin
+			}else if pool.GetCardValue() == bankerpool.GetCardValue() { 
+				result = kBetResultTie
+			}
+			pool.SetResult(result) 
+			winrecord.results[k-1] = result
 		}
-		pool.SetResult(result) 
-		winrecord.results[k-1] = result
+
 		if pool.tconf.PoolOdds != 0 {
 			hitlist = append(hitlist, pool)
 		}
@@ -222,8 +224,8 @@ func (tf *TexasFightRoom) RoundSettle() {
 	tf.winloserecord = append(tf.winloserecord, winrecord)
 
 
-	// 排序奖命中
-	sort.Sort(hitlist)
+	// 瓜分奖池
+	tf.CarveUpAwardPool(&hitlist)
 
 
 	// 玩家利润结算
@@ -250,6 +252,18 @@ func (tf *TexasFightRoom) RoundSettle() {
 	tf.SendRoundOverMsg()
 }
 
+// 瓜分奖池
+func (tf *TexasFightRoom) CarveUpAwardPool(hitlist *SortTexasFightBetPool) {
+	pools := *hitlist
+	sort.Sort(pools)
+	for _, pool := range pools {
+		if pool.Pos() == 0 {
+		}
+	}
+
+}
+
+// 玩家超过N轮未下注被踢出
 func (tf *TexasFightRoom) OnPlayerKickOut(p *TexasFightPlayer) {
 	log.Info("[百人大战] 玩家[%s %d] 超过%d轮未下注，被踢出房间[%d]", p.Name(), p.Id(), tf.tconf.Kick, tf.Id())
 	// 坐下玩家
