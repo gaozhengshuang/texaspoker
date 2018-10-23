@@ -234,6 +234,17 @@ func (cs *ChampionShip) IsMember(uid int64) bool {
 	return false
 }
 
+func (cs *ChampionShip) IsOutMember(uid int64) bool {
+	member, ok := cs.members[uid]
+	if !ok {
+		return false
+	}
+	if member.isout {
+		return true
+	}
+	return false
+}
+
 func (cs *ChampionShip) SetMemberOut(uid int64) {
 	member, ok := cs.members[uid]
 	if !ok {
@@ -356,6 +367,8 @@ func (cs *ChampionShip) JoinOneMatch(userid int64, roomid int64) {
 		}
 		texas.UserEnter(u)
 		texas.SetPlayerBankRoll(userid, cs.GetUserBankRoll(userid))
+		texas.NotifySitStand(userid)
+		log.Info("锦标赛%d 房间%d 玩家%d 分配房间", cs.uid, roomid, userid)
 	}
 }
 
@@ -398,15 +411,17 @@ func (cs *ChampionShip) GetAvgChips() int32 {
 }
 
 func (cs *ChampionShip) UserGameOver(userid int64) {
-	send := &msg.RS2C_PushMTTWeedOut{}
-	send.Rank = pb.Int32(cs.GetFinalRank(userid))
-	send.Join = pb.Int32(cs.maxuser)
-	send.Maxrank = pb.Int32(0)
-	send.Recordid = pb.Int32(cs.uid)
-	send.Id = pb.Int32(cs.tid)
-	u := UserMgr().FindUser(userid)
-	if u != nil {
-		u.SendClientMsg(send)
+	if member, ok := cs.members[userid]; ok {
+		send := &msg.RS2C_PushMTTWeedOut{}
+		send.Rank = pb.Int32(cs.GetFinalRank(userid))
+		send.Join = pb.Int32(cs.maxuser)
+		send.Maxrank = pb.Int32(0)
+		send.Recordid = pb.Int32(cs.uid)
+		send.Id = pb.Int32(cs.tid)
+		u := UserMgr().FindUser(userid)
+		if u != nil && u.RoomId() == member.roomuid{
+			u.SendClientMsg(send)
+		}
 	}
 }
 
@@ -424,17 +439,17 @@ func (cs *ChampionShip) SetMinRoom() {
 	}  
 }
 
-func (cs *ChampionShip) ReDispatchRoom(roomuid int64) {
+func (cs *ChampionShip) ReDispatchRoom(roomuid int64) bool {
 	room, ok := cs.roommember[roomuid]
 	if !ok {
-		return
+		return false
 	}
 	if len(cs.roommember) <= 1 {
-		return 
+		return false
 	}
-	if int32(len(room)) > cs.minroomnum {
-		return
-	}
+	//if int32(len(room)) > cs.minroomnum {
+	//	return false
+	//}
 	var leftseat int32 = 0
 	for k, r := range cs.roommember {
 		if k == roomuid {
@@ -451,7 +466,7 @@ func (cs *ChampionShip) ReDispatchRoom(roomuid int64) {
 		}
 		delete(cs.roommember, roomuid)
 		dispatched := make(map[int64]int64)
-		var tmproommember map[int64]map[int64]int64
+		tmproommember := make(map[int64]map[int64]int64)
 		for _, m := range tmpmember {
 			for key, tmproom := range cs.roommember {
 				if _, ok := dispatched[key]; ok {
@@ -481,7 +496,10 @@ func (cs *ChampionShip) ReDispatchRoom(roomuid int64) {
 		if texas != nil {
 			texas.Destory(3)
 		}
+		log.Info("锦标赛%d 拆散桌子删除房间%d", cs.uid, roomuid)
+		return true
 	}
+	return false
 }
 
 func (cs *ChampionShip) NotifyUserRoom(roommember map[int64]map[int64]int64) {
@@ -504,10 +522,10 @@ func (cs *ChampionShip) NotifyUserBlind(roommember map[int64]map[int64]int64) {
 	send.Bblind = pb.Int32(cs.bconf.BBlind)
 	send.Ante = pb.Int32(cs.bconf.PreBet)
 	send.Blindlevel = pb.Int32(cs.blindlevel)
-	for _, room := range roommember {
+	for key, room := range roommember {
 		for _, member := range room {
 			u := UserMgr().FindUser(member)
-			if u != nil {
+			if u != nil && u.RoomId() == key{
 				u.SendClientMsg(send)
 			}
 		}
@@ -870,6 +888,9 @@ func (cm *ChampionManager) ReqJoinedMTTList(gid int, uid int64, rev *msg.C2RS_Re
 			continue
 		}
 		if !cs.IsMember(uid) {
+			continue
+		}
+		if cs.IsOutMember(uid) {
 			continue
 		}
 		mtt := &msg.JoinedMTTInfo{}

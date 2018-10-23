@@ -71,10 +71,10 @@ func on_GW2C_PushMsgNotify(session network.IBaseNetSession, message interface{})
 
 func on_RS2GW_MTTRoomMember(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.RS2GW_MTTRoomMember)
-	send := &msg.RS2C_PushMTTRoomId{}
 	for _, room := range tmsg.GetRooms() {
 		for _, member := range room.GetMembers() {
 			if user := UserMgr().FindById(member); user != nil {
+				send := &msg.RS2C_PushMTTRoomId{}
 				send.Mttid = pb.Int32(room.GetMttuid())
 				send.Id = pb.Int64(room.GetRoomuid())
 				user.SendMsg(send)
