@@ -215,6 +215,9 @@ func (tf *TexasFightRoom) RoundOver() {
 
 	// 检查玩家庄家
 	tf.PlayerBankerCheck()
+
+	// 奖池
+	log.Trace("[百人大战] 房间[%d] 本轮结束，奖池余额[%d]", tf.Id(), tf.TotalAwardPool())
 }
 
 // 回合结算
@@ -231,9 +234,6 @@ func (tf *TexasFightRoom) RoundSettle() {
 
 	// 推送结算消息
 	tf.SendRoundOverMsg()
-
-	// 奖池
-	log.Trace("[百人大战] 房间[%d] 当前奖池大小[%d]", tf.Id(), tf.TotalAwardPool())
 }
 
 // 注池结算
@@ -254,8 +254,11 @@ func (tf *TexasFightRoom) BetPoolSettle() {
 			levelgroups[level] = append(levelgroups[level], pool)
 		}
 
-		log.Trace("[百人大战] 房间[%d] 注池[%d] 结算完成，总注[%d] 胜负平[%d] 牌等级[%d] 牌力[%d]", 
-			tf.Id(), pool.Pos(), pool.BetNum(), pool.Result(), pool.CardLevel(), pool.CardValue())
+		// 房间没有任何人押注,不打日志
+		if bankerpool.BetNum() != 0 {
+			log.Trace("[百人大战] 房间[%d] 注池[%d] 结算完成，总注[%d] 胜负平[%d] 牌等级[%d] 牌力[%d]", 
+				tf.Id(), pool.Pos(), pool.BetNum(), pool.Result(), pool.CardLevel(), pool.CardValue())
+		}
 	}
 
 	//  胜负历史记录，最多记录30条
@@ -366,7 +369,6 @@ func (tf *TexasFightRoom) AwardPoolSettle(groups map[int32][]*TexasFightBetPool)
 			log.Info("[百人大战] 房间[%d] 注池[%d] 获得奖池比例[%.2f] 金额[%.2f]", tf.Id(), pool.Pos(), conf.PoolOdds, total)
 		}
 	}
-	log.Info("[百人大战] 房间[%d] 奖池剩余[%d]", tf.Id(), tf.TotalAwardPool())
 
 	// 玩家按押注权重瓜分注池
 	for _, pool := range tf.betpool {
@@ -394,6 +396,8 @@ func (tf *TexasFightRoom) AwardPoolSettle(groups map[int32][]*TexasFightBetPool)
 			p.owner.AddGold(award, "百人大战奖池奖励", true)
 		}
 	}
+
+	log.Info("[百人大战] 房间[%d] 奖池分割完毕，奖池余额[%d]", tf.Id(), tf.TotalAwardPool())
 }
 
 // 玩家超过N轮未下注被踢出
@@ -481,25 +485,27 @@ func (tf *TexasFightRoom) CardDeal() {
 		fourkind = append(fourkind, NewCard(0, 1))
 	}
 
+	//TODO: 特殊牌测试
 	begin, end := 0, 5
 	for k, pool := range tf.betpool {
+		cards := tf.cards[begin:end]
+		begin, end = begin+5, end+5
 		if k == 0 {
 			tf.betpool[k].InsertCards(fourkind)
 			continue
-		}
-		if k == 1 {
+		}else if k == 1 {
 			tf.betpool[k].InsertCards(straightflush)
 			continue
-		}
-		if k == 2 {
+		}else if k == 2 {
 			tf.betpool[k].InsertCards(royalflush)
 			continue
+		}else {
+			pool.InsertCards(cards)
 		}
-
-		cards := tf.cards[begin:end]
-		pool.InsertCards(cards)
-		begin, end = begin+5, end+5
-		log.Trace("[百人大战] 房间[%d] 注池[%d] 牌型[%v %v %v %v %v]", tf.Id(), pool.Pos(), cards[0], cards[1], cards[2], cards[3], cards[4])
+		// 房间没有任何人押注,不打日志
+		if tf.betpool[0].BetNum() != 0 {
+			log.Trace("[百人大战] 房间[%d] 注池[%d] 牌型[%v %v %v %v %v]", tf.Id(), pool.Pos(), cards[0], cards[1], cards[2], cards[3], cards[4])
+		}
 	}
 }
 
@@ -560,13 +566,15 @@ func (tf *TexasFightRoom) RequestBet(u *RoomUser, pos int32, num int32) {
 
 	// 所有玩家下注不能超过庄家金额的七分之一，系统庄家例外
 	if tf.banker.IsSystem() == false {
-		var totalbet int32 = 0
+		var totalbet int32 = num
 		for _, pool := range tf.betpool {
 			totalbet += pool.BetNum()
 		}
+
 		if totalbet > tf.banker.Gold() / 7  {
 			resp := &msg.RS2C_RetTexasFightBet{Errcode:pb.String("下注金额超过庄家赔付能力")}
 			u.SendClientMsg(resp)
+			log.Error("[百人大战] 玩家[%s %d] 房间[%d] 请求下注失败，超过庄家赔付能力", u.Name(), u.Id(), tf.Id())
 			return
 		}
 	}
