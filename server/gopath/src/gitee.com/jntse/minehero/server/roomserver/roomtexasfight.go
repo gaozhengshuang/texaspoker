@@ -83,7 +83,7 @@ func (tf *TexasFightRoom) PlayerBankerKeepCheck() {
 	}else if p.Gold() < tf.tconf.BankerMinGold {
 		log.Info("[百人大战] 玩家[%s %d] 金币不足[%d] 不能继续坐庄", p.Name(), p.Id(), tf.tconf.BankerMinGold)
 		p.SetBankerFlag(kPlayerBankerNotSatisfied)
-	} else if p.BeBankerRound() >= tf.tconf.BankerRound {
+	} else if p.BankerRound() >= tf.tconf.BankerRound {
 		p.SetBankerFlag(kPlayerBankerNotSatisfied)
 		log.Info("[百人大战] 玩家[%s %d] 坐庄达到最大轮数[%d] 不能继续坐庄", p.Name(), p.Id(), tf.tconf.BankerRound)
 	}
@@ -115,10 +115,8 @@ func (tf *TexasFightRoom) AppointPlayerBankerCheck() {
 		tf.UserStandUp(p.owner)
 	}
 
+	p.BecomeBanker()
 	tf.banker = p
-	tf.banker.Sit(0)
-	tf.banker.ResetBankerRound()
-	tf.banker.SetBankerFlag(kPlayerBankerNormal)
 
 	posmsg := &msg.RS2C_PushTFPosChange{Pos:pb.Int32(0), Roleid:pb.Int64(tf.banker.Id()), Bankergold:pb.Int32(tf.banker.Gold()) }
 	tf.BroadCastMemberMsg(posmsg)
@@ -136,10 +134,8 @@ func (tf *TexasFightRoom) SystemBankerBackCheck() {
 		return
 	}
 
+	tf.bankersys.BecomeBanker()
 	tf.banker = tf.bankersys
-	tf.banker.Sit(0)
-	tf.banker.ResetBankerRound()
-	tf.banker.SetBankerFlag(kPlayerBankerNormal)
 
 	posmsg := &msg.RS2C_PushTFPosChange{Pos:pb.Int32(0), Roleid:pb.Int64(tf.banker.Id()), Bankergold:pb.Int32(tf.banker.Gold()) }
 	tf.BroadCastMemberMsg(posmsg)
@@ -230,8 +226,14 @@ func (tf *TexasFightRoom) RoundSettle() {
 	// 玩家结算
 	tf.PlayerSettle()
 
+	// 庄家结算
+	tf.BankerSettle()
+
 	// 推送结算消息
 	tf.SendRoundOverMsg()
+
+	// 奖池
+	log.Trace("[百人大战] 房间[%d] 当前奖池大小[%d]", tf.Id(), tf.TotalAwardPool())
 }
 
 // 注池结算
@@ -240,18 +242,14 @@ func (tf *TexasFightRoom) BetPoolSettle() {
 	winrecord := &WinLoseRecord{}
 	levelgroups := make(map[int32][]*TexasFightBetPool, 0)
 	for k, pool := range tf.betpool {
-		if k == 0 {
-			// 归还庄家的下注
-			if tf.banker.IsSystem() == false && pool.BetNum() != 0 {
-				tf.banker.owner.AddGold(pool.BetNum(), "归还坐庄跟注", true)
-			}
-		} else {
+		if k != 0 {
 			result := pool.Compare(bankerpool)
 			pool.SetResult(result) 
 			winrecord.results[k-1] = result
 		}
 
-		if level := pool.CardLevel(); pool.tconf.PoolOdds > 0 {
+		// 注池至少有一个人押注，才能参与分割奖池
+		if level := pool.CardLevel(); pool.tconf.PoolOdds > 0 && pool.BetNum() != 0 {
 			if levelgroups[level] == nil { levelgroups[level] = make([]*TexasFightBetPool,0) }
 			levelgroups[level] = append(levelgroups[level], pool)
 		}
@@ -267,7 +265,7 @@ func (tf *TexasFightRoom) BetPoolSettle() {
 	tf.history.PushFront(winrecord)
 
 	// 开始瓜分奖池
-	tf.CarveUpAwardPool(levelgroups)
+	tf.AwardPoolSettle(levelgroups)
 }
 
 // 玩家结算
@@ -292,47 +290,93 @@ func (tf *TexasFightRoom) PlayerSettle() {
 	}
 }
 
+// 庄家结算(必须在玩家结算后调用)
+func (tf *TexasFightRoom) BankerSettle() {
+
+	// 庄家对应每个注池，要么全赢要么全输或者平
+	bankerpool := tf.betpool[0]
+	var win, lose int32 = 0, 0 
+	for k, pool := range tf.betpool {
+
+		// 归还庄家的下注
+		if k == 0 {
+			if tf.banker.owner != nil && pool.BetNum() != 0 {
+				tf.banker.owner.AddGold(pool.BetNum(), "归还坐庄跟注", true)
+			}
+			continue
+		}
+
+		if pool.BetNum() == 0 {
+			continue
+		}
+
+		// 赢钱要扣税
+		if pool.Result() == kBetResultLose {
+			win  = bankerpool.WinOdds() * pool.BetNum()
+			tax := float32(win) * tf.tconf.TaxRate
+			tf.IncAwardPool(int32(tax))
+			if tf.banker.owner != nil {
+				tf.banker.owner.AddGold(win - int32(tax), "百人大战庄家获胜", false)
+			}
+		}else if pool.Result() == kBetResultWin {
+			lose = pool.WinOdds() * pool.BetNum()
+			if tf.banker.owner != nil {
+				tf.banker.owner.RemoveGold(lose, "百人大战庄家失败", false)
+			}
+		}
+	}
+
+	// 同步金币到客户端
+	if tf.banker.owner != nil {
+		tf.banker.owner.SendPropertyChange()
+	}
+}
+
 // 瓜分奖池(思路：注池按牌力顺序分割奖池，玩家按押注权重瓜分注池)
-func (tf *TexasFightRoom) CarveUpAwardPool(groups map[int32][]*TexasFightBetPool) {
+func (tf *TexasFightRoom) AwardPoolSettle(groups map[int32][]*TexasFightBetPool) {
+	if tf.TotalAwardPool() == 0 || len(groups) == 0 {
+		return
+	}
+
 	// 注池按配置比例获得奖池奖金
 	sortconfs := make([]*table.HundredWarCardTypeDefine, 0)
 	for _, conf := range  tbl.HundredWarCardTypeBase.HundredWarCardTypeById {
+		if conf.PoolOdds <= 0 {
+			continue
+		}
 		sortconfs = append(sortconfs, conf)
 	}
 
 	// 注池牌力等级高优先分奖池
 	sort.Slice(sortconfs, func(i, j int) bool {
-		return sortconfs[i].Id > sortconfs[i].Id
+		return sortconfs[i].Id > sortconfs[j].Id
 	})
 
 	for _, conf := range sortconfs {
-		if conf.PoolOdds <= 0 {
-			continue
-		}
-
 		pools, bfind := groups[conf.Id]
 		if bfind == false || len(pools) == 0 {
 			continue
 		}
 	
-		total := float32(tf.totalawardpool) * conf.PoolOdds
+		total := float32(tf.TotalAwardPool()) * conf.PoolOdds
 		tf.DecAwardPool(int32(total))
 		single := int32(total) / int32(len(pools))
 		for _, pool := range pools {
 			pool.SetAwardPool(single)
-			log.Info("[百人大战] 房间[%d] 注池[%d] 获得奖池比例[%f] 金额[%d]", tf.Id(), pool.Pos(), conf.PoolOdds, total)
+			log.Info("[百人大战] 房间[%d] 注池[%d] 获得奖池比例[%.2f] 金额[%.2f]", tf.Id(), pool.Pos(), conf.PoolOdds, total)
 		}
 	}
+	log.Info("[百人大战] 房间[%d] 奖池剩余[%d]", tf.Id(), tf.TotalAwardPool())
 
 	// 玩家按押注权重瓜分注池
 	for _, pool := range tf.betpool {
 		if pool.AwardPool() == 0 {
-			continue 
+			continue
 		}
 
 		if pool.Pos() == 0 { 
 			if tf.banker.IsSystem() == false && tf.banker.owner != nil {
-				tf.banker.owner.AddGold(pool.AwardPool(), "奖池奖励", true)
+				tf.banker.owner.AddGold(pool.AwardPool(), "百人大战奖池奖励", true)
 			}
 			continue
 		}
@@ -347,7 +391,7 @@ func (tf *TexasFightRoom) CarveUpAwardPool(groups map[int32][]*TexasFightBetPool
 			if p.betlist[pool.Pos()] == nil { continue }
 			userbet := p.betlist[pool.Pos()].Num()
 			award := pool.AwardPool() * userbet / pool.BetNum()
-			p.owner.AddGold(award, "奖池奖励", true)
+			p.owner.AddGold(award, "百人大战奖池奖励", true)
 		}
 	}
 }
@@ -418,8 +462,40 @@ func (tf *TexasFightRoom) CardShuffle() {
 
 // 发牌
 func (tf *TexasFightRoom) CardDeal() {
+
+	// 同花顺
+	straightflush := make([]*Card, 0)
+	for i:=int32(0);  i < 5; i++  {
+		straightflush = append(straightflush, NewCard(0, i))
+	}
+
+	// 皇家同花顺
+	royalflush := make([]*Card, 0)
+	for i:=int32(8);  i < int32(CARDRANK); i++  {
+		royalflush = append(royalflush, NewCard(0, i))
+	}
+
+	// 4条
+	fourkind := []*Card{NewCard(0, 2)}
+	for i:=int32(0); i < 4; i++ {
+		fourkind = append(fourkind, NewCard(0, 1))
+	}
+
 	begin, end := 0, 5
-	for _, pool := range tf.betpool {
+	for k, pool := range tf.betpool {
+		if k == 0 {
+			tf.betpool[k].InsertCards(fourkind)
+			continue
+		}
+		if k == 1 {
+			tf.betpool[k].InsertCards(straightflush)
+			continue
+		}
+		if k == 2 {
+			tf.betpool[k].InsertCards(royalflush)
+			continue
+		}
+
 		cards := tf.cards[begin:end]
 		pool.InsertCards(cards)
 		begin, end = begin+5, end+5

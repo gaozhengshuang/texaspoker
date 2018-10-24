@@ -93,7 +93,7 @@ type TexasFightPlayer struct {
 	watchcount	int32	// 连续观战计数，大于一定次数踢出房间
 
 	bankerround int32	// 玩家坐庄轮数
-	bankerflag int32 // 主动请求放弃庄位, 1主动退出，2条件不满足
+	bankerflag int32 	// 庄家标志 0默认状态，1主动退出，2条件不满足退出
 }
 
 func NewTexasFightPlayer(u *RoomUser, sysflag bool) *TexasFightPlayer {
@@ -102,8 +102,9 @@ func NewTexasFightPlayer(u *RoomUser, sysflag bool) *TexasFightPlayer {
 	p.tmcreate = util.CURTIME()
 	p.owner = u
 	p.seat = -1
-	p.bankerround = 0
 	p.watchcount = 0
+
+	p.bankerround = 0
 	p.bankerflag = kPlayerBankerNormal
 	return p
 }
@@ -114,11 +115,11 @@ func (p *TexasFightPlayer) Reset() {
 	p.totalprofit = 0
 }
 
+func (p *TexasFightPlayer) TimeCreate() int64 { return p.tmcreate }
 func (p *TexasFightPlayer) IsSystem() bool { return p.sysflag }
-func (p *TexasFightPlayer) IsBanker() bool { return p.seat == 0 }
 func (p *TexasFightPlayer) Seat() int32 { return p.seat }
 func (p *TexasFightPlayer) Sit(seat int32) { p.seat = seat }
-func (p *TexasFightPlayer) BeBankerRound() int32 { return p.bankerround }
+func (p *TexasFightPlayer) BankerRound() int32 { return p.bankerround }
 func (p *TexasFightPlayer) AddBankerRound(n int32) { p.bankerround += n }
 func (p *TexasFightPlayer) ResetBankerRound() { p.bankerround = 0 }
 func (p *TexasFightPlayer) BetInfo() [kBetPoolNum]*TFPlayerBet { return p.betlist }
@@ -126,9 +127,10 @@ func (p *TexasFightPlayer) TotalBet() int32 { return p.totalbet }
 func (p *TexasFightPlayer) TotalProfit() int32 { return p.totalprofit }
 func (p *TexasFightPlayer) WatchCount() int32 { return p.watchcount }
 func (p *TexasFightPlayer) SetWatchCount(n int32) { p.watchcount = n }
+func (p *TexasFightPlayer) IsBanker() bool { return p.seat == 0 }
 func (p *TexasFightPlayer) SetBankerFlag(f int32) { p.bankerflag = f }
 func (p *TexasFightPlayer) BankerFlag() int32 { return p.bankerflag }
-func (p *TexasFightPlayer) TimeCreate() int64 { return p.tmcreate }
+
 
 func (p *TexasFightPlayer) Id() int64 {
 	if p.IsSystem() { return 1 }
@@ -170,6 +172,13 @@ func (p *TexasFightPlayer) Bet(pos, num int32) {
 	p.owner.RemoveGold(num, "百人大战下注", true)
 }
 
+// 成为庄家
+func (p *TexasFightPlayer) BecomeBanker() {
+	p.Sit(0)
+	p.ResetBankerRound()
+	p.SetBankerFlag(kPlayerBankerNormal)
+}
+
 // 输赢结算
 func (p *TexasFightPlayer) Settle(tf *TexasFightRoom) {
 	bankerpool := tf.betpool[0]			// 庄家池
@@ -182,29 +191,33 @@ func (p *TexasFightPlayer) Settle(tf *TexasFightRoom) {
 			case kBetResultTie:		profit = 0
 		}
 
-		// 扣税，计数利润
-		tax := float32(profit) * tf.tconf.TaxRate
-		tf.IncAwardPool(int32(tax))
-
-		if pool.Result() == kBetResultLose {
-			bet.SetProfit(profit)
-			p.totalprofit -= profit
-		}else {
-			profit -= int32(tax)
-			bet.SetProfit(profit)
-			p.totalprofit += profit
+		// 赢钱要扣税
+		if profit != 0 {
+			tax := float32(profit) * tf.tconf.TaxRate
+			if pool.Result() == kBetResultLose {
+				bet.SetProfit(profit)
+				p.totalprofit -= profit
+			}else {
+				tf.IncAwardPool(int32(tax))
+				profit -= int32(tax)
+				bet.SetProfit(profit)
+				p.totalprofit += profit
+			}
 		}
 
 		// TODO: 将押注筹码归还玩家
-		p.owner.AddGold(bet.Num(), "押注归还", true)
+		p.owner.AddGold(bet.Num(), "百人大战押注归还", false)
 	}
 
 	//
 	if p.totalprofit > 0 {
-		p.owner.AddGold(p.totalprofit, "百人大战获胜", true)
-	}else {
-		p.owner.RemoveGold(p.totalprofit * -1, "百人大战失败", true)
+		p.owner.AddGold(p.totalprofit, "百人大战玩家获胜", false)
+	}else if p.totalprofit < 0 {
+		p.owner.RemoveGold(p.totalprofit * -1, "百人大战玩家失败", false)
 	}
+
+	// 同步金币到客户端
+	p.owner.SendPropertyChange()
 }
 
 
@@ -278,6 +291,7 @@ func (t *TexasFightBetPool) AwardPool() int32 { return t.awardpool }
 func (t *TexasFightBetPool) Reset() {
 	t.total  = 0
 	t.result = 0
+	t.awardpool = 0
 	t.cards  = [kHandCardNum]*Card{}
 	t.hand.Init()
 }
