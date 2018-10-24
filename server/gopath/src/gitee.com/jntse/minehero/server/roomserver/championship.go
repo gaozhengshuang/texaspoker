@@ -776,6 +776,9 @@ func (cm *ChampionManager) Init() bool {
 }
 
 func (cm *ChampionManager) InitChampionShip() {
+	if RoomSvr().Name() != tbl.Room.MTTRoomServer {
+		return
+	}
 	for _, data := range tbl.TChampionship.ChampionshipById {
 		start := SysTimerMgr().GetStartTimeByTimeId(data.TimeId, data.Type)
 		cm.CreateChampionShip(data.Id, start)

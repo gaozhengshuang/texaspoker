@@ -39,6 +39,7 @@ func (mh* C2GWMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.GW2RS_UploadUserBin{}, on_GW2RS_UploadUserBin)
 	mh.msgparser.RegistProtoMsg(msg.GW2RS_UserOnline{}, on_GW2RS_UserOnline)
 	mh.msgparser.RegistProtoMsg(msg.C2RS_MsgTransfer{}, on_C2RS_MsgTransfer)
+	mh.msgparser.RegistProtoMsg(msg.C2MTT_MsgTransfer{}, on_C2MTT_MsgTransfer)
 	mh.msgparser.RegistProtoMsg(msg.GW2RS_ChatInfo{}, on_GW2RS_ChatInfo)
 
 	// 功能
@@ -157,6 +158,23 @@ func on_C2RS_MsgTransfer(session network.IBaseNetSession, message interface{}) {
 	ClientMsgAgent().Handler(session, protomsg, tmsg.GetUid())
 }
 
+func on_C2MTT_MsgTransfer(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2MTT_MsgTransfer)
+	msg_type := pb.MessageType(tmsg.GetName())
+	if msg_type == nil {
+		log.Fatal("消息转发解析失败，找不到proto msg=%s" , tmsg.GetName())
+		return
+	}
+
+	protomsg := reflect.New(msg_type.Elem()).Interface()
+	err := pb.Unmarshal(tmsg.GetBuf(), protomsg.(pb.Message))
+	if err != nil {
+		log.Fatal("消息转发解析失败，Unmarshal失败 msg=%s" , tmsg.GetName())
+		return
+	}
+
+	ClientMsgAgent().Handler(session, protomsg, tmsg.GetUid())
+}
 
 func on_C2GW_ReqEnterRoom(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_ReqEnterRoom)
