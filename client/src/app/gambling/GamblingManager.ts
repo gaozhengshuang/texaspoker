@@ -446,6 +446,7 @@ class GamblingManager
 					}
 				}
 			}
+			GamblingManager.gamblingReviewHandler.isNewRound = true; //move todo
 			GamblingManager.NextRoundStartEvent.dispatch();
 		}
 	}
