@@ -92,27 +92,55 @@ class AwardManager
     /**
      * 发送兑换id
      */
-    public static Exchange(id: number, count: number = 1, needAlert: boolean = true)
+    public static Exchange(id: number, count: number = 1, isShowTips: boolean = true, needAlert: boolean = true, )
     {
-        let type: AwardExchangeErrorType = AwardManager.GetNotFitErrorType(id);
-        if (type != AwardExchangeErrorType.NoError)
+        let type: AwardExchangeErrorType = AwardManager.GetNotFitErrorType(id, isShowTips);
+        if (type & AwardExchangeErrorType.NullAward)
         {
-            game.Console.log("[兑换错误，错误id]：" + type.toString());
+            game.Console.log("[兑换错误，NullAward]：" + type.toString());
             return;
         }
-        if (needAlert)
+        if (type & AwardExchangeErrorType.OverTimes)
         {
-            PropertyManager.OpenGet();
+            game.Console.log("[兑换错误，OverTimes]：" + type.toString());
+            return;
         }
-        if (count < 1)
+        if (type & AwardExchangeErrorType.OverDate)
         {
-            count = 1;
+            game.Console.log("[兑换错误，OverDate]：" + type.toString());
+            return;
         }
-        let callback: Function = function (result: game.SpRpcResult)
+        if (type & AwardExchangeErrorType.LevelNotEnough)
         {
-            AwardManager.OnExchangeFromServer(id, count, needAlert);
+            game.Console.log("[兑换错误，LevelNotEnough]：" + type.toString());
+            return;
         }
-        SocketManager.call(Command.C2GW_ReqAwardExchange, { "id": id, "count": count }, callback, null, this);
+        if (type & AwardExchangeErrorType.PreNotComplete)
+        {
+            game.Console.log("[兑换错误，PreNotComplete]：" + type.toString());
+            return;
+        }
+        if (type & AwardExchangeErrorType.CostNotEnough)
+        {
+            game.Console.log("[兑换错误，CostNotEnough]：" + type.toString());
+            return;
+        }
+        if (type == AwardExchangeErrorType.NoError)
+        {
+            if (needAlert)
+            {
+                PropertyManager.OpenGet();
+            }
+            if (count < 1)
+            {
+                count = 1;
+            }
+            let callback: Function = function (result: game.SpRpcResult)
+            {
+                AwardManager.OnExchangeFromServer(id, count, needAlert);
+            }
+            SocketManager.call(Command.C2GW_ReqAwardExchange, { "id": id, "count": count }, callback, null, this);
+        }
     }
 
     private static OnExchangeFromServer(id: number, count: number, needAlert: boolean)
@@ -126,7 +154,7 @@ class AwardManager
     /**
      * 获取不满足条件的错误信息
      */
-    public static GetNotFitErrorType(id: number): AwardExchangeErrorType
+    private static GetNotFitErrorType(id: number, isShowTips?: boolean): AwardExchangeErrorType
     {
         let result: AwardExchangeErrorType = AwardExchangeErrorType.NoError;
         let info: msg.IAwardGetInfo = AwardManager.GetExchangeInfo(id);
@@ -154,6 +182,11 @@ class AwardManager
                         result = result | AwardExchangeErrorType.PreNotComplete;
                     }
                 }
+            }
+            let isEnough = AwardManager.isCanExchange(id, isShowTips);
+            if (!isEnough)
+            {
+                result = result | AwardExchangeErrorType.CostNotEnough;
             }
             return result;
         }
@@ -246,7 +279,7 @@ class AwardManager
         AwardManager._map = {};
         for (let def of table.Award)
         {
-            let info: msg.IAwardGetInfo = { id: def.Id, count: 0, time: TimeManager.Utc1970.getTime()};
+            let info: msg.IAwardGetInfo = { id: def.Id, count: 0, time: TimeManager.Utc1970.getTime() };
             AwardManager._map[def.Id] = info;
         }
     }
@@ -281,6 +314,152 @@ class AwardManager
     public static getCostInfoDefinitionList(id: number): AwardInfoDefinition[]
     {
         return this._costInfoMap.getValue(id);
+    }
+    /**
+    * 获取奖励描述
+    */
+    public static getAwardDes(id: number, splitSymbol: string = ""): string
+    {
+        let awardStr = game.StringConstants.Empty;
+
+        let awardDef = table.AwardById[id];
+        if (awardDef && awardDef.RewardId)
+        {
+            for (let i: number = 0; i < awardDef.RewardId.length; i++)
+            {
+                let itemDef = table.ItemBaseDataById[awardDef.RewardId[i]];
+                if (itemDef)
+                {
+                    awardStr += itemDef.Name;
+                }
+                awardStr += splitSymbol + game.MathUtil.formatNum(awardDef.RewardNum[i]) + "、";
+            }
+            awardStr = awardStr.replace(/、$/g, "");
+        }
+        return awardStr;
+    }
+    /**
+    * 获取奖励描述
+    */
+    public static getAwardDesDigital(id: number, splitSymbol: string = ""): string
+    {
+        let awardStr = game.StringConstants.Empty;
+
+        let awardDef = table.AwardById[id];
+        if (awardDef && awardDef.RewardId)
+        {
+            for (let i: number = 0; i < awardDef.RewardId.length; i++)
+            {
+                let itemDef = table.ItemBaseDataById[awardDef.RewardId[i]];
+                awardStr += game.MathUtil.formatNum(awardDef.RewardNum[i]) + splitSymbol;
+                if (itemDef)
+                {
+                    awardStr += itemDef.Name + "、";
+                }
+            }
+            awardStr = awardStr.replace(/、$/g, "");
+        }
+        return awardStr;
+    }
+    /**
+    * 获取消耗描述
+    */
+    public static getCostDes(id: number, splitSymbol: string = ""): string
+    {
+        let awardStr = game.StringConstants.Empty;
+
+        let awardDef = table.AwardById[id];
+        if (awardDef && awardDef.CostId)
+        {
+            for (let i: number = 0; i < awardDef.CostId.length; i++)
+            {
+                let itemDef = table.ItemBaseDataById[awardDef.CostId[i]];
+                if (itemDef)
+                {
+                    awardStr += itemDef.Name;
+                }
+                awardStr += splitSymbol + game.MathUtil.formatNum(awardDef.CostNum[i]) + "、";
+            }
+            for (let i: number = 0; i < awardDef.CostType.length; i++) //特殊处理元
+            {
+                awardStr += game.MathUtil.formatNum(awardDef.CostNum[i]) + splitSymbol;
+                if (awardDef.CostType[i] == CostType.RMB)
+                {
+                    awardStr += "元" + "、";
+                }
+            }
+            awardStr = awardStr.replace(/、$/g, "");
+        }
+        return awardStr;
+    }
+    /**
+    * 获取消耗描述
+    */
+    public static getCostDesDigital(id: number, splitSymbol: string = ""): string
+    {
+        let awardStr = game.StringConstants.Empty;
+
+        let awardDef = table.AwardById[id];
+        if (awardDef && awardDef.CostId)
+        {
+            for (let i: number = 0; i < awardDef.CostId.length; i++)
+            {
+                awardStr += game.MathUtil.formatNum(awardDef.CostNum[i]) + splitSymbol;
+                let itemDef = table.ItemBaseDataById[awardDef.CostId[i]];
+                if (itemDef)
+                {
+                    awardStr += itemDef.Name + "、";
+                }
+            }
+            for (let i: number = 0; i < awardDef.CostType.length; i++) //特殊处理元
+            {
+                awardStr += game.MathUtil.formatNum(awardDef.CostNum[i]) + splitSymbol;
+                if (awardDef.CostType[i] == CostType.RMB)
+                {
+                    awardStr += "元" + "、";
+                }
+            }
+            awardStr = awardStr.replace(/、$/g, "");
+        }
+        return awardStr;
+    }
+    /**
+     * 兑换统一验证接口
+     */
+    public static isCanExchange(id: number, isShowTips = true, callback?: Function, cancelCallBack?: Function): boolean
+    {
+        let def: table.IAwardDefine = table.AwardById[id];
+        if (def)
+        {
+            if (def.CostId && def.CostId.length > 0)
+            {
+                for (let i: number = 0; i < def.CostId.length; i++)
+                {
+                    let cid = def.CostId[i];
+                    switch (cid)
+                    {
+                        case ItemFixedId.diamond:
+                            if (!CostManager.verifyDiamond(def.CostNum[i], isShowTips, callback, cancelCallBack))
+                            {
+                                return false;
+                            }
+                            break;
+                        case ItemFixedId.gold:
+                            if (!CostManager.verifyGold(def.CostNum[i], isShowTips, callback, cancelCallBack))
+                            {
+                                return false;
+                            }
+                            break;
+                        default:
+                            game.Console.log("暂不支持的消耗ID！", cid);
+                            return false;
+                    }
+                }
+                return true;
+            }
+            return true;
+        }
+        return false;
     }
 
     /**

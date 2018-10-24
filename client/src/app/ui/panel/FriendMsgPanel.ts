@@ -98,7 +98,7 @@ class FriendMsgPanel extends BasePanel
 	}
 	private onTimeRefresf()
 	{
-		if (this._requestInfo && this._requestInfo.time && TimeManager.GetServerUtcTimestamp() - this._requestInfo.time > FriendManager.msgTime)
+		if (this._requestInfo && this._requestInfo.time && TimeManager.GetServerUtcSecondstamp() - this._requestInfo.time > FriendManager.msgTime)
 		{
 			let info = FriendManager.getFriendMsgInfo();
 			if (info)

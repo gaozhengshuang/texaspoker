@@ -92,7 +92,7 @@ class HWStateSupport extends BaseHWPanelSupport
             {
                 if (HundredWarManager.roomInfo.stateTime)
                 {
-                    this._betCountDownTime = HundredWarManager.roomInfo.definition.BetTime - (Math.ceil(TimeManager.GetServerUtcTimestamp() - HundredWarManager.roomInfo.stateTime));
+                    this._betCountDownTime = HundredWarManager.roomInfo.definition.BetTime - (Math.ceil(TimeManager.GetServerUtcSecondstamp() - HundredWarManager.roomInfo.stateTime));
                 } else
                 {
                     this._betCountDownTime = HundredWarManager.roomInfo.definition.BetTime;
@@ -101,7 +101,7 @@ class HWStateSupport extends BaseHWPanelSupport
             {
                 if (HundredWarManager.roomInfo.stateTime)
                 {
-                    this._restCountDownTime = HundredWarManager.roomInfo.definition.WaitTime - (Math.ceil(TimeManager.GetServerUtcTimestamp() - HundredWarManager.roomInfo.stateTime));
+                    this._restCountDownTime = HundredWarManager.roomInfo.definition.WaitTime - (Math.ceil(TimeManager.GetServerUtcSecondstamp() - HundredWarManager.roomInfo.stateTime));
                 } else
                 {
                     this._restCountDownTime = HundredWarManager.roomInfo.definition.WaitTime;

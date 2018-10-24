@@ -563,7 +563,7 @@ class GamblingUtil
 	{
 		if (InfoUtil.checkAvailable(info))
 		{
-			let leftTime: number = info.startTime + info.definition.DelaySign - TimeManager.GetServerUtcTimestamp();
+			let leftTime: number = info.startTime + info.definition.DelaySign - TimeManager.GetServerUtcSecondstamp();
 			return leftTime <= 0;
 		}
 		return false;

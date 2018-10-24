@@ -94,7 +94,7 @@ class TestPanel extends eui.Component
 	}
 	private testTime()
 	{
-		let str: string = game.DateTimeUtil.formatTimestamp(TimeManager.GetServerUtcTimestamp());
+		let str: string = game.DateTimeUtil.formatTimestamp(TimeManager.GetServerUtcSecondstamp());
 		str = str.substring(5)
 	}
 	private _payIndex: number = 0;

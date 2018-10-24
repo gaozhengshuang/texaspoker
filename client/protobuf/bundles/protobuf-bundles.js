@@ -12732,6 +12732,7 @@ $root.msg = (function() {
          * @property {number|null} [endtime] MTTInfo endtime
          * @property {number|null} [outtime] MTTInfo outtime
          * @property {number|null} [leftjoin] MTTInfo leftjoin
+         * @property {number|Long|null} [roomuid] MTTInfo roomuid
          */
 
         /**
@@ -12814,6 +12815,14 @@ $root.msg = (function() {
         MTTInfo.prototype.leftjoin = 0;
 
         /**
+         * MTTInfo roomuid.
+         * @member {number|Long} roomuid
+         * @memberof msg.MTTInfo
+         * @instance
+         */
+        MTTInfo.prototype.roomuid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
          * Creates a new MTTInfo instance using the specified properties.
          * @function create
          * @memberof msg.MTTInfo
@@ -12853,6 +12862,8 @@ $root.msg = (function() {
                 writer.uint32(/* id 7, wireType 0 =*/56).int32(message.outtime);
             if (message.leftjoin != null && message.hasOwnProperty("leftjoin"))
                 writer.uint32(/* id 8, wireType 0 =*/64).int32(message.leftjoin);
+            if (message.roomuid != null && message.hasOwnProperty("roomuid"))
+                writer.uint32(/* id 9, wireType 0 =*/72).int64(message.roomuid);
             return writer;
         };
 
@@ -12910,6 +12921,9 @@ $root.msg = (function() {
                     break;
                 case 8:
                     message.leftjoin = reader.int32();
+                    break;
+                case 9:
+                    message.roomuid = reader.int64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -12970,6 +12984,9 @@ $root.msg = (function() {
             if (message.leftjoin != null && message.hasOwnProperty("leftjoin"))
                 if (!$util.isInteger(message.leftjoin))
                     return "leftjoin: integer expected";
+            if (message.roomuid != null && message.hasOwnProperty("roomuid"))
+                if (!$util.isInteger(message.roomuid) && !(message.roomuid && $util.isInteger(message.roomuid.low) && $util.isInteger(message.roomuid.high)))
+                    return "roomuid: integer|Long expected";
             return null;
         };
 
@@ -13001,6 +13018,15 @@ $root.msg = (function() {
                 message.outtime = object.outtime | 0;
             if (object.leftjoin != null)
                 message.leftjoin = object.leftjoin | 0;
+            if (object.roomuid != null)
+                if ($util.Long)
+                    (message.roomuid = $util.Long.fromValue(object.roomuid)).unsigned = false;
+                else if (typeof object.roomuid === "string")
+                    message.roomuid = parseInt(object.roomuid, 10);
+                else if (typeof object.roomuid === "number")
+                    message.roomuid = object.roomuid;
+                else if (typeof object.roomuid === "object")
+                    message.roomuid = new $util.LongBits(object.roomuid.low >>> 0, object.roomuid.high >>> 0).toNumber();
             return message;
         };
 
@@ -13026,6 +13052,11 @@ $root.msg = (function() {
                 object.endtime = 0;
                 object.outtime = 0;
                 object.leftjoin = 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.roomuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.roomuid = options.longs === String ? "0" : 0;
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 object.id = message.id;
@@ -13043,6 +13074,11 @@ $root.msg = (function() {
                 object.outtime = message.outtime;
             if (message.leftjoin != null && message.hasOwnProperty("leftjoin"))
                 object.leftjoin = message.leftjoin;
+            if (message.roomuid != null && message.hasOwnProperty("roomuid"))
+                if (typeof message.roomuid === "number")
+                    object.roomuid = options.longs === String ? String(message.roomuid) : message.roomuid;
+                else
+                    object.roomuid = options.longs === String ? $util.Long.prototype.toString.call(message.roomuid) : options.longs === Number ? new $util.LongBits(message.roomuid.low >>> 0, message.roomuid.high >>> 0).toNumber() : message.roomuid;
             return object;
         };
 
@@ -14258,6 +14294,7 @@ $root.msg = (function() {
          * @property {number|null} [endtime] JoinedMTTInfo endtime
          * @property {number|null} [outtime] JoinedMTTInfo outtime
          * @property {number|null} [rank] JoinedMTTInfo rank
+         * @property {number|Long|null} [roomuid] JoinedMTTInfo roomuid
          */
 
         /**
@@ -14340,6 +14377,14 @@ $root.msg = (function() {
         JoinedMTTInfo.prototype.rank = 0;
 
         /**
+         * JoinedMTTInfo roomuid.
+         * @member {number|Long} roomuid
+         * @memberof msg.JoinedMTTInfo
+         * @instance
+         */
+        JoinedMTTInfo.prototype.roomuid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
          * Creates a new JoinedMTTInfo instance using the specified properties.
          * @function create
          * @memberof msg.JoinedMTTInfo
@@ -14379,6 +14424,8 @@ $root.msg = (function() {
                 writer.uint32(/* id 7, wireType 0 =*/56).int32(message.outtime);
             if (message.rank != null && message.hasOwnProperty("rank"))
                 writer.uint32(/* id 8, wireType 0 =*/64).int32(message.rank);
+            if (message.roomuid != null && message.hasOwnProperty("roomuid"))
+                writer.uint32(/* id 9, wireType 0 =*/72).int64(message.roomuid);
             return writer;
         };
 
@@ -14436,6 +14483,9 @@ $root.msg = (function() {
                     break;
                 case 8:
                     message.rank = reader.int32();
+                    break;
+                case 9:
+                    message.roomuid = reader.int64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -14496,6 +14546,9 @@ $root.msg = (function() {
             if (message.rank != null && message.hasOwnProperty("rank"))
                 if (!$util.isInteger(message.rank))
                     return "rank: integer expected";
+            if (message.roomuid != null && message.hasOwnProperty("roomuid"))
+                if (!$util.isInteger(message.roomuid) && !(message.roomuid && $util.isInteger(message.roomuid.low) && $util.isInteger(message.roomuid.high)))
+                    return "roomuid: integer|Long expected";
             return null;
         };
 
@@ -14527,6 +14580,15 @@ $root.msg = (function() {
                 message.outtime = object.outtime | 0;
             if (object.rank != null)
                 message.rank = object.rank | 0;
+            if (object.roomuid != null)
+                if ($util.Long)
+                    (message.roomuid = $util.Long.fromValue(object.roomuid)).unsigned = false;
+                else if (typeof object.roomuid === "string")
+                    message.roomuid = parseInt(object.roomuid, 10);
+                else if (typeof object.roomuid === "number")
+                    message.roomuid = object.roomuid;
+                else if (typeof object.roomuid === "object")
+                    message.roomuid = new $util.LongBits(object.roomuid.low >>> 0, object.roomuid.high >>> 0).toNumber();
             return message;
         };
 
@@ -14552,6 +14614,11 @@ $root.msg = (function() {
                 object.endtime = 0;
                 object.outtime = 0;
                 object.rank = 0;
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.roomuid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.roomuid = options.longs === String ? "0" : 0;
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 object.id = message.id;
@@ -14569,6 +14636,11 @@ $root.msg = (function() {
                 object.outtime = message.outtime;
             if (message.rank != null && message.hasOwnProperty("rank"))
                 object.rank = message.rank;
+            if (message.roomuid != null && message.hasOwnProperty("roomuid"))
+                if (typeof message.roomuid === "number")
+                    object.roomuid = options.longs === String ? String(message.roomuid) : message.roomuid;
+                else
+                    object.roomuid = options.longs === String ? $util.Long.prototype.toString.call(message.roomuid) : options.longs === Number ? new $util.LongBits(message.roomuid.low >>> 0, message.roomuid.high >>> 0).toNumber() : message.roomuid;
             return object;
         };
 
@@ -52814,6 +52886,261 @@ $root.msg = (function() {
         };
 
         return C2RS_MsgTransfer;
+    })();
+
+    msg.C2MTT_MsgTransfer = (function() {
+
+        /**
+         * Properties of a C2MTT_MsgTransfer.
+         * @memberof msg
+         * @interface IC2MTT_MsgTransfer
+         * @property {number|Long|null} [uid] C2MTT_MsgTransfer uid
+         * @property {string|null} [name] C2MTT_MsgTransfer name
+         * @property {Uint8Array|null} [buf] C2MTT_MsgTransfer buf
+         */
+
+        /**
+         * Constructs a new C2MTT_MsgTransfer.
+         * @memberof msg
+         * @classdesc Represents a C2MTT_MsgTransfer.
+         * @implements IC2MTT_MsgTransfer
+         * @constructor
+         * @param {msg.IC2MTT_MsgTransfer=} [properties] Properties to set
+         */
+        function C2MTT_MsgTransfer(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * C2MTT_MsgTransfer uid.
+         * @member {number|Long} uid
+         * @memberof msg.C2MTT_MsgTransfer
+         * @instance
+         */
+        C2MTT_MsgTransfer.prototype.uid = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+        /**
+         * C2MTT_MsgTransfer name.
+         * @member {string} name
+         * @memberof msg.C2MTT_MsgTransfer
+         * @instance
+         */
+        C2MTT_MsgTransfer.prototype.name = "";
+
+        /**
+         * C2MTT_MsgTransfer buf.
+         * @member {Uint8Array} buf
+         * @memberof msg.C2MTT_MsgTransfer
+         * @instance
+         */
+        C2MTT_MsgTransfer.prototype.buf = $util.newBuffer([]);
+
+        /**
+         * Creates a new C2MTT_MsgTransfer instance using the specified properties.
+         * @function create
+         * @memberof msg.C2MTT_MsgTransfer
+         * @static
+         * @param {msg.IC2MTT_MsgTransfer=} [properties] Properties to set
+         * @returns {msg.C2MTT_MsgTransfer} C2MTT_MsgTransfer instance
+         */
+        C2MTT_MsgTransfer.create = function create(properties) {
+            return new C2MTT_MsgTransfer(properties);
+        };
+
+        /**
+         * Encodes the specified C2MTT_MsgTransfer message. Does not implicitly {@link msg.C2MTT_MsgTransfer.verify|verify} messages.
+         * @function encode
+         * @memberof msg.C2MTT_MsgTransfer
+         * @static
+         * @param {msg.IC2MTT_MsgTransfer} message C2MTT_MsgTransfer message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2MTT_MsgTransfer.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.uid != null && message.hasOwnProperty("uid"))
+                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.uid);
+            if (message.name != null && message.hasOwnProperty("name"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
+            if (message.buf != null && message.hasOwnProperty("buf"))
+                writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.buf);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified C2MTT_MsgTransfer message, length delimited. Does not implicitly {@link msg.C2MTT_MsgTransfer.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof msg.C2MTT_MsgTransfer
+         * @static
+         * @param {msg.IC2MTT_MsgTransfer} message C2MTT_MsgTransfer message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        C2MTT_MsgTransfer.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a C2MTT_MsgTransfer message from the specified reader or buffer.
+         * @function decode
+         * @memberof msg.C2MTT_MsgTransfer
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {msg.C2MTT_MsgTransfer} C2MTT_MsgTransfer
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2MTT_MsgTransfer.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.msg.C2MTT_MsgTransfer();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.uid = reader.int64();
+                    break;
+                case 2:
+                    message.name = reader.string();
+                    break;
+                case 3:
+                    message.buf = reader.bytes();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a C2MTT_MsgTransfer message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof msg.C2MTT_MsgTransfer
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {msg.C2MTT_MsgTransfer} C2MTT_MsgTransfer
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        C2MTT_MsgTransfer.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a C2MTT_MsgTransfer message.
+         * @function verify
+         * @memberof msg.C2MTT_MsgTransfer
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        C2MTT_MsgTransfer.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.uid != null && message.hasOwnProperty("uid"))
+                if (!$util.isInteger(message.uid) && !(message.uid && $util.isInteger(message.uid.low) && $util.isInteger(message.uid.high)))
+                    return "uid: integer|Long expected";
+            if (message.name != null && message.hasOwnProperty("name"))
+                if (!$util.isString(message.name))
+                    return "name: string expected";
+            if (message.buf != null && message.hasOwnProperty("buf"))
+                if (!(message.buf && typeof message.buf.length === "number" || $util.isString(message.buf)))
+                    return "buf: buffer expected";
+            return null;
+        };
+
+        /**
+         * Creates a C2MTT_MsgTransfer message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof msg.C2MTT_MsgTransfer
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {msg.C2MTT_MsgTransfer} C2MTT_MsgTransfer
+         */
+        C2MTT_MsgTransfer.fromObject = function fromObject(object) {
+            if (object instanceof $root.msg.C2MTT_MsgTransfer)
+                return object;
+            var message = new $root.msg.C2MTT_MsgTransfer();
+            if (object.uid != null)
+                if ($util.Long)
+                    (message.uid = $util.Long.fromValue(object.uid)).unsigned = false;
+                else if (typeof object.uid === "string")
+                    message.uid = parseInt(object.uid, 10);
+                else if (typeof object.uid === "number")
+                    message.uid = object.uid;
+                else if (typeof object.uid === "object")
+                    message.uid = new $util.LongBits(object.uid.low >>> 0, object.uid.high >>> 0).toNumber();
+            if (object.name != null)
+                message.name = String(object.name);
+            if (object.buf != null)
+                if (typeof object.buf === "string")
+                    $util.base64.decode(object.buf, message.buf = $util.newBuffer($util.base64.length(object.buf)), 0);
+                else if (object.buf.length)
+                    message.buf = object.buf;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a C2MTT_MsgTransfer message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof msg.C2MTT_MsgTransfer
+         * @static
+         * @param {msg.C2MTT_MsgTransfer} message C2MTT_MsgTransfer
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        C2MTT_MsgTransfer.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, false);
+                    object.uid = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.uid = options.longs === String ? "0" : 0;
+                object.name = "";
+                if (options.bytes === String)
+                    object.buf = "";
+                else {
+                    object.buf = [];
+                    if (options.bytes !== Array)
+                        object.buf = $util.newBuffer(object.buf);
+                }
+            }
+            if (message.uid != null && message.hasOwnProperty("uid"))
+                if (typeof message.uid === "number")
+                    object.uid = options.longs === String ? String(message.uid) : message.uid;
+                else
+                    object.uid = options.longs === String ? $util.Long.prototype.toString.call(message.uid) : options.longs === Number ? new $util.LongBits(message.uid.low >>> 0, message.uid.high >>> 0).toNumber() : message.uid;
+            if (message.name != null && message.hasOwnProperty("name"))
+                object.name = message.name;
+            if (message.buf != null && message.hasOwnProperty("buf"))
+                object.buf = options.bytes === String ? $util.base64.encode(message.buf, 0, message.buf.length) : options.bytes === Array ? Array.prototype.slice.call(message.buf) : message.buf;
+            return object;
+        };
+
+        /**
+         * Converts this C2MTT_MsgTransfer to JSON.
+         * @function toJSON
+         * @memberof msg.C2MTT_MsgTransfer
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        C2MTT_MsgTransfer.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return C2MTT_MsgTransfer;
     })();
 
     msg.RS2GW_MsgTransfer = (function() {

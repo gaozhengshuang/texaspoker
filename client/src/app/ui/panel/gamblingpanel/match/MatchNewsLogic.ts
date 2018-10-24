@@ -153,7 +153,7 @@ class MatchNewsLogic
             case ChampionshipRoomUIAlertType.LeftNumChange:
                 if (GamblingManager.matchRoomInfo && GamblingManager.matchRoomInfo.leftJoin)
                 {
-                    let time: number = Math.round((TimeManager.GetServerUtcTimestamp() - GamblingManager.matchRoomInfo.startTime) / 60);
+                    let time: number = Math.round((TimeManager.GetServerUtcSecondstamp() - GamblingManager.matchRoomInfo.startTime) / 60);
                     return game.StringUtil.format("比赛进行{0}分钟,剩余比赛人数:{1}", time, GamblingManager.matchRoomInfo.leftJoin);
                 }
             case ChampionshipRoomUIAlertType.ChangeRoom:

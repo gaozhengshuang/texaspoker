@@ -1,3 +1,6 @@
+/**
+ * 兑换错误类型
+ */
 enum AwardExchangeErrorType
 {
     /**
@@ -23,11 +26,15 @@ enum AwardExchangeErrorType
     /**
      * 等级不足
      */
-    LevelNotEnough = 9,
+    LevelNotEnough = 16,
     /**
      * 前置兑换未完成
      */
-    PreNotComplete = 10,
+    PreNotComplete = 32,
+    /**
+     * 兑换不满足
+     */
+    CostNotEnough = 64,
     /**
      * 不满足时间
      */

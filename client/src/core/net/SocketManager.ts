@@ -455,7 +455,7 @@ class SocketManager
 
 	private static OnResult(result: game.SpRpcResult)
 	{
-		SocketManager._lastTimestamp = TimeManager.GetServerUtcTimestamp();
+		SocketManager._lastTimestamp = TimeManager.GetServerUtcSecondstamp();
 		SocketManager._lastSendTime = undefined;
 		if (result.op == game.SpRpcOp.Response)
 		{
@@ -609,7 +609,7 @@ class SocketManager
 	/// <returns></returns>
 	private static VerifyReLogin(): boolean
 	{
-		if (TimeManager.GetServerUtcTimestamp() - SocketManager._lastTimestamp < 270)//4分30秒
+		if (TimeManager.GetServerUtcSecondstamp() - SocketManager._lastTimestamp < 270)//4分30秒
 		{
 			return false;
 		}

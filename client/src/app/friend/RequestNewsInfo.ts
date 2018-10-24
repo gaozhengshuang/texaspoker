@@ -7,7 +7,7 @@ class RequestNewsInfo
     {
         this.type = type;
         this.info = info;
-        this.time = TimeManager.GetServerUtcTimestamp();
+        this.time = TimeManager.GetServerUtcSecondstamp();
     }
     //时间
     public time: number;

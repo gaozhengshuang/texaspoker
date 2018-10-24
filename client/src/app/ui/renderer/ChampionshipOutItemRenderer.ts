@@ -92,7 +92,7 @@ class ChampionshipOutItemRenderer extends BaseItemRenderer<MatchRoomInfo>
     private getTimeDesAndTime()
     {
         let date: Date = new Date(this.bindData.startTime * 1000);
-        let today: Date = new Date(TimeManager.GetServerUtcTimestamp() * 1000);
+        let today: Date = new Date(TimeManager.GetServerUtcSecondstamp() * 1000);
         let todayLastTime: number = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59).getTime();
         if (this.bindData.startTime > Math.floor(todayLastTime / 1000) || this.bindData.startTime < (Math.floor(todayLastTime / 1000) - 86400))  //不是今天
         {

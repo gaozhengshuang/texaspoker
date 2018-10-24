@@ -18,7 +18,7 @@ class GuideGamblingProcess
 		GamblingManager.oneLoopClear();
 
 		GamblingManager.roomInfo.potChips = undefined;
-		GamblingManager.roomInfo.startTime = TimeManager.GetServerUtcTimestamp();
+		GamblingManager.roomInfo.startTime = TimeManager.GetServerUtcSecondstamp();
 
 		GamblingManager.NextRoundStartEvent.dispatch();
 
@@ -136,7 +136,7 @@ class GuideGamblingProcess
 		if (definition.stepParams.pos != undefined)
 		{
 			GamblingManager.roomInfo.pos = definition.stepParams.pos;
-			GamblingManager.roomInfo.posTime = TimeManager.GetServerUtcTimestamp();
+			GamblingManager.roomInfo.posTime = TimeManager.GetServerUtcSecondstamp();
 			GamblingManager.ActionPosChangeEvent.dispatch(GamblingManager.roomInfo.handCard);
 		}
 	}
