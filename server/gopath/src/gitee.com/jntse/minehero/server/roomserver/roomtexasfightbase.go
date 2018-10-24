@@ -55,6 +55,13 @@ const (
 	kTexasFightRichMode = 2		// 富豪场
 )
 
+// 玩家庄家下庄类型
+const (
+	kPlayerBankerNormal = 0		// 默认状态
+	kPlayerBankerQuit = 1			// 主动退出
+	kPlayerBankerNotSatisfied = 2	// 条件不满足
+)
+
 // --------------------------------------------------------------------------
 /// @brief 百人大战玩家
 ///
@@ -82,10 +89,11 @@ type TexasFightPlayer struct {
 	seat int32			// 坐下位置，0是庄家位置，-1表示站起没有位置
 	totalbet int32 		// 总下注额，0未下任何注
 	betlist	[kBetPoolNum]*TFPlayerBet	// 下注列表
-	bankerround int32	// 玩家坐庄轮数
 	totalprofit int32 	// 本轮总利润,大于0盈利，小于0亏损
 	watchcount	int32	// 连续观战计数，大于一定次数踢出房间
-	quitbankerflag bool	// 主动请求放弃庄位
+
+	bankerround int32	// 玩家坐庄轮数
+	bankerflag int32 // 主动请求放弃庄位, 1主动退出，2条件不满足
 }
 
 func NewTexasFightPlayer(u *RoomUser, sysflag bool) *TexasFightPlayer {
@@ -96,7 +104,7 @@ func NewTexasFightPlayer(u *RoomUser, sysflag bool) *TexasFightPlayer {
 	p.seat = -1
 	p.bankerround = 0
 	p.watchcount = 0
-	p.quitbankerflag = false
+	p.bankerflag = kPlayerBankerNormal
 	return p
 }
 
@@ -118,8 +126,8 @@ func (p *TexasFightPlayer) TotalBet() int32 { return p.totalbet }
 func (p *TexasFightPlayer) TotalProfit() int32 { return p.totalprofit }
 func (p *TexasFightPlayer) WatchCount() int32 { return p.watchcount }
 func (p *TexasFightPlayer) SetWatchCount(n int32) { p.watchcount = n }
-func (p *TexasFightPlayer) SetQuitBankerFlag() { p.quitbankerflag = true }
-func (p *TexasFightPlayer) QuitBankerFlag() bool { return p.quitbankerflag }
+func (p *TexasFightPlayer) SetBankerFlag(f int32) { p.bankerflag = f }
+func (p *TexasFightPlayer) BankerFlag() int32 { return p.bankerflag }
 func (p *TexasFightPlayer) TimeCreate() int64 { return p.tmcreate }
 
 func (p *TexasFightPlayer) Id() int64 {
@@ -520,6 +528,7 @@ func (tf *TexasFightRoom) UserEnter(u *RoomUser) {
 	player := tf.FindPlayer(u.Id())
 	if player == nil {
 		player = tf.AddPlayer(u)
+		tf.members[u.Id()] = u
 	}
 
 	// 执行玩家进房间事件
@@ -589,7 +598,7 @@ func (tf *TexasFightRoom) UserLeave(u *RoomUser) {
 	}
 
 	// 离开上庄排队
-	tf.BankerQueueRemove(u.Id())
+	tf.BankerQueueRemoveElem(u.Id())
 
 	//
 	resp := &msg.RS2C_RetTFLeave{}
@@ -617,17 +626,18 @@ func (tf *TexasFightRoom) UserStandUp(u *RoomUser) {
 	}
 
 	if seat == 0 {
-		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 庄家请下庄 ", u.Name(), u.Id(), tf.Id())
+		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 庄家请先下庄 ", u.Name(), u.Id(), tf.Id())
 		return
 	}
-
-	// 座位玩家
-	posmsg := &msg.RS2C_PushTFPosChange{Pos:pb.Int32(player.Seat()), Roleid:pb.Int64(0), Bankergold:pb.Int32(0) }
-	tf.BroadCastMemberMsg(posmsg)
 
 	//
 	tf.sitplayers[player.Seat()] = nil
 	player.Sit(-1)
+	u.SendClientMsg(&msg.RS2C_ReqTFStandUp{})
+
+	// 座位玩家
+	posmsg := &msg.RS2C_PushTFPosChange{Pos:pb.Int32(seat), Roleid:pb.Int64(0), Bankergold:pb.Int32(0) }
+	tf.BroadCastMemberMsg(posmsg)
 
 	//u.OnStandUp()
 	log.Info("[百人大战] 玩家[%s %d] 房间[%d] 离开位置[%d]", u.Name(), u.Id(), tf.Id(), seat)
@@ -658,6 +668,11 @@ func (tf *TexasFightRoom) UserSitDown(u *RoomUser, seat int32) {
 		return
 	}
 
+	if u.Id() == tf.banker.Id() {
+		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 正在坐庄中", u.Name(), u.Id(), tf.Id())
+		return
+	}
+
 	// player 指针
 	player := tf.FindPlayer(u.Id())
 	if player == nil {
@@ -665,13 +680,20 @@ func (tf *TexasFightRoom) UserSitDown(u *RoomUser, seat int32) {
 		return
 	}
 
+	if player.Seat() != -1 {
+		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 已经有座位了", u.Name(), u.Id(), tf.Id())
+		return
+	}
+
 	player.Sit(seat)
 	tf.sitplayers[seat] = player
+	u.SendClientMsg(&msg.RS2C_RetTFSitDown{})
 
-	resp := &msg.RS2C_RetTFSitDown{}
-	u.SendClientMsg(resp)
+	posmsg := &msg.RS2C_PushTFPosChange{Pos:pb.Int32(seat), Roleid:pb.Int64(u.Id()), Bankergold:pb.Int32(0) }
+	tf.BroadCastMemberMsg(posmsg)
+
 	//u.OnSitDown(seat, "")
-	log.Info("[百人大战] 玩家[%s %d] 坐下房间[%d] 位置[%d]", u.Name(), u.Id(), tf.Id(), seat)
+	log.Info("[百人大战] 玩家[%s %d] 房间[%d] 坐下位置[%d]", u.Name(), u.Id(), tf.Id(), seat)
 }
 
 

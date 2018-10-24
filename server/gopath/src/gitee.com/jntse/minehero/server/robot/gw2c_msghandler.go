@@ -138,9 +138,9 @@ func on_GW2C_PushPackageItemAdd(session network.IBaseNetSession, message interfa
 }
 
 func on_GW2C_PushMsgNotify(session network.IBaseNetSession, message interface{}) {
-	//tmsg := message.(*msg.GW2C_PushMsgNotify)
+	tmsg := message.(*msg.GW2C_PushMsgNotify)
 	//log.Info(reflect.TypeOf(tmsg).String())
-	//log.Info("%v", tmsg)
+	log.Info("%v", tmsg)
 }
 
 func on_GW2C_MsgNotice(session network.IBaseNetSession, message interface{}) {
