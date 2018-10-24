@@ -211,7 +211,7 @@ func (u *GateUser) OnLeaveRoom() {
 	//u.OnDBLoad("离开房间")
 	if u.IsOnline() {
 		u.SendMsg(&msg.GW2C_RetLeaveRoom{})
-		u.SendUserBase()
+		//u.SendUserBase()
 	}
 }
 
@@ -233,7 +233,7 @@ func (u *GateUser) OnDestoryRoom() {
 	//u.OnDBLoad("房间销毁")
 	if u.IsOnline() {
 		u.SendMsg(&msg.GW2C_RetLeaveRoom{})
-		u.SendUserBase()
+		//u.SendUserBase()
 	}
 }
 

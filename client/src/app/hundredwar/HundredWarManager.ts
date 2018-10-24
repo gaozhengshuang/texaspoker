@@ -31,22 +31,22 @@ class HundredWarManager
 
     public static addPushListener()
     {
-        SocketManager.AddCommandListener(Command.HWSeatChange_Push_2127, HundredWarManager.onPosChange, this);
-        SocketManager.AddCommandListener(Command.HWBetChange_Push_2123, HundredWarManager.onBetChange, this);
-        SocketManager.AddCommandListener(Command.HWStateChange_Push_2126, HundredWarManager.onRoomStateChange, this);
-        SocketManager.AddCommandListener(Command.HWCards_Push_2124, HundredWarManager.onCardPush, this);
-        SocketManager.AddCommandListener(Command.OutRoom_Push_2128, HundredWarManager.onOutRoomPush, this);
+        SocketManager.AddCommandListener(Command.RS2C_PushTFPosChange, HundredWarManager.onPosChange, this);
+        SocketManager.AddCommandListener(Command.RS2C_PushBetPoolChange, HundredWarManager.onBetChange, this);
+        SocketManager.AddCommandListener(Command.RS2C_PushTFStateChange, HundredWarManager.onRoomStateChange, this);
+        SocketManager.AddCommandListener(Command.RS2C_PushTFRoundOver, HundredWarManager.onCardPush, this);
+        SocketManager.AddCommandListener(Command.RS2C_PushTFPlayerKickOut, HundredWarManager.onOutRoomPush, this);
 
         // SocketManager.AddIgnoreError(ErrorCode.HundredWarOverFlow); //move todo
     }
 
     public static removePushListener()
     {
-        SocketManager.RemoveCommandListener(Command.HWSeatChange_Push_2127, HundredWarManager.onPosChange, this);
-        SocketManager.RemoveCommandListener(Command.HWBetChange_Push_2123, HundredWarManager.onBetChange, this);
-        SocketManager.RemoveCommandListener(Command.HWStateChange_Push_2126, HundredWarManager.onRoomStateChange, this);
-        SocketManager.RemoveCommandListener(Command.HWCards_Push_2124, HundredWarManager.onCardPush, this);
-        SocketManager.RemoveCommandListener(Command.OutRoom_Push_2128, HundredWarManager.onOutRoomPush, this);
+        SocketManager.RemoveCommandListener(Command.RS2C_PushTFPosChange, HundredWarManager.onPosChange, this);
+        SocketManager.RemoveCommandListener(Command.RS2C_PushBetPoolChange, HundredWarManager.onBetChange, this);
+        SocketManager.RemoveCommandListener(Command.RS2C_PushTFStateChange, HundredWarManager.onRoomStateChange, this);
+        SocketManager.RemoveCommandListener(Command.RS2C_PushTFRoundOver, HundredWarManager.onCardPush, this);
+        SocketManager.RemoveCommandListener(Command.RS2C_PushTFPlayerKickOut, HundredWarManager.onOutRoomPush, this);
 
         // SocketManager.RemoveIgnoreError(ErrorCode.HundredWarOverFlow); //move todo
         HundredWarManager.onBankerChangeEvent.removeListener(HundredWarManager.onBankerChange, this);
@@ -82,11 +82,12 @@ class HundredWarManager
     /**
      * 发送请求进入房间
     */
-    public static reqEnterRoom(id: number = 0)
+    public static reqEnterRoom(id: number)
     {
         let callback: Function = function (result: game.SpRpcResult)
         {
-            if (result.data)
+            let data: msg.GW2C_RetEnterTFRoom = result.data;
+            if (data)
             {
                 if (!HundredWarManager._isInitialize)
                 {
@@ -94,32 +95,36 @@ class HundredWarManager
                     HundredWarManager.OnGetRoomInfoEvent.addListener(HundredWarManager.onFirstEnterRoom, this);
                     HundredWarManager.addPushListener();
                 }
-                SocketManager.RemoveCommandListener(Command.EnterHW_Req_3693, callback, this);
+                SocketManager.RemoveCommandListener(Command.C2GW_ReqEnterTFRoom, callback, this);
                 HundredWarManager.roomInfo = new HWRoomInfo();
-                HundredWarManager.roomInfo.copyValueFrom(result.data);
-                if (result.data.playerList) 
+                HundredWarManager.roomInfo.copyValueFromIgnoreCase(data);
+                if (data.playerlist) 
                 {
                     UserManager.OnGetSimpleUserInfoEvent.addListener(HundredWarManager.onReqComplete, this);
                     HundredWarManager.roomInfo.playerList = new Array<HWHundredWarRoomPlayerInfo>();
                     let info: HWHundredWarRoomPlayerInfo;
-                    for (let i: number = 0; i < result.data.playerList.length; i++)
+                    for (let i: number = 0; i < data.playerlist.length; i++)
                     {
-                        let playerInfo: HWHundredWarRoomPlayerInfo = result.data.playerList[i];
+                        let playerInfo: msg.ITFPlayerPos = data.playerlist[i];
                         info = new HWHundredWarRoomPlayerInfo();
-                        info.copyValueFrom(playerInfo);
+                        info.copyValueFromIgnoreCase(playerInfo);
                         HundredWarManager.roomInfo.playerList.push(info);
                     }
                     HundredWarManager.startReqPlayerInfo(HundredWarManager.roomInfo.playerList);
                 }
-                if (result.data.myBet && result.data.myBet.length > 0)       //为注池信息写入自己的下注的注数         
+                if (data.mybet && data.mybet.length > 0)       //为注池信息写入自己的下注的注数         
                 {
-                    if (result.data.betList && result.data.betList.length > 0) 
+                    if (data.betlist && data.betlist.length > 0) 
                     {
                         HundredWarManager.roomInfo.betList = new Array<HWBetPotInfo>();
-                        for (let betInfo of result.data.betList)
+                        for (let betInfo of data.betlist)
                         {
-                            betInfo.myBet = result.data.myBet[betInfo.pos]; //move todo result.data.myBet[betInfo.pos - 1];
-                            HundredWarManager.roomInfo.betList.push(betInfo);
+                            let potInfo: HWBetPotInfo = new HWBetPotInfo();
+                            potInfo.copyValueFromIgnoreCase(betInfo);
+                            potInfo.myBet = data.mybet[betInfo.pos]; //move todo data.myBet[betInfo.pos - 1];
+                            GamblingUtil.cardArr2CardInfoList(betInfo.cards, potInfo.cards);
+
+                            HundredWarManager.roomInfo.betList.push(potInfo);
                         }
                     }
                 }
@@ -128,15 +133,8 @@ class HundredWarManager
             }
             HundredWarManager.onBankerChangeEvent.addListener(HundredWarManager.onBankerChange, this);
         };
-        SocketManager.AddCommandListener(Command.EnterHW_Req_3693, callback, this);
-        if (id > 0)
-        {
-            SocketManager.Send(Command.EnterHW_Req_3693, { id: id });
-        }
-        else
-        {
-            SocketManager.Send(Command.EnterHW_Req_3693);
-        }
+        SocketManager.AddCommandListener(Command.C2GW_ReqEnterTFRoom, callback, this);
+        SocketManager.Send(Command.C2GW_ReqEnterTFRoom, { id: id });
     }
 
     /**
@@ -259,7 +257,7 @@ class HundredWarManager
             {
                 if (playerInfo.roleId == data["roleId"])
                 {
-                    playerInfo.copyValueFrom(data);
+                    playerInfo.copyValueFromIgnoreCase(data);
                     if (!HundredWarManager.isSysBanker(data.roleId) && HundredWarManager.isBanker(data.roleId) && HundredWarManager.roomInfo && HundredWarManager.roomInfo.bankerGold)  //结算后更新庄家带入金币
                     {
                         playerInfo.gold = HundredWarManager.roomInfo.bankerGold;
@@ -278,7 +276,7 @@ class HundredWarManager
         {
             HundredWarManager.onSeatEvent.dispatch(pos);
         };
-        SocketManager.call(Command.HWSit_Req_3701, { pos: pos }, callback, null, this);
+        MsgTransferSend.sendRoomProto(Command.C2RS_ReqTFSitDown, { pos: pos }, callback, null, this);
     }
     /**
      * 发送站起请求
@@ -289,7 +287,7 @@ class HundredWarManager
         {
             HundredWarManager.onStandUpEvent.dispatch();
         };
-        SocketManager.call(Command.HWStandUp_Req_3704, null, callback, null, this);
+        MsgTransferSend.sendRoomProto(Command.C2RS_ReqTFStandUp, {}, callback, null, this);
     }
     /**
      * 发送下注请求
@@ -326,7 +324,7 @@ class HundredWarManager
                 UIManager.showFloatTips("当前下注金币数已达庄家金币上限");
             }
         }
-        SocketManager.call(Command.HWBet_Req_3694, { pos: pos, num: num }, callback, errorCallback, this);
+        MsgTransferSend.sendRoomProto(Command.C2RS_ReqTexasFightBet, { pos: pos, num: num }, callback, errorCallback, this);
     }
     /**
      * 发送离开请求
@@ -351,7 +349,7 @@ class HundredWarManager
             } else
             {
                 HundredWarManager._isHadLeave = true;
-                SocketManager.call(Command.HWLeave_Req_3702, null, callback, null, this);
+                MsgTransferSend.sendRoomProto(Command.C2RS_ReqTFLeave, {}, callback, null, this);
             }
         }
     }
@@ -366,7 +364,7 @@ class HundredWarManager
         };
         if (!HundredWarManager._isHadLeave && HundredWarManager.roomInfo)
         {
-            SocketManager.call(Command.HWNextRoundStart_Req_3703, null, callback, null, this);
+            MsgTransferSend.sendRoomProto(Command.C2RS_ReqTFStart, {}, callback, null, this);
         }
     }
 
@@ -375,12 +373,13 @@ class HundredWarManager
      */
     public static onPosChange(result: game.SpRpcResult)
     {
-        if (result.data)
+        let data: msg.RS2C_PushTFPosChange = result.data;
+        if (data)
         {
             let beforeId: number;
             if (HundredWarManager.roomInfo && HundredWarManager.roomInfo.playerList)
             {
-                if (result.data.pos == 0 && !result.data.roleId && HundredWarManager.isBanker(UserManager.userInfo.roleId) && InfoUtil.checkAvailable(HundredWarManager.roomInfo) && HundredWarManager.roomInfo.bankerGold < HundredWarManager.roomInfo.definition.BankerMinGold)
+                if (data.pos == 0 && !data.roleid && HundredWarManager.isBanker(UserManager.userInfo.roleId) && InfoUtil.checkAvailable(HundredWarManager.roomInfo) && HundredWarManager.roomInfo.bankerGold < HundredWarManager.roomInfo.definition.BankerMinGold)
                 {
                     AlertManager.showAlert("您的当前金币低于" + game.MathUtil.formatNum(HundredWarManager.roomInfo.definition.BankerMinGold) + "金币，已从庄家列表退出。");
                 }
@@ -389,16 +388,16 @@ class HundredWarManager
                     let flag: boolean = true;
                     for (let i: number = 0; i < HundredWarManager.roomInfo.playerList.length; i++)
                     {
-                        if (result.data.pos == HundredWarManager.roomInfo.playerList[i].pos)
+                        if (data.pos == HundredWarManager.roomInfo.playerList[i].pos)
                         {
                             beforeId = HundredWarManager.roomInfo.playerList[i].roleId;
-                            if (!result.data.roleId)
+                            if (!data.roleid)
                             {
                                 HundredWarManager.roomInfo.playerList.splice(i, 1);
-                            } else if (result.data.roleId != HundredWarManager.roomInfo.playerList[i].roleId)
+                            } else if (data.roleid != HundredWarManager.roomInfo.playerList[i].roleId)
                             {
-                                HundredWarManager.roomInfo.playerList[i].roleId = result.data.roleId;
-                                UserManager.reqSimpleUserInfo(result.data.roleId);
+                                HundredWarManager.roomInfo.playerList[i].roleId = game.longToNumber(data.roleid);
+                                UserManager.reqSimpleUserInfo(game.longToNumber(data.roleid));
                             }
                             flag = false;
                         }
@@ -406,40 +405,40 @@ class HundredWarManager
                     if (flag)
                     {
                         let playerInfo: HWHundredWarRoomPlayerInfo = new HWHundredWarRoomPlayerInfo();
-                        playerInfo.pos = result.data.pos;
-                        playerInfo.roleId = result.data.roleId;
+                        playerInfo.pos = data.pos;
+                        playerInfo.roleId = game.longToNumber(data.roleid);
                         HundredWarManager.roomInfo.playerList.push(playerInfo);
-                        UserManager.reqSimpleUserInfo(result.data.roleId);
+                        UserManager.reqSimpleUserInfo(game.longToNumber(data.roleid));
                     }
                 } else
                 {
-                    if (result.data.roleId && !HundredWarManager.isSysBanker(result.data.roleId))
+                    if (data.roleid && !HundredWarManager.isSysBanker(game.longToNumber(data.roleid)))
                     {
                         let playerInfo: HWHundredWarRoomPlayerInfo = new HWHundredWarRoomPlayerInfo();
-                        playerInfo.pos = result.data.pos;
-                        playerInfo.roleId = result.data.roleId;
+                        playerInfo.pos = data.pos;
+                        playerInfo.roleId = game.longToNumber(data.roleid);
                         HundredWarManager.roomInfo.playerList.push(playerInfo);
-                        UserManager.reqSimpleUserInfo(result.data.roleId);
+                        UserManager.reqSimpleUserInfo(game.longToNumber(data.roleid));
                     } else
                     {
                         HundredWarManager.roomInfo.playerList.push(HundredWarManager.sysBanker);
                         UserManager.OnGetSimpleUserInfoEvent.dispatch(HundredWarManager.sysBanker);
                     }
                 }
-                if (result.data.bankerGold)
+                if (data.bankergold)
                 {
-                    HundredWarManager.roomInfo.bankerGold = result.data.bankerGold;
+                    HundredWarManager.roomInfo.bankerGold = data.bankergold;
                 }
-                if (HundredWarManager.isSysBanker(result.data.roleId))
+                if (HundredWarManager.isSysBanker(game.longToNumber(data.roleid)))
                 {
                     HundredWarManager.roomInfo.bankerGold = HundredWarManager.sysBanker.gold;
                 }
             }
-            if (result.data.pos == 0)
+            if (data.pos == 0)
             {
-                HundredWarManager.onBankerChangeEvent.dispatch({ beforeId: beforeId, afterId: result.data.roleId });
+                HundredWarManager.onBankerChangeEvent.dispatch({ beforeId: beforeId, afterId: data.roleid });
             }
-            HundredWarManager.onPosChangeEvent.dispatch({ pos: result.data.pos, roleId: result.data.roleId });
+            HundredWarManager.onPosChangeEvent.dispatch({ pos: data.pos, roleId: data.roleid });
         }
     }
     /**
@@ -447,22 +446,23 @@ class HundredWarManager
      */
     public static onBetChange(result: game.SpRpcResult)
     {
-        if (result.data && result.data.bet)
+        let data: msg.RS2C_PushBetPoolChange = result.data;
+        if (data && data.bet)
         {
             let changeBet: Array<number> = new Array<number>();
             for (let info of HundredWarManager.roomInfo.betList)
             {
                 if (info.pos - 1 >= 0)  //闲家注池是 1 - 4
                 {
-                    if (info.bet != result.data.bet[info.pos - 1])
+                    if (info.bet != data.bet[info.pos - 1])
                     {
                         changeBet.push(info.pos);
                     }
-                    info.bet = result.data.bet[info.pos - 1];
+                    info.bet = data.bet[info.pos - 1];
                 }
             }
-            result.data.bet = changeBet;
-            HundredWarManager.onBetChangeEvent.dispatch(result.data);
+            data.bet = changeBet;
+            HundredWarManager.onBetChangeEvent.dispatch(data);
         }
     }
     /**
@@ -470,14 +470,15 @@ class HundredWarManager
      */
     public static onRoomStateChange(result: game.SpRpcResult)
     {
-        if (result.data)
+        let data: msg.RS2C_PushTFStateChange = result.data;
+        if (data)
         {
             if (HundredWarManager.roomInfo)
             {
-                HundredWarManager.roomInfo.state = result.data.state;
-                if (result.data.stateTime)
+                HundredWarManager.roomInfo.state = data.state;
+                if (data.statetime)
                 {
-                    HundredWarManager.roomInfo.stateTime = result.data.stateTime;
+                    HundredWarManager.roomInfo.stateTime = game.longToNumber(data.statetime);
                 } else
                 {
                     HundredWarManager.roomInfo.stateTime = 0;
@@ -491,15 +492,16 @@ class HundredWarManager
      */
     public static onCardPush(result: game.SpRpcResult)
     {
-        if (result.data)
+        let data: msg.RS2C_PushTFRoundOver = result.data;
+        if (data)
         {
             HundredWarManager.hundredWarOverInfo = new HundredWarOverInfo();
-            if (result.data.betList)
+            if (data.betlist)
             {
                 let cardInfoList: Array<CardInfo>;
                 let betPot: HWBetPotInfo;
                 HundredWarManager.hundredWarOverInfo.betList = new Array<HWBetPotInfo>();
-                for (let betInfo of result.data.betList)
+                for (let betInfo of data.betlist)
                 {
                     cardInfoList = new Array<CardInfo>();
                     betPot = new HWBetPotInfo();
@@ -510,15 +512,31 @@ class HundredWarManager
                     HundredWarManager.hundredWarOverInfo.betList.push(betPot);
                 }
             }
-            if (result.data.rankList)
+            if (data.ranklist)
             {
-                HundredWarManager.hundredWarOverInfo.rankList = result.data.rankList;
+                HundredWarManager.hundredWarOverInfo.rankList = data.ranklist;
                 HundredWarManager.hundredWarOverInfo.rankList.sort(SortUtil.hundredOverRankSort);
             }
-            HundredWarManager.hundredWarOverInfo.gold = result.data.gold;
-            HundredWarManager.hundredWarOverInfo.pool = result.data.pool;
-            HundredWarManager.hundredWarOverInfo.isWin = result.data.isWin;
-            HundredWarManager.roomInfo.bankerGold = result.data.bankerGold;
+            HundredWarManager.hundredWarOverInfo.gold = data.gold;
+            HundredWarManager.hundredWarOverInfo.pool = data.pool;
+            HundredWarManager.hundredWarOverInfo.isWin = data.iswin;
+            HundredWarManager.hundredWarOverInfo.sitplayers = data.sitplayers;
+            if(HundredWarManager.roomInfo && HundredWarManager.roomInfo.playerList && data.sitplayers) //更新坐下玩家信息
+            {
+                for(let p1 of data.sitplayers)
+                {
+                    for(let p2 of HundredWarManager.roomInfo.playerList)
+                    {
+                        if(p2.roleId == p1.roleid)
+                        {
+                            p2.copyValueFromIgnoreCase(p1);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            HundredWarManager.roomInfo.bankerGold = data.bankergold;
             HundredWarManager.onCardPushEvent.dispatch();
         }
     }
@@ -527,11 +545,12 @@ class HundredWarManager
     */
     public static onOutRoomPush(result: game.SpRpcResult)
     {
-        if (result.data)
+        let data:msg.RS2C_PushTFPlayerKickOut = result.data;
+        if (data.id)
         {
             // let data:msg.
             HundredWarManager._isHadLeave = true;
-            HundredWarManager.onOutRoomEvent.dispatch(result.data["id"]);
+            HundredWarManager.onOutRoomEvent.dispatch(data.id);
         }
     }
 

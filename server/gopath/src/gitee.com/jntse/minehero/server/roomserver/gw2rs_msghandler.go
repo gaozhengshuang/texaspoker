@@ -189,8 +189,10 @@ func on_C2GW_ReqEnterRoom(session network.IBaseNetSession, message interface{}) 
 func on_C2GW_ReqLeaveRoom(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_ReqLeaveRoom)
 	userid := tmsg.GetUserid()
+	msgleave := &msg.RS2GW_UserLeaveRoom{Userid:pb.Int64(userid)}
 	u := UserMgr().FindUser(userid)
 	if u == nil {
+		session.SendCmd(msgleave)
 		log.Error("玩家[%d] 请求离开房间，但没有玩家实例", userid)
 		return
 	}
@@ -198,6 +200,7 @@ func on_C2GW_ReqLeaveRoom(session network.IBaseNetSession, message interface{}) 
 	roomid := u.RoomId()
 	room := RoomMgr().Find(roomid)
 	if room == nil {
+		session.SendCmd(msgleave)
 		log.Error("玩家[%d] 请求离开房间，找不到房间[%d]", userid, roomid)
 		return
 	}

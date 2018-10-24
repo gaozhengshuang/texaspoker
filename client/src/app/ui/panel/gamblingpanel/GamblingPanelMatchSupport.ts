@@ -81,7 +81,7 @@ class GamblingPanelMatchSupport extends BaseGamblingPanelSupport
         SoundManager.playEffect(MusicAction.buttonClick);
         if (InfoUtil.checkAvailable(GamblingManager.matchRoomInfo))
         {
-            UIManager.showPanel(UIModuleName.ChampionshipInfoPanel, { championshipInfo: GamblingManager.matchRoomInfo, isInRoom: true });
+            UIManager.showPanel(UIModuleName.ChampionshipInfoPanel, { championshipInfo: GamblingManager.matchRoomInfo, isInRoom: true });   
         }
     }
     private onMTTOverPushEvent(data: msg.RS2C_PushMTTWeedOut)

@@ -157,3 +157,22 @@ func (u *GateUser) FillUserStatistics(bin *msg.UserStatistics) {
 		}
 	}
 }
+
+func (u *GateUser) OnReqBankruptInfo() {
+	send := &msg.GW2C_RetBankruptInfo{}
+	cmdmap, err := Redis().HGetAll(fmt.Sprintf("bankrupt_%d", u.Id())).Result()
+	if err == nil {
+		for k, v := range cmdmap {
+			switch k {
+				case "time":
+					send.Time = pb.Int64(util.Atol(v))
+				case "count":
+					send.Count = pb.Int32(util.Atoi(v))
+				case "play":
+					send.Play = pb.Int32(util.Atoi(v))
+				default:
+			}
+		}
+	}
+	u.SendMsg(send)
+}

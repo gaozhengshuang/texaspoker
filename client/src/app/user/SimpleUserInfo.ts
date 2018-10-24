@@ -82,7 +82,10 @@ class SimpleUserInfo extends BaseServerValueInfo
      * 会员等级
     */
 	public vipLevel: number;
-
+	/**
+	 * 庄家的位置
+	 */
+	public pos:number;
 
 	public reset()
 	{
@@ -92,5 +95,6 @@ class SimpleUserInfo extends BaseServerValueInfo
 		this.sex = undefined;
 		this.gold = undefined;
 		this.vipLevel = undefined;
+		this.pos = undefined;
 	}
 }

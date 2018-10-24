@@ -6,7 +6,7 @@ class HundredWarOverInfo extends BaseServerValueInfo
     /**
      * 赢取最多排名
     */
-    public rankList: Array<any>;
+    public rankList: Array<msg.ITFRankPlayer>;
     /**
      * 注池信息
     */
@@ -23,6 +23,10 @@ class HundredWarOverInfo extends BaseServerValueInfo
      * 是否胜利
      */
     public isWin:boolean;
+    /**
+     * 坐下玩家列表
+     */
+    public sitplayers:msg.ITFPlayer[];
 
     public reset()
     {

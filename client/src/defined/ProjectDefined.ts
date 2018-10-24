@@ -105,6 +105,10 @@ class ProjectDefined
 	public static takeAwardGuideStep = 4;
 	public static pollingLimit = 1;
 	public static shareResultNumLimit = 30;
+	/**
+	 * 最大用户等级
+	 */
+	public static maxUseLevel = 100;
 
 	/**
  * 获取登录地址

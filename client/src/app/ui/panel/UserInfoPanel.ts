@@ -159,8 +159,22 @@ class UserInfoPanel extends BasePanel
 		this.levelLabel.text = info.level.toString();
 		this.titleLabel.text = UserUtil.getTitle(info.level);
 		this.levelProgressImg.width = 340;
-		this.levelProgressImg.width *= game.MathUtil.clamp(UserUtil.getPercentage(info.level, info.exp), 0, 1);
-		this.expLabel.text = UserUtil.getExpStringPercent(info.level, info.exp);
+
+		let expDef: table.IExpDefine = table.ExpById[info.level + 1];
+		if (expDef == null)
+		{
+			expDef = table.ExpById[ProjectDefined.maxUseLevel];
+		}
+		if (expDef)
+		{
+			let v = Math.round((info.exp / expDef.Exp) * 100) / 100;
+			this.levelProgressImg.width *= game.MathUtil.clamp(v, 0, 1); //game.MathUtil.clamp(UserUtil.getPercentage(info.level, info.exp), 0, 1);
+		}
+		else
+		{
+			this.levelProgressImg.width = 0;
+		}
+		this.expLabel.text = info.exp.toString(); //UserUtil.getExpStringPercent(info.level, info.exp);
 		this.setStateLabel(info);
 	}
 	/**
@@ -195,7 +209,7 @@ class UserInfoPanel extends BasePanel
 				}
 				break;
 			case UserState.InHundredWar:
-				let hundredWarDef: table.IHundredWarDefine =  table.HundredWarById[info.stateConfId];
+				let hundredWarDef: table.IHundredWarDefine = table.HundredWarById[info.stateConfId];
 				if (hundredWarDef)
 				{
 					this.stateLabel.text = game.StringUtil.format("百人大战：{0}中", hundredWarDef.Name);

@@ -19,28 +19,28 @@ message AwardDefine
 {	
 	
 	
-	optional int32 Id = 1; 
+	optional int32 Id = 1; // 奖品id
 	
 	
-	optional int32 Type = 2; 
+	optional int32 Type = 2; // 奖品类型
 	
 	
-	repeated int32 CostType = 3; 
+	repeated int32 CostType = 3; // 消耗道具类型
 	
 	
-	repeated int32 CostId = 4; 
+	repeated int32 CostId = 4; // 消耗道具id
 	
 	
-	repeated int32 CostNum = 5; 
+	repeated int32 CostNum = 5; // 消耗道具数量
 	
 	
-	repeated int32 RewardType = 6; 
+	repeated int32 RewardType = 6; // 奖励道具类型
 	
 	
-	repeated int32 RewardId = 7; 
+	repeated int32 RewardId = 7; // 奖励道具id
 	
 	
-	repeated int32 RewardNum = 8; 
+	repeated int32 RewardNum = 8; // 奖励道具数量
 	
 	
 	optional int32 PreId = 9; 
@@ -49,19 +49,19 @@ message AwardDefine
 	optional int32 LogId = 10; 
 	
 	
-	optional string Name = 11; 
+	optional string Name = 11; // 名字
 	
 	
-	optional string Des = 12; 
+	optional string Des = 12; // 描述
 	
 	
-	optional int32 Limit = 13; 
+	optional int32 Limit = 13; // 使用次数限制
 	
 	
-	optional int32 Nacr = 14; 
+	optional int32 Nacr = 14; // 不能通过兑换协议直接兑换
 	
 	
-	optional int32 MailId = 15; 
+	optional int32 MailId = 15; // 邮件id
 
 }
 

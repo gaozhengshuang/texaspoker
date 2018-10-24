@@ -16,6 +16,9 @@ class MailInfo extends BaseServerValueInfo
         this.Date = 0;
         this.items = null;
         this.IsGot = false;
+        this.mtttid = 0;
+        this.mttrank = 0;
+        this.mttawardtid = 0;
     }
     /**
      * 邮件id
@@ -81,6 +84,6 @@ class MailInfo extends BaseServerValueInfo
     */
     public get isHavePrize(): boolean
     {
-        return this.items && this.items.length > 0
+        return this.items && this.items.length > 0 || this.mttawardtid > 0;
     }
 }

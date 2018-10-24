@@ -117,6 +117,10 @@ func (r *RoomBase) BroadCastMemberGateMsg(m pb.Message, except ...int64) {
 func (r *RoomBase) BroadCastMemberMsg(m pb.Message, except ...int64) {
 	memloop:
 	for id, u := range r.members {
+		if u.RoomId() != r.Id() {
+			//log.Info("玩家%d 房间%d不匹配%d 不发消息", u.Id(), u.RoomId(), r.Id())
+			continue
+		}
 		for _, exc := range except {
 			if id == exc { continue memloop }
 		}

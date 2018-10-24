@@ -68,7 +68,7 @@ func MakeMTTMail(rclient *redis.Client, rid int64, mtttid int32, mttrank int32, 
 
 	// DBSave
 	utredis.HSetProtoBin(rclient, fmt.Sprintf("usermails_%d", rid), util.Ltoa(uuid), detail)
-	log.Info("收件人[%d] 发件人[%d] 锦标赛邮件创建成功 Id[%d] 排名%d", rid, 0, uuid, mttrank)
+	log.Info("收件人[%d] 发件人[%d] 锦标赛邮件创建成功 Id[%d] 排名%d award%d", rid, 0, uuid, mttrank, mttaward)
 	return detail
 }
 

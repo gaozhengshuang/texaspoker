@@ -125,8 +125,8 @@ func (cs *ChampionShip) SetRoomBlind() {
 		if room == nil {
 			continue
 		}
-		room.bigblindnum = cs.bconf.SBlind
-		room.smallblindnum = cs.bconf.BBlind
+		room.bigblindnum = cs.bconf.BBlind
+		room.smallblindnum = cs.bconf.SBlind
 		room.preblindnum = cs.bconf.PreBet
 	}
 }
@@ -229,6 +229,17 @@ func (cs *ChampionShip) CanShow() bool {
 func (cs *ChampionShip) IsMember(uid int64) bool {
 	_, ok := cs.members[uid]
 	if ok {
+		return true
+	}
+	return false
+}
+
+func (cs *ChampionShip) IsOutMember(uid int64) bool {
+	member, ok := cs.members[uid]
+	if !ok {
+		return false
+	}
+	if member.isout {
 		return true
 	}
 	return false
@@ -354,8 +365,10 @@ func (cs *ChampionShip) JoinOneMatch(userid int64, roomid int64) {
 		if u == nil {
 			return
 		}
-		texas.UserEnter(u)
+		texas.MTTUserEnter(u)
 		texas.SetPlayerBankRoll(userid, cs.GetUserBankRoll(userid))
+		texas.NotifySitStand(userid, userid)
+		log.Info("锦标赛%d 房间%d 玩家%d 分配房间", cs.uid, roomid, userid)
 	}
 }
 
@@ -398,15 +411,17 @@ func (cs *ChampionShip) GetAvgChips() int32 {
 }
 
 func (cs *ChampionShip) UserGameOver(userid int64) {
-	send := &msg.RS2C_PushMTTWeedOut{}
-	send.Rank = pb.Int32(cs.GetFinalRank(userid))
-	send.Join = pb.Int32(cs.maxuser)
-	send.Maxrank = pb.Int32(0)
-	send.Recordid = pb.Int32(cs.uid)
-	send.Id = pb.Int32(cs.tid)
-	u := UserMgr().FindUser(userid)
-	if u != nil {
-		u.SendClientMsg(send)
+	if member, ok := cs.members[userid]; ok {
+		send := &msg.RS2C_PushMTTWeedOut{}
+		send.Rank = pb.Int32(cs.GetFinalRank(userid))
+		send.Join = pb.Int32(cs.maxuser)
+		send.Maxrank = pb.Int32(0)
+		send.Recordid = pb.Int32(cs.uid)
+		send.Id = pb.Int32(cs.tid)
+		u := UserMgr().FindUser(userid)
+		if u != nil && u.RoomId() == member.roomuid{
+			u.SendClientMsg(send)
+		}
 	}
 }
 
@@ -424,17 +439,17 @@ func (cs *ChampionShip) SetMinRoom() {
 	}  
 }
 
-func (cs *ChampionShip) ReDispatchRoom(roomuid int64) {
+func (cs *ChampionShip) ReDispatchRoom(roomuid int64) bool {
 	room, ok := cs.roommember[roomuid]
 	if !ok {
-		return
+		return false
 	}
 	if len(cs.roommember) <= 1 {
-		return 
+		return false
 	}
-	if int32(len(room)) > cs.minroomnum {
-		return
-	}
+	//if int32(len(room)) > cs.minroomnum {
+	//	return false
+	//}
 	var leftseat int32 = 0
 	for k, r := range cs.roommember {
 		if k == roomuid {
@@ -451,7 +466,7 @@ func (cs *ChampionShip) ReDispatchRoom(roomuid int64) {
 		}
 		delete(cs.roommember, roomuid)
 		dispatched := make(map[int64]int64)
-		var tmproommember map[int64]map[int64]int64
+		tmproommember := make(map[int64]map[int64]int64)
 		for _, m := range tmpmember {
 			for key, tmproom := range cs.roommember {
 				if _, ok := dispatched[key]; ok {
@@ -479,9 +494,12 @@ func (cs *ChampionShip) ReDispatchRoom(roomuid int64) {
 		cs.NotifyUserRoom(tmproommember)
 		texas := RoomMgr().FindTexas(roomuid)
 		if texas != nil {
-			texas.Destory(3)
+			texas.Destory(0)
 		}
+		log.Info("锦标赛%d 拆散桌子删除房间%d", cs.uid, roomuid)
+		return true
 	}
+	return false
 }
 
 func (cs *ChampionShip) NotifyUserRoom(roommember map[int64]map[int64]int64) {
@@ -504,10 +522,10 @@ func (cs *ChampionShip) NotifyUserBlind(roommember map[int64]map[int64]int64) {
 	send.Bblind = pb.Int32(cs.bconf.BBlind)
 	send.Ante = pb.Int32(cs.bconf.PreBet)
 	send.Blindlevel = pb.Int32(cs.blindlevel)
-	for _, room := range roommember {
+	for key, room := range roommember {
 		for _, member := range room {
 			u := UserMgr().FindUser(member)
-			if u != nil {
+			if u != nil && u.RoomId() == key{
 				u.SendClientMsg(send)
 			}
 		}
@@ -560,7 +578,7 @@ func (cs *ChampionShip) GameOver() {
 func (cs *ChampionShip) GetAwardByRank (rank int32) int32 {
 	for _, v := range tbl.TChampionshipPrize.ChampionshipPrizeById {
 		if cs.tconf.Prize == v.PrizeId && v.Start >= rank && rank <= v.End {
-			return v.Id
+			return v.AwardId
 		}
 	}
 	return 0	
@@ -577,6 +595,9 @@ func (cs *ChampionShip) RewardAll() {
 	var rank int32 = 1
 	for i := len(cs.finalrank)-1; i >= 0; i-- {
 		awardid := cs.GetAwardByRank(rank)
+		if awardid == 0 {
+			continue
+		}
 		memberid := cs.finalrank[i]
 		detail := def.MakeMTTMail(Redis(), memberid, cs.tid, rank, awardid)
 		transmsg := &msg.RS2MS_PushNewMail{Receiver:pb.Int64(cs.finalrank[i]), Mail:detail}
@@ -586,6 +607,14 @@ func (cs *ChampionShip) RewardAll() {
 			if member != nil {
 				cs.ChampionNotify(member.name, cs.tid, awardid)
 			}
+		}
+		//进入锦标赛奖励圈
+		Redis().HIncrBy(fmt.Sprintf("charstate_%d", memberid), "mttprizetimes", 1)
+		if rank == 1 {
+			//锦标赛夺冠
+			Redis().HIncrBy(fmt.Sprintf("charstate_%d", memberid), "championtimes", 1)
+			strgroup := strconv.FormatInt(int64(AchieveGroup_MTTChampion), 10)
+			Redis().HIncrBy(fmt.Sprintf("charstate_%d", memberid), strgroup, 1)
 		}
 		rank++
 	}
@@ -608,6 +637,10 @@ func (cs *ChampionShip) SaveData() {
 		key := fmt.Sprintf("usercsrecord_%d", member)
 		pipe.LPush(key, struid)
 	}
+	_, err := pipe.Exec()
+	if err != nil {
+		log.Info("锦标赛%d 写入玩家记录失败", cs.uid)
+	}
 	srecord := &msg.MTTRecordInfo{}
 	first := cs.GetFirstMember()
 	if first != nil {
@@ -616,8 +649,11 @@ func (cs *ChampionShip) SaveData() {
 		srecord.Name = pb.String(first.name)
 		srecord.Head = pb.String(first.face)
 		srecord.Sex = pb.Int32(first.sex)
-		skey := fmt.Sprintf("cssimplerecord_%s", cs.uid)
-		utredis.SetProtoBin(Redis(), skey, srecord)
+		srecord.Recordid = pb.Int32(cs.uid)
+		skey := fmt.Sprintf("cssimplerecord_%d", cs.uid)
+		if err := utredis.SetProtoBin(Redis(), skey, srecord); err != nil {
+			log.Info("锦标赛%d 写入简单记录失败", cs.uid)
+		}
 	}
 	drecord := &msg.RS2C_RetMTTRecentlyRankList{}
 	count := 1
@@ -640,7 +676,9 @@ func (cs *ChampionShip) SaveData() {
 		count++
 	}
 	dkey := fmt.Sprintf("csdetailrecord_%d", cs.uid)
-	utredis.GetProtoBin(Redis(), dkey, drecord)
+	if err := utredis.SetProtoBin(Redis(), dkey, drecord); err != nil {
+		log.Info("锦标赛%d 写入详细记录失败", cs.uid)
+	}
 }
 
 func (cs *ChampionShip) GetMemberById(uid int64) *CSPlayer {
@@ -774,7 +812,7 @@ func (cm *ChampionManager) Tick(now int64) {
 			log.Info("锦标赛%d 未开启删除", key)
 		}
 		if cs.IsOver() {
-			cm.championovers[key] = cs
+			//cm.championovers[key] = cs
 			delete(cm.championships, key)
 			log.Info("锦标赛%d 结束", key)
 		}
@@ -801,9 +839,10 @@ func (cm *ChampionManager) ReqMTTList(gid int, uid int64) {
 		mtt.Recordid = pb.Int32(cs.uid)
 		mtt.Joinway = pb.Int32(cs.GetUserJoinWay(uid))
 		mtt.Leftjoin = pb.Int32(cs.curmembernum)
+		mtt.Roomuid = pb.Int64(cs.GetUserRoom(uid))
 		send.Mttlist = append(send.Mttlist, mtt)
 	}
-	for _, cs := range cm.championovers {
+	/*for _, cs := range cm.championovers {
 		mtt := &msg.MTTInfo{}
 		mtt.Id = pb.Int32(cs.tconf.Id)
 		mtt.Starttime = pb.Int32(cs.starttime)
@@ -813,7 +852,7 @@ func (cm *ChampionManager) ReqMTTList(gid int, uid int64) {
 		mtt.Endtime = pb.Int32(cs.endtime)
 		mtt.Outtime = pb.Int32(cs.GetUserOutTime(uid))
 		send.Mttlist = append(send.Mttlist, mtt)
-	}
+	}*/
 	RoomSvr().SendClientMsg(gid, uid, send)
 }
 
@@ -839,6 +878,7 @@ func (cm *ChampionManager) ReqMTTJoin(gid int, uid int64, rev *msg.C2RS_ReqMTTJo
 	send.Recordid = pb.Int32(cs.uid)
 	RoomSvr().SendClientMsg(gid, uid, send)
 	log.Info("玩家%d 报名参加竞标赛%d", uid, cs.uid)
+	Redis().HIncrBy(fmt.Sprintf("charstate_%d", uid), "mttjointimes", 1)
 }
 
 func (cm *ChampionManager) ReqMTTQuit(gid int, uid int64, rev *msg.C2RS_ReqMTTQuit) {
@@ -869,6 +909,9 @@ func (cm *ChampionManager) ReqJoinedMTTList(gid int, uid int64, rev *msg.C2RS_Re
 		if !cs.IsMember(uid) {
 			continue
 		}
+		if cs.IsOutMember(uid) {
+			continue
+		}
 		mtt := &msg.JoinedMTTInfo{}
 		mtt.Id = pb.Int32(cs.tconf.Id)
 		mtt.Starttime = pb.Int32(cs.starttime)
@@ -876,6 +919,7 @@ func (cm *ChampionManager) ReqJoinedMTTList(gid int, uid int64, rev *msg.C2RS_Re
 		mtt.Recordid = pb.Int32(cs.uid)
 		mtt.Joinway = pb.Int32(cs.GetUserJoinWay(uid))
 		mtt.Rank = pb.Int32(cs.GetUserRank(uid))
+		mtt.Roomuid = pb.Int64(cs.GetUserRoom(uid))
 		send.Mttlist = append(send.Mttlist, mtt)
 	}
 	RoomSvr().SendClientMsg(gid, uid, send)
@@ -906,6 +950,7 @@ func (cm *ChampionManager) ReqMTTRecordList(gid int, uid int64) {
 	key := fmt.Sprintf("usercsrecord_%d", uid)
 	rlist, err := Redis().LRange(key, 0, 10).Result()
 	if err != nil {
+		log.Info("玩家%d 请求最近列表失败", uid)
 		return
 	}
 	for _, v := range rlist {
@@ -922,7 +967,7 @@ func (cm *ChampionManager) ReqMTTRecentlyRankList(gid int, uid int64, rev *msg.C
 	send := &msg.RS2C_RetMTTRecentlyRankList{}
 	key := fmt.Sprintf("csdetailrecord_%d", rev.GetRecordid())
 	if err := utredis.GetProtoBin(Redis(), key, send); err != nil {
-		return
+		log.Info("锦标赛%d 请求详细列表失败", rev.GetRecordid())
 	}
 	RoomSvr().SendClientMsg(gid, uid, send)
 }

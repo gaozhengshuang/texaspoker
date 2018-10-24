@@ -131,6 +131,7 @@ class RankManager
                     }
                     rankListInfo.list.push(rankInfo);
                 }
+                RankManager.tryFixFriendRank(type, rankListInfo.list);
                 game.FuncUtil.invoke(cb, target);
             }
         };
@@ -163,6 +164,7 @@ class RankManager
                 let rankListInfo: RankListInfo = RankManager.getRankListInfo(type, param1, param2, param3);
                 if (rankListInfo)
                 {
+                    RankManager.tryFixFriendRank(type, list);
                     rankListInfo.list = list;
                     rankListInfo.lastTime = TimeManager.GetServerUtcTimestamp();
                 }
@@ -187,6 +189,18 @@ class RankManager
             sendObj = { type: type, rank: isGetMyRank };
         }
         SocketManager.call(Command.C2GW_ReqRankList, sendObj, callback, null, this);
+    }
+    private static tryFixFriendRank(type: RankType, list: RankInfo[])
+    {
+        if (type == RankType.FriendGold && list && list.length == 0 && UserManager.userInfo) //move todo 如果好友榜为空的
+        {
+            let rInfo = new RankInfo();
+            rInfo.copyValueFromIgnoreCase(UserManager.userInfo);
+            rInfo.score = UserManager.userInfo.gold;
+            rInfo.rank = 1;
+            rInfo.roleId = UserManager.userInfo.roleId;
+            list.push(rInfo);
+        }
     }
     /**
      * 根据roleId获得排名信息

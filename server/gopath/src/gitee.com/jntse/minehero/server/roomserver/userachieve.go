@@ -31,7 +31,7 @@ const (
 	AchieveGroup_BaiRenPlay1 = 1081 //参与百人大战欢乐场数
 	AchieveGroup_BaiRenPlay2 = 1101 //参与百人大战富豪场数
 	AchieveGroup_TexasWin = 2001 //在德州扑克内赢局数
-	AchieveGroup_MTTWin = 2021 	 //在MTT锦标赛夺冠数
+	AchieveGroup_MTTChampion = 2021 	 //在MTT锦标赛夺冠数
 	AchieveGroup_BaiRenWin = 2041 //百人大战胜利数
 	AchieveGroup_LevelEx = 3001  //等级跟Level一样只是多了一份成就
 )
@@ -176,23 +176,37 @@ func (u *RoomUser) OnAchievePlayPoker (kind int32, subkind int32, hand *Hand) {
 	handlevel := hand.level
 	handfinalvalue := hand.finalvalue
 	//弃牌不记录弃牌是负值
-	handpower := int64(handlevel) << 32 + int64(handfinalvalue)
-	oldpower := util.Atol(Redis().HGet(fmt.Sprintf("charstate_%d", u.Id()), "handpower").Val())
-	if handpower > oldpower {
-		Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "handpower", handpower)
-		tmp := hand.ToAllCard()
-		strmaxcard := ""
-		i := 0
-		for i < len(tmp) {
-			if i == 0 {
-				strmaxcard = util.Itoa(tmp[i])
-			}else {
-				strmaxcard = strmaxcard + "|" + util.Itoa(tmp[i])
-			}
-			i = i + 1 
+	if handlevel > 0 {
+		handpower := int64(handlevel) << 32 + int64(handfinalvalue)
+		oldpower := util.Atol(Redis().HGet(fmt.Sprintf("charstate_%d", u.Id()), "handpower").Val())
+		//log.Info("OnAchievePlayPoker----->%d, handlevel:%d, handpower:%d, oldpower:%d",u.Id(), handlevel, handpower, oldpower)
+		if handpower > 0 && handpower > oldpower {
+			u.SaveMaxCard(handpower, hand)
 		}
-		Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "maxhand", strmaxcard)
 	}
+	//Redis().HIncrBy(fmt.Sprintf("charstate_%d", u.Id()), "totalplay", 1)
+}
+
+func (u *RoomUser) SaveMaxCard(maxpower int64, hand *Hand) {
+	if hand == nil {
+		return
+	}
+	tmp := hand.ToRecordCard()
+	if len(tmp) != 10 {
+		return
+	}
+	strmaxcard := ""
+	i := 0
+	for i < 10 {
+		if i == 0 {
+			strmaxcard = util.Itoa(tmp[i])
+		}else {
+			strmaxcard = strmaxcard + "|" + util.Itoa(tmp[i])
+		}
+		i = i + 1 
+	}
+	Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "maxhand", strmaxcard)
+	Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "handpower", maxpower)
 }
 
 func (u *RoomUser) OnAchieveProcessChanged(group int32) {

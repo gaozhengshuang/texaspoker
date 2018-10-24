@@ -17554,6 +17554,192 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a C2GW_ReqBankruptInfo. */
+    interface IC2GW_ReqBankruptInfo {
+    }
+
+    /** Represents a C2GW_ReqBankruptInfo. */
+    class C2GW_ReqBankruptInfo implements IC2GW_ReqBankruptInfo {
+
+        /**
+         * Constructs a new C2GW_ReqBankruptInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqBankruptInfo);
+
+        /**
+         * Creates a new C2GW_ReqBankruptInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqBankruptInfo instance
+         */
+        public static create(properties?: msg.IC2GW_ReqBankruptInfo): msg.C2GW_ReqBankruptInfo;
+
+        /**
+         * Encodes the specified C2GW_ReqBankruptInfo message. Does not implicitly {@link msg.C2GW_ReqBankruptInfo.verify|verify} messages.
+         * @param message C2GW_ReqBankruptInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqBankruptInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqBankruptInfo message, length delimited. Does not implicitly {@link msg.C2GW_ReqBankruptInfo.verify|verify} messages.
+         * @param message C2GW_ReqBankruptInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqBankruptInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqBankruptInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqBankruptInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqBankruptInfo;
+
+        /**
+         * Decodes a C2GW_ReqBankruptInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqBankruptInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqBankruptInfo;
+
+        /**
+         * Verifies a C2GW_ReqBankruptInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqBankruptInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqBankruptInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqBankruptInfo;
+
+        /**
+         * Creates a plain object from a C2GW_ReqBankruptInfo message. Also converts values to other types if specified.
+         * @param message C2GW_ReqBankruptInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqBankruptInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqBankruptInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetBankruptInfo. */
+    interface IGW2C_RetBankruptInfo {
+
+        /** GW2C_RetBankruptInfo time */
+        time?: (number|Long|null);
+
+        /** GW2C_RetBankruptInfo count */
+        count?: (number|null);
+
+        /** GW2C_RetBankruptInfo play */
+        play?: (number|null);
+    }
+
+    /** Represents a GW2C_RetBankruptInfo. */
+    class GW2C_RetBankruptInfo implements IGW2C_RetBankruptInfo {
+
+        /**
+         * Constructs a new GW2C_RetBankruptInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetBankruptInfo);
+
+        /** GW2C_RetBankruptInfo time. */
+        public time: (number|Long);
+
+        /** GW2C_RetBankruptInfo count. */
+        public count: number;
+
+        /** GW2C_RetBankruptInfo play. */
+        public play: number;
+
+        /**
+         * Creates a new GW2C_RetBankruptInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetBankruptInfo instance
+         */
+        public static create(properties?: msg.IGW2C_RetBankruptInfo): msg.GW2C_RetBankruptInfo;
+
+        /**
+         * Encodes the specified GW2C_RetBankruptInfo message. Does not implicitly {@link msg.GW2C_RetBankruptInfo.verify|verify} messages.
+         * @param message GW2C_RetBankruptInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetBankruptInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetBankruptInfo message, length delimited. Does not implicitly {@link msg.GW2C_RetBankruptInfo.verify|verify} messages.
+         * @param message GW2C_RetBankruptInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetBankruptInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetBankruptInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetBankruptInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetBankruptInfo;
+
+        /**
+         * Decodes a GW2C_RetBankruptInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetBankruptInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetBankruptInfo;
+
+        /**
+         * Verifies a GW2C_RetBankruptInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetBankruptInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetBankruptInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetBankruptInfo;
+
+        /**
+         * Creates a plain object from a GW2C_RetBankruptInfo message. Also converts values to other types if specified.
+         * @param message GW2C_RetBankruptInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetBankruptInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetBankruptInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a GW2C_PushMsgNotify. */
     interface IGW2C_PushMsgNotify {
 
@@ -22846,6 +23032,96 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a RS2GW_ChatInfo. */
+    interface IRS2GW_ChatInfo {
+
+        /** RS2GW_ChatInfo chat */
+        chat?: (msg.IGW2C_PushMessage|null);
+    }
+
+    /** Represents a RS2GW_ChatInfo. */
+    class RS2GW_ChatInfo implements IRS2GW_ChatInfo {
+
+        /**
+         * Constructs a new RS2GW_ChatInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IRS2GW_ChatInfo);
+
+        /** RS2GW_ChatInfo chat. */
+        public chat?: (msg.IGW2C_PushMessage|null);
+
+        /**
+         * Creates a new RS2GW_ChatInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RS2GW_ChatInfo instance
+         */
+        public static create(properties?: msg.IRS2GW_ChatInfo): msg.RS2GW_ChatInfo;
+
+        /**
+         * Encodes the specified RS2GW_ChatInfo message. Does not implicitly {@link msg.RS2GW_ChatInfo.verify|verify} messages.
+         * @param message RS2GW_ChatInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IRS2GW_ChatInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified RS2GW_ChatInfo message, length delimited. Does not implicitly {@link msg.RS2GW_ChatInfo.verify|verify} messages.
+         * @param message RS2GW_ChatInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IRS2GW_ChatInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a RS2GW_ChatInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RS2GW_ChatInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2GW_ChatInfo;
+
+        /**
+         * Decodes a RS2GW_ChatInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RS2GW_ChatInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2GW_ChatInfo;
+
+        /**
+         * Verifies a RS2GW_ChatInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RS2GW_ChatInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RS2GW_ChatInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.RS2GW_ChatInfo;
+
+        /**
+         * Creates a plain object from a RS2GW_ChatInfo message. Also converts values to other types if specified.
+         * @param message RS2GW_ChatInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.RS2GW_ChatInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RS2GW_ChatInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a RS2MS_ReqRegist. */
     interface IRS2MS_ReqRegist {
 
@@ -24294,6 +24570,9 @@ declare namespace msg {
 
     /** Properties of a RS2C_RetTexasFightBet. */
     interface IRS2C_RetTexasFightBet {
+
+        /** RS2C_RetTexasFightBet errcode */
+        errcode?: (string|null);
     }
 
     /** Represents a RS2C_RetTexasFightBet. */
@@ -24304,6 +24583,9 @@ declare namespace msg {
          * @param [properties] Properties to set
          */
         constructor(properties?: msg.IRS2C_RetTexasFightBet);
+
+        /** RS2C_RetTexasFightBet errcode. */
+        public errcode: string;
 
         /**
          * Creates a new RS2C_RetTexasFightBet instance using the specified properties.
@@ -26576,7 +26858,7 @@ declare namespace msg {
         iswin?: (boolean|null);
 
         /** RS2C_PushTFRoundOver sitplayers */
-        sitplayers?: (msg.ITFPlayer|null);
+        sitplayers?: (msg.ITFPlayer[]|null);
     }
 
     /** Represents a RS2C_PushTFRoundOver. */
@@ -26607,7 +26889,7 @@ declare namespace msg {
         public iswin: boolean;
 
         /** RS2C_PushTFRoundOver sitplayers. */
-        public sitplayers?: (msg.ITFPlayer|null);
+        public sitplayers: msg.ITFPlayer[];
 
         /**
          * Creates a new RS2C_PushTFRoundOver instance using the specified properties.
@@ -27086,7 +27368,7 @@ declare namespace msg {
     interface IRS2C_PushTFPlayerKickOut {
 
         /** RS2C_PushTFPlayerKickOut id */
-        id?: (number|null);
+        id?: (number|Long|null);
     }
 
     /** Represents a RS2C_PushTFPlayerKickOut. */
@@ -27099,7 +27381,7 @@ declare namespace msg {
         constructor(properties?: msg.IRS2C_PushTFPlayerKickOut);
 
         /** RS2C_PushTFPlayerKickOut id. */
-        public id: number;
+        public id: (number|Long);
 
         /**
          * Creates a new RS2C_PushTFPlayerKickOut instance using the specified properties.

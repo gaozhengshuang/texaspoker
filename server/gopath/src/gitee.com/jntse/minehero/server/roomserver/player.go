@@ -98,6 +98,10 @@ func (this *TexasPlayer) InitTimeReward() {
 	log.Info("房间%d 玩家%d 计时奖励轮数%d 时间%d", this.room.Id(), this.owner.Id(), this.rewardround, this.rewardtime)
 }
 
+func (this *TexasPlayer) SetOwner(u *RoomUser) {
+	this.owner = u
+}
+
 func (this *TexasPlayer) SetTimeReward() {
 	lasttime, _ := Redis().Get(fmt.Sprintf("trtime%d_%d", this.room.GetRoomType(), this.owner.Id())).Int64()
 	if !util.IsSameDay(lasttime, util.CURTIME()) {
@@ -159,9 +163,10 @@ func (this *TexasPlayer) BetStart() {
 		this.aiacttime = util.RandBetween(7,13)
 		send := &msg.RS2C_PushActionPosChange{}
 		send.Pos = pb.Int32(this.pos+1)
-		send.Postime = pb.Int32(this.bettime+int32(util.CURTIME()))
+		send.Postime = pb.Int32(int32(util.CURTIME()))
 		this.room.BroadCastRoomMsg(send)
 		this.room.curactpos = this.pos
+		this.room.curacttime = int32(util.CURTIME())
 		log.Info("玩家%d 开始下注 pos%d", this.owner.Id(), this.pos)
 	}
 }
@@ -277,7 +282,9 @@ func (this *TexasPlayer) Betting(num int32) {
 		this.room.raisecount++
 		this.betover = true
 	}
-	this.owner.SendClientMsg(send)
+	if this.InRoom() {
+		this.owner.SendClientMsg(send)
+	}
 	if this.room.remain <= 1 {
 		return
 	}
@@ -323,15 +330,24 @@ func (this *TexasPlayer) NextForStart() *TexasPlayer {
 	return nil
 }
 
+func (this *TexasPlayer) InRoom() bool {
+	if this.owner.RoomId() == this.room.Id() {
+		return true
+	}
+	return false
+}
+
 func (this *TexasPlayer)SetHole(c1 *Card, c2 *Card){
 	this.hole[0] = c1
 	this.hole[1] = c2
 	this.hand.SetCard(c1, true)
 	this.hand.SetCard(c2, true)
 	this.hand.AnalyseHand()
-	send := &msg.RS2C_PushHandCard{}
-	send.Card = this.ToHandCard()
-	this.owner.SendClientMsg(send)
+	if this.InRoom() {
+		send := &msg.RS2C_PushHandCard{}
+		send.Card = this.ToHandCard()
+		this.owner.SendClientMsg(send)
+	}
 }
 
 func (this *TexasPlayer)SetFlop(c1 *Card, c2 *Card, c3 *Card){
@@ -535,7 +551,7 @@ func (this *TexasPlayer) Tick (){
 			this.StandUp()
 		}
 	}
-	if this.mttranktime >= 10 {
+	if this.mttranktime >= 5 {
 		this.SendMttRank()
 		this.mttranktime = 0
 	}else{
@@ -546,11 +562,15 @@ func (this *TexasPlayer) Tick (){
 }
 
 func (this *TexasPlayer) SendMttRank() {
-	if !this.room.IsChampionShip() {
+	if !this.room.IsChampionShip() || this.owner.RoomId() != this.room.Id(){
 		return 
 	}
-	this.rankinfo.Rank = pb.Int32(this.room.mtt.GetUserRank(this.owner.Id()))
-	this.rankinfo.Join = pb.Int32(this.room.mtt.maxuser)
+	if this.GetBankRoll() == 0 {
+		this.rankinfo.Rank = pb.Int32(this.room.mtt.curmembernum)
+	}else {
+		this.rankinfo.Rank = pb.Int32(this.room.mtt.GetUserRank(this.owner.Id()))
+	}
+	this.rankinfo.Join = pb.Int32(this.room.mtt.curmembernum)
 	this.rankinfo.Avgchips = pb.Int32(this.room.mtt.GetAvgChips())
 	this.rankinfo.Recordid = pb.Int32(this.room.mtt.uid)
 	this.owner.SendClientMsg(this.rankinfo)
@@ -571,9 +591,10 @@ func (this *TexasPlayer) SitDown(pos int32) {
 	if this.room.AddPlayer(pos, this) {
 		this.pos = pos
 		this.room.DelWatcher(this)
-		if this.room.IsGameStart() {
-			this.gamestate = GSWaitNext
-		}  
+		this.gamestate = GSWaitNext
+		this.room.UpdateMember()
+		log.Info("玩家%d坐下成功", this.owner.Id())
+		this.ResetBankrupt()
 	}
 }
 
@@ -697,22 +718,12 @@ func (this *TexasPlayer) BuyInGame(rev *msg.C2RS_ReqBuyInGame) bool {
 		if rev.GetIsautobuy() == true {
 			this.autobuy = rev.GetNum()
 		}
-		this.SitDown(rev.GetPos()-1)
 		this.AddBankRoll(rev.GetNum())
-		this.gamestate = GSWaitNext
-
-		send := &msg.RS2C_PushSitOrStand{}
-		send.Roleid = pb.Int64(this.owner.Id())
-		send.Pos = pb.Int32(this.pos+1)
-		send.State = pb.Int32(1)
-		send.Bankroll = pb.Int32(this.GetBankRoll())
-		this.room.BroadCastRoomMsg(send)
+		this.SitDown(rev.GetPos()-1)
+		this.room.NotifySitStand(this.owner.Id())
 
 		send1 := &msg.RS2C_RetBuyInGame{}
 		this.owner.SendClientMsg(send1)
-
-		this.room.UpdateMember()
-		log.Info("玩家%d坐下成功", this.owner.Id())
 		return true
 	}
 
@@ -752,7 +763,12 @@ func (this *TexasPlayer) CheckLeave() bool{
 			this.StandUp()
 			return true
 		}else{
-			this.delaystandup = 20
+			if this.room.mtt.tconf.Type == 2 {
+				this.StandUp()
+				return true
+			}else {
+				this.delaystandup = 20
+			}
 		}
 	}
 	return false
@@ -780,12 +796,12 @@ func (this *TexasPlayer) StandUp() bool {
 			}
 			this.Init()
 			this.room.AddWatcher(this)
-			send := &msg.RS2C_PushSitOrStand{}
-			send.Roleid = pb.Int64(this.owner.Id())
-			send.State = pb.Int32(2)
-			this.room.BroadCastRoomMsg(send)
 			this.SetTimeReward()
 		}
+		send := &msg.RS2C_PushSitOrStand{}
+		send.Roleid = pb.Int64(this.owner.Id())
+		send.State = pb.Int32(2)
+		this.room.BroadCastRoomMsg(send)
 		this.room.UpdateMember()
 		return true
 	}
@@ -820,4 +836,40 @@ func (this *TexasPlayer) ToHandCard() []int32{
 		tmpcard = append(tmpcard, v.Value+2)
 	}
 	return tmpcard
+}
+
+//一局牌结束真实玩家处理破产相关内容
+func (this *TexasPlayer) OnCheckBankrupt(gamekind, subkind int32) {
+	if this.isai == true {
+		return
+	}
+	if gamekind == int32(msg.RoomKind_TexasPoker) {
+		if subkind == int32(msg.PlayingFieldType_High) {
+			if this.bankroll == 0 && this.owner.GetGold() == 0 {
+				Redis().HSet(fmt.Sprintf("bankrupt_%d", this.owner.Id()), "time", util.CURTIME())
+			}
+		}
+		if subkind == int32(msg.PlayingFieldType_Primary) || subkind == int32(msg.PlayingFieldType_Middle) {
+			cmdval, err := Redis().HGet(fmt.Sprintf("bankrupt_%d", this.owner.Id()), "time").Result()
+			if err == nil {
+				time := util.Atol(cmdval)
+				if util.CURTIME() - time < 60*60*24 {
+					Redis().HIncrBy(fmt.Sprintf("bankrupt_%d", this.owner.Id()), "play", 1)
+				}
+				if this.bankroll == 0 && this.owner.GetGold() == 0 && util.CURTIME() - time < 60*60*24*3 {
+					Redis().HIncrBy(fmt.Sprintf("bankrupt_%d", this.owner.Id()), "count", 1)
+				}
+			}
+		}
+	}
+}
+
+//玩高级场重置破产相关信息
+func (this *TexasPlayer) ResetBankrupt() {
+	if this.isai == true {
+		return
+	}
+	if this.room.Kind() ==int32(msg.RoomKind_TexasPoker) && this.room.SubKind() == int32(msg.PlayingFieldType_High) {
+		Redis().Del(fmt.Sprintf("bankrupt_%d", this.owner.Id()))
+	}
 }
