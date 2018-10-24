@@ -51,6 +51,7 @@ func (this *TexasPokerRoom) UserEnter(u *RoomUser) {
 	if player != nil {
 		this.SendRoomInfo(player)
 		this.members[u.Id()] = u
+		player.SetOwner(u)
 		log.Info("[房间] 玩家[%s %d] 重新进入房间[%d]", u.Name(), u.Id(), this.Id())
 		return
 	}
@@ -63,7 +64,29 @@ func (this *TexasPokerRoom) UserEnter(u *RoomUser) {
 		this.AddWatcher(player)
 	}
 	this.SendRoomInfo(player)
-	u.SendPropertyChange()
+	//u.SendPropertyChange()
+	log.Info("[房间] 玩家[%s %d] 进入房间[%d]", u.Name(), u.Id(), this.Id())
+}
+
+// 锦标赛服务器拉玩家进入房间
+func (this *TexasPokerRoom) MTTUserEnter(u *RoomUser) {
+	u.OnEnterRoom(this)
+	player := this.FindAllByID(u.Id())
+	if player != nil {
+		this.SendRoomInfo(player)
+		this.members[u.Id()] = u
+		player.SetOwner(u)
+		log.Info("[房间] 玩家[%s %d] 重新进入房间[%d]", u.Name(), u.Id(), this.Id())
+		return
+	}
+	this.members[u.Id()] = u
+	player = NewTexasPlayer(u, this, false)
+	player.Init()
+	if this.IsChampionShip() {
+		player.SitDown(this.GetEmptySeat())
+	}else{
+		this.AddWatcher(player)
+	}
 	log.Info("[房间] 玩家[%s %d] 进入房间[%d]", u.Name(), u.Id(), this.Id())
 }
 

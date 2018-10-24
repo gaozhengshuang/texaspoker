@@ -4,10 +4,10 @@ class HundredWarlastPoolInfo extends BaseServerValueInfo
     public copyValueFrom(data: any)
     {
         super.copyValueFrom(data);
-        if (data["prizeList"])
+        if (data["prizelist"])
         {
             this.prizeList = new Array<SimpleUserInfo>();
-            for (let info of data["prizeList"])
+            for (let info of data["prizelist"])
             {
                 let userinfo: SimpleUserInfo;
                 if (HundredWarManager.isSysBanker(info.roleId))
@@ -18,6 +18,33 @@ class HundredWarlastPoolInfo extends BaseServerValueInfo
                 {
                     userinfo = new SimpleUserInfo();
                     userinfo.copyValueFrom(info);
+                }
+                this.prizeList.push(userinfo);
+            }
+        }
+        if (data["cards"])
+        {
+            this.cards = new Array<CardInfo>();
+            GamblingUtil.cardArr2CardInfoList(data["cards"], this.cards);
+        }
+    }
+    public copyValueFromIgnoreCase(data: any)
+    {
+        super.copyValueFromIgnoreCase(data);
+        if (data["prizelist"])
+        {
+            this.prizeList = new Array<SimpleUserInfo>();
+            for (let info of data["prizelist"])
+            {
+                let userinfo: SimpleUserInfo;
+                if (HundredWarManager.isSysBanker(info.roleId))
+                {
+                    userinfo = new SimpleUserInfo(HundredWarManager.sysBanker);
+                }
+                else
+                {
+                    userinfo = new SimpleUserInfo();
+                    userinfo.copyValueFromIgnoreCase(info);
                 }
                 this.prizeList.push(userinfo);
             }

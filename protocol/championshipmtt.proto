@@ -16,6 +16,7 @@ message MTTInfo
     optional int32 endtime = 6;         //比赛结束时间
     optional int32 outtime = 7;         //淘汰时间
     optional int32 leftjoin = 8;        //剩余人数
+    optional int64 roomuid = 9;         //所在房间
 }
 
 message RS2C_RetMTTList 
@@ -59,6 +60,7 @@ message JoinedMTTInfo
     optional int32 endtime = 6;
     optional int32 outtime = 7;
     optional int32 rank = 8;
+    optional int64 roomuid = 9;
 }
 
 message RS2C_RetJoinedMTTList

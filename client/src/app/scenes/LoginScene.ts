@@ -429,7 +429,7 @@ class LoginScene extends BaseScene
     private enterHundredWar()
     {
         game.Console.log("游戏初始化进入百人大战：reqGetHundredWarRoomInfo");
-        HundredWarManager.reqEnterRoom();
+        HundredWarManager.reqEnterRoom(InsideRoomManager.lastId);
 
     }
 }

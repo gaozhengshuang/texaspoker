@@ -57,12 +57,12 @@
 		</e:Group>
 		<e:Group id="moreGroup" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" x="250" y="230" width="457">
 			<e:Image id="moreBg" x="0" y="0" source="bg_5_png" scale9Grid="199,0,15,158" width="457"/>
-			<e:Group id="moreButtonGroup" width="400" height="80" x="30" y="25" scaleX="1" scaleY="1">
+			<e:Button id="bindBtn" label="设置" y="0" left="130" skinName="bangding_buttonSkin" x="100" scaleX="1" scaleY="1"/>
+			<e:Group id="moreButtonGroup" width="400" height="80" x="30" y="24" scaleX="1" scaleY="1">
 				<e:layout>
 					<e:HorizontalLayout gap="0" horizontalAlign="justify" verticalAlign="middle"/>
 				</e:layout>
 				<e:Button id="safeBoxBtn" label="设置" skinName="safeBox_buttonSkin" y="0" left="30" x="0" scaleX="1" scaleY="1"/>
-				<e:Button id="bindBtn" label="设置" y="0" left="130" skinName="bangding_buttonSkin" x="100" scaleX="1" scaleY="1"/>
 				<e:Button id="gameRuleBtn" label="设置" skinName="playWay_buttonSkin" y="0" right="130" x="197" scaleX="1" scaleY="1"/>
 				<e:Button id="settingBtn" label="设置" skinName="option_buttonSkin" y="0" right="30" x="297" scaleX="1" scaleY="1"/>
 			</e:Group>

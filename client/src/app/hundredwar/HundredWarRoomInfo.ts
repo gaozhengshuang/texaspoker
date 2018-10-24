@@ -58,5 +58,13 @@ class HWRoomInfo extends BaseServerValueInfo implements IHaveDefintionInfo
     public reset()
     {
         super.reset();
+        this.id = 0;
+        this.pool = 0;
+        this.state = 0;
+        this.stateTime = 0;
+        this.bankerGold = 0;
+        this.hwId = 0;
+        this.playerList = [];
+        this.betList = [];
     }
 }

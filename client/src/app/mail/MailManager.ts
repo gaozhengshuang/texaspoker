@@ -69,7 +69,7 @@ class MailManager
     /**
      * 解析锦标赛邮件
      */
-    private static analyzeMtt(data: msg.IMailDetail, content:string): string
+    private static analyzeMtt(data: msg.IMailDetail, content: string): string
     {
         let name = game.StringConstants.Empty;
         let mttDef: table.IChampionshipDefine = table.ChampionshipById[data.mtttid];
@@ -88,7 +88,7 @@ class MailManager
                 break;
         }
         let awardStr = MailManager.getAwardDes(data.mttawardtid);
-        game.StringUtil.format(content, [name, rankStr, awardStr]);
+        content = game.StringUtil.format(content, name, rankStr, awardStr);
         return content;
     }
     /**

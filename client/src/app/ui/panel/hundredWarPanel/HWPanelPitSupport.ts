@@ -15,7 +15,6 @@ class HWPanelPitSupport extends BaseHWPanelSupport
     public onEnable()
     {
         super.onEnable();
-        HundredWarManager.onCardPushEvent.addListener(this.getUserInfo, this);
         UserManager.OnGetSimpleUserInfoEvent.addListener(this.refreshPitInfoByRoleId, this);
         HundredWarManager.onPosChangeEvent.addListener(this.playerLeave, this);
         HundredWarManager.OnGetPlayerInfoEvent.addListener(this.setPitInfo, this);
@@ -25,24 +24,11 @@ class HWPanelPitSupport extends BaseHWPanelSupport
     public onDisable()
     {
         super.onDisable();
-        HundredWarManager.onCardPushEvent.removeListener(this.getUserInfo, this);
         UserManager.OnGetSimpleUserInfoEvent.removeListener(this.refreshPitInfoByRoleId, this);
         HundredWarManager.onPosChangeEvent.removeListener(this.playerLeave, this);
         HundredWarManager.OnGetPlayerInfoEvent.removeListener(this.setPitInfo, this);
         HundredWarManager.onBetEvent.removeListener(this.refreshSelfPitInfo, this);
         HundredWarManager.onShowCardsAnimOverEvent.removeListener(this.refreshPitInfo, this);
-    }
-
-    /**
-     * 牌推送后更新坐下玩家的信息
-    */
-    public getUserInfo()
-    {
-        if (HundredWarManager.roomInfo.playerList && HundredWarManager.roomInfo.playerList.length > 0)
-        {
-            this._isRefreshPlayerInfo = true;
-            HundredWarManager.startReqPlayerInfo(HundredWarManager.roomInfo.playerList);
-        }
     }
     /**
      * 下注成功更新自己座位的信息

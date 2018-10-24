@@ -61,59 +61,36 @@ class HundredWarOverPanel extends BasePanel
             }
             if (overInfo.rankList)
             {
-                this.startReqRank(overInfo.rankList);
+                this.refreshList(overInfo.rankList);
             }
         }
-    }
-
-    private _headIndex: number = 0;
-    /**
-     * 排名队列
-     */
-    private _rankListClone: any[];
-    /**
-     * 开始请求
-     */
-    private startReqRank(list: any[])
-    {
-        this._headIndex = 0;
-        this._rankListClone = list.concat();
-        this.nextReq();
     }
     /**
      * 请求下一个
      */
-    private nextReq()
+    private refreshList(list: msg.ITFRankPlayer[])
     {
-        if (this._rankListClone.length > 0)
+        if (list.length > 0)
         {
-            let rankInfo: any = this._rankListClone.shift();
-            this["winGold" + this._headIndex].text = game.MathUtil.formatNum(rankInfo.num);
-            if (HundredWarManager.isSysBanker(rankInfo.roleId))
+            for (let i: number = 0; i < list.length; i++)
             {
-                this.userGroup.getChildAt(this._headIndex).visible = true;
-                this["head" + this._headIndex].init(HundredWarManager.sysBanker, 80);
-                this.onReqComplete(null);
+                let rankInfo: any = list[i];
+                this["winGold" + i].text = game.MathUtil.formatNum(rankInfo.num);
+                if (HundredWarManager.isSysBanker(rankInfo.roleId))
+                {
+                    this.userGroup.getChildAt(i).visible = true;
+                    this["head" + i].init(HundredWarManager.sysBanker, 80);
+                }
+                else
+                {
+                    let userInfo: SimpleUserInfo = new SimpleUserInfo();
+                    userInfo.copyValueFromIgnoreCase(list[i]);
+                    this.userGroup.getChildAt(i).visible = true;
+                    this["head" + i].init(userInfo, 80);
+                }
             }
-            else
-            {
-                UserManager.reqSimpleUserInfo(rankInfo.roleId);
-            }
+
         }
-    }
-    /**
-     * 请求完成
-     */
-    private onReqComplete(data: any)
-    {
-        if (data)
-        {
-            let userInfo: SimpleUserInfo = new SimpleUserInfo(data);
-            this.userGroup.getChildAt(this._headIndex).visible = true;
-            this["head" + this._headIndex].init(userInfo, 80);
-        }
-        this._headIndex++;
-        this.nextReq();
     }
     // /**
     //  * 请求数据(递归)
@@ -166,14 +143,12 @@ class HundredWarOverPanel extends BasePanel
     {
         super.onEnable(event);
         this.confirmBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.closePanel, this);
-        UserManager.OnGetSimpleUserInfoEvent.addListener(this.onReqComplete, this);
     }
     protected onDisable(event: eui.UIEvent): void
     {
         super.onDisable(event);
         this.confirmBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.closePanel, this);
         game.Tick.RemoveSecondsInvoke(this.coundDown, this);
-        UserManager.OnGetSimpleUserInfoEvent.removeListener(this.onReqComplete, this);
     }
     /**
      * 倒计时

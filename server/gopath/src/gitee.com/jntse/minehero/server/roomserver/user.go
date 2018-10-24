@@ -8,7 +8,7 @@ import (
 	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/minehero/pbmsg"
 	//"gitee.com/jntse/minehero/server/def"
-	"gitee.com/jntse/minehero/server/tbl"
+	//"gitee.com/jntse/minehero/server/tbl"
 	//"gitee.com/jntse/minehero/server/tbl/excel"
 	"github.com/go-redis/redis"
 	pb "github.com/gogo/protobuf/proto"
@@ -65,9 +65,9 @@ func (u *UserEntity) DBLoad() {
 			case "name":		u.name = vt.String()
 			case "face":        u.head = vt.String()
 			case "account":		u.account = vt.String()
-			case "level":       u.level = vt.Int32()
+			//case "level":       u.level = vt.Int32()
 			case "sex":         u.sex = vt.Int32()
-			case "exp":         u.exp = vt.Int32()
+			//case "exp":         u.exp = vt.Int32()
 			case "age":         u.age = vt.Int32()
 		}
 	}
@@ -138,19 +138,20 @@ func (u *RoomUser) Init() {
 	u.roomlist = make(map[int64]int64)
 
 	if u.aiflag == false {
-		u.bag.Init(u)
+		//u.bag.Init(u)
 		u.entity.Init()
 	}
 }
 
 func (u *RoomUser) DBLoad() {
-	u.bag.DBLoad()
+	//u.bag.DBLoad()
 	u.entity.DBLoad()
 }
 
 func (u *RoomUser) DBSave() {
-	u.bag.DBSave()
-	u.entity.DBSave()
+	//u.bag.DBSave()
+	//u.entity.DBSave()
+	log.Info("玩家[%s %d] 存盘完毕", u.Name(), u.Id())
 }
 
 func (u *RoomUser) Logout() {
@@ -158,14 +159,15 @@ func (u *RoomUser) Logout() {
 	u.ticker1s.Stop()
 	u.ticker10ms.Stop()
 	UserMgr().DelUser(u)
+	log.Info("玩家[%s %d] 完全退出RoomServer", u.Name(), u.Id())
 }
 
-func (u *RoomUser) KickOut() {
-	u.DBSave()
-	u.ticker1s.Stop()
-	u.ticker10ms.Stop()
-	UserMgr().DelUser(u)
-}
+//func (u *RoomUser) KickOut() {
+//	u.DBSave()
+//	u.ticker1s.Stop()
+//	u.ticker10ms.Stop()
+//	UserMgr().DelUser(u)
+//}
 
 func (u *RoomUser) SendNotify(text string) {
 	send := &msg.GW2C_PushMsgNotify{Userid: pb.Int64(u.Id()), Text: pb.String(text)}
@@ -210,57 +212,7 @@ func (u *RoomUser) CheckUpdateGateAgent(agent network.IBaseNetSession) {
 	}
 	u.agentid = agent.Id()
 	u.agentname = agent.Name()
-	log.Info("玩家[%s %d] 上线更新GateAgent信息[%s %d]", u.Name(), u.Id(), agent.Name(), agent.Id())
-}
-
-
-func (u *RoomUser) SendPropertyChange() {
-	send := &msg.RS2C_RolePushPropertyChange{}
-	send.Diamond = pb.Int32(u.GetDiamond())
-	send.Gold = pb.Int32(u.GetGold())
-	send.Yuanbao =pb.Int32(u.GetYuanbao())
-	send.Safegold = pb.Int32(0)
-	u.SendClientMsg(send)
-}
-
-
-func (u *RoomUser) AddLevel(num int32) {
-	u.entity.SetLevel(u.Level() + num)
-	u.OnAchieveProcessChanged(int32(AchieveGroup_Level))
-	//Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "level", u.Level())
-}
-
-func (u *RoomUser) SetExp(num int32) {
-	u.entity.SetExp(num)
-	//Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "exp", u.Exp())
-}
-
-// 添加经验
-func (u *RoomUser) AddExp(num int32, reason string, syn bool) {
-	old, exp := u.Level(), u.Exp()+num
-	for {
-		lvlbase, ok := tbl.LevelBasee.ExpById[u.Level() + 1]
-		if ok == false {
-			break
-		}
-
-		// 下一级需要经验
-		if exp < int32(lvlbase.Exp) || lvlbase.Exp == 0 {
-			break
-		}
-
-		exp = exp - int32(lvlbase.Exp)
-		u.OnLevelUp()
-	}
-	u.SetExp(exp)
-	//if syn == true { u.SendBattleUser() }
-	u.SyncLevelRankRedis()
-	log.Info("玩家[%d] 添加经验[%d] 老等级[%d] 新等级[%d] 经验[%d] 原因[%s]", u.Id(), num, old, u.Level(), u.Exp(), reason)
-}
-
-// 升级
-func (u *RoomUser) OnLevelUp() {
-	u.AddLevel(1)
+	log.Info("玩家[%s %d] 更新GateAgent信息[%s %d]", u.Name(), u.Id(), agent.Name(), agent.Id())
 }
 
 

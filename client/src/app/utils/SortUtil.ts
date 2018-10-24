@@ -318,11 +318,11 @@ class SortUtil
 		}
 		if (a.IsGot == b.IsGot)
 		{
-			if (a.Date < b.Date)
+			if (a.Id < b.Id)
 			{
 				return 1;
 			}
-			if (a.Date > b.Date)
+			if (a.Id > b.Id)
 			{
 				return -1;
 			}

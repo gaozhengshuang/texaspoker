@@ -16,10 +16,6 @@ class ChampionshipManager
     */
     public static showMTTList: Array<MatchRoomInfo>;
     /**
-     * 显示的坐满即玩赛事列表
-    */
-    public static showSitAndPlayList: Array<MatchRoomInfo>;
-    /**
      * 锦标赛已报名赛事列表（包括已淘汰的和未淘汰的）
     */
     public static joinMTTList: Array<MatchRoomInfo>;
@@ -101,17 +97,32 @@ class ChampionshipManager
         {
             ChampionshipManager.outsList = new Array<OutsInfo>();
         }
-        if (!ChampionshipManager.showSitAndPlayList)
-        {
-            ChampionshipManager.showSitAndPlayList = new Array<MatchRoomInfo>();
-        }
+
         ChampionshipManager.mttRemindStartHandler.clearHadRemindMTT();
-        //坐满即玩客户端配置的信息
-        ChampionshipManager.initSitAndPlayListInfo();
         //进行中的比赛信息
         ChampionshipManager.getMTTListInfoResponse(result);
         //设置赛事的房间信息
         ChampionshipManager.initMTTRoomListInfo();
+    }
+    /**
+    * 显示的坐满即玩赛事列表
+    */
+    public static get showSitAndPlayList(): Array<MatchRoomInfo>
+    {
+        let list = [];
+        if (ChampionshipManager.processMTTList)
+        {
+            for (let info of ChampionshipManager.processMTTList)
+            {
+                if (info.definition.Type == MatchType.SNG)
+                {
+                    ChampionshipManager.setOpenAndCloseTime(info);
+                    list.push(info);
+                }
+            }
+        }
+        list.sort((a: MatchRoomInfo, b: MatchRoomInfo) => { return a.definition.Id - b.definition.Id });
+        return list;
     }
     /**
      * 初始化设置锦标赛所在房间列表
@@ -125,25 +136,6 @@ class ChampionshipManager
             if (matchRoomInfo)
             {
                 matchRoomInfo.roomId = roomInfo.id;
-            }
-        }
-    }
-    /**
-     * 设置坐满即玩赛事列表
-    */
-    private static initSitAndPlayListInfo()
-    {
-        game.ArrayUtil.Clear(ChampionshipManager.showSitAndPlayList);
-        let matchDefList: Array<table.IChampionshipDefine> = ChampionshipDefined.GetInstance().getSitAndPlayMatchList();
-        if (matchDefList)
-        {
-            for (let def of matchDefList)
-            {
-                let matchInfo: MatchRoomInfo = new MatchRoomInfo();
-                matchInfo.id = def.Id;
-                matchInfo.isShow = 1;
-                ChampionshipManager.setOpenAndCloseTime(matchInfo);
-                ChampionshipManager.showSitAndPlayList.push(matchInfo);
             }
         }
     }
@@ -495,7 +487,7 @@ class ChampionshipManager
                 MsgTransferSend.sendRoomProto(Command.C2RS_ReqMTTJoin, { recordid: recordId, joinway: flag }, callback, ChampionshipManager.MTTCancelErrorDispose, this);
             } else if (type == MatchType.SNG)
             {
-                MsgTransferSend.sendRoomProto(Command.C2RS_ReqMTTJoin, { joinway: flag, id: id }, callback, null, this);
+                MsgTransferSend.sendRoomProto(Command.C2RS_ReqMTTJoin, { joinway: flag, recordid: recordId }, callback, null, this);
             }
         }
     }
@@ -521,7 +513,7 @@ class ChampionshipManager
     */
     public static isNotFull(recordId: number, type: MatchType): boolean
     {
-        if (recordId == undefined)  //坐满即玩没人报名时是没有recordId的
+        if (recordId == undefined || recordId == 0)  //坐满即玩没人报名时是没有recordId的
         {
             return true;
         }
@@ -561,7 +553,7 @@ class ChampionshipManager
     {
         let callback: Function = function (result: game.SpRpcResult)
         {
-            let data:msg.RS2C_RetMTTOutsInfo = result.data;
+            let data: msg.RS2C_RetMTTOutsInfo = result.data;
             if (data)
             {
                 ChampionshipManager.nowBlindId = blindType;
@@ -621,7 +613,7 @@ class ChampionshipManager
         {
             let isBottom: boolean = true;
             let mttRankInfo: Array<ChampionshipRankInfo> = new Array<ChampionshipRankInfo>();
-            let data:msg.RS2C_RetMTTRankInfo = result.data;
+            let data: msg.RS2C_RetMTTRankInfo = result.data;
             if (data && data.ranklist)
             {
                 if (data.ranklist.length < count)
@@ -715,7 +707,7 @@ class ChampionshipManager
     */
     public static onJoinNumPush(result: game.SpRpcResult)
     {
-        let data:msg.RS2C_PushMTTJoinNumChange = result.data;
+        let data: msg.RS2C_PushMTTJoinNumChange = result.data;
         if (data && data.mttlist)
         {
             for (let mttInfo of data.mttlist)  
@@ -759,7 +751,7 @@ class ChampionshipManager
      */
     public static onCancelMTTPush(result: game.SpRpcResult)
     {
-        let data:msg.RS2C_PushMTTCancel = result.data;
+        let data: msg.RS2C_PushMTTCancel = result.data;
         if (data)
         {
             let info: MatchRoomInfo = new MatchRoomInfo();
@@ -784,7 +776,7 @@ class ChampionshipManager
     */
     public static onMTTOverPush(result: game.SpRpcResult)
     {
-        let data:msg.RS2C_PushMTTWeedOut = result.data;
+        let data: msg.RS2C_PushMTTWeedOut = result.data;
         if (data && data.recordid)
         {
             if (SceneManager.sceneType == SceneType.Game && InfoUtil.checkAvailable(GamblingManager.roomInfo) && GamblingManager.roomInfo.gamblingType == GamblingType.Match
@@ -802,10 +794,15 @@ class ChampionshipManager
     */
     public static onMTTRoomIdPush(result: game.SpRpcResult)
     {
-        let data:msg.RS2C_PushMTTRoomId = result.data;
+        let data: msg.RS2C_PushMTTRoomId = result.data;
         if (data)
         {
             let matchRoomInfo: MatchRoomInfo = ChampionshipManager.getMathInfoByRecordId(data.mttid);
+            let matchRoomInfoJoined: MatchRoomInfo = ChampionshipManager.getJoinedMathInfoByRecordId(data.mttid);
+            if (matchRoomInfoJoined)
+            {
+                matchRoomInfoJoined.roomId = game.longToNumber(data.id);
+            }
             if (matchRoomInfo)
             {
                 matchRoomInfo.roomId = game.longToNumber(data.id);
@@ -823,7 +820,7 @@ class ChampionshipManager
      */
     public static onMTTRankPush(result: game.SpRpcResult)
     {
-        let data:msg.RS2C_PushMTTRank = result.data;
+        let data: msg.RS2C_PushMTTRank = result.data;
         if (data && data.recordid)
         {
             let rInfo: MatchRoomInfo = ChampionshipManager.getMathInfoByRecordId(data.recordid);
@@ -847,7 +844,7 @@ class ChampionshipManager
     */
     public static onMTTNewPush(result: game.SpRpcResult)
     {
-        let data:msg.RS2C_PushMTTNew = result.data;
+        let data: msg.RS2C_PushMTTNew = result.data;
         if (data)
         {
             ChampionshipManager.OnNewMTTPushEvent.dispatch();
@@ -950,6 +947,20 @@ class ChampionshipManager
         for (let info of ChampionshipManager.joinMTTList)
         {
             if (info.id == id && !info.outTime && !info.endTime)
+            {
+                return info;
+            }
+        }
+        return null;
+    }
+    /**
+     * 根据赛事唯一ID获得正在参与的赛事
+     */
+    public static getJoinedMathInfoByRecordId(recordId: number): MatchRoomInfo
+    {
+        for (let info of ChampionshipManager.joinMTTList)
+        {
+            if (info.recordId == recordId && !info.outTime && !info.endTime)
             {
                 return info;
             }

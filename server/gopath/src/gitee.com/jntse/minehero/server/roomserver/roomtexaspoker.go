@@ -386,7 +386,7 @@ func (this *TexasPokerRoom) StartGame() int32 {
 		//log.Info("机器人数据%d 名字%s 头像%s 性别%d", p.owner.Id(), p.owner.Name(), p.owner.Face(), p.owner.Sex())
 		record.Seatpos = pb.Int32(p.pos+1)
 		if this.IsChampionShip() {
-			p.BlindBet(this.mtt.bconf.PreBet, true)
+			p.PreBet(this.preblindnum)
 		}
 		p.RemoveBankRoll(this.ante)
 		if p == this.bigblinder {
@@ -744,6 +744,11 @@ func (this *TexasPokerRoom) ShowDown() int32{
 			player.hand.AnalyseHand()
 			player.isshowcard = true
 			timecount++
+			for _, record := range this.currecord {
+				if record.GetRoleid() == player.owner.Id() {
+					record.Showcard = pb.Bool(true)
+				}
+			}
 			return true
 		})
 	}
@@ -816,7 +821,7 @@ func (this *TexasPokerRoom) ShowDown() int32{
 		if player == nil {
 			continue
 		}
-		if player.IsWait() || player.isallinshow{
+		if player.IsWait() || player.isallinshow {
 			continue
 		}
 		if player.isshowcard == true {
@@ -827,7 +832,6 @@ func (this *TexasPokerRoom) ShowDown() int32{
 			//log.Info("房间%d 玩家%d 显示手牌", this.Id(), player.owner.Id())
 			for _,record := range this.currecord {
 				if record.GetRoleid() == player.owner.Id() {
-					record.Showcard = pb.Bool(true)
 					record.Cardtype = pb.Int32(player.hand.level)
 				}   
 			}
@@ -1069,7 +1073,7 @@ func (this *TexasPokerRoom) AddAddon(uid int64, num int32, cost int32) {
 	player.AddAddon(num, cost)
 }
 
-func (this *TexasPokerRoom) NotifySitStand(userid int64) {
+func (this *TexasPokerRoom) NotifySitStand(userid int64, except ...int64) {
 	player := this.FindPlayerByID(userid)
 	if player == nil {
 		return
@@ -1079,7 +1083,7 @@ func (this *TexasPokerRoom) NotifySitStand(userid int64) {
 	send.Pos = pb.Int32(player.pos+1)
 	send.State = pb.Int32(1)
 	send.Bankroll = pb.Int32(player.GetBankRoll())
-	this.BroadCastRoomMsg(send)
+	this.BroadCastRoomMsg(send, except...)
 }
 
 /////////////////////////////////////////消息处理/////////////////////////////////////////
@@ -1258,8 +1262,8 @@ func (this *TexasPokerRoom) ReqReviewInfo(uid int64) {
 		send := &msg.RS2C_RetReviewInfo{}
 		send.Array = this.lastrecord
 		player.owner.SendClientMsg(send)
-		//for _, record := range this.lastrecord {
-		//	log.Info("记录数据 %v", record)
-		//}
+		for _, record := range this.lastrecord {
+			log.Info("记录数据 %v", record)
+		}
 	}
 }

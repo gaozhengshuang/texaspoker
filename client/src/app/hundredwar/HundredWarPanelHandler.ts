@@ -35,19 +35,20 @@ class HundredWarPanelHandler
         }
         let callback: Function = function (result: game.SpRpcResult)
         {
-            if (result.data.Array)
+            let data:msg.GW2C_RetTFRoomList = result.data;
+            if (data.array)
             {
                 game.ArrayUtil.Clear(HundredWarManager.panelHandler.hundredWarList);
-                for (let requestInfo of result.data.Array)
+                for (let requestInfo of data.array)
                 {
                     let info: HundredWarListInfo = new HundredWarListInfo();
-                    info.copyValueFrom(requestInfo);
+                    info.copyValueFromIgnoreCase(requestInfo);
                     HundredWarManager.panelHandler.hundredWarList.push(info);
                 }
             }
             HundredWarManager.panelHandler.OnGetHundredWarInfoEvent.dispatch();
         };
-        SocketManager.call(Command.HWRoomInfo_Req_3692, null, callback, null, this);
+        SocketManager.call(Command.C2GW_ReqTFRoomList, {}, callback, null, this);
     }
     /**
      * 请求无座玩家列表
@@ -62,30 +63,31 @@ class HundredWarPanelHandler
         {
             let isBottom: boolean = false;
             let playerNum: number;
-            if (result.data && result.data["playerList"])
+            let data:msg.RS2C_RetTFStandPlayer = result.data;
+            if (data && data.playerlist)
             {
-                if (result.data["playerList"].length < count)
+                if (data.playerlist.length < count)
                 {
                     isBottom = true;
                 }
                 game.ArrayUtil.Clear(HundredWarManager.panelHandler.hundredWarNoSeatList);
-                for (let playerInfo of result.data["playerList"])
+                for (let playerInfo of data.playerlist)
                 {
-                    if (!HundredWarManager.isSysBanker(playerInfo.roleId))
+                    if (!HundredWarManager.isSysBanker(game.longToNumber(playerInfo.roleid)))
                     {
                         let info: SimpleUserInfo = new SimpleUserInfo();
-                        info.copyValueFrom(playerInfo);
+                        info.copyValueFromIgnoreCase(playerInfo);
                         HundredWarManager.panelHandler.hundredWarNoSeatList.push(info);
                     }
                 }
-                if (result.data["total"])
+                if (data.total)
                 {
-                    playerNum = result.data["total"];
+                    playerNum = data.total;
                 }
             }
             HundredWarManager.panelHandler.OnGetHundredWarNoSeatInfoEvent.dispatch({ isBottom: isBottom, userList: HundredWarManager.panelHandler.hundredWarNoSeatList, playerNum: playerNum });
         };
-        SocketManager.call(Command.HWNoSeatInfo_Req_3696, { start: start, count: count }, callback, null, this);
+        MsgTransferSend.sendRoomProto(Command.C2RS_ReqTFStandPlayer, { start: start, count: count }, callback, null, this);
     }
     /**
      * 请求胜负走势列表
@@ -98,22 +100,24 @@ class HundredWarPanelHandler
         }
         let callback: Function = function (result: game.SpRpcResult)
         {
-            if (result.data["trendList"])
+            let data:msg.RS2C_RetWinLoseTrend = result.data;
+            
+            if (data.trendlist)
             {
                 game.ArrayUtil.Clear(HundredWarManager.panelHandler.HundredWarTrendList);
-                for (let trendInfo of result.data["trendList"])
+                for (let trendInfo of data.trendlist)
                 {
                     let info: number[] = Array<number>();
-                    info.push(trendInfo["p1"]);
-                    info.push(trendInfo["p2"]);
-                    info.push(trendInfo["p3"]);
-                    info.push(trendInfo["p4"]);
+                    info.push(trendInfo.p1);
+                    info.push(trendInfo.p2);
+                    info.push(trendInfo.p3);
+                    info.push(trendInfo.p4);
                     HundredWarManager.panelHandler.HundredWarTrendList.push(info);
                 }
             }
             HundredWarManager.panelHandler.OnGetHundredWarTrendListEvent.dispatch();
         };
-        SocketManager.call(Command.HWTrend_Req_3697, null, callback, null, this);
+        MsgTransferSend.sendRoomProto(Command.C2RS_ReqWinLoseTrend, {}, callback, null, this);
     }
 
     /**
@@ -127,27 +131,28 @@ class HundredWarPanelHandler
         }
         let callback: Function = function (result: game.SpRpcResult)
         {
-            if (result.data["bankerList"])
+            let data:msg.RS2C_RetTFBankerList = result.data;
+            if (data.bankerlist)
             {
                 game.ArrayUtil.Clear(HundredWarManager.panelHandler.HundredWarBankerList);
-                for (let bankerInfo of result.data["bankerList"])
+                for (let bankerInfo of data.bankerlist)
                 {
                     let info: SimpleUserInfo;
-                    if (HundredWarManager.isSysBanker(bankerInfo.roleId))
+                    if (HundredWarManager.isSysBanker(game.longToNumber(bankerInfo.roleid)))
                     {
                         info = new SimpleUserInfo(HundredWarManager.sysBanker);
                     }
                     else
                     {
                         info = new SimpleUserInfo()
-                        info.copyValueFrom(bankerInfo);
+                        info.copyValueFromIgnoreCase(bankerInfo);
                     }
                     HundredWarManager.panelHandler.HundredWarBankerList.push(info);
                 }
             }
             HundredWarManager.panelHandler.OnGetHundredWarBankerListEvent.dispatch();
         };
-        SocketManager.call(Command.HWbanker_Req_3698, null, callback, null, this);
+        MsgTransferSend.sendRoomProto(Command.C2RS_ReqTFBankerList, {}, callback, null, this);
     }
     /**
      * 请求上庄
@@ -162,7 +167,7 @@ class HundredWarPanelHandler
             HundredWarManager.panelHandler.HundredWarBankerList.push(info);
             HundredWarManager.panelHandler.onUpDownBankerEvent.dispatch(true);
         }
-        SocketManager.call(Command.HWKamisho_Req_3699, { gold: gold }, callback, null, this);
+        MsgTransferSend.sendRoomProto(Command.C2RS_ReqTFBecomeBanker, { gold: gold }, callback, null, this);
     }
     /**
      * 请求下庄
@@ -181,7 +186,7 @@ class HundredWarPanelHandler
                 HundredWarManager.panelHandler.onUpDownBankerEvent.dispatch(false);
             }
         }
-        SocketManager.call(Command.HWShimosho_Req_3700, null, callback, null, this);
+        MsgTransferSend.sendRoomProto(Command.C2RS_ReqTFQuitBanker, {}, callback, null, this);
     }
     /**
      * 是否在庄家列表
@@ -229,13 +234,14 @@ class HundredWarPanelHandler
         }
         let callback: Function = function (result: game.SpRpcResult)
         {
-            if (result.data)
+            let data:msg.RS2C_RetTFLastAwardPoolHit = result.data;
+            if (data)
             {
-                HundredWarManager.panelHandler.lastPoolInfo.copyValueFrom(result.data);
+                HundredWarManager.panelHandler.lastPoolInfo.copyValueFromIgnoreCase(data);
             }
             HundredWarManager.panelHandler.OnGetHundredWarPoolInfoEvent.dispatch();
         }
-        SocketManager.call(Command.HWPoolInfo_Req_3695, null, callback, null, this);
+        MsgTransferSend.sendRoomProto(Command.C2RS_ReqTFLastAwardPoolHit, {}, callback, null, this);
     }
     /**
      * 上/下庄完成事件(true为上庄,false为下庄)

@@ -14,7 +14,7 @@ class PropertyManager
     /**
      * 经验差值
      */
-    private static _expOffset: number;
+    // private static _expOffset: number;
     private static _isOpen: boolean = false;
     /**
      * 物品
@@ -40,7 +40,7 @@ class PropertyManager
         }
         PropertyManager._goldOffset = UserManager.userInfo.gold;
         PropertyManager._diamondOffset = UserManager.userInfo.diamond;
-        PropertyManager._expOffset = UserManager.userInfo.exp;
+        // PropertyManager._expOffset = UserManager.userInfo.exp;
     }
 
     public static Clear()
@@ -67,7 +67,7 @@ class PropertyManager
         }
         PropertyManager._goldOffset = UserManager.userInfo.gold - PropertyManager._goldOffset;
         PropertyManager._diamondOffset = UserManager.userInfo.diamond - PropertyManager._diamondOffset;
-        PropertyManager._expOffset = UserManager.userInfo.exp - PropertyManager._expOffset;
+        // PropertyManager._expOffset = UserManager.userInfo.exp - PropertyManager._expOffset;
         for (let item of ItemManager.itemList)
         {
             if (PropertyManager._itemOldList.containsKey(item.id))
@@ -85,7 +85,7 @@ class PropertyManager
         }
         PropertyManager.AddBase(ItemFixedId.gold, PropertyManager._goldOffset);
         PropertyManager.AddBase(ItemFixedId.diamond, PropertyManager._diamondOffset);
-        PropertyManager.AddBase(ItemFixedId.exp, PropertyManager._expOffset);
+        // PropertyManager.AddBase(ItemFixedId.exp, PropertyManager._expOffset); //move todo
         if (PropertyManager._itemGetList.length == 1 && PropertyManager._itemGetList[0].id == ItemFixedId.gold)
         {
             PropertyManager.ShowGoldPanel(PropertyManager._itemGetList[0].count);

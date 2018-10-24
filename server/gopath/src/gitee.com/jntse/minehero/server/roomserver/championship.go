@@ -365,9 +365,9 @@ func (cs *ChampionShip) JoinOneMatch(userid int64, roomid int64) {
 		if u == nil {
 			return
 		}
-		texas.UserEnter(u)
+		texas.MTTUserEnter(u)
 		texas.SetPlayerBankRoll(userid, cs.GetUserBankRoll(userid))
-		texas.NotifySitStand(userid)
+		texas.NotifySitStand(userid, userid)
 		log.Info("锦标赛%d 房间%d 玩家%d 分配房间", cs.uid, roomid, userid)
 	}
 }
@@ -494,7 +494,7 @@ func (cs *ChampionShip) ReDispatchRoom(roomuid int64) bool {
 		cs.NotifyUserRoom(tmproommember)
 		texas := RoomMgr().FindTexas(roomuid)
 		if texas != nil {
-			texas.Destory(3)
+			texas.Destory(0)
 		}
 		log.Info("锦标赛%d 拆散桌子删除房间%d", cs.uid, roomuid)
 		return true
@@ -637,6 +637,10 @@ func (cs *ChampionShip) SaveData() {
 		key := fmt.Sprintf("usercsrecord_%d", member)
 		pipe.LPush(key, struid)
 	}
+	_, err := pipe.Exec()
+	if err != nil {
+		log.Info("锦标赛%d 写入玩家记录失败", cs.uid)
+	}
 	srecord := &msg.MTTRecordInfo{}
 	first := cs.GetFirstMember()
 	if first != nil {
@@ -645,8 +649,11 @@ func (cs *ChampionShip) SaveData() {
 		srecord.Name = pb.String(first.name)
 		srecord.Head = pb.String(first.face)
 		srecord.Sex = pb.Int32(first.sex)
-		skey := fmt.Sprintf("cssimplerecord_%s", cs.uid)
-		utredis.SetProtoBin(Redis(), skey, srecord)
+		srecord.Recordid = pb.Int32(cs.uid)
+		skey := fmt.Sprintf("cssimplerecord_%d", cs.uid)
+		if err := utredis.SetProtoBin(Redis(), skey, srecord); err != nil {
+			log.Info("锦标赛%d 写入简单记录失败", cs.uid)
+		}
 	}
 	drecord := &msg.RS2C_RetMTTRecentlyRankList{}
 	count := 1
@@ -669,7 +676,9 @@ func (cs *ChampionShip) SaveData() {
 		count++
 	}
 	dkey := fmt.Sprintf("csdetailrecord_%d", cs.uid)
-	utredis.GetProtoBin(Redis(), dkey, drecord)
+	if err := utredis.SetProtoBin(Redis(), dkey, drecord); err != nil {
+		log.Info("锦标赛%d 写入详细记录失败", cs.uid)
+	}
 }
 
 func (cs *ChampionShip) GetMemberById(uid int64) *CSPlayer {
@@ -803,7 +812,7 @@ func (cm *ChampionManager) Tick(now int64) {
 			log.Info("锦标赛%d 未开启删除", key)
 		}
 		if cs.IsOver() {
-			cm.championovers[key] = cs
+			//cm.championovers[key] = cs
 			delete(cm.championships, key)
 			log.Info("锦标赛%d 结束", key)
 		}
@@ -830,9 +839,10 @@ func (cm *ChampionManager) ReqMTTList(gid int, uid int64) {
 		mtt.Recordid = pb.Int32(cs.uid)
 		mtt.Joinway = pb.Int32(cs.GetUserJoinWay(uid))
 		mtt.Leftjoin = pb.Int32(cs.curmembernum)
+		//mtt.Roomuid = pb.Int64(cs.GetUserRoom(uid))
 		send.Mttlist = append(send.Mttlist, mtt)
 	}
-	for _, cs := range cm.championovers {
+	/*for _, cs := range cm.championovers {
 		mtt := &msg.MTTInfo{}
 		mtt.Id = pb.Int32(cs.tconf.Id)
 		mtt.Starttime = pb.Int32(cs.starttime)
@@ -842,7 +852,7 @@ func (cm *ChampionManager) ReqMTTList(gid int, uid int64) {
 		mtt.Endtime = pb.Int32(cs.endtime)
 		mtt.Outtime = pb.Int32(cs.GetUserOutTime(uid))
 		send.Mttlist = append(send.Mttlist, mtt)
-	}
+	}*/
 	RoomSvr().SendClientMsg(gid, uid, send)
 }
 
@@ -909,6 +919,7 @@ func (cm *ChampionManager) ReqJoinedMTTList(gid int, uid int64, rev *msg.C2RS_Re
 		mtt.Recordid = pb.Int32(cs.uid)
 		mtt.Joinway = pb.Int32(cs.GetUserJoinWay(uid))
 		mtt.Rank = pb.Int32(cs.GetUserRank(uid))
+		//mtt.Roomuid = pb.Int64(cs.GetUserRoom(uid))
 		send.Mttlist = append(send.Mttlist, mtt)
 	}
 	RoomSvr().SendClientMsg(gid, uid, send)
@@ -931,7 +942,7 @@ func (cm *ChampionManager) ReqInsideRoomInfoList(gid int, uid int64) {
 	lastroom, _ := Redis().Get(fmt.Sprintf("userinroom_%d", uid)).Int64()
 	send.Lastid = pb.Int64(lastroom)
 	RoomSvr().SendClientMsg(gid, uid, send)
-	log.Info("玩家%d gid%d 请求房间列表", uid, gid)
+	//log.Info("玩家[%d] gateid[%d] 请求房间列表", uid, gid)
 }
 
 func (cm *ChampionManager) ReqMTTRecordList(gid int, uid int64) {
@@ -939,6 +950,7 @@ func (cm *ChampionManager) ReqMTTRecordList(gid int, uid int64) {
 	key := fmt.Sprintf("usercsrecord_%d", uid)
 	rlist, err := Redis().LRange(key, 0, 10).Result()
 	if err != nil {
+		log.Info("玩家%d 请求最近列表失败", uid)
 		return
 	}
 	for _, v := range rlist {
@@ -955,7 +967,7 @@ func (cm *ChampionManager) ReqMTTRecentlyRankList(gid int, uid int64, rev *msg.C
 	send := &msg.RS2C_RetMTTRecentlyRankList{}
 	key := fmt.Sprintf("csdetailrecord_%d", rev.GetRecordid())
 	if err := utredis.GetProtoBin(Redis(), key, send); err != nil {
-		return
+		log.Info("锦标赛%d 请求详细列表失败", rev.GetRecordid())
 	}
 	RoomSvr().SendClientMsg(gid, uid, send)
 }

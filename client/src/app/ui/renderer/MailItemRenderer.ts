@@ -32,7 +32,18 @@ class MailItemRenderer extends BaseItemRenderer<MailInfo>
             this.dateLabel.text = game.DateTimeUtil.formatDate(new Date(this.bindData.Date * 1000), game.DateTimeUtil.Format_China_MonthDay);
             if (this.bindData.isHavePrize)
             {
-                this.itemComp.init(this.bindData.items[0].id, 88);
+                if (this.bindData.items && this.bindData.items.length > 0)
+                {
+                    this.itemComp.init(this.bindData.items[0].id, 88);
+                }
+                else if (this.bindData.mttawardtid > 0)
+                {
+                    let awardDef: table.IAwardDefine = table.AwardById[this.bindData.mttawardtid];
+                    if (awardDef && awardDef.RewardId.length > 0)
+                    {
+                        this.itemComp.init(awardDef.RewardId[0], 88);
+                    }
+                }
                 if (this.bindData.IsGot)
                 {
                     this.takePrizeBtn.visible = false;
