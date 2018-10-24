@@ -413,7 +413,8 @@ type TexasFightRoom struct {
 	players map[int64]*TexasFightPlayer	// 所有玩家
 	sitplayers []*TexasFightPlayer		// 坐下玩家列表
 
-	bankerqueue []*TexasFightPlayer		// 做庄排队列表
+	//bankerqueue []*TexasFightPlayer	// 做庄排队列表
+	bankerqueue *list.List 				// 做庄排队列表
 	banker *TexasFightPlayer			// 庄家
 	bankersys *TexasFightPlayer			// 系统庄家
 
@@ -422,7 +423,6 @@ type TexasFightRoom struct {
 	cards [kMaxCardNum]*Card			// 52张牌
 	betstat BetPoolTempStat				// 下注池临时统计
 	poolhit AwardPoolHitRecord			// 奖池命中记录
-	//history []*WinLoseRecord		// 胜负走势列表
 	history *list.List					// 胜负历史记录列表
 }
 
@@ -462,7 +462,8 @@ func (tf *TexasFightRoom) Init() string {
 	tf.sitplayers = make([]*TexasFightPlayer, tconf.Seat+1)	// +1 庄家位
 	tf.players = make(map[int64]*TexasFightPlayer)
 
-	tf.bankerqueue = make([]*TexasFightPlayer, 0)
+	//tf.bankerqueue = make([]*TexasFightPlayer, 0)
+	tf.bankerqueue = list.New()
 	tf.bankersys = NewTexasFightPlayer(nil, true)
 	tf.banker = tf.bankersys
 

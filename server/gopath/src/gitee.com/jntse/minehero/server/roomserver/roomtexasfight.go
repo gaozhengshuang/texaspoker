@@ -80,7 +80,7 @@ func (tf *TexasFightRoom) PlayerBankerCheck() {
 
 		// 玩家离开庄位
 		if kickbanker == true {
-			tf.bankerqueue = tf.bankerqueue[1:]
+			tf.bankerqueue.Remove(tf.bankerqueue.Front())
 			tf.banker.Sit(-1)
 			tf.banker.ResetBankerRound()
 			posmsg := &msg.RS2C_PushTFPosChange{ Pos:pb.Int32(0), Roleid:pb.Int64(0), Bankergold:pb.Int32(0) }
@@ -92,8 +92,9 @@ func (tf *TexasFightRoom) PlayerBankerCheck() {
 
 
 	// 下一个玩家庄家
-	if len(tf.bankerqueue) != 0 {
-		p := tf.bankerqueue[0]
+	if tf.bankerqueue.Len() != 0 {
+		elem := tf.bankerqueue.Front()
+		p := elem.Value.(*TexasFightPlayer)
 		if p.Seat() != -1 {	// 在座位上先离开座位
 			tf.UserStandUp(p.owner)
 		}
@@ -525,21 +526,21 @@ func (tf *TexasFightRoom) RequestBecomeBanker(u *RoomUser) {
 		return
 	}
 
-	// TODO: 已经是庄家
-	if false {
+	// 已经是庄家
+	if tf.banker.Id() == u.Id() {
 		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 已经是庄家", u.Name(), u.Id(), tf.Id())
 		return
 	}
 
-	for _, p := range tf.bankerqueue {
+	for elem := tf.bankerqueue.Front(); elem != nil; elem = elem.Next() {
+		p := elem.Value.(*TexasFightPlayer)
 		if p.Id() == u.Id() {
 			log.Error("[百人大战] 玩家[%s %d] 房间[%d] 已经在庄家列表了", u.Name(), u.Id(), tf.Id())
 			return
 		}
 	}
 
-
-	tf.bankerqueue = append(tf.bankerqueue, player)
+	tf.bankerqueue.PushBack(player)
 	send := &msg.RS2C_RetTFBecomeBanker{}
 	u.SendClientMsg(send)
 
@@ -561,7 +562,8 @@ func (tf *TexasFightRoom) RequestQuitBanker(u *RoomUser) {
 	}
 
 	bfind := false
-	for _ , p := range tf.bankerqueue {
+	for elem := tf.bankerqueue.Front(); elem != nil; elem = elem.Next() {
+		p := elem.Value.(*TexasFightPlayer)
 		if p.Id() == u.Id() {
 			bfind = true
 			break
@@ -586,19 +588,12 @@ func (tf *TexasFightRoom) RequestQuitBanker(u *RoomUser) {
 }
 
 func (tf *TexasFightRoom) BankerQueueRemove(uid int64) {
-	qsize := len(tf.bankerqueue)
-	for i:=0; i < qsize; i++ {
-		if tf.bankerqueue[i].Id() != uid { 
-			continue 
+	for elem := tf.bankerqueue.Front(); elem != nil; elem = elem.Next() {
+		p := elem.Value.(*TexasFightPlayer)
+		if p.Id() == uid {
+			tf.bankerqueue.Remove(elem)
+			return
 		}
-
-		if i == qsize - 1 { 
-			tf.bankerqueue = tf.bankerqueue[:qsize-1]; 
-			break 
-		}
-
-		tf.bankerqueue = append(tf.bankerqueue[:i], tf.bankerqueue[i+1:]...)
-		break
 	}
 }
 
@@ -625,7 +620,8 @@ func (tf *TexasFightRoom) SendStandPlayerList(u *RoomUser, start, count int32) {
 // 拉取庄家列表
 func (tf *TexasFightRoom) SendBankerList(u *RoomUser) {
 	send := &msg.RS2C_RetTFBankerList{Bankerlist:make([]*msg.TFPlayer, 0)}
-	for _, p := range tf.bankerqueue {
+	for elem := tf.bankerqueue.Front(); elem != nil; elem = elem.Next() {
+		p := elem.Value.(*TexasFightPlayer)
 		send.Bankerlist = append(send.Bankerlist, p.FillPlayerInfo())
 	}
 	u.SendClientMsg(send)
