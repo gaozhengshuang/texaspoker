@@ -527,7 +527,7 @@ class GamblingManager
 	/**
 	 * 推送玩家坐下或站起
 	 */
-	public static pushSitOrStand(result: game.SpRpcResult)
+	private static pushSitOrStand(result: game.SpRpcResult)
 	{
 		// GamblingManager.roomDataPushHandler.writeResult(Command.SitOrStand_Push_2103, result);
 		if (result.data)

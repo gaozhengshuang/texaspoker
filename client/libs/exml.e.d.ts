@@ -356,6 +356,8 @@ declare class AutoLoginPanelSkin extends eui.Skin{
 }
 declare class AwardsPanelSkin extends eui.Skin{
 }
+declare class FirstPayPanelSkin extends eui.Skin{
+}
 declare class BankruptSubsidyInGamePanelSkin extends eui.Skin{
 }
 declare class BankruptSubsidyPanelSkin extends eui.Skin{
@@ -383,8 +385,6 @@ declare class panelSkin9 extends eui.Skin{
 declare class panelSkin13 extends eui.Skin{
 }
 declare class EditUserInfoPanelSkin extends eui.Skin{
-}
-declare class FirstPayPanelSkin extends eui.Skin{
 }
 declare class MessagePanel extends eui.Skin{
 }
@@ -520,6 +520,12 @@ declare class friendIsOnlineTB extends eui.Skin{
 }
 declare class friendKSLQButtonSkin extends eui.Skin{
 }
+declare class guessAnteBuyRadioButtonSkin extends eui.Skin{
+}
+declare class guessAnteToggleSwitchSkin extends eui.Skin{
+}
+declare class guessSelBtnSkin extends eui.Skin{
+}
 declare class CardFaceComponentSkin extends eui.Skin{
 }
 declare class ChipsShowComponentSkin extends eui.Skin{
@@ -552,14 +558,6 @@ declare class guideQuestionRadioBtnSkin extends eui.Skin{
 }
 declare class GuideTipsComponentSkin extends eui.Skin{
 }
-declare class guessAnteBuyRadioButtonSkin extends eui.Skin{
-}
-declare class guessAnteToggleSwitchSkin extends eui.Skin{
-}
-declare class guessSelBtnSkin extends eui.Skin{
-}
-declare class CommonIconSkin extends eui.Skin{
-}
 declare class hundredWarAchieveButtonSkin extends eui.Skin{
 }
 declare class HundredWarBankerBtnSkin extends eui.Skin{
@@ -585,6 +583,8 @@ declare class hwBetToggleSwitchSkin extends eui.Skin{
 declare class HWCardsComponentSkin extends eui.Skin{
 }
 declare class HWHeadComponentSkin extends eui.Skin{
+}
+declare class CommonIconSkin extends eui.Skin{
 }
 declare class GetItemRendererSkin extends eui.Skin{
 }
@@ -621,6 +621,8 @@ declare class playfieldBringTSSkin extends eui.Skin{
 declare class playfieldButtonSkin extends eui.Skin{
 }
 declare class playfieldTBSkin extends eui.Skin{
+}
+declare class ZhiTongCheItemComponentSkin extends eui.Skin{
 }
 declare class AddChipsButtonSkin extends eui.Skin{
 }

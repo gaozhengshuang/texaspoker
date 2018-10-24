@@ -204,6 +204,8 @@
 		"resource/skins/panel/AudioRecordingPanel.exml",
 		"resource/skins/panel/AutoLoginPanel.exml",
 		"resource/skins/panel/AwardsPanel.exml",
+		"resource/skins/panel/BankrupSubsidyCharge.exml",
+		"resource/skins/panel/BankrupSubsidyCharge2.exml",
 		"resource/skins/panel/BankruptSubsidyInGamePanel.exml",
 		"resource/skins/panel/BankruptSubsidyPanel.exml",
 		"resource/skins/panel/BindAccountPanel.exml",
@@ -384,7 +386,8 @@
 		"resource/skins/component/laba/laBaTabCompontBtn2.exml",
 		"resource/skins/component/mtt/enterBlueSkin.exml",
 		"resource/skins/component/playfield/playfieldBringTSSkin.exml",
-		"resource/skins/component/playfield/playfieldButtonSkin.exml"
+		"resource/skins/component/playfield/playfieldButtonSkin.exml",
+		"resource/skins/component/zhitongche/ZhiTongCheItemComponent.exml"
 	],
 	"path": "resource/default.thm.json"
 }
