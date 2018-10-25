@@ -209,7 +209,6 @@ func (u *GateUser) LoginStatistics() {
 		u.statistics.continuelogin = 1
 		return
 	}
-	diffday := false
 	if util.IsNextDay(u.statistics.tm_login, util.CURTIME()) {
 		u.statistics.continuelogin += 1
 		if u.statistics.nocountlogin == 0 {
@@ -218,22 +217,20 @@ func (u *GateUser) LoginStatistics() {
 		}
 		key2 := fmt.Sprintf("%s_loginsum", datetime)
 		Redis().Incr(key2)
-		diffday = true
 	} else {
 		if !util.IsSameDay(u.statistics.tm_login, util.CURTIME()) {
 			u.statistics.continuelogin = 1
 			u.statistics.nocountlogin = 1
 			key := fmt.Sprintf("%s_loginsum", datetime)
 			Redis().Incr(key)
-			diffday = true
 		}
 	}
-
-	if diffday {
-		u.ActivityResetByDay()
-		u.DailyResetAchieve()
+	
+	//离线跨天
+	if !util.IsSameDay(u.statistics.tm_login, util.CURTIME()) {
+		u.UserDailyReset()
 	}
-
+	//离线跨周
 	if !util.IsSameWeek(u.statistics.tm_login, util.CURTIME()) {
 		u.ActivityResetByWeek()
 		u.WeekResetAchieve()

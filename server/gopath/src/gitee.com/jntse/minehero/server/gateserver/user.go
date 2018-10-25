@@ -794,4 +794,24 @@ func (u *GateUser) SendChat(rev *msg.C2GW_ReqSendMessage) {
 	u.SendMsg(send)
 }
 
+//零点回调
+func (u *GateUser) ZeroHourClockCallback () {
+	u.UserDailyReset()
+}
+
+//跨天重置
+func (u *GateUser) UserDailyReset() {
+	now := util.CURTIME()
+	cmdval, err := Redis().HGet(fmt.Sprintf("charstate_%d", u.Id()), "dailyresetstamp").Result()
+	if err == nil {
+		timestamp := util.Atol(cmdval)
+		if util.IsSameDay(timestamp, now) == true {
+			return
+		}
+	}
+	log.Info("玩家[%s]跨天重置 uid:%d",u.Name() ,u.Id())
+	Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "dailyresetstamp", now)
+	u.ActivityResetByDay()
+	u.DailyResetAchieve()
+}
 

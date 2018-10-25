@@ -290,6 +290,16 @@ func (m *UserManager) IntHourClockCallback(now int64) {
 	log.Info("当前整点[%d]点", inthour)
 }
 
+//零点回调
+func (m *UserManager) ZeroHourClockCallback(now int64) {
+	for _, user := range m.accounts {
+		if m.IsRemove(user, now) {
+			continue
+		}
+		user.ZeroHourClockCallback()
+	}
+}
+
 // 好友被邀请进入房间
 func (m *UserManager) OnInviteJoinRoom(tmsg *msg.GW2C_PushFriendInvitation) {
 	for _, id := range tmsg.Handler {

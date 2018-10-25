@@ -95,6 +95,8 @@ func (mh *C2GWMsgHandler) Init() {
 	//成就任务
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqAchieveInfo{}, on_C2GW_ReqAchieveInfo)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqTakeAchieveAward{}, on_C2GW_ReqTakeAchieveAward)
+	//其他任务
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqTakeOtherTask{}, on_C2GW_ReqTakeOtherTask)
 
 	//高级场破产弹窗
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqBankruptInfo{}, on_C2GW_ReqBankruptInfo)
@@ -680,4 +682,22 @@ func on_C2GW_ReqBankruptInfo(session network.IBaseNetSession, message interface{
 		return
 	}
 	u.OnReqBankruptInfo()
+}
+
+func on_C2GW_ReqTakeOtherTask(session network.IBaseNetSession, message interface{}) {
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	tmsg := message.(*msg.C2GW_ReqTakeOtherTask)
+	tasktype := tmsg.GetTasktype()
+	send := &msg.GW2C_RetTakeOtherTask{}
+	send.Tasktype = pb.Int32(tasktype)
+	if tasktype == 1 {
+		taskid := u.CheckTakeLuckyTask()
+		send.Taskid = pb.Int32(taskid)
+	}
+	u.SendMsg(send)
 }
