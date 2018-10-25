@@ -576,6 +576,7 @@ func UnBindingAccountGateWay(account string) {
 func ZeroHourClockCallback(now int64) {
 	log.Info("==========零点回调开始===========")
 	//UserMgr().GiveFreeStep(now)
+	UserMgr().ZeroHourClockCallback(now)
 	log.Info("==========零点回调结束===========")
 }
 

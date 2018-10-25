@@ -278,12 +278,27 @@ func (h *Hand)AnalyseHand() error{
 	例如2 2 3 3 A J 8 以及 2 2 3 3 A Q 8两副手牌
 	排序之后是3322AB8和3322AC8，显然第二副手牌大
 	*/
+	//这里要特殊处理下 如果一方是998844A 另一方是9988AQ7 其实是一样大的牌
 	for i:=0; i<CARDRANK; i++{
 		if h.count[i] == 2{
 			for j:=i+1; j<CARDRANK; j++{
 				if h.count[j] == 2{
 					h.level = 3
-					h.finalvalue = tmp
+					tmpcards := make([]int32, 0)
+					for _, c := range h.cards {
+						if c == nil {
+							continue
+						}
+						if c.Value == int32(i) || c.Value == int32(j) {
+							continue
+						}
+						tmpcards = append(tmpcards, c.Value)
+					}
+					if len(tmpcards) > 0 {
+						h.finalvalue = int32(j)*10000 + int32(j)*1000 + int32(i)*100 + int32(i)*10 + tmpcards[0]
+					}else{
+						h.finalvalue = tmp
+					}
 					return nil
 				}
 			}

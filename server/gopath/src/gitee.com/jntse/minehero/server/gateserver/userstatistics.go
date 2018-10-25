@@ -210,8 +210,7 @@ func (u *GateUser) LoginStatistics() {
 	}
 
 	if diffday {
-		u.ActivityResetByDay()
-		u.DailyResetAchieve()
+		u.UserDailyReset()
 	}
 
 	if !util.IsSameWeek(u.statistics.tm_login, util.CURTIME()) {

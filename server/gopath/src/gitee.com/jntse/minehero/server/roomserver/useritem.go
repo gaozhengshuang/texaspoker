@@ -129,6 +129,7 @@ func (u *RoomUser) AddItem(item int32, num int32, reason string, syn bool) {
 		if sumnum == int64(num) {
 			Redis().SAdd(fmt.Sprintf("userbag_%d"), u.Id(), fmt.Sprintf("%d"), item)
 		}
+		u.UpdateItem(item, int32(sumnum))
 		log.Info("玩家[%d] 添加道具 itemid[%d] num[%d] reason:%s",u.Id(), item, sumnum, reason)
 	}
 }
@@ -162,6 +163,7 @@ func (u *RoomUser) RemoveItem(item int32, num int32, reason string) bool {
 		if sumnum == 0 {
 			Redis().SRem(fmt.Sprintf("userbag_%d"), u.Id(), fmt.Sprintf("%d"), item)
 		}
+		u.UpdateItem(item, int32(sumnum))
 		log.Info("玩家[%d] 减少道具 itemid[%d] num[%d] reason:%s",u.Id(), item, sumnum, reason)
 		return true
 	}
@@ -176,4 +178,10 @@ func (u *RoomUser) AddExp(num int32, reason string, syn bool) {
 	u.SendMsg(send)	
 }
 
-
+//更新道具信息
+func (u *RoomUser) UpdateItem(id int32, num int32) {
+	send := &msg.GW2C_PushUpdateItem{}
+	send.Id = pb.Int32(id)
+	send.Num = pb.Int32(num)
+	u.SendMsg(send)
+}

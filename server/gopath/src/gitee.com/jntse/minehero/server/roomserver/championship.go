@@ -366,18 +366,30 @@ func (cs *ChampionShip) DispatchRoom() {
 
 func (cs *ChampionShip) JoinHalfWay(userid int64) {
 	var joinok bool = false
+	var ruid int64 = 0
 	for key, room := range cs.roommember {
 		if int32(len(room)) >= cs.rconf.Seat {
 			continue
 		}
 		cs.JoinOneMatch(userid, key)
 		joinok = true
+		ruid = key
+		break
 	}
 	if !joinok {
 		roomuid := cs.CreateRoom()
 		if roomuid != 0 {
 			cs.JoinOneMatch(userid, roomuid)
+			joinok = true
+			ruid = roomuid
 		}
+	}
+	if joinok {
+		tmproommember := make(map[int64]map[int64]int64)
+		tmpmap := make(map[int64]int64)
+		tmproommember[ruid] = tmpmap
+		tmproommember[ruid][userid] = userid
+		cs.NotifyUserRoom(tmproommember)
 	}
 }
 
@@ -843,7 +855,7 @@ func (cm *ChampionManager) Tick(now int64) {
 		if cs.IsOver() {
 			//cm.championovers[key] = cs
 			delete(cm.championships, key)
-			log.Info("锦标赛%d 结束", key)
+			log.Info("锦标赛%d 正常结束", key)
 		}
 	}
 }
@@ -1033,50 +1045,21 @@ func (cm *ChampionManager) ReqMTTRankInfo(gid int, uid int64, rev *msg.C2RS_ReqM
 		return
 	}
 	send := &msg.RS2C_RetMTTRankInfo{}
-	pipe := Redis().Pipeline()
-	defer pipe.Close()
 	for k, v := range picklist {
-		data := &msg.MTTRankInfo{}
 		uidstr := v.Member.(string)
 		userid,_ := strconv.ParseInt(uidstr, 10, 64)
+		member := cs.GetMemberById(userid)
+		if member == nil {
+			continue
+		}
+		data := &msg.MTTRankInfo{}
 		data.Roleid = pb.Int64(userid)
 		data.Chips = pb.Int32(int32(v.Score))
 		data.Rank = pb.Int32(int32(k + 1))
+		data.Name = pb.String(member.name)
+		data.Sex = pb.Int32(member.sex)
+		data.Head = pb.String(member.face)
 		send.Ranklist = append(send.Ranklist, data)
-		key := fmt.Sprintf("charbase_%d", userid)
-		pipe.HMGet(key, "name", "face", "sex")
-	}
-	cmds, err := pipe.Exec()
-	if err != nil && err != redis.Nil {
-		log.Error("批量读取玩家信息 redis 出错:%s", err)
-		return
-	}
-	for k, v := range cmds {
-		if v.Err() != nil && v.Err() == redis.Nil {
-			log.Error("读取单个玩家信息 redis 出错:%s", v.Err())
-			continue
-		}
-		vals, err2 := v.(*redis.SliceCmd).Result()
-		if err2 != nil && err == redis.Nil {
-			log.Error("读取单个玩家信息 redis 出错:%s", err2)
-			continue
-		}
-		if len(vals) < 3 {
-			log.Error("读取单个玩家信息 字段个数不对")
-			continue
-		}
-		if name, ok := vals[0].(string); ok {
-			send.Ranklist[k].Name = pb.String(name)
-		}
-
-		if head, ok := vals[1].(string); ok {
-			send.Ranklist[k].Head = pb.String(head)
-		}
-
-		if sexstr, ok := vals[2].(string); ok {
-			sex, _ := strconv.ParseInt(sexstr, 10, 32)
-			send.Ranklist[k].Sex = pb.Int32(int32(sex))
-		}
 	}
 	RoomSvr().SendClientMsg(gid, uid, send)
 }
