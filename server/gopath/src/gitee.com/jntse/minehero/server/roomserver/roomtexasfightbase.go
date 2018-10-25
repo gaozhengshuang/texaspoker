@@ -125,6 +125,7 @@ func (p *TexasFightPlayer) ResetBankerRound() { p.bankerround = 0 }
 func (p *TexasFightPlayer) BetInfo() [kBetPoolNum]*TFPlayerBet { return p.betlist }
 func (p *TexasFightPlayer) TotalBet() int32 { return p.totalbet }
 func (p *TexasFightPlayer) TotalProfit() int32 { return p.totalprofit }
+func (p *TexasFightPlayer) IncTotalProfit(n int32) { p.totalprofit += n }
 func (p *TexasFightPlayer) WatchCount() int32 { return p.watchcount }
 func (p *TexasFightPlayer) SetWatchCount(n int32) { p.watchcount = n }
 func (p *TexasFightPlayer) IsBanker() bool { return p.seat == 0 }
@@ -143,7 +144,7 @@ func (p *TexasFightPlayer) Name() string {
 }
 
 func (p *TexasFightPlayer) Head() string {
-	if p.IsSystem() { return "default" }
+	if p.IsSystem() { return "" }
 	return p.owner.Head()
 }
 
@@ -181,6 +182,12 @@ func (p *TexasFightPlayer) BecomeBanker() {
 
 // 输赢结算
 func (p *TexasFightPlayer) Settle(tf *TexasFightRoom) {
+
+	// 玩家庄家在BankerSettle中结算
+	if p.Id() == tf.banker.Id() {
+		return
+	}
+
 	bankerpool := tf.betpool[0]			// 庄家池
 	for k, bet := range p.betlist {
 		if k == 0 || bet == nil { continue }
@@ -329,9 +336,9 @@ func (t *TexasFightBetPool) WinOdds() int32 {
 func (t *TexasFightBetPool) FillBetPoolInfo() *msg.TFBetPoolInfo {
 	info := &msg.TFBetPoolInfo{Bet:pb.Int32(t.total), Pos:pb.Int32(t.pos), Cards:make([]int32, 0)}
 	for _, card := range t.cards {
-		if card == nil { continue }
-		info.Cards = append(info.Cards, card.Suit)
-		info.Cards = append(info.Cards, card.Value)
+		if card == nil { continue }		// 还没有发牌
+		info.Cards = append(info.Cards, card.Suit+1)	// 客户端颜色从1开始
+		info.Cards = append(info.Cards, card.Value+2)	// 客户端数值从2开始
 	}
 	return info
 }
@@ -395,7 +402,29 @@ type AwardPoolHitRecord struct {
 
 func (a *AwardPoolHitRecord) Init() {
 	a.cards = [kHandCardNum]*Card{}
+	a.gold = 0
+	a.time = 0
 	a.players = make([]*msg.TFPlayer, 0)
+}
+
+func (a *AwardPoolHitRecord) Replace(pool *TexasFightBetPool, tf *TexasFightRoom) {
+	a.Init()
+	for k, card := range pool.cards {
+		a.cards[k] = card
+	}
+	a.gold = pool.AwardPool()		// 从奖池拿走金额
+	a.time = util.CURTIME()
+
+	if pool.Pos() == 0 {
+		a.players = append(a.players, tf.banker.FillPlayerInfo())
+	}else {
+		for _, p := range tf.players {
+			if p.betlist[pool.Pos()] == nil { 
+				continue
+			}
+			a.players = append(a.players, p.FillPlayerInfo())
+		}
+	}
 }
 
 
@@ -429,11 +458,11 @@ type TexasFightRoom struct {
 	ticker1s *util.GameTicker
 	ticker100ms *util.GameTicker
 	stat int32			// 状态
-	statstart int64		// 状态开始时间
-	stattimeout int64	// 状态超时时间
+	statstart int64		// 状态开始时间，秒
+	stattimeout int64	// 状态超时时间，秒
 
-	players map[int64]*TexasFightPlayer	// 所有玩家
-	sitplayers []*TexasFightPlayer		// 坐下玩家列表
+	players map[int64]*TexasFightPlayer		// 所有玩家
+	sitplayers []*TexasFightPlayer	// 坐下玩家列表
 
 	//bankerqueue []*TexasFightPlayer	// 做庄排队列表
 	bankerqueue *list.List 				// 做庄排队列表
@@ -444,12 +473,11 @@ type TexasFightRoom struct {
 	betpool [kBetPoolNum]*TexasFightBetPool		// 押注池，0庄家，闲家从左到右1-4
 	cards [kMaxCardNum]*Card			// 52张牌
 	betstat BetPoolTempStat				// 下注池临时统计
-	poolhit AwardPoolHitRecord			// 奖池命中记录
+	awardhit AwardPoolHitRecord			// 奖池命中记录
 	history *list.List					// 胜负历史记录列表
 }
 
 func (tf *TexasFightRoom) Stat() int32 { return tf.stat }
-func (tf *TexasFightRoom) StatStartTime() int64 { return tf.statstart }
 func (tf *TexasFightRoom) IsStateTimeOut(now int64) bool { return now >= tf.stattimeout }
 func (tf *TexasFightRoom) TotalAwardPool() int32 { return tf.totalawardpool }
 func (tf *TexasFightRoom) IncAwardPool(n int32) { tf.totalawardpool += n }
@@ -484,14 +512,17 @@ func (tf *TexasFightRoom) Init() string {
 	tf.sitplayers = make([]*TexasFightPlayer, tconf.Seat+1)	// +1 庄家位
 	tf.players = make(map[int64]*TexasFightPlayer)
 
+
 	//tf.bankerqueue = make([]*TexasFightPlayer, 0)
 	tf.bankerqueue = list.New()
 	tf.bankersys = NewTexasFightPlayer(nil, true)
+	tf.bankersys.Sit(0)
 	tf.banker = tf.bankersys
+	tf.sitplayers[0] = tf.banker
 
 	tf.totalawardpool = 0
 	tf.betstat.Init(tconf.Seat+1)	// +1 庄家位
-	tf.poolhit.Init()
+	tf.awardhit.Init()
 	//tf.history = make([]*WinLoseRecord, 0)
 	tf.history = list.New()
 
@@ -551,7 +582,7 @@ func (tf *TexasFightRoom) UserEnter(u *RoomUser) {
 	//
 	infomsg := &msg.GW2C_RetEnterTFRoom{Playerlist:make([]*msg.TFPlayerPos,0) }
 	infomsg.State = pb.Int32(tf.Stat())
-	infomsg.Statetime = pb.Int64(tf.StatStartTime())
+	infomsg.Statetime = pb.Int64(tf.statstart)
 	infomsg.Pool = pb.Int32(tf.TotalAwardPool())
 	infomsg.Hwid = pb.Int32(tf.Tid())
 	infomsg.Bankergold = pb.Int32(0)
@@ -559,8 +590,7 @@ func (tf *TexasFightRoom) UserEnter(u *RoomUser) {
 	infomsg.Betlist = make([]*msg.TFBetPoolInfo, 0)
 
 	// 坐下玩家列表
-	for k, p := range tf.sitplayers {
-		if k == 0 { continue }
+	for _, p := range tf.sitplayers {
 		if p == nil { continue }
 		situser := &msg.TFPlayerPos{Roleid:pb.Int64(p.Id()), Pos:pb.Int32(p.Seat())}
 		infomsg.Playerlist = append(infomsg.Playerlist, situser)
@@ -661,7 +691,8 @@ func (tf *TexasFightRoom) UserStandUp(u *RoomUser) {
 // 棋牌类坐下
 func (tf *TexasFightRoom) UserSitDown(u *RoomUser, seat int32) {
 	// 检查位置是否有效
-	if seat > int32(len(tf.sitplayers)) || seat < 0 {
+	maxseat := int32(len(tf.sitplayers))
+	if seat >= maxseat || seat < 0 {
 		log.Error("[百人大战] 玩家[%s %d] 请求坐下无效的位置seat[%d]", u.Name(), u.Id(), seat)
 		return
 	}

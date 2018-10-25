@@ -377,7 +377,7 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 		entity := &msg.EntityBase {
 			Roleid: pb.Int64(userid),
 			Name: pb.String(nickname),
-			Head: pb.String("null"),
+			Head: pb.String(""),
 			Account: pb.String(account),
 			Gold: pb.Int32(gold), 
 			Yuanbao: pb.Int32(yuanbao), 
