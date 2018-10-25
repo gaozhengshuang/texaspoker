@@ -10,6 +10,7 @@ import (
 	"gitee.com/jntse/minehero/pbmsg"
 	pb "github.com/gogo/protobuf/proto"
 	"strings"
+	"time"
 )
 
 const (
@@ -36,7 +37,6 @@ const (
 	AchieveGroup_BaiRenWin = 2041 //百人大战胜利数
 	AchieveGroup_LevelEx = 3001  //等级跟Level一样只是多了一份成就
 )
-
 
 func (u *GateUser) GetAchieveProcessMap (userid int64) map[int32]int32 {
 	data := make(map[int32]int32)
@@ -310,4 +310,148 @@ func (u *GateUser) OnReqPlayerRoleInfo(roleid int64) {
 		}
 	}
 	u.SendMsg(send)
+}
+
+//检查幸运任务可接取 
+func (u *GateUser) CheckTakeLuckyTask () int32 {
+	if u.GetUserLuckyTask()	> 0 {
+		return 0
+	}
+	conf1, find1 := tbl.LuckyTaskBase.LuckyTaskById[1]
+	conf2, find2 := tbl.LuckyTaskBase.LuckyTaskById[2]
+	conf3, find3 := tbl.LuckyTaskBase.LuckyTaskById[3]
+	if find1 == false || find2 == false || find3 == false {
+		return 0
+	}
+	nowClock, _, _ := time.Now().Clock()
+	bTimeOk := false
+	for _, v := range conf1.Time {
+		if int32(nowClock) == v{
+			bTimeOk = true
+			break
+		}
+	}
+	if bTimeOk == false {
+		return 0
+	}
+	gold := u.GetGold()
+	totalplay := u.GetTotalPlay()
+	if gold >= conf3.Gold[0] {
+		if u.GetNowLuckyTaskTakeCount(3) > conf3.MaxTake {
+			return 0
+		}
+		if (totalplay < conf3.TotalPlay) || (conf3.YesterdayPlay > 0 && u.GetYesterdayPlay() < conf3.YesterdayPlay) || (conf3.ThreedayPlay > 0 && u.GetThreedayPlay() < conf3.ThreedayPlay) {
+			return 0
+		}
+		u.TakeLuckyTask(3)
+		return 3
+	} else if gold >= conf2.Gold[0] && gold < conf2.Gold[1] {
+		if u.GetNowLuckyTaskTakeCount(2) > conf2.MaxTake {
+			return 0
+		}
+		if (totalplay < conf2.TotalPlay) || (conf2.YesterdayPlay > 0 && u.GetYesterdayPlay() < conf2.YesterdayPlay) || (conf2.ThreedayPlay > 0 && u.GetThreedayPlay() < conf2.ThreedayPlay) {
+			return 0
+		}
+		u.TakeLuckyTask(2)
+		return 2
+	} else if gold >= conf1.Gold[0] && gold < conf1.Gold[1] {
+		if u.GetNowLuckyTaskTakeCount(1) > conf1.MaxTake {
+			return 0
+		}
+		if (totalplay < conf1.TotalPlay) || (conf1.YesterdayPlay > 0 && u.GetYesterdayPlay() < conf1.YesterdayPlay) || (conf1.ThreedayPlay > 0 && u.GetThreedayPlay() < conf1.ThreedayPlay) {
+			return 0
+		}
+		u.TakeLuckyTask(1)
+		return 1
+	}
+	return 0
+}
+
+
+//获取累计对局数
+func (u *GateUser) GetTotalPlay() int32 {
+	cmdval, err := Redis().HGet(fmt.Sprintf("charstate_%d", u.Id()), "gametimes").Result()
+	if err == nil {
+		return util.Atoi(cmdval)
+	}
+	return 0
+}
+
+//获取前一天对局数
+func (u *GateUser) GetYesterdayPlay() int32 {
+	nowTime := time.Now()
+	yesTime := nowTime.AddDate(0,0,-1)
+	yesdate := yesTime.Format("2006-01-02")
+	cmdval, err := Redis().Get(fmt.Sprintf("charplay_%d_%s", u.Id(), yesdate)).Result()
+	if err == nil {
+		return util.Atoi(cmdval)
+	}
+	return 0
+}
+
+//获取前三天平局对局数
+func (u *GateUser) GetThreedayPlay() int32 {
+	nowTime := time.Now()
+	var play int32
+	time1 := nowTime.AddDate(0,0,-1)
+	cmdval1, err1 := Redis().Get(fmt.Sprintf("charplay_%d_%s", u.Id(), time1.Format("2006-01-02"))).Result()
+	if err1 == nil {
+		play = play + util.Atoi(cmdval1)
+	}
+	time2 := nowTime.AddDate(0,0,-2)
+	cmdval2, err2 := Redis().Get(fmt.Sprintf("charplay_%d_%s", u.Id(), time2.Format("2006-01-02"))).Result()
+	if err2 == nil {
+		play = play + util.Atoi(cmdval2)
+	}
+	time3 := nowTime.AddDate(0,0,-3)
+	cmdval3, err3 := Redis().Get(fmt.Sprintf("charplay_%d_%s", u.Id(), time3.Format("2006-01-02"))).Result()
+	if err3 == nil {
+		play = play + util.Atoi(cmdval3)
+	}
+
+	return int32(play/3)
+}
+
+//获取当前时段幸运任务接取的人数
+func (u *GateUser) GetNowLuckyTaskTakeCount (taskttype int32) int32 {
+	nowTime := time.Now()
+	datetime := nowTime.Format("2006-01-02")
+	hour, _, _ := nowTime.Clock()
+	cmdval, err := Redis().Get(fmt.Sprintf("luckytasknum_%s_%d_%d",  datetime, hour, taskttype)).Result()
+	if err == nil {
+		return util.Atoi(cmdval)
+	}
+	return 0
+}
+
+//接取幸运任务
+func (u *GateUser) TakeLuckyTask(taskttype int32) {
+	Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "curluckytask", taskttype)
+	Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "isluckytaketoday", 1)
+	//增加接取人数
+	nowTime := time.Now()
+	datetime := nowTime.Format("2006-01-02")
+	hour, _, _ := nowTime.Clock()
+	num, err := Redis().Incr(fmt.Sprintf("luckytasknum_%s_%d_%d",  datetime, hour, taskttype)).Result()
+	if err == nil && num == 1 {
+		Redis().Expire(fmt.Sprintf("luckytasknum_%s_%d_%d",  datetime, hour, taskttype), 3600*time.Second)
+	}
+}
+
+//获取当前接的幸运任务
+func (u *GateUser) GetUserLuckyTask() int32 {
+	cmdval, err := Redis().HGet(fmt.Sprintf("charstate_%d", u.Id()), "curluckytask").Result()
+	if err == nil {
+		return util.Atoi(cmdval)
+	}
+	return 0
+}
+
+//今日是否接取过幸运任务
+func (u *GateUser) IsTakeLuckyTaskToday() int32 {
+	cmdval, err := Redis().HGet(fmt.Sprintf("charstate_%d", u.Id()), "isluckytaketoday").Result()
+	if err == nil {
+		return util.Atoi(cmdval)
+	}
+	return 0
 }
