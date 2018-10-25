@@ -205,21 +205,22 @@ func (u *GateUser) Sid() int {
 }
 
 func (u *GateUser) Level() int32 {
-	return u.level
+	level := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "level").Val())
+	return level
 }
 
 func (u *GateUser) AddLevel(num int32) {
-	u.level += num
+	level := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "level").Val())
+	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "level", level+1)
 	u.OnAchieveProcessChanged(int32(AchieveGroup_Level))
-	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "level", u.level)
 }
 
 func (u *GateUser) Exp() int32 {
-	return u.exp
+	exp := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "exp").Val())
+	return exp
 }
 
 func (u *GateUser) SetExp(exp int32) {
-	u.exp = exp
 	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "exp", exp)
 }
 
@@ -470,9 +471,9 @@ func (u *GateUser) PackBin() *msg.Serialize {
 
 	// 道具信息
 	//u.bag.PackBin(bin)
-	u.task.PackBin(bin)
-	u.events.PackBin(bin)
-	u.PackAutoResetValues(bin)
+	//u.task.PackBin(bin)
+	//u.events.PackBin(bin)
+	//u.PackAutoResetValues(bin)
 	//u.image.PackBin(bin)
 
 	//
@@ -522,10 +523,10 @@ func (u *GateUser) LoadBin() {
 	u.vip.LoadBin(u.bin)
 	// 道具信息
 	//u.bag.LoadBin(u.bin)
-	u.bag.DBLoad()
+	//u.bag.DBLoad()
 
 	// 任务
-	u.task.LoadBin(u.bin)
+	//u.task.LoadBin(u.bin)
 
 	// 邮件
 	u.mailbox.DBLoad()
@@ -534,10 +535,10 @@ func (u *GateUser) LoadBin() {
 	u.friends.DBLoad()
 
 	// 自动重置变量
-	u.arvalues.LoadBin(u.bin.Base.Arvalues)
+	//u.arvalues.LoadBin(u.bin.Base.Arvalues)
 
 	// 事件
-	u.events.LoadBin(u.bin)
+	//u.events.LoadBin(u.bin)
 
 	// 换装信息
 	//u.image.Clean()
@@ -550,7 +551,7 @@ func (u *GateUser) LoadGateBin () {
 
 // TODO: 存盘可以单独协程
 func (u *GateUser) DBSave() {
-	u.bag.DBSave()
+	//u.bag.DBSave()
 	u.mailbox.DBSave()
 	u.friends.DBSave()
 	key := fmt.Sprintf("userbin_%d", u.Id())
@@ -643,10 +644,7 @@ func (u *GateUser) Online(session network.IBaseNetSession, way string) bool {
 
 func (u *GateUser) Syn() {
 	u.SendUserBase()
-	u.SendSign()
 	u.CheckHaveCompensation()
-	//u.QueryPlatformCoins()
-	//u.TestItem()
 }
 
 func (u *GateUser) SynMatch(online bool) {

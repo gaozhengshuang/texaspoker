@@ -839,7 +839,7 @@ func (cm *ChampionManager) ReqMTTList(gid int, uid int64) {
 		mtt.Recordid = pb.Int32(cs.uid)
 		mtt.Joinway = pb.Int32(cs.GetUserJoinWay(uid))
 		mtt.Leftjoin = pb.Int32(cs.curmembernum)
-		mtt.Roomuid = pb.Int64(cs.GetUserRoom(uid))
+		//mtt.Roomuid = pb.Int64(cs.GetUserRoom(uid))
 		send.Mttlist = append(send.Mttlist, mtt)
 	}
 	/*for _, cs := range cm.championovers {
@@ -919,7 +919,7 @@ func (cm *ChampionManager) ReqJoinedMTTList(gid int, uid int64, rev *msg.C2RS_Re
 		mtt.Recordid = pb.Int32(cs.uid)
 		mtt.Joinway = pb.Int32(cs.GetUserJoinWay(uid))
 		mtt.Rank = pb.Int32(cs.GetUserRank(uid))
-		mtt.Roomuid = pb.Int64(cs.GetUserRoom(uid))
+		//mtt.Roomuid = pb.Int64(cs.GetUserRoom(uid))
 		send.Mttlist = append(send.Mttlist, mtt)
 	}
 	RoomSvr().SendClientMsg(gid, uid, send)

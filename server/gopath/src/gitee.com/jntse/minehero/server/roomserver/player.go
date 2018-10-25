@@ -171,11 +171,27 @@ func (this *TexasPlayer) BetStart() {
 	}
 }
 
+func (this *TexasPlayer) PreBet(num int32) {
+	if num >= this.GetBankRoll() {
+		num = this.GetBankRoll()
+		this.RemoveBankRoll(num)
+		this.curbet += num
+		this.room.chips[this.pos] += num
+		this.ChangeState(GSAllIn)
+	}else{
+		this.RemoveBankRoll(num)
+		this.curbet += num
+		this.room.chips[this.pos] += num
+		//this.ChangeState(GSBlind)
+	}
+	log.Info("房间%d 玩家%d 开始前注%d", this.room.Id(), this.owner.Id(), num)
+}
+
 func (this *TexasPlayer) BlindBet(num int32, big bool) {
 	if this.GetBankRoll() == 0 {
 		return
 	}
-	if num > this.GetBankRoll() {
+	if num >= this.GetBankRoll() {
 		num = this.GetBankRoll()
 		this.RemoveBankRoll(num)
 		this.curbet += num
@@ -437,6 +453,9 @@ func (this *TexasPlayer) SendTimeAward(start bool) {
 }
 
 func (this *TexasPlayer)RemoveBankRoll(num int32) bool{
+	if num == 0 {
+		return true
+	}
 	if num > this.bankroll {
 		return false
 	}

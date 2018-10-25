@@ -5,6 +5,7 @@ import (
 	"gitee.com/jntse/gotoolkit/log"
 	"gitee.com/jntse/minehero/pbmsg"
 	pb "github.com/gogo/protobuf/proto"
+	"gitee.com/jntse/minehero/server/tbl"
 )
 
 func (u *RoomUser) GetGold() int32 {
@@ -72,6 +73,15 @@ func (u *RoomUser) SendDiamond() {
 	u.SendClientMsg(send)
 }
 
+func (u *RoomUser) SendPropertyChange() {
+	send := &msg.RS2C_RolePushPropertyChange{}
+	send.Diamond = pb.Int32(u.GetDiamond())
+	send.Gold = pb.Int32(u.GetGold())
+	send.Yuanbao =pb.Int32(u.GetYuanbao())
+	send.Safegold = pb.Int32(0)
+	u.SendClientMsg(send)
+}
+
 // 元宝
 func (u *RoomUser) GetYuanbao() int32 {
 	yuanbao := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "yuanbao").Val())
@@ -84,12 +94,14 @@ func (u *RoomUser) AddYuanbao(yuanbao int32, reason string) {
 	log.Info("玩家[%d] 添加元宝[%d] 库存[%d] 原因[%s]", u.Id(), yuanbao, newyuanbao, reason)
 }
 
-func (u *RoomUser) RemoveYuanbao(yuanbao int32, reason string) bool {
+func (u *RoomUser) RemoveYuanbao(yuanbao int32, reason string, syn bool) bool {
 	yuanbaosrc := u.GetYuanbao()
 	if yuanbaosrc >= yuanbao {
 		newyuanbao := yuanbaosrc - yuanbao
 		Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "yuanbao", newyuanbao)
-		//RCounter().IncrByDate("item_remove", int32(msg.ItemId_YuanBao), yuanbao)
+		if syn {
+			u.SendPropertyChange()
+		}
 		log.Info("玩家[%d] 扣除元宝[%d] 库存[%d] 原因[%s]", u.Id(), yuanbao, newyuanbao, reason)
 		return true
 	}
@@ -131,7 +143,6 @@ func (u *RoomUser) AddDiamond(num int32, reason string, syn bool) {
 
 // 添加道具
 func (u *RoomUser) AddItem(item int32, num int32, reason string, syn bool) {
-
 	if item == int32(msg.ItemId_YuanBao) {
 		u.AddYuanbao(num, reason)
 	} else if item == int32(msg.ItemId_Gold) {
@@ -139,14 +150,85 @@ func (u *RoomUser) AddItem(item int32, num int32, reason string, syn bool) {
 	} else if item == int32(msg.ItemId_Diamond) {
 		u.AddDiamond(num, reason, syn)
 	} else {
-		u.bag.AddItem(item, num, reason)
+		sumnum := Redis().IncrBy(fmt.Sprintf("useritem_%d_%d", u.Id(), item), int64(num)).Val()
+		if sumnum == int64(num) {
+			Redis().SAdd(fmt.Sprintf("userbag_%d"), u.Id(), fmt.Sprintf("%d"), item)
+		}
+		log.Info("玩家[%d] 添加道具 itemid[%d] num[%d] reason:%s",u.Id(), item, sumnum, reason)
 	}
-	//RCounter().IncrByDate("item_add", item, num)
+}
 
+func (u *RoomUser) CheckEnoughItem(item int32, num int32) bool {
+	if item == int32(msg.ItemId_YuanBao) {
+		return u.GetYuanbao() >= num
+	} else if item == int32(msg.ItemId_Gold) {
+		return u.GetGold() >= num
+	} else if item == int32(msg.ItemId_Diamond) {
+		return u.GetDiamond() >= num
+	} else {
+		have,_ := Redis().Get(fmt.Sprintf("useritem_%d_%d", u.Id(), item)).Int64()
+		return have >= int64(num)
+	}
 }
 
 // 扣除道具
 func (u *RoomUser) RemoveItem(item int32, num int32, reason string) bool {
-	return u.bag.RemoveItem(item, num, reason)
+	if item == int32(msg.ItemId_YuanBao) {
+		return u.RemoveYuanbao(num, reason, true)
+	} else if item == int32(msg.ItemId_Gold) {
+		return u.RemoveGold(num, reason, true)
+	} else if item == int32(msg.ItemId_Diamond) {
+		return u.RemoveDiamond(num, reason, true)
+	} else {
+		if u.CheckEnoughItem(item, num) {
+			return false
+		}
+		sumnum := Redis().DecrBy(fmt.Sprintf("useritem_%d_%d", u.Id(), item), int64(num)).Val()
+		if sumnum == 0 {
+			Redis().SRem(fmt.Sprintf("userbag_%d"), u.Id(), fmt.Sprintf("%d"), item)
+		}
+		log.Info("玩家[%d] 减少道具 itemid[%d] num[%d] reason:%s",u.Id(), item, sumnum, reason)
+		return true
+	}
+}
+
+func (u *RoomUser) AddLevel(num int32) {
+	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "level", u.Level())
+	u.OnAchieveProcessChanged(int32(AchieveGroup_Level))
+}
+
+func (u *RoomUser) SetExp(num int32) {
+	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "exp", u.Exp())
+}
+
+// 添加经验
+func (u *RoomUser) AddExp(num int32, reason string, syn bool) {
+	oldlevel := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "level").Val())
+	exp := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "exp").Val())+num
+	newlevel := oldlevel
+	for {
+		lvlbase, ok := tbl.LevelBasee.ExpById[oldlevel + 1]
+		if ok == false {
+			break
+		}
+
+		// 下一级需要经验
+		if exp < int32(lvlbase.Exp) || lvlbase.Exp == 0 {
+			break
+		}
+
+		exp = exp - int32(lvlbase.Exp)
+		u.OnLevelUp()
+		newlevel++
+	}
+	u.SetExp(exp)
+	//if syn == true { u.SendBattleUser() }
+	u.SyncLevelRankRedis()
+	log.Info("玩家[%d] 添加经验[%d] 老等级[%d] 新等级[%d] 经验[%d] 原因[%s]", u.Id(), num, oldlevel, newlevel, exp, reason)
+}
+
+// 升级
+func (u *RoomUser) OnLevelUp() {
+	u.AddLevel(1)
 }
 
