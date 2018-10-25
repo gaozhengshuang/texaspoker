@@ -742,7 +742,7 @@ func (tf *TexasFightRoom) UserSitDown(u *RoomUser, seat int32) {
 	u.SendClientMsg(&msg.RS2C_RetTFSitDown{})
 
 	posmsg := &msg.RS2C_PushTFPosChange{Bankergold:pb.Int32(0), Player:&msg.TFPlayer{}}
-	posmgs.Player = player.FillPlayerInfo()
+	posmsg.Player = player.FillPlayerInfo()
 	tf.BroadCastMemberMsg(posmsg)
 
 	//u.OnSitDown(seat, "")

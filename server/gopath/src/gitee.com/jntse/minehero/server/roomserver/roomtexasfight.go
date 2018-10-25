@@ -97,7 +97,7 @@ func (tf *TexasFightRoom) PlayerBankerKeepCheck() {
 
 		// TODO: 下庄这个推送可以省掉
 		posmsg := &msg.RS2C_PushTFPosChange{Bankergold:pb.Int32(0), Player:&msg.TFPlayer{}}
-		posmsg.Player = player.FillPlayerInfo()
+		posmsg.Player = p.FillPlayerInfo()
 		posmsg.Player.Pos = pb.Int32(0)
 		posmsg.Player.Roleid = pb.Int64(0)
 		tf.BroadCastMemberMsg(posmsg)
@@ -126,7 +126,7 @@ func (tf *TexasFightRoom) AppointPlayerBankerCheck() {
 	tf.sitplayers[0] = tf.banker
 
 	posmsg := &msg.RS2C_PushTFPosChange{Bankergold:pb.Int32(tf.banker.Gold()), Player:&msg.TFPlayer{}}
-	posmsg.Player = player.FillPlayerInfo()
+	posmsg.Player = p.FillPlayerInfo()
 	tf.BroadCastMemberMsg(posmsg)
 	log.Info("[百人大战] 玩家[%s %d] 房间[%d] 成为正式庄家", tf.banker.Name(), tf.banker.Id(), tf.Id())
 	return
@@ -147,7 +147,7 @@ func (tf *TexasFightRoom) SystemBankerBackCheck() {
 	tf.sitplayers[0] = tf.banker
 
 	posmsg := &msg.RS2C_PushTFPosChange{Bankergold:pb.Int32(tf.banker.Gold()), Player:&msg.TFPlayer{}}
-	posmsg.Player = player.FillPlayerInfo()
+	posmsg.Player = tf.banker.FillPlayerInfo()
 	tf.BroadCastMemberMsg(posmsg)
 	log.Info("[百人大战] 切换回系统庄家")
 }
