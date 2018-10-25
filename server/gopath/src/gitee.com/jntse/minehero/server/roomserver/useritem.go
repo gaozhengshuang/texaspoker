@@ -1,16 +1,14 @@
 package main
 import (
 	"fmt"
-	"gitee.com/jntse/gotoolkit/util"
+	_"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/gotoolkit/log"
 	"gitee.com/jntse/minehero/pbmsg"
 	pb "github.com/gogo/protobuf/proto"
 )
 
 func (u *RoomUser) GetGold() int32 {
-	//return u.Entity().GetGold()
-	gold := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "gold").Val())
-	return gold
+	return u.EntityBase().Gold()
 }
 
 func (u *RoomUser) RemoveGold(gold int32, reason string, syn bool) bool {
