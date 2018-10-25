@@ -684,9 +684,11 @@ func (u *GateUser) SendChat(rev *msg.C2GW_ReqSendMessage) {
 			RoomSvrMgr().SendMsg(sid, send)
 		}
 	} else if rev.GetType() == def.ChatAll {
-		send := &msg.GW2MS_ChatInfo{}
-		send.Chat = def.MakeChatInfo(def.ChatAll, rev.GetTxt(), u.Id(), u.Name(), def.HornMsg, def.MsgShowAll)
-		Match().SendCmd(send)
+		if u.RemoveItem(401, 1, "世界聊天扣除") {
+			send := &msg.GW2MS_ChatInfo{}
+			send.Chat = def.MakeChatInfo(def.ChatAll, rev.GetTxt(), u.Id(), u.Name(), def.HornMsg, def.MsgShowAll)
+			Match().SendCmd(send)
+		}
 	}
 	send := &msg.GW2C_RetSendMessage{}
 	u.SendMsg(send)
