@@ -284,6 +284,8 @@ func (tf *TexasFightRoom) PlayerSettle() {
 			continue 
 		}
 
+		// 如果在上庄列表中，不受旁观2轮限制
+
 		//
 		if player.TotalBet() == 0 {
 			player.SetWatchCount(player.WatchCount() + 1)

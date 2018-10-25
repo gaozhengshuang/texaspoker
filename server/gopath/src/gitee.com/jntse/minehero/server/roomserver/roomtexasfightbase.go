@@ -583,7 +583,7 @@ func (tf *TexasFightRoom) UserEnter(u *RoomUser) {
 	u.OnEnterRoom(tf)
 
 	//
-	infomsg := &msg.GW2C_RetEnterTFRoom{Playerlist:make([]*msg.TFPlayerPos,0) }
+	infomsg := &msg.GW2C_RetEnterTFRoom{Playerlist:make([]*msg.TFPlayer,0) }
 	infomsg.State = pb.Int32(tf.Stat())
 	infomsg.Statetime = pb.Int64(tf.statstart)
 	infomsg.Pool = pb.Int32(tf.TotalAwardPool())
@@ -595,8 +595,9 @@ func (tf *TexasFightRoom) UserEnter(u *RoomUser) {
 	// 坐下玩家列表
 	for _, p := range tf.sitplayers {
 		if p == nil { continue }
-		situser := &msg.TFPlayerPos{Roleid:pb.Int64(p.Id()), Pos:pb.Int32(p.Seat())}
-		infomsg.Playerlist = append(infomsg.Playerlist, situser)
+		//situser := &msg.TFPlayerPos{Roleid:pb.Int64(p.Id()), Pos:pb.Int32(p.Seat())}
+		//infomsg.Playerlist = append(infomsg.Playerlist, situser)
+		infomsg.Playerlist = append(infomsg.Playerlist, p.FillPlayerInfo())
 	}
 
 	// 注池信息，只发闲家4个池
