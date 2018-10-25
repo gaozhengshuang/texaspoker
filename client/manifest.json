@@ -374,6 +374,7 @@
 		"bin-debug/app/ui/panel/LoginPanel.js",
 		"bin-debug/app/ui/panel/LoginSceneBgPanel.js",
 		"bin-debug/app/ui/panel/LoginTelPanel.js",
+		"bin-debug/app/ui/panel/LuckyTaskPanel.js",
 		"bin-debug/app/ui/panel/MailPanel.js",
 		"bin-debug/app/ui/panel/MarqueePanel.js",
 		"bin-debug/app/ui/panel/MinuteRemindPanel.js",
