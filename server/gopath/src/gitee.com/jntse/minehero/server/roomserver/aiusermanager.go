@@ -95,6 +95,9 @@ func (this *AIUserManager) Tick(now int64) {
 }
 
 func (this *AIUserManager) CreateRoomAIUser() {
+	if RoomSvr().Name() != tbl.Room.PublicRoomServer {
+		return
+	}
 	for _, v := range tbl.TexasAI.TAIById {
 		user := NewRoomUserAI(int64(v.Id), v.Name, int32(util.RandBetween(1,2)))		
 		if user != nil {

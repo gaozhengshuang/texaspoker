@@ -81,7 +81,7 @@ startall() {
     startserver match 0 27210
 
     startserver room 0 27310 
-    #startserver room 1 27311
+    startserver room 1 27311
     #startserver room 2 27312
     #startserver room 3 27313
 

@@ -64,6 +64,9 @@ func (rm *RoomManager) InitTimeReward() {
 
 // 初始德州公共房间
 func (rm *RoomManager) InitPublicTexas() bool {
+	if RoomSvr().Name() != tbl.Room.PublicRoomServer {
+		return false
+	}
 	for _, tconf := range tbl.TexasRoomBase.TexasRoomById {
 		if IsTexasRoomBaseType(tconf.Type) == false {
 			continue

@@ -282,7 +282,7 @@ func (g *GateServer) Init(fileconf string) bool {
 	g.waitpool.Init()
 	g.roomsvrmgr.Init()
 	g.statisticsmgr.Init()
-	g.InitMySql()
+	//g.InitMySql()
 	//g.countmgr.Init()
 	//g.gamemgr.Init()
 	g.tickers = append(g.tickers, util.NewGameTicker(60*time.Second, g.Handler1mTick))

@@ -1,10 +1,13 @@
 package main
-import _"fmt"
-import "gitee.com/jntse/gotoolkit/net"
-import "gitee.com/jntse/gotoolkit/log"
-import _"gitee.com/jntse/minehero/pbmsg"
-import pb"github.com/gogo/protobuf/proto"
 
+import (
+	_"fmt"
+	"gitee.com/jntse/gotoolkit/net"
+	"gitee.com/jntse/gotoolkit/log"
+	_"gitee.com/jntse/minehero/pbmsg"
+	pb"github.com/gogo/protobuf/proto"
+	"gitee.com/jntse/minehero/server/tbl"
+)
 
 // --------------------------------------------------------------------------
 /// @brief RoomServer
@@ -39,6 +42,7 @@ func (r *RoomAgent) Tick(now int64) {
 // --------------------------------------------------------------------------
 type RoomSvrManager struct {
 	rooms map[int]*RoomAgent		// 房间服务器
+	mttroomid int					// 锦标赛roomserverid
 }
 
 func (r *RoomSvrManager) Init() {
@@ -52,9 +56,15 @@ func (r *RoomSvrManager) Num() int {
 func (r *RoomSvrManager) AddRoom(agent *RoomAgent) {
 	id := agent.Id()
 	r.rooms[id] = agent
+	if agent.Name() == tbl.Room.MTTRoomServer {
+		r.mttroomid = id
+	}
 }
 
 func (r* RoomSvrManager) DelRoom(id int) {
+	if r.mttroomid == id {
+		r.mttroomid = 0
+	}
 	delete(r.rooms, id)
 }
 
@@ -93,11 +103,15 @@ func (r *RoomSvrManager) BroadCast(msg pb.Message) {
 	}
 }
 
+func (r *RoomSvrManager) SendMTTMsg(msg pb.Message) {
+	if agent := r.FindRoom(r.mttroomid); agent != nil {
+		agent.SendMsg(msg)
+	}
+}
+
 func (r *RoomSvrManager) SendMsg(sid int, msg pb.Message) {
 	if agent := r.FindRoom(sid); agent != nil {
 		agent.SendMsg(msg)
-	} else {
-		r.BroadCast(msg)
 	}
 }
 
