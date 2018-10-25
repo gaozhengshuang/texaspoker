@@ -73,7 +73,10 @@ message AchieveDefine
 	optional int32 IsSafe = 18; 
 	
 	
-	optional int32 LuckTaskPara = 19; 
+	optional int32 LuckyTask = 19; 
+	
+	
+	optional int32 IsLuckyFinal = 20; 
 
 }
 
