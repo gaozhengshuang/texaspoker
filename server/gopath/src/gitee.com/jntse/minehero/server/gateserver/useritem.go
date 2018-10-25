@@ -4,10 +4,11 @@ import (
 	"fmt"
 	_ "gitee.com/jntse/gotoolkit/eventqueue"
 	"gitee.com/jntse/gotoolkit/log"
-	_"gitee.com/jntse/gotoolkit/util"
+	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/minehero/server/tbl"
 	pb "github.com/gogo/protobuf/proto"
+	"github.com/go-redis/redis"
 	"strconv"
 	"strings"
 	_"time"
@@ -22,10 +23,11 @@ func (u *GateUser) AddItem(item int32, num int32, reason string, syn bool) {
 	} else if item == int32(msg.ItemId_Diamond) {
 		u.AddDiamond(num, reason, syn)
 	} else {
-		sumnum := Redis().IncrBy(fmt.Sprintf("useritem_%d_%d", u.Id(), item), int64(num)).Val()
+		sumnum := Redis().HIncrBy(fmt.Sprintf("useritem_%d_%d", u.Id(), item), "num", int64(num)).Val()
 		if sumnum == int64(num) {
-			Redis().SAdd(fmt.Sprintf("userbag_%d"), u.Id(), fmt.Sprintf("%d"), item)
+			Redis().SAdd(fmt.Sprintf("userbag_%d", u.Id()), fmt.Sprintf("%d", item))
 		}
+		u.UpdateItem(item, int32(sumnum))
 		log.Info("玩家[%d] 添加道具 itemid[%d] num[%d] reason:%s",u.Id(), item, sumnum, reason)
 	}
 }
@@ -56,10 +58,11 @@ func (u *GateUser) RemoveItem(item int32, num int32, reason string) bool {
 		if u.CheckEnoughItem(item, num) {
 			return false
 		}
-		sumnum := Redis().DecrBy(fmt.Sprintf("useritem_%d_%d", u.Id(), item), int64(num)).Val()
+		sumnum := Redis().HIncrBy(fmt.Sprintf("useritem_%d_%d", u.Id(), item), "num", 0-int64(num)).Val()
 		if sumnum == 0 {
 			Redis().SRem(fmt.Sprintf("userbag_%d"), u.Id(), fmt.Sprintf("%d"), item)
 		}
+		u.UpdateItem(item, int32(sumnum))
 		log.Info("玩家[%d] 减少道具 itemid[%d] num[%d] reason:%s",u.Id(), item, sumnum, reason)
 		return true
 	}
@@ -232,4 +235,51 @@ func (u *GateUser) CheckHaveCompensation() {
 		//log.Info("玩家%s获得系统补偿 id:%d, 数量:%d", u.account, intid, intnum)
 	}
 }
+
+func (u *GateUser) SendItemInfo() {
+	items := Redis().SMembers(fmt.Sprintf("userbag_%d", u.Id())).Val()
+	send := &msg.GW2C_PushItemList{}
+	pipe := Redis().Pipeline()
+	for _, itemid := range items {
+		pipe.HGetAll(fmt.Sprintf("useritem_%d_%s", u.Id(), itemid))
+	}
+	cmds, err := pipe.Exec()
+	if err != nil {
+		log.Error("[道具] 拉取道具列表失败 %s", err)
+		pipe.Close()
+		return
+	}
+	pipe.Close()
+
+	if len(items) != len(cmds) {
+		log.Error("[道具] 拉取道具列表失败 数量不匹配")
+		return
+	}
+
+	for key, cmd := range cmds {
+		cmdbase , ok := cmd.(*redis.StringStringMapCmd)
+		if ok == false {
+			continue
+		}
+		var num int32 = 0
+		for k, v := range cmdbase.Val() {
+			if k == "num"   { num = util.NewVarType(v).Int32() }
+		}
+		iteminfo := &msg.UserItemInfo{}
+		id,_ := strconv.ParseInt(items[key], 10, 64)
+		iteminfo.Id = pb.Int32(int32(id))
+		iteminfo.Num = pb.Int32(int32(num))
+		//log.Info("道具信息%v", iteminfo)
+		send.List = append(send.List, iteminfo)
+	}
+	u.SendMsg(send)
+}
+
+func (u *GateUser) UpdateItem(id int32, num int32) {
+	send := &msg.GW2C_PushUpdateItem{}
+	send.Id = pb.Int32(id)
+	send.Num = pb.Int32(num)
+	u.SendMsg(send)
+}
+
 

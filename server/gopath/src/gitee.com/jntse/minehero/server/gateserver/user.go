@@ -505,6 +505,7 @@ func (u *GateUser) AsynSaveFeedback() {
 func (u *GateUser) OnCreateNew() {
 	//玩家创建时间
 	u.statistics.createdtime = util.CURTIME()
+	//u.TestItem()
 }
 
 // 上线回调，玩家数据在LoginOk中发送
@@ -548,13 +549,7 @@ func (u *GateUser) Online(session network.IBaseNetSession, way string) bool {
 func (u *GateUser) Syn() {
 	u.SendUserBase()
 	u.CheckHaveCompensation()
-}
-
-func (u *GateUser) SynMatch(online bool) {
-	//send := &msg.GW2MS_UserLoginState{}
-	//send.Uid = pb.Int64(u.Id())
-	//send.Online = pb.Bool(online)
-	//Match().SendMsg(send)
+	u.SendItemInfo()
 }
 
 func (u *GateUser) TestItem() {
@@ -697,4 +692,24 @@ func (u *GateUser) SendChat(rev *msg.C2GW_ReqSendMessage) {
 	u.SendMsg(send)
 }
 
+//零点回调
+func (u *GateUser) ZeroHourClockCallback () {
+	u.UserDailyReset()
+}
+
+//跨天重置
+func (u *GateUser) UserDailyReset() {
+	now := util.CURTIME()
+	cmdval, err := Redis().HGet(fmt.Sprintf("charstate_%d", u.Id()), "dailyresetstamp").Result()
+	if err == nil {
+		timestamp := util.Atol(cmdval)
+		if util.IsSameDay(timestamp, now) == true {
+			return
+		}
+	}
+	log.Info("玩家[%s]跨天重置 uid:%d",u.Name() ,u.Id())
+	Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "dailyresetstamp", now)
+	u.ActivityResetByDay()
+	u.DailyResetAchieve()
+}
 

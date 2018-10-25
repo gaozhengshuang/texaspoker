@@ -26,7 +26,7 @@ message C2GW_ReqEnterTFRoom {
 }
 
 message GW2C_RetEnterTFRoom {
-    repeated TFPlayerPos playerlist = 1; // 坐下玩家列表
+    repeated TFPlayer playerlist = 1; // 坐下玩家列表
     repeated TFBetPoolInfo betlist = 2; // 
     repeated int32 mybet = 3;       // 自己下注数量
     optional int32 state = 4;       // 房间状态 (用来表示房间是处于下注 休息 还是其他的阶段)
