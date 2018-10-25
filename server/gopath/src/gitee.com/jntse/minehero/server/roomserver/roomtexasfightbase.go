@@ -415,15 +415,18 @@ func (a *AwardPoolHitRecord) Replace(pool *TexasFightBetPool, tf *TexasFightRoom
 	a.gold = pool.AwardPool()		// 从奖池拿走金额
 	a.time = util.CURTIME()
 
+	// 庄家
 	if pool.Pos() == 0 {
 		a.players = append(a.players, tf.banker.FillPlayerInfo())
-	}else {
-		for _, p := range tf.players {
-			if p.betlist[pool.Pos()] == nil { 
-				continue
-			}
-			a.players = append(a.players, p.FillPlayerInfo())
+		return
+	}
+
+	// 非庄家
+	for _, p := range tf.players {
+		if p.betlist[pool.Pos()] == nil { 
+			continue
 		}
+		a.players = append(a.players, p.FillPlayerInfo())
 	}
 }
 
