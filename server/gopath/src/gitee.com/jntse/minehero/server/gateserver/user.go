@@ -549,7 +549,7 @@ func (u *GateUser) Online(session network.IBaseNetSession, way string) bool {
 func (u *GateUser) Syn() {
 	u.SendUserBase()
 	u.CheckHaveCompensation()
-	//u.SendItemInfo()
+	u.SendItemInfo()
 }
 
 func (u *GateUser) TestItem() {
