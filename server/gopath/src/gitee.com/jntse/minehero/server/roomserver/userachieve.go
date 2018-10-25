@@ -9,6 +9,7 @@ import (
 	"gitee.com/jntse/minehero/server/def"
 	"gitee.com/jntse/minehero/pbmsg"
 	pb "github.com/gogo/protobuf/proto"
+	"time"
 )
 
 const (
@@ -184,7 +185,12 @@ func (u *RoomUser) OnAchievePlayPoker (kind int32, subkind int32, hand *Hand) {
 			u.SaveMaxCard(handpower, hand)
 		}
 	}
-	//Redis().HIncrBy(fmt.Sprintf("charstate_%d", u.Id()), "totalplay", 1)
+	datetime := time.Now().Format("2006-01-02")
+	num, err := Redis().Incr(fmt.Sprintf("charplay_%d_%s", u.Id(), datetime)).Result()
+	if err == nil && num == 1 {
+		//如果是第一次设置过期时间
+		Redis().Expire(fmt.Sprintf("charplay_%d_%s", u.Id(), datetime), 3600*24*4*time.Second)
+	}
 }
 
 func (u *RoomUser) SaveMaxCard(maxpower int64, hand *Hand) {
@@ -336,4 +342,12 @@ func (u *RoomUser) OnShowDown (subkind int32) {
 	} else if subkind == int32(msg.PlayingFieldType_Mtt) {
 		Redis().HIncrBy(fmt.Sprintf("charstate_%d", u.Id()), "showdowntimes2", 1)
 	}
+}
+
+func (u *RoomUser) GetUserLuckyTask() int32 {
+	cmdval, err := Redis().HGet(fmt.Sprintf("charstate_%d", u.Id()), "curluckytask").Result()
+	if err == nil {
+		return util.Atoi(cmdval)
+	}
+	return 0
 }

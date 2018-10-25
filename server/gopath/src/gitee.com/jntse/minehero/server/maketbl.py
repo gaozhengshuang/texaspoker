@@ -244,6 +244,7 @@ gen.maketbl_excel('MorePlayBase','moreplaybase','TMorePlay.xlsx')
 gen.maketbl_excel('AchieveBase','achievebase','TAchieve.xlsx')
 gen.maketbl_excel('HundredWarBase','hundredwarbase','THundredWar.xlsx')
 gen.maketbl_excel('HundredWarCardTypeBase','hundredwarcardtypebase','THundredWarCardType.xlsx')
+gen.maketbl_excel('LuckyTaskBase','luckytaskbase','TLuckyTask.xlsx')
 
 gen.maketbl_json('table', 'Global', 'global.json')
 gen.maketbl_json('table', 'Room', 'room.json')
