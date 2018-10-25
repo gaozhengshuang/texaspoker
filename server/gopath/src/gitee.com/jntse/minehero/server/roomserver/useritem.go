@@ -191,15 +191,6 @@ func (u *RoomUser) RemoveItem(item int32, num int32, reason string) bool {
 	}
 }
 
-func (u *RoomUser) AddLevel(num int32) {
-	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "level", u.Level())
-	u.OnAchieveProcessChanged(int32(AchieveGroup_Level))
-}
-
-func (u *RoomUser) SetExp(num int32) {
-	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "exp", u.Exp())
-}
-
 // 添加经验
 func (u *RoomUser) AddExp(num int32, reason string, syn bool) {
 	send := &msg.RS2GW_AddExp{}
@@ -209,8 +200,4 @@ func (u *RoomUser) AddExp(num int32, reason string, syn bool) {
 	u.SendMsg(send)	
 }
 
-// 升级
-func (u *RoomUser) OnLevelUp() {
-	u.AddLevel(1)
-}
 

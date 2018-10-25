@@ -213,7 +213,7 @@ func (cs *ChampionShip) IsDel() bool {
 }
 
 func (cs *ChampionShip) IsOutJoin() bool {
-	if cs.starttime + cs.tconf.DelaySign >= int32(util.CURTIME()) {
+	if cs.starttime + cs.tconf.DelaySign <= int32(util.CURTIME()) {
 		return true
 	}
 	return false
@@ -900,6 +900,11 @@ func (cm *ChampionManager) ReqMTTJoin(gid int, uid int64, rev *msg.C2RS_ReqMTTJo
 	}
 	if !RemoveUserGold(gid, uid, cs.tconf.SignCost+cs.tconf.ServeCost, "报名参加锦标赛") {
 		send.Errcode = pb.String("金币不足")
+		RoomSvr().SendClientMsg(gid, uid, send)
+		return
+	}
+	if !cs.CanShow() {
+		send.Errcode = pb.String("未到报名时间")
 		RoomSvr().SendClientMsg(gid, uid, send)
 		return
 	}

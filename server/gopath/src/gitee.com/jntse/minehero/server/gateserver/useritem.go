@@ -67,101 +67,89 @@ func (u *GateUser) RemoveItem(item int32, num int32, reason string) bool {
 
 // 金币
 func (u *GateUser) GetGold() int32 {
-	gold := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "gold").Val())
-	return gold
+	return u.EntityBase().Gold()
 }
 
 func (u *GateUser) AddGold(gold int32, reason string, syn bool) {
-	newgold := u.GetGold() + gold
-	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "gold", newgold)
+	u.EntityBase().IncGold(gold)
 	if syn {
 		u.SendPropertyChange()
 	}
-	log.Info("玩家[%d] 添加金币[%d] 库存[%d] 原因[%s]", u.Id(), gold, newgold, reason)
+	log.Info("玩家[%d] 添加金币[%d] 库存[%d] 原因[%s]", u.Id(), gold, u.GetGold(), reason)
 	u.SyncGoldRankRedis()
 	u.OnAchieveProcessChanged(int32(AchieveGroup_Gold))
 }
 
 func (u *GateUser) RemoveGold(gold int32, reason string, syn bool) bool {
 	goldsrc := u.GetGold()
-	if goldsrc >= gold {
-		newgold := goldsrc - gold
-		Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "gold", newgold)
-		if syn {
-			u.SendPropertyChange()
-		}
-		log.Info("玩家[%d] 扣除金币[%d] 库存[%d] 原因[%s]", u.Id(), gold, newgold, reason)
-		//RCounter().IncrByDate("item_remove", int32(msg.ItemId_Gold), gold)
-		u.SyncGoldRankRedis()
-		return true
+	if goldsrc < gold {
+		log.Info("玩家[%d] 扣除金币失败[%d] 原因[%s]", u.Id(), gold, reason)
+		return false
 	}
-	log.Info("玩家[%d] 扣除金币失败[%d] 原因[%s]", u.Id(), gold, reason)
-	return false
+
+	u.EntityBase().DecGold(gold)
+	if syn {
+		u.SendPropertyChange()
+	}
+	log.Info("玩家[%d] 扣除金币[%d] 库存[%d] 原因[%s]", u.Id(), gold, u.GetGold(), reason)
+	u.SyncGoldRankRedis()
+	return true
 }
 
 // 添加元宝
 func (u *GateUser) GetYuanbao() int32 {
-	yuanbao := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "yuanbao").Val())
-	return yuanbao 
+	return u.EntityBase().YuanBao()
 }
 
 func (u *GateUser) AddYuanbao(yuanbao int32, reason string, syn bool) {
-	newyuanbao := u.GetYuanbao() + yuanbao
-	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "yuanbao", newyuanbao)
+	u.EntityBase().IncYuanBao(yuanbao)
 	if syn {
 		u.SendPropertyChange()
 	}
-	//RCounter().IncrByDate("item_add", int32(msg.ItemId_YuanBao), yuanbao)
-	log.Info("玩家[%d] 添加元宝[%d] 库存[%d] 原因[%s]", u.Id(), yuanbao, newyuanbao, reason)
+	log.Info("玩家[%d] 添加元宝[%d] 库存[%d] 原因[%s]", u.Id(), yuanbao, u.GetYuanbao(), reason)
 }
 
 func (u *GateUser) RemoveYuanbao(yuanbao int32, reason string, syn bool) bool {
 	yuanbaosrc := u.GetYuanbao()
-	if yuanbaosrc >= yuanbao {
-		newyuanbao := yuanbaosrc - yuanbao
-		Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "yuanbao", newyuanbao)
-		if syn {
-			//send := &msg.GW2C_PushYuanBaoUpdate{Num: pb.Int32(u.GetYuanbao())}
-			//u.SendMsg(send)
-			u.SendPropertyChange()
-		}
-		log.Info("玩家[%d] 扣除元宝[%d] 库存[%d] 原因[%s]", u.Id(), yuanbao, newyuanbao, reason)
-		//RCounter().IncrByDate("item_remove", int32(msg.ItemId_YuanBao), yuanbao)
-		return true
+	if yuanbaosrc < yuanbao {
+		log.Info("玩家[%d] 扣除元宝[%d]失败 库存[%d] 原因[%s]", u.Id(), yuanbao, yuanbaosrc, reason)
+		return false
 	}
-	log.Info("玩家[%d] 扣除元宝[%d]失败 库存[%d] 原因[%s]", u.Id(), yuanbao, yuanbaosrc, reason)
-	return false
+
+	u.EntityBase().DecYuanBao(yuanbao)
+	if syn {
+		u.SendPropertyChange()
+	}
+	log.Info("玩家[%d] 扣除元宝[%d] 库存[%d] 原因[%s]", u.Id(), yuanbao, u.GetYuanbao(), reason)
+	return true
 }
 
 // 添加钻石
 func (u *GateUser) GetDiamond() int32 {
-	diamond := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "diamond").Val())
-	return diamond
+	return u.EntityBase().Diamond()
 }
 
 func (u *GateUser) AddDiamond(num int32, reason string, syn bool) {
-	newdiamond := u.GetDiamond() + num
-	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "diamond", newdiamond)
+	u.EntityBase().IncDiamond(num)
 	if syn {
 		u.SendPropertyChange()
 	}
-	log.Info("玩家[%d] 添加钻石[%d] 库存[%d] 原因[%s]", u.Id(), num, newdiamond, reason)
+	log.Info("玩家[%d] 添加钻石[%d] 库存[%d] 原因[%s]", u.Id(), num, u.GetDiamond(), reason)
 }
 
 func (u *GateUser) RemoveDiamond(num int32, reason string, syn bool) bool {
 	diamondsrc := u.GetDiamond()
-	if diamondsrc >= num {
-		newdiamond := diamondsrc - num
-		Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "diamond", newdiamond)
-		if syn {
-			u.SendPropertyChange()
-		}
-		log.Info("玩家[%d] 添加钻石[%d] 库存[%d] 原因[%s]", u.Id(), num, newdiamond, reason)
-		//RCounter().IncrByDate("item_remove", int32(msg.ItemId_Diamond), num)
-		return true
+	if diamondsrc < num {
+		log.Info("玩家[%d] 添加钻石[%d]失败 库存[%d] 原因[%s]", u.Id(), num, diamondsrc, reason)
+		return false
 	}
-	log.Info("玩家[%d] 添加钻石[%d]失败 库存[%d] 原因[%s]", u.Id(), num, diamondsrc, reason)
-	return false
+
+	u.EntityBase().DecDiamond(num)
+	if syn {
+		u.SendPropertyChange()
+	}
+	log.Info("玩家[%d] 添加钻石[%d] 库存[%d] 原因[%s]", u.Id(), num, u.GetDiamond(), reason)
+	return true
 }
 
 func (u *GateUser) SendPropertyChange() {
