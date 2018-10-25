@@ -367,22 +367,19 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 			log.Error("新建账户%s失败，err: %s", account, errsetbin)
 			break
 		}
-		Redis().HSet(fmt.Sprintf("charstate_%d", userid), "createdtime", util.CURTIME())
+
 		// 初始元宝和金卷
 		gold := int32(tbl.Global.NewUser.Gold)
-		Redis().HSet(fmt.Sprintf("charbase_%d", userid), "gold", gold)
-		Redis().HSet(fmt.Sprintf("charbase_%d", userid), "maxgold", gold)
 		yuanbao := int32(tbl.Global.NewUser.Yuanbao)
-		Redis().HSet(fmt.Sprintf("charbase_%d", userid), "yuanbao", yuanbao)
 		diamond := int32(tbl.Global.NewUser.Diamond)
-		Redis().HSet(fmt.Sprintf("charbase_%d", userid), "diamond", diamond)
+
 		userinfo := &msg.Serialize{
 			Entity: &msg.EntityBase{
 				Roleid: pb.Int64(userid),
 				Name: pb.String(nickname),
 				Head: pb.String("null"),
 				Account: pb.String(account),
-				//Gold: pb.Int32(gold), 
+				Gold: pb.Int32(gold), 
 				Yuanbao: pb.Int32(yuanbao), 
 				Diamond: pb.Int32(diamond),
 				Level: pb.Int32(1),
@@ -453,16 +450,20 @@ func SaveUserSimpleInfo(bin *msg.Serialize) {
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "face", 	bin.Entity.GetHead())
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "sex",  	bin.Entity.GetSex())
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "level",	bin.Entity.GetLevel())
-	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "exp", bin.Entity.GetExp())
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "exp", 	bin.Entity.GetExp())
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "sign", "")
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "age", 0)
-	//pipe.HSet(fmt.Sprintf("charbase_%d", uid), "diamond", bin.Entity.GetDiamond())
-	//pipe.HSet(fmt.Sprintf("charbase_%d", uid), "gold",	bin.Entity.GetGold())
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "diamond", bin.Entity.GetDiamond())
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "gold",	bin.Entity.GetGold())
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "viplevel",  0)
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "offlinetime", 0)
 
 	// 名字绑定id
 	pipe.Set(fmt.Sprintf("charname_%s", bin.Entity.GetName()), uid, 0)
+
+	// charstate
+	pipe.HSet(fmt.Sprintf("charstate_%d", uid), "createdtime", util.CURTIME())
+	pipe.HSet(fmt.Sprintf("charstate_%d", uid), "maxgold", bin.Entity.GetGold())
 
 	_, err := pipe.Exec()
 	if err != nil {
