@@ -168,7 +168,7 @@ func on_C2RS_ReqBuyInGame(session network.IBaseNetSession, message interface{}, 
 		return
 	}
 	tmsg := message.(*msg.C2RS_ReqBuyInGame)
-	log.Info("[房间] 玩家[%s %d] 买入游戏1", u.Name(), u.Id())
+	//log.Info("[房间] 玩家[%s %d] 买入游戏1", u.Name(), u.Id())
 	room := RoomMgr().FindTexas(u.RoomId())
 	if room == nil {
 		log.Error("[房间] 玩家[%s %d] 无效房间 房间[%d]", u.Name(), u.Id(), u.RoomId())
