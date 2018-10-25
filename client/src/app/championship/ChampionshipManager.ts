@@ -798,6 +798,11 @@ class ChampionshipManager
         if (data)
         {
             let matchRoomInfo: MatchRoomInfo = ChampionshipManager.getMathInfoByRecordId(data.mttid);
+            let matchRoomInfoJoined: MatchRoomInfo = ChampionshipManager.getJoinedMathInfoByRecordId(data.mttid);
+            if (matchRoomInfoJoined)
+            {
+                matchRoomInfoJoined.roomId = game.longToNumber(data.id);
+            }
             if (matchRoomInfo)
             {
                 matchRoomInfo.roomId = game.longToNumber(data.id);
@@ -942,6 +947,20 @@ class ChampionshipManager
         for (let info of ChampionshipManager.joinMTTList)
         {
             if (info.id == id && !info.outTime && !info.endTime)
+            {
+                return info;
+            }
+        }
+        return null;
+    }
+    /**
+     * 根据赛事唯一ID获得正在参与的赛事
+     */
+    public static getJoinedMathInfoByRecordId(recordId: number): MatchRoomInfo
+    {
+        for (let info of ChampionshipManager.joinMTTList)
+        {
+            if (info.recordId == recordId && !info.outTime && !info.endTime)
             {
                 return info;
             }

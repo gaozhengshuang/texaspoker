@@ -35,8 +35,13 @@ func (u *RoomUser) OnLeaveRoom() {
 	Redis().Del(fmt.Sprintf("userinroom_%d", u.Id()))
 	msgleave := &msg.RS2GW_UserLeaveRoom{Userid:pb.Int64(u.Id())}
 	u.SendMsg(msgleave)
-	log.Trace("[房间] 玩家[%s %d] 回传个人数据，离开房间[%d]", u.Name(), u.Id(), u.RoomId())
 	u.SetRoomId(0)
+	log.Trace("[房间] 玩家[%s %d] 回传个人数据，离开房间[%d]", u.Name(), u.Id(), u.RoomId()) 
+}
+
+// 被踢出房间，暂时使用Leave逻辑
+func (u *RoomUser) OnKickOutRoom() {
+	u.OnLeaveRoom()
 }
 
 // 进房间之前

@@ -7,75 +7,111 @@ import (
 	pb "github.com/gogo/protobuf/proto"
 )
 
+func (u *User) DoTexasFightCmd(subcmd []string) {
+	if len(subcmd) == 0 {
+		return
+	}
+
+	cmd := subcmd[0]
+	switch cmd {
+	case "list":
+		u.ReqTFRoomList()
+	case "enter":
+		u.ReqEnterTFRoom(subcmd[1:])
+	case "leave":
+		u.ReqTFLeave()
+	case "bet":
+		u.ReqTexasFightBet(subcmd[1:])
+	case "lastaward":
+		u.ReqTFLastAwardPoolHit()
+	case "standlist":
+		u.ReqTFStandPlayer()
+	case "trend":
+		u.ReqWinLoseTrend()
+	case "bankers":
+		u.ReqTFBankerList()
+	case "bebanker":
+		u.ReqTFBecomeBanker()
+	case "quitbanker":
+		u.ReqTFQuitBanker()
+	case "sit":
+		u.ReqTFSitDown(subcmd[1:])
+	case "stand":
+		u.ReqTFStandUp()
+	case "start":
+		u.ReqTFStart()
+	}
+}
 
 func (u *User) ReqTFRoomList() {
 	send := &msg.C2GW_ReqTFRoomList{}
 	u.SendGateMsg(send)
 }
 
-func (u *User) ReqEnterTFRoom(subcmd string) {
-	uid := util.Atol(subcmd)
+func (u *User) ReqEnterTFRoom(subcmd []string) {
+	if len(subcmd) != 1 { return }
+	uid := util.Atol(subcmd[0])
 	send := &msg.C2GW_ReqEnterTFRoom{Id:pb.Int64(uid), Userid:pb.Int64(u.Id()) }
 	u.SendGateMsg(send)
+}
+
+func (u *User) ReqTFLeave() {
+	send := &msg.C2RS_ReqTFLeave{}
+	u.SendRoomMsg(send)
 }
 
 func (u *User) ReqTexasFightBet(subcmd []string) {
 	if len(subcmd) != 2 { return }
 	pos, num := util.Atoi(subcmd[0]), util.Atoi(subcmd[1])
 	send := &msg.C2RS_ReqTexasFightBet{Pos:pb.Int32(pos), Num:pb.Int32(num) }
-	u.SendGateMsg(send)
+	u.SendRoomMsg(send)
 }
 
 func (u *User) ReqTFLastAwardPoolHit() {
 	send := &msg.C2RS_ReqTFLastAwardPoolHit{}
-	u.SendGateMsg(send)
+	u.SendRoomMsg(send)
 }
 
 func (u *User) ReqTFStandPlayer() {
 	send := &msg.C2RS_ReqTFStandPlayer{Start:pb.Int32(0), Count:pb.Int32(100) }
-	u.SendGateMsg(send)
+	u.SendRoomMsg(send)
 }
 
 func (u *User) ReqWinLoseTrend() {
 	send := &msg.C2RS_ReqWinLoseTrend{}
-	u.SendGateMsg(send)
+	u.SendRoomMsg(send)
 }
 
 func (u *User) ReqTFBankerList() {
 	send := &msg.C2RS_ReqTFBankerList{}
-	u.SendGateMsg(send)
+	u.SendRoomMsg(send)
 }
 
-func (u *User) C2RS_ReqTFBecomeBanker() {
+func (u *User) ReqTFBecomeBanker() {
 	send := &msg.C2RS_ReqTFBecomeBanker{}
-	u.SendGateMsg(send)
+	u.SendRoomMsg(send)
 }
 
 func (u *User) ReqTFQuitBanker() {
 	send := &msg.C2RS_ReqTFQuitBanker{}
-	u.SendGateMsg(send)
+	u.SendRoomMsg(send)
 }
 
 func (u *User) ReqTFSitDown(subcmd []string) {
 	if len(subcmd) != 1 { return }
 	pos := util.Atoi(subcmd[0])
 	send := &msg.C2RS_ReqTFSitDown{Pos:pb.Int32(pos)}
-	u.SendGateMsg(send)
+	u.SendRoomMsg(send)
 }
 
-func (u *User) C2RS_ReqTFStandUp() {
+func (u *User) ReqTFStandUp() {
 	send := &msg.C2RS_ReqTFStandUp{}
-	u.SendGateMsg(send)
+	u.SendRoomMsg(send)
 }
 
-func (u *User) ReqTFLeave() {
-	send := &msg.C2RS_ReqTFLeave{}
-	u.SendGateMsg(send)
-}
-
-func (u *User) C2RS_ReqTFStart() {
+func (u *User) ReqTFStart() {
 	send := &msg.C2RS_ReqTFStart{}
-	u.SendGateMsg(send)
+	u.SendRoomMsg(send)
 }
 
 

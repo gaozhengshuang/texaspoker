@@ -942,7 +942,7 @@ func (cm *ChampionManager) ReqInsideRoomInfoList(gid int, uid int64) {
 	lastroom, _ := Redis().Get(fmt.Sprintf("userinroom_%d", uid)).Int64()
 	send.Lastid = pb.Int64(lastroom)
 	RoomSvr().SendClientMsg(gid, uid, send)
-	log.Info("玩家%d gid%d 请求房间列表", uid, gid)
+	//log.Info("玩家[%d] gateid[%d] 请求房间列表", uid, gid)
 }
 
 func (cm *ChampionManager) ReqMTTRecordList(gid int, uid int64) {

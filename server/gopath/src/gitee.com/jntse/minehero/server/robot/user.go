@@ -423,28 +423,16 @@ func (u *User) DoInputCmd(cmd string) {
 		//u.EnterEvent(26)
 	case "list":
 		u.ReqRoomList()
-
-	case "flist":
-		u.ReqFriendList()
-	case "frlist":
-		u.ReqFriendRequestList()
-	case "fadd":
-		u.AddFriend(subcmd[1])
-	case "fprocess":
-		u.ProcessFriend(subcmd[1], "1")
-	case "fpresent":
-		u.FriendPresent(subcmd[1])
-	case "fgetpresent":
-		u.GetFriendPresent(subcmd[1])
-	case "fdel":
-		u.RemoveFriend(subcmd[1])
-	case "fsearch":
-		u.SearchFriend(subcmd[1])
-	case "finvite":
-		u.InviteFriend(subcmd[1:])
+	case "friend":
+		u.DoFriendCmd(subcmd[1:])
+	case "txf":
+		u.DoTexasFightCmd(subcmd[1:])
 	}
 }
 
 func (u *User) OnLoginGateOK() {
 
+	// 请求自己房间列表
+	roommsg := &msg.C2RS_ReqInsideRoomInfoList{}
+	u.SendRoomMsg(roommsg)
 }
