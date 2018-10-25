@@ -915,6 +915,20 @@ func (this *TexasPokerRoom) RestartGame() int32{
 				}
 			}
 		}
+		//如果有玩家观看 机器人离开
+		if len(this.watchers) > 0 {
+			count := 0
+			for _, p := range this.players {
+				if count >= len(this.watchers) {
+					break
+				}
+				if p != nil && p.isai {
+					p.StandUp()
+					count++
+				}
+			}
+		}
+		//如果玩家全部离开 机器人离开
 		if playercount == 0 {
 			for _, p := range this.players {
 				if p != nil && p.isai {

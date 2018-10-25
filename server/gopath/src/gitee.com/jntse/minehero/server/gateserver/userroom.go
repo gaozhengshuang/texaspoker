@@ -272,6 +272,7 @@ func (u *GateUser) SendTexasRoomList(rtype int32) {
 	cmds, err := pipe.Exec()
 	if err != nil {
 		log.Error("[房间] 获取房间详细信息失败 %s", err)
+		pipe.Close()
 		return
 	}
 	pipe.Close()
