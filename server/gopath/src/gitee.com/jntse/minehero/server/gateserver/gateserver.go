@@ -419,8 +419,14 @@ func (g *GateServer) OnStop() {
 	for _, t := range g.tickers {
 		t.Stop()
 	}
-	g.hredis.Close()
-	g.mysqldb.Close()
+
+	if g.hredis != nil {
+		g.hredis.Close()
+	}
+
+	if g.mysqldb != nil {
+		g.mysqldb.Close()
+	}
 }
 
 func (g *GateServer) ClientListenerConf() *network.WsListenConf {

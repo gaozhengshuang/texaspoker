@@ -212,6 +212,13 @@ func (cs *ChampionShip) IsDel() bool {
 	return false
 }
 
+func (cs *ChampionShip) IsOutJoin() bool {
+	if cs.starttime + cs.tconf.DelaySign <= int32(util.CURTIME()) {
+		return true
+	}
+	return false
+}
+
 func (cs *ChampionShip) Tick(now int64) {
 	cs.ticker1s.Run(now)
 }
@@ -282,6 +289,12 @@ func (cs *ChampionShip) AddMember(uid int64, join int32) {
 	member.joinway = join
 	cs.members[uid] = member
 	cs.AddUserRank(uid)
+	cs.maxuser++
+	cs.sumbankroll += member.bankroll
+	cs.curmembernum++
+	if cs.IsStart() {
+		cs.JoinHalfWay(uid)	
+	}
 }
 
 func (cs *ChampionShip) DelMember(uid int64) {
@@ -315,22 +328,24 @@ func (cs *ChampionShip) StartMatch() bool {
 	return true
 }
 
-func (cs *ChampionShip) CreateRoom() {
+func (cs *ChampionShip) CreateRoom() int64{
 	roomuid := RoomMgr().CreatTexasRoomForChampion(cs.tconf.RoomId, cs)
 	if roomuid != 0 {
 		if _, ok := cs.roommember[roomuid]; !ok {
 			roomuser := make(map[int64]int64)
 			cs.roommember[roomuid] = roomuser
 			log.Info("锦标赛%d 创建房间%d", cs.uid, roomuid)
+			return roomuid
 		}
 	}else{
 		log.Info("锦标赛%d 创建房间失败", cs.uid)
 	}
+	return 0
 }
 
 func (cs *ChampionShip) DispatchRoom() {
 	dispatched := make(map[int64]int64)
-	for uid, member := range cs.members {
+	for uid, _ := range cs.members {
 		for key, room := range cs.roommember {
 			if _, ok := dispatched[key]; ok {
 				continue
@@ -338,14 +353,8 @@ func (cs *ChampionShip) DispatchRoom() {
 			if int32(len(room)) >= cs.rconf.Seat {
 				continue
 			}
-			member.roomuid = key
-			room[uid] = uid
 			dispatched[key] = key
-			cs.maxuser++
-			cs.sumbankroll += member.bankroll
-			cs.curmembernum++ 
 			cs.JoinOneMatch(uid, key)
-			//cs.AddUserRank(uid)
 			break
 		}
 		if len(dispatched) == len(cs.roommember){
@@ -353,6 +362,35 @@ func (cs *ChampionShip) DispatchRoom() {
 		}
 	}
 	cs.SetMinRoom()
+}
+
+func (cs *ChampionShip) JoinHalfWay(userid int64) {
+	var joinok bool = false
+	var ruid int64 = 0
+	for key, room := range cs.roommember {
+		if int32(len(room)) >= cs.rconf.Seat {
+			continue
+		}
+		cs.JoinOneMatch(userid, key)
+		joinok = true
+		ruid = key
+		break
+	}
+	if !joinok {
+		roomuid := cs.CreateRoom()
+		if roomuid != 0 {
+			cs.JoinOneMatch(userid, roomuid)
+			joinok = true
+			ruid = roomuid
+		}
+	}
+	if joinok {
+		tmproommember := make(map[int64]map[int64]int64)
+		tmpmap := make(map[int64]int64)
+		tmproommember[ruid] = tmpmap
+		tmproommember[ruid][userid] = userid
+		cs.NotifyUserRoom(tmproommember)
+	}
 }
 
 func (cs *ChampionShip) JoinOneMatch(userid int64, roomid int64) {
@@ -365,6 +403,8 @@ func (cs *ChampionShip) JoinOneMatch(userid int64, roomid int64) {
 		if u == nil {
 			return
 		}
+		cs.roommember[roomid][userid] = userid
+		cs.members[userid].roomuid = roomid
 		texas.MTTUserEnter(u)
 		texas.SetPlayerBankRoll(userid, cs.GetUserBankRoll(userid))
 		texas.NotifySitStand(userid, userid)
@@ -475,8 +515,6 @@ func (cs *ChampionShip) ReDispatchRoom(roomuid int64) bool {
 				if int32(len(tmproom)) >= cs.rconf.Seat {
 					continue
 				}
-				tmproom[m] = m
-				cs.members[m].roomuid = key
 				dispatched[key] = key
 				if _, ok := tmproommember[key]; !ok {
 					tmpmap := make(map[int64]int64)
@@ -817,7 +855,7 @@ func (cm *ChampionManager) Tick(now int64) {
 		if cs.IsOver() {
 			//cm.championovers[key] = cs
 			delete(cm.championships, key)
-			log.Info("锦标赛%d 结束", key)
+			log.Info("锦标赛%d 正常结束", key)
 		}
 	}
 }
@@ -874,6 +912,16 @@ func (cm *ChampionManager) ReqMTTJoin(gid int, uid int64, rev *msg.C2RS_ReqMTTJo
 	}
 	if !RemoveUserGold(gid, uid, cs.tconf.SignCost+cs.tconf.ServeCost, "报名参加锦标赛") {
 		send.Errcode = pb.String("金币不足")
+		RoomSvr().SendClientMsg(gid, uid, send)
+		return
+	}
+	if !cs.CanShow() {
+		send.Errcode = pb.String("未到报名时间")
+		RoomSvr().SendClientMsg(gid, uid, send)
+		return
+	}
+	if cs.IsOutJoin() {
+		send.Errcode = pb.String("停止报名")
 		RoomSvr().SendClientMsg(gid, uid, send)
 		return
 	}

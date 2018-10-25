@@ -191,6 +191,13 @@ message RS2GW_ChatInfo {
     optional msg.GW2C_PushMessage chat = 1;
 }
 
+//通知用户加经验
+message RS2GW_AddExp {
+    optional int64 uid = 1;
+    optional int32 exp = 2;
+    optional string txt = 3;
+}
+
 // --------------------------------------------------------------------------
 /// @brief MatchServer <----> RoomServer
 // --------------------------------------------------------------------------

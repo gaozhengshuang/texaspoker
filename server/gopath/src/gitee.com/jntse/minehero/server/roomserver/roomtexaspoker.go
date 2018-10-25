@@ -733,6 +733,9 @@ func (this *TexasPokerRoom) AllBetOver() bool{
 }
 
 func (this *TexasPokerRoom) ShowDown() int32{
+	//结算时就把位置清理掉
+	this.curactpos = -1
+	this.curacttime = 0
 	this.SetOtherRecord()
 	pots := this.CalcGambPool()
 	for i := range this.chips {

@@ -367,35 +367,39 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 			log.Error("新建账户%s失败，err: %s", account, errsetbin)
 			break
 		}
-		Redis().HSet(fmt.Sprintf("charstate_%d", userid), "createdtime", util.CURTIME())
+
 		// 初始元宝和金卷
 		gold := int32(tbl.Global.NewUser.Gold)
-		Redis().HSet(fmt.Sprintf("charbase_%d", userid), "gold", gold)
-		Redis().HSet(fmt.Sprintf("charbase_%d", userid), "maxgold", gold)
 		yuanbao := int32(tbl.Global.NewUser.Yuanbao)
-		Redis().HSet(fmt.Sprintf("charbase_%d", userid), "yuanbao", yuanbao)
 		diamond := int32(tbl.Global.NewUser.Diamond)
-		Redis().HSet(fmt.Sprintf("charbase_%d", userid), "diamond", diamond)
-		userinfo := &msg.Serialize{
-			Entity: &msg.EntityBase{
-				Roleid: pb.Int64(userid),
-				Name: pb.String(nickname),
-				Head: pb.String("null"),
-				Account: pb.String(account),
-				//Gold: pb.Int32(gold), 
-				Yuanbao: pb.Int32(yuanbao), 
-				Diamond: pb.Int32(diamond),
-				Level: pb.Int32(1),
-				Sex: pb.Int32(int32(msg.Sex_Female)),
-			},
-			Base: &msg.UserBase {
-				Misc: &msg.UserMiscData { Invitationcode: pb.String(invitationcode) },
-				//Wechat: &msg.UserWechat{Openid: pb.String(openid)},
-			},
+
+		// Entity数据
+		entity := &msg.EntityBase {
+			Roleid: pb.Int64(userid),
+			Name: pb.String(nickname),
+			Head: pb.String("null"),
+			Account: pb.String(account),
+			Gold: pb.Int32(gold), 
+			Yuanbao: pb.Int32(yuanbao), 
+			Diamond: pb.Int32(diamond),
+			Level: pb.Int32(1),
+			Sex: pb.Int32(int32(msg.Sex_Female)),
+		}
+
+		// misc 数据
+		misc := &msg.UserMiscData { 
+			Invitationcode: pb.String(invitationcode),
+		}
+
+		userinfo := &msg.Serialize {
+			//Entity : entity
+			Entity : &msg.EntityBase{},
+			Base: &msg.UserBase { Misc:misc },
 			Item:   &msg.ItemBin{},
 		}
 
 		userkey := fmt.Sprintf("userbin_%d", userid)
+		log.Info("userentity=%v", entity)
 		log.Info("userinfo=%v", userinfo)
 		if err := utredis.SetProtoBin(Redis(), userkey, userinfo); err != nil {
 			errcode = "插入玩家数据失败"
@@ -414,7 +418,7 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 		}
 		
 		// 缓存简单信息
-		SaveUserSimpleInfo(userinfo)
+		DBSaveUserCharBase(entity)
 		//SaveUserWechatOpenId(userid, openid)
 
 		log.Info("账户[%s] UserId[%d] 创建新用户成功", account, userid)
@@ -442,34 +446,38 @@ func DirectRegistAccount(account, passwd string) (errcode string) {
 }
 
 // 缓存玩家简单信息
-func SaveUserSimpleInfo(bin *msg.Serialize) {
-	uid := bin.Entity.GetRoleid()
+func DBSaveUserCharBase(entity *msg.EntityBase) {
 	pipe := Redis().Pipeline()
 	defer pipe.Close()
 
 	// charbase 基础数据
-	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "roleid",bin.Entity.GetRoleid())
-	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "name", 	bin.Entity.GetName())
-	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "face", 	bin.Entity.GetHead())
-	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "sex",  	bin.Entity.GetSex())
-	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "level",	bin.Entity.GetLevel())
-	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "exp", bin.Entity.GetExp())
+	uid := entity.GetRoleid()
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "roleid",entity.GetRoleid())
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "name", 	entity.GetName())
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "face", 	entity.GetHead())
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "sex",  	entity.GetSex())
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "level",	entity.GetLevel())
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "exp", 	entity.GetExp())
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "sign", "")
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "age", 0)
-	//pipe.HSet(fmt.Sprintf("charbase_%d", uid), "diamond", bin.Entity.GetDiamond())
-	//pipe.HSet(fmt.Sprintf("charbase_%d", uid), "gold",	bin.Entity.GetGold())
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "diamond", entity.GetDiamond())
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "gold",	entity.GetGold())
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "viplevel",  0)
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "offlinetime", 0)
 
 	// 名字绑定id
-	pipe.Set(fmt.Sprintf("charname_%s", bin.Entity.GetName()), uid, 0)
+	pipe.Set(fmt.Sprintf("charname_%s", entity.GetName()), uid, 0)
+
+	// charstate
+	pipe.HSet(fmt.Sprintf("charstate_%d", uid), "createdtime", util.CURTIME())
+	pipe.HSet(fmt.Sprintf("charstate_%d", uid), "maxgold", entity.GetGold())
 
 	_, err := pipe.Exec()
 	if err != nil {
-		log.Error("缓存玩家[%s %d]简单信息失败 %s", bin.Entity.GetName(), uid, err)
+		log.Error("缓存玩家[%s %d]简单信息失败 %s", entity.GetName(), uid, err)
 		return
 	}
-	log.Info("缓存玩家[%s %d]简单信息成功", bin.Entity.GetName(), uid)
+	log.Info("缓存玩家[%s %d]简单信息成功", entity.GetName(), uid)
 }
 
 // 关联 UserId 和 OpenId

@@ -28,15 +28,11 @@ import (
 /// @brief db数据管理
 // --------------------------------------------------------------------------
 type DBUserData struct {
+	entity         *UserEntity
 	bin            *msg.Serialize // db二进制数据
 	gatebin 	   *msg.GateSerialize
 	tm_login       int64
 	tm_logout      int64
-	gold           int32
-	diamond        int32
-	yuanbao        int32
-	level          int32
-	exp            int32
 	signdays       int32
 	signtime       int32
 	addrlist       []*msg.UserAddress
@@ -69,7 +65,6 @@ type UserBaseData struct {
 	verifykey     string
 	online        bool
 	tickers       UserTicker
-	//bag         UserBag // 背包
 	cleanup       bool    // 清理标记
 	tm_disconnect int64
 	tm_heartbeat  int64                   // 心跳时间
@@ -94,6 +89,7 @@ type GateUser struct {
 
 func NewGateUser(account, key, token string) *GateUser {
 	u := &GateUser{}
+	u.entity = &UserEntity{}
 	u.account = account
 	u.verifykey = key
 	u.bag.Init(u)
@@ -116,16 +112,31 @@ func (u *GateUser) Account() string {
 	return u.account
 }
 
-func (u *GateUser) EntityBase() *msg.EntityBase {
-	return u.bin.GetEntity()
-}
+//func (u *GateUser) EntityBase() *msg.EntityBase { return u.bin.GetEntity() }
+func (u *GateUser) EntityBase() *UserEntity { return u.entity }
+func (u *GateUser) UserBase() *msg.UserBase { return u.bin.GetBase() }
+func (u *GateUser) Name() string { return u.EntityBase().Name() }
+func (u *GateUser) Head() string { return u.EntityBase().Head() }
+func (u *GateUser) Id() int64 { return u.EntityBase().Id() }
+func (u *GateUser) Sex() int32 { return u.EntityBase().Sex() }
+func (u *GateUser) IsOnline() bool { return u.online }
+func (u *GateUser) IsCleanUp() bool { return u.cleanup }
+func (u *GateUser) Verifykey() string { return u.verifykey }
 
-func (u *GateUser) UserBase() *msg.UserBase {
-	return u.bin.GetBase()
-}
+func (u *GateUser) Token() string { return u.token }
+func (u *GateUser) SetToken(t string) { u.token = t }
+func (u *GateUser) SetOpenId(id string) { u.wechatopenid = id }
+func (u *GateUser) OpenId() string { return u.wechatopenid }
+func (u *GateUser) GetUserPos() (float32, float32) { return 0, 0 }
+func (u *GateUser) InvitationCode() string { return u.invitationcode }
+func (u *GateUser) MyInvitationCode() string { return fmt.Sprintf("TJ%d", u.Id()) }
 
-func (u *GateUser) Name() string {
-	return u.EntityBase().GetName()
+
+func (u *GateUser) Sid() int {
+	if u.client != nil {
+		return u.client.Id()
+	}
+	return 0
 }
 
 func (u *GateUser) SetName(nickname string) bool {
@@ -170,66 +181,9 @@ func (u *GateUser) SetName(nickname string) bool {
 		log.Error("改名移除玩家原来名字失败 oldname:%s , err: %s", u.Name(), errrem)
 	}
 
-	u.EntityBase().Name = pb.String(nickname)
+	u.EntityBase().SetName(nickname)
 	log.Info("玩家[%d] 设置昵称[%s] 成功", u.Id(), nickname)
 	return true
-}
-
-func (u *GateUser) Head() string {
-	return u.EntityBase().GetHead()
-}
-
-func (u *GateUser) SetHead(f string, bsync bool) {
-	log.Info("玩家[%d] 设置头像 [%s]", u.Id(), f)
-	u.EntityBase().Head = pb.String(f)
-}
-
-func (u *GateUser) Id() int64 {
-	return u.EntityBase().GetRoleid()
-}
-
-func (u *GateUser) Sex() int32 {
-	return u.EntityBase().GetSex()
-}
-
-func (u *GateUser) SetSex(sex int32) {
-	log.Info("玩家[%d] 设置性别 [%d]", u.Id(), sex)
-	u.EntityBase().Sex = pb.Int32(sex)
-}
-
-func (u *GateUser) Sid() int {
-	if u.client != nil {
-		return u.client.Id()
-	}
-	return 0
-}
-
-func (u *GateUser) Level() int32 {
-	level := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "level").Val())
-	return level
-}
-
-func (u *GateUser) AddLevel(num int32) {
-	level := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "level").Val())
-	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "level", level+1)
-	u.OnAchieveProcessChanged(int32(AchieveGroup_Level))
-}
-
-func (u *GateUser) Exp() int32 {
-	exp := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "exp").Val())
-	return exp
-}
-
-func (u *GateUser) SetExp(exp int32) {
-	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "exp", exp)
-}
-
-func (u *GateUser) Token() string {
-	return u.token
-}
-
-func (u *GateUser) SetToken(t string) {
-	u.token = t
 }
 
 func (u *GateUser) GetDiamondCost() int64 {
@@ -284,31 +238,6 @@ func (u *GateUser) SendAddress() {
 	u.SendMsg(send)
 }
 
-func (u *GateUser) Verifykey() string {
-	return u.verifykey
-}
-
-func (u *GateUser) IsOnline() bool {
-	return u.online
-}
-
-func (u *GateUser) SetOpenId(id string) {
-	u.wechatopenid = id
-}
-
-func (u *GateUser) OpenId() string {
-	return u.wechatopenid
-}
-
-// 自己邀请码
-func (u *GateUser) MyInvitationCode() string {
-	return fmt.Sprintf("TJ%d", u.Id())
-}
-
-// 邀请人邀请码
-func (u *GateUser) InvitationCode() string {
-	return u.invitationcode
-}
 
 // 邀请人
 func (u *GateUser) Inviter() int64 {
@@ -317,14 +246,6 @@ func (u *GateUser) Inviter() int64 {
 		return inviter
 	}
 	return 0
-}
-
-func (this *GateUser) IsCleanUp() bool {
-	return this.cleanup
-}
-
-func (u *GateUser) GetUserPos() (float32, float32) {
-	return 0, 0
 }
 
 func (u *GateUser) SendMsg(msg pb.Message) {
@@ -343,16 +264,13 @@ func (u *GateUser) AddBroadCastMsg(uuid int64) {
 // 玩家全部数据
 func (u *GateUser) SendUserBase() {
 	send := &msg.GW2C_PushUserInfo{}
-	entity, base, item := u.bin.GetEntity(), u.bin.GetBase(), u.bin.GetItem()
+	base, item := u.bin.GetBase(), u.bin.GetItem()
 	// clone类似c++的copyfrom
-	send.Entity = pb.Clone(entity).(*msg.EntityBase)
-	send.Entity.Gold = pb.Int32(u.GetGold())
-	send.Entity.Diamond = pb.Int32(u.GetDiamond())
-	send.Entity.Yuanbao = pb.Int32(u.GetYuanbao())
+	send.Entity = u.entity.FillEntity()
 	send.Base = pb.Clone(base).(*msg.UserBase)
 	u.FillUserStatistics(send.Base.Statics)
-
 	send.Item = pb.Clone(item).(*msg.ItemBin)
+
 	u.SendMsg(send)
 }
 
@@ -382,6 +300,11 @@ func (u *GateUser) DBLoad() bool {
 		return false
 	}
 
+	// 基础数据
+	u.entity.Init(info.GetUserid())
+	u.entity.DBLoad()
+
+	//
 	u.OnDBLoad("登陆")
 	return true
 }
@@ -389,17 +312,9 @@ func (u *GateUser) DBLoad() bool {
 func (u *GateUser) OnDBLoad(way string) {
 	log.Info("玩家数据: ==========")
 	log.Info("账户%s 加载DB数据成功 方式[%s]", u.account, way)
-	log.Info("%v", u.bin)
+	log.Info("%#v", u.entity)
+	//log.Info("%v", u.bin)
 	log.Info("玩家数据: ==========")
-
-	// 没有名字取个名字
-	entity := u.bin.GetEntity()
-	if entity == nil {
-		u.bin.Entity = &msg.EntityBase{}
-	}
-	if entity.GetName() == "" {
-		entity.Name = pb.String(fmt.Sprintf("%d_name", u.Id()))
-	}
 
 	// proto对象变量初始化
 	if u.bin.Base == nil { u.bin.Base = &msg.UserBase{} }
@@ -439,13 +354,6 @@ func (u *GateUser) PackBin() *msg.Serialize {
 	//bin.Base.Wechat = &msg.UserWechat{}
 	//bin.Base.Addrlist = make([]*msg.UserAddress,0)
 
-	entity := bin.Entity
-	entity.Gold = pb.Int32(u.gold)
-	entity.Diamond = pb.Int32(u.diamond)
-	entity.Yuanbao = pb.Int32(u.yuanbao)
-	entity.Level = pb.Int32(u.level)
-	entity.Exp = pb.Int32(u.exp)
-
 	userbase := bin.GetBase()
 	userbase.Statics = u.statistics.PackBin()
 	userbase.Vip = u.vip.PackBin()
@@ -470,7 +378,6 @@ func (u *GateUser) PackBin() *msg.Serialize {
 	}
 
 	// 道具信息
-	//u.bag.PackBin(bin)
 	//u.task.PackBin(bin)
 	//u.events.PackBin(bin)
 	//u.PackAutoResetValues(bin)
@@ -492,12 +399,7 @@ func (u *GateUser) LoadBin() {
 	// 基础信息
 
 	// 玩家信息
-	userbase, entity := u.bin.GetBase(), u.bin.GetEntity()
-	u.gold = u.GetGold()
-	u.diamond = u.GetDiamond()
-	u.yuanbao = u.GetYuanbao()
-	u.level = entity.GetLevel()
-	u.exp = entity.GetExp()
+	userbase := u.bin.GetBase()
 
 	u.signtime = userbase.Sign.GetSigntime()
 	u.invitationcode = userbase.Misc.GetInvitationcode()
@@ -521,8 +423,8 @@ func (u *GateUser) LoadBin() {
 	u.statistics.LoadBin(u.bin)
 	userbase.GetStatics().Tmlogin = pb.Int64(util.CURTIME())
 	u.vip.LoadBin(u.bin)
+
 	// 道具信息
-	//u.bag.LoadBin(u.bin)
 	//u.bag.DBLoad()
 
 	// 任务
@@ -551,6 +453,7 @@ func (u *GateUser) LoadGateBin () {
 
 // TODO: 存盘可以单独协程
 func (u *GateUser) DBSave() {
+	//u.entity.DBSave()
 	//u.bag.DBSave()
 	u.mailbox.DBSave()
 	u.friends.DBSave()

@@ -219,6 +219,10 @@ func (rm *RoomManager) Handler1sTick(now int64) {
 
 func (rm *RoomManager) CleanCache() {
 	//
+	if RoomSvr().Name() != tbl.Room.PublicRoomServer {
+		return
+	}
+
 	pipe := Redis().Pipeline()
 	tkey := fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TanTanLe), 0)
 	pipe.Del(tkey)
