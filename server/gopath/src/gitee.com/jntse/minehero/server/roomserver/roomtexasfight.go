@@ -94,8 +94,13 @@ func (tf *TexasFightRoom) PlayerBankerKeepCheck() {
 		tf.bankerqueue.Remove(tf.bankerqueue.Front())
 		tf.banker.Sit(-1)
 		tf.banker.ResetBankerRound()
-		posmsg := &msg.RS2C_PushTFPosChange{ Pos:pb.Int32(0), Roleid:pb.Int64(0), Bankergold:pb.Int32(0) }
-		tf.BroadCastMemberMsg(posmsg)	// TODO: 下庄这个推送可以省掉
+
+		// TODO: 下庄这个推送可以省掉
+		posmsg := &msg.RS2C_PushTFPosChange{Bankergold:pb.Int32(0), Player:&msg.TFPlayer{}}
+		posmsg.Player = player.FillPlayerInfo()
+		posmsg.Player.Pos = pb.Int32(0)
+		posmsg.Player.Roleid = pb.Int64(0)
+		tf.BroadCastMemberMsg(posmsg)
 	}
 }
 
@@ -120,7 +125,8 @@ func (tf *TexasFightRoom) AppointPlayerBankerCheck() {
 	tf.banker = p
 	tf.sitplayers[0] = tf.banker
 
-	posmsg := &msg.RS2C_PushTFPosChange{Pos:pb.Int32(0), Roleid:pb.Int64(tf.banker.Id()), Bankergold:pb.Int32(tf.banker.Gold()) }
+	posmsg := &msg.RS2C_PushTFPosChange{Bankergold:pb.Int32(tf.banker.Gold()), Player:&msg.TFPlayer{}}
+	posmsg.Player = player.FillPlayerInfo()
 	tf.BroadCastMemberMsg(posmsg)
 	log.Info("[百人大战] 玩家[%s %d] 房间[%d] 成为正式庄家", tf.banker.Name(), tf.banker.Id(), tf.Id())
 	return
@@ -140,7 +146,8 @@ func (tf *TexasFightRoom) SystemBankerBackCheck() {
 	tf.banker = tf.bankersys
 	tf.sitplayers[0] = tf.banker
 
-	posmsg := &msg.RS2C_PushTFPosChange{Pos:pb.Int32(0), Roleid:pb.Int64(tf.banker.Id()), Bankergold:pb.Int32(tf.banker.Gold()) }
+	posmsg := &msg.RS2C_PushTFPosChange{Bankergold:pb.Int32(tf.banker.Gold()), Player:&msg.TFPlayer{}}
+	posmsg.Player = player.FillPlayerInfo()
 	tf.BroadCastMemberMsg(posmsg)
 	log.Info("[百人大战] 切换回系统庄家")
 }
@@ -285,12 +292,12 @@ func (tf *TexasFightRoom) PlayerSettle() {
 		}
 
 		// 如果在上庄列表中，不受旁观2轮限制
-
-		//
 		if player.TotalBet() == 0 {
-			player.SetWatchCount(player.WatchCount() + 1)
-			if player.WatchCount() >= tf.tconf.Kick {
-				kicklist = append(kicklist, player)
+			if tf.IsInBankerQueue(player.Id()) == false {
+				player.SetWatchCount(player.WatchCount() + 1)
+				if player.WatchCount() >= tf.tconf.Kick {
+					kicklist = append(kicklist, player)
+				}
 			}
 			continue
 		}
@@ -686,16 +693,15 @@ func (tf *TexasFightRoom) RequestBecomeBanker(u *RoomUser) {
 
 // 请求下庄
 func (tf *TexasFightRoom) RequestQuitBanker(u *RoomUser) {
+	send := &msg.RS2C_RetTFQuitBanker{}
+	u.SendClientMsg(send)
+
 	player := tf.FindPlayer(u.Id())
 	if player == nil {
 		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 找不到玩家Player", u.Name(), u.Id(), tf.Id())
 		return
 	}
 
-	if tf.stat == kStatBetting {
-		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 下注中不能下庄", u.Name(), u.Id(), tf.Id())
-		return
-	}
 
 	bfind := false
 	for elem := tf.bankerqueue.Front(); elem != nil; elem = elem.Next() {
@@ -710,16 +716,19 @@ func (tf *TexasFightRoom) RequestQuitBanker(u *RoomUser) {
 		return
 	}
 
-	// TODO: 庄家
-	if player.Id() == tf.banker.Id() {
-		player.SetBankerFlag(kPlayerBankerQuit)	// 标记庄家，本轮结束退出
-	}else {
-		tf.BankerQueueRemoveElem(u.Id())	// 上庄列表
+	// 上庄列表中非正式庄家，无条件下庄
+	if tf.banker.Id() != u.Id() {
+		tf.BankerQueueRemoveElem(u.Id()) 		// 从上庄列表移除
+		log.Info("[百人大战] 玩家[%s %d] 房间[%d] 请求下庄成功",  u.Name(), u.Id(), tf.Id())
+		return
 	}
 
-	send := &msg.C2RS_ReqTFQuitBanker{}
-	u.SendClientMsg(send)
-
+	// 庄家
+	if tf.stat == kStatBetting {
+		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 下注中不能下庄", u.Name(), u.Id(), tf.Id())
+		return
+	}
+	player.SetBankerFlag(kPlayerBankerQuit)	// 标记庄家，本轮结束退出
 	log.Info("[百人大战] 玩家[%s %d] 房间[%d] 请求下庄成功",  u.Name(), u.Id(), tf.Id())
 }
 
@@ -733,6 +742,17 @@ func (tf *TexasFightRoom) BankerQueueRemoveElem(uid int64) {
 	}
 }
 
+// 是否在上庄列表中
+func (tf *TexasFightRoom) IsInBankerQueue(uid int64) bool {
+	for elem := tf.bankerqueue.Front(); elem != nil; elem = elem.Next() {
+		p := elem.Value.(*TexasFightPlayer)
+		if p.Id() == uid {
+			return true
+		}
+	}
+	return false
+}
+
 // 请求站起玩家列表 TODO:玩家列表使用的HashMap，需要使用固定顺序列表才能支持分段拉取
 func (tf *TexasFightRoom) SendStandPlayerList(u *RoomUser, start, count int32) {
 
@@ -744,7 +764,16 @@ func (tf *TexasFightRoom) SendStandPlayerList(u *RoomUser, start, count int32) {
 	}
 	sort.Sort(sortlist)
 
-	send := &msg.RS2C_RetTFStandPlayer{Playerlist:make([]*msg.TFPlayer,0), Total:pb.Int32(tf.PlayersNum()) }
+	// 坐下玩家数量(排除系统庄家)
+	var sitnum int32 = 0
+	for _, p := range tf.sitplayers {
+		if p == nil { continue }
+		if p.IsSystem() { continue }
+		sitnum += 1
+	}
+
+	standnum := tf.PlayersNum() - sitnum
+	send := &msg.RS2C_RetTFStandPlayer{Playerlist:make([]*msg.TFPlayer,0), Total:pb.Int32(standnum) }
 	var num int32 = 0
 	for k, p := range sortlist {
 		if int32(k) < start { continue }
