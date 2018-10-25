@@ -38,7 +38,7 @@ func (rm *RoomManager) Init() bool {
 	rm.ticker1s = util.NewGameTicker(time.Second, rm.Handler1sTick)
 	rm.ticker1s.Start()
 
-	rm.CleanCache()
+	rm.CleanPublicTexasCache()
 	rm.InitPublicTexas()
 	rm.InitTimeReward()
 	rm.InitTexasFightRoom()
@@ -217,7 +217,7 @@ func (rm *RoomManager) Handler1sTick(now int64) {
 	rm.TexasRoomAmountCheck()
 }
 
-func (rm *RoomManager) CleanCache() {
+func (rm *RoomManager) CleanPublicTexasCache() {
 	//
 	if RoomSvr().Name() != tbl.Room.PublicRoomServer {
 		return

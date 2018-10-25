@@ -53,6 +53,8 @@ func (u *User) ReqEnterTFRoom(subcmd []string) {
 	uid := util.Atol(subcmd[0])
 	send := &msg.C2GW_ReqEnterTFRoom{Id:pb.Int64(uid), Userid:pb.Int64(u.Id()) }
 	u.SendGateMsg(send)
+
+	u.ReqTFStart()
 }
 
 func (u *User) ReqTFLeave() {

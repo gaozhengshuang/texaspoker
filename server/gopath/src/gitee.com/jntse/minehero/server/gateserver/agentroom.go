@@ -42,7 +42,6 @@ func (r *RoomAgent) Tick(now int64) {
 // --------------------------------------------------------------------------
 type RoomSvrManager struct {
 	rooms map[int]*RoomAgent		// 房间服务器
-	mttroomid int					// 锦标赛roomserverid
 }
 
 func (r *RoomSvrManager) Init() {
@@ -56,15 +55,9 @@ func (r *RoomSvrManager) Num() int {
 func (r *RoomSvrManager) AddRoom(agent *RoomAgent) {
 	id := agent.Id()
 	r.rooms[id] = agent
-	if agent.Name() == tbl.Room.MTTRoomServer {
-		r.mttroomid = id
-	}
 }
 
 func (r* RoomSvrManager) DelRoom(id int) {
-	if r.mttroomid == id {
-		r.mttroomid = 0
-	}
 	delete(r.rooms, id)
 }
 
@@ -104,9 +97,12 @@ func (r *RoomSvrManager) BroadCast(msg pb.Message) {
 }
 
 func (r *RoomSvrManager) SendMTTMsg(msg pb.Message) {
-	if agent := r.FindRoom(r.mttroomid); agent != nil {
-		agent.SendMsg(msg)
+	agent := RoomSvrMgr().FindByName(tbl.Room.MTTRoomServer)
+	if agent == nil {
+		log.Error("[竞标赛] 获取竞标赛RoomServer失败")
+		return
 	}
+	agent.SendMsg(msg)
 }
 
 func (r *RoomSvrManager) SendMsg(sid int, msg pb.Message) {
