@@ -23,7 +23,9 @@ type UserEntity struct {
 	dirty   bool
 }
 
-func (u *UserEntity) Init() { }
+func (u *UserEntity) Init(id int64) { 
+	u.roleid = id
+}
 
 func (u *UserEntity) Id() int64 { return u.roleid }
 func (u *UserEntity) Name() string { return u.name }
@@ -33,22 +35,21 @@ func (u *UserEntity) Account() string { return u.account }
 func (u *UserEntity) Age() int32 { return u.age }
 func (u *UserEntity) SetName(n string) { u.name = n; u.dirty = true }
 
+
+//
 func (u *UserEntity) Level() int32 { 
-	return u.level 
+	u.level = util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "level").Val())
+	return u.level
 }
-
+func (u *UserEntity) IncLevel(n int32)  { 
+	Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "level", int64(n))
+}
 func (u *UserEntity) Exp() int32 { 
-	return u.exp 
+	u.exp = util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "exp").Val())
+	return u.exp
 }
-
-func (u *UserEntity) SetLevel(l int32)  { 
-	u.level = l; 
-	u.dirty = true 
-}
-
 func (u *UserEntity) SetExp(exp int32) { 
-	u.exp = exp;  
-	u.dirty = true 
+	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "exp", exp)
 }
 
 //

@@ -92,7 +92,6 @@ func NewGateUser(account, key, token string) *GateUser {
 	u.entity = &UserEntity{}
 	u.account = account
 	u.verifykey = key
-	u.entity.Init()
 	u.bag.Init(u)
 	u.task.Init(u)
 	u.events.Init(u)
@@ -138,26 +137,6 @@ func (u *GateUser) Sid() int {
 		return u.client.Id()
 	}
 	return 0
-}
-
-func (u *GateUser) Level() int32 {
-	level := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "level").Val())
-	return level
-}
-
-func (u *GateUser) AddLevel(num int32) {
-	level := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "level").Val())
-	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "level", level+1)
-	u.OnAchieveProcessChanged(int32(AchieveGroup_Level))
-}
-
-func (u *GateUser) Exp() int32 {
-	exp := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "exp").Val())
-	return exp
-}
-
-func (u *GateUser) SetExp(exp int32) {
-	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "exp", exp)
 }
 
 func (u *GateUser) SetName(nickname string) bool {
@@ -321,6 +300,7 @@ func (u *GateUser) DBLoad() bool {
 		return false
 	}
 
+	u.entity.Init(info.GetUserid())
 	u.OnDBLoad("登陆")
 	return true
 }
