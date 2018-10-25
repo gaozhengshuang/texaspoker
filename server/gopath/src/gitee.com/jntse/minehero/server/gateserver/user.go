@@ -300,7 +300,11 @@ func (u *GateUser) DBLoad() bool {
 		return false
 	}
 
+	// 基础数据
 	u.entity.Init(info.GetUserid())
+	u.entity.DBLoad()
+
+	//
 	u.OnDBLoad("登陆")
 	return true
 }
@@ -308,7 +312,8 @@ func (u *GateUser) DBLoad() bool {
 func (u *GateUser) OnDBLoad(way string) {
 	log.Info("玩家数据: ==========")
 	log.Info("账户%s 加载DB数据成功 方式[%s]", u.account, way)
-	log.Info("%v", u.bin)
+	log.Info("%#v", u.entity)
+	//log.Info("%v", u.bin)
 	log.Info("玩家数据: ==========")
 
 	// proto对象变量初始化
@@ -348,13 +353,6 @@ func (u *GateUser) PackBin() *msg.Serialize {
 	//bin.Base.Scounter = &msg.SimpleCounter{}
 	//bin.Base.Wechat = &msg.UserWechat{}
 	//bin.Base.Addrlist = make([]*msg.UserAddress,0)
-
-	//entity := bin.Entity
-	//entity.Gold = pb.Int32(u.gold)
-	//entity.Diamond = pb.Int32(u.diamond)
-	//entity.Yuanbao = pb.Int32(u.yuanbao)
-	//entity.Level = pb.Int32(u.level)
-	//entity.Exp = pb.Int32(u.exp)
 
 	userbase := bin.GetBase()
 	userbase.Statics = u.statistics.PackBin()
@@ -402,13 +400,6 @@ func (u *GateUser) LoadBin() {
 
 	// 玩家信息
 	userbase := u.bin.GetBase()
-	//u.gold 	= u.GetGold()
-	//u.diamond = u.GetDiamond()
-	//u.yuanbao = u.GetYuanbao()
-
-	//entity := u.bin.GetEntity()
-	//u.level 	= entity.GetLevel()
-	//u.exp 	= entity.GetExp()
 
 	u.signtime = userbase.Sign.GetSigntime()
 	u.invitationcode = userbase.Misc.GetInvitationcode()
@@ -432,9 +423,6 @@ func (u *GateUser) LoadBin() {
 	u.statistics.LoadBin(u.bin)
 	userbase.GetStatics().Tmlogin = pb.Int64(util.CURTIME())
 	u.vip.LoadBin(u.bin)
-
-	// Entity
-	u.entity.DBLoad()
 
 	// 道具信息
 	//u.bag.DBLoad()
@@ -465,6 +453,7 @@ func (u *GateUser) LoadGateBin () {
 
 // TODO: 存盘可以单独协程
 func (u *GateUser) DBSave() {
+	//u.entity.DBSave()
 	//u.bag.DBSave()
 	u.mailbox.DBSave()
 	u.friends.DBSave()

@@ -1,6 +1,6 @@
 #!/bin/bash
 robotnum=1
-robotstart=0
+robotstart=1
 appname=robot
 logroot=~/log
 fileconf=../conf/conf_${appname}.json
