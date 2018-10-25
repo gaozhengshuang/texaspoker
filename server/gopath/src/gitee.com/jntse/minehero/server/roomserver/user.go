@@ -45,11 +45,15 @@ func (u *UserEntity) Name() string { return u.name }
 func (u *UserEntity) Head() string { return u.head }
 func (u *UserEntity) Sex() int32 { return u.sex }
 func (u *UserEntity) Account() string { return u.account }
-func (u *UserEntity) Level() int32 { return u.level }
-func (u *UserEntity) Exp() int32 { return u.exp }
+func (u *UserEntity) Level() int32 {
+	level := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "level").Val())
+	return level
+}
+func (u *UserEntity) Exp() int32 {
+	exp := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "exp").Val())
+	return exp
+}
 func (u *UserEntity) Age() int32 { return u.age }
-func (u *UserEntity) SetLevel(l int32)  { u.level = l;  u.dirty = true }
-func (u *UserEntity) SetExp(exp int32) { u.exp = exp;  u.dirty = true }
 func (u *UserEntity) Init() { }
 func (u *UserEntity) DBLoad() {
 	uid := u.roleid
