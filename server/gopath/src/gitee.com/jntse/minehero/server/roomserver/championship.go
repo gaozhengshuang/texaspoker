@@ -366,18 +366,30 @@ func (cs *ChampionShip) DispatchRoom() {
 
 func (cs *ChampionShip) JoinHalfWay(userid int64) {
 	var joinok bool = false
+	var ruid int64 = 0
 	for key, room := range cs.roommember {
 		if int32(len(room)) >= cs.rconf.Seat {
 			continue
 		}
 		cs.JoinOneMatch(userid, key)
 		joinok = true
+		ruid = key
+		break
 	}
 	if !joinok {
 		roomuid := cs.CreateRoom()
 		if roomuid != 0 {
 			cs.JoinOneMatch(userid, roomuid)
+			joinok = true
+			ruid = roomuid
 		}
+	}
+	if joinok {
+		tmproommember := make(map[int64]map[int64]int64)
+		tmpmap := make(map[int64]int64)
+		tmproommember[ruid] = tmpmap
+		tmproommember[ruid][userid] = userid
+		cs.NotifyUserRoom(tmproommember)
 	}
 }
 
@@ -843,7 +855,7 @@ func (cm *ChampionManager) Tick(now int64) {
 		if cs.IsOver() {
 			//cm.championovers[key] = cs
 			delete(cm.championships, key)
-			log.Info("锦标赛%d 结束", key)
+			log.Info("锦标赛%d 正常结束", key)
 		}
 	}
 }

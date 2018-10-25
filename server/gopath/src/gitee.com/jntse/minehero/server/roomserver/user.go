@@ -18,12 +18,14 @@ import (
 )
 
 func NewSimpleUser(uid int64) *RoomUser {
-	user := &RoomUser{aiflag:false, entity:&UserEntity{roleid:uid}, bag:&UserBag{}}
+	user := &RoomUser{aiflag:false, entity:&UserEntity{}, bag:&UserBag{}}
+	user.entity.Init(uid)
 	return user
 }
 
 func NewRoomUserAI(id int64, name string, sex int32) *RoomUser {
 	user := &RoomUser{aiflag:true, entity:&UserEntity{roleid:id, name:name, sex:sex}, bag:&UserBag{}}
+	user.entity.Init(id)
 	return user
 }
 

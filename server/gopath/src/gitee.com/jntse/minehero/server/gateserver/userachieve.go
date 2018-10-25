@@ -175,6 +175,7 @@ func (u *GateUser) ResetAchieve(cleartype int32){
 //常每日任务重置
 func (u *GateUser) DailyResetAchieve() {
 	u.ResetAchieve(1)
+	u.ResetDailyLuckyTask()
 }
 
 //周常每周任务重置
@@ -314,7 +315,7 @@ func (u *GateUser) OnReqPlayerRoleInfo(roleid int64) {
 
 //检查幸运任务可接取 
 func (u *GateUser) CheckTakeLuckyTask () int32 {
-	if u.GetUserLuckyTask()	> 0 {
+	if u.GetUserLuckyTask()	> 0 && u.IsTakeLuckyTaskToday() > 0 {
 		return 0
 	}
 	conf1, find1 := tbl.LuckyTaskBase.LuckyTaskById[1]
@@ -344,7 +345,7 @@ func (u *GateUser) CheckTakeLuckyTask () int32 {
 			return 0
 		}
 		u.TakeLuckyTask(3)
-		return 3
+		return conf3.TaskId
 	} else if gold >= conf2.Gold[0] && gold < conf2.Gold[1] {
 		if u.GetNowLuckyTaskTakeCount(2) > conf2.MaxTake {
 			return 0
@@ -353,7 +354,7 @@ func (u *GateUser) CheckTakeLuckyTask () int32 {
 			return 0
 		}
 		u.TakeLuckyTask(2)
-		return 2
+		return conf2.TaskId
 	} else if gold >= conf1.Gold[0] && gold < conf1.Gold[1] {
 		if u.GetNowLuckyTaskTakeCount(1) > conf1.MaxTake {
 			return 0
@@ -362,7 +363,7 @@ func (u *GateUser) CheckTakeLuckyTask () int32 {
 			return 0
 		}
 		u.TakeLuckyTask(1)
-		return 1
+		return conf1.TaskId
 	}
 	return 0
 }
@@ -426,8 +427,14 @@ func (u *GateUser) GetNowLuckyTaskTakeCount (taskttype int32) int32 {
 
 //接取幸运任务
 func (u *GateUser) TakeLuckyTask(taskttype int32) {
+	
 	Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "curluckytask", taskttype)
 	Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "isluckytaketoday", 1)
+	conf, find := tbl.LuckyTaskBase.LuckyTaskById[taskttype]
+	if find == true {
+		strgroup := strconv.FormatInt(int64(conf.TaskId), 10)
+		Redis().HSet(fmt.Sprintf("%s_%d", def.AchieveProcess, u.Id()), strgroup, 0)
+	}
 	//增加接取人数
 	nowTime := time.Now()
 	datetime := nowTime.Format("2006-01-02")
@@ -455,3 +462,10 @@ func (u *GateUser) IsTakeLuckyTaskToday() int32 {
 	}
 	return 0
 }
+
+//幸运任务每日重置
+func (u *GateUser) ResetDailyLuckyTask() {
+	Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "curluckytask", 0)
+	Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "isluckytaketoday", 0)
+}
+

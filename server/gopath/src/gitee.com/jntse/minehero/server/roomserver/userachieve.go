@@ -35,6 +35,9 @@ const (
 	AchieveGroup_MTTChampion = 2021 	 //在MTT锦标赛夺冠数
 	AchieveGroup_BaiRenWin = 2041 //百人大战胜利数
 	AchieveGroup_LevelEx = 3001  //等级跟Level一样只是多了一份成就
+	AchieveGroup_LuckyTexasPlay1 = 4001 //幸运任务1玩牌次数
+	AchieveGroup_LuckyTexasPlay2 = 4101 //幸运任务2玩牌次数
+	AchieveGroup_LuckyTexasPlay3 = 4201 //幸运任务3玩牌次数
 )
 
 
@@ -107,13 +110,20 @@ func (u *RoomUser) GetAchieveTokenState (taskid int32) int32 {
 
 //设置某项成就的状态为领取
 func (u *RoomUser) SetAchieveTokenState (taskid int32) bool {
-	_, find := tbl.AchieveBase.AchieveById[taskid]
+	conf, find := tbl.AchieveBase.AchieveById[taskid]
 	if find == false {
 		log.Error("玩家[%d %s] 设置成就领取标记未找到配置 taskid:%d", u.Id(), u.Name(), taskid)
 		return false
 	}
 	strtaskid := strconv.FormatInt(int64(taskid), 10)
 	_, erradd := Redis().SAdd(fmt.Sprintf("%s_%d", def.AchieveToken, u.Id()), strtaskid).Result()
+
+	//如果是幸运任务领奖
+	if erradd == nil && conf.LuckyTask > 0 && conf.IsLuckyFinal > 0 {
+		Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "curluckytask", 0)
+		strgroup := strconv.FormatInt(int64(conf.Group), 10)
+		Redis().HDel(fmt.Sprintf("%s_%d", def.AchieveProcess, u.Id()), strgroup)
+	}
 	return erradd == nil
 }
 
@@ -185,11 +195,22 @@ func (u *RoomUser) OnAchievePlayPoker (kind int32, subkind int32, hand *Hand) {
 			u.SaveMaxCard(handpower, hand)
 		}
 	}
-	datetime := time.Now().Format("2006-01-02")
-	num, err := Redis().Incr(fmt.Sprintf("charplay_%d_%s", u.Id(), datetime)).Result()
-	if err == nil && num == 1 {
-		//如果是第一次设置过期时间
-		Redis().Expire(fmt.Sprintf("charplay_%d_%s", u.Id(), datetime), 3600*24*4*time.Second)
+	if u.aiflag == false {
+		datetime := time.Now().Format("2006-01-02")
+		num, err := Redis().Incr(fmt.Sprintf("charplay_%d_%s", u.Id(), datetime)).Result()
+		if err == nil && num == 1 {
+			//如果是第一次设置过期时间
+			Redis().Expire(fmt.Sprintf("charplay_%d_%s", u.Id(), datetime), 3600*24*4*time.Second)
+		}
+		if kind == int32(msg.RoomKind_TexasPoker) {
+			luckytask := u.GetUserLuckyTask()
+			conf, find := tbl.LuckyTaskBase.LuckyTaskById[luckytask]
+			if find == true {
+				if conf.TaskId == int32(AchieveGroup_LuckyTexasPlay1) || conf.TaskId == int32(AchieveGroup_LuckyTexasPlay2) || conf.TaskId == int32(AchieveGroup_LuckyTexasPlay3) {
+					u.OnAchieveProcessChanged(conf.TaskId)
+				}
+			}
+		}
 	}
 }
 
@@ -351,3 +372,5 @@ func (u *RoomUser) GetUserLuckyTask() int32 {
 	}
 	return 0
 }
+
+
