@@ -4,13 +4,13 @@ import (
 	"fmt"
 	_ "gitee.com/jntse/gotoolkit/eventqueue"
 	"gitee.com/jntse/gotoolkit/log"
-	"gitee.com/jntse/gotoolkit/util"
+	_"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/minehero/server/tbl"
 	pb "github.com/gogo/protobuf/proto"
 	"strconv"
 	"strings"
-	"time"
+	_"time"
 )
 
 // 添加道具
@@ -163,7 +163,54 @@ func (u *GateUser) SendPropertyChange() {
 	u.SendMsg(send)
 }
 
-// TODO: 获得补偿
+func (u *GateUser) Level() int32 {
+	return u.EntityBase().Level()
+}
+
+func (u *GateUser) AddLevel(num int32) {
+	u.EntityBase().IncLevel(num)
+	u.OnAchieveProcessChanged(int32(AchieveGroup_Level))
+}
+
+func (u *GateUser) Exp() int32 {
+	return u.EntityBase().Exp()
+}
+
+func (u *GateUser) SetExp(exp int32) {
+	u.EntityBase().SetExp(exp)
+}
+
+// 添加经验
+func (u *GateUser) AddExp(num int32, reason string) {
+	oldlevel, exp := u.Level(), u.Exp()
+	newlevel := oldlevel
+	for {
+		lvlbase, ok := tbl.LevelBasee.ExpById[oldlevel + 1]
+		if ok == false {
+			break
+		}
+
+		// 下一级需要经验
+		if exp < int32(lvlbase.Exp) || lvlbase.Exp == 0 {
+			break
+		}
+
+		exp = exp - int32(lvlbase.Exp)
+		u.OnLevelUp()
+		newlevel++
+	}
+
+	u.SetExp(exp)
+	u.SyncLevelRankRedis()
+	log.Info("玩家[%d] 添加经验[%d] 老等级[%d] 新等级[%d] 经验[%d] 原因[%s]", u.Id(), num, oldlevel, newlevel, exp, reason)
+}
+
+// 升级
+func (u *GateUser) OnLevelUp() {
+	u.AddLevel(1)
+}
+
+// 获得补偿
 func (u *GateUser) CheckHaveCompensation() {
 	strkey := fmt.Sprintf("compen_%d", u.Id())
 	members := Redis().SMembers(strkey).Val()
@@ -186,74 +233,3 @@ func (u *GateUser) CheckHaveCompensation() {
 	}
 }
 
-// 统计登陆
-func (u *GateUser) LoginStatistics() {
-	datetime := time.Now().Format("2006-01-02")
-	if u.statistics.tm_login == 0 {
-		key := fmt.Sprintf("%s_create", datetime)
-		Redis().Incr(key)
-		key = fmt.Sprintf("%s_loginsum", datetime)
-		Redis().Incr(key)
-		u.statistics.continuelogin = 1
-		return
-	}
-	diffday := false
-	if util.IsNextDay(u.statistics.tm_login, util.CURTIME()) {
-		u.statistics.continuelogin += 1
-		if u.statistics.nocountlogin == 0 {
-			key := fmt.Sprintf("%s_login_%d", datetime, u.statistics.continuelogin)
-			Redis().Incr(key)
-		}
-		key2 := fmt.Sprintf("%s_loginsum", datetime)
-		Redis().Incr(key2)
-		diffday = true
-	} else {
-		if !util.IsSameDay(u.statistics.tm_login, util.CURTIME()) {
-			u.statistics.continuelogin = 1
-			u.statistics.nocountlogin = 1
-			key := fmt.Sprintf("%s_loginsum", datetime)
-			Redis().Incr(key)
-			diffday = true
-		}
-	}
-
-	if diffday {
-		u.ActivityResetByDay()
-		u.DailyResetAchieve()
-	}
-
-	if !util.IsSameWeek(u.statistics.tm_login, util.CURTIME()) {
-		u.ActivityResetByWeek()
-		u.WeekResetAchieve()
-	}
-}
-
-// 添加经验
-func (u *GateUser) AddExp(num int32, reason string) {
-	oldlevel := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "level").Val())
-	exp := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "exp").Val())+num
-	newlevel := oldlevel
-	for {
-		lvlbase, ok := tbl.LevelBasee.ExpById[oldlevel + 1]
-		if ok == false {
-			break
-		}
-
-		// 下一级需要经验
-		if exp < int32(lvlbase.Exp) || lvlbase.Exp == 0 {
-			break
-		}
-
-		exp = exp - int32(lvlbase.Exp)
-		u.OnLevelUp()
-		newlevel++
-	}
-	u.SetExp(exp)
-	u.SyncLevelRankRedis()
-	log.Info("玩家[%d] 添加经验[%d] 老等级[%d] 新等级[%d] 经验[%d] 原因[%s]", u.Id(), num, oldlevel, newlevel, exp, reason)
-}
-
-// 升级
-func (u *GateUser) OnLevelUp() {
-	u.AddLevel(1)
-}
