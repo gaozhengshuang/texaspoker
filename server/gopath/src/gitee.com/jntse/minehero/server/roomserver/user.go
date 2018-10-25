@@ -18,95 +18,18 @@ import (
 )
 
 func NewSimpleUser(uid int64) *RoomUser {
-	user := &RoomUser{aiflag:false, entity:UserEntity{roleid:uid}}
+	user := &RoomUser{aiflag:false, entity:&UserEntity{roleid:uid}, bag:&UserBag{}}
 	return user
 }
 
 func NewRoomUserAI(id int64, name string, sex int32) *RoomUser {
-	user := &RoomUser{aiflag:true, entity:UserEntity{roleid:id, name:name, sex:sex} }
+	user := &RoomUser{aiflag:true, entity:&UserEntity{roleid:id, name:name, sex:sex}, bag:&UserBag{}}
 	return user
 }
 
-type UserEntity struct {
-	roleid  int64
-	name    string
-	head    string
-	sex     int32
-	account string
-	level   int32
-	exp     int32
-	age     int32
-
-	dirty	bool
-}
-
-func (u *UserEntity) Id() int64 { return u.roleid }
-func (u *UserEntity) Name() string { return u.name }
-func (u *UserEntity) Head() string { return u.head }
-func (u *UserEntity) Sex() int32 { return u.sex }
-func (u *UserEntity) Account() string { return u.account }
-func (u *UserEntity) Level() int32 {
-	level := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "level").Val())
-	return level
-}
-func (u *UserEntity) Exp() int32 {
-	exp := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "exp").Val())
-	return exp
-}
-func (u *UserEntity) Age() int32 { return u.age }
-func (u *UserEntity) Init() { }
-func (u *UserEntity) DBLoad() {
-	uid := u.roleid
-	cmdmap, err := Redis().HGetAll(fmt.Sprintf("charbase_%d", uid)).Result()
-	if err != nil {
-		log.Error("玩家[%d] 获取玩家Charbase失败 RedisError[%s]", u.Id(), err)
-		return
-	}
-
-	for k, v := range cmdmap {
-		vt := util.NewVarType(v)
-		switch k {
-			case "name":		u.name = vt.String()
-			case "face":        u.head = vt.String()
-			case "account":		u.account = vt.String()
-			//case "level":       u.level = vt.Int32()
-			case "sex":         u.sex = vt.Int32()
-			//case "exp":         u.exp = vt.Int32()
-			case "age":         u.age = vt.Int32()
-		}
-	}
-}
-func (u *UserEntity) DBSave() {
-	if u.dirty == false {
-		return
-	}
-
-	pipe := Redis().Pipeline()
-	defer pipe.Close()
-	u.dirty = false
-
-	// charbase 部分基础数据
-	uid := u.roleid
-	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "name",  u.Name())
-	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "face",  u.Head())
-	//pipe.HSet(fmt.Sprintf("charbase_%d", uid), "account",  u.Account())
-	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "sex",   u.Sex())
-	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "level", u.Level())
-	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "exp", u.Exp())
-	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "age", u.Age())
-
-	_, err := pipe.Exec()
-	if err != nil {
-		log.Error("玩家[%s %d] 保存charbase失败 RedisError[%s]", u.Name(), u.Id(), err)
-		return
-	}
-	log.Info("玩家[%s %d] 保存charbase成功", u.Name(), u.Id())
-}
-
-
 type RoomUser struct {
-	entity		UserEntity
-	bag			UserBag
+	entity		*UserEntity
+	bag			*UserBag
 	agentid		int
 	agentname	string
 	ticker1s    *util.GameTicker
@@ -117,6 +40,7 @@ type RoomUser struct {
 	aiflag    	bool
 }
 
+func (u *RoomUser) EntityBase() *UserEntity { return u.entity }
 func (u *RoomUser) RoomId() int64 { return u.roomid }
 func (u *RoomUser) SetRoomId(uid int64) { u.roomid = uid; u.roomlist[uid] = uid }
 func (u *RoomUser) DelRoomId(uid int64) {	 delete(u.roomlist, uid) }
@@ -143,7 +67,6 @@ func (u *RoomUser) Init() {
 
 	if u.aiflag == false {
 		//u.bag.Init(u)
-		u.entity.Init()
 	}
 }
 
