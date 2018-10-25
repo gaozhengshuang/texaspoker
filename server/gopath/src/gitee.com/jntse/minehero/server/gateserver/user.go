@@ -505,7 +505,7 @@ func (u *GateUser) AsynSaveFeedback() {
 func (u *GateUser) OnCreateNew() {
 	//玩家创建时间
 	u.statistics.createdtime = util.CURTIME()
-	u.TestItem()
+	//u.TestItem()
 }
 
 // 上线回调，玩家数据在LoginOk中发送
