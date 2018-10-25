@@ -51,6 +51,7 @@ func (mh *C2GWMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqHeartBeat{}, on_C2GW_ReqHeartBeat)
 	mh.msgparser.RegistProtoMsg(msg.C2RS_MsgTransfer{}, on_C2RS_MsgTransfer)
 	mh.msgparser.RegistProtoMsg(msg.C2MS_MsgTransfer{}, on_C2MS_MsgTransfer)
+	mh.msgparser.RegistProtoMsg(msg.C2MTT_MsgTransfer{}, on_C2MTT_MsgTransfer)
 
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqPlayerRoleInfo{}, on_C2GW_ReqPlayerRoleInfo)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqSendMessage{}, on_C2GW_ReqSendMessage)
@@ -141,6 +142,19 @@ func on_C2MS_MsgTransfer(session network.IBaseNetSession, message interface{}) {
 		return
 	}
 	Match().SendCmd(tmsg)
+}
+
+func on_C2MTT_MsgTransfer(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2MTT_MsgTransfer)
+	u := ExtractSessionUser(session)
+	if u == nil {
+		return
+	}
+	if u.Id() != tmsg.GetUid() {
+		log.Error("玩家[%s %d] 消息转发只能带自己的玩家Id", u.Name(), u.Id())
+		return
+	}
+	RoomSvrMgr().SendMTTMsg(tmsg)
 }
 
 func on_C2RS_MsgTransfer(session network.IBaseNetSession, message interface{}) {

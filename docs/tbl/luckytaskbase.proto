@@ -47,9 +47,6 @@ message LuckyTaskDefine
 	
 	
 	optional int32 MustPay = 10; // 是否必须付费用户
-	
-	
-	optional int32 ReTake = 11; // 可否多次接取
 
 }
 
