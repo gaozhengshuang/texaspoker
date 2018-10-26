@@ -53,7 +53,7 @@ func (u *GateUser) CheckPayPush (param int32) {
 			if v.IsLimit > 0 {
 				cmdval, err := Redis().Get(fmt.Sprintf("paypush_%d_%d", u.Id(), v.Push)).Result()
 				if err == nil && util.Atoi(cmdval) == 2{
-						continue
+					continue
 				}
 			}
 			pushid = v.Id
@@ -71,6 +71,7 @@ func (u *GateUser) SendPayPush (pushid int32) {
 	log.Info("推送玩家[%s]%d礼包 推送id:%d", u.Name(), u.Id(), pushid)
 	send := &msg.GW2C_RetPayRecommend{}
 	send.Pushid = pb.Int32(pushid)
+	u.SendMsg(send)
 }
 
 func (u *GateUser) OnDailyClear() {

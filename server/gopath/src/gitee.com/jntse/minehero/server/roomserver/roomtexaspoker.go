@@ -415,6 +415,10 @@ func (this *TexasPokerRoom) StartGame() int32 {
 	})
 	this.Shuffle()
 	this.SetHoleCard()
+	//如果这个时候大家都是allin 则立即结算
+	if this.allin + 1 >= this.remain {
+		return TPFlop
+	}
 	this.BetStart(this.bblindpos+1, false)
 	log.Info("房间%d 开始游戏", this.Id())
 	return TPPreFlopBet

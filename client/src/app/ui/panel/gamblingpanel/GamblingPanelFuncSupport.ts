@@ -170,7 +170,7 @@ class GamblingPanelFuncSupport extends BaseGamblingPanelSupport
 				break;
 			case GamblingType.Common:
 			case GamblingType.PlayFieldPersonal:
-				SceneManager.switcScene(SceneType.Hall, { action: SceneSwitchAction.RepleacePanel, panel: UIModuleName.PlayingFieldPanel });
+				SceneManager.switcScene(SceneType.Hall, { playFieldType: data.playFieldType, action: SceneSwitchAction.RepleacePanel, panel: UIModuleName.PlayingFieldPanel });
 				break;
 			case GamblingType.Omaha:
 			case GamblingType.OmahaPersonal:
