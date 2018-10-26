@@ -505,7 +505,7 @@ func (u *GateUser) AsynSaveFeedback() {
 func (u *GateUser) OnCreateNew() {
 	//玩家创建时间
 	u.statistics.createdtime = util.CURTIME()
-	u.TestItem()
+	//u.TestItem()
 }
 
 // 上线回调，玩家数据在LoginOk中发送
@@ -549,7 +549,7 @@ func (u *GateUser) Online(session network.IBaseNetSession, way string) bool {
 func (u *GateUser) Syn() {
 	u.SendUserBase()
 	u.CheckHaveCompensation()
-	//u.SendItemInfo()
+	u.SendItemInfo()
 }
 
 func (u *GateUser) TestItem() {
@@ -684,9 +684,11 @@ func (u *GateUser) SendChat(rev *msg.C2GW_ReqSendMessage) {
 			RoomSvrMgr().SendMsg(sid, send)
 		}
 	} else if rev.GetType() == def.ChatAll {
-		send := &msg.GW2MS_ChatInfo{}
-		send.Chat = def.MakeChatInfo(def.ChatAll, rev.GetTxt(), u.Id(), u.Name(), def.HornMsg, def.MsgShowAll)
-		Match().SendCmd(send)
+		if u.RemoveItem(401, 1, "世界聊天扣除") {
+			send := &msg.GW2MS_ChatInfo{}
+			send.Chat = def.MakeChatInfo(def.ChatAll, rev.GetTxt(), u.Id(), u.Name(), def.HornMsg, def.MsgShowAll)
+			Match().SendCmd(send)
+		}
 	}
 	send := &msg.GW2C_RetSendMessage{}
 	u.SendMsg(send)

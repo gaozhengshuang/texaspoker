@@ -4,7 +4,7 @@ import (
 	"fmt"
 	_ "gitee.com/jntse/gotoolkit/eventqueue"
 	"gitee.com/jntse/gotoolkit/log"
-	_"gitee.com/jntse/gotoolkit/util"
+	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/minehero/server/tbl"
 	pb "github.com/gogo/protobuf/proto"
@@ -23,7 +23,7 @@ func (u *GateUser) AddItem(item int32, num int32, reason string, syn bool) {
 	} else if item == int32(msg.ItemId_Diamond) {
 		u.AddDiamond(num, reason, syn)
 	} else {
-		sumnum := Redis().IncrBy(fmt.Sprintf("useritem_%d_%d", u.Id(), item), int64(num)).Val()
+		sumnum := Redis().HIncrBy(fmt.Sprintf("useritem_%d_%d", u.Id(), item), "num", int64(num)).Val()
 		if sumnum == int64(num) {
 			Redis().SAdd(fmt.Sprintf("userbag_%d", u.Id()), fmt.Sprintf("%d", item))
 		}
@@ -58,7 +58,7 @@ func (u *GateUser) RemoveItem(item int32, num int32, reason string) bool {
 		if u.CheckEnoughItem(item, num) {
 			return false
 		}
-		sumnum := Redis().DecrBy(fmt.Sprintf("useritem_%d_%d", u.Id(), item), int64(num)).Val()
+		sumnum := Redis().HIncrBy(fmt.Sprintf("useritem_%d_%d", u.Id(), item), "num", 0-int64(num)).Val()
 		if sumnum == 0 {
 			Redis().SRem(fmt.Sprintf("userbag_%d"), u.Id(), fmt.Sprintf("%d"), item)
 		}
@@ -241,8 +241,7 @@ func (u *GateUser) SendItemInfo() {
 	send := &msg.GW2C_PushItemList{}
 	pipe := Redis().Pipeline()
 	for _, itemid := range items {
-		key := fmt.Sprintf("useritem_%d_%s", u.Id(), itemid)
-		pipe.Get(key)
+		pipe.HGetAll(fmt.Sprintf("useritem_%d_%s", u.Id(), itemid))
 	}
 	cmds, err := pipe.Exec()
 	if err != nil {
@@ -252,11 +251,25 @@ func (u *GateUser) SendItemInfo() {
 	}
 	pipe.Close()
 
-	for key, num := range cmds {
+	if len(items) != len(cmds) {
+		log.Error("[道具] 拉取道具列表失败 数量不匹配")
+		return
+	}
+
+	for key, cmd := range cmds {
+		cmdbase , ok := cmd.(*redis.StringStringMapCmd)
+		if ok == false {
+			continue
+		}
+		var num int32 = 0
+		for k, v := range cmdbase.Val() {
+			if k == "num"   { num = util.NewVarType(v).Int32() }
+		}
 		iteminfo := &msg.UserItemInfo{}
 		id,_ := strconv.ParseInt(items[key], 10, 64)
 		iteminfo.Id = pb.Int32(int32(id))
-		iteminfo.Num = pb.Int32(int32(num.(*redis.IntCmd).Val()))
+		iteminfo.Num = pb.Int32(int32(num))
+		//log.Info("道具信息%v", iteminfo)
 		send.List = append(send.List, iteminfo)
 	}
 	u.SendMsg(send)
