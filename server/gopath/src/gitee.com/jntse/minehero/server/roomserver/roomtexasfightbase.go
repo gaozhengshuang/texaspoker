@@ -465,7 +465,7 @@ type TexasFightRoom struct {
 	stattimeout int64	// 状态超时时间，秒
 
 	players map[int64]*TexasFightPlayer		// 所有玩家
-	sitplayers []*TexasFightPlayer	// 坐下玩家列表
+	sitplayers []*TexasFightPlayer		// 坐下玩家列表
 
 	//bankerqueue []*TexasFightPlayer	// 做庄排队列表
 	bankerqueue *list.List 				// 做庄排队列表
@@ -684,7 +684,10 @@ func (tf *TexasFightRoom) UserStandUp(u *RoomUser) {
 	u.SendClientMsg(&msg.RS2C_ReqTFStandUp{})
 
 	// 座位玩家
-	posmsg := &msg.RS2C_PushTFPosChange{Pos:pb.Int32(seat), Roleid:pb.Int64(0), Bankergold:pb.Int32(0) }
+	posmsg := &msg.RS2C_PushTFPosChange{Bankergold:pb.Int32(0), Player:&msg.TFPlayer{}}
+	posmsg.Player = player.FillPlayerInfo()
+	posmsg.Player.Pos = pb.Int32(seat)
+	posmsg.Player.Roleid = pb.Int64(0)
 	tf.BroadCastMemberMsg(posmsg)
 
 	//u.OnStandUp()
@@ -738,7 +741,8 @@ func (tf *TexasFightRoom) UserSitDown(u *RoomUser, seat int32) {
 	tf.sitplayers[seat] = player
 	u.SendClientMsg(&msg.RS2C_RetTFSitDown{})
 
-	posmsg := &msg.RS2C_PushTFPosChange{Pos:pb.Int32(seat), Roleid:pb.Int64(u.Id()), Bankergold:pb.Int32(0) }
+	posmsg := &msg.RS2C_PushTFPosChange{Bankergold:pb.Int32(0), Player:&msg.TFPlayer{}}
+	posmsg.Player = player.FillPlayerInfo()
 	tf.BroadCastMemberMsg(posmsg)
 
 	//u.OnSitDown(seat, "")
