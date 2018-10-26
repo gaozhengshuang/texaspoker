@@ -98,6 +98,6 @@ class TimeManager
 	public static GetFiveRefreshLocalTime(): Date
 	{
 		let date = TimeManager.GetServerLocalDateTime();
-		return new Date(date.getFullYear(), date.getMonth(), date.getDay(), 5);
+		return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 5);
 	}
 }

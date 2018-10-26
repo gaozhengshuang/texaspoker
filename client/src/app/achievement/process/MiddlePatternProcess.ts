@@ -1,7 +1,7 @@
 /**
  * 中级场对局成就进度信息
  */
-class MiddlePatternProcess extends BaseAchieveProcessInfo 
+class MiddlePatternProcess extends BaseAchieveProcess 
 {
     public init(process: number)
     {

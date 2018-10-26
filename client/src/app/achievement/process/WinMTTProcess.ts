@@ -1,7 +1,7 @@
 /**
  * 赢得锦标赛冠军进度信息
  */
-class WinMTTProcess extends BaseAchieveProcessInfo 
+class WinMTTProcess extends BaseAchieveProcess 
 {
     public init(process: number)
     {

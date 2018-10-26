@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	_ "fmt"
+	"fmt"
 	"gitee.com/jntse/gotoolkit/log"
 	_ "gitee.com/jntse/gotoolkit/net"
 	"gitee.com/jntse/gotoolkit/util"
@@ -65,6 +65,13 @@ func (u *GateUser) GetActivityAwardByAwardId(awardid int32, reason string) bool 
 	if !ok {
 		log.Error("玩家[%d %s] 领取活动奖励失败，未找到奖励配置 %d", u.Id(), u.Name(), awardid)
 		return false
+	}
+	
+	if config.PayPushId > 0 {
+		cmdval, err := Redis().Get(fmt.Sprintf("paypush_%d_%d", u.Id(), config.PayPushId)).Result()
+		if err == nil && util.Atoi(cmdval) != 1{
+			return false
+		}
 	}
 
 	if config.PreId == SILVER_MONTHCARD {

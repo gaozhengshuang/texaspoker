@@ -271,7 +271,7 @@ class CardTypeMatchUtil
 			for (let i: number = 0; i < CardTypeMatchUtil._matchList.length; i++)
 			{
 				func = CardTypeMatchUtil._matchList[i];
-				if (func == CardTypeMatchUtil.matchStraight || func == CardTypeMatchUtil.matchStraightFlush)
+				if (func == CardTypeMatchUtil.matchStraight || func == CardTypeMatchUtil.matchStraightFlush || func == CardTypeMatchUtil.matchRoyalFlush)
 				{
 					if (CardTypeMatchUtil.containAOper(func, allListClone)) 
 					{
@@ -409,7 +409,7 @@ class CardTypeMatchUtil
 	private static matchRoyalFlush(list: Array<CardInfo>): boolean
 	{
 		let result: boolean = CardTypeMatchUtil.matchStraightFlush(list);
-		if (result && CardTypeMatchUtil.resultList[0].card[1] == CardTypeMatchUtil.maxIndex)
+		if (result && CardTypeMatchUtil.resultList[0].card[1] == CardTypeMatchUtil.minIndex)
 		{
 			CardTypeMatchUtil.toFillUnMaskFlag();
 			CardTypeMatchUtil.cardType = CardType.RoyalFlush;

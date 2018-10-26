@@ -43,7 +43,7 @@ class AssignmentPanel extends BasePanel
         super.init(appendData);
         this.assignmentTab.init(0);
         this.achieveScroller.viewport.scrollV = 0;
-        this.refreshList();
+        // this.refreshList();
     }
 
     protected onEnable(event: eui.UIEvent): void

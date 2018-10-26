@@ -1,7 +1,7 @@
 /**
  * 好友成就进度信息
  */
-class FriendProcess extends BaseAchieveProcessInfo 
+class FriendProcess extends BaseAchieveProcess 
 {
     public init(process: number)
     {

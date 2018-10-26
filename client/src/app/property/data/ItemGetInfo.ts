@@ -44,5 +44,19 @@ class ItemGetInfo
         info.count = item.count;
         return info;
     }
+    /**
+     * 从任务配置创建一个可显示的iteminfo
+     */
+    public static CreateFromTaskDefine(item: table.IAchieveDefine): ItemGetInfo
+    {
+        let info: ItemGetInfo = new ItemGetInfo();
+        if (item && item.RewardId && item.RewardId.length > 0)
+        {
+            info.id = item.RewardId[0];
+            info.type = item.RewardType[0];
+            info.count = item.RewardNum[0];
+        }
+        return info;
+    }
 
 }

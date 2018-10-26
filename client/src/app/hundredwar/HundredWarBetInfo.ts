@@ -19,5 +19,8 @@ class HWBetInfo extends BaseServerValueInfo
     public reset()
     {
         super.reset();
+        this.bet = 0;
+        this.id = 0;
+        this.isBet = undefined;
     }
 }

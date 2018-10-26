@@ -46,7 +46,7 @@ class HundredWarOverPanel extends BasePanel
         let overInfo: HundredWarOverInfo = HundredWarManager.hundredWarOverInfo;
         if (overInfo)
         {
-            this.numComp.init("$" + game.MathUtil.numAddSpace(overInfo.gold));
+            this.numComp.init("$" + game.MathUtil.numAddSpace(Math.abs(overInfo.gold)));
             if (overInfo.isWin)
             {
                 this.tipsLabel.text = "恭喜，您赢取了";
@@ -76,7 +76,7 @@ class HundredWarOverPanel extends BasePanel
             {
                 let rankInfo: any = list[i];
                 this["winGold" + i].text = game.MathUtil.formatNum(rankInfo.num);
-                if (HundredWarManager.isSysBanker(rankInfo.roleId))
+                if (HundredWarManager.isSysBanker(rankInfo.roleid))
                 {
                     this.userGroup.getChildAt(i).visible = true;
                     this["head" + i].init(HundredWarManager.sysBanker, 80);

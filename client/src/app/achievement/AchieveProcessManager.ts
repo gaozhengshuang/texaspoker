@@ -3,7 +3,7 @@
  */
 class AchieveProcessManager
 {
-    private static _list: Array<BaseAchieveProcessInfo>;
+    private static _list: Array<BaseAchieveProcess>;
     private static _playOverList: AchieveProcessInfoList;
     /**
      * 任务进度更新事件
@@ -14,7 +14,7 @@ class AchieveProcessManager
     {
         AchieveProcessManager.ClearList();
         AchieveProcessManager.initList();
-        let data:msg.GW2C_RetAchieveInfo = result.data;
+        let data: msg.GW2C_RetAchieveInfo = result.data;
         if (data.grouplist)
         {
             for (let info of data.grouplist)
@@ -47,7 +47,7 @@ class AchieveProcessManager
     /**
      * 根据组查找进度信息
      */
-    public static getAchieveProcessInfoByGroup(group: AchieveGroup): BaseAchieveProcessInfo
+    public static getAchieveProcessInfoByGroup(group: AchieveGroup): BaseAchieveProcess
     {
         if (AchieveProcessManager._list)
         {
@@ -64,9 +64,9 @@ class AchieveProcessManager
     /**
      * 根据任务大类查找进度列表
      */
-    public static getAchieveProcessListByTag(tag: AchieveTag): Array<BaseAchieveProcessInfo>
+    public static getAchieveProcessListByTag(tag: AchieveTag): Array<BaseAchieveProcess>
     {
-        let list: Array<BaseAchieveProcessInfo> = new Array<BaseAchieveProcessInfo>();
+        let list: Array<BaseAchieveProcess> = new Array<BaseAchieveProcess>();
         if (AchieveProcessManager._list)
         {
             for (let info of AchieveProcessManager._list)
@@ -83,9 +83,9 @@ class AchieveProcessManager
     /**
      * 根据组生成进度类
      */
-    private static GetProcess(group: AchieveGroup): BaseAchieveProcessInfo
+    private static GetProcess(group: AchieveGroup): BaseAchieveProcess
     {
-        let process: BaseAchieveProcessInfo;
+        let process: BaseAchieveProcess;
         switch (group)
         {
             case AchieveGroup.GoldGroup:
@@ -97,9 +97,27 @@ class AchieveProcessManager
             case AchieveGroup.LevelGroup:
                 process = new LevelProcess(group);
                 break;
+            case AchieveGroup.LevelUpGroup:
+                process = new LevelUpProcess(group);
+                break;
+            case AchieveGroup.JoinMTTGroup:
+                process = new JoinMTTProcess(group);
+                break;
+            case AchieveGroup.WinMTTGroup:
+                process = new WinMTTProcess(group);
+                break;
+            case AchieveGroup.HWFunPatternGroup:
+                process = new HundredWarFunPatternProcess(group);
+                break;
+            case AchieveGroup.HWRichPatternGroup:
+                process = new HundredWarRichPatternProcess(group);
+                break;
+            case AchieveGroup.WinHWGroup:
+                process = new WinHundredWarProcess(group);
+                break;
             case AchieveGroup.OnePairGroup:
                 process = new OnePairProcess(group);
-                AchieveProcessManager._playOverList.list.push(process);
+                AchieveProcessManager._playOverList.list.push(process);  //关于牌局记录的，都要在用一个_playOverList来管理
                 break;
             case AchieveGroup.TwoPairsGroup:
                 process = new TwoPairsProcess(group);
@@ -149,23 +167,11 @@ class AchieveProcessManager
                 process = new WinProcess(group);
                 AchieveProcessManager._playOverList.list.push(process);
                 break;
-            case AchieveGroup.LevelUpGroup:
-                process = new LevelUpProcess(group);
-                break;
-            case AchieveGroup.JoinMTTGroup:
-                process = new JoinMTTProcess(group);
-                break;
-            case AchieveGroup.WinMTTGroup:
-                process = new WinMTTProcess(group);
-                break;
-            case AchieveGroup.HWFunPatternGroup:
-                process = new HundredWarFunPatternProcess(group);
-                break;
-            case AchieveGroup.HWRichPatternGroup:
-                process = new HundredWarRichPatternProcess(group);
-                break;
-            case AchieveGroup.WinHWGroup:
-                process = new WinHundredWarProcess(group);
+            case AchieveGroup.LuckyGroup1:
+            case AchieveGroup.LuckyGroup2:
+            case AchieveGroup.LuckyGroup3:
+                process = new LuckyTaskProcess(group);
+                AchieveProcessManager._playOverList.list.push(process);
                 break;
         }
         return process;
@@ -175,28 +181,46 @@ class AchieveProcessManager
     {
         if (!AchieveProcessManager._list)
         {
-            AchieveProcessManager._list = new Array<BaseAchieveProcessInfo>();
+            AchieveProcessManager._list = new Array<BaseAchieveProcess>();
         }
         if (!AchieveProcessManager._playOverList)
         {
             AchieveProcessManager._playOverList = new AchieveProcessInfoList(AchieveType.PlayOver);
         }
-        for (let group of AchieveDefined.GetInstance().getAchieveGroup())
+        let groupList = AchieveDefined.GetInstance().getAchieveGroup();
+        for (let group of groupList)
         {
-            let achieveInfo: BaseAchieveProcessInfo = AchieveProcessManager.GetProcess(group);
-            if (achieveInfo.group == AchieveGroup.LevelUpGroup || achieveInfo.group == AchieveGroup.LevelGroup)
+            AchieveProcessManager.addProcess(group);
+        }
+    }
+    public static addProcess(group: AchieveGroup)
+    {
+        let process: BaseAchieveProcess = AchieveProcessManager.GetProcess(group); //move todo
+        if (process)
+        {
+            if (process.group == AchieveGroup.LevelUpGroup || process.group == AchieveGroup.LevelGroup)
             {
-                achieveInfo.init(UserManager.userInfo.level);
+                process.init(UserManager.userInfo.level);
             }
-            else if (achieveInfo.group == AchieveGroup.GoldGroup)
+            else if (process.group == AchieveGroup.GoldGroup)
             {
-                achieveInfo.init(UserManager.userInfo.maxGold)
+                process.init(UserManager.userInfo.maxGold)
             }
             else
             {
-                achieveInfo.init(0);
+                process.init(0);
             }
-            AchieveProcessManager._list.push(achieveInfo);
+            AchieveProcessManager._list.push(process);
+        }
+    }
+    public static removeProcess(process: BaseAchieveProcess)
+    {
+        game.ArrayUtil.RemoveItem(process, AchieveProcessManager._list);
+        game.ArrayUtil.RemoveItem(process, AchieveProcessManager._playOverList.list);
+
+        if (process)
+        {
+            process.destroy();
         }
     }
     /**
@@ -211,6 +235,10 @@ class AchieveProcessManager
                 AchieveProcessManager._list[i].destroy();
             }
             game.ArrayUtil.Clear(AchieveProcessManager._list);
+        }
+        if (AchieveProcessManager._playOverList)
+        {
+            AchieveProcessManager._playOverList.clear();
         }
     }
 
@@ -258,7 +286,7 @@ class AchieveProcessManager
     /**
      * 通过不同游戏场 对局 后的进度更新
      */
-    public static onWinOfPlayField(processInfo: BaseAchieveProcessInfo, type: AchieveShowPattern)
+    public static onWinOfPlayField(processInfo: BaseAchieveProcess, type: AchieveShowPattern)
     {
         let overInfo: RoundOverInfo = GamblingManager.roundOverInfo;
         if (overInfo && InfoUtil.checkAvailable(GamblingManager.roomInfo) && type == AchievementManager.playingFieldTypeToAchieveShowPattern(GamblingManager.roomInfo.definition.Type) && AchieveProcessManager.isOnPlay())
@@ -269,7 +297,7 @@ class AchieveProcessManager
     /**
      * 通过百人大战不同场次 对局 后的进度更新
      */
-    public static onPlayHWField(processInfo: BaseAchieveProcessInfo, type: HundredWarType)
+    public static onPlayHWField(processInfo: BaseAchieveProcess, type: HundredWarType)
     {
         if (InfoUtil.checkAvailable(HundredWarManager.roomInfo) && HundredWarManager.roomInfo.definition.Type == type && HundredWarManager.getThisBetGold() != 0)
         {
@@ -291,7 +319,7 @@ class AchieveProcessManager
     /**
      * 通过牌型胜利后的进度更新
      */
-    public static onWinOfCardType(processInfo: BaseAchieveProcessInfo, type: CardType)
+    public static onWinOfCardType(processInfo: BaseAchieveProcess, type: CardType)
     {
         if (GamblingUtil.isWin(UserManager.userInfo.roleId))
         {

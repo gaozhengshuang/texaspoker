@@ -169,4 +169,12 @@ message GW2C_RetBankruptInfo {
 	optional int32 play = 3;  //高级场破产后开始一天内在初、中级场玩的局数
 }
 
+//礼包推送
+message C2GW_ReqPayPush {
+	optional int32 param = 1;
+}
+
+message GW2C_RetPayPush {
+	optional int32 pushid = 1;
+}
 

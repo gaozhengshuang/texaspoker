@@ -382,9 +382,9 @@ class AwardManager
             }
             for (let i: number = 0; i < awardDef.CostType.length; i++) //特殊处理元
             {
-                awardStr += game.MathUtil.formatNum(awardDef.CostNum[i]) + splitSymbol;
                 if (awardDef.CostType[i] == CostType.RMB)
                 {
+                    awardStr += game.MathUtil.formatNum(awardDef.CostNum[i] / 100) + splitSymbol;
                     awardStr += "元" + "、";
                 }
             }
@@ -413,9 +413,9 @@ class AwardManager
             }
             for (let i: number = 0; i < awardDef.CostType.length; i++) //特殊处理元
             {
-                awardStr += game.MathUtil.formatNum(awardDef.CostNum[i]) + splitSymbol;
                 if (awardDef.CostType[i] == CostType.RMB)
                 {
+                    awardStr += game.MathUtil.formatNum(awardDef.CostNum[i] / 100) + splitSymbol;
                     awardStr += "元" + "、";
                 }
             }

@@ -87,7 +87,8 @@ class GameHallPanel extends BasePanel
 	private _btnSupport: GameHallBtnSupport;
 	//运营活动充值弹窗
 	private _businessChargeAlert:GameHallBusinessChargeAlert;
-
+	//幸运任务
+	private _luckyTask:GameHallLuckyTask;
 	public constructor()
 	{
 		super();
@@ -104,6 +105,7 @@ class GameHallPanel extends BasePanel
 		this._panelAnime = new GameHallPanelAnime(this);
 		this._btnSupport = new GameHallBtnSupport(this);
 		this._businessChargeAlert = new GameHallBusinessChargeAlert(this);
+		this._luckyTask = new GameHallLuckyTask(this);
 		this._rankListInfo = RankManager.getRankListInfo(RankType.FriendGold);
 		VersionManager.setComponentVisibleBySafe(this.firstpayBtn, this.activityBtn, this.matchBtn, this.ranking, this.safeBoxBtn, this.bindBtn, this.vipGroup, this.awardsBtn);
 
@@ -136,6 +138,7 @@ class GameHallPanel extends BasePanel
 		ChannelManager.checkUnFinishedPayList();
 		this._btnSupport.init();
 		this._businessChargeAlert.init();
+		this._luckyTask.init();
 		// BindAccountManager.reqGetList();//move todo
 		// this.inviteBtn.visible = InviteManager.isInviteOpen; //move todo
 	}
@@ -150,24 +153,6 @@ class GameHallPanel extends BasePanel
 			this.rank3Group.visible = false;
 			RankManager.reqRankList(RankManager.getListType(RankTabType.Gold, RankListType.Friend));
 		}
-	}
-
-	public creatItem(): Array<AchievementInfo>
-	{
-		let achieveList: Array<AchievementInfo> = new Array<AchievementInfo>();
-		let achinfo: AchievementInfo = new AchievementInfo();
-		achinfo.id = 101;
-		achinfo.isComplete = true;
-		achieveList.push(achinfo);
-		achinfo = new AchievementInfo();
-		achinfo.id = 102;
-		achinfo.isComplete = true;
-		achieveList.push(achinfo);
-		achinfo = new AchievementInfo();
-		achinfo.id = 103;
-		achinfo.isComplete = true;
-		achieveList.push(achinfo)
-		return achieveList;
 	}
 
 	protected onRender(event: egret.Event)
@@ -211,6 +196,7 @@ class GameHallPanel extends BasePanel
 		this._panelAnime.onEnable();
 		this._btnSupport.onEnable();
 		this._businessChargeAlert.onEnable();
+		this._luckyTask.onEnable();
 		this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onClickHandler, this);
 		// VipManager.vipUpgradeEvent.addListener(this.refreshUserInfoUI, this); //move todo
 		UserManager.propertyChangeEvent.addListener(this.refreshGold, this);
@@ -230,6 +216,7 @@ class GameHallPanel extends BasePanel
 		this._panelAnime.onDisable();
 		this._btnSupport.onDisable();
 		this._businessChargeAlert.onDisable();
+		this._luckyTask.onDisable();
 		this.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onClickHandler, this);
 		// VipManager.vipUpgradeEvent.removeListener(this.refreshUserInfoUI, this);//move todo
 		UserManager.propertyChangeEvent.removeListener(this.refreshGold, this);
@@ -312,9 +299,8 @@ class GameHallPanel extends BasePanel
 				break;
 			case this.hundredBattle:
 				SoundManager.playButtonEffect(event.target);
-				AlertManager.showAlertByString("暂未开启"); //move todo
-				// this._panelAnime.setOutAnime();
-				// JumpUtil.JumpToHundredWar();
+				this._panelAnime.setOutAnime();
+				JumpUtil.JumpToHundredWar();
 				break;
 			case this.signBtn:
 				SoundManager.playEffect(MusicAction.buttonClick);

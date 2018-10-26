@@ -37,20 +37,24 @@ class GameHallBusinessChargeAlert
 	 */
 	private tryBrankruptHighField()
 	{
-		let time = PrefsManager.getValue(PrefsManager.BankruptHighFieldAlert);
-		if (time)
+		let nowTime = game.longToNumber(BusinessActivityManager.chargeAlertHandler.data.time);
+		if (nowTime > 0)
 		{
-			let nowTime = BusinessActivityManager.chargeAlertHandler.data.time;
-			let str = nowTime.toString();
-			if (time != str)
+			let time = PrefsManager.getValue(PrefsManager.BankruptHighFieldAlert);
+			if (time)
 			{
-				UIManager.showPanel(UIModuleName.BankrupHighSubsidyPanel);
-				PrefsManager.setValue(PrefsManager.BankruptHighFieldAlert, str);
+				let str = nowTime.toString();
+				if (time != str)
+				{
+					UIManager.showPanel(UIModuleName.BankrupHighSubsidyPanel);
+					PrefsManager.setValue(PrefsManager.BankruptHighFieldAlert, str);
+				}
 			}
-		}
-		else
-		{
-			UIManager.showPanel(UIModuleName.BankrupHighSubsidyPanel);
+			else
+			{
+				PrefsManager.setValue(PrefsManager.BankruptHighFieldAlert, TimeManager.GetServerUtcSecondstamp().toString());
+				UIManager.showPanel(UIModuleName.BankrupHighSubsidyPanel);
+			}
 		}
 	}
 

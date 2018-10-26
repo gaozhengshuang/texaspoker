@@ -1,7 +1,7 @@
 /**
  * 成就/任务进度信息基类
  */
-abstract class BaseAchieveProcessInfo
+abstract class BaseAchieveProcess
 {
     public constructor(group: number)
     {

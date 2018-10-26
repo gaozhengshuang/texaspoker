@@ -33,10 +33,36 @@ class AchievementManager
                 info.isComplete = false;
                 info.isTake = false;
                 info.isOther = false;
+                info.setActive();
                 AchievementManager.allList.push(info);
             }
         }
-        AchievementManager.setAllAchieveList(UserManager.userInfo, result);
+        AchievementManager.setAllAchieveList(UserManager.userInfo, result, true);
+    }
+    /**
+     * 请求接取动态任务
+     */
+    public static reqTakeOtherTask(type: DynamicTaskType)
+    {
+        let callback: Function = function (result: game.SpRpcResult)
+        {
+            let data: msg.GW2C_RetTakeOtherTask = result.data;
+            if (data.taskid > 0)
+            {
+                let acheiveInfo = AchievementManager.getAchieveInfoById(AchievementManager.allList, data.taskid);
+                if (acheiveInfo)
+                {
+                    acheiveInfo.isActive = true;
+                    AchieveProcessManager.addProcess(acheiveInfo.definition.Group);
+                    AchievementManager.TakeOtherTaskEvent.dispatch(acheiveInfo);
+                }
+                else
+                {
+                    game.Console.log("接取任务成功---查找任务失败！id:", data.taskid);
+                }
+            }
+        };
+        SocketManager.call(Command.C2GW_ReqTakeOtherTask, { tasktype: type }, callback, null, this);
     }
 
     /**
@@ -52,41 +78,45 @@ class AchievementManager
         let callback: Function = function (result: game.SpRpcResult)
         {
             AchievementManager.setAllAchieveList(info, result);
-            // AchievementManager.setAchieveInfoByGroupInfo(info, AchieveGroup.GoldGroup, info.maxGold);
-            // AchievementManager.setAchieveInfoByGroupInfo(info, AchieveGroup.FriendGroup, info.friendNum);
-            // AchievementManager.setAchieveInfoByGroupInfo(info, AchieveGroup.LevelGroup, info.level);
         }
         SocketManager.call(Command.C2GW_ReqAchieveInfo, { "roleid": info.roleId }, callback, null, this);
     }
     /**
      * 设置某用户已解锁的成就信息
      */
-    public static setAllAchieveList(info: UserInfo, result: game.SpRpcResult)
+    private static setAllAchieveList(info: UserInfo, result: game.SpRpcResult, isSelf?: boolean)
     {
-        let list: Array<AchievementInfo> = new Array<AchievementInfo>();
-        if (AchievementManager.otherProcessList)
+        if (!isSelf)
         {
-            AchievementManager.otherProcessList.clear();
-        }
-        else
-        {
-            AchievementManager.otherProcessList = new game.Map<number, number>();
+            if (AchievementManager.otherProcessList)
+            {
+                AchievementManager.otherProcessList.clear();
+            }
+            else
+            {
+                AchievementManager.otherProcessList = new game.Map<number, number>();
+            }
         }
         let data: msg.GW2C_RetAchieveInfo = result.data;
+        let list: Array<AchievementInfo> = new Array<AchievementInfo>();
         if (data.grouplist)
         {
             for (let aInfo of data.grouplist)
             {
-                let achieveInfoList: Array<AchievementInfo> = AchievementManager.getAchieveListByGroup(AchievementManager.allList, aInfo.groupid);
-                AchievementManager.otherProcessList.add(aInfo.groupid, aInfo.process);
+                let achieveInfoList: Array<AchievementInfo> = AchievementManager.getAchieveListByGroup(AchievementManager.allList, aInfo.groupid); //同组任务的所有列表
+                if (!isSelf)
+                {
+                    AchievementManager.otherProcessList.add(aInfo.groupid, aInfo.process);
+                }
                 for (let achieveInfo of achieveInfoList)
                 {
-                    if (InfoUtil.checkAvailable(achieveInfo) && achieveInfo.definition.Para1 <= aInfo.process)
+                    if (InfoUtil.checkAvailable(achieveInfo) && achieveInfo.definition.Para1 <= aInfo.process) //添加已完成未领奖的组
                     {
                         let completeInfo: AchievementInfo = new AchievementInfo();
                         completeInfo.id = achieveInfo.id;
                         completeInfo.isTake = false;
                         completeInfo.isComplete = true;
+                        completeInfo.isActive = true;
                         completeInfo.isOther = info.roleId != UserManager.userInfo.roleId;
                         list.push(completeInfo);
                     }
@@ -95,37 +125,15 @@ class AchievementManager
         }
         info.allAchieveList = AchievementManager.getCompleteAchieveInfoDic(list, info);
     }
-
-    /**
-     * 通过组进度信息设置已解锁成就信息
-     */
-    private static setAchieveInfoByGroupInfo(info: UserInfo, group: AchieveGroup, process: number)
-    {
-        AchievementManager.otherProcessList.add(group, process);
-        let achieveInfoList: Array<AchievementInfo> = AchievementManager.getAchieveListByGroup(AchievementManager.allList, group);
-        for (let achieveInfo of achieveInfoList)
-        {
-            if (achieveInfo.definition && achieveInfo.definition.Para1 <= process)
-            {
-                for (let achieveInfoTemp of info.allAchieveList)
-                {
-                    if (achieveInfoTemp.id == achieveInfo.id)
-                    {
-                        achieveInfoTemp.isComplete = true;
-                        break;
-                    }
-                }
-            }
-        }
-    }
     /**
      * 生成包括所有成就信息的列表
      */
-    public static getCompleteAchieveInfoDic(list: Array<AchievementInfo>, userInfo: UserInfo): Array<AchievementInfo>
+    private static getCompleteAchieveInfoDic(list: Array<AchievementInfo>, userInfo: UserInfo): Array<AchievementInfo>
     {
         if (list == null || list.length == 0)
         {
-            return AchievementManager.allList;
+            return [];
+            // return AchievementManager.allList;
         }
         let result: Array<AchievementInfo> = new Array<AchievementInfo>();
         for (let i: number = 0; i < AchievementManager.allList.length; i++)
@@ -139,14 +147,15 @@ class AchievementManager
                     resultInfo = list[j];
                     break;
                 }
-                else
-                {
-                    resultInfo = new AchievementInfo();
-                    resultInfo.id = info.id;
-                    resultInfo.isTake = false;
-                    resultInfo.isComplete = false;
-                    resultInfo.isOther = userInfo.roleId != UserManager.userInfo.roleId;
-                }
+            }
+            if (!resultInfo)
+            {
+                resultInfo = new AchievementInfo();
+                resultInfo.id = info.id;
+                resultInfo.isTake = false;
+                resultInfo.isComplete = false;
+                resultInfo.setActive();
+                resultInfo.isOther = userInfo.roleId != UserManager.userInfo.roleId;
             }
             result.push(resultInfo);
         }
@@ -189,20 +198,7 @@ class AchievementManager
     }
 
     /**
-     * 接收到推送的回调
-     */
-    private static onGetAchieveInfo(result: game.SpRpcResult)
-    {
-        if (result.data)
-        {
-            let info: AchievementInfo = AchievementManager.getAchieveInfoById(UserManager.userInfo.allAchieveList, result.data["id"]);
-            info.isComplete = true;
-            AchievementManager.achieveChangeEvent.dispatch(info);
-        }
-    }
-
-    /**
-     * 通过成就id获取成就信息
+     * 通过指定的列表，获取成就id获取成就信息
      */
     public static getAchieveInfoById(list: Array<AchievementInfo>, id: number): AchievementInfo
     {
@@ -215,28 +211,35 @@ class AchievementManager
         }
         return null;
     }
-
+    /**
+     * 通过成就id获取成就信息
+     */
+    public static getAchieveInfo(id: number): AchievementInfo
+    {
+        for (let info of AchievementManager.allList)
+        {
+            if (info.id == id)
+            {
+                return info;
+            }
+        }
+        return null;
+    }
 
     /**
     * 获取显示的任务列表
     */
     public static getShowAchieveList(): Array<AchievementInfo> 
     {
-        let list: Array<BaseAchieveProcessInfo> = AchieveProcessManager.getAchieveProcessListByTag(AchieveTag.Quest);
+        let list: Array<BaseAchieveProcess> = AchieveProcessManager.getAchieveProcessListByTag(AchieveTag.Quest);
         let result: Array<AchievementInfo> = new Array<AchievementInfo>();
         for (let info of list)
         {
             if (!info.isTakeComplete)
             {
                 let achieveInfo: AchievementInfo = AchievementManager.getAchieveInfoById(UserManager.userInfo.allAchieveList, info.takeStep);
-                if (VersionManager.isSafe)
-                {
-                    if (achieveInfo.definition.IsSafe)
-                    {
-                        result.push(achieveInfo);
-                    }
-                }
-                else
+                let isSafeEnougth = VersionManager.isSafe ? achieveInfo.definition.IsSafe : 1;
+                if (isSafeEnougth && achieveInfo.isActive)
                 {
                     result.push(achieveInfo);
                 }
@@ -392,4 +395,8 @@ class AchievementManager
             }
         }
     }
+    /**
+     * 接取任务返回事件
+     */
+    public static TakeOtherTaskEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 }

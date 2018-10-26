@@ -1,7 +1,7 @@
 /**
  * 参加锦标赛进度信息
  */
-class JoinMTTProcess extends BaseAchieveProcessInfo 
+class JoinMTTProcess extends BaseAchieveProcess 
 {
     public init(process: number)
     {

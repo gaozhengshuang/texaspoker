@@ -1,7 +1,7 @@
 /**
  * 升级任务进度信息
  */
-class LevelUpProcess extends BaseAchieveProcessInfo 
+class LevelUpProcess extends BaseAchieveProcess 
 {
     public init(process: number)
     {

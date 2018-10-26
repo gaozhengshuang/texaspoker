@@ -1,7 +1,7 @@
 /**
  * 百人大战富豪场对局进度信息
  */
-class HundredWarRichPatternProcess extends BaseAchieveProcessInfo 
+class HundredWarRichPatternProcess extends BaseAchieveProcess 
 {
     public init(process: number)
     {
