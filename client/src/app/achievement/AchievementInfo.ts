@@ -38,6 +38,9 @@ class AchievementInfo implements IHaveDefintionInfo
      * 是否是激活
      */
     public isActive:boolean;
+    /**
+     * 设置默认激活，幸运任务默认不激活
+     */
     public setActive()
     {
         this.isActive = true;

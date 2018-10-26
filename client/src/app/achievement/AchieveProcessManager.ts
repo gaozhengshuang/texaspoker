@@ -10,17 +10,11 @@ class AchieveProcessManager
      */
     public static processUpdateEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 
-    /**
-     * 服务器有记录的任务组信息
-     */
-    public static groupInServerList: msg.IAchieveGroup[];
-
     public static Initialize(result: game.SpRpcResult)
     {
         AchieveProcessManager.ClearList();
         AchieveProcessManager.initList();
         let data: msg.GW2C_RetAchieveInfo = result.data;
-        AchieveProcessManager.groupInServerList = data.grouplist;
         if (data.grouplist)
         {
             for (let info of data.grouplist)
@@ -48,21 +42,6 @@ class AchieveProcessManager
                 }
             }
         }
-    }
-
-    /**
-     * 获取任务的记录信息在服务器 根据组ID
-     */
-    public static getTaskInfoInServer(groupId: number)
-    {
-        for (let info of AchieveProcessManager.groupInServerList)
-        {
-            if (info.groupid == groupId)
-            {
-                return info;
-            }
-        }
-        return undefined;
     }
 
     /**

@@ -416,8 +416,7 @@ class HundredWarManager
                     if (data.player.roleid && !HundredWarManager.isSysBanker(game.longToNumber(data.player.roleid)))
                     {
                         let playerInfo: HWHundredWarRoomPlayerInfo = new HWHundredWarRoomPlayerInfo();
-                        playerInfo.pos = data.player.pos;
-                        playerInfo.roleId = game.longToNumber(data.player.roleid);
+                        playerInfo.copyValueFromIgnoreCase(data.player);
                         HundredWarManager.roomInfo.playerList.push(playerInfo);
                         // UserManager.reqSimpleUserInfo(game.longToNumber(data.roleid));
                     } else

@@ -56,6 +56,10 @@ class AchievementManager
                     AchieveProcessManager.addProcess(acheiveInfo.definition.Group);
                     AchievementManager.TakeOtherTaskEvent.dispatch(acheiveInfo);
                 }
+                else
+                {
+                    game.Console.log("接取任务成功---查找任务失败！id:", data.taskid);
+                }
             }
         };
         SocketManager.call(Command.C2GW_ReqTakeOtherTask, { tasktype: type }, callback, null, this);
@@ -82,7 +86,7 @@ class AchievementManager
      */
     private static setAllAchieveList(info: UserInfo, result: game.SpRpcResult, isSelf?: boolean)
     {
-        if (isSelf)
+        if (!isSelf)
         {
             if (AchievementManager.otherProcessList)
             {
@@ -100,7 +104,7 @@ class AchievementManager
             for (let aInfo of data.grouplist)
             {
                 let achieveInfoList: Array<AchievementInfo> = AchievementManager.getAchieveListByGroup(AchievementManager.allList, aInfo.groupid); //同组任务的所有列表
-                if (isSelf)
+                if (!isSelf)
                 {
                     AchievementManager.otherProcessList.add(aInfo.groupid, aInfo.process);
                 }
