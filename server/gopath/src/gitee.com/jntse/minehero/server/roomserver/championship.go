@@ -640,6 +640,7 @@ func (cs *ChampionShip) RewardAll() {
 		detail := def.MakeMTTMail(Redis(), memberid, cs.tid, rank, awardid)
 		transmsg := &msg.RS2MS_PushNewMail{Receiver:pb.Int64(cs.finalrank[i]), Mail:detail}
 		Match().SendCmd(transmsg)
+		log.Info("锦标赛%d 玩家%d 排名%d 获得奖励%d", cs.uid, memberid, rank, awardid)
 		if rank == 1 {
 			member := cs.GetMemberById(memberid)
 			if member != nil {
