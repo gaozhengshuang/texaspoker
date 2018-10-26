@@ -52,12 +52,14 @@ func (this *TexasPokerRoom) UserEnter(u *RoomUser) {
 		this.SendRoomInfo(player)
 		this.members[u.Id()] = u
 		player.SetOwner(u)
+		player.EnterRoom()
 		log.Info("[房间] 玩家[%s %d] 重新进入房间[%d]", u.Name(), u.Id(), this.Id())
 		return
 	}
 	this.members[u.Id()] = u
 	player = NewTexasPlayer(u, this, false)
 	player.Init()
+	player.EnterRoom()
 	if this.IsChampionShip() {
 		player.SitDown(this.GetEmptySeat())
 	}else{

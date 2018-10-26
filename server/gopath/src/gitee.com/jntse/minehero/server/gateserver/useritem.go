@@ -41,8 +41,8 @@ func (u *GateUser) CheckEnoughItem(item int32, num int32) bool {
 	} else if item == int32(msg.ItemId_Diamond) {
 		return u.GetDiamond() >= num
 	} else {
-		have,_ := Redis().Get(fmt.Sprintf("useritem_%d_%d", u.Id(), item)).Int64()
-		return have >= int64(num)
+		have := util.Atoi(Redis().HGet(fmt.Sprintf("useritem_%d_%d", u.Id(), item), "num").Val())
+		return have >= num
 	}
 }
 
