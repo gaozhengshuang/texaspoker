@@ -237,6 +237,14 @@ func (u *GateUser) OnDestoryRoom() {
 	}
 }
 
+// 房间服务器关闭
+func (u *GateUser) OnShutDownRoomServer() {
+	log.Info("[房间] 玩家[%s %d] 房间[%d] 房间服务器关闭", u.Name(), u.Id(), u.RoomId())
+
+	outmsg := &msg.RS2C_PushTFPlayerKickOut{Id:pb.Int64(u.RoomId())}
+	u.SendMsg(outmsg)
+}
+
 //// 房间关闭
 //func (u *GateUser) OnGameEnd(bin *msg.Serialize, reason string) {
 //	log.Info("玩家[%s %d] 房间关闭 房间[%d] 原因[%s]", u.Name(), u.Id(), u.RoomId(), reason)

@@ -209,7 +209,7 @@ func (m *UserManager) OnMatchServerClose() {
 func (m *UserManager) OnRoomServerClose(sid int) {
 	for _, user := range m.accounts {
 		if sid == user.RoomSid() {
-			//user.SendMsg(&msg.BT_GameOver{Roomid:pb.Int64(user.RoomId())})
+			user.OnShutDownRoomServer()
 			//user.OnGameEnd(nil , "房间服务器断开")
 		}
 	}
