@@ -18,6 +18,7 @@ const (
 	GSCall int32 = 5		//跟注
 	GSBlind int32 = 6		//盲注
 	GSWaitAction int32 = 7	//等待说话
+	GSTrusteeShip int32 = 8	//托管
 )
 
 type TexasPlayer struct{
@@ -47,6 +48,8 @@ type TexasPlayer struct{
 	delaystandup int32
 	mttranktime int32
 	rankinfo *msg.RS2C_PushMTTRank
+	timeout int32
+	trusteeship int32
 }
 
 type TexasPlayers []*TexasPlayer
@@ -80,6 +83,7 @@ func (this *TexasPlayer)Init(){
 	this.gamestate = GSWaitNext
 	this.aiacttime = 0
 	this.isallinshow = false
+	this.timeout = 0
 }
 
 func (this *TexasPlayer) InitTimeReward() {
@@ -159,8 +163,12 @@ func (this *TexasPlayer) SetReady(flag bool) {
 func (this *TexasPlayer) BetStart() {
 	//发送开始压注消息
 	if this.bettime == 0 {
-		this.bettime = 15
-		this.aiacttime = util.RandBetween(7,13)
+		if this.trusteeship != 0 {
+			this.bettime = this.trusteeship
+		}else{
+			this.bettime = this.room.tconf.Cd
+		}
+		this.aiacttime = util.RandBetween(2, this.room.tconf.ClientCd)
 		send := &msg.RS2C_PushActionPosChange{}
 		send.Pos = pb.Int32(this.pos+1)
 		send.Postime = pb.Int32(int32(util.CURTIME()))
@@ -545,6 +553,15 @@ func (this *TexasPlayer) Tick (){
 			this.isready = true
 		}
 	}
+	if this.timeout >= this.room.tconf.Timeout {
+		if this.room.IsChampionShip() {
+			this.trusteeship = 5
+		}else {
+			this.StandUp()
+			return
+		}
+	}
+
 	if this.bettime > 0 {
 		this.bettime--
 		if this.isai == true {
@@ -558,9 +575,11 @@ func (this *TexasPlayer) Tick (){
 				} else {
 					this.Betting(-1)
 				}
+				this.timeout++
 			}
 		}
 	}
+
 	if !this.IsWait() {
 		this.AddRewardTime()
 	}
@@ -568,6 +587,7 @@ func (this *TexasPlayer) Tick (){
 		this.delaystandup--
 		if this.delaystandup == 0 {
 			this.StandUp()
+			return
 		}
 	}
 	if this.mttranktime >= 5 {
@@ -791,6 +811,10 @@ func (this *TexasPlayer) CheckLeave() bool{
 		}
 	}
 	return false
+}
+
+func (this *TexasPlayer) EnterRoom() {
+	this.timeout = 0
 }
 
 func (this *TexasPlayer) StandUp() bool {

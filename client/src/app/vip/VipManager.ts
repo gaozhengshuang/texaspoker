@@ -12,7 +12,7 @@ class VipManager
      */
     public static getVipType(vipTime: number, yearVipTime: number): VipType
     {
-        let serverTimeNow: number = TimeManager.GetServerUtcTimestamp();
+        let serverTimeNow: number = TimeManager.GetServerUtcSecondstamp();
         if (yearVipTime && yearVipTime > serverTimeNow)
         {
             return VipType.YearVip;
@@ -99,7 +99,7 @@ class VipManager
      */
     public static GetVipTime(info: UserInfo = UserManager.userInfo): number
     {
-        let serverTimeNow: number = TimeManager.GetServerUtcTimestamp();
+        let serverTimeNow: number = TimeManager.GetServerUtcSecondstamp();
         switch (info.vipType)
         {
             case VipType.NoVip:
@@ -143,7 +143,7 @@ class VipManager
                 let info: msg.IAwardGetInfo = AwardManager.GetExchangeInfo(monthCard.definition.AwardId);
                 if (info)
                 {
-                    let left: number = info.time - TimeManager.GetServerUtcTimestamp();
+                    let left: number = info.time - TimeManager.GetServerUtcSecondstamp();
                     if (left > 0)
                     {
                         activiteMonthCardList.push(monthCard);

@@ -44,7 +44,7 @@ class JoinChampionshipSuccessPanel extends BasePanel
         super.onRender(event);
         this.nameLabel.text = this.panelData.name;
         let date: Date = new Date(this.panelData.time * 1000);
-        if (this.panelData.time - TimeManager.GetServerUtcTimestamp() > 3600 * 24)  //大于一天
+        if (this.panelData.time - TimeManager.GetServerUtcSecondstamp() > 3600 * 24)  //大于一天
         {
             this.timeLabel.text = (date.getMonth() + 1) + "-" + date.getDate() + + game.DateTimeUtil.formatDate(date, game.DateTimeUtil.Format_Standard_NoSecond).split(" ")[1];
         } else  // 少于一天

@@ -42,7 +42,7 @@ class BindAccountManager
 		{
 			let info: BindAccountInfo = new BindAccountInfo();
 			info.channel = channel;
-			info.time = TimeManager.GetServerUtcTimestamp();
+			info.time = TimeManager.GetServerUtcSecondstamp();
 			BindAccountManager._bindedList.push(info);
 
 			switch (logintype)

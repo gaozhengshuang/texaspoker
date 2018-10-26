@@ -127,7 +127,7 @@ class MTTOverPanel extends BasePanel
         {
             if (matchInfo.recordId == this.panelData.recordId)
             {
-                let num: number = Math.floor(TimeManager.GetServerUtcTimestamp()) - matchInfo.startTime;
+                let num: number = Math.floor(TimeManager.GetServerUtcSecondstamp()) - matchInfo.startTime;
                 let min: number = Math.round(num / 60);
                 this.processTimeLabel.text = min.toString();
                 break;

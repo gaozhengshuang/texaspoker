@@ -51,6 +51,18 @@ class PrefsManager
 	 * 默认的登录服务器信息
 	 */
 	public static DefalutServerInfo:string = "default_server_info";
+	/**
+	 * 高级场破产弹窗消息
+	 */
+	public static BankruptHighFieldAlert:string = 'BankruptHighFieldAlert';
+	/**
+	 * 直通车弹窗1天
+	 */
+	public static GoAheadtHighFieldAlertOneDay:string = 'GoAheadtHighFieldAlertOneDay';
+	/**
+	 * 直通车弹窗3天
+	 */
+	public static GoAheadtHighFieldAlertThreeDay:string = 'GoAheadtHighFieldAlertThreeDay';
 
 	public static setValue(key: string, value: string, isPrivate: boolean = false)
 	{

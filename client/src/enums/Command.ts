@@ -22,7 +22,7 @@ class Command
     /**
      * 服务器推送消息提示
      */
-    public static readonly GW2C_PushMsgNotify:string =  "msg.GW2C_PushMsgNotify";
+    public static readonly GW2C_PushMsgNotify: string = "msg.GW2C_PushMsgNotify";
     /**
      * 抢占登录
      */
@@ -661,5 +661,14 @@ class Command
      * client消息转发到Room
      */
     public static readonly C2RS_MsgTransfer = "msg.C2RS_MsgTransfer";
+    /**
+     * client消息转发到mtt
+     */
+    public static readonly C2MTT_MsgTransfer = "msg.C2MTT_MsgTransfer";
+    //------------------------运营活动----------------------
+    /**
+     * 充值弹窗相关信息
+     */
+    public static readonly C2GW_ReqBankruptInfo = "msg.C2GW_ReqBankruptInfo";
 }
 

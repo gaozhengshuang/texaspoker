@@ -41,7 +41,8 @@ message RS2C_RetEnterRoom
     optional int32 rank = 23;
     optional int32 avgchips = 24;
     optional int32 join = 25;
-    optional string errcode = 26;    
+    optional string errcode = 26;
+    optional bool istrusteeship = 27;       //是否托管    
 }
 
 //拉取计时奖励信息

@@ -85,6 +85,8 @@ class GameHallPanel extends BasePanel
 
 	//按键逻辑支持
 	private _btnSupport: GameHallBtnSupport;
+	//运营活动充值弹窗
+	private _businessChargeAlert:GameHallBusinessChargeAlert;
 
 	public constructor()
 	{
@@ -101,11 +103,12 @@ class GameHallPanel extends BasePanel
 		this._buttonAnime = new GameHallButtonAnime(this);
 		this._panelAnime = new GameHallPanelAnime(this);
 		this._btnSupport = new GameHallBtnSupport(this);
+		this._businessChargeAlert = new GameHallBusinessChargeAlert(this);
 		this._rankListInfo = RankManager.getRankListInfo(RankType.FriendGold);
 		VersionManager.setComponentVisibleBySafe(this.firstpayBtn, this.activityBtn, this.matchBtn, this.ranking, this.safeBoxBtn, this.bindBtn, this.vipGroup, this.awardsBtn);
 
 		this.morePlayBtn.visible = false; //隐藏 move todo
-		if(this.bindBtn.parent)
+		if (this.bindBtn.parent)
 		{
 			this.bindBtn.parent.removeChild(this.bindBtn);
 		}
@@ -132,6 +135,7 @@ class GameHallPanel extends BasePanel
 
 		ChannelManager.checkUnFinishedPayList();
 		this._btnSupport.init();
+		this._businessChargeAlert.init();
 		// BindAccountManager.reqGetList();//move todo
 		// this.inviteBtn.visible = InviteManager.isInviteOpen; //move todo
 	}
@@ -206,6 +210,7 @@ class GameHallPanel extends BasePanel
 		this._buttonAnime.onEnable();
 		this._panelAnime.onEnable();
 		this._btnSupport.onEnable();
+		this._businessChargeAlert.onEnable();
 		this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onClickHandler, this);
 		// VipManager.vipUpgradeEvent.addListener(this.refreshUserInfoUI, this); //move todo
 		UserManager.propertyChangeEvent.addListener(this.refreshGold, this);
@@ -224,6 +229,7 @@ class GameHallPanel extends BasePanel
 		this._buttonAnime.onDisable();
 		this._panelAnime.onDisable();
 		this._btnSupport.onDisable();
+		this._businessChargeAlert.onDisable();
 		this.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onClickHandler, this);
 		// VipManager.vipUpgradeEvent.removeListener(this.refreshUserInfoUI, this);//move todo
 		UserManager.propertyChangeEvent.removeListener(this.refreshGold, this);
@@ -439,7 +445,7 @@ class GameHallPanel extends BasePanel
 	 */
 	private refreshFreeGoldTime()
 	{
-		if (TimeManager.GetServerUtcTimestamp() - UserManager.userInfo.lastGoldTime >= ProjectDefined.freeGoldTime)
+		if (TimeManager.GetServerUtcSecondstamp() - UserManager.userInfo.lastGoldTime >= ProjectDefined.freeGoldTime)
 		{
 			this.freeGoldTimeLabel.visible = false;
 			this.freeGoldBtn["getFreeGoldImg"].visible = true;
@@ -459,7 +465,7 @@ class GameHallPanel extends BasePanel
 		}
 		else
 		{
-			let left: number = Math.floor(UserManager.userInfo.lastGoldTime + ProjectDefined.freeGoldTime - TimeManager.GetServerUtcTimestamp());
+			let left: number = Math.floor(UserManager.userInfo.lastGoldTime + ProjectDefined.freeGoldTime - TimeManager.GetServerUtcSecondstamp());
 			this.freeGoldTimeLabel.text = game.DateTimeUtil.countDownFormat(left, false);
 		}
 	}
@@ -469,7 +475,7 @@ class GameHallPanel extends BasePanel
 	private resetFreeGoldTime()
 	{
 		this.refreshFreeGoldTime();
-		if (TimeManager.GetServerUtcTimestamp() - UserManager.userInfo.lastGoldTime < ProjectDefined.freeGoldTime)
+		if (TimeManager.GetServerUtcSecondstamp() - UserManager.userInfo.lastGoldTime < ProjectDefined.freeGoldTime)
 		{
 			this.freeGoldTimeLabel.visible = true;
 			this.freeGoldBtn["getFreeGoldImg"].visible = false;

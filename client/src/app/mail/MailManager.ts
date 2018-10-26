@@ -87,32 +87,9 @@ class MailManager
                 rankStr = "第" + data.mttrank + "名";
                 break;
         }
-        let awardStr = MailManager.getAwardDes(data.mttawardtid);
+        let awardStr = AwardManager.getAwardDes(data.mttawardtid, game.StringConstants.Asterisk);
         content = game.StringUtil.format(content, name, rankStr, awardStr);
         return content;
-    }
-    /**
-     * 获取奖励描述
-     */
-    private static getAwardDes(id: number): string
-    {
-        let awardStr = game.StringConstants.Empty;
-
-        let awardDef = table.AwardById[id];
-        if (awardDef && awardDef.RewardId)
-        {
-            for (let i: number = 0; i < awardDef.RewardId.length; i++)
-            {
-                let itemDef = table.ItemBaseDataById[awardDef.RewardId[i]];
-                if (itemDef)
-                {
-                    awardStr += itemDef.Name;
-                }
-                awardStr += "*" + awardDef.RewardNum[i] + "、";
-            }
-            awardStr = awardStr.replace(/、$/g, "");
-        }
-        return awardStr;
     }
 
     public static newMailPush(result: game.SpRpcResult)

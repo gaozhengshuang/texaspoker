@@ -35,7 +35,7 @@ class SignInHandler extends BaseActivitySubHandler<SignInInfo>
 		if (info)
 		{
 			info.jsonObj.isSignIn = true;
-			info.jsonObj.SignTime = TimeManager.GetServerUtcTimestamp();
+			info.jsonObj.SignTime = TimeManager.GetServerUtcSecondstamp();
 			info.step++;
 		}
 		this.signInCompleteEvent.dispatch();

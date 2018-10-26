@@ -61,7 +61,7 @@ class TimeManager
 	 */
 	public static GetCurrentOnlineLength(): number
 	{
-		return TimeManager.GetServerUtcTimestamp() - TimeManager._loginTimestamp;
+		return TimeManager.GetServerUtcSecondstamp() - TimeManager._loginTimestamp;
 	}
 	/**
 	 * 获取服务器时区差值(秒)
@@ -73,7 +73,7 @@ class TimeManager
 	/**
 	 *  获取当前服务器UTC时间总秒数（UTC1970年到现在）
 	 */
-	public static GetServerUtcTimestamp(): number
+	public static GetServerUtcSecondstamp(): number
 	{
 		if (TimeManager._serverTimestamp == 0)
 		{
@@ -88,9 +88,9 @@ class TimeManager
 	{
 		if (offsetHours == 0)
 		{
-			return new Date(TimeManager.GetServerUtcTimestamp() * 1000);
+			return new Date(TimeManager.GetServerUtcSecondstamp() * 1000);
 		}
-		return new Date((TimeManager.GetServerUtcTimestamp() + offsetHours * 3600) * 1000);
+		return new Date((TimeManager.GetServerUtcSecondstamp() + offsetHours * 3600) * 1000);
 	}
 	/**
 	 * 获取当日五点刷新时间点

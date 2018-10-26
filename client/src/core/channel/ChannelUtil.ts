@@ -21,7 +21,7 @@ class ChannelUtil
 	public static GenerateOrder(productId: number, isTest: boolean): string
 	{
 		let t: string = isTest ? "1" : "0";
-		let timeStr: string = TimeManager.GetServerUtcTimestamp().toString();
+		let timeStr: string = TimeManager.GetServerUtcSecondstamp().toString();
 		let result: string ="";// LoginManager.loginInfo.userid + "-" + UserManager.userInfo.roleId + "-" + UserManager.serverInfo.id + "-" + productId + "-" + t + "-" + timeStr.substring(4);
 		if (result.length > 32)
 		{

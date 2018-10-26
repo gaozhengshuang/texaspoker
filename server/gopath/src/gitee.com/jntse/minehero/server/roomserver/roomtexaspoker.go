@@ -1137,7 +1137,11 @@ func (this *TexasPokerRoom) SendRoomInfo(player *TexasPlayer) {
 		send.Join = pb.Int32(this.mtt.curmembernum);
 		log.Info("锦标赛%d 玩家%d进入房间 Rank%d Avg%d", this.mtt.uid, player.owner.Id(), send.GetRank(), send.GetAvgchips())
 	}
-
+	if player.trusteeship != 0 {
+		send.Istrusteeship = pb.Bool(true)
+	}else{
+		send.Istrusteeship = pb.Bool(false)
+	}
 	player.owner.SendClientMsg(send)
 	player.SendMttRank()
 }
@@ -1173,7 +1177,11 @@ func (this *TexasPokerRoom) ReqNextRound(uid int64, rev *msg.C2RS_ReqNextRound) 
 func (this *TexasPokerRoom) ReqAction(uid int64, rev *msg.C2RS_ReqAction) {
 	player := this.FindAllByID(uid)
 	if player != nil {
-		player.Betting(rev.GetNum())
+		if rev.GetState() == GSTrusteeShip {
+			player.trusteeship = 0
+		} else {
+			player.Betting(rev.GetNum())
+		}
 	}
 }
 

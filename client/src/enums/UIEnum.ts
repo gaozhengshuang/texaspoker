@@ -526,6 +526,15 @@ class UIModuleName
 	 * 兑奖面板
 	 */
 	public static AwardsPanel = "AwardsPanel";
+	//---------------运营活动move todo------------------
+	/**
+	 * 高级破产
+	 */
+	public static BankrupHighSubsidyPanel:string = "BankrupHighSubsidyPanel";
+	/**
+	 * 直通车&重返巅峰
+	 */
+	public static GoAheadHigherFieldPanel:string = "GoAheadHigherFieldPanel";
 }
 /**
  * 选项卡按钮类型
