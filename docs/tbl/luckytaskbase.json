@@ -1,0 +1,8 @@
+{
+	"Tool": "github.com/davyxu/tabtoy",
+	"Version": "2.8.10",
+	"LuckyTask":[
+		{ "Id": 1, "Desc": "白手起家", "Time":[ 11, 14, 18, 21 ], "TaskId": 4001, "MaxTake": 3, "Gold":[ 1000, 6000 ], "TotalPlay": 5, "YesterdayPlay": 0, "ThreedayPlay": 0, "MustPay": 0 },
+		{ "Id": 2, "Desc": "中产", "Time":[ 11, 14, 18, 21 ], "TaskId": 4101, "MaxTake": 3, "Gold":[ 6000, 20000 ], "TotalPlay": 5, "YesterdayPlay": 0, "ThreedayPlay": 0, "MustPay": 0 },
+		{ "Id": 3, "Desc": "土豪", "Time":[ 11, 14, 18, 21 ], "TaskId": 4201, "MaxTake": 3, "Gold":[ 20000, 0 ], "TotalPlay": 5, "YesterdayPlay": 0, "ThreedayPlay": 0, "MustPay": 0 }
+	]}

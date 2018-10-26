@@ -107,6 +107,7 @@ func (this *TblLoader) Init() {
 	this.LoadExcel(TChampionship, "championship.json")
 	this.LoadExcel(AchieveBase, "achievebase.json")
 	this.LoadExcel(ChipsBase, "chips.json")
+	this.LoadExcel(LuckyTaskBase, "luckytaskbase.json")
 	this.LoadExcel(MapEventRefreshBase, "mapeventrefresh.json")
 	this.LoadExcel(BankruptBase, "bankruptbase.json")
 	this.LoadExcel(RankBase, "rankbase.json")
