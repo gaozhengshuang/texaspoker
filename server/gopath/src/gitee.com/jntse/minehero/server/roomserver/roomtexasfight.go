@@ -122,6 +122,7 @@ func (tf *TexasFightRoom) PlayerBankerAppointCheck() {
 	}
 
 	p.BecomeBanker()
+	p.AddBankerRound(1)
 	tf.banker = p
 	tf.sitplayers[0] = tf.banker
 
