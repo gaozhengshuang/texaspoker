@@ -10,6 +10,7 @@ class GoAheadHigherFieldPanel extends BasePanel
 	public buyNowBtn: eui.Button;
 
 	private _type: BusinessType;
+	private _def: table.ITPayBagDefine;
 
 	private _selectPattern: GoAheadHigherfieldItemComponent;
 
@@ -32,21 +33,27 @@ class GoAheadHigherFieldPanel extends BasePanel
 	{
 		super.onAwake(event);
 		this.pattern1.touchChildren = this.pattern2.touchChildren = false;
-		this._peakednessData = { title: "重返巅峰", awardId: AwardFixedId.GoAheadPattern2, selected: true, necessary:true};
-		this._goaheadData1 = { title: "直通初级场", awardId: AwardFixedId.GoAheadPattern1};
-		this._goaheadData2 = { title: "直通高级场", awardId: AwardFixedId.GoAheadPattern2, selected: true, necessary:true};
+		this._peakednessData = { title: "", awardId: 0, selected: true, necessary: true };
+		this._goaheadData1 = { title: "", awardId: 0 };
+		this._goaheadData2 = { title: "", awardId: 0, selected: true, necessary: true };
 	}
 	public init(appendData: any)
 	{
 		super.init(appendData);
-		this._type = appendData;
+		this._type = appendData.type;
+		this._def = appendData.def;
 		switch (this._type)
 		{
 			case BusinessType.GoAheadHighField: //直通车
+				this._goaheadData1.awardId = this._def.AwardId[0];
+				this._goaheadData2.awardId = this._def.AwardId[1];
+				this._goaheadData1.title = "初级" + this._def.Name;
+				this._goaheadData2.title = "高级" + this._def.Name;
 				this.displayGoAheadHighField();
 				this.changePattern(this.pattern2)
 				break;
 			case BusinessType.ReturnPeakedness: //重返巅峰
+				this._peakednessData.title = this._def.Name;
 				this.displayReturnPeakedness();
 				break;
 			default:

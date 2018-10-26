@@ -291,6 +291,12 @@ class GamblingManager
 						// })
 					}
 					break;
+				case GamblingType.Common:
+				case GamblingType.PlayFieldPersonal:
+				case GamblingType.Omaha:
+				case GamblingType.OmahaPersonal:
+					
+					break;				
 			}
 		}
 	}
