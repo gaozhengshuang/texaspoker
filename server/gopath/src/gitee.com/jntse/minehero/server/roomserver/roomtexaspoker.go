@@ -923,7 +923,7 @@ func (this *TexasPokerRoom) RestartGame() int32{
 			}
 		}
 		//如果有玩家观看 机器人离开
-		if len(this.watchers) > 0 {
+		if len(this.watchers) > 0 && this.IsFullPlayer(){
 			count := 0
 			for _, p := range this.players {
 				if count >= len(this.watchers) {
