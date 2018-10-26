@@ -544,7 +544,7 @@ class FriendManager
     }
     public static getFriendMsgInfo(): RequestNewsInfo
     {
-        let nowTime: number = TimeManager.GetServerUtcTimestamp();
+        let nowTime: number = TimeManager.GetServerUtcSecondstamp();
         if (FriendManager._addFriendsRequestInfo)
         {
             if (nowTime - FriendManager._addFriendsRequestInfo.time > FriendManager.msgTime)

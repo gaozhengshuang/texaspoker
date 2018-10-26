@@ -74,7 +74,7 @@ class ChampionshipHandler
                 let def: table.IChampionshipBlindDefine = ChampionshipBlindDefined.GetInstance().getBlindInfoByLevel(GamblingManager.roomInfo.blindLevel + 1, GamblingManager.matchRoomInfo.definition.BlindType);
                 if (def)
                 {
-                    GamblingManager.roomInfo.blindTime = def.UpTime + TimeManager.GetServerUtcTimestamp();
+                    GamblingManager.roomInfo.blindTime = def.UpTime + TimeManager.GetServerUtcSecondstamp();
                 }
                 else
                 {
@@ -250,7 +250,7 @@ class ChampionshipHandler
             }
             GamblingManager.RebuyORAddonEvent.dispatch({ isSuccess: false })
         };
-        MsgTransferSend.sendRoomProto(Command.C2RS_ReqMTTRebuyOrAddon, { type: type }, callback, callback, this);
+        MsgTransferSend.sendMTTRoomProto(Command.C2RS_ReqMTTRebuyOrAddon, { type: type }, callback, callback, this);
     }
     public outChampionship(recordId: number)
     {

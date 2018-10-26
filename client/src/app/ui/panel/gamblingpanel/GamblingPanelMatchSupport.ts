@@ -49,7 +49,7 @@ class GamblingPanelMatchSupport extends BaseGamblingPanelSupport
         game.Tick.RemoveTimeoutInvoke(this.fixedTimeAlert, this)
         if (InfoUtil.checkAvailable(GamblingManager.matchRoomInfo))
         {
-            let time: number = TimeManager.GetServerUtcTimestamp() - GamblingManager.matchRoomInfo.startTime;
+            let time: number = TimeManager.GetServerUtcSecondstamp() - GamblingManager.matchRoomInfo.startTime;
             if (time >= 0)
             {
                 let outTime: number = ProjectDefined.mTTIntervalTime - time % ProjectDefined.mTTIntervalTime;
@@ -68,9 +68,9 @@ class GamblingPanelMatchSupport extends BaseGamblingPanelSupport
             this.checkFixedTimeAlert();
             if (GamblingManager.matchRoomInfo.leftJoin)
             {
-                if (!this._numTime || TimeManager.GetServerUtcTimestamp() - this._numTime > this._intervalMinTime)
+                if (!this._numTime || TimeManager.GetServerUtcSecondstamp() - this._numTime > this._intervalMinTime)
                 {
-                    this._numTime = TimeManager.GetServerUtcTimestamp();
+                    this._numTime = TimeManager.GetServerUtcSecondstamp();
                     this._newsLogic.showAlert(ChampionshipRoomUIAlertType.LeftNumChange);
                 }
             }
@@ -235,7 +235,7 @@ class GamblingPanelMatchSupport extends BaseGamblingPanelSupport
         game.Tick.RemoveSecondsInvoke(this.refreshTime, this);
         if (GamblingManager.roomInfo.blindTime != -1)
         {
-            let time: number = GamblingManager.roomInfo.blindTime - TimeManager.GetServerUtcTimestamp();
+            let time: number = GamblingManager.roomInfo.blindTime - TimeManager.GetServerUtcSecondstamp();
             if (time > 0)
             {
                 game.Tick.AddSecondsInvoke(this.refreshTime, this);
@@ -255,7 +255,7 @@ class GamblingPanelMatchSupport extends BaseGamblingPanelSupport
             }
             else
             {
-                let time: number = GamblingManager.roomInfo.blindTime - TimeManager.GetServerUtcTimestamp();
+                let time: number = GamblingManager.roomInfo.blindTime - TimeManager.GetServerUtcSecondstamp();
                 if (time < 0)
                 {
                     time = 0;

@@ -409,7 +409,7 @@ class GamblingManager
 
 			game.CopyUtil.copy(data, GamblingManager.roomInfo.data);
 			GamblingManager.roomInfo.potChips = undefined;
-			GamblingManager.roomInfo.startTime = TimeManager.GetServerUtcTimestamp();
+			GamblingManager.roomInfo.startTime = TimeManager.GetServerUtcSecondstamp();
 			GamblingManager.roomInfo.isFlopCardOver = false;
 			//重置初始筹码数
 			if (GamblingManager.self)
@@ -721,7 +721,7 @@ class GamblingManager
 			GamblingManager.roundOverInfo.data = data;
 			if (GamblingManager.roomInfo)
 			{
-				GamblingManager.roomInfo.endTime = TimeManager.GetServerUtcTimestamp();
+				GamblingManager.roomInfo.endTime = TimeManager.GetServerUtcSecondstamp();
 			}
 			//重置初始筹码数
 			let temporaryRoll: number = undefined;

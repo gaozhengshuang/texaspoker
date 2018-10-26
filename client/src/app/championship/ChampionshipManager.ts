@@ -159,7 +159,7 @@ class ChampionshipManager
     */
     public static reqGetMTTListInfo()
     {
-        MsgTransferSend.sendRoomProto(Command.C2RS_ReqMTTList, null, ChampionshipManager.getMTTListInfoResponse, null, this);
+        MsgTransferSend.sendMTTRoomProto(Command.C2RS_ReqMTTList, null, ChampionshipManager.getMTTListInfoResponse, null, this);
     }
     private static getMTTListInfoResponse(result: game.SpRpcResult)
     {
@@ -220,7 +220,7 @@ class ChampionshipManager
             {
                 if (matchInfo.definition.SignTime != matchInfo.definition.DisplayTime && matchInfo.isShow == 1)
                 {
-                    if (matchInfo.startTime - matchInfo.definition.SignTime < TimeManager.GetServerUtcTimestamp())
+                    if (matchInfo.startTime - matchInfo.definition.SignTime < TimeManager.GetServerUtcSecondstamp())
                     {
                         return true;
                     } else
@@ -251,13 +251,13 @@ class ChampionshipManager
     {
         if (chapDef.DelaySign)
         {
-            if (TimeManager.GetServerUtcTimestamp() < matchinfo.startTime + chapDef.DelaySign && !mttInfo.outTime && !mttInfo.endTime)
+            if (TimeManager.GetServerUtcSecondstamp() < matchinfo.startTime + chapDef.DelaySign && !mttInfo.outTime && !mttInfo.endTime)
             {
                 matchinfo.isShow = 1;
             }
         } else
         {
-            if (TimeManager.GetServerUtcTimestamp() < matchinfo.startTime)
+            if (TimeManager.GetServerUtcSecondstamp() < matchinfo.startTime)
             {
                 matchinfo.isShow = 1;
             }
@@ -297,7 +297,7 @@ class ChampionshipManager
                 ChampionshipManager.onGetJoinedMatchListEvent.dispatch();
             }
         };
-        MsgTransferSend.sendRoomProto(Command.C2RS_ReqJoinedMTTList, {}, callback, null, this);
+        MsgTransferSend.sendMTTRoomProto(Command.C2RS_ReqJoinedMTTList, {}, callback, null, this);
     }
     /**
      * 开始进行赛事倒计时（用来通知赛事将要开始）
@@ -316,7 +316,7 @@ class ChampionshipManager
     */
     public static reqGetRecentActionInfo()
     {
-        MsgTransferSend.sendRoomProto(Command.C2RS_ReqMTTRecordList, {}, ChampionshipManager.getGetRecentActionInfoResponse, null, this);
+        MsgTransferSend.sendMTTRoomProto(Command.C2RS_ReqMTTRecordList, {}, ChampionshipManager.getGetRecentActionInfoResponse, null, this);
     }
     public static getGetRecentActionInfoResponse(result: game.SpRpcResult)
     {
@@ -418,7 +418,7 @@ class ChampionshipManager
                 ChampionshipManager.OnGetRankListEvent.dispatch(recordId);
             }
         };
-        MsgTransferSend.sendRoomProto(Command.C2RS_ReqMTTRecentlyRankList, { recordid: recordId }, callback, null, this);
+        MsgTransferSend.sendMTTRoomProto(Command.C2RS_ReqMTTRecentlyRankList, { recordid: recordId }, callback, null, this);
     }
     /**
      * 发送立即报名的请求
@@ -472,7 +472,7 @@ class ChampionshipManager
                     }
                 }
                 ChampionshipManager.remindMTTStart();
-                let time: number = startTime - TimeManager.GetServerUtcTimestamp();
+                let time: number = startTime - TimeManager.GetServerUtcSecondstamp();
                 if (time > 0 && InfoUtil.checkAvailable(championshipInfo))
                 {
                     UIManager.showPanel(UIModuleName.JoinChampionshipSuccessPanel, { name: championshipInfo.definition.Name, time: championshipInfo.startTime, applyNum: championshipInfo.join, bNum: championshipInfo.definition.BNum, chip: championshipInfo.definition.InitialChips });
@@ -484,10 +484,10 @@ class ChampionshipManager
         {
             if (type == MatchType.MTT)
             {
-                MsgTransferSend.sendRoomProto(Command.C2RS_ReqMTTJoin, { recordid: recordId, joinway: flag }, callback, ChampionshipManager.MTTCancelErrorDispose, this);
+                MsgTransferSend.sendMTTRoomProto(Command.C2RS_ReqMTTJoin, { recordid: recordId, joinway: flag }, callback, ChampionshipManager.MTTCancelErrorDispose, this);
             } else if (type == MatchType.SNG)
             {
-                MsgTransferSend.sendRoomProto(Command.C2RS_ReqMTTJoin, { joinway: flag, recordid: recordId }, callback, null, this);
+                MsgTransferSend.sendMTTRoomProto(Command.C2RS_ReqMTTJoin, { joinway: flag, recordid: recordId }, callback, null, this);
             }
         }
     }
@@ -564,13 +564,13 @@ class ChampionshipManager
                 if (data.blindlevel)  //如果赛事没开始，盲注级别应该为1
                 {
                     ChampionshipManager.nowBlindRank = data.blindlevel;
-                    let addBlindTime: number = Math.floor(data.blindtime - TimeManager.GetServerUtcTimestamp());
+                    let addBlindTime: number = Math.floor(data.blindtime - TimeManager.GetServerUtcSecondstamp());
                     if (addBlindTime <= 0)
                     {
                         ChampionshipManager.matchOutsInfo.addBlindTime = 0;
                     } else
                     {
-                        ChampionshipManager.matchOutsInfo.addBlindTime = Math.floor(data.blindtime - TimeManager.GetServerUtcTimestamp());
+                        ChampionshipManager.matchOutsInfo.addBlindTime = Math.floor(data.blindtime - TimeManager.GetServerUtcSecondstamp());
                     }
                 }
                 else
@@ -590,7 +590,7 @@ class ChampionshipManager
         };
         if (recordId != undefined)
         {
-            MsgTransferSend.sendRoomProto(Command.C2RS_ReqMTTOutsInfo, { recordid: recordId }, callback, ChampionshipManager.MTTOverErrorDispose, this);
+            MsgTransferSend.sendMTTRoomProto(Command.C2RS_ReqMTTOutsInfo, { recordid: recordId }, callback, ChampionshipManager.MTTOverErrorDispose, this);
         }
     }
     /**
@@ -632,7 +632,7 @@ class ChampionshipManager
             }
             ChampionshipManager.OnRankInfoEvent.dispatch({ isBottom: isBottom, rankList: mttRankInfo });
         };
-        MsgTransferSend.sendRoomProto(Command.C2RS_ReqMTTRankInfo, { recordid: recordId, startrank: startRank, count: count }, callback, null, this);
+        MsgTransferSend.sendMTTRoomProto(Command.C2RS_ReqMTTRankInfo, { recordid: recordId, startrank: startRank, count: count }, callback, null, this);
     }
     /**
      * 发送退赛请求
@@ -671,7 +671,7 @@ class ChampionshipManager
                 ChampionshipManager.OnWithdrawEvent.dispatch({ joinWay: withdrawMatch.joinWay, recordId: recordId });
             }
         };
-        MsgTransferSend.sendRoomProto(Command.C2RS_ReqMTTQuit, { recordid: recordId }, callback, null, this);
+        MsgTransferSend.sendMTTRoomProto(Command.C2RS_ReqMTTQuit, { recordid: recordId }, callback, null, this);
     }
     /**
      * 退赛时将该赛事在mtt列表中的报名方式置为0（未报名状态）

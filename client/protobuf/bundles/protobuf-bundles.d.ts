@@ -5310,6 +5310,9 @@ declare namespace msg {
 
         /** MTTInfo leftjoin */
         leftjoin?: (number|null);
+
+        /** MTTInfo roomuid */
+        roomuid?: (number|Long|null);
     }
 
     /** Represents a MTTInfo. */
@@ -5344,6 +5347,9 @@ declare namespace msg {
 
         /** MTTInfo leftjoin. */
         public leftjoin: number;
+
+        /** MTTInfo roomuid. */
+        public roomuid: (number|Long);
 
         /**
          * Creates a new MTTInfo instance using the specified properties.
@@ -5994,6 +6000,9 @@ declare namespace msg {
 
         /** JoinedMTTInfo rank */
         rank?: (number|null);
+
+        /** JoinedMTTInfo roomuid */
+        roomuid?: (number|Long|null);
     }
 
     /** Represents a JoinedMTTInfo. */
@@ -6028,6 +6037,9 @@ declare namespace msg {
 
         /** JoinedMTTInfo rank. */
         public rank: number;
+
+        /** JoinedMTTInfo roomuid. */
+        public roomuid: (number|Long);
 
         /**
          * Creates a new JoinedMTTInfo instance using the specified properties.
@@ -22541,6 +22553,108 @@ declare namespace msg {
 
         /**
          * Converts this C2RS_MsgTransfer to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2MTT_MsgTransfer. */
+    interface IC2MTT_MsgTransfer {
+
+        /** C2MTT_MsgTransfer uid */
+        uid?: (number|Long|null);
+
+        /** C2MTT_MsgTransfer name */
+        name?: (string|null);
+
+        /** C2MTT_MsgTransfer buf */
+        buf?: (Uint8Array|null);
+    }
+
+    /** Represents a C2MTT_MsgTransfer. */
+    class C2MTT_MsgTransfer implements IC2MTT_MsgTransfer {
+
+        /**
+         * Constructs a new C2MTT_MsgTransfer.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2MTT_MsgTransfer);
+
+        /** C2MTT_MsgTransfer uid. */
+        public uid: (number|Long);
+
+        /** C2MTT_MsgTransfer name. */
+        public name: string;
+
+        /** C2MTT_MsgTransfer buf. */
+        public buf: Uint8Array;
+
+        /**
+         * Creates a new C2MTT_MsgTransfer instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2MTT_MsgTransfer instance
+         */
+        public static create(properties?: msg.IC2MTT_MsgTransfer): msg.C2MTT_MsgTransfer;
+
+        /**
+         * Encodes the specified C2MTT_MsgTransfer message. Does not implicitly {@link msg.C2MTT_MsgTransfer.verify|verify} messages.
+         * @param message C2MTT_MsgTransfer message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2MTT_MsgTransfer, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2MTT_MsgTransfer message, length delimited. Does not implicitly {@link msg.C2MTT_MsgTransfer.verify|verify} messages.
+         * @param message C2MTT_MsgTransfer message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2MTT_MsgTransfer, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2MTT_MsgTransfer message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2MTT_MsgTransfer
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2MTT_MsgTransfer;
+
+        /**
+         * Decodes a C2MTT_MsgTransfer message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2MTT_MsgTransfer
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2MTT_MsgTransfer;
+
+        /**
+         * Verifies a C2MTT_MsgTransfer message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2MTT_MsgTransfer message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2MTT_MsgTransfer
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2MTT_MsgTransfer;
+
+        /**
+         * Creates a plain object from a C2MTT_MsgTransfer message. Also converts values to other types if specified.
+         * @param message C2MTT_MsgTransfer
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2MTT_MsgTransfer, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2MTT_MsgTransfer to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };

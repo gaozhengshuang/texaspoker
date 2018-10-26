@@ -186,7 +186,7 @@ class MonthCardItemRenderer extends BaseItemRenderer<ShopInfo>
         }
         if (time > 0)
         {
-            return time - TimeManager.GetServerUtcTimestamp();
+            return time - TimeManager.GetServerUtcSecondstamp();
         }
         return 0;
     }

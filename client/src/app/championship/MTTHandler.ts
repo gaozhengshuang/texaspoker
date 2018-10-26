@@ -65,7 +65,7 @@ class MTTRemindStartHandler
         {
             if (InfoUtil.checkAvailable(joinedMatch) && joinedMatch.definition.Type == MatchType.SNG && joinedMatch.join >= joinedMatch.definition.BNum && !joinedMatch.outTime && joinedMatch.joinWay)
             {
-                joinedMatch.startTime = TimeManager.GetServerUtcTimestamp();  //人数满时就是赛事开始时间
+                joinedMatch.startTime = TimeManager.GetServerUtcSecondstamp();  //人数满时就是赛事开始时间
                 if (InfoUtil.checkAvailable(GamblingManager.matchRoomInfo) && GamblingManager.matchRoomInfo.recordId == joinedMatch.recordId)
                 {
                     GamblingManager.matchRoomInfo.startTime = joinedMatch.startTime;
@@ -141,7 +141,7 @@ class MTTRemindStartHandler
             {
                 let joinMTTinfo: MatchRoomInfo = new MatchRoomInfo();
                 joinMTTinfo = this.joinedMTTList[i];
-                let countDownNum: number = Math.floor(joinMTTinfo.startTime - TimeManager.GetServerUtcTimestamp());
+                let countDownNum: number = Math.floor(joinMTTinfo.startTime - TimeManager.GetServerUtcSecondstamp());
                 if (countDownNum == 180)
                 {
                     if (this.threeMinOpenFlag)
@@ -207,7 +207,7 @@ class MTTRemindStartHandler
             {
                 let joinMTTinfo: MatchRoomInfo = new MatchRoomInfo();
                 joinMTTinfo = this.waitRemindMTTList[i];
-                let countDownNum: number = Math.floor(joinMTTinfo.startTime - TimeManager.GetServerUtcTimestamp());
+                let countDownNum: number = Math.floor(joinMTTinfo.startTime - TimeManager.GetServerUtcSecondstamp());
                 if (countDownNum <= 60 && countDownNum > 0)
                 {
                     if (this.minuteOpenFlag)

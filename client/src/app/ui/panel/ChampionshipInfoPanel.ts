@@ -231,7 +231,7 @@ class ChampionshipInfoPanel extends BasePanel
         this.withdrawBtn.visible = true;
         if (this._championshipInfo.definition.Type == MatchType.MTT)
         {
-            let time: number = this._championshipInfo.startTime - TimeManager.GetServerUtcTimestamp();
+            let time: number = this._championshipInfo.startTime - TimeManager.GetServerUtcSecondstamp();
             if (time <= 0)
             {
                 super.onCloseBtnClickHandler(null);
@@ -293,7 +293,7 @@ class ChampionshipInfoPanel extends BasePanel
     */
     private mttWithdraw()
     {
-        if (TimeManager.GetServerUtcTimestamp() >= this._championshipInfo.startTime)
+        if (TimeManager.GetServerUtcSecondstamp() >= this._championshipInfo.startTime)
         {
             AlertManager.showAlert("比赛已经开启，不可退赛。");
             return;
@@ -452,7 +452,7 @@ class ChampionshipInfoPanel extends BasePanel
             }
             if (this._championshipInfo.definition.Type == MatchType.MTT)
             {
-                let num: number = Math.floor(TimeManager.GetServerUtcTimestamp()) - this._championshipInfo.startTime;
+                let num: number = Math.floor(TimeManager.GetServerUtcSecondstamp()) - this._championshipInfo.startTime;
                 if (num > 0)
                 {
                     this.countUpNum = num;
@@ -472,7 +472,7 @@ class ChampionshipInfoPanel extends BasePanel
             {
                 if (this._championshipInfo.join >= this._championshipInfo.definition.BNum)
                 {
-                    let num: number = Math.floor(TimeManager.GetServerUtcTimestamp()) - this._championshipInfo.startTime;
+                    let num: number = Math.floor(TimeManager.GetServerUtcSecondstamp()) - this._championshipInfo.startTime;
                     if (num > 0)
                     {
                         this.countUpNum = num;

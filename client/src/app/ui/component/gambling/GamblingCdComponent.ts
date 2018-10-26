@@ -59,14 +59,14 @@ class GamblingCdComponent extends BaseComponent<number>
 	public start(startTime: number, isPush: boolean)
 	{
 		this._shape.graphics.clear();
-		let nowTime: number = TimeManager.GetServerUtcTimestamp();
+		let nowTime: number = TimeManager.GetServerUtcSecondstamp();
 		if (isPush) //推送过来的时间改变则相等
 		{
 			nowTime = startTime;
 		}
 		else
 		{
-			nowTime = TimeManager.GetServerUtcTimestamp(); //断线重连的则用当前时间
+			nowTime = TimeManager.GetServerUtcSecondstamp(); //断线重连的则用当前时间
 		}
 
 		let remainTime: number = nowTime - startTime;

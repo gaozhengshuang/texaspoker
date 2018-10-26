@@ -62,7 +62,7 @@ class TimeShowLogic
 	{
 		if (this.nowTotal != undefined)
 		{
-			this._offsetTime = Math.round(this.nowTotal - TimeManager.GetServerUtcTimestamp());
+			this._offsetTime = Math.round(this.nowTotal - TimeManager.GetServerUtcSecondstamp());
 			if (this._offsetTime >= 0)
 			{
 				this.timeLabel.text = game.DateTimeUtil.formatCountdown(this._offsetTime);
@@ -79,7 +79,7 @@ class TimeShowLogic
 		 */
 		if (this.waitTime != undefined && this.waitTime != NaN)
 		{
-			this._offsetTime = Math.round(this.waitTime - TimeManager.GetServerUtcTimestamp());
+			this._offsetTime = Math.round(this.waitTime - TimeManager.GetServerUtcSecondstamp());
 			if (this._offsetTime >= 0)
 			{
 				this._waitTimeGroup.visible = true;

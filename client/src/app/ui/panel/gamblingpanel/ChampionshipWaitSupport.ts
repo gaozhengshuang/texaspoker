@@ -42,7 +42,7 @@ class ChampionshipWaitSupport extends BaseGamblingPanelSupport
         {
             let state: GamblingPanelMatchWaitState = <GamblingPanelMatchWaitState>this.target.panelState;
             let component: GamblingMatchWaitComponent = state.getCompoent<GamblingMatchWaitComponent>(GamblingMatchWaitComponent);
-            let leftTime: number = GamblingManager.matchRoomInfo.startTime - TimeManager.GetServerUtcTimestamp();
+            let leftTime: number = GamblingManager.matchRoomInfo.startTime - TimeManager.GetServerUtcSecondstamp();
             if (leftTime > 0)
             {
                 component.championshipWaitLabel.text = game.DateTimeUtil.countDownFormat(Math.floor(leftTime), false);

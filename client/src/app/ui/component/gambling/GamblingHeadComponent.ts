@@ -475,7 +475,7 @@ class GamblingHeadComponent extends BaseComponent<PlayerInfo>{
 	{
 		if (InfoUtil.checkAvailable(GamblingManager.matchRoomInfo))
 		{
-			let time: number = TimeManager.GetServerUtcTimestamp() - GamblingManager.matchRoomInfo.startTime;
+			let time: number = TimeManager.GetServerUtcSecondstamp() - GamblingManager.matchRoomInfo.startTime;
 			if (GamblingManager.matchRoomInfo.definition.Type == MatchType.SNG && time <= GamblingManager.matchRoomInfo.definition.WaitingTime)
 			{ //坐满即玩比赛，比赛刚开始
 				GamblingManager.sngNextRoundStart(GamblingManager.matchRoomInfo.definition.WaitingTime - time);

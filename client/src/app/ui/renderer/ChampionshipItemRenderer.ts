@@ -167,9 +167,9 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
             this.notJoinedShow();
         }
 
-        if (TimeManager.GetServerUtcTimestamp() >= this.bindData.startTime)  //比赛进行中
+        if (TimeManager.GetServerUtcSecondstamp() >= this.bindData.startTime)  //比赛进行中
         {
-            if (TimeManager.GetServerUtcTimestamp() <= this.bindData.startTime + this.bindData.definition.DelaySign)
+            if (TimeManager.GetServerUtcSecondstamp() <= this.bindData.startTime + this.bindData.definition.DelaySign)
             {
                 this.countDownOver();
             } else
@@ -178,10 +178,10 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
             }
         } else 
         {
-            if ((this.bindData.startTime - TimeManager.GetServerUtcTimestamp()) <= 300)  //比赛开始前5分钟
+            if ((this.bindData.startTime - TimeManager.GetServerUtcSecondstamp()) <= 300)  //比赛开始前5分钟
             {
                 this.fiveMinStart();
-                if ((this.bindData.startTime - TimeManager.GetServerUtcTimestamp()) < 60)  //比赛前一分钟
+                if ((this.bindData.startTime - TimeManager.GetServerUtcSecondstamp()) < 60)  //比赛前一分钟
                 {
                     this.oneMinStart();
                 }
@@ -211,7 +211,7 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
         if (!this.bindData.outTime && !this.bindData.endTime)
         {
             this.trusteeshipShowSet();
-            if (TimeManager.GetServerUtcTimestamp() > this.bindData.startTime + 3)
+            if (TimeManager.GetServerUtcSecondstamp() > this.bindData.startTime + 3)
             {
                 this.trusteeshipImg.source = SheetSubName.MTTTrusteeship;
             } else
@@ -227,7 +227,7 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
     {
         this.startJoinGroup.visible = false;
         this.waitJoinGroup.visible = true;
-        let today: Date = new Date(TimeManager.GetServerUtcTimestamp() * 1000);
+        let today: Date = new Date(TimeManager.GetServerUtcSecondstamp() * 1000);
         let todayLastTime: number = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59).getTime();
         let date: Date = new Date((this.bindData.startTime - this.bindData.definition.SignTime) * 1000);
         if (this.bindData.startTime - this.bindData.definition.SignTime > Math.floor(todayLastTime / 1000))  //大于一天
@@ -448,12 +448,12 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
     */
     private getNowTime()
     {
-        if (this.bindData.openTime <= TimeManager.GetServerUtcTimestamp() * 1000)
+        if (this.bindData.openTime <= TimeManager.GetServerUtcSecondstamp() * 1000)
         {
             this.startJoin();
             this.applyBtn.enabled = true;
         }
-        if (this.bindData.closeTime <= TimeManager.GetServerUtcTimestamp() * 1000)
+        if (this.bindData.closeTime <= TimeManager.GetServerUtcSecondstamp() * 1000)
         {
             this.sitAndPlayNotStartJoinShow();
         }
@@ -487,7 +487,7 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
         this.timeBGImg.visible = false;
         this.setMoreFiveMStyle();
         this.getTimeDesAndTime();
-        this._countDownNum = Math.floor(this.bindData.startTime - TimeManager.GetServerUtcTimestamp());
+        this._countDownNum = Math.floor(this.bindData.startTime - TimeManager.GetServerUtcSecondstamp());
     }
     /**
      * 获得比赛时间描述
@@ -495,7 +495,7 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
     private getTimeDesAndTime()
     {
         let date: Date = new Date(this.bindData.startTime * 1000);
-        let today: Date = new Date(TimeManager.GetServerUtcTimestamp() * 1000);
+        let today: Date = new Date(TimeManager.GetServerUtcSecondstamp() * 1000);
         let todayLastTime: number = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59).getTime();
         if (this.bindData.startTime > Math.floor(todayLastTime / 1000) || this.bindData.startTime < (Math.floor(todayLastTime / 1000) - 86400))  //不是今天
         {
@@ -514,7 +514,7 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
         this.setLessFiveMStyle();
         this.notStartGroup.visible = true;
         this.timeDesLabel.text = "即将开始";
-        this._countDownNum = Math.floor(this.bindData.startTime - TimeManager.GetServerUtcTimestamp());
+        this._countDownNum = Math.floor(this.bindData.startTime - TimeManager.GetServerUtcSecondstamp());
     }
     /**
      * 距离比赛开始小于1分钟
@@ -571,7 +571,7 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
             {
                 this.bindData.joinWay = data.flag;
                 this.numLabel.text = this.bindData.join + "/" + this.bindData.definition.BNum;
-                let time: number = this.bindData.startTime - TimeManager.GetServerUtcTimestamp();
+                let time: number = this.bindData.startTime - TimeManager.GetServerUtcSecondstamp();
                 if (time <= 60)
                 {
                     if (time < 0)
@@ -693,7 +693,7 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
         this.setLessFiveMStyle();
         if (this.bindData.definition.DelaySign)
         {
-            if (TimeManager.GetServerUtcTimestamp() >= this.bindData.startTime + this.bindData.definition.DelaySign)
+            if (TimeManager.GetServerUtcSecondstamp() >= this.bindData.startTime + this.bindData.definition.DelaySign)
             {
                 this.delFromMTTList();
             } else
@@ -705,7 +705,7 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
                     this.waitLabel.visible = false;
                     this.enterBtn.visible = true;
                 }
-                this._countDownNum = Math.floor(this.bindData.startTime + this.bindData.definition.DelaySign - TimeManager.GetServerUtcTimestamp());
+                this._countDownNum = Math.floor(this.bindData.startTime + this.bindData.definition.DelaySign - TimeManager.GetServerUtcSecondstamp());
                 this.delayTimeCountDown();
                 game.Tick.AddSecondsInvoke(this.delayTimeCountDown, this);
             }

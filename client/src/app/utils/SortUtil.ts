@@ -447,15 +447,15 @@ class SortUtil
 		}
 		if (!a.outTime && !b.outTime)
 		{
-			if (a.startTime < TimeManager.GetServerUtcTimestamp() && b.startTime > TimeManager.GetServerUtcTimestamp())
+			if (a.startTime < TimeManager.GetServerUtcSecondstamp() && b.startTime > TimeManager.GetServerUtcSecondstamp())
 			{
 				return -1;
 			}
-			if (a.startTime > TimeManager.GetServerUtcTimestamp() && b.startTime < TimeManager.GetServerUtcTimestamp())
+			if (a.startTime > TimeManager.GetServerUtcSecondstamp() && b.startTime < TimeManager.GetServerUtcSecondstamp())
 			{
 				return 1;
 			}
-			if ((a.startTime < TimeManager.GetServerUtcTimestamp() && b.startTime < TimeManager.GetServerUtcTimestamp()) || (a.startTime > TimeManager.GetServerUtcTimestamp() && b.startTime > TimeManager.GetServerUtcTimestamp()))
+			if ((a.startTime < TimeManager.GetServerUtcSecondstamp() && b.startTime < TimeManager.GetServerUtcSecondstamp()) || (a.startTime > TimeManager.GetServerUtcSecondstamp() && b.startTime > TimeManager.GetServerUtcSecondstamp()))
 			{
 				if (a.startTime > b.startTime)
 				{

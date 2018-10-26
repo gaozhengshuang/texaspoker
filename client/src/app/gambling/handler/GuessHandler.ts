@@ -139,7 +139,7 @@ class GuessHandler
         if (!GamblingUtil.isMatch && InfoUtil.checkAvailable(GamblingManager.roomInfo) && GamblingManager.roomInfo.handCard)
         {
             let guessResultInfo: GuessResultInfo = new GuessResultInfo();
-            guessResultInfo.time = TimeManager.GetServerUtcTimestamp();
+            guessResultInfo.time = TimeManager.GetServerUtcSecondstamp();
             guessResultInfo.card1 = GamblingManager.roomInfo.handCard[0];
             guessResultInfo.card2 = GamblingManager.roomInfo.handCard[1];
             //中奖注数        

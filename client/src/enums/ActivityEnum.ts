@@ -200,3 +200,21 @@ enum ShimTaeYoonImgIndex
 	*/
 	Que = 7,
 }
+/**
+ * 运营活动类型
+ */
+enum BusinessType
+{
+	/**
+	 * 高级场次破产
+	 */
+	BankruptInHighField = 1,
+	/**
+	 * 中高级场次直通车
+	 */
+	GoAheadHighField = 2,
+	/**
+	 * 重返巅峰
+	 */
+	ReturnPeakedness = 3,
+}

@@ -85,7 +85,7 @@ class ChampionshipBuyChipsPanel extends BasePanel
 	{
 		if (GamblingManager.roomInfo)
 		{
-			let time: number = Math.floor(this._starTime - TimeManager.GetServerUtcTimestamp());
+			let time: number = Math.floor(this._starTime - TimeManager.GetServerUtcSecondstamp());
 			game.Tick.AddSecondsInvoke(this.refreshTime, this);
 			if (time <= 0)
 			{
@@ -96,7 +96,7 @@ class ChampionshipBuyChipsPanel extends BasePanel
 	}
 	private refreshTime()
 	{
-		let time: number = Math.floor(this._starTime - TimeManager.GetServerUtcTimestamp());
+		let time: number = Math.floor(this._starTime - TimeManager.GetServerUtcSecondstamp());
 		if (time <= 0)
 		{
 			this.onCloseBtnClickHandler(null);

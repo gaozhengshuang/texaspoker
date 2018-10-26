@@ -466,7 +466,7 @@ class UserManager
 				UserManager._isFirstLoginToday = false;
 			}
 		}
-		PrefsManager.setNumber(PrefsManager.User_LastLoginTime, TimeManager.GetServerUtcTimestamp(), true);
+		PrefsManager.setNumber(PrefsManager.User_LastLoginTime, TimeManager.GetServerUtcSecondstamp(), true);
 	}
 	/**
 	 * 尝试上传微信头像

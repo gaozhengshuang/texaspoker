@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GoAheadHigherFieldPanelSkin" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" height="800">
+	<w:Config id="1631e98da68"/>
+	<e:Group id="tweenGroup" width="666" anchorOffsetY="0" horizontalCenter="0" bottom="0" height="700">
+		<e:Image anchorOffsetY="0" horizontalCenter="0" source="sc_bg_png"/>
+		<e:Image source="sc_bg_1_png" scaleX="1" scaleY="1" horizontalCenter="0" bottom="61"/>
+		<e:Image horizontalCenter="0" top="-140" source="shou_yue_bg_png"/>
+		<e:Image id="titleImg" horizontalCenter="0" source="text_sc_png" top="-35"/>
+		<e:Image horizontalCenter="0" y="93" source="sc_bg_3_png" scale9Grid="38,0,6,60" width="559"/>
+
+
+		<e:Label text="30分钟才赢5万？补齐少量金币重返高级场吧！" y="110" anchorOffsetX="0" anchorOffsetY="0" verticalAlign="middle" textAlign="center" horizontalCenter="7.5" size="26" textColor="0xffffff" fontFamily="KaiTi_GB2312" bold="true"/>
+		<e:Image width="624.33" height="338" horizontalCenter="0" verticalCenter="0" source="banding_bg_png" alpha="0.3"/>
+
+		<e:Group id="itemGroup" width="624.33" height="338" anchorOffsetY="0" anchorOffsetX="0" horizontalCenter="0" verticalCenter="0">
+			<e:layout>
+				<e:TileLayout horizontalAlign="center" verticalAlign="middle" rowAlign="justifyUsingHeight" columnAlign="justifyUsingWidth" requestedColumnCount="2"/>
+			</e:layout>
+			<ns1:GoAheadHigherfieldItemComponent id="pattern1" skinName="GoAheadHigherfieldItemComponentSkin"/>
+			<ns1:GoAheadHigherfieldItemComponent id="pattern2" skinName="GoAheadHigherfieldItemComponentSkin"/>
+		</e:Group>
+		<ns1:ShadowButton id="buyNowBtn" label="" anchorOffsetY="0" anchorOffsetX="0" y="540" skinName="sc_buttonSkin" horizontalCenter="0"/>
+		<ns1:ShadowButton id="closeButton" label="Button" scaleY="1" anchorOffsetY="34" anchorOffsetX="34" scaleX="1" skinName="closeButton4Skin" right="17" top="9"/>
+	</e:Group>
+</e:Skin>

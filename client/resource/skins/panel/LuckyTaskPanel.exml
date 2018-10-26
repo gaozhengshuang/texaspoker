@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="LuckyTaskPanelSkin" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" xmlns:tween="egret.tween.*">
+
+	<e:Group id="tweenGroup" width="666" height="700" x="0" anchorOffsetY="0" verticalCenter="0">
+		<e:Image anchorOffsetY="0" scaleX="1" scaleY="1" source="pub_bg2_png" height="700" width="666" scale9Grid="0,105,666,6" verticalCenter="0" horizontalCenter="0"/>
+		<e:Image horizontalCenter="0" source="yqhy_png" top="0"/>
+
+		<e:Label text="哇！万分之一的机会，万中无一的幸运送给你，今天真是你的幸运日！" x="50.3" size="25"  verticalAlign="middle" anchorOffsetX="0" width="564.4" anchorOffsetY="0" height="76.52" top="69"/>
+		<ns1:ShadowButton id="doBtn" label="去完成" anchorOffsetY="0" skinName="commonButtonY2Skin" horizontalCenter="-0.5" bottom="30"/>
+		<e:Label text="任务目标：" x="38.18" y="159.17" size="24" textColor="0xe2bf58"/>
+		<e:Label id="desLabel" text="任务描述任务描述任务描述" x="149.88" y="159.07" size="24" textColor="0xe2bf58"/>
+		<ns1:GetItemComponent id="itemIcon" width="100" height="100" skinName="GetItemRendererSkin" verticalCenter="0" horizontalCenter="0"/>
+
+
+
+	</e:Group>
+</e:Skin>

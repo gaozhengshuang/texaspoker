@@ -166,7 +166,7 @@ class RankManager
                 {
                     RankManager.tryFixFriendRank(type, list);
                     rankListInfo.list = list;
-                    rankListInfo.lastTime = TimeManager.GetServerUtcTimestamp();
+                    rankListInfo.lastTime = TimeManager.GetServerUtcSecondstamp();
                 }
                 RankManager.getRankListEvent.dispatch(result.data.myRank);
             }
@@ -226,7 +226,7 @@ class RankManager
     {
         if (InfoUtil.checkAvailable(info))
         {
-            let time: number = TimeManager.GetServerUtcTimestamp() - info.lastTime;
+            let time: number = TimeManager.GetServerUtcSecondstamp() - info.lastTime;
             if (time > info.definition.Cd)
             {
                 return true;
