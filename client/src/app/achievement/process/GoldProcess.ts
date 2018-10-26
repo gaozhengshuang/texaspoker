@@ -1,7 +1,7 @@
 /**
  * 金币成就进度信息
  */
-class GoldProcess extends BaseAchieveProcessInfo 
+class GoldProcess extends BaseAchieveProcess 
 {
     public init(process: number)
     {

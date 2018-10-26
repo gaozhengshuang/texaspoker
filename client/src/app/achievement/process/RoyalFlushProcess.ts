@@ -1,7 +1,7 @@
 /**
  * 皇家同花顺成就进度信息
  */
-class RoyalFlushProcess extends BaseAchieveProcessInfo 
+class RoyalFlushProcess extends BaseAchieveProcess 
 {
     public init(process: number)
     {

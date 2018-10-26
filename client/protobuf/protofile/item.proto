@@ -60,3 +60,19 @@ message GW2C_RetGoldExchange {
     optional int32 gold = 1;       // 增量
 }
 
+message UserItemInfo {
+    optional int32 id = 1;
+    optional int32 num = 2;
+}
+
+//上线推送道具
+message GW2C_PushItemList {
+    repeated UserItemInfo list = 1;
+}
+
+//更新道具数量
+message GW2C_PushUpdateItem {
+    optional int32 id = 1;
+    optional int32 num = 2;    
+}
+

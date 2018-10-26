@@ -1,7 +1,7 @@
 /**
  * 四条成就进度信息
  */
-class FourOfAKindProcess extends BaseAchieveProcessInfo 
+class FourOfAKindProcess extends BaseAchieveProcess 
 {
     public init(process: number)
     {

@@ -24,5 +24,10 @@ class HWResultCardsInfo extends BaseServerValueInfo
     public reset()
     {
         super.reset();
+        this.cardList = undefined;
+        this.cardTypeDes = undefined;
+        this.cardType = undefined;
+        this.resultDes = undefined;
+        this.pos = 0;
     }
 }

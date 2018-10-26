@@ -1,7 +1,7 @@
 /**
  * 同花顺成就进度信息
  */
-class StraightFlushProcess extends BaseAchieveProcessInfo 
+class StraightFlushProcess extends BaseAchieveProcess 
 {
     public init(process: number)
     {

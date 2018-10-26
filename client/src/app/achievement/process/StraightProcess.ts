@@ -1,7 +1,7 @@
 /**
  * 顺子成就进度信息
  */
-class StraightProcess extends BaseAchieveProcessInfo 
+class StraightProcess extends BaseAchieveProcess 
 {
     public init(process: number)
     {

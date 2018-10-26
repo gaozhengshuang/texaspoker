@@ -1,7 +1,7 @@
 /**
  * 赢得百人大战进度信息
  */
-class WinHundredWarProcess extends BaseAchieveProcessInfo 
+class WinHundredWarProcess extends BaseAchieveProcess 
 {
     public init(process: number)
     {

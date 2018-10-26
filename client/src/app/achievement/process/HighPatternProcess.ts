@@ -1,7 +1,7 @@
 /**
  * 高级场对局成就进度信息
  */
-class HighPatternProcess extends BaseAchieveProcessInfo 
+class HighPatternProcess extends BaseAchieveProcess 
 {
     public init(process: number)
     {

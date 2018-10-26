@@ -91,7 +91,19 @@ enum AchieveGroup
 	/**
 	 * 百人大战胜利
 	 */
-	WinHWGroup = 2041
+	WinHWGroup = 2041,
+	/**
+	 * 幸运任务1
+	 */
+	LuckyGroup1 = 4001,
+	/**
+	 * 幸运任务2
+	 */
+	LuckyGroup2 = 4002,
+	/**
+	 * 幸运任务3
+	 */
+	LuckyGroup3 = 4003,
 }
 
 /**
@@ -237,4 +249,15 @@ enum AchieveDailyType
      * 成长任务
      */
 	GrowUp = 3,
+}
+
+/**
+ * 动态任务类型，可以动态接取
+ */
+enum DynamicTaskType
+{
+	/**
+	 * 幸运任务
+	 */
+	Lucky = 1,
 }

@@ -1,7 +1,7 @@
 /**
  * 葫芦成就进度信息
  */
-class FullhouseProcess extends BaseAchieveProcessInfo 
+class FullhouseProcess extends BaseAchieveProcess 
 {
     public init(process: number)
     {

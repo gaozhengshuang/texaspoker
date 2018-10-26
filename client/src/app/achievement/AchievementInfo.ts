@@ -34,4 +34,16 @@ class AchievementInfo implements IHaveDefintionInfo
      * 是否为别人的成就
      */
     public isOther: boolean;
+    /**
+     * 是否是激活
+     */
+    public isActive:boolean;
+    public setActive()
+    {
+        this.isActive = true;
+        if(this.definition && this.definition.LuckyTask > 0)
+        {
+            this.isActive = false;
+        }
+    }
 }

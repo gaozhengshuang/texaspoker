@@ -144,12 +144,24 @@ class HWPanelPitSupport extends BaseHWPanelSupport
                 pitInfo.headComponent.init(null);
             }
         }
-        if (data.pos == 0 && HundredWarManager.isSysBanker(data.roleId))
+        if (data.pos == 0)
         {
             let pitInfo: HWPitInfo;
             pitInfo = this.target.getPitInfoByIndex(data.pos);
-            pitInfo.headComponent.init(HundredWarManager.sysBanker);
-            this.target.bankerNameLabel.text = HundredWarManager.sysBanker.name;
+            if (HundredWarManager.isSysBanker(data.roleId))
+            {
+                pitInfo.headComponent.init(HundredWarManager.sysBanker);
+                this.target.bankerNameLabel.text = HundredWarManager.sysBanker.name;
+            }
+            else
+            {
+                let playerInfo = HundredWarManager.getPlayerInfo(data.roleId);
+                pitInfo.headComponent.init(playerInfo);
+                if (playerInfo)
+                {
+                    this.target.bankerNameLabel.text = playerInfo.name;
+                }
+            }
         }
     }
 }

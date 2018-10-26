@@ -543,7 +543,7 @@ class ChampionshipManager
     {
         if (result.cmdId == Command.C2RS_ReqMTTJoin)
         {
-            AlertManager.showAlert("该赛事因为报名人数不足已经取消。", ChampionshipManager.reqGetMTTListInfo);
+            AlertManager.showAlert(result.error, ChampionshipManager.reqGetMTTListInfo);
         }
     }
     /**

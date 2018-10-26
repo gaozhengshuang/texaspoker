@@ -24,7 +24,7 @@ class HundredWarCardTypeDefined
                 let def = table.HundredWarCardType[i];
                 if (def.Type == type)
                 {
-                    return def[i].Odds;
+                    return table.HundredWarCardType[i].Odds;
                 }
             }
         }

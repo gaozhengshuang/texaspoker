@@ -1,7 +1,7 @@
 /**
  * 三条成就进度信息
  */
-class ThreeOfAKindProcess extends BaseAchieveProcessInfo 
+class ThreeOfAKindProcess extends BaseAchieveProcess 
 {
     public init(process: number)
     {

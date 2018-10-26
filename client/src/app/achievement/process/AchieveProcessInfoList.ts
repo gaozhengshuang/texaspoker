@@ -3,7 +3,7 @@
  */
 class AchieveProcessInfoList
 {
-    public list: Array<BaseAchieveProcessInfo> = new Array<BaseAchieveProcessInfo>();
+    public list: Array<BaseAchieveProcess> = new Array<BaseAchieveProcess>();
     public type: AchieveType;
     constructor(type: AchieveType)
     {
@@ -21,5 +21,6 @@ class AchieveProcessInfoList
     public clear()
     {
         AchieveProcessManager.removeProcessListener(this.type, this.onProcessUpdate, this);
+        this.list = [];
     }
 }
