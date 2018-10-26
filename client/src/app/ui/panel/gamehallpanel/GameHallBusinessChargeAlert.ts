@@ -9,31 +9,9 @@ class GameHallBusinessChargeAlert
 		this.target = target;
 	}
 
-	public init(appendData: any)
+	public init()
 	{
-		if (UserManager.isBust)
-		{
-			switch (appendData)
-			{
-				case PlayingFieldType.Primary:
-				case PlayingFieldType.Middle:
-					BusinessActivityManager.chargeAlertHandler.reqGetBankruptInfo(ChargeAlertReqType.GoAheadCar);
-					break;
-				case PlayingFieldType.High:
-					BusinessActivityManager.chargeAlertHandler.reqGetBankruptInfo(ChargeAlertReqType.Bankrupt);
-					break;
-			}
-		}
-		else
-		{
-			switch (appendData)
-			{
-				case PlayingFieldType.Primary:
-				case PlayingFieldType.Middle:
-					BusinessActivityManager.chargeAlertHandler.reqGetBankruptInfo(ChargeAlertReqType.ReturnPeakedness);
-					break;
-			}
-		}
+		BusinessActivityManager.chargeAlertHandler.reqGetBankruptInfo();
 	}
 
 	public onEnable()
@@ -51,20 +29,7 @@ class GameHallBusinessChargeAlert
  	*/
 	private onTryChargeAlert()
 	{
-		let def: table.ITPayBagDefine = table.TPayBagById[BusinessActivityManager.chargeAlertHandler.data.pushid];
-		switch (def.Id)
-		{
-			case ChargeAlertType.Bankrupt:
-				UIManager.showPanel(UIModuleName.BankrupHighSubsidyPanel, def);
-				break;
-			case ChargeAlertType.GoAheadCar1:
-			case ChargeAlertType.GoAheadCar2:
-				UIManager.showPanel(UIModuleName.GoAheadHigherFieldPanel, { def: def, type: BusinessType.GoAheadHighField });
-				break;
-			case ChargeAlertType.ReturnPeakedness:
-				UIManager.showPanel(UIModuleName.GoAheadHigherFieldPanel, { def: def, type: BusinessType.ReturnPeakedness });
-				break;
-		}
+		this.tryBrankruptHighField();
 	}
 
 	/**

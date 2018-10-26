@@ -133,6 +133,9 @@ func (u *GateUser) GetActivityAwardByAwardId(awardid int32, reason string) bool 
 		u.AddItem(items[i], num[i], reason, true)
 	}
 
+	if config.PayPushId > 0 {
+		Redis().Set(fmt.Sprintf("paypush_%d_%d", u.Id(), config.PayPushId), 2, 0)
+	}
 	return true
 }
 

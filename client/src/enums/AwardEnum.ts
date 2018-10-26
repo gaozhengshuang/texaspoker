@@ -35,18 +35,18 @@ enum AwardFixedId
 	 * 黄金月卡
 	 */
 	GoldMonthCard = 828,
-	// /**
-	//  * 高级破产
-	//  */
-	// BankruptHigh = 4000,
-	// /**
-	//  * 直通车模式1 
-	//  */
-	// GoAheadPattern1 = 4001,
-	// /**
-	//  * 直通车模式2
-	//  */
-	// GoAheadPattern2 = 4002,
+	/**
+	 * 高级破产
+	 */
+	BankruptHigh = 4000,
+	/**
+	 * 直通车模式1 
+	 */
+	GoAheadPattern1 = 4001,
+	/**
+	 * 直通车模式2
+	 */
+	GoAheadPattern2 = 4002,
 }
 
 /**
