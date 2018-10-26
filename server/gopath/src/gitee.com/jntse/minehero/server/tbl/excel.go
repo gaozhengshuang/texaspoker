@@ -27,6 +27,7 @@ var Activity_listBase = table.InsActivity_listBaseTable
 var GiftProBase = table.InsGiftProBaseTable
 var HundredWarCardTypeBase = table.InsHundredWarCardTypeBaseTable
 var TMarquee = table.InsTMarqueeTable
+var PayBagBase = table.InsPayBagBaseTable
 var GoldenBeanAwardBase = table.InsGoldenBeanAwardBaseTable
 var MorePlayBase = table.InsMorePlayBaseTable
 var ProtoMsgIndex = table.InsProtoMsgIndexTable

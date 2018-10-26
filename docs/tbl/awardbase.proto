@@ -62,6 +62,9 @@ message AwardDefine
 	
 	
 	optional int32 MailId = 15; // 邮件id
+	
+	
+	optional int32 PayPushId = 16; // 关联推送Push 如果有值 必须推送过
 
 }
 
