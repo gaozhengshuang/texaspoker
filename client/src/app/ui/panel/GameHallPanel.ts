@@ -137,7 +137,7 @@ class GameHallPanel extends BasePanel
 
 		ChannelManager.checkUnFinishedPayList();
 		this._btnSupport.init();
-		this._businessChargeAlert.init(appendData);
+		this._businessChargeAlert.init();
 		this._luckyTask.init();
 		// BindAccountManager.reqGetList();//move todo
 		// this.inviteBtn.visible = InviteManager.isInviteOpen; //move todo
@@ -307,17 +307,20 @@ class GameHallPanel extends BasePanel
 				//JumpUtil.JumpToSignIn();
 				break;
 			case this.activityBtn:
-				SoundManager.playEffect(MusicAction.buttonClick);
-				this._panelAnime.setOutAnime();
-				JumpUtil.JumpToActivity();
+				UIManager.showPanel(UIModuleName.GoAheadHigherFieldPanel, { def: table.TPayBagById[2], type: BusinessType.GoAheadHighField });
+
+				// SoundManager.playEffect(MusicAction.buttonClick);
+				// this._panelAnime.setOutAnime();
+				// JumpUtil.JumpToActivity();
 				break;
 			case this.mailBtn:
 				SoundManager.playEffect(MusicAction.buttonClick);
 				JumpUtil.JumpToMail();
 				break;
 			case this.awardsBtn:
-				SoundManager.playEffect(MusicAction.buttonClick);
-				JumpUtil.JumpToGoldenBeanAward();
+				BusinessActivityManager.chargeAlertHandler.reqGetBankruptInfo(ChargeAlertReqType.ReturnPeakedness);
+				// SoundManager.playEffect(MusicAction.buttonClick);
+				// JumpUtil.JumpToGoldenBeanAward();
 				break;
 			case this.shopBtn:
 				SoundManager.playEffect(MusicAction.buttonClick);

@@ -35,7 +35,7 @@ enum AwardFixedId
 	 * 黄金月卡
 	 */
 	GoldMonthCard = 828,
-	// /**
+	// /**	
 	//  * 高级破产
 	//  */
 	// BankruptHigh = 4000,

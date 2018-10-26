@@ -6,7 +6,7 @@ class BusinessChargeAlertHandler
     /**
      * 上次高级场破产时间
      */
-    public data: msg.GW2C_RetPayPush;
+    public data: msg.GW2C_RetPayRecommend;
 
     /**
      * 拉取充值弹窗相关信息
@@ -18,7 +18,7 @@ class BusinessChargeAlertHandler
             this.data = result.data;
             this.OnGetBankruptInfoEvent.dispatch();
         };
-        SocketManager.call(Command.C2GW_ReqPayPush, { param: payType }, callBack, null, this);
+        SocketManager.call(Command.C2GW_ReqPayRecommend, { param: payType }, callBack, null, this);
     }
     /**
      * 拉取充值弹窗相关信息事件
@@ -59,9 +59,9 @@ enum ChargeAlertType
     /**
      * 直通车2
      */
-    GoAheadCar2 = 2,
+    GoAheadCar2 = 3,
     /**
      * 重返巅峰 
      */
-    ReturnPeakedness = 3,
+    ReturnPeakedness = 4,
 }

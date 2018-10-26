@@ -65,11 +65,13 @@ class GoAheadHigherFieldPanel extends BasePanel
 	{
 		super.onEnable(event);
 		this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onPanelClick, this);
+		AwardManager.OnExchanged.addListener(this.onExchanged, this);
 	}
 	protected onDisable(event: eui.UIEvent): void
 	{
 		super.onDisable(event);
 		this.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onPanelClick, this);
+		AwardManager.OnExchanged.removeListener(this.onExchanged, this);
 	}
 	private onPanelClick(event: egret.TouchEvent)
 	{
@@ -105,9 +107,9 @@ class GoAheadHigherFieldPanel extends BasePanel
 		if (!this.pattern1.parent)
 		{
 			this.itemGroup.addChild(this.pattern1)
-			this.pattern1.init(this._goaheadData1);
-			this.pattern2.init(this._goaheadData2);
 		}
+		this.pattern1.init(this._goaheadData1);
+		this.pattern2.init(this._goaheadData2);
 	}
 	/**
 	 * 显示重返巅峰
@@ -117,7 +119,14 @@ class GoAheadHigherFieldPanel extends BasePanel
 		if (this.pattern1.parent)
 		{
 			this.pattern1.parent.removeChild(this.pattern1)
-			this.pattern2.init(this._peakednessData);
+		}
+		this.pattern2.init(this._peakednessData);
+	}
+	private onExchanged(id: number)
+	{
+		if (id == this._selectPattern.bindData.awardId)
+		{
+			this.onCloseBtnClickHandler(null);
 		}
 	}
 }
