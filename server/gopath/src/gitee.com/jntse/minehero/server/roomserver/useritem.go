@@ -5,7 +5,6 @@ import (
 	"gitee.com/jntse/gotoolkit/log"
 	"gitee.com/jntse/minehero/pbmsg"
 	pb "github.com/gogo/protobuf/proto"
-	"gitee.com/jntse/minehero/server/tbl"
 )
 
 func (u *RoomUser) GetGold() int32 {
@@ -203,28 +202,11 @@ func (u *RoomUser) SetExp(num int32) {
 
 // 添加经验
 func (u *RoomUser) AddExp(num int32, reason string, syn bool) {
-	oldlevel := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "level").Val())
-	exp := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "exp").Val())+num
-	newlevel := oldlevel
-	for {
-		lvlbase, ok := tbl.LevelBasee.ExpById[oldlevel + 1]
-		if ok == false {
-			break
-		}
-
-		// 下一级需要经验
-		if exp < int32(lvlbase.Exp) || lvlbase.Exp == 0 {
-			break
-		}
-
-		exp = exp - int32(lvlbase.Exp)
-		u.OnLevelUp()
-		newlevel++
-	}
-	u.SetExp(exp)
-	//if syn == true { u.SendBattleUser() }
-	u.SyncLevelRankRedis()
-	log.Info("玩家[%d] 添加经验[%d] 老等级[%d] 新等级[%d] 经验[%d] 原因[%s]", u.Id(), num, oldlevel, newlevel, exp, reason)
+	send := &msg.RS2GW_AddExp{}
+	send.Uid = pb.Int64(u.Id())
+	send.Exp = pb.Int32(num)
+	send.Txt = pb.String(reason)
+	u.SendMsg(send)	
 }
 
 // 升级
