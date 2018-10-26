@@ -1,7 +1,7 @@
 /**
  * 两对成就进度信息
  */
-class TwoPairsProcess extends BaseAchieveProcessInfo 
+class TwoPairsProcess extends BaseAchieveProcess 
 {
     public init(process: number)
     {

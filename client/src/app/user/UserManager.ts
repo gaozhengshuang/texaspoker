@@ -206,11 +206,11 @@ class UserManager
 
 	public static reqSimpleUserInfo(roleId: number)
 	{
-		let callback: Function = function (result: game.SpRpcResult)
-		{
-			UserManager.OnGetSimpleUserInfoEvent.dispatch(result.data);
-		}
-		SocketManager.call(Command.SimpleUserInfo_Req_3025, { roleId: roleId }, callback, null, this);
+		// let callback: Function = function (result: game.SpRpcResult)
+		// {
+		// 	UserManager.OnGetSimpleUserInfoEvent.dispatch(result.data);
+		// }
+		// SocketManager.call(Command.SimpleUserInfo_Req_3025, { roleId: roleId }, callback, null, this);
 	}
 	/**
 	 * 发送创建角色信息请求

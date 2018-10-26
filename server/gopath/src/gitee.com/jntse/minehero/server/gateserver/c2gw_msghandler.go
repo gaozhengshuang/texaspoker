@@ -497,7 +497,7 @@ func on_C2GW_ReqTFRoomList(session network.IBaseNetSession, message interface{})
 
 	agent := RoomSvrMgr().FindByName(tbl.Room.TexasFightRoomName)
 	if agent == nil {
-		log.Error("[百人大战] 玩家[%s %d]请求房间列表失败，找不到RoomServer", u.Name(), u.Id())
+		log.Error("[百人大战] 玩家[%s %d]请求百人大战房间列表失败，找不到RoomServer", u.Name(), u.Id())
 		return
 	}
 

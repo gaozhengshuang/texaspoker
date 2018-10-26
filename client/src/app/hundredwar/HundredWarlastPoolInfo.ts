@@ -68,4 +68,13 @@ class HundredWarlastPoolInfo extends BaseServerValueInfo
      * 获奖列表
      */
     public prizeList: Array<SimpleUserInfo>;
+
+    public reset()
+    {
+        super.reset();
+        this.cards = undefined;
+        this.gold = 0;
+        this.time = 0;
+        this.prizeList = null;
+    }
 }

@@ -26,7 +26,7 @@ message C2GW_ReqEnterTFRoom {
 }
 
 message GW2C_RetEnterTFRoom {
-    repeated TFPlayerPos playerlist = 1; // 坐下玩家列表
+    repeated TFPlayer playerlist = 1; // 坐下玩家列表
     repeated TFBetPoolInfo betlist = 2; // 
     repeated int32 mybet = 3;       // 自己下注数量
     optional int32 state = 4;       // 房间状态 (用来表示房间是处于下注 休息 还是其他的阶段)
@@ -210,9 +210,8 @@ message RS2C_PushTFStateChange {
 
 // 位置变更推送
 message RS2C_PushTFPosChange {
-    optional int32 pos = 1;     // 0 庄家位子，其他座位顺时针 1-8
-    optional int64 roleid = 2;
-    optional int32 bankergold = 3;
+    optional TFPlayer player = 1;   // 位置玩家信息
+    optional int32 bankergold = 2;
 }
 
 

@@ -151,3 +151,14 @@ message GW2C_RetTakeAchieveAward {
 	optional int32 id = 1;
 	optional string errcode = 2;
 }
+
+//接取其他任务
+message C2GW_ReqTakeOtherTask {
+	optional int32 tasktype = 1;
+}
+
+//返回接取其他任务
+message GW2C_RetTakeOtherTask {
+	optional int32 tasktype = 1;
+	optional int32 taskid = 2;
+}

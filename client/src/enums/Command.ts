@@ -60,10 +60,6 @@ class Command
      * 推送玩家托管状态
      */
     public static readonly Hosted_PushState_2024: string = "c2024";
-    /**
-     * 请求托管
-     */
-    public static readonly Hosted_Req_3022: string = "c3022";
 
     //--------------------------------------------------------------
     // Chat
@@ -546,7 +542,7 @@ class Command
     /**
      * 拉取某个角色信息（简单）
     */
-    public static readonly SimpleUserInfo_Req_3025 = "c3025";
+    // public static readonly SimpleUserInfo_Req_3025 = "c3025";
     /**
      * 拉取百人大战房间列表
     */
@@ -670,5 +666,9 @@ class Command
      * 充值弹窗相关信息
      */
     public static readonly C2GW_ReqBankruptInfo = "msg.C2GW_ReqBankruptInfo";
+    /**
+     * 接取任务
+     */
+    public static readonly C2GW_ReqTakeOtherTask = "msg.C2GW_ReqTakeOtherTask";
 }
 

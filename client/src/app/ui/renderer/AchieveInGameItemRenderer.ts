@@ -40,7 +40,7 @@ class AchieveInGameItemRenderer extends BaseItemRenderer<AchievementInfo>
 
     private refreshiUI()
     {
-        let groupInfo: BaseAchieveProcessInfo = AchieveProcessManager.getAchieveProcessInfoByGroup(this.bindData.definition.Group);
+        let groupInfo: BaseAchieveProcess = AchieveProcessManager.getAchieveProcessInfoByGroup(this.bindData.definition.Group);
         if (!this.bindData.isComplete)
         {
             this.takeBtn.enabled = false;

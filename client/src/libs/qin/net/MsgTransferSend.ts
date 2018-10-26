@@ -40,8 +40,8 @@ class MsgTransferSend
 		}
 	}
 	/**
-	 * 发送房间的协议
-	 * cmdId 房间子协议号 args子协议参数
+	 * 发送到锦标赛
+	 * cmdId 锦标赛子协议号 args子协议参数
 	 */
 	public static sendMTTRoomProto(cmdId: string, args: any, onResult: Function, onError: Function, thisObj: any, sendFunc?: Function)
 	{

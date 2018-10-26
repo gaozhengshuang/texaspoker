@@ -535,6 +535,10 @@ class UIModuleName
 	 * 直通车&重返巅峰
 	 */
 	public static GoAheadHigherFieldPanel:string = "GoAheadHigherFieldPanel";
+	/**
+	 * 幸运任务
+	 */
+	public static LuckyTaskPanel:string = "LuckyTaskPanel";
 }
 /**
  * 选项卡按钮类型

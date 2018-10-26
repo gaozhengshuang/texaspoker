@@ -1,7 +1,7 @@
 /**
  * 同花成就进度信息
  */
-class FlushProcess extends BaseAchieveProcessInfo 
+class FlushProcess extends BaseAchieveProcess 
 {
     public init(process: number)
     {

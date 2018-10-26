@@ -41,5 +41,9 @@ class HundredWarListInfo extends BaseServerValueInfo implements IHaveDefintionIn
     public reset()
     {
         super.reset();
+        this.id = 0;
+        this.hwId = 0;
+        this.join = 0;
+        this.pool = 0;
     }
 }

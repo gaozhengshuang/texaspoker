@@ -1,7 +1,7 @@
 /**
  * 胜利成就进度信息
  */
-class WinProcess extends BaseAchieveProcessInfo 
+class WinProcess extends BaseAchieveProcess 
 {
     public init(process: number)
     {

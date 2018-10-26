@@ -26,6 +26,8 @@ class HundredWarBankerListPanel extends BasePanel
         UIUtil.listRenderer(this.bankerList, this.bankerScroller, HundredWarBankerItemRenderer, ScrollViewDirection.Vertical_T_D, eui.ScrollPolicy.ON, null, true);
         this.bankerScroller.scrollPolicyH = eui.ScrollPolicy.OFF;
         UIManager.pushResizeScroller(this.bankerScroller, 500);
+
+        this.bankerGoldHs.visible = false;
     }
     public init(appendData: any)
     {
@@ -87,7 +89,7 @@ class HundredWarBankerListPanel extends BasePanel
         else
         {
             this.tipsLabel.visible = true;
-            this.bankerGoldHs.visible = true;
+            this.bankerGoldHs.visible = false;
             this.bankBtn.label = "我要上庄";
             this.bankBtn.enabled = true;
             if (InfoUtil.checkAvailable(HundredWarManager.roomInfo))
@@ -97,7 +99,8 @@ class HundredWarBankerListPanel extends BasePanel
                     this.bankerGoldHs.maximum = UserManager.userInfo.gold;
                     this.bankerGoldHs.touchChildren = true;
                     this.bankerGoldHs.minimum = this.bankerGoldHs.value = HundredWarManager.roomInfo.definition.BankerGold;
-                    this.tipsLabel.text = game.MathUtil.formatNum(this.bankerGoldHs.value);
+                    this.tipsLabel.text = game.MathUtil.formatNum(UserManager.userInfo.gold); 
+                    // this.tipsLabel.text = game.MathUtil.formatNum(this.bankerGoldHs.value); //move todo
                 }
                 else
                 {
@@ -140,7 +143,8 @@ class HundredWarBankerListPanel extends BasePanel
                 {
                     if (UserManager.userInfo.gold > HundredWarManager.roomInfo.definition.BankerGold)
                     {
-                        HundredWarManager.panelHandler.reqUpBanker(this.bankerGoldHs.value);
+                        HundredWarManager.panelHandler.reqUpBanker(UserManager.userInfo.gold);
+                        // HundredWarManager.panelHandler.reqUpBanker(this.bankerGoldHs.value);
                     }
                     else
                     {

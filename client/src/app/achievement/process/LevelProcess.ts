@@ -1,7 +1,7 @@
 /**
  * 等级成就进度信息
  */
-class LevelProcess extends BaseAchieveProcessInfo 
+class LevelProcess extends BaseAchieveProcess 
 {
     public init(process: number)
     {

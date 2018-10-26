@@ -1,7 +1,7 @@
 /**
  * 百人大战欢乐场对局进度信息
  */
-class HundredWarFunPatternProcess extends BaseAchieveProcessInfo 
+class HundredWarFunPatternProcess extends BaseAchieveProcess 
 {
     public init(process: number)
     {

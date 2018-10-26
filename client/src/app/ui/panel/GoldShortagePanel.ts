@@ -59,21 +59,13 @@ class GoldShortagePanel extends BasePanel
     {
         if (this._shopInfo && this._shopInfo.definition)
         {
-            // let awardDef: AwardDefinition = AwardDefined.GetInstance().getDefinition(this._shopInfo.definition.awardId);  // move todo
-            // if (awardDef)
-            // {
-            //     let def: AwardInfoDefinition;
-            //     for (let cost of awardDef.costList)
-            //     {
-            //         if (cost.type == CostType.RMB)
-            //         {
-            //             def = cost;
-            //         }
-            //     }
-            //     AwardManager.OnExchanged.removeListener(this.onExchanged, this);
-            //     AwardManager.OnExchanged.addListener(this.onExchanged, this);
-            //     ChannelManager.PaySend(this._shopInfo.id);
-            // }
+            let awardDef: table.IAwardDefine = table.AwardById[this._shopInfo.definition.AwardId];
+            if (awardDef)
+            {
+                AwardManager.OnExchanged.removeListener(this.onExchanged, this);
+                AwardManager.OnExchanged.addListener(this.onExchanged, this);
+                ChannelManager.PaySend(this._shopInfo.id);
+            }
         }
     }
     private onExchanged(id: number)

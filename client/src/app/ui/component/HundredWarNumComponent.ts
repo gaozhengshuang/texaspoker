@@ -74,7 +74,8 @@ class HundredWarNumComponent extends BaseComponent<string>
             game.Console.logError("数字类型错误！   type：" + this.type);
         }
 
-        numImg.scaleX = numImg.scaleY = this.height / numImg.texture.textureHeight;
+        numImg.scaleX = numImg.scaleY = 1;//this.height / numImg.texture.textureHeight; // move todo
+        // numImg.scaleX = numImg.scaleY = this.height / numImg.texture.textureHeight;
     }
     private reset()
     {

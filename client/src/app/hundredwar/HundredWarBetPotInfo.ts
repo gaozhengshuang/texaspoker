@@ -27,6 +27,11 @@ class HWBetPotInfo extends BaseServerValueInfo
     public reset()
     {
         super.reset();
+        this.bet = 0;
+        this.cards = undefined;
+        this.pos = 0;
+        this.myBet = 0;
+        this.win = undefined;
     }
 }
 /**

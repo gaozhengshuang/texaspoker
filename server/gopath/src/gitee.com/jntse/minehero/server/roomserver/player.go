@@ -166,9 +166,13 @@ func (this *TexasPlayer) BetStart() {
 		if this.trusteeship != 0 {
 			this.bettime = this.trusteeship
 		}else{
-			this.bettime = this.room.tconf.Cd
+			if this.isai {
+				this.bettime = this.room.tconf.ClientCd
+			}else {
+				this.bettime = this.room.tconf.Cd
+			}
 		}
-		this.aiacttime = util.RandBetween(2, this.room.tconf.ClientCd)
+		this.aiacttime = util.RandBetween(3, this.room.tconf.ClientCd-2)
 		send := &msg.RS2C_PushActionPosChange{}
 		send.Pos = pb.Int32(this.pos+1)
 		send.Postime = pb.Int32(int32(util.CURTIME()))

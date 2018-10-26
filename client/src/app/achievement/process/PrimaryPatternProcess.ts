@@ -1,7 +1,7 @@
 /**
  * 初级场对局成就进度信息
  */
-class PrimaryPatternProcess extends BaseAchieveProcessInfo 
+class PrimaryPatternProcess extends BaseAchieveProcess 
 {
     public init(process: number)
     {
