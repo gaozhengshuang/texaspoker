@@ -158,23 +158,12 @@ message RS2C_RolePushPropertyChange
 	optional int32 goldcardtime = 6; //黄金月卡到期时间  
 }
 
-//高级场破产弹礼包信息
-message C2GW_ReqBankruptInfo {
-
-}
-
-message GW2C_RetBankruptInfo {
-	optional int64 time = 1;  //最近一次高级场破产时间
-	optional int32 count = 2; //高级场破产后开始三天内在初、中级场里破产次数
-	optional int32 play = 3;  //高级场破产后开始一天内在初、中级场玩的局数
-}
-
 //礼包推送
-message C2GW_ReqPayPush {
+message C2GW_ReqPayRecommend {
 	optional int32 param = 1;
 }
 
-message GW2C_RetPayPush {
+message GW2C_RetPayRecommend {
 	optional int32 pushid = 1;
 }
 

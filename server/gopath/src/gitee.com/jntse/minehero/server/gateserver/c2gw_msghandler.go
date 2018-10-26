@@ -99,7 +99,7 @@ func (mh *C2GWMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqTakeOtherTask{}, on_C2GW_ReqTakeOtherTask)
 
 	//高级场破产弹窗
-	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqBankruptInfo{}, on_C2GW_ReqBankruptInfo)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqPayRecommend{}, on_C2GW_ReqPayRecommend)
 }
 
 // 客户端心跳
@@ -674,14 +674,16 @@ func on_C2GW_ReqTakeAchieveAward(session network.IBaseNetSession, message interf
 	u.SendMsg(send)
 }
 
-func on_C2GW_ReqBankruptInfo(session network.IBaseNetSession, message interface{}) {
+func on_C2GW_ReqPayRecommend(session network.IBaseNetSession, message interface{}) {
 	u := ExtractSessionUser(session)
 	if u == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
 		session.Close()
 		return
 	}
-	u.OnReqBankruptInfo()
+	tmsg := message.(*msg.C2GW_ReqPayRecommend)
+	param := tmsg.GetParam()
+	u.CheckPayPush(param)
 }
 
 func on_C2GW_ReqTakeOtherTask(session network.IBaseNetSession, message interface{}) {

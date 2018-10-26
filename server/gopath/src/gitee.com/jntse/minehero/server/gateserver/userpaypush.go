@@ -69,28 +69,8 @@ func (u *GateUser) CheckPayPush (param int32) {
 
 func (u *GateUser) SendPayPush (pushid int32) {
 	log.Info("推送玩家[%s]%d礼包 推送id:%d", u.Name(), u.Id(), pushid)
-	send := &msg.GW2C_RetPayPush{}
+	send := &msg.GW2C_RetPayRecommend{}
 	send.Pushid = pb.Int32(pushid)
-}
-
-
-func (u *GateUser) OnReqBankruptInfo() {
-	send := &msg.GW2C_RetBankruptInfo{}
-	cmdmap, err := Redis().HGetAll(fmt.Sprintf("bankrupt_%d", u.Id())).Result()
-	if err == nil {
-		for k, v := range cmdmap {
-			switch k {
-				case "time":
-					send.Time = pb.Int64(util.Atol(v))
-				case "count":
-					send.Count = pb.Int32(util.Atoi(v))
-				case "play":
-					send.Play = pb.Int32(util.Atoi(v))
-				default :
-			}
-		}
-	}
-	u.SendMsg(send)
 }
 
 func (u *GateUser) OnDailyClear() {
