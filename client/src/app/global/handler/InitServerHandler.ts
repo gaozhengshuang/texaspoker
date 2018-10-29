@@ -119,7 +119,7 @@ class InitServerHandler
 	{
 		AchievementManager.initialize(result);
 		AchieveProcessManager.Initialize(result);
-		this.reqGetActivityList(); //活动最后拉去
+		this.reqGetActivityList(); //活动最后拉取
 	}
 	private reqGetInsideRoomIdList()
 	{
@@ -144,6 +144,7 @@ class InitServerHandler
 		//拉取已报名的赛事列表
 		let callback: Function = function (result: game.SpRpcResult)
 		{
+			ChampionshipManager.initJoinedMttList(result);
 			this.reqGetMailList();
 		};
 		MsgTransferSend.sendMTTRoomProto(Command.C2RS_ReqJoinedMTTList, {}, callback, null, this);

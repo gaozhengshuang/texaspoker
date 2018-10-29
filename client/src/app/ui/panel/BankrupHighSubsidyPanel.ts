@@ -9,7 +9,7 @@ class BankrupHighSubsidyPanel extends BasePanel
 
 	public itemImg: eui.Image;
 
-	private _def:table.IAwardDefine;
+	private _def:table.ITPayBagDefine;
 
 	public constructor()
 	{
@@ -19,15 +19,15 @@ class BankrupHighSubsidyPanel extends BasePanel
 	protected onAwake(event: eui.UIEvent)
 	{
 		super.onAwake(event);
-		this._def = table.AwardById[AwardFixedId.BankruptHigh];
 	}
 	public init(appendData: any)
 	{
 		super.init(appendData);
+		this._def = appendData;
 		if (this._def)
 		{
-			this.awardLabel.text = AwardManager.getAwardDesDigital(AwardFixedId.BankruptHigh, game.StringConstants.Empty);
-			this.costLabel.text = AwardManager.getCostDesDigital(AwardFixedId.BankruptHigh, game.StringConstants.Empty);
+			this.awardLabel.text = AwardManager.getAwardDesDigital(this._def.AwardId[0], game.StringConstants.Empty);
+			this.costLabel.text = AwardManager.getCostDesDigital(this._def.AwardId[0], game.StringConstants.Empty);
 		}
 		else
 		{
@@ -50,7 +50,7 @@ class BankrupHighSubsidyPanel extends BasePanel
 	}
 	private refresh(id: number)
 	{
-		if (id == AwardFixedId.BankruptHigh)
+		if (id == this._def.AwardId[0])
 		{
 			UIManager.showFloatTips("购买成功！");
 			this.onCloseBtnClickHandler(null);
@@ -58,6 +58,6 @@ class BankrupHighSubsidyPanel extends BasePanel
 	}
 	private onBuyNowClik(event: egret.TouchEvent)
 	{
-		AwardManager.Exchange(AwardFixedId.BankruptHigh);
+		AwardManager.Exchange(this._def.AwardId[0]);
 	}
 }

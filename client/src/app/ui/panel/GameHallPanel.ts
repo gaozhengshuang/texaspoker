@@ -97,7 +97,7 @@ class GameHallPanel extends BasePanel
 	protected onAwake(event: eui.UIEvent)
 	{
 		super.onAwake(event);
-		// this.addRedPoint(); //move todo
+		this.addRedPoint();
 		this.moreGroup.visible = false;
 		this.dealerImg.source = BundleManager.getResNameByBundle(ResFixedFileName.Dealer_Png);
 		UIManager.pushResizeGroup(this.panelBottom);
@@ -307,6 +307,8 @@ class GameHallPanel extends BasePanel
 				//JumpUtil.JumpToSignIn();
 				break;
 			case this.activityBtn:
+				// UIManager.showPanel(UIModuleName.GoAheadHigherFieldPanel, { def: table.TPayBagById[2], type: BusinessType.GoAheadHighField });
+
 				SoundManager.playEffect(MusicAction.buttonClick);
 				this._panelAnime.setOutAnime();
 				JumpUtil.JumpToActivity();
@@ -316,6 +318,7 @@ class GameHallPanel extends BasePanel
 				JumpUtil.JumpToMail();
 				break;
 			case this.awardsBtn:
+				// BusinessActivityManager.chargeAlertHandler.reqGetBankruptInfo(ChargeAlertReqType.ReturnPeakedness);
 				SoundManager.playEffect(MusicAction.buttonClick);
 				JumpUtil.JumpToGoldenBeanAward();
 				break;

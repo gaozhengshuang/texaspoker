@@ -15,7 +15,7 @@ class HWPanelPitSupport extends BaseHWPanelSupport
     public onEnable()
     {
         super.onEnable();
-        UserManager.OnGetSimpleUserInfoEvent.addListener(this.refreshPitInfoByRoleId, this);
+        // UserManager.OnGetSimpleUserInfoEvent.addListener(this.refreshPitInfoByRoleId, this);
         HundredWarManager.onPosChangeEvent.addListener(this.playerLeave, this);
         HundredWarManager.OnGetPlayerInfoEvent.addListener(this.setPitInfo, this);
         HundredWarManager.onBetEvent.addListener(this.refreshSelfPitInfo, this);
@@ -24,7 +24,7 @@ class HWPanelPitSupport extends BaseHWPanelSupport
     public onDisable()
     {
         super.onDisable();
-        UserManager.OnGetSimpleUserInfoEvent.removeListener(this.refreshPitInfoByRoleId, this);
+        // UserManager.OnGetSimpleUserInfoEvent.removeListener(this.refreshPitInfoByRoleId, this);
         HundredWarManager.onPosChangeEvent.removeListener(this.playerLeave, this);
         HundredWarManager.OnGetPlayerInfoEvent.removeListener(this.setPitInfo, this);
         HundredWarManager.onBetEvent.removeListener(this.refreshSelfPitInfo, this);
@@ -136,12 +136,17 @@ class HWPanelPitSupport extends BaseHWPanelSupport
     {
         if (data.pos != 0)
         {
+            let pitInfo: HWPitInfo;
+            pitInfo = this.target.getPitInfoByIndex(data.pos); //move todo
             if (!data.roleId)
             {
                 //非庄家玩家离开座位  立即刷新位置信息
-                let pitInfo: HWPitInfo;
-                pitInfo = this.target.getPitInfoByIndex(data.pos);
                 pitInfo.headComponent.init(null);
+            }
+            else
+            {
+                let playerInfo = HundredWarManager.getPlayerInfo(data.roleId);
+                pitInfo.headComponent.init(playerInfo);
             }
         }
         if (data.pos == 0)

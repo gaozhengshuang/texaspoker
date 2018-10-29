@@ -51,6 +51,13 @@ class SceneManager
 	 */
 	private static _currentScene: BaseScene;
 	/**
+	 * 当前场景
+	 */
+	public static get currentScene(): BaseScene
+	{
+		return SceneManager._currentScene;
+	}
+	/**
 	 * 上一场景
 	 */
 	private static _lastScene: BaseScene;

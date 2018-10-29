@@ -112,7 +112,7 @@ class InvitePanel extends BasePanel
         InviteManager.OnBindListInfoEvent.addListener(this.setBringImazamoxInfo, this);
         InviteManager.OnPayListInfoEvent.addListener(this.setBringGoldInfo, this);
         InviteManager.OnBindInviteCodeEvent.addListener(this.bindInviteCodeSuccess, this);
-        UserManager.OnGetSimpleUserInfoEvent.addListener(this.setBindInfo, this);
+        // UserManager.OnGetSimpleUserInfoEvent.addListener(this.setBindInfo, this); //move todo
         InviteManager.OnBringBeanEvent.addListener(this.bringImazamoxSuccess, this);
         InviteManager.OnBringGoldEvent.addListener(this.bringGoldSuccess, this);
         InviteManager.OnInviteAwardEvent.addListener(this.setGetAwardInfo, this);
@@ -129,7 +129,7 @@ class InvitePanel extends BasePanel
         InviteManager.OnBindListInfoEvent.removeListener(this.setBringImazamoxInfo, this);
         InviteManager.OnPayListInfoEvent.removeListener(this.setBringGoldInfo, this);
         InviteManager.OnBindInviteCodeEvent.removeListener(this.bindInviteCodeSuccess, this);
-        UserManager.OnGetSimpleUserInfoEvent.removeListener(this.setBindInfo, this);
+        // UserManager.OnGetSimpleUserInfoEvent.removeListener(this.setBindInfo, this); // move todo
         InviteManager.OnBringBeanEvent.removeListener(this.bringImazamoxSuccess, this);
         InviteManager.OnBringGoldEvent.removeListener(this.bringGoldSuccess, this);
         InviteManager.OnInviteAwardEvent.removeListener(this.setGetAwardInfo, this);

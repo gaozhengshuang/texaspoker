@@ -665,7 +665,7 @@ class Command
     /**
      * 充值弹窗相关信息
      */
-    public static readonly C2GW_ReqBankruptInfo = "msg.C2GW_ReqBankruptInfo";
+    public static readonly C2GW_ReqPayRecommend = "msg.C2GW_ReqPayRecommend";
     /**
      * 接取任务
      */

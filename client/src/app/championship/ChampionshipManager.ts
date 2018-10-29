@@ -268,36 +268,39 @@ class ChampionshipManager
     */
     public static reqJoinedMTTList()
     {
-        let callback: Function = function (result: game.SpRpcResult)
+        MsgTransferSend.sendMTTRoomProto(Command.C2RS_ReqJoinedMTTList, {}, ChampionshipManager.initJoinedMttList, null, this);
+    }
+    /**
+     * 已参加的锦标赛列表
+     */
+    public static initJoinedMttList(result: game.SpRpcResult)
+    {
+        let data: msg.RS2C_RetJoinedMTTList = result.data;
+        if (data && data.mttlist)
         {
-            let data: msg.RS2C_RetJoinedMTTList = result.data;
-            if (data && data.mttlist)
+            game.ArrayUtil.Clear(ChampionshipManager.joinMTTList);
+            for (let mttInfo of data.mttlist)
             {
-                game.ArrayUtil.Clear(ChampionshipManager.joinMTTList);
-                for (let mttInfo of data.mttlist)
+                let matchinfo: MatchRoomInfo = new MatchRoomInfo();
+                matchinfo.copyValueFromIgnoreCase(mttInfo);
+                if (matchinfo.definition && matchinfo.definition.Type == MatchType.SNG)
                 {
-                    let matchinfo: MatchRoomInfo = new MatchRoomInfo();
-                    matchinfo.copyValueFromIgnoreCase(mttInfo);
-                    if (matchinfo.definition && matchinfo.definition.Type == MatchType.SNG)
-                    {
-                        ChampionshipManager.setOpenAndCloseTime(matchinfo);
-                    }
-                    for (let existInfo of ChampionshipManager.processMTTList)
-                    {
-                        if (existInfo.recordId == matchinfo.recordId)
-                        {
-                            matchinfo.roomId = existInfo.roomId; //沿用上次数据的房间ID 单步更新有推送
-                            break;
-                        }
-                    }
-                    ChampionshipManager.joinMTTList.push(matchinfo);
+                    ChampionshipManager.setOpenAndCloseTime(matchinfo);
                 }
-                ChampionshipManager.joinMTTList.sort(SortUtil.JoinedMTTListSort);
-                ChampionshipManager.remindMTTStart();
-                ChampionshipManager.onGetJoinedMatchListEvent.dispatch();
+                for (let existInfo of ChampionshipManager.processMTTList)
+                {
+                    if (existInfo.recordId == matchinfo.recordId)
+                    {
+                        matchinfo.roomId = existInfo.roomId; //沿用上次数据的房间ID 单步更新有推送
+                        break;
+                    }
+                }
+                ChampionshipManager.joinMTTList.push(matchinfo);
             }
-        };
-        MsgTransferSend.sendMTTRoomProto(Command.C2RS_ReqJoinedMTTList, {}, callback, null, this);
+            ChampionshipManager.joinMTTList.sort(SortUtil.JoinedMTTListSort);
+            ChampionshipManager.remindMTTStart();
+            ChampionshipManager.onGetJoinedMatchListEvent.dispatch();
+        }
     }
     /**
      * 开始进行赛事倒计时（用来通知赛事将要开始）

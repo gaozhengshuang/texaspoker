@@ -132,8 +132,7 @@ class AchievementManager
     {
         if (list == null || list.length == 0)
         {
-            return [];
-            // return AchievementManager.allList;
+            return AchievementManager.allList;
         }
         let result: Array<AchievementInfo> = new Array<AchievementInfo>();
         for (let i: number = 0; i < AchievementManager.allList.length; i++)

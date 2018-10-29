@@ -8,6 +8,7 @@ class MttHaveJoinedListHandler extends BaseNotifyHandle
 		super.init();
 		ChampionshipManager.onRefreshMTTListEvent.addListener(this.refresh, this);
 		ChampionshipManager.onGetJoinedMatchListEvent.addListener(this.refresh, this);
+		ChampionshipManager.onRequestJoinEvent.addListener(this.refresh, this);
 	}
 	public get count(): number
 	{
@@ -31,5 +32,6 @@ class MttHaveJoinedListHandler extends BaseNotifyHandle
 	{
 		ChampionshipManager.onRefreshMTTListEvent.removeListener(this.refresh, this);
 		ChampionshipManager.onGetJoinedMatchListEvent.removeListener(this.refresh, this);
+		ChampionshipManager.onRequestJoinEvent.removeListener(this.refresh, this);
 	}
 }

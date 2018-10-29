@@ -18034,367 +18034,181 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a C2GW_ReqBankruptInfo. */
-    interface IC2GW_ReqBankruptInfo {
-    }
+    /** Properties of a C2GW_ReqPayRecommend. */
+    interface IC2GW_ReqPayRecommend {
 
-    /** Represents a C2GW_ReqBankruptInfo. */
-    class C2GW_ReqBankruptInfo implements IC2GW_ReqBankruptInfo {
-
-        /**
-         * Constructs a new C2GW_ReqBankruptInfo.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IC2GW_ReqBankruptInfo);
-
-        /**
-         * Creates a new C2GW_ReqBankruptInfo instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns C2GW_ReqBankruptInfo instance
-         */
-        public static create(properties?: msg.IC2GW_ReqBankruptInfo): msg.C2GW_ReqBankruptInfo;
-
-        /**
-         * Encodes the specified C2GW_ReqBankruptInfo message. Does not implicitly {@link msg.C2GW_ReqBankruptInfo.verify|verify} messages.
-         * @param message C2GW_ReqBankruptInfo message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IC2GW_ReqBankruptInfo, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified C2GW_ReqBankruptInfo message, length delimited. Does not implicitly {@link msg.C2GW_ReqBankruptInfo.verify|verify} messages.
-         * @param message C2GW_ReqBankruptInfo message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IC2GW_ReqBankruptInfo, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a C2GW_ReqBankruptInfo message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns C2GW_ReqBankruptInfo
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqBankruptInfo;
-
-        /**
-         * Decodes a C2GW_ReqBankruptInfo message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns C2GW_ReqBankruptInfo
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqBankruptInfo;
-
-        /**
-         * Verifies a C2GW_ReqBankruptInfo message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a C2GW_ReqBankruptInfo message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns C2GW_ReqBankruptInfo
-         */
-        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqBankruptInfo;
-
-        /**
-         * Creates a plain object from a C2GW_ReqBankruptInfo message. Also converts values to other types if specified.
-         * @param message C2GW_ReqBankruptInfo
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.C2GW_ReqBankruptInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this C2GW_ReqBankruptInfo to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a GW2C_RetBankruptInfo. */
-    interface IGW2C_RetBankruptInfo {
-
-        /** GW2C_RetBankruptInfo time */
-        time?: (number|Long|null);
-
-        /** GW2C_RetBankruptInfo count */
-        count?: (number|null);
-
-        /** GW2C_RetBankruptInfo play */
-        play?: (number|null);
-    }
-
-    /** Represents a GW2C_RetBankruptInfo. */
-    class GW2C_RetBankruptInfo implements IGW2C_RetBankruptInfo {
-
-        /**
-         * Constructs a new GW2C_RetBankruptInfo.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: msg.IGW2C_RetBankruptInfo);
-
-        /** GW2C_RetBankruptInfo time. */
-        public time: (number|Long);
-
-        /** GW2C_RetBankruptInfo count. */
-        public count: number;
-
-        /** GW2C_RetBankruptInfo play. */
-        public play: number;
-
-        /**
-         * Creates a new GW2C_RetBankruptInfo instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns GW2C_RetBankruptInfo instance
-         */
-        public static create(properties?: msg.IGW2C_RetBankruptInfo): msg.GW2C_RetBankruptInfo;
-
-        /**
-         * Encodes the specified GW2C_RetBankruptInfo message. Does not implicitly {@link msg.GW2C_RetBankruptInfo.verify|verify} messages.
-         * @param message GW2C_RetBankruptInfo message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: msg.IGW2C_RetBankruptInfo, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Encodes the specified GW2C_RetBankruptInfo message, length delimited. Does not implicitly {@link msg.GW2C_RetBankruptInfo.verify|verify} messages.
-         * @param message GW2C_RetBankruptInfo message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: msg.IGW2C_RetBankruptInfo, writer?: protobuf.Writer): protobuf.Writer;
-
-        /**
-         * Decodes a GW2C_RetBankruptInfo message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns GW2C_RetBankruptInfo
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetBankruptInfo;
-
-        /**
-         * Decodes a GW2C_RetBankruptInfo message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns GW2C_RetBankruptInfo
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetBankruptInfo;
-
-        /**
-         * Verifies a GW2C_RetBankruptInfo message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a GW2C_RetBankruptInfo message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns GW2C_RetBankruptInfo
-         */
-        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetBankruptInfo;
-
-        /**
-         * Creates a plain object from a GW2C_RetBankruptInfo message. Also converts values to other types if specified.
-         * @param message GW2C_RetBankruptInfo
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: msg.GW2C_RetBankruptInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this GW2C_RetBankruptInfo to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a C2GW_ReqPayPush. */
-    interface IC2GW_ReqPayPush {
-
-        /** C2GW_ReqPayPush param */
+        /** C2GW_ReqPayRecommend param */
         param?: (number|null);
     }
 
-    /** Represents a C2GW_ReqPayPush. */
-    class C2GW_ReqPayPush implements IC2GW_ReqPayPush {
+    /** Represents a C2GW_ReqPayRecommend. */
+    class C2GW_ReqPayRecommend implements IC2GW_ReqPayRecommend {
 
         /**
-         * Constructs a new C2GW_ReqPayPush.
+         * Constructs a new C2GW_ReqPayRecommend.
          * @param [properties] Properties to set
          */
-        constructor(properties?: msg.IC2GW_ReqPayPush);
+        constructor(properties?: msg.IC2GW_ReqPayRecommend);
 
-        /** C2GW_ReqPayPush param. */
+        /** C2GW_ReqPayRecommend param. */
         public param: number;
 
         /**
-         * Creates a new C2GW_ReqPayPush instance using the specified properties.
+         * Creates a new C2GW_ReqPayRecommend instance using the specified properties.
          * @param [properties] Properties to set
-         * @returns C2GW_ReqPayPush instance
+         * @returns C2GW_ReqPayRecommend instance
          */
-        public static create(properties?: msg.IC2GW_ReqPayPush): msg.C2GW_ReqPayPush;
+        public static create(properties?: msg.IC2GW_ReqPayRecommend): msg.C2GW_ReqPayRecommend;
 
         /**
-         * Encodes the specified C2GW_ReqPayPush message. Does not implicitly {@link msg.C2GW_ReqPayPush.verify|verify} messages.
-         * @param message C2GW_ReqPayPush message or plain object to encode
+         * Encodes the specified C2GW_ReqPayRecommend message. Does not implicitly {@link msg.C2GW_ReqPayRecommend.verify|verify} messages.
+         * @param message C2GW_ReqPayRecommend message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: msg.IC2GW_ReqPayPush, writer?: protobuf.Writer): protobuf.Writer;
+        public static encode(message: msg.IC2GW_ReqPayRecommend, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Encodes the specified C2GW_ReqPayPush message, length delimited. Does not implicitly {@link msg.C2GW_ReqPayPush.verify|verify} messages.
-         * @param message C2GW_ReqPayPush message or plain object to encode
+         * Encodes the specified C2GW_ReqPayRecommend message, length delimited. Does not implicitly {@link msg.C2GW_ReqPayRecommend.verify|verify} messages.
+         * @param message C2GW_ReqPayRecommend message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: msg.IC2GW_ReqPayPush, writer?: protobuf.Writer): protobuf.Writer;
+        public static encodeDelimited(message: msg.IC2GW_ReqPayRecommend, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Decodes a C2GW_ReqPayPush message from the specified reader or buffer.
+         * Decodes a C2GW_ReqPayRecommend message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns C2GW_ReqPayPush
+         * @returns C2GW_ReqPayRecommend
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqPayPush;
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqPayRecommend;
 
         /**
-         * Decodes a C2GW_ReqPayPush message from the specified reader or buffer, length delimited.
+         * Decodes a C2GW_ReqPayRecommend message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns C2GW_ReqPayPush
+         * @returns C2GW_ReqPayRecommend
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqPayPush;
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqPayRecommend;
 
         /**
-         * Verifies a C2GW_ReqPayPush message.
+         * Verifies a C2GW_ReqPayRecommend message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a C2GW_ReqPayPush message from a plain object. Also converts values to their respective internal types.
+         * Creates a C2GW_ReqPayRecommend message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns C2GW_ReqPayPush
+         * @returns C2GW_ReqPayRecommend
          */
-        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqPayPush;
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqPayRecommend;
 
         /**
-         * Creates a plain object from a C2GW_ReqPayPush message. Also converts values to other types if specified.
-         * @param message C2GW_ReqPayPush
+         * Creates a plain object from a C2GW_ReqPayRecommend message. Also converts values to other types if specified.
+         * @param message C2GW_ReqPayRecommend
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: msg.C2GW_ReqPayPush, options?: protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: msg.C2GW_ReqPayRecommend, options?: protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this C2GW_ReqPayPush to JSON.
+         * Converts this C2GW_ReqPayRecommend to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
     }
 
-    /** Properties of a GW2C_RetPayPush. */
-    interface IGW2C_RetPayPush {
+    /** Properties of a GW2C_RetPayRecommend. */
+    interface IGW2C_RetPayRecommend {
 
-        /** GW2C_RetPayPush pushid */
+        /** GW2C_RetPayRecommend pushid */
         pushid?: (number|null);
     }
 
-    /** Represents a GW2C_RetPayPush. */
-    class GW2C_RetPayPush implements IGW2C_RetPayPush {
+    /** Represents a GW2C_RetPayRecommend. */
+    class GW2C_RetPayRecommend implements IGW2C_RetPayRecommend {
 
         /**
-         * Constructs a new GW2C_RetPayPush.
+         * Constructs a new GW2C_RetPayRecommend.
          * @param [properties] Properties to set
          */
-        constructor(properties?: msg.IGW2C_RetPayPush);
+        constructor(properties?: msg.IGW2C_RetPayRecommend);
 
-        /** GW2C_RetPayPush pushid. */
+        /** GW2C_RetPayRecommend pushid. */
         public pushid: number;
 
         /**
-         * Creates a new GW2C_RetPayPush instance using the specified properties.
+         * Creates a new GW2C_RetPayRecommend instance using the specified properties.
          * @param [properties] Properties to set
-         * @returns GW2C_RetPayPush instance
+         * @returns GW2C_RetPayRecommend instance
          */
-        public static create(properties?: msg.IGW2C_RetPayPush): msg.GW2C_RetPayPush;
+        public static create(properties?: msg.IGW2C_RetPayRecommend): msg.GW2C_RetPayRecommend;
 
         /**
-         * Encodes the specified GW2C_RetPayPush message. Does not implicitly {@link msg.GW2C_RetPayPush.verify|verify} messages.
-         * @param message GW2C_RetPayPush message or plain object to encode
+         * Encodes the specified GW2C_RetPayRecommend message. Does not implicitly {@link msg.GW2C_RetPayRecommend.verify|verify} messages.
+         * @param message GW2C_RetPayRecommend message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: msg.IGW2C_RetPayPush, writer?: protobuf.Writer): protobuf.Writer;
+        public static encode(message: msg.IGW2C_RetPayRecommend, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Encodes the specified GW2C_RetPayPush message, length delimited. Does not implicitly {@link msg.GW2C_RetPayPush.verify|verify} messages.
-         * @param message GW2C_RetPayPush message or plain object to encode
+         * Encodes the specified GW2C_RetPayRecommend message, length delimited. Does not implicitly {@link msg.GW2C_RetPayRecommend.verify|verify} messages.
+         * @param message GW2C_RetPayRecommend message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: msg.IGW2C_RetPayPush, writer?: protobuf.Writer): protobuf.Writer;
+        public static encodeDelimited(message: msg.IGW2C_RetPayRecommend, writer?: protobuf.Writer): protobuf.Writer;
 
         /**
-         * Decodes a GW2C_RetPayPush message from the specified reader or buffer.
+         * Decodes a GW2C_RetPayRecommend message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns GW2C_RetPayPush
+         * @returns GW2C_RetPayRecommend
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetPayPush;
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetPayRecommend;
 
         /**
-         * Decodes a GW2C_RetPayPush message from the specified reader or buffer, length delimited.
+         * Decodes a GW2C_RetPayRecommend message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns GW2C_RetPayPush
+         * @returns GW2C_RetPayRecommend
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetPayPush;
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetPayRecommend;
 
         /**
-         * Verifies a GW2C_RetPayPush message.
+         * Verifies a GW2C_RetPayRecommend message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a GW2C_RetPayPush message from a plain object. Also converts values to their respective internal types.
+         * Creates a GW2C_RetPayRecommend message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns GW2C_RetPayPush
+         * @returns GW2C_RetPayRecommend
          */
-        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetPayPush;
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetPayRecommend;
 
         /**
-         * Creates a plain object from a GW2C_RetPayPush message. Also converts values to other types if specified.
-         * @param message GW2C_RetPayPush
+         * Creates a plain object from a GW2C_RetPayRecommend message. Also converts values to other types if specified.
+         * @param message GW2C_RetPayRecommend
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: msg.GW2C_RetPayPush, options?: protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: msg.GW2C_RetPayRecommend, options?: protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this GW2C_RetPayPush to JSON.
+         * Converts this GW2C_RetPayRecommend to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
