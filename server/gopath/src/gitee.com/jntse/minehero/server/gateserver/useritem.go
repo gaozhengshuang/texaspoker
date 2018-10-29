@@ -15,7 +15,7 @@ import (
 )
 
 // 添加道具
-func (u *GateUser) AddItem(item int32, num int32, reason string, syn bool) {
+func (u *GateUser) AddItem(item int32, num int64, reason string, syn bool) {
 	if item == int32(msg.ItemId_YuanBao) {
 		u.AddYuanbao(num, reason, syn)
 	} else if item == int32(msg.ItemId_Gold) {
@@ -23,7 +23,7 @@ func (u *GateUser) AddItem(item int32, num int32, reason string, syn bool) {
 	} else if item == int32(msg.ItemId_Diamond) {
 		u.AddDiamond(num, reason, syn)
 	} else {
-		sumnum := Redis().HIncrBy(fmt.Sprintf("useritem_%d_%d", u.Id(), item), "num", int64(num)).Val()
+		sumnum := Redis().HIncrBy(fmt.Sprintf("useritem_%d_%d", u.Id(), item), "num", num).Val()
 		if sumnum == int64(num) {
 			Redis().SAdd(fmt.Sprintf("userbag_%d", u.Id()), fmt.Sprintf("%d", item))
 		}
@@ -33,7 +33,7 @@ func (u *GateUser) AddItem(item int32, num int32, reason string, syn bool) {
 }
 
 //检查是否有足够的道具
-func (u *GateUser) CheckEnoughItem(item int32, num int32) bool {
+func (u *GateUser) CheckEnoughItem(item int32, num int64) bool {
 	if item == int32(msg.ItemId_YuanBao) {
 		return u.GetYuanbao() >= num
 	} else if item == int32(msg.ItemId_Gold) {
@@ -41,13 +41,13 @@ func (u *GateUser) CheckEnoughItem(item int32, num int32) bool {
 	} else if item == int32(msg.ItemId_Diamond) {
 		return u.GetDiamond() >= num
 	} else {
-		have := util.Atoi(Redis().HGet(fmt.Sprintf("useritem_%d_%d", u.Id(), item), "num").Val())
+		have := util.Atol(Redis().HGet(fmt.Sprintf("useritem_%d_%d", u.Id(), item), "num").Val())
 		return have >= num
 	}
 }
 
 // 扣除道具
-func (u *GateUser) RemoveItem(item int32, num int32, reason string) bool {
+func (u *GateUser) RemoveItem(item int32, num int64, reason string) bool {
 	if item == int32(msg.ItemId_YuanBao) {
 		return u.RemoveYuanbao(num, reason, true)
 	} else if item == int32(msg.ItemId_Gold) {
@@ -58,7 +58,7 @@ func (u *GateUser) RemoveItem(item int32, num int32, reason string) bool {
 		if u.CheckEnoughItem(item, num) {
 			return false
 		}
-		sumnum := Redis().HIncrBy(fmt.Sprintf("useritem_%d_%d", u.Id(), item), "num", 0-int64(num)).Val()
+		sumnum := Redis().HIncrBy(fmt.Sprintf("useritem_%d_%d", u.Id(), item), "num", -num).Val()
 		if sumnum == 0 {
 			Redis().SRem(fmt.Sprintf("userbag_%d"), u.Id(), fmt.Sprintf("%d"), item)
 		}
@@ -69,11 +69,11 @@ func (u *GateUser) RemoveItem(item int32, num int32, reason string) bool {
 }
 
 // 金币
-func (u *GateUser) GetGold() int32 {
+func (u *GateUser) GetGold() int64 {
 	return u.EntityBase().Gold()
 }
 
-func (u *GateUser) AddGold(gold int32, reason string, syn bool) {
+func (u *GateUser) AddGold(gold int64, reason string, syn bool) {
 	u.EntityBase().IncGold(gold)
 	if syn {
 		u.SendPropertyChange()
@@ -83,7 +83,7 @@ func (u *GateUser) AddGold(gold int32, reason string, syn bool) {
 	u.OnAchieveProcessChanged(int32(AchieveGroup_Gold))
 }
 
-func (u *GateUser) RemoveGold(gold int32, reason string, syn bool) bool {
+func (u *GateUser) RemoveGold(gold int64, reason string, syn bool) bool {
 	goldsrc := u.GetGold()
 	if goldsrc < gold {
 		log.Info("玩家[%d] 扣除金币失败[%d] 原因[%s]", u.Id(), gold, reason)
@@ -100,11 +100,11 @@ func (u *GateUser) RemoveGold(gold int32, reason string, syn bool) bool {
 }
 
 // 添加元宝
-func (u *GateUser) GetYuanbao() int32 {
+func (u *GateUser) GetYuanbao() int64 {
 	return u.EntityBase().YuanBao()
 }
 
-func (u *GateUser) AddYuanbao(yuanbao int32, reason string, syn bool) {
+func (u *GateUser) AddYuanbao(yuanbao int64, reason string, syn bool) {
 	u.EntityBase().IncYuanBao(yuanbao)
 	if syn {
 		u.SendPropertyChange()
@@ -112,7 +112,7 @@ func (u *GateUser) AddYuanbao(yuanbao int32, reason string, syn bool) {
 	log.Info("玩家[%d] 添加元宝[%d] 库存[%d] 原因[%s]", u.Id(), yuanbao, u.GetYuanbao(), reason)
 }
 
-func (u *GateUser) RemoveYuanbao(yuanbao int32, reason string, syn bool) bool {
+func (u *GateUser) RemoveYuanbao(yuanbao int64, reason string, syn bool) bool {
 	yuanbaosrc := u.GetYuanbao()
 	if yuanbaosrc < yuanbao {
 		log.Info("玩家[%d] 扣除元宝[%d]失败 库存[%d] 原因[%s]", u.Id(), yuanbao, yuanbaosrc, reason)
@@ -128,11 +128,11 @@ func (u *GateUser) RemoveYuanbao(yuanbao int32, reason string, syn bool) bool {
 }
 
 // 添加钻石
-func (u *GateUser) GetDiamond() int32 {
+func (u *GateUser) GetDiamond() int64 {
 	return u.EntityBase().Diamond()
 }
 
-func (u *GateUser) AddDiamond(num int32, reason string, syn bool) {
+func (u *GateUser) AddDiamond(num int64, reason string, syn bool) {
 	u.EntityBase().IncDiamond(num)
 	if syn {
 		u.SendPropertyChange()
@@ -140,7 +140,7 @@ func (u *GateUser) AddDiamond(num int32, reason string, syn bool) {
 	log.Info("玩家[%d] 添加钻石[%d] 库存[%d] 原因[%s]", u.Id(), num, u.GetDiamond(), reason)
 }
 
-func (u *GateUser) RemoveDiamond(num int32, reason string, syn bool) bool {
+func (u *GateUser) RemoveDiamond(num int64, reason string, syn bool) bool {
 	diamondsrc := u.GetDiamond()
 	if diamondsrc < num {
 		log.Info("玩家[%d] 添加钻石[%d]失败 库存[%d] 原因[%s]", u.Id(), num, diamondsrc, reason)
@@ -157,10 +157,10 @@ func (u *GateUser) RemoveDiamond(num int32, reason string, syn bool) bool {
 
 func (u *GateUser) SendPropertyChange() {
 	send := &msg.RS2C_RolePushPropertyChange{}
-	send.Diamond = pb.Int32(u.GetDiamond())
-	send.Gold = pb.Int32(u.GetGold())
-	send.Safegold = pb.Int32(0)
-	send.Yuanbao = pb.Int32(u.GetYuanbao())
+	send.Diamond = pb.Int64(u.GetDiamond())
+	send.Gold = pb.Int64(u.GetGold())
+	send.Safegold = pb.Int64(0)
+	send.Yuanbao = pb.Int64(u.GetYuanbao())
 	send.Silvercardtime = pb.Int32(u.silvercardtime)
 	send.Goldcardtime = pb.Int32(u.goldcardtime)
 	u.SendMsg(send)
@@ -230,7 +230,7 @@ func (u *GateUser) CheckHaveCompensation() {
 			continue
 		}
 
-		u.AddItem(int32(intid), int32(intnum), "系统补偿", true)
+		u.AddItem(int32(intid), int64(intnum), "系统补偿", true)
 		Redis().Del(strkey)
 		//log.Info("玩家%s获得系统补偿 id:%d, 数量:%d", u.account, intid, intnum)
 	}
