@@ -107,6 +107,7 @@ func (u *UserEntity) AddVipTime2(time int64) {
 		}
 	}
 }
+
 //
 func (u *UserEntity) Gold() int64 {
 	u.gold = util.Atol(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "gold").Val())
@@ -166,6 +167,8 @@ func (u *UserEntity) DBLoad() {
 			case "age":         u.age = vt.Int32()
 			case "viplevel": 	u.viplevel = vt.Int32()
 			case "vipexp":   	u.vipexp = vt.Int32()
+			case "viptime1": 	u.viptime1 = vt.Int64()
+			case "viptime2":    u.viptime2 = vt.Int64()
 		}
 	}
 }
@@ -191,8 +194,6 @@ func (u *UserEntity) DBSave() {
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "yuanbao", u.yuanbao)
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "diamond", u.diamond)
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "age", u.age)
-	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "viplevel", u.viplevel)
-	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "vipexp", u.vipexp)
 
 	_, err := pipe.Exec()
 	if err != nil {
