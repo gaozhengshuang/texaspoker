@@ -37,16 +37,16 @@ message ChampionshipDefine
 	optional int32 BNum = 6; // 最大开局人数
 	
 	
-	optional int32 SignCost = 7; // 报名费
+	optional int64 SignCost = 7; // 报名费
 	
 	
-	optional int32 ServeCost = 8; // 系统服务费
+	optional int64 ServeCost = 8; // 系统服务费
 	
 	
-	optional int32 RebuyCost = 9; // rebuy花费金币
+	optional int64 RebuyCost = 9; // rebuy花费金币
 	
 	
-	optional int32 AddonCost = 10; // addon花费金币
+	optional int64 AddonCost = 10; // addon花费金币
 	
 	
 	optional int32 TicketId = 11; // 门票id（道具id）
@@ -76,7 +76,7 @@ message ChampionshipDefine
 	optional int32 BlindType = 19; // 前注大小盲id
 	
 	
-	optional int32 InitialChips = 20; // 初始筹码
+	optional int64 InitialChips = 20; // 初始筹码
 	
 	
 	optional int32 RoomId = 21; // 房间id
@@ -85,7 +85,7 @@ message ChampionshipDefine
 	optional int32 WaitingTime = 22; // 开赛的准备时间
 	
 	
-	optional int32 AddonChips = 23; // addon可获得筹码
+	optional int64 AddonChips = 23; // addon可获得筹码
 	
 	
 	optional int32 MaxRebuyTimes = 24; // 每一回合最大可rebuy次数

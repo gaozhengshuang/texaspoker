@@ -403,7 +403,7 @@ class HundredWarRoomPanel extends BasePanel
             for (let i: number = 0; i < hwDef.Bet.length; i++)
             {
                 hwBetInfo = new HWBetInfo();
-                hwBetInfo.bet = hwDef.Bet[i];
+                hwBetInfo.bet = game.longToNumber(hwDef.Bet[i]);
                 hwBetInfo.id = i;
                 this._betListInfo[i] = hwBetInfo;
             }

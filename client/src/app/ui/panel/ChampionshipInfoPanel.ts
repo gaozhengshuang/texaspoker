@@ -339,7 +339,7 @@ class ChampionshipInfoPanel extends BasePanel
                 ChampionshipManager.reqRequestJoin(this._championshipInfo.recordId, JoinChampionshipWay.Ticket, this._championshipInfo.startTime, this._championshipInfo.id, this._championshipInfo.definition.Type);
             } else
             {
-                if (CostManager.verifyGold(this._championshipInfo.definition.SignCost + this._championshipInfo.definition.ServeCost, true))
+                if (CostManager.verifyGold(game.longToNumber(this._championshipInfo.definition.SignCost) + game.longToNumber(this._championshipInfo.definition.ServeCost), true))
                 {
                     ChampionshipManager.reqRequestJoin(this._championshipInfo.recordId, JoinChampionshipWay.Gold, this._championshipInfo.startTime, this._championshipInfo.id, this._championshipInfo.definition.Type);
                 }

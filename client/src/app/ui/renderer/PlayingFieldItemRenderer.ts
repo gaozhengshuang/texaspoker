@@ -75,13 +75,13 @@ class PlayingFieldItemRenderer extends BaseItemRenderer<PlayingFieldRoomInfo>{
             {
                 this.roomIdLabel.text = this.bindData.id.toString();
             }
-            this.blindLabel.text = game.MathUtil.formatNum(this.bindData.definition.SBlind) + "/" + game.MathUtil.formatNum(this.bindData.definition.BBlind);
+            this.blindLabel.text = game.MathUtil.formatNum(game.longToNumber(this.bindData.definition.SBlind)) + "/" + game.MathUtil.formatNum(game.longToNumber(this.bindData.definition.BBlind));
             if (this.bindData.definition.BBuyin)
             {
-                this.buyLabel.text = game.MathUtil.formatNum(this.bindData.definition.SBuyin) + "/" + game.MathUtil.formatNum(this.bindData.definition.BBuyin);
+                this.buyLabel.text = game.MathUtil.formatNum(game.longToNumber(this.bindData.definition.SBuyin)) + "/" + game.MathUtil.formatNum(game.longToNumber(this.bindData.definition.BBuyin));
             } else
             {
-                this.buyLabel.text = game.MathUtil.formatNum(this.bindData.definition.SBuyin);
+                this.buyLabel.text = game.MathUtil.formatNum(game.longToNumber(this.bindData.definition.SBuyin));
             }
             this.setRoomPattern();
             for (let i: number = 0; i < this.bindData.definition.Seat; i++)

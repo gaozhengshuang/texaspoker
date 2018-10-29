@@ -89,7 +89,7 @@ class ShopManager
 
 					let itemGetInfo: ItemGetInfo = new ItemGetInfo();
 					itemGetInfo.id = id;
-					itemGetInfo.count = count;
+					itemGetInfo.count = game.longToNumber(count);
 					itemGetInfo.type = type;
 					itemGetList.push(itemGetInfo);
 					if (itemGetInfo.id == ItemFixedId.vipExp)

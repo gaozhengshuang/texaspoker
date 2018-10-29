@@ -157,10 +157,10 @@ class GamblingPanelMatchSupport extends BaseGamblingPanelSupport
                 let def: table.IChampionshipBlindDefine = ChampionshipBlindDefined.GetInstance().getBlindInfoByLevel(GamblingManager.roomInfo.blindLevel, GamblingManager.matchRoomInfo.definition.BlindType);
                 if (def)
                 {
-                    let text: string = "下局盲注将增长至:" + game.MathUtil.formatNum(def.SBlind) + "/" + game.MathUtil.formatNum(def.BBlind)
+                    let text: string = "下局盲注将增长至:" + game.MathUtil.formatNum(game.longToNumber(def.SBlind)) + "/" + game.MathUtil.formatNum(game.longToNumber(def.BBlind))
                     if (def.PreBet)
                     {
-                        text += ",前注:" + game.MathUtil.formatNum(def.PreBet);
+                        text += ",前注:" + game.MathUtil.formatNum(game.longToNumber(def.PreBet));
                     }
                     this._newsLogic.showAddBlind(text);
                 }

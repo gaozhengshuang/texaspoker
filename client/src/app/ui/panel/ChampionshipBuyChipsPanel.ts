@@ -121,7 +121,7 @@ class ChampionshipBuyChipsPanel extends BasePanel
 		{
 			if (GamblingManager.championshipHandler.isCanAddChips(ChampionshipBuyType.Rebuy, true))
 			{
-				if (CostManager.verifyGold(GamblingManager.matchRoomInfo.definition.RebuyCost, true))
+				if (CostManager.verifyGold(game.longToNumber(GamblingManager.matchRoomInfo.definition.RebuyCost), true))
 				{
 					GamblingManager.championshipHandler.reqAddShip(ChampionshipBuyType.Rebuy)
 				}
@@ -136,7 +136,7 @@ class ChampionshipBuyChipsPanel extends BasePanel
 		{
 			if (GamblingManager.championshipHandler.isCanAddChips(ChampionshipBuyType.Addon, true))
 			{
-				if (CostManager.verifyGold(GamblingManager.matchRoomInfo.definition.AddonCost, true))
+				if (CostManager.verifyGold(game.longToNumber(GamblingManager.matchRoomInfo.definition.AddonCost), true))
 				{
 					GamblingManager.championshipHandler.reqAddShip(ChampionshipBuyType.Addon)
 				}

@@ -15,7 +15,7 @@ class ChampionshipHandler
                 {
                     GamblingManager.matchRoomInfo.rank = data.rank;
                     GamblingManager.matchRoomInfo.leftJoin = data.join;
-                    GamblingManager.matchRoomInfo.avgChips = data.avgchips;
+                    GamblingManager.matchRoomInfo.avgChips =  game.longToNumber(data.avgchips);
                 }
             }
             if (!GamblingManager.roomInfo.blindLevel)
@@ -100,7 +100,7 @@ class ChampionshipHandler
                     {
                         if (GamblingManager.matchRoomInfo.definition.Rebuy > GamblingManager.roomInfo.rebuyTimes || !GamblingManager.roomInfo.rebuyTimes)
                         {
-                            if (!GamblingManager.roomInfo.addbuy || (GamblingManager.roomInfo.addbuy < GamblingManager.matchRoomInfo.definition.MaxRebuyTimes * GamblingManager.matchRoomInfo.definition.InitialChips))
+                            if (!GamblingManager.roomInfo.addbuy || (GamblingManager.roomInfo.addbuy < GamblingManager.matchRoomInfo.definition.MaxRebuyTimes *  game.longToNumber(GamblingManager.matchRoomInfo.definition.InitialChips)))
                             {
                                 return true;
                             }
@@ -211,12 +211,12 @@ class ChampionshipHandler
                         }
                         if (type == ChampionshipBuyType.Rebuy)
                         {
-                            GamblingManager.roomInfo.addbuy += GamblingManager.matchRoomInfo.definition.InitialChips;
+                            GamblingManager.roomInfo.addbuy +=  game.longToNumber(GamblingManager.matchRoomInfo.definition.InitialChips);
                             AlertManager.showAlert(game.StringUtil.format("重购成功,{0}筹码将在下局增加", GamblingManager.matchRoomInfo.definition.InitialChips));
                         }
                         else
                         {
-                            GamblingManager.roomInfo.addbuy += GamblingManager.matchRoomInfo.definition.AddonChips;
+                            GamblingManager.roomInfo.addbuy +=  game.longToNumber(GamblingManager.matchRoomInfo.definition.AddonChips);
                             AlertManager.showAlert(game.StringUtil.format("增购成功,{0}筹码将在下局增加", GamblingManager.matchRoomInfo.definition.AddonChips));
                         }
                     }

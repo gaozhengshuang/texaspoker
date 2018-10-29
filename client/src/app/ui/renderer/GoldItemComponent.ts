@@ -35,7 +35,7 @@ class GoldItemComponent extends BaseComponent<ShopInfo>{
                 {
                     if (this._awardDef.CostType[i] == CostType.RMB)
                     {
-                        this.goldBtn.label = this._awardDef.CostNum[i] / 100 + "元";
+                        this.goldBtn.label = game.longToNumber(this._awardDef.CostNum[i]) / 100 + "元";
                     }
                 }
             }

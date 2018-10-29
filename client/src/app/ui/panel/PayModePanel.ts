@@ -31,7 +31,7 @@ class PayModePanel extends BasePanel
 			{
 				if (awardDef.CostType[i] == CostType.RMB)
 				{
-					this.moneyLabel.text = awardDef.CostNum[i] / 100 + "元";
+					this.moneyLabel.text = game.longToNumber(awardDef.CostNum[i]) / 100 + "元";
 				}
 			}
 		}

@@ -9,7 +9,7 @@ message FriendBrief {
     optional string head = 3;
     optional int32 sex = 4;
     optional int32 level = 5;
-    optional int32 gold = 6;
+    optional int64 gold = 6;
     optional int32 viplevel = 7;
     optional int64 offlinetime = 8;     // 离线时间
 }

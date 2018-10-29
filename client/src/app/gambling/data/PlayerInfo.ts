@@ -26,14 +26,14 @@ class PlayerInfo extends BaseServerValueInfo implements IBaseHead
 	 */
 	public get bankRoll(): number
 	{
-		return this.data.bankroll;
+		return game.longToNumber(this.data.bankroll);
 	}
 	/**
 	 * 游戏时身上的筹码数
 	 */
 	public set bankRoll(value: number)
 	{
-		this.lastBankRoll = this.data.bankroll;
+		this.lastBankRoll = game.longToNumber(this.data.bankroll);
 		this.data.bankroll = value;
 	}
 	/**
@@ -45,7 +45,7 @@ class PlayerInfo extends BaseServerValueInfo implements IBaseHead
 	 */
 	public get initbankRoll(): number
 	{
-		return this.data.initbankroll;
+		return game.longToNumber(this.data.initbankroll);
 	}
 	public set initbankRoll(value: number)
 	{
@@ -81,7 +81,7 @@ class PlayerInfo extends BaseServerValueInfo implements IBaseHead
 	 */
 	public get num():number
 	{
-		return this.data.num;
+		return game.longToNumber(this.data.num);
 	}
 	public set num(value:number)
 	{
@@ -92,7 +92,7 @@ class PlayerInfo extends BaseServerValueInfo implements IBaseHead
 	 */
 	public get totalnum():number
 	{
-		return this.data.totalnum;
+		return game.longToNumber(this.data.totalnum);
 	}
 	public set totalnum(value:number)
 	{

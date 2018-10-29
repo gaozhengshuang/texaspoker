@@ -350,20 +350,20 @@ class PlayingFieldPanel extends BasePanel
             {
                 if (roomInfo.definition.SBuyin < minbuy)
                 {
-                    minbuy = roomInfo.definition.SBuyin;
+                    minbuy = game.longToNumber(roomInfo.definition.SBuyin);
                 }
                 if (roomInfo.definition.Seat > roomInfo.player && roomInfo.player > 0)
                 {
-                    if (Math.abs(UserManager.userInfo.gold - roomInfo.definition.BBuyin) < nearest)
+                    if (Math.abs(UserManager.userInfo.gold - game.longToNumber(roomInfo.definition.BBuyin)) < nearest)
                     {
-                        nearest = Math.abs(UserManager.userInfo.gold - roomInfo.definition.BBuyin);
+                        nearest = Math.abs(UserManager.userInfo.gold - game.longToNumber(roomInfo.definition.BBuyin));
                         roomId = roomInfo.id;
                     }
                 } else
                 {
-                    if (Math.abs(UserManager.userInfo.gold - roomInfo.definition.BBuyin) < backupNearest)
+                    if (Math.abs(UserManager.userInfo.gold - game.longToNumber(roomInfo.definition.BBuyin)) < backupNearest)
                     {
-                        backupNearest = Math.abs(UserManager.userInfo.gold - roomInfo.definition.BBuyin);
+                        backupNearest = Math.abs(UserManager.userInfo.gold - game.longToNumber(roomInfo.definition.BBuyin));
                         backupRoomId = roomInfo.id;
                     }
                 }

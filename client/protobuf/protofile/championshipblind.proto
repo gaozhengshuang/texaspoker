@@ -28,13 +28,13 @@ message ChampionshipBlindDefine
 	optional int32 Level = 3; // 级别
 	
 	
-	optional int32 SBlind = 4; // 小盲
+	optional int64 SBlind = 4; // 小盲
 	
 	
-	optional int32 BBlind = 5; // 大盲
+	optional int64 BBlind = 5; // 大盲
 	
 	
-	optional int32 PreBet = 6; // 前注
+	optional int64 PreBet = 6; // 前注
 	
 	
 	optional int32 Addon = 7; // 能否addon

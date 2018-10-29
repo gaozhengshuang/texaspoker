@@ -26,7 +26,7 @@ class PlayingFieldRoomInfo extends BaseServerValueInfo
         this._definition = table.TexasRoomById[value];
         if (this._definition && this._definition.Ante && this._definition.Ante.length > 0)
         {
-            this._ante = this._definition.Ante[0];
+            this._ante = game.longToNumber(this._definition.Ante[0]);
         }
     }
     private _definition: table.ITexasRoomDefine

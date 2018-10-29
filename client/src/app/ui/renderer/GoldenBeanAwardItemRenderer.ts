@@ -37,7 +37,7 @@ class GoldenBeanAwardItemRenderer extends BaseItemRenderer<table.IGoldenBeanAwar
                 }
                 if (awardDef.CostNum && awardDef.CostNum.length > 0)
                 {
-                    this._cost = awardDef.CostNum[0];
+                    this._cost = game.longToNumber(awardDef.CostNum[0]);
                     this.goldenBeanLabel.text = this._cost.toString();
                 }
             }

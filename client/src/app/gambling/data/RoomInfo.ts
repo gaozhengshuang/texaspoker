@@ -35,11 +35,11 @@ class RoomInfo extends BaseServerValueInfo implements IHaveDefintionInfo
 	/**
 	 * 底池筹码
 	 */
-    public get potChips(): number[]
+    public get potChips(): ((number|Long)[]|null)
     {
         return this.data.potchips;
     }
-    public set potChips(value: number[])
+    public set potChips(value: ((number|Long)[]|null))
     {
         this.data.potchips = value;
     }
@@ -64,7 +64,7 @@ class RoomInfo extends BaseServerValueInfo implements IHaveDefintionInfo
 	 */
     public get ante(): number
     {
-        return this.data.ante;
+        return game.longToNumber(this.data.ante);
     }
     public set ante(value: number)
     {
@@ -79,7 +79,7 @@ class RoomInfo extends BaseServerValueInfo implements IHaveDefintionInfo
         {
             this.data.sblind = this._definition.SBlind;
         }
-        return this.data.sblind;
+        return game.longToNumber(this.data.sblind);
     }
     public set sBlind(value: number)
     {
@@ -95,7 +95,7 @@ class RoomInfo extends BaseServerValueInfo implements IHaveDefintionInfo
         {
             this.data.bblind = this._definition.BBlind;
         }
-        return this.data.bblind;
+        return game.longToNumber(this.data.bblind);
     }
     public set bBlind(value: number) 
     {
@@ -197,7 +197,7 @@ class RoomInfo extends BaseServerValueInfo implements IHaveDefintionInfo
     {
         this.data.isshowcard = value;
     }
-    private _handCard:Array<CardInfo>;
+    private _handCard: Array<CardInfo>;
 	/**
 	 * 手牌列表
 	 */
@@ -334,7 +334,7 @@ class RoomInfo extends BaseServerValueInfo implements IHaveDefintionInfo
      */
     public get addbuy(): number
     {
-        return this.data.addbuy;
+        return game.longToNumber(this.data.addbuy);
     }
     public set addbuy(value: number)
     {

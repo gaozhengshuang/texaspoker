@@ -34,7 +34,7 @@ class InviteMsgPanel extends BasePanel
 			this.headComp.init(info, 120);
 			if (def)
 			{
-				this.roomBuyLabel.text = game.MathUtil.formatNum(def.SBuyin) + "买入";
+				this.roomBuyLabel.text = game.MathUtil.formatNum(game.longToNumber(def.SBuyin)) + "买入";
 				if (def.Type == PlayingFieldType.OmahaPrimary || def.Type == PlayingFieldType.OmahaMiddle || def.Type == PlayingFieldType.OmahaHigh || def.Type == PlayingFieldType.OmahaPersonal)
 				{
 					this.inviteMsgLable.visible = false;

@@ -545,10 +545,10 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
         this.ticketImg.visible = false;
         if (this.bindData.definition.SignCost == 0 || this.bindData.definition.SignCost == undefined)
         {
-            this.priceLabel.text = "免费" + "+" + game.MathUtil.formatNum(this.bindData.definition.ServeCost);
+            this.priceLabel.text = "免费" + "+" + game.MathUtil.formatNum(game.longToNumber(this.bindData.definition.ServeCost));
         } else
         {
-            this.priceLabel.text = game.MathUtil.formatNum(this.bindData.definition.SignCost) + "+" + game.MathUtil.formatNum(this.bindData.definition.ServeCost);
+            this.priceLabel.text = game.MathUtil.formatNum(game.longToNumber(this.bindData.definition.SignCost)) + "+" + game.MathUtil.formatNum(game.longToNumber(this.bindData.definition.ServeCost));
         }
     }
     /**
@@ -606,7 +606,7 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
             ChampionshipManager.reqRequestJoin(this.bindData.recordId, JoinChampionshipWay.Ticket, this.bindData.startTime, this.bindData.id, this.bindData.definition.Type);
         } else
         {
-            if (CostManager.verifyGold(this.bindData.definition.SignCost + this.bindData.definition.ServeCost, true)) 
+            if (CostManager.verifyGold(game.longToNumber(this.bindData.definition.SignCost) + game.longToNumber(this.bindData.definition.ServeCost), true)) 
             {
                 ChampionshipManager.reqRequestJoin(this.bindData.recordId, JoinChampionshipWay.Gold, this.bindData.startTime, this.bindData.id, this.bindData.definition.Type);
             }

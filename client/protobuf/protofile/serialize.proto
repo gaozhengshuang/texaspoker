@@ -10,13 +10,15 @@ message EntityBase {
     optional string account = 5;
     optional int32  level   = 6;
     optional int32  exp     = 7;
-    optional int32  gold    = 8;        // 金币
-    optional int32  diamond = 9;        // 钻石
-    optional int32  yuanbao = 10;       // 元宝
+    optional int64  gold    = 8;        // 金币
+    optional int64  diamond = 9;        // 钻石
+    optional int64  yuanbao = 10;       // 元宝
     optional int32  age     = 11;
     optional string bio     = 12;       // 个人简介签名
     optional string sign    = 13;       // 个性签名
     optional string ip      = 14;       // ip
+	optional int32  viplevel = 15;		// vip等级
+	optional int32  vipexp 	= 16;		// vip经验
 }
 
 // 简单计数器

@@ -117,20 +117,20 @@ class HundredWarAnime
     /**
      * 从某个地方向多个注池发一次金币
      */
-    public setCoinToBets(startObj: egret.DisplayObject, posList: number[], offsx: number = 0, offsy: number = 0)
+    public setCoinToBets(startObj: egret.DisplayObject, posList: (number|Long)[], offsx: number = 0, offsy: number = 0)
     {
         for (let i: number = 0; i < posList.length; i++)
         {
             let offsetX: number = game.MathUtil.getRandom(0, this.betOffset.x);
             let offsetY: number = game.MathUtil.getRandom(0, this.betOffset.y);
-            let endPos: egret.Point = new egret.Point(this.betPosList[posList[i] - 1].x + offsetX, this.betPosList[posList[i] - 1].y + offsetY);
-            this.createCoinTween(this.getGlobalCenter(startObj, offsx, offsy), endPos, posList[i], 500, i * 100);
+            let endPos: egret.Point = new egret.Point( this.betPosList[game.longToNumber(posList[i]) - 1].x + offsetX, this.betPosList[game.longToNumber(posList[i]) - 1].y + offsetY);
+            this.createCoinTween(this.getGlobalCenter(startObj, offsx, offsy), endPos, game.longToNumber(posList[i]), 500, i * 100);
             if (offsetX < offsetY)
             {
                 offsetX = game.MathUtil.getRandom(0, this.betOffset.x);
                 offsetY = game.MathUtil.getRandom(0, this.betOffset.y);
-                endPos = new egret.Point(this.betPosList[posList[i] - 1].x + offsetX, this.betPosList[posList[i] - 1].y + offsetY);
-                this.createCoinTween(this.getGlobalCenter(startObj, offsx, offsy), endPos, posList[i], 500, i * 100);
+                endPos = new egret.Point(this.betPosList[game.longToNumber(posList[i]) - 1].x + offsetX, this.betPosList[game.longToNumber(posList[i]) - 1].y + offsetY);
+                this.createCoinTween(this.getGlobalCenter(startObj, offsx, offsy), endPos, game.longToNumber(posList[i]), 500, i * 100);
             }
         }
     }

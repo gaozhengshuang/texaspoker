@@ -106,7 +106,7 @@ class GoldShortagePanel extends BasePanel
             {
                 if (awardDef.CostNum && awardDef.CostNum.length > 0)
                 {
-                    this.priceLabel.text = "仅需" + awardDef.CostNum[0] / 100 + "元";
+                    this.priceLabel.text = "仅需" + game.longToNumber(awardDef.CostNum[0]) / 100 + "元";
                 }
                 this.goldLabel.text = awardDef.Name;
             }
