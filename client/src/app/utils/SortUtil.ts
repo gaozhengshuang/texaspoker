@@ -378,11 +378,11 @@ class SortUtil
 	*/
 	public static hundredWarRoomIdUpSort(a: HundredWarListInfo, b: HundredWarListInfo)
 	{
-		if (a.id > b.id)
+		if (a.hwId > b.hwId)
 		{
 			return 1;
 		}
-		if (a.id < b.id)
+		if (a.hwId < b.hwId)
 		{
 			return -1;
 		}
