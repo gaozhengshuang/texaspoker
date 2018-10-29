@@ -226,6 +226,22 @@ func (u *GateUser) VipExp() int32 {
 	return u.EntityBase().VipExp()
 }
 
+func (u *GateUser) VipTime1() int64 {
+	return u.EntityBase().VipTime1()
+}
+
+func (u *GateUser) VipTime2() int64 {
+	return u.EntityBase().VipTime2()
+}
+
+func (u *GateUser) AddVipTime (timetype, time int64) {
+	if timetype == 1 {
+		u.EntityBase().AddVipTime1(time)
+	} else if timetype == 2 {
+		u.EntityBase().AddVipTime2(time)
+	}
+}
+
 func (u *GateUser) AddVipExp(vipexp int32) {
 	maxexp := int32(tbl.Global.Vip.Maxexp)
 	oldvipexp := u.VipExp()
@@ -260,7 +276,18 @@ func (u *GateUser) CalVipLevel(vipexp int32) {
 		}
 		level = level + 1
 	}
-	u.EntityBase().SetVipLevel(level)
+	u.SetVipLevel(level)
+}
+
+func (u *GateUser) GetVipState () int32 {
+	now := util.CURTIME()
+	if now < u.VipTime2() {
+		return 2
+	} else if now < u.VipTime1() {
+		return 1
+	} else {
+		return 0
+	}
 }
 
 // 获得补偿

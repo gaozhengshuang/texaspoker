@@ -465,6 +465,11 @@ func DBSaveUserCharBase(entity *msg.EntityBase) {
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "viplevel",  0)
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "offlinetime", 0)
 
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "vipexp", 0)
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "viplevel", 1)
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "viptime1", 0)
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "viptime2", 0)
+
 	// 名字绑定id
 	pipe.Set(fmt.Sprintf("charname_%s", entity.GetName()), uid, 0)
 
