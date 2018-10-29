@@ -278,7 +278,7 @@ class GamblingPanelFuncSupport extends BaseGamblingPanelSupport
 			case this.target.actionGroup.checkOrDropBtn: //过或弃
 				GamblingManager.isCheckOrFold = !GamblingManager.isCheckOrFold;
 				this.refreshCheckOrDrop();
-				GamblingManager.isCallAny = false;
+				GamblingManager.isPreCall = GamblingManager.isAutoCheck = GamblingManager.isCallAny = false;
 				this.target.actionGroup.autoCheckBtn.selected = false;
 				this.target.actionGroup.callAnyBtn.selected = false;
 				this.target.actionGroup.preCallBtn.selected = false;
@@ -288,12 +288,13 @@ class GamblingPanelFuncSupport extends BaseGamblingPanelSupport
 				GamblingManager.isCallAny = this.target.actionGroup.callAnyBtn.selected;
 				this.target.actionGroup.autoCheckBtn.selected = false;
 				this.target.actionGroup.preCallBtn.selected = false;
-				GamblingManager.isCheckOrFold = false;
+				GamblingManager.isPreCall = GamblingManager.isAutoCheck = GamblingManager.isCheckOrFold = false;
 				this.refreshCheckOrDrop();
 				SoundManager.playEffect(MusicAction.buttonClick);
 				break;
 			case this.target.actionGroup.preCallBtn: //跟N
-				GamblingManager.isCallAny = this.target.actionGroup.preCallBtn.selected;
+				GamblingManager.isPreCall = this.target.actionGroup.preCallBtn.selected;
+				GamblingManager.isCheckOrFold = GamblingManager.isAutoCheck = GamblingManager.isCallAny = false;
 				this.target.actionGroup.autoCheckBtn.selected = false;
 				this.target.actionGroup.callAnyBtn.selected = false;
 				GamblingManager.isCheckOrFold = false;
@@ -301,7 +302,8 @@ class GamblingPanelFuncSupport extends BaseGamblingPanelSupport
 				SoundManager.playEffect(MusicAction.buttonClick);
 				break;
 			case this.target.actionGroup.autoCheckBtn: //自动过牌		
-				GamblingManager.isCallAny = this.target.actionGroup.autoCheckBtn.selected;
+				GamblingManager.isAutoCheck = this.target.actionGroup.autoCheckBtn.selected;
+				GamblingManager.isCheckOrFold = GamblingManager.isPreCall = GamblingManager.isCallAny = false;
 				this.target.actionGroup.preCallBtn.selected = false;
 				this.target.actionGroup.callAnyBtn.selected = false;
 				GamblingManager.isCheckOrFold = false;

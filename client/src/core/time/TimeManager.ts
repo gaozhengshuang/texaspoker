@@ -31,7 +31,7 @@ class TimeManager
 				TimeManager.SetServerTimestamp(data.tmlogin);
 			}
 		}
-		SocketManager.AddCommandListener(Command.System_Push_ResetTime0_2015, TimeManager.onResetTime, this);
+		SocketManager.AddCommandListener(Command.C2GW_PushZeroClock, TimeManager.onResetTime, this);
 	}
 
 	private static onResetTime(result: game.SpRpcResult)

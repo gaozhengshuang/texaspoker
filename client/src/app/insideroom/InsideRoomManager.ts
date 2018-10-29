@@ -86,7 +86,6 @@ class InsideRoomManager
 
             // InsideRoomManager.list.push(info);
 
-            InsideRoomManager.lastId = game.longToNumber(data.lastid);
             if (data.roomlist)
             {
                 for (let roomInfo of data.roomlist)
@@ -100,6 +99,15 @@ class InsideRoomManager
                 }
             }
         }
+    }
+
+    /**
+     * 初始化上个房间的ID
+     */
+    public static initializeLastRoomId(result: game.SpRpcResult)
+    {
+        let data: msg.GW2C_RetCurRoom = result.data;
+        InsideRoomManager.lastId = game.longToNumber(data.roomuid);
     }
     /**
      * 根据类型获取类型的房间列表

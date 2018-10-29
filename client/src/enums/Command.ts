@@ -30,7 +30,7 @@ class Command
     /**
      * 0点定时重置通知
      */
-    public static readonly System_Push_ResetTime0_2015: string = "c2015";
+    public static readonly C2GW_PushZeroClock: string = "msg.C2GW_PushZeroClock";
     /**
      * 获取角色信息 move todo 已被 msg.GW2C_PushUserInfo代替
      */
@@ -51,7 +51,10 @@ class Command
      * 头像审核通过推送
      */
     public static readonly Role_Push_HeadReviewPass_2120: string = "c2120";
-
+    /**
+     * 请求当前所在的房间
+     */
+    public static readonly C2GW_ReqCurRoom:string = "msg.C2GW_ReqCurRoom";
     //--------------------------------------------------------------
     // Hosted
     //--------------------------------------------------------------
