@@ -39,14 +39,14 @@ func (tf *TexasFightRoom) SynBetPoolChange() {
 		return
 	}
 
-	synbetmsg := &msg.RS2C_PushBetPoolChange{Posbetlist:make([]*msg.TFBetPoolChange, 0), Bet:make([]int32, 0)}
+	synbetmsg := &msg.RS2C_PushBetPoolChange{Posbetlist:make([]*msg.TFBetPoolChange, 0), Bet:make([]int64, 0)}
 	for _, pool := range tf.betpool {
 		if pool.Pos() == 0 { continue }
 		synbetmsg.Bet = append(synbetmsg.Bet, pool.BetNum())
 	}
 	for _, bs := range tf.betstat.seats {
 		if bs == nil { continue }
-		info := &msg.TFBetPoolChange{Pos:pb.Int32(bs.seat), Bet:make([]int32,0)}
+		info := &msg.TFBetPoolChange{Pos:pb.Int32(bs.seat), Bet:make([]int64,0)}
 		for _, bet := range bs.poolbet { 
 			info.Bet = append(info.Bet, bet) 
 		}
@@ -96,7 +96,7 @@ func (tf *TexasFightRoom) PlayerBankerKeepCheck() {
 		tf.banker.ResetBankerRound()
 
 		// TODO: 下庄这个推送可以省掉
-		posmsg := &msg.RS2C_PushTFPosChange{Bankergold:pb.Int32(0), Player:&msg.TFPlayer{}}
+		posmsg := &msg.RS2C_PushTFPosChange{Bankergold:pb.Int64(0), Player:&msg.TFPlayer{}}
 		posmsg.Player = p.FillPlayerInfo()
 		posmsg.Player.Pos = pb.Int32(0)
 		posmsg.Player.Roleid = pb.Int64(0)
@@ -126,7 +126,7 @@ func (tf *TexasFightRoom) PlayerBankerAppointCheck() {
 	tf.banker = p
 	tf.sitplayers[0] = tf.banker
 
-	posmsg := &msg.RS2C_PushTFPosChange{Bankergold:pb.Int32(tf.banker.Gold()), Player:&msg.TFPlayer{}}
+	posmsg := &msg.RS2C_PushTFPosChange{Bankergold:pb.Int64(tf.banker.Gold()), Player:&msg.TFPlayer{}}
 	posmsg.Player = p.FillPlayerInfo()
 	tf.BroadCastMemberMsg(posmsg)
 	log.Info("[百人大战] 玩家[%s %d] 房间[%d] 成为正式庄家", tf.banker.Name(), tf.banker.Id(), tf.Id())
@@ -147,7 +147,7 @@ func (tf *TexasFightRoom) SystemBankerBackCheck() {
 	tf.banker = tf.bankersys
 	tf.sitplayers[0] = tf.banker
 
-	posmsg := &msg.RS2C_PushTFPosChange{Bankergold:pb.Int32(tf.banker.Gold()), Player:&msg.TFPlayer{}}
+	posmsg := &msg.RS2C_PushTFPosChange{Bankergold:pb.Int64(tf.banker.Gold()), Player:&msg.TFPlayer{}}
 	posmsg.Player = tf.banker.FillPlayerInfo()
 	tf.BroadCastMemberMsg(posmsg)
 	log.Info("[百人大战] 切换回系统庄家")
@@ -323,7 +323,7 @@ func (tf *TexasFightRoom) BankerSettle() {
 
 	// 庄家对应每个注池，要么全赢要么全输或者平
 	bankerpool := tf.betpool[0]
-	var win, lose int32 = 0, 0 
+	var win, lose int64 = 0, 0 
 	for k, pool := range tf.betpool {
 
 		// 归还庄家的下注
@@ -342,8 +342,8 @@ func (tf *TexasFightRoom) BankerSettle() {
 		if pool.Result() == kBetResultLose {
 			win  = bankerpool.WinOdds() * pool.BetNum()
 			tax := float32(win) * tf.tconf.TaxRate
-			profit := win - int32(tax)
-			tf.IncAwardPool(int32(tax))
+			profit := win - int64(tax)
+			tf.IncAwardPool(int64(tax))
 			tf.banker.IncTotalProfit(profit)
 			if tf.banker.owner != nil {
 				tf.banker.owner.AddGold(profit, "百人大战庄家获胜", false)
@@ -391,9 +391,9 @@ func (tf *TexasFightRoom) AwardPoolSettle(groups map[int32][]*TexasFightBetPool)
 			continue
 		}
 	
-		total := float32(tf.TotalAwardPool()) * conf.PoolOdds
-		tf.DecAwardPool(int32(total))
-		single := int32(total) / int32(len(pools))
+		total := float64(tf.TotalAwardPool()) * float64(conf.PoolOdds)
+		tf.DecAwardPool(int64(total))
+		single := int64(total) / int64(len(pools))
 		for _, pool := range pools {
 			if hitpool == nil { 
 				hitpool = pool 	// 记录奖池命中信息，只记录本轮最高等级
@@ -455,8 +455,8 @@ func (tf *TexasFightRoom) OnPlayerKickOut(p *TexasFightPlayer) {
 // 推送结算消息
 func (tf *TexasFightRoom) SendRoundOverMsg() {
 	roundmsg := &msg.RS2C_PushTFRoundOver{Betlist:make([]*msg.TFBetPool,0), Ranklist:make([]*msg.TFRankPlayer,0)}
-	roundmsg.Pool = pb.Int32(tf.TotalAwardPool())
-	roundmsg.Bankergold = pb.Int32(tf.banker.Gold())
+	roundmsg.Pool = pb.Int64(tf.TotalAwardPool())
+	roundmsg.Bankergold = pb.Int64(tf.banker.Gold())
 
 	// 下注池信息
 	for _, pool := range tf.betpool {
@@ -485,7 +485,7 @@ func (tf *TexasFightRoom) SendRoundOverMsg() {
 
 	// 个人信息
 	for _, player := range tf.players {
-		roundmsg.Gold = pb.Int32(player.TotalProfit())
+		roundmsg.Gold = pb.Int64(player.TotalProfit())
 		roundmsg.Iswin = pb.Bool(player.TotalProfit() >= 0)
 		player.owner.SendClientMsg(roundmsg)
 	}
@@ -560,7 +560,7 @@ func (tf *TexasFightRoom) RequestGameStart(u *RoomUser) {
 
 
 // 请求下注
-func (tf *TexasFightRoom) RequestBet(u *RoomUser, pos int32, num int32) {
+func (tf *TexasFightRoom) RequestBet(u *RoomUser, pos int32, num int64) {
 	player := tf.FindPlayer(u.Id())
 	if player == nil {
 		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 请求下注找不到玩家Player", u.Name(), u.Id(), tf.Id())
@@ -605,7 +605,7 @@ func (tf *TexasFightRoom) RequestBet(u *RoomUser, pos int32, num int32) {
 
 	// 所有玩家下注不能超过庄家金额的七分之一，系统庄家例外
 	if tf.banker.IsSystem() == false {
-		var totalbet int32 = num
+		var totalbet int64 = num
 		for _, pool := range tf.betpool {
 			totalbet += pool.BetNum()
 		}
@@ -648,7 +648,7 @@ func (tf *TexasFightRoom) RequestLastAwardPoolHit(u *RoomUser) {
 	//}
 
 	send := &msg.RS2C_RetTFLastAwardPoolHit{Cards:make([]int32,0,10)}
-	send.Gold = pb.Int32(tf.awardhit.gold)
+	send.Gold = pb.Int64(tf.awardhit.gold)
 	send.Time = pb.Int64(tf.awardhit.time)
 	if tf.awardhit.time != 0 {
 		for _, card := range tf.awardhit.cards {
@@ -826,7 +826,7 @@ func SendTexasFightRoomList(agent int, userid int64) {
 		info.Id = pb.Int64(tf.Id())
 		info.Hwid = pb.Int32(tf.Tid())
 		info.Join = pb.Int32(tf.PlayersNum())
-		info.Pool = pb.Int32(tf.TotalAwardPool())
+		info.Pool = pb.Int64(tf.TotalAwardPool())
 		send.Array = append(send.Array, info)
 	}
 	RoomSvr().SendClientMsg(agent, userid, send)
