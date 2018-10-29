@@ -275,7 +275,7 @@ class GamblingManager
 	 */
 	public static pushExitRoom(result: game.SpRpcResult)
 	{
-		let data:msg.RS2C_PushTFPlayerKickOut = result.data;
+		let data: msg.RS2C_PushTFPlayerKickOut = result.data;
 		if (InfoUtil.checkAvailable(GamblingManager.roomInfo) && result.data && GamblingManager.roomInfo.id == data.id)
 		{
 			let type: GamblingType = GamblingManager.roomInfo.gamblingType;
@@ -295,8 +295,8 @@ class GamblingManager
 				case GamblingType.PlayFieldPersonal:
 				case GamblingType.Omaha:
 				case GamblingType.OmahaPersonal:
-					
-					break;				
+					GamblingManager.leaveRoomCallBack(false);
+					break;
 			}
 		}
 	}
@@ -961,19 +961,9 @@ class GamblingManager
 	{
 		let callBack: Function = function (result: game.SpRpcResult)
 		{
-			let type: GamblingType = GamblingType.Common;
-			if (GamblingManager.roomInfo)
-			{
-				type = GamblingManager.roomInfo.gamblingType;
-			}
 			SocketManager.RemoveCommandListener(Command.C2GW_ReqLeaveRoom, callBack, this);
 			SocketManager.RemoveErrorListener(Command.C2GW_ReqLeaveRoom, callBackError, this);
-			if (GamblingManager.roomInfo.gamblingType == GamblingType.Match && GamblingManager.roomInfo.isMatchOut)
-			{
-				GamblingManager.roomInfo.isMatchOut = undefined;
-			}
-			GamblingManager.leaveRoom();
-			GamblingManager.LeaveRoomEvent.dispatch({ type: type, isInMtt: isInMtt });
+			GamblingManager.leaveRoomCallBack(isInMtt);
 		};
 		let callBackError: Function = function (result: game.SpRpcResult)
 		{
@@ -1022,6 +1012,23 @@ class GamblingManager
 		SocketManager.AddErrorListener(Command.C2GW_ReqLeaveRoom, callBackError, this);
 		SocketManager.Send(Command.C2GW_ReqLeaveRoom, { userid: UserManager.userInfo.roleId });
 		// }
+	}
+	private static leaveRoomCallBack(isInMtt: boolean)
+	{
+		let type: GamblingType = GamblingType.Common;
+		let playFieldType: PlayingFieldType;
+		if (GamblingManager.roomInfo)
+		{
+			type = GamblingManager.roomInfo.gamblingType;
+			playFieldType = GamblingManager.roomInfo.definition.Type;
+		}
+
+		if (GamblingManager.roomInfo.gamblingType == GamblingType.Match && GamblingManager.roomInfo.isMatchOut)
+		{
+			GamblingManager.roomInfo.isMatchOut = undefined;
+		}
+		GamblingManager.leaveRoom();
+		GamblingManager.LeaveRoomEvent.dispatch({ type: type, playFieldType: playFieldType, isInMtt: isInMtt });
 	}
 	private static leaveRoom()
 	{

@@ -19,7 +19,7 @@ class GoAheadHigherfieldItemComponent extends BaseComponent<GoAheadHigherfieldIt
 		if (def)
 		{
 			this.costLabel.text = AwardManager.getCostDesDigital(def.Id);
-			this.awardLabel.text = AwardManager.getCostDesDigital(def.Id);
+			this.awardLabel.text = AwardManager.getAwardDesDigital(def.Id);
 			if (def.RewardId.length > 0)
 			{
 				this.itemComp.init(def.RewardId[0]);

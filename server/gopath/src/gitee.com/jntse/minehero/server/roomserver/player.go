@@ -533,7 +533,11 @@ func (this *TexasPlayer) AIAction(action int32) {
 				if this.room.raisebet != 0 {
 					this.Betting(this.room.raisebet*2 + call)
 				}else {
-					this.Betting(this.room.bigblindnum*util.RandBetween(2, 5) + call)
+					if this.room.curbet/3 < this.room.bigblindnum*2{
+						this.Betting(this.room.bigblindnum*2 + call)
+					}else{
+						this.Betting(this.room.curbet/3 + call)
+					}
 				}
 			}else{
 				this.Betting(this.GetBankRoll())
@@ -747,12 +751,8 @@ func (this *TexasPlayer) BuyInGame(rev *msg.C2RS_ReqBuyInGame) bool {
 	switch {
 	default:
 		if !this.room.CheckPos(rev.GetPos()-1) {
-			if this.room.IsFullPlayer() {
-				strerr = "位置已经被占用"
-				break
-			}else{
-				rev.Pos = pb.Int32(this.room.GetEmptySeat()+1)
-			}
+			strerr = "位置已经被占用"
+			break
 		}
 		if !this.owner.RemoveGold(rev.GetNum(), "金币兑换筹码", true) {
 			strerr = "金币不足"

@@ -211,13 +211,17 @@ class SortUtil
 		}
 		if (a.isComplete == b.isComplete)
 		{
-			if (a.definition.LuckyTask == b.definition.LuckyTask)
+			if (a.id > b.id)
 			{
-				return a.id - b.id;
+				return 1;
 			}
-			else
+			if (a.id > b.id)
 			{
-				return b.definition.LuckyTask - a.definition.LuckyTask;
+				return -1;
+			}
+			if (a.id == b.id)
+			{
+				return 0;
 			}
 		}
 	}
@@ -374,11 +378,11 @@ class SortUtil
 	*/
 	public static hundredWarRoomIdUpSort(a: HundredWarListInfo, b: HundredWarListInfo)
 	{
-		if (a.id > b.id)
+		if (a.hwId > b.hwId)
 		{
 			return 1;
 		}
-		if (a.id < b.id)
+		if (a.hwId < b.hwId)
 		{
 			return -1;
 		}

@@ -120,21 +120,10 @@ class AchievementManager
                         completeInfo.isOther = info.roleId != UserManager.userInfo.roleId;
                         list.push(completeInfo);
                     }
-                    achieveInfo.isActive = true;
                 }
             }
         }
         info.allAchieveList = AchievementManager.getCompleteAchieveInfoDic(list, info);
-        for (let aInfo of data.grouplist)
-        {
-            for (let bInfo of info.allAchieveList)
-            {
-                if (bInfo.definition.Group == aInfo.groupid)
-                {
-                    bInfo.isActive = true;
-                }
-            }
-        }
     }
     /**
      * 生成包括所有成就信息的列表
@@ -143,7 +132,6 @@ class AchievementManager
     {
         if (list == null || list.length == 0)
         {
-            // return [];
             return AchievementManager.allList;
         }
         let result: Array<AchievementInfo> = new Array<AchievementInfo>();

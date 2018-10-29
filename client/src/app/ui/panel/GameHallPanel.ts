@@ -86,9 +86,9 @@ class GameHallPanel extends BasePanel
 	//按键逻辑支持
 	private _btnSupport: GameHallBtnSupport;
 	//运营活动充值弹窗
-	private _businessChargeAlert: GameHallBusinessChargeAlert;
+	private _businessChargeAlert:GameHallBusinessChargeAlert;
 	//幸运任务
-	private _luckyTask: GameHallLuckyTask;
+	private _luckyTask:GameHallLuckyTask;
 	public constructor()
 	{
 		super();
@@ -97,7 +97,7 @@ class GameHallPanel extends BasePanel
 	protected onAwake(event: eui.UIEvent)
 	{
 		super.onAwake(event);
-		// this.addRedPoint(); //move todo
+		this.addRedPoint();
 		this.moreGroup.visible = false;
 		this.dealerImg.source = BundleManager.getResNameByBundle(ResFixedFileName.Dealer_Png);
 		UIManager.pushResizeGroup(this.panelBottom);
@@ -137,7 +137,7 @@ class GameHallPanel extends BasePanel
 
 		ChannelManager.checkUnFinishedPayList();
 		this._btnSupport.init();
-		this._businessChargeAlert.init(appendData);
+		this._businessChargeAlert.init();
 		this._luckyTask.init();
 		// BindAccountManager.reqGetList();//move todo
 		// this.inviteBtn.visible = InviteManager.isInviteOpen; //move todo
@@ -307,6 +307,8 @@ class GameHallPanel extends BasePanel
 				//JumpUtil.JumpToSignIn();
 				break;
 			case this.activityBtn:
+				// UIManager.showPanel(UIModuleName.GoAheadHigherFieldPanel, { def: table.TPayBagById[2], type: BusinessType.GoAheadHighField });
+
 				SoundManager.playEffect(MusicAction.buttonClick);
 				this._panelAnime.setOutAnime();
 				JumpUtil.JumpToActivity();
@@ -316,6 +318,7 @@ class GameHallPanel extends BasePanel
 				JumpUtil.JumpToMail();
 				break;
 			case this.awardsBtn:
+				// BusinessActivityManager.chargeAlertHandler.reqGetBankruptInfo(ChargeAlertReqType.ReturnPeakedness);
 				SoundManager.playEffect(MusicAction.buttonClick);
 				JumpUtil.JumpToGoldenBeanAward();
 				break;

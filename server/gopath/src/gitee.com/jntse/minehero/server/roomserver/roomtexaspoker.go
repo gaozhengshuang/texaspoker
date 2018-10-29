@@ -125,13 +125,6 @@ func (this *TexasPokerRoom) CheckPos(pos int32) bool {
 	return true
 }
 
-func (this *TexasPokerRoom) IsFullPlayer() bool {
-	if this.PlayersNum() == this.tconf.Seat {
-		return true
-	}
-	return false
-}
-
 func (this *TexasPokerRoom) GetEmptySeat() int32 {
 	for k, p := range this.players {
 		if p == nil {
@@ -927,7 +920,7 @@ func (this *TexasPokerRoom) RestartGame() int32{
 			}
 		}
 		//如果有玩家观看 机器人离开
-		if len(this.watchers) > 0 && this.IsFullPlayer(){
+		if len(this.watchers) > 0 {
 			count := 0
 			for _, p := range this.players {
 				if count >= len(this.watchers) {
@@ -1285,8 +1278,7 @@ func (this *TexasPokerRoom) CreateAI(num int32) {
 	for i := 0; i < int(num); i++ {
 		player := NewTexasPlayer(users[i], this,  true)
 		player.Init()
-		bankroll := this.tconf.SBuyin * util.RandBetween(1, 10)
-		rev := &msg.C2RS_ReqBuyInGame{Num:pb.Int32(bankroll), Isautobuy:pb.Bool(true), Pos:pb.Int32(this.GetFreePos()+1)}
+		rev := &msg.C2RS_ReqBuyInGame{Num:pb.Int32(this.tconf.BBuyin), Isautobuy:pb.Bool(true), Pos:pb.Int32(this.GetFreePos()+1)}
 		player.BuyInGame(rev)
 		player.readytime = 3
 		log.Info("房间%d AI%d 位置%d 参加游戏", this.Id(), player.owner.Id(), rev.GetPos())

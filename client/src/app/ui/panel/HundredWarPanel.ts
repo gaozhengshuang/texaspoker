@@ -109,7 +109,7 @@ class HundredWarPanel extends BasePanel
         if (HundredWarManager.panelHandler.hundredWarList && HundredWarManager.panelHandler.hundredWarList.length > 0)
         {
             this.showGroup(this.hasMatchGroup);
-            UIUtil.writeListInfo(this.matchList, HundredWarManager.panelHandler.hundredWarList, "id", false, SortUtil.hundredWarRoomIdUpSort);
+            UIUtil.writeListInfo(this.matchList, HundredWarManager.panelHandler.hundredWarList, "hwId", false, SortUtil.hundredWarRoomIdUpSort);
         } else
         {
             this.showGroup(this.noMatchGroup);

@@ -506,7 +506,7 @@ class UserManager
 	/**
      * 拉取某个角色信息（简单）成功广播
     */
-	public static OnGetSimpleUserInfoEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
+	// public static OnGetSimpleUserInfoEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 	/**
 	 * 微信登录，微信头像加载完毕事件
 	 */

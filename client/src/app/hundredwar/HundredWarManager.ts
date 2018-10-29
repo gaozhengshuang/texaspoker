@@ -99,7 +99,7 @@ class HundredWarManager
                 HundredWarManager.roomInfo.copyValueFromIgnoreCase(data);
                 if (data.playerlist) 
                 {
-                    UserManager.OnGetSimpleUserInfoEvent.addListener(HundredWarManager.onReqComplete, this);
+                    // UserManager.OnGetSimpleUserInfoEvent.addListener(HundredWarManager.onReqComplete, this);
                     HundredWarManager.roomInfo.playerList = new Array<HWHundredWarRoomPlayerInfo>();
                     let info: HWHundredWarRoomPlayerInfo;
                     for (let i: number = 0; i < data.playerlist.length; i++)
@@ -237,13 +237,13 @@ class HundredWarManager
             {
                 if (data.roleId == HundredWarManager.roomInfo.playerList[len - 1].roleId)
                 {
-                    UserManager.OnGetSimpleUserInfoEvent.removeListener(HundredWarManager.onReqComplete, this);
+                    // UserManager.OnGetSimpleUserInfoEvent.removeListener(HundredWarManager.onReqComplete, this);
                     HundredWarManager.OnGetPlayerInfoEvent.dispatch();
                     return;
                 }
             } else
             {
-                UserManager.OnGetSimpleUserInfoEvent.removeListener(HundredWarManager.onReqComplete, this);
+                // UserManager.OnGetSimpleUserInfoEvent.removeListener(HundredWarManager.onReqComplete, this);
                 HundredWarManager.OnGetPlayerInfoEvent.dispatch();
             }
         }
@@ -422,7 +422,7 @@ class HundredWarManager
                     } else
                     {
                         HundredWarManager.roomInfo.playerList.push(HundredWarManager.sysBanker);
-                        UserManager.OnGetSimpleUserInfoEvent.dispatch(HundredWarManager.sysBanker);
+                        // UserManager.OnGetSimpleUserInfoEvent.dispatch(HundredWarManager.sysBanker);
                     }
                 }
                 if (data.bankergold)

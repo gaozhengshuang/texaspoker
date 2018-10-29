@@ -9,29 +9,40 @@ class GameHallBusinessChargeAlert
 		this.target = target;
 	}
 
-	public init(appendData: any)
+	public init()
 	{
-		if (UserManager.isBust)
+		if (SceneManager.currentScene && SceneManager.currentScene.sceneInfo && SceneManager.currentScene.sceneInfo.extendData)
 		{
-			switch (appendData)
+			let type = SceneManager.currentScene.sceneInfo.extendData.playFieldType;
+			if (type > 0)
 			{
-				case PlayingFieldType.Primary:
-				case PlayingFieldType.Middle:
-					BusinessActivityManager.chargeAlertHandler.reqGetBankruptInfo(ChargeAlertReqType.GoAheadCar);
-					break;
-				case PlayingFieldType.High:
-					BusinessActivityManager.chargeAlertHandler.reqGetBankruptInfo(ChargeAlertReqType.Bankrupt);
-					break;
-			}
-		}
-		else
-		{
-			switch (appendData)
-			{
-				case PlayingFieldType.Primary:
-				case PlayingFieldType.Middle:
-					BusinessActivityManager.chargeAlertHandler.reqGetBankruptInfo(ChargeAlertReqType.ReturnPeakedness);
-					break;
+				if (UserManager.isBust)
+				{
+					switch (type)
+					{
+						case PlayingFieldType.Primary:
+						case PlayingFieldType.Middle:
+							BusinessActivityManager.chargeAlertHandler.reqGetBankruptInfo(ChargeAlertReqType.GoAheadCar);
+							break;
+						case PlayingFieldType.High:
+							BusinessActivityManager.chargeAlertHandler.reqGetBankruptInfo(ChargeAlertReqType.Bankrupt);
+							break;
+					}
+				}
+				else
+				{
+					switch (type)
+					{
+						case PlayingFieldType.Primary:
+						case PlayingFieldType.Middle:
+							let def: table.ITPayBagDefine = table.TPayBagById[ChargeAlertType.ReturnPeakedness];
+							if (UserManager.userInfo.gold <= def.GoldNum)
+							{
+								BusinessActivityManager.chargeAlertHandler.reqGetBankruptInfo(ChargeAlertReqType.ReturnPeakedness);
+							}
+							break;
+					}
+				}
 			}
 		}
 	}
@@ -72,25 +83,25 @@ class GameHallBusinessChargeAlert
 	 */
 	private tryBrankruptHighField()
 	{
-		let nowTime = game.longToNumber(BusinessActivityManager.chargeAlertHandler.data.time);
-		if (nowTime > 0)
-		{
-			let time = PrefsManager.getValue(PrefsManager.BankruptHighFieldAlert);
-			if (time)
-			{
-				let str = nowTime.toString();
-				if (time != str)
-				{
-					UIManager.showPanel(UIModuleName.BankrupHighSubsidyPanel);
-					PrefsManager.setValue(PrefsManager.BankruptHighFieldAlert, str);
-				}
-			}
-			else
-			{
-				PrefsManager.setValue(PrefsManager.BankruptHighFieldAlert, TimeManager.GetServerUtcSecondstamp().toString());
-				UIManager.showPanel(UIModuleName.BankrupHighSubsidyPanel);
-			}
-		}
+		// let nowTime = game.longToNumber(BusinessActivityManager.chargeAlertHandler.data.time);
+		// if (nowTime > 0)
+		// {
+		// 	let time = PrefsManager.getValue(PrefsManager.BankruptHighFieldAlert);
+		// 	if (time)
+		// 	{
+		// 		let str = nowTime.toString();
+		// 		if (time != str)
+		// 		{
+		// 			UIManager.showPanel(UIModuleName.BankrupHighSubsidyPanel);
+		// 			PrefsManager.setValue(PrefsManager.BankruptHighFieldAlert, str);
+		// 		}
+		// 	}
+		// 	else
+		// 	{
+		// 		PrefsManager.setValue(PrefsManager.BankruptHighFieldAlert, TimeManager.GetServerUtcSecondstamp().toString());
+		// 		UIManager.showPanel(UIModuleName.BankrupHighSubsidyPanel);
+		// 	}
+		// }
 	}
 
 	/**
@@ -98,39 +109,39 @@ class GameHallBusinessChargeAlert
 	 */
 	private tryGoAheadHighField()
 	{
-		let nowTime = game.longToNumber(BusinessActivityManager.chargeAlertHandler.data.time);
-		let serverTime = TimeManager.GetServerUtcSecondstamp();
-		let isShowAlert: boolean = false;
-		let localTimeStr: string;
-		let nowTimeStr = nowTime.toString();
-		if (serverTime - nowTime <= 24 * 3600)
-		{
-			if (BusinessActivityManager.chargeAlertHandler.data.count == 1)
-			{
-				localTimeStr = PrefsManager.getValue(PrefsManager.GoAheadtHighFieldAlertOneDay);
-				if (localTimeStr != nowTimeStr)
-				{
-					isShowAlert = true;
-					PrefsManager.setValue(PrefsManager.GoAheadtHighFieldAlertOneDay, nowTimeStr);
-				}
-			}
-		}
-		if (serverTime - nowTime <= 24 * 3600 * 3)
-		{
-			if (BusinessActivityManager.chargeAlertHandler.data.count == 2)
-			{
-				localTimeStr = PrefsManager.getValue(PrefsManager.GoAheadtHighFieldAlertThreeDay);
-				if (localTimeStr != nowTimeStr)
-				{
-					isShowAlert = true;
-					PrefsManager.setValue(PrefsManager.GoAheadtHighFieldAlertThreeDay, nowTimeStr);
-				}
-			}
-		}
-		if (isShowAlert)
-		{
-			UIManager.showPanel(UIModuleName.GoAheadHigherFieldPanel, BusinessType.GoAheadHighField);
-		}
+		// let nowTime = game.longToNumber(BusinessActivityManager.chargeAlertHandler.data.time);
+		// let serverTime = TimeManager.GetServerUtcSecondstamp();
+		// let isShowAlert: boolean = false;
+		// let localTimeStr: string;
+		// let nowTimeStr = nowTime.toString();
+		// if (serverTime - nowTime <= 24 * 3600)
+		// {
+		// 	if (BusinessActivityManager.chargeAlertHandler.data.count == 1)
+		// 	{
+		// 		localTimeStr = PrefsManager.getValue(PrefsManager.GoAheadtHighFieldAlertOneDay);
+		// 		if (localTimeStr != nowTimeStr)
+		// 		{
+		// 			isShowAlert = true;
+		// 			PrefsManager.setValue(PrefsManager.GoAheadtHighFieldAlertOneDay, nowTimeStr);
+		// 		}
+		// 	}
+		// }
+		// if (serverTime - nowTime <= 24 * 3600 * 3)
+		// {
+		// 	if (BusinessActivityManager.chargeAlertHandler.data.count == 2)
+		// 	{
+		// 		localTimeStr = PrefsManager.getValue(PrefsManager.GoAheadtHighFieldAlertThreeDay);
+		// 		if (localTimeStr != nowTimeStr)
+		// 		{
+		// 			isShowAlert = true;
+		// 			PrefsManager.setValue(PrefsManager.GoAheadtHighFieldAlertThreeDay, nowTimeStr);
+		// 		}
+		// 	}
+		// }
+		// if (isShowAlert)
+		// {
+		// 	UIManager.showPanel(UIModuleName.GoAheadHigherFieldPanel, BusinessType.GoAheadHighField);
+		// }
 	}
 
 	/**
@@ -138,19 +149,19 @@ class GameHallBusinessChargeAlert
 	 */
 	private tryPeakedness()
 	{
-		let nowTime = game.longToNumber(BusinessActivityManager.chargeAlertHandler.data.time);
-		let serverTime = TimeManager.GetServerUtcSecondstamp();
-		let isShowAlert: boolean = false;
-		if (serverTime - nowTime <= 24 * 3600)
-		{
-			if (BusinessActivityManager.chargeAlertHandler.data.play >= 1 && UserManager.userInfo.gold < 100000000)
-			{
-				isShowAlert = true;
-			}
-		}
-		if (isShowAlert)
-		{
-			UIManager.showPanel(UIModuleName.GoAheadHigherFieldPanel, BusinessType.ReturnPeakedness);
-		}
+		// let nowTime = game.longToNumber(BusinessActivityManager.chargeAlertHandler.data.time);
+		// let serverTime = TimeManager.GetServerUtcSecondstamp();
+		// let isShowAlert: boolean = false;
+		// if (serverTime - nowTime <= 24 * 3600)
+		// {
+		// 	if (BusinessActivityManager.chargeAlertHandler.data.play >= 1 && UserManager.userInfo.gold < 100000000)
+		// 	{
+		// 		isShowAlert = true;
+		// 	}
+		// }
+		// if (isShowAlert)
+		// {
+		// 	UIManager.showPanel(UIModuleName.GoAheadHigherFieldPanel, BusinessType.ReturnPeakedness);
+		// }
 	}
 }
