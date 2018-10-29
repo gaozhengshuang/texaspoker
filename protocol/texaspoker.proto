@@ -20,9 +20,9 @@ message RS2C_RetEnterRoom
     optional int32 buttonpos = 2;           //庄家位置
     repeated int64 potchips = 3;            //奖池 主池 边池
     optional int32 roomid = 4;              //房间表id
-    optional int32 ante = 5;                //台费
-    optional int32 sblind = 6;              //小盲费
-    optional int32 bblind = 7;              //大盲费
+    optional int64 ante = 5;                //台费
+    optional int64 sblind = 6;              //小盲费
+    optional int64 bblind = 7;              //大盲费
     optional int32 pos = 8;                 //当前说话位置
     optional int32 postime = 9;             //当前说话剩余时间
     optional int32 starttime = 10;          //这局开始时间
@@ -37,7 +37,7 @@ message RS2C_RetEnterRoom
     optional int32 blindtime = 19;
     optional int32 rebuytimes = 20;
     optional int32 addontimes = 21;
-    optional int32 addbuy = 22;
+    optional int64 addbuy = 22;
     optional int32 rank = 23;
     optional int64 avgchips = 24;
     optional int32 join = 25;
@@ -115,8 +115,8 @@ message RS2C_PushNextRoundStart
     optional int32 buttonpos = 1;       //庄家位
     optional int32 sblindpos = 2;       //小盲位
     optional int32 bblindpos = 3;       //大盲位
-    optional int32 sblind = 4;          //小盲注
-    optional int32 bblind = 5;          //大盲注
+    optional int64 sblind = 4;          //小盲注
+    optional int64 bblind = 5;          //大盲注
 }
 
 //服务器推送玩家筹码变化
@@ -151,7 +151,7 @@ message RS2C_PushActionPosChange
 message RS2C_PushOneLoopOver
 {
     repeated int32 card = 1;
-    repeated int32 potchips = 2;
+    repeated int64 potchips = 2;
 }
 
 //奖池信息

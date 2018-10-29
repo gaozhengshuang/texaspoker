@@ -78,7 +78,7 @@ func (u *UserEntity) DecYuanBao(n int64) {
 
 //
 func (u *UserEntity) Diamond() int64 {
-	u.diamond = util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "diamond").Val())
+	u.diamond = util.Atol(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "diamond").Val())
 	return u.diamond
 }
 func (u *UserEntity) IncDiamond(n int64) {
