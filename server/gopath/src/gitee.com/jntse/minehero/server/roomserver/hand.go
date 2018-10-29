@@ -279,23 +279,33 @@ func (h *Hand)AnalyseHand() error{
 	排序之后是3322AB8和3322AC8，显然第二副手牌大
 	*/
 	//这里要特殊处理下 如果一方是998844A 另一方是9988AQ7 其实是一样大的牌
+	var max1,max2 int = 0,0
 	for i:=0; i<CARDRANK; i++{
 		if h.count[i] == 2{
 			for j:=i+1; j<CARDRANK; j++{
 				if h.count[j] == 2{
+					max2 = j
+					max1 = i
+					for m:=j+1; m<CARDRANK; m++{
+						if h.count[m] == 2{
+							max2 = m
+							max1 = j
+						}
+					}
 					h.level = 3
-					tmpcards := make([]int32, 0)
+					tmpcards := make([]int, 0)
 					for _, c := range h.cards {
 						if c == nil {
 							continue
 						}
-						if c.Value == int32(i) || c.Value == int32(j) {
+						if c.Value == int32(max1) || c.Value == int32(max2) {
 							continue
 						}
-						tmpcards = append(tmpcards, c.Value)
+						tmpcards = append(tmpcards, int(c.Value))
 					}
+					sort.Ints(tmpcards)
 					if len(tmpcards) > 0 {
-						h.finalvalue = int32(j)*10000 + int32(j)*1000 + int32(i)*100 + int32(i)*10 + tmpcards[0]
+						h.finalvalue = int32(max2)*10000 + int32(max2)*1000 + int32(max1)*100 + int32(max1)*10 + int32(tmpcards[len(tmpcards)-1])
 					}else{
 						h.finalvalue = tmp
 					}
