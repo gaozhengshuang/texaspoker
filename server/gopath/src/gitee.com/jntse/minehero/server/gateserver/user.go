@@ -697,6 +697,8 @@ func (u *GateUser) SendChat(rev *msg.C2GW_ReqSendMessage) {
 //零点回调
 func (u *GateUser) ZeroHourClockCallback () {
 	u.UserDailyReset()
+	send := &msg.C2GW_PushZeroClock{}
+	u.SendMsg(send)
 }
 
 //跨天重置
