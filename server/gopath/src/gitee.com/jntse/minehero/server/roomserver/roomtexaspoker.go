@@ -51,13 +51,13 @@ type TexasPokerRoom struct {
 	dealer *TexasPlayer					//庄家
 	bigblinder *TexasPlayer				//大盲
 	smallblinder *TexasPlayer			//小盲
-	bigblindnum int32					//大盲钱
-	smallblindnum int32					//小盲钱
-	preblindnum int32					//前盲
+	bigblindnum int64					//大盲钱
+	smallblindnum int64					//小盲钱
+	preblindnum int64					//前盲
 	ticker1s *util.GameTicker
 	curbet int64						//当前总压注
 	restarttime int32	
-	pot []int32							// 奖池筹码数, 第一项为主池，其他项(若存在)为边池
+	pot []int64							// 奖池筹码数, 第一项为主池，其他项(若存在)为边池
 	chips []int64						// 玩家最终下注筹码，摊牌时为玩家最终获得筹码
 	remain	int32						// 剩余人
 	allin int32							// allin人数
@@ -1078,7 +1078,7 @@ func (this *TexasPokerRoom) DelWatcher(player *TexasPlayer) {
 	}
 }
 
-func (this *TexasPokerRoom) AddRebuy(uid int64, num int32, cost int32) {
+func (this *TexasPokerRoom) AddRebuy(uid int64, num int64, cost int64) {
 	player := this.FindAllByID(uid)
 	if player == nil {
 		return
@@ -1086,7 +1086,7 @@ func (this *TexasPokerRoom) AddRebuy(uid int64, num int32, cost int32) {
 	player.AddRebuy(num, cost)
 }
 
-func (this *TexasPokerRoom) AddAddon(uid int64, num int32, cost int32) {
+func (this *TexasPokerRoom) AddAddon(uid int64, num int64, cost int64) {
 	player := this.FindAllByID(uid)
 	if player == nil {
 		return

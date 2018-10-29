@@ -657,10 +657,10 @@ func (this *TexasPlayer) BrightCard() {
 
 func (this *TexasPlayer) AddCoin(rev *msg.C2RS_ReqAddCoin) {
 	send := &msg.RS2C_RetAddCoin{}
-	if !this.owner.RemoveGold(int64(this.addcoin), "金币兑换筹码", true) {
+	if !this.owner.RemoveGold(this.addcoin, "金币兑换筹码", true) {
 		send.Errcode = pb.String("金币不足")
 	}else{
-		this.addcoin = int64(rev.GetNum())
+		this.addcoin = rev.GetNum()
 	}
 	this.owner.SendClientMsg(send)
 	log.Info("房间%d 玩家%d 下次添加金币%d", this.room.Id(), this.owner.Id(), this.addcoin)
@@ -674,9 +674,9 @@ func (this *TexasPlayer) AutoCoin() {
 	this.addcoin = 0
 }
 
-func (this *TexasPlayer) AddRebuy(num int32, cost int32) {
-	if this.owner.RemoveGold(int64(cost), "金币兑换筹码", true) {
-		this.addrebuy = int64(num)
+func (this *TexasPlayer) AddRebuy(num int64, cost int64) {
+	if this.owner.RemoveGold(cost, "金币兑换筹码", true) {
+		this.addrebuy = num
 		this.delaystandup = 0
 		log.Info("房间%d 玩家%d Rebuy下次添加金币%d", this.room.Id(), this.owner.Id(), this.addrebuy)
 	}
@@ -686,13 +686,13 @@ func (this *TexasPlayer) AutoRebuy() {
 	if this.addrebuy == 0 {
 		return
 	}
-	this.AddBankRoll(int64(this.addrebuy))
+	this.AddBankRoll(this.addrebuy)
 	this.addrebuy = 0
 }
 
-func (this *TexasPlayer) AddAddon(num int32, cost int32){
-	if this.owner.RemoveGold(int64(cost), "金币兑换筹码", true) {
-		this.addaddon = int64(num)
+func (this *TexasPlayer) AddAddon(num int64, cost int64){
+	if this.owner.RemoveGold(cost, "金币兑换筹码", true) {
+		this.addaddon = num
 		this.delaystandup = 0
 		log.Info("房间%d 玩家%d Addon下次添加金币%d", this.room.Id(), this.owner.Id(), this.addaddon)
 	}
@@ -702,7 +702,7 @@ func (this *TexasPlayer) AutoAddon() {
 	if this.addaddon == 0 {
 		return
 	}
-	this.AddBankRoll(int64(this.addaddon))
+	this.AddBankRoll(this.addaddon)
 	this.addaddon = 0
 }
 

@@ -28,19 +28,19 @@ message TexasRoomDefine
 	optional int32 Type = 3; // 房间类型
 	
 	
-	optional int32 SBlind = 4; // 小盲
+	optional int64 SBlind = 4; // 小盲
 	
 	
-	optional int32 BBlind = 5; // 大盲
+	optional int64 BBlind = 5; // 大盲
 	
 	
-	optional int32 SBuyin = 6; // 最低买入
+	optional int64 SBuyin = 6; // 最低买入
 	
 	
-	optional int32 BBuyin = 7; // 最高买入
+	optional int64 BBuyin = 7; // 最高买入
 	
 	
-	optional int32 Tax = 8; // 每局抽水
+	optional int64 Tax = 8; // 每局抽水
 	
 	
 	optional int32 Seat = 9; // 座位数
@@ -58,7 +58,7 @@ message TexasRoomDefine
 	optional int32 WaitingTime = 13; // 等待时间
 	
 	
-	repeated int32 Ante = 14; // 前注（强制注）
+	repeated int64 Ante = 14; // 前注（强制注）
 	
 	
 	optional int32 Timeout = 15; // 超时次数
