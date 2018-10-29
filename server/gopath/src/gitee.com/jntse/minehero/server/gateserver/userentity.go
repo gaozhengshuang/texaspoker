@@ -19,6 +19,8 @@ type UserEntity struct {
 	yuanbao int64
 	diamond int64
 	age     int32
+	vipexp 	int32
+	viplevel int32
 
 	dirty   bool
 }
@@ -35,7 +37,6 @@ func (u *UserEntity) Account() string { return u.account }
 func (u *UserEntity) Age() int32 { return u.age }
 func (u *UserEntity) SetName(n string) { u.name = n; u.dirty = true }
 
-
 //
 func (u *UserEntity) Level() int32 { 
 	u.level = util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "level").Val())
@@ -50,6 +51,22 @@ func (u *UserEntity) Exp() int32 {
 }
 func (u *UserEntity) SetExp(exp int32) { 
 	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "exp", exp)
+}
+
+//
+func (u *UserEntity) VipLevel() int32 {
+	u.viplevel = util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "viplevel").Val())
+	return u.viplevel
+}
+func (u *UserEntity) IncVipLevel(n int32) {
+	Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "viplevel", int64(n))
+}
+func (u *UserEntity) VipExp() int32 {
+	u.exp = util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "vipexp").Val())
+	return u.exp
+}
+func (u *UserEntity) SetVipExp(vipexp int32) {
+	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "vipexp", vipexp)
 }
 
 //
@@ -109,6 +126,8 @@ func (u *UserEntity) DBLoad() {
 			case "yuanbao":		u.yuanbao = vt.Int64()
 			case "diamond":		u.diamond = vt.Int64()
 			case "age":         u.age = vt.Int32()
+			case "viplevel": 	u.viplevel = vt.Int32()
+			case "vipexp":   	u.vipexp = vt.Int32()
 		}
 	}
 }
@@ -134,6 +153,8 @@ func (u *UserEntity) DBSave() {
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "yuanbao", u.yuanbao)
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "diamond", u.diamond)
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "age", u.age)
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "viplevel", u.viplevel)
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "vipexp", u.vipexp)
 
 	_, err := pipe.Exec()
 	if err != nil {
@@ -158,6 +179,9 @@ func (u *UserEntity) FillEntity() *msg.EntityBase {
 	info.Diamond = pb.Int64(u.Diamond())
 
 	info.Age = pb.Int32(u.age)
+	info.Viplevel = pb.Int32(u.viplevel)
+	info.Vipexp = pb.Int32(u.vipexp)
+
 	return info
 }
 

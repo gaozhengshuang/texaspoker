@@ -187,6 +187,7 @@ func (u *GateUser) SetExp(exp int32) {
 func (u *GateUser) AddExp(num int32, reason string) {
 	oldlevel, exp := u.Level(), u.Exp()
 	newlevel := oldlevel
+	exp = exp + num
 	for {
 		lvlbase, ok := tbl.LevelBasee.ExpById[oldlevel + 1]
 		if ok == false {
@@ -211,6 +212,22 @@ func (u *GateUser) AddExp(num int32, reason string) {
 // 升级
 func (u *GateUser) OnLevelUp() {
 	u.AddLevel(1)
+}
+
+func (u *GateUser) VipLevel() int32 {
+	return u.EntityBase().VipLevel()
+}
+
+func (u *GateUser) AddVipLevel(num int32) {
+	u.EntityBase().IncVipLevel(num)
+}
+
+func (u *GateUser) VipExp() int32 {
+	return u.EntityBase().VipExp()
+}
+
+func (u *GateUser) AddVipExp(vipexp int32) {
+
 }
 
 // 获得补偿
