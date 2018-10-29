@@ -83,9 +83,9 @@ class ProjectDefined
 	public static login_in_port = 8000;
 	public static login_test_port = 8004;
 	public static login_port = 8000;
-	public static storage_host = "http://g.xydp.cn.istar9.com=8102";
-	public static sdk_url = "http://g.xydp.cn.istar9.com=8101";
-	public static sdk_url_test = "http://g.xydp.cn.istar9.com=8097";
+	public static storage_host = "http://g.xydp.cn.istar9.com=81021111";
+	public static sdk_url = "http://g.xydp.cn.istar9.com=81011111";
+	public static sdk_url_test = "http://g.xydp.cn.istar9.com=809711111";
 	public static webpay_url = "https://pay.istar9.com";
 	public static authorize_url = "https://auth.istar9.com";
 	public static webclient_url = "http://play.istar9.com/game";
