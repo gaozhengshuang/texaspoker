@@ -213,6 +213,22 @@ func (u *GateUser) OnLevelUp() {
 	u.AddLevel(1)
 }
 
+func (u *GateUser) VipLevel() int32 {
+	return u.EntityBase().VipLevel()
+}
+
+func (u *GateUser) AddVipLevel(num int32) {
+	u.EntityBase().IncVipLevel(num)
+}
+
+func (u *GateUser) VipExp() int32 {
+	return u.EntityBase().VipExp()
+}
+
+func (u *GateUser) AddVipExp(vipexp int32) {
+
+}
+
 // 获得补偿
 func (u *GateUser) CheckHaveCompensation() {
 	strkey := fmt.Sprintf("compen_%d", u.Id())

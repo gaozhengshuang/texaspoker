@@ -17,6 +17,8 @@ message EntityBase {
     optional string bio     = 12;       // 个人简介签名
     optional string sign    = 13;       // 个性签名
     optional string ip      = 14;       // ip
+	optional int32  viplevel = 15;		// vip等级
+	optional int32  vipexp 	= 16;		// vip经验
 }
 
 // 简单计数器
