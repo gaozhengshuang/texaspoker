@@ -246,6 +246,7 @@ gen.maketbl_excel('HundredWarBase','hundredwarbase','THundredWar.xlsx')
 gen.maketbl_excel('HundredWarCardTypeBase','hundredwarcardtypebase','THundredWarCardType.xlsx')
 gen.maketbl_excel('LuckyTaskBase','luckytaskbase','TLuckyTask.xlsx')
 gen.maketbl_excel('PayBagBase','paybagbase','TPayBag.xlsx')
+gen.maketbl_excel('VipBase','vipbase','TVip.xlsx')
 
 gen.maketbl_json('table', 'Global', 'global.json')
 gen.maketbl_json('table', 'Room', 'room.json')

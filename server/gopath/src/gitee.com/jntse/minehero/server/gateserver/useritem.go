@@ -248,7 +248,19 @@ func (u *GateUser) SubVipExp(vipexp int32) {
 }
 
 func (u *GateUser) CalVipLevel(vipexp int32) {
-	
+	level := int32(1)
+	for {
+		conf, ok := tbl.VipBase.TVipById[level + 1]
+		if ok {
+			if vipexp < conf.TotalExp {
+				break
+			}
+		} else {
+			break
+		}
+		level = level + 1
+	}
+	u.EntityBase().SetVipLevel(level)
 }
 
 // 获得补偿

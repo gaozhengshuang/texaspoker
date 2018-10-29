@@ -20,6 +20,7 @@ var PayListBase = table.InsPayListBaseTable
 var TextBase = table.InsTextBaseTable
 var TChampionshipPrize = table.InsTChampionshipPrizeTable
 var LoadingTextBase = table.InsLoadingTextBaseTable
+var VipBase = table.InsVipBaseTable
 var Activity_signinBase = table.InsActivity_signinBaseTable
 var MailBase = table.InsMailBaseTable
 var TSystemTime = table.InsTSystemTimeTable

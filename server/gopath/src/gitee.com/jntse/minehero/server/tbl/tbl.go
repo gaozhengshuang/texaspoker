@@ -84,6 +84,7 @@ func (this *TblLoader) Init() {
 	this.LoadExcel(TextBase, "textbase.json")
 	this.LoadExcel(TChampionshipPrize, "championshipprize.json")
 	this.LoadExcel(LoadingTextBase, "loadingtext.json")
+	this.LoadExcel(VipBase, "vipbase.json")
 	this.LoadExcel(Activity_signinBase, "activity_signinbase.json")
 	this.LoadExcel(MailBase, "mailbase.json")
 	this.LoadExcel(TSystemTime, "systemtime.json")
