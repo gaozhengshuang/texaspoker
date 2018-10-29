@@ -218,8 +218,8 @@ func (u *GateUser) VipLevel() int32 {
 	return u.EntityBase().VipLevel()
 }
 
-func (u *GateUser) AddVipLevel(num int32) {
-	u.EntityBase().IncVipLevel(num)
+func (u *GateUser) SetVipLevel(num int32) {
+	u.EntityBase().SetVipLevel(num)
 }
 
 func (u *GateUser) VipExp() int32 {
@@ -227,7 +227,28 @@ func (u *GateUser) VipExp() int32 {
 }
 
 func (u *GateUser) AddVipExp(vipexp int32) {
+	maxexp := int32(tbl.Global.Vip.Maxexp)
+	oldvipexp := u.VipExp()
+	newvipexp := oldvipexp + vipexp
+	if newvipexp > maxexp {
+		newvipexp = maxexp
+	}
+	u.EntityBase().SetVipExp(newvipexp)
+	u.CalVipLevel(newvipexp)
+}
 
+func (u *GateUser) SubVipExp(vipexp int32) {
+	oldvipexp := u.VipExp()
+	newvipexp := oldvipexp - vipexp 
+	if newvipexp < 0 {
+		newvipexp = 0
+	}
+	u.EntityBase().SetVipExp(newvipexp)
+	u.CalVipLevel(newvipexp)
+}
+
+func (u *GateUser) CalVipLevel(vipexp int32) {
+	
 }
 
 // 获得补偿

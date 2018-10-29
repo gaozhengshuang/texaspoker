@@ -21,6 +21,8 @@ type UserEntity struct {
 	age     int32
 	vipexp 	int32
 	viplevel int32
+	viptime1 int64
+	viptime2 int64
 
 	dirty   bool
 }
@@ -58,8 +60,8 @@ func (u *UserEntity) VipLevel() int32 {
 	u.viplevel = util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "viplevel").Val())
 	return u.viplevel
 }
-func (u *UserEntity) IncVipLevel(n int32) {
-	Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "viplevel", int64(n))
+func (u *UserEntity) SetVipLevel(viplevel int32) {
+	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "viplevel", viplevel)
 }
 func (u *UserEntity) VipExp() int32 {
 	u.exp = util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "vipexp").Val())
@@ -68,7 +70,43 @@ func (u *UserEntity) VipExp() int32 {
 func (u *UserEntity) SetVipExp(vipexp int32) {
 	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "vipexp", vipexp)
 }
-
+func (u *UserEntity) VipTime1() int64 {
+	u.viptime1 = util.Atol(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "viptime1").Val())
+	return u.viptime1
+}
+func (u *UserEntity) VipTime2() int64 {
+	u.viptime2 = util.Atol(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "viptime2").Val())
+	return u.viptime2
+}
+func (u *UserEntity) AddVipTime1(time int64) {
+	now := util.CURTIME()
+	viptime1 := u.VipTime1()
+	if now > viptime1 {
+		Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "viptime1", now + time)
+	} else {
+		Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "viptime1", viptime1 + time)
+	}
+}
+func (u *UserEntity) AddVipTime2(time int64) {
+	now := util.CURTIME()
+	viptime1 := u.VipTime1()
+	viptime2 := u.VipTime2()
+	if now > viptime2 {
+		Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "viptime2", now + time)
+		if now > viptime1 {
+			Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "viptime1", now + time)
+		} else {
+			Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "viptime1", viptime1 + time)
+		}
+	} else {
+		Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "viptime2", viptime2 + time)
+		if now > viptime1 {
+			Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "viptime1", now + time)
+		} else {
+			Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "viptime1", viptime1 + time)
+		}
+	}
+}
 //
 func (u *UserEntity) Gold() int64 {
 	u.gold = util.Atol(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "gold").Val())
