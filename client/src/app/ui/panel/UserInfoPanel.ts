@@ -198,7 +198,7 @@ class UserInfoPanel extends BasePanel
 				if (roomDef)
 				{
 					let patternName: string = PlayingFieldManager.getPatternName(roomDef.Type);
-					this.stateLabel.text = game.StringUtil.format("在{0}：{1}，{2}买入", patternName, PlayingFieldManager.roomIdAddZero(info.stateId), game.MathUtil.formatNum(roomDef.SBuyin));
+					this.stateLabel.text = game.StringUtil.format("在{0}：{1}，{2}买入", patternName, PlayingFieldManager.roomIdAddZero(info.stateId), game.MathUtil.formatNum(game.longToNumber(roomDef.SBuyin)));
 				}
 				break;
 			case UserState.InMatch:

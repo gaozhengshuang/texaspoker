@@ -67,10 +67,10 @@ class GamblingPanelSitDownAndAddCoinSupport extends BaseGamblingPanelSupport
 						}
 						else
 						{
-							bBuy = GamblingManager.roomInfo.definition.BBuyin;
+							bBuy = game.longToNumber(GamblingManager.roomInfo.definition.BBuyin);
 						}
 						let maxNum: number = Math.min(bBuy, UserManager.userInfo.gold);
-						let minNum: number = GamblingManager.roomInfo.definition.SBuyin;
+						let minNum: number = game.longToNumber(GamblingManager.roomInfo.definition.SBuyin);
 						let bBlind: number = GamblingManager.roomInfo.bBlind;
 						maxNum = Math.max(maxNum, minNum);
 						let isGoldInsufficient: boolean = UserManager.userInfo.gold < minNum;
@@ -95,16 +95,16 @@ class GamblingPanelSitDownAndAddCoinSupport extends BaseGamblingPanelSupport
 		if (GamblingManager.self && type != GamblingType.Match) //已在座位上
 		{
 			let maxNum: number = GamblingManager.self.bankRoll + UserManager.userInfo.gold;
-			maxNum = Math.min(GamblingManager.roomInfo.definition.BBuyin, maxNum);
+			maxNum = Math.min(game.longToNumber(GamblingManager.roomInfo.definition.BBuyin), maxNum);
 			let minNum: number = GamblingManager.self.bankRoll;
 			let bBlind: number = GamblingManager.roomInfo.bBlind;
 			if (maxNum == 0)
 			{
-				maxNum = GamblingManager.roomInfo.definition.BBuyin;
+				maxNum = game.longToNumber(GamblingManager.roomInfo.definition.BBuyin);
 			}
 			if (minNum == 0)
 			{
-				minNum = GamblingManager.roomInfo.definition.SBuyin;
+				minNum = game.longToNumber(GamblingManager.roomInfo.definition.SBuyin);
 			}
 			if (minNum >= maxNum)
 			{

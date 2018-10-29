@@ -31,7 +31,7 @@ message Activity_bankruptSubsidyDefine
 	optional int32 AwardId = 4; 
 	
 	
-	optional int32 LimitGold = 5; 
+	optional int64 LimitGold = 5; 
 	
 	
 	optional int32 Times = 6; 

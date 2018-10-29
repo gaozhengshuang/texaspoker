@@ -31,7 +31,7 @@ class AwardManager
                 {
                     let awInfo = new AwardInfoDefinition();
                     awInfo.id = def.RewardId[i];
-                    awInfo.count = def.RewardNum[i];
+                    awInfo.count =  game.longToNumber(def.RewardNum[i]);
                     awInfo.type = def.RewardType[i];
                     list[i] = awInfo;
                 }
@@ -44,7 +44,7 @@ class AwardManager
                 {
                     let awInfo = new AwardInfoDefinition();
                     awInfo.id = def.CostId[i];
-                    awInfo.count = def.CostNum[i];
+                    awInfo.count =  game.longToNumber(def.CostNum[i]);
                     awInfo.type = def.CostType[i];
                     list[i] = awInfo;
                 }
@@ -332,7 +332,7 @@ class AwardManager
                 {
                     awardStr += itemDef.Name;
                 }
-                awardStr += splitSymbol + game.MathUtil.formatNum(awardDef.RewardNum[i]) + "、";
+                awardStr += splitSymbol + game.MathUtil.formatNum( game.longToNumber(awardDef.RewardNum[i])) + "、";
             }
             awardStr = awardStr.replace(/、$/g, "");
         }
@@ -351,7 +351,7 @@ class AwardManager
             for (let i: number = 0; i < awardDef.RewardId.length; i++)
             {
                 let itemDef = table.ItemBaseDataById[awardDef.RewardId[i]];
-                awardStr += game.MathUtil.formatNum(awardDef.RewardNum[i]) + splitSymbol;
+                awardStr += game.MathUtil.formatNum( game.longToNumber(awardDef.RewardNum[i])) + splitSymbol;
                 if (itemDef)
                 {
                     awardStr += itemDef.Name + "、";
@@ -378,13 +378,13 @@ class AwardManager
                 {
                     awardStr += itemDef.Name;
                 }
-                awardStr += splitSymbol + game.MathUtil.formatNum(awardDef.CostNum[i]) + "、";
+                awardStr += splitSymbol + game.MathUtil.formatNum( game.longToNumber(awardDef.CostNum[i])) + "、";
             }
             for (let i: number = 0; i < awardDef.CostType.length; i++) //特殊处理元
             {
                 if (awardDef.CostType[i] == CostType.RMB)
                 {
-                    awardStr += game.MathUtil.formatNum(awardDef.CostNum[i] / 100) + splitSymbol;
+                    awardStr += game.MathUtil.formatNum( game.longToNumber(awardDef.CostNum[i]) / 100) + splitSymbol;
                     awardStr += "元" + "、";
                 }
             }
@@ -404,7 +404,7 @@ class AwardManager
         {
             for (let i: number = 0; i < awardDef.CostId.length; i++)
             {
-                awardStr += game.MathUtil.formatNum(awardDef.CostNum[i]) + splitSymbol;
+                awardStr += game.MathUtil.formatNum( game.longToNumber(awardDef.CostNum[i])) + splitSymbol;
                 let itemDef = table.ItemBaseDataById[awardDef.CostId[i]];
                 if (itemDef)
                 {
@@ -415,7 +415,7 @@ class AwardManager
             {
                 if (awardDef.CostType[i] == CostType.RMB)
                 {
-                    awardStr += game.MathUtil.formatNum(awardDef.CostNum[i] / 100) + splitSymbol;
+                    awardStr += game.MathUtil.formatNum( game.longToNumber(awardDef.CostNum[i]) / 100) + splitSymbol;
                     awardStr += "元" + "、";
                 }
             }
@@ -439,13 +439,13 @@ class AwardManager
                     switch (cid)
                     {
                         case ItemFixedId.diamond:
-                            if (!CostManager.verifyDiamond(def.CostNum[i], isShowTips, callback, cancelCallBack))
+                            if (!CostManager.verifyDiamond( game.longToNumber(def.CostNum[i]), isShowTips, callback, cancelCallBack))
                             {
                                 return false;
                             }
                             break;
                         case ItemFixedId.gold:
-                            if (!CostManager.verifyGold(def.CostNum[i], isShowTips, callback, cancelCallBack))
+                            if (!CostManager.verifyGold( game.longToNumber(def.CostNum[i]), isShowTips, callback, cancelCallBack))
                             {
                                 return false;
                             }

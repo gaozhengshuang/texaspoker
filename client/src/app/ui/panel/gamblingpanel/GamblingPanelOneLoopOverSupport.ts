@@ -4,7 +4,7 @@
 class GamblingPanelOneLoopOverSupport extends BaseGamblingPanelSupport
 {
 	private _lastCardLen: number;
-	private _lastChips: Array<number>;
+	private _lastChips: ((number|Long)[]|null);
 	/**
 	 * 一圈结束动画结束回调
 	 */
@@ -36,7 +36,7 @@ class GamblingPanelOneLoopOverSupport extends BaseGamblingPanelSupport
 	/**
 	 * 底池列表
 	 */
-	private _potList: Array<number>;
+	private _potList: ((number|Long)[]|null);
 	/**
 	 * 本轮计算过的牌型
 	 */
@@ -344,7 +344,7 @@ class GamblingPanelOneLoopOverSupport extends BaseGamblingPanelSupport
 		}
 	}
 	private _dataList: Array<any>;
-	private showPotChips(list: Array<number>)
+	private showPotChips(list: ((number|Long)[]|null))
 	{
 		if (!this._dataList)
 		{
@@ -434,7 +434,7 @@ class GamblingPanelOneLoopOverSupport extends BaseGamblingPanelSupport
 					{
 						posType = ChipsPosType.Right;
 					}
-					potChipsNum = list[i];
+					potChipsNum = game.longToNumber(list[i]);
 					chipsShowComponentBg = null;
 					chipsShowComponentNum = null;
 					if (i < this.target.chipsBgGroup.numChildren)

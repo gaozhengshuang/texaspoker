@@ -34,7 +34,7 @@ class DiamondItemComponent extends BaseComponent<ShopInfo>{
                 {
                     if (this._awardDef.CostType[i] == CostType.RMB)
                     {
-                        this.diamondBtn.label = this._awardDef.CostNum[i] / 100 + "元";
+                        this.diamondBtn.label = game.longToNumber(this._awardDef.CostNum[i]) / 100 + "元";
                         break;
                     }
                 }

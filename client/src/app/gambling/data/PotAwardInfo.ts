@@ -45,7 +45,7 @@ class PotAwardInfo extends BaseServerValueInfo
 	{
 		if (this.data)
 		{
-			return this.data.num;
+			return game.longToNumber(this.data.num);
 		}
 	}
 	public set num(value: number)

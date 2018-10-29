@@ -36,7 +36,7 @@ class HappyGiftItemRenderer extends BaseItemRenderer<HappyGiftItemInfo>
                     {
                         if (itemDef.Id == ItemFixedId.gold)
                         {
-                            this.nameLabel.text = itemDef.Name + " * " + game.MathUtil.formatNum(this.bindData.awardInfoDef.RewardNum[0]);
+                            this.nameLabel.text = itemDef.Name + " * " + game.MathUtil.formatNum(game.longToNumber(this.bindData.awardInfoDef.RewardNum[0]));
                         }
                         else
                         {

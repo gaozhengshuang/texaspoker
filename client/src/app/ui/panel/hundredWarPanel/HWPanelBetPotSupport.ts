@@ -118,7 +118,8 @@ class HWPanelBetPotSupport extends BaseHWPanelSupport
                 {
                     if (posBetInfo.bet[j] > 0)
                     {
-                        this.posBetList[i].bet[j] += posBetInfo.bet[j];
+                        let preNum = game.longToNumber(this.posBetList[i].bet[j]) + game.longToNumber(posBetInfo.bet[j]);
+                        this.posBetList[i].bet[j] = preNum;
                     }
                 }
                 flag = false;
@@ -135,7 +136,7 @@ class HWPanelBetPotSupport extends BaseHWPanelSupport
     */
     private showBetCoinAnim(data: msg.RS2C_PushBetPoolChange)
     {
-        let bet: Array<number> = data.bet;
+        let bet: (number|Long)[] = data.bet;
         if (bet && bet.length > 0)  //无座玩家下注动画
         {
             this.target.hwAnim.setCoinToBets(this.target.playersBtn, bet, -20, -5);
@@ -264,5 +265,5 @@ class PosBetInfo
     /**
      * 下注列表
     */
-    public bet: Array<number>;
+    public bet: ((number|Long)[]|null);
 }

@@ -42,7 +42,7 @@ class AwardDefined
 				{
 					name = itemDef.Name;
 				}
-				let count: number = award.RewardNum[i];
+				let count: number = game.longToNumber(award.RewardNum[i]);
 				if (name && count)
 				{
 					if (count < 100)
@@ -79,7 +79,7 @@ class AwardDefined
 		{
 			for (let i: number = 0; i < award.RewardId.length; i++)
 			{
-				let count: number = award.RewardNum[i];
+				let count: number = game.longToNumber(award.RewardNum[i]);
 				num += count;
 			}
 		}

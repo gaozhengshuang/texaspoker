@@ -34,7 +34,7 @@ message LuckyTaskDefine
 	optional int32 MaxTake = 5; // 每轮最多接取人数
 	
 	
-	repeated int32 Gold = 6; // 金币要求最小与最大值
+	repeated int64 Gold = 6; // 金币要求最小与最大值
 	
 	
 	optional int32 TotalPlay = 7; // 历史牌局数

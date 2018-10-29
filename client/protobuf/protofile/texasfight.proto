@@ -15,7 +15,7 @@ message TexasFightRoom {
     optional int64 id = 1;      // 唯一id
     optional int32 hwid = 2;    // 配置表id
     optional int32 join = 3;    // 已经参加人数
-    optional int32 pool = 4;    // 奖池   
+    optional int64 pool = 4;    // 奖池   
 }
 
 
@@ -28,12 +28,12 @@ message C2GW_ReqEnterTFRoom {
 message GW2C_RetEnterTFRoom {
     repeated TFPlayer playerlist = 1; // 坐下玩家列表
     repeated TFBetPoolInfo betlist = 2; // 
-    repeated int32 mybet = 3;       // 自己下注数量
+    repeated int64 mybet = 3;       // 自己下注数量
     optional int32 state = 4;       // 房间状态 (用来表示房间是处于下注 休息 还是其他的阶段)
     optional int64 statetime = 5;   // 状态开始时间戳
-    optional int32 pool = 6;        // 奖池
+    optional int64 pool = 6;        // 奖池
     optional int32 hwid = 7;        // 配置表id
-    optional int32 bankergold = 8;  // 庄家金币
+    optional int64 bankergold = 8;  // 庄家金币
 }  
 
 message TFPlayerPos {
@@ -43,14 +43,14 @@ message TFPlayerPos {
 
 message TFBetPoolInfo {
     repeated int32 cards = 1;   // 牌信息
-    optional int32 bet = 2;     // 总下注额
+    optional int64 bet = 2;     // 总下注额
     optional int32 pos = 3;     // 押注位置，0庄家，从左到右1-4
 }
 
 // 请求下注
 message C2RS_ReqTexasFightBet {
     optional int32 pos = 1;     // 押注位置 0庄家，从左到右1-4
-    optional int32 num = 2;     // 押注金额
+    optional int64 num = 2;     // 押注金额
 }
 
 message RS2C_RetTexasFightBet {
@@ -64,7 +64,7 @@ message C2RS_ReqTFLastAwardPoolHit {
 
 message RS2C_RetTFLastAwardPoolHit {
     repeated int32 cards = 1;
-    optional int32 gold = 2;
+    optional int64 gold = 2;
     optional int64 time = 3;
     repeated TFPlayer prizelist = 4;
 }
@@ -86,7 +86,7 @@ message TFPlayer {
     optional string name = 2;
     optional string head = 3;
     optional int32 sex = 4;
-    optional int32 gold = 5;
+    optional int64 gold = 5;
     optional int32 pos = 6;     // 0 庄家位子，其他座位顺时针 1-8
 }
 
@@ -118,7 +118,7 @@ message RS2C_RetTFBankerList {
 
 // 请求上庄
 message C2RS_ReqTFBecomeBanker {
-    optional int32 gold = 1;
+    optional int64 gold = 1;
 }
 
 message RS2C_RetTFBecomeBanker {
@@ -169,13 +169,13 @@ message RS2C_RetTFStart {
 
 // 注池变更推送
 message RS2C_PushBetPoolChange {
-    repeated int32 bet = 1;     // 注池下注量
+    repeated int64 bet = 1;     // 注池下注量
     repeated TFBetPoolChange posbetlist = 2;    // 坐下玩家下注信息
 }
 
 message TFBetPoolChange {
     optional int32 pos = 1;     // 0 庄家位子，其他座位顺时针 1-8
-    repeated int32 bet = 2;     // 下注量
+    repeated int64 bet = 2;     // 下注量
 }
 
 
@@ -183,9 +183,9 @@ message TFBetPoolChange {
 message RS2C_PushTFRoundOver {
     repeated TFBetPool betlist = 1;     // 注池信息
     repeated TFRankPlayer ranklist = 2; // 赢取玩家排名
-    optional int32 gold = 3;            // 个人金币结算
-    optional int32 pool = 4;            // 总奖池大小
-    optional int32 bankergold = 5;      // 庄家金币
+    optional int64 gold = 3;            // 个人金币结算
+    optional int64 pool = 4;            // 总奖池大小
+    optional int64 bankergold = 5;      // 庄家金币
     optional bool iswin = 6;            // 个人是否赢
     repeated TFPlayer sitplayers = 7;   // 坐下玩家信息更新
 }
@@ -195,7 +195,7 @@ message TFBetPool {
     optional int32 win = 3;     // 是否赢了   0输  1赢  2平
 }
 message TFRankPlayer {
-    optional int32 num = 1;     // 赢取数量
+    optional int64 num = 1;     // 赢取数量
     optional int64 roleid = 2;  // 玩家id
     optional string head = 3;   // 头像
 }
@@ -211,7 +211,7 @@ message RS2C_PushTFStateChange {
 // 位置变更推送
 message RS2C_PushTFPosChange {
     optional TFPlayer player = 1;   // 位置玩家信息
-    optional int32 bankergold = 2;
+    optional int64 bankergold = 2;
 }
 
 

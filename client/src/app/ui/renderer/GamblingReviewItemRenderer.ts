@@ -97,7 +97,7 @@ class GamblingReviewItemRenderer extends BaseItemRenderer<msg.UserReviewInfo>
             if (this.bindData.bankroll > 0)
             {
                 this.resultNumLabel.textColor = ColorEnum.Review_Win_Orange;
-                this.resultNumLabel.text = "+" + game.MathUtil.formatNum(this.bindData.bankroll);
+                this.resultNumLabel.text = "+" + game.MathUtil.formatNum(game.longToNumber(this.bindData.bankroll));
             } else
             {
                 this.resultNumLabel.textColor = ColorEnum.Review_Lost_Green;
@@ -106,7 +106,7 @@ class GamblingReviewItemRenderer extends BaseItemRenderer<msg.UserReviewInfo>
                     this.resultNumLabel.text = this.bindData.bankroll.toString();
                 } else
                 {
-                    this.resultNumLabel.text = game.MathUtil.formatNum(this.bindData.bankroll);
+                    this.resultNumLabel.text = game.MathUtil.formatNum(game.longToNumber(this.bindData.bankroll));
                 }
             }
             this.cardTypeLabel.text = CardTypeMatchUtil.getCardDes(this.bindData.cardtype);

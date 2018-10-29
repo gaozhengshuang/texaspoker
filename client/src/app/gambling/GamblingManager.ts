@@ -148,7 +148,7 @@ class GamblingManager
 			{
 				for (let chips of GamblingManager.roomInfo.potChips) //当前底池边池
 				{
-					tmpChips += chips;
+					tmpChips += game.longToNumber(chips);
 				}
 			}
 			if (GamblingManager.roomInfo.playerList) //玩家已加注的总数量
@@ -444,7 +444,7 @@ class GamblingManager
 					let def: table.IChampionshipBlindDefine = ChampionshipBlindDefined.GetInstance().getBlindInfoByLevel(GamblingManager.roomInfo.blindLevel, GamblingManager.matchRoomInfo.definition.BlindType);
 					if (def && def.SBlind == GamblingManager.roomInfo.sBlind && def.BBlind == GamblingManager.roomInfo.bBlind)
 					{
-						GamblingManager.roomInfo.ante = def.PreBet;
+						GamblingManager.roomInfo.ante =  game.longToNumber(def.PreBet);
 					}
 				}
 				GamblingManager.roomInfo.nowBlindLevel = GamblingManager.roomInfo.blindLevel;
@@ -557,7 +557,7 @@ class GamblingManager
 				playerInfo.data = new msg.TexasPlayer();
 				playerInfo.roleId = game.longToNumber(data.roleid);
 				playerInfo.pos = data.pos;
-				playerInfo.bankRoll = data.bankroll;
+				playerInfo.bankRoll =  game.longToNumber(data.bankroll);
 				playerInfo.state = PlayerState.WaitNext; //刚坐下来 处于空状态
 
 				GamblingManager.addPlayer(playerInfo);
@@ -600,7 +600,7 @@ class GamblingManager
 				GamblingManager.isCheckOrFold = false;
 			}
 			let state: PlayerState = <PlayerState>data.state;
-			let num: number = data.num;
+			let num: number =  game.longToNumber(data.num);
 			if (num == undefined)
 			{
 				num = 0;
@@ -799,7 +799,7 @@ class GamblingManager
 		{
 			let data: msg.RS2C_PushChipsChange = result.data;
 			let roleId: number = game.longToNumber(data.roleid);
-			let br: number = data.bankroll;
+			let br: number = game.longToNumber(data.bankroll);
 			let pInfo: PlayerInfo = GamblingManager.getPlayerInfo(roleId);
 			if (pInfo)
 			{
@@ -1090,7 +1090,7 @@ class GamblingManager
 				game.Console.log("快速买入失败！玩家身上金币小于最低买入金额");
 				return false;
 			}
-			let willBuyNum: number = Math.ceil(GamblingManager.roomInfo.definition.BBuyin / 2);
+			let willBuyNum: number = Math.ceil( game.longToNumber(GamblingManager.roomInfo.definition.BBuyin) / 2);
 			willBuyNum = Math.min(UserManager.userInfo.gold, willBuyNum);
 			if (willBuyNum > 0)
 			{

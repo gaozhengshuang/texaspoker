@@ -431,7 +431,7 @@ class HWPanelSitDownAndChooseCoinSupport extends BaseHWPanelSupport
         if (headComponent.bindData == null && InfoUtil.checkAvailable(HundredWarManager.roomInfo) && UserManager.userInfo.gold < HundredWarManager.roomInfo.definition.SeatGold)
         {
             SoundManager.playEffect(MusicAction.buttonClick);
-            AlertManager.showConfirm("坐下需要金币大于" + game.MathUtil.formatNum(HundredWarManager.roomInfo.definition.SeatGold) + "，您的余额不足！", null, this.showShopping, null, null, null, null, "充值");
+            AlertManager.showConfirm("坐下需要金币大于" + game.MathUtil.formatNum(game.longToNumber(HundredWarManager.roomInfo.definition.SeatGold)) + "，您的余额不足！", null, this.showShopping, null, null, null, null, "充值");
             return;
         }
         for (let pit of this.target.pitList) 

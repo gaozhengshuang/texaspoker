@@ -1001,13 +1001,13 @@ class ChampionshipManager
         {
             if (blindDef.PreBet)
             {
-                ChampionshipManager.matchOutsInfo.nowAnte = blindDef.PreBet;
+                ChampionshipManager.matchOutsInfo.nowAnte =  game.longToNumber(blindDef.PreBet);
             } else
             {
                 ChampionshipManager.matchOutsInfo.nowAnte = 0;
             }
-            ChampionshipManager.matchOutsInfo.nowSBlind = blindDef.SBlind;
-            ChampionshipManager.matchOutsInfo.nowBBlind = blindDef.BBlind;
+            ChampionshipManager.matchOutsInfo.nowSBlind =  game.longToNumber(blindDef.SBlind);
+            ChampionshipManager.matchOutsInfo.nowBBlind =  game.longToNumber(blindDef.BBlind);
         }
         if (ChampionshipManager.blindList && ChampionshipManager.blindList.length > 0 && ChampionshipManager.nowBlindRank < ChampionshipManager.blindList.length)
         {
@@ -1017,13 +1017,13 @@ class ChampionshipManager
         {
             if (blindDef.PreBet)
             {
-                ChampionshipManager.matchOutsInfo.nextAnte = blindDef.PreBet;
+                ChampionshipManager.matchOutsInfo.nextAnte =  game.longToNumber(blindDef.PreBet);
             } else
             {
                 ChampionshipManager.matchOutsInfo.nextAnte = 0;
             }
-            ChampionshipManager.matchOutsInfo.nextSBlind = blindDef.SBlind;
-            ChampionshipManager.matchOutsInfo.nextBBlind = blindDef.BBlind;
+            ChampionshipManager.matchOutsInfo.nextSBlind =  game.longToNumber(blindDef.SBlind);
+            ChampionshipManager.matchOutsInfo.nextBBlind =  game.longToNumber(blindDef.BBlind);
         }
     }
     /**

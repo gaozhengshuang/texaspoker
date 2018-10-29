@@ -2831,13 +2831,13 @@ declare namespace msg {
         exp?: (number|null);
 
         /** EntityBase gold */
-        gold?: (number|null);
+        gold?: (number|Long|null);
 
         /** EntityBase diamond */
-        diamond?: (number|null);
+        diamond?: (number|Long|null);
 
         /** EntityBase yuanbao */
-        yuanbao?: (number|null);
+        yuanbao?: (number|Long|null);
 
         /** EntityBase age */
         age?: (number|null);
@@ -2850,6 +2850,12 @@ declare namespace msg {
 
         /** EntityBase ip */
         ip?: (string|null);
+
+        /** EntityBase viplevel */
+        viplevel?: (number|null);
+
+        /** EntityBase vipexp */
+        vipexp?: (number|null);
     }
 
     /** Represents an EntityBase. */
@@ -2883,13 +2889,13 @@ declare namespace msg {
         public exp: number;
 
         /** EntityBase gold. */
-        public gold: number;
+        public gold: (number|Long);
 
         /** EntityBase diamond. */
-        public diamond: number;
+        public diamond: (number|Long);
 
         /** EntityBase yuanbao. */
-        public yuanbao: number;
+        public yuanbao: (number|Long);
 
         /** EntityBase age. */
         public age: number;
@@ -2902,6 +2908,12 @@ declare namespace msg {
 
         /** EntityBase ip. */
         public ip: string;
+
+        /** EntityBase viplevel. */
+        public viplevel: number;
+
+        /** EntityBase vipexp. */
+        public vipexp: number;
 
         /**
          * Creates a new EntityBase instance using the specified properties.
@@ -8306,7 +8318,7 @@ declare namespace msg {
         join?: (number|null);
 
         /** RS2C_PushMTTRank avgchips */
-        avgchips?: (number|null);
+        avgchips?: (number|Long|null);
 
         /** RS2C_PushMTTRank recordid */
         recordid?: (number|null);
@@ -8328,7 +8340,7 @@ declare namespace msg {
         public join: number;
 
         /** RS2C_PushMTTRank avgchips. */
-        public avgchips: number;
+        public avgchips: (number|Long);
 
         /** RS2C_PushMTTRank recordid. */
         public recordid: number;
@@ -10349,7 +10361,7 @@ declare namespace msg {
         level?: (number|null);
 
         /** FriendBrief gold */
-        gold?: (number|null);
+        gold?: (number|Long|null);
 
         /** FriendBrief viplevel */
         viplevel?: (number|null);
@@ -10383,7 +10395,7 @@ declare namespace msg {
         public level: number;
 
         /** FriendBrief gold. */
-        public gold: number;
+        public gold: (number|Long);
 
         /** FriendBrief viplevel. */
         public viplevel: number;
@@ -13313,7 +13325,7 @@ declare namespace msg {
         userid?: (number|Long|null);
 
         /** C2GW_GoldExchange diamonds */
-        diamonds?: (number|null);
+        diamonds?: (number|Long|null);
     }
 
     /** Represents a C2GW_GoldExchange. */
@@ -13329,7 +13341,7 @@ declare namespace msg {
         public userid: (number|Long);
 
         /** C2GW_GoldExchange diamonds. */
-        public diamonds: number;
+        public diamonds: (number|Long);
 
         /**
          * Creates a new C2GW_GoldExchange instance using the specified properties.
@@ -13502,7 +13514,7 @@ declare namespace msg {
     interface IGW2C_RetGoldExchange {
 
         /** GW2C_RetGoldExchange gold */
-        gold?: (number|null);
+        gold?: (number|Long|null);
     }
 
     /** Represents a GW2C_RetGoldExchange. */
@@ -13515,7 +13527,7 @@ declare namespace msg {
         constructor(properties?: msg.IGW2C_RetGoldExchange);
 
         /** GW2C_RetGoldExchange gold. */
-        public gold: number;
+        public gold: (number|Long);
 
         /**
          * Creates a new GW2C_RetGoldExchange instance using the specified properties.
@@ -17996,16 +18008,16 @@ declare namespace msg {
     interface IRS2C_RolePushPropertyChange {
 
         /** RS2C_RolePushPropertyChange diamond */
-        diamond?: (number|null);
+        diamond?: (number|Long|null);
 
         /** RS2C_RolePushPropertyChange gold */
-        gold?: (number|null);
+        gold?: (number|Long|null);
 
         /** RS2C_RolePushPropertyChange safegold */
-        safegold?: (number|null);
+        safegold?: (number|Long|null);
 
         /** RS2C_RolePushPropertyChange yuanbao */
-        yuanbao?: (number|null);
+        yuanbao?: (number|Long|null);
 
         /** RS2C_RolePushPropertyChange silvercardtime */
         silvercardtime?: (number|null);
@@ -18024,16 +18036,16 @@ declare namespace msg {
         constructor(properties?: msg.IRS2C_RolePushPropertyChange);
 
         /** RS2C_RolePushPropertyChange diamond. */
-        public diamond: number;
+        public diamond: (number|Long);
 
         /** RS2C_RolePushPropertyChange gold. */
-        public gold: number;
+        public gold: (number|Long);
 
         /** RS2C_RolePushPropertyChange safegold. */
-        public safegold: number;
+        public safegold: (number|Long);
 
         /** RS2C_RolePushPropertyChange yuanbao. */
-        public yuanbao: number;
+        public yuanbao: (number|Long);
 
         /** RS2C_RolePushPropertyChange silvercardtime. */
         public silvercardtime: number;
@@ -24881,7 +24893,7 @@ declare namespace msg {
         join?: (number|null);
 
         /** TexasFightRoom pool */
-        pool?: (number|null);
+        pool?: (number|Long|null);
     }
 
     /** Represents a TexasFightRoom. */
@@ -24903,7 +24915,7 @@ declare namespace msg {
         public join: number;
 
         /** TexasFightRoom pool. */
-        public pool: number;
+        public pool: (number|Long);
 
         /**
          * Creates a new TexasFightRoom instance using the specified properties.
@@ -25082,7 +25094,7 @@ declare namespace msg {
         betlist?: (msg.ITFBetPoolInfo[]|null);
 
         /** GW2C_RetEnterTFRoom mybet */
-        mybet?: (number[]|null);
+        mybet?: ((number|Long)[]|null);
 
         /** GW2C_RetEnterTFRoom state */
         state?: (number|null);
@@ -25091,13 +25103,13 @@ declare namespace msg {
         statetime?: (number|Long|null);
 
         /** GW2C_RetEnterTFRoom pool */
-        pool?: (number|null);
+        pool?: (number|Long|null);
 
         /** GW2C_RetEnterTFRoom hwid */
         hwid?: (number|null);
 
         /** GW2C_RetEnterTFRoom bankergold */
-        bankergold?: (number|null);
+        bankergold?: (number|Long|null);
     }
 
     /** Represents a GW2C_RetEnterTFRoom. */
@@ -25116,7 +25128,7 @@ declare namespace msg {
         public betlist: msg.ITFBetPoolInfo[];
 
         /** GW2C_RetEnterTFRoom mybet. */
-        public mybet: number[];
+        public mybet: (number|Long)[];
 
         /** GW2C_RetEnterTFRoom state. */
         public state: number;
@@ -25125,13 +25137,13 @@ declare namespace msg {
         public statetime: (number|Long);
 
         /** GW2C_RetEnterTFRoom pool. */
-        public pool: number;
+        public pool: (number|Long);
 
         /** GW2C_RetEnterTFRoom hwid. */
         public hwid: number;
 
         /** GW2C_RetEnterTFRoom bankergold. */
-        public bankergold: number;
+        public bankergold: (number|Long);
 
         /**
          * Creates a new GW2C_RetEnterTFRoom instance using the specified properties.
@@ -25307,7 +25319,7 @@ declare namespace msg {
         cards?: (number[]|null);
 
         /** TFBetPoolInfo bet */
-        bet?: (number|null);
+        bet?: (number|Long|null);
 
         /** TFBetPoolInfo pos */
         pos?: (number|null);
@@ -25326,7 +25338,7 @@ declare namespace msg {
         public cards: number[];
 
         /** TFBetPoolInfo bet. */
-        public bet: number;
+        public bet: (number|Long);
 
         /** TFBetPoolInfo pos. */
         public pos: number;
@@ -25409,7 +25421,7 @@ declare namespace msg {
         pos?: (number|null);
 
         /** C2RS_ReqTexasFightBet num */
-        num?: (number|null);
+        num?: (number|Long|null);
     }
 
     /** Represents a C2RS_ReqTexasFightBet. */
@@ -25425,7 +25437,7 @@ declare namespace msg {
         public pos: number;
 
         /** C2RS_ReqTexasFightBet num. */
-        public num: number;
+        public num: (number|Long);
 
         /**
          * Creates a new C2RS_ReqTexasFightBet instance using the specified properties.
@@ -25679,7 +25691,7 @@ declare namespace msg {
         cards?: (number[]|null);
 
         /** RS2C_RetTFLastAwardPoolHit gold */
-        gold?: (number|null);
+        gold?: (number|Long|null);
 
         /** RS2C_RetTFLastAwardPoolHit time */
         time?: (number|Long|null);
@@ -25701,7 +25713,7 @@ declare namespace msg {
         public cards: number[];
 
         /** RS2C_RetTFLastAwardPoolHit gold. */
-        public gold: number;
+        public gold: (number|Long);
 
         /** RS2C_RetTFLastAwardPoolHit time. */
         public time: (number|Long);
@@ -25988,7 +26000,7 @@ declare namespace msg {
         sex?: (number|null);
 
         /** TFPlayer gold */
-        gold?: (number|null);
+        gold?: (number|Long|null);
 
         /** TFPlayer pos */
         pos?: (number|null);
@@ -26016,7 +26028,7 @@ declare namespace msg {
         public sex: number;
 
         /** TFPlayer gold. */
-        public gold: number;
+        public gold: (number|Long);
 
         /** TFPlayer pos. */
         public pos: number;
@@ -26552,7 +26564,7 @@ declare namespace msg {
     interface IC2RS_ReqTFBecomeBanker {
 
         /** C2RS_ReqTFBecomeBanker gold */
-        gold?: (number|null);
+        gold?: (number|Long|null);
     }
 
     /** Represents a C2RS_ReqTFBecomeBanker. */
@@ -26565,7 +26577,7 @@ declare namespace msg {
         constructor(properties?: msg.IC2RS_ReqTFBecomeBanker);
 
         /** C2RS_ReqTFBecomeBanker gold. */
-        public gold: number;
+        public gold: (number|Long);
 
         /**
          * Creates a new C2RS_ReqTFBecomeBanker instance using the specified properties.
@@ -27578,7 +27590,7 @@ declare namespace msg {
     interface IRS2C_PushBetPoolChange {
 
         /** RS2C_PushBetPoolChange bet */
-        bet?: (number[]|null);
+        bet?: ((number|Long)[]|null);
 
         /** RS2C_PushBetPoolChange posbetlist */
         posbetlist?: (msg.ITFBetPoolChange[]|null);
@@ -27594,7 +27606,7 @@ declare namespace msg {
         constructor(properties?: msg.IRS2C_PushBetPoolChange);
 
         /** RS2C_PushBetPoolChange bet. */
-        public bet: number[];
+        public bet: (number|Long)[];
 
         /** RS2C_PushBetPoolChange posbetlist. */
         public posbetlist: msg.ITFBetPoolChange[];
@@ -27677,7 +27689,7 @@ declare namespace msg {
         pos?: (number|null);
 
         /** TFBetPoolChange bet */
-        bet?: (number[]|null);
+        bet?: ((number|Long)[]|null);
     }
 
     /** Represents a TFBetPoolChange. */
@@ -27693,7 +27705,7 @@ declare namespace msg {
         public pos: number;
 
         /** TFBetPoolChange bet. */
-        public bet: number[];
+        public bet: (number|Long)[];
 
         /**
          * Creates a new TFBetPoolChange instance using the specified properties.
@@ -27776,13 +27788,13 @@ declare namespace msg {
         ranklist?: (msg.ITFRankPlayer[]|null);
 
         /** RS2C_PushTFRoundOver gold */
-        gold?: (number|null);
+        gold?: (number|Long|null);
 
         /** RS2C_PushTFRoundOver pool */
-        pool?: (number|null);
+        pool?: (number|Long|null);
 
         /** RS2C_PushTFRoundOver bankergold */
-        bankergold?: (number|null);
+        bankergold?: (number|Long|null);
 
         /** RS2C_PushTFRoundOver iswin */
         iswin?: (boolean|null);
@@ -27807,13 +27819,13 @@ declare namespace msg {
         public ranklist: msg.ITFRankPlayer[];
 
         /** RS2C_PushTFRoundOver gold. */
-        public gold: number;
+        public gold: (number|Long);
 
         /** RS2C_PushTFRoundOver pool. */
-        public pool: number;
+        public pool: (number|Long);
 
         /** RS2C_PushTFRoundOver bankergold. */
-        public bankergold: number;
+        public bankergold: (number|Long);
 
         /** RS2C_PushTFRoundOver iswin. */
         public iswin: boolean;
@@ -27998,7 +28010,7 @@ declare namespace msg {
     interface ITFRankPlayer {
 
         /** TFRankPlayer num */
-        num?: (number|null);
+        num?: (number|Long|null);
 
         /** TFRankPlayer roleid */
         roleid?: (number|Long|null);
@@ -28017,7 +28029,7 @@ declare namespace msg {
         constructor(properties?: msg.ITFRankPlayer);
 
         /** TFRankPlayer num. */
-        public num: number;
+        public num: (number|Long);
 
         /** TFRankPlayer roleid. */
         public roleid: (number|Long);
@@ -28199,7 +28211,7 @@ declare namespace msg {
         player?: (msg.ITFPlayer|null);
 
         /** RS2C_PushTFPosChange bankergold */
-        bankergold?: (number|null);
+        bankergold?: (number|Long|null);
     }
 
     /** Represents a RS2C_PushTFPosChange. */
@@ -28215,7 +28227,7 @@ declare namespace msg {
         public player?: (msg.ITFPlayer|null);
 
         /** RS2C_PushTFPosChange bankergold. */
-        public bankergold: number;
+        public bankergold: (number|Long);
 
         /**
          * Creates a new RS2C_PushTFPosChange instance using the specified properties.
@@ -28385,7 +28397,7 @@ declare namespace msg {
         roleid?: (number|Long|null);
 
         /** TexasPlayer bankroll */
-        bankroll?: (number|null);
+        bankroll?: (number|Long|null);
 
         /** TexasPlayer pos */
         pos?: (number|null);
@@ -28394,13 +28406,13 @@ declare namespace msg {
         state?: (number|null);
 
         /** TexasPlayer num */
-        num?: (number|null);
+        num?: (number|Long|null);
 
         /** TexasPlayer initbankroll */
-        initbankroll?: (number|null);
+        initbankroll?: (number|Long|null);
 
         /** TexasPlayer totalnum */
-        totalnum?: (number|null);
+        totalnum?: (number|Long|null);
     }
 
     /** Represents a TexasPlayer. */
@@ -28416,7 +28428,7 @@ declare namespace msg {
         public roleid: (number|Long);
 
         /** TexasPlayer bankroll. */
-        public bankroll: number;
+        public bankroll: (number|Long);
 
         /** TexasPlayer pos. */
         public pos: number;
@@ -28425,13 +28437,13 @@ declare namespace msg {
         public state: number;
 
         /** TexasPlayer num. */
-        public num: number;
+        public num: (number|Long);
 
         /** TexasPlayer initbankroll. */
-        public initbankroll: number;
+        public initbankroll: (number|Long);
 
         /** TexasPlayer totalnum. */
-        public totalnum: number;
+        public totalnum: (number|Long);
 
         /**
          * Creates a new TexasPlayer instance using the specified properties.
@@ -28514,19 +28526,19 @@ declare namespace msg {
         buttonpos?: (number|null);
 
         /** RS2C_RetEnterRoom potchips */
-        potchips?: (number[]|null);
+        potchips?: ((number|Long)[]|null);
 
         /** RS2C_RetEnterRoom roomid */
         roomid?: (number|null);
 
         /** RS2C_RetEnterRoom ante */
-        ante?: (number|null);
+        ante?: (number|Long|null);
 
         /** RS2C_RetEnterRoom sblind */
-        sblind?: (number|null);
+        sblind?: (number|Long|null);
 
         /** RS2C_RetEnterRoom bblind */
-        bblind?: (number|null);
+        bblind?: (number|Long|null);
 
         /** RS2C_RetEnterRoom pos */
         pos?: (number|null);
@@ -28571,13 +28583,13 @@ declare namespace msg {
         addontimes?: (number|null);
 
         /** RS2C_RetEnterRoom addbuy */
-        addbuy?: (number|null);
+        addbuy?: (number|Long|null);
 
         /** RS2C_RetEnterRoom rank */
         rank?: (number|null);
 
         /** RS2C_RetEnterRoom avgchips */
-        avgchips?: (number|null);
+        avgchips?: (number|Long|null);
 
         /** RS2C_RetEnterRoom join */
         join?: (number|null);
@@ -28605,19 +28617,19 @@ declare namespace msg {
         public buttonpos: number;
 
         /** RS2C_RetEnterRoom potchips. */
-        public potchips: number[];
+        public potchips: (number|Long)[];
 
         /** RS2C_RetEnterRoom roomid. */
         public roomid: number;
 
         /** RS2C_RetEnterRoom ante. */
-        public ante: number;
+        public ante: (number|Long);
 
         /** RS2C_RetEnterRoom sblind. */
-        public sblind: number;
+        public sblind: (number|Long);
 
         /** RS2C_RetEnterRoom bblind. */
-        public bblind: number;
+        public bblind: (number|Long);
 
         /** RS2C_RetEnterRoom pos. */
         public pos: number;
@@ -28662,13 +28674,13 @@ declare namespace msg {
         public addontimes: number;
 
         /** RS2C_RetEnterRoom addbuy. */
-        public addbuy: number;
+        public addbuy: (number|Long);
 
         /** RS2C_RetEnterRoom rank. */
         public rank: number;
 
         /** RS2C_RetEnterRoom avgchips. */
-        public avgchips: number;
+        public avgchips: (number|Long);
 
         /** RS2C_RetEnterRoom join. */
         public join: number;
@@ -29132,7 +29144,7 @@ declare namespace msg {
     interface IC2RS_ReqBuyInGame {
 
         /** C2RS_ReqBuyInGame num */
-        num?: (number|null);
+        num?: (number|Long|null);
 
         /** C2RS_ReqBuyInGame isautobuy */
         isautobuy?: (boolean|null);
@@ -29151,7 +29163,7 @@ declare namespace msg {
         constructor(properties?: msg.IC2RS_ReqBuyInGame);
 
         /** C2RS_ReqBuyInGame num. */
-        public num: number;
+        public num: (number|Long);
 
         /** C2RS_ReqBuyInGame isautobuy. */
         public isautobuy: boolean;
@@ -29333,7 +29345,7 @@ declare namespace msg {
         state?: (number|null);
 
         /** RS2C_PushSitOrStand bankroll */
-        bankroll?: (number|null);
+        bankroll?: (number|Long|null);
     }
 
     /** Represents a RS2C_PushSitOrStand. */
@@ -29355,7 +29367,7 @@ declare namespace msg {
         public state: number;
 
         /** RS2C_PushSitOrStand bankroll. */
-        public bankroll: number;
+        public bankroll: (number|Long);
 
         /**
          * Creates a new RS2C_PushSitOrStand instance using the specified properties.
@@ -29711,10 +29723,10 @@ declare namespace msg {
         bblindpos?: (number|null);
 
         /** RS2C_PushNextRoundStart sblind */
-        sblind?: (number|null);
+        sblind?: (number|Long|null);
 
         /** RS2C_PushNextRoundStart bblind */
-        bblind?: (number|null);
+        bblind?: (number|Long|null);
     }
 
     /** Represents a RS2C_PushNextRoundStart. */
@@ -29736,10 +29748,10 @@ declare namespace msg {
         public bblindpos: number;
 
         /** RS2C_PushNextRoundStart sblind. */
-        public sblind: number;
+        public sblind: (number|Long);
 
         /** RS2C_PushNextRoundStart bblind. */
-        public bblind: number;
+        public bblind: (number|Long);
 
         /**
          * Creates a new RS2C_PushNextRoundStart instance using the specified properties.
@@ -29819,7 +29831,7 @@ declare namespace msg {
         roleid?: (number|Long|null);
 
         /** RS2C_PushChipsChange bankroll */
-        bankroll?: (number|null);
+        bankroll?: (number|Long|null);
     }
 
     /** Represents a RS2C_PushChipsChange. */
@@ -29835,7 +29847,7 @@ declare namespace msg {
         public roleid: (number|Long);
 
         /** RS2C_PushChipsChange bankroll. */
-        public bankroll: number;
+        public bankroll: (number|Long);
 
         /**
          * Creates a new RS2C_PushChipsChange instance using the specified properties.
@@ -29918,7 +29930,7 @@ declare namespace msg {
         state?: (number|null);
 
         /** RS2C_PushPlayerStateChange num */
-        num?: (number|null);
+        num?: (number|Long|null);
     }
 
     /** Represents a RS2C_PushPlayerStateChange. */
@@ -29937,7 +29949,7 @@ declare namespace msg {
         public state: number;
 
         /** RS2C_PushPlayerStateChange num. */
-        public num: number;
+        public num: (number|Long);
 
         /**
          * Creates a new RS2C_PushPlayerStateChange instance using the specified properties.
@@ -30203,7 +30215,7 @@ declare namespace msg {
         card?: (number[]|null);
 
         /** RS2C_PushOneLoopOver potchips */
-        potchips?: (number[]|null);
+        potchips?: ((number|Long)[]|null);
     }
 
     /** Represents a RS2C_PushOneLoopOver. */
@@ -30219,7 +30231,7 @@ declare namespace msg {
         public card: number[];
 
         /** RS2C_PushOneLoopOver potchips. */
-        public potchips: number[];
+        public potchips: (number|Long)[];
 
         /**
          * Creates a new RS2C_PushOneLoopOver instance using the specified properties.
@@ -30296,7 +30308,7 @@ declare namespace msg {
     interface IPotInfo {
 
         /** PotInfo num */
-        num?: (number|null);
+        num?: (number|Long|null);
 
         /** PotInfo type */
         type?: (number|null);
@@ -30315,7 +30327,7 @@ declare namespace msg {
         constructor(properties?: msg.IPotInfo);
 
         /** PotInfo num. */
-        public num: number;
+        public num: (number|Long);
 
         /** PotInfo type. */
         public type: number;
@@ -30593,7 +30605,7 @@ declare namespace msg {
         state?: (number|null);
 
         /** C2RS_ReqAction num */
-        num?: (number|null);
+        num?: (number|Long|null);
     }
 
     /** Represents a C2RS_ReqAction. */
@@ -30609,7 +30621,7 @@ declare namespace msg {
         public state: number;
 
         /** C2RS_ReqAction num. */
-        public num: number;
+        public num: (number|Long);
 
         /**
          * Creates a new C2RS_ReqAction instance using the specified properties.
@@ -31586,7 +31598,7 @@ declare namespace msg {
     interface IC2RS_ReqAddCoin {
 
         /** C2RS_ReqAddCoin num */
-        num?: (number|null);
+        num?: (number|Long|null);
     }
 
     /** Represents a C2RS_ReqAddCoin. */
@@ -31599,7 +31611,7 @@ declare namespace msg {
         constructor(properties?: msg.IC2RS_ReqAddCoin);
 
         /** C2RS_ReqAddCoin num. */
-        public num: number;
+        public num: (number|Long);
 
         /**
          * Creates a new C2RS_ReqAddCoin instance using the specified properties.
@@ -31853,7 +31865,7 @@ declare namespace msg {
         state?: (number|null);
 
         /** UserOneRound bet */
-        bet?: (number|null);
+        bet?: (number|Long|null);
 
         /** UserOneRound cards */
         cards?: (number[]|null);
@@ -31872,7 +31884,7 @@ declare namespace msg {
         public state: number;
 
         /** UserOneRound bet. */
-        public bet: number;
+        public bet: (number|Long);
 
         /** UserOneRound cards. */
         public cards: number[];
@@ -31973,7 +31985,7 @@ declare namespace msg {
         round?: (msg.IUserOneRound[]|null);
 
         /** UserReviewInfo bankroll */
-        bankroll?: (number|null);
+        bankroll?: (number|Long|null);
 
         /** UserReviewInfo cardtype */
         cardtype?: (number|null);
@@ -32013,7 +32025,7 @@ declare namespace msg {
         public round: msg.IUserOneRound[];
 
         /** UserReviewInfo bankroll. */
-        public bankroll: number;
+        public bankroll: (number|Long);
 
         /** UserReviewInfo cardtype. */
         public cardtype: number;
@@ -32186,13 +32198,13 @@ declare namespace msg {
     interface IRS2C_PushBlindChange {
 
         /** RS2C_PushBlindChange sblind */
-        sblind?: (number|null);
+        sblind?: (number|Long|null);
 
         /** RS2C_PushBlindChange bblind */
-        bblind?: (number|null);
+        bblind?: (number|Long|null);
 
         /** RS2C_PushBlindChange ante */
-        ante?: (number|null);
+        ante?: (number|Long|null);
 
         /** RS2C_PushBlindChange blindlevel */
         blindlevel?: (number|null);
@@ -32208,13 +32220,13 @@ declare namespace msg {
         constructor(properties?: msg.IRS2C_PushBlindChange);
 
         /** RS2C_PushBlindChange sblind. */
-        public sblind: number;
+        public sblind: (number|Long);
 
         /** RS2C_PushBlindChange bblind. */
-        public bblind: number;
+        public bblind: (number|Long);
 
         /** RS2C_PushBlindChange ante. */
-        public ante: number;
+        public ante: (number|Long);
 
         /** RS2C_PushBlindChange blindlevel. */
         public blindlevel: number;
@@ -33311,7 +33323,7 @@ declare namespace table {
         CostId?: (number[]|null);
 
         /** AwardDefine CostNum */
-        CostNum?: (number[]|null);
+        CostNum?: ((number|Long)[]|null);
 
         /** AwardDefine RewardType */
         RewardType?: (number[]|null);
@@ -33320,7 +33332,7 @@ declare namespace table {
         RewardId?: (number[]|null);
 
         /** AwardDefine RewardNum */
-        RewardNum?: (number[]|null);
+        RewardNum?: ((number|Long)[]|null);
 
         /** AwardDefine PreId */
         PreId?: (number|null);
@@ -33369,7 +33381,7 @@ declare namespace table {
         public CostId: number[];
 
         /** AwardDefine CostNum. */
-        public CostNum: number[];
+        public CostNum: (number|Long)[];
 
         /** AwardDefine RewardType. */
         public RewardType: number[];
@@ -33378,7 +33390,7 @@ declare namespace table {
         public RewardId: number[];
 
         /** AwardDefine RewardNum. */
-        public RewardNum: number[];
+        public RewardNum: (number|Long)[];
 
         /** AwardDefine PreId. */
         public PreId: number;
@@ -33803,7 +33815,7 @@ declare namespace table {
         AwardId?: (number|null);
 
         /** Activity_bankruptSubsidyDefine LimitGold */
-        LimitGold?: (number|null);
+        LimitGold?: (number|Long|null);
 
         /** Activity_bankruptSubsidyDefine Times */
         Times?: (number|null);
@@ -33831,7 +33843,7 @@ declare namespace table {
         public AwardId: number;
 
         /** Activity_bankruptSubsidyDefine LimitGold. */
-        public LimitGold: number;
+        public LimitGold: (number|Long);
 
         /** Activity_bankruptSubsidyDefine Times. */
         public Times: number;
@@ -34427,16 +34439,16 @@ declare namespace table {
         BNum?: (number|null);
 
         /** ChampionshipDefine SignCost */
-        SignCost?: (number|null);
+        SignCost?: (number|Long|null);
 
         /** ChampionshipDefine ServeCost */
-        ServeCost?: (number|null);
+        ServeCost?: (number|Long|null);
 
         /** ChampionshipDefine RebuyCost */
-        RebuyCost?: (number|null);
+        RebuyCost?: (number|Long|null);
 
         /** ChampionshipDefine AddonCost */
-        AddonCost?: (number|null);
+        AddonCost?: (number|Long|null);
 
         /** ChampionshipDefine TicketId */
         TicketId?: (number|null);
@@ -34466,7 +34478,7 @@ declare namespace table {
         BlindType?: (number|null);
 
         /** ChampionshipDefine InitialChips */
-        InitialChips?: (number|null);
+        InitialChips?: (number|Long|null);
 
         /** ChampionshipDefine RoomId */
         RoomId?: (number|null);
@@ -34475,7 +34487,7 @@ declare namespace table {
         WaitingTime?: (number|null);
 
         /** ChampionshipDefine AddonChips */
-        AddonChips?: (number|null);
+        AddonChips?: (number|Long|null);
 
         /** ChampionshipDefine MaxRebuyTimes */
         MaxRebuyTimes?: (number|null);
@@ -34512,16 +34524,16 @@ declare namespace table {
         public BNum: number;
 
         /** ChampionshipDefine SignCost. */
-        public SignCost: number;
+        public SignCost: (number|Long);
 
         /** ChampionshipDefine ServeCost. */
-        public ServeCost: number;
+        public ServeCost: (number|Long);
 
         /** ChampionshipDefine RebuyCost. */
-        public RebuyCost: number;
+        public RebuyCost: (number|Long);
 
         /** ChampionshipDefine AddonCost. */
-        public AddonCost: number;
+        public AddonCost: (number|Long);
 
         /** ChampionshipDefine TicketId. */
         public TicketId: number;
@@ -34551,7 +34563,7 @@ declare namespace table {
         public BlindType: number;
 
         /** ChampionshipDefine InitialChips. */
-        public InitialChips: number;
+        public InitialChips: (number|Long);
 
         /** ChampionshipDefine RoomId. */
         public RoomId: number;
@@ -34560,7 +34572,7 @@ declare namespace table {
         public WaitingTime: number;
 
         /** ChampionshipDefine AddonChips. */
-        public AddonChips: number;
+        public AddonChips: (number|Long);
 
         /** ChampionshipDefine MaxRebuyTimes. */
         public MaxRebuyTimes: number;
@@ -34742,13 +34754,13 @@ declare namespace table {
         Level?: (number|null);
 
         /** ChampionshipBlindDefine SBlind */
-        SBlind?: (number|null);
+        SBlind?: (number|Long|null);
 
         /** ChampionshipBlindDefine BBlind */
-        BBlind?: (number|null);
+        BBlind?: (number|Long|null);
 
         /** ChampionshipBlindDefine PreBet */
-        PreBet?: (number|null);
+        PreBet?: (number|Long|null);
 
         /** ChampionshipBlindDefine Addon */
         Addon?: (number|null);
@@ -34779,13 +34791,13 @@ declare namespace table {
         public Level: number;
 
         /** ChampionshipBlindDefine SBlind. */
-        public SBlind: number;
+        public SBlind: (number|Long);
 
         /** ChampionshipBlindDefine BBlind. */
-        public BBlind: number;
+        public BBlind: (number|Long);
 
         /** ChampionshipBlindDefine PreBet. */
-        public PreBet: number;
+        public PreBet: (number|Long);
 
         /** ChampionshipBlindDefine Addon. */
         public Addon: number;
@@ -35957,19 +35969,19 @@ declare namespace table {
         Icon?: (string|null);
 
         /** HundredWarDefine MinBuyin */
-        MinBuyin?: (number|null);
+        MinBuyin?: (number|Long|null);
 
         /** HundredWarDefine MaxRole */
         MaxRole?: (number|null);
 
         /** HundredWarDefine Bet */
-        Bet?: (number[]|null);
+        Bet?: ((number|Long)[]|null);
 
         /** HundredWarDefine BankerGold */
-        BankerGold?: (number|null);
+        BankerGold?: (number|Long|null);
 
         /** HundredWarDefine SeatGold */
-        SeatGold?: (number|null);
+        SeatGold?: (number|Long|null);
 
         /** HundredWarDefine BettingRatio */
         BettingRatio?: (number|null);
@@ -36002,7 +36014,7 @@ declare namespace table {
         BankerRound?: (number|null);
 
         /** HundredWarDefine BankerMinGold */
-        BankerMinGold?: (number|null);
+        BankerMinGold?: (number|Long|null);
 
         /** HundredWarDefine TitleImg */
         TitleImg?: (string|null);
@@ -36036,19 +36048,19 @@ declare namespace table {
         public Icon: string;
 
         /** HundredWarDefine MinBuyin. */
-        public MinBuyin: number;
+        public MinBuyin: (number|Long);
 
         /** HundredWarDefine MaxRole. */
         public MaxRole: number;
 
         /** HundredWarDefine Bet. */
-        public Bet: number[];
+        public Bet: (number|Long)[];
 
         /** HundredWarDefine BankerGold. */
-        public BankerGold: number;
+        public BankerGold: (number|Long);
 
         /** HundredWarDefine SeatGold. */
-        public SeatGold: number;
+        public SeatGold: (number|Long);
 
         /** HundredWarDefine BettingRatio. */
         public BettingRatio: number;
@@ -36081,7 +36093,7 @@ declare namespace table {
         public BankerRound: number;
 
         /** HundredWarDefine BankerMinGold. */
-        public BankerMinGold: number;
+        public BankerMinGold: (number|Long);
 
         /** HundredWarDefine TitleImg. */
         public TitleImg: string;
@@ -37082,7 +37094,7 @@ declare namespace table {
         MaxTake?: (number|null);
 
         /** LuckyTaskDefine Gold */
-        Gold?: (number[]|null);
+        Gold?: ((number|Long)[]|null);
 
         /** LuckyTaskDefine TotalPlay */
         TotalPlay?: (number|null);
@@ -37122,7 +37134,7 @@ declare namespace table {
         public MaxTake: number;
 
         /** LuckyTaskDefine Gold. */
-        public Gold: number[];
+        public Gold: (number|Long)[];
 
         /** LuckyTaskDefine TotalPlay. */
         public TotalPlay: number;
@@ -41012,19 +41024,19 @@ declare namespace table {
         Type?: (number|null);
 
         /** TexasRoomDefine SBlind */
-        SBlind?: (number|null);
+        SBlind?: (number|Long|null);
 
         /** TexasRoomDefine BBlind */
-        BBlind?: (number|null);
+        BBlind?: (number|Long|null);
 
         /** TexasRoomDefine SBuyin */
-        SBuyin?: (number|null);
+        SBuyin?: (number|Long|null);
 
         /** TexasRoomDefine BBuyin */
-        BBuyin?: (number|null);
+        BBuyin?: (number|Long|null);
 
         /** TexasRoomDefine Tax */
-        Tax?: (number|null);
+        Tax?: (number|Long|null);
 
         /** TexasRoomDefine Seat */
         Seat?: (number|null);
@@ -41042,7 +41054,7 @@ declare namespace table {
         WaitingTime?: (number|null);
 
         /** TexasRoomDefine Ante */
-        Ante?: (number[]|null);
+        Ante?: ((number|Long)[]|null);
 
         /** TexasRoomDefine Timeout */
         Timeout?: (number|null);
@@ -41079,19 +41091,19 @@ declare namespace table {
         public Type: number;
 
         /** TexasRoomDefine SBlind. */
-        public SBlind: number;
+        public SBlind: (number|Long);
 
         /** TexasRoomDefine BBlind. */
-        public BBlind: number;
+        public BBlind: (number|Long);
 
         /** TexasRoomDefine SBuyin. */
-        public SBuyin: number;
+        public SBuyin: (number|Long);
 
         /** TexasRoomDefine BBuyin. */
-        public BBuyin: number;
+        public BBuyin: (number|Long);
 
         /** TexasRoomDefine Tax. */
-        public Tax: number;
+        public Tax: (number|Long);
 
         /** TexasRoomDefine Seat. */
         public Seat: number;
@@ -41109,7 +41121,7 @@ declare namespace table {
         public WaitingTime: number;
 
         /** TexasRoomDefine Ante. */
-        public Ante: number[];
+        public Ante: (number|Long)[];
 
         /** TexasRoomDefine Timeout. */
         public Timeout: number;

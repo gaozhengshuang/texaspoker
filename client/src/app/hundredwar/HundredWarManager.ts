@@ -120,7 +120,7 @@ class HundredWarManager
                         {
                             let potInfo: HWBetPotInfo = new HWBetPotInfo();
                             potInfo.copyValueFromIgnoreCase(betInfo);
-                            potInfo.myBet = data.mybet[betInfo.pos]; //move todo data.myBet[betInfo.pos - 1];
+                            potInfo.myBet = game.longToNumber(data.mybet[betInfo.pos]); //move todo data.myBet[betInfo.pos - 1];
                             potInfo.cards = [];
                             GamblingUtil.cardArr2CardInfoList(betInfo.cards, potInfo.cards);
 
@@ -380,7 +380,7 @@ class HundredWarManager
             {
                 if (data.player.pos == 0 && !data.player.roleid && HundredWarManager.isBanker(UserManager.userInfo.roleId) && InfoUtil.checkAvailable(HundredWarManager.roomInfo) && HundredWarManager.roomInfo.bankerGold < HundredWarManager.roomInfo.definition.BankerMinGold)
                 {
-                    AlertManager.showAlert("您的当前金币低于" + game.MathUtil.formatNum(HundredWarManager.roomInfo.definition.BankerMinGold) + "金币，已从庄家列表退出。");
+                    AlertManager.showAlert("您的当前金币低于" + game.MathUtil.formatNum(game.longToNumber(HundredWarManager.roomInfo.definition.BankerMinGold)) + "金币，已从庄家列表退出。");
                 }
                 if (HundredWarManager.roomInfo.playerList.length > 0)
                 {
@@ -427,7 +427,7 @@ class HundredWarManager
                 }
                 if (data.bankergold)
                 {
-                    HundredWarManager.roomInfo.bankerGold = data.bankergold;
+                    HundredWarManager.roomInfo.bankerGold = game.longToNumber(data.bankergold);
                 }
                 if (HundredWarManager.isSysBanker(game.longToNumber(data.player.roleid)))
                 {
@@ -460,7 +460,7 @@ class HundredWarManager
                     {
                         changeBet.push(info.pos);
                     }
-                    info.bet = data.bet[info.pos - 1];
+                    info.bet = game.longToNumber(data.bet[info.pos - 1]);
                 }
             }
             data.bet = changeBet;
@@ -519,8 +519,8 @@ class HundredWarManager
                 HundredWarManager.hundredWarOverInfo.rankList = data.ranklist;
                 HundredWarManager.hundredWarOverInfo.rankList.sort(SortUtil.hundredOverRankSort);
             }
-            HundredWarManager.hundredWarOverInfo.gold = data.gold;
-            HundredWarManager.hundredWarOverInfo.pool = data.pool;
+            HundredWarManager.hundredWarOverInfo.gold = game.longToNumber(data.gold);
+            HundredWarManager.hundredWarOverInfo.pool = game.longToNumber(data.pool);
             HundredWarManager.hundredWarOverInfo.isWin = data.iswin;
             HundredWarManager.hundredWarOverInfo.sitplayers = data.sitplayers;
             if (HundredWarManager.roomInfo && HundredWarManager.roomInfo.playerList && data.sitplayers) //更新坐下玩家信息
@@ -538,7 +538,7 @@ class HundredWarManager
                 }
             }
 
-            HundredWarManager.roomInfo.bankerGold = data.bankergold;
+            HundredWarManager.roomInfo.bankerGold = game.longToNumber(data.bankergold);
             HundredWarManager.onCardPushEvent.dispatch();
         }
     }

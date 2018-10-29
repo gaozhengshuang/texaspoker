@@ -64,7 +64,7 @@ class MonthCardItemRenderer extends BaseItemRenderer<ShopInfo>
             {
                 if (this._monthCardDefinition.CostId)
                 {
-                    this.costLabel.text = this._monthCardDefinition.CostNum[0] / 100 + this.getDesByCostType(this._monthCardDefinition.CostType[0]);
+                    this.costLabel.text = game.longToNumber(this._monthCardDefinition.CostNum[0]) / 100 + this.getDesByCostType(this._monthCardDefinition.CostType[0]);
                 }
                 this._bringAwardDef = AwardDefined.GetInstance().getAwardInfoByPreId(this._monthCardDefinition.Id);
                 if (this._bringAwardDef)

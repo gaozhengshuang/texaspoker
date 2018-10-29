@@ -78,11 +78,11 @@ class GiftShopItemRenderer extends BaseItemRenderer<table.IGiftShopDefine>
             let type = awardDef.CostType[0];
             if (type == CostType.Diamond)
             {
-                isEnough = CostManager.verifyDiamond(awardDef.CostNum[0], true, () => { JumpUtil.JumpToShopping(ShopGroupIndex.Diamond, UIModuleName.GiftShopPanel); });
+                isEnough = CostManager.verifyDiamond(game.longToNumber(awardDef.CostNum[0]), true, () => { JumpUtil.JumpToShopping(ShopGroupIndex.Diamond, UIModuleName.GiftShopPanel); });
             }
             else if (type == CostType.Gold)
             {
-                isEnough = CostManager.verifyGold(awardDef.CostNum[0], true, () => { JumpUtil.JumpToShopping(ShopGroupIndex.Vip, UIModuleName.GiftShopPanel); });
+                isEnough = CostManager.verifyGold(game.longToNumber(awardDef.CostNum[0]), true, () => { JumpUtil.JumpToShopping(ShopGroupIndex.Vip, UIModuleName.GiftShopPanel); });
             }
         }
         if (isEnough)
