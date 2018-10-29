@@ -187,6 +187,7 @@ func (u *GateUser) SetExp(exp int32) {
 func (u *GateUser) AddExp(num int32, reason string) {
 	oldlevel, exp := u.Level(), u.Exp()
 	newlevel := oldlevel
+	exp = exp + num
 	for {
 		lvlbase, ok := tbl.LevelBasee.ExpById[oldlevel + 1]
 		if ok == false {
