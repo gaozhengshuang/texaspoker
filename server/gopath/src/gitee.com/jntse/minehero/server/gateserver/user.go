@@ -696,5 +696,6 @@ func (u *GateUser) UserDailyReset() {
 	Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "dailyresetstamp", now)
 	u.ActivityResetByDay()
 	u.DailyResetAchieve()
+	u.VipDailyCheck()
 }
 

@@ -290,6 +290,17 @@ func (u *GateUser) GetVipState () int32 {
 	}
 }
 
+func (u *GateUser) VipDailyCheck() {
+	state := u.GetVipState()
+	if state == 2 {
+		u.AddVipExp(int32(tbl.Global.Vip.Speed2))
+	}else if state == 1 {
+		u.AddVipExp(int32(tbl.Global.Vip.Speed1))
+	}else if state == 0 && u.VipExp() > 0 {
+		u.SubVipExp(int32(tbl.Global.Vip.Subspeed))
+	}
+}
+
 // 获得补偿
 func (u *GateUser) CheckHaveCompensation() {
 	strkey := fmt.Sprintf("compen_%d", u.Id())

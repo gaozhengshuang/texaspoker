@@ -61,6 +61,7 @@
     "Vip" : {
         "speed1":5,
         "speed2":15,
-		"maxexp":6000
+		"maxexp":6000,
+		"subspeed":10
     }
 }
