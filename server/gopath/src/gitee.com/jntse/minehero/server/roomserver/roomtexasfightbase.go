@@ -159,7 +159,7 @@ func (p *TexasFightPlayer) Gold() int64 {
 }
 
 
-func (p *TexasFightPlayer) Bet(pos, num int64) {
+func (p *TexasFightPlayer) Bet(pos int32, num int64) {
 	if pos >= int32(len(p.betlist)) || pos < 0  {
 		return
 	}
@@ -368,7 +368,7 @@ func (t *TexasFightBetPool) Compare(pool *TexasFightBetPool) int32 {
 // --------------------------------------------------------------------------
 type SitPlayerBetInfo struct {
 	seat int32					// 座位号
-	poolbet [kBetPoolNum]int32	// 注池下注额
+	poolbet [kBetPoolNum]int64	// 注池下注额
 }
 type BetPoolTempStat struct {
 	seats []*SitPlayerBetInfo	// 坐下玩家下注统计

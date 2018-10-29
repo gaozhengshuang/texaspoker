@@ -169,7 +169,7 @@ message RS2C_RetTFStart {
 
 // 注池变更推送
 message RS2C_PushBetPoolChange {
-    repeated int32 bet = 1;     // 注池下注量
+    repeated int64 bet = 1;     // 注池下注量
     repeated TFBetPoolChange posbetlist = 2;    // 坐下玩家下注信息
 }
 
@@ -211,7 +211,7 @@ message RS2C_PushTFStateChange {
 // 位置变更推送
 message RS2C_PushTFPosChange {
     optional TFPlayer player = 1;   // 位置玩家信息
-    optional int32 bankergold = 2;
+    optional int64 bankergold = 2;
 }
 
 
