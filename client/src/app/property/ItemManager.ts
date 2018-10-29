@@ -5,13 +5,9 @@ class ItemManager
 {
     public static itemList: Array<ItemInfo> = new Array<ItemInfo>();
     /**
-     * 物品增加事件
+     * 物品数量变更事件
      */
-    public static itemAddEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
-    /**
-     * 物品减少事件
-     */
-    public static itemReduceEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
+    public static ItemNumChangeEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 
     public static reset()
     {
@@ -20,64 +16,43 @@ class ItemManager
 
     public static initialize(result: game.SpRpcResult)
     {
+        let data: msg.GW2C_PushItemList = result.data;
         ItemManager.reset();
-        if (result.data && result.data.Array)
+        if (data && data.list)
         {
-            for (let info of result.data.Array)
+            for (let info of data.list)
             {
                 let item: ItemInfo = new ItemInfo();
-                item.id = info.Id;
-                item.count = info.Count;
+                item.id = info.id;
+                item.count = info.num;
                 ItemManager.itemList.push(item);
             }
         }
-        SocketManager.AddCommandListener(Command.Rec_ItemListAdd_2002, this.onItemListAdd, this);
-        SocketManager.AddCommandListener(Command.Rec_ItemListReduce_2005, this.onItemListReduce, this);
+        SocketManager.AddCommandListener(Command.GW2C_PushUpdateItem, this.onItemNumChange, this);
     }
     /**
      * 物品增加
      */
-    private static onItemListAdd(result: game.SpRpcResult)
+    private static onItemNumChange(result: game.SpRpcResult)
     {
-        if (result.data && result.data.Array)
+        let data: msg.GW2C_PushUpdateItem = result.data;
+        if (data)
         {
-            for (let info of result.data.Array)
+            let item: ItemInfo = ItemManager.getItemById(data.id);
+            if (item)
             {
-                let item: ItemInfo = ItemManager.getItemById(info.Id);
-                if (item)
-                {
-                    item.count += info.Count;
-                    ItemManager.checkItemCount(item);
-                }
-                else
-                {
-                    item = new ItemInfo();
-                    item.id = info.Id;
-                    item.count = info.Count;
-                    ItemManager.itemList.push(item);
-                }
+                item.count = data.num;
+                ItemManager.checkItemCount(item);
+            }
+            else
+            {
+                item = new ItemInfo();
+                item.id = data.id;
+                item.count = data.num;
+                ItemManager.itemList.push(item);
             }
         }
-        ItemManager.itemAddEvent.dispatch();
-    }
-    /**
-     * 物品减少
-     */
-    private static onItemListReduce(result: game.SpRpcResult)
-    {
-        if (result.data && result.data.Array)
-        {
-            for (let info of result.data.Array)
-            {
-                let item: ItemInfo = ItemManager.getItemById(info.Id);
-                if (item)
-                {
-                    item.count -= info.Count;
-                    ItemManager.checkItemCount(item);
-                }
-            }
-        }
-        ItemManager.itemReduceEvent.dispatch();
+        ItemManager.ItemNumChangeEvent.dispatch();
     }
 
     public static getItemById(id: number): ItemInfo

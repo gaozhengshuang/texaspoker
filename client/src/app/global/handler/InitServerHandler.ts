@@ -74,17 +74,6 @@ class InitServerHandler
 		// this.reqItemList();
 	}
 	/**
-	 * 拉取物品列表
-	 */
-	private reqItemList()
-	{
-		SocketManager.ImplCall(Command.Req_ItemList_3020, null, this.onGetItemList, null, this);
-	}
-	private onGetItemList(result: game.SpRpcResult)
-	{
-		ItemManager.initialize(result);
-	}
-	/**
 	* 发送好友列表信息获取请求
 	*/
 	private reqFriendListInfo()

@@ -41,6 +41,14 @@ module game
                     TimeManager.initialize(msg.base.statics);
                     NotificationCenter.postNotification(LoginManager.LOGIN_STATE, true);
                 }, "msg.GW2C_PushUserInfo");
+
+                let pushItemCallback: Function = function (result: game.SpRpcResult)
+                {
+                    SocketManager.RemoveCommandListener(Command.GW2C_PushItemList, pushItemCallback, this);
+                    ItemManager.initialize(result);
+                };
+                SocketManager.AddCommandListener(Command.GW2C_PushItemList, pushItemCallback, this);
+
                 let loginResult: msg.IGW2C_RetLogin = await LoginManager.connectLoginGate(gwResult, LoginManager.loginUserInfo.account);
                 if (loginResult.errcode == "")
                 {
