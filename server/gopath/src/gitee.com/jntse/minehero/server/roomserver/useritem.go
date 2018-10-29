@@ -7,11 +7,11 @@ import (
 	pb "github.com/gogo/protobuf/proto"
 )
 
-func (u *RoomUser) GetGold() int32 {
+func (u *RoomUser) GetGold() int64 {
 	return u.EntityBase().Gold()
 }
 
-func (u *RoomUser) RemoveGold(gold int32, reason string, syn bool) bool {
+func (u *RoomUser) RemoveGold(gold int64, reason string, syn bool) bool {
 	if u.aiflag == true {
 		return true
 	}
@@ -30,7 +30,7 @@ func (u *RoomUser) RemoveGold(gold int32, reason string, syn bool) bool {
 	return true
 }
 
-func (u *RoomUser) AddGold(gold int32, reason string, syn bool) {
+func (u *RoomUser) AddGold(gold int64, reason string, syn bool) {
 	if u.aiflag == true {
 		return 
 	}
@@ -63,16 +63,16 @@ func (u *RoomUser) SendPropertyChange() {
 }
 
 // 元宝
-func (u *RoomUser) GetYuanbao() int32 {
+func (u *RoomUser) GetYuanbao() int64 {
 	return u.EntityBase().YuanBao()
 }
 
-func (u *RoomUser) AddYuanbao(yuanbao int32, reason string) {
+func (u *RoomUser) AddYuanbao(yuanbao int64, reason string) {
 	u.EntityBase().IncYuanBao(yuanbao)
 	log.Info("玩家[%d] 添加元宝[%d] 库存[%d] 原因[%s]", u.Id(), yuanbao, u.GetGold(), reason)
 }
 
-func (u *RoomUser) RemoveYuanbao(yuanbao int32, reason string, syn bool) bool {
+func (u *RoomUser) RemoveYuanbao(yuanbao int64, reason string, syn bool) bool {
 	yuanbaosrc := u.GetYuanbao()
 	if yuanbaosrc < yuanbao {
 		log.Info("玩家[%d] 扣除元宝[%d]失败 库存[%d] 原因[%s]", u.Id(), yuanbao, yuanbaosrc, reason)
@@ -87,12 +87,12 @@ func (u *RoomUser) RemoveYuanbao(yuanbao int32, reason string, syn bool) bool {
 	return true
 }
 
-func (u *RoomUser) GetDiamond() int32 {
+func (u *RoomUser) GetDiamond() int64 {
 	return u.EntityBase().Diamond()
 }
 
 // 移除金卷
-func (u *RoomUser) RemoveDiamond(num int32, reason string, syn bool) bool {
+func (u *RoomUser) RemoveDiamond(num int64, reason string, syn bool) bool {
 	diamondsrc := u.GetDiamond()
 	if diamondsrc < num {
 		log.Info("玩家[%d] 扣除金卷[%d]失败 库存[%d] 原因[%s]", u.Id(), num, diamondsrc, reason)
@@ -108,7 +108,7 @@ func (u *RoomUser) RemoveDiamond(num int32, reason string, syn bool) bool {
 }
 
 // 添加金卷
-func (u *RoomUser) AddDiamond(num int32, reason string, syn bool) {
+func (u *RoomUser) AddDiamond(num int64, reason string, syn bool) {
 	u.EntityBase().IncDiamond(num)
 	if syn {
 		u.SendPropertyChange()
@@ -117,7 +117,7 @@ func (u *RoomUser) AddDiamond(num int32, reason string, syn bool) {
 }
 
 // 添加道具
-func (u *RoomUser) AddItem(item int32, num int32, reason string, syn bool) {
+func (u *RoomUser) AddItem(item int32, num int64, reason string, syn bool) {
 	if item == int32(msg.ItemId_YuanBao) {
 		u.AddYuanbao(num, reason)
 	} else if item == int32(msg.ItemId_Gold) {
@@ -125,8 +125,8 @@ func (u *RoomUser) AddItem(item int32, num int32, reason string, syn bool) {
 	} else if item == int32(msg.ItemId_Diamond) {
 		u.AddDiamond(num, reason, syn)
 	} else {
-		sumnum := Redis().HIncrBy(fmt.Sprintf("useritem_%d_%d", u.Id(), item), "num", int64(num)).Val()
-		if sumnum == int64(num) {
+		sumnum := Redis().HIncrBy(fmt.Sprintf("useritem_%d_%d", u.Id(), item), "num", num).Val()
+		if sumnum == num {
 			Redis().SAdd(fmt.Sprintf("userbag_%d"), u.Id(), fmt.Sprintf("%d"), item)
 		}
 		u.UpdateItem(item, int32(sumnum))
@@ -134,7 +134,7 @@ func (u *RoomUser) AddItem(item int32, num int32, reason string, syn bool) {
 	}
 }
 
-func (u *RoomUser) CheckEnoughItem(item int32, num int32) bool {
+func (u *RoomUser) CheckEnoughItem(item int32, num int64) bool {
 	if item == int32(msg.ItemId_YuanBao) {
 		return u.GetYuanbao() >= num
 	} else if item == int32(msg.ItemId_Gold) {
@@ -142,13 +142,13 @@ func (u *RoomUser) CheckEnoughItem(item int32, num int32) bool {
 	} else if item == int32(msg.ItemId_Diamond) {
 		return u.GetDiamond() >= num
 	} else {
-		have := util.Atoi(Redis().HGet(fmt.Sprintf("useritem_%d_%d", u.Id(), item), "num").Val())
+		have := util.Atol(Redis().HGet(fmt.Sprintf("useritem_%d_%d", u.Id(), item), "num").Val())
 		return have >= num
 	}
 }
 
 // 扣除道具
-func (u *RoomUser) RemoveItem(item int32, num int32, reason string) bool {
+func (u *RoomUser) RemoveItem(item int32, num int64, reason string) bool {
 	if item == int32(msg.ItemId_YuanBao) {
 		return u.RemoveYuanbao(num, reason, true)
 	} else if item == int32(msg.ItemId_Gold) {
@@ -159,7 +159,7 @@ func (u *RoomUser) RemoveItem(item int32, num int32, reason string) bool {
 		if u.CheckEnoughItem(item, num) {
 			return false
 		}
-		sumnum := Redis().HIncrBy(fmt.Sprintf("useritem_%d_%d", u.Id(), item), "num", 0-int64(num)).Val()
+		sumnum := Redis().HIncrBy(fmt.Sprintf("useritem_%d_%d", u.Id(), item), "num", -num).Val()
 		if sumnum == 0 {
 			Redis().SRem(fmt.Sprintf("userbag_%d"), u.Id(), fmt.Sprintf("%d"), item)
 		}

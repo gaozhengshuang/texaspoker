@@ -15,9 +15,9 @@ type UserEntity struct {
 	account string
 	level   int32
 	exp     int32
-	gold 	int32
-	yuanbao int32
-	diamond int32
+	gold 	int64
+	yuanbao int64
+	diamond int64
 	age     int32
 
 	dirty   bool
@@ -53,39 +53,39 @@ func (u *UserEntity) SetExp(exp int32) {
 }
 
 //
-func (u *UserEntity) Gold() int32 {
-	u.gold = util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "gold").Val())
+func (u *UserEntity) Gold() int64 {
+	u.gold = util.Atol(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "gold").Val())
 	return u.gold
 }
-func (u *UserEntity) IncGold(n int32) {
-	Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "gold", int64(n))
+func (u *UserEntity) IncGold(n int64) {
+	Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "gold", n)
 }
-func (u *UserEntity) DecGold(n int32) {
-	Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "gold", -int64(n))
+func (u *UserEntity) DecGold(n int64) {
+	Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "gold", -n)
 }
 
 //
-func (u *UserEntity) YuanBao() int32 {
-	u.yuanbao = util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "yuanbao").Val())
+func (u *UserEntity) YuanBao() int64 {
+	u.yuanbao = util.Atol(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "yuanbao").Val())
 	return u.yuanbao
 }
-func (u *UserEntity) IncYuanBao(n int32) {
-	Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "yuanbao", int64(n))
+func (u *UserEntity) IncYuanBao(n int64) {
+	Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "yuanbao", n)
 }
-func (u *UserEntity) DecYuanBao(n int32) {
-	Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "yuanbao", -int64(n))
+func (u *UserEntity) DecYuanBao(n int64) {
+	Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "yuanbao", -n)
 }
 
 //
-func (u *UserEntity) Diamond() int32 {
-	u.diamond = util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "diamond").Val())
+func (u *UserEntity) Diamond() int64 {
+	u.diamond = util.Atol(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "diamond").Val())
 	return u.diamond
 }
-func (u *UserEntity) IncDiamond(n int32) {
-	Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "diamond", int64(n))
+func (u *UserEntity) IncDiamond(n int64) {
+	Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "diamond", n)
 }
-func (u *UserEntity) DecDiamond(n int32) {
-	Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "diamond", -int64(n))
+func (u *UserEntity) DecDiamond(n int64) {
+	Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "diamond", -n)
 }
 
 func (u *UserEntity) DBLoad() {
@@ -105,9 +105,9 @@ func (u *UserEntity) DBLoad() {
 			case "account":     u.account = vt.String()
 			case "level":       u.level = vt.Int32()
 			case "exp":         u.exp = vt.Int32()
-			case "gold":		u.gold = vt.Int32()
-			case "yuanbao":		u.yuanbao = vt.Int32()
-			case "diamond":		u.diamond = vt.Int32()
+			case "gold":		u.gold = vt.Int64()
+			case "yuanbao":		u.yuanbao = vt.Int64()
+			case "diamond":		u.diamond = vt.Int64()
 			case "age":         u.age = vt.Int32()
 		}
 	}
@@ -153,9 +153,9 @@ func (u *UserEntity) FillEntity() *msg.EntityBase {
 
 	info.Level = pb.Int32(u.Level())
 	info.Exp = pb.Int32(u.Exp())
-	info.Gold = pb.Int32(u.Gold())
-	info.Yuanbao = pb.Int32(u.YuanBao())
-	info.Diamond = pb.Int32(u.Diamond())
+	info.Gold = pb.Int64(u.Gold())
+	info.Yuanbao = pb.Int64(u.YuanBao())
+	info.Diamond = pb.Int64(u.Diamond())
 
 	info.Age = pb.Int32(u.age)
 	return info

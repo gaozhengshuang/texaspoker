@@ -47,7 +47,7 @@ func (u *GateUser) CheckPayPush (param int32) {
 			if v.RoundNum > 0 && play < v.RoundNum {
 				continue
 			}
-			if v.GoldNum > 0 && u.GetGold() > v.GoldNum {
+			if v.GoldNum > 0 && u.GetGold() > int64(v.GoldNum) {
 				continue
 			}
 			if v.IsLimit > 0 {

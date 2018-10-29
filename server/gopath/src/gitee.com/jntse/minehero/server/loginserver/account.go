@@ -369,9 +369,9 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 		}
 
 		// 初始元宝和金卷
-		gold := int32(tbl.Global.NewUser.Gold)
-		yuanbao := int32(tbl.Global.NewUser.Yuanbao)
-		diamond := int32(tbl.Global.NewUser.Diamond)
+		gold := int64(tbl.Global.NewUser.Gold)
+		yuanbao := int64(tbl.Global.NewUser.Yuanbao)
+		diamond := int64(tbl.Global.NewUser.Diamond)
 
 		// Entity数据
 		entity := &msg.EntityBase {
@@ -379,9 +379,9 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 			Name: pb.String(nickname),
 			Head: pb.String(""),
 			Account: pb.String(account),
-			Gold: pb.Int32(gold), 
-			Yuanbao: pb.Int32(yuanbao), 
-			Diamond: pb.Int32(diamond),
+			Gold: pb.Int64(gold), 
+			Yuanbao: pb.Int64(yuanbao), 
+			Diamond: pb.Int64(diamond),
 			Level: pb.Int32(1),
 			Sex: pb.Int32(int32(msg.Sex_Female)),
 		}

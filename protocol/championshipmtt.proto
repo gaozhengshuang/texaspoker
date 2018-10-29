@@ -187,7 +187,7 @@ message RS2C_PushMTTRank
 {
     optional int32 rank = 1;
     optional int32 join = 2;
-    optional int32 avgchips = 3;
+    optional int64 avgchips = 3;
     optional int32 recordid = 4;
 }
 

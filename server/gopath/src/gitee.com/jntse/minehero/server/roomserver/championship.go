@@ -24,7 +24,7 @@ const (
 
 type CSPlayer struct {
 	roomuid int64
-	bankroll int32
+	bankroll int64
 	rebuy int32
 	addon int32
 	joinway int32
@@ -54,7 +54,7 @@ type ChampionShip struct {
 	blindlevel int32
 	overblind bool
 	maxuser int32
-	sumbankroll int32						//总筹码
+	sumbankroll int64						//总筹码
 	curmembernum int32						//当前总人数
 	finalrank []int64						//最终排名
 }
@@ -285,7 +285,7 @@ func (cs *ChampionShip) AddMember(uid int64, join int32) {
 	member.name = Redis().HGet(key, "name").Val()
 	member.face = Redis().HGet(key, "face").Val()
 	member.sex = util.Atoi(Redis().HGet(key, "sex").Val())
-	member.bankroll = cs.tconf.InitialChips
+	member.bankroll = int64(cs.tconf.InitialChips)
 	member.joinway = join
 	cs.members[uid] = member
 	cs.AddUserRank(uid)
@@ -412,7 +412,7 @@ func (cs *ChampionShip) JoinOneMatch(userid int64, roomid int64) {
 	}
 }
 
-func (cs *ChampionShip) UpdateUserBankRoll(userid int64, num int32) {
+func (cs *ChampionShip) UpdateUserBankRoll(userid int64, num int64) {
 	if member, ok := cs.members[userid]; ok {
 		cs.sumbankroll -= member.bankroll
 		member.bankroll = num
@@ -421,7 +421,7 @@ func (cs *ChampionShip) UpdateUserBankRoll(userid int64, num int32) {
 	}
 }
 
-func (cs *ChampionShip) GetUserBankRoll(userid int64) int32 {
+func (cs *ChampionShip) GetUserBankRoll(userid int64) int64 {
 	if member, ok := cs.members[userid]; ok {
 		return member.bankroll
 	}
@@ -442,9 +442,9 @@ func (cs *ChampionShip) GetUserOutTime(userid int64) int32 {
 	return 0
 }
 
-func (cs *ChampionShip) GetAvgChips() int32 {
+func (cs *ChampionShip) GetAvgChips() int64 {
 	if cs.curmembernum != 0 {
-		return cs.sumbankroll/cs.curmembernum
+		return cs.sumbankroll/int64(cs.curmembernum)
 	}else{
 		return cs.sumbankroll
 	}

@@ -37,7 +37,7 @@ const (
 type TexasPokerRoom struct {
 	RoomBase
 	tconf *table.TexasRoomDefine
-	ante int32
+	ante int64
 	cdtime int32
 	cards Cards							//52张牌
 	topCardIndex int32					//当前牌顶
@@ -55,10 +55,10 @@ type TexasPokerRoom struct {
 	smallblindnum int32					//小盲钱
 	preblindnum int32					//前盲
 	ticker1s *util.GameTicker
-	curbet int32						//当前总压注
+	curbet int64						//当前总压注
 	restarttime int32	
 	pot []int32							// 奖池筹码数, 第一项为主池，其他项(若存在)为边池
-	chips []int32						// 玩家最终下注筹码，摊牌时为玩家最终获得筹码
+	chips []int64						// 玩家最终下注筹码，摊牌时为玩家最终获得筹码
 	remain	int32						// 剩余人
 	allin int32							// allin人数
 	publiccard []int32					// 每轮公共牌
@@ -72,7 +72,7 @@ type TexasPokerRoom struct {
 	playerstate []int32
 	waittime int32						//无人的时间
 	raisecount int32					//加注人数
-	raisebet int32						//加注数
+	raisebet int64						//加注数
 	publichand *Hand					//公共区域计算牌力
 	hasbright bool
 	currecord []*msg.UserReviewInfo		//当前记录
@@ -134,7 +134,7 @@ func (this *TexasPokerRoom) GetEmptySeat() int32 {
 	return 0
 }
 
-func (this *TexasPokerRoom) SetPlayerBankRoll(userid int64, num int32) {
+func (this *TexasPokerRoom) SetPlayerBankRoll(userid int64, num int64) {
 	player := this.FindPlayerByID(userid)
 	if player == nil {
 		return
@@ -525,10 +525,10 @@ func (this *TexasPokerRoom) SetLeaveRecord(id int64){
 		}
 		round := &msg.UserOneRound{}
 		round.State = pb.Int32(GSFold)
-		round.Bet = pb.Int32(player.curbet)
+		round.Bet = pb.Int64(player.curbet)
 		round.Cards = this.publiccard
 		record.Round = append(record.Round, round)
-		record.Bankroll = pb.Int32(record.GetBankroll() - player.curbet)
+		record.Bankroll = pb.Int64(record.GetBankroll() - player.curbet)
 	}
 }
 
@@ -540,10 +540,10 @@ func (this *TexasPokerRoom) SetPreFlopRecord() {
 		}
 		round := &msg.UserOneRound{}
 		round.State = pb.Int32(player.gamestate)
-		round.Bet = pb.Int32(player.curbet)
+		round.Bet = pb.Int64(player.curbet)
 		round.Cards = player.ToHandCard()
 		record.Round = append(record.Round, round)
-		record.Bankroll = pb.Int32(record.GetBankroll() - player.curbet)
+		record.Bankroll = pb.Int64(record.GetBankroll() - player.curbet)
 	}
 }
 
@@ -617,10 +617,10 @@ func (this *TexasPokerRoom) SetOtherRecord() {
 		}
 		round := &msg.UserOneRound{}
 		round.State = pb.Int32(player.gamestate)
-		round.Bet = pb.Int32(player.curbet)
+		round.Bet = pb.Int64(player.curbet)
 		round.Cards = this.publiccard
 		record.Round = append(record.Round, round)
-		record.Bankroll = pb.Int32(record.GetBankroll() - player.curbet)
+		record.Bankroll = pb.Int64(record.GetBankroll() - player.curbet)
 	}
 }
 

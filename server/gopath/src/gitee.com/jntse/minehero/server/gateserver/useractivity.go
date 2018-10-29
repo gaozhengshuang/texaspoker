@@ -109,7 +109,7 @@ func (u *GateUser) GetActivityAwardByAwardId(awardid int32, reason string) bool 
 	}
 	if len(costid) > 0 {
 		for i := 0; i < len(costid); i++ {
-			if u.CheckEnoughItem(costid[i], costnum[i]) == false {
+			if u.CheckEnoughItem(costid[i], int64(costnum[i])) == false {
 				log.Error("玩家[%d %s] 领取活动奖励失败，所需花费不足 %d", u.Id(), u.Name(), awardid)
 				return false
 			}
@@ -126,11 +126,11 @@ func (u *GateUser) GetActivityAwardByAwardId(awardid int32, reason string) bool 
 
 	if len(costid) > 0 {
 		for i := 0; i < len(costid); i++ {
-			u.RemoveItem(costid[i], costnum[i], "兑换奖励花费")
+			u.RemoveItem(costid[i], int64(costnum[i]), "兑换奖励花费")
 		}
 	}
 	for i := 0; i < len(items); i++ {
-		u.AddItem(items[i], num[i], reason, true)
+		u.AddItem(items[i], int64(num[i]), reason, true)
 	}
 
 	if config.PayPushId > 0 {
@@ -340,7 +340,7 @@ func (u *GateUser) TakeBankruptcySubsidy(subid int32) string {
     			errcode = "本日破产补助领取次数已达上限"
     			return errcode
     		}
-    		if u.GetGold() >= limitgold {
+    		if u.GetGold() >= int64(limitgold) {
     			errcode = "尚未破产 无法领取"
     			return errcode
     		}

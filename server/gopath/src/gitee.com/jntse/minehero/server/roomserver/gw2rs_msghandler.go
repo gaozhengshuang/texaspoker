@@ -290,11 +290,11 @@ func on_C2GW_GoldExchange(session network.IBaseNetSession, message interface{}) 
 		return
 	}
 	
-	gold := int32(tbl.Game.DiamondToCoins) * diamonds
+	gold := int64(tbl.Game.DiamondToCoins) * diamonds
 	u.RemoveDiamond(diamonds, "钻石兑换金币", true)
 	u.AddGold(gold, "钻石兑换金币", false)
 
-	send := &msg.GW2C_RetGoldExchange{Gold:pb.Int32(gold)}
+	send := &msg.GW2C_RetGoldExchange{Gold:pb.Int64(gold)}
 	u.SendClientMsg(send)
 }
 

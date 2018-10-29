@@ -63,7 +63,7 @@ func (u *GateUser) GetAchieveTakenList(userid int64) []int32 {
 	return data
 }
 
-func (u *GateUser) GetAchieveProcessByGroup (groupid int32) int32 {
+func (u *GateUser) GetAchieveProcessByGroup (groupid int32) int64 {
 	_, find := tbl.AchieveBase.AchieveById[groupid]
 	if find == false {
 		log.Error("玩家[%d %s] 获取成就组进度未找到配置 groupid:%d", u.Id(), u.Name(), groupid)
@@ -72,19 +72,19 @@ func (u *GateUser) GetAchieveProcessByGroup (groupid int32) int32 {
 	strgroup := strconv.FormatInt(int64(groupid), 10)
 	cmdval, err := Redis().HGet(fmt.Sprintf("%s_%d", def.AchieveProcess, u.Id()), strgroup).Result()
 	if err == nil {
-		return util.Atoi(cmdval)
+		return util.Atol(cmdval)
 	}
 	return 0
 }
 
-func (u *GateUser) SetAchieveProcessByGroup (groupid, process int32) bool {
+func (u *GateUser) SetAchieveProcessByGroup (groupid int32, process int64) bool {
 	_, find := tbl.AchieveBase.AchieveById[groupid]
 	if find == false {
 		log.Error("玩家[%d %s] 设置成就组进度未找到配置 groupid:%d", u.Id(), u.Name(), groupid)
 		return false
 	}
 	strgroup := strconv.FormatInt(int64(groupid), 10)
-	strprocess := strconv.FormatInt(int64(process), 10)
+	strprocess := strconv.FormatInt(process, 10)
 	Redis().HSet(fmt.Sprintf("%s_%d", def.AchieveProcess, u.Id()), strgroup, strprocess)	
 	return true
 }
@@ -128,15 +128,15 @@ func (u *GateUser) OnAchieveProcessChanged(group int32) {
 		}
 	} else if group == AchieveGroup_Friend {
 		friendnum := u.friends.Size()
-		if friendnum > process {
-			u.SetAchieveProcessByGroup(group, friendnum)
+		if int64(friendnum) > process {
+			u.SetAchieveProcessByGroup(group, int64(friendnum))
 		}
 		Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "friendnum", friendnum)
 	} else if group == AchieveGroup_Level || group == AchieveGroup_LevelEx {
 		level := u.Level()
-		if level > process {
-			u.SetAchieveProcessByGroup(int32(AchieveGroup_Level), level)
-			u.SetAchieveProcessByGroup(int32(AchieveGroup_LevelEx), level)
+		if int64(level) > process {
+			u.SetAchieveProcessByGroup(int32(AchieveGroup_Level), int64(level))
+			u.SetAchieveProcessByGroup(int32(AchieveGroup_LevelEx), int64(level))
 		}
 	} else {
 		u.SetAchieveProcessByGroup(group, process + 1)
@@ -213,13 +213,13 @@ func (u *GateUser) OnReqTakeAchieveAward(taskid int32) string {
 	} else {
 		conf, find := tbl.AchieveBase.AchieveById[taskid]
 		if find == true {
-			if u.GetAchieveProcessByGroup(conf.Group) >= conf.Para1 {
+			if u.GetAchieveProcessByGroup(conf.Group) >= int64(conf.Para1) {
 				//这里设置领取状态并且发奖
 				if u.SetAchieveTokenState(taskid) == true {
 					if len(conf.RewardId) > 0 && len(conf.RewardId) == len(conf.RewardNum){
 						i := 0
 						for i < len(conf.RewardId){
-							u.AddItem(conf.RewardId[int32(i)], conf.RewardNum[int32(i)], "任务成就领奖", true)
+							u.AddItem(conf.RewardId[int32(i)], int64(conf.RewardNum[int32(i)]), "任务成就领奖", true)
 							i = i + 1
 						}
 					}
@@ -337,7 +337,7 @@ func (u *GateUser) CheckTakeLuckyTask () int32 {
 	}
 	gold := u.GetGold()
 	totalplay := u.GetTotalPlay()
-	if gold >= conf3.Gold[0] {
+	if gold >= int64(conf3.Gold[0]) {
 		if u.GetNowLuckyTaskTakeCount(3) > conf3.MaxTake {
 			return 0
 		}
@@ -346,7 +346,7 @@ func (u *GateUser) CheckTakeLuckyTask () int32 {
 		}
 		u.TakeLuckyTask(3)
 		return conf3.TaskId
-	} else if gold >= conf2.Gold[0] && gold < conf2.Gold[1] {
+	} else if gold >= int64(conf2.Gold[0]) && gold < int64(conf2.Gold[1]) {
 		if u.GetNowLuckyTaskTakeCount(2) > conf2.MaxTake {
 			return 0
 		}
@@ -355,7 +355,7 @@ func (u *GateUser) CheckTakeLuckyTask () int32 {
 		}
 		u.TakeLuckyTask(2)
 		return conf2.TaskId
-	} else if gold >= conf1.Gold[0] && gold < conf1.Gold[1] {
+	} else if gold >= int64(conf1.Gold[0]) && gold < int64(conf1.Gold[1]) {
 		if u.GetNowLuckyTaskTakeCount(1) > conf1.MaxTake {
 			return 0
 		}
