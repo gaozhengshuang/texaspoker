@@ -76,11 +76,12 @@ func (u *UserEntity) VipTime1() int64 {
 }
 func (u *UserEntity) VipTime2() int64 {
 	u.viptime2 = util.Atol(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "viptime2").Val())
+	return u.viptime2
 }
 func (u *UserEntity) AddVipTime1(time int64) {
 	now := util.CURTIME()
 	viptime1 := u.VipTime1()
-	if now > viptime {
+	if now > viptime1 {
 		Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "viptime1", now + time)
 	} else {
 		Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "viptime1", viptime1 + time)

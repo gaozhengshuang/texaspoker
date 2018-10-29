@@ -227,8 +227,8 @@ func (u *GateUser) VipExp() int32 {
 }
 
 func (u *GateUser) AddVipExp(vipexp int32) {
-	maxexp := int32(tbl.Global.Vip.maxexp)
-	oldvipexp := VipExp()
+	maxexp := int32(tbl.Global.Vip.Maxexp)
+	oldvipexp := u.VipExp()
 	newvipexp := oldvipexp + vipexp
 	if newvipexp > maxexp {
 		newvipexp = maxexp
@@ -238,7 +238,7 @@ func (u *GateUser) AddVipExp(vipexp int32) {
 }
 
 func (u *GateUser) SubVipExp(vipexp int32) {
-	oldvipexp := VipExp()
+	oldvipexp := u.VipExp()
 	newvipexp := oldvipexp - vipexp 
 	if newvipexp < 0 {
 		newvipexp = 0
@@ -247,7 +247,7 @@ func (u *GateUser) SubVipExp(vipexp int32) {
 	u.CalVipLevel(newvipexp)
 }
 
-func (u *GateUser) CalVipLevel(vipexp) {
+func (u *GateUser) CalVipLevel(vipexp int32) {
 	
 }
 

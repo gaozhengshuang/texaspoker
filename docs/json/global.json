@@ -55,5 +55,12 @@
     "Mail" : {
         "ExpiryDate":30,
         "Capacity":30
+    },
+
+    "//":"vip相关设置",
+    "Vip" : {
+        "speed1":5,
+        "speed2":15,
+		"maxexp":6000
     }
 }
