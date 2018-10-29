@@ -991,8 +991,6 @@ func (cm *ChampionManager) ReqInsideRoomInfoList(gid int, uid int64) {
 		mtt.Id = pb.Int64(cs.GetUserRoom(uid))
 		send.Roomlist = append(send.Roomlist, mtt)
 	}
-	lastroom, _ := Redis().Get(fmt.Sprintf("userinroom_%d", uid)).Int64()
-	send.Lastid = pb.Int64(lastroom)
 	RoomSvr().SendClientMsg(gid, uid, send)
 	//log.Info("玩家[%d] gateid[%d] 请求房间列表", uid, gid)
 }
