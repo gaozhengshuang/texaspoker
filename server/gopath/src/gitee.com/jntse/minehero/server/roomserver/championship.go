@@ -556,9 +556,9 @@ func (cs *ChampionShip) NotifyUserRoom(roommember map[int64]map[int64]int64) {
 
 func (cs *ChampionShip) NotifyUserBlind(roommember map[int64]map[int64]int64) {
 	send := &msg.RS2C_PushBlindChange{}
-	send.Sblind = pb.Int32(cs.bconf.SBlind)
-	send.Bblind = pb.Int32(cs.bconf.BBlind)
-	send.Ante = pb.Int32(cs.bconf.PreBet)
+	send.Sblind = pb.Int64(cs.bconf.SBlind)
+	send.Bblind = pb.Int64(cs.bconf.BBlind)
+	send.Ante = pb.Int64(cs.bconf.PreBet)
 	send.Blindlevel = pb.Int32(cs.blindlevel)
 	for key, room := range roommember {
 		for _, member := range room {

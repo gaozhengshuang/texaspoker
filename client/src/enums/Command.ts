@@ -276,17 +276,13 @@ class Command
      */
     public static readonly C2GW_ReqRankList = "msg.C2GW_ReqRankList";
     /**
-     * 拉取物品列表
+     * 物品上线推送
      */
-    public static readonly Req_ItemList_3020: string = "c3020";
+    public static readonly GW2C_PushItemList: string = "msg.GW2C_PushItemList";
     /**
-     * 物品增加的推送
+     * 物品数量变更的推送
      */
-    public static readonly Rec_ItemListAdd_2002: string = "c2002";
-    /**
-     * 物品减少的推送
-     */
-    public static readonly Rec_ItemListReduce_2005: string = "c2005";
+    public static readonly GW2C_PushUpdateItem: string = "msg.GW2C_PushUpdateItem";
     /**
      * 使用物品请求
      */

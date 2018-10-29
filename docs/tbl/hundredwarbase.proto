@@ -31,19 +31,19 @@ message HundredWarDefine
 	optional string Icon = 4; 
 	
 	
-	optional int32 MinBuyin = 5; // 进入下限
+	optional int64 MinBuyin = 5; // 进入下限
 	
 	
 	optional int32 MaxRole = 6; // 最大人数
 	
 	
-	repeated int32 Bet = 7; // 下注筹码
+	repeated int64 Bet = 7; // 下注筹码
 	
 	
-	optional int32 BankerGold = 8; // 下注筹码
+	optional int64 BankerGold = 8; // 下注筹码
 	
 	
-	optional int32 SeatGold = 9; // 入座需要金币
+	optional int64 SeatGold = 9; // 入座需要金币
 	
 	
 	optional float BettingRatio = 10; // 押注比例
@@ -76,7 +76,7 @@ message HundredWarDefine
 	optional int32 BankerRound = 19; // 最大在庄回合数
 	
 	
-	optional int32 BankerMinGold = 20; // 最小在庄金币
+	optional int64 BankerMinGold = 20; // 最小在庄金币
 	
 	
 	optional string TitleImg = 21; 

@@ -43,22 +43,12 @@ func (u *RoomUser) AddGold(gold int64, reason string, syn bool) {
 	log.Info("玩家[%d] 添加金币[%d] 库存[%d] 原因[%s]", u.Id(), gold, u.GetGold(), reason)
 }
 
-func (u *RoomUser) SendGold() {
-	send := &msg.GW2C_PushGoldUpdate{Num: pb.Int32(u.GetGold())}
-	u.SendClientMsg(send)
-}
-
-func (u *RoomUser) SendDiamond() {
-	send := &msg.GW2C_PushDiamondUpdate{Num: pb.Int32(u.GetDiamond())}
-	u.SendClientMsg(send)
-}
-
 func (u *RoomUser) SendPropertyChange() {
 	send := &msg.RS2C_RolePushPropertyChange{}
-	send.Diamond = pb.Int32(u.GetDiamond())
-	send.Gold = pb.Int32(u.GetGold())
-	send.Yuanbao =pb.Int32(u.GetYuanbao())
-	send.Safegold = pb.Int32(0)
+	send.Diamond = pb.Int64(u.GetDiamond())
+	send.Gold = pb.Int64(u.GetGold())
+	send.Yuanbao =pb.Int64(u.GetYuanbao())
+	send.Safegold = pb.Int64(0)
 	u.SendClientMsg(send)
 }
 

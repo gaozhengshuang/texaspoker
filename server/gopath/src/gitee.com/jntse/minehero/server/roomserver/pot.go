@@ -6,7 +6,7 @@ import (
 
 type handBet struct {
 	Pos int
-	Bet int
+	Bet int64
 }
 
 type handBets []handBet
@@ -24,18 +24,18 @@ func (p handBets) Swap(i, j int) {
 }
 
 type handPot struct {
-	Pot  int   // 池子筹码
+	Pot  int64   // 池子筹码
 	OPos []int // 参与池子的玩家pos
 }
 
 // main pot and side-pot calculation
-func CalcPot(bets []int32) (pots []handPot) {
+func CalcPot(bets []int64) (pots []handPot) {
 	var obs []handBet
 
 	//fmt.Println("amount bets:", bets)
 	for i, bet := range bets {
 		if bet > 0 {
-			obs = append(obs, handBet{Pos: i, Bet: int(bet)})
+			obs = append(obs, handBet{Pos: i, Bet: int64(bet)})
 		}
 	}
 	sort.Sort(handBets(obs))
@@ -45,7 +45,7 @@ func CalcPot(bets []int32) (pots []handPot) {
 	for i, ob := range obs {
 		if ob.Bet > 0 {
 			s := obs[i:]
-			hpot := handPot{Pot: ob.Bet * len(s)}
+			hpot := handPot{Pot: ob.Bet * int64(len(s))}
 
 			for j := range s {
 				s[j].Bet -= ob.Bet

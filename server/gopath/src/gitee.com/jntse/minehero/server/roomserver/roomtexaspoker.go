@@ -51,13 +51,13 @@ type TexasPokerRoom struct {
 	dealer *TexasPlayer					//庄家
 	bigblinder *TexasPlayer				//大盲
 	smallblinder *TexasPlayer			//小盲
-	bigblindnum int32					//大盲钱
-	smallblindnum int32					//小盲钱
-	preblindnum int32					//前盲
+	bigblindnum int64					//大盲钱
+	smallblindnum int64					//小盲钱
+	preblindnum int64					//前盲
 	ticker1s *util.GameTicker
 	curbet int64						//当前总压注
 	restarttime int32	
-	pot []int32							// 奖池筹码数, 第一项为主池，其他项(若存在)为边池
+	pot []int64							// 奖池筹码数, 第一项为主池，其他项(若存在)为边池
 	chips []int64						// 玩家最终下注筹码，摊牌时为玩家最终获得筹码
 	remain	int32						// 剩余人
 	allin int32							// allin人数
@@ -125,6 +125,13 @@ func (this *TexasPokerRoom) CheckPos(pos int32) bool {
 	return true
 }
 
+func (this *TexasPokerRoom) IsFullPlayer() bool {
+	if this.PlayersNum() == this.tconf.Seat {
+		return true
+	}
+	return false
+}
+
 func (this *TexasPokerRoom) GetEmptySeat() int32 {
 	for k, p := range this.players {
 		if p == nil {
@@ -180,7 +187,7 @@ func (this *TexasPokerRoom) Init() string {
 	this.ante = tconf.Tax
 	this.cdtime = tconf.Cd
 	this.players = make([]*TexasPlayer, this.maxplayer, this.maxplayer)
-	this.chips = make([]int32, this.maxplayer, this.maxplayer)
+	this.chips = make([]int64, this.maxplayer, this.maxplayer)
 	this.playerstate = make([]int32, this.maxplayer, this.maxplayer)
 	this.topCardIndex = 0
 	this.initilized = true
@@ -404,7 +411,7 @@ func (this *TexasPokerRoom) StartGame() int32 {
 			}
 		}
 		record.Showcard = pb.Bool(false)
-		record.Bankroll = pb.Int32(0)
+		record.Bankroll = pb.Int64(0)
 		this.currecord = append(this.currecord, record)
 		if !this.IsChampionShip() {
 			p.SendTimeAward(true)
@@ -429,8 +436,8 @@ func (this *TexasPokerRoom) SendStartGame() {
 	send.Buttonpos = pb.Int32(this.dealerpos+1)
 	send.Sblindpos = pb.Int32(this.sblindpos+1)
 	send.Bblindpos = pb.Int32(this.bblindpos+1)
-	send.Sblind = pb.Int32(this.smallblindnum)
-	send.Bblind = pb.Int32(this.bigblindnum)
+	send.Sblind = pb.Int64(this.smallblindnum)
+	send.Bblind = pb.Int64(this.bigblindnum)
 	this.BroadCastRoomMsg(send)
 }
 
@@ -790,10 +797,10 @@ func (this *TexasPokerRoom) ShowDown() int32{
 			log.Info("房间%d  没有赢家", this.Id())
 			return TPRestart
 		}
-		var onepot int32 = 0
+		var onepot int64 = 0
 		potplayer := make([]int64, 0)
 		for _, winner := range winners {
-			onepot = int32(pot.Pot / len(winners))
+			onepot = pot.Pot / int64(len(winners))
 			this.chips[winner] += onepot
 			player := this.players[winner]
 			if player != nil {
@@ -803,7 +810,7 @@ func (this *TexasPokerRoom) ShowDown() int32{
 
 		}
 		send.Potlist = append(send.Potlist, &msg.PotInfo{
-			Num : pb.Int32(int32(pot.Pot / len(winners))),
+			Num : pb.Int64(pot.Pot / int64(len(winners))),
 			Type : pb.Int32(int32(k)),
 			Roleid : potplayer,
 		})
@@ -818,7 +825,7 @@ func (this *TexasPokerRoom) ShowDown() int32{
 			log.Info("房间%d 玩家%d 获得筹码%d 手牌%v 等级%d 牌力%d", this.Id(), this.players[i].owner.Id(), this.chips[i], this.players[i].hand.ToAllCard(), this.players[i].hand.level, this.players[i].hand.finalvalue)
 			for _, record := range this.currecord {
 				if record.GetRoleid() == this.players[i].owner.Id() {
-					record.Bankroll = pb.Int32(record.GetBankroll() + this.chips[i])
+					record.Bankroll = pb.Int64(record.GetBankroll() + this.chips[i])
 				}
 			}
 		}
@@ -881,8 +888,8 @@ func (this *TexasPokerRoom) RestartGame() int32{
 		this.bigblinder = nil
 		this.smallblinder = nil
 		this.curbet = 0
-		this.pot = make([]int32, 0)
-		this.chips = make([]int32, this.maxplayer, this.maxplayer)
+		this.pot = make([]int64, 0)
+		this.chips = make([]int64, this.maxplayer, this.maxplayer)
 		this.playerstate = make([]int32, this.maxplayer, this.maxplayer)
 		this.allin = 0
 		this.remain = 0
@@ -920,7 +927,7 @@ func (this *TexasPokerRoom) RestartGame() int32{
 			}
 		}
 		//如果有玩家观看 机器人离开
-		if len(this.watchers) > 0 {
+		if len(this.watchers) > 0 && this.IsFullPlayer() {
 			count := 0
 			for _, p := range this.players {
 				if count >= len(this.watchers) {
@@ -964,12 +971,12 @@ func (this *TexasPokerRoom) CalcGambPool() []handPot {
 
 	for i, bet := range this.chips{
 		if bet > 0 {
-			obs = append(obs, handBet{Pos: i, Bet: int(bet)})
+			obs = append(obs, handBet{Pos: i, Bet: int64(bet)})
 		}
 	}
 	sort.Sort(handBets(obs))
 
-	var tmpsum int = 0
+	var tmpsum int64 = 0
 	for i, ob := range obs {
 		if this.playerstate[ob.Pos] == GSFold {
 			tmpsum += ob.Bet
@@ -977,7 +984,7 @@ func (this *TexasPokerRoom) CalcGambPool() []handPot {
 		}
 		if ob.Bet > 0 {
 			s := obs[i:]
-			hpot := handPot{Pot: ob.Bet * len(s) + tmpsum}
+			hpot := handPot{Pot: ob.Bet * int64(len(s)) + tmpsum}
 			tmpsum = 0
 			for j := range s {
 				s[j].Bet -= ob.Bet
@@ -986,9 +993,9 @@ func (this *TexasPokerRoom) CalcGambPool() []handPot {
 			pots = append(pots, hpot)
 		}
 	}
-	this.pot = make([]int32, 0) 
+	this.pot = make([]int64, 0) 
 	for _, pot := range pots {
-		this.pot = append(this.pot, int32(pot.Pot))
+		this.pot = append(this.pot, pot.Pot)
 	}
 	log.Info("房间%d 奖池%v", this.Id(), this.pot)
 	return pots
@@ -1078,7 +1085,7 @@ func (this *TexasPokerRoom) DelWatcher(player *TexasPlayer) {
 	}
 }
 
-func (this *TexasPokerRoom) AddRebuy(uid int64, num int32, cost int32) {
+func (this *TexasPokerRoom) AddRebuy(uid int64, num int64, cost int64) {
 	player := this.FindAllByID(uid)
 	if player == nil {
 		return
@@ -1086,7 +1093,7 @@ func (this *TexasPokerRoom) AddRebuy(uid int64, num int32, cost int32) {
 	player.AddRebuy(num, cost)
 }
 
-func (this *TexasPokerRoom) AddAddon(uid int64, num int32, cost int32) {
+func (this *TexasPokerRoom) AddAddon(uid int64, num int64, cost int64) {
 	player := this.FindAllByID(uid)
 	if player == nil {
 		return
@@ -1103,7 +1110,7 @@ func (this *TexasPokerRoom) NotifySitStand(userid int64, except ...int64) {
 	send.Roleid = pb.Int64(userid)
 	send.Pos = pb.Int32(player.pos+1)
 	send.State = pb.Int32(1)
-	send.Bankroll = pb.Int32(player.GetBankRoll())
+	send.Bankroll = pb.Int64(player.GetBankRoll())
 	this.BroadCastRoomMsg(send, except...)
 }
 
@@ -1115,13 +1122,14 @@ func (this *TexasPokerRoom) SendRoomInfo(player *TexasPlayer) {
 	send.Buttonpos = pb.Int32(this.dealerpos+1)
 	send.Potchips = this.pot
 	send.Roomid = pb.Int32(this.Tid())
-	send.Ante = pb.Int32(0)
-	send.Sblind = pb.Int32(this.smallblindnum)
-	send.Bblind = pb.Int32(this.bigblindnum)
+	send.Ante = pb.Int64(this.ante)
+	send.Sblind = pb.Int64(this.smallblindnum)
+	send.Bblind = pb.Int64(this.bigblindnum)
 	send.Pos = pb.Int32(this.curactpos+1)
 	send.Postime = pb.Int32(this.curacttime)
 	send.Starttime = pb.Int32(this.starttime)
 	send.Publiccard = this.allcard
+	send.Maxante = pb.Int64(this.curbet)
 	for _, p := range this.players {
 		if p == nil {
 			continue
@@ -1135,9 +1143,9 @@ func (this *TexasPokerRoom) SendRoomInfo(player *TexasPlayer) {
 		send.Blindtime = pb.Int32(this.mtt.GetBlindUpTime());
 		send.Rebuytimes = pb.Int32(this.mtt.GetUserRebuy(this.Id()));
 		send.Addontimes = pb.Int32(this.mtt.GetUserAddon(this.Id()));
-		send.Addbuy = pb.Int32(player.addrebuy+player.addaddon);
+		send.Addbuy = pb.Int64(player.addrebuy+player.addaddon);
 		send.Rank = pb.Int32(this.mtt.GetUserRank(player.owner.Id()));
-		send.Avgchips = pb.Int32(this.mtt.GetAvgChips());
+		send.Avgchips = pb.Int64(this.mtt.GetAvgChips());
 		send.Join = pb.Int32(this.mtt.curmembernum);
 		log.Info("锦标赛%d 玩家%d进入房间 Rank%d Avg%d", this.mtt.uid, player.owner.Id(), send.GetRank(), send.GetAvgchips())
 	}
@@ -1278,7 +1286,8 @@ func (this *TexasPokerRoom) CreateAI(num int32) {
 	for i := 0; i < int(num); i++ {
 		player := NewTexasPlayer(users[i], this,  true)
 		player.Init()
-		rev := &msg.C2RS_ReqBuyInGame{Num:pb.Int32(this.tconf.BBuyin), Isautobuy:pb.Bool(true), Pos:pb.Int32(this.GetFreePos()+1)}
+		bankroll := this.tconf.SBuyin * int64(util.RandBetween(1, 10))
+		rev := &msg.C2RS_ReqBuyInGame{Num:pb.Int64(bankroll), Isautobuy:pb.Bool(true), Pos:pb.Int32(this.GetFreePos()+1)}
 		player.BuyInGame(rev)
 		player.readytime = 3
 		log.Info("房间%d AI%d 位置%d 参加游戏", this.Id(), player.owner.Id(), rev.GetPos())

@@ -533,11 +533,7 @@ func (this *TexasPlayer) AIAction(action int32) {
 				if this.room.raisebet != 0 {
 					this.Betting(this.room.raisebet*2 + call)
 				}else {
-					if this.room.curbet/3 < int64(this.room.bigblindnum)*2{
-						this.Betting(int64(this.room.bigblindnum)*2 + call)
-					}else{
-						this.Betting(this.room.curbet/3 + call)
-					}
+					this.Betting(this.room.bigblindnum*int64(util.RandBetween(2, 5)) + call)
 				}
 			}else{
 				this.Betting(this.GetBankRoll())
@@ -657,10 +653,10 @@ func (this *TexasPlayer) BrightCard() {
 
 func (this *TexasPlayer) AddCoin(rev *msg.C2RS_ReqAddCoin) {
 	send := &msg.RS2C_RetAddCoin{}
-	if !this.owner.RemoveGold(int64(this.addcoin), "金币兑换筹码", true) {
+	if !this.owner.RemoveGold(this.addcoin, "金币兑换筹码", true) {
 		send.Errcode = pb.String("金币不足")
 	}else{
-		this.addcoin = int64(rev.GetNum())
+		this.addcoin = rev.GetNum()
 	}
 	this.owner.SendClientMsg(send)
 	log.Info("房间%d 玩家%d 下次添加金币%d", this.room.Id(), this.owner.Id(), this.addcoin)
@@ -674,9 +670,9 @@ func (this *TexasPlayer) AutoCoin() {
 	this.addcoin = 0
 }
 
-func (this *TexasPlayer) AddRebuy(num int32, cost int32) {
-	if this.owner.RemoveGold(int64(cost), "金币兑换筹码", true) {
-		this.addrebuy = int64(num)
+func (this *TexasPlayer) AddRebuy(num int64, cost int64) {
+	if this.owner.RemoveGold(cost, "金币兑换筹码", true) {
+		this.addrebuy = num
 		this.delaystandup = 0
 		log.Info("房间%d 玩家%d Rebuy下次添加金币%d", this.room.Id(), this.owner.Id(), this.addrebuy)
 	}
@@ -686,13 +682,13 @@ func (this *TexasPlayer) AutoRebuy() {
 	if this.addrebuy == 0 {
 		return
 	}
-	this.AddBankRoll(int64(this.addrebuy))
+	this.AddBankRoll(this.addrebuy)
 	this.addrebuy = 0
 }
 
-func (this *TexasPlayer) AddAddon(num int32, cost int32){
-	if this.owner.RemoveGold(int64(cost), "金币兑换筹码", true) {
-		this.addaddon = int64(num)
+func (this *TexasPlayer) AddAddon(num int64, cost int64){
+	if this.owner.RemoveGold(cost, "金币兑换筹码", true) {
+		this.addaddon = num
 		this.delaystandup = 0
 		log.Info("房间%d 玩家%d Addon下次添加金币%d", this.room.Id(), this.owner.Id(), this.addaddon)
 	}
@@ -702,7 +698,7 @@ func (this *TexasPlayer) AutoAddon() {
 	if this.addaddon == 0 {
 		return
 	}
-	this.AddBankRoll(int64(this.addaddon))
+	this.AddBankRoll(this.addaddon)
 	this.addaddon = 0
 }
 
@@ -751,8 +747,12 @@ func (this *TexasPlayer) BuyInGame(rev *msg.C2RS_ReqBuyInGame) bool {
 	switch {
 	default:
 		if !this.room.CheckPos(rev.GetPos()-1) {
-			strerr = "位置已经被占用"
-			break
+			if this.room.IsFullPlayer() {
+				strerr = "位置已经被占用"
+				break
+			}else{
+				rev.Pos = pb.Int32(this.room.GetEmptySeat()+1)
+			}
 		}
 		if !this.owner.RemoveGold(rev.GetNum(), "金币兑换筹码", true) {
 			strerr = "金币不足"
@@ -825,6 +825,7 @@ func (this *TexasPlayer) StandUp() bool {
 	if this.room.InGame(this) {
 		if !this.room.IsChampionShip() {
 			this.owner.AddGold(this.bankroll, "离开房间", true)
+			this.bankroll = 0
 		}
 		if !this.IsWait() {
 			this.room.remain--

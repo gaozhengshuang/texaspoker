@@ -188,13 +188,13 @@ func (u *RoomUser) Handler10msTick(now int64) {
 func (u *RoomUser) Handler1sTick(now int64) {
 }
 
-func RemoveUserGold(gid int, uid int64, gold int32, reason string) bool {
-	goldsrc := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", uid), "gold").Val())
+func RemoveUserGold(gid int, uid int64, gold int64, reason string) bool {
+	goldsrc := util.Atol(Redis().HGet(fmt.Sprintf("charbase_%d", uid), "gold").Val())
 	if goldsrc >= gold {
 		newgold := goldsrc - gold
 		Redis().HSet(fmt.Sprintf("charbase_%d", uid), "gold", newgold)
 		send := &msg.RS2C_RolePushPropertyChange{}
-		send.Gold = pb.Int32(newgold)
+		send.Gold = pb.Int64(newgold)
 		RoomSvr().SendClientMsg(gid, uid, send)
 		log.Info("玩家[%d] 扣除金币[%d] 库存[%d] 原因[%s]", uid, gold, newgold, reason)
 		return true
@@ -203,12 +203,12 @@ func RemoveUserGold(gid int, uid int64, gold int32, reason string) bool {
 	return false
 }
 
-func AddUserGold(gid int, uid int64, gold int32, reason string) bool {
-	goldsrc := util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", uid), "gold").Val())
+func AddUserGold(gid int, uid int64, gold int64, reason string) bool {
+	goldsrc := util.Atol(Redis().HGet(fmt.Sprintf("charbase_%d", uid), "gold").Val())
 	newgold := goldsrc + gold
 	Redis().HSet(fmt.Sprintf("charbase_%d", uid), "gold", newgold)
 	send := &msg.RS2C_RolePushPropertyChange{}
-	send.Gold = pb.Int32(newgold)
+	send.Gold = pb.Int64(newgold)
 	RoomSvr().SendClientMsg(gid, uid, send)
 	log.Info("玩家[%d] 添加金币[%d] 原因[%s]", uid, gold, reason)
 	return false

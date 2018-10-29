@@ -324,28 +324,28 @@ class LoginScene extends BaseScene
     private OnLoginBarComplete()
     {
         this.RemoveLoginBarEvents();
-        let offsetTime: number = (Date.now() - this._versionDateTime) / 1000;
-        if (offsetTime >= 300)
-        {
-            //超时重新检查更新
-            AlertManager.showAlert("登录验证已失效，请重新登录游戏！", this.OnLoginBarBack.bind(this), null, null, null, null, "重新登录");
-        }
-        else
-        {
-            //进入游戏
-            // let serverInfo: ServerInfo = LoginManager.loginInfo.getServerInfo();
-            // if (!serverInfo)
-            // {
-            //     UIManager.showFloatTips("服务器信息为空！");
-            //     return;
-            // }
-            // else if (serverInfo.status == 1 && LoginManager.loginInfo.isWhitelist == false)
-            // {
-            //     AlertManager.showAlert("服务器正在维护中...", this.OnLoginBarBack.bind(this));
-            //     return;
-            // }
-            this.InitServer();
-        }
+        // let offsetTime: number = (Date.now() - this._versionDateTime) / 1000;
+        // if (offsetTime >= 300)
+        // {
+        //超时重新检查更新
+        //     AlertManager.showAlert("登录验证已失效，请重新登录游戏！", this.OnLoginBarBack.bind(this), null, null, null, null, "重新登录");
+        // }
+        // else
+        // {
+        //进入游戏
+        // let serverInfo: ServerInfo = LoginManager.loginInfo.getServerInfo();
+        // if (!serverInfo)
+        // {
+        //     UIManager.showFloatTips("服务器信息为空！");
+        //     return;
+        // }
+        // else if (serverInfo.status == 1 && LoginManager.loginInfo.isWhitelist == false)
+        // {
+        //     AlertManager.showAlert("服务器正在维护中...", this.OnLoginBarBack.bind(this));
+        //     return;
+        // }
+        this.InitServer(); //不做超时处理
+        // }
     }
     private OnLoginBarBack(event: UIModuleEvent)
     {

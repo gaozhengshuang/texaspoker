@@ -114,7 +114,7 @@ class ChatPanel extends BasePanel
         this.sendTB.addEventListener(egret.TouchEvent.TOUCH_TAP, this.sendMsg, this);
         this.scroller.addEventListener(egret.Event.RESIZE, this.onResize, this);
         this.hornTB.addEventListener(egret.TouchEvent.TOUCH_TAP, this.setPromptInfo, this);
-        ItemManager.itemReduceEvent.addListener(this.setHornNum, this);
+        ItemManager.ItemNumChangeEvent.addListener(this.setHornNum, this);
     }
     protected onDisable(event: eui.UIEvent): void
     {
@@ -133,7 +133,7 @@ class ChatPanel extends BasePanel
         this.sendTB.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.sendMsg, this);
         this.scroller.removeEventListener(egret.Event.RESIZE, this.onResize, this);
         this.hornTB.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.setPromptInfo, this);
-        ItemManager.itemReduceEvent.removeListener(this.setHornNum, this);
+        ItemManager.ItemNumChangeEvent.removeListener(this.setHornNum, this);
     }
 
     /**

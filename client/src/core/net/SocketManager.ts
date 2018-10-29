@@ -609,14 +609,14 @@ class SocketManager
 	/// <returns></returns>
 	private static VerifyReLogin(): boolean
 	{
-		if (TimeManager.GetServerUtcSecondstamp() - SocketManager._lastTimestamp < 270)//4分30秒
-		{
-			return false;
-		}
-		if (TimeManager.GetCurrentOnlineLength() < 1500)//25分钟
-		{
-			return false;
-		}
+		// if (TimeManager.GetServerUtcSecondstamp() - SocketManager._lastTimestamp < 270)//4分30秒 move todo目前没有登录失效一说
+		// {
+		// 	return false;
+		// }
+		// if (TimeManager.GetCurrentOnlineLength() < 1500)//25分钟
+		// {
+		// 	return false;
+		// }
 		return true;
 	}
 	private static OnClickReLogin(data: any)

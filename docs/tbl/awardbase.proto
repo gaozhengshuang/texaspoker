@@ -31,7 +31,7 @@ message AwardDefine
 	repeated int32 CostId = 4; // 消耗道具id
 	
 	
-	repeated int32 CostNum = 5; // 消耗道具数量
+	repeated int64 CostNum = 5; // 消耗道具数量
 	
 	
 	repeated int32 RewardType = 6; // 奖励道具类型
@@ -40,7 +40,7 @@ message AwardDefine
 	repeated int32 RewardId = 7; // 奖励道具id
 	
 	
-	repeated int32 RewardNum = 8; // 奖励道具数量
+	repeated int64 RewardNum = 8; // 奖励道具数量
 	
 	
 	optional int32 PreId = 9; 
