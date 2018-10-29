@@ -56,13 +56,13 @@ func (mh *C2GWMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqPlayerRoleInfo{}, on_C2GW_ReqPlayerRoleInfo)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqSendMessage{}, on_C2GW_ReqSendMessage)
 
-
 	// 游戏房间
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqCreateRoom{}, on_C2GW_ReqCreateRoom)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqEnterRoom{}, on_C2GW_ReqEnterRoom)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqLeaveRoom{}, on_C2GW_ReqLeaveRoom)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqUserRoomInfo{}, on_C2GW_ReqUserRoomInfo)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqTexasRoomList{}, on_C2GW_ReqTexasRoomList)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqCurRoom{}, on_C2GW_ReqCurRoom)
 
 	// 邮件
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqMailList{}, on_C2GW_ReqMailList)
@@ -296,6 +296,19 @@ func on_C2GW_ReqTexasRoomList(session network.IBaseNetSession, message interface
 		return
 	}
 	u.SendTexasRoomList(tmsg.GetType())
+}
+
+func on_C2GW_ReqCurRoom(session network.IBaseNetSession, message interface{}) {
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	send := &msg.GW2C_RetCurRoom{}
+    lastroom, _ := Redis().Get(fmt.Sprintf("userinroom_%d", u.Id())).Int64()
+	send.Roomuid = pb.Int64(lastroom)
+	u.SendMsg(send)
 }
 
 func on_C2GW_ReqLogin(session network.IBaseNetSession, message interface{}) {

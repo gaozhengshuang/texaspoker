@@ -80,7 +80,6 @@ type GateUser struct {
 	token           string       // token
 	broadcastbuffer []int64      // 广播消息缓存
 	synbalance      bool         // 充值中
-	events          UserMapEvent // 地图事件
 	mailbox         MailBox      // 邮箱
 	friends			Friends		 // 好友
 	bag         	UserBag 	 // 背包
@@ -94,7 +93,6 @@ func NewGateUser(account, key, token string) *GateUser {
 	u.verifykey = key
 	u.bag.Init(u)
 	u.task.Init(u)
-	u.events.Init(u)
 	u.mailbox.Init(u)
 	u.friends.Init(u)
 	u.arvalues.Init()
@@ -379,7 +377,6 @@ func (u *GateUser) PackBin() *msg.Serialize {
 
 	// 道具信息
 	//u.task.PackBin(bin)
-	//u.events.PackBin(bin)
 	//u.PackAutoResetValues(bin)
 	//u.image.PackBin(bin)
 
@@ -424,27 +421,12 @@ func (u *GateUser) LoadBin() {
 	userbase.GetStatics().Tmlogin = pb.Int64(util.CURTIME())
 	u.vip.LoadBin(u.bin)
 
-	// 道具信息
-	//u.bag.DBLoad()
-
-	// 任务
-	//u.task.LoadBin(u.bin)
-
 	// 邮件
 	u.mailbox.DBLoad()
 
 	// 好友
 	u.friends.DBLoad()
 
-	// 自动重置变量
-	//u.arvalues.LoadBin(u.bin.Base.Arvalues)
-
-	// 事件
-	//u.events.LoadBin(u.bin)
-
-	// 换装信息
-	//u.image.Clean()
-	//u.image.LoadBin(u.bin)
 }
 
 func (u *GateUser) LoadGateBin () {
@@ -536,7 +518,6 @@ func (u *GateUser) Online(session network.IBaseNetSession, way string) bool {
 
 	// 上线任务检查
 	u.OnlineTaskCheck()
-	u.events.Online()
 	u.friends.Online()
 
 	// 同步数据到客户端

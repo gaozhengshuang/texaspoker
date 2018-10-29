@@ -577,7 +577,7 @@ func FillFriendBrief(charset map[string]string) *msg.FriendBrief {
 		if k == "face"			{ fbrief.Head = pb.String(vt.String()) }
 		if k == "level"			{ fbrief.Level = pb.Int32(vt.Int32()) }
 		if k == "sex"			{ fbrief.Sex = pb.Int32(vt.Int32()) }
-		if k == "gold"			{ fbrief.Gold = pb.Int32(vt.Int32()) }
+		if k == "gold"			{ fbrief.Gold = pb.Int64(vt.Int64()) }
 		if k == "viplevel"		{ fbrief.Viplevel = pb.Int32(vt.Int32()) }
 		if k == "offlinetime" 	{ fbrief.Offlinetime = pb.Int64(vt.Int64()) }
 	}
@@ -591,7 +591,7 @@ func (u *GateUser) FillUserBrief() *msg.FriendBrief {
 	fbrief.Head		= pb.String(u.Head())
 	fbrief.Level 	= pb.Int32(u.Level())
 	fbrief.Sex 		= pb.Int32(u.Sex())
-	fbrief.Gold 	= pb.Int32(u.GetGold())
+	fbrief.Gold 	= pb.Int64(u.GetGold())
 	fbrief.Offlinetime = pb.Int64(0)	// 玩家在线offlinetime 0
 	fbrief.Viplevel = pb.Int32(0)
 	return fbrief

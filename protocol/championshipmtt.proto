@@ -68,7 +68,7 @@ message RS2C_RetJoinedMTTList
     repeated JoinedMTTInfo mttlist = 1;
 }
 
-//请求拉取所在房间列表
+//请求拉取所在房间列表 查询锦标赛房间
 message C2RS_ReqInsideRoomInfoList 
 {
 }
@@ -82,7 +82,6 @@ message InsideRoomInfo
 message RS2C_RetInsideRoomInfoList 
 {
     repeated InsideRoomInfo roomlist = 1;
-    optional int64 lastid = 2;      //最新房间id
 }
 
 //拉取最近赛况列表信息 前十场第一名信息
@@ -188,7 +187,7 @@ message RS2C_PushMTTRank
 {
     optional int32 rank = 1;
     optional int32 join = 2;
-    optional int32 avgchips = 3;
+    optional int64 avgchips = 3;
     optional int32 recordid = 4;
 }
 

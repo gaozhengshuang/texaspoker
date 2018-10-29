@@ -110,3 +110,10 @@ message GW2C_PushRoomDestory {
     optional int64 roomid = 1;
 }
 
+//请求当前房间信息
+message C2GW_ReqCurRoom {
+}
+
+message GW2C_RetCurRoom {
+    optional int64 roomuid = 1;
+}

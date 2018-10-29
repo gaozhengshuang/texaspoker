@@ -73,6 +73,14 @@ class GamblingManager
 	 */
 	public static isCallAny: boolean = false;
 	/**
+	 * 是否自动过牌 
+	 */
+	public static isAutoCheck: boolean = false;
+	/**
+	 * 是否自动跟预选注
+	 */
+	public static isPreCall: boolean = false;
+	/**
 	 * 是否是快速游戏进入房间标记
 	 */
 	public static isQuicklyEnter: boolean = false;
@@ -209,6 +217,8 @@ class GamblingManager
 			// GamblingManager.roomInfo.minRaiseNum = 0;
 		}
 		GamblingManager.isCallAny = false;
+		GamblingManager.isAutoCheck = false;
+		GamblingManager.isPreCall = false;
 		GamblingManager.isCheckOrFold = false;
 		GamblingManager.clearPlayerNum();
 	}
@@ -584,6 +594,8 @@ class GamblingManager
 			let roleId: number = game.longToNumber(data.roleid);
 			if (roleId == UserManager.userInfo.roleId)
 			{
+				GamblingManager.isAutoCheck = false;
+				GamblingManager.isPreCall = false;
 				GamblingManager.isCallAny = false;
 				GamblingManager.isCheckOrFold = false;
 			}

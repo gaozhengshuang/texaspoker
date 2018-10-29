@@ -227,18 +227,19 @@ class GamblingPanelActionSupport extends BaseGamblingPanelSupport
 			this.changeState(GamblingManager.getPlayerStateByRoleId(obj.roleId));
 		} else
 		{
-			if ((obj.state == PlayerState.Raise || obj.state == PlayerState.AllIn) && GamblingUtil.isOnProcess(GamblingManager.self)) //move todo 暂时还有问题在allin的时候
+			if ((obj.state == PlayerState.Raise || (obj.state == PlayerState.AllIn && obj.num > GamblingUtil.callNum && GamblingUtil.callNum < GamblingManager.self.bankRoll))
+				&& GamblingUtil.isOnProcess(GamblingManager.self)) //有预选按钮，此时有玩家allin，如果all的码量大于要跟的码量，且跟的码量小于等于玩家自身的码量，则可以继续
 			{
 				if (this.target.actionGroup.preActionGroup.visible)
 				{
 					if (this.target.actionGroup.preCallBtn.selected)
 					{
-						GamblingManager.isCallAny = !GamblingManager.isCallAny;
-						this.target.actionGroup.preCallBtn.selected = GamblingManager.isCallAny;
+						GamblingManager.isPreCall = !GamblingManager.isPreCall;
+						this.target.actionGroup.preCallBtn.selected = GamblingManager.isPreCall;
 					} else if (this.target.actionGroup.autoCheckBtn.selected)
 					{
-						GamblingManager.isCallAny = !GamblingManager.isCallAny;
-						this.target.actionGroup.autoCheckBtn.selected = GamblingManager.isCallAny;
+						GamblingManager.isAutoCheck = !GamblingManager.isAutoCheck;
+						this.target.actionGroup.autoCheckBtn.selected = GamblingManager.isAutoCheck;
 					}
 				}
 				else
@@ -311,26 +312,32 @@ class GamblingPanelActionSupport extends BaseGamblingPanelSupport
 					{
 						GamblingManager.doDefaultAction();
 					}
-					else
+					else if (GamblingManager.isAutoCheck) //自动过牌
 					{
-						if (GamblingManager.roomInfo.definition.Pattern != GamblingPattern.AllIn)
+						if (GamblingUtil.callNum > 0) //轮到自己时需要跟注
 						{
-							// this.target.actionGroup.raiseGroup.visible = true;
-							// this.target.actionGroup.actionGroup.visible = true;
-
-							this.target.actionGroup.showActionGroup(true);
-							this.target.actionGroup.showRaiseGroup(true);
-
-
-							// this.target.actionGroup.raiseBtn.visible = true;
+							this.showUsualActionGroup();
 						}
 						else
 						{
-							this.target.actionGroup.showActionGroup(true);
-							this.target.actionGroup.raiseBtn.visible = false;
-							// this.target.actionGroup.actionGroup.visible = true;
+							GamblingManager.doDefaultAction();
 						}
-						this.showCallCheckBtn();
+					}
+					else if (GamblingManager.isPreCall) //预先跟注
+					{
+						let preCallNum = parseInt(this.target.actionGroup.preCallBtn.label);
+						if (GamblingUtil.callNum > preCallNum && preCallNum < GamblingManager.self.bankRoll) //轮到自己时跟注大于预先跟注,且预先跟注小于自身筹码
+						{
+							this.showUsualActionGroup();
+						}
+						else
+						{
+							GamblingManager.doDefaultAction();
+						}
+					}
+					else
+					{
+						this.showUsualActionGroup();
 					}
 				}
 				else
@@ -340,6 +347,27 @@ class GamblingPanelActionSupport extends BaseGamblingPanelSupport
 				}
 			}
 		}
+	}
+	private showUsualActionGroup()
+	{
+		if (GamblingManager.roomInfo.definition.Pattern != GamblingPattern.AllIn)
+		{
+			// this.target.actionGroup.raiseGroup.visible = true;
+			// this.target.actionGroup.actionGroup.visible = true;
+
+			this.target.actionGroup.showActionGroup(true);
+			this.target.actionGroup.showRaiseGroup(true);
+
+
+			// this.target.actionGroup.raiseBtn.visible = true;
+		}
+		else
+		{
+			this.target.actionGroup.showActionGroup(true);
+			this.target.actionGroup.raiseBtn.visible = false;
+			// this.target.actionGroup.actionGroup.visible = true;
+		}
+		this.showCallCheckBtn();
 	}
 	private showCallCheckBtn()
 	{
@@ -611,7 +639,7 @@ class GamblingPanelActionSupport extends BaseGamblingPanelSupport
 	/**
 	 * 显示预处理
 	 */
-	private tryShowPreActionGroup(isTween: boolean, isLoopOver?:boolean)
+	private tryShowPreActionGroup(isTween: boolean, isLoopOver?: boolean)
 	{
 		if (GamblingManager.self && InfoUtil.checkAvailable(GamblingManager.roomInfo) && GamblingManager.roomInfo.pos > 0)
 		{

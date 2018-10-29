@@ -126,10 +126,18 @@ class InitServerHandler
 		//拉取锦标赛赛事所在房间信息列表
 		MsgTransferSend.sendMTTRoomProto(Command.C2RS_ReqInsideRoomInfoList, {}, this.onGetInsideRoomListInfo, null, this);
 	}
+	/**
+	 * 获取所在房间号列表
+	 */
 	private onGetInsideRoomListInfo(result: game.SpRpcResult)
 	{
 		InsideRoomManager.initialize(result);
-		this.reqFriendListInfo();
+		let callBack: Function = function (result: game.SpRpcResult)
+		{
+			InsideRoomManager.initializeLastRoomId(result);
+			this.reqFriendListInfo();
+		};
+		SocketManager.call(Command.C2GW_ReqCurRoom, {}, callBack, null, this);
 	}
 	/**
 	 * 拉取锦标赛赛事列表信息

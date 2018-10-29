@@ -69,7 +69,6 @@ func (u *GateUser) OnTicker100ms(now int64) {
 	}
 	u.CheckOffline(now)
 	u.CheckDisconnectTimeOut(now)
-	u.events.Tick(now)
 }
 
 func (u *GateUser) OnTicker1s(now int64) {

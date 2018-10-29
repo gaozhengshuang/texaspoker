@@ -201,7 +201,7 @@ func (m *MailBox) TakeMailItem(id int64) {
 		}
 
 		for _, item := range mail.Items() {
-			m.owner.AddItem(item.GetId(), item.GetNum(), "邮件附件", true)
+			m.owner.AddItem(item.GetId(), int64(item.GetNum()), "邮件附件", true)
 		}
 
 		if mail.Bin().GetMttawardtid() != 0 {
