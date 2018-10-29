@@ -162,3 +162,8 @@ message GW2C_RetTakeOtherTask {
 	optional int32 tasktype = 1;
 	optional int32 taskid = 2;
 }
+
+//零点消息
+message C2GW_PushZeroClock {
+	
+}

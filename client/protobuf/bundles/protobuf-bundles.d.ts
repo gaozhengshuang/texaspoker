@@ -2722,6 +2722,90 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a C2GW_PushZeroClock. */
+    interface IC2GW_PushZeroClock {
+    }
+
+    /** Represents a C2GW_PushZeroClock. */
+    class C2GW_PushZeroClock implements IC2GW_PushZeroClock {
+
+        /**
+         * Constructs a new C2GW_PushZeroClock.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_PushZeroClock);
+
+        /**
+         * Creates a new C2GW_PushZeroClock instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_PushZeroClock instance
+         */
+        public static create(properties?: msg.IC2GW_PushZeroClock): msg.C2GW_PushZeroClock;
+
+        /**
+         * Encodes the specified C2GW_PushZeroClock message. Does not implicitly {@link msg.C2GW_PushZeroClock.verify|verify} messages.
+         * @param message C2GW_PushZeroClock message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_PushZeroClock, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_PushZeroClock message, length delimited. Does not implicitly {@link msg.C2GW_PushZeroClock.verify|verify} messages.
+         * @param message C2GW_PushZeroClock message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_PushZeroClock, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_PushZeroClock message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_PushZeroClock
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_PushZeroClock;
+
+        /**
+         * Decodes a C2GW_PushZeroClock message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_PushZeroClock
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_PushZeroClock;
+
+        /**
+         * Verifies a C2GW_PushZeroClock message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_PushZeroClock message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_PushZeroClock
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_PushZeroClock;
+
+        /**
+         * Creates a plain object from a C2GW_PushZeroClock message. Also converts values to other types if specified.
+         * @param message C2GW_PushZeroClock
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_PushZeroClock, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_PushZeroClock to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of an EntityBase. */
     interface IEntityBase {
 
@@ -6573,9 +6657,6 @@ declare namespace msg {
 
         /** RS2C_RetInsideRoomInfoList roomlist */
         roomlist?: (msg.IInsideRoomInfo[]|null);
-
-        /** RS2C_RetInsideRoomInfoList lastid */
-        lastid?: (number|Long|null);
     }
 
     /** Represents a RS2C_RetInsideRoomInfoList. */
@@ -6589,9 +6670,6 @@ declare namespace msg {
 
         /** RS2C_RetInsideRoomInfoList roomlist. */
         public roomlist: msg.IInsideRoomInfo[];
-
-        /** RS2C_RetInsideRoomInfoList lastid. */
-        public lastid: (number|Long);
 
         /**
          * Creates a new RS2C_RetInsideRoomInfoList instance using the specified properties.
@@ -20297,6 +20375,180 @@ declare namespace msg {
 
         /**
          * Converts this GW2C_PushRoomDestory to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqCurRoom. */
+    interface IC2GW_ReqCurRoom {
+    }
+
+    /** Represents a C2GW_ReqCurRoom. */
+    class C2GW_ReqCurRoom implements IC2GW_ReqCurRoom {
+
+        /**
+         * Constructs a new C2GW_ReqCurRoom.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqCurRoom);
+
+        /**
+         * Creates a new C2GW_ReqCurRoom instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqCurRoom instance
+         */
+        public static create(properties?: msg.IC2GW_ReqCurRoom): msg.C2GW_ReqCurRoom;
+
+        /**
+         * Encodes the specified C2GW_ReqCurRoom message. Does not implicitly {@link msg.C2GW_ReqCurRoom.verify|verify} messages.
+         * @param message C2GW_ReqCurRoom message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqCurRoom, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqCurRoom message, length delimited. Does not implicitly {@link msg.C2GW_ReqCurRoom.verify|verify} messages.
+         * @param message C2GW_ReqCurRoom message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqCurRoom, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqCurRoom message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqCurRoom
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqCurRoom;
+
+        /**
+         * Decodes a C2GW_ReqCurRoom message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqCurRoom
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqCurRoom;
+
+        /**
+         * Verifies a C2GW_ReqCurRoom message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqCurRoom message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqCurRoom
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqCurRoom;
+
+        /**
+         * Creates a plain object from a C2GW_ReqCurRoom message. Also converts values to other types if specified.
+         * @param message C2GW_ReqCurRoom
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqCurRoom, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqCurRoom to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetCurRoom. */
+    interface IGW2C_RetCurRoom {
+
+        /** GW2C_RetCurRoom roomuid */
+        roomuid?: (number|Long|null);
+    }
+
+    /** Represents a GW2C_RetCurRoom. */
+    class GW2C_RetCurRoom implements IGW2C_RetCurRoom {
+
+        /**
+         * Constructs a new GW2C_RetCurRoom.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetCurRoom);
+
+        /** GW2C_RetCurRoom roomuid. */
+        public roomuid: (number|Long);
+
+        /**
+         * Creates a new GW2C_RetCurRoom instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetCurRoom instance
+         */
+        public static create(properties?: msg.IGW2C_RetCurRoom): msg.GW2C_RetCurRoom;
+
+        /**
+         * Encodes the specified GW2C_RetCurRoom message. Does not implicitly {@link msg.GW2C_RetCurRoom.verify|verify} messages.
+         * @param message GW2C_RetCurRoom message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetCurRoom, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetCurRoom message, length delimited. Does not implicitly {@link msg.GW2C_RetCurRoom.verify|verify} messages.
+         * @param message GW2C_RetCurRoom message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetCurRoom, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetCurRoom message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetCurRoom
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetCurRoom;
+
+        /**
+         * Decodes a GW2C_RetCurRoom message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetCurRoom
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetCurRoom;
+
+        /**
+         * Verifies a GW2C_RetCurRoom message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetCurRoom message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetCurRoom
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetCurRoom;
+
+        /**
+         * Creates a plain object from a GW2C_RetCurRoom message. Also converts values to other types if specified.
+         * @param message GW2C_RetCurRoom
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetCurRoom, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetCurRoom to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
