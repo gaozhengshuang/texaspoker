@@ -19,6 +19,8 @@ message EntityBase {
     optional string ip      = 14;       // ip
 	optional int32  viplevel = 15;		// vip等级
 	optional int32  vipexp 	= 16;		// vip经验
+	optional int64  viptime1 = 17; 		// 普通vip到期时间
+	optional int64  viptime2 = 18; 		// 年费vip到期时间
 }
 
 // 简单计数器

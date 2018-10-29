@@ -2856,6 +2856,12 @@ declare namespace msg {
 
         /** EntityBase vipexp */
         vipexp?: (number|null);
+
+        /** EntityBase viptime1 */
+        viptime1?: (number|Long|null);
+
+        /** EntityBase viptime2 */
+        viptime2?: (number|Long|null);
     }
 
     /** Represents an EntityBase. */
@@ -2914,6 +2920,12 @@ declare namespace msg {
 
         /** EntityBase vipexp. */
         public vipexp: number;
+
+        /** EntityBase viptime1. */
+        public viptime1: (number|Long);
+
+        /** EntityBase viptime2. */
+        public viptime2: (number|Long);
 
         /**
          * Creates a new EntityBase instance using the specified properties.
@@ -28562,7 +28574,7 @@ declare namespace msg {
         handcard?: (number[]|null);
 
         /** RS2C_RetEnterRoom maxante */
-        maxante?: (number|null);
+        maxante?: (number|Long|null);
 
         /** RS2C_RetEnterRoom minraisenum */
         minraisenum?: (number|null);
@@ -28653,7 +28665,7 @@ declare namespace msg {
         public handcard: number[];
 
         /** RS2C_RetEnterRoom maxante. */
-        public maxante: number;
+        public maxante: (number|Long);
 
         /** RS2C_RetEnterRoom minraisenum. */
         public minraisenum: number;
@@ -41612,6 +41624,240 @@ declare namespace table {
 
         /**
          * Converts this TimeAwardDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a VipBase. */
+    interface IVipBase {
+
+        /** VipBase TVip */
+        TVip?: (table.ITVipDefine[]|null);
+    }
+
+    /** Represents a VipBase. */
+    class VipBase implements IVipBase {
+
+        /**
+         * Constructs a new VipBase.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IVipBase);
+
+        /** VipBase TVip. */
+        public TVip: table.ITVipDefine[];
+
+        /**
+         * Creates a new VipBase instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns VipBase instance
+         */
+        public static create(properties?: table.IVipBase): table.VipBase;
+
+        /**
+         * Encodes the specified VipBase message. Does not implicitly {@link table.VipBase.verify|verify} messages.
+         * @param message VipBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IVipBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified VipBase message, length delimited. Does not implicitly {@link table.VipBase.verify|verify} messages.
+         * @param message VipBase message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IVipBase, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a VipBase message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns VipBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.VipBase;
+
+        /**
+         * Decodes a VipBase message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns VipBase
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.VipBase;
+
+        /**
+         * Verifies a VipBase message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a VipBase message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns VipBase
+         */
+        public static fromObject(object: { [k: string]: any }): table.VipBase;
+
+        /**
+         * Creates a plain object from a VipBase message. Also converts values to other types if specified.
+         * @param message VipBase
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.VipBase, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this VipBase to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TVipDefine. */
+    interface ITVipDefine {
+
+        /** TVipDefine Id */
+        Id?: (number|null);
+
+        /** TVipDefine Level */
+        Level?: (string|null);
+
+        /** TVipDefine Exp */
+        Exp?: (number|null);
+
+        /** TVipDefine TotalExp */
+        TotalExp?: (number|null);
+
+        /** TVipDefine ExclusiveAchieve */
+        ExclusiveAchieve?: (string|null);
+
+        /** TVipDefine ExpRate */
+        ExpRate?: (number|null);
+
+        /** TVipDefine FriendRank */
+        FriendRank?: (number|null);
+
+        /** TVipDefine FriendLimit */
+        FriendLimit?: (number|null);
+
+        /** TVipDefine CreateRoom */
+        CreateRoom?: (number|null);
+
+        /** TVipDefine UseSafe */
+        UseSafe?: (number|null);
+    }
+
+    /** Represents a TVipDefine. */
+    class TVipDefine implements ITVipDefine {
+
+        /**
+         * Constructs a new TVipDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITVipDefine);
+
+        /** TVipDefine Id. */
+        public Id: number;
+
+        /** TVipDefine Level. */
+        public Level: string;
+
+        /** TVipDefine Exp. */
+        public Exp: number;
+
+        /** TVipDefine TotalExp. */
+        public TotalExp: number;
+
+        /** TVipDefine ExclusiveAchieve. */
+        public ExclusiveAchieve: string;
+
+        /** TVipDefine ExpRate. */
+        public ExpRate: number;
+
+        /** TVipDefine FriendRank. */
+        public FriendRank: number;
+
+        /** TVipDefine FriendLimit. */
+        public FriendLimit: number;
+
+        /** TVipDefine CreateRoom. */
+        public CreateRoom: number;
+
+        /** TVipDefine UseSafe. */
+        public UseSafe: number;
+
+        /**
+         * Creates a new TVipDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TVipDefine instance
+         */
+        public static create(properties?: table.ITVipDefine): table.TVipDefine;
+
+        /**
+         * Encodes the specified TVipDefine message. Does not implicitly {@link table.TVipDefine.verify|verify} messages.
+         * @param message TVipDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITVipDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TVipDefine message, length delimited. Does not implicitly {@link table.TVipDefine.verify|verify} messages.
+         * @param message TVipDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITVipDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TVipDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TVipDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.TVipDefine;
+
+        /**
+         * Decodes a TVipDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TVipDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.TVipDefine;
+
+        /**
+         * Verifies a TVipDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TVipDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TVipDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.TVipDefine;
+
+        /**
+         * Creates a plain object from a TVipDefine message. Also converts values to other types if specified.
+         * @param message TVipDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.TVipDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TVipDefine to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };

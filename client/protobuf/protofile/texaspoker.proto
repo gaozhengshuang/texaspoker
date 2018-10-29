@@ -30,7 +30,7 @@ message RS2C_RetEnterRoom
     repeated TexasPlayer playerlist = 12;   //参与玩家列表
     optional bool isshowcard = 13;          //是否亮牌
     repeated int32 handcard = 14;           //手牌
-    optional int32 maxante = 15;            //最大台费
+    optional int64 maxante = 15;            //最大台费
     optional int32 minraisenum = 16;        //最小加注
     optional int32 masterid = 17;           //房主id
     optional int32 blindlevel = 18;
