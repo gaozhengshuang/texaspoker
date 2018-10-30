@@ -372,21 +372,37 @@ type SitPlayerBetInfo struct {
 }
 type BetPoolTempStat struct {
 	seats []*SitPlayerBetInfo	// 坐下玩家下注统计
+	roles map[int64]int64		// 下注玩家列表
 	maxseat int32
 	dirty bool
 }
 func (s *BetPoolTempStat) Dirty() bool { return s.dirty }
 func (s *BetPoolTempStat) MarkDirty() { s.dirty = true }
+func (s *BetPoolTempStat) InsertRole(id int64) { s.roles[id] = id }
 func (s *BetPoolTempStat) Init(maxseat int32) {
 	s.maxseat = maxseat
 	s.seats = make([]*SitPlayerBetInfo, s.maxseat)
+	s.roles = make(map[int64]int64)
 	s.dirty = false
 }
 func (s *BetPoolTempStat) Reset() {
 	s.seats = make([]*SitPlayerBetInfo, s.maxseat)
+	s.roles = make(map[int64]int64)
 	s.dirty = false
 }
+func (s *BetPoolTempStat) Collect(p *TexasFightPlayer, betpos int32, num int64) {
+	if p == nil || betpos >= kBetPoolNum || betpos < 0 {
+		return
+	}
 
+	s.dirty = true
+	s.roles[p.Id()] = p.Id()
+	if seat := p.Seat(); seat != -1 {
+		if s.seats[seat] == nil { s.seats[seat] = &SitPlayerBetInfo{} }
+		s.seats[seat].seat = seat
+		s.seats[seat].poolbet[betpos] += num
+	}
+}
 
 // --------------------------------------------------------------------------
 /// @brief 奖池命中记录
@@ -463,6 +479,7 @@ type TexasFightRoom struct {
 	stat int32			// 状态
 	statstart int64		// 状态开始时间，秒
 	stattimeout int64	// 状态超时时间，秒
+	round int64			// 回合计数
 
 	players map[int64]*TexasFightPlayer		// 所有玩家
 	sitplayers []*TexasFightPlayer		// 坐下玩家列表
@@ -486,6 +503,7 @@ func (tf *TexasFightRoom) TotalAwardPool() int64 { return tf.totalawardpool }
 func (tf *TexasFightRoom) IncAwardPool(n int64) { tf.totalawardpool += n }
 func (tf *TexasFightRoom) DecAwardPool(n int64) { tf.totalawardpool -= n }
 func (tf *TexasFightRoom) PlayersNum() int32 { return tf.MembersNum() }
+func (tf *TexasFightRoom) Round() int64 { return tf.round }
 
 
 
@@ -615,28 +633,28 @@ func (tf *TexasFightRoom) UserEnter(u *RoomUser) {
 
 	u.SendClientMsg(infomsg)
 	Redis().HSet(fmt.Sprintf("roombrief_%d", tf.Id()), "members", tf.PlayersNum())
-	log.Info("[百人大战] 玩家[%s %d] 进入房间[%d]", u.Name(), u.Id(), tf.Id())
+	log.Info("[百人大战] 玩家[%s %d] 进入房间[%d %d]", u.Name(), u.Id(), tf.Id(), tf.Round())
 }
 
 
 // 玩家离开房间
 func (tf *TexasFightRoom) UserLeave(u *RoomUser) {
-	log.Info("[百人大战] 玩家[%s %d] 离开房间[%d] ", u.Name(), u.Id(), tf.Id())
+	log.Info("[百人大战] 玩家[%s %d] 离开房间[%d %d] ", u.Name(), u.Id(), tf.Id(), tf.Round())
 
 	player := tf.players[u.Id()]
 	if player == nil {
-		log.Error("[百人大战] 玩家[%s %d] 请求离开房间[%d]，但找不到玩家", u.Name(), u.Id(), tf.Id())
+		log.Error("[百人大战] 玩家[%s %d] 请求离开房间[%d %d]，但找不到玩家", u.Name(), u.Id(), tf.Id(), tf.Round())
 		return
 	}
 
 	// 庄家
 	if player.Id() == tf.banker.Id() {
-		log.Info("[百人大战] 玩家[%s %d] 请求离开房间[%d]，庄家先下庄才能离开", u.Name(), u.Id(), tf.Id())
+		log.Info("[百人大战] 玩家[%s %d] 请求离开房间[%d %d]，庄家先下庄才能离开", u.Name(), u.Id(), tf.Id(), tf.Round())
 		return
 	}
 
 	if tf.stat == kStatBetting && player.TotalBet() != 0 {
-		log.Warn("[百人大战] 玩家[%s %d] 请求离开房间[%d]，下注中不能离开", u.Name(), u.Id(), tf.Id())
+		log.Warn("[百人大战] 玩家[%s %d] 请求离开房间[%d %d]，下注中不能离开", u.Name(), u.Id(), tf.Id(), tf.Round())
 		return
 	}
 
@@ -663,18 +681,18 @@ func (tf *TexasFightRoom) UserLeave(u *RoomUser) {
 func (tf *TexasFightRoom) UserStandUp(u *RoomUser) {
 	player := tf.players[u.Id()]
 	if player == nil {
-		log.Error("[百人大战] 玩家[%s %d] 从房间[%d]站起，但找不到玩家", u.Name(), u.Id(), tf.Id())
+		log.Error("[百人大战] 玩家[%s %d] 从房间[%d %d]站起，但找不到玩家", u.Name(), u.Id(), tf.Id(), tf.Round())
 		return
 	}
 
 	seat := player.Seat()
 	if seat == -1 {
-		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 没有坐下不需要站起", u.Name(), u.Id(), tf.Id())
+		log.Error("[百人大战] 玩家[%s %d] 房间[%d %d] 没有坐下不需要站起", u.Name(), u.Id(), tf.Id(), tf.Round())
 		return
 	}
 
 	if seat == 0 {
-		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 庄家请先下庄 ", u.Name(), u.Id(), tf.Id())
+		log.Error("[百人大战] 玩家[%s %d] 房间[%d %d] 庄家请先下庄 ", u.Name(), u.Id(), tf.Id(), tf.Round())
 		return
 	}
 
@@ -691,7 +709,7 @@ func (tf *TexasFightRoom) UserStandUp(u *RoomUser) {
 	tf.BroadCastMemberMsg(posmsg)
 
 	//u.OnStandUp()
-	log.Info("[百人大战] 玩家[%s %d] 房间[%d] 离开位置[%d]", u.Name(), u.Id(), tf.Id(), seat)
+	log.Info("[百人大战] 玩家[%s %d] 房间[%d %d] 离开位置[%d]", u.Name(), u.Id(), tf.Id(), tf.Round(), seat)
 }
 
 
@@ -721,19 +739,19 @@ func (tf *TexasFightRoom) UserSitDown(u *RoomUser, seat int32) {
 	}
 
 	if u.Id() == tf.banker.Id() {
-		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 正在坐庄中", u.Name(), u.Id(), tf.Id())
+		log.Error("[百人大战] 玩家[%s %d] 房间[%d %d] 正在坐庄中", u.Name(), u.Id(), tf.Id(), tf.Round())
 		return
 	}
 
 	// player 指针
 	player := tf.FindPlayer(u.Id())
 	if player == nil {
-		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 找不到玩家Player", u.Name(), u.Id(), tf.Id())
+		log.Error("[百人大战] 玩家[%s %d] 房间[%d %d] 找不到玩家Player", u.Name(), u.Id(), tf.Id(), tf.Round())
 		return
 	}
 
 	if player.Seat() != -1 {
-		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 已经有座位了", u.Name(), u.Id(), tf.Id())
+		log.Error("[百人大战] 玩家[%s %d] 房间[%d %d] 已经有座位了", u.Name(), u.Id(), tf.Id(), tf.Round())
 		return
 	}
 
@@ -746,7 +764,7 @@ func (tf *TexasFightRoom) UserSitDown(u *RoomUser, seat int32) {
 	tf.BroadCastMemberMsg(posmsg)
 
 	//u.OnSitDown(seat, "")
-	log.Info("[百人大战] 玩家[%s %d] 房间[%d] 坐下位置[%d]", u.Name(), u.Id(), tf.Id(), seat)
+	log.Info("[百人大战] 玩家[%s %d] 房间[%d %d] 坐下位置[%d]", u.Name(), u.Id(), tf.Id(), tf.Round(), seat)
 }
 
 
@@ -760,7 +778,7 @@ func (tf *TexasFightRoom) UserSitDown(u *RoomUser, seat int32) {
 //
 //	u = UserMgr().CreateRoomUser(tf.Id(), tmsg.Bin, gate, tf.Kind())
 //	u.OnPreEnterRoom()
-//	log.Info("[百人大战] 玩家[%s %d] 上传个人数据到房间[%d]", u.Name(), u.Id(), tf.Id())
+//	log.Info("[百人大战] 玩家[%s %d] 上传个人数据到房间[%d %d]", u.Name(), u.Id(), tf.Id(), tf.Round())
 //}
 
 
@@ -771,7 +789,7 @@ func (tf *TexasFightRoom) Tick(now int64) {
 
 // 玩家断开连接(托管/踢掉)
 func (tf *TexasFightRoom) UserDisconnect(u *RoomUser) {
-	log.Info("[百人大战] 玩家[%s %d] 网络断开 房间[%d]", u.Name(), u.Id(), tf.Id())
+	log.Info("[百人大战] 玩家[%s %d] 网络断开 房间[%d %d]", u.Name(), u.Id(), tf.Id(), tf.Round())
 }
 
 
