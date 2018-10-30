@@ -278,6 +278,10 @@ class ResGroupName
 	 */
 	public static Login: string = "login";
 	/**
+	 * 登录的文字图集
+	 */
+	public static Login_Text:string = "login_text";
+	/**
 	 * 通用资源
 	 */
 	public static Common: string = "common";
