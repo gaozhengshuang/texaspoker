@@ -183,7 +183,9 @@ func (tf *TexasFightRoom) ChangeToWaitNextRoundStat(now int64) {
 	// 回合结束
 	tf.RoundOver()
 
-	log.Info("[百人大战] 房间[%d] 切换到等待下一局状态", tf.Id())
+	if tf.PlayersNum() != 0 {
+		log.Info("[百人大战] 房间[%d] 切换到等待下一局状态", tf.Id())
+	}
 }
 
 
@@ -222,7 +224,9 @@ func (tf *TexasFightRoom) ChangeToBettingStat(now int64) {
 	tf.BroadCastMemberMsg(statmsg)
 
 	//
-	log.Info("[百人大战] 房间[%d] 切换到下注状态", tf.Id())
+	if tf.PlayersNum() != 0 {
+		log.Info("[百人大战] 房间[%d] 切换到下注状态", tf.Id())
+	}
 }
 
 
@@ -233,7 +237,9 @@ func (tf *TexasFightRoom) RoundOver() {
 	tf.RoundSettle()
 
 	// 奖池
-	log.Trace("[百人大战] 房间[%d] 本轮结束，奖池余额[%d]", tf.Id(), tf.TotalAwardPool())
+	if tf.PlayersNum() != 0 {
+		log.Trace("[百人大战] 房间[%d] 本轮结束，奖池余额[%d]", tf.Id(), tf.TotalAwardPool())
+	}
 }
 
 // 回合结算
