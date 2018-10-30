@@ -463,6 +463,7 @@ type TexasFightRoom struct {
 	stat int32			// 状态
 	statstart int64		// 状态开始时间，秒
 	stattimeout int64	// 状态超时时间，秒
+	round int64			// 回合计数
 
 	players map[int64]*TexasFightPlayer		// 所有玩家
 	sitplayers []*TexasFightPlayer		// 坐下玩家列表
@@ -486,6 +487,7 @@ func (tf *TexasFightRoom) TotalAwardPool() int64 { return tf.totalawardpool }
 func (tf *TexasFightRoom) IncAwardPool(n int64) { tf.totalawardpool += n }
 func (tf *TexasFightRoom) DecAwardPool(n int64) { tf.totalawardpool -= n }
 func (tf *TexasFightRoom) PlayersNum() int32 { return tf.MembersNum() }
+func (tf *TexasFightRoom) Round() int64 { return tf.round }
 
 
 

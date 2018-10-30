@@ -150,7 +150,7 @@ func (tf *TexasFightRoom) SystemBankerBackCheck() {
 	posmsg := &msg.RS2C_PushTFPosChange{Bankergold:pb.Int64(tf.banker.Gold()), Player:&msg.TFPlayer{}}
 	posmsg.Player = tf.banker.FillPlayerInfo()
 	tf.BroadCastMemberMsg(posmsg)
-	log.Info("[百人大战] 切换回系统庄家")
+	log.Info("[百人大战] 房间[%d] 切换回系统庄家", tf.Id())
 }
  
 //
@@ -196,6 +196,7 @@ func (tf *TexasFightRoom) ChangeToBettingStat(now int64) {
 	tf.stat = kStatBetting
 	tf.statstart = now / 1000
 	tf.stattimeout = tf.statstart + int64(tf.tconf.BetTime)
+	tf.round += 1
 
 	// 检查庄家
 	tf.BankerCheck()
@@ -554,11 +555,19 @@ func (tf *TexasFightRoom) CardDeal() {
 
 // 请求下一局开局
 func (tf *TexasFightRoom) RequestGameStart(u *RoomUser) {
+	log.Trace("[百人大战] 玩家[%s %d] 房间[%d] 收到立即开始下一局请求", u.Name(), u.Id(), tf.Id())
 	send := &msg.RS2C_RetTFStart{}
 	u.SendClientMsg(send)
 
-	// 只有自己一个人
+	// 只有一个玩家，信任该玩家请求
 	if _, find := tf.players[u.Id()]; find == true && len(tf.players) == 1 {
+		tf.ChangeToBettingStat(util.CURTIMEMS())
+		return
+	}
+
+	// 发牌后超过等待事件收到开始，允许开始
+	now , waittimeout := util.CURTIME(), tf.statstart + int64(tf.tconf.WaitTime)
+	if tf.stat == kStatWaitNextRound && now >= waittimeout {
 		tf.ChangeToBettingStat(util.CURTIMEMS())
 		return
 	}
