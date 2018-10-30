@@ -79,6 +79,9 @@ func (rm *RoomManager) InitPublicTexas() bool {
 		room := NewTexasRoom(0, roomid, tconf.Id, 0, "", nil)
 		room.Init()
 		rm.Add(room)
+		if tconf.Rbt != 0 {
+			room.CreateAI(tconf.Rbt)
+		}
 	}
 	return true
 }

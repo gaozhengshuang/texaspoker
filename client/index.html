@@ -48,12 +48,17 @@ data-show-log="true" data-show-fps-style="x:0,y:0,size:12,textColor:0xffffff,bgA
 </div>
 <script>
     var resJsonUrl = "default.res.json";
+    var langName = localStorage.getItem("giant_poker_lang");
+    if (!langName) {
+        langName = "zh-tw";
+    }
+    var resJsonUrl = "default.res.json";
     window.web_config_scripts = ['libs/modules.min.js', 'libs/bundle.min.js', 'libs/main.min.js'];
     window.web_config_defaultResJson = 'resource/default.res.json';
     window.web_config_defaultThmJson = 'resource/default.thm.json';
-    I18n.initSystem("", ['zh-tw']);
-    var langUrl = "resource/assets/lang/zh-tw.zip";
-    loadZip(langUrl, "zh-tw.json", jszipParse);
+    I18n.initSystem("", [langName]);
+    var langUrl = "resource/assets/lang/" + langName + ".zip";
+    loadZip(langUrl, langName + ".json", jszipParse);
     //加载单个zip文件，成功后进行回调
     function loadZip(url, filename, callBack) {
         var xhrZip = new XMLHttpRequest();

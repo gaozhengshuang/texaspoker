@@ -619,6 +619,7 @@
 		"bin-debug/core/table/texasroom.js",
 		"bin-debug/core/table/textbase.js",
 		"bin-debug/core/table/timeaward.js",
+		"bin-debug/core/table/vipbase.js",
 		"bin-debug/core/time/SystemTimeManager.js",
 		"bin-debug/core/time/TimeManager.js",
 		"bin-debug/core/version/VersionManager.js",

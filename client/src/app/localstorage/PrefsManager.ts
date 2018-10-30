@@ -63,6 +63,10 @@ class PrefsManager
 	 * 直通车弹窗3天
 	 */
 	public static GoAheadtHighFieldAlertThreeDay:string = 'GoAheadtHighFieldAlertThreeDay';
+	/**
+	 * 语言配置
+	 */
+	public static giant_poker_lang:string = "giant_poker_lang";
 
 	public static setValue(key: string, value: string, isPrivate: boolean = false)
 	{

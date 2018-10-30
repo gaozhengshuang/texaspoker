@@ -83,7 +83,7 @@ func (this *TexasPlayer)Init(){
 	this.gamestate = GSWaitNext
 	this.aiacttime = 0
 	this.isallinshow = false
-	this.timeout = 0
+	//this.timeout = 0
 }
 
 func (this *TexasPlayer) InitTimeReward() {
@@ -172,7 +172,7 @@ func (this *TexasPlayer) BetStart() {
 				this.bettime = this.room.tconf.Cd
 			}
 		}
-		this.aiacttime = util.RandBetween(3, this.room.tconf.ClientCd-2)
+		this.aiacttime = this.room.tconf.ClientCd - util.RandBetween(1, 4)
 		send := &msg.RS2C_PushActionPosChange{}
 		send.Pos = pb.Int32(this.pos+1)
 		send.Postime = pb.Int32(int32(util.CURTIME()))

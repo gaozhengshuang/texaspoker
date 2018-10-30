@@ -63,7 +63,7 @@ func (u *UserBase) SetSex(sex int32) {
 	u.data.GetEntity().Sex = pb.Int32(sex)
 }
 
-func (u *UserBase) GetGold() int32 {
+func (u *UserBase) GetGold() int64 {
 	return 0
 }
 

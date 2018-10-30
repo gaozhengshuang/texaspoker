@@ -325,7 +325,7 @@ func (u *User) ReqUserRoom() {
 
 func (u *User) ReqSitDown() {
 	//sitdown := &msg.C2RS_ReqSitDown{Userid:pb.Int64(u.Id()), Seat:pb.Int32(1)}
-	sitdown := &msg.C2RS_ReqBuyInGame{Num:pb.Int32(u.GetGold()), Isautobuy:pb.Bool(true), Pos:pb.Int32(1)}
+	sitdown := &msg.C2RS_ReqBuyInGame{Num:pb.Int64(u.GetGold()), Isautobuy:pb.Bool(true), Pos:pb.Int32(1)}
 	u.SendRoomMsg(sitdown)
 }
 
