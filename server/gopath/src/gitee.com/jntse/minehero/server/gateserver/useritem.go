@@ -348,6 +348,10 @@ func (u *GateUser) VipDailyCheck(lastzerostamp, todayzerostamp int64) {
 		//时间段内高级vip
 		nday := (todayzerostamp - lastzerostamp)/(3600*24)
 		u.AddVipExp(int32(nday) * int32(tbl.Global.Vip.Speed2))
+	} else if todayzerostamp <= viptime1 && lastzerostamp > viptime2 {
+		//时间段内普通vip
+		nday := (todayzerostamp - lastzerostamp)/(3600*24)
+		u.AddVipExp(int32(nday) * int32(tbl.Global.Vip.Speed1))
 	} else {
 		checkstamp := lastzerostamp
 		vip2days := 0
