@@ -2,10 +2,10 @@
 	"Tool": "github.com/davyxu/tabtoy",
 	"Version": "2.8.10",
 	"TVip":[
-		{ "Id": 1, "Level": "0", "Exp": 0, "TotalExp": 0, "ExclusiveAchieve": "0", "ExpRate": 1, "FriendRank": 0, "FriendLimit": 100, "CreateRoom": 0, "UseSafe": 0 },
-		{ "Id": 2, "Level": "1", "Exp": 0, "TotalExp": 0, "ExclusiveAchieve": "1", "ExpRate": 1.5, "FriendRank": 1, "FriendLimit": 200, "CreateRoom": 1, "UseSafe": 1 },
-		{ "Id": 3, "Level": "2", "Exp": 600, "TotalExp": 600, "ExclusiveAchieve": "1", "ExpRate": 2, "FriendRank": 1, "FriendLimit": 300, "CreateRoom": 1, "UseSafe": 1 },
-		{ "Id": 4, "Level": "3", "Exp": 1200, "TotalExp": 1800, "ExclusiveAchieve": "1", "ExpRate": 2.5, "FriendRank": 1, "FriendLimit": 400, "CreateRoom": 1, "UseSafe": 1 },
-		{ "Id": 5, "Level": "4", "Exp": 1800, "TotalExp": 3600, "ExclusiveAchieve": "1", "ExpRate": 3, "FriendRank": 1, "FriendLimit": 500, "CreateRoom": 1, "UseSafe": 1 },
-		{ "Id": 6, "Level": "5", "Exp": 2400, "TotalExp": 6000, "ExclusiveAchieve": "1", "ExpRate": 2.5, "FriendRank": 1, "FriendLimit": 600, "CreateRoom": 1, "UseSafe": 1 }
+		{ "Id": 1, "Level": 0, "Exp": 0, "TotalExp": 0, "ExclusiveAchieve": "0", "ExpRate": 1, "FriendRank": 0, "FriendLimit": 100, "CreateRoom": 0, "UseSafe": 0 },
+		{ "Id": 2, "Level": 1, "Exp": 0, "TotalExp": 0, "ExclusiveAchieve": "1", "ExpRate": 1.5, "FriendRank": 1, "FriendLimit": 200, "CreateRoom": 1, "UseSafe": 1 },
+		{ "Id": 3, "Level": 2, "Exp": 600, "TotalExp": 600, "ExclusiveAchieve": "1", "ExpRate": 2, "FriendRank": 1, "FriendLimit": 300, "CreateRoom": 1, "UseSafe": 1 },
+		{ "Id": 4, "Level": 3, "Exp": 1200, "TotalExp": 1800, "ExclusiveAchieve": "1", "ExpRate": 2.5, "FriendRank": 1, "FriendLimit": 400, "CreateRoom": 1, "UseSafe": 1 },
+		{ "Id": 5, "Level": 4, "Exp": 1800, "TotalExp": 3600, "ExclusiveAchieve": "1", "ExpRate": 3, "FriendRank": 1, "FriendLimit": 500, "CreateRoom": 1, "UseSafe": 1 },
+		{ "Id": 6, "Level": 5, "Exp": 2400, "TotalExp": 6000, "ExclusiveAchieve": "1", "ExpRate": 2.5, "FriendRank": 1, "FriendLimit": 600, "CreateRoom": 1, "UseSafe": 1 }
 	]}

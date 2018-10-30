@@ -22,7 +22,7 @@ message TVipDefine
 	optional int32 Id = 1; 
 	
 	
-	optional string Level = 2; // vip等级
+	optional int32 Level = 2; // vip等级
 	
 	
 	optional int32 Exp = 3; // vip经验
