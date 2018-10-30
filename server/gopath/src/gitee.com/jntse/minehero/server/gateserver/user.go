@@ -684,18 +684,19 @@ func (u *GateUser) ZeroHourClockCallback () {
 
 //跨天重置
 func (u *GateUser) UserDailyReset() {
-	now := util.CURTIME()
+	todaysec := util.GetDayStart()
 	cmdval, err := Redis().HGet(fmt.Sprintf("charstate_%d", u.Id()), "dailyresetstamp").Result()
+	var laststamp int64
 	if err == nil {
-		timestamp := util.Atol(cmdval)
-		if util.IsSameDay(timestamp, now) == true {
+		laststamp = util.Atol(cmdval)
+		if util.IsSameDay(laststamp, todaysec) == true {
 			return
 		}
 	}
 	log.Info("玩家[%s]跨天重置 uid:%d",u.Name() ,u.Id())
-	Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "dailyresetstamp", now)
+	Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "dailyresetstamp", todaysec)
 	u.ActivityResetByDay()
 	u.DailyResetAchieve()
-	u.VipDailyCheck()
+	u.VipDailyCheck(laststamp, todaysec)
 }
 

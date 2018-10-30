@@ -220,6 +220,8 @@ func (u *UserEntity) FillEntity() *msg.EntityBase {
 	info.Age = pb.Int32(u.age)
 	info.Viplevel = pb.Int32(u.viplevel)
 	info.Vipexp = pb.Int32(u.vipexp)
+	info.Viptime1 = pb.Int64(u.viptime1)
+	info.Viptime2 = pb.Int64(u.viptime2)
 
 	return info
 }

@@ -22,6 +22,14 @@ func (u *GateUser) AddItem(item int32, num int64, reason string, syn bool) {
 		u.AddGold(num, reason, syn)
 	} else if item == int32(msg.ItemId_Diamond) {
 		u.AddDiamond(num, reason, syn)
+	} else if item == int32(msg.ItemId_VipExp) {
+		u.AddVipExp(int32(num))
+	} else if item == int32(msg.ItemId_RoleExp) {
+		u.AddExp(int32(num), reason)
+	} else if item == int32(msg.ItemId_MonthVip) {
+		u.AddVipTime(1, int64(30*24*3600*num))
+	} else if item == int32(msg.ItemId_YearVip) {
+		u.AddVipTime(2, int64(365*24*3600*num))
 	} else {
 		sumnum := Redis().HIncrBy(fmt.Sprintf("useritem_%d_%d", u.Id(), item), "num", num).Val()
 		if sumnum == int64(num) {
@@ -187,7 +195,8 @@ func (u *GateUser) SetExp(exp int32) {
 func (u *GateUser) AddExp(num int32, reason string) {
 	oldlevel, exp := u.Level(), u.Exp()
 	newlevel := oldlevel
-	exp = exp + num
+	exprate := u.GetExpRate()
+	exp = exp + int32(float64(num) * exprate)
 	for {
 		lvlbase, ok := tbl.LevelBasee.ExpById[oldlevel + 1]
 		if ok == false {
@@ -240,6 +249,10 @@ func (u *GateUser) AddVipTime (timetype, time int64) {
 	} else if timetype == 2 {
 		u.EntityBase().AddVipTime2(time)
 	}
+	send := &msg.C2GW_PushVipTime{}
+	send.Viptime = pb.Int64(u.VipTime1())
+	send.Yearviptime = pb.Int64(u.VipTime2())
+	u.SendMsg(send)
 }
 
 func (u *GateUser) AddVipExp(vipexp int32) {
@@ -290,14 +303,73 @@ func (u *GateUser) GetVipState () int32 {
 	}
 }
 
-func (u *GateUser) VipDailyCheck() {
-	state := u.GetVipState()
-	if state == 2 {
-		u.AddVipExp(int32(tbl.Global.Vip.Speed2))
-	}else if state == 1 {
-		u.AddVipExp(int32(tbl.Global.Vip.Speed1))
-	}else if state == 0 && u.VipExp() > 0 {
-		u.SubVipExp(int32(tbl.Global.Vip.Subspeed))
+func (u *GateUser) GetExpRate () float64 {
+	vipstate := u.GetVipState()
+	if vipstate == 0 {
+		return float64(1)
+	}
+	viplevel := u.VipLevel()
+	conf, ok := tbl.VipBase.TVipById[viplevel]
+	if ok == true {
+		return float64(conf.ExpRate)
+	} else {
+		return float64(1)
+	}
+}
+
+func (u *GateUser) GetMaxFriendNum () int32 {
+	vipstate := u.GetVipState()
+	if vipstate > 0 {
+		viplevel := u.VipLevel()
+		conf, ok := tbl.VipBase.TVipById[viplevel]
+		if ok == true {
+			return conf.FriendLimit
+		} else {
+			return tbl.VipBase.TVipById[0].FriendLimit
+		}
+	} else {
+		return tbl.VipBase.TVipById[0].FriendLimit
+	}
+}
+
+func (u *GateUser) VipDailyCheck(lastzerostamp, todayzerostamp int64) {
+	if lastzerostamp == 0 {
+		lastzerostamp = todayzerostamp - 3600*24
+	}
+	viptime2 := u.VipTime2()
+	viptime1 := u.VipTime1()
+	if lastzerostamp > viptime1 {
+		//时间段内非vip
+		nday := (todayzerostamp - lastzerostamp)/(3600*24)
+		if u.VipExp() > 0 {
+			u.SubVipExp(int32(nday)*int32(tbl.Global.Vip.Subspeed))
+		}
+	} else if todayzerostamp <= viptime2 {
+		//时间段内高级vip
+		nday := (todayzerostamp - lastzerostamp)/(3600*24)
+		u.AddVipExp(int32(nday) * int32(tbl.Global.Vip.Speed2))
+	} else {
+		checkstamp := lastzerostamp
+		vip2days := 0
+		vip1days := 0
+		novipdays := 0
+		for checkstamp < todayzerostamp {
+			if checkstamp <= viptime2 {
+				vip2days = vip2days + 1
+			} else if checkstamp <= viptime1 {
+				vip1days = vip1days + 1
+			} else {
+				novipdays = novipdays + 1
+			}
+			checkstamp = checkstamp + 3600*24
+		}
+		exp := int32(vip2days)*int32(tbl.Global.Vip.Speed2) + int32(vip1days)*int32(tbl.Global.Vip.Speed1) - int32(novipdays)*int32(tbl.Global.Vip.Subspeed)
+		if exp > 0 {
+			u.AddVipExp(int32(exp))
+		} else if exp < 0 && u.VipExp() > 0{
+			exp = 0 - exp
+			u.SubVipExp(int32(exp)) 
+		}
 	}
 }
 
