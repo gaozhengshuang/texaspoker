@@ -222,7 +222,7 @@ class RoomInfo extends BaseServerValueInfo implements IHaveDefintionInfo
         {
             this.data.maxante = 0;
         }
-        return this.data.maxante;
+        return game.longToNumber(this.data.maxante);
     }
     public set maxAnte(value: number) 
     {

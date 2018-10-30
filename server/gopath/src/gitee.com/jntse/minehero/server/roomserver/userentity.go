@@ -19,6 +19,10 @@ type UserEntity struct {
 	yuanbao int64
 	diamond int64
 	age     int32
+	vipexp  int32
+	viplevel int32
+	viptime1 int64
+	viptime2 int64
 
 	dirty   bool
 }
@@ -35,7 +39,6 @@ func (u *UserEntity) Account() string { return u.account }
 func (u *UserEntity) Age() int32 { return u.age }
 func (u *UserEntity) SetName(n string) { u.name = n; u.dirty = true }
 
-
 //
 func (u *UserEntity) Level() int32 { 
 	u.level = util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "level").Val())
@@ -50,6 +53,59 @@ func (u *UserEntity) Exp() int32 {
 }
 func (u *UserEntity) SetExp(exp int32) { 
 	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "exp", exp)
+}
+
+//
+func (u *UserEntity) VipLevel() int32 {
+	u.viplevel = util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "viplevel").Val())
+	return u.viplevel
+}
+func (u *UserEntity) SetVipLevel(viplevel int32) {
+	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "viplevel", viplevel)
+}
+func (u *UserEntity) VipExp() int32 {
+	u.exp = util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "vipexp").Val())
+	return u.exp
+}
+func (u *UserEntity) SetVipExp(vipexp int32) {
+	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "vipexp", vipexp)
+}
+func (u *UserEntity) VipTime1() int64 {
+	u.viptime1 = util.Atol(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "viptime1").Val())
+	return u.viptime1
+}
+func (u *UserEntity) VipTime2() int64 {
+	u.viptime2 = util.Atol(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "viptime2").Val())
+	return u.viptime2
+}
+func (u *UserEntity) AddVipTime1(time int64) {
+	now := util.CURTIME()
+	viptime1 := u.VipTime1()
+	if now > viptime1 {
+		Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "viptime1", now + time)
+	} else {
+		Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "viptime1", viptime1 + time)
+	}
+}
+func (u *UserEntity) AddVipTime2(time int64) {
+	now := util.CURTIME()
+	viptime1 := u.VipTime1()
+	viptime2 := u.VipTime2()
+	if now > viptime2 {
+		Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "viptime2", now + time)
+		if now > viptime1 {
+			Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "viptime1", now + time)
+		} else {
+			Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "viptime1", viptime1 + time)
+		}
+	} else {
+		Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "viptime2", viptime2 + time)
+		if now > viptime1 {
+			Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "viptime1", now + time)
+		} else {
+			Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "viptime1", viptime1 + time)
+		}
+	}
 }
 
 //
@@ -109,6 +165,10 @@ func (u *UserEntity) DBLoad() {
 			case "yuanbao":		u.yuanbao = vt.Int64()
 			case "diamond":		u.diamond = vt.Int64()
 			case "age":         u.age = vt.Int32()
+			case "viplevel": 	u.viplevel = vt.Int32()
+			case "vipexp":   	u.vipexp = vt.Int32()
+			case "viptime1": 	u.viptime1 = vt.Int64()
+			case "viptime2":    u.viptime2 = vt.Int64()
 		}
 	}
 }
