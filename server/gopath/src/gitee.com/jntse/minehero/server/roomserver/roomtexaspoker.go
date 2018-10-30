@@ -978,6 +978,9 @@ func (this *TexasPokerRoom) WinNotify(name string, level int32, reward int64) {
 	if level < 2 {
 		return
 	}
+	if this.IsChampionShip() {
+		return 
+	}
 	txt := fmt.Sprintf("{\"0\":\"%s\",\"1\":%d,\"2\":%d,\"3\":%d}", name, this.tconf.Type ,level , reward)
 	send := &msg.RS2GW_ChatInfo{}
 	send.Chat = def.MakeChatInfo(def.ChatAll, txt, 0, "", def.TexasMsg, def.MsgShowAll)
