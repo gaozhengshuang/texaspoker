@@ -64,8 +64,8 @@ func (u *User) ReqTFLeave() {
 
 func (u *User) ReqTexasFightBet(subcmd []string) {
 	if len(subcmd) != 2 { return }
-	pos, num := util.Atoi(subcmd[0]), util.Atoi(subcmd[1])
-	send := &msg.C2RS_ReqTexasFightBet{Pos:pb.Int32(pos), Num:pb.Int32(num) }
+	pos, num := util.Atoi(subcmd[0]), util.Atol(subcmd[1])
+	send := &msg.C2RS_ReqTexasFightBet{Pos:pb.Int32(pos), Num:pb.Int64(num) }
 	u.SendRoomMsg(send)
 }
 
