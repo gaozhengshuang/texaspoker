@@ -54,7 +54,8 @@ func (tf *TexasFightRoom) SynBetPoolChange() {
 	for _, bs := range tf.betstat.seats {
 		if bs == nil { continue }
 		info := &msg.TFBetPoolChange{Pos:pb.Int32(bs.seat), Bet:make([]int64,0)}
-		for _, bet := range bs.poolbet { 
+		for pos, bet := range bs.poolbet { 
+			if pos == 0 { continue }
 			info.Bet = append(info.Bet, bet) 
 		}
 		synbetmsg.Posbetlist = append(synbetmsg.Posbetlist, info)
