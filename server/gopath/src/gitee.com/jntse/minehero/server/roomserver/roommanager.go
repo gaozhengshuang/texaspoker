@@ -38,7 +38,7 @@ func (rm *RoomManager) Init() bool {
 	rm.texasfightrooms = make(map[int64]IRoomBase)
 	rm.ticker1s = util.NewGameTicker(time.Second, rm.Handler1sTick)
 	rm.ticker1s.Start()
-	rm.nextnotifytime = int32(util.CURTIME()) + util.RandBetween(10,30)
+	rm.nextnotifytime = int32(util.CURTIME()) + util.RandBetween(40,120)
 
 	rm.CleanPublicTexasCache()
 	rm.InitPublicTexas()
@@ -234,7 +234,7 @@ func (rm *RoomManager) AutoNotify() {
 	send := &msg.RS2GW_ChatInfo{}
 	send.Chat = def.MakeChatInfo(def.ChatAll, txt, 0, "", def.TexasMsg, def.MsgShowAll)
 	GateMgr().Broadcast(send)
-	rm.nextnotifytime = int32(util.CURTIME()) + util.RandBetween(10,30)
+	rm.nextnotifytime = int32(util.CURTIME()) + util.RandBetween(40,120)
 }
 
 func (rm *RoomManager) CleanPublicTexasCache() {
