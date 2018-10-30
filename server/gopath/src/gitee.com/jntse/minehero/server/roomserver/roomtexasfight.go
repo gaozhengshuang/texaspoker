@@ -1,5 +1,6 @@
 package main
 import (
+	"encoding/json"
 	"sort"
 	//"fmt"
 	//"time"
@@ -12,7 +13,7 @@ import (
 	"gitee.com/jntse/gotoolkit/log"
 	//"gitee.com/jntse/gotoolkit/net"
 
-	//"gitee.com/jntse/minehero/server/def"
+	"gitee.com/jntse/minehero/server/def"
 	"gitee.com/jntse/minehero/pbmsg"
 	"gitee.com/jntse/minehero/server/tbl"
 	"gitee.com/jntse/minehero/server/tbl/excel"
@@ -430,6 +431,8 @@ func (tf *TexasFightRoom) AwardPoolSettle(groups map[int32][]*TexasFightBetPool)
 			continue
 		}
 
+		tf.HitRewadPoolNotify(tf.tconf.Id, pool.BetNum())
+
 		if pool.Pos() == 0 { 
 			if tf.banker.IsSystem() == false && tf.banker.owner != nil {
 				tf.banker.owner.AddGold(pool.AwardPool(), "百人大战奖池奖励", true)
@@ -518,41 +521,41 @@ func (tf *TexasFightRoom) CardShuffle() {
 // 发牌
 func (tf *TexasFightRoom) CardDeal() {
 
-	//// 同花顺
-	//straightflush := make([]*Card, 0)
-	//for i:=int32(0);  i < 5; i++  {
-	//	straightflush = append(straightflush, NewCard(0, i))
-	//}
+	// 同花顺
+	straightflush := make([]*Card, 0)
+	for i:=int32(0);  i < 5; i++  {
+		straightflush = append(straightflush, NewCard(0, i))
+	}
 
-	//// 皇家同花顺
-	//royalflush := make([]*Card, 0)
-	//for i:=int32(8);  i < int32(CARDRANK); i++  {
-	//	royalflush = append(royalflush, NewCard(0, i))
-	//}
+	// 皇家同花顺
+	royalflush := make([]*Card, 0)
+	for i:=int32(8);  i < int32(CARDRANK); i++  {
+		royalflush = append(royalflush, NewCard(0, i))
+	}
 
-	//// 4条
-	//fourkind := []*Card{NewCard(0, 2)}
-	//for i:=int32(0); i < 4; i++ {
-	//	fourkind = append(fourkind, NewCard(i, 5))
-	//}
+	// 4条
+	fourkind := []*Card{NewCard(0, 2)}
+	for i:=int32(0); i < 4; i++ {
+		fourkind = append(fourkind, NewCard(i, 5))
+	}
 
 	//TODO: 特殊牌测试
 	begin, end := 0, 5
-	for _, pool := range tf.betpool {
+	for k, pool := range tf.betpool {
 		cards := tf.cards[begin:end]
 		begin, end = begin+5, end+5
-		//if k == 0 {
-		//	tf.betpool[k].InsertCards(fourkind)
-		//	continue
-		//}else if k == 1 {
-		//	tf.betpool[k].InsertCards(straightflush)
-		//	continue
-		//}else if k == 2 {
-		//	tf.betpool[k].InsertCards(royalflush)
-		//	continue
-		//}else {
-			pool.InsertCards(cards)
-		//}
+		if k == 0 {
+			tf.betpool[k].InsertCards(fourkind)
+			continue
+		}else if k == 1 {
+			tf.betpool[k].InsertCards(straightflush)
+			continue
+		}else if k == 2 {
+			tf.betpool[k].InsertCards(royalflush)
+			continue
+		}else {
+		 	pool.InsertCards(cards)
+		}
 		// 房间没有任何人押注,不打日志
 		if tf.betpool[0].BetNum() != 0 {
 			log.Trace("[百人大战] 房间[%d %d] 注池[%d] 牌型[%v %v %v %v %v]", tf.Id(), tf.Round(), pool.Pos(), cards[0], cards[1], cards[2], cards[3], cards[4])
@@ -777,6 +780,16 @@ func (tf *TexasFightRoom) IsInBankerQueue(uid int64) bool {
 		}
 	}
 	return false
+}
+
+// 爆奖池公告
+func (tf *TexasFightRoom) HitRewadPoolNotify(id int32, num int64) {
+	mapjson := map[string]interface{}{"0": id, "1": num}
+	jsontxt, _ := json.Marshal(mapjson)
+	txt := util.BytesToString(jsontxt)
+	send := &msg.RS2GW_ChatInfo{}
+	send.Chat = def.MakeChatInfo(def.ChatAll, txt, 0, "", def.HWarMsg, def.MsgShowAll)
+	GateMgr().Broadcast(send)
 }
 
 // 请求站起玩家列表 TODO:玩家列表使用的HashMap，需要使用固定顺序列表才能支持分段拉取
