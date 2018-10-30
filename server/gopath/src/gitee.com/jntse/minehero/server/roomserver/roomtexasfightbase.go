@@ -617,28 +617,28 @@ func (tf *TexasFightRoom) UserEnter(u *RoomUser) {
 
 	u.SendClientMsg(infomsg)
 	Redis().HSet(fmt.Sprintf("roombrief_%d", tf.Id()), "members", tf.PlayersNum())
-	log.Info("[百人大战] 玩家[%s %d] 进入房间[%d]", u.Name(), u.Id(), tf.Id())
+	log.Info("[百人大战] 玩家[%s %d] 进入房间[%d %d]", u.Name(), u.Id(), tf.Id(), tf.Round())
 }
 
 
 // 玩家离开房间
 func (tf *TexasFightRoom) UserLeave(u *RoomUser) {
-	log.Info("[百人大战] 玩家[%s %d] 离开房间[%d] ", u.Name(), u.Id(), tf.Id())
+	log.Info("[百人大战] 玩家[%s %d] 离开房间[%d %d] ", u.Name(), u.Id(), tf.Id(), tf.Round())
 
 	player := tf.players[u.Id()]
 	if player == nil {
-		log.Error("[百人大战] 玩家[%s %d] 请求离开房间[%d]，但找不到玩家", u.Name(), u.Id(), tf.Id())
+		log.Error("[百人大战] 玩家[%s %d] 请求离开房间[%d %d]，但找不到玩家", u.Name(), u.Id(), tf.Id(), tf.Round())
 		return
 	}
 
 	// 庄家
 	if player.Id() == tf.banker.Id() {
-		log.Info("[百人大战] 玩家[%s %d] 请求离开房间[%d]，庄家先下庄才能离开", u.Name(), u.Id(), tf.Id())
+		log.Info("[百人大战] 玩家[%s %d] 请求离开房间[%d %d]，庄家先下庄才能离开", u.Name(), u.Id(), tf.Id(), tf.Round())
 		return
 	}
 
 	if tf.stat == kStatBetting && player.TotalBet() != 0 {
-		log.Warn("[百人大战] 玩家[%s %d] 请求离开房间[%d]，下注中不能离开", u.Name(), u.Id(), tf.Id())
+		log.Warn("[百人大战] 玩家[%s %d] 请求离开房间[%d %d]，下注中不能离开", u.Name(), u.Id(), tf.Id(), tf.Round())
 		return
 	}
 
@@ -665,18 +665,18 @@ func (tf *TexasFightRoom) UserLeave(u *RoomUser) {
 func (tf *TexasFightRoom) UserStandUp(u *RoomUser) {
 	player := tf.players[u.Id()]
 	if player == nil {
-		log.Error("[百人大战] 玩家[%s %d] 从房间[%d]站起，但找不到玩家", u.Name(), u.Id(), tf.Id())
+		log.Error("[百人大战] 玩家[%s %d] 从房间[%d %d]站起，但找不到玩家", u.Name(), u.Id(), tf.Id(), tf.Round())
 		return
 	}
 
 	seat := player.Seat()
 	if seat == -1 {
-		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 没有坐下不需要站起", u.Name(), u.Id(), tf.Id())
+		log.Error("[百人大战] 玩家[%s %d] 房间[%d %d] 没有坐下不需要站起", u.Name(), u.Id(), tf.Id(), tf.Round())
 		return
 	}
 
 	if seat == 0 {
-		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 庄家请先下庄 ", u.Name(), u.Id(), tf.Id())
+		log.Error("[百人大战] 玩家[%s %d] 房间[%d %d] 庄家请先下庄 ", u.Name(), u.Id(), tf.Id(), tf.Round())
 		return
 	}
 
@@ -693,7 +693,7 @@ func (tf *TexasFightRoom) UserStandUp(u *RoomUser) {
 	tf.BroadCastMemberMsg(posmsg)
 
 	//u.OnStandUp()
-	log.Info("[百人大战] 玩家[%s %d] 房间[%d] 离开位置[%d]", u.Name(), u.Id(), tf.Id(), seat)
+	log.Info("[百人大战] 玩家[%s %d] 房间[%d %d] 离开位置[%d]", u.Name(), u.Id(), tf.Id(), tf.Round(), seat)
 }
 
 
@@ -723,19 +723,19 @@ func (tf *TexasFightRoom) UserSitDown(u *RoomUser, seat int32) {
 	}
 
 	if u.Id() == tf.banker.Id() {
-		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 正在坐庄中", u.Name(), u.Id(), tf.Id())
+		log.Error("[百人大战] 玩家[%s %d] 房间[%d %d] 正在坐庄中", u.Name(), u.Id(), tf.Id(), tf.Round())
 		return
 	}
 
 	// player 指针
 	player := tf.FindPlayer(u.Id())
 	if player == nil {
-		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 找不到玩家Player", u.Name(), u.Id(), tf.Id())
+		log.Error("[百人大战] 玩家[%s %d] 房间[%d %d] 找不到玩家Player", u.Name(), u.Id(), tf.Id(), tf.Round())
 		return
 	}
 
 	if player.Seat() != -1 {
-		log.Error("[百人大战] 玩家[%s %d] 房间[%d] 已经有座位了", u.Name(), u.Id(), tf.Id())
+		log.Error("[百人大战] 玩家[%s %d] 房间[%d %d] 已经有座位了", u.Name(), u.Id(), tf.Id(), tf.Round())
 		return
 	}
 
@@ -748,7 +748,7 @@ func (tf *TexasFightRoom) UserSitDown(u *RoomUser, seat int32) {
 	tf.BroadCastMemberMsg(posmsg)
 
 	//u.OnSitDown(seat, "")
-	log.Info("[百人大战] 玩家[%s %d] 房间[%d] 坐下位置[%d]", u.Name(), u.Id(), tf.Id(), seat)
+	log.Info("[百人大战] 玩家[%s %d] 房间[%d %d] 坐下位置[%d]", u.Name(), u.Id(), tf.Id(), tf.Round(), seat)
 }
 
 
@@ -762,7 +762,7 @@ func (tf *TexasFightRoom) UserSitDown(u *RoomUser, seat int32) {
 //
 //	u = UserMgr().CreateRoomUser(tf.Id(), tmsg.Bin, gate, tf.Kind())
 //	u.OnPreEnterRoom()
-//	log.Info("[百人大战] 玩家[%s %d] 上传个人数据到房间[%d]", u.Name(), u.Id(), tf.Id())
+//	log.Info("[百人大战] 玩家[%s %d] 上传个人数据到房间[%d %d]", u.Name(), u.Id(), tf.Id(), tf.Round())
 //}
 
 
@@ -773,7 +773,7 @@ func (tf *TexasFightRoom) Tick(now int64) {
 
 // 玩家断开连接(托管/踢掉)
 func (tf *TexasFightRoom) UserDisconnect(u *RoomUser) {
-	log.Info("[百人大战] 玩家[%s %d] 网络断开 房间[%d]", u.Name(), u.Id(), tf.Id())
+	log.Info("[百人大战] 玩家[%s %d] 网络断开 房间[%d %d]", u.Name(), u.Id(), tf.Id(), tf.Round())
 }
 
 
