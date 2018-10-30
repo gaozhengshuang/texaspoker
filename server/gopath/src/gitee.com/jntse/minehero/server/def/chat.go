@@ -15,6 +15,7 @@ const (
 	MTTMsg = 1          //锦标赛消息
 	HWarMsg = 2         //百人大战消息
 	HornMsg = 3         //小喇叭消息
+	TexasMsg = 4		//德州房间消息
 )
 
 const (
