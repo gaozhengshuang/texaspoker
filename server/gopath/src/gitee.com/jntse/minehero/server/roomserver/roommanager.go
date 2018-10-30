@@ -29,6 +29,7 @@ type RoomManager struct {
 	ticker1s *util.GameTicker
 	timerewards map[int32]*TimesReward
 	maxrewardround int32
+	nextnotifytime int32
 }
 
 func (rm *RoomManager) Init() bool {
@@ -37,6 +38,7 @@ func (rm *RoomManager) Init() bool {
 	rm.texasfightrooms = make(map[int64]IRoomBase)
 	rm.ticker1s = util.NewGameTicker(time.Second, rm.Handler1sTick)
 	rm.ticker1s.Start()
+	rm.nextnotifytime = int32(util.CURTIME()) + util.RandBetween(10,30)
 
 	rm.CleanPublicTexasCache()
 	rm.InitPublicTexas()
@@ -218,6 +220,21 @@ func (rm *RoomManager) Tick(now int64) {
 
 func (rm *RoomManager) Handler1sTick(now int64) {
 	rm.TexasRoomAmountCheck()
+	rm.AutoNotify()
+}
+
+func (rm *RoomManager) AutoNotify() {
+	if RoomSvr().Name() != tbl.Room.PublicRoomServer {
+		return
+	}
+	if rm.nextnotifytime > int32(util.CURTIME()) {
+		return
+	}
+	txt := fmt.Sprintf("{\"0\":\"%s\",\"1\":%d,\"2\":%d,\"3\":%d}", AIUserMgr().GetRandomName(), util.RandBetween(1,3) , util.RandBetween(5,9), util.RandBetween(1,100)*1000)
+	send := &msg.RS2GW_ChatInfo{}
+	send.Chat = def.MakeChatInfo(def.ChatAll, txt, 0, "", def.TexasMsg, def.MsgShowAll)
+	GateMgr().Broadcast(send)
+	rm.nextnotifytime = int32(util.CURTIME()) + util.RandBetween(10,30)
 }
 
 func (rm *RoomManager) CleanPublicTexasCache() {
