@@ -81,6 +81,7 @@ type TexasPokerRoom struct {
 	recordstep int32
 	mtt *ChampionShip
 	mttwait int32
+	haveai bool							//比赛中是否创建ai
 }
 
 func (this *TexasPokerRoom) Id() int64 { return this.id }
@@ -262,7 +263,7 @@ func (this *TexasPokerRoom) AllInBrightCard() {
 				send.Allin = pb.Bool(true)
 				this.BroadCastRoomMsg(send)
 				p.isallinshow = true
-				log.Info("房间%d 玩家%d allin亮牌", this.Id(), p.owner.Id())
+				//log.Info("房间%d 玩家%d allin亮牌", this.Id(), p.owner.Id())
 			}
 		}
 		this.hasbright = true
@@ -352,24 +353,37 @@ func (this *TexasPokerRoom) CanStart() bool {
 	return false
 }
 
+func (this *TexasPokerRoom) NeedAI() {
+	if this.tconf.Rbt != 0 {
+		return
+	}
+	if this.haveai {
+		return
+	}
+	if this.waittime >= 4{
+		freenum := this.GetFreeNum()
+		if freenum >=2 {
+			this.CreateAI(util.RandBetween(1, 2))
+			this.haveai = true
+		} else if freenum == 1{
+			this.CreateAI(1)
+			this.haveai = true
+		}
+	}else{
+		if !this.IsChampionShip() && this.HasRealPlayer() {
+			this.waittime++
+		}
+	}
+}
+
+
 func (this *TexasPokerRoom) StartGame() int32 {
-	//if this.waittime >= 4{
-	//	freenum := this.GetFreeNum()
-	//	if freenum >=2 {
-	//		this.CreateAI(util.RandBetween(1, 2))
-	//	} else if freenum == 1{
-	//		this.CreateAI(1)
-	//	}
-	//}else{
-	//	if !this.IsChampionShip() && this.HasRealPlayer() {
-	//		this.waittime++
-	//	}
-	//}
 	if this.IsChampionShip() && this.PlayersNum() == 1{
 		if this.mtt.ReDispatchRoom(this.Id()) {
 			return TPShutDown
 		}
 	}
+	this.NeedAI()
 	if !this.CanStart() {
 		return TPWait
 	}
@@ -427,7 +441,7 @@ func (this *TexasPokerRoom) StartGame() int32 {
 		return TPFlop
 	}
 	this.BetStart(this.bblindpos+1, false)
-	log.Info("房间%d 开始游戏", this.Id())
+	log.Info("房间[%d] 开始游戏", this.Id())
 	return TPPreFlopBet
 }
 
@@ -474,7 +488,7 @@ func (this *TexasPokerRoom) SetDealer() bool {
 	this.ForStartPlayer(this.dealerpos, func(p *TexasPlayer) bool {
 		this.dealerpos = p.pos
 		this.dealer = p
-		log.Info("房间%d 庄家位%d", this.Id(), this.dealerpos)
+		//log.Info("房间%d 庄家位%d", this.Id(), this.dealerpos)
 		return false
 	})
 	if this.dealer != nil {
@@ -492,11 +506,11 @@ func (this *TexasPokerRoom) SetHoleCard() {
 
 func (this *TexasPokerRoom) BetStart(pos int32, start bool){
 	if this.allin + 1 >= this.remain && start {
-		log.Info("房间%d allin人数足够 不在下注", this.Id())
+		//log.Info("房间%d allin人数足够 不在下注", this.Id())
 		return
 	}
 	if this.remain <= 1 {
-		log.Info("房间%d remain人数足够 不在下注", this.Id())
+		//log.Info("房间%d remain人数足够 不在下注", this.Id())
 		return
 	}
 	this.raisecount = 0
@@ -560,7 +574,7 @@ func (this *TexasPokerRoom) PreFlopBet() int32{
 	}
 	if this.AllBetOver() {
 		this.CalcGambPool()
-		log.Info("房间%d Flop阶段", this.Id())
+		//log.Info("房间%d Flop阶段", this.Id())
 		return TPFlop
 	}
 	//log.Info("房间%d PreFlopBet阶段 房间人数%d", this.Id(), this.remain)
@@ -595,7 +609,7 @@ func (this *TexasPokerRoom) Flop() int32{
 	})
 	this.ClearBetOver(true)
 	this.BetStart(this.sblindpos, true)
-	log.Info("房间%d Flop阶段", this.Id())
+	//log.Info("房间%d Flop阶段", this.Id())
 	if this.allin + 1 >= this.remain {
 		return TPTurn
 	}
@@ -638,7 +652,7 @@ func (this *TexasPokerRoom) FlopBet() int32{
 	}
 	if this.AllBetOver() {
 		this.CalcGambPool()
-		log.Info("房间%d Turn阶段", this.Id())
+		//log.Info("房间%d Turn阶段", this.Id())
 		return TPTurn
 	}
 	//log.Info("房间%d FlopBet阶段", this.Id())
@@ -660,7 +674,7 @@ func (this *TexasPokerRoom) Turn() int32{
 	})
 	this.ClearBetOver(true)
 	this.BetStart(this.sblindpos, true)
-	log.Info("房间%d Turn阶段", this.Id())
+	//log.Info("房间%d Turn阶段", this.Id())
 	if this.allin + 1 >= this.remain {
 		return TPRiver
 	}
@@ -673,7 +687,7 @@ func (this *TexasPokerRoom) TurnBet() int32{
 	}
 	if this.AllBetOver() {
 		this.CalcGambPool()
-		log.Info("房间%d River阶段", this.Id())
+		//log.Info("房间%d River阶段", this.Id())
 		return TPRiver
 	}
 	//log.Info("房间%d TurnBet阶段", this.Id())
@@ -695,7 +709,7 @@ func (this *TexasPokerRoom) River() int32{
 	})
 	this.ClearBetOver(true)
 	this.BetStart(this.sblindpos, true)
-	log.Info("房间%d River阶段", this.Id())
+	//log.Info("房间%d River阶段", this.Id())
 	if this.allin + 1 >= this.remain {
 		return TPShowDown
 	}
@@ -708,7 +722,7 @@ func (this *TexasPokerRoom) RiverBet() int32{
 	}
 	if this.AllBetOver() {
 		//this.CalcGambPool()
-		log.Info("房间%d ShowDown阶段", this.Id())
+		//log.Info("房间%d ShowDown阶段", this.Id())
 		return TPShowDown
 	}
 	//log.Info("房间%d RiverBet阶段", this.Id())
@@ -794,7 +808,7 @@ func (this *TexasPokerRoom) ShowDown() int32{
 			}
 		}
 		if len(winners) == 0 {
-			log.Info("房间%d  没有赢家", this.Id())
+			log.Info("房间[%d]  没有赢家", this.Id())
 			return TPRestart
 		}
 		var onepot int64 = 0
@@ -822,7 +836,7 @@ func (this *TexasPokerRoom) ShowDown() int32{
 		if this.players[i] != nil {
 			this.players[i].AddBankRoll(this.chips[i])
 			this.players[i].AddExp(50, "每局结算", true)
-			log.Info("房间%d 玩家%d 获得筹码%d 手牌%v 等级%d 牌力%d", this.Id(), this.players[i].owner.Id(), this.chips[i], this.players[i].hand.ToAllCard(), this.players[i].hand.level, this.players[i].hand.finalvalue)
+			log.Info("房间[%d] 玩家[%d] 获得筹码[%d] 手牌[%v] 等级[%d] 牌力[%d]", this.Id(), this.players[i].owner.Id(), this.chips[i], this.players[i].hand.ToAllCard(), this.players[i].hand.level, this.players[i].hand.finalvalue)
 			for _, record := range this.currecord {
 				if record.GetRoleid() == this.players[i].owner.Id() {
 					record.Bankroll = pb.Int64(record.GetBankroll() + this.chips[i])
@@ -835,7 +849,15 @@ func (this *TexasPokerRoom) ShowDown() int32{
 		if player == nil {
 			continue
 		}
-		if player.IsWait() || player.isallinshow {
+		if player.IsWait() {
+			continue
+		}
+		if player.isallinshow {
+			for _,record := range this.currecord {
+				if record.GetRoleid() == player.owner.Id() {
+					record.Cardtype = pb.Int32(player.hand.level)
+				}
+			}
 			continue
 		}
 		if player.isshowcard == true {
@@ -911,6 +933,7 @@ func (this *TexasPokerRoom) RestartGame() int32{
 			this.lastrecord = append(this.lastrecord, v)
 		}
 		this.currecord = make([]*msg.UserReviewInfo, 0)
+		var playercount int32 = 0
 		for _, p := range this.players {
 			if p != nil {
 				p.AddBankRollNext()
@@ -920,6 +943,8 @@ func (this *TexasPokerRoom) RestartGame() int32{
 				p.Init()
 				if p.isai {
 					p.readytime = 2
+				}else{
+					playercount++
 				}
 			}
 		}
@@ -937,13 +962,14 @@ func (this *TexasPokerRoom) RestartGame() int32{
 		//	}
 		//}
 		//如果玩家全部离开 机器人离开
-		//if playercount == 0 {
-		//	for _, p := range this.players {
-		//		if p != nil && p.isai {
-		//			p.StandUp()
-		//		}
-		//	}
-		//}
+		if playercount == 0 && this.tconf.Rbt == 0{
+			for _, p := range this.players {
+				if p != nil && p.isai {
+					p.StandUp()
+				}
+			}
+			this.haveai = false
+		}
 		return TPWait 
 	}
 }
@@ -957,7 +983,7 @@ func (this *TexasPokerRoom) PlayerTick() {
 }
 
 func (this *TexasPokerRoom) ShutDown() int32 {
-	log.Info("房间%d 即将关闭", this.Id())
+	log.Info("房间[%d] 即将关闭", this.Id())
 	return TPNone
 }
 
@@ -994,7 +1020,7 @@ func (this *TexasPokerRoom) CalcGambPool() []handPot {
 	for _, pot := range pots {
 		this.pot = append(this.pot, pot.Pot)
 	}
-	log.Info("房间%d 奖池%v", this.Id(), this.pot)
+	//log.Info("房间%d 奖池%v", this.Id(), this.pot)
 	return pots
 }
 
@@ -1061,7 +1087,7 @@ func (this *TexasPokerRoom) AddPlayer(pos int32, player *TexasPlayer) bool {
 
 func (this *TexasPokerRoom) DelPlayer(pos int32) {
 	this.players[pos] = nil
-	log.Info("房间%d, 位置%d设置空", this.Id(), pos)
+	//log.Info("房间%d, 位置%d设置空", this.Id(), pos)
 }
 
 func (this *TexasPokerRoom) AddWatcher(player *TexasPlayer ) {
@@ -1144,7 +1170,7 @@ func (this *TexasPokerRoom) SendRoomInfo(player *TexasPlayer) {
 		send.Rank = pb.Int32(this.mtt.GetUserRank(player.owner.Id()));
 		send.Avgchips = pb.Int64(this.mtt.GetAvgChips());
 		send.Join = pb.Int32(this.mtt.curmembernum);
-		log.Info("锦标赛%d 玩家%d进入房间 Rank%d Avg%d", this.mtt.uid, player.owner.Id(), send.GetRank(), send.GetAvgchips())
+		log.Info("锦标赛[%d] 房间[%d] 玩家[%d]进入房间 Rank[%d] Avg[%d]", this.mtt.uid, this.Id(), player.owner.Id(), send.GetRank(), send.GetAvgchips())
 	}
 	if player.trusteeship != 0 {
 		send.Istrusteeship = pb.Bool(true)
@@ -1287,7 +1313,7 @@ func (this *TexasPokerRoom) CreateAI(num int32) {
 		rev := &msg.C2RS_ReqBuyInGame{Num:pb.Int64(bankroll), Isautobuy:pb.Bool(true), Pos:pb.Int32(this.GetFreePos()+1)}
 		player.BuyInGame(rev)
 		player.readytime = 3
-		log.Info("房间%d AI%d 位置%d 参加游戏", this.Id(), player.owner.Id(), rev.GetPos())
+		//log.Info("房间%d AI%d 位置%d 参加游戏", this.Id(), player.owner.Id(), rev.GetPos())
 	}	
 }
 
@@ -1297,8 +1323,8 @@ func (this *TexasPokerRoom) ReqReviewInfo(uid int64) {
 		send := &msg.RS2C_RetReviewInfo{}
 		send.Array = this.lastrecord
 		player.owner.SendClientMsg(send)
-		for _, record := range this.lastrecord {
-			log.Info("记录数据 %v", record)
-		}
+		//for _, record := range this.lastrecord {
+		//	log.Info("记录数据 %v", record)
+		//}
 	}
 }
