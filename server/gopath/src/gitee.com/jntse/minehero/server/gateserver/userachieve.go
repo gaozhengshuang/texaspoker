@@ -260,6 +260,14 @@ func (u *GateUser) OnReqPlayerRoleInfo(roleid int64) {
 					send.Sign = pb.String(v)
 				case "age":
 					send.Age = pb.Int32(util.Atoi(v))
+				case "vipexp":
+					send.Vipexp = pb.Int32(util.Atoi(v))
+				case "viplevel":
+					send.Viplevel = pb.Int32(util.Atoi(v))
+				case "viptime1":
+					send.Viptime = pb.Int32(util.Atoi(v))
+				case "viptime2":
+					send.Yearviptime = pb.Int32(util.Atoi(v))
 				default:
 			}
 		}
