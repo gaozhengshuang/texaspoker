@@ -821,7 +821,6 @@ func (this *TexasPokerRoom) ShowDown() int32{
 				potplayer = append(potplayer, player.owner.Id())
 				player.owner.OnAchieveWinPoker(this.Kind(), this.SubKind(), player.hand.level, this.chips[winner])
 			}
-
 		}
 		send.Potlist = append(send.Potlist, &msg.PotInfo{
 			Num : pb.Int64(pot.Pot / int64(len(winners))),
@@ -837,6 +836,7 @@ func (this *TexasPokerRoom) ShowDown() int32{
 			this.players[i].AddBankRoll(this.chips[i])
 			this.players[i].AddExp(50, "每局结算", true)
 			log.Info("房间[%d] 玩家[%d] 获得筹码[%d] 手牌[%v] 等级[%d] 牌力[%d]", this.Id(), this.players[i].owner.Id(), this.chips[i], this.players[i].hand.ToAllCard(), this.players[i].hand.level, this.players[i].hand.finalvalue)
+			this.WinNotify(this.players[i].owner.Name(), this.players[i].hand.level, this.chips[i])
 			for _, record := range this.currecord {
 				if record.GetRoleid() == this.players[i].owner.Id() {
 					record.Bankroll = pb.Int64(record.GetBankroll() + this.chips[i])
@@ -972,6 +972,16 @@ func (this *TexasPokerRoom) RestartGame() int32{
 		}
 		return TPWait 
 	}
+}
+
+func (this *TexasPokerRoom) WinNotify(name string, level int32, reward int64) {
+	if level < 2 {
+		return
+	}
+	txt := fmt.Sprintf("{\"0\":\"%s\",\"1\":%d,\"2\":%d,\"3\":%d}", name, this.tconf.Type ,level , reward)
+	send := &msg.RS2GW_ChatInfo{}
+	send.Chat = def.MakeChatInfo(def.ChatAll, txt, 0, "", def.TexasMsg, def.MsgShowAll)
+	GateMgr().Broadcast(send)
 }
 
 func (this *TexasPokerRoom) PlayerTick() {
