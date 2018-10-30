@@ -52,6 +52,11 @@ func (tf *TexasFightRoom) SynBetPoolChange() {
 		}
 		synbetmsg.Posbetlist = append(synbetmsg.Posbetlist, info)
 	}
+	
+	for _, pid := range tf.betstat.roles {
+		synbetmsg.Betroles = append(synbetmsg.Betroles, pid)
+	}
+
 	tf.BroadCastMemberMsg(synbetmsg)
 
 	// 重置
@@ -644,12 +649,7 @@ func (tf *TexasFightRoom) RequestBet(u *RoomUser, pos int32, num int64) {
 	u.SendClientMsg(resp)
 
 	// 下注池临时统计
-	tf.betstat.MarkDirty()
-	if seat := player.Seat(); seat != -1 {
-		if tf.betstat.seats[seat] == nil { tf.betstat.seats[seat] = &SitPlayerBetInfo{} }
-		tf.betstat.seats[seat].seat = seat
-		tf.betstat.seats[seat].poolbet[pos] += num
-	}
+	tf.betstat.Collect(player, pos, num)
 
 	log.Trace("[百人大战] 玩家[%s %d] 房间[%d %d] 下注[%d]成功，金额[%d]", u.Name(), u.Id(), tf.Id(), tf.Round(), pos, num)
 }

@@ -372,21 +372,37 @@ type SitPlayerBetInfo struct {
 }
 type BetPoolTempStat struct {
 	seats []*SitPlayerBetInfo	// 坐下玩家下注统计
+	roles map[int64]int64		// 下注玩家列表
 	maxseat int32
 	dirty bool
 }
 func (s *BetPoolTempStat) Dirty() bool { return s.dirty }
 func (s *BetPoolTempStat) MarkDirty() { s.dirty = true }
+func (s *BetPoolTempStat) InsertRole(id int64) { s.roles[id] = id }
 func (s *BetPoolTempStat) Init(maxseat int32) {
 	s.maxseat = maxseat
 	s.seats = make([]*SitPlayerBetInfo, s.maxseat)
+	s.roles = make(map[int64]int64)
 	s.dirty = false
 }
 func (s *BetPoolTempStat) Reset() {
 	s.seats = make([]*SitPlayerBetInfo, s.maxseat)
+	s.roles = make(map[int64]int64)
 	s.dirty = false
 }
+func (s *BetPoolTempStat) Collect(p *TexasFightPlayer, betpos int32, num int64) {
+	if p == nil || betpos >= kBetPoolNum || betpos < 0 {
+		return
+	}
 
+	s.dirty = true
+	s.roles[p.Id()] = p.Id()
+	if seat := p.Seat(); seat != -1 {
+		if s.seats[seat] == nil { s.seats[seat] = &SitPlayerBetInfo{} }
+		s.seats[seat].seat = seat
+		s.seats[seat].poolbet[betpos] += num
+	}
+}
 
 // --------------------------------------------------------------------------
 /// @brief 奖池命中记录

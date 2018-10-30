@@ -171,6 +171,7 @@ message RS2C_RetTFStart {
 message RS2C_PushBetPoolChange {
     repeated int64 bet = 1;     // 注池下注量
     repeated TFBetPoolChange posbetlist = 2;    // 坐下玩家下注信息
+    repeated int64 betroles = 3; // 下注玩家列表
 }
 
 message TFBetPoolChange {
