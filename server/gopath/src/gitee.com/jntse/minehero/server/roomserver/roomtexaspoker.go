@@ -353,18 +353,18 @@ func (this *TexasPokerRoom) CanStart() bool {
 }
 
 func (this *TexasPokerRoom) StartGame() int32 {
-	if this.waittime >= 4{
-		freenum := this.GetFreeNum()
-		if freenum >=2 {
-			this.CreateAI(util.RandBetween(1, 2))
-		} else if freenum == 1{
-			this.CreateAI(1)
-		}
-	}else{
-		if !this.IsChampionShip() && this.HasRealPlayer() {
-			this.waittime++
-		}
-	}
+	//if this.waittime >= 4{
+	//	freenum := this.GetFreeNum()
+	//	if freenum >=2 {
+	//		this.CreateAI(util.RandBetween(1, 2))
+	//	} else if freenum == 1{
+	//		this.CreateAI(1)
+	//	}
+	//}else{
+	//	if !this.IsChampionShip() && this.HasRealPlayer() {
+	//		this.waittime++
+	//	}
+	//}
 	if this.IsChampionShip() && this.PlayersNum() == 1{
 		if this.mtt.ReDispatchRoom(this.Id()) {
 			return TPShutDown
@@ -911,7 +911,6 @@ func (this *TexasPokerRoom) RestartGame() int32{
 			this.lastrecord = append(this.lastrecord, v)
 		}
 		this.currecord = make([]*msg.UserReviewInfo, 0)
-		var playercount int32 = 0
 		for _, p := range this.players {
 			if p != nil {
 				p.AddBankRollNext()
@@ -921,32 +920,30 @@ func (this *TexasPokerRoom) RestartGame() int32{
 				p.Init()
 				if p.isai {
 					p.readytime = 2
-				}else{
-					playercount++
 				}
 			}
 		}
 		//如果有玩家观看 机器人离开
-		if len(this.watchers) > 0 && this.IsFullPlayer() {
-			count := 0
-			for _, p := range this.players {
-				if count >= len(this.watchers) {
-					break
-				}
-				if p != nil && p.isai {
-					p.StandUp()
-					count++
-				}
-			}
-		}
+		//if len(this.watchers) > 0 && this.IsFullPlayer() {
+		//	count := 0
+		//	for _, p := range this.players {
+		//		if count >= len(this.watchers) {
+		//			break
+		//		}
+		//		if p != nil && p.isai {
+		//			p.StandUp()
+		//			count++
+		//		}
+		//	}
+		//}
 		//如果玩家全部离开 机器人离开
-		if playercount == 0 {
-			for _, p := range this.players {
-				if p != nil && p.isai {
-					p.StandUp()
-				}
-			}
-		}
+		//if playercount == 0 {
+		//	for _, p := range this.players {
+		//		if p != nil && p.isai {
+		//			p.StandUp()
+		//		}
+		//	}
+		//}
 		return TPWait 
 	}
 }

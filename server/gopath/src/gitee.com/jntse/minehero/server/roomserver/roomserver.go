@@ -320,9 +320,9 @@ func (rs *RoomServer) OnStart() {
 	rs.runtimestamp = util.CURTIMEMS()
 	rs.cleanRoom()	// 删除房间
 	rs.rcounter.Init(Redis())	// 计数器
+	rs.aiusermgr.CreateRoomAIUser()
 	rs.roommgr.Init()
 	rs.championmgr.InitChampionShip()
-	rs.aiusermgr.CreateRoomAIUser()
 
 	log.Info("结束执行OnStart")
 }
