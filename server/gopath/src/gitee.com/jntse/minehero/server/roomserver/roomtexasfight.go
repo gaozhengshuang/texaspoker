@@ -24,10 +24,12 @@ func (tf *TexasFightRoom) Handler1sTick(now int64) {
 		if tf.IsStateTimeOut(now/1000) { tf.ChangeToBettingStat(now) }
 		break
 	case kStatBetting:
-		tf.SynBetPoolChange()
 		if tf.IsStateTimeOut(now/1000) { tf.ChangeToWaitNextRoundStat(now) }
 		break
 	}
+
+	// 下注池变更推送
+	tf.SynBetPoolChange()
 }
 
 func (tf *TexasFightRoom) Handler100msTick(now int64) {
@@ -39,11 +41,16 @@ func (tf *TexasFightRoom) SynBetPoolChange() {
 		return
 	}
 
-	synbetmsg := &msg.RS2C_PushBetPoolChange{Posbetlist:make([]*msg.TFBetPoolChange, 0), Bet:make([]int64, 0)}
+	synbetmsg := &msg.RS2C_PushBetPoolChange{Posbetlist:make([]*msg.TFBetPoolChange, 0), Bet:make([]*msg.TFBetPoolBetInfo, 0)}
 	for _, pool := range tf.betpool {
 		if pool.Pos() == 0 { continue }
-		synbetmsg.Bet = append(synbetmsg.Bet, pool.BetNum())
+		info := &msg.TFBetPoolBetInfo{Bet:pb.Int64(pool.BetNum()), Roles:make([]int64,0)}
+		for _, pid := range tf.betstat.poolroles[pool.Pos()] {
+			info.Roles = append(info.Roles, pid)
+		}
+		synbetmsg.Bet = append(synbetmsg.Bet, info)
 	}
+
 	for _, bs := range tf.betstat.seats {
 		if bs == nil { continue }
 		info := &msg.TFBetPoolChange{Pos:pb.Int32(bs.seat), Bet:make([]int64,0)}
@@ -52,11 +59,6 @@ func (tf *TexasFightRoom) SynBetPoolChange() {
 		}
 		synbetmsg.Posbetlist = append(synbetmsg.Posbetlist, info)
 	}
-	
-	for _, pid := range tf.betstat.roles {
-		synbetmsg.Betroles = append(synbetmsg.Betroles, pid)
-	}
-
 	tf.BroadCastMemberMsg(synbetmsg)
 
 	// 重置
