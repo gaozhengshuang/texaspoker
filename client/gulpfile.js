@@ -27,7 +27,7 @@ const LibsrcNameList = [];
 const ExcludeConfigFileList = ['autoName.json', 'autoAction.json'];
 var requireDir = require('require-dir');
 requireDir('./gulp-tasks');
-Gulp.task('default', ['replace-lang', "lang-complex", "publish", "concat", "zip-js", "libs-js"], function ()
+Gulp.task('default', ['replace-lang', "lang-complex", "publish", "concat", "zip-js", "libs-js", 'html-min'], function ()
 {
 });
 //--------------------------------------------------------------

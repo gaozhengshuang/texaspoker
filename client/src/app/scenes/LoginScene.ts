@@ -396,10 +396,13 @@ class LoginScene extends BaseScene
         {
             case InsideRoomType.Game:
             case InsideRoomType.Omaha:
-            case InsideRoomType.Match:
             case InsideRoomType.GamePerson:
             case InsideRoomType.OmahaPerson:
                 this.enterGambling();
+                break;
+            case InsideRoomType.Match:
+                ChampionshipManager.LoginGetCompleteEvent.addListener(this.onGetChampionshipDataComplete, this);
+                ChampionshipManager.loginGetChampionData(true);
                 break;
             case InsideRoomType.HundredWar:
                 this.enterHundredWar();
@@ -431,5 +434,10 @@ class LoginScene extends BaseScene
         game.Console.log("游戏初始化进入百人大战：reqGetHundredWarRoomInfo");
         HundredWarManager.reqEnterRoom(InsideRoomManager.lastId);
 
+    }
+    private onGetChampionshipDataComplete()
+    {
+        ChampionshipManager.LoginGetCompleteEvent.removeListener(this.onGetChampionshipDataComplete, this);
+        this.enterGambling();
     }
 }

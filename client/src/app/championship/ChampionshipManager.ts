@@ -57,6 +57,69 @@ class ChampionshipManager
     public static enterMttHandler: EnterMttHandler = new EnterMttHandler();
 
     /**
+     * 是否登录一局获取过了
+     */
+    public static isLoginGeted: boolean;
+    /**
+     * 登录时的时间戳
+     */
+    private static _loginGetTime: number;
+    /**
+     * 登录拉去数据失败5S超时
+     */
+    private static _getMttTimeOut = 5000;
+    /**
+     * 登录获取锦标赛数据 只拉一次
+     */
+    public static loginGetChampionData(isReconnect?: boolean)
+    {
+        if (!ChampionshipManager.isLoginGeted)
+        {
+            if (isReconnect)
+            {
+                ChampionshipManager._loginGetTime = Date.now();
+                game.Tick.AddSecondsInvoke(ChampionshipManager.onTick, this);
+            }
+            ChampionshipManager.isLoginGeted = true;
+            //拉取锦标赛赛事所在房间信息列表
+            MsgTransferSend.sendMTTRoomProto(Command.C2RS_ReqInsideRoomInfoList, {}, (result: any) =>
+            {
+                InsideRoomManager.initialize(result);
+                ChampionshipManager.reqLoginGetMTTListInfo();//第一次初始化拉取锦标赛，防止锦标赛服down掉玩家进步来
+            }, null, this);
+        }
+    }
+    /**
+     * 超时进大厅
+     */
+    private static onTick()
+    {
+        if (Date.now() - ChampionshipManager._loginGetTime >= ChampionshipManager._getMttTimeOut)
+        {
+            game.Tick.RemoveSecondsInvoke(ChampionshipManager.onTick, this);
+            SceneManager.switcScene(SceneType.Hall);
+        }
+    }
+	/**
+	 * 拉取锦标赛赛事列表信息
+	*/
+    private static reqLoginGetMTTListInfo()
+    {
+        MsgTransferSend.sendMTTRoomProto(Command.C2RS_ReqMTTList, null, ChampionshipManager.onGetMTTListInfo, null, this);
+    }
+    private static onGetMTTListInfo(result: game.SpRpcResult)
+    {
+        ChampionshipManager.initialize(result);
+        //拉取已报名的赛事列表
+        let callback: Function = function (result: game.SpRpcResult)
+        {
+            ChampionshipManager.initJoinedMttList(result);
+            game.Tick.RemoveSecondsInvoke(ChampionshipManager.onTick, this);
+            ChampionshipManager.LoginGetCompleteEvent.dispatch();
+        };
+        MsgTransferSend.sendMTTRoomProto(Command.C2RS_ReqJoinedMTTList, {}, callback, null, this);
+    }
+    /**
      * 添加推送监听
     */
     private static addPushListener()
@@ -1001,13 +1064,13 @@ class ChampionshipManager
         {
             if (blindDef.PreBet)
             {
-                ChampionshipManager.matchOutsInfo.nowAnte =  game.longToNumber(blindDef.PreBet);
+                ChampionshipManager.matchOutsInfo.nowAnte = game.longToNumber(blindDef.PreBet);
             } else
             {
                 ChampionshipManager.matchOutsInfo.nowAnte = 0;
             }
-            ChampionshipManager.matchOutsInfo.nowSBlind =  game.longToNumber(blindDef.SBlind);
-            ChampionshipManager.matchOutsInfo.nowBBlind =  game.longToNumber(blindDef.BBlind);
+            ChampionshipManager.matchOutsInfo.nowSBlind = game.longToNumber(blindDef.SBlind);
+            ChampionshipManager.matchOutsInfo.nowBBlind = game.longToNumber(blindDef.BBlind);
         }
         if (ChampionshipManager.blindList && ChampionshipManager.blindList.length > 0 && ChampionshipManager.nowBlindRank < ChampionshipManager.blindList.length)
         {
@@ -1017,13 +1080,13 @@ class ChampionshipManager
         {
             if (blindDef.PreBet)
             {
-                ChampionshipManager.matchOutsInfo.nextAnte =  game.longToNumber(blindDef.PreBet);
+                ChampionshipManager.matchOutsInfo.nextAnte = game.longToNumber(blindDef.PreBet);
             } else
             {
                 ChampionshipManager.matchOutsInfo.nextAnte = 0;
             }
-            ChampionshipManager.matchOutsInfo.nextSBlind =  game.longToNumber(blindDef.SBlind);
-            ChampionshipManager.matchOutsInfo.nextBBlind =  game.longToNumber(blindDef.BBlind);
+            ChampionshipManager.matchOutsInfo.nextSBlind = game.longToNumber(blindDef.SBlind);
+            ChampionshipManager.matchOutsInfo.nextBBlind = game.longToNumber(blindDef.BBlind);
         }
     }
     /**
@@ -1093,6 +1156,10 @@ class ChampionshipManager
      * 有新比赛广播
      */
     public static OnNewMTTPushEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
+    /**
+     * 登录获取数据完毕
+     */
+    public static LoginGetCompleteEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 }
 enum MTTRefreshType
 {
