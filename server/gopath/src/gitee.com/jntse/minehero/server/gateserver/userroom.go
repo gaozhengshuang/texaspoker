@@ -46,7 +46,7 @@ func (r *UserRoomData) Reset(u *GateUser) {
 	r.roomtid = 0
 	Redis().Del(fmt.Sprintf("userinroom_%d", u.Id()))
 	Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "roomtype", 0)
-	Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "roomtype", 0)
+	Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "roomid", 0)
 	log.Error("[房间] 玩家[%s %d] 重置房间数据", u.Name(), u.Id())
 }
 
