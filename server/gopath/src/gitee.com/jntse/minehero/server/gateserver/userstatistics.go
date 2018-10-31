@@ -16,7 +16,7 @@ type UserStatistics struct {
 	nocountlogin   			int32
 	totalrecharge  			int32 		//总充值
 	createdtime				int64		//创建时间
-	maxgold					int32		//最高拥有金币
+	maxgold					int64		//最高拥有金币
 	maxgoldonetimes			int32		//一把最高赢取金币
 	friendnum				int32		//好友数量
 	gametimes 				int32 		//游戏总局数
@@ -78,7 +78,7 @@ func (this *UserStatistics) PackBin() *msg.UserStatistics {
 	msg.Nocountlogin = pb.Int32(this.nocountlogin)
 	msg.Totalrecharge = pb.Int32(this.totalrecharge)
 	msg.Createdtime = pb.Int64(this.createdtime)
-	msg.Maxgold = pb.Int32(this.maxgold)
+	msg.Maxgold = pb.Int64(this.maxgold)
 	msg.Maxgoldonetimes = pb.Int32(this.maxgoldonetimes)
 	msg.Friendnum = pb.Int32(this.friendnum)
 	msg.Gametimes = pb.Int32(this.gametimes)
@@ -116,7 +116,7 @@ func (u *GateUser) FillUserStatistics(bin *msg.UserStatistics) {
 		for k, v := range cmdmap {
 			switch k {
 				case "maxgold":
-					bin.Maxgold = pb.Int32(util.Atoi(v))
+					bin.Maxgold = pb.Int64(util.Atol(v))
 				case "maxgoldonetimes":
 					bin.Maxgoldonetimes = pb.Int32(util.Atoi(v))
 				case "friendnum":
