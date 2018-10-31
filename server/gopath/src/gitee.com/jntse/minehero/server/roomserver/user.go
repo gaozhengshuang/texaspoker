@@ -148,7 +148,7 @@ func (u *RoomUser) CheckUpdateGateAgent(agent network.IBaseNetSession) {
 func (u *RoomUser) ToRoleInfo() *msg.RS2C_RetFriendGetRoleInfo {
 	return &msg.RS2C_RetFriendGetRoleInfo{
 		Diamond: pb.Int32(0),
-		Gold:    pb.Int32(0),
+		Gold:    pb.Int64(0),
 		Roleid:  pb.Int64(u.Id()),
 		Name:    pb.String(u.Name()),
 		Head:    pb.String(""),

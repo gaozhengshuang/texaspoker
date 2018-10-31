@@ -68,7 +68,7 @@ message C2GW_ReqPlayerRoleInfo
 message GW2C_RetPlayerRoleInfo
 {
     optional int32 diamond = 1;
-    optional int32 gold = 2;
+    optional int64 gold = 2;
     optional int64 roleid = 3;
     optional string name = 4;
     optional string head = 5;
@@ -78,7 +78,7 @@ message GW2C_RetPlayerRoleInfo
     optional string ip = 9;                     
     optional string sign = 10;                  
     optional int32 age = 11;                    
-    optional int32 maxgold = 12;
+    optional int64 maxgold = 12;
     optional int32 maxgoldonetimes = 13;
     optional int32 friendnum = 14;
     optional int32 gametimes = 15;	//对局数
@@ -112,7 +112,7 @@ message C2RS_ReqFriendGetRoleInfo
 message RS2C_RetFriendGetRoleInfo
 {
     optional int32 diamond = 1;
-    optional int32 gold = 2;
+    optional int64 gold = 2;
     optional int64 roleid = 3;
     optional string name = 4;
     optional string head = 5;
@@ -122,7 +122,7 @@ message RS2C_RetFriendGetRoleInfo
     optional string ip = 9;                     
     optional string sign = 10;                  
     optional int32 age = 11;                    
-    optional int32 maxgold = 12;
+    optional int64 maxgold = 12;
     optional int32 maxgoldonetimes = 13;
     optional int32 friendnum = 14;
     optional int32 gametimes = 15;	//对局数

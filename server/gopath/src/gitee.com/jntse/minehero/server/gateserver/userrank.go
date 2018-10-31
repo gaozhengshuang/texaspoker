@@ -18,7 +18,7 @@ type UserRankInfo struct {
 	name   string
 	sex    int32
 	rank   int32
-	score  int32
+	score  int64
 	head   string
 	change int32
 }
@@ -63,7 +63,7 @@ func (this *RankManager) UpdateGoldRankList() {
 		data := &UserRankInfo{}
 		uidstr := v.Member.(string)
 		data.uid, _ = strconv.ParseInt(uidstr, 10, 64)
-		data.score = int32(v.Score)
+		data.score = int64(v.Score)
 		data.rank = int32(k + 1)
 		this.goldranklist = append(this.goldranklist, data)
 		key := fmt.Sprintf("charbase_%d", data.uid)
@@ -127,7 +127,7 @@ func (this *RankManager) UpdateLevelRankList() {
 		data := &UserRankInfo{}
 		uidstr := v.Member.(string)
 		data.uid, _ = strconv.ParseInt(uidstr, 10, 64)
-		data.score = int32(v.Score)/1000000
+		data.score = int64(v.Score)/1000000
 		data.rank = int32(k + 1)
 		this.levelranklist = append(this.levelranklist, data)
 		key := fmt.Sprintf("charbase_%d", data.uid)
@@ -209,7 +209,7 @@ func (u *GateUser) ReqRankListByType(_type, _rank int32) {
 		tmp.Name = pb.String(v.name)
 		tmp.Sex = pb.Int32(v.sex)
 		tmp.Rank = pb.Int32(v.rank)
-		tmp.Score = pb.Int32(v.score)
+		tmp.Score = pb.Int64(v.score)
 		tmp.Head = pb.String(v.head)
 		send.Ranklist = append(send.Ranklist, tmp)
 	}

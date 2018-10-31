@@ -153,10 +153,15 @@ func (room *RoomBase) InitCache() {
 	pipe.HSet(key, "members", 0)
 	pipe.HSet(key, "passwd", room.Passwd())
 	pipe.HSet(key, "agentname", RoomSvr().Name())
+
 	if room.Kind() == int32(msg.RoomKind_TexasFight) {
 		pipe.SAdd("tf_roomlist", room.Id())
 	}else {
-		pipe.SAdd("pb_roomlist", room.Id())
+		if room.SubKind() == int32(msg.PlayingFieldType_Mtt) {
+			pipe.SAdd("mtt_roomlist", room.Id())
+		}else {
+			pipe.SAdd("pb_roomlist", room.Id())
+		}
 	}
 	pipe.SAdd(fmt.Sprintf("roomlist_kind_%d_sub_%d", room.Kind(), room.SubKind()), room.Id())
 	if _, err := pipe.Exec(); err != nil {
@@ -172,7 +177,11 @@ func (room *RoomBase) RmCache() {
 	if room.Kind() == int32(msg.RoomKind_TexasFight) {
 		pipe.SRem("tf_roomlist", room.Id())
 	}else {
-		pipe.SRem("pb_roomlist", room.Id())
+		if room.SubKind() == int32(msg.PlayingFieldType_Mtt) {
+			pipe.SRem("mtt_roomlist", room.Id())
+		}else {
+			pipe.SRem("pb_roomlist", room.Id())
+		}
 	}
 	pipe.SRem(fmt.Sprintf("roomlist_kind_%d_sub_%d", room.Kind(), room.SubKind()), room.Id())
 	if _, err := pipe.Exec(); err != nil {
