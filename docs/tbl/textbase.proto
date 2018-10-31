@@ -32,6 +32,9 @@ message TextDefine
 	
 	
 	optional string Text = 5; 
+	
+	
+	optional string TwText = 6; 
 
 }
 
