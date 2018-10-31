@@ -40,6 +40,7 @@ func (rm *RoomManager) Init() bool {
 	rm.ticker1s.Start()
 	rm.nextnotifytime = int32(util.CURTIME()) + util.RandBetween(40,120)
 
+	rm.CleanTanTanLeCache()
 	rm.CleanPublicTexasCache()
 	rm.CleanTexasFightCache()
 	rm.CleanMttTexasCache()
@@ -239,6 +240,38 @@ func (rm *RoomManager) AutoNotify() {
 	rm.nextnotifytime = int32(util.CURTIME()) + util.RandBetween(40,120)
 }
 
+// 弹弹乐
+func (rm *RoomManager) CleanTanTanLeCache() {
+
+	//
+	list, err := Redis().SMembers("tt_roomlist").Result()
+	if err == redis.Nil {
+		return
+	}
+	if err != nil {
+		log.Error("[弹弹乐] 加载所有房间列表失败 %s", err)
+		return
+	}
+
+	pipe := Redis().Pipeline()
+	tkey := fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TanTanLe), 0)
+	pipe.Del(tkey)
+
+	for _, id := range list {
+		key := fmt.Sprintf("roombrief_%s", id)
+		pipe.Del(key)
+	}
+	if _, err := pipe.Exec(); err != nil {
+		log.Error("[弹弹乐] 删除roombrief失败 %s", err)
+	}
+	pipe.Close()
+
+	//
+	Redis().Del("tt_roomlist")
+	log.Info("[弹弹乐] 清除所有缓存房间列表")
+
+}
+
 // 公共房间清理
 func (rm *RoomManager) CleanPublicTexasCache() {
 	//
@@ -246,16 +279,17 @@ func (rm *RoomManager) CleanPublicTexasCache() {
 		return
 	}
 
-	//pipe := Redis().Pipeline()
-	//tkey := fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TanTanLe), 0)
-	//pipe.Del(tkey)
-	//for _, v := range msg.PlayingFieldType_value {
-	//	pipe.Del(fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TexasPoker), v))
-	//}
-	//if _, err := pipe.Exec(); err != nil {
-	//	log.Error("[公共德州] 删除roomlist类型列表失败 %s", err)
-	//}
-	//pipe.Close()
+	pipe := Redis().Pipeline()
+	for _, v := range msg.PlayingFieldType_value {
+		if IsTexasRoomMttType(v) {
+			continue
+		}
+		pipe.Del(fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TexasPoker), v))
+	}
+	if _, err := pipe.Exec(); err != nil {
+		log.Error("[公共德州] 删除roomlist类型列表失败 %s", err)
+	}
+	pipe.Close()
 
 	//
 	list, err := Redis().SMembers("pb_roomlist").Result()
@@ -268,7 +302,7 @@ func (rm *RoomManager) CleanPublicTexasCache() {
 	}
 
 	//
-	pipe := Redis().Pipeline()
+	pipe = Redis().Pipeline()
 	for _, id := range list {
 		key := fmt.Sprintf("roombrief_%s", id)
 		pipe.Del(key)
@@ -289,13 +323,13 @@ func (rm *RoomManager) CleanTexasFightCache() {
 		return
 	}
 
-	//pipe := Redis().Pipeline()
-	//pipe.Del(fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TexasFight), kTexasFightHappyMode))
-	//pipe.Del(fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TexasFight), kTexasFightRichMode))
-	//if _, err := pipe.Exec(); err != nil {
-	//	log.Error("[百人大战] 删除 roomlist 类型列表失败 %s", err)
-	//}
-	//pipe.Close()
+	pipe := Redis().Pipeline()
+	pipe.Del(fmt.Sprintf("roomlist_kind_%d_sub_%d", msg.RoomKind_TexasFight, kTexasFightHappyMode))
+	pipe.Del(fmt.Sprintf("roomlist_kind_%d_sub_%d", msg.RoomKind_TexasFight, kTexasFightRichMode))
+	if _, err := pipe.Exec(); err != nil {
+		log.Error("[百人大战] 删除 roomlist 类型列表失败 %s", err)
+	}
+	pipe.Close()
 
 
 	list, err := Redis().SMembers("tf_roomlist").Result()
@@ -308,7 +342,7 @@ func (rm *RoomManager) CleanTexasFightCache() {
 	}
 
 	//
-	pipe := Redis().Pipeline()
+	pipe = Redis().Pipeline()
 	for _, id := range list {
 		key := fmt.Sprintf("roombrief_%s", id)
 		pipe.Del(key)
@@ -330,13 +364,13 @@ func (rm *RoomManager) CleanMttTexasCache() {
 		return
 	}
 
-	//pipe := Redis().Pipeline()
-	//pipe.Del(fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TexasFight), kTexasFightHappyMode))
-	//pipe.Del(fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TexasFight), kTexasFightRichMode))
-	//if _, err := pipe.Exec(); err != nil {
-	//	log.Error("[竞标赛] 删除 roomlist 类型列表失败 %s", err)
-	//}
-	//pipe.Close()
+	pipe := Redis().Pipeline()
+	pipe.Del(fmt.Sprintf("roomlist_kind_%d_sub_%d", msg.RoomKind_TexasPoker, msg.PlayingFieldType_Mtt))
+	pipe.Del(fmt.Sprintf("roomlist_kind_%d_sub_%d", msg.RoomKind_TexasPoker, msg.PlayingFieldType_Sng))
+	if _, err := pipe.Exec(); err != nil {
+		log.Error("[竞标赛] 删除 roomlist 类型列表失败 %s", err)
+	}
+	pipe.Close()
 
 
 	list, err := Redis().SMembers("mtt_roomlist").Result()
@@ -349,7 +383,7 @@ func (rm *RoomManager) CleanMttTexasCache() {
 	}
 
 	//
-	pipe := Redis().Pipeline()
+	pipe = Redis().Pipeline()
 	for _, id := range list {
 		key := fmt.Sprintf("roombrief_%s", id)
 		pipe.Del(key)
@@ -415,6 +449,7 @@ func (rm *RoomManager) Shutdown() {
 		room.Destory(0)
 	}
 
+	rm.CleanTanTanLeCache()
 	rm.CleanPublicTexasCache()
 	rm.CleanTexasFightCache()
 	rm.CleanMttTexasCache()
