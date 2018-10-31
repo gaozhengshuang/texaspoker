@@ -42,6 +42,7 @@ func (rm *RoomManager) Init() bool {
 
 	rm.CleanPublicTexasCache()
 	rm.CleanTexasFightCache()
+	rm.CleanMttTexasCache()
 	rm.InitPublicTexas()
 	rm.InitTimeReward()
 	rm.InitTexasFightRoom()
@@ -320,9 +321,51 @@ func (rm *RoomManager) CleanTexasFightCache() {
 	//
 	Redis().Del("tf_roomlist")
 	log.Info("[百人大战] 清除所有缓存房间列表")
+}
+
+
+// 竞标赛房间清理
+func (rm *RoomManager) CleanMttTexasCache() {
+	if RoomSvr().Name() != tbl.Room.MTTRoomServer {
+		return
+	}
+
+	pipe := Redis().Pipeline()
+	pipe.Del(fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TexasFight), kTexasFightHappyMode))
+	pipe.Del(fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TexasFight), kTexasFightRichMode))
+	if _, err := pipe.Exec(); err != nil {
+		log.Error("[竞标赛] 删除 roomlist 类型列表失败 %s", err)
+	}
+	pipe.Close()
+
+
+	list, err := Redis().SMembers("mtt_roomlist").Result()
+	if err == redis.Nil {
+		return
+	}
+	if err != nil {
+		log.Error("[竞标赛] 加载所有房间列表失败 %s", err)
+		return
+	}
+
+	//
+	pipe = Redis().Pipeline()
+	for _, id := range list {
+		key := fmt.Sprintf("roombrief_%s", id)
+		pipe.Del(key)
+	}
+	if _, err := pipe.Exec(); err != nil {
+		log.Error("[竞标赛] 删除roombrief失败 %s", err)
+	}
+	pipe.Close()
+
+	//
+	Redis().Del("mtt_roomlist")
+	log.Info("[竞标赛] 清除所有缓存房间列表")
 
 
 }
+
 
 // 自动增加房间
 func (rm *RoomManager) TexasRoomAmountCheck() {
@@ -374,6 +417,7 @@ func (rm *RoomManager) Shutdown() {
 
 	rm.CleanPublicTexasCache()
 	rm.CleanTexasFightCache()
+	rm.CleanMttTexasCache()
 }
 
 func NewTanTanLeRoom(ownerid, uid int64) *TanTanLe {
