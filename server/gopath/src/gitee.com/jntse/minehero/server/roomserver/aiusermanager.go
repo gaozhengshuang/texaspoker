@@ -118,12 +118,14 @@ func (this *AIUserManager) GetRandomName() string {
 	return "神秘人"
 }
 
-func (this *AIUserManager) GetUserByNum(num int32) []*RoomUser {
+func (this *AIUserManager) GetUserByNum(num int32, usermap map[int64]int64) []*RoomUser {
 	tmpmap := make(map[int32]int32)
 	for {
 		id := util.RandBetween(1, int32(this.Amount()))
-		tmpmap[id]=id
-		if len(tmpmap) >= int(num){
+		if _, ok := usermap[int64(id)]; !ok {
+			tmpmap[id]=id
+		}
+		if len(tmpmap) >= int(num) {
 			break
 		}
 	}

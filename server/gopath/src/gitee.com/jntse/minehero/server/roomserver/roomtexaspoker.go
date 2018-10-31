@@ -204,6 +204,9 @@ func (this *TexasPokerRoom) Init() string {
 	this.publiccard = make([]int32, 0)
 	this.curactpos = -1
 	this.state = TPWait
+	if len(this.tconf.Ante) > 0 {
+		this.preblindnum = this.tconf.Ante[0]
+	}
 	return ""
 }
 
@@ -357,10 +360,19 @@ func (this *TexasPokerRoom) NeedAI() {
 	if this.tconf.Rbt != 0 {
 		return
 	}
+	if this.IsChampionShip() {
+		return
+	}
 	if this.haveai {
 		return
 	}
-	if this.waittime >= 4{
+	if this.tconf.Type == 3 {
+		return
+	}
+	if this.tconf.SBlind >= 500 {
+		return
+	}
+	if this.waittime >= 3{
 		freenum := this.GetFreeNum()
 		if freenum >=2 {
 			this.CreateAI(util.RandBetween(1, 2))
@@ -370,7 +382,7 @@ func (this *TexasPokerRoom) NeedAI() {
 			this.haveai = true
 		}
 	}else{
-		if !this.IsChampionShip() && this.HasRealPlayer() {
+		if this.HasRealPlayer() {
 			this.waittime++
 		}
 	}
@@ -406,7 +418,7 @@ func (this *TexasPokerRoom) StartGame() int32 {
 		record.Sex = pb.Int32(p.owner.Sex())
 		//log.Info("机器人数据%d 名字%s 头像%s 性别%d", p.owner.Id(), p.owner.Name(), p.owner.Face(), p.owner.Sex())
 		record.Seatpos = pb.Int32(p.pos+1)
-		if this.IsChampionShip() {
+		if this.preblindnum != 0 {
 			p.PreBet(this.preblindnum)
 		}
 		p.RemoveBankRoll(this.ante, "台费扣除")
@@ -943,6 +955,11 @@ func (this *TexasPokerRoom) RestartGame() int32{
 				p.Init()
 				if p.isai {
 					p.readytime = 2
+					//ai钱赚够了离场
+					if p.GetBankRoll() >= this.tconf.BBuyin * 5 {
+						p.StandUp()
+						this.haveai = false
+					}
 				}else{
 					playercount++
 				}
@@ -969,6 +986,10 @@ func (this *TexasPokerRoom) RestartGame() int32{
 				}
 			}
 			this.haveai = false
+		}
+		//如果是全场ai的房间
+		if this.tconf.Rbt == this.tconf.Seat && !this.IsFullPlayer() {
+			this.CreateAI(this.tconf.Seat - this.PlayersNum())
 		}
 		return TPWait 
 	}
@@ -1158,7 +1179,7 @@ func (this *TexasPokerRoom) SendRoomInfo(player *TexasPlayer) {
 	send.Buttonpos = pb.Int32(this.dealerpos+1)
 	send.Potchips = this.pot
 	send.Roomid = pb.Int32(this.Tid())
-	send.Ante = pb.Int64(this.ante)
+	send.Ante = pb.Int64(this.preblindnum)
 	send.Sblind = pb.Int64(this.smallblindnum)
 	send.Bblind = pb.Int64(this.bigblindnum)
 	send.Pos = pb.Int32(this.curactpos+1)
@@ -1315,7 +1336,13 @@ func (this *TexasPokerRoom) CreateAI(num int32) {
 	if this.IsChampionShip() {
 		return
 	}
-	users := AIUserMgr().GetUserByNum(num)
+	usermap := make(map[int64]int64)
+	for _, p := range this.players{
+		if p != nil {
+			usermap[p.owner.Id()] = p.owner.Id()
+		}
+	}
+	users := AIUserMgr().GetUserByNum(num, usermap)
 	if len(users) != int(num) {
 		return
 	}
@@ -1326,7 +1353,7 @@ func (this *TexasPokerRoom) CreateAI(num int32) {
 		rev := &msg.C2RS_ReqBuyInGame{Num:pb.Int64(bankroll), Isautobuy:pb.Bool(true), Pos:pb.Int32(this.GetFreePos()+1)}
 		player.BuyInGame(rev)
 		player.readytime = 3
-		//log.Info("房间%d AI%d 位置%d 参加游戏", this.Id(), player.owner.Id(), rev.GetPos())
+		log.Info("房间[%d] AI[%d] 位置[%d] 参加游戏", this.Id(), player.owner.Id(), rev.GetPos())
 	}	
 }
 
@@ -1341,3 +1368,7 @@ func (this *TexasPokerRoom) ReqReviewInfo(uid int64) {
 		//}
 	}
 }
+
+func (this *TexasPokerRoom) GuessBuy(uid int64, rev *msg.C2RS_ReqGuessBuy) {
+}
+

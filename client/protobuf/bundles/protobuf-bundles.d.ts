@@ -836,7 +836,7 @@ declare namespace msg {
         name?: (string|null);
 
         /** RankInfo score */
-        score?: (number|null);
+        score?: (number|Long|null);
 
         /** RankInfo rank */
         rank?: (number|null);
@@ -867,7 +867,7 @@ declare namespace msg {
         public name: string;
 
         /** RankInfo score. */
-        public score: number;
+        public score: (number|Long);
 
         /** RankInfo rank. */
         public rank: number;
@@ -17361,7 +17361,7 @@ declare namespace msg {
         diamond?: (number|null);
 
         /** GW2C_RetPlayerRoleInfo gold */
-        gold?: (number|null);
+        gold?: (number|Long|null);
 
         /** GW2C_RetPlayerRoleInfo roleid */
         roleid?: (number|Long|null);
@@ -17391,7 +17391,7 @@ declare namespace msg {
         age?: (number|null);
 
         /** GW2C_RetPlayerRoleInfo maxgold */
-        maxgold?: (number|null);
+        maxgold?: (number|Long|null);
 
         /** GW2C_RetPlayerRoleInfo maxgoldonetimes */
         maxgoldonetimes?: (number|null);
@@ -17473,7 +17473,7 @@ declare namespace msg {
         public diamond: number;
 
         /** GW2C_RetPlayerRoleInfo gold. */
-        public gold: number;
+        public gold: (number|Long);
 
         /** GW2C_RetPlayerRoleInfo roleid. */
         public roleid: (number|Long);
@@ -17503,7 +17503,7 @@ declare namespace msg {
         public age: number;
 
         /** GW2C_RetPlayerRoleInfo maxgold. */
-        public maxgold: number;
+        public maxgold: (number|Long);
 
         /** GW2C_RetPlayerRoleInfo maxgoldonetimes. */
         public maxgoldonetimes: number;
@@ -17739,7 +17739,7 @@ declare namespace msg {
         diamond?: (number|null);
 
         /** RS2C_RetFriendGetRoleInfo gold */
-        gold?: (number|null);
+        gold?: (number|Long|null);
 
         /** RS2C_RetFriendGetRoleInfo roleid */
         roleid?: (number|Long|null);
@@ -17769,7 +17769,7 @@ declare namespace msg {
         age?: (number|null);
 
         /** RS2C_RetFriendGetRoleInfo maxgold */
-        maxgold?: (number|null);
+        maxgold?: (number|Long|null);
 
         /** RS2C_RetFriendGetRoleInfo maxgoldonetimes */
         maxgoldonetimes?: (number|null);
@@ -17851,7 +17851,7 @@ declare namespace msg {
         public diamond: number;
 
         /** RS2C_RetFriendGetRoleInfo gold. */
-        public gold: number;
+        public gold: (number|Long);
 
         /** RS2C_RetFriendGetRoleInfo roleid. */
         public roleid: (number|Long);
@@ -17881,7 +17881,7 @@ declare namespace msg {
         public age: number;
 
         /** RS2C_RetFriendGetRoleInfo maxgold. */
-        public maxgold: number;
+        public maxgold: (number|Long);
 
         /** RS2C_RetFriendGetRoleInfo maxgoldonetimes. */
         public maxgoldonetimes: number;
@@ -21249,6 +21249,576 @@ declare namespace msg {
 
         /**
          * Converts this GW2C_RetUserRoomInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqGuessRank. */
+    interface IC2GW_ReqGuessRank {
+    }
+
+    /** Represents a C2GW_ReqGuessRank. */
+    class C2GW_ReqGuessRank implements IC2GW_ReqGuessRank {
+
+        /**
+         * Constructs a new C2GW_ReqGuessRank.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqGuessRank);
+
+        /**
+         * Creates a new C2GW_ReqGuessRank instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqGuessRank instance
+         */
+        public static create(properties?: msg.IC2GW_ReqGuessRank): msg.C2GW_ReqGuessRank;
+
+        /**
+         * Encodes the specified C2GW_ReqGuessRank message. Does not implicitly {@link msg.C2GW_ReqGuessRank.verify|verify} messages.
+         * @param message C2GW_ReqGuessRank message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqGuessRank, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqGuessRank message, length delimited. Does not implicitly {@link msg.C2GW_ReqGuessRank.verify|verify} messages.
+         * @param message C2GW_ReqGuessRank message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqGuessRank, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqGuessRank message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqGuessRank
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqGuessRank;
+
+        /**
+         * Decodes a C2GW_ReqGuessRank message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqGuessRank
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqGuessRank;
+
+        /**
+         * Verifies a C2GW_ReqGuessRank message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqGuessRank message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqGuessRank
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqGuessRank;
+
+        /**
+         * Creates a plain object from a C2GW_ReqGuessRank message. Also converts values to other types if specified.
+         * @param message C2GW_ReqGuessRank
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqGuessRank, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqGuessRank to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GuessRankInfo. */
+    interface IGuessRankInfo {
+
+        /** GuessRankInfo rank */
+        rank?: (number|null);
+
+        /** GuessRankInfo name */
+        name?: (string|null);
+
+        /** GuessRankInfo ante */
+        ante?: (number|null);
+
+        /** GuessRankInfo gold */
+        gold?: (number|null);
+    }
+
+    /** Represents a GuessRankInfo. */
+    class GuessRankInfo implements IGuessRankInfo {
+
+        /**
+         * Constructs a new GuessRankInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGuessRankInfo);
+
+        /** GuessRankInfo rank. */
+        public rank: number;
+
+        /** GuessRankInfo name. */
+        public name: string;
+
+        /** GuessRankInfo ante. */
+        public ante: number;
+
+        /** GuessRankInfo gold. */
+        public gold: number;
+
+        /**
+         * Creates a new GuessRankInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GuessRankInfo instance
+         */
+        public static create(properties?: msg.IGuessRankInfo): msg.GuessRankInfo;
+
+        /**
+         * Encodes the specified GuessRankInfo message. Does not implicitly {@link msg.GuessRankInfo.verify|verify} messages.
+         * @param message GuessRankInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGuessRankInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GuessRankInfo message, length delimited. Does not implicitly {@link msg.GuessRankInfo.verify|verify} messages.
+         * @param message GuessRankInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGuessRankInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GuessRankInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GuessRankInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GuessRankInfo;
+
+        /**
+         * Decodes a GuessRankInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GuessRankInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GuessRankInfo;
+
+        /**
+         * Verifies a GuessRankInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GuessRankInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GuessRankInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GuessRankInfo;
+
+        /**
+         * Creates a plain object from a GuessRankInfo message. Also converts values to other types if specified.
+         * @param message GuessRankInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GuessRankInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GuessRankInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetGuessRank. */
+    interface IGW2C_RetGuessRank {
+
+        /** GW2C_RetGuessRank list */
+        list?: (msg.IGuessRankInfo[]|null);
+    }
+
+    /** Represents a GW2C_RetGuessRank. */
+    class GW2C_RetGuessRank implements IGW2C_RetGuessRank {
+
+        /**
+         * Constructs a new GW2C_RetGuessRank.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetGuessRank);
+
+        /** GW2C_RetGuessRank list. */
+        public list: msg.IGuessRankInfo[];
+
+        /**
+         * Creates a new GW2C_RetGuessRank instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetGuessRank instance
+         */
+        public static create(properties?: msg.IGW2C_RetGuessRank): msg.GW2C_RetGuessRank;
+
+        /**
+         * Encodes the specified GW2C_RetGuessRank message. Does not implicitly {@link msg.GW2C_RetGuessRank.verify|verify} messages.
+         * @param message GW2C_RetGuessRank message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetGuessRank, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetGuessRank message, length delimited. Does not implicitly {@link msg.GW2C_RetGuessRank.verify|verify} messages.
+         * @param message GW2C_RetGuessRank message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetGuessRank, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetGuessRank message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetGuessRank
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetGuessRank;
+
+        /**
+         * Decodes a GW2C_RetGuessRank message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetGuessRank
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetGuessRank;
+
+        /**
+         * Verifies a GW2C_RetGuessRank message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetGuessRank message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetGuessRank
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetGuessRank;
+
+        /**
+         * Creates a plain object from a GW2C_RetGuessRank message. Also converts values to other types if specified.
+         * @param message GW2C_RetGuessRank
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetGuessRank, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetGuessRank to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_ReqGuessRecord. */
+    interface IC2GW_ReqGuessRecord {
+    }
+
+    /** Represents a C2GW_ReqGuessRecord. */
+    class C2GW_ReqGuessRecord implements IC2GW_ReqGuessRecord {
+
+        /**
+         * Constructs a new C2GW_ReqGuessRecord.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqGuessRecord);
+
+        /**
+         * Creates a new C2GW_ReqGuessRecord instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqGuessRecord instance
+         */
+        public static create(properties?: msg.IC2GW_ReqGuessRecord): msg.C2GW_ReqGuessRecord;
+
+        /**
+         * Encodes the specified C2GW_ReqGuessRecord message. Does not implicitly {@link msg.C2GW_ReqGuessRecord.verify|verify} messages.
+         * @param message C2GW_ReqGuessRecord message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqGuessRecord, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqGuessRecord message, length delimited. Does not implicitly {@link msg.C2GW_ReqGuessRecord.verify|verify} messages.
+         * @param message C2GW_ReqGuessRecord message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqGuessRecord, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqGuessRecord message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqGuessRecord
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqGuessRecord;
+
+        /**
+         * Decodes a C2GW_ReqGuessRecord message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqGuessRecord
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqGuessRecord;
+
+        /**
+         * Verifies a C2GW_ReqGuessRecord message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqGuessRecord message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqGuessRecord
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqGuessRecord;
+
+        /**
+         * Creates a plain object from a C2GW_ReqGuessRecord message. Also converts values to other types if specified.
+         * @param message C2GW_ReqGuessRecord
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqGuessRecord, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqGuessRecord to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GuessRecordInfo. */
+    interface IGuessRecordInfo {
+
+        /** GuessRecordInfo type */
+        type?: (number|null);
+
+        /** GuessRecordInfo ante */
+        ante?: (number|null);
+
+        /** GuessRecordInfo gold */
+        gold?: (number|null);
+
+        /** GuessRecordInfo time */
+        time?: (number|null);
+
+        /** GuessRecordInfo cards */
+        cards?: (number[]|null);
+    }
+
+    /** Represents a GuessRecordInfo. */
+    class GuessRecordInfo implements IGuessRecordInfo {
+
+        /**
+         * Constructs a new GuessRecordInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGuessRecordInfo);
+
+        /** GuessRecordInfo type. */
+        public type: number;
+
+        /** GuessRecordInfo ante. */
+        public ante: number;
+
+        /** GuessRecordInfo gold. */
+        public gold: number;
+
+        /** GuessRecordInfo time. */
+        public time: number;
+
+        /** GuessRecordInfo cards. */
+        public cards: number[];
+
+        /**
+         * Creates a new GuessRecordInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GuessRecordInfo instance
+         */
+        public static create(properties?: msg.IGuessRecordInfo): msg.GuessRecordInfo;
+
+        /**
+         * Encodes the specified GuessRecordInfo message. Does not implicitly {@link msg.GuessRecordInfo.verify|verify} messages.
+         * @param message GuessRecordInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGuessRecordInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GuessRecordInfo message, length delimited. Does not implicitly {@link msg.GuessRecordInfo.verify|verify} messages.
+         * @param message GuessRecordInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGuessRecordInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GuessRecordInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GuessRecordInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GuessRecordInfo;
+
+        /**
+         * Decodes a GuessRecordInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GuessRecordInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GuessRecordInfo;
+
+        /**
+         * Verifies a GuessRecordInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GuessRecordInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GuessRecordInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GuessRecordInfo;
+
+        /**
+         * Creates a plain object from a GuessRecordInfo message. Also converts values to other types if specified.
+         * @param message GuessRecordInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GuessRecordInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GuessRecordInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetGuessRecord. */
+    interface IGW2C_RetGuessRecord {
+
+        /** GW2C_RetGuessRecord list */
+        list?: (msg.IGuessRecordInfo[]|null);
+    }
+
+    /** Represents a GW2C_RetGuessRecord. */
+    class GW2C_RetGuessRecord implements IGW2C_RetGuessRecord {
+
+        /**
+         * Constructs a new GW2C_RetGuessRecord.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetGuessRecord);
+
+        /** GW2C_RetGuessRecord list. */
+        public list: msg.IGuessRecordInfo[];
+
+        /**
+         * Creates a new GW2C_RetGuessRecord instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetGuessRecord instance
+         */
+        public static create(properties?: msg.IGW2C_RetGuessRecord): msg.GW2C_RetGuessRecord;
+
+        /**
+         * Encodes the specified GW2C_RetGuessRecord message. Does not implicitly {@link msg.GW2C_RetGuessRecord.verify|verify} messages.
+         * @param message GW2C_RetGuessRecord message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetGuessRecord, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetGuessRecord message, length delimited. Does not implicitly {@link msg.GW2C_RetGuessRecord.verify|verify} messages.
+         * @param message GW2C_RetGuessRecord message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetGuessRecord, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetGuessRecord message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetGuessRecord
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetGuessRecord;
+
+        /**
+         * Decodes a GW2C_RetGuessRecord message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetGuessRecord
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetGuessRecord;
+
+        /**
+         * Verifies a GW2C_RetGuessRecord message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetGuessRecord message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetGuessRecord
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetGuessRecord;
+
+        /**
+         * Creates a plain object from a GW2C_RetGuessRecord message. Also converts values to other types if specified.
+         * @param message GW2C_RetGuessRecord
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetGuessRecord, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetGuessRecord to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -32510,6 +33080,282 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a GuessBuyInfo. */
+    interface IGuessBuyInfo {
+
+        /** GuessBuyInfo handtype */
+        handtype?: (number|null);
+
+        /** GuessBuyInfo num */
+        num?: (number|null);
+    }
+
+    /** Represents a GuessBuyInfo. */
+    class GuessBuyInfo implements IGuessBuyInfo {
+
+        /**
+         * Constructs a new GuessBuyInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGuessBuyInfo);
+
+        /** GuessBuyInfo handtype. */
+        public handtype: number;
+
+        /** GuessBuyInfo num. */
+        public num: number;
+
+        /**
+         * Creates a new GuessBuyInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GuessBuyInfo instance
+         */
+        public static create(properties?: msg.IGuessBuyInfo): msg.GuessBuyInfo;
+
+        /**
+         * Encodes the specified GuessBuyInfo message. Does not implicitly {@link msg.GuessBuyInfo.verify|verify} messages.
+         * @param message GuessBuyInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGuessBuyInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GuessBuyInfo message, length delimited. Does not implicitly {@link msg.GuessBuyInfo.verify|verify} messages.
+         * @param message GuessBuyInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGuessBuyInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GuessBuyInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GuessBuyInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GuessBuyInfo;
+
+        /**
+         * Decodes a GuessBuyInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GuessBuyInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GuessBuyInfo;
+
+        /**
+         * Verifies a GuessBuyInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GuessBuyInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GuessBuyInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GuessBuyInfo;
+
+        /**
+         * Creates a plain object from a GuessBuyInfo message. Also converts values to other types if specified.
+         * @param message GuessBuyInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GuessBuyInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GuessBuyInfo to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2RS_ReqGuessBuy. */
+    interface IC2RS_ReqGuessBuy {
+
+        /** C2RS_ReqGuessBuy type */
+        type?: (number|null);
+
+        /** C2RS_ReqGuessBuy antelist */
+        antelist?: (msg.IGuessBuyInfo[]|null);
+    }
+
+    /** Represents a C2RS_ReqGuessBuy. */
+    class C2RS_ReqGuessBuy implements IC2RS_ReqGuessBuy {
+
+        /**
+         * Constructs a new C2RS_ReqGuessBuy.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2RS_ReqGuessBuy);
+
+        /** C2RS_ReqGuessBuy type. */
+        public type: number;
+
+        /** C2RS_ReqGuessBuy antelist. */
+        public antelist: msg.IGuessBuyInfo[];
+
+        /**
+         * Creates a new C2RS_ReqGuessBuy instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2RS_ReqGuessBuy instance
+         */
+        public static create(properties?: msg.IC2RS_ReqGuessBuy): msg.C2RS_ReqGuessBuy;
+
+        /**
+         * Encodes the specified C2RS_ReqGuessBuy message. Does not implicitly {@link msg.C2RS_ReqGuessBuy.verify|verify} messages.
+         * @param message C2RS_ReqGuessBuy message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2RS_ReqGuessBuy, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2RS_ReqGuessBuy message, length delimited. Does not implicitly {@link msg.C2RS_ReqGuessBuy.verify|verify} messages.
+         * @param message C2RS_ReqGuessBuy message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2RS_ReqGuessBuy, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2RS_ReqGuessBuy message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2RS_ReqGuessBuy
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2RS_ReqGuessBuy;
+
+        /**
+         * Decodes a C2RS_ReqGuessBuy message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2RS_ReqGuessBuy
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2RS_ReqGuessBuy;
+
+        /**
+         * Verifies a C2RS_ReqGuessBuy message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2RS_ReqGuessBuy message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2RS_ReqGuessBuy
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2RS_ReqGuessBuy;
+
+        /**
+         * Creates a plain object from a C2RS_ReqGuessBuy message. Also converts values to other types if specified.
+         * @param message C2RS_ReqGuessBuy
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2RS_ReqGuessBuy, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2RS_ReqGuessBuy to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RS2C_RetGuessBuy. */
+    interface IRS2C_RetGuessBuy {
+    }
+
+    /** Represents a RS2C_RetGuessBuy. */
+    class RS2C_RetGuessBuy implements IRS2C_RetGuessBuy {
+
+        /**
+         * Constructs a new RS2C_RetGuessBuy.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IRS2C_RetGuessBuy);
+
+        /**
+         * Creates a new RS2C_RetGuessBuy instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RS2C_RetGuessBuy instance
+         */
+        public static create(properties?: msg.IRS2C_RetGuessBuy): msg.RS2C_RetGuessBuy;
+
+        /**
+         * Encodes the specified RS2C_RetGuessBuy message. Does not implicitly {@link msg.RS2C_RetGuessBuy.verify|verify} messages.
+         * @param message RS2C_RetGuessBuy message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IRS2C_RetGuessBuy, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified RS2C_RetGuessBuy message, length delimited. Does not implicitly {@link msg.RS2C_RetGuessBuy.verify|verify} messages.
+         * @param message RS2C_RetGuessBuy message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IRS2C_RetGuessBuy, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a RS2C_RetGuessBuy message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RS2C_RetGuessBuy
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2C_RetGuessBuy;
+
+        /**
+         * Decodes a RS2C_RetGuessBuy message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RS2C_RetGuessBuy
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2C_RetGuessBuy;
+
+        /**
+         * Verifies a RS2C_RetGuessBuy message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RS2C_RetGuessBuy message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RS2C_RetGuessBuy
+         */
+        public static fromObject(object: { [k: string]: any }): msg.RS2C_RetGuessBuy;
+
+        /**
+         * Creates a plain object from a RS2C_RetGuessBuy message. Also converts values to other types if specified.
+         * @param message RS2C_RetGuessBuy
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.RS2C_RetGuessBuy, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RS2C_RetGuessBuy to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** 牌局模式 */
     enum GamblingPattern {
         _Fast = 1,
@@ -36066,6 +36912,204 @@ declare namespace table {
 
         /**
          * Converts this GoldenBeanAwardDefine to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a HoleCards. */
+    interface IHoleCards {
+
+        /** HoleCards THoleCards */
+        THoleCards?: (table.ITHoleCardsDefine[]|null);
+    }
+
+    /** Represents a HoleCards. */
+    class HoleCards implements IHoleCards {
+
+        /**
+         * Constructs a new HoleCards.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.IHoleCards);
+
+        /** HoleCards THoleCards. */
+        public THoleCards: table.ITHoleCardsDefine[];
+
+        /**
+         * Creates a new HoleCards instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns HoleCards instance
+         */
+        public static create(properties?: table.IHoleCards): table.HoleCards;
+
+        /**
+         * Encodes the specified HoleCards message. Does not implicitly {@link table.HoleCards.verify|verify} messages.
+         * @param message HoleCards message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.IHoleCards, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified HoleCards message, length delimited. Does not implicitly {@link table.HoleCards.verify|verify} messages.
+         * @param message HoleCards message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.IHoleCards, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a HoleCards message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns HoleCards
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.HoleCards;
+
+        /**
+         * Decodes a HoleCards message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns HoleCards
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.HoleCards;
+
+        /**
+         * Verifies a HoleCards message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a HoleCards message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns HoleCards
+         */
+        public static fromObject(object: { [k: string]: any }): table.HoleCards;
+
+        /**
+         * Creates a plain object from a HoleCards message. Also converts values to other types if specified.
+         * @param message HoleCards
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.HoleCards, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this HoleCards to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a THoleCardsDefine. */
+    interface ITHoleCardsDefine {
+
+        /** THoleCardsDefine Id */
+        Id?: (number|null);
+
+        /** THoleCardsDefine Type */
+        Type?: (number|null);
+
+        /** THoleCardsDefine Des */
+        Des?: (string|null);
+
+        /** THoleCardsDefine Odds */
+        Odds?: (number|null);
+    }
+
+    /** Represents a THoleCardsDefine. */
+    class THoleCardsDefine implements ITHoleCardsDefine {
+
+        /**
+         * Constructs a new THoleCardsDefine.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: table.ITHoleCardsDefine);
+
+        /** THoleCardsDefine Id. */
+        public Id: number;
+
+        /** THoleCardsDefine Type. */
+        public Type: number;
+
+        /** THoleCardsDefine Des. */
+        public Des: string;
+
+        /** THoleCardsDefine Odds. */
+        public Odds: number;
+
+        /**
+         * Creates a new THoleCardsDefine instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns THoleCardsDefine instance
+         */
+        public static create(properties?: table.ITHoleCardsDefine): table.THoleCardsDefine;
+
+        /**
+         * Encodes the specified THoleCardsDefine message. Does not implicitly {@link table.THoleCardsDefine.verify|verify} messages.
+         * @param message THoleCardsDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: table.ITHoleCardsDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified THoleCardsDefine message, length delimited. Does not implicitly {@link table.THoleCardsDefine.verify|verify} messages.
+         * @param message THoleCardsDefine message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: table.ITHoleCardsDefine, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a THoleCardsDefine message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns THoleCardsDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): table.THoleCardsDefine;
+
+        /**
+         * Decodes a THoleCardsDefine message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns THoleCardsDefine
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): table.THoleCardsDefine;
+
+        /**
+         * Verifies a THoleCardsDefine message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a THoleCardsDefine message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns THoleCardsDefine
+         */
+        public static fromObject(object: { [k: string]: any }): table.THoleCardsDefine;
+
+        /**
+         * Creates a plain object from a THoleCardsDefine message. Also converts values to other types if specified.
+         * @param message THoleCardsDefine
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: table.THoleCardsDefine, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this THoleCardsDefine to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -41516,6 +42560,9 @@ declare namespace table {
         /** TextDefine Title */
         Title?: (string|null);
 
+        /** TextDefine TwTitle */
+        TwTitle?: (string|null);
+
         /** TextDefine IsRichTxt */
         IsRichTxt?: (number|null);
 
@@ -41524,6 +42571,9 @@ declare namespace table {
 
         /** TextDefine Text */
         Text?: (string|null);
+
+        /** TextDefine TwText */
+        TwText?: (string|null);
     }
 
     /** Represents a TextDefine. */
@@ -41541,6 +42591,9 @@ declare namespace table {
         /** TextDefine Title. */
         public Title: string;
 
+        /** TextDefine TwTitle. */
+        public TwTitle: string;
+
         /** TextDefine IsRichTxt. */
         public IsRichTxt: number;
 
@@ -41549,6 +42602,9 @@ declare namespace table {
 
         /** TextDefine Text. */
         public Text: string;
+
+        /** TextDefine TwText. */
+        public TwText: string;
 
         /**
          * Creates a new TextDefine instance using the specified properties.

@@ -283,3 +283,19 @@ message RS2C_PushBlindChange {
     optional int32 blindlevel = 4;      //盲等级
 }
 
+message GuessBuyInfo {
+    optional int32 handtype = 1;
+    optional int32 num = 2;
+}
+
+//请求手牌购买
+message C2RS_ReqGuessBuy {
+    optional int32 type = 1;
+    repeated GuessBuyInfo antelist = 2;    
+}
+
+message RS2C_RetGuessBuy {
+}
+
+
+

@@ -1,7 +1,7 @@
 /**
  * 手牌竞猜本周榜单项面板
 */
-class GuessWeekItemRenderer extends BaseItemRenderer<WeekGuessRankInfo>
+class GuessWeekItemRenderer extends BaseItemRenderer<msg.IGuessRankInfo>
 {
     /**
      * 排名

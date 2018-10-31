@@ -306,8 +306,8 @@ class GuessPanel extends BasePanel
         this._def = table.TextById[TextFixedId.GuessHelp];
         if (this._def)
         {
-            this.helpTitleLabel.textFlow = game.TextUtil.parse(this._def.Title);
-            this.txtLabel.textFlow = game.TextUtil.parse(this._def.Text);
+            this.helpTitleLabel.textFlow = game.TextUtil.parse(TextDefined.GetInstance().getTitle(this._def));
+            this.txtLabel.textFlow = game.TextUtil.parse(TextDefined.GetInstance().getText(this._def));
             this.txtGroup.visible = true;
             this._lastShowContainer = this.txtGroup;
         }

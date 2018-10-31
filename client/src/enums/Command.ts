@@ -162,10 +162,6 @@ class Command
      * 被好友邀请推送
     */
     public static readonly GW2C_PushFriendInvitation: string = "msg.GW2C_PushFriendInvitation";
-    /**
-     * 0点定时重置推送
-    */
-    public static readonly Friend_Push_Reset_2015: string = "c2015";
 
     //--------------------------------------------------------------
     // Award
@@ -481,15 +477,15 @@ class Command
     /**
      * 购买手牌竞猜
     */
-    public static readonly GuessBuy_Req_3622 = "c3622";
+    public static readonly C2RS_ReqGuessBuy = "msg.C2RS_ReqGuessBuy";
     /**
      *获取本周榜单数据
     */
-    public static readonly GuessCrunchies_Req_3623 = "c3623";
+    public static readonly C2GW_ReqGuessRank = "msg.C2GW_ReqGuessRank";
     /**
      *购买记录
     */
-    public static readonly GuessRecord_Req_3624 = "c3624";
+    public static readonly C2GW_ReqGuessRecord = "msg.C2GW_ReqGuessRecord";
     //--------------------------------------------------------------
     // 竞猜 end
     //--------------------------------------------------------------

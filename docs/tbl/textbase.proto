@@ -25,13 +25,19 @@ message TextDefine
 	optional string Title = 2; 
 	
 	
-	optional int32 IsRichTxt = 3; 
+	optional string TwTitle = 3; 
 	
 	
-	optional string Url = 4; 
+	optional int32 IsRichTxt = 4; 
 	
 	
-	optional string Text = 5; 
+	optional string Url = 5; 
+	
+	
+	optional string Text = 6; 
+	
+	
+	optional string TwText = 7; 
 
 }
 
