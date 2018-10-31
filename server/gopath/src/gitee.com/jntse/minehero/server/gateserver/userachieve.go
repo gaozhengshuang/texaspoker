@@ -245,7 +245,7 @@ func (u *GateUser) OnReqPlayerRoleInfo(roleid int64) {
 				case "diamond":
 					send.Diamond = pb.Int32(util.Atoi(v))
 				case "gold":
-					send.Gold = pb.Int32(util.Atoi(v))
+					send.Gold = pb.Int64(util.Atol(v))
 				case "name":
 					send.Name = pb.String(v)
 				case "head":
@@ -280,7 +280,7 @@ func (u *GateUser) OnReqPlayerRoleInfo(roleid int64) {
 				case "createdtime":
 					send.Createdtime = pb.Int32(util.Atoi(v))
 				case "maxgold":
-					send.Maxgold = pb.Int32(util.Atoi(v))
+					send.Maxgold = pb.Int64(util.Atol(v))
 				case "maxgoldonetimes":
 					send.Maxgoldonetimes = pb.Int32(util.Atoi(v))
 				case "friendnum":
