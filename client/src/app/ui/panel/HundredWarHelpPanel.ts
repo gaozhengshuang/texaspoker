@@ -65,11 +65,11 @@ class HundredWarHelpPanel extends BasePanel
 		{
 			if (def.IsRichTxt)
 			{
-				label.textFlow = game.TextUtil.parse(def.Text);
+				label.textFlow = game.TextUtil.parse(TextDefined.GetInstance().getText(def));
 			}
 			else
 			{
-				label.text = def.Text;
+				label.text = TextDefined.GetInstance().getText(def);
 			}
 		}
 	}

@@ -75,20 +75,20 @@ class SetPanel extends BasePanel
 		def = table.TextById[TextFixedId.Forum];
 		if (def)
 		{
-			this.forum.text = def.Text;
-			this.forumTitle.text = def.Title;
+			this.forum.text = TextDefined.GetInstance().getText(def);
+			this.forumTitle.text = TextDefined.GetInstance().getTitle(def);
 		}
 		def = table.TextById[TextFixedId.QQ];
 		if (def)
 		{
-			this.QQ.text = def.Text;
-			this.QQTitle.text = def.Title;
+			this.QQ.text = TextDefined.GetInstance().getText(def);
+			this.QQTitle.text = TextDefined.GetInstance().getTitle(def);
 		}
 		def = table.TextById[TextFixedId.CustomerService];
 		if (def)
 		{
-			this.customerService.text = def.Text;
-			this.customerServiceTitle.text = def.Title;
+			this.customerService.text = TextDefined.GetInstance().getText(def);
+			this.customerServiceTitle.text = TextDefined.GetInstance().getTitle(def);
 		}
 		if (UserManager.userInfo)
 		{
