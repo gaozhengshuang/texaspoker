@@ -431,7 +431,8 @@ func (tf *TexasFightRoom) AwardPoolSettle(groups map[int32][]*TexasFightBetPool)
 			continue
 		}
 
-		tf.HitRewadPoolNotify(tf.tconf.Id, pool.BetNum())
+		// 爆奖池公告
+		tf.HitRewadPoolNotify(tf.tconf.Id, pool.AwardPool())
 
 		if pool.Pos() == 0 { 
 			if tf.banker.IsSystem() == false && tf.banker.owner != nil {

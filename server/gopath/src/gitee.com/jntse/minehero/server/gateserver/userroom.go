@@ -65,6 +65,12 @@ func (r *UserRoomData) Online(u *GateUser) {
 	//	return
 	//}
 	agentname := Redis().HGet(keybrief, "agentname").Val()
+	if agentname == "" {
+		log.Error("[房间] 玩家[%s %d] 房间[%d]信息已销毁", u.Name(), u.Id(), roomid)
+		r.Reset(u)
+		return
+	}
+
 	var agent *RoomAgent = RoomSvrMgr().FindByName(agentname)
 	if agent == nil {
 		log.Error("[房间] 玩家[%s %d] 房间服务器[%s]未开启", u.Name(), u.Id(), agentname)

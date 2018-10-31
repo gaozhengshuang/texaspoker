@@ -114,13 +114,13 @@ func on_GW2RS_UserOnline(session network.IBaseNetSession, message interface{}) {
 	userid  := tmsg.GetUserid()
 	u := UserMgr().FindUser(userid)
 	if u == nil {
-		log.Error("玩家[%d] 上线通知检查RoomUser，但是找不到玩家", userid)
+		log.Error("玩家[%d]上线，但是找不到玩家", userid)
 		return
 	}
 
 	room := RoomMgr().Find(u.RoomId())
 	if room == nil {
-		log.Error("玩家[%s %d] 上线通知检查RoomUser，但房间不存在", userid, u.RoomId())
+		log.Error("玩家[%s %d]上线，但房间不存在", userid, u.RoomId())
 		return
 	}
 

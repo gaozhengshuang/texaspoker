@@ -41,6 +41,7 @@ func (rm *RoomManager) Init() bool {
 	rm.nextnotifytime = int32(util.CURTIME()) + util.RandBetween(40,120)
 
 	rm.CleanPublicTexasCache()
+	rm.CleanTexasFightCache()
 	rm.InitPublicTexas()
 	rm.InitTimeReward()
 	rm.InitTexasFightRoom()
@@ -237,6 +238,7 @@ func (rm *RoomManager) AutoNotify() {
 	rm.nextnotifytime = int32(util.CURTIME()) + util.RandBetween(40,120)
 }
 
+// 公共房间清理
 func (rm *RoomManager) CleanPublicTexasCache() {
 	//
 	if RoomSvr().Name() != tbl.Room.PublicRoomServer {
@@ -250,17 +252,17 @@ func (rm *RoomManager) CleanPublicTexasCache() {
 		pipe.Del(fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TexasPoker), v))
 	}
 	if _, err := pipe.Exec(); err != nil {
-		log.Error("[房间] 删除roomlist类型列表失败 %s", err)
+		log.Error("[公共德州] 删除roomlist类型列表失败 %s", err)
 	}
 	pipe.Close()
 
 	//
-	list, err := Redis().SMembers("roomlist").Result()
+	list, err := Redis().SMembers("pb_roomlist").Result()
 	if err == redis.Nil {
 		return
 	}
 	if err != nil {
-		log.Error("[房间] 加载所有房间列表失败 %s", err)
+		log.Error("[公共德州] 加载所有房间列表失败 %s", err)
 		return
 	}
 
@@ -271,13 +273,55 @@ func (rm *RoomManager) CleanPublicTexasCache() {
 		pipe.Del(key)
 	}
 	if _, err := pipe.Exec(); err != nil {
-		log.Error("[房间] 删除roombrief失败 %s", err)
+		log.Error("[公共德州] 删除roombrief失败 %s", err)
 	}
 	pipe.Close()
 
 	//
-	Redis().Del("roomlist")
-	log.Info("[房间] 清除所有缓存房间列表")
+	Redis().Del("pb_roomlist")
+	log.Info("[公共德州] 清除所有缓存房间列表")
+}
+
+// 百人大战房间清理
+func (rm *RoomManager) CleanTexasFightCache() {
+	if RoomSvr().Name() != tbl.Room.TexasFightRoomName {
+		return
+	}
+
+	pipe := Redis().Pipeline()
+	pipe.Del(fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TexasFight), kTexasFightHappyMode))
+	pipe.Del(fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TexasFight), kTexasFightRichMode))
+	if _, err := pipe.Exec(); err != nil {
+		log.Error("[百人大战] 删除 roomlist 类型列表失败 %s", err)
+	}
+	pipe.Close()
+
+
+	list, err := Redis().SMembers("tf_roomlist").Result()
+	if err == redis.Nil {
+		return
+	}
+	if err != nil {
+		log.Error("[百人大战] 加载所有房间列表失败 %s", err)
+		return
+	}
+
+	//
+	pipe = Redis().Pipeline()
+	for _, id := range list {
+		key := fmt.Sprintf("roombrief_%s", id)
+		pipe.Del(key)
+	}
+	if _, err := pipe.Exec(); err != nil {
+		log.Error("[百人大战] 删除roombrief失败 %s", err)
+	}
+	pipe.Close()
+
+	//
+	Redis().Del("tf_roomlist")
+	log.Info("[百人大战] 清除所有缓存房间列表")
+
+
 }
 
 // 自动增加房间
@@ -327,7 +371,9 @@ func (rm *RoomManager) Shutdown() {
 	for _, room := range rm.rooms {
 		room.Destory(0)
 	}
-	//rm.rooms = make(map[int64]IRoomBase)
+
+	rm.CleanPublicTexasCache()
+	rm.CleanTexasFightCache()
 }
 
 func NewTanTanLeRoom(ownerid, uid int64) *TanTanLe {
