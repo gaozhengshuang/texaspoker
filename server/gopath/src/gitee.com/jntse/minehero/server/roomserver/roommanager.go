@@ -246,16 +246,16 @@ func (rm *RoomManager) CleanPublicTexasCache() {
 		return
 	}
 
-	pipe := Redis().Pipeline()
-	tkey := fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TanTanLe), 0)
-	pipe.Del(tkey)
-	for _, v := range msg.PlayingFieldType_value {
-		pipe.Del(fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TexasPoker), v))
-	}
-	if _, err := pipe.Exec(); err != nil {
-		log.Error("[公共德州] 删除roomlist类型列表失败 %s", err)
-	}
-	pipe.Close()
+	//pipe := Redis().Pipeline()
+	//tkey := fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TanTanLe), 0)
+	//pipe.Del(tkey)
+	//for _, v := range msg.PlayingFieldType_value {
+	//	pipe.Del(fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TexasPoker), v))
+	//}
+	//if _, err := pipe.Exec(); err != nil {
+	//	log.Error("[公共德州] 删除roomlist类型列表失败 %s", err)
+	//}
+	//pipe.Close()
 
 	//
 	list, err := Redis().SMembers("pb_roomlist").Result()
@@ -268,7 +268,7 @@ func (rm *RoomManager) CleanPublicTexasCache() {
 	}
 
 	//
-	pipe = Redis().Pipeline()
+	pipe := Redis().Pipeline()
 	for _, id := range list {
 		key := fmt.Sprintf("roombrief_%s", id)
 		pipe.Del(key)
@@ -289,13 +289,13 @@ func (rm *RoomManager) CleanTexasFightCache() {
 		return
 	}
 
-	pipe := Redis().Pipeline()
-	pipe.Del(fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TexasFight), kTexasFightHappyMode))
-	pipe.Del(fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TexasFight), kTexasFightRichMode))
-	if _, err := pipe.Exec(); err != nil {
-		log.Error("[百人大战] 删除 roomlist 类型列表失败 %s", err)
-	}
-	pipe.Close()
+	//pipe := Redis().Pipeline()
+	//pipe.Del(fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TexasFight), kTexasFightHappyMode))
+	//pipe.Del(fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TexasFight), kTexasFightRichMode))
+	//if _, err := pipe.Exec(); err != nil {
+	//	log.Error("[百人大战] 删除 roomlist 类型列表失败 %s", err)
+	//}
+	//pipe.Close()
 
 
 	list, err := Redis().SMembers("tf_roomlist").Result()
@@ -308,7 +308,7 @@ func (rm *RoomManager) CleanTexasFightCache() {
 	}
 
 	//
-	pipe = Redis().Pipeline()
+	pipe := Redis().Pipeline()
 	for _, id := range list {
 		key := fmt.Sprintf("roombrief_%s", id)
 		pipe.Del(key)
@@ -330,13 +330,13 @@ func (rm *RoomManager) CleanMttTexasCache() {
 		return
 	}
 
-	pipe := Redis().Pipeline()
-	pipe.Del(fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TexasFight), kTexasFightHappyMode))
-	pipe.Del(fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TexasFight), kTexasFightRichMode))
-	if _, err := pipe.Exec(); err != nil {
-		log.Error("[竞标赛] 删除 roomlist 类型列表失败 %s", err)
-	}
-	pipe.Close()
+	//pipe := Redis().Pipeline()
+	//pipe.Del(fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TexasFight), kTexasFightHappyMode))
+	//pipe.Del(fmt.Sprintf("roomlist_kind_%d_sub_%d", int32(msg.RoomKind_TexasFight), kTexasFightRichMode))
+	//if _, err := pipe.Exec(); err != nil {
+	//	log.Error("[竞标赛] 删除 roomlist 类型列表失败 %s", err)
+	//}
+	//pipe.Close()
 
 
 	list, err := Redis().SMembers("mtt_roomlist").Result()
@@ -349,7 +349,7 @@ func (rm *RoomManager) CleanMttTexasCache() {
 	}
 
 	//
-	pipe = Redis().Pipeline()
+	pipe := Redis().Pipeline()
 	for _, id := range list {
 		key := fmt.Sprintf("roombrief_%s", id)
 		pipe.Del(key)
