@@ -2,11 +2,11 @@ package main
 import (
 	"encoding/json"
 	"sort"
-	//"fmt"
+	"fmt"
 	//"time"
 	//"errors"
 	"math/rand"
-
+	"strconv"
 	pb "github.com/gogo/protobuf/proto"
 
 	"gitee.com/jntse/gotoolkit/util"
@@ -306,6 +306,7 @@ func (tf *TexasFightRoom) BetPoolSettle() {
 // 玩家结算
 func (tf *TexasFightRoom) PlayerSettle() {
 	kicklist := make([]*TexasFightPlayer, 0)
+	pipe := Redis().Pipeline()
 	for _, player := range tf.players {
 
 		// 庄家单独结算
@@ -326,8 +327,23 @@ func (tf *TexasFightRoom) PlayerSettle() {
 
 		//
 		player.Settle(tf)
-	}
+		if player.TotalProfit() >= 0 {
+			strgroup := strconv.FormatInt(int64(AchieveGroup_BaiRenWin), 10)
+			pipe.HIncrBy(fmt.Sprintf("%s_%d", def.AchieveProcess, player.Id()), strgroup, 1)
+		}
+		if tf.SubKind() == int32(kTexasFightHappyMode) {
+			strgroup := strconv.FormatInt(int64(AchieveGroup_BaiRenPlay1), 10)
+			pipe.HIncrBy(fmt.Sprintf("%s_%d", def.AchieveProcess, player.Id()), strgroup, 1)
+		} else if tf.SubKind() == int32(kTexasFightRichMode) {
+			strgroup := strconv.FormatInt(int64(AchieveGroup_BaiRenPlay2), 10)
+			pipe.HIncrBy(fmt.Sprintf("%s_%d", def.AchieveProcess, player.Id()), strgroup, 1)
+		}
 
+	}
+	if _, err := pipe.Exec(); err != nil {
+		log.Error("百人大战结算成就出错 %s", err)
+	}
+	pipe.Close()
 	// 连续观战计数，大于一定次数踢出房间
 	for _, p := range kicklist {
 		tf.OnPlayerKickOut(p)
