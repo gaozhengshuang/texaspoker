@@ -304,6 +304,9 @@ func (u *GateUser) SendTexasRoomList(rtype int32) {
 			case "passwd": if vt.String() != "" { info.HasPwd = pb.Bool(true) }
 			}
 		}
+		if info.GetId() == 0 {
+			continue
+		}
 		send.List = append(send.List, info)
 	}
 	u.SendMsg(send)

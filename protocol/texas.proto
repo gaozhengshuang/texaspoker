@@ -37,3 +37,36 @@ message GW2C_RetUserRoomInfo {
     optional string passwd = 3;
 }
 
+//请求周竞猜榜单
+message C2GW_ReqGuessRank {
+}
+
+message GuessRankInfo {
+    optional int32 rank = 1;
+    optional string name = 2;
+    optional int32 ante = 3;
+    optional int32 gold = 4;
+}
+
+//返回周竞猜榜单
+message GW2C_RetGuessRank {
+    repeated GuessRankInfo list = 1;
+}
+
+//请求竞猜记录
+message C2GW_ReqGuessRecord {
+}
+
+message GuessRecordInfo {
+    optional int32 type = 1;
+    optional int32 ante = 2;
+    optional int32 gold = 3;
+    optional int32 time = 4;
+    repeated int32 cards = 5;
+}
+
+//返回购买记录
+message GW2C_RetGuessRecord {
+    repeated GuessRecordInfo list = 1;
+}
+

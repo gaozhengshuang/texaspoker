@@ -756,6 +756,14 @@ func (this *TexasPlayer) BuyInGame(rev *msg.C2RS_ReqBuyInGame) bool {
 				rev.Pos = pb.Int32(this.room.GetEmptySeat()+1)
 			}
 		}
+		if this.room.tconf.SBuyin != 0 && rev.GetNum() < this.room.tconf.SBuyin {
+			strerr = "低于最小买入"
+			break
+		}
+		if this.room.tconf.BBuyin != 0 && rev.GetNum() > this.room.tconf.BBuyin {
+			strerr = "大于最大买入"
+			break
+		}
 		if !this.owner.RemoveGold(rev.GetNum(), "金币兑换筹码", true) {
 			strerr = "金币不足"
 			break

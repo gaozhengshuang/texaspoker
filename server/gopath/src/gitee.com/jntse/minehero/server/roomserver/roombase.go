@@ -157,7 +157,7 @@ func (room *RoomBase) InitCache() {
 	if room.Kind() == int32(msg.RoomKind_TexasFight) {
 		pipe.SAdd("tf_roomlist", room.Id())
 	}else {
-		if room.SubKind() == int32(msg.PlayingFieldType_Mtt) {
+		if room.SubKind() == int32(msg.PlayingFieldType_Mtt) || room.SubKind() == int32(msg.PlayingFieldType_Sng) {
 			pipe.SAdd("mtt_roomlist", room.Id())
 		}else {
 			pipe.SAdd("pb_roomlist", room.Id())
