@@ -153,7 +153,11 @@ func (room *RoomBase) InitCache() {
 	pipe.HSet(key, "members", 0)
 	pipe.HSet(key, "passwd", room.Passwd())
 	pipe.HSet(key, "agentname", RoomSvr().Name())
-	pipe.SAdd("roomlist", room.Id())
+	if room.Kind() == int32(msg.RoomKind_TexasFight) {
+		pipe.SAdd("tf_roomlist", room.Id())
+	}else {
+		pipe.SAdd("pb_roomlist", room.Id())
+	}
 	pipe.SAdd(fmt.Sprintf("roomlist_kind_%d_sub_%d", room.Kind(), room.SubKind()), room.Id())
 	if _, err := pipe.Exec(); err != nil {
 		log.Error("[房间] 缓存房间[%d]信息失败 %s", room.Id(), err)
@@ -165,7 +169,11 @@ func (room *RoomBase) InitCache() {
 func (room *RoomBase) RmCache() {
 	pipe := Redis().Pipeline()
 	pipe.Del(fmt.Sprintf("roombrief_%d", room.Id()))
-	pipe.SRem("roomlist", room.Id())
+	if room.Kind() == int32(msg.RoomKind_TexasFight) {
+		pipe.SRem("tf_roomlist", room.Id())
+	}else {
+		pipe.SRem("pb_roomlist", room.Id())
+	}
 	pipe.SRem(fmt.Sprintf("roomlist_kind_%d_sub_%d", room.Kind(), room.SubKind()), room.Id())
 	if _, err := pipe.Exec(); err != nil {
 		log.Error("[房间] 删除房间[%d]缓存信息失败 %s", room.Id(), err)

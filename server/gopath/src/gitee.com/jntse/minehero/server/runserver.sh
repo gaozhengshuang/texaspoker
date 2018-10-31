@@ -82,7 +82,7 @@ startall() {
 
     startserver room 0 27310 
     startserver room 1 27311
-    #startserver room 2 27312
+    startserver room 2 27312
     #startserver room 3 27313
 
     startserver gate 0 27110 
