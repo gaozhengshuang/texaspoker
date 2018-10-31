@@ -611,9 +611,8 @@ class FriendManager
     */
     public static isFriendFull(isShowAlert: boolean = false): boolean
     {
-        return true; //move todo
         let maxNum: number;
-        let vipDef: VipDefinition;
+        let vipDef: table.ITVipDefine;
         if (VipManager.isVip(UserManager.userInfo))
         {
             vipDef = VipDefined.GetInstance().getVipDefinitionByLevel(UserManager.userInfo.vipLevel);
@@ -623,7 +622,7 @@ class FriendManager
         }
         if (vipDef)
         {
-            maxNum = vipDef.friendLimit;
+            maxNum = vipDef.FriendLimit;
         }
         if (maxNum && FriendManager.friendList && maxNum > FriendManager.friendList.length)
         {

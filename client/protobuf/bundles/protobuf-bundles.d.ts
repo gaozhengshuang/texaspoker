@@ -9123,6 +9123,10 @@ declare namespace msg {
         YuanBao = 402,
         Diamond = 2,
         Gold = 1,
+        VipExp = 3,
+        RoleExp = 4,
+        MonthVip = 5,
+        YearVip = 6,
         FreeStep = 60005,
         Strength = 60006,
         RedDiamond = 100001,
@@ -18311,6 +18315,102 @@ declare namespace msg {
 
         /**
          * Converts this GW2C_RetPayRecommend to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2GW_PushVipTime. */
+    interface IC2GW_PushVipTime {
+
+        /** C2GW_PushVipTime viptime */
+        viptime?: (number|Long|null);
+
+        /** C2GW_PushVipTime yearviptime */
+        yearviptime?: (number|Long|null);
+    }
+
+    /** Represents a C2GW_PushVipTime. */
+    class C2GW_PushVipTime implements IC2GW_PushVipTime {
+
+        /**
+         * Constructs a new C2GW_PushVipTime.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_PushVipTime);
+
+        /** C2GW_PushVipTime viptime. */
+        public viptime: (number|Long);
+
+        /** C2GW_PushVipTime yearviptime. */
+        public yearviptime: (number|Long);
+
+        /**
+         * Creates a new C2GW_PushVipTime instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_PushVipTime instance
+         */
+        public static create(properties?: msg.IC2GW_PushVipTime): msg.C2GW_PushVipTime;
+
+        /**
+         * Encodes the specified C2GW_PushVipTime message. Does not implicitly {@link msg.C2GW_PushVipTime.verify|verify} messages.
+         * @param message C2GW_PushVipTime message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_PushVipTime, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_PushVipTime message, length delimited. Does not implicitly {@link msg.C2GW_PushVipTime.verify|verify} messages.
+         * @param message C2GW_PushVipTime message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_PushVipTime, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_PushVipTime message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_PushVipTime
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_PushVipTime;
+
+        /**
+         * Decodes a C2GW_PushVipTime message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_PushVipTime
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_PushVipTime;
+
+        /**
+         * Verifies a C2GW_PushVipTime message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_PushVipTime message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_PushVipTime
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_PushVipTime;
+
+        /**
+         * Creates a plain object from a C2GW_PushVipTime message. Also converts values to other types if specified.
+         * @param message C2GW_PushVipTime
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_PushVipTime, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_PushVipTime to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -27602,7 +27702,7 @@ declare namespace msg {
     interface IRS2C_PushBetPoolChange {
 
         /** RS2C_PushBetPoolChange bet */
-        bet?: ((number|Long)[]|null);
+        bet?: (msg.ITFBetPoolBetInfo[]|null);
 
         /** RS2C_PushBetPoolChange posbetlist */
         posbetlist?: (msg.ITFBetPoolChange[]|null);
@@ -27618,7 +27718,7 @@ declare namespace msg {
         constructor(properties?: msg.IRS2C_PushBetPoolChange);
 
         /** RS2C_PushBetPoolChange bet. */
-        public bet: (number|Long)[];
+        public bet: msg.ITFBetPoolBetInfo[];
 
         /** RS2C_PushBetPoolChange posbetlist. */
         public posbetlist: msg.ITFBetPoolChange[];
@@ -27689,6 +27789,102 @@ declare namespace msg {
 
         /**
          * Converts this RS2C_PushBetPoolChange to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a TFBetPoolBetInfo. */
+    interface ITFBetPoolBetInfo {
+
+        /** TFBetPoolBetInfo bet */
+        bet?: (number|Long|null);
+
+        /** TFBetPoolBetInfo roles */
+        roles?: ((number|Long)[]|null);
+    }
+
+    /** Represents a TFBetPoolBetInfo. */
+    class TFBetPoolBetInfo implements ITFBetPoolBetInfo {
+
+        /**
+         * Constructs a new TFBetPoolBetInfo.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.ITFBetPoolBetInfo);
+
+        /** TFBetPoolBetInfo bet. */
+        public bet: (number|Long);
+
+        /** TFBetPoolBetInfo roles. */
+        public roles: (number|Long)[];
+
+        /**
+         * Creates a new TFBetPoolBetInfo instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TFBetPoolBetInfo instance
+         */
+        public static create(properties?: msg.ITFBetPoolBetInfo): msg.TFBetPoolBetInfo;
+
+        /**
+         * Encodes the specified TFBetPoolBetInfo message. Does not implicitly {@link msg.TFBetPoolBetInfo.verify|verify} messages.
+         * @param message TFBetPoolBetInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.ITFBetPoolBetInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified TFBetPoolBetInfo message, length delimited. Does not implicitly {@link msg.TFBetPoolBetInfo.verify|verify} messages.
+         * @param message TFBetPoolBetInfo message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.ITFBetPoolBetInfo, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a TFBetPoolBetInfo message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TFBetPoolBetInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.TFBetPoolBetInfo;
+
+        /**
+         * Decodes a TFBetPoolBetInfo message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TFBetPoolBetInfo
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.TFBetPoolBetInfo;
+
+        /**
+         * Verifies a TFBetPoolBetInfo message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TFBetPoolBetInfo message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TFBetPoolBetInfo
+         */
+        public static fromObject(object: { [k: string]: any }): msg.TFBetPoolBetInfo;
+
+        /**
+         * Creates a plain object from a TFBetPoolBetInfo message. Also converts values to other types if specified.
+         * @param message TFBetPoolBetInfo
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.TFBetPoolBetInfo, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TFBetPoolBetInfo to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -41726,7 +41922,7 @@ declare namespace table {
         Id?: (number|null);
 
         /** TVipDefine Level */
-        Level?: (string|null);
+        Level?: (number|null);
 
         /** TVipDefine Exp */
         Exp?: (number|null);
@@ -41766,7 +41962,7 @@ declare namespace table {
         public Id: number;
 
         /** TVipDefine Level. */
-        public Level: string;
+        public Level: number;
 
         /** TVipDefine Exp. */
         public Exp: number;

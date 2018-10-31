@@ -409,7 +409,7 @@ func (this *TexasPokerRoom) StartGame() int32 {
 		if this.IsChampionShip() {
 			p.PreBet(this.preblindnum)
 		}
-		p.RemoveBankRoll(this.ante)
+		p.RemoveBankRoll(this.ante, "台费扣除")
 		if p == this.bigblinder {
 			p.BlindBet(this.bigblindnum, true)
 			record.Specialpos = pb.Int32(3)
@@ -833,7 +833,7 @@ func (this *TexasPokerRoom) ShowDown() int32{
 	//最终瓜分奖励
 	for i := range this.chips {
 		if this.players[i] != nil {
-			this.players[i].AddBankRoll(this.chips[i])
+			this.players[i].AddBankRoll(this.chips[i], "每局结算获得")
 			this.players[i].AddExp(50, "每局结算", true)
 			log.Info("房间[%d] 玩家[%d] 获得筹码[%d] 手牌[%v] 等级[%d] 牌力[%d]", this.Id(), this.players[i].owner.Id(), this.chips[i], this.players[i].hand.ToAllCard(), this.players[i].hand.level, this.players[i].hand.finalvalue)
 			this.WinNotify(this.players[i].owner.Name(), this.players[i].hand.level, this.chips[i])
@@ -975,8 +975,11 @@ func (this *TexasPokerRoom) RestartGame() int32{
 }
 
 func (this *TexasPokerRoom) WinNotify(name string, level int32, reward int64) {
-	if level < 2 {
+	if level < 5 {
 		return
+	}
+	if this.IsChampionShip() {
+		return 
 	}
 	txt := fmt.Sprintf("{\"0\":\"%s\",\"1\":%d,\"2\":%d,\"3\":%d}", name, this.tconf.Type ,level , reward)
 	send := &msg.RS2GW_ChatInfo{}

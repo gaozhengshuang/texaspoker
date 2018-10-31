@@ -186,12 +186,12 @@ func (this *TexasPlayer) BetStart() {
 func (this *TexasPlayer) PreBet(num int64) {
 	if num >= this.GetBankRoll() {
 		num = this.GetBankRoll()
-		this.RemoveBankRoll(num)
+		this.RemoveBankRoll(num, "前注扣除")
 		this.curbet += num
 		this.room.chips[this.pos] += num
 		this.ChangeState(GSAllIn)
 	}else{
-		this.RemoveBankRoll(num)
+		this.RemoveBankRoll(num, "前注扣除")
 		this.curbet += num
 		this.room.chips[this.pos] += num
 		//this.ChangeState(GSBlind)
@@ -205,12 +205,12 @@ func (this *TexasPlayer) BlindBet(num int64, big bool) {
 	}
 	if num >= this.GetBankRoll() {
 		num = this.GetBankRoll()
-		this.RemoveBankRoll(num)
+		this.RemoveBankRoll(num, "盲注扣除")
 		this.curbet += num
 		this.room.chips[this.pos] += num
 		this.ChangeState(GSAllIn)
 	}else{
-		this.RemoveBankRoll(num)
+		this.RemoveBankRoll(num, "盲注扣除")
 		this.curbet += num
 		this.room.chips[this.pos] += num
 		this.ChangeState(GSBlind)
@@ -248,14 +248,14 @@ func (this *TexasPlayer) Betting(num int64) {
 		}else{
 			this.betover = true
 			this.ChangeState(GSCheck)
-			log.Info("房间[%d] 玩家[%d] 让牌 筹码[%d] 房间人数[%d]", this.room.Id(), this.owner.Id(), this.GetBankRoll(),this.room.remain)
+			//log.Info("房间[%d] 玩家[%d] 让牌 筹码[%d] 房间人数[%d]", this.room.Id(), this.owner.Id(), this.GetBankRoll(),this.room.remain)
 		}
 	} else if num + this.curbet < this.room.curbet { // 跟注 或者 allin  table.Bet保持不变
 		if this.GetBankRoll() != num {
 			this.Betting(-1)
 			return
 		}
-		if !this.RemoveBankRoll(num) {
+		if !this.RemoveBankRoll(num, "Allin扣除") {
 			send.Errcode = pb.String("筹码不足")
 			this.owner.SendClientMsg(send)
 			return
@@ -265,13 +265,13 @@ func (this *TexasPlayer) Betting(num int64) {
 		this.room.chips[this.pos] += num
 		if this.GetBankRoll() == 0 {
 			this.ChangeState(GSAllIn)
-			log.Info("房间[%d] 玩家[%d] 全压[%d] 筹码[%d] 房间人数[%d]", this.room.Id(), this.owner.Id(), this.curbet, this.GetBankRoll(),this.room.remain)
+			//log.Info("房间[%d] 玩家[%d] 全压[%d] 筹码[%d] 房间人数[%d]", this.room.Id(), this.owner.Id(), this.curbet, this.GetBankRoll(),this.room.remain)
 		}
 	} else if num + this.curbet == this.room.curbet	{
 		if this.GetBankRoll() < num {
 			num = this.GetBankRoll()
 		}
-		if !this.RemoveBankRoll(num) {
+		if !this.RemoveBankRoll(num, "跟注扣除") {
 			send.Errcode = pb.String("筹码不足")
 			this.owner.SendClientMsg(send)
 			return
@@ -281,16 +281,16 @@ func (this *TexasPlayer) Betting(num int64) {
 		this.room.chips[this.pos] += num
 		if this.GetBankRoll() == 0 {
 			this.ChangeState(GSAllIn)
-			log.Info("房间[%d] 玩家[%d] 全压[%d] 筹码[%d] 房间人数[%d]",this.room.Id(), this.owner.Id(), this.curbet, this.GetBankRoll(),this.room.remain)
+			//log.Info("房间[%d] 玩家[%d] 全压[%d] 筹码[%d] 房间人数[%d]",this.room.Id(), this.owner.Id(), this.curbet, this.GetBankRoll(),this.room.remain)
 		} else {
 			this.ChangeState(GSCall)
-			log.Info("房间[%d] 玩家[%d] 跟注[%d] 筹码[%d] 房间人数[%d]",this.room.Id(), this.owner.Id(), this.curbet, this.GetBankRoll(),this.room.remain)
+			//log.Info("房间[%d] 玩家[%d] 跟注[%d] 筹码[%d] 房间人数[%d]",this.room.Id(), this.owner.Id(), this.curbet, this.GetBankRoll(),this.room.remain)
 		}
 	} else { // 加注
 		if this.GetBankRoll() < num {
 			num = this.GetBankRoll()
 		}
-		if !this.RemoveBankRoll(num) {
+		if !this.RemoveBankRoll(num, "加注扣除") {
 			send.Errcode = pb.String("筹码不足")
 			this.owner.SendClientMsg(send)
 			return
@@ -301,10 +301,10 @@ func (this *TexasPlayer) Betting(num int64) {
 		this.room.raisebet = num
 		if this.GetBankRoll() == 0 {
 			this.ChangeState(GSAllIn)
-			log.Info("房间[%d] 玩家[%d] 全压[%d] 筹码[%d] 房间人数[%d]",this.room.Id(), this.owner.Id(), this.curbet, this.GetBankRoll(),this.room.remain)
+			//log.Info("房间[%d] 玩家[%d] 全压[%d] 筹码[%d] 房间人数[%d]",this.room.Id(), this.owner.Id(), this.curbet, this.GetBankRoll(),this.room.remain)
 		} else {
 			this.ChangeState(GSRaise)
-			log.Info("房间[%d] 玩家[%d] 加注[%d] 筹码[%d] 房间人数[%d]",this.room.Id(), this.owner.Id(), this.curbet, this.GetBankRoll(),this.room.remain)
+			//log.Info("房间[%d] 玩家[%d] 加注[%d] 筹码[%d] 房间人数[%d]",this.room.Id(), this.owner.Id(), this.curbet, this.GetBankRoll(),this.room.remain)
 		}
 		this.room.ClearBetOver(false)//清除所有人的下注成功
 		this.room.raisecount++
@@ -409,7 +409,7 @@ func (this *TexasPlayer) HasBankRoll() bool {
 	return true
 }
 
-func (this *TexasPlayer) AddBankRoll(num int64){
+func (this *TexasPlayer) AddBankRoll(num int64, reason string){
 	this.bankroll += num
 	send := &msg.RS2C_PushChipsChange{}
 	send.Roleid = pb.Int64(this.owner.Id())
@@ -418,8 +418,9 @@ func (this *TexasPlayer) AddBankRoll(num int64){
 	if this.room.IsChampionShip() {
 		this.room.mtt.UpdateUserBankRoll(this.owner.Id(), this.bankroll)
 	}
-
-	log.Info("房间[%d] 玩家[%d] 增加筹码[%d]", this.room.Id(), this.owner.Id(), num)
+	if this.owner.Id() > 200 {
+		log.Info("房间[%d] 玩家[%d] 原因[%s] 增加筹码[%d] 总筹码[%d]", this.room.Id(), this.owner.Id(), reason, num, this.bankroll)
+	}
 }
 
 func (this *TexasPlayer) AddExp(exp int32, reason string, syn bool) {
@@ -464,7 +465,7 @@ func (this *TexasPlayer) SendTimeAward(start bool) {
 	this.owner.SendClientMsg(send)
 }
 
-func (this *TexasPlayer)RemoveBankRoll(num int64) bool{
+func (this *TexasPlayer)RemoveBankRoll(num int64, reason string) bool{
 	if num == 0 {
 		return true
 	}
@@ -479,8 +480,9 @@ func (this *TexasPlayer)RemoveBankRoll(num int64) bool{
 	if this.room.IsChampionShip() {
 		this.room.mtt.UpdateUserBankRoll(this.owner.Id(), this.bankroll)
 	}
-
-	log.Info("房间[%d] 玩家[%d] 扣除筹码[%d]", this.room.Id(), this.owner.Id(), num)
+	if this.owner.Id() > 200 {
+		log.Info("房间[%d] 玩家[%d] 原因[%s] 扣除筹码[%d] 总筹码[%d]", this.room.Id(), this.owner.Id(), reason, num, this.bankroll)
+	}
 	return true
 }
 
@@ -666,7 +668,7 @@ func (this *TexasPlayer) AutoCoin() {
 	if this.addcoin == 0 {
 		return
 	}
-	this.AddBankRoll(this.addcoin)
+	this.AddBankRoll(this.addcoin, "自动购买筹码")
 	this.addcoin = 0
 }
 
@@ -682,7 +684,7 @@ func (this *TexasPlayer) AutoRebuy() {
 	if this.addrebuy == 0 {
 		return
 	}
-	this.AddBankRoll(this.addrebuy)
+	this.AddBankRoll(this.addrebuy, "rebuy筹码")
 	this.addrebuy = 0
 }
 
@@ -698,7 +700,7 @@ func (this *TexasPlayer) AutoAddon() {
 	if this.addaddon == 0 {
 		return
 	}
-	this.AddBankRoll(this.addaddon)
+	this.AddBankRoll(this.addaddon, "addon筹码")
 	this.addaddon = 0
 }
 
@@ -739,7 +741,7 @@ func (this *TexasPlayer) AutoBuy() {
 	if !this.owner.RemoveGold(buy, "金币兑换筹码", true) {
 		return
 	}
-	this.AddBankRoll(int64(buy))
+	this.AddBankRoll(int64(buy), "购买筹码")
 }
 
 func (this *TexasPlayer) BuyInGame(rev *msg.C2RS_ReqBuyInGame) bool {
@@ -761,7 +763,7 @@ func (this *TexasPlayer) BuyInGame(rev *msg.C2RS_ReqBuyInGame) bool {
 		if rev.GetIsautobuy() == true {
 			this.autobuy = rev.GetNum()
 		}
-		this.AddBankRoll(rev.GetNum())
+		this.AddBankRoll(rev.GetNum(), "坐下时购买筹码")
 		this.SitDown(rev.GetPos()-1)
 		this.room.NotifySitStand(this.owner.Id())
 

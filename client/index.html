@@ -51,8 +51,10 @@ data-show-log="true" data-show-fps-style="x:0,y:0,size:12,textColor:0xffffff,bgA
     var langName = localStorage.getItem("giant_poker_lang");
     if (!langName) {
         langName = "zh-tw";
+        localStorage.setItem("giant_poker_lang", langName);
     }
-    var resJsonUrl = "default.res.json";
+    console.log("langName", langName);
+    var resJsonUrl = "default_" + langName + ".res.json";
     window.web_config_scripts = ['libs/modules.min.js', 'libs/bundle.min.js', 'libs/main.min.js'];
     window.web_config_defaultResJson = 'resource/default.res.json';
     window.web_config_defaultThmJson = 'resource/default.thm.json';

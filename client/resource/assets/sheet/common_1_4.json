@@ -1,5 +1,6 @@
 {"file":"common_1_4.png","frames":{
 "bg_4_png":{"x":1,"y":1,"w":720,"h":235,"offX":0,"offY":0,"sourceW":720,"sourceH":235},
+"faguang_png":{"x":1,"y":946,"w":124,"h":74,"offX":0,"offY":0,"sourceW":124,"sourceH":74},
 "guang_1_png":{"x":1227,"y":1,"w":245,"h":220,"offX":0,"offY":0,"sourceW":245,"sourceH":220},
 "guang_2_png":{"x":1,"y":238,"w":314,"h":273,"offX":0,"offY":0,"sourceW":314,"sourceH":273},
 "hall_tx_2_png":{"x":317,"y":238,"w":272,"h":275,"offX":0,"offY":2,"sourceW":272,"sourceH":278},
@@ -29,10 +30,10 @@
 "mrtx_bm_png":{"x":502,"y":786,"w":100,"h":100,"offX":0,"offY":0,"sourceW":100,"sourceH":100},
 "mrtx_nan_png":{"x":736,"y":685,"w":100,"h":100,"offX":0,"offY":0,"sourceW":100,"sourceH":100},
 "new_baoxiang_png":{"x":723,"y":1,"w":502,"h":275,"offX":12,"offY":8,"sourceW":528,"sourceH":284},
-"tuijian_bg_png":{"x":1,"y":946,"w":71,"h":49,"offX":0,"offY":0,"sourceW":71,"sourceH":49},
+"tuijian_bg_png":{"x":127,"y":958,"w":71,"h":49,"offX":0,"offY":0,"sourceW":71,"sourceH":49},
 "vip_1_png":{"x":771,"y":381,"w":171,"h":99,"offX":0,"offY":4,"sourceW":171,"sourceH":103},
 "vip_2_png":{"x":771,"y":482,"w":171,"h":99,"offX":0,"offY":4,"sourceW":171,"sourceH":103},
 "vip_3_png":{"x":771,"y":278,"w":171,"h":101,"offX":0,"offY":2,"sourceW":171,"sourceH":103},
-"xiaolaba_1_png":{"x":1057,"y":489,"w":58,"h":134,"offX":0,"offY":0,"sourceW":58,"sourceH":134},
-"xiaolaba_2_png":{"x":1070,"y":278,"w":58,"h":134,"offX":0,"offY":0,"sourceW":58,"sourceH":134},
+"xiaolaba_1_png":{"x":1070,"y":278,"w":58,"h":134,"offX":0,"offY":0,"sourceW":58,"sourceH":134},
+"xiaolaba_2_png":{"x":1057,"y":489,"w":58,"h":134,"offX":0,"offY":0,"sourceW":58,"sourceH":134},
 "xttx_png":{"x":736,"y":583,"w":100,"h":100,"offX":0,"offY":0,"sourceW":100,"sourceH":100}}}

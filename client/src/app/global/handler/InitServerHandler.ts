@@ -70,7 +70,12 @@ class InitServerHandler
 	private onReqAwardInfo(result: game.SpRpcResult)
 	{
 		AwardManager.Initialize(result);
-		this.reqGetInsideRoomIdList();
+		let callBack: Function = function (result: game.SpRpcResult)
+		{
+			InsideRoomManager.initializeLastRoomId(result);
+			this.reqFriendListInfo();
+		};
+		SocketManager.call(Command.C2GW_ReqCurRoom, {}, callBack, null, this);
 		// this.reqItemList();
 	}
 	/**
@@ -95,7 +100,8 @@ class InitServerHandler
 	private addFriendListInfoResponse(result: game.SpRpcResult)
 	{
 		FriendManager.FriendRequestResponse(result);
-		this.reqGetMTTListInfo();
+		// this.reqGetMTTListInfo();
+		this.reqGetMailList();
 	}
 	/**
 	 * 拉取成就
@@ -110,42 +116,16 @@ class InitServerHandler
 		AchieveProcessManager.Initialize(result);
 		this.reqGetActivityList(); //活动最后拉取
 	}
-	private reqGetInsideRoomIdList()
-	{
-		//拉取锦标赛赛事所在房间信息列表
-		MsgTransferSend.sendMTTRoomProto(Command.C2RS_ReqInsideRoomInfoList, {}, this.onGetInsideRoomListInfo, null, this);
-	}
+	// private reqGetInsideRoomIdList()
+	// {
+
+	// }
 	/**
 	 * 获取所在房间号列表
 	 */
-	private onGetInsideRoomListInfo(result: game.SpRpcResult)
-	{
-		InsideRoomManager.initialize(result);
-		let callBack: Function = function (result: game.SpRpcResult)
-		{
-			InsideRoomManager.initializeLastRoomId(result);
-			this.reqFriendListInfo();
-		};
-		SocketManager.call(Command.C2GW_ReqCurRoom, {}, callBack, null, this);
-	}
-	/**
-	 * 拉取锦标赛赛事列表信息
-	*/
-	private reqGetMTTListInfo()
-	{
-		MsgTransferSend.sendMTTRoomProto(Command.C2RS_ReqMTTList, null, this.onGetMTTListInfo, null, this);
-	}
-	private onGetMTTListInfo(result: game.SpRpcResult)
-	{
-		ChampionshipManager.initialize(result);
-		//拉取已报名的赛事列表
-		let callback: Function = function (result: game.SpRpcResult)
-		{
-			ChampionshipManager.initJoinedMttList(result);
-			this.reqGetMailList();
-		};
-		MsgTransferSend.sendMTTRoomProto(Command.C2RS_ReqJoinedMTTList, {}, callback, null, this);
-	}
+	// private onGetInsideRoomListInfo(result: game.SpRpcResult)
+	// {
+	// }
 	/**
 	 * 拉取邀请奖励信息
 	*/

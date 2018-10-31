@@ -86,9 +86,9 @@ class GameHallPanel extends BasePanel
 	//按键逻辑支持
 	private _btnSupport: GameHallBtnSupport;
 	//运营活动充值弹窗
-	private _businessChargeAlert:GameHallBusinessChargeAlert;
+	private _businessChargeAlert: GameHallBusinessChargeAlert;
 	//幸运任务
-	private _luckyTask:GameHallLuckyTask;
+	private _luckyTask: GameHallLuckyTask;
 	public constructor()
 	{
 		super();
@@ -114,8 +114,30 @@ class GameHallPanel extends BasePanel
 		{
 			this.bindBtn.parent.removeChild(this.bindBtn);
 		}
+		//拉取锦标赛赛事所在房间信息列表
+		MsgTransferSend.sendMTTRoomProto(Command.C2RS_ReqInsideRoomInfoList, {}, (result: any) =>
+		{
+			InsideRoomManager.initialize(result);
+			this.reqGetMTTListInfo();//第一次初始化拉取锦标赛，防止锦标赛服down掉玩家进步来
+		}, null, this);
 	}
-
+	/**
+	 * 拉取锦标赛赛事列表信息
+	*/
+	private reqGetMTTListInfo()
+	{
+		MsgTransferSend.sendMTTRoomProto(Command.C2RS_ReqMTTList, null, this.onGetMTTListInfo, null, this);
+	}
+	private onGetMTTListInfo(result: game.SpRpcResult)
+	{
+		ChampionshipManager.initialize(result);
+		//拉取已报名的赛事列表
+		let callback: Function = function (result: game.SpRpcResult)
+		{
+			ChampionshipManager.initJoinedMttList(result);
+		};
+		MsgTransferSend.sendMTTRoomProto(Command.C2RS_ReqJoinedMTTList, {}, callback, null, this);
+	}
 	private addRedPoint()
 	{
 		UIUtil.addSingleNotify(this.matchBtn, NotifyType.Mtt_HaveJoinedList, 15, 55);
@@ -167,9 +189,9 @@ class GameHallPanel extends BasePanel
 	{
 		this.userNameLabel.text = UserManager.userInfo.name.toString();
 		this.userHeadComp.init(UserManager.userInfo, 120);
-		if (false && VipManager.isVip())
+		if (VipManager.isVip())
 		{
-			this.vipLevelLabel.text = "VIP" + UserManager.userInfo.vipLevel; //move todo
+			this.vipLevelLabel.text = "VIP" + UserManager.userInfo.vipLevel;
 			this.vipGroup.visible = true;
 		}
 		else
@@ -198,7 +220,7 @@ class GameHallPanel extends BasePanel
 		this._businessChargeAlert.onEnable();
 		this._luckyTask.onEnable();
 		this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onClickHandler, this);
-		// VipManager.vipUpgradeEvent.addListener(this.refreshUserInfoUI, this); //move todo
+		VipManager.vipUpgradeEvent.addListener(this.refreshUserInfoUI, this);
 		UserManager.propertyChangeEvent.addListener(this.refreshGold, this);
 		UserManager.onCreateRoleEvent.addListener(this.refreshUserInfoUI, this);
 		UserManager.onSetUserInfoComplete.addListener(this.refreshUserInfoUI, this);
@@ -218,7 +240,7 @@ class GameHallPanel extends BasePanel
 		this._businessChargeAlert.onDisable();
 		this._luckyTask.onDisable();
 		this.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onClickHandler, this);
-		// VipManager.vipUpgradeEvent.removeListener(this.refreshUserInfoUI, this);//move todo
+		VipManager.vipUpgradeEvent.removeListener(this.refreshUserInfoUI, this);
 		UserManager.propertyChangeEvent.removeListener(this.refreshGold, this);
 		UserManager.onCreateRoleEvent.removeListener(this.refreshUserInfoUI, this);
 		UserManager.onSetUserInfoComplete.removeListener(this.refreshUserInfoUI, this);
@@ -275,7 +297,8 @@ class GameHallPanel extends BasePanel
 		{
 			case this.userHeadComp:
 				SoundManager.playEffect(MusicAction.buttonClick);
-				UserManager.reqShowOtherUserInfoPanel(UserManager.userInfo.roleId);
+				UIManager.showPanel(UIModuleName.UserInfoPanel, { type: FriendInfoType.Send });
+				// UserManager.reqShowOtherUserInfoPanel(UserManager.userInfo.roleId);
 				break;
 			case this.addDiamondBtn:
 				SoundManager.playEffect(MusicAction.buttonClick);

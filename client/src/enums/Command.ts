@@ -233,7 +233,7 @@ class Command
     /**
      * 会员时间戳变更推送
      */
-    public static readonly Vip_GetVipTime_2001: string = "c2001";
+    public static readonly C2GW_PushVipTime: string = "msg.C2GW_PushVipTime";
     /**
      * 推送玩家离线
      */

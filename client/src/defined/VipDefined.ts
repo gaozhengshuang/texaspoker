@@ -1,9 +1,8 @@
 /**
  * VIP的定义
  * */
-class VipDefined extends BaseDefined<VipDefinition>
+class VipDefined 
 {
-    private static readonly vipConfig: string = "vip";
     private static _instance: VipDefined;
     public static GetInstance(): VipDefined
     {
@@ -11,25 +10,17 @@ class VipDefined extends BaseDefined<VipDefinition>
         {
             VipDefined._instance = new VipDefined();
         }
-        if (DefinedManager.IsParsed(VipDefined.vipConfig) == false)
-        {
-            VipDefined._instance.initialize();
-        }
+        
         return VipDefined._instance;
-    }
-
-    private initialize()
-    {
-        this.dataList = DefinedManager.GetData(VipDefined.vipConfig) as Array<VipDefinition>;
     }
     /**
      * 通过等级查找配置
      */
-    public getVipDefinitionByLevel(level: number): VipDefinition
+    public getVipDefinitionByLevel(level: number): table.ITVipDefine
     {
-        for (let def of this.dataList)
+        for (let def of table.TVip)
         {
-            if (def.level == level)
+            if (def.Level == level)
             {
                 return def;
             }
@@ -43,65 +34,19 @@ class VipDefined extends BaseDefined<VipDefinition>
     */
     public getVipLevel(vipExp: number): number
     {
-        if (!this.dataList || this.dataList.length == 0)
+        if (!table.TVip)
         {
             game.Console.log("vip表为空");
+            return;
         }
-        for (let i = this.dataList.length - 1; i >= 0; i--)
+        for (let i = table.TVip.length - 1; i >= 0; i--)
         {
-            if (vipExp < this.dataList[i].totalExp)
+            if (vipExp < table.TVip[i].TotalExp)
             {
                 continue;
             }
-            return this.dataList[i].level;
+            return table.TVip[i].Level;
         }
-        return this.dataList[0].level;
+        return table.TVip[0].Level;
     }
-}
-
-/**
- * vip的定义
- * */
-class VipDefinition implements IBaseDefintion
-{
-    /**
-     * id
-     */
-    public Id: number;
-    /**
-     * VIP等级
-     */
-    public level: number;
-    /**
-     * VIP当级经验
-     */
-    public exp: number;
-    /**
-     * 总需要经验
-     */
-    public totalExp: number;
-    /**
-     * 专属成就
-     */
-    public exclusiveAchieve: number;
-    /**
-     * 等级加速系数
-     */
-    public expRate: number;
-    /**
-     * 好友排名靠前
-     */
-    public friendRank: number;
-    /**
-     * 好友数量
-     */
-    public friendLimit: number;
-    /**
-     * 创建私人房
-     */
-    public createRoom: number;
-    /**
-     * 使用保险箱
-     */
-    public useSafe: number;
 }

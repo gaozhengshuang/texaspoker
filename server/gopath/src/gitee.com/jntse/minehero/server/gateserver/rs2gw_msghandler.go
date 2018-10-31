@@ -40,6 +40,7 @@ func (mh* RS2GWMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.RS2GW_MTTCancel{}, on_RS2GW_MTTCancel)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_PushMsgNotify{}, on_GW2C_PushMsgNotify)
 	mh.msgparser.RegistProtoMsg(msg.RS2GW_AddExp{}, on_RS2GW_AddExp)
+	mh.msgparser.RegistProtoMsg(msg.RS2GW_ChatInfo{}, on_RS2GW_ChatInfo)
 
 	// 房间
 	mh.msgparser.RegistProtoMsg(msg.RS2GW_PushRoomDestory{}, on_RS2GW_PushRoomDestory)
@@ -205,5 +206,10 @@ func on_RS2GW_AddExp(session network.IBaseNetSession, message interface{}) {
 	user := UserMgr().FindById(tmsg.GetUid())
 	if user == nil { return }
 	user.AddExp(tmsg.GetExp(), tmsg.GetTxt())
+}
+
+func on_RS2GW_ChatInfo(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.RS2GW_ChatInfo)
+	UserMgr().BroadcastMsg(tmsg.Chat)
 }
 

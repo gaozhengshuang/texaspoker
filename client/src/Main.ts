@@ -43,18 +43,12 @@ class Main extends eui.UILayer
         {
             await RES.loadConfig(PathName.Default_res_json, 'resource/');
         }
-        //根据多语言动态创建文字图集组
-        RES.createGroup(ResGroupName.Login_Text, ["login_text_" + langName + "_1_json", "login_text_" + langName + "_2_json"]);
-        RES.createGroup(ResGroupName.Text, ["text_" + langName + "_1_1_json", "text_" + langName + "_1_2_json", "text_" + langName + "_2_json"])
         this.loadAssetText();
     }
     private async loadAssetText()
     {
-        // let name = I18n.isDefault ? ResGroupName.Text : ResGroupName.Text + game.StringConstants.UnderLine + I18n.lang;
-        // await RES.loadGroup(name); //move todo
         await this.loadTheme();
         await RES.loadGroup(ResGroupName.Login);
-        await RES.loadGroup(ResGroupName.Login_Text);
         egret.ImageLoader.crossOrigin = "anonymous"; //本机跨域访问问题
         this.createScene();
     }
@@ -78,7 +72,6 @@ class Main extends eui.UILayer
             {
                 resolve();
             }, this);
-
         });
     }
 

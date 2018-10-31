@@ -158,7 +158,7 @@ message RS2C_RolePushPropertyChange
 	optional int32 goldcardtime = 6; //黄金月卡到期时间  
 }
 
-//礼包推送
+//请求礼包推荐弹窗
 message C2GW_ReqPayRecommend {
 	optional int32 param = 1;
 }
@@ -167,3 +167,8 @@ message GW2C_RetPayRecommend {
 	optional int32 pushid = 1;
 }
 
+//vip时间变化推送
+message C2GW_PushVipTime {
+	optional int64 viptime = 1;
+	optional int64 yearviptime = 2;
+}

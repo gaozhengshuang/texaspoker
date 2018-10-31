@@ -57,7 +57,7 @@ class ShoppingPanel extends BasePanel
         else
         {
             //move todo
-            this.shoppingTab.build(TabComponent.CreatData(["饮料", "钻石", "道具", "VIP"], [this.goldGroup, this.diamondGroup, this.propGroup, this.vipGroup], TabButtonType.BigOf4, [{ idx: 2, tips: "暂未开启" }, { idx: 3, tips: "暂未开启" }]));
+            this.shoppingTab.build(TabComponent.CreatData(["饮料", "钻石", "道具", "VIP"], [this.goldGroup, this.diamondGroup, this.propGroup, this.vipGroup], TabButtonType.BigOf4, [{ idx: 2, tips: "暂未开启" }]));
         }
         VersionManager.setComponentVisibleBySafe(this.vipGroup);
         VersionManager.setComponentVisibleBySafe(this.propGroup);
@@ -152,7 +152,7 @@ class ShoppingPanel extends BasePanel
      */
     private payByDiamond(selectedItem: any)
     {
-        let awardDef: table.IAwardDefine = table.AwardById[selectedItem.definition.awardId];
+        let awardDef: table.IAwardDefine = table.AwardById[selectedItem.definition.AwardId];
         if (awardDef && awardDef.CostType)
         {
             for (let i: number = 0; i < awardDef.CostType.length; i++)

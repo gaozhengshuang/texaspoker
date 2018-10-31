@@ -109,6 +109,15 @@ func (this *AIUserManager) CreateRoomAIUser() {
 	}
 }
 
+func (this *AIUserManager) GetRandomName() string {
+	id := util.RandBetween(1, int32(this.Amount()))
+	user := this.FindUser(int64(id))
+	if user != nil {
+		return user.Name()
+	}
+	return "神秘人"
+}
+
 func (this *AIUserManager) GetUserByNum(num int32) []*RoomUser {
 	tmpmap := make(map[int32]int32)
 	for {

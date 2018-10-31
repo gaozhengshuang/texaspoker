@@ -103,4 +103,8 @@ enum MarqueeMsgType
      * 小喇叭消息
     */
     HornMag = 3,
+    /**
+     * 牌型赢牌
+     */
+    CardWin = 4,
 }

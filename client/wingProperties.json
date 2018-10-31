@@ -2,11 +2,7 @@
 	"resourcePlugin": {
 		"configs": [
 			{
-				"configPath": "bin-publish/web/0.4.2/resource/default-55fc9af10a.res.json",
-				"relativePath": "resource/"
-			},
-			{
-				"configPath": "resource/default.res.json",
+				"configPath": "resource/default_zh-cn.res.json",
 				"relativePath": "resource/"
 			}
 		]
