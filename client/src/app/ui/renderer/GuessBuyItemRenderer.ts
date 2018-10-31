@@ -39,8 +39,8 @@ class GuessBuyItemRenderer extends BaseItemRenderer<GuessOddsInfo>
         if (InfoUtil.checkAvailable(this.bindData))
         {
             this.reset();
-            this.typeLabel.text = this.bindData.definition.des;
-            this.oddsLabel.text = this.bindData.definition.odds.toString();
+            this.typeLabel.text = this.bindData.definition.Des;
+            this.oddsLabel.text = this.bindData.definition.Odds.toString();
             this.addEventListener(egret.Event.REMOVED_FROM_STAGE, this.onDisable, this);
             this.ante1RB.addEventListener(eui.UIEvent.CHANGE, this.anteClick, this);
             this.ante2RB.addEventListener(egret.Event.CHANGE, this.anteClick, this);

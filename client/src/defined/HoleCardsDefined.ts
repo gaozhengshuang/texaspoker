@@ -1,9 +1,8 @@
 /**
  * 手牌竞猜投注定义
 */
-class HoleCardsDefined extends BaseDefined<HoleCardsDefinition>
+class HoleCardsDefined 
 {
-    private static readonly holeCardsConfig: string = "holeCards";
     private static _instance: HoleCardsDefined;
     public static GetInstance(): HoleCardsDefined
     {
@@ -11,50 +10,20 @@ class HoleCardsDefined extends BaseDefined<HoleCardsDefinition>
         {
             HoleCardsDefined._instance = new HoleCardsDefined();
         }
-        if (DefinedManager.IsParsed(HoleCardsDefined.holeCardsConfig) == false)
-        {
-            HoleCardsDefined._instance.initialize();
-        }
         return HoleCardsDefined._instance;
     }
-    private initialize()
+    public getHoleCardsInfoByType(type: number): table.ITHoleCardsDefine
     {
-        this.dataList = DefinedManager.GetData(HoleCardsDefined.holeCardsConfig) as Array<HoleCardsDefinition>;
-    }
-    public getHoleCardsInfoByType(type: number): HoleCardsDefinition
-    {
-        if (this.dataList != null)
+        if (table.THoleCards != null)
         {
-            for (let i: number = 0; i < this.dataList.length; i++)
+            for (let i: number = 0; i < table.THoleCards.length; i++)
             {
-                if (this.dataList[i].type == type)
+                if (table.THoleCards[i].Type == type)
                 {
-                    return this.dataList[i];
+                    return table.THoleCards[i];
                 }
             }
         }
         return null;
     }
-}
-/**
- * 手牌竞猜投注定义
- * */
-class HoleCardsDefinition implements IBaseDefintion
-{
-    /**
-     * id
-     */
-    public Id: number;
-    /**
-     * 类型
-    */
-    public type: number;
-    /**
-     * 描述
-    */
-    public des: string;
-    /**
-     * 赔率
-    */
-    public odds: number;
 }

@@ -3,6 +3,9 @@
  * 资源配置文件
  */
 declare var resJsonUrl;
+/**
+ * 语言标识
+ */
 declare var langName;
 class Main extends eui.UILayer
 {

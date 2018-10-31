@@ -14,7 +14,7 @@ class GuessHandler
     /**
      * 本周榜单信息数组
     */
-    public weekGuessRankList: Array<WeekGuessRankInfo>
+    public weekGuessRankList: Array<msg.IGuessRankInfo>
     /**
      * 开奖信息列表
     */
@@ -121,12 +121,12 @@ class GuessHandler
     */
     private setNewGuessAnteInfo(id: number, ante: number)
     {
-        let def: HoleCardsDefinition = HoleCardsDefined.GetInstance().getDefinition(id);
+        let def: table.ITHoleCardsDefine = table.THoleCardsById[id];
         if (def)
         {
             let buyAnteInfo: BuyGuessAnteInfoBase = new BuyGuessAnteInfoBase();
             buyAnteInfo.id = id;
-            buyAnteInfo.handType = def.type;
+            buyAnteInfo.handType = def.Type;
             buyAnteInfo.num = ante;
             this.buyGuessAnteInfo.push(buyAnteInfo);
         }
@@ -238,9 +238,9 @@ class GuessHandler
         {
             this.guessOddsList = new Array<GuessOddsInfo>();
         }
-        if (HoleCardsDefined.GetInstance().dataList)
+        if (table.THoleCards)
         {
-            for (let def of HoleCardsDefined.GetInstance().dataList)
+            for (let def of table.THoleCards)
             {
                 let guessOddsInfo: GuessOddsInfo = new GuessOddsInfo();
                 guessOddsInfo.id = def.Id;
@@ -259,10 +259,10 @@ class GuessHandler
         };
         if (type == 0)
         {
-            SocketManager.call(Command.GuessBuy_Req_3622, null, callback, null, this);
+            SocketManager.call(Command.C2RS_ReqGuessBuy, {type: type}, callback, null, this);
         } else
         {
-            SocketManager.call(Command.GuessBuy_Req_3622, { type: type, anteList: anteList }, callback, null, this);
+            SocketManager.call(Command.C2RS_ReqGuessBuy, { type: type, anteList: anteList }, callback, null, this);
         }
     }
     /**
@@ -270,13 +270,14 @@ class GuessHandler
     */
     public reqGetWeekInfo()
     {
-        SocketManager.call(Command.GuessCrunchies_Req_3623, null, this.getWeekInfoResponse, null, this);
+        SocketManager.call(Command.C2GW_ReqGuessRank, {}, this.getWeekInfoResponse, null, this);
     }
     public getWeekInfoResponse(result: game.SpRpcResult)
     {
-        if (result.data && result.data.Array)
+        let data:msg.GW2C_RetGuessRank = result.data;
+        if (data)
         {
-            this.weekGuessRankList = result.data.Array;
+            this.weekGuessRankList = data.list;
             this.onWeekInfoEvent.dispatch();
         }
     }
@@ -285,37 +286,37 @@ class GuessHandler
     */
     public reqGetBuyRecordInfo()
     {
-        SocketManager.call(Command.GuessRecord_Req_3624, null, this.getBuyRecordInfoResponse, null, this);
+        SocketManager.call(Command.C2GW_ReqGuessRecord, {}, this.getBuyRecordInfoResponse, null, this);
     }
     public getBuyRecordInfoResponse(result: game.SpRpcResult)
     {
-        if (result.data && result.data.Array)
+        let data:msg.GW2C_RetGuessRecord = result.data;
+        if (data && data.list)
         {
             if (!this.recordList)
             {
                 this.recordList = new Array<GuessRecordInfo>();
             }
             game.ArrayUtil.Clear(this.recordList);
-            for (let dataInfo of result.data.Array)
+            for (let dataInfo of data.list)
             {
                 let recordInfo: GuessRecordInfo = new GuessRecordInfo();
                 let cardList: Array<CardInfo> = new Array<CardInfo>();
                 let numList: Array<number> = new Array<number>();
-                numList = JSON.parse(dataInfo.cards);
                 recordInfo.type = dataInfo.type;
                 recordInfo.ante = dataInfo.ante;
                 recordInfo.gold = dataInfo.gold;
                 recordInfo.time = dataInfo.time;
-                GamblingUtil.cardArr2CardInfoList(numList, cardList);
+                GamblingUtil.cardArr2CardInfoList(dataInfo.cards, cardList);
                 recordInfo.card1 = cardList[0];
                 recordInfo.card2 = cardList[1];
                 this.recordList.push(recordInfo);
             }
             for (let recordInfo of this.recordList)
             {
-                let def: HoleCardsDefinition = new HoleCardsDefinition();
+                let def: table.ITHoleCardsDefine;
                 def = HoleCardsDefined.GetInstance().getHoleCardsInfoByType(recordInfo.type);
-                recordInfo.record = def.des;
+                recordInfo.record = def.Des;
             }
             this.onGetBuyRecordInfoEvent.dispatch();
         }
@@ -374,10 +375,10 @@ class GuessOddsInfo implements IHaveDefintionInfo
     public set id(value: number)
     {
         this._id = value;
-        this._definition = HoleCardsDefined.GetInstance().getDefinition(value);
+        this._definition = table.THoleCardsById[value];
     }
-    private _definition: HoleCardsDefinition
-    public get definition(): HoleCardsDefinition
+    private _definition: table.ITHoleCardsDefine
+    public get definition(): table.ITHoleCardsDefine
     {
         return this._definition;
     }
@@ -402,28 +403,6 @@ class BuyGuessAnteInfoBase extends BuyGuessAnteInfo
      * id
     */
     public id: number;
-}
-/**
- * 本周榜单信息
-*/
-class WeekGuessRankInfo
-{
-    /**
-     * 排名
-    */
-    public rank: number;
-    /**
-     * 玩家名字
-    */
-    public name: string;
-    /**
-     * 中奖注数
-    */
-    public ante: number;
-    /**
-     * 中奖金币
-    */
-    public gold: number;
 }
 /**
  * 开奖信息
