@@ -44,6 +44,7 @@ var AwardBase = table.InsAwardBaseTable
 var NameBase = table.InsNameBaseTable
 var TChampionship = table.InsTChampionshipTable
 var AchieveBase = table.InsAchieveBaseTable
+var HoleCards = table.InsHoleCardsTable
 var ChipsBase = table.InsChipsBaseTable
 var LuckyTaskBase = table.InsLuckyTaskBaseTable
 var MapEventRefreshBase = table.InsMapEventRefreshBaseTable

@@ -1368,3 +1368,7 @@ func (this *TexasPokerRoom) ReqReviewInfo(uid int64) {
 		//}
 	}
 }
+
+func (this *TexasPokerRoom) GuessBuy(uid int64, rev *msg.C2RS_ReqGuessBuy) {
+}
+

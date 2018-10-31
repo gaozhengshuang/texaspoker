@@ -45,6 +45,7 @@ func (mh *ClientMsgHandler) Init() {
 	mh.RegistProtoMsg(msg.C2RS_ReqStandUp{}, on_C2RS_ReqStandUp)
 	mh.RegistProtoMsg(msg.C2RS_ReqTimeAwardGet{}, on_C2RS_ReqTimeAwardGet)
 	mh.RegistProtoMsg(msg.C2RS_ReqReviewInfo{}, on_C2RS_ReqReviewInfo)
+	mh.RegistProtoMsg(msg.C2RS_ReqGuessBuy{}, on_C2RS_ReqGuessBuy)
 
 	//百人大战
 	mh.RegistProtoMsg(msg.C2RS_ReqTFStart{}, on_C2RS_ReqTFStart)
@@ -293,6 +294,21 @@ func on_C2RS_ReqReviewInfo(session network.IBaseNetSession, message interface{},
 		return
 	}
 	room.ReqReviewInfo(u.Id())
+}
+
+func on_C2RS_ReqGuessBuy(session network.IBaseNetSession, message interface{}, uid int64) {
+	tmsg := message.(*msg.C2RS_ReqGuessBuy)
+	u := UserMgr().FindUser(uid)
+	if u == nil {
+		log.Error("[房间] 玩家[%d] 在RoomServer中不存在", uid)
+		return
+	}
+	room := RoomMgr().FindTexas(u.RoomId())
+	if room == nil {
+		log.Error("[房间] 玩家[%s %d] 无效房间 房间[%d]", u.Name(), u.Id(), u.RoomId())
+		return
+	}
+	room.GuessBuy(u.Id(), tmsg)
 }
 
 func on_C2RS_ReqTFStandPlayer(session network.IBaseNetSession, message interface{}, uid int64) {
