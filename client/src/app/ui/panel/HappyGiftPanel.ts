@@ -131,13 +131,13 @@ class HappyGiftPanel extends BaseActivityPanel
         {
             if (def.IsRichTxt)
             {
-                text.textFlow = game.TextUtil.parse(def.Text);
-                title.textFlow = game.TextUtil.parse(def.Title);
+                text.textFlow = game.TextUtil.parse(TextDefined.GetInstance().getText(def));
+                title.textFlow = game.TextUtil.parse(TextDefined.GetInstance().getTitle(def));
             }
             else
             {
-                text.text = def.Text;
-                title.text = def.Title;
+                text.text = TextDefined.GetInstance().getText(def);
+                title.text = TextDefined.GetInstance().getTitle(def);
             }
         }
     }

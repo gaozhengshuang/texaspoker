@@ -16,9 +16,47 @@ class TextDefined
 	public initialize()
 	{
 		let reg: RegExp = /\\n/g;
+		let fieldList = ["Text", "TwText"];
 		for (let val of table.Text)
 		{
-			val.Text = val.Text.replace(reg, "\n");
+			for (let key of fieldList)
+			{
+				val[key] = val[key].replace(reg, "\n");
+			}
+		}
+	}
+	/**
+	 * 获取文本消息，会有语言转换
+	 */
+	public getText(def: table.ITextDefine): string
+	{
+		switch (langName)
+		{
+			case "zh-tw":
+				return def.TwText;
+			case "zh-cn":
+				return def.Text;
+			case "en":
+				return def.Text;
+			default:
+				return def.Text;
+		}
+	}
+	/**
+	 * 获取文本消息，会有语言转换
+	 */
+	public getTitle(def: table.ITextDefine): string
+	{
+		switch (langName)
+		{
+			case "zh-tw":
+				return def.TwTitle;
+			case "zh-cn":
+				return def.Title;
+			case "en":
+				return def.Title;
+			default:
+				return def.Title;
 		}
 	}
 }

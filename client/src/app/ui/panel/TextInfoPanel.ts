@@ -90,7 +90,7 @@ class TextInfoPanel extends BasePanel
 			{
 				if (this.titleLabel)
 				{
-					this.titleLabel.text = this._def.Title;
+					this.titleLabel.text = TextDefined.GetInstance().getTitle(this._def);
 				}
 			}
 			if (!this._def.IsRichTxt)
@@ -102,7 +102,7 @@ class TextInfoPanel extends BasePanel
 			}
 			else
 			{
-				this.txtLabel.textFlow = game.TextUtil.parse(this._def.Text);
+				this.txtLabel.textFlow = game.TextUtil.parse(TextDefined.GetInstance().getText(this._def));
 				this.txtGroup.visible = true;
 				this._lastShowContainer = this.txtGroup;
 			}
@@ -113,7 +113,7 @@ class TextInfoPanel extends BasePanel
 	private contentOper()
 	{
 		game.ArrayUtil.Clear(this._contentList);
-		let str: string = this._def.Text;
+		let str: string = TextDefined.GetInstance().getText(this._def);
 		let splitStr: string = "\n";
 		// if (this._def.isRichTxt)
 		// {

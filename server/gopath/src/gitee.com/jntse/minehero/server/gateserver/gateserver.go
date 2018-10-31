@@ -282,7 +282,7 @@ func (g *GateServer) Init(fileconf string) bool {
 	g.waitpool.Init()
 	g.roomsvrmgr.Init()
 	g.statisticsmgr.Init()
-	//g.InitMySql()
+	g.InitMySql()
 	//g.countmgr.Init()
 	//g.gamemgr.Init()
 	g.tickers = append(g.tickers, util.NewGameTicker(60*time.Second, g.Handler1mTick))
@@ -309,7 +309,7 @@ func (g *GateServer) InitMySql() {
 			log.Error("数据库连接失败 %s", strsql)
 			return
 		}
-		log.Info("mysql数据库连接成功")
+		log.Info("连接mysql数据库成功 strsql[%s]", strsql)
 	}
 }
 

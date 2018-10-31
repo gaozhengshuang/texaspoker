@@ -836,7 +836,7 @@ declare namespace msg {
         name?: (string|null);
 
         /** RankInfo score */
-        score?: (number|null);
+        score?: (number|Long|null);
 
         /** RankInfo rank */
         rank?: (number|null);
@@ -867,7 +867,7 @@ declare namespace msg {
         public name: string;
 
         /** RankInfo score. */
-        public score: number;
+        public score: (number|Long);
 
         /** RankInfo rank. */
         public rank: number;
@@ -17361,7 +17361,7 @@ declare namespace msg {
         diamond?: (number|null);
 
         /** GW2C_RetPlayerRoleInfo gold */
-        gold?: (number|null);
+        gold?: (number|Long|null);
 
         /** GW2C_RetPlayerRoleInfo roleid */
         roleid?: (number|Long|null);
@@ -17391,7 +17391,7 @@ declare namespace msg {
         age?: (number|null);
 
         /** GW2C_RetPlayerRoleInfo maxgold */
-        maxgold?: (number|null);
+        maxgold?: (number|Long|null);
 
         /** GW2C_RetPlayerRoleInfo maxgoldonetimes */
         maxgoldonetimes?: (number|null);
@@ -17473,7 +17473,7 @@ declare namespace msg {
         public diamond: number;
 
         /** GW2C_RetPlayerRoleInfo gold. */
-        public gold: number;
+        public gold: (number|Long);
 
         /** GW2C_RetPlayerRoleInfo roleid. */
         public roleid: (number|Long);
@@ -17503,7 +17503,7 @@ declare namespace msg {
         public age: number;
 
         /** GW2C_RetPlayerRoleInfo maxgold. */
-        public maxgold: number;
+        public maxgold: (number|Long);
 
         /** GW2C_RetPlayerRoleInfo maxgoldonetimes. */
         public maxgoldonetimes: number;
@@ -17739,7 +17739,7 @@ declare namespace msg {
         diamond?: (number|null);
 
         /** RS2C_RetFriendGetRoleInfo gold */
-        gold?: (number|null);
+        gold?: (number|Long|null);
 
         /** RS2C_RetFriendGetRoleInfo roleid */
         roleid?: (number|Long|null);
@@ -17769,7 +17769,7 @@ declare namespace msg {
         age?: (number|null);
 
         /** RS2C_RetFriendGetRoleInfo maxgold */
-        maxgold?: (number|null);
+        maxgold?: (number|Long|null);
 
         /** RS2C_RetFriendGetRoleInfo maxgoldonetimes */
         maxgoldonetimes?: (number|null);
@@ -17851,7 +17851,7 @@ declare namespace msg {
         public diamond: number;
 
         /** RS2C_RetFriendGetRoleInfo gold. */
-        public gold: number;
+        public gold: (number|Long);
 
         /** RS2C_RetFriendGetRoleInfo roleid. */
         public roleid: (number|Long);
@@ -17881,7 +17881,7 @@ declare namespace msg {
         public age: number;
 
         /** RS2C_RetFriendGetRoleInfo maxgold. */
-        public maxgold: number;
+        public maxgold: (number|Long);
 
         /** RS2C_RetFriendGetRoleInfo maxgoldonetimes. */
         public maxgoldonetimes: number;
@@ -41516,6 +41516,9 @@ declare namespace table {
         /** TextDefine Title */
         Title?: (string|null);
 
+        /** TextDefine TwTitle */
+        TwTitle?: (string|null);
+
         /** TextDefine IsRichTxt */
         IsRichTxt?: (number|null);
 
@@ -41524,6 +41527,9 @@ declare namespace table {
 
         /** TextDefine Text */
         Text?: (string|null);
+
+        /** TextDefine TwText */
+        TwText?: (string|null);
     }
 
     /** Represents a TextDefine. */
@@ -41541,6 +41547,9 @@ declare namespace table {
         /** TextDefine Title. */
         public Title: string;
 
+        /** TextDefine TwTitle. */
+        public TwTitle: string;
+
         /** TextDefine IsRichTxt. */
         public IsRichTxt: number;
 
@@ -41549,6 +41558,9 @@ declare namespace table {
 
         /** TextDefine Text. */
         public Text: string;
+
+        /** TextDefine TwText. */
+        public TwText: string;
 
         /**
          * Creates a new TextDefine instance using the specified properties.

@@ -596,14 +596,6 @@ declare class CommonIconSkin extends eui.Skin{
 }
 declare class GetItemRendererSkin extends eui.Skin{
 }
-declare class loginCheckBoxSkin extends eui.Skin{
-}
-declare class loginComBtnSkin extends eui.Skin{
-}
-declare class loginOfficialBtnSkin extends eui.Skin{
-}
-declare class loginWXBtnSkin extends eui.Skin{
-}
 declare class laBaAutoStartBtnSkin extends eui.Skin{
 }
 declare class laBaCloseButtonSkin extends eui.Skin{
@@ -617,6 +609,14 @@ declare class laBaRankBtnSkin extends eui.Skin{
 declare class laBaStartBtnSkin extends eui.Skin{
 }
 declare class laBaTabCompontBtn2Skin extends eui.Skin{
+}
+declare class loginCheckBoxSkin extends eui.Skin{
+}
+declare class loginComBtnSkin extends eui.Skin{
+}
+declare class loginOfficialBtnSkin extends eui.Skin{
+}
+declare class loginWXBtnSkin extends eui.Skin{
 }
 declare class enterBlueSkin extends eui.Skin{
 }

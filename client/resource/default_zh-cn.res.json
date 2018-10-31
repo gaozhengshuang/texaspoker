@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "assets/sheet/login_2_json,assets/bg/hall_bg_1_png,assets/sheet/login_1_json,assets/bg/login_background_1_jpg,login_text_zh-tw_2_json,login_text_zh-tw_1_json",
+			"keys": "assets/sheet/login_2_json,assets/bg/hall_bg_1_png,assets/sheet/login_1_json,assets/bg/login_background_1_jpg,login_text_zh-cn_2_json,login_text_zh-cn_1_json",
 			"name": "login"
 		},
 		{
@@ -45,7 +45,7 @@
 			"name": "activity_share"
 		},
 		{
-			"keys": "text_zh-cn_2_json,text_zh-cn_1_json",
+			"keys": "text_zh-cn_2_json,text_zh-cn_1_2_json,text_zh-cn_1_1_json",
 			"name": "text"
 		}
 	],
@@ -615,28 +615,34 @@
 			"name": "assets/lang/zh-tw-complex_zip"
 		},
 		{
-			"url": "assets/sheet/login_text_zh-tw_2.json",
+			"url": "assets/sheet/login_text_zh-cn_1.json",
 			"type": "sheet",
-			"name": "login_text_zh-tw_2_json",
+			"name": "login_text_zh-cn_1_json",
+			"subkeys": "login_button_2_png,login_button_3_png,logo_png"
+		},
+		{
+			"url": "assets/sheet/login_text_zh-cn_2.json",
+			"type": "sheet",
+			"name": "login_text_zh-cn_2_json",
 			"subkeys": "chongzhi_png,login_dl_png,login_sjdl_png,login_yhxy_png,login_zc_png,text_zuce_png"
 		},
 		{
-			"url": "assets/sheet/login_text_zh-tw_1.json",
+			"url": "assets/sheet/text_zh-cn_1_1.json",
 			"type": "sheet",
-			"name": "login_text_zh-tw_1_json",
-			"subkeys": "login_button_2_png,login_button_3_png,logo_png"
+			"name": "text_zh-cn_1_1_json",
+			"subkeys": "allin_a_png,allin_i_png,allin_l_png,allin_n_png,br2_0_png,br2_10_png,br2_1_png,br2_2_png,br2_3_png,br2_4_png,br2_5_png,br2_6_png,br2_7_png,br2_8_png,br2_9_png,br2_s_png,br_0_png,br_10_png,br_1_png,br_2_png,br_3_png,br_4_png,br_5_png,br_6_png,br_7_png,br_8_png,br_9_png,br_baochi_png,br_button_11_png,br_button_12_png,br_button_5_png,br_button_6_png,br_button_7_png,br_button_8_png,br_hlc_png,br_jc_1_png,br_jc_2_png,br_s_png,br_shu_png,br_thc_png,br_ying_png,djs_0_png,djs_1_png,djs_2_png,djs_3_png,djs_4_png,djs_5_png,djs_6_png,djs_7_png,djs_8_png,djs_9_png,game_zuoman_png,gengduo_icon_png,guanjun_png,hall_btdz_png,hall_dzpk_png,hall_ssc_png,icon_yueka_png,item_104_png,item_105_png,item_106_png,item_107_png,item_108_png,item_109_png,item_110_png,item_111_png,item_112_png,item_113_png,item_206_png,item_209_png,item_217_png,item_218_png,item_300_png,item_301_png,item_302_png,item_303_png,item_304_png,jianjie_png,jjks_png,jrxly_png,jryx_png,mall_png,maohao_png,match_10_png,match_8_png,match_9_png,monthCard1_png,monthCard2_png,paixing_png,pipei_png,pm_0_png,pm_1_png,pm_2_png,pm_3_png,pm_4_png,pm_5_png,pm_6_png,pm_7_png,pm_8_png,pm_9_png,pm_di_png,pm_ming_png,taotai_png,tet_bdsj_png,tet_chongzhili_png,tet_duijiang_png,tet_fenxiang_png,tet_option_png,tet_safe_png,tet_shouchong_png,tet_xinrenli_png,tet_yaoqing_png,tet_yueka_png,text_bangding_png,text_dl_png,text_gaipai_png,text_gen_png,text_genzhu_1_png,text_genzhu_png,text_guopai_png,text_jiazhu_png,text_jinru_png,text_liangpai_1_png,text_liangpai_png,text_qipai_1_png,text_qipai_png,text_quanxia_png,text_queding_png,text_rangpai_png,text_renhe_png,text_yingla_1_png,text_yingla_2_png,text_yingla_3_png,text_yk_gm_png,text_yk_lq_1_png,text_yk_lq_png,text_zuce_1_png,tijiao_png,tts_0_png,tts_1_png,tts_2_png,tts_3_png,tts_4_png,tts_5_png,tts_6_png,tts_7_png,tts_8_png,tts_9_png,tts_di_png,tts_ming_png,tuoguan_png,txt_bangding_png,txt_gengduo_png,txt_haoyou_png,txt_hdzx_png,txt_playway_png,txt_qdlq_png,txt_renwu_png,txt_shangcheng_png,txt_yx_png,wsls_png,wsxs_png,zuoman_png"
+		},
+		{
+			"url": "assets/sheet/text_zh-cn_1_2.json",
+			"type": "sheet",
+			"name": "text_zh-cn_1_2_json",
+			"subkeys": "gongxi_hdzs_png,jcpfl_png,kaishi_1_png,kaishi_2_png,laBa_text_1_png,laBa_text_2_png,laBa_text_3_png,laBa_text_4_png,slogan_bangding_png,tet_goumai_png,text_bangding_3_png,text_bangding_4_png,text_bangding_5_png,text_bangding_6_png,text_baoming_png,text_bddlb_png,text_chongzhi_png,text_choujiang_png,text_fenxiang_png,text_linqu_1_png,text_linqu_png,text_qianwang_png,text_sc_2_png,text_sc_png,text_xiazai_png,text_xrczl_1_png,text_xrczl_png,text_xrl_1_png,text_xrl_3_png,text_xrl_4_png,text_xrl_png,text_yaoqing_1_png,text_yaoqing_png,text_yueka_png,top100_png,xrl_ywc_png,zidong_1_png,zidong_2_png"
 		},
 		{
 			"url": "assets/sheet/text_zh-cn_2.json",
 			"type": "sheet",
 			"name": "text_zh-cn_2_json",
 			"subkeys": "achieve_num_0_png,achieve_num_1_png,achieve_num_2_png,achieve_num_3_png,achieve_num_4_png,achieve_num_5_png,achieve_num_6_png,achieve_num_7_png,achieve_num_8_png,achieve_num_9_png,activity_hd_png,bangding_png,bjzl_png,bmcg_png,br_brdz_png,br_bz_png,br_jcxx_png,br_px_10_png,br_px_11_png,br_px_12_png,br_px_13_png,br_px_14_png,br_px_15_png,br_px_16_png,br_px_17_png,br_px_18_png,br_px_19_png,br_px_1_png,br_px_20_png,br_px_21_png,br_px_22_png,br_px_23_png,br_px_24_png,br_px_25_png,br_px_26_png,br_px_27_png,br_px_28_png,br_px_2_png,br_px_3_png,br_px_4_png,br_px_5_png,br_px_6_png,br_px_7_png,br_px_8_png,br_px_9_png,br_sfzs_png,br_wzwj_png,br_zjlb_png,bsjs_png,cjjs_png,cjsrf_png,ddqr_png,dengdai_png,djxx_png,friend_hy_png,friend_hyzl_png,friend_yq_png,game_ddks_png,game_jbs_png,game_jc_png,game_jsjl_png,game_rw1_png,game_sy_1_png,game_sy_2_png,game_sy_3_png,game_wf_png,game_yxc_png,grxx_png,hdcw_png,hyyq_png,jbbz_png,jbssm_png,jj_png,lb_phb_png,mailbox_yx_png,mrqd_png,mryx_png,nfhy_png,nypc_png,pxjs_png,qhdwt_png,safe_bxx_png,safe_zhmm_png,setting_sz_png,srfmm_png,ssxx_png,task_rw_png,text_anquan_png,text_aomaha_png,text_bangding_1_png,text_gengduo_png,text_guize_png,text_jpdh_png,text_lwsc_png,text_pochan_1_png,text_pochan_png,text_sjhg_png,text_zhifu_png,txt_lqjb_png,vip_png,wan_png,wdjp_png,xgnc_png,xly_png,xtts_png,xxwf_png,yi_png,yiqiandao_png,yiwancheng_png,yqhy_png"
-		},
-		{
-			"url": "assets/sheet/text_zh-cn_1.json",
-			"type": "sheet",
-			"name": "text_zh-cn_1_json",
-			"subkeys": "allin_a_png,allin_i_png,allin_l_png,allin_n_png,br2_0_png,br2_10_png,br2_1_png,br2_2_png,br2_3_png,br2_4_png,br2_5_png,br2_6_png,br2_7_png,br2_8_png,br2_9_png,br2_s_png,br_0_png,br_10_png,br_1_png,br_2_png,br_3_png,br_4_png,br_5_png,br_6_png,br_7_png,br_8_png,br_9_png,br_baochi_png,br_button_11_png,br_button_12_png,br_button_5_png,br_button_6_png,br_button_7_png,br_button_8_png,br_hlc_png,br_jc_1_png,br_jc_2_png,br_s_png,br_shu_png,br_thc_png,br_ying_png,djs_0_png,djs_1_png,djs_2_png,djs_3_png,djs_4_png,djs_5_png,djs_6_png,djs_7_png,djs_8_png,djs_9_png,game_zuoman_png,gengduo_icon_png,guanjun_png,hall_btdz_png,hall_dzpk_png,hall_ssc_png,icon_yueka_png,item_104_png,item_105_png,item_106_png,item_107_png,item_108_png,item_109_png,item_110_png,item_111_png,item_112_png,item_113_png,item_206_png,item_209_png,item_217_png,item_218_png,item_300_png,item_301_png,item_302_png,item_303_png,item_304_png,jianjie_png,jjks_png,jrxly_png,jryx_png,mall_png,maohao_png,match_10_png,match_8_png,match_9_png,monthCard1_png,monthCard2_png,paixing_png,pipei_png,pm_0_png,pm_1_png,pm_2_png,pm_3_png,pm_4_png,pm_5_png,pm_6_png,pm_7_png,pm_8_png,pm_9_png,pm_di_png,pm_ming_png,taotai_png,tet_bdsj_png,tet_chongzhili_png,tet_duijiang_png,tet_fenxiang_png,tet_option_png,tet_safe_png,tet_shouchong_png,tet_xinrenli_png,tet_yaoqing_png,tet_yueka_png,text_bangding_png,text_dl_png,text_gaipai_png,text_gen_png,text_genzhu_1_png,text_genzhu_png,text_guopai_png,text_jiazhu_png,text_jinru_png,text_liangpai_1_png,text_liangpai_png,text_qipai_1_png,text_qipai_png,text_quanxia_png,text_queding_png,text_rangpai_png,text_renhe_png,text_yingla_1_png,text_yingla_2_png,text_yingla_3_png,text_yk_gm_png,text_yk_lq_1_png,text_yk_lq_png,text_zuce_1_png,tijiao_png,tts_0_png,tts_1_png,tts_2_png,tts_3_png,tts_4_png,tts_5_png,tts_6_png,tts_7_png,tts_8_png,tts_9_png,tts_di_png,tts_ming_png,tuoguan_png,txt_bangding_png,txt_gengduo_png,txt_haoyou_png,txt_hdzx_png,txt_playway_png,txt_qdlq_png,txt_renwu_png,txt_shangcheng_png,txt_yx_png,wsls_png,wsxs_png,zuoman_png"
 		}
 	]
 }

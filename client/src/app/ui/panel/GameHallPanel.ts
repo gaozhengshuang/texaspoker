@@ -114,29 +114,7 @@ class GameHallPanel extends BasePanel
 		{
 			this.bindBtn.parent.removeChild(this.bindBtn);
 		}
-		//拉取锦标赛赛事所在房间信息列表
-		MsgTransferSend.sendMTTRoomProto(Command.C2RS_ReqInsideRoomInfoList, {}, (result: any) =>
-		{
-			InsideRoomManager.initialize(result);
-			this.reqGetMTTListInfo();//第一次初始化拉取锦标赛，防止锦标赛服down掉玩家进步来
-		}, null, this);
-	}
-	/**
-	 * 拉取锦标赛赛事列表信息
-	*/
-	private reqGetMTTListInfo()
-	{
-		MsgTransferSend.sendMTTRoomProto(Command.C2RS_ReqMTTList, null, this.onGetMTTListInfo, null, this);
-	}
-	private onGetMTTListInfo(result: game.SpRpcResult)
-	{
-		ChampionshipManager.initialize(result);
-		//拉取已报名的赛事列表
-		let callback: Function = function (result: game.SpRpcResult)
-		{
-			ChampionshipManager.initJoinedMttList(result);
-		};
-		MsgTransferSend.sendMTTRoomProto(Command.C2RS_ReqJoinedMTTList, {}, callback, null, this);
+		ChampionshipManager.loginGetChampionData();
 	}
 	private addRedPoint()
 	{

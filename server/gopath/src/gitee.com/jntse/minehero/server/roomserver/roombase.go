@@ -154,15 +154,16 @@ func (room *RoomBase) InitCache() {
 	pipe.HSet(key, "passwd", room.Passwd())
 	pipe.HSet(key, "agentname", RoomSvr().Name())
 
-	if room.Kind() == int32(msg.RoomKind_TexasFight) {
+	if IsTexasRoomTexasFightType(room.Kind()) {
 		pipe.SAdd("tf_roomlist", room.Id())
+	}else if IsTanTanLeRoomType(room.Kind()) {
+		pipe.SAdd("tt_roomlist", room.Id())
+	}else if IsTexasRoomMttType(room.SubKind()) {
+		pipe.SAdd("mtt_roomlist", room.Id())
 	}else {
-		if room.SubKind() == int32(msg.PlayingFieldType_Mtt) || room.SubKind() == int32(msg.PlayingFieldType_Sng) {
-			pipe.SAdd("mtt_roomlist", room.Id())
-		}else {
-			pipe.SAdd("pb_roomlist", room.Id())
-		}
+		pipe.SAdd("pb_roomlist", room.Id())
 	}
+
 	pipe.SAdd(fmt.Sprintf("roomlist_kind_%d_sub_%d", room.Kind(), room.SubKind()), room.Id())
 	if _, err := pipe.Exec(); err != nil {
 		log.Error("[房间] 缓存房间[%d]信息失败 %s", room.Id(), err)
@@ -174,14 +175,14 @@ func (room *RoomBase) InitCache() {
 func (room *RoomBase) RmCache() {
 	pipe := Redis().Pipeline()
 	pipe.Del(fmt.Sprintf("roombrief_%d", room.Id()))
-	if room.Kind() == int32(msg.RoomKind_TexasFight) {
+	if IsTexasRoomTexasFightType(room.Kind()) {
 		pipe.SRem("tf_roomlist", room.Id())
+	}else if IsTanTanLeRoomType(room.Kind()) {
+		pipe.SAdd("tt_roomlist", room.Id())
+	}else if IsTexasRoomMttType(room.SubKind()) {
+		pipe.SRem("mtt_roomlist", room.Id())
 	}else {
-		if room.SubKind() == int32(msg.PlayingFieldType_Mtt) {
-			pipe.SRem("mtt_roomlist", room.Id())
-		}else {
-			pipe.SRem("pb_roomlist", room.Id())
-		}
+		pipe.SRem("pb_roomlist", room.Id())
 	}
 	pipe.SRem(fmt.Sprintf("roomlist_kind_%d_sub_%d", room.Kind(), room.SubKind()), room.Id())
 	if _, err := pipe.Exec(); err != nil {
@@ -202,5 +203,17 @@ func IsTexasRoomBaseType(subkind int32) bool {
 
 func IsTexasRoomPrivateType(subkind int32) bool {
 	return subkind == int32(msg.PlayingFieldType_PlayFieldPersonal)
+}
+
+func IsTexasRoomMttType(subkind int32) bool {
+	return subkind == int32(msg.PlayingFieldType_Mtt) || subkind == int32(msg.PlayingFieldType_Sng)
+}
+
+func IsTexasRoomTexasFightType(kind int32) bool {
+	return kind == int32(msg.RoomKind_TexasFight)
+}
+
+func IsTanTanLeRoomType(kind int32) bool {
+	return kind == int32(msg.RoomKind_TanTanLe)
 }
 
