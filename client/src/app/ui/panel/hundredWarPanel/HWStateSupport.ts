@@ -57,7 +57,7 @@ class HWStateSupport extends BaseHWPanelSupport
             } else
             {
                 this.target.alertLabel.visible = true;
-                this.target.alertLabel.text = "请稍等";
+                this.target.alertLabel.text = "上一局结算中...";
             }
         }
     }

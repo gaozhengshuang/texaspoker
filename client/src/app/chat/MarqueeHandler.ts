@@ -21,6 +21,10 @@ class MarqueeHandler
         {
             return msgData.name + "：" + msgData.txt;
         }
+        else if (msgData.subtype == MarqueeMsgType.CardWin)
+        {
+            return this.getCardWinMarqueeMsg(JSON.parse(msgData.txt));
+        }
         return null;
     }
     /**
@@ -63,6 +67,22 @@ class MarqueeHandler
             hundredWarName = hundredWarDef.Name;
         }
         msg = game.StringUtil.format(msg, hundredWarName, marquee["1"] + "金币");
+        return msg;
+    }
+    /**
+     * 获取牌型赢取多少的跑马灯
+     */
+    private getCardWinMarqueeMsg(marquee: Object)
+    {
+        let marqueeDef: table.IMarqueeDefine = MarqueeDefined.GetInstance().getInfoByType(MarqueeMsgType.CardWin);
+        let msg: string;
+        msg = marqueeDef.Message;  //"恭喜【{0}】在{1}中获得{2}手牌，成功赢得{3}"
+
+        let userName = marquee["0"];
+        let roomName = PlayingFieldManager.getPatternName(marquee["1"]);
+        let cardTypeName = CardTypeMatchUtil.getCardDes(marquee["2"]);
+        let winGold = marquee["3"];
+        msg = game.StringUtil.format(msg, userName, roomName, cardTypeName, winGold + "金币");
         return msg;
     }
     /**

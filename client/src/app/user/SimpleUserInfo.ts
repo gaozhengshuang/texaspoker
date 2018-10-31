@@ -1,7 +1,7 @@
 /**
  * 简单的用户信息
 */
-class SimpleUserInfo extends BaseServerValueInfo
+class SimpleUserInfo extends BaseServerValueInfo implements IBaseHead
 {
 	/**
 	 * 角色ID
@@ -85,7 +85,7 @@ class SimpleUserInfo extends BaseServerValueInfo
 	/**
 	 * 庄家的位置
 	 */
-	public pos:number;
+	public pos: number;
 
 	public reset()
 	{

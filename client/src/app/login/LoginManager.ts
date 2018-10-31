@@ -38,6 +38,8 @@ module game
                         UserManager.userInfo.copyValueFromIgnoreCase(msg.base[key]);
                     }
                     UserManager.userInfo.copyValueFromIgnoreCase(msg.entity);
+                    UserManager.userInfo.vipTime = game.longToNumber(msg.entity.viptime1);
+                    UserManager.userInfo.yearVipTime = game.longToNumber(msg.entity.viptime2);
                     TimeManager.initialize(msg.base.statics);
                     NotificationCenter.postNotification(LoginManager.LOGIN_STATE, true);
                 }, "msg.GW2C_PushUserInfo");

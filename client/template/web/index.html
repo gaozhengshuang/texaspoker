@@ -53,11 +53,11 @@ data-show-log="false" data-show-fps-style="x:0,y:0,size:12,textColor:0xffffff,bg
     var langName = localStorage.getItem("giant_poker_lang");
     if(!langName)
     {
-        langName = "zh-tw";
+        langName = "zh-tw.zip";
     }
     //多语言处理
     I18n.initSystem("", [langName]);
-    var langUrl = "resource/assets/lang/"+langName+".zip";
+    var langUrl = "resource/assets/lang/" + langName;
     loadZip(langUrl, onLangLoadComplete);
     //加载单个zip文件，成功后进行回调
     function loadZip(url, callBack) {

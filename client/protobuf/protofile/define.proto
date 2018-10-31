@@ -17,6 +17,10 @@ enum ItemId {
     YuanBao = 402;            // 元宝
     Diamond = 2;            // 钻石
     Gold = 1;               // 金币
+	VipExp = 3;				// vip经验
+	RoleExp = 4;			// 玩家经验
+	MonthVip = 5;			// 月vip
+	YearVip = 6; 			// 年vip
     FreeStep = 60005;           // 免费步数
     Strength = 60006;           // 体力
     RedDiamond = 100001;        // 红包钻石

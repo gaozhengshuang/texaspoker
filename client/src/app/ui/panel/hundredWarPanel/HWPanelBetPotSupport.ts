@@ -134,12 +134,16 @@ class HWPanelBetPotSupport extends BaseHWPanelSupport
     /**
      * 玩家下注播放动画
     */
-    private showBetCoinAnim(data: msg.RS2C_PushBetPoolChange)
+    private showBetCoinAnim(eventInfo: any)
     {
-        let bet: (number|Long)[] = data.bet;
-        if (bet && bet.length > 0)  //无座玩家下注动画
+        let data: msg.RS2C_PushBetPoolChange = eventInfo.data;
+        let bet: msg.ITFBetPoolBetInfo[] = data.bet;
+        if (eventInfo.posList.length > 0)  //无座玩家下注动画
         {
-            this.target.hwAnim.setCoinToBets(this.target.playersBtn, bet, -20, -5);
+            this.target.hwAnim.setCoinToBets(this.target.playersBtn, eventInfo.posList, -20, -5);
+        }
+        if (eventInfo.isChange)
+        {
             this.setBetPotInfo();
         }
         if (data.posbetlist && data.posbetlist.length > 0)  //坐下玩家下注动画
@@ -265,5 +269,5 @@ class PosBetInfo
     /**
      * 下注列表
     */
-    public bet: ((number|Long)[]|null);
+    public bet: ((number | Long)[] | null);
 }

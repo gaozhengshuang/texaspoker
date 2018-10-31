@@ -36,6 +36,10 @@ class SheetSubName
  	*/
 	public static getdefaultHead(sex: Sex): string
 	{
+		if(sex == undefined)
+		{
+			sex = Sex.Male;
+		}
 		switch (sex)
 		{
 			case Sex.Male:

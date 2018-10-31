@@ -452,19 +452,29 @@ class HundredWarManager
         if (data && data.bet)
         {
             let changeBet: Array<number> = new Array<number>();
+            let isChange:boolean = false;
             for (let info of HundredWarManager.roomInfo.betList)
             {
                 if (info.pos - 1 >= 0)  //闲家注池是 1 - 4
                 {
-                    if (info.bet != data.bet[info.pos - 1])
+                    let betInfo = data.bet[info.pos - 1];
+                    if (info.bet != betInfo.bet)
                     {
-                        changeBet.push(info.pos);
+                        isChange = true;
+                        let isOnlySelf = false;
+                        if (betInfo.roles.length == 1 && betInfo.roles[0] == UserManager.userInfo.roleId)
+                        {
+                            isOnlySelf = true;
+                        }
+                        if (!isOnlySelf)
+                        {
+                            changeBet.push(info.pos);
+                        }
                     }
-                    info.bet = game.longToNumber(data.bet[info.pos - 1]);
+                    info.bet = game.longToNumber(betInfo.bet);
                 }
             }
-            data.bet = changeBet;
-            HundredWarManager.onBetChangeEvent.dispatch(data);
+            HundredWarManager.onBetChangeEvent.dispatch({data:data, posList:changeBet, isChange:isChange});
         }
     }
     /**

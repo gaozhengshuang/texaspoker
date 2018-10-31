@@ -24,7 +24,7 @@ class InitAppHandler
 		}
 		//每次登录都执行
 		ShopManager.initialize();
-		// VipManager.initialize(); //move todo
+		VipManager.initialize();
 		// NotifyManager.initByReLogin(); //move todo
 		UploadHeadManager.clearAllData();
 		// BindAccountManager.clear(); //move todo

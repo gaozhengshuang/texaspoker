@@ -29,7 +29,7 @@ class VipManager
 
     public static initialize()
     {
-        SocketManager.AddCommandListener(Command.Vip_GetVipTime_2001, this.onGetVipTime, this);
+        SocketManager.AddCommandListener(Command.C2GW_PushVipTime, this.onGetVipTime, this);
         this.refreshVipInfo();
     }
     /**
@@ -46,13 +46,14 @@ class VipManager
     private static onGetVipTime(result: game.SpRpcResult)
     {
         let flag = VipManager.isOpenEverVip();
-        if (result.data["vipTime"])
+        let data:msg.C2GW_PushVipTime = result.data;
+        if (data.viptime > 0)
         {
-            UserManager.userInfo.vipTime = result.data["vipTime"];
+            UserManager.userInfo.vipTime = game.longToNumber(data.viptime);
         }
-        if (result.data["yearVipTime"])
+        if (data.yearviptime)
         {
-            UserManager.userInfo.yearVipTime = result.data["yearVipTime"];
+            UserManager.userInfo.yearVipTime = game.longToNumber(data.yearviptime);
         }
         //UserManager.userInfo.vipLevel = VipManager.getVipLevel(UserManager.userInfo.vipExp);
         UserManager.userInfo.vipType = VipManager.getVipType(UserManager.userInfo.vipTime, UserManager.userInfo.yearVipTime);
