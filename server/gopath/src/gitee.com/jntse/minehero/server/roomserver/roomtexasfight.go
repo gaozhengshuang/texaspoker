@@ -327,7 +327,7 @@ func (tf *TexasFightRoom) PlayerSettle() {
 
 		//
 		player.Settle(tf)
-		if player.TotalProfit() >= 0 {
+		if player.TotalProfit() > 0 {
 			strgroup := strconv.FormatInt(int64(AchieveGroup_BaiRenWin), 10)
 			pipe.HIncrBy(fmt.Sprintf("%s_%d", def.AchieveProcess, player.Id()), strgroup, 1)
 		}
