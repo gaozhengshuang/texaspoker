@@ -211,17 +211,13 @@ class SortUtil
 		}
 		if (a.isComplete == b.isComplete)
 		{
-			if (a.id > b.id)
+			if (a.definition.LuckyTask == b.definition.LuckyTask)
 			{
-				return 1;
+				return a.id - b.id;
 			}
-			if (a.id > b.id)
+			else
 			{
-				return -1;
-			}
-			if (a.id == b.id)
-			{
-				return 0;
+				return b.definition.LuckyTask - a.definition.LuckyTask;
 			}
 		}
 	}
