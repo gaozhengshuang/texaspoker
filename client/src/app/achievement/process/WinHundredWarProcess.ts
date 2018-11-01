@@ -12,7 +12,7 @@ class WinHundredWarProcess extends BaseAchieveProcess
     public onProcessUpdate()
     {
         super.onProcessUpdate();
-        if (HundredWarManager.hundredWarOverInfo.isWin)
+        if (HundredWarManager.hundredWarOverInfo.gold > 0)
         {
             this.process++;
         }

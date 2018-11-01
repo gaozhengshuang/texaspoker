@@ -94,7 +94,7 @@ message UserStatistics {
     optional int32 totalrecharge = 5;  // 总充值
 
     optional int64 createdtime = 6;             //创建时间
-    optional int32 maxgold = 7;                 //最高拥有金币
+    optional int64 maxgold = 7;                 //最高拥有金币
     optional int32 maxgoldonetimes = 8;         //一把最高赢取金币
     optional int32 friendnum = 9;               //好友数量
     optional int32 gametimes = 10;              //游戏总局数

@@ -55,14 +55,6 @@ class Command
      * 请求当前所在的房间
      */
     public static readonly C2GW_ReqCurRoom:string = "msg.C2GW_ReqCurRoom";
-    //--------------------------------------------------------------
-    // Hosted
-    //--------------------------------------------------------------
-
-    /**
-     * 推送玩家托管状态
-     */
-    public static readonly Hosted_PushState_2024: string = "c2024";
 
     //--------------------------------------------------------------
     // Chat

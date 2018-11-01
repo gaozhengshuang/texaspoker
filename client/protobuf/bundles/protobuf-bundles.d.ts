@@ -4010,7 +4010,7 @@ declare namespace msg {
         createdtime?: (number|Long|null);
 
         /** UserStatistics maxgold */
-        maxgold?: (number|null);
+        maxgold?: (number|Long|null);
 
         /** UserStatistics maxgoldonetimes */
         maxgoldonetimes?: (number|null);
@@ -4092,7 +4092,7 @@ declare namespace msg {
         public createdtime: (number|Long);
 
         /** UserStatistics maxgold. */
-        public maxgold: number;
+        public maxgold: (number|Long);
 
         /** UserStatistics maxgoldonetimes. */
         public maxgoldonetimes: number;
@@ -28574,9 +28574,6 @@ declare namespace msg {
         /** RS2C_PushTFRoundOver bankergold */
         bankergold?: (number|Long|null);
 
-        /** RS2C_PushTFRoundOver iswin */
-        iswin?: (boolean|null);
-
         /** RS2C_PushTFRoundOver sitplayers */
         sitplayers?: (msg.ITFPlayer[]|null);
     }
@@ -28604,9 +28601,6 @@ declare namespace msg {
 
         /** RS2C_PushTFRoundOver bankergold. */
         public bankergold: (number|Long);
-
-        /** RS2C_PushTFRoundOver iswin. */
-        public iswin: boolean;
 
         /** RS2C_PushTFRoundOver sitplayers. */
         public sitplayers: msg.ITFPlayer[];
@@ -37020,7 +37014,7 @@ declare namespace table {
         Des?: (string|null);
 
         /** THoleCardsDefine Odds */
-        Odds?: (number|null);
+        Odds?: (number|Long|null);
     }
 
     /** Represents a THoleCardsDefine. */
@@ -37042,7 +37036,7 @@ declare namespace table {
         public Des: string;
 
         /** THoleCardsDefine Odds. */
-        public Odds: number;
+        public Odds: (number|Long);
 
         /**
          * Creates a new THoleCardsDefine instance using the specified properties.

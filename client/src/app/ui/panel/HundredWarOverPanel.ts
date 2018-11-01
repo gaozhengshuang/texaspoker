@@ -47,13 +47,13 @@ class HundredWarOverPanel extends BasePanel
         if (overInfo)
         {
             this.numComp.init("$" + game.MathUtil.numAddSpace(Math.abs(overInfo.gold)));
-            if (overInfo.isWin)
+            if (overInfo.gold > 0)
             {
                 this.tipsLabel.text = "恭喜，您赢取了";
                 this.titleImg.source = SheetSubName.HundredWar_Win;
                 this.overBgImg.source = SheetSubName.HundredWar_WinBg;
             }
-            else
+            else if(overInfo.gold <= 0)
             {
                 this.tipsLabel.text = "您输了";
                 this.titleImg.source = SheetSubName.HundredWar_Lose;

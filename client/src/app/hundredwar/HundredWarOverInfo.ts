@@ -20,10 +20,6 @@ class HundredWarOverInfo extends BaseServerValueInfo
     */
     public pool: number;
     /**
-     * 是否胜利
-     */
-    public isWin:boolean;
-    /**
      * 坐下玩家列表
      */
     public sitplayers:msg.ITFPlayer[];

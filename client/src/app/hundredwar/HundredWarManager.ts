@@ -542,7 +542,6 @@ class HundredWarManager
             }
             HundredWarManager.hundredWarOverInfo.gold = game.longToNumber(data.gold);
             HundredWarManager.hundredWarOverInfo.pool = game.longToNumber(data.pool);
-            HundredWarManager.hundredWarOverInfo.isWin = data.iswin;
             HundredWarManager.hundredWarOverInfo.sitplayers = data.sitplayers;
             if (HundredWarManager.roomInfo && HundredWarManager.roomInfo.playerList && data.sitplayers) //更新坐下玩家信息
             {
