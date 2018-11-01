@@ -6,6 +6,8 @@ import (
 	pb "github.com/gogo/protobuf/proto"
 	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/gotoolkit/log"
+	"gitee.com/jntse/minehero/server/tbl"
+	"github.com/go-redis/redis"
 	//"gitee.com/jntse/minehero/server/def"
 )
 
@@ -19,6 +21,15 @@ const (
 	GSBlind int32 = 6		//盲注
 	GSWaitAction int32 = 7	//等待说话
 	GSTrusteeShip int32 = 8	//托管
+)
+
+const (
+	NOAorK = 2
+	SAMECOLOR = 3
+	HASAorK = 4
+	HASA = 5
+	HASPair = 6
+	HASAA = 7
 )
 
 type TexasPlayer struct{
@@ -50,6 +61,10 @@ type TexasPlayer struct{
 	rankinfo *msg.RS2C_PushMTTRank
 	timeout int32
 	trusteeship int32
+	guessbuy map[int32]int64
+	guesstype int32
+	guessnum int64
+	guessflag bool
 }
 
 type TexasPlayers []*TexasPlayer
@@ -69,6 +84,7 @@ func NewTexasPlayer(user *RoomUser, room *TexasPokerRoom, isai bool) *TexasPlaye
 	player.isai = isai
 	player.InitTimeReward()
 	player.rankinfo = &msg.RS2C_PushMTTRank{}
+	player.guessbuy = make(map[int32]int64)
 	return player
 }
 
@@ -370,12 +386,15 @@ func (this *TexasPlayer)SetHole(c1 *Card, c2 *Card){
 	this.hole[1] = c2
 	this.hand.SetCard(c1, true)
 	this.hand.SetCard(c2, true)
-	this.hand.AnalyseHand()
+	if this.isai {
+		this.hand.AnalyseHand()
+	}
 	if this.InRoom() {
 		send := &msg.RS2C_PushHandCard{}
 		send.Card = this.ToHandCard()
 		this.owner.SendClientMsg(send)
 	}
+	this.GuessReward()
 }
 
 func (this *TexasPlayer)SetFlop(c1 *Card, c2 *Card, c3 *Card){
@@ -385,17 +404,23 @@ func (this *TexasPlayer)SetFlop(c1 *Card, c2 *Card, c3 *Card){
 	if this.IsFold() == false && this.IsWait() == false {
 		this.owner.OnFlop(this.room.subkind)
 	}
-	this.hand.AnalyseHand()
+	if this.isai {
+		this.hand.AnalyseHand()
+	}
 }
 
 func (this *TexasPlayer)SetTurn(c1 *Card){
 	this.hand.SetCard(c1, false)
-	this.hand.AnalyseHand()
+	if this.isai {
+		this.hand.AnalyseHand()
+	}
 }
 
 func (this *TexasPlayer)SetRiver(c1 *Card){
 	this.hand.SetCard(c1, false)
-	this.hand.AnalyseHand()
+	if this.isai {
+		this.hand.AnalyseHand()
+	}
 }
 
 func (this *TexasPlayer) GetBankRoll() int64{
@@ -560,6 +585,7 @@ func (this *TexasPlayer) Tick (){
 			this.trusteeship = 5
 		}else {
 			this.StandUp()
+			this.timeout = 0
 			return
 		}
 	}
@@ -894,6 +920,118 @@ func (this *TexasPlayer) ToHandCard() []int32{
 		tmpcard = append(tmpcard, v.Value+2)
 	}
 	return tmpcard
+}
+
+func (this *TexasPlayer) GuessBuy(rev *msg.C2RS_ReqGuessBuy) {
+	for _, info := range rev.GetAntelist() {
+		 if _, ok := tbl.HoleCards.THoleCardsById[info.GetHandtype()]; ok {
+			 this.guessbuy[info.GetHandtype()] = info.GetNum()
+			 this.guessnum += info.GetNum()
+		 }
+	}
+	this.guesstype = rev.GetType()
+	send := &msg.RS2C_RetGuessBuy{}
+	this.owner.SendClientMsg(send)
+	log.Info("房间[%d] 玩家[%d] 设置竞猜%v", this.room.Id(), this.owner.Id(), rev)
+}
+
+func (this *TexasPlayer) GetGuessOdds(id int32) int64{
+	if v, ok := tbl.HoleCards.THoleCardsById[id]; ok {
+		return v.Odds
+	}
+	return 0
+}
+
+func (this *TexasPlayer) GuessReward() {
+	if this.guessnum == 0 {
+		return
+	}
+	if !this.owner.RemoveGold(this.guessnum*this.room.tconf.BBlind, "竞猜扣除", true) {
+		return
+	}
+
+	card1 := this.hole[0]
+	card2 := this.hole[1]
+	if card1 == nil || card2 == nil {
+		return
+	}
+	var reward int64 = 0
+	var winante int64 = 0
+	for k, v := range this.guessbuy {
+		var rflag bool = false
+		switch (k) {
+			case NOAorK:
+				if card1.Value != 12 && card1.Value != 11 && card2.Value != 12 && card2.Value != 11 {
+					rflag = true
+				}
+			case SAMECOLOR:	
+				if card1.Suit == card2.Suit {
+					rflag = true
+				}
+			case HASAorK:
+				if card1.Value == 12 || card1.Value == 11 || card2.Value == 12 || card2.Value == 11 {
+					rflag = true
+				}
+			case HASA:	
+				if card1.Value == 12 || card2.Value == 12 {
+					rflag = true
+				}
+			case HASPair:
+				if card1.Value == card2.Value {
+					rflag = true
+				}
+			case HASAA:
+				if card1.Value == 12 && card2.Value == 12 {
+					rflag = true
+				}
+		}	
+		if rflag {
+			reward += v * this.room.tconf.BBlind * this.GetGuessOdds(k) / 100
+			winante += v
+		}
+	}
+	if reward > 0 {
+		this.owner.AddGold(reward, "竞猜获得", true)
+	}
+	nowtime := util.CURTIME()
+	guesstime := util.Atol(Redis().HGet(fmt.Sprintf("charbase_%d", this.owner.Id()), "guesstime").Val())
+	sumgold := util.Atol(Redis().HGet(fmt.Sprintf("charbase_%d", this.owner.Id()), "guessgold").Val())
+	reset := false
+	if !util.IsSameWeek(guesstime, nowtime) {
+		sumgold = 0
+		reset = true
+	}
+	record := &msg.GuessRecordInfo{}
+	record.Type = pb.Int32(this.guesstype)
+	record.Ante = pb.Int64(this.guessnum)
+	record.Gold = pb.Int64(reward)
+	record.Time = pb.Int32(int32(nowtime))
+	record.Cards = this.ToHandCard()
+	// proto 序列化
+	buf,_ := pb.Marshal(record)
+
+    pipe := Redis().Pipeline()
+	pipe.LPush(fmt.Sprintf("guessrecord_%d", this.owner.Id()), buf)
+	if reset {
+		pipe.HSet(fmt.Sprintf("charbase_%d", this.owner.Id()), "guesstime", nowtime)
+		pipe.HSet(fmt.Sprintf("charbase_%d", this.owner.Id()), "guessante", 0)
+		pipe.HSet(fmt.Sprintf("charbase_%d", this.owner.Id()), "guessgold", 0)
+	}
+	if reward > 0 {
+		pipe.HIncrBy(fmt.Sprintf("charbase_%d", this.owner.Id()), "guessante", winante)
+		pipe.HIncrBy(fmt.Sprintf("charbase_%d", this.owner.Id()), "guessgold", reward)
+		zMem := redis.Z{Score: float64(sumgold+reward), Member: this.owner.Id()}
+		Redis().ZAdd(fmt.Sprintf("zGuessRank_%d",util.GetWeekStart(util.CURTIME())), zMem)
+	}
+	_, err := pipe.Exec()
+	if err != nil && err != redis.Nil {
+		log.Error("刷新金币排行榜 批量读取玩家信息 redis 出错:%s", err)
+	}
+	pipe.Close()
+
+	this.guesstype = 0
+	this.guessnum = 0
+	this.guessbuy = make(map[int32]int64)
 }
 
 //一局牌结束真实玩家处理破产相关内容

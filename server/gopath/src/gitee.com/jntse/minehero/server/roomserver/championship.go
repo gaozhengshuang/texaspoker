@@ -1001,7 +1001,7 @@ func (cm *ChampionManager) ReqMTTRecordList(gid int, uid int64) {
 	rlist, err := Redis().LRange(key, 0, 10).Result()
 	if err != nil {
 		log.Info("玩家[%d] 请求最近列表失败", uid)
-		return
+		//return
 	}
 	for _, v := range rlist {
 		key, record := fmt.Sprintf("cssimplerecord_%s", v), &msg.MTTRecordInfo{}

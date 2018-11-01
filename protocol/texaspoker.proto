@@ -285,7 +285,7 @@ message RS2C_PushBlindChange {
 
 message GuessBuyInfo {
     optional int32 handtype = 1;
-    optional int32 num = 2;
+    optional int64 num = 2;
 }
 
 //请求手牌购买

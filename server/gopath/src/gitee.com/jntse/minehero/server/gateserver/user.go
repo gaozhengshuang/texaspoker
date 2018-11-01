@@ -700,3 +700,66 @@ func (u *GateUser) UserDailyReset() {
 	u.VipDailyCheck(laststamp, todaysec)
 }
 
+func (u *GateUser) SendGuessRecord() {
+	send := &msg.GW2C_RetGuessRecord{}
+	key := fmt.Sprintf("guessrecord_%d", u.Id())
+	rlist, err := Redis().LRange(key, 0, 10).Result()
+	if err != nil {
+		log.Info("玩家[%d] 请求最近竞猜列表失败", u.Id())
+	}	
+	for _, v := range rlist {
+		rbuf :=[]byte(v)
+		data := &msg.GuessRecordInfo{}
+		pb.Unmarshal(rbuf, data)
+		send.List = append(send.List, data)
+	}
+	u.SendMsg(send)
+}
+
+func (u *GateUser) SendGuessRank() {
+	send := &msg.GW2C_RetGuessRank{}
+	picklist, err := Redis().ZRevRangeWithScores("zGuessRank", 0, 9).Result()
+	if err != nil {
+		log.Error("刷新等级排行榜 读榜 redis 出错")
+		u.SendMsg(send)
+		return
+	}
+	pipe := Redis().Pipeline()
+	defer pipe.Close()
+	for k, v := range picklist {
+		data := &msg.GuessRankInfo{}
+		uidstr := v.Member.(string)
+		data.Rank = pb.Int32(int32(k) + 1)
+		data.Gold = pb.Int64(int64(v.Score))
+		send.List = append(send.List, data)
+		key := fmt.Sprintf("charbase_%d", uidstr)
+		pipe.HMGet(key, "name", "guessante")
+	}
+	cmds, err := pipe.Exec()
+	if err != nil && err != redis.Nil {
+		log.Error("刷新等级排行榜 批量读取玩家信息 redis 出错:%s", err)
+		u.SendMsg(send)
+		return
+	}
+	for k, v := range cmds {
+		if v.Err() != nil && v.Err() == redis.Nil {
+			continue
+		}
+		vals, err2 := v.(*redis.SliceCmd).Result()
+		if err2 != nil && err == redis.Nil {
+			continue
+		}
+		if len(vals) < 2 {
+			continue
+		}
+		if name, ok := vals[0].(string); ok {
+			send.List[k].Name = pb.String(name)
+		}
+		if antestr, ok := vals[1].(string); ok {
+			ante, _ := strconv.ParseInt(antestr, 10, 32)
+			send.List[k].Ante = pb.Int32(int32(ante))
+		}
+	}
+	u.SendMsg(send)
+}
+

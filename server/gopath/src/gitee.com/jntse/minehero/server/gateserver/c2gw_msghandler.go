@@ -100,6 +100,9 @@ func (mh *C2GWMsgHandler) Init() {
 
 	//高级场破产弹窗
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqPayRecommend{}, on_C2GW_ReqPayRecommend)
+
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqGuessRank{}, on_C2GW_ReqGuessRank)
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqGuessRecord{}, on_C2GW_ReqGuessRecord)
 }
 
 // 客户端心跳
@@ -716,3 +719,24 @@ func on_C2GW_ReqTakeOtherTask(session network.IBaseNetSession, message interface
 	}
 	u.SendMsg(send)
 }
+
+func on_C2GW_ReqGuessRecord(session network.IBaseNetSession, message interface{}) {
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.SendGuessRecord()
+}
+
+func on_C2GW_ReqGuessRank(session network.IBaseNetSession, message interface{}) {
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	u.SendGuessRank()
+}
+
