@@ -625,14 +625,15 @@ func (tf *TexasFightRoom) RequestBet(u *RoomUser, pos int32, num int64) {
 		return
 	}
 
-	bfind := false
-	for _, bet := range tf.tconf.Bet {
-		if bet == num { bfind = true }
-	}
-	if bfind == false {
-		log.Error("[百人大战] 玩家[%s %d] 房间[%d %d] 请求下注失败，无效的注码[%d]", u.Name(), u.Id(), tf.Id(), tf.Round(), num)
-		return
-	}
+	// 重复上一局下注功能的注码，可能不在配置里
+	//bfind := false
+	//for _, bet := range tf.tconf.Bet {
+	//	if bet == num { bfind = true }
+	//}
+	//if bfind == false {
+	//	log.Error("[百人大战] 玩家[%s %d] 房间[%d %d] 请求下注失败，无效的注码[%d]", u.Name(), u.Id(), tf.Id(), tf.Round(), num)
+	//	return
+	//}
 
 	if num > u.GetGold() {
 		log.Error("[百人大战] 玩家[%s %d] 房间[%d %d] 请求下注失败，身上没有足够的钱下注", u.Name(), u.Id(), tf.Id(), tf.Round())
