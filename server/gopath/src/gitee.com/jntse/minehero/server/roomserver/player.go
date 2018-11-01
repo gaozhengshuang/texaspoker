@@ -103,6 +103,9 @@ func (this *TexasPlayer)Init(){
 }
 
 func (this *TexasPlayer) InitTimeReward() {
+	if this.isai {
+		return
+	}
 	var tmpsec, tmpround int64
 	//var err error
 	lasttime, _ := Redis().Get(fmt.Sprintf("trtime%d_%d", this.room.GetRoomType(), this.owner.Id())).Int64()
