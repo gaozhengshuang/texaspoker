@@ -131,7 +131,6 @@ class AchievementManager
                 if (allInfo.definition.Group == ainfo.groupid)
                 {
                     allInfo.isActive = true;
-                    break;
                 }
             }
         }
