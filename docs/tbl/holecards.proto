@@ -28,7 +28,7 @@ message THoleCardsDefine
 	optional string Des = 3; 
 	
 	
-	optional float Odds = 4; 
+	optional int64 Odds = 4; // 扩大100倍
 
 }
 

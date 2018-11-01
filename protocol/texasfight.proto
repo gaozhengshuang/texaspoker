@@ -188,10 +188,10 @@ message TFBetPoolChange {
 message RS2C_PushTFRoundOver {
     repeated TFBetPool betlist = 1;     // 注池信息
     repeated TFRankPlayer ranklist = 2; // 赢取玩家排名
-    optional int64 gold = 3;            // 个人金币结算
+    optional int64 gold = 3;            // 个人金币结算，大于0赢钱，小于0亏钱
     optional int64 pool = 4;            // 总奖池大小
     optional int64 bankergold = 5;      // 庄家金币
-    optional bool iswin = 6;            // 个人是否赢
+    //optional bool iswin = 6;          // 个人是否赢
     repeated TFPlayer sitplayers = 7;   // 坐下玩家信息更新
 }
 message TFBetPool {
