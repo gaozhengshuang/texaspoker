@@ -583,6 +583,10 @@ func (this *TexasPlayer) Tick (){
 	if this.timeout >= this.room.tconf.Timeout {
 		if this.room.IsChampionShip() {
 			this.trusteeship = 5
+			if this.InRoom() {
+				send := &msg.RS2C_PushInTrusteeship{}
+				this.owner.SendClientMsg(send)
+			}
 		}else {
 			this.StandUp()
 			this.timeout = 0
@@ -932,7 +936,7 @@ func (this *TexasPlayer) GuessBuy(rev *msg.C2RS_ReqGuessBuy) {
 	this.guesstype = rev.GetType()
 	send := &msg.RS2C_RetGuessBuy{}
 	this.owner.SendClientMsg(send)
-	log.Info("房间[%d] 玩家[%d] 设置竞猜%v", this.room.Id(), this.owner.Id(), rev)
+	log.Info("房间[%d] 玩家[%d] 下注数量[%d]", this.room.Id(), this.owner.Id(), this.guessnum)
 }
 
 func (this *TexasPlayer) GetGuessOdds(id int32) int64{
@@ -947,6 +951,7 @@ func (this *TexasPlayer) GuessReward() {
 		return
 	}
 	if !this.owner.RemoveGold(this.guessnum*this.room.tconf.BBlind, "竞猜扣除", true) {
+		log.Info("玩家[%d]下注钱不够", this.owner.Id())
 		return
 	}
 

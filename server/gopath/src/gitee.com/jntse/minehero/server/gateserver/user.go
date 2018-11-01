@@ -714,11 +714,12 @@ func (u *GateUser) SendGuessRecord() {
 		send.List = append(send.List, data)
 	}
 	u.SendMsg(send)
+	log.Info("玩家[%d] 请求最近竞猜列表", u.Id())
 }
 
 func (u *GateUser) SendGuessRank() {
 	send := &msg.GW2C_RetGuessRank{}
-	picklist, err := Redis().ZRevRangeWithScores("zGuessRank", 0, 9).Result()
+	picklist, err := Redis().ZRevRangeWithScores(fmt.Sprintf("zGuessRank_%d",util.GetWeekStart(util.CURTIME())), 0, 9).Result()
 	if err != nil {
 		log.Error("刷新等级排行榜 读榜 redis 出错")
 		u.SendMsg(send)
@@ -732,7 +733,7 @@ func (u *GateUser) SendGuessRank() {
 		data.Rank = pb.Int32(int32(k) + 1)
 		data.Gold = pb.Int64(int64(v.Score))
 		send.List = append(send.List, data)
-		key := fmt.Sprintf("charbase_%d", uidstr)
+		key := fmt.Sprintf("charbase_%s", uidstr)
 		pipe.HMGet(key, "name", "guessante")
 	}
 	cmds, err := pipe.Exec()
@@ -761,5 +762,6 @@ func (u *GateUser) SendGuessRank() {
 		}
 	}
 	u.SendMsg(send)
+	log.Info("玩家[%d] 请求最近竞猜排行榜", u.Id())
 }
 
