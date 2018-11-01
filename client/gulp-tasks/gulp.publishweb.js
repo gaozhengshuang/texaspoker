@@ -19,11 +19,18 @@ var fs = require('fs');
 
 //路径
 var version = process.argv[4];
+var bundle = process.argv[6];
+var langName = process.argv[8];
 if (!version) {
     console.log("请输入版本号！");
     // return;
 }
+if (!bundle) {
+    console.log("bundle包ID为空!");
+    bundle = 1001;
+}
 const out_path = `bin-release/web/${version}/`;
+var htmlList = [out_path + 'index.html', out_path + bundle + '.html'];
 if (!fs.existsSync(out_path)) {
     console.log("项目版本目录不存在！请确认版本号是否正确!");
     return;
@@ -34,7 +41,7 @@ let sthList = [
 //发布 合并js 压缩js 版本控制
 Gulp.task('publish', function (cb) {
     // gulpSequence('concat', 'zip-js', 'version', cb);
-    gulpSequence('concat', 'replace-lang', 'zip-js', 'version', cb);
+    gulpSequence('micro', 'concat', 'replace-lang', 'zip-js', 'version', 'rename-resource', cb);
 });
 //copy一些引擎不copy的文件
 Gulp.task('copy', function (cb) {
@@ -64,11 +71,13 @@ Gulp.task('version', function (cb) {
         'version-js2',
 
         'del-resource',
-        'html-min',
-        'rename-resource',
+        'html-min0',
+        'html-min1',
         cb);
 });
-
+Gulp.task('micro', function (cb) {
+    return gulpSequence("micro-html", cb);
+});
 //版本处理
 //通用资源
 Gulp.task('version-resource1', function () {
@@ -89,7 +98,7 @@ Gulp.task('version-resource2', function () {
         .pipe(Gulp.dest(out_path + 'resource-rev/'));
 });
 Gulp.task('version-resource3', function () {
-    return Gulp.src([out_path + 'rev/resource/rev-manifest-js.json', out_path + 'index.html'])
+    return Gulp.src([out_path + 'rev/resource/rev-manifest-js.json'].concat(htmlList))
         .pipe(revCollector())
         .pipe(Gulp.dest(out_path));
 });
@@ -125,7 +134,7 @@ Gulp.task('version-js1', function () {
         .pipe(Gulp.dest(out_path + 'rev/js'));;
 });
 Gulp.task('version-js2', function () {
-    return Gulp.src([out_path + 'rev/js/rev-manifest-js.json', out_path + 'index.html'])
+    return Gulp.src([out_path + 'rev/js/rev-manifest-js.json'].concat(htmlList))
         .pipe(revCollector())
         .pipe(Gulp.dest(out_path));
 });
@@ -144,8 +153,16 @@ Gulp.task('rename-resource', function (cb) {
     fs.rename(out_path + 'js-rev', out_path + 'js');
     return fs.rename(out_path + 'resource-rev', out_path + 'resource');
 });
-Gulp.task("html-min", function (cb) {
-    let path = out_path + 'index.html';
+Gulp.task("html-min0", function (cb) {
+    let path = htmlList[0];
+    return Gulp.src(path).pipe(tap(function (file) {
+        let content = file.contents.toString();
+        content = Htmlmin(content);
+        fs.writeFileSync(path, content);
+    }));
+});
+Gulp.task("html-min1", function (cb) {
+    let path = htmlList[1];
     return Gulp.src(path).pipe(tap(function (file) {
         let content = file.contents.toString();
         content = Htmlmin(content);
@@ -215,14 +232,16 @@ Gulp.task('del-js2', function (cb) {
         '!' + out_path + 'js/i18n.min.js',
     ]);
 });
+Gulp.task('micro-html', function (cb) {
+    return Gulp.src('micro/' + bundle + '.html').pipe(Gulp.dest(out_path));
+});
 //-----------------------------语言处理-----------------------------
 //替换JS引用的中文
 Gulp.task('replace-lang', function (cb) {
-    var langname = process.argv[5];
-    if (!langname) {
-        langname = "zh-tw";
+    if (!langName) {
+        langName = "zh-tw";
     }
-    var langdatapath = out_path + "resource/assets/lang/" + langname + ".json";
+    var langdatapath = out_path + "resource/assets/lang/" + langName + ".json";
     if (fs.existsSync(langdatapath)) {
         var text = fs.readFileSync(langdatapath).toString();
         let langMap = JSON.parse(text);
