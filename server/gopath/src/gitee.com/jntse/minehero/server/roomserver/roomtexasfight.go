@@ -521,7 +521,7 @@ func (tf *TexasFightRoom) SendRoundOverMsg() {
 	// 个人信息
 	for _, player := range tf.players {
 		roundmsg.Gold = pb.Int64(player.TotalProfit())
-		roundmsg.Iswin = pb.Bool(player.TotalProfit() >= 0)
+		//roundmsg.Iswin = pb.Bool(player.TotalProfit() > 0)
 		player.owner.SendClientMsg(roundmsg)
 	}
 }
