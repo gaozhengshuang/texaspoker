@@ -110,7 +110,7 @@ func RankMge() *RankManager {
 	return &GateSvr().rankmgr
 }
 
-func MysqlDB() *sql.DB {
+func Mysql() *sql.DB {
 	return GateSvr().mysqldb
 }
 

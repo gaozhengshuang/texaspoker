@@ -21,6 +21,6 @@ CREATE TABLE `charbase` (
     `viptime1` bigint(20) NOT NULL DEFAULT '0',
     `viptime2` bigint(20) NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 
