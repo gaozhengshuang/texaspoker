@@ -642,7 +642,8 @@ func (tf *TexasFightRoom) RequestBet(u *RoomUser, pos int32, num int64) {
 	// 下注的总金额不得大于身上携带金额的七分之一
 	betlimit, bettotal := u.GetGold() / 7, player.TotalBet() + num
 	if bettotal > betlimit {
-		u.SendNotify("下注总额超过携带金额七分之一")
+		resp := &msg.RS2C_RetTexasFightBet{Errcode:pb.String("下注总额超过携带金额七分之一")}
+		u.SendClientMsg(resp)
 		return
 	}
 
