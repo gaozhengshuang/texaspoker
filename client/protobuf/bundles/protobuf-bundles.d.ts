@@ -21351,7 +21351,7 @@ declare namespace msg {
         ante?: (number|null);
 
         /** GuessRankInfo gold */
-        gold?: (number|null);
+        gold?: (number|Long|null);
     }
 
     /** Represents a GuessRankInfo. */
@@ -21373,7 +21373,7 @@ declare namespace msg {
         public ante: number;
 
         /** GuessRankInfo gold. */
-        public gold: number;
+        public gold: (number|Long);
 
         /**
          * Creates a new GuessRankInfo instance using the specified properties.
@@ -21627,10 +21627,10 @@ declare namespace msg {
         type?: (number|null);
 
         /** GuessRecordInfo ante */
-        ante?: (number|null);
+        ante?: (number|Long|null);
 
         /** GuessRecordInfo gold */
-        gold?: (number|null);
+        gold?: (number|Long|null);
 
         /** GuessRecordInfo time */
         time?: (number|null);
@@ -21652,10 +21652,10 @@ declare namespace msg {
         public type: number;
 
         /** GuessRecordInfo ante. */
-        public ante: number;
+        public ante: (number|Long);
 
         /** GuessRecordInfo gold. */
-        public gold: number;
+        public gold: (number|Long);
 
         /** GuessRecordInfo time. */
         public time: number;
@@ -33081,7 +33081,7 @@ declare namespace msg {
         handtype?: (number|null);
 
         /** GuessBuyInfo num */
-        num?: (number|null);
+        num?: (number|Long|null);
     }
 
     /** Represents a GuessBuyInfo. */
@@ -33097,7 +33097,7 @@ declare namespace msg {
         public handtype: number;
 
         /** GuessBuyInfo num. */
-        public num: number;
+        public num: (number|Long);
 
         /**
          * Creates a new GuessBuyInfo instance using the specified properties.
@@ -33345,6 +33345,90 @@ declare namespace msg {
 
         /**
          * Converts this RS2C_RetGuessBuy to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RS2C_PushInTrusteeship. */
+    interface IRS2C_PushInTrusteeship {
+    }
+
+    /** Represents a RS2C_PushInTrusteeship. */
+    class RS2C_PushInTrusteeship implements IRS2C_PushInTrusteeship {
+
+        /**
+         * Constructs a new RS2C_PushInTrusteeship.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IRS2C_PushInTrusteeship);
+
+        /**
+         * Creates a new RS2C_PushInTrusteeship instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RS2C_PushInTrusteeship instance
+         */
+        public static create(properties?: msg.IRS2C_PushInTrusteeship): msg.RS2C_PushInTrusteeship;
+
+        /**
+         * Encodes the specified RS2C_PushInTrusteeship message. Does not implicitly {@link msg.RS2C_PushInTrusteeship.verify|verify} messages.
+         * @param message RS2C_PushInTrusteeship message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IRS2C_PushInTrusteeship, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified RS2C_PushInTrusteeship message, length delimited. Does not implicitly {@link msg.RS2C_PushInTrusteeship.verify|verify} messages.
+         * @param message RS2C_PushInTrusteeship message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IRS2C_PushInTrusteeship, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a RS2C_PushInTrusteeship message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RS2C_PushInTrusteeship
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.RS2C_PushInTrusteeship;
+
+        /**
+         * Decodes a RS2C_PushInTrusteeship message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RS2C_PushInTrusteeship
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.RS2C_PushInTrusteeship;
+
+        /**
+         * Verifies a RS2C_PushInTrusteeship message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RS2C_PushInTrusteeship message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RS2C_PushInTrusteeship
+         */
+        public static fromObject(object: { [k: string]: any }): msg.RS2C_PushInTrusteeship;
+
+        /**
+         * Creates a plain object from a RS2C_PushInTrusteeship message. Also converts values to other types if specified.
+         * @param message RS2C_PushInTrusteeship
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.RS2C_PushInTrusteeship, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RS2C_PushInTrusteeship to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };

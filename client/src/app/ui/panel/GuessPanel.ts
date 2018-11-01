@@ -53,10 +53,6 @@ class GuessPanel extends BasePanel
     private _def: table.ITextDefine;
     private _txtCount: number = 24;
     public _lastShowContainer: any;
-    /**
-     * 购买的注数信息
-    */
-    private buyAnteInfo: Array<BuyGuessAnteInfo>;
 
     public anmGroup: eui.Group;
 
@@ -107,10 +103,16 @@ class GuessPanel extends BasePanel
             this.totalBuyLabel.text = "$0";
             this.buyOnceRB.selected = this.buyEveryRB.selected = false;
         }
-        if (GamblingManager.guessHandler.buyInning == undefined)
+        switch (GamblingManager.guessHandler.buyInning)
         {
-            this.buyEveryRB.selected = false;
+            case 1:
+                this.buyOnceRB.selected = true;
+                break;
+            case 2:
+                this.buyEveryRB.selected = true;
+                break;
         }
+
         this.refreshGoldNum();
         this.setGuessOddsInfo();
     }
@@ -129,7 +131,6 @@ class GuessPanel extends BasePanel
         GamblingManager.guessHandler.onWeekInfoEvent.addListener(this.setWeekInfo, this);
         GamblingManager.guessHandler.onGetBuyRecordInfoEvent.addListener(this.setBuyRecordInfo, this);
         GamblingManager.guessHandler.onResetBuyOnceStateEvent.addListener(this.resetBuyOnceState, this);
-        GamblingManager.RoundOverEvent.addListener(this.tryBuy, this);
     }
     protected onDisable(event: eui.UIEvent): void
     {
@@ -142,7 +143,6 @@ class GuessPanel extends BasePanel
         GamblingManager.guessHandler.onWeekInfoEvent.removeListener(this.setWeekInfo, this);
         GamblingManager.guessHandler.onGetBuyRecordInfoEvent.removeListener(this.setBuyRecordInfo, this);
         GamblingManager.guessHandler.onResetBuyOnceStateEvent.removeListener(this.resetBuyOnceState, this);
-        GamblingManager.RoundOverEvent.removeListener(this.tryBuy, this);
     }
 
     /**
@@ -235,20 +235,6 @@ class GuessPanel extends BasePanel
         GamblingManager.guessHandler.isBuyGuess = true;
         this.setBuyInfo(GamblingManager.guessHandler.buyGuessAnteInfo);
     }
-    private tryBuy()
-    {
-        if (GamblingManager.guessHandler.buyInning == 1)
-        {
-            //发送购买一局请求
-            GamblingManager.guessHandler.buyOnceRBSel = true;
-            GamblingManager.guessHandler.reqBuyGuessAnte(1, this.buyAnteInfo);
-        } else if (GamblingManager.guessHandler.buyInning == 2)
-        {
-            // 发送购买每局请求
-            GamblingManager.guessHandler.reqBuyGuessAnte(2, this.buyAnteInfo);
-            GamblingManager.guessHandler.buyOnceRBSel = false;
-        }
-    }
     /**
      * 充值金币
     */
@@ -261,19 +247,19 @@ class GuessPanel extends BasePanel
     */
     private setBuyInfo(anteList: Array<BuyGuessAnteInfoBase>)
     {
-        game.ArrayUtil.Clear(this.buyAnteInfo);
-        if (!this.buyAnteInfo)
+        game.ArrayUtil.Clear(GamblingManager.guessHandler.buyAnteInfo);
+        if (!GamblingManager.guessHandler.buyAnteInfo)
         {
-            this.buyAnteInfo = new Array<BuyGuessAnteInfoBase>();
+            GamblingManager.guessHandler.buyAnteInfo = new Array<BuyGuessAnteInfoBase>();
         }
         if (anteList && anteList.length > 0)
         {
             for (let anteInfo of anteList)
             {
                 let buyInfo: BuyGuessAnteInfo = new BuyGuessAnteInfo();
-                buyInfo.handType = anteInfo.handType;
+                buyInfo.handtype = anteInfo.handtype;
                 buyInfo.num = anteInfo.num;
-                this.buyAnteInfo.push(buyInfo);
+                GamblingManager.guessHandler.buyAnteInfo.push(buyInfo);
             }
         }
     }

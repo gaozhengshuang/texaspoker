@@ -222,14 +222,6 @@ class Command
      * 会员时间戳变更推送
      */
     public static readonly C2GW_PushVipTime: string = "msg.C2GW_PushVipTime";
-    /**
-     * 推送玩家离线
-     */
-    public static readonly Role_Push_Offline_2026: string = "c2026";
-    /**
-     * 拉取分享好友列表
-     */
-    public static readonly Req_BindFriendList_3027: string = "c3027";
 
     /**
      * 设置角色基础信息
@@ -370,7 +362,7 @@ class Command
     /**
      *  推送进入托管
      */
-    public static readonly InTrusteeship_Push_2119 = "c2119";
+    public static readonly RS2C_PushInTrusteeship = "msg.RS2C_PushInTrusteeship";
     /**
      * 请求牌局上局回顾数据
     */

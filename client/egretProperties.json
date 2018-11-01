@@ -27,8 +27,8 @@
 		],
 		"exmlPublishPolicy": "commonjs2"
 	},
-	"engineVersion": "5.2.5",
-	"compilerVersion": "5.2.5",
+	"engineVersion": "5.2.12",
+	"compilerVersion": "5.2.12",
 	"template": {},
 	"modules": [
 		{
@@ -50,7 +50,7 @@
 			"name": "socket"
 		},
 		{
-			"name": "dragonbones"
+			"name": "dragonBones"
 		},
 		{
 			"name": "promise",

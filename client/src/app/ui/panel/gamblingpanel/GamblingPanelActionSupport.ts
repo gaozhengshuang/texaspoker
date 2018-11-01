@@ -227,7 +227,7 @@ class GamblingPanelActionSupport extends BaseGamblingPanelSupport
 			this.changeState(GamblingManager.getPlayerStateByRoleId(obj.roleId));
 		} else
 		{
-			if ((obj.state == PlayerState.Raise || (obj.state == PlayerState.AllIn && obj.num > GamblingUtil.callNum && GamblingUtil.callNum < GamblingManager.self.bankRoll))
+			if ((obj.state == PlayerState.Raise || (GamblingManager.self && obj.state == PlayerState.AllIn && obj.num > GamblingUtil.callNum && GamblingUtil.callNum < GamblingManager.self.bankRoll))
 				&& GamblingUtil.isOnProcess(GamblingManager.self)) //有预选按钮，此时有玩家allin，如果all的码量大于要跟的码量，且跟的码量小于等于玩家自身的码量，则可以继续
 			{
 				if (this.target.actionGroup.preActionGroup.visible)
