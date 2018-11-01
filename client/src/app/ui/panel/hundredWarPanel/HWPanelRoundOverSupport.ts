@@ -59,6 +59,7 @@ class HWPanelRoundOverSupport extends BaseHWPanelSupport
                     hwResult.cardTypeDes = this.getCardImgTypeByType(CardTypeMatchUtil.cardType, betInfo.pos);
                     hwResult.cardType = CardTypeMatchUtil.cardType;
                     hwResult.pos = betInfo.pos;
+                    hwResult.state = betInfo.win;
                     let odds: number = HundredWarCardTypeDefined.GetInstance().getOddsByType(CardTypeMatchUtil.cardType);
                     if (HundredWarManager.getSelfPoolGoldByPos(betInfo.pos))
                     {
@@ -154,6 +155,13 @@ class HWPanelRoundOverSupport extends BaseHWPanelSupport
                 {
                     this.showBankerWinAccountCoinAnim();
                 }
+                game.Tick.AddTimeoutInvoke(() =>
+                {
+                    for (let i: number = 0; i < this.target.cardsComponentList.length; i++)
+                    {
+                        this.target.cardsComponentList[i].showWinMarkImg();
+                    }
+                }, 260, this); //120秒是 翻牌的动画时间
             }
         }
     }

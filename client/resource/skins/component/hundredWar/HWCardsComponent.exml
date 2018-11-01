@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="HWCardsComponentSkin" maxWidth="96" maxHeight="150" xmlns:e="http://ns.egret.com/eui"
         xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing" width="156">
-    <e:Group id="cardsGroup" minHeight="90" horizontalCenter="0">
+	<e:Image id="winMarkImg" scaleX="1" scaleY="1" anchorOffsetX="0" anchorOffsetY="0" y="6" source="faguang_png" scale9Grid="48,29,26,22" width="170" height="100" horizontalCenter="1"/>
+	<e:Group y="60" horizontalCenter="0">
+		<e:Image id="cardTypeBg" scaleX="1" scaleY="1" anchorOffsetX="0" anchorOffsetY="0" width="144" y="0" horizontalCenter="0" source="br_bg_9_png" scale9Grid="13,12,9,2" height="30"/>
+		<e:Image id="typeImg" horizontalCenter="0" verticalCenter="0"/>
+	</e:Group>
+	<e:Label id="resultDesLabel" text="没有下注" size="24" y="95.72" horizontalCenter="1" height="24"/>
 
-			<e:Group y="60" horizontalCenter="0">
-				<e:Image id="cardTypeBg" scaleX="1" scaleY="1" anchorOffsetX="0" anchorOffsetY="0" width="144" y="0" horizontalCenter="0" source="br_bg_9_png" scale9Grid="13,12,9,2" height="30"/>
-				<e:Image id="typeImg" horizontalCenter="0" verticalCenter="0"/>
-			</e:Group>
-
-        <e:Label id="resultDesLabel" text="没有下注" size="24" y="95.72" horizontalCenter="1"  height="24"/>
-    </e:Group>
 </e:Skin>

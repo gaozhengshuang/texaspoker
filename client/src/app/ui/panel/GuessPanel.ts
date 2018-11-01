@@ -129,6 +129,7 @@ class GuessPanel extends BasePanel
         GamblingManager.guessHandler.onWeekInfoEvent.addListener(this.setWeekInfo, this);
         GamblingManager.guessHandler.onGetBuyRecordInfoEvent.addListener(this.setBuyRecordInfo, this);
         GamblingManager.guessHandler.onResetBuyOnceStateEvent.addListener(this.resetBuyOnceState, this);
+        GamblingManager.RoundOverEvent.addListener(this.tryBuy, this);
     }
     protected onDisable(event: eui.UIEvent): void
     {
@@ -141,6 +142,7 @@ class GuessPanel extends BasePanel
         GamblingManager.guessHandler.onWeekInfoEvent.removeListener(this.setWeekInfo, this);
         GamblingManager.guessHandler.onGetBuyRecordInfoEvent.removeListener(this.setBuyRecordInfo, this);
         GamblingManager.guessHandler.onResetBuyOnceStateEvent.removeListener(this.resetBuyOnceState, this);
+        GamblingManager.RoundOverEvent.removeListener(this.tryBuy, this);
     }
 
     /**
@@ -214,6 +216,7 @@ class GuessPanel extends BasePanel
         {
             if (GamblingManager.guessHandler.buyInning == num)
             {
+                GamblingManager.guessHandler.buyInning = 0;
                 //发送取消购买的请求
                 GamblingManager.guessHandler.reqBuyGuessAnte();
                 GamblingManager.guessHandler.buyInning = undefined;
@@ -231,6 +234,9 @@ class GuessPanel extends BasePanel
         GamblingManager.guessHandler.buyInning = num;
         GamblingManager.guessHandler.isBuyGuess = true;
         this.setBuyInfo(GamblingManager.guessHandler.buyGuessAnteInfo);
+    }
+    private tryBuy()
+    {
         if (GamblingManager.guessHandler.buyInning == 1)
         {
             //发送购买一局请求

@@ -419,7 +419,7 @@ class LoginScene extends BaseScene
     {
         GamblingManager.OnGetRoomInfoEvent.addListener(this.onGetRoomInfoResult, this);
         game.Console.log("游戏初始化进入房间：reqGetRoomInfo,----InsideRoomManager.lastId", InsideRoomManager.lastId);
-        GamblingManager.reqEnterRoom(InsideRoomManager.lastId, InsideRoomManager.lastPasswd);
+        GamblingManager.reqEnterRoom(InsideRoomManager.lastId, InsideRoomManager.lastPasswd, true);
     }
     private onGetRoomInfoResult()
     {
@@ -432,7 +432,7 @@ class LoginScene extends BaseScene
     private enterHundredWar()
     {
         game.Console.log("游戏初始化进入百人大战：reqGetHundredWarRoomInfo");
-        HundredWarManager.reqEnterRoom(InsideRoomManager.lastId);
+        HundredWarManager.reqEnterRoom(InsideRoomManager.lastId, true);
 
     }
     private onGetChampionshipDataComplete()

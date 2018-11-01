@@ -20,6 +20,10 @@ class HWResultCardsInfo extends BaseServerValueInfo
      * 位置
     */
     public pos: number;
+    /**
+     * 结果状态
+     */
+    public state:number;
 
     public reset()
     {
@@ -29,5 +33,6 @@ class HWResultCardsInfo extends BaseServerValueInfo
         this.cardType = undefined;
         this.resultDes = undefined;
         this.pos = 0;
+        this.state = undefined;
     }
 }

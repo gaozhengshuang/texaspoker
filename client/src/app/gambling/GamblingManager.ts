@@ -317,8 +317,18 @@ class GamblingManager
 	{
 		// game.QinLog.log("gamlbingmanager进入房间：reqEnterRoom" + id);
 		// GamblingManager.roomDataPushHandler.reset();
+		//超时回调
+		let timeOutCallBack:Function = function()
+		{
+			SceneManager.switcScene(SceneType.Hall);
+		};
+		if(isReconnect)
+		{
+			game.Tick.AddTimeoutInvoke(timeOutCallBack, 5000, this);
+		}
 		let callback: Function = function (result: game.SpRpcResult)
 		{
+			game.Tick.removeFrameInvoke(timeOutCallBack, this);
 			SocketManager.RemoveCommandListener(Command.C2GW_ReqEnterRoom, callback, this);
 			GamblingManager.isQuicklyEnter = isQuicklyEnter;
 			GamblingManager.initialize(result, isReconnect);

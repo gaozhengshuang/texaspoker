@@ -81,10 +81,16 @@ class HundredWarManager
     /**
      * 发送请求进入房间
     */
-    public static reqEnterRoom(id: number)
+    public static reqEnterRoom(id: number, isReconnect: boolean = false)
     {
+        let timeOutCallBack: Function = function () //超时处理
+        {
+            SceneManager.switcScene(SceneType.Hall);
+        };
+
         let callback: Function = function (result: game.SpRpcResult)
         {
+            game.Tick.RemoveTimeoutInvoke(timeOutCallBack, this);
             let data: msg.GW2C_RetEnterTFRoom = result.data;
             if (data)
             {
@@ -132,6 +138,11 @@ class HundredWarManager
                 HundredWarManager.OnGetRoomInfoEvent.dispatch();
             }
         };
+
+        if (isReconnect)
+        {
+            game.Tick.AddTimeoutInvoke(timeOutCallBack, 5000, this);
+        }
         SocketManager.AddCommandListener(Command.C2GW_ReqEnterTFRoom, callback, this);
         SocketManager.Send(Command.C2GW_ReqEnterTFRoom, { id: id, userid: UserManager.userInfo.roleId });
     }
@@ -452,7 +463,7 @@ class HundredWarManager
         if (data && data.bet)
         {
             let changeBet: Array<number> = new Array<number>();
-            let isChange:boolean = false;
+            let isChange: boolean = false;
             for (let info of HundredWarManager.roomInfo.betList)
             {
                 if (info.pos - 1 >= 0)  //闲家注池是 1 - 4
@@ -474,7 +485,7 @@ class HundredWarManager
                     info.bet = game.longToNumber(betInfo.bet);
                 }
             }
-            HundredWarManager.onBetChangeEvent.dispatch({data:data, posList:changeBet, isChange:isChange});
+            HundredWarManager.onBetChangeEvent.dispatch({ data: data, posList: changeBet, isChange: isChange });
         }
     }
     /**

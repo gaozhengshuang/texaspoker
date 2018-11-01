@@ -3,8 +3,8 @@
  */
 class HWCardsComponent extends BaseComponent<HWResultCardsInfo>
 {
-    public cardsGroup: eui.Group;
     public cardFaceGroup: eui.Group;
+    public winMarkImg: eui.Image;
 
     /**
      * 牌型
@@ -29,7 +29,7 @@ class HWCardsComponent extends BaseComponent<HWResultCardsInfo>
         {
             this._pointList.push(new egret.Point(45 + i * 15, 50));
         }
-        this.cardsGroup.touchChildren = this.cardsGroup.touchEnabled = false;
+        this.touchChildren = this.touchEnabled = false;
     }
     /**
 	 * 默认初始化
@@ -69,6 +69,7 @@ class HWCardsComponent extends BaseComponent<HWResultCardsInfo>
     {
         if (data)
         {
+            this.bindData = data;
             if (data.cardTypeDes)
             {
                 this.cardTypeBg.visible = true;
@@ -88,6 +89,19 @@ class HWCardsComponent extends BaseComponent<HWResultCardsInfo>
                 }
             }
             this.resultDesLabel.text = data.resultDes;
+
+
+        }
+    }
+    public showWinMarkImg()
+    {
+        if (this.bindData && this.bindData.state == 1) //赢的状态，1赢，0平局，2输
+        {
+            this.winMarkImg.visible = true;
+        }
+        else
+        {
+            this.winMarkImg.visible = false;
         }
     }
     /**
@@ -98,5 +112,6 @@ class HWCardsComponent extends BaseComponent<HWResultCardsInfo>
         this.resultDesLabel.text = "";
         this.typeImg.source = "";
         this.cardTypeBg.visible = false;
+        this.winMarkImg.visible = false;
     }
 }
