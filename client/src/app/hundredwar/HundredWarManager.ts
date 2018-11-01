@@ -331,7 +331,7 @@ class HundredWarManager
         {
             // if (result.error == "ErrorCode.HundredWarOverFlow")
             // {
-            UIManager.showFloatTips("当前下注金币数已达庄家金币上限");  //move todo
+            // UIManager.showFloatTips("当前下注金币数已达庄家金币上限");  //move todo
             // }
         }
         MsgTransferSend.sendRoomProto(Command.C2RS_ReqTexasFightBet, { pos: pos, num: num }, callback, errorCallback, this);
