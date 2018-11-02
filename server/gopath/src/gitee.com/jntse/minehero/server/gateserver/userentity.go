@@ -181,6 +181,10 @@ func (u *UserEntity) DBSave() {
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "yuanbao", u.yuanbao)
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "diamond", u.diamond)
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "age", u.age)
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "viplevel", u.viplevel)
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "vipexp", u.vipexp)
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "viptime1", u.viptime1)
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "viptime2", u.viptime2)
 
 	_, err := pipe.Exec()
 	if err != nil {
