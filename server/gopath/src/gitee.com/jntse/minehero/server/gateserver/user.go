@@ -397,7 +397,8 @@ func (u *GateUser) LoadBin() {
 
 	// 玩家信息
 	userbase := u.bin.GetBase()
-
+	
+	u.signdays = userbase.Sign.GetSigndays()
 	u.signtime = userbase.Sign.GetSigntime()
 	u.invitationcode = userbase.Misc.GetInvitationcode()
 	u.lastgoldtime = userbase.Misc.GetLastgoldtime()
