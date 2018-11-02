@@ -313,11 +313,11 @@ func (g *GateServer) InitMySql() {
 	g.dbsql.Init(opt)
 
 	if err := g.dbsql.Open(); err != nil {
-		log.Info("连接Mysql数据库失败[%#v] 原因[%v]", opt, err)
+		log.Info("连接Mysql数据库失败[%#v] 原因[%s]", opt, err)
 		return
 	}
 
-	log.Info("连接Mysql数据库成功[%#v]", opt)
+	log.Info("连接Mysql数据库成功[%v]", opt)
 	return
 }
 

@@ -197,13 +197,19 @@ func (u *UserEntity) DBSave() {
 
 // mysql存储
 func (u *UserEntity) DBSaveMysql() {
-	db := DB()
 
+	// Delete
+	db := DB()
 	if _, err := db.Delete("charbase", fmt.Sprintf("id=%d",u.Id())); err != nil {
 		log.Error("玩家[%s %d] DBSaveMysql Delete失败[%s]", u.Name(), u.Id(), err)
 		return
+	}else {
+		//affected , _ := rDel.RowsAffected()
+		//log.Info("玩家[%s %d] DBSaveMysql Delete成功 affected[%d]", u.Name(), u.Id(), affected)
 	}
 
+
+	// Insert
 	args := make([]*mysql.MysqlField, 0)
 	args = append(args, &mysql.MysqlField{Name:"id", 		Value:u.Id()})
 	args = append(args, &mysql.MysqlField{Name:"name", 		Value:u.Name()})
@@ -220,11 +226,13 @@ func (u *UserEntity) DBSaveMysql() {
 	args = append(args, &mysql.MysqlField{Name:"vipexp", 	Value:u.VipExp()})
 	args = append(args, &mysql.MysqlField{Name:"viptime1", 	Value:u.VipTime1()})
 	args = append(args, &mysql.MysqlField{Name:"viptime2", 	Value:u.VipTime2()})
-	if _, err := db.Insert("charbase", args...); err != nil {
-		log.Error("玩家[%s %d] DBSaveMysql 插入失败[%s]", u.Name(), u.Id(), err)
+	if rInsert, err := db.Insert("charbase", args...); err != nil {
+		log.Error("玩家[%s %d] DBSaveMysql Insert失败[%s]", u.Name(), u.Id(), err)
 		return
+	}else {
+		affected , _ := rInsert.RowsAffected()
+		log.Info("玩家[%s %d] DBSaveMysql Insert成功 affected[%d]", u.Name(), u.Id(), affected)
 	}
-	log.Info("玩家[%s %d] DBSaveMysql 插入成功", u.Name(), u.Id())
 }
 
 func (u *UserEntity) FillEntity() *msg.EntityBase {

@@ -46,6 +46,7 @@ func (mh* GW2CMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.GW2C_LuckyDrawHit{}, on_GW2C_LuckyDrawHit)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_SendDeliveryAddressList{}, on_GW2C_SendDeliveryAddressList)
 	mh.msgparser.RegistProtoMsg(msg.GW2C_SendLuckyDrawRecord{}, on_GW2C_SendLuckyDrawRecord)
+	mh.msgparser.RegistProtoMsg(msg.GW2C_PushItemList{}, on_GW2C_PushItemList)
 
 
 	// 房间
@@ -225,6 +226,12 @@ func on_GW2C_SendLuckyDrawRecord(session network.IBaseNetSession, message interf
 	tmsg := message.(*msg.GW2C_SendLuckyDrawRecord)
 	//log.Info(reflect.TypeOf(tmsg).String())
 	log.Info("%#v", tmsg)
+}
+
+func on_GW2C_PushItemList(session network.IBaseNetSession, message interface{}) {
+	//tmsg := message.(*msg.GW2C_PushItemList)
+	//log.Info(reflect.TypeOf(tmsg).String())
+	//log.Info("%#v", tmsg)
 }
 
 func on_GW2C_PushItemPosUpdate(session network.IBaseNetSession, message interface{}) {
