@@ -117,7 +117,7 @@ func (this *TexasPlayer) InitTimeReward() {
 		tmpround = 0
 	}
 	this.rewardtime = int32(tmpsec)
-	this.rewardround = int32(tmpround)+1
+	this.rewardround = int32(tmpround)
 	log.Info("房间[%d] 玩家[%d] 计时奖励轮数[%d] 时间[%d]", this.room.Id(), this.owner.Id(), this.rewardround, this.rewardtime)
 }
 
@@ -134,6 +134,7 @@ func (this *TexasPlayer) SetTimeReward() {
 	}
 	Redis().Set(fmt.Sprintf("trround%d_%d", this.room.GetRoomType(), this.owner.Id()), this.rewardround, 0)
 	Redis().Set(fmt.Sprintf("trtick%d_%d", this.room.GetRoomType(), this.owner.Id()), this.rewardtime, 0)
+	log.Info("房间[%d] 玩家[%d] 计时奖励轮数[%d] 时间[%d]", this.room.Id(), this.owner.Id(), this.rewardround, this.rewardtime)
 }
 
 func (this *TexasPlayer) IsRaise() bool{
@@ -459,21 +460,21 @@ func (this *TexasPlayer) AddExp(exp int32, reason string, syn bool) {
 
 func (this *TexasPlayer) ReqTimeAwardInfo(rev *msg.C2RS_ReqTimeAwardInfo) {
 	send := &msg.RS2C_RetTimeAwardInfo{}
-	send.Round = pb.Int32(this.rewardround-1)
+	send.Round = pb.Int32(this.rewardround)
 	send.Sectime = pb.Int32(this.rewardtime)
 	this.owner.SendClientMsg(send)
 }
 
 func (this *TexasPlayer) ReqTimeAwardGet() {
 	send := &msg.RS2C_RetTimeAwardGet{}
-	endtime := RoomMgr().GetRewardTime(this.rewardround)
-	if endtime > this.rewardtime || endtime == 0 {
+	endtime := RoomMgr().GetRewardTime(this.rewardround+1)
+	if endtime > this.rewardtime-5 || endtime == 0 {
 		send.Errcode = pb.String("还不能领奖")
 		this.owner.SendClientMsg(send)
 		//log.Info("房间%d 玩家%d 计时奖励轮数%d end%d now%d", this.room.Id(), this.owner.Id(), this.rewardround, endtime,this.rewardtime)
 		return
 	}else{
-		gold := RoomMgr().GetRewardGold(this.rewardround, this.room.GetRoomType())
+		gold := RoomMgr().GetRewardGold(this.rewardround+1, this.room.GetRoomType())
 		this.owner.AddGold(int64(gold), "领取计时奖励", true)
 		this.rewardround++
 		this.rewardtime = 0
@@ -615,8 +616,11 @@ func (this *TexasPlayer) Tick (){
 		}
 	}
 
-	if !this.IsWait() {
+	if !this.IsWait() && !this.room.IsChampionShip() {
 		this.AddRewardTime()
+		//if !this.isai {
+		//	log.Info("玩家[%d] 计时奖励%d", this.owner.Id(), this.rewardtime)
+		//}
 	}
 	if this.delaystandup > 0 {
 		this.delaystandup--
@@ -654,7 +658,7 @@ func (this *TexasPlayer) AddRewardTime() {
 	if this.isai {
 		return
 	}
-	if this.rewardround > RoomMgr().maxrewardround {
+	if this.rewardround >= RoomMgr().maxrewardround {
 		return
 	}
 	this.rewardtime++

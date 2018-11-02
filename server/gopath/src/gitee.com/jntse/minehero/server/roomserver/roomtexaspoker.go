@@ -864,14 +864,6 @@ func (this *TexasPokerRoom) ShowDown() int32{
 		if player.IsWait() {
 			continue
 		}
-		if player.isallinshow {
-			for _,record := range this.currecord {
-				if record.GetRoleid() == player.owner.Id() {
-					record.Cardtype = pb.Int32(player.hand.level)
-				}
-			}
-			continue
-		}
 		if player.isshowcard == true {
 			send.Handcardlist = append(send.Handcardlist, &msg.HandCardInfo{
 				Roleid : pb.Int64(player.owner.Id()),
