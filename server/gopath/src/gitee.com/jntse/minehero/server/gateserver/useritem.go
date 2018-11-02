@@ -245,15 +245,45 @@ func (u *GateUser) VipTime2() int64 {
 
 func (u *GateUser) AddVipTime (timetype, time int64) {
 	if timetype == 1 {
-		u.EntityBase().AddVipTime1(time)
+		u.AddVipTime1(time)
 	} else if timetype == 2 {
-		u.EntityBase().AddVipTime2(time)
+		u.AddVipTime2(time)
 	}
 	send := &msg.C2GW_PushVipTime{}
 	send.Viptime = pb.Int64(u.VipTime1())
 	send.Yearviptime = pb.Int64(u.VipTime2())
 	u.SendMsg(send)
 }
+func (u *GateUser) AddVipTime1 (time int64) {
+	now := util.CURTIME()
+	viptime1 := u.VipTime1()
+	if now > viptime1 {
+		u.EntityBase().SetVipTime1(now + time)
+	} else {
+		u.EntityBase().SetVipTime1(viptime1 + time)
+	}
+}
+func (u *GateUser) AddVipTime2 (time int64) {
+	now := util.CURTIME()
+	viptime1 := u.VipTime1()
+	viptime2 := u.VipTime2()
+	if now > viptime2 {
+		u.EntityBase().SetVipTime2(now + time)
+		if now > viptime1 {
+			u.EntityBase().SetVipTime1(now + time)
+		} else {
+			u.EntityBase().SetVipTime1(viptime1 + time)
+		}
+	} else {
+		u.EntityBase().SetVipTime2(viptime2 + time)
+		if now > viptime1 {
+			u.EntityBase().SetVipTime1(now + time)
+		} else {
+			u.EntityBase().SetVipTime1(viptime1 + time)
+		}
+	}
+}
+
 
 func (u *GateUser) AddVipExp(vipexp int32) {
 	maxexp := int32(tbl.Global.Vip.Maxexp)
