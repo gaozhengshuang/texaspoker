@@ -449,7 +449,7 @@ func (this *TexasPokerRoom) StartGame() int32 {
 	this.Shuffle()
 	this.SetHoleCard()
 	//如果这个时候大家都是allin 则立即结算
-	if this.allin + 1 >= this.remain {
+	if this.allin == this.remain {
 		return TPFlop
 	}
 	this.BetStart(this.bblindpos+1, false)
@@ -465,13 +465,6 @@ func (this *TexasPokerRoom) SendStartGame() {
 	send.Sblind = pb.Int64(this.smallblindnum)
 	send.Bblind = pb.Int64(this.bigblindnum)
 	this.BroadCastRoomMsg(send)
-}
-
-func (this *TexasPokerRoom) BlindBet() {
-	this.smallblinder.Betting(this.smallblindnum)
-	this.smallblinder.ChangeState(GSBlind)
-	this.bigblinder.Betting(this.bigblindnum)
-	this.bigblinder.ChangeState(GSBlind)
 }
 
 func (this *TexasPokerRoom) SetBigBlind() bool {
@@ -516,10 +509,20 @@ func (this *TexasPokerRoom) SetHoleCard() {
 	})
 }
 
-func (this *TexasPokerRoom) BetStart(pos int32, start bool){
-	if this.allin + 1 >= this.remain && start {
-		//log.Info("房间%d allin人数足够 不在下注", this.Id())
-		return
+func (this *TexasPokerRoom) BetStart(pos int32, nostart bool){
+	if nostart {
+		if this.allin + 1 >= this.remain {
+			//log.Info("房间%d allin人数足够 不在下注", this.Id())
+			return
+		}
+	} else {
+		if this.allin + 1 >= this.remain {
+			if this.smallblinder.IsAllIn() {
+				this.bigblinder.betover = true
+				this.bigblinder.ChangeState(GSCheck)
+				this.bettime = 0
+			}
+		}
 	}
 	if this.remain <= 1 {
 		//log.Info("房间%d remain人数足够 不在下注", this.Id())
@@ -744,6 +747,7 @@ func (this *TexasPokerRoom) RiverBet() int32{
 func (this *TexasPokerRoom) ClearBetOver(flag bool) {
 	this.ForEachPlayer(0, func(player *TexasPlayer) bool {
 		player.betover = false
+		player.bettime = 0
 		if flag == true {
 			player.curbet = 0
 		}
@@ -793,7 +797,7 @@ func (this *TexasPokerRoom) ShowDown() int32{
 		})
 	}
 	
-	this.restarttime = 6 + timecount
+	this.restarttime = timecount*15/10 + 3
 	send := &msg.RS2C_PushOneRoundOver{}
 	for k, pot := range pots { // 遍历奖池
 		var maxhandlevel int32 = -1
@@ -801,7 +805,7 @@ func (this *TexasPokerRoom) ShowDown() int32{
 		// 计算该池子最大牌型和牌值
 		for _, pos := range pot.OPos {
 			p := this.players[pos]
-			if p != nil {
+			if p != nil && !p.IsFold() && !p.IsWait(){
 				if p.hand.level > maxhandlevel {
 					maxhandlevel = p.hand.level
 					maxhandfinalvalue = p.hand.finalvalue
@@ -813,7 +817,7 @@ func (this *TexasPokerRoom) ShowDown() int32{
 		var winners []int
 		for _, pos := range pot.OPos {
 			p := this.players[pos]
-			if p != nil && len(p.hole) > 0 {
+			if p != nil && !p.IsFold() && !p.IsWait(){
 				if p.hand.level == maxhandlevel && p.hand.finalvalue == maxhandfinalvalue {
 					winners = append(winners, pos)
 				}

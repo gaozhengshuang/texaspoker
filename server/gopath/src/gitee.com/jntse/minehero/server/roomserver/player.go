@@ -61,6 +61,7 @@ type TexasPlayer struct{
 	rankinfo *msg.RS2C_PushMTTRank
 	timeout int32
 	trusteeship int32
+	isbigblind bool
 	guessbuy map[int32]int64
 	guesstype int32
 	guessnum int64
@@ -99,6 +100,7 @@ func (this *TexasPlayer)Init(){
 	this.gamestate = GSWaitNext
 	this.aiacttime = 0
 	this.isallinshow = false
+	this.isbigblind = false
 	//this.timeout = 0
 }
 
@@ -199,7 +201,7 @@ func (this *TexasPlayer) BetStart() {
 		this.room.BroadCastRoomMsg(send)
 		this.room.curactpos = this.pos
 		this.room.curacttime = int32(util.CURTIME())
-		//log.Info("玩家%d 开始下注 pos%d", this.owner.Id(), this.pos)
+		log.Info("房间[%d] 玩家[%d] 开始下注 pos[%d]",this.room.Id(), this.owner.Id(), this.pos)
 	}
 }
 
@@ -237,6 +239,7 @@ func (this *TexasPlayer) BlindBet(num int64, big bool) {
 	}
 	if big == true {
 		this.room.curbet = this.curbet
+		this.isbigblind = true
 	}
 	//log.Info("房间%d 玩家%d 开始盲注%d", this.room.Id(), this.owner.Id(), num)
 }
@@ -339,7 +342,13 @@ func (this *TexasPlayer) Betting(num int64) {
 	if !this.room.AllBetOver(){
 		player := this.Next()
 		if player != nil {
-			player.BetStart()
+			if player.gamestate == GSBlind && this.room.allin + 1 >= this.room.remain && player.isbigblind{
+				player.betover = true
+				player.ChangeState(GSCheck)
+				player.bettime = 0
+			}else{
+				player.BetStart()
+			}
 		}
 	}
 	return
@@ -605,7 +614,7 @@ func (this *TexasPlayer) Tick (){
 				this.AIAction(0)
 			}
 		}else{
-			if this.bettime == 0 {
+			if this.bettime == 0 && this.room.state != TPRestart{
 				if this.curbet >= this.room.curbet {
 					this.Betting(0)
 				} else {
@@ -763,7 +772,7 @@ func (this *TexasPlayer) ChangeState(state int32) {
 }
 
 func (this *TexasPlayer) AutoBuy() {
-	if this.GetBankRoll() >= this.room.ante * 2 {
+	if this.GetBankRoll() > this.room.ante {
 		return
 	}
 	if this.autobuy == 0 {
