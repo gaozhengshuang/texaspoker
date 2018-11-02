@@ -5,6 +5,7 @@ import (
 	pb "github.com/gogo/protobuf/proto"
 	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/gotoolkit/log"
+	"gitee.com/jntse/gotoolkit/mysql"
 )
 
 type UserEntity struct {
@@ -197,7 +198,7 @@ func (u *UserEntity) DBSave() {
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "name",  u.name)
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "face",  u.head)
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "sex",   u.sex)
-	//pipe.HSet(fmt.Sprintf("charbase_%d", uid), "account",  u.Account())
+	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "account",  u.Account())
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "level", u.level)
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "exp", u.exp)
 	pipe.HSet(fmt.Sprintf("charbase_%d", uid), "gold", u.gold)
@@ -215,7 +216,34 @@ func (u *UserEntity) DBSave() {
 
 // mysql存储
 func (u *UserEntity) DBSaveMysql() {
-	;
+	db := DB()
+
+	if _, err := db.Delete("charbase", fmt.Sprintf("id=%d",u.Id())); err != nil {
+		log.Error("玩家[%s %d] DBSaveMysql Delete失败[%s]", u.Name(), u.Id(), err)
+		return
+	}
+
+	args := make([]*mysql.MysqlField, 0)
+	args = append(args, &mysql.MysqlField{Name:"id", 		Value:u.Id()})
+	args = append(args, &mysql.MysqlField{Name:"name", 		Value:u.Name()})
+	args = append(args, &mysql.MysqlField{Name:"face", 		Value:u.Head()})
+	args = append(args, &mysql.MysqlField{Name:"sex", 		Value:u.Sex()})
+	args = append(args, &mysql.MysqlField{Name:"account", 	Value:u.Account()})
+	args = append(args, &mysql.MysqlField{Name:"level", 	Value:u.Level()})
+	args = append(args, &mysql.MysqlField{Name:"exp", 		Value:u.Exp()})
+	args = append(args, &mysql.MysqlField{Name:"gold", 		Value:u.Gold()})
+	args = append(args, &mysql.MysqlField{Name:"yuanbao",	Value:u.YuanBao()})
+	args = append(args, &mysql.MysqlField{Name:"diamond", 	Value:u.Diamond()})
+	args = append(args, &mysql.MysqlField{Name:"age", 		Value:u.Age()})
+	args = append(args, &mysql.MysqlField{Name:"viplevel", 	Value:u.VipLevel()})
+	args = append(args, &mysql.MysqlField{Name:"vipexp", 	Value:u.VipExp()})
+	args = append(args, &mysql.MysqlField{Name:"viptime1", 	Value:u.VipTime1()})
+	args = append(args, &mysql.MysqlField{Name:"viptime2", 	Value:u.VipTime2()})
+	if _, err := db.Insert("charbase", args...); err != nil {
+		log.Error("玩家[%s %d] DBSaveMysql 插入失败[%s]", u.Name(), u.Id(), err)
+		return
+	}
+	log.Info("玩家[%s %d] DBSaveMysql 插入成功", u.Name(), u.Id())
 }
 
 func (u *UserEntity) FillEntity() *msg.EntityBase {

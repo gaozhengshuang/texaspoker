@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS `charbase`;
 CREATE TABLE `charbase` (
     `id` bigint(20) NOT NULL,
     `name` varchar(32) NOT NULL DEFAULT "",
-    `head` int(10) NOT NULL DEFAULT '0',
+    `face` int(10) NOT NULL DEFAULT '0',
     `sex` int(10) NOT NULL DEFAULT '0',
     `account` varchar(32) NOT NULL DEFAULT '0',
     `level` int(10) NOT NULL DEFAULT '0',
