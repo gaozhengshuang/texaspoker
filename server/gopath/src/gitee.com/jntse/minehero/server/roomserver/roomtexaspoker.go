@@ -338,7 +338,7 @@ func (this *TexasPokerRoom) CanStart() bool {
 			}   
 		}
 	}
-	if count >= 2 {
+	if count >= 1 && this.PlayersNum() >=2 {
 		return true
 	}
 	if this.IsChampionShip() && this.mttwait >= 3{

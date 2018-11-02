@@ -1,22 +1,26 @@
 package main
 
 import (
-	"database/sql"
 	"fmt"
-	"gitee.com/jntse/gotoolkit/log"
-	"gitee.com/jntse/gotoolkit/net"
-	"gitee.com/jntse/gotoolkit/util"
-	"gitee.com/jntse/minehero/pbmsg"
-	"gitee.com/jntse/minehero/server/def"
-	"gitee.com/jntse/minehero/server/tbl"
-	"github.com/go-redis/redis"
-	_ "github.com/go-sql-driver/mysql"
-	pb "github.com/gogo/protobuf/proto"
 	"os"
 	"runtime"
 	"runtime/debug"
 	"strings"
 	"time"
+	//"database/sql"
+
+	pb "github.com/gogo/protobuf/proto"
+	"github.com/go-redis/redis"
+
+	"gitee.com/jntse/gotoolkit/log"
+	"gitee.com/jntse/gotoolkit/net"
+	"gitee.com/jntse/gotoolkit/util"
+	"gitee.com/jntse/gotoolkit/mysql"
+
+	"gitee.com/jntse/minehero/pbmsg"
+	"gitee.com/jntse/minehero/server/def"
+	"gitee.com/jntse/minehero/server/tbl"
+
 )
 
 func SignalInt(signal os.Signal) {
@@ -80,7 +84,7 @@ type GateServer struct {
 	hourmonitor  	*util.IntHourMonitorPool
 	sf				util.StatFunctionTimeConsume
 	sdispatch		StatDispatch
-	mysqldb      	*sql.DB
+	dbsql      		*mysql.MysqlDriver
 	rankmgr      	RankManager
 	statisticsmgr 	StatisticsManager
 }
@@ -110,8 +114,8 @@ func RankMge() *RankManager {
 	return &GateSvr().rankmgr
 }
 
-func Mysql() *sql.DB {
-	return GateSvr().mysqldb
+func DB() *mysql.MysqlDriver {
+	return GateSvr().dbsql
 }
 
 func WaitPool() *LoginWaitPool {
@@ -298,19 +302,23 @@ func (g *GateServer) Init(fileconf string) bool {
 }
 
 func (g *GateServer) InitMySql() {
-	strsql := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=true&charset=utf8", tbl.Mysql.User, tbl.Mysql.Passwd, tbl.Mysql.Address, tbl.Mysql.Port, tbl.Mysql.Database)
-	db, err := sql.Open("mysql", strsql)
-	if err != nil {
-		log.Error("数据库连接失败 %s", strsql)
-	} else {
-		g.mysqldb = db
-		g.mysqldb.SetMaxIdleConns(int(tbl.Mysql.Connectnum))
-		if err := g.mysqldb.Ping(); err != nil {
-			log.Error("数据库连接失败 %s", strsql)
-			return
-		}
-		log.Info("连接mysql数据库成功 strsql[%s]", strsql)
+	g.dbsql	= &mysql.MysqlDriver{}
+	opt := &mysql.MysqlInitOption{}
+	opt.User 	= tbl.Mysql.User
+	opt.Passwd 	= tbl.Mysql.Passwd + "123"
+	opt.Addr 	= tbl.Mysql.Address
+	opt.Port 	= int32(tbl.Mysql.Port)
+	opt.Database = tbl.Mysql.Database
+	opt.MaxIdleConn = int32(tbl.Mysql.Connectnum)
+	g.dbsql.Init(opt)
+
+	if err := g.dbsql.Open(); err != nil {
+		log.Info("连接Mysql数据库失败[%#v] 原因[%v]", opt, err)
+		return
 	}
+
+	log.Info("连接Mysql数据库成功[%#v]", opt)
+	return
 }
 
 func (g *GateServer) Handler1mTick(now int64) {
@@ -424,8 +432,8 @@ func (g *GateServer) OnStop() {
 		g.hredis.Close()
 	}
 
-	if g.mysqldb != nil {
-		g.mysqldb.Close()
+	if g.dbsql != nil {
+		g.dbsql.Close()
 	}
 }
 
