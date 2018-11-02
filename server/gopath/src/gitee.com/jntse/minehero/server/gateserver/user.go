@@ -438,6 +438,7 @@ func (u *GateUser) LoadGateBin () {
 func (u *GateUser) DBSave() {
 	//u.entity.DBSave()
 	//u.bag.DBSave()
+	u.entity.DBSaveMysql()
 	u.mailbox.DBSave()
 	u.friends.DBSave()
 	key := fmt.Sprintf("userbin_%d", u.Id())

@@ -305,7 +305,7 @@ func (g *GateServer) InitMySql() {
 	g.dbsql	= &mysql.MysqlDriver{}
 	opt := &mysql.MysqlInitOption{}
 	opt.User 	= tbl.Mysql.User
-	opt.Passwd 	= tbl.Mysql.Passwd + "123"
+	opt.Passwd 	= tbl.Mysql.Passwd
 	opt.Addr 	= tbl.Mysql.Address
 	opt.Port 	= int32(tbl.Mysql.Port)
 	opt.Database = tbl.Mysql.Database
