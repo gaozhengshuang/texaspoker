@@ -793,7 +793,7 @@ func (this *TexasPokerRoom) ShowDown() int32{
 		})
 	}
 	
-	this.restarttime = 3 + timecount
+	this.restarttime = 6 + timecount
 	send := &msg.RS2C_PushOneRoundOver{}
 	for k, pot := range pots { // 遍历奖池
 		var maxhandlevel int32 = -1
@@ -946,6 +946,7 @@ func (this *TexasPokerRoom) RestartGame() int32{
 		}
 		this.currecord = make([]*msg.UserReviewInfo, 0)
 		var playercount int32 = 0
+		var needoneai bool = false
 		for _, p := range this.players {
 			if p != nil {
 				p.AddBankRollNext()
@@ -959,6 +960,7 @@ func (this *TexasPokerRoom) RestartGame() int32{
 					if p.GetBankRoll() >= this.tconf.BBuyin * 5 {
 						p.StandUp()
 						this.haveai = false
+						needoneai = true
 					}
 				}else{
 					playercount++
@@ -990,6 +992,9 @@ func (this *TexasPokerRoom) RestartGame() int32{
 		//如果是全场ai的房间
 		if this.tconf.Rbt == this.tconf.Seat && !this.IsFullPlayer() {
 			this.CreateAI(this.tconf.Seat - this.PlayersNum())
+		}
+		if needoneai && !this.IsFullPlayer() {
+			this.CreateAI(1)
 		}
 		return TPWait 
 	}
@@ -1349,7 +1354,7 @@ func (this *TexasPokerRoom) CreateAI(num int32) {
 	for i := 0; i < int(num); i++ {
 		player := NewTexasPlayer(users[i], this,  true)
 		player.Init()
-		bankroll := this.tconf.SBuyin * int64(util.RandBetween(1, 10))
+		bankroll := this.tconf.SBuyin * int64(util.RandBetween(5, 10))
 		rev := &msg.C2RS_ReqBuyInGame{Num:pb.Int64(bankroll), Isautobuy:pb.Bool(true), Pos:pb.Int32(this.GetFreePos()+1)}
 		player.BuyInGame(rev)
 		player.readytime = 3

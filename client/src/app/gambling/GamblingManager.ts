@@ -273,7 +273,7 @@ class GamblingManager
 		SocketManager.AddCommandListener(Command.RS2C_PushOneRoundOver, GamblingManager.pushOneRoundOver, this);
 		SocketManager.AddCommandListener(Command.RS2C_PushHandCard, GamblingManager.pushHandCard, this);
 		SocketManager.AddCommandListener(Command.RS2C_PushChipsChange, GamblingManager.pushChipsChange, this);
-		SocketManager.AddCommandListener(Command.InTrusteeship_Push_2119, GamblingManager.pushInTrusteeship, this);
+		SocketManager.AddCommandListener(Command.RS2C_PushInTrusteeship, GamblingManager.pushInTrusteeship, this);
 		SocketManager.AddCommandListener(Command.RS2C_PushTFPlayerKickOut, GamblingManager.pushExitRoom, this);
 		SocketManager.AddCommandListener(Command.RS2C_PushBrightCard, GamblingManager.pushImmediatelyBirhgtCard, this);
 		GamblingManager.timeAwardHandler.addPushListener();
@@ -758,6 +758,7 @@ class GamblingManager
 				temporaryRoll = GamblingManager.self.initbankRoll;
 				GamblingManager.self.initbankRoll = 0;
 			}
+			GamblingManager.guessHandler.tryBuy();
 			GamblingManager.RoundOverEvent.dispatch({ initbankRoll: temporaryRoll, handCard: handCard });
 			GamblingManager.gamblingReviewHandler.isNewRound = true;
 			// GamblingManager.roomInfo.potChips = undefined;

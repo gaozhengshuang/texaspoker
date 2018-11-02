@@ -339,7 +339,8 @@ export var ProtoId : table.IProtoIdDefine[] = [
 		{ Id : 334, Name : "msg.RS2C_PushBlindChange" 	},
 		{ Id : 335, Name : "msg.GuessBuyInfo" 	},
 		{ Id : 336, Name : "msg.C2RS_ReqGuessBuy" 	},
-		{ Id : 337, Name : "msg.RS2C_RetGuessBuy" 	}
+		{ Id : 337, Name : "msg.RS2C_RetGuessBuy" 	},
+		{ Id : 338, Name : "msg.RS2C_PushInTrusteeship" 	}
 	]
 
 

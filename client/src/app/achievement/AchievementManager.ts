@@ -124,6 +124,16 @@ class AchievementManager
             }
         }
         info.allAchieveList = AchievementManager.getCompleteAchieveInfoDic(list, info);
+        for (let ainfo of data.grouplist) //服务器有记录说明该任务已经被激活
+        {
+            for (let allInfo of info.allAchieveList)
+            {
+                if (allInfo.definition.Group == ainfo.groupid)
+                {
+                    allInfo.isActive = true;
+                }
+            }
+        }
     }
     /**
      * 生成包括所有成就信息的列表

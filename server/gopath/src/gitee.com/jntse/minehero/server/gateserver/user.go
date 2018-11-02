@@ -715,7 +715,7 @@ func (u *GateUser) SendGuessRecord() {
 		send.List = append(send.List, data)
 	}
 	u.SendMsg(send)
-	log.Info("玩家[%d] 请求最近竞猜列表", u.Id())
+	//log.Info("玩家[%d] 请求最近竞猜列表", u.Id())
 }
 
 func (u *GateUser) SendGuessRank() {
@@ -763,6 +763,6 @@ func (u *GateUser) SendGuessRank() {
 		}
 	}
 	u.SendMsg(send)
-	log.Info("玩家[%d] 请求最近竞猜排行榜", u.Id())
+	//log.Info("玩家[%d] 请求最近竞猜排行榜", u.Id())
 }
 

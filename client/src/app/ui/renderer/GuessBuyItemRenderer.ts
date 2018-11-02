@@ -40,7 +40,7 @@ class GuessBuyItemRenderer extends BaseItemRenderer<GuessOddsInfo>
         {
             this.reset();
             this.typeLabel.text = this.bindData.definition.Des;
-            this.oddsLabel.text = this.bindData.definition.Odds.toString();
+            this.oddsLabel.text = (game.longToNumber(this.bindData.definition.Odds) / 100).toString();
             this.addEventListener(egret.Event.REMOVED_FROM_STAGE, this.onDisable, this);
             this.ante1RB.addEventListener(eui.UIEvent.CHANGE, this.anteClick, this);
             this.ante2RB.addEventListener(egret.Event.CHANGE, this.anteClick, this);

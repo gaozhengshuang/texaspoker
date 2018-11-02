@@ -99,11 +99,11 @@ enum AchieveGroup
 	/**
 	 * 幸运任务2
 	 */
-	LuckyGroup2 = 4002,
+	LuckyGroup2 = 4101,
 	/**
 	 * 幸运任务3
 	 */
-	LuckyGroup3 = 4003,
+	LuckyGroup3 = 4201,
 }
 
 /**

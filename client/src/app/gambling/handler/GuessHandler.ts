@@ -39,6 +39,10 @@ class GuessHandler
      * 是否购买了竞猜
     */
     public isBuyGuess: boolean;
+    /**
+         * 购买的注数信息
+        */
+    public buyAnteInfo: Array<BuyGuessAnteInfo>;
 
     /**
      * 重置数据
@@ -54,9 +58,10 @@ class GuessHandler
     public leaveRoomReset()
     {
         this.totalAnte = 0;
-        GamblingManager.guessHandler.buyInning = undefined;
+        this.buyInning = undefined;
         game.ArrayUtil.Clear(this.resultList);
         game.ArrayUtil.Clear(this.buyGuessAnteInfo);
+        this.buyAnteInfo = [];
         this.onDisable();
     }
     public onEnable()
@@ -75,7 +80,7 @@ class GuessHandler
         this.buyOnceRBSel = false;
         if (this.buyInning == 1)
         {
-            GamblingManager.guessHandler.buyInning = undefined;
+            this.buyInning = undefined;
         }
         this.onResetBuyOnceStateEvent.dispatch();
     }
@@ -126,7 +131,7 @@ class GuessHandler
         {
             let buyAnteInfo: BuyGuessAnteInfoBase = new BuyGuessAnteInfoBase();
             buyAnteInfo.id = id;
-            buyAnteInfo.handType = def.Type;
+            buyAnteInfo.handtype = def.Type;
             buyAnteInfo.num = ante;
             this.buyGuessAnteInfo.push(buyAnteInfo);
         }
@@ -184,7 +189,7 @@ class GuessHandler
             let ante: number = 0;
             for (let guessInfo of this.buyGuessAnteInfo)
             {
-                switch (guessInfo.handType)
+                switch (guessInfo.handtype)
                 {
                     case GuessType.NoAOrK:    //无A和K
                         if (card1.card[1] != 1 && card1.card[1] != 13 && card2.card[1] != 1 && card2.card[1] != 13)
@@ -259,10 +264,10 @@ class GuessHandler
         };
         if (type == 0)
         {
-            SocketManager.call(Command.C2RS_ReqGuessBuy, {type: type}, callback, null, this);
+            MsgTransferSend.sendRoomProto(Command.C2RS_ReqGuessBuy, { type: type }, callback, null, this);
         } else
         {
-            SocketManager.call(Command.C2RS_ReqGuessBuy, { type: type, anteList: anteList }, callback, null, this);
+            MsgTransferSend.sendRoomProto(Command.C2RS_ReqGuessBuy, { type: type, antelist: anteList }, callback, null, this);
         }
     }
     /**
@@ -274,7 +279,7 @@ class GuessHandler
     }
     public getWeekInfoResponse(result: game.SpRpcResult)
     {
-        let data:msg.GW2C_RetGuessRank = result.data;
+        let data: msg.GW2C_RetGuessRank = result.data;
         if (data)
         {
             this.weekGuessRankList = data.list;
@@ -290,7 +295,7 @@ class GuessHandler
     }
     public getBuyRecordInfoResponse(result: game.SpRpcResult)
     {
-        let data:msg.GW2C_RetGuessRecord = result.data;
+        let data: msg.GW2C_RetGuessRecord = result.data;
         if (data && data.list)
         {
             if (!this.recordList)
@@ -304,8 +309,8 @@ class GuessHandler
                 let cardList: Array<CardInfo> = new Array<CardInfo>();
                 let numList: Array<number> = new Array<number>();
                 recordInfo.type = dataInfo.type;
-                recordInfo.ante = dataInfo.ante;
-                recordInfo.gold = dataInfo.gold;
+                recordInfo.ante = game.longToNumber(dataInfo.ante);
+                recordInfo.gold = game.longToNumber(dataInfo.gold);
                 recordInfo.time = dataInfo.time;
                 GamblingUtil.cardArr2CardInfoList(dataInfo.cards, cardList);
                 recordInfo.card1 = cardList[0];
@@ -328,15 +333,28 @@ class GuessHandler
     {
         if (GamblingManager.roomInfo)
         {
-            let guessGold: number = GamblingManager.guessHandler.totalAnte * GamblingManager.roomInfo.bBlind;
+            let guessGold: number = this.totalAnte * GamblingManager.roomInfo.bBlind;
             if (guessGold && UserManager.userInfo.gold < guessGold)
             {
-                GamblingManager.guessHandler.buyInning = undefined;
-                GamblingManager.guessHandler.isBuyGuess = false;
+                this.buyInning = undefined;
+                this.isBuyGuess = false;
             }
         }
     }
-
+    public tryBuy()
+    {
+        if (this.buyInning == 1)
+        {
+            //发送购买一局请求
+            this.buyOnceRBSel = true;
+            this.reqBuyGuessAnte(1, this.buyAnteInfo);
+        } else if (this.buyInning == 2)
+        {
+            // 发送购买每局请求
+            this.reqBuyGuessAnte(2, this.buyAnteInfo);
+            this.buyOnceRBSel = false;
+        }
+    }
     /**
      * 获取投注的手牌类型以及赔率的数据成功的广播
     */
@@ -388,7 +406,7 @@ class BuyGuessAnteInfo
     /**
      * 手牌类型
     */
-    public handType: number;
+    public handtype: number;
     /**
      * 购买的注数
     */

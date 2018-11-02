@@ -28,7 +28,7 @@ class FuncOpenUtils
 	/**
 	 * 暂未使用的功能列表
 	 */
-	private static _notOpenList: FuncType[] = [FuncType.Bind, FuncType.Invite, FuncType.GuessCard];
+	private static _notOpenList: FuncType[] = [FuncType.Bind, FuncType.Invite];
 
 	public static isOpened(type: FuncType, needAlert: boolean = true): boolean
 	{
