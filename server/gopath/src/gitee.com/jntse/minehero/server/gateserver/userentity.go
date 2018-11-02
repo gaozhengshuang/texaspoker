@@ -45,13 +45,15 @@ func (u *UserEntity) Level() int32 {
 	return u.level
 }
 func (u *UserEntity) IncLevel(n int32)  { 
+	u.level += n
 	Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "level", int64(n))
 }
 func (u *UserEntity) Exp() int32 { 
 	u.exp = util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "exp").Val())
 	return u.exp
 }
-func (u *UserEntity) SetExp(exp int32) { 
+func (u *UserEntity) SetExp(exp int32) {
+	u.exp = exp
 	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "exp", exp)
 }
 
@@ -61,13 +63,15 @@ func (u *UserEntity) VipLevel() int32 {
 	return u.viplevel
 }
 func (u *UserEntity) SetVipLevel(viplevel int32) {
+	u.viplevel = viplevel
 	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "viplevel", viplevel)
 }
 func (u *UserEntity) VipExp() int32 {
-	u.exp = util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "vipexp").Val())
+	u.vipexp = util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "vipexp").Val())
 	return u.exp
 }
 func (u *UserEntity) SetVipExp(vipexp int32) {
+	u.vipexp = vipexp
 	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "vipexp", vipexp)
 }
 func (u *UserEntity) VipTime1() int64 {
@@ -114,9 +118,11 @@ func (u *UserEntity) Gold() int64 {
 	return u.gold
 }
 func (u *UserEntity) IncGold(n int64) {
+	u.gold += n
 	Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "gold", n)
 }
 func (u *UserEntity) DecGold(n int64) {
+	u.gold -= n
 	Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "gold", -n)
 }
 
@@ -126,9 +132,11 @@ func (u *UserEntity) YuanBao() int64 {
 	return u.yuanbao
 }
 func (u *UserEntity) IncYuanBao(n int64) {
+	u.yuanbao += n
 	Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "yuanbao", n)
 }
 func (u *UserEntity) DecYuanBao(n int64) {
+	u.yuanbao -= n
 	Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "yuanbao", -n)
 }
 
@@ -138,9 +146,11 @@ func (u *UserEntity) Diamond() int64 {
 	return u.diamond
 }
 func (u *UserEntity) IncDiamond(n int64) {
+	u.diamond -= n
 	Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "diamond", n)
 }
 func (u *UserEntity) DecDiamond(n int64) {
+	u.diamond += n
 	Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "diamond", -n)
 }
 
@@ -201,6 +211,11 @@ func (u *UserEntity) DBSave() {
 		return
 	}
 	log.Info("玩家[%s %d] 保存charbase成功", u.Name(), u.Id())
+}
+
+// mysql存储
+func (u *UserEntity) DBSaveMysql() {
+	;
 }
 
 func (u *UserEntity) FillEntity() *msg.EntityBase {
