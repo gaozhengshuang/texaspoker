@@ -615,7 +615,7 @@ func (cs *ChampionShip) GameOver() {
 
 func (cs *ChampionShip) GetAwardByRank (rank int32) int32 {
 	for _, v := range tbl.TChampionshipPrize.ChampionshipPrizeById {
-		if cs.tconf.Prize == v.PrizeId && v.Start >= rank && rank <= v.End {
+		if cs.tconf.Prize == v.PrizeId && v.Start <= rank && rank <= v.End {
 			return v.AwardId
 		}
 	}
@@ -623,7 +623,7 @@ func (cs *ChampionShip) GetAwardByRank (rank int32) int32 {
 }
 
 func (cs *ChampionShip) ChampionNotify(name string, tid int32, aid int32) {
-	txt := fmt.Sprintf("{\"0\":\"%s\",\"1\":%d,\"2\":%d,}", name, tid, aid)
+	txt := fmt.Sprintf("{\"0\":\"%s\",\"1\":%d,\"2\":%d}", name, tid, aid)
 	send := &msg.RS2GW_ChatInfo{}
 	send.Chat = def.MakeChatInfo(def.ChatAll, txt, 0, "", def.MTTMsg, def.MsgShowAll)
 	GateMgr().Broadcast(send)
@@ -824,6 +824,19 @@ func (cm *ChampionManager) InitChampionShip() {
 	}
 }
 
+func (cm *ChampionManager) ReInitChampionShip() {
+	if RoomSvr().Name() != tbl.Room.MTTRoomServer {
+		return
+	}
+	for _, data := range tbl.TChampionship.ChampionshipById {
+		if data.Type == 2 {
+			continue
+		}
+		start := SysTimerMgr().GetStartTimeByTimeId(data.TimeId, data.Type)
+		cm.CreateChampionShip(data.Id, start)
+	}
+}
+
 func (cm *ChampionManager) CreateChampionShip(tid int32, start int32) {
 	if start == 0 {
 		return
@@ -840,7 +853,7 @@ func (cm *ChampionManager) CreateChampionShip(tid int32, start int32) {
 
 func (cm *ChampionManager) Handler1sTick(now int64) {
 	if !util.IsSameDay(int64(cm.lastinittime), util.CURTIME()) {
-		cm.InitChampionShip()
+		cm.ReInitChampionShip()
 		cm.lastinittime = int32(util.CURTIME())
 	}
 }
