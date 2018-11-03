@@ -599,25 +599,28 @@ class ChampionshipInfoPanel extends BasePanel
         if (champDef.Rebuy)
         {
             this.rebuyGroup.visible = true;
-            this.rebuyDesLabel.textFlow = game.TextUtil.parse(
-                '可重购比赛，次数：' +
-                '<font color="#F3C655" size="24">' + champDef.Rebuy + '次' + '</font>' +
-                '，第' + '<font color="#F3C655" size="24">' + this.nthRebuy + '</font>' +
-                '个盲注级别前可用' + '<font color="#F3C655" size="24">' + champDef.RebuyCost + '金币' + '</font>' +
-                '兑换' + '<font color="#F3C655" size="24">' + champDef.InitialChips + '比赛筹码' + '</font>'
-            );
+            this.rebuyDesLabel.textFlow = game.TextUtil.parse(this.getDes(champDef.Rebuy, this.nthRebuy, champDef.RebuyCost, champDef.InitialChips));
         }
         if (champDef.Addon)
         {
             this.addonGroup.visible = true;
-            this.addonDesLabel.textFlow = game.TextUtil.parse(
-                '可增购比赛，次数：' +
-                '<font color="#F3C655" size="24">' + champDef.Addon + '次' + '</font>' +
-                '，第' + '<font color="#F3C655" size="24">' + this.nthAddon + '</font>' +
-                '个盲注级别前可用' + '<font color="#F3C655" size="24">' + champDef.AddonCost + '金币' + '</font>' +
-                '兑换' + '<font color="#F3C655" size="24">' + champDef.AddonChips + '比赛筹码' + '</font>'
-            );
+            this.addonDesLabel.textFlow = game.TextUtil.parse(this.getDes(champDef.Addon, this.nthAddon, champDef.AddonCost, champDef.AddonChips));
         }
+    }
+    private getDes(para1: any, para2: any, para3: any, para4: any)
+    {
+        let f1 = '可增购比赛，次数：';
+        let f2 = '次';
+        let f3 = '，第';
+        let f4 = '个盲注级别前可用';
+        let f5 = '金币';
+        let f6 = '兑换';
+        let f7 = '比赛筹码';
+        let result = f1 + '<font color="#F3C655" size="24">' + para1 + f2 + '</font>' +
+            f3 + '<font color="#F3C655" size="24">' + para2 + '</font>' +
+            f4 + '<font color="#F3C655" size="24">' + para3 + f5 + '</font>' +
+            f6 + '<font color="#F3C655" size="24">' + para4 + f7 + '</font>';
+        return result;
     }
     /**
      * 选项卡点击事件

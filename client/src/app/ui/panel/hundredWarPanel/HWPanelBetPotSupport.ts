@@ -240,13 +240,11 @@ class HWPanelBetPotSupport extends BaseHWPanelSupport
     private isGtBankerOneFifth(): boolean
     {
         let flag: boolean = false;
-        let a: number = 0;
         for (let playerInfo of HundredWarManager.roomInfo.playerList)
         {
             if (playerInfo.pos == 0 && !HundredWarManager.isSysBanker(playerInfo.roleId))
             {
-                a = playerInfo.gold / 5;
-                if ((HundredWarManager.getPlayerBetTotalNum() + HundredWarManager.oneBetGold) > (playerInfo.gold / 5))
+                if ((HundredWarManager.getPlayerBetTotalNum() + HundredWarManager.oneBetGold) > (playerInfo.gold / HundredWarManager.maxRate))
                 {
                     flag = true;
                     UIManager.showFloatTips("当前下注金币数已达庄家金币上限");

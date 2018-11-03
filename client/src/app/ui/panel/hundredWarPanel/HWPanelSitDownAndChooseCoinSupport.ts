@@ -139,7 +139,7 @@ class HWPanelSitDownAndChooseCoinSupport extends BaseHWPanelSupport
         {
             if (playerInfo.pos == 0 && !HundredWarManager.isSysBanker(playerInfo.roleId))
             {
-                if (HundredWarManager.getPlayerBetTotalNum() + this.target.getPreBetGold() > (playerInfo.gold / 5))
+                if (HundredWarManager.getPlayerBetTotalNum() + this.target.getPreBetGold() > (playerInfo.gold / HundredWarManager.maxRate))
                 {
                     UIManager.showFloatTips("当前下注金币数已达庄家金币上限");
                     return true;
@@ -221,7 +221,7 @@ class HWPanelSitDownAndChooseCoinSupport extends BaseHWPanelSupport
         if (HundredWarManager.roomInfo.state == HWState.Bet)
         {
             let total: number = this.target.getPreBetGold() + HundredWarManager.getThisBetGold();
-            if (this.target.getPreBetGold() && ((UserManager.userInfo.gold + HundredWarManager.getThisBetGold()) / 5) >= total)
+            if (this.target.getPreBetGold() && ((UserManager.userInfo.gold + HundredWarManager.getThisBetGold()) / HundredWarManager.maxRate) >= total)
             {
                 return true;
             }
@@ -243,7 +243,7 @@ class HWPanelSitDownAndChooseCoinSupport extends BaseHWPanelSupport
             {
                 total = this.target.getPreBetGold() + HundredWarManager.getThisBetGold();
             }
-            if (((UserManager.userInfo.gold + HundredWarManager.getThisBetGold()) / 5) >= total)
+            if (((UserManager.userInfo.gold + HundredWarManager.getThisBetGold()) / HundredWarManager.maxRate) >= total)
             {
                 return true;
             }
@@ -332,7 +332,7 @@ class HWPanelSitDownAndChooseCoinSupport extends BaseHWPanelSupport
             {
                 let total: number;
                 total = dp.source[i].bet + HundredWarManager.getThisBetGold();
-                if (((UserManager.userInfo.gold + HundredWarManager.getThisBetGold()) / 5) >= total)
+                if (((UserManager.userInfo.gold + HundredWarManager.getThisBetGold()) / HundredWarManager.maxRate) >= total)
                 {
                     hwBetItem.bet["maskImg"].visible = false;
                     dp.source[i].isBet = true;
@@ -348,7 +348,7 @@ class HWPanelSitDownAndChooseCoinSupport extends BaseHWPanelSupport
                         {
                             total1 = dp.source[0].bet + HundredWarManager.getThisBetGold();
                         }
-                        if ((dp.source[i].bet <= HundredWarManager.oneBetGold) && (((UserManager.userInfo.gold + HundredWarManager.getThisBetGold()) / 5) >= total1))
+                        if ((dp.source[i].bet <= HundredWarManager.oneBetGold) && (((UserManager.userInfo.gold + HundredWarManager.getThisBetGold()) / HundredWarManager.maxRate) >= total1))
                         {
                             if (i > 0)
                             {

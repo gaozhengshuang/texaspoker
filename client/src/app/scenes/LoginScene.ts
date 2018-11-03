@@ -419,7 +419,7 @@ class LoginScene extends BaseScene
     {
         GamblingManager.OnGetRoomInfoEvent.addListener(this.onGetRoomInfoResult, this);
         game.Console.log("游戏初始化进入房间：reqGetRoomInfo,----InsideRoomManager.lastId", InsideRoomManager.lastId);
-        GamblingManager.reqEnterRoom(InsideRoomManager.lastId, InsideRoomManager.lastPasswd, true);
+        GamblingManager.reqEnterRoom(InsideRoomManager.lastId, InsideRoomManager.lastPasswd, false, true);
     }
     private onGetRoomInfoResult()
     {

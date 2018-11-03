@@ -29,6 +29,7 @@ class InitAppHandler
 		UploadHeadManager.clearAllData();
 		// BindAccountManager.clear(); //move todo
 		RankManager.initialize();
+		HundredWarManager.initialize();
 		// PopupManager.initialize(); //move todo
 	}
 }

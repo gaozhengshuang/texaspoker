@@ -192,7 +192,7 @@ class GuessHandler
                 switch (guessInfo.handtype)
                 {
                     case GuessType.NoAOrK:    //无A和K
-                        if (card1.card[1] != 1 && card1.card[1] != 13 && card2.card[1] != 1 && card2.card[1] != 13)
+                        if (card1.card[1] != CardTypeMatchUtil.minIndex && card1.card[1] != 13 && card2.card[1] != CardTypeMatchUtil.minIndex && card2.card[1] != 13)
                         {
                             ante += guessInfo.num;
                         }
@@ -204,13 +204,13 @@ class GuessHandler
                         }
                         break;
                     case GuessType.HasAOrK:  //含A或K
-                        if (card1.card[1] == 1 || card1.card[1] == 13 || card2.card[1] == 1 || card2.card[1] == 13)
+                        if (card1.card[1] == CardTypeMatchUtil.minIndex || card1.card[1] == 13 || card2.card[1] == CardTypeMatchUtil.minIndex || card2.card[1] == 13)
                         {
                             ante += guessInfo.num;
                         }
                         break;
                     case GuessType.HasA:  //含A
-                        if (card1.card[1] == 1 || card2.card[1] == 1)
+                        if (card1.card[1] == CardTypeMatchUtil.minIndex || card2.card[1] == CardTypeMatchUtil.minIndex)
                         {
                             ante += guessInfo.num;
                         }
@@ -222,7 +222,7 @@ class GuessHandler
                         }
                         break;
                     case GuessType.HasAA:  //为AA
-                        if (card1.card[1] == 1 && card2.card[1] == 1)
+                        if (card1.card[1] == CardTypeMatchUtil.minIndex && card2.card[1] == CardTypeMatchUtil.minIndex)
                         {
                             ante += guessInfo.num;
                         }

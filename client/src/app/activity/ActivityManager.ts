@@ -268,7 +268,7 @@ class ActivityManager
      */
     private static onTimeReset()
     {
-        SocketManager.call(Command.C2GW_ReqActivityInfo, null, ActivityManager.initialize, null, this);
+        SocketManager.call(Command.C2GW_ReqActivityInfo, {}, ActivityManager.initialize, null, this);
     }
     /**
      * 设置活动信息

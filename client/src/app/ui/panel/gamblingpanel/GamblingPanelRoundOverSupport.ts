@@ -76,7 +76,10 @@ class GamblingPanelRoundOverSupport extends BaseGamblingPanelSupport
 	private nextRoundStartHandler(cardList: Array<CardInfo>)
 	{
 		this._isNextRoundStart = true;
-
+		for(let pit of this.target.pitList)
+		{
+			pit.headComponent.clearAllinList(); //清理allin的牌的数据
+		}
 		if (GamblingManager.self && GamblingManager.self.state != PlayerState.WaitNext) //兼容异常处理
 		{
 			this.target.actionGroup.showImmediatelyBrightCardBtn(false);

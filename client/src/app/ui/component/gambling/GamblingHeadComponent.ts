@@ -74,6 +74,11 @@ class GamblingHeadComponent extends BaseComponent<PlayerInfo>{
 	public voiceShow: eui.Group;
 
 	/**
+	 * allin时的卡牌信息
+	 */
+	private _allInCardList: Array<CardInfo>;
+
+	/**
 	 * 卡牌1
 	 */
 	public get cardFace1(): CardFaceComponent
@@ -907,6 +912,10 @@ class GamblingHeadComponent extends BaseComponent<PlayerInfo>{
 					{
 						if (this.bindData.roleId != UserManager.userInfo.roleId)
 						{
+							if (this._allInCardList)
+							{
+								return;
+							}
 							//比牌
 							this.cardFace1.init(handCardInfo.cardList[0]);
 							this.cardFace2.init(handCardInfo.cardList[1]);
@@ -936,6 +945,7 @@ class GamblingHeadComponent extends BaseComponent<PlayerInfo>{
 	 */
 	public allinShowHand(list: Array<CardInfo>)
 	{
+		this._allInCardList = list;
 		//比牌
 		this.cardFace1.init(list[0]);
 		this.cardFace2.init(list[1]);
@@ -1161,5 +1171,12 @@ class GamblingHeadComponent extends BaseComponent<PlayerInfo>{
 			this.vipGroup.visible = true;
 			this.vipLabel.text = "VIP" + this.bindData.userInfo.vipLevel.toString();
 		}
+	}
+	/**
+	 * 清理allin发的牌数据 每局开始清理
+	 */
+	public clearAllinList()
+	{
+		this._allInCardList = null;
 	}
 }

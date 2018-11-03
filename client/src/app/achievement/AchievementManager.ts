@@ -12,9 +12,9 @@ class AchievementManager
      */
     public static getAchievementPrizeEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
     /**
-     * 总成就和任务列表
+     * 总成就和任务列表 静态的，用于表的映射
      */
-    public static allList: Array<AchievementInfo>;
+    public static initAllList: Array<AchievementInfo>;
     /**
      * 别的玩家任务进度
      */
@@ -23,9 +23,9 @@ class AchievementManager
     public static initialize(result: game.SpRpcResult)
     {
         TimeManager.resetTime0Event.addListener(this.onResetTime, this);
-        if (!AchievementManager.allList)
+        if (!AchievementManager.initAllList)
         {
-            AchievementManager.allList = new Array<AchievementInfo>();
+            AchievementManager.initAllList = new Array<AchievementInfo>();
             for (let def of table.Achieve)
             {
                 let info: AchievementInfo = new AchievementInfo();
@@ -34,7 +34,7 @@ class AchievementManager
                 info.isTake = false;
                 info.isOther = false;
                 info.setActive();
-                AchievementManager.allList.push(info);
+                AchievementManager.initAllList.push(info);
             }
         }
         AchievementManager.setAllAchieveList(UserManager.userInfo, result, true);
@@ -49,7 +49,7 @@ class AchievementManager
             let data: msg.GW2C_RetTakeOtherTask = result.data;
             if (data.taskid > 0)
             {
-                let acheiveInfo = AchievementManager.getAchieveInfoById(AchievementManager.allList, data.taskid);
+                let acheiveInfo = AchievementManager.getAchieveInfoById(UserManager.userInfo.allAchieveList, data.taskid);
                 if (acheiveInfo)
                 {
                     acheiveInfo.isActive = true;
@@ -103,7 +103,7 @@ class AchievementManager
         {
             for (let aInfo of data.grouplist)
             {
-                let achieveInfoList: Array<AchievementInfo> = AchievementManager.getAchieveListByGroup(AchievementManager.allList, aInfo.groupid); //同组任务的所有列表
+                let achieveInfoList: Array<AchievementInfo> = AchievementManager.getAchieveListByGroup(AchievementManager.initAllList, aInfo.groupid); //同组任务的所有列表
                 if (!isSelf)
                 {
                     AchievementManager.otherProcessList.add(aInfo.groupid, aInfo.process);
@@ -123,14 +123,17 @@ class AchievementManager
                 }
             }
         }
-        info.allAchieveList = AchievementManager.getCompleteAchieveInfoDic(list, info);
-        for (let ainfo of data.grouplist) //服务器有记录说明该任务已经被激活
+        if (info.roleId == UserManager.userInfo.roleId)
         {
-            for (let allInfo of info.allAchieveList)
+            info.allAchieveList = AchievementManager.getCompleteAchieveInfoDic(list, info);
+            for (let ainfo of data.grouplist) //服务器有记录说明该任务已经被激活
             {
-                if (allInfo.definition.Group == ainfo.groupid)
+                for (let allInfo of info.allAchieveList)
                 {
-                    allInfo.isActive = true;
+                    if (allInfo.definition.Group == ainfo.groupid)
+                    {
+                        allInfo.isActive = true;
+                    }
                 }
             }
         }
@@ -142,12 +145,12 @@ class AchievementManager
     {
         if (list == null || list.length == 0)
         {
-            return AchievementManager.allList;
+            return AchievementManager.initAllList;
         }
         let result: Array<AchievementInfo> = new Array<AchievementInfo>();
-        for (let i: number = 0; i < AchievementManager.allList.length; i++)
+        for (let i: number = 0; i < AchievementManager.initAllList.length; i++)
         {
-            let info: AchievementInfo = AchievementManager.allList[i];
+            let info: AchievementInfo = AchievementManager.initAllList[i];
             let resultInfo: AchievementInfo;
             for (let j: number = 0; j < list.length; j++)
             {
@@ -225,7 +228,7 @@ class AchievementManager
      */
     public static getAchieveInfo(id: number): AchievementInfo
     {
-        for (let info of AchievementManager.allList)
+        for (let info of UserManager.userInfo.allAchieveList)
         {
             if (info.id == id)
             {

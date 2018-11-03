@@ -35,11 +35,11 @@ class RoomInfo extends BaseServerValueInfo implements IHaveDefintionInfo
 	/**
 	 * 底池筹码
 	 */
-    public get potChips(): ((number|Long)[]|null)
+    public get potChips(): ((number | Long)[] | null)
     {
         return this.data.potchips;
     }
-    public set potChips(value: ((number|Long)[]|null))
+    public set potChips(value: ((number | Long)[] | null))
     {
         this.data.potchips = value;
     }
@@ -414,5 +414,16 @@ class CardInfo extends BaseServerValueInfo
     public reset() 
     {
         this.card = undefined;
+    }
+    public equals(cardInfo: CardInfo)
+    {
+        if (cardInfo && cardInfo.card && this.card)
+        {
+            if (cardInfo.card[0] == this.card[0] && cardInfo.card[1] == this.card[2])
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

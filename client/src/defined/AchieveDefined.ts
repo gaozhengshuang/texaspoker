@@ -45,7 +45,7 @@ class AchieveDefined
 		let result: Array<number> = new Array<number>();
 		for (let def of table.Achieve)
 		{
-			if (result.indexOf(def.Group) == -1)
+			if (result.indexOf(def.Group) == -1 && !def.LuckyTask) // def.LuckyTask > 0为幸运任务，需要动态接取
 			{
 				result.push(def.Group);
 			}

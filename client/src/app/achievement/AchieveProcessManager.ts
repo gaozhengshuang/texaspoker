@@ -27,6 +27,14 @@ class AchieveProcessManager
                         break;
                     }
                 }
+
+            }
+            for (let info of data.grouplist)
+            {
+                if (info.groupid == AchieveGroup.LuckyGroup1 || info.groupid == AchieveGroup.LuckyGroup2 || info.groupid == AchieveGroup.LuckyGroup3)
+                {
+                    AchieveProcessManager.addProcess(info.groupid, info.process);
+                }
             }
         }
         if (data.achievelist)
@@ -193,7 +201,7 @@ class AchieveProcessManager
             AchieveProcessManager.addProcess(group);
         }
     }
-    public static addProcess(group: AchieveGroup)
+    public static addProcess(group: AchieveGroup, step:number = 0)
     {
         let process: BaseAchieveProcess = AchieveProcessManager.GetProcess(group); //move todo
         if (process)
@@ -208,7 +216,7 @@ class AchieveProcessManager
             }
             else
             {
-                process.init(0);
+                process.init(step);
             }
             AchieveProcessManager._list.push(process);
         }

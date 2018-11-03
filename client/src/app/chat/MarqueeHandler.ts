@@ -66,7 +66,7 @@ class MarqueeHandler
         {
             hundredWarName = hundredWarDef.Name;
         }
-        msg = game.StringUtil.format(msg, hundredWarName, marquee["1"] + "金币");
+        msg = game.StringUtil.format(msg, hundredWarName, game.MathUtil.formatNum(marquee["1"]) + "金币");
         return msg;
     }
     /**
@@ -81,7 +81,7 @@ class MarqueeHandler
         let userName = marquee["0"];
         let roomName = PlayingFieldManager.getPatternName(marquee["1"]);
         let cardTypeName = CardTypeMatchUtil.getCardDes(marquee["2"]);
-        let winGold = marquee["3"];
+        let winGold = game.MathUtil.formatNum(marquee["3"]);
         msg = game.StringUtil.format(msg, userName, roomName, cardTypeName, winGold + "金币");
         return msg;
     }
