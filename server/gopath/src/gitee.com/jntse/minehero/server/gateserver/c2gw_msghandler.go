@@ -259,7 +259,7 @@ func on_C2GW_ReqEnterRoom(session network.IBaseNetSession, message interface{}) 
 func on_C2GW_ReqLeaveRoom(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.C2GW_ReqLeaveRoom)
 	//log.Info(reflect.TypeOf(tmsg).String())
-
+	send := &msg.GW2C_RetLeaveRoom{}
 	u := ExtractSessionUser(session)
 	if u == nil {
 		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
@@ -268,10 +268,15 @@ func on_C2GW_ReqLeaveRoom(session network.IBaseNetSession, message interface{}) 
 	}
 
 	if u.Id() != tmsg.GetUserid() {
+		u.SendMsg(send)
 		log.Error("[房间] 玩家[%s %d]请求离开房间，使用错误的id[%d]", u.Name(), u.Id(), tmsg.GetUserid())
 		return
 	}
 
+	if u.roomdata.roomsid == 0 {
+		u.SendMsg(send)
+		return
+	}
 	// 离开游戏房间
 	u.SendRoomMsg(tmsg)
 }
