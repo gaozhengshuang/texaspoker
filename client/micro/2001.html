@@ -1,0 +1,333 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>德州-debug</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="full-screen" content="true" />
+    <meta name="screen-orientation" content="portrait" />
+    <meta name="x5-fullscreen" content="true" />
+    <meta name="360-fullscreen" content="true" />
+    <meta name="wap-font-scale" content="no" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <style>
+        html, body {
+            -ms-touch-action: none;
+            background: #e5e5e5;
+            padding: 0;
+            border: 0;
+            margin: 0;
+            height: 100%;
+        }
+        body {
+            background-repeat:no-repeat;
+            background-position:center;
+            background-image: url(resource/splash.png);
+        }
+        .web-loading {
+            color: #004d5d;
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            bottom: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="web-loading">Starting...</div>
+    <div style="margin: auto;width: 100%;height: 100%;" class="egret-player" data-entry-class="Main" data-orientation="portrait" data-scale-mode="fixedWidth" data-frame-rate="50"
+data-content-width="720" data-content-height="1280" data-show-paint-rect="false" data-multi-fingered="2" data-show-fps="false"
+data-show-log="false" data-show-fps-style="x:0,y:0,size:12,textColor:0xffffff,bgAlpha:0.2">
+</div>
+<script egret="libs" src="js/jszip.min.js"></script>
+<script egret="libs" src="js/i18n.min.js"></script>
+
+<script>
+    //------------------------------版本热更新处理------------------------------
+
+    window.web_config_serverVersion = '0.1.0';//因为入口html都是从服务器上实时加载的，所以这里配置服务器上的客户端版本号（安装包用）
+    window.web_config_isSafe = true;//安全开关,提审时候用,仅ios包有效
+    //--------------------------------------------------------------------------------
+    // 1.上传包时，确保下列文件与线上同步
+    // 2.释放包时，将下列文件与最新的版本同步(也就是将要更新出去的文件)
+    //   上传阶段<-->释放阶段  比如 （提审中，或者测试中） 
+    //   释放阶段:  提审通过，或者测试完成，对外网正式发布
+    //   释放完成:  将下列路径同步更新到最新的文件-->到源目录下  micro/xx.html
+    //--------------------------------------------------------------------------------
+    //代码文件
+    var onlineCodeUrlList = ['js/lib-31898d176a.zip', 'js/main-4296552ef4.zip'];
+    //资源文件
+    var onlineLangResList = ["default_zh-tw-c4eeec9988.res.json", "default_zh-cn-e1f896eee5.res.json", "default_en.res.json"]; //暂时没有英文
+    //语言文件
+    var onlineLangZipList = ["assets/lang/zh-tw-74b180102a.zip", "assets/lang/zh-cn-87226c9018.zip", "assets/lang/en-a69453d124.zip"];
+
+    window.web_config_resUrl = getCurrentUrlDirectory();
+    //只有web版有url参数赋值
+    var queryMap = getQueryMap(window.location.search);
+    if (queryMap && queryMap['online_version']) {
+        window.web_config_clientVersion = queryMap['online_version'];
+        //客户端版本比服务器版本号新
+        if (CompareVersion(window.web_config_clientVersion, window.web_config_serverVersion)) {
+            window.web_config_resUrl = '';
+            onlineCodeUrlList = ['js/lib.zip', 'js/main.zip'];
+            onlineLangResList = ["default_zh-tw.res.json", "default_zh-cn.res.json", "default_en.res.json"]; //暂时没有英文
+            onlineLangZipList = ["assets/lang/zh-tw.zip", "assets/lang/zh-cn.zip", "assets/lang/en.zip"];
+        }
+    }
+    else {
+        alert('online_version不能为空');
+    }
+    //
+    function CompareVersion(a, b) {
+        if (a) {
+            a = a.split('.');
+        }
+        if (b) {
+            b = b.split('.');
+        }
+        if (a == null || a.length <= 0) {
+            return false;
+        }
+        if (b == null || b.length <= 0) {
+            return true;
+        }
+        var a0 = parseInt(a[0]);
+        var a1 = parseInt(a[1]);
+        var a2 = parseInt(a[2]);
+        var b0 = parseInt(b[0]);
+        var b1 = parseInt(b[1]);
+        var b2 = parseInt(b[2]);
+        if (a0 > b0) {
+            return true;
+        }
+        else if (a0 == b0) {
+            if (a1 > b1) {
+                return true;
+            }
+            else if (a1 == b1) {
+                if (a2 > b2) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    function getCurrentUrlDirectory() {
+        var url = window.location.href;
+        var index = url.indexOf('?');
+        if (index >= 0) {
+            url = url.substr(0, index);
+        }
+        index = url.lastIndexOf('/');
+        if (index >= 0) {
+            url = url.substr(0, index + 1);
+        }
+        return url;
+    }
+    function getQueryMap(url) {
+        var map = {};
+        var index = url.indexOf("?");
+        if (index >= 0) {
+            url = url.substring(index + 1);
+            var strs = url.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                var item = strs[i].split("=");
+                map[item[0]] = item[1] == null ? '' : item[1];
+            }
+        }
+        return map;
+    }
+    //------------------加载文件---------------
+    var resJsonUrl = onlineLangResList[0];
+    var langZipFile = onlineLangZipList[0];
+
+    var langName = localStorage.getItem("giant_poker_lang");
+    if (!langName) {
+        langName = "zh-tw";
+    }
+    switch (langName) {
+        case "zh-tw":
+            resJsonUrl = onlineLangResList[0];
+            langZipFile = onlineLangZipList[0];
+            break;
+        case "zh-cn":
+            resJsonUrl = onlineLangResList[1];
+            langZipFile = onlineLangZipList[1];
+            break;
+        case "en":
+            resJsonUrl = onlineLangResList[2];
+            langZipFile = onlineLangZipList[2];
+            break;
+    }
+    //多语言处理
+    I18n.initSystem("", [langName]);
+    var langUrl = "resource/" + langZipFile;
+    loadZip(langUrl, onLangLoadComplete);
+    //加载单个zip文件，成功后进行回调
+    function loadZip(url, callBack) {
+        var xhrZip = new XMLHttpRequest();
+        xhrZip.open("GET", url, true);
+        xhrZip.responseType = "arraybuffer";
+        xhrZip.addEventListener("load", function (oEvent) {
+            var arrayBuffer = xhrZip.response; // 注意:不是oReq.responseText
+            if (!arrayBuffer) {
+                console.log(url + "解析异常:" + xhrZip);
+                throw new Error("zip异常");
+            }
+            callBack(arrayBuffer);
+        });
+        xhrZip.send(null);
+    }
+    //jszip解析zip文件，并转换为javascript脚本运行
+    function onLangLoadComplete(data) {
+        JSZip.loadAsync(data).then(function (zip) {
+            return zip.file(langName + ".json").async("string");
+        }).then(function (text) {
+            I18n.initMap(text);
+            runMain();
+        });
+    }
+    function runMain() {
+        //web_config_subPath是index.php传过来的，没有为直接访问,读取相对路径
+        if (window.web_config_subPath == null) {
+            window.web_config_subPath = '';
+        }
+        //
+        function isWeiXin() {
+            var ua = window.navigator.userAgent.toLowerCase();
+            return (ua.match(/MicroMessenger/i) == 'micromessenger');
+        }
+        //
+        var loadScript = function (list, callback) {
+            var loaded = 0;
+            var loadNext = function () {
+                loadSingleScript(list[loaded], function () {
+                    loaded++;
+                    if (loaded >= list.length) {
+                        callback();
+                    }
+                    else {
+                        loadNext();
+                    }
+                })
+            };
+            loadNext();
+        };
+        var loadSingleScript = function (src, callback) {
+            var s = document.createElement('script');
+            s.async = false;
+            s.src = (src.indexOf('http://') === 0 || src.indexOf('https://') === 0) ? src : window.web_config_subPath + src;
+            s.addEventListener('load', function () {
+                s.parentNode.removeChild(s);
+                s.removeEventListener('load', arguments.callee, false);
+                callback();
+            }, false);
+            document.body.appendChild(s);
+        };
+        //加载代码zip
+        try {
+            loadZip(onlineCodeUrlList[0], function (zipData) {
+                //压缩进的egret引擎的各个代码文件
+                jszipParse(zipData, "lib.min.js", loadMain);
+                function loadMain() {
+                    //加载游戏代码
+                    loadZip(onlineCodeUrlList[1], function (zipData) {
+                        jszipParse(zipData, "main.min.js", runScript);
+                    });
+                }
+                function runScript() {
+                    if (isWeiXin()) {
+                        //脚本合起来
+                        window.web_config_scripts = [];
+                        window.web_config_scripts.push('http://res.wx.qq.com/open/js/jweixin-1.2.0.js');
+                        loadScript(window.web_config_scripts, function () {
+                            /**
+                             * {
+                             * "renderMode":, //引擎渲染模式，"canvas" 或者 "webgl"
+                             * "audioType": 0 //使用的音频类型，0:默认，2:web audio，3:audio
+                             * "antialias": //WebGL模式下是否开启抗锯齿，true:开启，false:关闭，默认为false
+                             * "retina": //是否基于devicePixelRatio缩放画布
+                             * }
+                             **/
+                            egret.runEgret({
+                                renderMode: "webgl", audioType: 0, calculateCanvasScaleFactor: function (context) {
+                                    var backingStore = context.backingStorePixelRatio ||
+                                        context.webkitBackingStorePixelRatio ||
+                                        context.mozBackingStorePixelRatio ||
+                                        context.msBackingStorePixelRatio ||
+                                        context.oBackingStorePixelRatio ||
+                                        context.backingStorePixelRatio || 1;
+                                    return (window.devicePixelRatio || 1) / backingStore;
+                                }
+                            });
+                        });
+                    }
+                    else {
+                        //全部加载完成，启动egret游戏
+                        egret.runEgret({
+                            renderMode: "webgl", audioType: 0, calculateCanvasScaleFactor: function (context) {
+                                var backingStore = context.backingStorePixelRatio ||
+                                    context.webkitBackingStorePixelRatio ||
+                                    context.mozBackingStorePixelRatio ||
+                                    context.msBackingStorePixelRatio ||
+                                    context.oBackingStorePixelRatio ||
+                                    context.backingStorePixelRatio || 1;
+                                return (window.devicePixelRatio || 1) / backingStore;
+                            }
+                        });
+                    }
+                }
+            });
+        }
+        catch (e) {
+            //压缩失败，实际项目这里需要改为加载没压缩的js文件。
+            console.error("jszip uncompress error, ususally file load"); //解压文件报错，进行普通文件加载
+        }
+        //jszip解析zip文件，并转换为javascript脚本运行
+        function jszipParse(data, filename, callback) {
+            JSZip.loadAsync(data).then(function (zip) {
+                return zip.file(filename).async("string");
+            }).then(function (text) {
+                addScript(text);
+                callback();
+                //使用eval
+                // eval(text);
+            });
+        }
+        //使用document创建javascript脚本
+        function addScript(text) {
+            var script = document.createElement('script');
+            script.setAttribute('type', 'text/javascript');
+            script.text = text;
+            document.body.appendChild(script);
+            document.body.removeChild(script);
+        }
+    }
+    //处理微信平台打开
+    (function () {
+        function onBridgeReady() {
+            WeixinJSBridge.invoke('setFontSizeCallback', { 'fontSize': 0 });
+            WeixinJSBridge.on('menu:setfont', function () {
+                WeixinJSBridge.invoke('setFontSizeCallback', { 'fontSize': 0 });
+            });
+        }
+        if (typeof WeixinJSBridge == "undefined") {
+            if (document.addEventListener) {
+                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+            } else if (document.attachEvent) {
+                document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+            }
+        } else {
+            onBridgeReady();
+        }
+    })();
+</script>
+</body>
+
+</html>
