@@ -84,9 +84,11 @@ func (u *UserEntity) VipTime2() int64 {
 	return u.viptime2
 }
 func (u *UserEntity) SetVipTime1(time int64) {
+	u.viptime1 = time
 	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "viptime1", time)
 }
 func (u *UserEntity) SetVipTime2(time int64) {
+	u.viptime2 = time
 	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "viptime2", time)
 }
 
