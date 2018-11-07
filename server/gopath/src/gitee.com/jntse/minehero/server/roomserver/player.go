@@ -201,7 +201,7 @@ func (this *TexasPlayer) BetStart() {
 		this.room.BroadCastRoomMsg(send)
 		this.room.curactpos = this.pos
 		this.room.curacttime = int32(util.CURTIME())
-		log.Info("房间[%d] 玩家[%d] 开始下注 pos[%d]",this.room.Id(), this.owner.Id(), this.pos)
+		//log.Info("房间[%d] 玩家[%d] 开始下注 pos[%d]",this.room.Id(), this.owner.Id(), this.pos)
 	}
 }
 
@@ -342,13 +342,7 @@ func (this *TexasPlayer) Betting(num int64) {
 	if !this.room.AllBetOver(){
 		player := this.Next()
 		if player != nil {
-			if player.gamestate == GSBlind && this.room.allin + 1 >= this.room.remain && player.isbigblind{
-				player.betover = true
-				player.ChangeState(GSCheck)
-				player.bettime = 0
-			}else{
-				player.BetStart()
-			}
+			player.BetStart()
 		}
 	}
 	return
@@ -477,7 +471,7 @@ func (this *TexasPlayer) ReqTimeAwardInfo(rev *msg.C2RS_ReqTimeAwardInfo) {
 func (this *TexasPlayer) ReqTimeAwardGet() {
 	send := &msg.RS2C_RetTimeAwardGet{}
 	endtime := RoomMgr().GetRewardTime(this.rewardround+1)
-	if endtime > this.rewardtime-5 || endtime == 0 {
+	if endtime > this.rewardtime-10 || endtime == 0 {
 		send.Errcode = pb.String("还不能领奖")
 		this.owner.SendClientMsg(send)
 		//log.Info("房间%d 玩家%d 计时奖励轮数%d end%d now%d", this.room.Id(), this.owner.Id(), this.rewardround, endtime,this.rewardtime)
@@ -722,6 +716,7 @@ func (this *TexasPlayer) AddRebuy(num int64, cost int64) {
 	if this.owner.RemoveGold(cost, "金币兑换筹码", true) {
 		this.addrebuy = num
 		this.delaystandup = 0
+		this.room.mtt.AddRebuy(this.owner.Id())
 		log.Info("房间[%d] 玩家[%d] Rebuy下次添加金币[%d]", this.room.Id(), this.owner.Id(), this.addrebuy)
 	}
 }
@@ -738,6 +733,7 @@ func (this *TexasPlayer) AddAddon(num int64, cost int64){
 	if this.owner.RemoveGold(cost, "金币兑换筹码", true) {
 		this.addaddon = num
 		this.delaystandup = 0
+		this.room.mtt.AddAddon(this.owner.Id())
 		log.Info("房间[%d] 玩家[%d] Addon下次添加金币[%d]", this.room.Id(), this.owner.Id(), this.addaddon)
 	}
 }
@@ -866,7 +862,12 @@ func (this *TexasPlayer) CheckLeave() bool{
 				this.StandUp()
 				return true
 			}else {
-				this.delaystandup = 20
+				if this.room.mtt.CanRebuy(this.owner.Id()) || this.room.mtt.CanAddon(this.owner.Id()){
+					this.delaystandup = 15
+				}else{
+					this.StandUp()
+					return true
+				}
 			}
 		}
 	}

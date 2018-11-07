@@ -328,27 +328,31 @@ func (this *TexasPokerRoom) ForStartPlayer(start int32, f func(p *TexasPlayer) b
 }
 
 func (this *TexasPokerRoom) CanStart() bool {
-	count := 0
+	readycount := 0
+	bankcount := 0
 	for _, p := range this.players {
 		if p != nil {
 			p.AddBankRollNext()
-			if p.isready == true && p.HasBankRoll(){
-				count++
+			if p.isready == true {
+				readycount++
 				//log.Info("玩家%d 等待开启", p.owner.Id())
-			}   
+			}
+			if p.HasBankRoll() {
+				bankcount++
+			}
 		}
 	}
-	if count >= 1 && this.PlayersNum() >=2 {
+	if readycount >= 1 && bankcount >=2 {
 		return true
 	}
 	if this.IsChampionShip() && this.mttwait >= 3{
-		count = 0
+		readycount = 0
 		for _, p := range this.players {
 			if p != nil && p.HasBankRoll(){
-				count++
+				readycount++
 			}
 		}
-		if count >= 2 {
+		if readycount >= 2 {
 			return true
 		}
 	}
@@ -906,12 +910,6 @@ func (this *TexasPokerRoom) RestartGame() int32{
 	if this.restarttime != 0 {
 		return TPRestart
 	}else{
-		if this.IsChampionShip() {
-			if this.mtt.ReDispatchRoom(this.Id()) {
-				return TPShutDown
-			}
-		}
-
 		tmppos := this.dealerpos+1
 		this.dealerpos = tmppos % this.maxplayer
 		this.dealer = nil
@@ -963,6 +961,12 @@ func (this *TexasPokerRoom) RestartGame() int32{
 				}
 			}
 		}
+		if this.IsChampionShip() {
+			if this.mtt.ReDispatchRoom(this.Id()) {
+				return TPShutDown
+			}
+		}
+
 		//如果有玩家观看 机器人离开
 		//if len(this.watchers) > 0 && this.IsFullPlayer() {
 		//	count := 0
@@ -1249,6 +1253,9 @@ func (this *TexasPokerRoom) ReqAction(uid int64, rev *msg.C2RS_ReqAction) {
 	if player != nil {
 		if rev.GetState() == GSTrusteeShip {
 			player.trusteeship = 0
+			player.timeout = 0
+			send := &msg.RS2C_RetAction{}
+			player.owner.SendClientMsg(send)
 		} else {
 			player.Betting(rev.GetNum())
 		}
