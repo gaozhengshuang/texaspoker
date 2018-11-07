@@ -2,13 +2,22 @@
 <items version="2" >
 
     <item
-        is-multidex="true"
-        jar="C:\Users\Administrator\.android\build-cache\ead95b243e21655816c5be9c856f03c5eba4c61d\output\jars\libs\egretNativeAndroid.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="H:\workspace\texaspoker\client_android\gamelib\build\intermediates\bundles\default\classes.jar"
+        jumboMode="false"
         optimize="true"
         revision="26.0.2"
-        sha1="4903591d6be508b4c99edaccb005e9fe20958921">
-        <dex dex="H:\workspace\texaspoker\client_android\app\build\intermediates\transforms\dex\debug\folders\1000\10\egretNativeAndroid_6414c10aa2bb57eb4c96cff700a5a2b29e65425b\classes.dex" />
+        sha1="2c0537c265e03cc606a4265c50572b5666da3bb9">
+        <dex dex="H:\workspace\texaspoker\client_android\app\build\intermediates\pre-dexed\debug\classes_05dabcae29acf2f600b9a58f7e4ada23524262b2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="H:\workspace\texaspoker\client_android\customloadingview\build\intermediates\bundles\default\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="37d252507d4d7d45596326b0a8db405c2c47a7d4">
+        <dex dex="H:\workspace\texaspoker\client_android\app\build\intermediates\pre-dexed\debug\classes_2ee3a80b1332897e0fd64bedb62af6118d5f1b0e.jar" />
     </item>
     <item
         is-multidex="true"
@@ -25,7 +34,7 @@
         jumboMode="true"
         optimize="true"
         revision="26.0.2"
-        sha1="2689e0cb30527a32f4950c2af8a38d8235292791">
+        sha1="463a7873b277b938ac8770ae4d1c5fd6a567c878">
         <dex dex="H:\workspace\texaspoker\client_android\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_745fa78af5accfc42991da72a65cc835bda0d468\classes.dex" />
     </item>
 

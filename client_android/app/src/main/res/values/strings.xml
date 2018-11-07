@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">gttexaspoker</string>
+    <string name="bundleId">org.istar9.a.xydp</string>
+    <string name="splashTxt">Starting...</string>
 </resources>
