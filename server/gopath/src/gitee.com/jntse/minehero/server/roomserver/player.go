@@ -11,6 +11,7 @@ import (
 	//"gitee.com/jntse/minehero/server/def"
 )
 
+//玩家状态枚举
 const (
 	GSWaitNext int32 = 0	//等待下一局
 	GSFold int32 = 1		//弃牌
@@ -23,53 +24,54 @@ const (
 	GSTrusteeShip int32 = 8	//托管
 )
 
+//竞猜枚举
 const (
-	NOAorK = 2
-	SAMECOLOR = 3
-	HASAorK = 4
-	HASA = 5
-	HASPair = 6
-	HASAA = 7
+	NOAorK = 2				//非AK
+	SAMECOLOR = 3			//同花
+	HASAorK = 4				//有A或K
+	HASA = 5				//有A	
+	HASPair = 6				//一对
+	HASAA = 7				//有AA
 )
 
+//德州玩家结构
 type TexasPlayer struct{
-	hand *Hand
-	hole Cards
-	owner *RoomUser
-	room *TexasPokerRoom
-	pos int32
-	gamestate int32
-	playstate int32
-	curbet int64
-	betover bool
-	isshowcard bool
-	bankroll int64
-	bettime int32
-	isready bool
-	autobuy int64
-	addcoin int64
-	addrebuy int64
-	addaddon int64
-	isai bool
-	aiacttime int32
-	readytime int32
-	rewardtime int32
-	rewardround int32
-	isallinshow bool
-	delaystandup int32
-	mttranktime int32
-	rankinfo *msg.RS2C_PushMTTRank
-	timeout int32
-	trusteeship int32
-	isbigblind bool
-	guessbuy map[int32]int64
-	guesstype int32
-	guessnum int64
-	guessflag bool
+	hand *Hand												//所有牌
+	hole Cards												//底牌
+	owner *RoomUser											//玩家指针
+	room *TexasPokerRoom									//房间指针
+	pos int32												//房间位置
+	gamestate int32											//游戏状态
+	curbet int64											//当前轮下注总额	
+	betover bool											//下注结束标示
+	isshowcard bool											//是否显示手牌
+	bankroll int64											//筹码
+	bettime int32											//下注思考时间
+	isready bool											//是否准备好了
+	autobuy int64											//自动购买
+	addcoin int64											//直接购买
+	addrebuy int64											//重购
+	addaddon int64											//增购
+	isai bool												//是否AI
+	aiacttime int32											//AI行动时间
+	readytime int32											//准备时间
+	rewardtime int32										//计时奖励时间
+	rewardround int32										//计时奖励轮数
+	isallinshow bool										//是否是Allin亮牌
+	delaystandup int32										//延时站起
+	mttranktime int32										//锦标赛排名计时
+	rankinfo *msg.RS2C_PushMTTRank							//锦标赛排名信息
+	timeout int32											//超时次数
+	trusteeship int32										//托管
+	isbigblind bool											//是否大盲位
+	guessbuy map[int32]int64								//竞猜购买
+	guesstype int32											//竞猜类型
+	guessnum int64											//竞猜总注
 }
 
 type TexasPlayers []*TexasPlayer
 
+//构造玩家
 func NewTexasPlayer(user *RoomUser, room *TexasPokerRoom, isai bool) *TexasPlayer{
 	player := new(TexasPlayer)
 	player.hand = GetHand()
@@ -89,6 +91,7 @@ func NewTexasPlayer(user *RoomUser, room *TexasPokerRoom, isai bool) *TexasPlaye
 	return player
 }
 
+//玩家初始化
 func (this *TexasPlayer)Init(){
 	this.hand.Init()
 	this.hole = make(Cards, 2, 2)
@@ -104,6 +107,7 @@ func (this *TexasPlayer)Init(){
 	//this.timeout = 0
 }
 
+//计时奖励初始化
 func (this *TexasPlayer) InitTimeReward() {
 	if this.isai {
 		return
@@ -127,6 +131,7 @@ func (this *TexasPlayer) SetOwner(u *RoomUser) {
 	this.owner = u
 }
 
+//回写计时奖励
 func (this *TexasPlayer) SetTimeReward() {
 	lasttime, _ := Redis().Get(fmt.Sprintf("trtime%d_%d", this.room.GetRoomType(), this.owner.Id())).Int64()
 	if !util.IsSameDay(lasttime, util.CURTIME()) {
@@ -139,6 +144,7 @@ func (this *TexasPlayer) SetTimeReward() {
 	log.Info("房间[%d] 玩家[%d] 计时奖励轮数[%d] 时间[%d]", this.room.Id(), this.owner.Id(), this.rewardround, this.rewardtime)
 }
 
+//是加注
 func (this *TexasPlayer) IsRaise() bool{
 	if this.gamestate == GSRaise {
 		return true
@@ -146,6 +152,7 @@ func (this *TexasPlayer) IsRaise() bool{
 	return false
 }
 
+//是跟注
 func (this *TexasPlayer) IsCall() bool{
 	if this.gamestate == GSCall {
 		return true
@@ -153,6 +160,7 @@ func (this *TexasPlayer) IsCall() bool{
 	return false
 }
 
+//是等待
 func (this *TexasPlayer) IsWait() bool{
 	if this.gamestate == GSWaitNext {
 		return true
@@ -160,6 +168,7 @@ func (this *TexasPlayer) IsWait() bool{
 	return false
 }
 
+//是弃牌
 func (this *TexasPlayer) IsFold() bool{
 	if this.gamestate == GSFold {
 		return true
@@ -167,6 +176,7 @@ func (this *TexasPlayer) IsFold() bool{
 	return false
 }
 
+//是梭哈
 func (this *TexasPlayer) IsAllIn() bool {
 	if this.gamestate == GSAllIn {
 		return true
@@ -174,14 +184,17 @@ func (this *TexasPlayer) IsAllIn() bool {
 	return false
 }
 
+//是否准备好
 func (this *TexasPlayer) IsReady() bool {
 	return this.isready
 }
 
+//设置准备好
 func (this *TexasPlayer) SetReady(flag bool) {
 	this.isready = flag
 }
 
+//下注开始
 func (this *TexasPlayer) BetStart() {
 	//发送开始压注消息
 	if this.bettime == 0 {
@@ -205,6 +218,7 @@ func (this *TexasPlayer) BetStart() {
 	}
 }
 
+//前注
 func (this *TexasPlayer) PreBet(num int64) {
 	if num >= this.GetBankRoll() {
 		num = this.GetBankRoll()
@@ -221,6 +235,7 @@ func (this *TexasPlayer) PreBet(num int64) {
 	//log.Info("房间%d 玩家%d 开始前注%d", this.room.Id(), this.owner.Id(), num)
 }
 
+//盲注
 func (this *TexasPlayer) BlindBet(num int64, big bool) {
 	if this.GetBankRoll() == 0 {
 		return
@@ -244,6 +259,7 @@ func (this *TexasPlayer) BlindBet(num int64, big bool) {
 	//log.Info("房间%d 玩家%d 开始盲注%d", this.room.Id(), this.owner.Id(), num)
 }
 
+//下注
 func (this *TexasPlayer) Betting(num int64) {
 	send := &msg.RS2C_RetAction{}
 	if this.room.curactpos != this.pos {
@@ -348,6 +364,7 @@ func (this *TexasPlayer) Betting(num int64) {
 	return
 }
 
+//是否下注结束
 func (this *TexasPlayer) BetOver() bool {
 	if this.IsFold() || this.IsAllIn() || this.betover{
 		return true
@@ -355,6 +372,7 @@ func (this *TexasPlayer) BetOver() bool {
 	return false
 }
 
+//获取下一个位置玩家 比赛中用
 func (this *TexasPlayer) Next() *TexasPlayer {
 	if this.room == nil {
 		return nil
@@ -369,6 +387,7 @@ func (this *TexasPlayer) Next() *TexasPlayer {
 	return nil
 }
 
+//获取下一个玩家 开始用
 func (this *TexasPlayer) NextForStart() *TexasPlayer {
 	if this.room == nil {
 		return nil
@@ -381,6 +400,7 @@ func (this *TexasPlayer) NextForStart() *TexasPlayer {
 	return nil
 }
 
+//是否再房间中
 func (this *TexasPlayer) InRoom() bool {
 	if this.owner.RoomId() == this.room.Id() {
 		return true
@@ -388,6 +408,7 @@ func (this *TexasPlayer) InRoom() bool {
 	return false
 }
 
+//设置底牌
 func (this *TexasPlayer)SetHole(c1 *Card, c2 *Card){
 	this.hole[0] = c1
 	this.hole[1] = c2
@@ -404,6 +425,7 @@ func (this *TexasPlayer)SetHole(c1 *Card, c2 *Card){
 	this.GuessReward()
 }
 
+//设置Flop牌
 func (this *TexasPlayer)SetFlop(c1 *Card, c2 *Card, c3 *Card){
 	this.hand.SetCard(c1, false)
 	this.hand.SetCard(c2, false)
@@ -416,6 +438,7 @@ func (this *TexasPlayer)SetFlop(c1 *Card, c2 *Card, c3 *Card){
 	}
 }
 
+//设置Turn牌
 func (this *TexasPlayer)SetTurn(c1 *Card){
 	this.hand.SetCard(c1, false)
 	if this.isai {
@@ -423,6 +446,7 @@ func (this *TexasPlayer)SetTurn(c1 *Card){
 	}
 }
 
+//设置River牌
 func (this *TexasPlayer)SetRiver(c1 *Card){
 	this.hand.SetCard(c1, false)
 	if this.isai {
@@ -430,10 +454,12 @@ func (this *TexasPlayer)SetRiver(c1 *Card){
 	}
 }
 
+//获取筹码
 func (this *TexasPlayer) GetBankRoll() int64{
 	return this.bankroll
 }
 
+//是否有筹码
 func (this *TexasPlayer) HasBankRoll() bool {
 	if this.bankroll == 0 || this.bankroll < int64(this.room.ante){
 		return false
@@ -441,6 +467,7 @@ func (this *TexasPlayer) HasBankRoll() bool {
 	return true
 }
 
+//增加筹码
 func (this *TexasPlayer) AddBankRoll(num int64, reason string){
 	this.bankroll += num
 	send := &msg.RS2C_PushChipsChange{}
@@ -455,48 +482,7 @@ func (this *TexasPlayer) AddBankRoll(num int64, reason string){
 	}
 }
 
-func (this *TexasPlayer) AddExp(exp int32, reason string, syn bool) {
-	if this.owner != nil && this.owner.aiflag == false {
-		this.owner.AddExp(exp, reason, syn)
-	}
-}
-
-func (this *TexasPlayer) ReqTimeAwardInfo(rev *msg.C2RS_ReqTimeAwardInfo) {
-	send := &msg.RS2C_RetTimeAwardInfo{}
-	send.Round = pb.Int32(this.rewardround)
-	send.Sectime = pb.Int32(this.rewardtime)
-	this.owner.SendClientMsg(send)
-}
-
-func (this *TexasPlayer) ReqTimeAwardGet() {
-	send := &msg.RS2C_RetTimeAwardGet{}
-	endtime := RoomMgr().GetRewardTime(this.rewardround+1)
-	if endtime > this.rewardtime-10 || endtime == 0 {
-		send.Errcode = pb.String("还不能领奖")
-		this.owner.SendClientMsg(send)
-		//log.Info("房间%d 玩家%d 计时奖励轮数%d end%d now%d", this.room.Id(), this.owner.Id(), this.rewardround, endtime,this.rewardtime)
-		return
-	}else{
-		gold := RoomMgr().GetRewardGold(this.rewardround+1, this.room.GetRoomType())
-		this.owner.AddGold(int64(gold), "领取计时奖励", true)
-		this.rewardround++
-		this.rewardtime = 0
-		this.owner.SendClientMsg(send)
-		this.SetTimeReward()
-	}
-}
-
-func (this *TexasPlayer) SendTimeAward(start bool) {
-	send := &msg.RS2C_PushTimeAwardRefresh{}
-	//endtime := RoomMgr().GetRewardTime(this.rewardround-1)
-	//if endtime > this.rewardtime {
-	send.Sectime = pb.Int32(this.rewardtime)
-	if start {
-		send.Starttime = pb.Int32(int32(util.CURTIME()))
-	}
-	this.owner.SendClientMsg(send)
-}
-
+//扣除玩家筹码
 func (this *TexasPlayer)RemoveBankRoll(num int64, reason string) bool{
 	if num == 0 {
 		return true
@@ -518,6 +504,53 @@ func (this *TexasPlayer)RemoveBankRoll(num int64, reason string) bool{
 	return true
 }
 
+//增加经验
+func (this *TexasPlayer) AddExp(exp int32, reason string, syn bool) {
+	if this.owner != nil && this.owner.aiflag == false {
+		this.owner.AddExp(exp, reason, syn)
+	}
+}
+
+//请求计时奖励信息
+func (this *TexasPlayer) ReqTimeAwardInfo(rev *msg.C2RS_ReqTimeAwardInfo) {
+	send := &msg.RS2C_RetTimeAwardInfo{}
+	send.Round = pb.Int32(this.rewardround)
+	send.Sectime = pb.Int32(this.rewardtime)
+	this.owner.SendClientMsg(send)
+}
+
+//领取计时奖励
+func (this *TexasPlayer) ReqTimeAwardGet() {
+	send := &msg.RS2C_RetTimeAwardGet{}
+	endtime := RoomMgr().GetRewardTime(this.rewardround+1)
+	if endtime > this.rewardtime-10 || endtime == 0 {
+		send.Errcode = pb.String("还不能领奖")
+		this.owner.SendClientMsg(send)
+		//log.Info("房间%d 玩家%d 计时奖励轮数%d end%d now%d", this.room.Id(), this.owner.Id(), this.rewardround, endtime,this.rewardtime)
+		return
+	}else{
+		gold := RoomMgr().GetRewardGold(this.rewardround+1, this.room.GetRoomType())
+		this.owner.AddGold(int64(gold), "领取计时奖励", true)
+		this.rewardround++
+		this.rewardtime = 0
+		this.owner.SendClientMsg(send)
+		this.SetTimeReward()
+	}
+}
+
+//发送计时奖励
+func (this *TexasPlayer) SendTimeAward(start bool) {
+	send := &msg.RS2C_PushTimeAwardRefresh{}
+	//endtime := RoomMgr().GetRewardTime(this.rewardround-1)
+	//if endtime > this.rewardtime {
+	send.Sectime = pb.Int32(this.rewardtime)
+	if start {
+		send.Starttime = pb.Int32(int32(util.CURTIME()))
+	}
+	this.owner.SendClientMsg(send)
+}
+
+//AI行动处理
 func (this *TexasPlayer) AIAction(action int32) {
 	this.aiacttime = 0
 	//log.Info("AI%d手牌分析 等级%d", this.owner.Id(), this.hand.level)
@@ -580,13 +613,16 @@ func (this *TexasPlayer) AIAction(action int32) {
 	}
 }
 
+//玩家计时器
 func (this *TexasPlayer) Tick (){
+	//自动开始
 	if this.readytime > 0 {
 		this.readytime--
 		if this.readytime == 0 {
 			this.isready = true
 		}
 	}
+	//超时处理
 	if this.timeout >= this.room.tconf.Timeout {
 		if this.room.IsChampionShip() {
 			this.trusteeship = 5
@@ -600,7 +636,7 @@ func (this *TexasPlayer) Tick (){
 			return
 		}
 	}
-
+	//下注处理
 	if this.bettime > 0 {
 		this.bettime--
 		if this.isai == true {
@@ -618,13 +654,14 @@ func (this *TexasPlayer) Tick (){
 			}
 		}
 	}
-
+	//计时奖励处理
 	if !this.IsWait() && !this.room.IsChampionShip() {
 		this.AddRewardTime()
 		//if !this.isai {
 		//	log.Info("玩家[%d] 计时奖励%d", this.owner.Id(), this.rewardtime)
 		//}
 	}
+	//延迟站起处理
 	if this.delaystandup > 0 {
 		this.delaystandup--
 		if this.delaystandup == 0 {
@@ -632,6 +669,7 @@ func (this *TexasPlayer) Tick (){
 			return
 		}
 	}
+	//锦标赛排名处理
 	if this.mttranktime >= 5 {
 		this.SendMttRank()
 		this.mttranktime = 0
@@ -642,6 +680,7 @@ func (this *TexasPlayer) Tick (){
 	}
 }
 
+//发送锦标赛排名
 func (this *TexasPlayer) SendMttRank() {
 	if !this.room.IsChampionShip() || this.owner.RoomId() != this.room.Id(){
 		return 
@@ -657,6 +696,7 @@ func (this *TexasPlayer) SendMttRank() {
 	this.owner.SendClientMsg(this.rankinfo)
 }
 
+//计时奖励计时
 func (this *TexasPlayer) AddRewardTime() {
 	if this.isai {
 		return
@@ -668,6 +708,7 @@ func (this *TexasPlayer) AddRewardTime() {
 	//log.Info("房间%d 玩家%d 计时%d", this.room.Id(), this.owner.Id(), this.rewardtime)
 }
 
+//坐下桌子
 func (this *TexasPlayer) SitDown(pos int32) {
 	if this.room.AddPlayer(pos, this) {
 		this.pos = pos
@@ -679,6 +720,7 @@ func (this *TexasPlayer) SitDown(pos int32) {
 	}
 }
 
+//玩家准备
 func (this *TexasPlayer) NextRound(rev *msg.C2RS_ReqNextRound) {
 	this.isready = true
 	//log.Info("房间%d 玩家%d 准备好了", this.room.Id(), this.owner.Id())
@@ -686,6 +728,7 @@ func (this *TexasPlayer) NextRound(rev *msg.C2RS_ReqNextRound) {
 	this.owner.SendClientMsg(send)
 }
 
+//玩家亮牌
 func (this *TexasPlayer) BrightCard() {
 	this.isshowcard = true
 	send := &msg.RS2C_RetBrightCard{}
@@ -693,6 +736,7 @@ func (this *TexasPlayer) BrightCard() {
 	//log.Info("房间%d 玩家%d 结束时亮牌", this.room.Id(), this.owner.Id())
 }
 
+//直接购买筹码
 func (this *TexasPlayer) AddCoin(rev *msg.C2RS_ReqAddCoin) {
 	send := &msg.RS2C_RetAddCoin{}
 	if !this.owner.RemoveGold(this.addcoin, "金币兑换筹码", true) {
@@ -712,61 +756,7 @@ func (this *TexasPlayer) AutoCoin() {
 	this.addcoin = 0
 }
 
-func (this *TexasPlayer) AddRebuy(num int64, cost int64) {
-	if this.owner.RemoveGold(cost, "金币兑换筹码", true) {
-		this.addrebuy = num
-		this.delaystandup = 0
-		this.room.mtt.AddRebuy(this.owner.Id())
-		log.Info("房间[%d] 玩家[%d] Rebuy下次添加金币[%d]", this.room.Id(), this.owner.Id(), this.addrebuy)
-	}
-}
-
-func (this *TexasPlayer) AutoRebuy() {
-	if this.addrebuy == 0 {
-		return
-	}
-	this.AddBankRoll(this.addrebuy, "rebuy筹码")
-	this.addrebuy = 0
-}
-
-func (this *TexasPlayer) AddAddon(num int64, cost int64){
-	if this.owner.RemoveGold(cost, "金币兑换筹码", true) {
-		this.addaddon = num
-		this.delaystandup = 0
-		this.room.mtt.AddAddon(this.owner.Id())
-		log.Info("房间[%d] 玩家[%d] Addon下次添加金币[%d]", this.room.Id(), this.owner.Id(), this.addaddon)
-	}
-}
-
-func (this *TexasPlayer) AutoAddon() {
-	if this.addaddon == 0 {
-		return
-	}
-	this.AddBankRoll(this.addaddon, "addon筹码")
-	this.addaddon = 0
-}
-
-func (this *TexasPlayer) AddBankRollNext() {
-	this.AutoBuy()
-	this.AutoCoin()
-	this.AutoRebuy()
-	this.AutoAddon()
-}
-
-func (this *TexasPlayer) ChangeState(state int32) {
-	this.gamestate = state
-	send := &msg.RS2C_PushPlayerStateChange{}
-	send.Roleid = pb.Int64(this.owner.Id())
-	send.State = pb.Int32(this.gamestate)
-	send.Num = pb.Int64(this.curbet)
-	this.room.BroadCastRoomMsg(send)
-	if state == GSAllIn {
-		this.isshowcard = true
-		this.room.allin++
-	}
-	//log.Info("房间%d 玩家%d 改变状态%d", this.room.Id(), this.owner.Id(), this.gamestate)
-}
-
+//自动购买筹码
 func (this *TexasPlayer) AutoBuy() {
 	if this.GetBankRoll() > this.room.ante {
 		return
@@ -786,6 +776,66 @@ func (this *TexasPlayer) AutoBuy() {
 	this.AddBankRoll(int64(buy), "购买筹码")
 }
 
+//锦标赛重购
+func (this *TexasPlayer) AddRebuy(num int64, cost int64) {
+	if this.owner.RemoveGold(cost, "金币兑换筹码", true) {
+		this.addrebuy = num
+		this.delaystandup = 0
+		this.room.mtt.AddRebuy(this.owner.Id())
+		log.Info("房间[%d] 玩家[%d] Rebuy下次添加金币[%d]", this.room.Id(), this.owner.Id(), this.addrebuy)
+	}
+}
+
+func (this *TexasPlayer) AutoRebuy() {
+	if this.addrebuy == 0 {
+		return
+	}
+	this.AddBankRoll(this.addrebuy, "rebuy筹码")
+	this.addrebuy = 0
+}
+
+//锦标赛追购
+func (this *TexasPlayer) AddAddon(num int64, cost int64){
+	if this.owner.RemoveGold(cost, "金币兑换筹码", true) {
+		this.addaddon = num
+		this.delaystandup = 0
+		this.room.mtt.AddAddon(this.owner.Id())
+		log.Info("房间[%d] 玩家[%d] Addon下次添加金币[%d]", this.room.Id(), this.owner.Id(), this.addaddon)
+	}
+}
+
+func (this *TexasPlayer) AutoAddon() {
+	if this.addaddon == 0 {
+		return
+	}
+	this.AddBankRoll(this.addaddon, "addon筹码")
+	this.addaddon = 0
+}
+
+//下一轮开始增加筹码
+func (this *TexasPlayer) AddBankRollNext() {
+	this.AutoBuy()
+	this.AutoCoin()
+	this.AutoRebuy()
+	this.AutoAddon()
+}
+
+//改变玩家状态
+func (this *TexasPlayer) ChangeState(state int32) {
+	this.gamestate = state
+	send := &msg.RS2C_PushPlayerStateChange{}
+	send.Roleid = pb.Int64(this.owner.Id())
+	send.State = pb.Int32(this.gamestate)
+	send.Num = pb.Int64(this.curbet)
+	this.room.BroadCastRoomMsg(send)
+	if state == GSAllIn {
+		this.isshowcard = true
+		this.room.allin++
+	}
+	//log.Info("房间%d 玩家%d 改变状态%d", this.room.Id(), this.owner.Id(), this.gamestate)
+}
+
+//坐下买入游戏筹码
 func (this *TexasPlayer) BuyInGame(rev *msg.C2RS_ReqBuyInGame) bool {
 	strerr := ""
 	switch {
@@ -827,6 +877,7 @@ func (this *TexasPlayer) BuyInGame(rev *msg.C2RS_ReqBuyInGame) bool {
 	return false
 }
 
+//请求玩家信息
 func (this *TexasPlayer) ReqUserInfo(rev *msg.C2RS_ReqFriendGetRoleInfo) {
 	user := UserMgr().FindUser(rev.GetRoleid())
 	if user != nil {
@@ -841,6 +892,7 @@ func (this *TexasPlayer) ReqUserInfo(rev *msg.C2RS_ReqFriendGetRoleInfo) {
 	}
 }
 
+//及时亮牌
 func (this *TexasPlayer) BrightCardInTime() {
 	send := &msg.RS2C_RetBrightInTime{}
 	this.owner.SendClientMsg(send)
@@ -852,6 +904,7 @@ func (this *TexasPlayer) BrightCardInTime() {
 	this.room.BroadCastRoomMsg(send1)
 }
 
+//玩家是否需要离开
 func (this *TexasPlayer) CheckLeave() bool{
 	if !this.HasBankRoll() {
 		if !this.room.IsChampionShip() {
@@ -874,10 +927,12 @@ func (this *TexasPlayer) CheckLeave() bool{
 	return false
 }
 
+//玩家进房间处理
 func (this *TexasPlayer) EnterRoom() {
 	this.timeout = 0
 }
 
+//玩家站起处理
 func (this *TexasPlayer) StandUp() bool {
 	if this.room.InGame(this) {
 		if !this.room.IsChampionShip() {
@@ -913,6 +968,7 @@ func (this *TexasPlayer) StandUp() bool {
 	return false
 }
 
+//请求站起
 func (this *TexasPlayer) ReqStandUp() bool{
 	send := &msg.RS2C_RetStandUp{}
 	this.owner.SendClientMsg(send)
@@ -931,6 +987,7 @@ func (this *TexasPlayer) ToProto() *msg.TexasPlayer {
 	}
 }
 
+//形成客户端需要的牌型信息
 func (this *TexasPlayer) ToHandCard() []int32{
 	tmpcard := make([]int32, 0)
 	for _, v := range this.hole {
@@ -943,6 +1000,7 @@ func (this *TexasPlayer) ToHandCard() []int32{
 	return tmpcard
 }
 
+//购买竞猜
 func (this *TexasPlayer) GuessBuy(rev *msg.C2RS_ReqGuessBuy) {
 	for _, info := range rev.GetAntelist() {
 		 if _, ok := tbl.HoleCards.THoleCardsById[info.GetHandtype()]; ok {
@@ -963,6 +1021,7 @@ func (this *TexasPlayer) GetGuessOdds(id int32) int64{
 	return 0
 }
 
+//竞猜牌型奖励
 func (this *TexasPlayer) GuessReward() {
 	if this.guessnum == 0 {
 		return
