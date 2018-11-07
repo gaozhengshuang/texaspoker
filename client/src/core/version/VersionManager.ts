@@ -28,7 +28,7 @@ class VersionManager
 		return VersionManager._isServerTest && VersionManager._isSafe;
 	}
 	/**
-	 * 初始化
+	 * 初始化 对版本进行对比，看看是否需要下载新的客户端
 	 */
 	public static Initialize(callback: Function, thisObject: any): void
 	{
@@ -44,6 +44,7 @@ class VersionManager
 				let serverVersionArray: number[] = game.StringUtil.toIntArray(serverVersion, game.StringConstants.Dot);
 				let isNewClient: boolean = VersionUtil.CompareAllForce(VersionManager._clientVersionArray, serverVersionArray);
 				VersionManager._isServerTest = DEBUG ? true : isNewClient;
+				//由serverVersionArray和VersionManager._clientVersionArray进行对比来判断是否需要，进行版本更新，如果不需要，则可以正常进入游戏
 				VersionManager.parsePackageVersion(serverVersion, serverVersionArray, VersionManager._clientVersionArray, function ()
 				{
 					game.FuncUtil.invoke(callback, thisObject);
@@ -86,6 +87,7 @@ class VersionManager
 			AlertManager.showAlert2("加载版本文件失败！点击确定重新加载！", VersionManager, VersionManager.loadServerVersion);
 		}
 	}
+	//加载服务器版本文件，来看看是否是维护 ，是维护则加载维护文件，提示，不能进游戏，否则可以正常进入游戏
 	public static loadServerVersion()
 	{
 		let url: string = ProjectDefined.getVersionUrl(GameSetting.AppId);

@@ -1,0 +1,4 @@
+#Sat Nov 03 16:48:41 CST 2018
+base.0=H\:\\workspace\\texaspoker\\client_android\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\egretNativeAndroid_6414c10aa2bb57eb4c96cff700a5a2b29e65425b
+renamed.0=classes.dex
+file.0=H\:\\workspace\\texaspoker\\client_android\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\egretNativeAndroid_6414c10aa2bb57eb4c96cff700a5a2b29e65425b\\classes.dex

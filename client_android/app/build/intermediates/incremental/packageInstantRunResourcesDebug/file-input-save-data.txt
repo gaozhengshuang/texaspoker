@@ -1,0 +1,15 @@
+#Internal package file, do not edit.
+#Sat Nov 03 17:43:43 CST 2018
+1.base=H\:\\workspace\\texaspoker\\client_android\\app\\build\\intermediates\\res\\resources-debug.ap_
+1.file=H\:\\workspace\\texaspoker\\client_android\\app\\build\\intermediates\\res\\resources-debug.ap_\\resources.arsc
+2.base=H\:\\workspace\\texaspoker\\client_android\\app\\build\\intermediates\\res\\resources-debug.ap_
+3.set=ASSET
+2.set=ANDROID_RESOURCE
+2.file=H\:\\workspace\\texaspoker\\client_android\\app\\build\\intermediates\\res\\resources-debug.ap_\\AndroidManifest.xml
+count=4
+1.set=ANDROID_RESOURCE
+3.base=H\:\\workspace\\texaspoker\\client_android\\app\\build\\intermediates\\assets\\debug
+0.set=ANDROID_RESOURCE
+0.base=H\:\\workspace\\texaspoker\\client_android\\app\\build\\intermediates\\res\\resources-debug.ap_
+3.file=H\:\\workspace\\texaspoker\\client_android\\app\\build\\intermediates\\assets\\debug\\runtime-dex.jar
+0.file=H\:\\workspace\\texaspoker\\client_android\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\drawable\\icon.png
