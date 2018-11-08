@@ -34,5 +34,5 @@ dependencies {
 //    implementation fileTree(dir: 'libs/armeabi-v7a', include: ['*.so'])
     compile project(':gamelib')
     compile project(':customloadingview')
-    compile 'com.facebook.android:facebook-login:[4,5)'
+    compile 'com.facebook.android:facebook-loginSuccess:[4,5)'
 }

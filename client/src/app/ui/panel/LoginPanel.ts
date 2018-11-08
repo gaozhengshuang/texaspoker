@@ -47,7 +47,7 @@ class LoginPanel extends BasePanel
 			}
 			else if (val == ChannelLoginType.FaceBook)
 			{
-				this.btnGroup.addChild(this.fbBtn);
+				this.btnGroup.addChildAt(this.fbBtn, 0);
 			}
 		}
 		this.versionLabel.text = VersionManager.getVersionStr();

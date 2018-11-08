@@ -14504,6 +14504,300 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a C2L_ReqLoginApple. */
+    interface IC2L_ReqLoginApple {
+
+        /** C2L_ReqLoginApple openid */
+        openid?: (string|null);
+
+        /** C2L_ReqLoginApple keyurl */
+        keyurl?: (string|null);
+
+        /** C2L_ReqLoginApple signature */
+        signature?: (string|null);
+
+        /** C2L_ReqLoginApple timestamp */
+        timestamp?: (number|Long|null);
+
+        /** C2L_ReqLoginApple salt */
+        salt?: (string|null);
+    }
+
+    /** Represents a C2L_ReqLoginApple. */
+    class C2L_ReqLoginApple implements IC2L_ReqLoginApple {
+
+        /**
+         * Constructs a new C2L_ReqLoginApple.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2L_ReqLoginApple);
+
+        /** C2L_ReqLoginApple openid. */
+        public openid: string;
+
+        /** C2L_ReqLoginApple keyurl. */
+        public keyurl: string;
+
+        /** C2L_ReqLoginApple signature. */
+        public signature: string;
+
+        /** C2L_ReqLoginApple timestamp. */
+        public timestamp: (number|Long);
+
+        /** C2L_ReqLoginApple salt. */
+        public salt: string;
+
+        /**
+         * Creates a new C2L_ReqLoginApple instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2L_ReqLoginApple instance
+         */
+        public static create(properties?: msg.IC2L_ReqLoginApple): msg.C2L_ReqLoginApple;
+
+        /**
+         * Encodes the specified C2L_ReqLoginApple message. Does not implicitly {@link msg.C2L_ReqLoginApple.verify|verify} messages.
+         * @param message C2L_ReqLoginApple message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2L_ReqLoginApple, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2L_ReqLoginApple message, length delimited. Does not implicitly {@link msg.C2L_ReqLoginApple.verify|verify} messages.
+         * @param message C2L_ReqLoginApple message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2L_ReqLoginApple, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2L_ReqLoginApple message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2L_ReqLoginApple
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2L_ReqLoginApple;
+
+        /**
+         * Decodes a C2L_ReqLoginApple message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2L_ReqLoginApple
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2L_ReqLoginApple;
+
+        /**
+         * Verifies a C2L_ReqLoginApple message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2L_ReqLoginApple message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2L_ReqLoginApple
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2L_ReqLoginApple;
+
+        /**
+         * Creates a plain object from a C2L_ReqLoginApple message. Also converts values to other types if specified.
+         * @param message C2L_ReqLoginApple
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2L_ReqLoginApple, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2L_ReqLoginApple to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2L_ReqLoginGoogle. */
+    interface IC2L_ReqLoginGoogle {
+    }
+
+    /** Represents a C2L_ReqLoginGoogle. */
+    class C2L_ReqLoginGoogle implements IC2L_ReqLoginGoogle {
+
+        /**
+         * Constructs a new C2L_ReqLoginGoogle.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2L_ReqLoginGoogle);
+
+        /**
+         * Creates a new C2L_ReqLoginGoogle instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2L_ReqLoginGoogle instance
+         */
+        public static create(properties?: msg.IC2L_ReqLoginGoogle): msg.C2L_ReqLoginGoogle;
+
+        /**
+         * Encodes the specified C2L_ReqLoginGoogle message. Does not implicitly {@link msg.C2L_ReqLoginGoogle.verify|verify} messages.
+         * @param message C2L_ReqLoginGoogle message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2L_ReqLoginGoogle, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2L_ReqLoginGoogle message, length delimited. Does not implicitly {@link msg.C2L_ReqLoginGoogle.verify|verify} messages.
+         * @param message C2L_ReqLoginGoogle message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2L_ReqLoginGoogle, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2L_ReqLoginGoogle message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2L_ReqLoginGoogle
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2L_ReqLoginGoogle;
+
+        /**
+         * Decodes a C2L_ReqLoginGoogle message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2L_ReqLoginGoogle
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2L_ReqLoginGoogle;
+
+        /**
+         * Verifies a C2L_ReqLoginGoogle message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2L_ReqLoginGoogle message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2L_ReqLoginGoogle
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2L_ReqLoginGoogle;
+
+        /**
+         * Creates a plain object from a C2L_ReqLoginGoogle message. Also converts values to other types if specified.
+         * @param message C2L_ReqLoginGoogle
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2L_ReqLoginGoogle, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2L_ReqLoginGoogle to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a C2L_ReqLoginFaceBook. */
+    interface IC2L_ReqLoginFaceBook {
+
+        /** C2L_ReqLoginFaceBook openid */
+        openid?: (string|null);
+
+        /** C2L_ReqLoginFaceBook token */
+        token?: (string|null);
+    }
+
+    /** Represents a C2L_ReqLoginFaceBook. */
+    class C2L_ReqLoginFaceBook implements IC2L_ReqLoginFaceBook {
+
+        /**
+         * Constructs a new C2L_ReqLoginFaceBook.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2L_ReqLoginFaceBook);
+
+        /** C2L_ReqLoginFaceBook openid. */
+        public openid: string;
+
+        /** C2L_ReqLoginFaceBook token. */
+        public token: string;
+
+        /**
+         * Creates a new C2L_ReqLoginFaceBook instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2L_ReqLoginFaceBook instance
+         */
+        public static create(properties?: msg.IC2L_ReqLoginFaceBook): msg.C2L_ReqLoginFaceBook;
+
+        /**
+         * Encodes the specified C2L_ReqLoginFaceBook message. Does not implicitly {@link msg.C2L_ReqLoginFaceBook.verify|verify} messages.
+         * @param message C2L_ReqLoginFaceBook message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2L_ReqLoginFaceBook, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2L_ReqLoginFaceBook message, length delimited. Does not implicitly {@link msg.C2L_ReqLoginFaceBook.verify|verify} messages.
+         * @param message C2L_ReqLoginFaceBook message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2L_ReqLoginFaceBook, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2L_ReqLoginFaceBook message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2L_ReqLoginFaceBook
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2L_ReqLoginFaceBook;
+
+        /**
+         * Decodes a C2L_ReqLoginFaceBook message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2L_ReqLoginFaceBook
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2L_ReqLoginFaceBook;
+
+        /**
+         * Verifies a C2L_ReqLoginFaceBook message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2L_ReqLoginFaceBook message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2L_ReqLoginFaceBook
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2L_ReqLoginFaceBook;
+
+        /**
+         * Creates a plain object from a C2L_ReqLoginFaceBook message. Also converts values to other types if specified.
+         * @param message C2L_ReqLoginFaceBook
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2L_ReqLoginFaceBook, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2L_ReqLoginFaceBook to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a C2GW_ReqLogin. */
     interface IC2GW_ReqLogin {
 

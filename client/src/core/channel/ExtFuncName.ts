@@ -9,6 +9,10 @@ class ExtFuncName
 	//
 	public static readonly Initialize: string = "Initialize";
 	public static readonly Login: string = "Login";
+	/**
+	 * 检测登录状态
+	 */
+	public static readonly CheckLoginState:string = "CheckLoginState";
 	public static readonly Logout: string = "Logout";
 	public static readonly Share: string = "Share";
 	/**

@@ -7,6 +7,23 @@ class Command
     public static readonly Login_exchange: string = "exchange";
     public static readonly Login_auth: string = "auth";
 
+    /**
+     * 测试账号登录
+     */
+    public static readonly C2L_ReqLogin = "msg.C2L_ReqLogin";
+    /**
+     * 苹果gamecenter 登录
+     */
+    public static readonly C2L_ReqLoginApple:string = "msg.C2L_ReqLoginApple";
+    /**
+     * googleplay 登录
+     */
+    public static readonly C2L_ReqLoginGoogle:string ="msg.C2L_ReqLoginGoogle";
+    /**
+     * facebook 登录
+     */
+    public static readonly C2L_ReqLoginFaceBook:string = "msg.C2L_ReqLoginFaceBook";
+
     //--------------------------------------------------------------
     // System
     //--------------------------------------------------------------

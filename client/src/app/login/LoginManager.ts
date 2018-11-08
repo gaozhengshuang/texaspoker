@@ -9,16 +9,98 @@ module game
         /**
          * 账号密码登录
          */
-        public static AccountLogin(account: string, passwd: string)
+        public static async AccountLogin(account: string, passwd: string)
         {
             LoginManager.loginUserInfo = { account: account, passwd: passwd };
-            LoginManager.login();
-        }
-
-        public static async login()
-        {
             let gwResult: msg.IL2C_RetLogin;
             gwResult = await LoginManager.connectLoginGW();
+            LoginManager.login(gwResult);
+        }
+
+        /**
+         * facebook登录
+         */
+        public static async faceBookLogin(token: string, openId: string)
+        {
+            let cb = () =>
+            {
+                let d = defer();
+                SocketManager.pollingConnect(game.serverInfo.$netIp);
+                NotificationCenter.once(LoginManager, () =>
+                {
+                    let data = new msg.C2L_ReqLoginFaceBook();
+                    data.openid = openId;
+                    data.token = token;
+                    SocketManager.Send(Command.C2L_ReqLoginFaceBook, data);
+                    NotificationCenter.once(LoginManager, (data) =>
+                    {
+                        d.resolve(data);
+                    }, Command.C2L_ReqLoginFaceBook);
+                }, BaseSocket.SOCKET_CONNECT_SUCCESS);
+                return d.promise();
+            };
+            let gwResult: msg.IL2C_RetLogin;
+            gwResult = await cb();
+            LoginManager.login(gwResult);
+        }
+
+        /**
+         * google 登录
+         */
+        public static async googlePlayLogin()
+        {
+            let cb = () =>
+            {
+                let d = defer();
+                SocketManager.pollingConnect(game.serverInfo.$netIp);
+                NotificationCenter.once(LoginManager, () =>
+                {
+                    let data = new msg.C2L_ReqLoginGoogle();
+                    SocketManager.Send(Command.C2L_ReqLoginGoogle, data);
+                    NotificationCenter.once(LoginManager, (data) =>
+                    {
+                        d.resolve(data);
+                    }, Command.C2L_ReqLoginGoogle);
+                }, BaseSocket.SOCKET_CONNECT_SUCCESS);
+                return d.promise();
+            };
+            let gwResult: msg.IL2C_RetLogin;
+            gwResult = await cb();
+            LoginManager.login(gwResult);
+        }
+        
+        /**
+         * 苹果游戏中心登录
+         */
+        public static async gameCenterLogin(openid: string, keyurl: string, signature: string, timestamp: number, salt: string)
+        {
+            let cb = () =>
+            {
+                let d = defer();
+                SocketManager.pollingConnect(game.serverInfo.$netIp);
+                NotificationCenter.once(LoginManager, () =>
+                {
+                    let data = new msg.C2L_ReqLoginApple();
+                    data.openid = openid;
+                    data.keyurl = keyurl;
+                    data.signature = signature;
+                    data.timestamp = timestamp;
+                    data.salt = salt;
+                    SocketManager.Send(Command.C2L_ReqLoginApple, data);
+                    NotificationCenter.once(LoginManager, (data) =>
+                    {
+                        d.resolve(data);
+                    }, Command.C2L_ReqLoginApple);
+                }, BaseSocket.SOCKET_CONNECT_SUCCESS);
+                return d.promise();
+            };
+            let gwResult: msg.IL2C_RetLogin;
+            gwResult = await cb();
+            LoginManager.login(gwResult);
+        }
+
+        public static async login(gwResult: msg.IL2C_RetLogin)
+        {
             if (gwResult.result == 1)
             {
                 NotificationCenter.once(LoginManager, (msg: msg.GW2C_PushUserInfo) =>
@@ -83,9 +165,9 @@ module game
                     NotificationCenter.once(LoginManager, (data: msg.IGW2C_RetLogin) =>
                     {
                         d.resolve(data);
-                    }, "msg.C2GW_ReqLogin");
+                    }, Command.C2L_ReqLogin);
 
-                    SocketManager.Send("msg.C2GW_ReqLogin", {
+                    SocketManager.Send(Command.C2L_ReqLogin, {
                         account: account,
                         verifykey: gwResult.verifykey,
                     });
@@ -101,11 +183,11 @@ module game
             SocketManager.pollingConnect(game.serverInfo.$netIp);
             NotificationCenter.once(LoginManager, () =>
             {
-                SocketManager.Send("msg.C2L_ReqLogin", LoginManager.loginUserInfo);
+                SocketManager.Send(Command.C2L_ReqLogin, LoginManager.loginUserInfo);
                 NotificationCenter.once(LoginManager, (data: msg.IL2C_RetLogin) =>
                 {
                     d.resolve(data);
-                }, "msg.C2L_ReqLogin");
+                }, Command.C2L_ReqLogin);
             }, BaseSocket.SOCKET_CONNECT_SUCCESS);
             return d.promise();
         }

@@ -101,7 +101,7 @@ class LoginScene extends BaseScene
         {
             if (isAutoLogin && channelLoginType)
             {
-                this.ChannelLoginStart(channelLoginType, isAutoLogin);
+                this.checkLoginState(channelLoginType, isAutoLogin);
             }
             else
             {
@@ -112,13 +112,30 @@ class LoginScene extends BaseScene
         {
             if (isAutoLogin && (!this._channelLoginList[0] || channelLoginType))
             {
-                this.ChannelLoginStart(this._channelLoginList[0], isAutoLogin);
+                this.checkLoginState(this._channelLoginList[0], isAutoLogin);
             }
             else
             {
                 this.ShowEnterLoginPanel();
             }
         }
+    }
+    private checkLoginState(type: string, isAutoLogin: boolean)
+    {
+        let callBack: Function = function (state: string)
+        {
+            ChannelManager.LoginStateCheckEvent.removeListener(callBack, this);
+            if (state == "1")
+            {
+                this.ChannelLoginStart(type, isAutoLogin);
+            }
+            else
+            {
+                this.ShowEnterLoginPanel();
+            }
+        };
+        ChannelManager.LoginStateCheckEvent.addListener(callBack, this);
+        ChannelManager.checkLoginState(type);
     }
     private ChannelLoginStart(loginType: string, isAutoLogin: boolean)
     {
@@ -132,9 +149,9 @@ class LoginScene extends BaseScene
         // }
         // else
         // {
-            //渠道登录
-            this.AddChannelEvents();
-            ChannelManager.login(loginType, isAutoLogin);
+        //渠道登录
+        this.AddChannelEvents();
+        ChannelManager.login(loginType, isAutoLogin);
         // }
     }
     private ShowEnterLoginPanel()
@@ -237,10 +254,10 @@ class LoginScene extends BaseScene
             this.GameAccountLogin(args[0], args[1]);
         }
     }
-    private OnTokenLoginSucceed(token: string)
+    private OnTokenLoginSucceed(data: any)
     {
         this.RemoveChannelEvents();
-        this.GameTokenLogin(token);
+        this.GameTokenLogin(data);
     }
     private OnChannelLogout()
     {
@@ -258,10 +275,20 @@ class LoginScene extends BaseScene
         this.AddGameLoginEvents();
         game.LoginManager.AccountLogin(account, password);
     }
-    private GameTokenLogin(token: string)
+    private GameTokenLogin(data: any)
     {
         this.AddGameLoginEvents();
-        // LoginManager.TokenLogin(ChannelManager.getLoginChannel(), token);
+        switch (data.loginType)
+        {
+            case ChannelLoginType.FaceBook:
+                game.LoginManager.faceBookLogin(data.token, data.openid)
+                break;
+            case ChannelLoginType.GameCenter:
+                break;
+            case ChannelLoginType.GooglePlay:
+                break;
+        }
+        // game.LoginManager.TokenLogin(ChannelManager.getLoginChannel(), token);
     }
     private OnGameLoginComplete(isSuccess: boolean)
     {
