@@ -57,7 +57,7 @@ func on_L2GW_HeartBeat(session network.IBaseNetSession, message interface{}) {
 func on_L2GW_ReqRegistUser(session network.IBaseNetSession, message interface{}) {
 	tmsg := message.(*msg.L2GW_ReqRegistUser)
 	//log.Info(reflect.TypeOf(tmsg).String())
-	account, gate, tm_expire, vkey := tmsg.GetAccount(), tmsg.GetGatehost(), tmsg.GetExpire(), tmsg.GetVerifykey()
+	account, gate, tm_expire, vkey, logintype:= tmsg.GetAccount(), tmsg.GetGatehost(), tmsg.GetExpire(), tmsg.GetVerifykey(), tmsg.GetLogintype()
 	errcode := ""
 
 	switch {
@@ -83,6 +83,7 @@ func on_L2GW_ReqRegistUser(session network.IBaseNetSession, message interface{})
 		Gatehost : pb.String(gate),
 		Sid : tmsg.Sid,
 		Verifykey : pb.String(vkey),
+		Logintype : pb.String(logintype),
 	}
 	sendmsg.Errcode = pb.String(errcode)
 	session.SendCmd(sendmsg)

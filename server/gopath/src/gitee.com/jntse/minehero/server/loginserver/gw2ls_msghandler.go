@@ -86,7 +86,7 @@ func on_GW2L_RegistUserRet(session network.IBaseNetSession, message interface{})
 	verifykey := tmsg.GetVerifykey()
 	sid  := int(tmsg.GetSid())
 	host := network.NewNetHost(ipport)
-
+	logintype := tmsg.GetLogintype()
 	// 获取玩家Session
 	usession := Login().GetSession(sid)
 	if usession == nil /*|| reflect.ValueOf(usession).IsNil() */{
@@ -96,7 +96,7 @@ func on_GW2L_RegistUserRet(session network.IBaseNetSession, message interface{})
 
 	if errcode != "" {
 		log.Info("注册玩家%s到Gate失败 err=%s", account, errcode)
-		Login().SendMsg(sid, newL2C_RetLogin("注册到Gate失败", "", 0, ""))
+		Login().SendMsg(sid, newL2C_RetLogin("注册到Gate失败", "", 0, "", logintype))
 		usession.Close()
 		return
 	}
@@ -105,7 +105,7 @@ func on_GW2L_RegistUserRet(session network.IBaseNetSession, message interface{})
 	gate := GateMgr().FindGateByHost(host.String())
 	if gate == nil {
 		log.Error("账户%s，获取Gate实例失败 host[%s]", account, host.String())
-		Login().SendMsg(sid, newL2C_RetLogin("获取Gate实例失败", "", 0, ""))
+		Login().SendMsg(sid, newL2C_RetLogin("获取Gate实例失败", "", 0, "", logintype))
 		usession.Close()
 		return
 	}
@@ -113,12 +113,12 @@ func on_GW2L_RegistUserRet(session network.IBaseNetSession, message interface{})
 	// 绑定账户Gateway信息，用于快速登陆
 	if err := BindingAccountGateWay(account, host.Ip, host.Port, verifykey); err != nil {
 		log.Error("账户%s,保存GateHost到Redis失败", account)
-		Login().SendMsg(sid, newL2C_RetLogin("保存GateHost失败", "", 0, ""))
+		Login().SendMsg(sid, newL2C_RetLogin("保存GateHost失败", "", 0, "", logintype))
 		usession.Close()
 		return
 	}
 
-	Login().SendMsg(sid, newL2C_RetLogin("", host.Ip, host.Port, verifykey))
+	Login().SendMsg(sid, newL2C_RetLogin("", host.Ip, host.Port, verifykey, logintype))
 	log.Info("注册玩家到Gate成功 sid[%d] [%s] [%s] [%s]", sid, account, ipport, verifykey)
 	return
 }
