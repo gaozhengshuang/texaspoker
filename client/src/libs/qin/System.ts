@@ -26,18 +26,18 @@ module game
         {
             if (System._isMicroRuntime === undefined)
             {
-                System._isMicroRuntime = egret.Capabilities.runtimeType == egret.RuntimeType.WEB && window.navigator.userAgent.toLowerCase().indexOf('egretnative') >= 0;
+                System._isMicroRuntime = egret.Capabilities.runtimeType == egret.RuntimeType.RUNTIME2 && window.navigator.userAgent.toLowerCase().indexOf('egretnative') >= 0;
             }
             return System._isMicroRuntime;
         }
         /**
-         * 是否是微端WebView
+         * 是否是微端WebView 估计不好用
          */
         public static get isMicroWebView(): boolean
         {
             if (System._isMicroWebView === undefined)
             {
-                System._isMicroWebView = egret.Capabilities.runtimeType == egret.RuntimeType.WEB && window.navigator.userAgent.toLowerCase().indexOf('egretwebview') >= 0;
+                System._isMicroWebView = egret.Capabilities.runtimeType == egret.RuntimeType.RUNTIME2 && window.navigator.userAgent.toLowerCase().indexOf('egretwebview') >= 0;
             }
             return System._isMicroWebView;
         }

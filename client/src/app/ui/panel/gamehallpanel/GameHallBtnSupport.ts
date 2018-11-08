@@ -94,9 +94,9 @@ class GameHallBtnSupport
     private setIsShowBindPhoneAwardBtn()
     {
          let bringAwardDef: table.IAwardDefine = table.AwardById[this.bindPhoneAwardId];
-        if (ChannelManager.loginType != ChannelLoginType.GiantFun)
+        if (ChannelManager.loginType != ChannelLoginType.FaceBook) // move todo
         {
-            if (BindAccountManager.getIsBinding(ChannelLoginType.GiantFun) && AwardManager.isToLimit(bringAwardDef))
+            if (BindAccountManager.getIsBinding(ChannelLoginType.FaceBook) && AwardManager.isToLimit(bringAwardDef))
             {
                 this.changeActivityBtn(this.target.bindPhoneAwardBtn, false);
             }

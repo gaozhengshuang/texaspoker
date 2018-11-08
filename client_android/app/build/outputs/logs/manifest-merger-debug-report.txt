@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:2:1-25:12
+ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:2:1-55:12
 	package
 		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:3:5-29
 		INJECTED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml
@@ -34,32 +34,99 @@ ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.x
 	android:name
 		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:9:22-72
 application
-ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:11:5-23:19
+ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:11:5-53:19
 MERGED from [:egret:] C:\Users\Administrator\.android\build-cache\ead95b243e21655816c5be9c856f03c5eba4c61d\output\AndroidManifest.xml:4:5-9:19
+MERGED from [com.facebook.android:facebook-login:4.38.1] C:\Users\Administrator\.android\build-cache\21394fe066796b6e2c524b5fc4cb4e4b1989d746\output\AndroidManifest.xml:28:5-29:19
+MERGED from [com.facebook.android:facebook-common:4.38.1] C:\Users\Administrator\.android\build-cache\84b423fb108ef024555785d90a1b032011fbcfdf\output\AndroidManifest.xml:28:5-35:19
+MERGED from [com.facebook.android:facebook-core:4.38.1] C:\Users\Administrator\.android\build-cache\7629fabdb3f4c831e43061b426cae9c71de93aed\output\AndroidManifest.xml:28:5-51:19
+	android:supportsRtl
+		ADDED from [com.facebook.android:facebook-login:4.38.1] C:\Users\Administrator\.android\build-cache\21394fe066796b6e2c524b5fc4cb4e4b1989d746\output\AndroidManifest.xml:28:18-44
+meta-data#com.facebook.sdk.ApplicationId
+ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:22:9-24:55
+	android:value
+		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:24:13-52
+	android:name
+		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:23:13-58
+activity#com.facebook.FacebookActivity
+ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:26:9-29:48
+MERGED from [com.facebook.android:facebook-common:4.38.1] C:\Users\Administrator\.android\build-cache\84b423fb108ef024555785d90a1b032011fbcfdf\output\AndroidManifest.xml:29:9-32:66
 	android:label
-		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:14:9-41
-	android:allowBackup
-		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:12:9-35
-	android:icon
-		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:13:9-38
+		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:29:13-45
+	android:configChanges
+		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:28:13-96
 	android:theme
-		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:15:9-67
+		ADDED from [com.facebook.android:facebook-common:4.38.1] C:\Users\Administrator\.android\build-cache\84b423fb108ef024555785d90a1b032011fbcfdf\output\AndroidManifest.xml:32:13-63
+	android:name
+		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:27:13-57
+activity#com.facebook.CustomTabActivity
+ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:30:9-40:20
+MERGED from [com.facebook.android:facebook-common:4.38.1] C:\Users\Administrator\.android\build-cache\84b423fb108ef024555785d90a1b032011fbcfdf\output\AndroidManifest.xml:34:9-67
+	android:exported
+		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:32:13-36
+	android:name
+		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:31:13-58
+intent-filter#android.intent.action.VIEW+android.intent.category.BROWSABLE+android.intent.category.DEFAULT
+ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:33:13-39:29
+action#android.intent.action.VIEW
+ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:33:28-80
+	android:name
+		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:33:36-77
+category#android.intent.category.DEFAULT
+ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:35:17-76
+	android:name
+		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:35:27-73
+category#android.intent.category.BROWSABLE
+ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:36:17-78
+	android:name
+		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:36:27-75
+data
+ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:38:17-75
+	android:scheme
+		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:38:23-72
 activity#com.jiantpoker.MainActivity
-ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:16:9-22:20
+ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:41:9-52:20
+	android:label
+		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:45:13-45
+	android:allowBackup
+		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:43:13-39
+	android:icon
+		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:44:13-42
+	android:theme
+		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:46:13-47
 	android:name
-		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:16:19-47
+		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:42:13-41
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:17:13-21:29
+ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:47:13-51:29
 action#android.intent.action.MAIN
-ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:18:17-69
+ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:48:17-69
 	android:name
-		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:18:25-66
+		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:48:25-66
 category#android.intent.category.LAUNCHER
-ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:20:17-77
+ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:50:17-77
 	android:name
-		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:20:27-74
+		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:50:27-74
 uses-sdk
 INJECTED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [client_android:gamelib:unspecified] H:\workspace\texaspoker\client_android\gamelib\build\intermediates\bundles\default\AndroidManifest.xml:7:5-9:41
+MERGED from [client_android:customloadingview:unspecified] H:\workspace\texaspoker\client_android\customloadingview\build\intermediates\bundles\default\AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.android:facebook-login:4.38.1] C:\Users\Administrator\.android\build-cache\21394fe066796b6e2c524b5fc4cb4e4b1989d746\output\AndroidManifest.xml:24:5-26:41
+MERGED from [com.facebook.android:facebook-common:4.38.1] C:\Users\Administrator\.android\build-cache\84b423fb108ef024555785d90a1b032011fbcfdf\output\AndroidManifest.xml:24:5-26:41
+MERGED from [com.facebook.android:facebook-core:4.38.1] C:\Users\Administrator\.android\build-cache\7629fabdb3f4c831e43061b426cae9c71de93aed\output\AndroidManifest.xml:24:5-26:41
+MERGED from [com.android.support:support-v4:27.0.2] C:\Users\Administrator\.android\build-cache\b95f6b57297e515b9f7a0baf5cd7dabe821066cb\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.0.2] C:\Users\Administrator\.android\build-cache\081d749660aa7ffd1105a6c31d1e1e15978cde63\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cardview-v7:27.0.2] C:\Users\Administrator\.android\build-cache\b0f4c8a845b289b3e2c33155023a464c1e65148d\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customtabs:27.0.2] C:\Users\Administrator\.android\build-cache\de84994d0032e443d3f5ada0f2b04731584ed3f7\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:27.1.1] C:\Users\Administrator\.android\build-cache\590780474f831145e8a0e2ae4fa8220235db4818\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.1.1] C:\Users\Administrator\.android\build-cache\dbf6bc17eca33cd09ef8b08eaa0327cce970536c\output\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.0] C:\Users\Administrator\.android\build-cache\e6704910e4ece0227eb44cf3e0e0f67c5b1cbfb3\output\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.0] C:\Users\Administrator\.android\build-cache\69c94636ac784fd7e05b1963cbf1d5977c8cd444\output\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.0] C:\Users\Administrator\.android\build-cache\9bcc93082ad70917e2fc33e786f664aa0b7e54fc\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:27.1.1] C:\Users\Administrator\.android\build-cache\1a1154d77f854289093d54394ce43bd1f2bc3f6b\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:27.1.1] C:\Users\Administrator\.android\build-cache\8ed542ff94b56d4494ee9413d14085bf402397e3\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.1.1] C:\Users\Administrator\.android\build-cache\24d701a020a966a0cb402f9188f65ed9825d5aa2\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.1.1] C:\Users\Administrator\.android\build-cache\c4c9cbdccb4a74d367bd81a28ebdba4b0b6c13eb\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.1.1] C:\Users\Administrator\.android\build-cache\3abe2c88f1b992b77de504d4c4f385bc405d1c45\output\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.0] C:\Users\Administrator\.android\build-cache\cb4ca3f4451c447eb61e4ca703b26d4e209448c1\output\AndroidManifest.xml:20:5-44
 	android:targetSdkVersion
 		INJECTED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml
 		INJECTED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml
@@ -76,3 +143,27 @@ ADDED from [:egret:] C:\Users\Administrator\.android\build-cache\ead95b243e21655
 		ADDED from [:egret:] C:\Users\Administrator\.android\build-cache\ead95b243e21655816c5be9c856f03c5eba4c61d\output\AndroidManifest.xml:8:13-46
 	android:name
 		ADDED from [:egret:] C:\Users\Administrator\.android\build-cache\ead95b243e21655816c5be9c856f03c5eba4c61d\output\AndroidManifest.xml:7:13-108
+activity#com.facebook.CustomTabMainActivity
+ADDED from [com.facebook.android:facebook-common:4.38.1] C:\Users\Administrator\.android\build-cache\84b423fb108ef024555785d90a1b032011fbcfdf\output\AndroidManifest.xml:33:9-71
+	android:name
+		ADDED from [com.facebook.android:facebook-common:4.38.1] C:\Users\Administrator\.android\build-cache\84b423fb108ef024555785d90a1b032011fbcfdf\output\AndroidManifest.xml:33:19-68
+provider#com.facebook.internal.FacebookInitProvider
+ADDED from [com.facebook.android:facebook-core:4.38.1] C:\Users\Administrator\.android\build-cache\7629fabdb3f4c831e43061b426cae9c71de93aed\output\AndroidManifest.xml:39:9-42:40
+	android:authorities
+		ADDED from [com.facebook.android:facebook-core:4.38.1] C:\Users\Administrator\.android\build-cache\7629fabdb3f4c831e43061b426cae9c71de93aed\output\AndroidManifest.xml:41:13-72
+	android:exported
+		ADDED from [com.facebook.android:facebook-core:4.38.1] C:\Users\Administrator\.android\build-cache\7629fabdb3f4c831e43061b426cae9c71de93aed\output\AndroidManifest.xml:42:13-37
+	android:name
+		ADDED from [com.facebook.android:facebook-core:4.38.1] C:\Users\Administrator\.android\build-cache\7629fabdb3f4c831e43061b426cae9c71de93aed\output\AndroidManifest.xml:40:13-70
+receiver#com.facebook.CurrentAccessTokenExpirationBroadcastReceiver
+ADDED from [com.facebook.android:facebook-core:4.38.1] C:\Users\Administrator\.android\build-cache\7629fabdb3f4c831e43061b426cae9c71de93aed\output\AndroidManifest.xml:44:9-50:20
+	android:exported
+		ADDED from [com.facebook.android:facebook-core:4.38.1] C:\Users\Administrator\.android\build-cache\7629fabdb3f4c831e43061b426cae9c71de93aed\output\AndroidManifest.xml:46:13-37
+	android:name
+		ADDED from [com.facebook.android:facebook-core:4.38.1] C:\Users\Administrator\.android\build-cache\7629fabdb3f4c831e43061b426cae9c71de93aed\output\AndroidManifest.xml:45:13-86
+intent-filter#com.facebook.sdk.ACTION_CURRENT_ACCESS_TOKEN_CHANGED
+ADDED from [com.facebook.android:facebook-core:4.38.1] C:\Users\Administrator\.android\build-cache\7629fabdb3f4c831e43061b426cae9c71de93aed\output\AndroidManifest.xml:47:13-49:29
+action#com.facebook.sdk.ACTION_CURRENT_ACCESS_TOKEN_CHANGED
+ADDED from [com.facebook.android:facebook-core:4.38.1] C:\Users\Administrator\.android\build-cache\7629fabdb3f4c831e43061b426cae9c71de93aed\output\AndroidManifest.xml:48:17-95
+	android:name
+		ADDED from [com.facebook.android:facebook-core:4.38.1] C:\Users\Administrator\.android\build-cache\7629fabdb3f4c831e43061b426cae9c71de93aed\output\AndroidManifest.xml:48:25-92
