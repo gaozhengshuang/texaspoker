@@ -70,7 +70,7 @@ func (mh* C2LSMsgHandler) Init() {
 	//mh.msgparser.RegistSendProto(msg.L2C_RetRegistAccount{})
 }
 
-func newL2C_RetLogin(reason string, ip string, port int, key string) *msg.L2C_RetLogin {
+func newL2C_RetLogin(reason string, ip string, port int, key string, logintype string) *msg.L2C_RetLogin {
 	send := &msg.L2C_RetLogin {
 		Result : pb.Int32(1),
 		Reason : pb.String(reason),
@@ -79,6 +79,7 @@ func newL2C_RetLogin(reason string, ip string, port int, key string) *msg.L2C_Re
 		Port : pb.Int(port),
 		},
 		Verifykey : pb.String(key),
+		Logintype : pb.String(logintype),
 	}
 	if reason != "" {
 		send.Result = pb.Int32(0)
@@ -149,7 +150,7 @@ func on_C2L_ReqLogin(session network.IBaseNetSession, message interface{}) {
 
 		// TODO: 从Redis获取账户缓存Gate信息，实现快速登陆
 		log.Info("账户[%s]登陆Login ", account)
-		if ok := QuickLogin(session, account); ok == true {
+		if ok := QuickLogin(session, account, "IntranetAccount"); ok == true {
 			return
 		}
 
@@ -174,6 +175,7 @@ func on_C2L_ReqLogin(session network.IBaseNetSession, message interface{}) {
 			Sid : pb.Int(session.Id()),
 			Timestamp: pb.Int64(now),
 			Verifykey : pb.String(md5string),
+			Logintype : pb.String("IntranetAccount"),
 		}
 		agent.SendMsg(sendmsg)
 		Login().CheckInSetAdd(account, session)		// 避免同时登陆
@@ -184,7 +186,7 @@ func on_C2L_ReqLogin(session network.IBaseNetSession, message interface{}) {
 
 	if errcode != "" {
 		log.Info("账户:[%s] sid[%d] 登陆失败[%s]", account, session.Id(), errcode)
-		session.SendCmd(newL2C_RetLogin(errcode, "", 0, ""))
+		session.SendCmd(newL2C_RetLogin(errcode, "", 0, "", "IntranetAccount"))
 		session.Close()
 	}
 }
@@ -221,7 +223,7 @@ func on_C2L_ReqLoginWechat(session network.IBaseNetSession, message interface{})
 
 		// TODO: 从Redis获取账户缓存Gate信息，实现快速登陆
 		log.Info("账户[%s] 使用邀请码[%s] 登陆Login", account, invitationcode)
-		if ok := QuickLogin(session, account); ok == true {
+		if ok := QuickLogin(session, account, "WeChat"); ok == true {
 			return
 		}
 
@@ -246,6 +248,7 @@ func on_C2L_ReqLoginWechat(session network.IBaseNetSession, message interface{})
 			Sid : pb.Int(session.Id()),
 			Timestamp: pb.Int64(now),
 			Verifykey : pb.String(md5string),
+			Logintype : pb.String("WeChat"),
 		}
 		agent.SendMsg(sendmsg)
 		Login().CheckInSetAdd(account, session)		// 避免同时登陆
@@ -256,7 +259,7 @@ func on_C2L_ReqLoginWechat(session network.IBaseNetSession, message interface{})
 
 	if errcode != "" {
 		log.Info("账户:[%s] sid[%d] 登陆失败[%s]", account, session.Id(), errcode)
-		session.SendCmd(newL2C_RetLogin(errcode, "", 0, ""))
+		session.SendCmd(newL2C_RetLogin(errcode, "", 0, "", "WeChat"))
 		session.Close()
 	}
 }
@@ -401,7 +404,7 @@ func on_C2L_ReqLoginFaceBook(session network.IBaseNetSession, message interface{
 
 		// TODO: 从Redis获取账户缓存Gate信息，实现快速登陆
 		log.Info("账户[%s]登陆Login ", account)
-		if ok := QuickLogin(session, account); ok == true {
+		if ok := QuickLogin(session, account, "FaceBook"); ok == true {
 			return
 		}
 		// 挑选一个负载较低的agent
@@ -425,6 +428,7 @@ func on_C2L_ReqLoginFaceBook(session network.IBaseNetSession, message interface{
 			Sid : pb.Int(session.Id()),
 			Timestamp: pb.Int64(now),
 			Verifykey : pb.String(md5string),
+			Logintype : pb.String("FaceBook"),
 		}
 		agent.SendMsg(sendmsg)
 		Login().CheckInSetAdd(account, session)		// 避免同时登陆
@@ -435,7 +439,7 @@ func on_C2L_ReqLoginFaceBook(session network.IBaseNetSession, message interface{
 
 	if errcode != "" {
 		log.Info("账户:[%s] sid[%d] 登陆失败[%s]", account, session.Id(), errcode)
-		session.SendCmd(newL2C_RetLogin(errcode, "", 0, ""))
+		session.SendCmd(newL2C_RetLogin(errcode, "", 0, "", "FaceBook"))
 		session.Close()
 	}
 

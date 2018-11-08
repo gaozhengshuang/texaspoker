@@ -89,7 +89,7 @@ func AmountGateAccount(ip string, port int) int64 {
 	return num
 }
 
-func QuickLogin(session network.IBaseNetSession, account string) bool {
+func QuickLogin(session network.IBaseNetSession, account string, logintype string) bool {
 	host, err := FindAccountGateWay(account)
 	if err != nil && err != redis.Nil {
 		log.Error("账户%s Find Account GateWay 报错err: %v", account, err)
@@ -121,7 +121,7 @@ func QuickLogin(session network.IBaseNetSession, account string) bool {
 	}
 
 	log.Info("账户[%s] 快速登陆Gate[ip:%s port:%d]", account, ip, port)
-	session.SendCmd(newL2C_RetLogin("", ip, port, vkey))
+	session.SendCmd(newL2C_RetLogin("", ip, port, vkey, logintype))
 	Login().CheckInSetAdd(account, session) // 避免同时登陆
 	return true
 }
