@@ -55,16 +55,16 @@ class BindPhoneAwardPanel extends BaseActivityPanel
     private refreshQinBindState()
     {
         //手机账号绑定
-        if (BindAccountManager.getIsBinding(ChannelLoginType.GiantFun))  //判断用户是否绑定了手机
-        {
-            this.goToBtn.visible = false;
-            this.bringBtn.visible = true;
-        }
-        else
-        {
+        // if (BindAccountManager.getIsBinding(ChannelLoginType.GiantFun))  //判断用户是否绑定了手机  // move todo
+        // {
+        //     this.goToBtn.visible = false;
+        //     this.bringBtn.visible = true;
+        // }
+        // else
+        // {
             this.goToBtn.visible = true;
             this.bringBtn.visible = false;
-        }
+        // }
     }
     /**
      * 跳到绑定界面
@@ -79,11 +79,11 @@ class BindPhoneAwardPanel extends BaseActivityPanel
     */
     private bindSuccess(data: any)
     {
-        if (data == ChannelLoginType.GiantFun)
-        {
+        // if (data == ChannelLoginType.GiantFun) // move todo
+        // {
             this.goToBtn.visible = false;
             this.bringBtn.visible = true;
-        }
+        // }
     }
     /**
      * 领取奖励

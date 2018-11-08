@@ -13,10 +13,6 @@ class GameSetting
 	public static readonly StageWidth: number = 720;
 	public static readonly StageHeight: number = 1280;
 	/**
-	 * 是否同意了用户协议
-	 */
-	public static IsAgreeUserAgreement: boolean = false;
-	/**
 	 * 最大邮件数量
 	 */
 	public static MaxMailNum: number = 30;

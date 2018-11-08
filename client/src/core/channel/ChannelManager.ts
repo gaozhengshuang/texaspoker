@@ -229,21 +229,21 @@ class ChannelManager
 	 */
 	public static login(loginType: string, isAutoLogin: boolean = false)
 	{
-		if (loginType == ChannelLoginType.GiantFun)
-		{
-			ChannelManager._accountHandler.Login(isAutoLogin);
-		}
-		else
-		{
+		// if (loginType == ChannelLoginType.IntranetAccount) // move todo
+		// {
+		// 	ChannelManager._accountHandler.Login(isAutoLogin);
+		// }
+		// else
+		// {
 			ChannelManager._channel.Login(loginType, isAutoLogin);
-		}
+		// }
 	}
 	/**
 	 * 登出
 	 */
 	public static logout()
 	{
-		if (ChannelManager.loginType == ChannelLoginType.GiantFun)
+		if (ChannelManager.loginType == ChannelLoginType.IntranetAccount)
 		{
 			ChannelManager._accountHandler.Logout();
 		}

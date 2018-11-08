@@ -91,11 +91,11 @@ class LoginScene extends BaseScene
     private EnterLoginStart(isAutoLogin: boolean)
     {
         this._channelLoginList = ChannelLoginType.GetChannelLoginList(OperatePlatform.getCurrent(), ChannelManager.channelType, VersionManager.isServerTest, VersionManager.isSafe);
-        if (isAutoLogin && this._channelLoginList.indexOf(ChannelLoginType.Weixin) >= 0 && WebConfig.isWxWebAuthorize)
-        {
-            this.ChannelLoginStart(ChannelLoginType.Weixin, isAutoLogin);
-            return;
-        }
+        // if (isAutoLogin && this._channelLoginList.indexOf(ChannelLoginType.Weixin) >= 0 && WebConfig.isWxWebAuthorize) // move todo
+        // {
+        //     this.ChannelLoginStart(ChannelLoginType.Weixin, isAutoLogin);
+        //     return;
+        // }
         let channelLoginType: string = PrefsManager.getValue(PrefsManager.Login_LoginType);
         if (this._channelLoginList.length > 1)
         {
@@ -125,23 +125,23 @@ class LoginScene extends BaseScene
         ChannelManager.OnLogout.addListener(this.OnChannelLogout, this);
         //
         ChannelManager.loginType = loginType;
-        if (loginType == ChannelLoginType.Guest || loginType == ChannelLoginType.IntranetGuest)
-        {
-            //游客登录
-            this.GameGuestLogin();
-        }
-        else
-        {
+        // if (loginType == ChannelLoginType.Guest || loginType == ChannelLoginType.IntranetGuest) // move todo
+        // {
+        //     //游客登录
+        //     this.GameGuestLogin();
+        // }
+        // else
+        // {
             //渠道登录
             this.AddChannelEvents();
             ChannelManager.login(loginType, isAutoLogin);
-        }
+        // }
     }
     private ShowEnterLoginPanel()
     {
-        this.OnEnterLoginSelect(ChannelLoginType.IntranetAccount); //move todo
-        // UIManager.addEventListener(UIModuleName.LoginPanel, UIModuleEvent.COMPLETE, this.OnEnterLoginSelect, this);
-        // UIManager.showPanel(UIModuleName.LoginPanel, this._channelLoginList);
+        // this.OnEnterLoginSelect(ChannelLoginType.IntranetAccount); //move todo
+        UIManager.addEventListener(UIModuleName.LoginPanel, UIModuleEvent.COMPLETE, this.OnEnterLoginSelect, this);
+        UIManager.showPanel(UIModuleName.LoginPanel, this._channelLoginList);
     }
     private HideEnterLoginPanel()
     {

@@ -3,12 +3,66 @@
 
     <item
         is-multidex="false"
+        jar="C:\Users\Administrator\.android\build-cache\7629fabdb3f4c831e43061b426cae9c71de93aed\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="a37ae3e3bd75e71ffd597b6e7f7e85002fd6efaf">
+        <dex dex="H:\workspace\texaspoker\client_android\app\build\intermediates\pre-dexed\debug\classes_2106c04ee4d27293c5b80e06e41801ad695f013a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Administrator\.android\build-cache\081d749660aa7ffd1105a6c31d1e1e15978cde63\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="25c8cb628374f9a2d59ff9e1172753751e9a9f84">
+        <dex dex="H:\workspace\texaspoker\client_android\app\build\intermediates\pre-dexed\debug\classes_c18d6429eea680866d6dcb552a23e79ccef9013f.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="H:\workspace\texaspoker\client_android\gamelib\build\intermediates\bundles\default\classes.jar"
         jumboMode="false"
         optimize="true"
         revision="26.0.2"
-        sha1="2c0537c265e03cc606a4265c50572b5666da3bb9">
-        <dex dex="H:\workspace\texaspoker\client_android\app\build\intermediates\pre-dexed\debug\classes_05dabcae29acf2f600b9a58f7e4ada23524262b2.jar" />
+        sha1="dd398a0d99678f088d101eda5cbdc0673eed4835">
+        <dex dex="H:\workspace\texaspoker\client_android\app\build\intermediates\pre-dexed\release\classes_05dabcae29acf2f600b9a58f7e4ada23524262b2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Administrator\.android\build-cache\84b423fb108ef024555785d90a1b032011fbcfdf\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="924cf75ca3a2993ef180d8445d5202fbfe8bbb4b">
+        <dex dex="H:\workspace\texaspoker\client_android\app\build\intermediates\pre-dexed\debug\classes_6ca325c0198e86f8c1ce8770abe335d57e4a5508.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Administrator\.android\build-cache\b95f6b57297e515b9f7a0baf5cd7dabe821066cb\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="bcd0bcdef85b31a656af76e39c0c95ce70800772">
+        <dex dex="H:\workspace\texaspoker\client_android\app\build\intermediates\pre-dexed\debug\classes_6ef109c8281d85ec574a418786d9051aacba7a8f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Administrator\.android\build-cache\b0f4c8a845b289b3e2c33155023a464c1e65148d\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="14bfdbf5594d4d7c320de20831849050788ab1e3">
+        <dex dex="H:\workspace\texaspoker\client_android\app\build\intermediates\pre-dexed\debug\classes_bb51880541800fec3df00e9c81d36cc11de8e364.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\com.google.zxing\core\3.3.0\73c49077166faa4c3c0059c5f583d1d7bd1475fe\core-3.3.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="73c49077166faa4c3c0059c5f583d1d7bd1475fe">
+        <dex dex="H:\workspace\texaspoker\client_android\app\build\intermediates\pre-dexed\debug\core-3.3.0_e4230aaa92ad3b83a7280de82bf4c7ebfefd4ee6.jar" />
     </item>
     <item
         is-multidex="false"
@@ -16,26 +70,44 @@
         jumboMode="false"
         optimize="true"
         revision="26.0.2"
-        sha1="37d252507d4d7d45596326b0a8db405c2c47a7d4">
-        <dex dex="H:\workspace\texaspoker\client_android\app\build\intermediates\pre-dexed\debug\classes_2ee3a80b1332897e0fd64bedb62af6118d5f1b0e.jar" />
+        sha1="49890f1514afac6ae318a27c150d6ead0deaf9a8">
+        <dex dex="H:\workspace\texaspoker\client_android\app\build\intermediates\pre-dexed\release\classes_2ee3a80b1332897e0fd64bedb62af6118d5f1b0e.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="H:\workspace\texaspoker\client_android\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-applinks\1.4.0\8ad21bf21784dacce5f2043afb97218cc377e835\bolts-applinks-1.4.0.jar"
+        jumboMode="false"
         optimize="true"
         revision="26.0.2"
-        sha1="c323c36ecc68965c4cfb460f7721113d2b61ed03">
-        <dex dex="H:\workspace\texaspoker\client_android\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_b5cd6309e988d2e275c7b5bbbeb24fa342ded0fd\classes.dex" />
+        sha1="8ad21bf21784dacce5f2043afb97218cc377e835">
+        <dex dex="H:\workspace\texaspoker\client_android\app\build\intermediates\pre-dexed\debug\bolts-applinks-1.4.0_b26dae2859a7956e2b83831c59f43cc7ccec1eb2.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="H:\workspace\texaspoker\client_android\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-tasks\1.4.0\d85884acf6810a3bbbecb587f239005cbc846dc4\bolts-tasks-1.4.0.jar"
+        jumboMode="false"
         optimize="true"
         revision="26.0.2"
-        sha1="463a7873b277b938ac8770ae4d1c5fd6a567c878">
-        <dex dex="H:\workspace\texaspoker\client_android\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_745fa78af5accfc42991da72a65cc835bda0d468\classes.dex" />
+        sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
+        <dex dex="H:\workspace\texaspoker\client_android\app\build\intermediates\pre-dexed\debug\bolts-tasks-1.4.0_c64325f78a24c085b700c554244dc03fa6bc6a89.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Administrator\.android\build-cache\de84994d0032e443d3f5ada0f2b04731584ed3f7\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="cdebcd9e0580b35115f655f8dc8ed7a66a8ef0fc">
+        <dex dex="H:\workspace\texaspoker\client_android\app\build\intermediates\pre-dexed\debug\classes_d518a405ef66f451a09111c717899c97a2f98b53.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Administrator\.android\build-cache\21394fe066796b6e2c524b5fc4cb4e4b1989d746\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="6da9d69b80f3af4232efd5cb17eb2605aa673e70">
+        <dex dex="H:\workspace\texaspoker\client_android\app\build\intermediates\pre-dexed\debug\classes_0bd2c0e429138dd1a731487d55c69ade74c98221.jar" />
     </item>
 
 </items>

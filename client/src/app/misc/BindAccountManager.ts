@@ -47,12 +47,13 @@ class BindAccountManager
 
 			switch (logintype)
 			{
-				case ChannelLoginType.GiantFun:
-					AlertManager.showAlert("您的手机账号绑定成功，请牢记您的账号和登录密码，如有遗忘，可通过“忘记密码”找回。");
-					break;
-				case ChannelLoginType.Weixin:
-					AlertManager.showAlert("绑定微信成功，可用绑定的微信登录！");
-					break;
+				//move todo
+				// case ChannelLoginType.GiantFun:
+				// 	AlertManager.showAlert("您的手机账号绑定成功，请牢记您的账号和登录密码，如有遗忘，可通过“忘记密码”找回。");
+				// 	break;
+				// case ChannelLoginType.Weixin:
+				// 	AlertManager.showAlert("绑定微信成功，可用绑定的微信登录！");
+				// 	break;
 			}
 			BindAccountManager.bindSuccessEvent.dispatch(logintype);
 		};
@@ -99,8 +100,8 @@ class BindAccountManager
 	private static OnQinLoginSuccess(data: any)
 	{
 		BindAccountManager.RemoveQinEvents();
-
-		BindAccountManager.reqBind(data.token, ChannelLoginType.GiantFun);
+//move todo
+		// BindAccountManager.reqBind(data.token, ChannelLoginType.GiantFun);
 	}
 	private static OnQinLoginCancel()
 	{
@@ -113,10 +114,10 @@ class BindAccountManager
 		{
 			return false;
 		}
-		else if (channelList.indexOf(ChannelLoginType.GiantFun) != -1)
-		{
-			return true;
-		}
+		// else if (channelList.indexOf(ChannelLoginType.GiantFun) != -1)//move todo
+		// {
+		// 	return true;
+		// }
 		return false;
 	}
 
@@ -136,7 +137,7 @@ class BindAccountManager
 			{
 				ChannelManager.OnTokenLoginSucceed.addListener(BindAccountManager.OnTokenLoginSucceed, this);
 				ChannelManager.OnLoginFailed.addListener(BindAccountManager.onLoginFaildHandler, this);
-				ChannelManager.login(ChannelLoginType.Weixin);
+				// ChannelManager.login(ChannelLoginType.Weixin);//move todo
 			}
 		}
 		else
@@ -145,7 +146,7 @@ class BindAccountManager
 			if (token)
 			{
 				token = WebConfig.wxAuthorizeType + '###2###' + token;
-				BindAccountManager.reqBind(token, ChannelLoginType.Weixin);
+				// BindAccountManager.reqBind(token, ChannelLoginType.Weixin);//move todo
 			}
 			else
 			{
@@ -162,7 +163,7 @@ class BindAccountManager
 		ChannelManager.OnLoginFailed.removeListener(BindAccountManager.onLoginFaildHandler, this);
 		if (token)
 		{
-			BindAccountManager.reqBind(token, ChannelLoginType.Weixin);
+			// BindAccountManager.reqBind(token, ChannelLoginType.Weixin);//move todo
 		}
 		else
 		{

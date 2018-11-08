@@ -1,4 +1,4 @@
-#Wed Nov 07 20:04:53 CST 2018
+#Thu Nov 08 13:35:52 CST 2018
 file.2=H\:\\workspace\\texaspoker\\client_android\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\classes_fc6e32a9d184bb7ea9d8a7dee1aaa437b1e42be8\\classes.dex
 base.2=H\:\\workspace\\texaspoker\\client_android\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\classes_fc6e32a9d184bb7ea9d8a7dee1aaa437b1e42be8
 file.1=H\:\\workspace\\texaspoker\\client_android\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\common-1.1.0_095d78f5056176e8fe0ddce9d14c68e920cd05aa\\classes.dex
