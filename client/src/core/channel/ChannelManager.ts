@@ -239,6 +239,10 @@ class ChannelManager
 		{
 			game.ExternalInterface.call(ExtFuncName.CheckLoginState, JSON.stringify(loginType));
 		}
+		else if(game.System.isWeb)
+		{
+			ChannelManager.LoginStateCheckEvent.dispatch("1");
+		}
 	}
 	/**
 	 * 登录

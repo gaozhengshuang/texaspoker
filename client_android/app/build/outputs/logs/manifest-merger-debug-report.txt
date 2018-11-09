@@ -2,7 +2,7 @@
 manifest
 ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:2:1-55:12
 	package
-		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:3:5-29
+		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:3:5-37
 		INJECTED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml
 		INJECTED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml
 	android:versionName
@@ -83,7 +83,7 @@ data
 ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:38:17-75
 	android:scheme
 		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:38:23-72
-activity#com.jiantpoker.MainActivity
+activity#com.jiantfuntexaspoker.MainActivity
 ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:41:9-52:20
 	android:label
 		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:45:13-45
@@ -94,7 +94,7 @@ ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.x
 	android:theme
 		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:46:13-47
 	android:name
-		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:42:13-41
+		ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:42:13-63
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
 ADDED from H:\workspace\texaspoker\client_android\app\src\main\AndroidManifest.xml:47:13-51:29
 action#android.intent.action.MAIN

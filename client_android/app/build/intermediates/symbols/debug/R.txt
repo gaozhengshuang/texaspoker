@@ -920,6 +920,7 @@ int string abc_shareactionprovider_share_with_application 0x7f05000f
 int string abc_toolbar_collapse_description 0x7f050010
 int string app_name 0x7f050036
 int string bundleId 0x7f050037
+int string channelType 0x7f050038
 int string com_facebook_device_auth_instructions 0x7f050011
 int string com_facebook_image_download_unknown_error 0x7f050012
 int string com_facebook_internet_permission_error_message 0x7f050013
@@ -943,10 +944,10 @@ int string com_facebook_smart_login_confirmation_cancel 0x7f050024
 int string com_facebook_smart_login_confirmation_continue_as 0x7f050025
 int string com_facebook_smart_login_confirmation_title 0x7f050026
 int string com_facebook_tooltip_default 0x7f050027
-int string facebook_app_id 0x7f050038
-int string fb_login_protocol_scheme 0x7f050039
+int string facebook_app_id 0x7f050039
+int string fb_login_protocol_scheme 0x7f05003a
 int string search_menu_title 0x7f050028
-int string splashTxt 0x7f05003a
+int string splashTxt 0x7f05003b
 int string status_bar_notification_info_overflow 0x7f050029
 int style AlertDialog_AppCompat 0x7f07008f
 int style AlertDialog_AppCompat_Light 0x7f070090

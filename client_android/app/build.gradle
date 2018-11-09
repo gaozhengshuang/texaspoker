@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'pokerks'
+            keyPassword '123456'
+            storeFile file('H:/workspace/android/poker/dzpoker.jks')
+            storePassword '123456'
+        }
+    }
     compileSdkVersion 27
     defaultConfig {
         applicationId "org.giantfuntexaspoker.android_template"
@@ -13,6 +21,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
+            signingConfig signingConfigs.config
         }
     }
     sourceSets {
@@ -30,9 +42,10 @@ android {
 
 dependencies {
     compile(name: 'egret', ext: 'aar')
-//    implementation fileTree(dir: 'libs', include: ['*.aar'])
-//    implementation fileTree(dir: 'libs/armeabi-v7a', include: ['*.so'])
+    //    implementation fileTree(dir: 'libs', include: ['*.aar'])
+    //    implementation fileTree(dir: 'libs/armeabi-v7a', include: ['*.so'])
     compile project(':gamelib')
     compile project(':customloadingview')
-    compile 'com.facebook.android:facebook-loginSuccess:[4,5)'
+    //    compile 'com.facebook.android:facebook-loginSuccess:[4,5)'
+    compile 'com.facebook.android:facebook-login:[4,5)'
 }
