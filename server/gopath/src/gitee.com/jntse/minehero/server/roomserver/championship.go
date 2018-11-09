@@ -144,6 +144,8 @@ func (cs *ChampionShip) Handler1sTick(now int64) {
 				} else {
 					cs.state = CSGoing
 				}
+				start := SysTimerMgr().GetStartTimeByTimeId(cs.tconf.TimeId, cs.tconf.Type)
+				ChampionMgr().CreateChampionShip(cs.tid, start)
 			}
 		} else if cs.tconf.Type == 2 {
 			if int32(len(cs.members)) >= cs.tconf.SNum {
@@ -154,6 +156,8 @@ func (cs *ChampionShip) Handler1sTick(now int64) {
 				} else {
 					cs.state = CSGoing
 				}
+				start := SysTimerMgr().GetStartTimeByTimeId(cs.tconf.TimeId, cs.tconf.Type)
+				ChampionMgr().CreateChampionShip(cs.tid, start)
 			}
 		}
 	}
@@ -322,8 +326,8 @@ func (cs *ChampionShip) StartMatch() bool {
 	cs.NotifyUserRoom(cs.roommember)
 	cs.state = CSGoing
 
-	start := SysTimerMgr().GetStartTimeByTimeId(cs.tconf.TimeId, cs.tconf.Type)
-	ChampionMgr().CreateChampionShip(cs.tid, start)
+	//start := SysTimerMgr().GetStartTimeByTimeId(cs.tconf.TimeId, cs.tconf.Type)
+	//ChampionMgr().CreateChampionShip(cs.tid, start)
 	log.Info("锦标赛[%d] tid[%d] 开启", cs.uid, cs.tid)
 	return true
 }
@@ -848,7 +852,7 @@ func (cm *ChampionManager) CreateChampionShip(tid int32, start int32) {
 	cs.Init()
 	cs.starttime = start
 	cm.championships[cs.uid] = cs
-	//log.Info("创建锦标赛%d %d 开始时间%d" , tid, cs.uid, start)
+	log.Info("创建锦标赛[%d] uid[%d] 开始时间[%d]" , tid, cs.uid, start)
 }
 
 func (cm *ChampionManager) Handler1sTick(now int64) {
