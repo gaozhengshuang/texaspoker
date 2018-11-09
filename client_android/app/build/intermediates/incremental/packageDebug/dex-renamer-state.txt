@@ -1,7 +1,0 @@
-#Fri Nov 09 15:43:26 CST 2018
-base.0=H\:\\workspace\\texaspoker\\client_android\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_745fa78af5accfc42991da72a65cc835bda0d468
-renamed.1=classes.dex
-renamed.0=classes2.dex
-file.1=H\:\\workspace\\texaspoker\\client_android\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_b5cd6309e988d2e275c7b5bbbeb24fa342ded0fd\\classes.dex
-base.1=H\:\\workspace\\texaspoker\\client_android\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_b5cd6309e988d2e275c7b5bbbeb24fa342ded0fd
-file.0=H\:\\workspace\\texaspoker\\client_android\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_745fa78af5accfc42991da72a65cc835bda0d468\\classes.dex

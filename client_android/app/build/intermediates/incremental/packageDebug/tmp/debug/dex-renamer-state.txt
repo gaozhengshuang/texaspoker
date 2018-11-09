@@ -1,0 +1,4 @@
+#Fri Nov 09 18:36:08 CST 2018
+base.0=H\:\\workspace\\texaspoker\\client_android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+path.0=classes.dex
+renamed.0=classes.dex
