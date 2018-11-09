@@ -6,7 +6,7 @@ class Command
     public static readonly Login_login: string = "login";
     public static readonly Login_exchange: string = "exchange";
     public static readonly Login_auth: string = "auth";
-
+    //----------------------------登录-------------------------------
     /**
      * 测试账号登录
      */
@@ -28,6 +28,10 @@ class Command
     // System
     //--------------------------------------------------------------
 
+    /**
+     * C2GW_ReqLogin
+     */
+    public static readonly C2GW_ReqLogin = "msg.C2GW_ReqLogin";
     /**
      * 心跳
      */

@@ -112,6 +112,7 @@ class ChannelLoginType
 		let list: string[] = [];
 		if (DEBUG || game.System.isLocalhost)
 		{
+			list.push(ChannelLoginType.FaceBook);
 			list.push(ChannelLoginType.IntranetAccount);
 		}
 		else
@@ -133,7 +134,8 @@ class ChannelLoginType
 			{
 				list.push(ChannelLoginType.IntranetAccount);
 			}
-			list.push(ChannelLoginType.IntranetAccount); //to do 测试
+			//to do 测试
+			list.push(ChannelLoginType.IntranetAccount); 
 		}
 		if (list.length <= 0)
 		{
