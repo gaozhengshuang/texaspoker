@@ -32,12 +32,12 @@
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\590780474f831145e8a0e2ae4fa8220235db4818\\output\\res\\layout\\abc_list_menu_item_layout.xml"
     },
     {
-        "merged": "H:\\workspace\\texaspoker\\client_android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_action.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\3abe2c88f1b992b77de504d4c4f385bc405d1c45\\output\\res\\layout\\notification_action.xml"
-    },
-    {
         "merged": "H:\\workspace\\texaspoker\\client_android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_toolbar.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\590780474f831145e8a0e2ae4fa8220235db4818\\output\\res\\layout\\abc_screen_toolbar.xml"
+    },
+    {
+        "merged": "H:\\workspace\\texaspoker\\client_android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_action.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\3abe2c88f1b992b77de504d4c4f385bc405d1c45\\output\\res\\layout\\notification_action.xml"
     },
     {
         "merged": "H:\\workspace\\texaspoker\\client_android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media_custom.xml",
@@ -124,16 +124,16 @@
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\590780474f831145e8a0e2ae4fa8220235db4818\\output\\res\\layout\\support_simple_spinner_dropdown_item.xml"
     },
     {
-        "merged": "H:\\workspace\\texaspoker\\client_android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_main.xml",
-        "source": "H:\\workspace\\texaspoker\\client_android\\app\\src\\main\\res\\layout\\activity_main.xml"
-    },
-    {
         "merged": "H:\\workspace\\texaspoker\\client_android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_close_item_material.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\590780474f831145e8a0e2ae4fa8220235db4818\\output\\res\\layout\\abc_action_mode_close_item_material.xml"
     },
     {
         "merged": "H:\\workspace\\texaspoker\\client_android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_media_custom.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\081d749660aa7ffd1105a6c31d1e1e15978cde63\\output\\res\\layout\\notification_template_media_custom.xml"
+    },
+    {
+        "merged": "H:\\workspace\\texaspoker\\client_android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_main.xml",
+        "source": "H:\\workspace\\texaspoker\\client_android\\app\\src\\main\\res\\layout\\activity_main.xml"
     },
     {
         "merged": "H:\\workspace\\texaspoker\\client_android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_tooltip.xml",
@@ -196,12 +196,12 @@
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\081d749660aa7ffd1105a6c31d1e1e15978cde63\\output\\res\\layout\\notification_media_action.xml"
     },
     {
-        "merged": "H:\\workspace\\texaspoker\\client_android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_part_chronometer.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\3abe2c88f1b992b77de504d4c4f385bc405d1c45\\output\\res\\layout\\notification_template_part_chronometer.xml"
-    },
-    {
         "merged": "H:\\workspace\\texaspoker\\client_android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\com_facebook_login_fragment.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\84b423fb108ef024555785d90a1b032011fbcfdf\\output\\res\\layout\\com_facebook_login_fragment.xml"
+    },
+    {
+        "merged": "H:\\workspace\\texaspoker\\client_android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_part_chronometer.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\3abe2c88f1b992b77de504d4c4f385bc405d1c45\\output\\res\\layout\\notification_template_part_chronometer.xml"
     },
     {
         "merged": "H:\\workspace\\texaspoker\\client_android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_media.xml",
