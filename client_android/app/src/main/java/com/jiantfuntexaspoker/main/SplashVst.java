@@ -1,4 +1,4 @@
-package com.jiantfuntexaspoker;
+package com.jiantfuntexaspoker.main;
 
 import android.widget.FrameLayout;
 import android.widget.ImageView;

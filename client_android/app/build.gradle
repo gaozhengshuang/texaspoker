@@ -3,15 +3,15 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         config {
-            keyAlias 'pokerks'
+            keyAlias 'poker_1'
             keyPassword '123456'
-            storeFile file('H:/workspace/android/poker/dzpoker.jks')
+            storeFile file('H:/workspace/android/poker/dzpoker_1.jks')
             storePassword '123456'
         }
     }
     compileSdkVersion 27
     defaultConfig {
-        applicationId "org.giantfuntexaspoker.android_template"
+        applicationId "com.jiantfuntexaspoker.main"
         minSdkVersion 15
         targetSdkVersion 27
         versionCode 1

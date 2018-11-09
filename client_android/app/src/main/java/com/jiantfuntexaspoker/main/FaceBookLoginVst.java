@@ -1,4 +1,6 @@
-package com.jiantfuntexaspoker;
+package com.jiantfuntexaspoker.main;
+
+import android.util.Log;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -35,6 +37,7 @@ public class FaceBookLoginVst {
                     @Override
                     public void onCancel() {
                         // App code
+                        Log.d(_target.TAG, "android 取消登录");
                         HashMap<String, String> map = new HashMap<>();
                         map.put("status", "0");
                         String tokenStr = new JSONObject(map).toString();
@@ -44,6 +47,7 @@ public class FaceBookLoginVst {
                     @Override
                     public void onError(FacebookException exception) {
                         // App code
+                        Log.d(_target.TAG, "android 登录失败");
                         HashMap<String, String> map = new HashMap<>();
                         map.put("status", "false");
                         String tokenStr = new JSONObject(map).toString();
@@ -58,6 +62,7 @@ public class FaceBookLoginVst {
      */
     public void loginSuccess(AccessToken token, String loginType)
     {
+        Log.d(_target.TAG, "android登录成功 token" + token.getToken() + "userid" + token.getUserId());
         HashMap<String, String> map = new HashMap<>();
         map.put("token", token.getToken());
         map.put("openid", token.getUserId());

@@ -37,10 +37,43 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/MainActivity.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="86" column="33" selection-start-line="86" selection-start-column="33" selection-end-line="86" selection-end-column="33" />
+            <state relative-caret-position="225">
+              <caret line="23" column="40" selection-start-line="23" selection-start-column="40" selection-end-line="23" selection-end-column="40" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SplashVst.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/SplashVst.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-495">
+              <caret line="7" column="3" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InteractionJsVst.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/InteractionJsVst.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="405">
+              <caret line="9" column="33" selection-start-line="9" selection-start-column="33" selection-end-line="9" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FaceBookLoginVst.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/FaceBookLoginVst.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3150">
+              <caret line="70" column="50" selection-start-line="70" selection-start-column="50" selection-end-line="70" selection-end-column="50" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -48,99 +81,47 @@
       <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+            <state relative-caret-position="587">
+              <caret line="19" column="16" lean-forward="true" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BaseExtension.java" pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/gradle/2.3.0/1e4b134dc5c45c19c31e5bdf8310d8d28fc63967/gradle-2.3.0-sources.jar!/com/android/build/gradle/BaseExtension.java">
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="578" column="53" selection-start-line="578" selection-start-column="53" selection-end-line="578" selection-end-column="53" />
-              <folding>
-                <element signature="e#20327#20328#0" expanded="true" />
-                <element signature="e#20364#20365#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="90">
+              <caret line="2" column="36" selection-start-line="2" selection-start-column="36" selection-end-line="2" selection-end-column="36" />
             </state>
           </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BuildType.java" pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/gradle-core/2.3.0/b6a354c026f9ed589a261a1e13ddc2a72ce915d/gradle-core-2.3.0-sources.jar!/com/android/build/gradle/internal/dsl/BuildType.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="147" column="25" selection-start-line="147" selection-start-column="25" selection-end-line="147" selection-end-column="25" />
-              <folding>
-                <element signature="e#4586#4587#0" expanded="true" />
-                <element signature="e#4649#4650#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SplashVst.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/SplashVst.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-315">
-              <caret line="8" column="7" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#274#275#0" expanded="true" />
-                <element signature="e#302#303#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="InteractionJsVst.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/InteractionJsVst.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1572">
-              <caret line="103" column="39" selection-start-line="103" selection-start-column="39" selection-end-line="103" selection-end-column="39" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#408#409#0" expanded="true" />
-                <element signature="e#436#437#0" expanded="true" />
-                <element signature="e#691#1030#0" expanded="true" />
-                <element signature="e#1029#1030#0" expanded="true" />
-                <element signature="e#1234#2356#0" expanded="true" />
-                <element signature="e#1596#1612#0" expanded="true" />
-                <element signature="e#1505#1544#0" expanded="true" />
-                <element signature="e#1514#1550#0" expanded="true" />
-                <element signature="e#1593#1629#0" expanded="true" />
-                <element signature="e#2355#2356#0" expanded="true" />
-                <element signature="e#2494#3449#0" expanded="true" />
-                <element signature="e#3448#3449#0" expanded="true" />
-              </folding>
-            </state>
+          <provider editor-type-id="android-manifest">
+            <state />
           </provider>
         </entry>
       </file>
       <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="4" column="50" selection-start-line="4" selection-start-column="50" selection-end-line="4" selection-end-column="50" />
+            <state relative-caret-position="315">
+              <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ExtFuncName.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gamelib/src/main/java/com/giant/gamelib/ExtFuncName.java">
+      <file leaf-file-name="GameLib.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/gamelib/src/main/java/com/giant/gamelib/GameLib.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="439">
-              <caret line="14" column="48" selection-start-line="14" selection-start-column="33" selection-end-line="14" selection-end-column="48" />
+            <state relative-caret-position="135">
+              <caret line="7" selection-start-line="7" selection-end-line="7" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="local.properties" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/local.properties">
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="5" column="14" lean-forward="true" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
+            <state relative-caret-position="1620">
+              <caret line="36" selection-start-line="36" selection-end-line="36" />
             </state>
           </provider>
         </entry>
@@ -179,11 +160,17 @@
       <find>setExternalInterfaces</find>
       <find>callbackManager</find>
       <find>CheckLoginState</find>
+      <find>509788029497020</find>
+      <find>登录类型</find>
+      <find>登录成功</find>
+      <find>KeyHash</find>
+      <find>Key</find>
+      <find>aaaa可以KeyHash</find>
     </findStrings>
   </component>
   <component name="GenerateSignedApkSettings">
-    <option name="KEY_STORE_PATH" value="H:\workspace\android\poker\dzpoker.jks" />
-    <option name="KEY_ALIAS" value="key0" />
+    <option name="KEY_STORE_PATH" value="H:\workspace\android\poker\dzpoker_1.jks" />
+    <option name="KEY_ALIAS" value="poker_1" />
     <option name="REMEMBER_PASSWORDS" value="true" />
     <option name="BUILD_TARGET_KEY" value="apk" />
   </component>
@@ -3990,23 +3977,27 @@
         <option value="$PROJECT_DIR$/gamelib/src/main/java/com/giant/gamelib/GameLib.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jiantpoker/MainActivity.java" />
         <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/ExtFuncName.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/MainActivityVst.java" />
         <option value="$PROJECT_DIR$/gamelib/src/main/java/com/giant/gamelib/ChannelLoginType.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/SplashVst.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/MainActivity.java" />
         <option value="$PROJECT_DIR$/gamelib/src/main/java/com/giant/gamelib/ExtFuncName.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/InteractionJsVst.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/FaceBookLoginVst.java" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/InteractionJsVst.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/SplashVst.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/FaceBookLoginVst.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="2126" />
-    <option name="y" value="40" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
     <option name="width" value="1936" />
     <option name="height" value="1014" />
   </component>
@@ -4015,6 +4006,23 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="AndroidView">
+        <subPane>
+          <expand>
+            <path>
+              <item name="client_android" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+            </path>
+            <path>
+              <item name="client_android" type="1abcf292:AndroidViewProjectNode" />
+              <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -4060,23 +4068,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView">
-        <subPane>
-          <expand>
-            <path>
-              <item name="client_android" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-            </path>
-            <path>
-              <item name="client_android" type="1abcf292:AndroidViewProjectNode" />
-              <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -4088,7 +4079,7 @@
     <property name="android.project.structure.last.selected" value="app" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="device.picker.selection" value="8b092026" />
+    <property name="device.picker.selection" value="4a74de71" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../android/demos/loadingview/UniversalLoadingView" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
     <property name="show.do.not.ask.upgrade.gradle.plugin" value="2.3.0" />
@@ -4268,31 +4259,31 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1936" height="1096" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1014" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="Android Profiler" order="7" weight="0.3295325" />
-      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4989339" weight="0.2168926" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49840087" weight="0.21664767" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Build Variants" order="2" sideWeight="0.50070524" side_tool="true" weight="0.17857143" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50053304" side_tool="true" visible="true" weight="0.37539104" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4989339" weight="0.181439" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.14765458" side_tool="true" visible="true" weight="0.096921325" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.8523454" visible="true" weight="0.096921325" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49946696" visible="true" weight="0.37539104" />
-      <window_info anchor="bottom" id="Logcat" order="7" weight="0.62713796" />
+      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.5463753" weight="0.36031926" />
+      <window_info anchor="bottom" id="Logcat" order="7" sideWeight="0.4989339" weight="0.62713796" />
       <window_info id="Captures" order="2" weight="0.25" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4992948" visible="true" weight="0.17857143" />
-      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.7899787" weight="0.26068822" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4992948" visible="true" weight="0.17857143" />
+      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.78731346" weight="0.2599772" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.25313568" />
       <window_info anchor="right" id="Gradle" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Device File Explorer" order="3" side_tool="true" />
       <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.79957354" weight="0.3990878" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Preview" order="4" />
@@ -4308,7 +4299,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="4" />
+      <option name="time" value="10" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -4351,13 +4342,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/build/generated/source/r/debug/com/jiantfuntexaspoker/R.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120960">
-          <caret line="2697" column="32" selection-start-line="2697" selection-start-column="32" selection-end-line="2697" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build/generated/source/r/debug/com/jiantfuntexaspoker/R.java" />
     <entry file="jar://$USER_HOME$/.android/build-cache/ead95b243e21655816c5be9c856f03c5eba4c61d/output/jars/libs/egretNativeAndroid.jar!/org/egret/egretnativeandroid/EgretNativeAndroid.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
@@ -4387,13 +4372,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
           <caret line="10" column="25" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="25" />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../../android/demos/loadingview/UniversalLoadingView/app/src/main/res/values/styles.xml">
@@ -4416,10 +4401,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../../android/demos/loadingview/UniversalLoadingView/app/src/main/res/menu/menu_main.xml">
-      <provider selected="true" editor-type-id="text-editor">
+      <provider editor-type-id="android-designer2">
         <state />
       </provider>
-      <provider editor-type-id="android-designer2">
+      <provider selected="true" editor-type-id="text-editor">
         <state />
       </provider>
     </entry>
@@ -4429,13 +4414,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../../android/demos/loadingview/UniversalLoadingView/app/src/main/res/layout/activity_main.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="13" column="44" selection-start-line="13" selection-start-column="44" selection-end-line="13" selection-end-column="44" />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantpoker/CustomLoadingView.java" />
@@ -4452,10 +4437,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="197">
           <caret line="15188" column="34" selection-start-line="15188" selection-start-column="34" selection-end-line="15188" selection-end-column="49" />
-          <folding>
-            <element signature="e#609257#609258#0" expanded="true" />
-            <element signature="e#609293#609294#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -4463,10 +4444,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="79" selection-start-line="79" selection-end-line="79" />
-          <folding>
-            <element signature="e#1475#1476#0" expanded="true" />
-            <element signature="e#1510#1511#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -4485,23 +4462,9 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantpoker/WelcomeActivity.java" />
-    <entry file="file://$PROJECT_DIR$/gamelib/src/main/java/com/giant/gamelib/GameLib.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="40" selection-start-line="6" selection-start-column="40" selection-end-line="6" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/proguard-rules.pro">
       <provider selected="true" editor-type-id="text-editor">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="810">
-          <caret line="18" column="1" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/build/generated/source/r/debug/com/giant/customloadingview/R.java">
@@ -4511,13 +4474,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/build/generated/source/buildConfig/debug/com/jiantfuntexaspoker/BuildConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build/generated/source/buildConfig/debug/com/jiantfuntexaspoker/BuildConfig.java" />
     <entry file="file://$PROJECT_DIR$/settings.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -4539,21 +4496,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="2" column="25" lean-forward="true" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
-          <folding>
-            <element signature="e#1114#1139#0" expanded="true" />
-            <element signature="e#1341#1359#0" expanded="true" />
-            <element signature="e#1749#1783#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-27/android/widget/ImageView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="283">
@@ -4572,10 +4514,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="271">
           <caret line="21" column="22" selection-start-line="21" selection-start-column="11" selection-end-line="21" selection-end-column="22" />
-          <folding>
-            <element signature="e#731#732#0" expanded="true" />
-            <element signature="e#770#771#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -4586,50 +4524,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="4" column="50" selection-start-line="4" selection-start-column="50" selection-end-line="4" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.android/build-cache/7629fabdb3f4c831e43061b426cae9c71de93aed/output/jars/classes.jar!/com/facebook/AccessToken.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="688">
           <caret line="139" column="18" selection-start-line="139" selection-start-column="18" selection-end-line="139" selection-end-column="18" />
-          <folding>
-            <element signature="e#5753#5754#0" expanded="true" />
-            <element signature="e#5787#5788#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/InteractionJsVst.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1572">
-          <caret line="103" column="39" selection-start-line="103" selection-start-column="39" selection-end-line="103" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#408#409#0" expanded="true" />
-            <element signature="e#436#437#0" expanded="true" />
-            <element signature="e#691#1030#0" expanded="true" />
-            <element signature="e#1029#1030#0" expanded="true" />
-            <element signature="e#1234#2356#0" expanded="true" />
-            <element signature="e#1596#1612#0" expanded="true" />
-            <element signature="e#1505#1544#0" expanded="true" />
-            <element signature="e#1514#1550#0" expanded="true" />
-            <element signature="e#1593#1629#0" expanded="true" />
-            <element signature="e#2355#2356#0" expanded="true" />
-            <element signature="e#2494#3449#0" expanded="true" />
-            <element signature="e#3448#3449#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="86" column="33" selection-start-line="86" selection-start-column="33" selection-end-line="86" selection-end-column="33" />
         </state>
       </provider>
     </entry>
@@ -4637,35 +4535,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="227">
           <caret line="54" column="23" selection-start-line="54" selection-start-column="23" selection-end-line="54" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.facebook.android/facebook-core/4.38.1/c7793eca4e6f2ccd455975d0fdbe33aa65447715/facebook-core-4.38.1-sources.jar!/com/facebook/AccessToken.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="305" column="18" selection-start-line="305" selection-start-column="18" selection-end-line="305" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/FaceBookLoginVst.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="18" column="31" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/SplashVst.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-315">
-          <caret line="8" column="7" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#274#275#0" expanded="true" />
-            <element signature="e#302#303#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -4694,14 +4563,86 @@
     <entry file="file://$PROJECT_DIR$/local.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
-          <caret line="5" column="14" lean-forward="true" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
+          <caret line="5" column="14" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gamelib/src/main/java/com/giant/gamelib/GameLib.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1620">
+          <caret line="36" selection-start-line="36" selection-end-line="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.facebook.android/facebook-core/4.38.1/c7793eca4e6f2ccd455975d0fdbe33aa65447715/facebook-core-4.38.1-sources.jar!/com/facebook/AccessToken.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="137">
+          <caret line="156" column="7" lean-forward="true" selection-start-line="156" selection-start-column="7" selection-end-line="156" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/InteractionJsVst.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="9" column="33" selection-start-line="9" selection-start-column="33" selection-end-line="9" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/SplashVst.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-495">
+          <caret line="7" column="3" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="2" column="36" selection-start-line="2" selection-start-column="36" selection-end-line="2" selection-end-column="36" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/FaceBookLoginVst.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3150">
+          <caret line="70" column="50" selection-start-line="70" selection-start-column="50" selection-end-line="70" selection-end-column="50" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="23" column="40" selection-start-line="23" selection-start-column="40" selection-end-line="23" selection-end-column="40" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+        <state relative-caret-position="587">
+          <caret line="19" column="16" lean-forward="true" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
         </state>
       </provider>
     </entry>
