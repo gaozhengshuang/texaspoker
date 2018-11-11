@@ -211,11 +211,11 @@ class ChannelManager
 			ChannelManager._appName = data['appName'];
 			ChannelManager._deviceId = data['deviceId'];
 			ChannelManager._bundleId = data['bundleId'];
-			console.log("ChannelManager._bundleId", ChannelManager._bundleId);
 			ChannelManager._clientVersion = data['clientVersion'];
 			ChannelManager._hasWeixin = game.StringUtil.toBoolean(data['hasWeixin']);
 			ChannelManager.OnInitComplete.dispatch();
 		});
+		console.log("白鹭初始化：：：---------");
 		game.ExternalInterface.call(ExtFuncName.Initialize, '');
 	}
 	private static initWeb(): void

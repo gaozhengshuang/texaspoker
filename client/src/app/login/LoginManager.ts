@@ -28,8 +28,8 @@ module game
                 SocketManager.pollingConnect(game.serverInfo.$netIp);
                 NotificationCenter.once(LoginManager, () =>
                 {
-                    let data = new msg.C2L_ReqLoginFaceBook();
                     LoginManager.loginUserInfo = { account: "facebook-" + openId};
+                    let data = new msg.C2L_ReqLoginFaceBook();
                     data.openid = openId;
                     data.token = token;
                     SocketManager.Send(Command.C2L_ReqLoginFaceBook, data);
@@ -48,7 +48,7 @@ module game
         /**
          * google 登录
          */
-        public static async googlePlayLogin()
+        public static async googlePlayLogin(token: string, openId: string)
         {
             let cb = () =>
             {
@@ -56,7 +56,10 @@ module game
                 SocketManager.pollingConnect(game.serverInfo.$netIp);
                 NotificationCenter.once(LoginManager, () =>
                 {
+                    LoginManager.loginUserInfo = { account: "google-" + openId};
                     let data = new msg.C2L_ReqLoginGoogle();
+                    data.openid = openId;
+                    data.token = token;
                     SocketManager.Send(Command.C2L_ReqLoginGoogle, data);
                     NotificationCenter.once(LoginManager, (data) =>
                     {

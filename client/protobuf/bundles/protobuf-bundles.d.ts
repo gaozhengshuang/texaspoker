@@ -14116,6 +14116,9 @@ declare namespace msg {
 
         /** L2C_RetLogin verifykey */
         verifykey?: (string|null);
+
+        /** L2C_RetLogin logintype */
+        logintype?: (string|null);
     }
 
     /** Represents a L2C_RetLogin. */
@@ -14138,6 +14141,9 @@ declare namespace msg {
 
         /** L2C_RetLogin verifykey. */
         public verifykey: string;
+
+        /** L2C_RetLogin logintype. */
+        public logintype: string;
 
         /**
          * Creates a new L2C_RetLogin instance using the specified properties.
@@ -14620,6 +14626,12 @@ declare namespace msg {
 
     /** Properties of a C2L_ReqLoginGoogle. */
     interface IC2L_ReqLoginGoogle {
+
+        /** C2L_ReqLoginGoogle openid */
+        openid?: (string|null);
+
+        /** C2L_ReqLoginGoogle token */
+        token?: (string|null);
     }
 
     /** Represents a C2L_ReqLoginGoogle. */
@@ -14630,6 +14642,12 @@ declare namespace msg {
          * @param [properties] Properties to set
          */
         constructor(properties?: msg.IC2L_ReqLoginGoogle);
+
+        /** C2L_ReqLoginGoogle openid. */
+        public openid: string;
+
+        /** C2L_ReqLoginGoogle token. */
+        public token: string;
 
         /**
          * Creates a new C2L_ReqLoginGoogle instance using the specified properties.
@@ -22510,6 +22528,9 @@ declare namespace msg {
 
         /** L2GW_ReqRegistUser verifykey */
         verifykey?: (string|null);
+
+        /** L2GW_ReqRegistUser logintype */
+        logintype?: (string|null);
     }
 
     /** Represents a L2GW_ReqRegistUser. */
@@ -22538,6 +22559,9 @@ declare namespace msg {
 
         /** L2GW_ReqRegistUser verifykey. */
         public verifykey: string;
+
+        /** L2GW_ReqRegistUser logintype. */
+        public logintype: string;
 
         /**
          * Creates a new L2GW_ReqRegistUser instance using the specified properties.
@@ -22627,6 +22651,9 @@ declare namespace msg {
 
         /** GW2L_RegistUserRet verifykey */
         verifykey?: (string|null);
+
+        /** GW2L_RegistUserRet logintype */
+        logintype?: (string|null);
     }
 
     /** Represents a GW2L_RegistUserRet. */
@@ -22652,6 +22679,9 @@ declare namespace msg {
 
         /** GW2L_RegistUserRet verifykey. */
         public verifykey: string;
+
+        /** GW2L_RegistUserRet logintype. */
+        public logintype: string;
 
         /**
          * Creates a new GW2L_RegistUserRet instance using the specified properties.
