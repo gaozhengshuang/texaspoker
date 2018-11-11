@@ -53,6 +53,25 @@ func (this *AIUserManager) LoadAIAction() {
 	}
 }
 
+func (this *AIUserManager) InitAI() {
+	if !(RoomSvr().Name() == tbl.Room.PublicRoomServer || RoomSvr().Name() == tbl.Room.TexasFightRoomName) {
+		return
+	}
+
+	for _, v := range tbl.TexasAI.TAIById {
+		user := NewRoomUserAI(int64(v.Id), v.Name, int32(util.RandBetween(1,2)))		
+		if user != nil {
+			user.Init()
+			this.AddNew(user)
+			Redis().HSet(fmt.Sprintf("charbase_%d", v.Id), "name", v.Name)
+			Redis().HSet(fmt.Sprintf("charbase_%d", v.Id), "head", "")
+			Redis().HSet(fmt.Sprintf("charbase_%d", v.Id), "sex", user.Sex())
+			log.Trace("[AI] 添加ai机器人 %d %s ", user.Id(), user.Name())
+		}
+	}
+}
+
+
 func (this *AIUserManager) GetActionByLevel(level int32, high int32) int32 {
 	key := level * 100 + high
 	if _, ok := this.aiactions[key]; !ok {
@@ -102,22 +121,6 @@ func (this *AIUserManager) FindUser(id int64) *RoomUser {
 func (this *AIUserManager) Tick(now int64) {
 }
 
-func (this *AIUserManager) CreateRoomAIUser() {
-	if !(RoomSvr().Name() == tbl.Room.PublicRoomServer || RoomSvr().Name() == tbl.Room.TexasFightRoomName) {
-		return
-	}
-	for _, v := range tbl.TexasAI.TAIById {
-		user := NewRoomUserAI(int64(v.Id), v.Name, int32(util.RandBetween(1,2)))		
-		if user != nil {
-			this.AddNew(user)
-			Redis().HSet(fmt.Sprintf("charbase_%d", v.Id), "name", v.Name)
-			Redis().HSet(fmt.Sprintf("charbase_%d", v.Id), "head", "")
-			Redis().HSet(fmt.Sprintf("charbase_%d", v.Id), "sex", user.Sex())
-			log.Trace("[AI] 添加ai机器人 %d %s ", user.Id(), user.Name())
-		}
-	}
-}
-
 func (this *AIUserManager) GetRandomName() string {
 	id := util.RandBetween(1, int32(this.Total()))
 	user := this.FindUser(int64(id))
@@ -137,6 +140,7 @@ func (this *AIUserManager) PickOutUser(num int32) []*RoomUser {
 
 	for _, u := range this.idlelist {
 		users = append(users, u)
+		if int32(len(users)) >= num { break }
 	}
 
 	for _, u := range users {

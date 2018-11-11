@@ -19,6 +19,14 @@ import (
 	"gitee.com/jntse/minehero/server/tbl/excel"
 )
 
+// AI 初始化
+func (tf *TexasFightRoom) InitAIPlayers() {
+	users := AIUserMgr().PickOutUser(int32(tbl.TexasFight.AIUserAmount))
+	for _, u := range users {
+		tf.UserEnter(u)
+	}
+}
+
 func (tf *TexasFightRoom) Handler1sTick(now int64) {
 	switch tf.stat {
 	case kStatWaitNextRound:
@@ -169,9 +177,12 @@ func (tf *TexasFightRoom) FindPlayer(uid int64) *TexasFightPlayer {
 }
 
 //
-func (tf *TexasFightRoom) AddPlayer(u *RoomUser) *TexasFightPlayer {
+func (tf *TexasFightRoom) AddNewPlayer(u *RoomUser) *TexasFightPlayer {
 	p := NewTexasFightPlayer(u, false)
 	tf.players[u.Id()] = p
+	if u.IsAI() == true {
+		tf.aiplayers[u.Id()] = p
+	}
 	return p
 }
 

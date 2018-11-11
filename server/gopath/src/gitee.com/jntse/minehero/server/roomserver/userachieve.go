@@ -195,7 +195,7 @@ func (u *RoomUser) OnAchievePlayPoker (kind int32, subkind int32, hand *Hand) {
 			u.SaveMaxCard(handpower, hand)
 		}
 	}
-	if u.aiflag == false {
+	if u.IsAI() == false {
 		datetime := time.Now().Format("2006-01-02")
 		num, err := Redis().Incr(fmt.Sprintf("charplay_%d_%s", u.Id(), datetime)).Result()
 		if err == nil && num == 1 {

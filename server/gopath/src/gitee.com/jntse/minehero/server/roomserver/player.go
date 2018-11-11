@@ -506,7 +506,7 @@ func (this *TexasPlayer)RemoveBankRoll(num int64, reason string) bool{
 
 //增加经验
 func (this *TexasPlayer) AddExp(exp int32, reason string, syn bool) {
-	if this.owner != nil && this.owner.aiflag == false {
+	if this.owner != nil && this.owner.IsAI() == false {
 		this.owner.AddExp(exp, reason, syn)
 	}
 }
@@ -765,7 +765,7 @@ func (this *TexasPlayer) AutoBuy() {
 		return
 	}
 	var buy int64 = 0
-	if this.owner.aiflag == false && this.autobuy > this.owner.GetGold() {
+	if this.owner.IsAI() == false && this.autobuy > this.owner.GetGold() {
 		buy = this.owner.GetGold()
 	}else {
 		buy = this.autobuy

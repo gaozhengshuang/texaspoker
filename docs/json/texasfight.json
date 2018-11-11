@@ -3,7 +3,7 @@
     "SystemPumpRate" : 1,
 
     "//":"房间AI数量",
-    "AIUserAmount": 100,
+    "AIUserAmount": 10,
 
     "//":"AI上庄携带区间 %",
     "AIBankerMoneyRate":[110, 150],

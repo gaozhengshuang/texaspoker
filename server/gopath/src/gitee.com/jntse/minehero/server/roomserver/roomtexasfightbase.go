@@ -140,6 +140,7 @@ func (p *TexasFightPlayer) SetWatchCount(n int32) { p.watchcount = n }
 func (p *TexasFightPlayer) IsBanker() bool { return p.seat == 0 }
 func (p *TexasFightPlayer) SetBankerFlag(f int32) { p.bankerflag = f }
 func (p *TexasFightPlayer) BankerFlag() int32 { return p.bankerflag }
+func (p *TexasFightPlayer) IsAI() bool { return p.owner.IsAI() }
 
 
 func (p *TexasFightPlayer) Id() int64 {
@@ -496,7 +497,8 @@ type TexasFightRoom struct {
 	round int64			// 回合计数
 
 	players map[int64]*TexasFightPlayer		// 所有玩家
-	sitplayers []*TexasFightPlayer		// 坐下玩家列表
+	sitplayers []*TexasFightPlayer			// 坐下玩家列表
+	aiplayers map[int64]*TexasFightPlayer	// ai玩家
 
 	//bankerqueue []*TexasFightPlayer	// 做庄排队列表
 	bankerqueue *list.List 				// 做庄排队列表
@@ -548,8 +550,9 @@ func (tf *TexasFightRoom) Init() string {
 	tf.ticker1s.Start()
 	tf.ticker100ms.Start()
 	
-	tf.sitplayers = make([]*TexasFightPlayer, tconf.Seat+1)	// +1 庄家位
-	tf.players = make(map[int64]*TexasFightPlayer)
+	tf.sitplayers 	= make([]*TexasFightPlayer, tconf.Seat+1)	// +1 庄家位
+	tf.players 		= make(map[int64]*TexasFightPlayer)
+	tf.aiplayers 	= make(map[int64]*TexasFightPlayer)
 
 
 	//tf.bankerqueue = make([]*TexasFightPlayer, 0)
@@ -585,12 +588,12 @@ func (tf *TexasFightRoom) Init() string {
 	tf.cards = cards
 
 	// AI 加入房间
-	//users := AIUserMgr().PickOutUser(num)
+	tf.InitAIPlayers()
 
+	//
 	log.Info("[百人大战] 百人大战初始化成功 Id[%d] 子类型[%d] Tid[%d]", tf.Id(), tf.SubKind(), tf.Tid())
 	return ""
 }
-
 
 // 房间销毁
 func (tf *TexasFightRoom) OnDestory(now int64) {
@@ -613,7 +616,7 @@ func (tf *TexasFightRoom) OnGameOver() {
 func (tf *TexasFightRoom) UserEnter(u *RoomUser) {
 	player := tf.FindPlayer(u.Id())
 	if player == nil {
-		player = tf.AddPlayer(u)
+		player = tf.AddNewPlayer(u)
 		tf.members[u.Id()] = u
 	}
 
