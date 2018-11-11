@@ -19,6 +19,15 @@ import (
 	"gitee.com/jntse/minehero/server/tbl/excel"
 )
 
+// 百人大战重启数据恢复
+const (
+	TF_RedisTotalAwardPool 	= "TF_TotalAwardPool"		// 总奖池
+	TF_RedisAIProfitHistory = "TF_AIProfitHistory"		// AI历史盈利值
+	TF_RedisAILossHistory 	= "TF_AILossHistory"		// AI历史亏损值
+	TF_RedisAIAwardPool 	= "TF_AIAwardPool"			// AI贡献奖池
+	TF_RedisPlayerWinPool	= "TF_PlayerAwardPool"		// 玩家闲奖池
+)
+
 const (
 	kBetPoolNum = 5		// 下注池数量，(0庄家，从左到右1-4)
 	kHandCardNum = 5	// 手牌数量
@@ -200,13 +209,17 @@ func (p *TexasFightPlayer) Settle(tf *TexasFightRoom) {
 
 		// 赢钱要扣税
 		if profit != 0 {
-			tax := float64(profit) * float64(tf.tconf.TaxRate)
 			if pool.Result() == kBetResultLose {
 				bet.SetProfit(profit)
 				p.totalprofit -= profit
 			}else {
-				tf.IncAwardPool(int64(tax))
-				profit -= int64(tax)
+				taxrate, pumprate := float64(tf.tconf.TaxRate), float64(tbl.TexasFight.SystemPumpRate) / 100.0
+				deduct := float64(profit) * ( taxrate + pumprate)
+				if deduct != 0 {
+					tax := deduct * taxrate / (taxrate + pumprate)
+					tf.IncAwardPool(int64(tax))
+					profit -= int64(deduct)
+				}
 				bet.SetProfit(profit)
 				p.totalprofit += profit
 			}
@@ -499,6 +512,7 @@ type TexasFightRoom struct {
 
 	// ai抽水规则加入
 
+
 }
 
 func (tf *TexasFightRoom) Stat() int32 { return tf.stat }
@@ -570,7 +584,8 @@ func (tf *TexasFightRoom) Init() string {
 	}
 	tf.cards = cards
 
-	//
+	// AI 加入房间
+	;
 	log.Info("[百人大战] 百人大战初始化成功 Id[%d] 子类型[%d] Tid[%d]", tf.Id(), tf.SubKind(), tf.Tid())
 	return ""
 }

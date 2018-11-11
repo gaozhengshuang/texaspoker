@@ -1263,16 +1263,22 @@ func (this *TexasPokerRoom) CreateAI(num int32) {
 	if this.IsChampionShip() {
 		return
 	}
-	usermap := make(map[int64]int64)
-	for _, p := range this.players{
-		if p != nil {
-			usermap[p.owner.Id()] = p.owner.Id()
-		}
-	}
-	users := AIUserMgr().GetUserByNum(num, usermap)
-	if len(users) != int(num) {
+	//usermap := make(map[int64]int64)
+	//for _, p := range this.players{
+	//	if p != nil {
+	//		usermap[p.owner.Id()] = p.owner.Id()
+	//	}
+	//}
+	//users := AIUserMgr().GetUserByNum(num, usermap)
+	//if len(users) != int(num) {
+	//	return
+	//}
+
+	users := AIUserMgr().PickOutUser(num)
+	if len(users) == 0 {
 		return
 	}
+
 	for i := 0; i < int(num); i++ {
 		player := NewTexasPlayer(users[i], this,  true)
 		player.Init()

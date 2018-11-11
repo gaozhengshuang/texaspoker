@@ -67,7 +67,7 @@ func (tf *TexasFightRoom) SynBetPoolChange() {
 	tf.betstat.Reset()
 }
 
-// 检查庄家
+// 检查是否跟换庄家
 func (tf *TexasFightRoom) BankerCheck() {
 
 	//  检查玩家庄家是否还能继续坐庄
@@ -373,9 +373,14 @@ func (tf *TexasFightRoom) BankerSettle() {
 		// 赢钱要扣税
 		if pool.Result() == kBetResultLose {
 			win  = bankerpool.WinOdds() * pool.BetNum()
-			tax := float32(win) * tf.tconf.TaxRate
-			profit := win - int64(tax)
-			tf.IncAwardPool(int64(tax))
+			profit := win
+			taxrate, pumprate := float64(tf.tconf.TaxRate), float64(tbl.TexasFight.SystemPumpRate) / 100.0
+			deduct := float64(win) * ( taxrate + pumprate)
+			if deduct != 0 {
+				tax := deduct * taxrate / (taxrate + pumprate)
+				tf.IncAwardPool(int64(tax))
+				profit = profit - int64(deduct)
+			}
 			tf.banker.IncTotalProfit(profit)
 			if tf.banker.owner != nil {
 				tf.banker.owner.AddGold(profit, "百人大战庄家获胜", false)

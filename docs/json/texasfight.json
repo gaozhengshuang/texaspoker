@@ -1,7 +1,10 @@
 {
     "//":"明抽水比例 %",
-    "SystemPump" : 1,
-        
+    "SystemPumpRate" : 1,
+
+    "//":"房间AI数量",
+    "AIUserAmount": 100,
+
     "//":"AI上庄携带区间 %",
     "AIBankerMoneyRate":[110, 150],
 
@@ -25,6 +28,7 @@
 
     "//":"AI放水百分比",
     "AIDumpRandRate":[10, 100]
+
 }
 
 
