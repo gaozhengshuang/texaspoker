@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.giant.customloadingview.UniversalLoadingView;
+import com.giant.gamelib.ChannelLoginType;
 import com.giant.gamelib.GameLib;
 
 import org.egret.egretnativeandroid.EgretNativeAndroid;
@@ -27,9 +28,11 @@ public class MainActivity extends Activity {
     //custom property
     public ImageView splashImg;
     public UniversalLoadingView loadingView;
-    private InteractionJsVst _callJsVst;
-    public FaceBookLoginVst fbLoginVst;
+
     private SplashVst _splashVst;
+    public InteractionJsVst interactionJsVst;
+    public FaceBookLoginVst fbLoginVst;
+    public GoogleLoginVst googleLoginVst;
 
 //    private final String Game_Url = "http://jump.test.giantfun.cn/poker/2001.html?online_version=";
     public final String clientVersion = "0.2.0";
@@ -66,15 +69,14 @@ public class MainActivity extends Activity {
             return;
         }
 
-        _callJsVst = new InteractionJsVst(this);
-
         nativeAndroid.config.showFPS = GameLib.isApkInDebug(this);
         nativeAndroid.config.fpsLogTime = 30;
         nativeAndroid.config.disableNativeRender = false;
         nativeAndroid.config.clearCache = false;
         nativeAndroid.config.loadingTimeout = 0;
 
-        _callJsVst.setExternalInterfaces();
+        interactionJsVst = new InteractionJsVst(this);
+        interactionJsVst.setExternalInterfaces();
         String runUrl = Game_Url + clientVersion;
         Log.d("游戏地址：runUrl", runUrl);
         if (!nativeAndroid.initialize(runUrl)) {
@@ -85,9 +87,19 @@ public class MainActivity extends Activity {
         _splashVst = new SplashVst(this);
         _splashVst.showSplashView();
         fbLoginVst = new FaceBookLoginVst(this);
+        googleLoginVst = new GoogleLoginVst(this);
         setContentView(nativeAndroid.getRootFrameLayout());
     }
-
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        switch (interactionJsVst.loginType) {
+            case ChannelLoginType.GooglePlay:
+                this.googleLoginVst.onStart();
+                break;
+        }
+    }
     @Override
     protected void onPause() {
         super.onPause();
@@ -110,7 +122,15 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        this.fbLoginVst.callbackManager.onActivityResult(requestCode, resultCode, data);
+       switch (interactionJsVst.loginType)
+       {
+           case ChannelLoginType.FaceBook:
+               this.fbLoginVst.callbackManager.onActivityResult(requestCode, resultCode, data);
+               break;
+           case ChannelLoginType.GooglePlay:
+               this.googleLoginVst.onActivityResult(requestCode, resultCode, data);
+               break;
+       }
         super.onActivityResult(requestCode, resultCode, data);
     }
     @Override

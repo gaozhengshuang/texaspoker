@@ -8,6 +8,7 @@ import com.facebook.login.LoginManager;
 import com.giant.gamelib.ChannelLoginType;
 import com.giant.gamelib.ExtFuncName;
 import com.giant.gamelib.GameLib;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import org.egret.runtime.launcherInterface.INativePlayer;
 import org.json.JSONObject;
@@ -20,6 +21,10 @@ import java.util.HashMap;
  */
 public class InteractionJsVst {
     private MainActivity _target;
+    /**
+     * 登录类型
+     */
+    public String loginType;
 
     public InteractionJsVst(MainActivity tg) {
         _target = tg;
@@ -81,7 +86,7 @@ public class InteractionJsVst {
                         boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
                         if(isLoggedIn)
                         {
-                            _target.fbLoginVst.loginSuccess(accessToken, ChannelLoginType.FaceBook);
+                            loginSucces(accessToken.getToken(), accessToken.getUserId());
                         }
                         else
                         {
@@ -89,6 +94,15 @@ public class InteractionJsVst {
                         }
                         break;
                     case ChannelLoginType.GooglePlay:
+                        GoogleSignInAccount account = _target.googleLoginVst.account;
+                        if(account != null)
+                        {
+                            loginSucces(account.getIdToken(), "");
+                        }
+                        else
+                        {
+                            _target.googleLoginVst.login();
+                        }
                         break;
                     default:
                         Log.d(_target.TAG, "未知的登录类型" + message);
@@ -106,27 +120,48 @@ public class InteractionJsVst {
             @Override
             public void callback(String message) {
                 Log.d(_target.TAG, "登录类型" + message);
+                loginType = message;
+                boolean isLoggedIn = false;
                 switch (message) {
                     case ChannelLoginType.FaceBook:
                         AccessToken accessToken = AccessToken.getCurrentAccessToken();
-                        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
-                        if(isLoggedIn)
-                        {
-                            _target.nativeAndroid.callExternalInterface(ExtFuncName.CheckLoginState,"1");
-                        }
-                        else
-                        {
-                            _target.nativeAndroid.callExternalInterface(ExtFuncName.CheckLoginState,"");
-                        }
+                        isLoggedIn = accessToken != null && !accessToken.isExpired();
                         break;
                     case ChannelLoginType.GooglePlay:
+                        isLoggedIn = _target.googleLoginVst.account != null;
                         break;
                     default:
                         Log.d(_target.TAG, "未知的登录类型" + message);
                         break;
                 }
+                if(isLoggedIn)
+                {
+                    _target.nativeAndroid.callExternalInterface(ExtFuncName.CheckLoginState,"1");
+                }
+                else
+                {
+                    _target.nativeAndroid.callExternalInterface(ExtFuncName.CheckLoginState,"");
+                }
             }
         });
     }
-
+    public void loginSucces(String token, String openId)
+    {
+        if(token == null)
+        {
+            token = "";
+        }
+        if(openId == null)
+        {
+            openId = "";
+        }
+        Log.d(_target.TAG, "android登录成功 token" + token + "userid" + openId);
+        HashMap<String, String> map = new HashMap<>();
+        map.put("token", token);
+        map.put("openid", openId);
+        map.put("loginType", loginType);
+        map.put("status", "1");
+        String tokenStr = new JSONObject(map).toString();
+        _target.nativeAndroid.callExternalInterface(ExtFuncName.Login, tokenStr);
+    }
 }

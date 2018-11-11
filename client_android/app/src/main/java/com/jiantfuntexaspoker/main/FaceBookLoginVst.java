@@ -31,7 +31,7 @@ public class FaceBookLoginVst {
                     public void onSuccess(LoginResult loginResult) {
                         // App code
                         AccessToken token = loginResult.getAccessToken();
-                        FaceBookLoginVst.this.loginSuccess(token, ChannelLoginType.FaceBook);
+                        _target.interactionJsVst.loginSucces(token.getToken(), token.getUserId());
                     }
 
                     @Override
@@ -54,21 +54,5 @@ public class FaceBookLoginVst {
                         _target.nativeAndroid.callExternalInterface(ExtFuncName.Login, tokenStr);
                     }
                 });
-    }
-
-    /**
-     * 登录
-     * @param token
-     */
-    public void loginSuccess(AccessToken token, String loginType)
-    {
-        Log.d(_target.TAG, "android登录成功 token" + token.getToken() + "userid" + token.getUserId());
-        HashMap<String, String> map = new HashMap<>();
-        map.put("token", token.getToken());
-        map.put("openid", token.getUserId());
-        map.put("loginType", loginType);
-        map.put("status", "1");
-        String tokenStr = new JSONObject(map).toString();
-        _target.nativeAndroid.callExternalInterface(ExtFuncName.Login, tokenStr);
     }
 }
