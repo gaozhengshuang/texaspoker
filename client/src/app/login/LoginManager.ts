@@ -29,6 +29,7 @@ module game
                 NotificationCenter.once(LoginManager, () =>
                 {
                     let data = new msg.C2L_ReqLoginFaceBook();
+                    LoginManager.loginUserInfo = { account: "facebook-" + openId};
                     data.openid = openId;
                     data.token = token;
                     SocketManager.Send(Command.C2L_ReqLoginFaceBook, data);
@@ -68,7 +69,7 @@ module game
             gwResult = await cb();
             LoginManager.login(gwResult);
         }
-        
+
         /**
          * 苹果游戏中心登录
          */
@@ -165,9 +166,9 @@ module game
                     NotificationCenter.once(LoginManager, (data: msg.IGW2C_RetLogin) =>
                     {
                         d.resolve(data);
-                    }, Command.C2L_ReqLogin);
-
-                    SocketManager.Send(Command.C2L_ReqLogin, {
+                    }, Command.C2GW_ReqLogin);
+                    let data: msg.C2GW_ReqLogin
+                    SocketManager.Send(Command.C2GW_ReqLogin, {
                         account: account,
                         verifykey: gwResult.verifykey,
                     });

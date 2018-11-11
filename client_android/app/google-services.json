@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "833679027611",
+    "firebase_url": "https://poker-834fc.firebaseio.com",
+    "project_id": "poker-834fc",
+    "storage_bucket": "poker-834fc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:833679027611:android:d55051bd75226662",
+        "android_client_info": {
+          "package_name": "com.jiantfuntexaspoker.main"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "833679027611-a3m8gvpknba2e06pr8m4cdrprfh43vof.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCum0O1qXd9_T8Azjhsic7ZBlxvdbjwAq0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
