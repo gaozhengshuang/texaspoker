@@ -164,4 +164,11 @@ public class InteractionJsVst {
         String tokenStr = new JSONObject(map).toString();
         _target.nativeAndroid.callExternalInterface(ExtFuncName.Login, tokenStr);
     }
+    public void loginFailed() {
+        Log.d(_target.TAG, "android登录失败");
+        HashMap<String, String> map = new HashMap<>();
+        map.put("status", "");
+        String tokenStr = new JSONObject(map).toString();
+        _target.nativeAndroid.callExternalInterface(ExtFuncName.Login, tokenStr);
+    }
 }
