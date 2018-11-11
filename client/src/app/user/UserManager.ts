@@ -294,10 +294,10 @@ class UserManager
 		{
 			let tmpObj: any = pInfo;
 			let pre: string = game.StringConstants.Empty;
-			if ((ChannelManager.loginType == ChannelLoginType.Guest || ChannelManager.loginType == ChannelLoginType.IntranetGuest) && tmpObj[propertyName] != "游客")
-			{
-				pre = "游客";
-			}
+			// if ((ChannelManager.loginType == ChannelLoginType.Guest || ChannelManager.loginType == ChannelLoginType.IntranetGuest) && tmpObj[propertyName] != "游客") // move todo
+			// {
+			// 	pre = "游客";
+			// }
 			if (!tmpObj[propertyName])
 			{
 				tmpObj[propertyName] = pre + "";

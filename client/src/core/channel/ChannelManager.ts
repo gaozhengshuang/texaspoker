@@ -150,7 +150,7 @@ class ChannelManager
 			let data: any = JSON.parse(json);
 			if (game.StringUtil.toBoolean(data.status))
 			{
-				ChannelManager.OnTokenLoginSucceed.dispatch(data.token);
+				ChannelManager.OnTokenLoginSucceed.dispatch(data);
 			} else
 			{
 				ChannelManager.OnLoginFailed.dispatch();
@@ -193,11 +193,16 @@ class ChannelManager
 		{
 			UIManager.showFloatTips("邀请码复制成功");
 		});
+		game.ExternalInterface.addCallback(ExtFuncName.CheckLoginState, (data: string) =>
+		{
+			ChannelManager.LoginStateCheckEvent.dispatch(data);
+		});
 		//
 		game.ExternalInterface.addCallback(ExtFuncName.Initialize, (json: string) =>
 		{
 			ChannelManager._isInitComplete = true;
 			let data: any = JSON.parse(json);
+			console.log("Java传回数据：", data);
 			ChannelManager._channelType = data['channelType'];
 			if (game.StringUtil.isNullOrEmpty(ChannelManager._channelType))
 			{
@@ -206,6 +211,7 @@ class ChannelManager
 			ChannelManager._appName = data['appName'];
 			ChannelManager._deviceId = data['deviceId'];
 			ChannelManager._bundleId = data['bundleId'];
+			console.log("ChannelManager._bundleId", ChannelManager._bundleId);
 			ChannelManager._clientVersion = data['clientVersion'];
 			ChannelManager._hasWeixin = game.StringUtil.toBoolean(data['hasWeixin']);
 			ChannelManager.OnInitComplete.dispatch();
@@ -225,25 +231,39 @@ class ChannelManager
 		ChannelManager.OnInitComplete.dispatch();
 	}
 	/**
+	 * 检测登录状态，自动登录，且登录状态返回值为true，才能自动登录
+	 */
+	public static checkLoginState(loginType:string)
+	{
+		if (game.System.isMicro)
+		{
+			game.ExternalInterface.call(ExtFuncName.CheckLoginState, JSON.stringify(loginType));
+		}
+		else if(game.System.isWeb)
+		{
+			ChannelManager.LoginStateCheckEvent.dispatch("1");
+		}
+	}
+	/**
 	 * 登录
 	 */
 	public static login(loginType: string, isAutoLogin: boolean = false)
 	{
-		if (loginType == ChannelLoginType.GiantFun)
-		{
-			ChannelManager._accountHandler.Login(isAutoLogin);
-		}
-		else
-		{
-			ChannelManager._channel.Login(loginType, isAutoLogin);
-		}
+		// if (loginType == ChannelLoginType.IntranetAccount) // move todo
+		// {
+		// 	ChannelManager._accountHandler.Login(isAutoLogin);
+		// }
+		// else
+		// {
+		ChannelManager._channel.Login(loginType, isAutoLogin);
+		// }
 	}
 	/**
 	 * 登出
 	 */
 	public static logout()
 	{
-		if (ChannelManager.loginType == ChannelLoginType.GiantFun)
+		if (ChannelManager.loginType == ChannelLoginType.IntranetAccount)
 		{
 			ChannelManager._accountHandler.Logout();
 		}
@@ -476,4 +496,8 @@ class ChannelManager
 	 * 支付模式选择
 	 */
 	public static OnPayModelSelectEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
+	/**
+	 * 登录状态检测
+	 */
+	public static LoginStateCheckEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 }

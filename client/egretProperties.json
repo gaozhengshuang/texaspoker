@@ -1,84 +1,90 @@
 {
-	"native": {
-		"path_ignore": [
-			"resource/(skins|eui_skins|images)",
-			"resource/config/.*\\.json",
-			"resource/config/.*\\.bin",
-			"resource/config/files.txt"
-		]
-	},
-	"web": {
-		"path_ignore": [
-			"resource/(skins|eui_skins|images)",
-			"resource/config/.*\\.json",
-			"resource/config/.*\\.bin",
-			"resource/config/files.txt"
-		]
-	},
-	"publish": {
-		"web": 0,
-		"native": 1,
-		"path": "bin-release"
-	},
-	"eui": {
-		"exmlRoot": "resource/skins",
-		"themes": [
-			"resource/default.thm.json"
-		],
-		"exmlPublishPolicy": "commonjs2"
-	},
-	"engineVersion": "5.2.12",
-	"compilerVersion": "5.2.12",
-	"template": {},
-	"modules": [
-		{
-			"name": "egret"
-		},
-		{
-			"name": "eui"
-		},
-		{
-			"name": "assetsmanager"
-		},
-		{
-			"name": "tween"
-		},
-		{
-			"name": "game"
-		},
-		{
-			"name": "socket"
-		},
-		{
-			"name": "dragonBones"
-		},
-		{
-			"name": "promise",
-			"path": "../../tools/egret/promise/libsrc"
-		},
-		{
-			"name": "protobuf-library",
-			"path": "protobuf/library"
-		},
-		{
-			"name": "protobuf-bundles",
-			"path": "protobuf/bundles"
-		},
-		{
-			"name": "particle",
-			"path": "../../tools/egret/particle/libsrc"
-		},
-		{
-			"name": "md5",
-			"path": "../../tools/egret/md5/libsrc"
-		},
-		{
-			"name": "jszip",
-			"path": "../../tools/egret/jszip/libsrc"
-		},
-		{
-			"name": "i18n",
-			"path": "../../tools/egret/i18n/libsrc"
-		}
-	]
+  "native": {
+    "path_ignore": [
+      "resource/(skins|eui_skins|images)",
+      "resource/config/.*\\.json",
+      "resource/config/.*\\.bin",
+      "resource/config/files.txt"
+    ]
+  },
+  "web": {
+    "path_ignore": [
+      "resource/(skins|eui_skins|images)",
+      "resource/config/.*\\.json",
+      "resource/config/.*\\.bin",
+      "resource/config/files.txt"
+    ]
+  },
+  "publish": {
+    "web": 0,
+    "native": 1,
+    "path": "bin-release"
+  },
+  "eui": {
+    "exmlRoot": "resource/skins",
+    "themes": [
+      "resource/default.thm.json"
+    ],
+    "exmlPublishPolicy": "commonjs2"
+  },
+  "engineVersion": "5.2.12",
+  "compilerVersion": "5.2.12",
+  "template": {},
+  "modules": [
+    {
+      "name": "egret"
+    },
+    {
+      "name": "eui"
+    },
+    {
+      "name": "assetsmanager"
+    },
+    {
+      "name": "tween"
+    },
+    {
+      "name": "game"
+    },
+    {
+      "name": "socket"
+    },
+    {
+      "name": "dragonBones"
+    },
+    {
+      "name": "promise",
+      "path": "../../tools/egret/promise/libsrc"
+    },
+    {
+      "name": "protobuf-library",
+      "path": "protobuf/library"
+    },
+    {
+      "name": "protobuf-bundles",
+      "path": "protobuf/bundles"
+    },
+    {
+      "name": "particle",
+      "path": "../../tools/egret/particle/libsrc"
+    },
+    {
+      "name": "md5",
+      "path": "../../tools/egret/md5/libsrc"
+    },
+    {
+      "name": "jszip",
+      "path": "../../tools/egret/jszip/libsrc"
+    },
+    {
+      "name": "i18n",
+      "path": "../../tools/egret/i18n/libsrc"
+    }
+  ],
+  "targets": {
+    "android": {
+      "appname": "gttexaspoker",
+      "packagename": "com.jiantpoker"
+    }
+  }
 }

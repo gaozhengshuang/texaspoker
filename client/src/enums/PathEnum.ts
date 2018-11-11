@@ -47,5 +47,4 @@ class PathName
 	public static readonly Config_c2s_bin: string = PathName.ConfigDirectory + "c2s.bin";
 	public static readonly Config_s2c_bin: string = PathName.ConfigDirectory + "s2c.bin";
 	public static readonly Default_thm_json: string = PathName.ResourceDirectory + "default.thm.json";
-	public static readonly Default_res_json: string = PathName.ResourceDirectory + "default.res.json";
 }

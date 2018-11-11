@@ -18,6 +18,10 @@ class HundredWarManager
     */
     public static hundredWarOverInfo: HundredWarOverInfo;
     /**
+     * 下注的最大比率
+     */
+    public static maxRate = 7;
+    /**
 	 * 自己的信息
 	 */
     private static _self: HWHundredWarRoomPlayerInfo;
@@ -28,6 +32,19 @@ class HundredWarManager
     }
     private static _isInitialize: boolean = false;
     private static _isHadLeave: boolean;
+
+    public static initialize()
+    {
+        let rate = 0;
+        for (let def of table.HundredWarCardType)
+        {
+            if (def.Odds > rate)
+            {
+                rate = def.Odds;
+            }
+        }
+        HundredWarManager.maxRate = rate;
+    }
 
     public static addPushListener()
     {

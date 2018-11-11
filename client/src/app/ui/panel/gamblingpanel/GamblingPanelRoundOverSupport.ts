@@ -76,7 +76,10 @@ class GamblingPanelRoundOverSupport extends BaseGamblingPanelSupport
 	private nextRoundStartHandler(cardList: Array<CardInfo>)
 	{
 		this._isNextRoundStart = true;
-
+		for(let pit of this.target.pitList)
+		{
+			pit.headComponent.clearAllinList(); //清理allin的牌的数据
+		}
 		if (GamblingManager.self && GamblingManager.self.state != PlayerState.WaitNext) //兼容异常处理
 		{
 			this.target.actionGroup.showImmediatelyBrightCardBtn(false);
@@ -322,14 +325,14 @@ class GamblingPanelRoundOverSupport extends BaseGamblingPanelSupport
 			pitInfo.headComponent.showBankRoll(); //显示筹码
 			pitInfo.headComponent.showHaveCardImg(false);
 			//pitInfo.headComponent.showCardTypeBgFilter(0);
-			if (pitInfo.headComponent.bindData && pitInfo.headComponent.bindData.state == PlayerState.WaitNext && GamblingUtil.isMtt)
-			{
-				pitInfo.headComponent.changeState(GamblingHeadStateType.WaitNext); //锦标赛中重构等待下一局的玩家状态是等待下一局
-			}
-			else
-			{
+			// if (pitInfo.headComponent.bindData && pitInfo.headComponent.bindData.state == PlayerState.WaitNext && GamblingUtil.isMtt) //move todo
+			// {
+			// 	pitInfo.headComponent.changeState(GamblingHeadStateType.WaitNext); //锦标赛中重构等待下一局的玩家状态是等待下一局
+			// }
+			// else
+			// {
 				pitInfo.headComponent.changeState(GamblingHeadStateType.RoundStart);
-			}
+			// }
 		}
 		if (GamblingUtil.isMtt) 
 		{

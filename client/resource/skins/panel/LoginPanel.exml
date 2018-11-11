@@ -6,35 +6,15 @@
 		<e:Image y="28" id="logoImg" horizontalCenter="0" />
 		<e:Label id="versionLabel" size="22" verticalAlign="middle" fontFamily="Microsoft YaHei" text="" anchorOffsetX="0" bold="false" textColor="0xffffff" alpha="0.8" y="273" textAlign="center" x="478"/>
 		<e:Group horizontalCenter="0" bottom="0" height="450" x="115" y="0" width="650">
-			<ns1:ShadowButton id="weixinLoginBtn" label="微信登录" scaleX="1" scaleY="1" y="0" skinName="loginWXBtnSkin" width="430" height="103" horizontalCenter="0"/>
-			<ns1:ShadowButton id="telLoginBtn" label="官方账号" scaleX="1" scaleY="1" y="105" width="430" height="103"
-			                  skinName="loginOfficialBtnSkin" horizontalCenter="0" />
-			<e:Group height="48" y="222" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" width="420">
+			<e:Group id="btnGroup" height="105" y="280" horizontalCenter="0" width="420" anchorOffsetY="0">
 				<e:layout>
-					<e:HorizontalLayout horizontalAlign="center" gap="20" />
+					<e:TileLayout horizontalAlign="center" verticalAlign="middle" orientation="rows" requestedColumnCount="2" rowAlign="justifyUsingHeight" columnAlign="justifyUsingWidth" verticalGap="0"/>
 				</e:layout>
-				<ns1:ShadowButton id="guestLoginBtn" label="游客登录" scaleX="1" scaleY="1" skinName="loginComBtnSkin" />
-				<ns1:ShadowButton id="accountBtn" label="外网登录" scaleX="1" scaleY="1" skinName="loginComBtnSkin" />
-			</e:Group>
-			<e:Group height="48" y="280" horizontalCenter="0" width="420">
-				<e:layout>
-					<e:HorizontalLayout horizontalAlign="center" gap="20" />
-				</e:layout>
-				<ns1:ShadowButton id="intranetGuestBtn" label="内网游客" scaleX="1" scaleY="1" skinName="loginComBtnSkin" />
 				<ns1:ShadowButton id="intranetAccountBtn" label="内网登录" scaleX="1" scaleY="1" skinName="loginComBtnSkin" />
+				<ns1:ShadowButton id="fbBtn" label="FaceBook" scaleX="1" scaleY="1" skinName="loginComBtnSkin" x="56" y="-1110"/>
+				<ns1:ShadowButton id="gamecenterBtn" label="GameCenter" scaleX="1" scaleY="1" skinName="loginComBtnSkin" x="-140" y="-1100"/>
+				<ns1:ShadowButton id="googlePlayBtn" label="Google" scaleX="1" scaleY="1" skinName="loginComBtnSkin" x="-130" y="-1090"/>
 			</e:Group>
-			<e:Group y="355.4" horizontalCenter="0">
-				<e:CheckBox id="agreeCheckBox" label="已阅读并同意用户协议" y="0"
-				            skinName="loginCheckBoxSkin" x="120" />
-				<e:Label id="userBtn" text="用户许可协议" x="375.35" size="24" verticalAlign="middle" textColor="0xf9cb55" alpha="0.8"
-				         y="1" />
-				<e:layout>
-					<e:HorizontalLayout gap="3"/>
-				</e:layout>
-			</e:Group>
-			<e:Label text="抵制不良游戏,拒绝盗版游戏。注意自我保护,谨防受骗上当。适度游戏益脑,沉迷游戏伤身。合理安排时间,享受健康生活。" y="391" size="24"
-			         anchorOffsetX="0" bold="false" anchorOffsetY="0" verticalAlign="middle" lineSpacing="7" textAlign="center"
-			         alpha="0.8" horizontalCenter="0"  width="638"/>
 		</e:Group>
 	</e:Group>
 </e:Skin>

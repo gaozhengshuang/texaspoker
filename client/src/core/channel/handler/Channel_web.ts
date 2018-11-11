@@ -52,15 +52,15 @@ class Channel_web extends ChannelBase
 	}
 	public Login(loginType: string, isAutoLogin: boolean)
 	{
-		if (loginType == ChannelLoginType.Account || ChannelManager.loginType == ChannelLoginType.IntranetAccount)
+		if ( ChannelManager.loginType == ChannelLoginType.IntranetAccount) //loginType == ChannelLoginType.Account || //move todo
 		{
 			this.accountLogin(isAutoLogin);
 		}
-		else if (loginType == ChannelLoginType.Weixin)
-		{
-			//微信登录
-			this.weixinLogin();
-		}
+		// else if (loginType == ChannelLoginType.Weixin)
+		// {
+		// 	//微信登录
+		// 	this.weixinLogin();
+		// }
 		else
 		{
 			UIManager.showFloatTips("登录类型错误");
@@ -83,37 +83,37 @@ class Channel_web extends ChannelBase
 			}
 		}
 	}
-	private weixinLogin(): void
-	{
-		let token: string = WebConfig.wxRefreshToken;
-		if (token)
-		{
-			ChannelManager.OnTokenLoginSucceed.dispatch(WebConfig.wxAuthorizeType + '###2###' + token);
-		}
-		else if (game.System.isWeChat == false)
-		{
-			token = PrefsManager.getLoginToken();
-			if (PrefsManager.getValue(PrefsManager.Login_LoginType) == ChannelLoginType.Weixin && token)
-			{
-				ChannelManager.OnTokenLoginSucceed.dispatch(WxAuthorizeType.Web + '###2###' + token);
-			}
-			else
-			{
-				//跳转到微信二维码登录
-				let url: string = ProjectDefined.getWxQrconnectUrl();
-				window.location.href = url + '?return_url=' + encodeURIComponent(window.location.href);
-			}
-		}
-		else
-		{
-			AlertManager.showAlertByString('微信授权token为空');
-		}
-	}
+	// private weixinLogin(): void // move todo
+	// {
+	// 	let token: string = WebConfig.wxRefreshToken;
+	// 	if (token)
+	// 	{
+	// 		ChannelManager.OnTokenLoginSucceed.dispatch(WebConfig.wxAuthorizeType + '###2###' + token);
+	// 	}
+	// 	else if (game.System.isWeChat == false)
+	// 	{
+	// 		token = PrefsManager.getLoginToken();
+	// 		if (PrefsManager.getValue(PrefsManager.Login_LoginType) == ChannelLoginType.Weixin && token)
+	// 		{
+	// 			ChannelManager.OnTokenLoginSucceed.dispatch(WxAuthorizeType.Web + '###2###' + token);
+	// 		}
+	// 		else
+	// 		{
+	// 			//跳转到微信二维码登录
+	// 			let url: string = ProjectDefined.getWxQrconnectUrl();
+	// 			window.location.href = url + '?return_url=' + encodeURIComponent(window.location.href);
+	// 		}
+	// 	}
+	// 	else
+	// 	{
+	// 		AlertManager.showAlertByString('微信授权token为空');
+	// 	}
+	// }
 	public PaySend(payState: number, awardId: number, serverId: number, orderId: string, price: number, productName: string)
 	{
 		AwardManager.Exchange(awardId, 1, true);//直接兑换 move todo
 		return;
-		if (VersionManager.isServerTest && (ChannelManager.loginType == ChannelLoginType.Account || ChannelManager.loginType == ChannelLoginType.IntranetAccount))
+		if (VersionManager.isServerTest && (ChannelManager.loginType == ChannelLoginType.IntranetAccount)) //ChannelManager.loginType == ChannelLoginType.Account || //move todo
 		{
 			AwardManager.Exchange(awardId, 1, false);//直接兑换
 		}

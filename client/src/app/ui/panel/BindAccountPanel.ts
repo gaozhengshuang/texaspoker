@@ -74,31 +74,31 @@ class BindAccountPanel extends BasePanel
     private refreshQinBindState()
     {
         //手机账号绑定
-        if (BindAccountManager.getIsBinding(ChannelLoginType.GiantFun) || ChannelManager.loginType == ChannelLoginType.GiantFun)  //判断用户是否绑定了手机
-        {
-            this.bindPhoneBtn.visible = false;
-            this.phoneImg.visible = true;
-            this.phoneNumLabel.text = "已绑定";
-            // this.phoneNumLabel.text = this.phoneNumFormat(4, 9, UserManager.userInfo.mno);
-        }
-        else
-        {
+        // if (BindAccountManager.getIsBinding(ChannelLoginType.GiantFun) || ChannelManager.loginType == ChannelLoginType.GiantFun)  //判断用户是否绑定了手机  // move todo
+        // {
+        //     this.bindPhoneBtn.visible = false;
+        //     this.phoneImg.visible = true;
+        //     this.phoneNumLabel.text = "已绑定";
+        //     // this.phoneNumLabel.text = this.phoneNumFormat(4, 9, UserManager.userInfo.mno);
+        // }
+        // else
+        // {
             this.bindPhoneBtn.visible = true;
             this.phoneImg.visible = false;
             this.phoneNumLabel.text = "未绑定";
-        }
+        // }
     }
     private refreshWxBindState()
     {
         //微信绑定
-        if (BindAccountManager.getIsBinding(ChannelLoginType.Weixin) || ChannelManager.loginType == ChannelLoginType.Weixin) 
-        {
-            this.bindWXBtn.visible = false;
-            this.wxImg.visible = true;
-            this.wxNameLabel.text = "已绑定";
-        }
-        else
-        {
+        // if (BindAccountManager.getIsBinding(ChannelLoginType.Weixin) || ChannelManager.loginType == ChannelLoginType.Weixin)   // move todo
+        // {
+        //     this.bindWXBtn.visible = false;
+        //     this.wxImg.visible = true;
+        //     this.wxNameLabel.text = "已绑定";
+        // }
+        // else
+        // {
             if (game.System.isWeChat)
             {
                 this.bindWXBtn.enabled = true;
@@ -114,7 +114,7 @@ class BindAccountPanel extends BasePanel
             this.bindWXBtn.visible = true;
             this.wxImg.visible = false;
             this.wxNameLabel.text = "未绑定";
-        }
+        // }
 
     }
     /**
@@ -124,12 +124,12 @@ class BindAccountPanel extends BasePanel
     {
         switch (data)
         {
-            case ChannelLoginType.GiantFun:
-                this.refreshQinBindState();
-                break;
-            case ChannelLoginType.Weixin:
-                this.refreshWxBindState();
-                break;
+            // case ChannelLoginType.GiantFun:  // move todo
+            //     this.refreshQinBindState();
+            //     break;
+            // case ChannelLoginType.Weixin:
+            //     this.refreshWxBindState();
+            //     break;
         }
     }
 	/**
@@ -138,10 +138,10 @@ class BindAccountPanel extends BasePanel
     private bindPhoneHandler(event: egret.TouchEvent)
     {
         SoundManager.playButtonEffect(event.target);
-        if (!BindAccountManager.getIsBinding(ChannelLoginType.GiantFun))
-        {
-            BindAccountManager.startBindQin(UIModuleName.BindAccountPanel);
-        }
+        // if (!BindAccountManager.getIsBinding(ChannelLoginType.GiantFun))  // move todo
+        // {
+        //     BindAccountManager.startBindQin(UIModuleName.BindAccountPanel);
+        // }
     }
 	/**
 	 * 点击绑定微信
@@ -149,9 +149,9 @@ class BindAccountPanel extends BasePanel
     private bindWXHandler(event: egret.TouchEvent)
     {
         SoundManager.playButtonEffect(event.target);
-        if (!BindAccountManager.getIsBinding(ChannelLoginType.Weixin))
-        {
-            BindAccountManager.tryBindWx();
-        }
+        // if (!BindAccountManager.getIsBinding(ChannelLoginType.Weixin))  // move todo
+        // {
+        //     BindAccountManager.tryBindWx();
+        // }
     }
 }

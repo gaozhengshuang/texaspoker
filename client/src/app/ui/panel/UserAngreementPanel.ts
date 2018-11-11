@@ -107,7 +107,6 @@ class UserAngreementPanel extends BasePanel
 	}
 	private agreeBtnClickHandler(event: egret.TouchEvent)
 	{
-		GameSetting.IsAgreeUserAgreement = true;
 		UIManager.dispatchEvent(UIModuleName.UserAngreementPanel, UIModuleEvent.CHANGE);
 		super.onCloseBtnClickHandler(event);
 	}

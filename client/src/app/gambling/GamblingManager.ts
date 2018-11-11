@@ -195,6 +195,7 @@ class GamblingManager
 	 */
 	private static standClear()
 	{
+		GamblingManager.guessHandler.leaveRoomReset();
 		GamblingManager._isOnSeat = false;
 		GamblingManager._self = null;
 		if (GamblingManager.roomInfo)
@@ -328,7 +329,7 @@ class GamblingManager
 		}
 		let callback: Function = function (result: game.SpRpcResult)
 		{
-			game.Tick.removeFrameInvoke(timeOutCallBack, this);
+			game.Tick.RemoveTimeoutInvoke(timeOutCallBack, this);
 			SocketManager.RemoveCommandListener(Command.C2GW_ReqEnterRoom, callback, this);
 			GamblingManager.isQuicklyEnter = isQuicklyEnter;
 			GamblingManager.initialize(result, isReconnect);
@@ -796,7 +797,7 @@ class GamblingManager
 			{
 				cardList = GamblingManager.roomInfo.handCard.concat();
 			}
-			GamblingManager.guessHandler.setResultListInfo();
+			// GamblingManager.guessHandler.setResultListInfo(); //move todo
 			GamblingManager.HandCardComeEvent.dispatch(cardList);
 		}
 	}
@@ -1056,7 +1057,6 @@ class GamblingManager
 	private static leaveRoom()
 	{
 		GamblingManager.isQuicklyEnter = false;
-		GamblingManager.guessHandler.leaveRoomReset();
 		GamblingManager.championshipHandler.stopRoomDisbandListener();
 		GamblingManager.reset();
 	}

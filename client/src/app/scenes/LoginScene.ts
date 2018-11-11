@@ -91,17 +91,17 @@ class LoginScene extends BaseScene
     private EnterLoginStart(isAutoLogin: boolean)
     {
         this._channelLoginList = ChannelLoginType.GetChannelLoginList(OperatePlatform.getCurrent(), ChannelManager.channelType, VersionManager.isServerTest, VersionManager.isSafe);
-        if (isAutoLogin && this._channelLoginList.indexOf(ChannelLoginType.Weixin) >= 0 && WebConfig.isWxWebAuthorize)
-        {
-            this.ChannelLoginStart(ChannelLoginType.Weixin, isAutoLogin);
-            return;
-        }
+        // if (isAutoLogin && this._channelLoginList.indexOf(ChannelLoginType.Weixin) >= 0 && WebConfig.isWxWebAuthorize) // move todo
+        // {
+        //     this.ChannelLoginStart(ChannelLoginType.Weixin, isAutoLogin);
+        //     return;
+        // }
         let channelLoginType: string = PrefsManager.getValue(PrefsManager.Login_LoginType);
         if (this._channelLoginList.length > 1)
         {
             if (isAutoLogin && channelLoginType)
             {
-                this.ChannelLoginStart(channelLoginType, isAutoLogin);
+                this.checkLoginState(channelLoginType, isAutoLogin);
             }
             else
             {
@@ -112,7 +112,7 @@ class LoginScene extends BaseScene
         {
             if (isAutoLogin && (!this._channelLoginList[0] || channelLoginType))
             {
-                this.ChannelLoginStart(this._channelLoginList[0], isAutoLogin);
+                this.checkLoginState(this._channelLoginList[0], isAutoLogin);
             }
             else
             {
@@ -120,28 +120,45 @@ class LoginScene extends BaseScene
             }
         }
     }
+    private checkLoginState(type: string, isAutoLogin: boolean)
+    {
+        let callBack: Function = function (state: string)
+        {
+            ChannelManager.LoginStateCheckEvent.removeListener(callBack, this);
+            if (state == "1")
+            {
+                this.ChannelLoginStart(type, isAutoLogin);
+            }
+            else
+            {
+                this.ShowEnterLoginPanel();
+            }
+        };
+        ChannelManager.LoginStateCheckEvent.addListener(callBack, this);
+        ChannelManager.checkLoginState(type);
+    }
     private ChannelLoginStart(loginType: string, isAutoLogin: boolean)
     {
         ChannelManager.OnLogout.addListener(this.OnChannelLogout, this);
         //
         ChannelManager.loginType = loginType;
-        if (loginType == ChannelLoginType.Guest || loginType == ChannelLoginType.IntranetGuest)
-        {
-            //游客登录
-            this.GameGuestLogin();
-        }
-        else
-        {
-            //渠道登录
-            this.AddChannelEvents();
-            ChannelManager.login(loginType, isAutoLogin);
-        }
+        // if (loginType == ChannelLoginType.Guest || loginType == ChannelLoginType.IntranetGuest) // move todo
+        // {
+        //     //游客登录
+        //     this.GameGuestLogin();
+        // }
+        // else
+        // {
+        //渠道登录
+        this.AddChannelEvents();
+        ChannelManager.login(loginType, isAutoLogin);
+        // }
     }
     private ShowEnterLoginPanel()
     {
-        this.OnEnterLoginSelect(ChannelLoginType.IntranetAccount); //move todo
-        // UIManager.addEventListener(UIModuleName.LoginPanel, UIModuleEvent.COMPLETE, this.OnEnterLoginSelect, this);
-        // UIManager.showPanel(UIModuleName.LoginPanel, this._channelLoginList);
+        // this.OnEnterLoginSelect(ChannelLoginType.IntranetAccount); //move todo
+        UIManager.addEventListener(UIModuleName.LoginPanel, UIModuleEvent.COMPLETE, this.OnEnterLoginSelect, this);
+        UIManager.showPanel(UIModuleName.LoginPanel, this._channelLoginList);
     }
     private HideEnterLoginPanel()
     {
@@ -237,10 +254,10 @@ class LoginScene extends BaseScene
             this.GameAccountLogin(args[0], args[1]);
         }
     }
-    private OnTokenLoginSucceed(token: string)
+    private OnTokenLoginSucceed(data: any)
     {
         this.RemoveChannelEvents();
-        this.GameTokenLogin(token);
+        this.GameTokenLogin(data);
     }
     private OnChannelLogout()
     {
@@ -258,10 +275,20 @@ class LoginScene extends BaseScene
         this.AddGameLoginEvents();
         game.LoginManager.AccountLogin(account, password);
     }
-    private GameTokenLogin(token: string)
+    private GameTokenLogin(data: any)
     {
         this.AddGameLoginEvents();
-        // LoginManager.TokenLogin(ChannelManager.getLoginChannel(), token);
+        switch (data.loginType)
+        {
+            case ChannelLoginType.FaceBook:
+                game.LoginManager.faceBookLogin(data.token, data.openid)
+                break;
+            case ChannelLoginType.GameCenter:
+                break;
+            case ChannelLoginType.GooglePlay:
+                break;
+        }
+        // game.LoginManager.TokenLogin(ChannelManager.getLoginChannel(), token);
     }
     private OnGameLoginComplete(isSuccess: boolean)
     {
@@ -419,7 +446,7 @@ class LoginScene extends BaseScene
     {
         GamblingManager.OnGetRoomInfoEvent.addListener(this.onGetRoomInfoResult, this);
         game.Console.log("游戏初始化进入房间：reqGetRoomInfo,----InsideRoomManager.lastId", InsideRoomManager.lastId);
-        GamblingManager.reqEnterRoom(InsideRoomManager.lastId, InsideRoomManager.lastPasswd, true);
+        GamblingManager.reqEnterRoom(InsideRoomManager.lastId, InsideRoomManager.lastPasswd, false, true);
     }
     private onGetRoomInfoResult()
     {

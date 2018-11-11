@@ -342,7 +342,7 @@ class HundredWarCardAnime
         let cards: HundredWarCardAnimeInfo[] = new Array<HundredWarCardAnimeInfo>();
         for (let i: number = 0; i < cardList.length; i++)
         {
-            let quotient: number = Math.floor((i + 1) / 5);  //商
+            let quotient: number = Math.floor((i + 1) / HundredWarManager.maxRate);  //商
             let remainder: number = (i + 1) % 5;  //余数
             let j: number;
             if (remainder == 0)

@@ -38,14 +38,14 @@ class Main extends eui.UILayer
     }
     private async startLoadConfig()
     {
-        if (game.System.isWeb || game.System.isMicro)
-        {
-            await RES.loadConfig(resJsonUrl, 'resource/');
-        }
-        else
-        {
-            await RES.loadConfig(PathName.Default_res_json, 'resource/');
-        }
+        await RES.loadConfig(resJsonUrl, 'resource/');
+        // if (game.System.isWeb || game.System.isMicro)
+        // {
+        // }keytool -exportcert -alias androiddebugkey -keystore "C:\Users\Administrator\.android\debug.keystore" | "H:\workspace\facebook\openssl-0.9.8k_WIN32\bin\openssl" sha1 -binary | "H:\workspace\facebook\openssl-0.9.8k_WIN32\bin\openssl" base64
+        // else
+        // {
+        //     await RES.loadConfig(PathName.Default_res_json, 'resource/');
+        // }
         this.loadAssetText();
     }
     private async loadAssetText()
@@ -80,6 +80,14 @@ class Main extends eui.UILayer
 
     private createScene()
     {
+        let agent = window.navigator.userAgent.toLowerCase();
+        let os = egret.Capabilities.os;
+        let search = window.location.search;
+        let href = window.location.href;
+        let runType =egret.Capabilities.runtimeType;
+        console.log("用户数据代理agent", agent, "运行系统os", os);
+        console.log("搜索search", search, "超链接", href);
+        console.log("运行类型runType", runType);
         this.setLoadingText('正在进入游戏...');
         this.configInitialize();
         GameManager.initialize(this.stage, this);

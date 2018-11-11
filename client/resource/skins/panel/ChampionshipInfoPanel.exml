@@ -20,13 +20,13 @@
             <e:Label id="initChipLabel" text="3000" x="173" y="264.23" size="26"  fontFamily="Microsoft YaHei"/>
             <e:Group id="rebuyGroup" x="56" y="318.01">
                 <e:Label text="Rebuy:" x="37.790000000000035" y="5.684341886080802e-14" size="26"  fontFamily="Microsoft YaHei"/>
-                <e:Label id="rebuyDesLabel" text="重购描述重购描述重购描述重购描述重购描述重购描述重购描述" x="137.31" y="1.5200000000001523"
+                <e:Label id="rebuyDesLabel" text="rebuy" x="137.31" y="1.5200000000001523"
                          size="26" anchorOffsetX="0" width="400" multiline="true" lineSpacing="5"  fontFamily="Microsoft YaHei"/>
                 <e:Image x="0" y="2.160000000000082"  source="game_icon_19_png"/>
             </e:Group>
             <e:Group id="addonGroup" x="56" y="422.03">
                 <e:Label text="Addon:" x="37.790000000000035" y="5.684341886080802e-14" size="26"  fontFamily="Microsoft YaHei"/>
-                <e:Label id="addonDesLabel" text="增购描述增购描述增购描述增购描述增购描述增购描述" x="137.31" y="1.5200000000001523" size="26"
+                <e:Label id="addonDesLabel" text="addon" x="137.31" y="1.5200000000001523" size="26"
                          anchorOffsetX="0" width="400" multiline="true" lineSpacing="5"  fontFamily="Microsoft YaHei"/>
                 <e:Image x="0" y="2.160000000000082"  source="game_icon_20_png"/>
             </e:Group>

@@ -32,7 +32,7 @@ class PollingRequest
 
 	public get isIntranet(): boolean
 	{
-		return ChannelManager.loginType == ChannelLoginType.IntranetAccount || ChannelManager.loginType == ChannelLoginType.IntranetGuest;
+		return ChannelManager.loginType == ChannelLoginType.IntranetAccount; // || ChannelManager.loginType == ChannelLoginType.IntranetGuest //move todo
 	}
 	/**
 	 * 是否轮询

@@ -22,43 +22,45 @@ const (
 	CSOver int32 = 3		//结束
 )
 
+//锦标赛玩家结构
 type CSPlayer struct {
-	roomuid int64
-	bankroll int64
-	rebuy int32
-	addon int32
-	joinway int32
-	name string
-	face string
-	sex int32
-	isout bool
-	outtime int32
+	roomuid int64			//所在房间uid
+	bankroll int64			//身上筹码
+	rebuy int32				//rebuy次数
+	addon int32				//addon次数
+	joinway int32			//参加方式
+	name string				//名字
+	face string				//头像
+	sex int32				//性别
+	isout bool				//是否出局
+	outtime int32			//出局时间
 }
 
+//锦标赛结构
 type ChampionShip struct {
-	tconf *table.ChampionshipDefine
-	rconf *table.TexasRoomDefine
-	tid int32
-	uid int32
+	tconf *table.ChampionshipDefine			//锦标赛配置
+	rconf *table.TexasRoomDefine			//德州房间配置
+	tid int32								//表id
+	uid int32								//唯一id
 	members map[int64]*CSPlayer				//玩家信息
-	starttime int32
-	endtime int32
-	blindnum int32
+	starttime int32							//开始时间
+	endtime int32							//结束时间
 	roommember map[int64]map[int64]int64	//房间包含玩家
 	ticker1s *util.GameTicker
-	state int32
-	minroomnum	int32							//最小人数房间
-	bconf *table.ChampionshipBlindDefine
-	blindtick int32
-	blindtype int32
-	blindlevel int32
-	overblind bool
-	maxuser int32
+	state int32								//锦标赛状态
+	minroomnum	int32						//最小人数房间
+	bconf *table.ChampionshipBlindDefine	//盲注配置
+	blindtick int32							//盲注计时
+	blindtype int32							//盲注大类
+	blindlevel int32						//盲注等级
+	overblind bool							//盲注结束
+	maxuser int32							//最大玩家数
 	sumbankroll int64						//总筹码
 	curmembernum int32						//当前总人数
 	finalrank []int64						//最终排名
 }
 
+//初始化
 func (cs *ChampionShip) Init() bool {
 	cs.members = make(map[int64]*CSPlayer)
 	cs.roommember = make(map[int64]map[int64]int64)
@@ -88,6 +90,7 @@ func (cs *ChampionShip) Init() bool {
 	return true
 }
 
+//盲注计时
 func (cs *ChampionShip) BlindTick() {
 	if cs.overblind {
 		return
@@ -111,6 +114,7 @@ func (cs *ChampionShip) BlindTick() {
 	}
 }
 
+//获取升注时间
 func (cs *ChampionShip) GetBlindUpTime() int32 {
 	if cs.blindtick < cs.bconf.UpTime {
 		return int32(util.CURTIME()) + cs.bconf.UpTime - cs.blindtick
@@ -119,6 +123,7 @@ func (cs *ChampionShip) GetBlindUpTime() int32 {
 	}
 }
 
+//设置房间盲注
 func (cs *ChampionShip) SetRoomBlind() {
 	for key, _ := range cs.roommember {
 		room := RoomMgr().FindTexas(key)
@@ -144,6 +149,8 @@ func (cs *ChampionShip) Handler1sTick(now int64) {
 				} else {
 					cs.state = CSGoing
 				}
+				start := SysTimerMgr().GetStartTimeByTimeId(cs.tconf.TimeId, cs.tconf.Type)
+				ChampionMgr().CreateChampionShip(cs.tid, start)
 			}
 		} else if cs.tconf.Type == 2 {
 			if int32(len(cs.members)) >= cs.tconf.SNum {
@@ -154,6 +161,8 @@ func (cs *ChampionShip) Handler1sTick(now int64) {
 				} else {
 					cs.state = CSGoing
 				}
+				start := SysTimerMgr().GetStartTimeByTimeId(cs.tconf.TimeId, cs.tconf.Type)
+				ChampionMgr().CreateChampionShip(cs.tid, start)
 			}
 		}
 	}
@@ -162,12 +171,14 @@ func (cs *ChampionShip) Handler1sTick(now int64) {
 	}
 }
 
+//比赛未开启退款
 func (cs *ChampionShip) Refund() {
 	for uid, _ := range cs.members {
 		AddUserGold(0, uid, cs.tconf.SignCost+cs.tconf.ServeCost, "锦标赛未开启")
 	}
 }
 
+//取消比赛
 func (cs *ChampionShip) CancelMatch() {
 	send := &msg.RS2GW_MTTCancel{}
 	send.Recordid = pb.Int32(cs.uid)
@@ -177,6 +188,7 @@ func (cs *ChampionShip) CancelMatch() {
 	GateMgr().Broadcast(send)
 }
 
+//获取玩家房间
 func (cs *ChampionShip) GetUserRoom(userid int64) int64 {
 	if member, ok := cs.members[userid]; ok {
 		return member.roomuid
@@ -184,6 +196,7 @@ func (cs *ChampionShip) GetUserRoom(userid int64) int64 {
 	return 0
 }
 
+//锦标赛状态 无
 func (cs *ChampionShip) IsNone() bool {
 	if cs.state == CSNone {
 		return true
@@ -191,6 +204,7 @@ func (cs *ChampionShip) IsNone() bool {
 	return false
 }
 
+//锦标赛状态 结束
 func (cs *ChampionShip) IsOver() bool {
 	if cs.state == CSOver {
 		return true
@@ -198,6 +212,7 @@ func (cs *ChampionShip) IsOver() bool {
 	return false
 }
 
+//锦标赛状态 开始
 func (cs *ChampionShip) IsStart() bool {
 	if cs.state == CSGoing {
 		return true
@@ -205,6 +220,7 @@ func (cs *ChampionShip) IsStart() bool {
 	return false
 }
 
+//锦标赛状态 删除
 func (cs *ChampionShip) IsDel() bool {
 	if cs.state == CSDel {
 		return true
@@ -212,6 +228,7 @@ func (cs *ChampionShip) IsDel() bool {
 	return false
 }
 
+//锦标赛不能进入
 func (cs *ChampionShip) IsOutJoin() bool {
 	if cs.starttime + cs.tconf.DelaySign <= int32(util.CURTIME()) {
 		return true
@@ -223,6 +240,7 @@ func (cs *ChampionShip) Tick(now int64) {
 	cs.ticker1s.Run(now)
 }
 
+//能否显示锦标赛
 func (cs *ChampionShip) CanShow() bool {
 	if cs.starttime == 0 {
 		return false
@@ -233,6 +251,7 @@ func (cs *ChampionShip) CanShow() bool {
 	return false
 }
 
+//是否是竞标赛成员
 func (cs *ChampionShip) IsMember(uid int64) bool {
 	_, ok := cs.members[uid]
 	if ok {
@@ -241,6 +260,7 @@ func (cs *ChampionShip) IsMember(uid int64) bool {
 	return false
 }
 
+//是否是淘汰成员
 func (cs *ChampionShip) IsOutMember(uid int64) bool {
 	member, ok := cs.members[uid]
 	if !ok {
@@ -252,6 +272,7 @@ func (cs *ChampionShip) IsOutMember(uid int64) bool {
 	return false
 }
 
+//设置玩家淘汰
 func (cs *ChampionShip) SetMemberOut(uid int64) {
 	member, ok := cs.members[uid]
 	if !ok {
@@ -279,6 +300,7 @@ func (cs *ChampionShip) SetMemberOut(uid int64) {
 	}
 }
 
+//添加锦标赛成员
 func (cs *ChampionShip) AddMember(uid int64, join int32) {
 	member := &CSPlayer{}
 	key := fmt.Sprintf("charbase_%d", uid)
@@ -297,11 +319,13 @@ func (cs *ChampionShip) AddMember(uid int64, join int32) {
 	}
 }
 
+//删除锦标赛成员
 func (cs *ChampionShip) DelMember(uid int64) {
 	delete(cs.members, uid)
 	cs.DelUserRank(uid)
 }
 
+//开始锦标赛
 func (cs *ChampionShip) StartMatch() bool {
 	if int32(len(cs.members)) < cs.tconf.SNum {
 		log.Info("锦标赛[%d] 由于人数不足不能开启", cs.uid)
@@ -322,12 +346,13 @@ func (cs *ChampionShip) StartMatch() bool {
 	cs.NotifyUserRoom(cs.roommember)
 	cs.state = CSGoing
 
-	start := SysTimerMgr().GetStartTimeByTimeId(cs.tconf.TimeId, cs.tconf.Type)
-	ChampionMgr().CreateChampionShip(cs.tid, start)
+	//start := SysTimerMgr().GetStartTimeByTimeId(cs.tconf.TimeId, cs.tconf.Type)
+	//ChampionMgr().CreateChampionShip(cs.tid, start)
 	log.Info("锦标赛[%d] tid[%d] 开启", cs.uid, cs.tid)
 	return true
 }
 
+//创建锦标赛桌子
 func (cs *ChampionShip) CreateRoom() int64{
 	roomuid := RoomMgr().CreatTexasRoomForChampion(cs.tconf.RoomId, cs)
 	if roomuid != 0 {
@@ -343,6 +368,7 @@ func (cs *ChampionShip) CreateRoom() int64{
 	return 0
 }
 
+//分配玩家到每张桌子上
 func (cs *ChampionShip) DispatchRoom() {
 	dispatched := make(map[int64]int64)
 	for uid, _ := range cs.members {
@@ -364,6 +390,7 @@ func (cs *ChampionShip) DispatchRoom() {
 	cs.SetMinRoom()
 }
 
+//中途加入玩家
 func (cs *ChampionShip) JoinHalfWay(userid int64) {
 	var joinok bool = false
 	var ruid int64 = 0
@@ -393,6 +420,7 @@ func (cs *ChampionShip) JoinHalfWay(userid int64) {
 	}
 }
 
+//加入一场桌子比赛
 func (cs *ChampionShip) JoinOneMatch(userid int64, roomid int64) {
 	texas := RoomMgr().FindTexas(roomid)
 	if texas != nil {
@@ -412,6 +440,7 @@ func (cs *ChampionShip) JoinOneMatch(userid int64, roomid int64) {
 	}
 }
 
+//跟新玩家筹码
 func (cs *ChampionShip) UpdateUserBankRoll(userid int64, num int64) {
 	if member, ok := cs.members[userid]; ok {
 		cs.sumbankroll -= member.bankroll
@@ -421,6 +450,7 @@ func (cs *ChampionShip) UpdateUserBankRoll(userid int64, num int64) {
 	}
 }
 
+//获取玩家筹码
 func (cs *ChampionShip) GetUserBankRoll(userid int64) int64 {
 	if member, ok := cs.members[userid]; ok {
 		return member.bankroll
@@ -428,6 +458,7 @@ func (cs *ChampionShip) GetUserBankRoll(userid int64) int64 {
 	return 0
 }
 
+//获取玩家加入锦标赛方式
 func (cs *ChampionShip) GetUserJoinWay(userid int64) int32 {
 	if member, ok := cs.members[userid]; ok {
 		return member.joinway
@@ -435,6 +466,7 @@ func (cs *ChampionShip) GetUserJoinWay(userid int64) int32 {
 	return 0
 }
 
+//获取玩家淘汰时间
 func (cs *ChampionShip) GetUserOutTime(userid int64) int32 {
 	if member, ok := cs.members[userid]; ok {
 		return member.outtime
@@ -442,6 +474,7 @@ func (cs *ChampionShip) GetUserOutTime(userid int64) int32 {
 	return 0
 }
 
+//获取平均筹码
 func (cs *ChampionShip) GetAvgChips() int64 {
 	if cs.curmembernum != 0 {
 		return cs.sumbankroll/int64(cs.curmembernum)
@@ -450,6 +483,7 @@ func (cs *ChampionShip) GetAvgChips() int64 {
 	}
 }
 
+//玩家游戏结束
 func (cs *ChampionShip) UserGameOver(userid int64) {
 	if member, ok := cs.members[userid]; ok {
 		send := &msg.RS2C_PushMTTWeedOut{}
@@ -465,6 +499,7 @@ func (cs *ChampionShip) UserGameOver(userid int64) {
 	}
 }
 
+//找到最小人数房间
 func (cs *ChampionShip) SetMinRoom() {
 	//找到最小人数房间
 	cs.minroomnum = 0
@@ -479,6 +514,7 @@ func (cs *ChampionShip) SetMinRoom() {
 	}  
 }
 
+//拆桌子 重新分配该桌子的玩家
 func (cs *ChampionShip) ReDispatchRoom(roomuid int64) bool {
 	room, ok := cs.roommember[roomuid]
 	if !ok {
@@ -540,6 +576,7 @@ func (cs *ChampionShip) ReDispatchRoom(roomuid int64) bool {
 	return false
 }
 
+//通知玩家进房间
 func (cs *ChampionShip) NotifyUserRoom(roommember map[int64]map[int64]int64) {
 	send := &msg.RS2GW_MTTRoomMember{}
 	for key, room := range roommember {
@@ -554,6 +591,7 @@ func (cs *ChampionShip) NotifyUserRoom(roommember map[int64]map[int64]int64) {
 	GateMgr().Broadcast(send)
 }
 
+//通知玩家涨盲
 func (cs *ChampionShip) NotifyUserBlind(roommember map[int64]map[int64]int64) {
 	send := &msg.RS2C_PushBlindChange{}
 	send.Sblind = pb.Int64(cs.bconf.SBlind)
@@ -570,6 +608,7 @@ func (cs *ChampionShip) NotifyUserBlind(roommember map[int64]map[int64]int64) {
 	}
 }
 
+//获得最终排名
 func (cs *ChampionShip) GetFinalRank(uid int64) int32{
 	for k, v := range cs.finalrank {
 		if v == uid {
@@ -579,21 +618,25 @@ func (cs *ChampionShip) GetFinalRank(uid int64) int32{
 	return 0
 }
 
+//添加玩家实时排名
 func (cs *ChampionShip) AddUserRank(userid int64) {
 	zMem := redis.Z{Score: float64(cs.GetUserBankRoll(userid)), Member: userid}
 	Redis().ZAdd(fmt.Sprintf("csrank_%d", cs.uid), zMem)
 	log.Info("锦标赛[%d] 玩家[%d] 更新比分[%d]", cs.uid, userid, cs.GetUserBankRoll(userid))
 }
 
+//删除玩家排名
 func (cs *ChampionShip) DelUserRank(userid int64) {
 	Redis().ZRem(fmt.Sprintf("csrank_%d", cs.uid), fmt.Sprintf("%d", userid))
 }
 
+//获取玩家实时排名
 func (cs *ChampionShip) GetUserRank(userid int64) int32{
 	rank := Redis().ZRevRank(fmt.Sprintf("csrank_%d", cs.uid), fmt.Sprintf("%d", userid)).Val()
 	return int32(rank) + 1
 }
 
+//计算玩家实时排名
 func (cs *ChampionShip) CalcRank(roomuid int64) {
 	room, ok := cs.roommember[roomuid]
 	if !ok {
@@ -605,6 +648,7 @@ func (cs *ChampionShip) CalcRank(roomuid int64) {
 	log.Info("锦标赛[%d], 房间[%d], 结算排行", cs.uid, roomuid)
 }
 
+//锦标赛结束
 func (cs *ChampionShip) GameOver() {
 	cs.RewardAll()
 	cs.SaveData()
@@ -613,22 +657,25 @@ func (cs *ChampionShip) GameOver() {
 	log.Info("锦标赛[%d] 比赛结束", cs.uid)
 }
 
+//根据排名获得奖励id
 func (cs *ChampionShip) GetAwardByRank (rank int32) int32 {
 	for _, v := range tbl.TChampionshipPrize.ChampionshipPrizeById {
-		if cs.tconf.Prize == v.PrizeId && v.Start >= rank && rank <= v.End {
+		if cs.tconf.Prize == v.PrizeId && v.Start <= rank && rank <= v.End {
 			return v.AwardId
 		}
 	}
 	return 0	
 }
 
+//冠军通知
 func (cs *ChampionShip) ChampionNotify(name string, tid int32, aid int32) {
-	txt := fmt.Sprintf("{\"0\":\"%s\",\"1\":%d,\"2\":%d,}", name, tid, aid)
+	txt := fmt.Sprintf("{\"0\":\"%s\",\"1\":%d,\"2\":%d}", name, tid, aid)
 	send := &msg.RS2GW_ChatInfo{}
 	send.Chat = def.MakeChatInfo(def.ChatAll, txt, 0, "", def.MTTMsg, def.MsgShowAll)
 	GateMgr().Broadcast(send)
 }
 
+//分配奖励
 func (cs *ChampionShip) RewardAll() {
 	var rank int32 = 1
 	for i := len(cs.finalrank)-1; i >= 0; i-- {
@@ -659,6 +706,7 @@ func (cs *ChampionShip) RewardAll() {
 	}
 }
 
+//销毁桌子
 func (cs *ChampionShip) DestoryRoom() {
 	for ruid, _ := range cs.roommember {
 		texas := RoomMgr().FindTexas(ruid)
@@ -668,6 +716,7 @@ func (cs *ChampionShip) DestoryRoom() {
 	}
 }
 
+//存储比赛数据
 func (cs *ChampionShip) SaveData() {
 	pipe := Redis().Pipeline()
 	defer pipe.Close()
@@ -720,6 +769,7 @@ func (cs *ChampionShip) SaveData() {
 	}
 }
 
+//通过id查找成员
 func (cs *ChampionShip) GetMemberById(uid int64) *CSPlayer {
 	if member, ok := cs.members[uid]; ok {
 		return member
@@ -727,6 +777,7 @@ func (cs *ChampionShip) GetMemberById(uid int64) *CSPlayer {
 	return nil
 }
 
+//获得排名第一的成员
 func (cs *ChampionShip) GetFirstMember() *CSPlayer {
 	if len(cs.finalrank) == 0 {
 		return nil
@@ -738,6 +789,7 @@ func (cs *ChampionShip) GetFirstMember() *CSPlayer {
 	return nil
 }
 
+//通过成员id获得实时排名
 func (cs *ChampionShip) GetRankById(uid int64) int32 {
 	rank := Redis().ZRevRank(fmt.Sprintf("csrank_%d", cs.uid), fmt.Sprintf("%d", uid))
 	if rank.Err() == nil {
@@ -747,6 +799,7 @@ func (cs *ChampionShip) GetRankById(uid int64) int32 {
 	}
 }
 
+//是否可以重购
 func (cs *ChampionShip) CanRebuy(uid int64) bool {
 	if !cs.IsMember(uid) {
 		return false
@@ -760,10 +813,12 @@ func (cs *ChampionShip) CanRebuy(uid int64) bool {
 	return true
 }
 
+//增加重构次数
 func (cs *ChampionShip) AddRebuy(uid int64) {
 	cs.members[uid].rebuy++
 }
 
+//获取玩家重构次数
 func (cs *ChampionShip) GetUserRebuy(uid int64) int32 {
 	if member, ok := cs.members[uid]; ok {
 		return member.rebuy
@@ -771,6 +826,7 @@ func (cs *ChampionShip) GetUserRebuy(uid int64) int32 {
 	return 0
 }
 
+//是否可以增购
 func (cs *ChampionShip) CanAddon(uid int64) bool {
 	if !cs.IsMember(uid) {
 		return false
@@ -784,10 +840,12 @@ func (cs *ChampionShip) CanAddon(uid int64) bool {
 	return true
 }
 
+//增加增购
 func (cs *ChampionShip) AddAddon(uid int64) {
 	cs.members[uid].addon++
 }
 
+//获取玩家增购次数
 func (cs *ChampionShip) GetUserAddon(uid int64) int32 {
 	if member, ok := cs.members[uid]; ok {
 		return member.addon
@@ -797,6 +855,7 @@ func (cs *ChampionShip) GetUserAddon(uid int64) int32 {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
+//锦标赛管理器
 type ChampionManager struct {
 	championships map[int32]*ChampionShip
 	ticker1s *util.GameTicker
@@ -804,6 +863,7 @@ type ChampionManager struct {
 	lastinittime int32
 }
 
+//初始化
 func (cm *ChampionManager) Init() bool {
 	cm.championships = make(map[int32]*ChampionShip)
 	cm.championovers = make(map[int32]*ChampionShip)
@@ -814,6 +874,7 @@ func (cm *ChampionManager) Init() bool {
 	return true
 }
 
+//创建锦标赛
 func (cm *ChampionManager) InitChampionShip() {
 	if RoomSvr().Name() != tbl.Room.MTTRoomServer {
 		return
@@ -824,6 +885,21 @@ func (cm *ChampionManager) InitChampionShip() {
 	}
 }
 
+//重新创建锦标赛 0点调用
+func (cm *ChampionManager) ReInitChampionShip() {
+	if RoomSvr().Name() != tbl.Room.MTTRoomServer {
+		return
+	}
+	for _, data := range tbl.TChampionship.ChampionshipById {
+		if data.Type == 2 {
+			continue
+		}
+		start := SysTimerMgr().GetStartTimeByTimeId(data.TimeId, data.Type)
+		cm.CreateChampionShip(data.Id, start)
+	}
+}
+
+//创建一场锦标赛
 func (cm *ChampionManager) CreateChampionShip(tid int32, start int32) {
 	if start == 0 {
 		return
@@ -835,12 +911,12 @@ func (cm *ChampionManager) CreateChampionShip(tid int32, start int32) {
 	cs.Init()
 	cs.starttime = start
 	cm.championships[cs.uid] = cs
-	//log.Info("创建锦标赛%d %d 开始时间%d" , tid, cs.uid, start)
+	log.Info("创建锦标赛[%d] uid[%d] 开始时间[%d]" , tid, cs.uid, start)
 }
 
 func (cm *ChampionManager) Handler1sTick(now int64) {
 	if !util.IsSameDay(int64(cm.lastinittime), util.CURTIME()) {
-		cm.InitChampionShip()
+		cm.ReInitChampionShip()
 		cm.lastinittime = int32(util.CURTIME())
 	}
 }
@@ -861,12 +937,15 @@ func (cm *ChampionManager) Tick(now int64) {
 	}
 }
 
+//通过ID获取锦标赛
 func (cm *ChampionManager) FindCShipById(uid int32) *ChampionShip {
 	if cs, ok := cm.championships[uid]; ok {
 		return cs
 	}
 	return nil
 }
+
+////////////////////////////////////////////////////////////消息处理/////////////////////////////////////////////////////////////////////////
 
 func (cm *ChampionManager) ReqMTTList(gid int, uid int64) {
 	send := &msg.RS2C_RetMTTList{}

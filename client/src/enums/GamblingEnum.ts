@@ -278,7 +278,7 @@ enum SlotLayerType
 enum PlayerState
 {
 	/**
-	 * 等待下一局
+	 * 等待下一局 客户端维护
 	 */
 	WaitNext = 0,
 	/**

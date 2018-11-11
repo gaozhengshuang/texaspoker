@@ -28,6 +28,7 @@ message L2C_RetLogin {
     optional string reason = 2;     // 失败原因
     optional msg.IpHost gatehost = 3;
     optional string verifykey = 5;  // 客户端使用这个key登陆网关
+	optional string logintype = 6;
 }
 
 // 注册账户--第一步 请求验证码
@@ -51,6 +52,25 @@ message L2C_RetRegistAccount {
     optional string errcode = 1;
 }
 
+// apple账户登录
+message C2L_ReqLoginApple {
+	optional string openid = 1;
+	optional string keyurl = 2;
+	optional string signature = 3;
+	optional uint64 timestamp = 5;
+	optional string salt = 6;
+}
+
+// google账户登录
+message C2L_ReqLoginGoogle {
+
+}
+
+// facebook 账户登录
+message C2L_ReqLoginFaceBook {
+	optional string openid = 1;
+	optional string token = 2;
+}
 
 // --------------------------------------------------------------------------
 /// @brief Client <----> GateServer

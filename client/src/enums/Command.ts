@@ -6,11 +6,32 @@ class Command
     public static readonly Login_login: string = "login";
     public static readonly Login_exchange: string = "exchange";
     public static readonly Login_auth: string = "auth";
+    //----------------------------登录-------------------------------
+    /**
+     * 测试账号登录
+     */
+    public static readonly C2L_ReqLogin = "msg.C2L_ReqLogin";
+    /**
+     * 苹果gamecenter 登录
+     */
+    public static readonly C2L_ReqLoginApple:string = "msg.C2L_ReqLoginApple";
+    /**
+     * googleplay 登录
+     */
+    public static readonly C2L_ReqLoginGoogle:string ="msg.C2L_ReqLoginGoogle";
+    /**
+     * facebook 登录
+     */
+    public static readonly C2L_ReqLoginFaceBook:string = "msg.C2L_ReqLoginFaceBook";
 
     //--------------------------------------------------------------
     // System
     //--------------------------------------------------------------
 
+    /**
+     * C2GW_ReqLogin
+     */
+    public static readonly C2GW_ReqLogin = "msg.C2GW_ReqLogin";
     /**
      * 心跳
      */

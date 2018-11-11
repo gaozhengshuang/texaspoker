@@ -2,21 +2,21 @@ class Channel_android extends ChannelBase
 {
 	public Login(loginType: string, isAutoLogin: boolean)
 	{
-		if (loginType == ChannelLoginType.Weixin)
+		if (loginType == ChannelLoginType.FaceBook) // move todo
 		{
 			//微信登录
-			if (isAutoLogin)
-			{
-				let token: string = PrefsManager.getLoginToken();
-				if (token)
-				{
-					ChannelManager.OnTokenLoginSucceed.dispatch(WxAuthorizeType.App + '###2###' + token);
-					return;
-				}
-			}
+			// if (isAutoLogin)
+			// {
+			// 	let token: string = PrefsManager.getLoginToken();
+			// 	if (token)
+			// 	{
+			// 		ChannelManager.OnTokenLoginSucceed.dispatch(WxAuthorizeType.App + '###2###' + token);
+			// 		return;
+			// 	}
+			// }
 			egret.ExternalInterface.call(ExtFuncName.Login, loginType);
 		}
-		else if (loginType == ChannelLoginType.Account || ChannelManager.loginType == ChannelLoginType.IntranetAccount) //微端测试使用
+		else if (ChannelManager.loginType == ChannelLoginType.IntranetAccount) //微端测试使用 //loginType == ChannelLoginType.Account ||  // move todo
 		{
 			this.accountLogin(isAutoLogin);
 		}

@@ -56,13 +56,17 @@ class OperatePlatform
 class ChannelType
 {
 	/**
-	 * 游客渠道标识，所有平台的游客都是这个标识
-	 */
-	public static readonly guest = "guest";
-	/**
 	 * 巨枫
 	 */
 	public static readonly giantfun = "giantfun";
+	/**
+	 * 苹果商店
+	 */
+	public static readonly applestore = "applestore";
+	/**
+	 * 谷歌商店
+	 */
+	public static readonly googleplay = "googleplay";
 }
 /**
  * 渠道登录类型
@@ -70,57 +74,35 @@ class ChannelType
 class ChannelLoginType
 {
 	/**
-	 * 巨枫娱乐登录
-	 */
-	public static readonly GiantFun: string = "giantfun";
-	/**
-	 * 游客
-	 */
-	public static readonly Guest: string = "guest";
-	/**
-	 * 内网游客登录
-	 */
-	public static readonly IntranetGuest: string = "intranetGuest";
-	/**
 	 *  内网账号登录
 	 */
-	public static readonly IntranetAccount: string = "intranetAccount";
+	public static readonly IntranetAccount: string = "IntranetAccount";
 	/**
-	 * 微信登录
+	 *  FaceBook
 	 */
-	public static readonly Weixin: string = "weixin";
+	public static readonly FaceBook: string = "FaceBook";
 	/**
-	 * 外网游戏账号登录
+	 *  GameCenter ios
 	 */
-	public static readonly Account: string = "account";
+	public static readonly GameCenter: string = "GameCenter";
 	/**
-	 * 客户端标识的渠道登录,Token登录
+	 *  GooglePlay android
 	 */
-	public static readonly Normal: string = "";
+	public static readonly GooglePlay: string = "GooglePlay";
+
+
 
 	public static IsViewAccount(loginType: string): boolean
 	{
 		switch (loginType)
 		{
-			case ChannelLoginType.GiantFun:
-			case ChannelLoginType.Guest:
-			case ChannelLoginType.Account:
-			case ChannelLoginType.IntranetGuest:
+			case ChannelLoginType.FaceBook:
+			case ChannelLoginType.GameCenter:
+			case ChannelLoginType.GooglePlay:
 			case ChannelLoginType.IntranetAccount:
 				return true;
 		}
 		return false;
-	}
-	/**
-	 * 获取登录类型的token有效期(秒)
-	 */
-	public static getTokenExpire(loginType: string): number
-	{
-		if (loginType == ChannelLoginType.Weixin)
-		{
-			return 3600 * 24 * 30;//30天
-		}
-		return 0;
 	}
 	/**
 	 * 获取渠道登录列表
@@ -130,38 +112,30 @@ class ChannelLoginType
 		let list: string[] = [];
 		if (DEBUG || game.System.isLocalhost)
 		{
-			if (game.System.isMicro || game.System.isWeChat || game.System.isLocalhost == false)
-			{
-				list.push(ChannelLoginType.Weixin);
-			}
-			list.push(ChannelLoginType.GiantFun);
-			list.push(ChannelLoginType.Account);
-			list.push(ChannelLoginType.Guest);
+			list.push(ChannelLoginType.FaceBook);
 			list.push(ChannelLoginType.IntranetAccount);
-			list.push(ChannelLoginType.IntranetGuest);
-			if (game.System.isWeb)
-			{
-				//debug的web版有token登录调试用
-				list.push(ChannelLoginType.Normal);
-			}
 		}
 		else
 		{
-			if (game.System.isMicro)
+			if (channelType == ChannelType.applestore)
 			{
-				//安装包
+				list.push(ChannelLoginType.FaceBook);
+				list.push(ChannelLoginType.GameCenter);
 				if (isTest == false || isSafe == false)
 				{
-					list.push(ChannelLoginType.Weixin);
 				}
-				list.push(ChannelLoginType.GiantFun);
 			}
-			else
+			else if (channelType == ChannelType.googleplay)
 			{
-				//非安装包
-				list.push(ChannelLoginType.Weixin);
-				list.push(ChannelLoginType.GiantFun);
+				list.push(ChannelLoginType.FaceBook);
+				list.push(ChannelLoginType.GooglePlay);
 			}
+			else if (channelType == ChannelType.giantfun)
+			{
+				list.push(ChannelLoginType.IntranetAccount);
+			}
+			//to do 测试
+			list.push(ChannelLoginType.IntranetAccount); 
 		}
 		if (list.length <= 0)
 		{

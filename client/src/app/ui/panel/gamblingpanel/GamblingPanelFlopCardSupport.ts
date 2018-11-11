@@ -69,7 +69,7 @@ class GamblingPanelFlopCardSupport extends BaseGamblingPanelSupport
 		{
 			this.actionPosChangeHandler(data.handCard);
 		}
-		if(this._isOnFlop)
+		if (this._isOnFlop)
 		{
 			this.showSelfCard();
 		}
@@ -248,6 +248,7 @@ class GamblingPanelFlopCardSupport extends BaseGamblingPanelSupport
 	private showCardType()
 	{
 		//this.target.cardTypeGroup.visible = true;
+		GamblingManager.guessHandler.setResultListInfo(); //看到卡牌的时候显示中奖信息
 	}
 	/**
 	 * 获取动画

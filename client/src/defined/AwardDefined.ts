@@ -49,7 +49,7 @@ class AwardDefined
 					{
 						if (isShowquantifier)
 						{
-							str += name + count + "个";
+							str += name + game.MathUtil.formatNum(count) + "个";
 						} else
 						{
 							str += name;

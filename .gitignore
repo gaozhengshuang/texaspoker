@@ -37,3 +37,5 @@ git
 /client/libs/exml.e.d.ts
 /client/libs/exml.e.d.ts
 /client/resource/default.thm.json
+/client_android/build
+/client_android/app/build
