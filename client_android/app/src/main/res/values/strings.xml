@@ -3,6 +3,7 @@
     <string name="bundleId">org.istar9.a.xydp</string>
     <string name="splashTxt">Starting...</string>
     <string name="channelType">googleplay</string>
+    <string name="google_web_client_id">833679027611-a3m8gvpknba2e06pr8m4cdrprfh43vof.apps.googleusercontent.com</string>
     <string name="facebook_app_id">509788029497020</string>
     <string name="fb_login_protocol_scheme">fb509788029497020</string>
 </resources>

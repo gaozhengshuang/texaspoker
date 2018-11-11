@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "833679027611-76s139qbu0keqhljl0f648f8981gjr9r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jiantfuntexaspoker.main",
+            "certificate_hash": "7f21f25d659bebbbd9a5e6b56f0c72a2b1dc1017"
+          }
+        },
+        {
+          "client_id": "833679027611-9npua3k4vcjgp8g3q6g7094j1r48edef.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jiantfuntexaspoker.main",
+            "certificate_hash": "d3fca7462efcf5163e37d6b4ee6ad8ef43d61f69"
+          }
+        },
+        {
           "client_id": "833679027611-a3m8gvpknba2e06pr8m4cdrprfh43vof.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +45,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "833679027611-a3m8gvpknba2e06pr8m4cdrprfh43vof.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
