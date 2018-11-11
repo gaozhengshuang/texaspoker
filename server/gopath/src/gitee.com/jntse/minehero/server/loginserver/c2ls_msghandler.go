@@ -40,6 +40,15 @@ type HttpArguLoginFaceBookData struct {
 	User_id 	string
 }
 
+type HttpArguLoginGoogle struct {
+	Iss string
+	Sub string
+	Azp string
+	Aud string
+	Iat string
+	Exp string
+}
+
 type C2LSMsgHandler struct {
 	msgparser *network.ProtoParser
 }
@@ -64,6 +73,7 @@ func (mh* C2LSMsgHandler) Init() {
 	mh.msgparser.RegistProtoMsg(msg.C2L_ReqRegistAuthCode{}, on_C2L_ReqRegistAuthCode)
 	mh.msgparser.RegistProtoMsg(msg.C2L_ReqLoginApple{}, on_C2L_ReqLoginApple)
 	mh.msgparser.RegistProtoMsg(msg.C2L_ReqLoginFaceBook{}, on_C2L_ReqLoginFaceBook)
+	mh.msgparser.RegistProtoMsg(msg.C2L_ReqLoginGoogle{}, on_C2L_ReqLoginGoogle)
 
 	// 发
 	//mh.msgparser.RegistSendProto(msg.L2C_RetLogin{})
@@ -447,6 +457,7 @@ func on_C2L_ReqLoginFaceBook(session network.IBaseNetSession, message interface{
 
 func HttpsGet(url, cacert, cert, certkey string) (*network.HttpResponse, error) {
 	// 加载根证书
+	/*
 	pool := x509.NewCertPool()
 	caCrt, err := ioutil.ReadFile(cacert)
 	if err != nil {
@@ -458,17 +469,18 @@ func HttpsGet(url, cacert, cert, certkey string) (*network.HttpResponse, error) 
 	if err != nil {
 		return nil, fmt.Errorf("Loadx509keypair err:%s", err)
 	}
-
-	//tr := &http.Transport{
-	//	TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-	//}
+	*/
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	/*
 	tr := &http.Transport {
 		TLSClientConfig: &tls.Config {
 			RootCAs:      pool,	// 如不指定使用默认根证书
 			Certificates: []tls.Certificate{cliCrt},
 		},
 	}
-
+	*/
 	client := &http.Client{Transport: tr}
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil { return nil, err }
@@ -481,4 +493,97 @@ func HttpsGet(url, cacert, cert, certkey string) (*network.HttpResponse, error) 
 	rbody, err := ioutil.ReadAll(resp.Body)
 	if err != nil { return nil, err }
 	return &network.HttpResponse{Code:resp.StatusCode, Status: resp.Status, Body: rbody}, nil
+}
+
+func on_C2L_ReqLoginGoogle(session network.IBaseNetSession, message interface{}) {
+	tm1 := util.CURTIMEUS()
+	tmsg := message.(*msg.C2L_ReqLoginFaceBook)
+	openid, token :=  tmsg.GetOpenid(), tmsg.GetToken()
+	log.Info("ReqLoginGoogle openid: %s   token: %s", openid, token)
+	account := fmt.Sprintf("facebook-%s",openid)
+	errcode := ""
+	appid := "509788029497020"  //应用id
+	//appsecret := "215495db0076b0778084d7b44d6655a1"         //应用秘钥
+	url := fmt.Sprintf("https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=%s", token)
+	caCert := "../cert/wechat/cacert.pem" //后续修正
+	certFile := "../cert/wechat/apiclient_cert.pem" //后续修正
+	certKey := "../cert/wechat/apiclient_key.pem" //后续修正
+	switch {
+		default:
+		resp, err := HttpsGet(url, caCert, certFile, certKey)
+		if err != nil {
+			log.Error("ReqLoginGoogle HttpsGet Error :%s", err)
+			errcode = "facebook验证出错"
+			break
+		}
+		if resp.Code != http.StatusOK {
+			log.Error("ReqLoginGoogle CheckResponseError errcode:[%d] status:[%s]", resp.Code, resp.Status)
+			errcode = "facebook验证出错"
+			break
+		}
+		strBody := util.BytesToString(resp.Body)
+		log.Info("CheckResponse body:\n%s", strBody)
+		objcmd := &HttpArguLoginGoogle{}
+		objerror := json.Unmarshal(resp.Body, objcmd)
+		if objerror != nil {
+			log.Error("json.Unmarshal to HttpArguLoginFaceBookBase err[%s]", objerror)
+			errcode = "facebook验证出错"
+			break
+		}
+		
+		if objcmd.Aud != appid {
+			log.Error("ReqLoginGoogle Check appid fail aud: %s  appid: %s", objcmd.Aud, appid)
+			errcode = "facebook验证未通过"
+			break 
+		}
+		
+		if errcode = DirectRegistAccount(account, ""); errcode != "" {
+			break
+		}
+		
+		if Login().CheckInSetFind(account) == true {
+			errcode = "同时登陆多个账户"
+			break
+		}
+
+		// TODO: 从Redis获取账户缓存Gate信息，实现快速登陆
+		log.Info("账户[%s]登陆Login ", account)
+		if ok := QuickLogin(session, account, "Google"); ok == true {
+			return
+		}
+		// 挑选一个负载较低的agent
+		agent := GateMgr().FindLowLoadGate()
+		if agent == nil {
+			errcode = "没有可用Gate"
+			break
+		}
+
+		// 生成校验key，玩家简单信息发送到对应Gate,用于验证玩家登陆Gate合法
+		now := util.CURTIMEMS()
+		signbytes := []byte(fmt.Sprintf("<%d-%s>", now, account))
+		md5array := md5.Sum(signbytes)
+		md5bytes := []byte(md5array[:])
+		md5string := fmt.Sprintf("%s_%x", account, md5bytes)
+
+		sendmsg := &msg.L2GW_ReqRegistUser{
+			Account : pb.String(account),
+			Expire : pb.Int64(now+10000),	// 10秒
+			Gatehost : pb.String(agent.Host()),
+			Sid : pb.Int(session.Id()),
+			Timestamp: pb.Int64(now),
+			Verifykey : pb.String(md5string),
+			Logintype : pb.String("Google"),
+		}
+		agent.SendMsg(sendmsg)
+		Login().CheckInSetAdd(account, session)		// 避免同时登陆
+		tm5 := util.CURTIMEUS()
+		log.Info("登陆验证通过，请求注册玩家到Gate sid[%d] account[%s] host[%s] 登陆耗时%dus", session.Id(), account, agent.Host(), tm5-tm1)
+		return
+	}
+
+	if errcode != "" {
+		log.Info("账户:[%s] sid[%d] 登陆失败[%s]", account, session.Id(), errcode)
+		session.SendCmd(newL2C_RetLogin(errcode, "", 0, "", "Google"))
+		session.Close()
+	}
 }
