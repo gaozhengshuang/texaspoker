@@ -500,7 +500,7 @@ func on_C2L_ReqLoginGoogle(session network.IBaseNetSession, message interface{})
 	tmsg := message.(*msg.C2L_ReqLoginFaceBook)
 	openid, token :=  tmsg.GetOpenid(), tmsg.GetToken()
 	log.Info("ReqLoginGoogle openid: %s   token: %s", openid, token)
-	account := fmt.Sprintf("facebook-%s",openid)
+	account := fmt.Sprintf("google-%s",openid)
 	errcode := ""
 	appid := "509788029497020"  //应用id
 	//appsecret := "215495db0076b0778084d7b44d6655a1"         //应用秘钥
@@ -513,12 +513,12 @@ func on_C2L_ReqLoginGoogle(session network.IBaseNetSession, message interface{})
 		resp, err := HttpsGet(url, caCert, certFile, certKey)
 		if err != nil {
 			log.Error("ReqLoginGoogle HttpsGet Error :%s", err)
-			errcode = "facebook验证出错"
+			errcode = "google验证出错"
 			break
 		}
 		if resp.Code != http.StatusOK {
 			log.Error("ReqLoginGoogle CheckResponseError errcode:[%d] status:[%s]", resp.Code, resp.Status)
-			errcode = "facebook验证出错"
+			errcode = "google验证出错"
 			break
 		}
 		strBody := util.BytesToString(resp.Body)
@@ -527,13 +527,13 @@ func on_C2L_ReqLoginGoogle(session network.IBaseNetSession, message interface{})
 		objerror := json.Unmarshal(resp.Body, objcmd)
 		if objerror != nil {
 			log.Error("json.Unmarshal to HttpArguLoginFaceBookBase err[%s]", objerror)
-			errcode = "facebook验证出错"
+			errcode = "google验证出错"
 			break
 		}
 		
 		if objcmd.Aud != appid {
 			log.Error("ReqLoginGoogle Check appid fail aud: %s  appid: %s", objcmd.Aud, appid)
-			errcode = "facebook验证未通过"
+			errcode = "google验证未通过"
 			break 
 		}
 		
