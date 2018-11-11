@@ -957,6 +957,8 @@ func (this *TexasPlayer) StandUp() bool {
 			this.Init()
 			this.room.AddWatcher(this)
 			this.SetTimeReward()
+		}else {
+			AIUserMgr().Recycle(this.owner)	// 回收AI
 		}
 		send := &msg.RS2C_PushSitOrStand{}
 		send.Roleid = pb.Int64(this.owner.Id())

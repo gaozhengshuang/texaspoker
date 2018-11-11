@@ -146,6 +146,10 @@ func (this *AIUserManager) PickOutUser(num int32) []*RoomUser {
 	return users
 }
 
+func (this *AIUserManager) Recycle(u *RoomUser) {
+	delete(this.busylist, u.Id())
+	this.idlelist[u.Id()] = u
+}
 
 
 //func (this *AIUserManager) GetUserByNum(num int32, usermap map[int64]int64) []*RoomUser {
