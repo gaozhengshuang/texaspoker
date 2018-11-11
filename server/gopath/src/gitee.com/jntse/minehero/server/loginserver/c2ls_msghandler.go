@@ -548,7 +548,7 @@ func on_C2L_ReqLoginGoogle(session network.IBaseNetSession, message interface{})
 
 		// TODO: 从Redis获取账户缓存Gate信息，实现快速登陆
 		log.Info("账户[%s]登陆Login ", account)
-		if ok := QuickLogin(session, account, "Google"); ok == true {
+		if ok := QuickLogin(session, account, "GooglePlay"); ok == true {
 			return
 		}
 		// 挑选一个负载较低的agent
@@ -572,7 +572,7 @@ func on_C2L_ReqLoginGoogle(session network.IBaseNetSession, message interface{})
 			Sid : pb.Int(session.Id()),
 			Timestamp: pb.Int64(now),
 			Verifykey : pb.String(md5string),
-			Logintype : pb.String("Google"),
+			Logintype : pb.String("GooglePlay"),
 		}
 		agent.SendMsg(sendmsg)
 		Login().CheckInSetAdd(account, session)		// 避免同时登陆
@@ -583,7 +583,7 @@ func on_C2L_ReqLoginGoogle(session network.IBaseNetSession, message interface{})
 
 	if errcode != "" {
 		log.Info("账户:[%s] sid[%d] 登陆失败[%s]", account, session.Id(), errcode)
-		session.SendCmd(newL2C_RetLogin(errcode, "", 0, "", "Google"))
+		session.SendCmd(newL2C_RetLogin(errcode, "", 0, "", "GooglePlay"))
 		session.Close()
 	}
 }
