@@ -80,6 +80,7 @@ public class InteractionJsVst {
             @Override
             public void callback(String message) {
                 Log.d(_target.TAG, "登录类型" + message);
+                loginType = message;
                 switch (message) {
                     case ChannelLoginType.FaceBook:
                         AccessToken accessToken = AccessToken.getCurrentAccessToken();
@@ -97,7 +98,7 @@ public class InteractionJsVst {
                         GoogleSignInAccount account = _target.googleLoginVst.account;
                         if(account != null)
                         {
-                            loginSucces(account.getIdToken(), "");
+                            loginSucces(account.getIdToken(), account.getId());
                         }
                         else
                         {
@@ -120,7 +121,6 @@ public class InteractionJsVst {
             @Override
             public void callback(String message) {
                 Log.d(_target.TAG, "登录类型" + message);
-                loginType = message;
                 boolean isLoggedIn = false;
                 switch (message) {
                     case ChannelLoginType.FaceBook:

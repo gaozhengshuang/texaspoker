@@ -87,18 +87,14 @@ public class MainActivity extends Activity {
         _splashVst = new SplashVst(this);
         _splashVst.showSplashView();
         fbLoginVst = new FaceBookLoginVst(this);
-        googleLoginVst = new GoogleLoginVst(this);
         setContentView(nativeAndroid.getRootFrameLayout());
     }
     @Override
     public void onStart()
     {
         super.onStart();
-        switch (interactionJsVst.loginType) {
-            case ChannelLoginType.GooglePlay:
-                this.googleLoginVst.onStart();
-                break;
-        }
+        googleLoginVst = new GoogleLoginVst(this);
+        googleLoginVst.onStart();
     }
     @Override
     protected void onPause() {
@@ -122,15 +118,18 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-       switch (interactionJsVst.loginType)
-       {
-           case ChannelLoginType.FaceBook:
-               this.fbLoginVst.callbackManager.onActivityResult(requestCode, resultCode, data);
-               break;
-           case ChannelLoginType.GooglePlay:
-               this.googleLoginVst.onActivityResult(requestCode, resultCode, data);
-               break;
-       }
+        if(interactionJsVst != null)
+        {
+            switch (interactionJsVst.loginType)
+            {
+                case ChannelLoginType.FaceBook:
+                    this.fbLoginVst.callbackManager.onActivityResult(requestCode, resultCode, data);
+                    break;
+                case ChannelLoginType.GooglePlay:
+                    this.googleLoginVst.onActivityResult(requestCode, resultCode, data);
+                    break;
+            }
+        }
         super.onActivityResult(requestCode, resultCode, data);
     }
     @Override

@@ -2,7 +2,7 @@ class Channel_android extends ChannelBase
 {
 	public Login(loginType: string, isAutoLogin: boolean)
 	{
-		if (loginType == ChannelLoginType.FaceBook) // move todo
+		if (loginType == ChannelLoginType.FaceBook || loginType == ChannelLoginType.GooglePlay) // move todo
 		{
 			//微信登录
 			// if (isAutoLogin)
