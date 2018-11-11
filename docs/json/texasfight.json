@@ -1,0 +1,30 @@
+{
+    "//":"明抽水比例 %",
+    "SystemPump" : 1,
+        
+    "//":"AI上庄携带区间 %",
+    "AIBankerMoneyRate":[110, 150],
+
+    "//":"AI历史盈利比例上下限 %",
+    "AIProfitLossHistoryRate": {
+        "Min":10,
+        "Max":20
+    },
+
+    "//":"AI下注金额随机比例 %",
+    "AIBetRandRate":[0, 100],
+
+    "//":"AI下注次数区间",
+    "AIBetRandNum":[10,20],
+
+    "//":"AI抽水阀值",
+    "AIPump":1000000,
+
+    "//":"AI抽水百分比",
+    "AIPumpRandRate":[10, 200],
+
+    "//":"AI放水百分比",
+    "AIDumpRandRate":[10, 100]
+}
+
+

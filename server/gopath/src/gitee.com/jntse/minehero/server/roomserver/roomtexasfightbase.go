@@ -496,6 +496,9 @@ type TexasFightRoom struct {
 	betstat BetPoolTempStat				// 下注池临时统计
 	awardhit AwardPoolHitRecord			// 奖池命中记录
 	history *list.List					// 胜负历史记录列表
+
+	// ai抽水规则加入
+
 }
 
 func (tf *TexasFightRoom) Stat() int32 { return tf.stat }
