@@ -319,7 +319,7 @@ func (u *GateUser) CalVipLevel(vipexp int32) {
 		}
 		level = level + 1
 	}
-	u.SetVipLevel(level)
+	u.SetVipLevel(level - 1)
 }
 
 func (u *GateUser) GetVipState () int32 {
@@ -364,7 +364,12 @@ func (u *GateUser) GetMaxFriendNum () int32 {
 
 func (u *GateUser) VipDailyCheck(lastzerostamp, todayzerostamp int64) {
 	if lastzerostamp == 0 {
-		lastzerostamp = todayzerostamp - 3600*24
+		createtime := util.Atol(Redis().HGet(fmt.Sprintf("charstate_%d", u.Id()), "createdtime").Val())
+		if createtime != 0 {
+			lastzerostamp = util.GetTimeDayStart(createtime)
+		} else {
+			lastzerostamp = todayzerostamp - 3600*24
+		}
 	}
 	viptime2 := u.VipTime2()
 	viptime1 := u.VipTime1()
