@@ -1,5 +1,27 @@
+/**
+ * 动画
+ */
 class GameHallPanelAnime extends BaseGameHallAnime
 {
+    public onAwake()
+    {
+        this.playDealerDb();
+    }
+
+    private playDealerDb()
+    {
+        let dragonbonesData = RES.getRes(ResFixedFileName.Dealer_db_ske);
+        let textureData = RES.getRes(ResFixedFileName.Dealer_db_texturedata);
+        let texture = RES.getRes(ResFixedFileName.Dealer_db_png);
+        let egretFactory: dragonBones.EgretFactory = dragonBones.EgretFactory.factory;
+        egretFactory.parseDragonBonesData(dragonbonesData);
+        egretFactory.parseTextureAtlasData(textureData, texture);
+
+        let armatureDisplay: dragonBones.EgretArmatureDisplay = egretFactory.buildArmatureDisplay("poker");
+        this.target.dealerGroup.addChild(armatureDisplay);
+        armatureDisplay.animation.play("idle", 0);
+    }
+
     public onEnable()
     {
         this.setEnterAnime();
@@ -23,8 +45,8 @@ class GameHallPanelAnime extends BaseGameHallAnime
             .to({ bottom: 210 - (1295 - this.target.panelBottom.height) / 1280 * 210 }, 800, egret.Ease.backOut);
         this.target.bottomButton.bottom = -150;
         egret.Tween.get(this.target.bottomButton).to({ bottom: 0 }, 600, egret.Ease.backOut);
-        this.target.dealerImg.alpha = 0;
-        egret.Tween.get(this.target.dealerImg).to({ alpha: 1 }, 300).call(this.onEnterAnmComplete, this);
+        this.target.dealerGroup.alpha = 0;
+        egret.Tween.get(this.target.dealerGroup).to({ alpha: 1 }, 300).call(this.onEnterAnmComplete, this);
     }
 
     public setOutAnime()
@@ -40,8 +62,8 @@ class GameHallPanelAnime extends BaseGameHallAnime
         egret.Tween.get(this.target.gameButton).to({ bottom: -250 }, 800);
         this.target.bottomButton.bottom = 0;
         egret.Tween.get(this.target.bottomButton).to({ bottom: -150 }, 600);
-        this.target.dealerImg.alpha = 1;
-        egret.Tween.get(this.target.dealerImg).to({ alpha: 0 }, 300).call(this.onCloseAnmComplete, this);
+        this.target.dealerGroup.alpha = 1;
+        egret.Tween.get(this.target.dealerGroup).to({ alpha: 0 }, 300).call(this.onCloseAnmComplete, this);
     }
 
     private removeEnterAnime()
@@ -51,12 +73,12 @@ class GameHallPanelAnime extends BaseGameHallAnime
         egret.Tween.removeTweens(this.target.ranking);
         egret.Tween.removeTweens(this.target.gameButton);
         egret.Tween.removeTweens(this.target.bottomButton);
-        egret.Tween.removeTweens(this.target.dealerImg);
+        egret.Tween.removeTweens(this.target.dealerGroup);
     }
 
     private onEnterAnmComplete()
     {
-        
+
     }
 
     protected onCloseAnmComplete()

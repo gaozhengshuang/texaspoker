@@ -3,6 +3,10 @@
  */
 class HallScene extends BaseScene
 {
+	/**
+	 * 荷官骨骼资源加载完毕标记
+	 */
+	private _isDealarDbLoaded: boolean = false;
 	public constructor()
 	{
 		super();
@@ -16,6 +20,29 @@ class HallScene extends BaseScene
 		UIManager.closePanel(UIModuleName.HundredWarPanel);
 	}
 	protected onAllResLoadComplete()
+	{
+		if (this._isDealarDbLoaded)
+		{
+			this.final();
+		}
+		else
+		{
+			this.tryLoadDealerDb();
+		}
+	}
+	/**
+	 * 加载龙骨动画
+	 */
+	private async tryLoadDealerDb()
+	{
+		await RES.getResAsync(ResFixedFileName.Dealer_db_texturedata);
+		await RES.getResAsync(ResFixedFileName.Dealer_db_ske);
+		await RES.getResAsync(ResFixedFileName.Dealer_db_png);
+
+		this._isDealarDbLoaded = true;
+		this.final();
+	}
+	private final()
 	{
 		this.LoadCompleteEvent.dispatch(this);
 		if (this.sceneInfo.extendData)

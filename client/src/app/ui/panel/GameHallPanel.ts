@@ -4,7 +4,7 @@
 class GameHallPanel extends BasePanel
 {
 	//
-	public dealerImg: eui.Image;
+	public dealerGroup:eui.Group;
 	//用户信息
 	public userHeadComp: CircleHeadComponent;//头像组件
 	public userNameLabel: eui.Label;//用户名
@@ -99,7 +99,6 @@ class GameHallPanel extends BasePanel
 		super.onAwake(event);
 		this.addRedPoint();
 		this.moreGroup.visible = false;
-		this.dealerImg.source = BundleManager.getResNameByBundle(ResFixedFileName.Dealer_Png);
 		UIManager.pushResizeGroup(this.panelBottom);
 		this._buttonAnime = new GameHallButtonAnime(this);
 		this._panelAnime = new GameHallPanelAnime(this);
@@ -115,6 +114,8 @@ class GameHallPanel extends BasePanel
 			this.bindBtn.parent.removeChild(this.bindBtn);
 		}
 		ChampionshipManager.loginGetChampionData();
+
+		this._panelAnime.onAwake();
 	}
 	private addRedPoint()
 	{
