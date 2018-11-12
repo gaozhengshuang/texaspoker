@@ -8,7 +8,6 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.giant.gamelib.ChannelLoginType;
 import com.giant.gamelib.ExtFuncName;
 
 import org.json.JSONObject;
@@ -37,21 +36,15 @@ public class FaceBookLoginVst {
                     @Override
                     public void onCancel() {
                         // App code
-                        Log.d(_target.TAG, "android 取消登录");
-                        HashMap<String, String> map = new HashMap<>();
-                        map.put("status", "0");
-                        String tokenStr = new JSONObject(map).toString();
-                        _target.nativeAndroid.callExternalInterface(ExtFuncName.Login, tokenStr);
+                        Log.d(_target.TAG, "android facebook 取消登录");
+                        _target.interactionJsVst.loginFailed();
                     }
 
                     @Override
                     public void onError(FacebookException exception) {
                         // App code
-                        Log.d(_target.TAG, "android 登录失败");
-                        HashMap<String, String> map = new HashMap<>();
-                        map.put("status", "false");
-                        String tokenStr = new JSONObject(map).toString();
-                        _target.nativeAndroid.callExternalInterface(ExtFuncName.Login, tokenStr);
+                        Log.d(_target.TAG, "android facebook 登录失败");
+                        _target.interactionJsVst.loginFailed();
                     }
                 });
     }

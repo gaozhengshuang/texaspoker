@@ -6,6 +6,7 @@ import android.widget.FrameLayout;
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 import com.giant.gamelib.ChannelLoginType;
+import com.giant.gamelib.CheckApkExist;
 import com.giant.gamelib.ExtFuncName;
 import com.giant.gamelib.GameLib;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -58,6 +59,10 @@ public class InteractionJsVst {
                 initMap.put("bundleId", _target.getString(R.string.bundleId));
                 initMap.put("deviceId", GameLib.getUUUID(_target));
                 initMap.put("clientVersion", _target.clientVersion);
+                String hasfb = CheckApkExist.checkFacebookExist(_target)?"true":"false";
+                initMap.put("hasfacebook", hasfb);
+                String hasGp = CheckApkExist.checkGooglePlayExist(_target)?"true":"false";
+                initMap.put("hasgoogleplay", hasGp);
                 String mapStr = new JSONObject(initMap).toString();
                 _target.nativeAndroid.callExternalInterface(ExtFuncName.Initialize, mapStr);
                 FrameLayout ly = _target.nativeAndroid.getRootFrameLayout();
@@ -161,6 +166,13 @@ public class InteractionJsVst {
         map.put("openid", openId);
         map.put("loginType", loginType);
         map.put("status", "1");
+        String tokenStr = new JSONObject(map).toString();
+        _target.nativeAndroid.callExternalInterface(ExtFuncName.Login, tokenStr);
+    }
+    public void loginFailed() {
+        Log.d(_target.TAG, "android登录失败");
+        HashMap<String, String> map = new HashMap<>();
+        map.put("status", "");
         String tokenStr = new JSONObject(map).toString();
         _target.nativeAndroid.callExternalInterface(ExtFuncName.Login, tokenStr);
     }

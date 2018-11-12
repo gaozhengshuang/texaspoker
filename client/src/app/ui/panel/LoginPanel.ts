@@ -68,10 +68,20 @@ class LoginPanel extends BasePanel
 		switch (target)
 		{
 			case this.fbBtn:
+				if (!ChannelManager.hasFaceBook)
+				{
+					AlertManager.showAlert("请先安装" + "facebook" + "！"); //这样写为了正则表达式多语言提取！
+					return;
+				}
 				SoundManager.playButtonEffect(event.target);
 				UIManager.dispatchEvent(UIModuleName.LoginPanel, UIModuleEvent.COMPLETE, ChannelLoginType.FaceBook);
 				break;
 			case this.googlePlayBtn:
+				if (!ChannelManager.hasGooglePlay)
+				{
+					AlertManager.showAlert("请先安装谷歌商店！");
+					return;
+				}
 				SoundManager.playButtonEffect(event.target);
 				UIManager.dispatchEvent(UIModuleName.LoginPanel, UIModuleEvent.COMPLETE, ChannelLoginType.GooglePlay);
 				break;
