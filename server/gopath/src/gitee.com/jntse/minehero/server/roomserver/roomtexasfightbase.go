@@ -28,6 +28,13 @@ const (
 	TF_RedisPlayerWinPool	= "TF_PlayerAwardPool"		// 玩家闲奖池
 )
 
+// AI上庄抽水机制
+const (
+	TF_AIBankerDoNothing = 0	// 什么都不做
+	TF_AIBankerPump = 1			// 抽水
+	TF_AIBankerDump = 2			// 放水
+)
+
 const (
 	kBetPoolNum = 5		// 下注池数量，(0庄家，从左到右1-4)
 	kHandCardNum = 5	// 手牌数量
@@ -68,7 +75,7 @@ const (
 const (
 	kPlayerBankerNormal = 0		// 默认状态
 	kPlayerBankerQuit = 1			// 主动退出
-	kPlayerBankerNotSatisfied = 2	// 条件不满足
+	kPlayerBankerNotSatisfied = 2	// 条件不满足,钱不够/次数上限
 )
 
 // --------------------------------------------------------------------------
@@ -213,6 +220,9 @@ func (p *TexasFightPlayer) Settle(tf *TexasFightRoom) {
 			if pool.Result() == kBetResultLose {
 				bet.SetProfit(profit)
 				p.totalprofit -= profit
+				if tf.banker.IsAI() == true && p.IsAI() == false {
+					tf.IncAIBankerProfit(profit)
+				}
 			}else {
 				taxrate, pumprate := float64(tf.tconf.TaxRate), float64(tbl.TexasFight.SystemPumpRate) / 100.0
 				deduct := float64(profit) * ( taxrate + pumprate)
@@ -223,6 +233,9 @@ func (p *TexasFightPlayer) Settle(tf *TexasFightRoom) {
 				}
 				bet.SetProfit(profit)
 				p.totalprofit += profit
+				if tf.banker.IsAI() == true && p.IsAI() == false {
+					tf.IncAIBankerLoss(profit)
+				}
 			}
 		}
 
@@ -317,6 +330,13 @@ func (t *TexasFightBetPool) Reset() {
 	t.hand.Init()
 }
 
+func (t *TexasFightBetPool) Cards() []*Card {
+	tmp := make([]*Card, len(t.cards))
+	for i, card := range t.cards {
+		tmp[i] = card
+	}
+	return tmp
+}
 
 func (t *TexasFightBetPool) InsertCards(cards []*Card) {
 	if len(cards) != len(t.cards) {
@@ -512,9 +532,9 @@ type TexasFightRoom struct {
 	awardhit AwardPoolHitRecord			// 奖池命中记录
 	history *list.List					// 胜负历史记录列表
 
-	// ai抽水规则加入
-
-
+	// AI 规则
+	aibankerprofit int64				// AI banker 历史盈利值
+	aibankerloss int64					// AI banker 历史亏损值
 }
 
 func (tf *TexasFightRoom) Stat() int32 { return tf.stat }
@@ -524,6 +544,11 @@ func (tf *TexasFightRoom) IncAwardPool(n int64) { tf.totalawardpool += n }
 func (tf *TexasFightRoom) DecAwardPool(n int64) { tf.totalawardpool -= n }
 func (tf *TexasFightRoom) PlayersNum() int32 { return tf.MembersNum() }
 func (tf *TexasFightRoom) Round() int64 { return tf.round }
+
+func (tf *TexasFightRoom) AIBankerProfit() int64 { return tf.aibankerprofit }
+func (tf *TexasFightRoom) AIBankerLoss() int64 { return tf.aibankerloss }
+func (tf *TexasFightRoom) IncAIBankerProfit(n int64) { tf.aibankerprofit += n }
+func (tf *TexasFightRoom) IncAIBankerLoss(n int64) { tf.aibankerloss += n }
 
 
 
@@ -589,6 +614,10 @@ func (tf *TexasFightRoom) Init() string {
 
 	// AI 加入房间
 	tf.InitAIPlayers()
+
+	// AI 进入上庄列表
+	tf.SelectAIEnterBankerQueue()
+	tf.PlayerBankerAppointCheck()
 
 	//
 	log.Info("[百人大战] 百人大战初始化成功 Id[%d] 子类型[%d] Tid[%d]", tf.Id(), tf.SubKind(), tf.Tid())

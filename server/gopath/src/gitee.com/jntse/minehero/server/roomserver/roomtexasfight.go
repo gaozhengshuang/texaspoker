@@ -23,6 +23,11 @@ import (
 func (tf *TexasFightRoom) InitAIPlayers() {
 	users := AIUserMgr().PickOutUser(int32(tbl.TexasFight.AIUserAmount))
 	for _, u := range users {
+		// AI携带的金币数量
+		rand := util.RandBetweenInt64(tbl.TexasFight.AIBankerMoneyRate[0], tbl.TexasFight.AIBankerMoneyRate[1])
+		gold := rand * tf.tconf.BankerGold / 100
+		u.AddGold(gold, "初始AI金币", false)
+
 		tf.UserEnter(u)
 	}
 }
@@ -81,6 +86,9 @@ func (tf *TexasFightRoom) BankerCheck() {
 	//  检查玩家庄家是否还能继续坐庄
 	tf.PlayerBankerKeepCheck()
 
+	// 检查是否需要AI进入上庄列表
+	tf.SelectAIEnterBankerQueue()
+
 	// 下一个玩家成为庄家
 	tf.PlayerBankerAppointCheck()
 
@@ -95,13 +103,12 @@ func (tf *TexasFightRoom) PlayerBankerKeepCheck() {
 	}
 
 	p := tf.banker
-	p.AddBankerRound(1)
 	if p.BankerFlag() == kPlayerBankerQuit {
 		log.Info("[百人大战] 玩家[%s %d] 主动下庄", p.Name(), p.Id())
 	}else if p.Gold() < tf.tconf.BankerMinGold {
 		log.Info("[百人大战] 玩家[%s %d] 金币不足[%d] 不能继续坐庄", p.Name(), p.Id(), tf.tconf.BankerMinGold)
 		p.SetBankerFlag(kPlayerBankerNotSatisfied)
-	} else if p.BankerRound() > tf.tconf.BankerRound {
+	} else if p.BankerRound() > tf.tconf.BankerRound / 100 + 2 {
 		p.SetBankerFlag(kPlayerBankerNotSatisfied)
 		log.Info("[百人大战] 玩家[%s %d] 坐庄达到最大轮数[%d] 不能继续坐庄", p.Name(), p.Id(), tf.tconf.BankerRound)
 	}
@@ -211,12 +218,16 @@ func (tf *TexasFightRoom) ChangeToWaitNextRoundStat(now int64) {
 
 // 切换到下注状态
 func (tf *TexasFightRoom) ChangeToBettingStat(now int64) {
-
-
 	tf.stat = kStatBetting
 	tf.statstart = now / 1000
 	tf.stattimeout = tf.statstart + int64(tf.tconf.BetTime)
 	tf.round += 1
+	tf.banker.AddBankerRound(1)
+
+	if tf.PlayersNum() != 0 {
+		log.Info("[百人大战] 房间[%d %d] 切换到下注状态", tf.Id(), tf.Round())
+	}
+
 
 	// 检查庄家
 	tf.BankerCheck()
@@ -243,11 +254,6 @@ func (tf *TexasFightRoom) ChangeToBettingStat(now int64) {
 	// 房间状态变更推送
 	statmsg := &msg.RS2C_PushTFStateChange{State:pb.Int32(tf.stat), Statetime:pb.Int64(tf.statstart)}
 	tf.BroadCastMemberMsg(statmsg)
-
-	//
-	if tf.PlayersNum() != 0 {
-		log.Info("[百人大战] 房间[%d %d] 切换到下注状态", tf.Id(), tf.Round())
-	}
 }
 
 
@@ -327,7 +333,7 @@ func (tf *TexasFightRoom) PlayerSettle() {
 
 		// 如果在上庄列表中，不受旁观2轮限制
 		if player.TotalBet() == 0 {
-			if tf.IsInBankerQueue(player.Id()) == false {
+			if tf.IsInBankerQueue(player.Id()) == false && player.IsAI() == false {
 				player.SetWatchCount(player.WatchCount() + 1)
 				if player.WatchCount() >= tf.tconf.Kick {
 					kicklist = append(kicklist, player)
@@ -589,11 +595,16 @@ func (tf *TexasFightRoom) CardDeal() {
 		//}else {
 		 	pool.InsertCards(cards)
 		//}
+
 		// 房间没有任何人押注,不打日志
-		if tf.betpool[0].BetNum() != 0 {
+		if pool.BetNum() != 0 {
 			log.Trace("[百人大战] 房间[%d %d] 注池[%d] 牌型[%v %v %v %v %v]", tf.Id(), tf.Round(), pool.Pos(), cards[0], cards[1], cards[2], cards[3], cards[4])
 		}
 	}
+
+	// AI上庄抽水机制
+	tf.AIBankerPumpCheck()
+
 }
 
 
@@ -720,30 +731,30 @@ func (tf *TexasFightRoom) RequestLastAwardPoolHit(u *RoomUser) {
 
 
 // 请求上庄
-func (tf *TexasFightRoom) RequestBecomeBanker(u *RoomUser) {
+func (tf *TexasFightRoom) RequestEnterBankerQueue(u *RoomUser) bool {
 	if u.GetGold() < tf.tconf.BankerGold {
 		u.SendNotify("上庄金币不足")
-		return
+		return false
 	}
 
 	// player 指针
 	player := tf.FindPlayer(u.Id())
 	if player == nil {
 		log.Error("[百人大战] 玩家[%s %d] 房间[%d %d] 找不到玩家Player", u.Name(), u.Id(), tf.Id(), tf.Round())
-		return
+		return false
 	}
 
 	// 已经是庄家
 	if tf.banker.Id() == u.Id() {
 		log.Error("[百人大战] 玩家[%s %d] 房间[%d %d] 已经是庄家", u.Name(), u.Id(), tf.Id(), tf.Round())
-		return
+		return false
 	}
 
 	for elem := tf.bankerqueue.Front(); elem != nil; elem = elem.Next() {
 		p := elem.Value.(*TexasFightPlayer)
 		if p.Id() == u.Id() {
 			log.Error("[百人大战] 玩家[%s %d] 房间[%d %d] 已经在庄家列表了", u.Name(), u.Id(), tf.Id(), tf.Round())
-			return
+			return false
 		}
 	}
 
@@ -752,6 +763,65 @@ func (tf *TexasFightRoom) RequestBecomeBanker(u *RoomUser) {
 	u.SendClientMsg(send)
 
 	log.Info("[百人大战] 玩家[%s %d] 房间[%d %d] 请求上庄成功",  u.Name(), u.Id(), tf.Id(), tf.Round())
+	return true
+}
+
+// 随机挑选AI上庄
+func (tf *TexasFightRoom) SelectAIEnterBankerQueue() {
+
+	// 有玩家在上庄列表
+	if tf.IsUserInBankerQueue() == true {
+		return 
+	}
+
+	// 上庄列表已经有足够多的AI了
+	if tf.BankerQueueAINum() >= int32(tbl.TexasFight.BankerQueueMaxAINum) {
+		return
+	}
+
+	ailist := make([]*TexasFightPlayer, 0)
+	for _, p := range tf.aiplayers {
+		if tf.IsInBankerQueue(p.Id()) == true || tf.banker.Id() == p.Id() {
+			continue 
+		}
+		if p.Gold() < tf.tconf.BankerGold {
+			continue
+		}
+		ailist = append(ailist, p)
+	}
+
+	if len(ailist) == 0 {
+		log.Error("[百人大战] 没有可用的AI上庄 房间AI数量[%d]", len(tf.aiplayers))
+		return
+	}
+
+	rand.Shuffle(len(ailist), func(i, j int) {
+		ailist[i], ailist[j] = ailist[j], ailist[i]
+	})
+
+	p := ailist[0]
+	tf.RequestEnterBankerQueue(p.owner)
+	log.Info("[百人大战] AI[%s %d]请求进入上庄列表", p.Name(), p.Id())
+}
+
+// 所有AI下庄
+func (tf *TexasFightRoom) AIQuitBanker() {
+	if tf.bankerqueue.Len() == 0 {
+		return
+	}
+
+	ailist := make([]*TexasFightPlayer, 0)
+	for elem := tf.bankerqueue.Front(); elem != nil; elem = elem.Next() {
+		p := elem.Value.(*TexasFightPlayer)
+		if p.IsAI() == true {
+			ailist = append(ailist, p)
+			continue
+		}
+	}
+
+	for _, p := range ailist {
+		tf.RequestQuitBanker(p.owner)
+	}
 }
 
 
@@ -787,11 +857,6 @@ func (tf *TexasFightRoom) RequestQuitBanker(u *RoomUser) {
 		return
 	}
 
-	// 庄家
-	//if tf.stat == kStatBetting {
-	//	log.Error("[百人大战] 玩家[%s %d] 房间[%d %d] 下注中不能下庄", u.Name(), u.Id(), tf.Id(), tf.Round())
-	//	return
-	//}
 	player.SetBankerFlag(kPlayerBankerQuit)	// 标记庄家，本轮结束退出
 	log.Info("[百人大战] 玩家[%s %d] 房间[%d %d] 处理下庄请求成功，本轮结束下庄",  u.Name(), u.Id(), tf.Id(), tf.Round())
 }
@@ -815,6 +880,29 @@ func (tf *TexasFightRoom) IsInBankerQueue(uid int64) bool {
 		}
 	}
 	return false
+}
+
+// 上庄列表是否有玩家
+func (tf *TexasFightRoom) IsUserInBankerQueue() bool {
+	for elem := tf.bankerqueue.Front(); elem != nil; elem = elem.Next() {
+		p := elem.Value.(*TexasFightPlayer)
+		if p.IsAI() == false {
+			return true
+		}
+	}
+	return false
+}
+
+// 上庄列表AI数量
+func (tf *TexasFightRoom) BankerQueueAINum() int32 {
+	count := 0
+	for elem := tf.bankerqueue.Front(); elem != nil; elem = elem.Next() {
+		p := elem.Value.(*TexasFightPlayer)
+		if p.IsAI() == true {
+			count++
+		}
+	}
+	return int32(count)
 }
 
 // 爆奖池公告
@@ -898,4 +986,77 @@ func SendTexasFightRoomList(agent int, userid int64) {
 	RoomSvr().SendClientMsg(agent, userid, send)
 }
 
+// AI上庄抽水放水检查
+func (tf *TexasFightRoom) AIBankerPumpAction() int32 {
+	if tf.banker.IsAI() == false {
+		return TF_AIBankerDoNothing
+	}
+
+	if tf.AIBankerProfit() == 0 {	// 除0检查
+		return TF_AIBankerPump		// 抽水
+	}
+
+	diff := tf.AIBankerProfit() - tf.AIBankerLoss()
+	rate := float64(diff) / float64(tf.AIBankerProfit())
+	if rate > float64(tbl.TexasFight.AIProfitLossHistoryRate.Max) / float64(100) {
+		return TF_AIBankerDump		// 放水
+	}
+
+	if rate < float64(tbl.TexasFight.AIProfitLossHistoryRate.Min) / float64(100) {
+		return TF_AIBankerPump		// 抽水
+	}
+
+	return TF_AIBankerDoNothing
+}
+
+// AI上庄抽水机制
+func (tf *TexasFightRoom) AIBankerPumpCheck() {
+	act := tf.AIBankerPumpAction()
+	if act == TF_AIBankerDoNothing {
+		return
+	}
+
+	// 牌排序，升序或者降序
+	sortpool := make([]*TexasFightBetPool, 0)
+	for _, pool := range tf.betpool { 
+		sortpool = append(sortpool, pool) 
+	}
+
+	SortASC:= func() {
+		sort.Slice(sortpool, func(i, j int) bool {
+			cmp := sortpool[i].Compare(sortpool[j])
+			if cmp == kBetResultWin || cmp == kBetResultTie { return true }
+			return false
+		})
+	}
+
+	SortDESC := func() {
+		sort.Slice(sortpool, func(i, j int) bool {
+			cmp := sortpool[i].Compare(sortpool[j])
+			if cmp == kBetResultWin || cmp == kBetResultTie { return false }
+			return true
+		})
+	}
+
+	// 1. TF_AIBankerPump 触发抽水，将庄家的牌替换成5副牌中最大的牌
+	// 2. TF_AIBankerDump 触发放水，将庄家的牌替换成5副牌中最小的牌
+	if act == TF_AIBankerPump {
+		SortDESC()
+	}else if act == TF_AIBankerDump {
+		SortASC()
+	}
+
+	bankerpool := tf.betpool[0]
+	cardpool := sortpool[0]
+	if bankerpool.Pos() == cardpool.Pos() {		// 不需要交换
+		return
+	}
+
+	tmpcards := bankerpool.Cards()
+	bankerpool.Reset()
+	bankerpool.InsertCards(cardpool.Cards())
+
+	cardpool.Reset()
+	cardpool.InsertCards(tmpcards)
+}
 

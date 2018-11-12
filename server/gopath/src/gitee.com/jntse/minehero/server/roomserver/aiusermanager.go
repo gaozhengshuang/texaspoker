@@ -59,6 +59,9 @@ func (this *AIUserManager) InitAI() {
 	}
 
 	for _, v := range tbl.TexasAI.TAIById {
+		if v.Id == 1 {		// 1这个id是百人大战系统庄家id，排除这个AI
+			continue
+		}
 		user := NewRoomUserAI(int64(v.Id), v.Name, int32(util.RandBetween(1,2)))		
 		if user != nil {
 			user.Init()
@@ -66,9 +69,11 @@ func (this *AIUserManager) InitAI() {
 			Redis().HSet(fmt.Sprintf("charbase_%d", v.Id), "name", v.Name)
 			Redis().HSet(fmt.Sprintf("charbase_%d", v.Id), "head", "")
 			Redis().HSet(fmt.Sprintf("charbase_%d", v.Id), "sex", user.Sex())
-			log.Trace("[AI] 添加ai机器人 %d %s ", user.Id(), user.Name())
+			//log.Trace("[AI] 添加ai机器人 %d %s ", user.Id(), user.Name())
 		}
 	}
+
+	log.Info("[AI] 加载AI机器人列表 Len[%d]", this.Total())
 }
 
 
