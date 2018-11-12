@@ -5,7 +5,7 @@
 	<e:Image id="highLight" source="hall_tx_2_png" width="210" height="210" horizontalCenter="0" verticalCenter="0"/>
     <e:Image  id="btnImg" alpha.disabled="0.5"  horizontalCenter="0" verticalCenter="0" source="ssc_png"/>
 	<e:Image horizontalCenter="-12.5" verticalCenter="-4.5" source="ssc_1_png"/>
-	<e:Image id="animeImg" source="ssc_1_png" anchorOffsetX="92" anchorOffsetY="77" x="101" y="109"/>
+	<e:Image id="animeImg" source="ssc_1_png" anchorOffsetX="92" anchorOffsetY="77" x="89" y="74"/>
 	<e:Image id="star0" source="hall_tx_1_png" anchorOffsetX="36" anchorOffsetY="35.5" x="100" y="110" scaleX="0" scaleY="0"/>
 	<e:Image id="star1" source="hall_tx_1_png" anchorOffsetX="36" anchorOffsetY="35.5" x="95" y="12" scaleX="1" scaleY="1"/>
 	<e:Image horizontalCenter="5" x="10" source="hall_ssc_png" bottom="7"/>

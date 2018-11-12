@@ -5,12 +5,11 @@
 	</w:Declarations>
 	<e:Image id="highLight" source="hall_tx_2_png" horizontalCenter="0" verticalCenter="0"/>
     <e:Image  id="btnImg" alpha.disabled="0.5"  horizontalCenter="0" verticalCenter="0" source="dzpk_png" anchorOffsetX="0"/>
-	<e:Image horizontalCenter="0" verticalCenter="-35" anchorOffsetX="0" source="dzpk_2_png"/>
-	<e:Image id="animeImg" source="dzpk_2_png" anchorOffsetX="101.5" width="203" height="218" anchorOffsetY="109" x="148.5" y="113"/>
-	<e:Image horizontalCenter="0" verticalCenter="12" anchorOffsetX="0" source="dzpk_1_png"/>
+	<e:Image horizontalCenter="6.5" verticalCenter="-12" anchorOffsetX="0" source="dzpk_1_png" id="animeImg0"/>
+	<e:Image id="animeImg" horizontalCenter="6.5" verticalCenter="-12" anchorOffsetX="0" source="dzpk_1_png"/>
 	<e:Image horizontalCenter="5" anchorOffsetX="0" source="hall_dzpk_png" bottom="15"/>
-	<e:Image id="star0" source="hall_tx_1_png" anchorOffsetX="36" anchorOffsetY="35.5" x="130" y="142" scaleX="0" scaleY="0"/>
-	<e:Image id="star1" anchorOffsetX="36" source="hall_tx_1_png" x="239" y="60" anchorOffsetY="35.5" scaleX="0" scaleY="0"/>
-	<e:Image id="star2" anchorOffsetX="36" source="hall_tx_1_png" x="223" y="141" anchorOffsetY="35.5" scaleX="1" scaleY="1"/>
-	<e:Image id="star3" anchorOffsetX="36" source="hall_tx_1_png" x="178" y="175" anchorOffsetY="35.5" scaleX="1" scaleY="1"/>
+	<e:Image id="star0" source="hall_tx_1_png" anchorOffsetX="36" anchorOffsetY="35.5" x="191" y="89" scaleX="0" scaleY="0"/>
+	<e:Image id="star1" anchorOffsetX="36" source="hall_tx_1_png" x="239" y="73" anchorOffsetY="35.5" scaleX="0" scaleY="0"/>
+	<e:Image id="star2" anchorOffsetX="36" source="hall_tx_1_png" x="64" y="183.5" anchorOffsetY="35.5" scaleX="1" scaleY="1"/>
+	<e:Image id="star3" anchorOffsetX="36" source="hall_tx_1_png" x="231" y="175" anchorOffsetY="35.5" scaleX="1" scaleY="1"/>
 </e:Skin>
