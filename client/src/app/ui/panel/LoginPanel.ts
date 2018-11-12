@@ -70,7 +70,7 @@ class LoginPanel extends BasePanel
 			case this.fbBtn:
 				if (!ChannelManager.hasFaceBook)
 				{
-					AlertManager.showAlert("请先安装" + "facebook" + "！");
+					AlertManager.showAlert("请先安装" + "facebook" + "！"); //这样写为了正则表达式多语言提取！
 					return;
 				}
 				SoundManager.playButtonEffect(event.target);
