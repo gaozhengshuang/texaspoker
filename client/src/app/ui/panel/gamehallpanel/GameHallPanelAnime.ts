@@ -3,6 +3,7 @@
  */
 class GameHallPanelAnime extends BaseGameHallAnime
 {
+    private armatureDisplay:dragonBones.EgretArmatureDisplay;
     public onAwake()
     {
         this.playDealerDb();
@@ -17,17 +18,19 @@ class GameHallPanelAnime extends BaseGameHallAnime
         egretFactory.parseDragonBonesData(dragonbonesData);
         egretFactory.parseTextureAtlasData(textureData, texture);
 
-        let armatureDisplay: dragonBones.EgretArmatureDisplay = egretFactory.buildArmatureDisplay("poker");
-        this.target.dealerGroup.addChild(armatureDisplay);
-        armatureDisplay.animation.play("idle", 0);
+        this.armatureDisplay = egretFactory.buildArmatureDisplay("poker");
+        this.target.dealerGroup.addChild(this.armatureDisplay);
+        this.armatureDisplay.animation.play("idle", 0);
     }
 
     public onEnable()
     {
+        this.armatureDisplay.animation.play("idle", 0);
         this.setEnterAnime();
     }
     public onDisable()
     {
+        this.armatureDisplay.animation.stop();
         this.setOutAnime();
     }
 
