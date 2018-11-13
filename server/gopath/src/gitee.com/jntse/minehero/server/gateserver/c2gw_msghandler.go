@@ -103,6 +103,9 @@ func (mh *C2GWMsgHandler) Init() {
 
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqGuessRank{}, on_C2GW_ReqGuessRank)
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqGuessRecord{}, on_C2GW_ReqGuessRecord)
+
+	//验证google支付
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqGooglePayCheck{}, on_C2GW_ReqGooglePayCheck)
 }
 
 // 客户端心跳
@@ -745,3 +748,15 @@ func on_C2GW_ReqGuessRank(session network.IBaseNetSession, message interface{}) 
 	u.SendGuessRank()
 }
 
+func on_C2GW_ReqGooglePayCheck(session network.IBaseNetSession, message interface{}) {
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	tmsg := message.(*msg.C2GW_ReqGooglePayCheck)
+	purchasetoken := tmsg.GetPurchasetoken()
+	productid := tmsg.GetProductid()
+	u.OnGooglePayCheck(purchasetoken, productid)
+}
