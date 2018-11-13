@@ -42,11 +42,35 @@ func (tf *TexasFightRoom) Handler1sTick(now int64) {
 		break
 	}
 
+	tf.TickAIBet(now)
+
 	// 下注池变更推送
 	tf.SynBetPoolChange()
 }
 
 func (tf *TexasFightRoom) Handler100msTick(now int64) {
+}
+
+//
+func (tf *TexasFightRoom) TickAIBet(now int64) {
+	if tf.stat != kStatBetting {
+		return
+	}
+
+	for _, p := range tf.aiplayers {
+		if p.aibettime == 0 {
+			continue
+		}
+		if now < p.aibettime * 1000 {
+			continue
+		}
+		if tf.IsBankerCanAfford(p.aibetnum) == false {
+			p.StopAIBetTrigger()
+			continue
+		}
+		tf.RequestBet(p.owner, p.aibetpos, p.aibetnum)
+		p.StopAIBetTrigger()
+	}
 }
 
 // 下注池变更推送
@@ -103,19 +127,20 @@ func (tf *TexasFightRoom) PlayerBankerKeepCheck() {
 	}
 
 	p := tf.banker
+	tf.tconf.BankerRound = 2		// TODO: 测试代码
 	if p.BankerStat() == kPlayerBankerQuit {
-		log.Info("[百人大战] 玩家[%s %d] 主动下庄", p.Name(), p.Id())
+		log.Info("[百人大战] 房间[%d %d] 玩家[%s %d] 主动下庄", tf.Id(), tf.Round(), p.Name(), p.Id())
 	}else if p.Gold() < tf.tconf.BankerMinGold {
-		log.Info("[百人大战] 玩家[%s %d] 金币不足[%d] 不能继续坐庄", p.Name(), p.Id(), tf.tconf.BankerMinGold)
+		log.Info("[百人大战] 房间[%d %d] 玩家[%s %d] 金币不足[%d] 不能继续坐庄", tf.Id(), tf.Round(), p.Name(), p.Id(), tf.tconf.BankerMinGold)
 		p.SetBankerStat(kPlayerBankerNotSatisfied)
-	} else if p.BankerRound() > tf.tconf.BankerRound / 100 + 2 {
+	} else if p.BankerRound() > tf.tconf.BankerRound {
 		p.SetBankerStat(kPlayerBankerNotSatisfied)
-		log.Info("[百人大战] 玩家[%s %d] 坐庄达到最大轮数[%d] 不能继续坐庄", p.Name(), p.Id(), tf.tconf.BankerRound)
+		log.Info("[百人大战] 房间[%d %d] 玩家[%s %d] 坐庄达到最大轮数[%d] 不能继续坐庄", tf.Id(), tf.Round(), p.Name(), p.Id(), tf.tconf.BankerRound)
 	}
 
 	// 玩家离开庄位
 	if tf.banker.BankerStat() != kPlayerBankerNormal {
-		//tf.banker.QuitBanker()
+		tf.banker.QuitBanker(tf)
 
 		// TODO: 下庄这个推送可以省掉
 		//posmsg := &msg.RS2C_PushTFPosChange{Bankergold:pb.Int64(0), Player:&msg.TFPlayer{}}
@@ -143,9 +168,6 @@ func (tf *TexasFightRoom) PlayerBankerAppointCheck() {
 		tf.UserStandUp(p.owner)
 	}
 
-	// 老庄家下位
-	tf.banker.QuitBanker(tf)
-
 	// 新庄家上位
 	p.BecomeBanker(tf)
 
@@ -166,10 +188,7 @@ func (tf *TexasFightRoom) SystemBankerBackCheck() {
 		return
 	}
 
-	// 老庄家下位
-	tf.banker.QuitBanker(tf)
-
-	// 新庄家上位
+	// 系统庄家上位
 	tf.bankersys.BecomeBanker(tf)
 
 	posmsg := &msg.RS2C_PushTFPosChange{Bankergold:pb.Int64(tf.banker.Gold()), Player:&msg.TFPlayer{}}
@@ -255,6 +274,9 @@ func (tf *TexasFightRoom) ChangeToBettingStat(now int64) {
 	// 房间状态变更推送
 	statmsg := &msg.RS2C_PushTFStateChange{State:pb.Int32(tf.stat), Statetime:pb.Int64(tf.statstart)}
 	tf.BroadCastMemberMsg(statmsg)
+
+	// AI闲家下注
+	tf.AIPlayerBetWithAIBanker()
 }
 
 
@@ -370,7 +392,6 @@ func (tf *TexasFightRoom) PlayerSettle() {
 
 // 庄家结算(必须在玩家结算后调用)
 func (tf *TexasFightRoom) BankerSettle() {
-
 	// 庄家对应每个注池，要么全赢要么全输或者平
 	bankerpool := tf.betpool[0]
 	var win, lose int64 = 0, 0 
@@ -391,6 +412,7 @@ func (tf *TexasFightRoom) BankerSettle() {
 		// 赢钱要扣税
 		if pool.Result() == kBetResultLose {
 			win  = bankerpool.WinOdds() * pool.BetNum()
+			tf.IncPlayerBankerWinGold(win)
 			profit := win
 			taxrate, pumprate := float64(tf.tconf.TaxRate), float64(tbl.TexasFight.SystemPumpRate) / 100.0
 			deduct := float64(win) * ( taxrate + pumprate)
@@ -494,7 +516,7 @@ func (tf *TexasFightRoom) AwardPoolSettle(groups map[int32][]*TexasFightBetPool)
 
 // 玩家超过N轮未下注被踢出
 func (tf *TexasFightRoom) OnPlayerKickOut(p *TexasFightPlayer) {
-	log.Info("[百人大战] 玩家[%s %d] 超过%d轮未下注，被踢出房间[%d %d]", p.Name(), p.Id(), tf.tconf.Kick, tf.Id(), tf.Round())
+	log.Info("[百人大战] 房间[%d %d] 玩家[%s %d] 超过%d轮未下注，被踢出房间", tf.Id(), tf.Round(), p.Name(), p.Id(), tf.tconf.Kick)
 	// 坐下玩家
 	if p.Seat() != -1 {
 		tf.UserStandUp(p.owner)
@@ -560,7 +582,6 @@ func (tf *TexasFightRoom) CardShuffle() {
 
 // 发牌
 func (tf *TexasFightRoom) CardDeal() {
-
 	// 同花顺
 	//straightflush := make([]*Card, 0)
 	//for i:=int32(0);  i < 5; i++  {
@@ -605,7 +626,6 @@ func (tf *TexasFightRoom) CardDeal() {
 
 	// AI上庄抽水机制
 	tf.AIBankerPumpCheck()
-
 }
 
 
@@ -677,19 +697,13 @@ func (tf *TexasFightRoom) RequestBet(u *RoomUser, pos int32, num int64) {
 	}
 
 	// 所有玩家下注不能超过庄家金额的七分之一，系统庄家例外
-	if tf.banker.IsSystem() == false {
-		var totalbet int64 = num
-		for _, pool := range tf.betpool {
-			totalbet += pool.BetNum()
-		}
-
-		if totalbet > tf.banker.Gold() / 7  {
-			resp := &msg.RS2C_RetTexasFightBet{Errcode:pb.String("下注金额超过庄家赔付能力")}
-			u.SendClientMsg(resp)
-			log.Error("[百人大战] 玩家[%s %d] 房间[%d %d] 请求下注失败，超过庄家赔付能力", u.Name(), u.Id(), tf.Id(), tf.Round())
-			return
-		}
+	if tf.banker.IsSystem() == false && tf.IsBankerCanAfford(num) == false {
+		resp := &msg.RS2C_RetTexasFightBet{Errcode:pb.String("下注金额超过庄家赔付能力")}
+		u.SendClientMsg(resp)
+		log.Error("[百人大战] 玩家[%s %d] 房间[%d %d] 请求下注失败，超过庄家赔付能力", u.Name(), u.Id(), tf.Id(), tf.Round())
+		return
 	}
+
 
 	// 开始下注
 	tf.betpool[pos].IncBet(num)
@@ -707,6 +721,19 @@ func (tf *TexasFightRoom) RequestBet(u *RoomUser, pos int32, num int64) {
 	log.Trace("[百人大战] 玩家[%s %d] 房间[%d %d] 下注[%d]成功，金额[%d]", u.Name(), u.Id(), tf.Id(), tf.Round(), pos, num)
 }
 
+// 庄家最大赔付能力检查
+func (tf *TexasFightRoom) IsBankerCanAfford(gold int64) bool {
+	var totalbet int64 = gold
+	for _, pool := range tf.betpool {
+		totalbet += pool.BetNum()
+	}
+
+	if totalbet + gold <= tf.banker.Gold() / 7  {
+		return true
+	}
+
+	return false
+}
 
 // 拉取上次奖池信息击中信息
 func (tf *TexasFightRoom) RequestLastAwardPoolHit(u *RoomUser) {
@@ -762,6 +789,11 @@ func (tf *TexasFightRoom) RequestEnterBankerQueue(u *RoomUser) bool {
 	tf.bankerqueue.PushBack(player)
 	send := &msg.RS2C_RetTFBecomeBanker{}
 	u.SendClientMsg(send)
+
+	// 有玩家上庄所有AI下庄，在庄AI下一局退出
+	if player.IsAI() == false {
+		tf.AIQuitBanker()
+	}
 
 	log.Info("[百人大战] 玩家[%s %d] 房间[%d %d] 请求上庄成功",  u.Name(), u.Id(), tf.Id(), tf.Round())
 	return true
@@ -962,17 +994,13 @@ func (tf *TexasFightRoom) SelectAIEnterBankerQueue() {
 		ailist[i], ailist[j] = ailist[j], ailist[i]
 	})
 
+	log.Info("[百人大战] 房间[%d %d] ===AI上庄触发===", tf.Id(), tf.Round())
 	p := ailist[0]
 	tf.RequestEnterBankerQueue(p.owner)
-	log.Info("[百人大战] AI[%s %d]请求进入上庄列表", p.Name(), p.Id())
 }
 
 // 所有AI下庄
 func (tf *TexasFightRoom) AIQuitBanker() {
-	if tf.bankerqueue.Len() == 0 {
-		return
-	}
-
 	ailist := make([]*TexasFightPlayer, 0)
 	for elem := tf.bankerqueue.Front(); elem != nil; elem = elem.Next() {
 		p := elem.Value.(*TexasFightPlayer)
@@ -982,6 +1010,7 @@ func (tf *TexasFightRoom) AIQuitBanker() {
 		}
 	}
 
+	log.Info("[百人大战] 房间[%d %d] ===AI下庄触发===", tf.Id(), tf.Round())
 	for _, p := range ailist {
 		tf.RequestQuitBanker(p.owner)
 	}
@@ -1003,11 +1032,9 @@ func (tf *TexasFightRoom) AIBankerPumpAction() int32 {
 	if rate > float64(tbl.TexasFight.AIProfitLossHistoryRate.Max) / float64(100) {
 		return TF_AIBankerDump		// 放水
 	}
-
 	if rate < float64(tbl.TexasFight.AIProfitLossHistoryRate.Min) / float64(100) {
 		return TF_AIBankerPump		// 抽水
 	}
-
 	return TF_AIBankerDoNothing
 }
 
@@ -1046,10 +1073,10 @@ func (tf *TexasFightRoom) AIBankerPumpCheck() {
 	// 2. TF_AIBankerDump 触发放水，将庄家的牌替换成5副牌中最小的牌
 	if act == TF_AIBankerPump {
 		SortDESC()
-		log.Info("[百人大战] AI坐庄触发抽水")
+		log.Info("[百人大战] ===AI坐庄触发抽水===")
 	}else if act == TF_AIBankerDump {
 		SortASC()
-		log.Info("[百人大战] AI坐庄触发放水")
+		log.Info("[百人大战] ===AI坐庄触发放水===")
 	}
 
 	bankerpool := tf.betpool[0]
@@ -1074,31 +1101,47 @@ func (tf *TexasFightRoom) AIPlayerBetWithAIBanker() {
 
 	// 随机下注金额
 	betlimit := int64(tf.banker.Gold() / 7)
-	rand := util.RandBetweenInt64(tbl.TexasFight.AIBetRandRate[0], tbl.TexasFight.AIBetRandRate[1])
-	if rand > 100 {
+	randrate := util.RandBetweenInt64(tbl.TexasFight.AIBetRandRate[0], tbl.TexasFight.AIBetRandRate[1])
+	if randrate > 100 {
 		log.Error("[百人大战] 房间[%d %d] AI下注配置超过 庄家赔付上限了 配置[%v]", tf.Id(), tf.Round(), tbl.TexasFight.AIBetRandRate)
 		return
 	}
-	bettotal := betlimit * rand / 100
+	bettotal := betlimit * randrate / 100
 
 
 	// 随机下注次数(AI参与人数)
 	betnum := util.RandBetweenInt64(tbl.TexasFight.AIBetRandNum[0], tbl.TexasFight.AIBetRandNum[1])
+	betnum = 1	// TODO: 测试代码
 	if betnum == 0 {
 		log.Error("[百人大战] 房间[%d %d] AI下注次数为0", tf.Id(), tf.Round())
 		return
 	}
 	average := bettotal / betnum 
-	bet := util.RandBetweenInt64(0, 2*average)
-	bet = bet
 
 	//
 	aishuffle := make([]*TexasFightPlayer, 0)
 	for _, p := range tf.aiplayers {
-		if p.IsBanker() {
-			continue
-		}
+		if p.IsBanker() { continue }
 		aishuffle = append(aishuffle, p)
+	}
+
+	rand.Shuffle(len(aishuffle), func(i, j int) {
+		aishuffle[i], aishuffle[j] = aishuffle[j], aishuffle[i]
+	})
+
+	count := int64(0)
+	for _, p := range aishuffle {
+		betpos, betdelay := util.RandBetween(1, 4), util.RandBetween(0, tf.tconf.BetTime - 1)
+		betgold := util.RandBetweenInt64(0, 2*average)
+		if tf.SubKind() == int32(kTexasFightHappyMode) {
+			betgold = int64(betgold / 100) * 100		// 抹去零头，100整数倍
+		}else {
+			betgold = int64(betgold / 1000) * 1000		// 抹去零头，1000整数倍
+		}
+		p.SetAIBetTrigger(betpos, betgold, betdelay)
+		if count+=1; count >= betnum {
+			break
+		}
 	}
 }
 
@@ -1107,6 +1150,4 @@ func (tf *TexasFightRoom) AIPlayerBetWithUserBanker() {
 	if tf.banker.IsAI() == true || tf.banker.IsSystem() == true { 
 		return
 	}
-
-
 }
