@@ -109,7 +109,7 @@ type TexasFightPlayer struct {
 	watchcount	int32	// 连续观战计数，大于一定次数踢出房间
 
 	bankerround int32	// 玩家坐庄轮数
-	bankerflag int32 	// 庄家标志 0默认状态，1主动退出，2条件不满足退出
+	bankerstat int32 	// 庄家标志 0默认状态，1主动退出，2条件不满足退出
 }
 
 func NewTexasFightPlayer(u *RoomUser, sysflag bool) *TexasFightPlayer {
@@ -121,7 +121,7 @@ func NewTexasFightPlayer(u *RoomUser, sysflag bool) *TexasFightPlayer {
 	p.watchcount = 0
 
 	p.bankerround = 0
-	p.bankerflag = kPlayerBankerNormal
+	p.bankerstat = kPlayerBankerNormal
 	return p
 }
 
@@ -144,9 +144,9 @@ func (p *TexasFightPlayer) TotalProfit() int64 { return p.totalprofit }
 func (p *TexasFightPlayer) IncTotalProfit(n int64) { p.totalprofit += n }
 func (p *TexasFightPlayer) WatchCount() int32 { return p.watchcount }
 func (p *TexasFightPlayer) SetWatchCount(n int32) { p.watchcount = n }
+func (p *TexasFightPlayer) SetBankerStat(f int32) { p.bankerstat = f }
+func (p *TexasFightPlayer) BankerStat() int32 { return p.bankerstat }
 func (p *TexasFightPlayer) IsBanker() bool { return p.seat == 0 }
-func (p *TexasFightPlayer) SetBankerFlag(f int32) { p.bankerflag = f }
-func (p *TexasFightPlayer) BankerFlag() int32 { return p.bankerflag }
 func (p *TexasFightPlayer) IsAI() bool { return p.owner.IsAI() }
 
 
@@ -175,7 +175,6 @@ func (p *TexasFightPlayer) Gold() int64 {
 	return p.owner.GetGold()
 }
 
-
 func (p *TexasFightPlayer) Bet(pos int32, num int64) {
 	if pos >= int32(len(p.betlist)) || pos < 0  {
 		return
@@ -191,17 +190,29 @@ func (p *TexasFightPlayer) Bet(pos int32, num int64) {
 }
 
 // 成为庄家
-func (p *TexasFightPlayer) BecomeBanker() {
+func (p *TexasFightPlayer) BecomeBanker(tf *TexasFightRoom) {
 	p.Sit(0)
 	p.ResetBankerRound()
-	p.SetBankerFlag(kPlayerBankerNormal)
+	p.SetBankerStat(kPlayerBankerNormal)
+	tf.banker = p
+	tf.sitplayers[0] = tf.banker
+	p.AddBankerRound(1)
+}
+
+// 离开庄家
+func (p *TexasFightPlayer) QuitBanker(tf *TexasFightRoom) {
+	p.Sit(-1)
+	p.ResetBankerRound()
+	if elem := tf.bankerqueue.Front(); elem != nil {
+		tf.bankerqueue.Remove(elem)
+	}
 }
 
 // 输赢结算
 func (p *TexasFightPlayer) Settle(tf *TexasFightRoom) {
 
 	// 玩家庄家在BankerSettle中结算
-	if p.Id() == tf.banker.Id() {
+	if p.IsBanker() {
 		return
 	}
 
@@ -225,6 +236,7 @@ func (p *TexasFightPlayer) Settle(tf *TexasFightRoom) {
 				}
 			}else {
 				taxrate, pumprate := float64(tf.tconf.TaxRate), float64(tbl.TexasFight.SystemPumpRate) / 100.0
+				srcprofit := profit
 				deduct := float64(profit) * ( taxrate + pumprate)
 				if deduct != 0 {
 					tax := deduct * taxrate / (taxrate + pumprate)
@@ -234,7 +246,7 @@ func (p *TexasFightPlayer) Settle(tf *TexasFightRoom) {
 				bet.SetProfit(profit)
 				p.totalprofit += profit
 				if tf.banker.IsAI() == true && p.IsAI() == false {
-					tf.IncAIBankerLoss(profit)
+					tf.IncAIBankerLoss(srcprofit)
 				}
 			}
 		}
@@ -700,7 +712,7 @@ func (tf *TexasFightRoom) UserLeave(u *RoomUser) {
 	}
 
 	// 庄家
-	if player.Id() == tf.banker.Id() {
+	if player.IsBanker() {
 		log.Info("[百人大战] 玩家[%s %d] 请求离开房间[%d %d]，庄家先下庄才能离开", u.Name(), u.Id(), tf.Id(), tf.Round())
 		return
 	}
@@ -790,15 +802,15 @@ func (tf *TexasFightRoom) UserSitDown(u *RoomUser, seat int32) {
 		return
 	}
 
-	if u.Id() == tf.banker.Id() {
-		log.Error("[百人大战] 玩家[%s %d] 房间[%d %d] 正在坐庄中", u.Name(), u.Id(), tf.Id(), tf.Round())
-		return
-	}
-
 	// player 指针
 	player := tf.FindPlayer(u.Id())
 	if player == nil {
 		log.Error("[百人大战] 玩家[%s %d] 房间[%d %d] 找不到玩家Player", u.Name(), u.Id(), tf.Id(), tf.Round())
+		return
+	}
+
+	if player.IsBanker() {
+		log.Error("[百人大战] 玩家[%s %d] 房间[%d %d] 正在坐庄中", u.Name(), u.Id(), tf.Id(), tf.Round())
 		return
 	}
 

@@ -14,7 +14,7 @@
     "//":"AI历史盈利比例上下限 %",
     "AIProfitLossHistoryRate": {
         "Min":10,
-        "Max":20
+        "Max":110
     },
 
     "//":"AI下注金额随机比例 %",
