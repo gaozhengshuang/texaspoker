@@ -459,6 +459,18 @@ class ResFixedFileName
 	 */
 	public static LiuGuang_Config = "liuguang_dbmv";
 	/**
+	 * 大厅荷官龙骨动画png
+	 */
+	public static Dealer_db_png = "poker_ani_tex_png";
+		/**
+	 * 大厅荷官龙骨动画 纹理配置文件
+	 */
+	public static Dealer_db_texturedata = "poker_ani_tex_json";
+		/**
+	 * 大厅荷官龙骨动画 数据配置文件
+	 */
+	public static Dealer_db_ske = "poker_ani_ske_dbbin";
+	/**
 	 * 文本图集
 	 */
 	public static Text_Json = 'text_json';

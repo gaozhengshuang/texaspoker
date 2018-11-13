@@ -5,7 +5,7 @@
 	<w:Declarations>
 	</w:Declarations>
 	<e:Image id="bg" width="720" height="1280" x="0" y="0"  source="assets/bg/hall_bg_1_png"/>
-	<e:Image id="dealerImg" touchEnabled="false" anchorOffsetX="0" scaleX="1" scaleY="1" anchorOffsetY="0" y="120" horizontalCenter="20"/>
+	<e:Group id="dealerGroup" horizontalCenter="20" bottom="0"/>
 	<e:Group id="userinfoGroup" touchChildren="true" width="720" height="200" anchorOffsetY="0" touchEnabled="true" x="0" y="0">
 		<ns1:CircleHeadComponent id="userHeadComp" x="25" y="25" skinName="CircleHeadComponentSkin"/>
 		<e:Image anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" x="8" y="137" source="bg_3_png"/>

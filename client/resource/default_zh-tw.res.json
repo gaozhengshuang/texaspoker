@@ -530,7 +530,7 @@
 			"url": "assets/sheet/common_1_4.json",
 			"type": "sheet",
 			"name": "assets/sheet/common_1_4_json",
-			"subkeys": "bg_4_png,faguang_png,guang_1_png,guang_2_png,hall_tx_2_png,item_401_png,jbs_jb_png,jbs_jb_yin_png,jiubei_1_png,jiubei_2_png,jiubei_3_png,jiubei_4_png,jiubei_5_png,jiubei_6_png,mall_bg_9_png,mall_zs_1_png,mall_zs_2_png,mall_zs_3_png,mall_zs_4_png,mall_zs_5_png,mall_zs_6_png,match_1_png,match_2_png,match_3_png,match_4_png,match_5_png,match_6_png,mrtx_bm_png,mrtx_nan_png,mrtx_png,new_baoxiang_png,tuijian_bg_png,vip_1_png,vip_2_png,vip_3_png,xiaolaba_1_png,xiaolaba_2_png,xttx_png"
+			"subkeys": "bg_4_png,faguang_png,guang_1_png,guang_2_png,hall_tx_2_png,item_401_png,jbs_jb_png,jbs_jb_yin_png,jiubei_1_png,jiubei_2_png,jiubei_3_png,jiubei_4_png,jiubei_5_png,jiubei_6_png,mall_bg_9_png,mall_zs_1_png,mall_zs_2_png,mall_zs_3_png,mall_zs_4_png,mall_zs_5_png,mall_zs_6_png,match_1_png,match_2_png,match_3_png,match_4_png,match_5_png,match_6_png,mrtx_bm_png,mrtx_nan_1_png,mrtx_nan_png,mrtx_png,new_baoxiang_png,tuijian_bg_png,vip_1_png,vip_2_png,vip_3_png,xiaolaba_1_png,xiaolaba_2_png,xttx_png"
 		},
 		{
 			"url": "assets/bundle/1/dealer.png",
@@ -643,6 +643,21 @@
 			"type": "sheet",
 			"name": "text_zh-tw_2_json",
 			"subkeys": "achieve_num_0_png,achieve_num_1_png,achieve_num_2_png,achieve_num_3_png,achieve_num_4_png,achieve_num_5_png,achieve_num_6_png,achieve_num_7_png,achieve_num_8_png,achieve_num_9_png,activity_hd_png,bangding_png,bjzl_png,bmcg_png,br_brdz_png,br_bz_png,br_jcxx_png,br_px_10_png,br_px_11_png,br_px_12_png,br_px_13_png,br_px_14_png,br_px_15_png,br_px_16_png,br_px_17_png,br_px_18_png,br_px_19_png,br_px_1_png,br_px_20_png,br_px_21_png,br_px_22_png,br_px_23_png,br_px_24_png,br_px_25_png,br_px_26_png,br_px_27_png,br_px_28_png,br_px_2_png,br_px_3_png,br_px_4_png,br_px_5_png,br_px_6_png,br_px_7_png,br_px_8_png,br_px_9_png,br_sfzs_png,br_wzwj_png,br_zjlb_png,bsjs_png,cjjs_png,cjsrf_png,ddqr_png,dengdai_png,djxx_png,friend_hy_png,friend_hyzl_png,friend_yq_png,game_ddks_png,game_jbs_png,game_jc_png,game_jsjl_png,game_rw1_png,game_sy_1_png,game_sy_2_png,game_sy_3_png,game_wf_png,game_yxc_png,grxx_png,hdcw_png,hyyq_png,jbbz_png,jbssm_png,jimaijiwan_png,jj_png,lb_phb_png,mailbox_yx_png,mrqd_png,mryx_png,nfhy_png,nypc_png,pxjs_png,qhdwt_png,safe_bxx_png,safe_zhmm_png,setting_sz_png,srfmm_png,ssxx_png,task_rw_png,text_anquan_png,text_aomaha_png,text_bangding_1_png,text_gengduo_png,text_guize_png,text_jpdh_png,text_lwsc_png,text_pochan_1_png,text_pochan_png,text_sjhg_png,text_zhifu_png,txt_lqjb_png,vip_png,wan_png,wdjp_png,xgnc_png,xly_png,xtts_png,xxwf_png,yi_png,yiqiandao_png,yiwancheng_png,yqhy_png"
+		},
+		{
+			"url": "assets/bone/poker_ani_ske.dbbin",
+			"type": "bin",
+			"name": "poker_ani_ske_dbbin"
+		},
+		{
+			"url": "assets/bone/poker_ani_tex.png",
+			"type": "image",
+			"name": "poker_ani_tex_png"
+		},
+		{
+			"url": "assets/bone/poker_ani_tex.json",
+			"type": "json",
+			"name": "poker_ani_tex_json"
 		}
 	]
 }
