@@ -6,6 +6,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -21,7 +22,7 @@ import org.egret.egretnativeandroid.EgretNativeAndroid;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
     public final String TAG = "MainActivity";
     public EgretNativeAndroid nativeAndroid;
 
@@ -33,12 +34,22 @@ public class MainActivity extends Activity {
     public InteractionJsVst interactionJsVst;
     public FaceBookLoginVst fbLoginVst;
     public GoogleLoginVst googleLoginVst;
+    public GoogleBillingVst googleBillingVst;
 
-//    private final String Game_Url = "http://jump.test.giantfun.cn/poker/2001.html?online_version=";
+    //    private final String Game_Url = "http://jump.test.giantfun.cn/poker/2001.html?online_version=";
     public final String clientVersion = "0.2.0";
-//    private final String Game_Url = "http://192.168.30.17:8088/2001.html?online_version=";
+    //    private final String Game_Url = "http://192.168.30.17:8088/2001.html?online_version=";
     private final String Game_Url = "http://192.168.30.17:8087/index.html?online_version=";
+
     //    private final String clientVersion = "";
+
+    /**
+     * 报名
+     */
+    public String getPkgName() {
+        String packageName = this.getApplicationContext().getPackageName();
+        return packageName;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,11 +81,12 @@ public class MainActivity extends Activity {
         }
 
         nativeAndroid.config.showFPS = GameLib.isApkInDebug(this);
+        nativeAndroid.config.showFPS = false;
         nativeAndroid.config.fpsLogTime = 30;
         nativeAndroid.config.disableNativeRender = false;
         nativeAndroid.config.clearCache = false;
         nativeAndroid.config.loadingTimeout = 0;
-
+        //交互
         interactionJsVst = new InteractionJsVst(this);
         interactionJsVst.setExternalInterfaces();
         String runUrl = Game_Url + clientVersion;
@@ -84,18 +96,26 @@ public class MainActivity extends Activity {
                     Toast.LENGTH_LONG).show();
             return;
         }
+        //闪屏
         _splashVst = new SplashVst(this);
         _splashVst.showSplashView();
+        //fblogin
         fbLoginVst = new FaceBookLoginVst(this);
+
+        //支付
+        googleBillingVst = new GoogleBillingVst();
+        googleBillingVst.setTarget(this);
+        googleBillingVst.onCreate(savedInstanceState);
         setContentView(nativeAndroid.getRootFrameLayout());
     }
+
     @Override
-    public void onStart()
-    {
+    public void onStart() {
         super.onStart();
         googleLoginVst = new GoogleLoginVst(this);
         googleLoginVst.onStart();
     }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -106,6 +126,7 @@ public class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
         nativeAndroid.resume();
+        googleBillingVst.onResume();
     }
 
     @Override
@@ -118,10 +139,8 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(interactionJsVst != null)
-        {
-            switch (interactionJsVst.loginType)
-            {
+        if (interactionJsVst != null) {
+            switch (interactionJsVst.loginType) {
                 case ChannelLoginType.FaceBook:
                     this.fbLoginVst.callbackManager.onActivityResult(requestCode, resultCode, data);
                     break;
@@ -132,8 +151,10 @@ public class MainActivity extends Activity {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        googleBillingVst.onDestroy();
     }
 }

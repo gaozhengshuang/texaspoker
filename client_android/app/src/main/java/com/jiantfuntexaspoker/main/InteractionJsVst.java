@@ -1,5 +1,6 @@
 package com.jiantfuntexaspoker.main;
 
+import android.util.JsonReader;
 import android.util.Log;
 import android.widget.FrameLayout;
 
@@ -12,6 +13,7 @@ import com.giant.gamelib.GameLib;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import org.egret.runtime.launcherInterface.INativePlayer;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
@@ -44,6 +46,7 @@ public class InteractionJsVst {
         this.addInitialize();
         this.addLogin();
         this.addCheckLoginState();
+        this.addPay();
     }
 
     /**
@@ -59,9 +62,9 @@ public class InteractionJsVst {
                 initMap.put("bundleId", _target.getString(R.string.bundleId));
                 initMap.put("deviceId", GameLib.getUUUID(_target));
                 initMap.put("clientVersion", _target.clientVersion);
-                String hasfb = CheckApkExist.checkFacebookExist(_target)?"true":"false";
+                String hasfb = CheckApkExist.checkFacebookExist(_target) ? "true" : "false";
                 initMap.put("hasfacebook", hasfb);
-                String hasGp = CheckApkExist.checkGooglePlayExist(_target)?"true":"false";
+                String hasGp = CheckApkExist.checkGooglePlayExist(_target) ? "true" : "false";
                 initMap.put("hasgoogleplay", hasGp);
                 String mapStr = new JSONObject(initMap).toString();
                 _target.nativeAndroid.callExternalInterface(ExtFuncName.Initialize, mapStr);
@@ -90,23 +93,17 @@ public class InteractionJsVst {
                     case ChannelLoginType.FaceBook:
                         AccessToken accessToken = AccessToken.getCurrentAccessToken();
                         boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
-                        if(isLoggedIn)
-                        {
+                        if (isLoggedIn) {
                             loginSucces(accessToken.getToken(), accessToken.getUserId());
-                        }
-                        else
-                        {
+                        } else {
                             LoginManager.getInstance().logInWithReadPermissions(_target, Arrays.asList("public_profile"));
                         }
                         break;
                     case ChannelLoginType.GooglePlay:
                         GoogleSignInAccount account = _target.googleLoginVst.account;
-                        if(account != null)
-                        {
+                        if (account != null) {
                             loginSucces(account.getIdToken(), account.getId());
-                        }
-                        else
-                        {
+                        } else {
                             _target.googleLoginVst.login();
                         }
                         break;
@@ -139,25 +136,44 @@ public class InteractionJsVst {
                         Log.d(_target.TAG, "未知的登录类型" + message);
                         break;
                 }
-                if(isLoggedIn)
-                {
-                    _target.nativeAndroid.callExternalInterface(ExtFuncName.CheckLoginState,"1");
-                }
-                else
-                {
-                    _target.nativeAndroid.callExternalInterface(ExtFuncName.CheckLoginState,"");
+                if (isLoggedIn) {
+                    _target.nativeAndroid.callExternalInterface(ExtFuncName.CheckLoginState, "1");
+                } else {
+                    _target.nativeAndroid.callExternalInterface(ExtFuncName.CheckLoginState, "");
                 }
             }
         });
     }
-    public void loginSucces(String token, String openId)
-    {
-        if(token == null)
-        {
+
+    /**
+     * 添加支付
+     */
+    private void addPay() {
+        _target.nativeAndroid.setExternalInterface(ExtFuncName.Pay, new INativePlayer.INativeInterface() {
+            @Override
+            public void callback(String message) {
+                try {
+                    JSONObject obj = new JSONObject(message);
+                    int awardId = obj.getInt("awardId");
+                    switch (awardId) {
+                        case 801:
+//                            _target.googleBillingVst.onPurchaseButtonClicked();
+                            break;
+                        case 802:
+                            break;
+                    }
+                } catch (JSONException e) {
+
+                }
+            }
+        });
+    }
+
+    public void loginSucces(String token, String openId) {
+        if (token == null) {
             token = "";
         }
-        if(openId == null)
-        {
+        if (openId == null) {
             openId = "";
         }
         Log.d(_target.TAG, "android登录成功 token" + token + "userid" + openId);
@@ -169,6 +185,7 @@ public class InteractionJsVst {
         String tokenStr = new JSONObject(map).toString();
         _target.nativeAndroid.callExternalInterface(ExtFuncName.Login, tokenStr);
     }
+
     public void loginFailed() {
         Log.d(_target.TAG, "android登录失败");
         HashMap<String, String> map = new HashMap<>();
