@@ -24,7 +24,7 @@
     "AIBetRandNum":[10,20],
 
     "//":"AI抽水阀值",
-    "AIPump":1000000,
+    "AIPumpWaterLevel":1000000,
 
     "//":"AI抽水百分比",
     "AIPumpRandRate":[10, 200],

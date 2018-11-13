@@ -221,7 +221,7 @@ func (tf *TexasFightRoom) ChangeToWaitNextRoundStat(now int64) {
 	tf.stattimeout = tf.statstart + int64(tf.tconf.TimeOut)
 
 	// 发牌
-	tf.CardDeal()
+	//tf.CardDeal()
 
 	// 房间状态变更推送
 	statmsg := &msg.RS2C_PushTFStateChange{State:pb.Int32(tf.stat), Statetime:pb.Int64(tf.statstart)}
@@ -274,6 +274,9 @@ func (tf *TexasFightRoom) ChangeToBettingStat(now int64) {
 	// 房间状态变更推送
 	statmsg := &msg.RS2C_PushTFStateChange{State:pb.Int32(tf.stat), Statetime:pb.Int64(tf.statstart)}
 	tf.BroadCastMemberMsg(statmsg)
+
+	// 发牌
+	tf.CardDeal()
 
 	// AI闲家下注
 	tf.AIPlayerBetWithAIBanker()
@@ -1022,13 +1025,14 @@ func (tf *TexasFightRoom) AIBankerPumpAction() int32 {
 		return TF_AIBankerDoNothing
 	}
 
-	if tf.AIBankerProfit() == 0 {	// 除0检查
+	if tf.AIBankerWinGold() == 0 {	// 除0检查
 		return TF_AIBankerDoNothing	// 抽水
 	}
 
-	diff := tf.AIBankerProfit() - tf.AIBankerLoss()
-	rate := float64(diff) / float64(tf.AIBankerProfit())
-	log.Trace("[百人大战] 房间[%d %d] AI上庄抽水机制 历史盈利[%d] 历史亏损[%d] 比率[%.5f]", tf.Id(), tf.Round(), tf.AIBankerProfit(), tf.AIBankerLoss(), rate)
+	diff := tf.AIBankerWinGold() - tf.AIBankerLossGold()
+	rate := float64(diff) / float64(tf.AIBankerWinGold())
+	log.Trace("[百人大战] 房间[%d %d] AI上庄抽水机制 历史盈利[%d] 历史亏损[%d] 比率[%.5f]", tf.Id(), tf.Round(), 
+		tf.AIBankerWinGold(), tf.AIBankerLossGold(), rate)
 	if rate > float64(tbl.TexasFight.AIProfitLossHistoryRate.Max) / float64(100) {
 		return TF_AIBankerDump		// 放水
 	}
@@ -1093,6 +1097,32 @@ func (tf *TexasFightRoom) AIBankerPumpCheck() {
 	cardpool.InsertCards(tmpcards)
 }
 
+func (tf *TexasFightRoom) AIPlayerBet() {
+	if tf.banker.IsAI() == true {
+		tf.AIPlayerBetWithAIBanker()
+	}else if tf.banker.IsAI() == false && tf.banker.IsSystem() == false {
+		tf.AIPlayerBetWithUserBanker()
+	}
+}
+
+func (tf *TexasFightRoom) SelectBetAI(num int64) []*TexasFightPlayer {
+	aishuffle := make([]*TexasFightPlayer, 0)
+	for _, p := range tf.aiplayers {
+		if p.IsBanker() { continue }
+		aishuffle = append(aishuffle, p)
+	}
+
+	rand.Shuffle(len(aishuffle), func(i, j int) {
+		aishuffle[i], aishuffle[j] = aishuffle[j], aishuffle[i]
+	})
+
+	if num < int64(len(aishuffle)) {
+		aishuffle = aishuffle[0:num]
+	}
+
+	return aishuffle
+}
+
 // AI闲家押注对AI庄家
 func (tf *TexasFightRoom) AIPlayerBetWithAIBanker() {
 	if tf.banker.IsAI() == false {
@@ -1119,19 +1149,9 @@ func (tf *TexasFightRoom) AIPlayerBetWithAIBanker() {
 	average := bettotal / betnum 
 
 	//
-	aishuffle := make([]*TexasFightPlayer, 0)
-	for _, p := range tf.aiplayers {
-		if p.IsBanker() { continue }
-		aishuffle = append(aishuffle, p)
-	}
-
-	rand.Shuffle(len(aishuffle), func(i, j int) {
-		aishuffle[i], aishuffle[j] = aishuffle[j], aishuffle[i]
-	})
-
-	count := int64(0)
+	aishuffle := tf.SelectBetAI(betnum)
 	for _, p := range aishuffle {
-		betpos, betdelay := util.RandBetween(1, 4), util.RandBetween(0, tf.tconf.BetTime - 1)
+		betpos, betdelay := util.RandBetween(1, kBetPoolNum-1), util.RandBetween(0, tf.tconf.BetTime - 1)
 		betgold := util.RandBetweenInt64(0, 2*average)
 		if tf.SubKind() == int32(kTexasFightHappyMode) {
 			betgold = int64(betgold / 100) * 100		// 抹去零头，100整数倍
@@ -1139,9 +1159,6 @@ func (tf *TexasFightRoom) AIPlayerBetWithAIBanker() {
 			betgold = int64(betgold / 1000) * 1000		// 抹去零头，1000整数倍
 		}
 		p.SetAIBetTrigger(betpos, betgold, betdelay)
-		if count+=1; count >= betnum {
-			break
-		}
 	}
 }
 
@@ -1149,5 +1166,106 @@ func (tf *TexasFightRoom) AIPlayerBetWithAIBanker() {
 func (tf *TexasFightRoom) AIPlayerBetWithUserBanker() {	
 	if tf.banker.IsAI() == true || tf.banker.IsSystem() == true { 
 		return
+	}
+
+	if tf.PlayerBankerWinGold() < tbl.TexasFight.AIPumpWaterLevel {
+		tf.AIPlayerBetWithAIBanker()
+		return
+	}
+
+	// 先随机抽水百分比和放水百分比
+	pumprate := util.RandBetweenInt64(tbl.TexasFight.AIPumpRandRate[0], tbl.TexasFight.AIPumpRandRate[1])
+	dumprate := util.RandBetweenInt64(tbl.TexasFight.AIDumpRandRate[0], tbl.TexasFight.AIDumpRandRate[1])
+	pumpgold := pumprate * tbl.TexasFight.AIPumpWaterLevel
+	dumpgold := dumprate * tbl.TexasFight.AIPumpWaterLevel
+
+	// 区分出赢的闲家牌和输的闲家牌，赢的用来抽水用，输的用来放水用
+	winpool, losspool := make([]*TexasFightBetPool, 0), make([]*TexasFightBetPool, 0)
+	bankerpool := tf.betpool[0]
+	for k, pool := range tf.betpool {
+		if k == 0 { continue }
+		cmp := pool.Compare(bankerpool)
+		if cmp == kBetResultWin || cmp == kBetResultTie { 
+			winpool = append(winpool, pool)
+		}else if cmp == kBetResultLose {
+			losspool = append(losspool, pool)
+		}else if cmp == kBetResultTie {
+			// do noting
+		}
+	}
+
+	// 随机下注次数(AI参与人数)
+	betnum := util.RandBetweenInt64(tbl.TexasFight.AIBetRandNum[0], tbl.TexasFight.AIBetRandNum[1])
+	if betnum == 0 {
+		log.Error("[百人大战] 房间[%d %d] AI下注次数为0", tf.Id(), tf.Round())
+		return
+	}
+
+	aishuffle := tf.SelectBetAI(betnum)
+	if len(aishuffle) == 0 { 
+		log.Error("[百人大战] 房间[%d %d] 没有可用的AI闲家下注", tf.Id(), tf.Round())
+		return 
+	}
+
+	//
+	tf.AIBetForPump(winpool, pumpgold, aishuffle)
+
+	//
+	tf.AIBetForDump(losspool, dumpgold, aishuffle)
+}
+
+func (tf *TexasFightRoom) AIBet(betpos int32, totalbet int64, aishuffle []*TexasFightPlayer) {
+	if totalbet == 0 || betpos == 0 {
+		return
+	}
+	betgold := totalbet / int64(len(aishuffle))
+	for _, p := range aishuffle {
+		betdelay := util.RandBetween(0, tf.tconf.BetTime - 1)
+		if tf.SubKind() == int32(kTexasFightHappyMode) {
+			betgold = int64(betgold / 100) * 100		// 抹去零头，100整数倍
+		}else {
+			betgold = int64(betgold / 1000) * 1000		// 抹去零头，1000整数倍
+		}
+		p.SetAIBetTrigger(betpos, betgold, betdelay)
+	}
+}
+
+func (tf *TexasFightRoom) AIBetForPump (winpool []*TexasFightBetPool, pumpgold int64, aishuffle []*TexasFightPlayer) {
+	winnum := int64(len(winpool))
+	if winnum == 0 {
+		return
+	}
+
+	for _, pool := range winpool {
+		if winnum == 1 {
+			tf.AIBet(pool.Pos(), pumpgold, aishuffle)
+		}else {
+			average := pumpgold / winnum
+			betgold := util.RandBetweenInt64(0, 2*average)
+			tf.AIBet(pool.Pos(), betgold, aishuffle)
+			pumpgold -= betgold
+			if pumpgold == 0 { break }
+		}
+		if winnum -= 1; winnum == 0 { break }
+	}
+}
+
+func (tf *TexasFightRoom) AIBetForDump (losspool []*TexasFightBetPool, dumpgold int64, aishuffle []*TexasFightPlayer) {
+	lossnum := int64(len(losspool))
+	if lossnum == 0 {
+		return
+	}
+
+	for _, pool := range losspool {
+		if lossnum == 1 {
+			tf.AIBet(pool.Pos(), dumpgold, aishuffle)
+		}else {
+			average := dumpgold /lossnum 
+			betgold := util.RandBetweenInt64(0, 2*average)
+			tf.AIBet(pool.Pos(), betgold, aishuffle)
+			dumpgold -= betgold
+			if dumpgold == 0 { break }
+		}
+		if lossnum -= 1; lossnum == 0 { break }
 	}
 }

@@ -580,10 +580,11 @@ func (tf *TexasFightRoom) DecAwardPool(n int64) { tf.totalawardpool -= n }
 func (tf *TexasFightRoom) PlayersNum() int32 { return tf.MembersNum() }
 func (tf *TexasFightRoom) Round() int64 { return tf.round }
 
-func (tf *TexasFightRoom) AIBankerProfit() int64 { return tf.aibankerwingold }
-func (tf *TexasFightRoom) AIBankerLoss() int64 { return tf.aibankerlossgold }
+func (tf *TexasFightRoom) AIBankerWinGold() int64 { return tf.aibankerwingold }
+func (tf *TexasFightRoom) AIBankerLossGold() int64 { return tf.aibankerlossgold }
 func (tf *TexasFightRoom) IncAIBankerWinGold(n int64) { tf.aibankerwingold += n }
 func (tf *TexasFightRoom) IncAIBankerLossGold(n int64) { tf.aibankerlossgold += n }
+func (tf *TexasFightRoom) PlayerBankerWinGold() int64 { return tf.playerbankerwingold }
 func (tf *TexasFightRoom) IncPlayerBankerWinGold(n int64) { tf.playerbankerwingold += n }
 
 
