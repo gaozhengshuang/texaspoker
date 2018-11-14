@@ -1,6 +1,8 @@
 [submodule "server/gopath/src/gitee.com/jntse/gotoolkit"]
 	path = server/gopath/src/gitee.com/jntse/gotoolkit
-	url = git@192.168.30.204:xiejian/gotoolkit.git
+    url = git@192.168.30.204:xiejian/gotoolkit.git
+    branch = dev
 [submodule "server/gopath/src/gitee.com/jntse/gotester"]
 	path = server/gopath/src/gitee.com/jntse/gotester
 	url = git@192.168.30.204:xiejian/gotester.git
+    branch = dev
