@@ -105,6 +105,17 @@ func (u *UserEntity) DecGold(n int64) {
 	Redis().HIncrBy(fmt.Sprintf("charbase_%d", u.Id()), "gold", -n)
 }
 
+func (u *UserEntity) AIGold() int64 {
+	return u.gold
+}
+func (u *UserEntity) IncAIGold(n int64) {
+	u.gold += n
+}
+func (u *UserEntity) DecAIGold(n int64) {
+	u.gold -= n
+}
+
+
 //
 func (u *UserEntity) YuanBao() int64 {
 	u.yuanbao = util.Atol(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "yuanbao").Val())

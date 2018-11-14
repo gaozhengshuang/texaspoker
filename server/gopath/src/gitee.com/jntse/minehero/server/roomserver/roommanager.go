@@ -396,8 +396,6 @@ func (rm *RoomManager) CleanMttTexasCache() {
 	//
 	Redis().Del("mtt_roomlist")
 	log.Info("[竞标赛] 清除所有缓存房间列表")
-
-
 }
 
 

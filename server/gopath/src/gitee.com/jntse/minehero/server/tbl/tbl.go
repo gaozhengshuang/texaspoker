@@ -131,6 +131,7 @@ func (this *TblLoader) Init() {
 	this.LoadJson(Game, "game.json")
 	this.LoadJson(Wechat, "wechat.json")
 	this.LoadJson(Mysql, "mysql.json")
+	this.LoadJson(TexasFight, "texasfight.json")
 	
 }
 

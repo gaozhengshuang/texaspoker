@@ -8,11 +8,15 @@ import (
 )
 
 func (u *RoomUser) GetGold() int64 {
+	if u.IsAI() == true {
+		return u.EntityBase().AIGold()
+	}
 	return u.EntityBase().Gold()
 }
 
 func (u *RoomUser) RemoveGold(gold int64, reason string, syn bool) bool {
-	if u.aiflag == true {
+	if u.IsAI() == true {
+		u.EntityBase().DecAIGold(gold)
 		return true
 	}
 	goldsrc := u.GetGold()
@@ -31,7 +35,8 @@ func (u *RoomUser) RemoveGold(gold int64, reason string, syn bool) bool {
 }
 
 func (u *RoomUser) AddGold(gold int64, reason string, syn bool) {
-	if u.aiflag == true {
+	if u.IsAI() == true {
+		u.EntityBase().IncAIGold(gold)
 		return 
 	}
 	u.EntityBase().IncGold(gold)

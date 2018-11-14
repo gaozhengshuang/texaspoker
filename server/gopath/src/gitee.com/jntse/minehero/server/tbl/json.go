@@ -18,4 +18,5 @@ var Delivery *table.Delivery = new(table.Delivery)
 var Game *table.Game = new(table.Game)
 var Wechat *table.Wechat = new(table.Wechat)
 var Mysql *table.Mysql = new(table.Mysql)
+var TexasFight *table.TexasFight = new(table.TexasFight)
 
