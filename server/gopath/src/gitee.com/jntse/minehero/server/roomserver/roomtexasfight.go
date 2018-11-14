@@ -279,7 +279,8 @@ func (tf *TexasFightRoom) ChangeToBettingStat(now int64) {
 	tf.CardDeal()
 
 	// AI闲家下注
-	tf.AIPlayerBetWithAIBanker()
+	//tf.AIPlayerPlayWithAIBanker()
+	tf.AIPlayerPlayWithUserBanker()
 }
 
 
@@ -1099,9 +1100,9 @@ func (tf *TexasFightRoom) AIBankerPumpCheck() {
 
 func (tf *TexasFightRoom) AIPlayerBet() {
 	if tf.banker.IsAI() == true {
-		tf.AIPlayerBetWithAIBanker()
+		tf.AIPlayerPlayWithAIBanker()
 	}else if tf.banker.IsAI() == false && tf.banker.IsSystem() == false {
-		tf.AIPlayerBetWithUserBanker()
+		tf.AIPlayerPlayWithUserBanker()
 	}
 }
 
@@ -1124,7 +1125,7 @@ func (tf *TexasFightRoom) SelectBetAI(num int64) []*TexasFightPlayer {
 }
 
 // AI闲家押注对AI庄家
-func (tf *TexasFightRoom) AIPlayerBetWithAIBanker() {
+func (tf *TexasFightRoom) AIPlayerPlayWithAIBanker() {
 	if tf.banker.IsAI() == false {
 		return
 	}
@@ -1163,13 +1164,14 @@ func (tf *TexasFightRoom) AIPlayerBetWithAIBanker() {
 }
 
 // AI闲家押注对玩家庄家
-func (tf *TexasFightRoom) AIPlayerBetWithUserBanker() {	
+func (tf *TexasFightRoom) AIPlayerPlayWithUserBanker() {	
 	if tf.banker.IsAI() == true || tf.banker.IsSystem() == true { 
 		return
 	}
 
+	//TODO 测试代码
 	if tf.PlayerBankerWinGold() < tbl.TexasFight.AIPumpWaterLevel {
-		tf.AIPlayerBetWithAIBanker()
+		tf.AIPlayerPlayWithAIBanker()
 		return
 	}
 
@@ -1236,14 +1238,18 @@ func (tf *TexasFightRoom) AIBetForPump (winpool []*TexasFightBetPool, pumpgold i
 		return
 	}
 
+	log.Info("[百人大战] 房间[%d %d] 玩家做庄时AI押注机制，本轮抽水值[%d]", tf.Id(), tf.Round(), pumpgold)
 	for _, pool := range winpool {
 		if winnum == 1 {
 			tf.AIBet(pool.Pos(), pumpgold, aishuffle)
 		}else {
 			average := pumpgold / winnum
-			betgold := util.RandBetweenInt64(0, 2*average)
-			tf.AIBet(pool.Pos(), betgold, aishuffle)
-			pumpgold -= betgold
+			randaverage := util.RandBetweenInt64(0, 2*average)
+			if pool.WinOdds() != 0 {
+				betgold := randaverage / pool.WinOdds()	// 根据牌型可赢的倍率算出实际下注金额
+				tf.AIBet(pool.Pos(), betgold, aishuffle)
+			}
+			pumpgold -= randaverage 
 			if pumpgold == 0 { break }
 		}
 		if winnum -= 1; winnum == 0 { break }
@@ -1256,14 +1262,19 @@ func (tf *TexasFightRoom) AIBetForDump (losspool []*TexasFightBetPool, dumpgold 
 		return
 	}
 
+	log.Info("[百人大战] 房间[%d %d] 玩家做庄时AI押注机制，本轮放水值[%d]", tf.Id(), tf.Round(), dumpgold)
+	bankerpool := tf.betpool[0]
 	for _, pool := range losspool {
 		if lossnum == 1 {
 			tf.AIBet(pool.Pos(), dumpgold, aishuffle)
 		}else {
 			average := dumpgold /lossnum 
-			betgold := util.RandBetweenInt64(0, 2*average)
-			tf.AIBet(pool.Pos(), betgold, aishuffle)
-			dumpgold -= betgold
+			randaverage := util.RandBetweenInt64(0, 2*average)
+			if bankerpool.WinOdds() != 0 {
+				betgold := randaverage / bankerpool.WinOdds()	// 根据牌型可赢的倍率算出实际下注金额
+				tf.AIBet(pool.Pos(), betgold, aishuffle)
+			}
+			dumpgold -= randaverage 
 			if dumpgold == 0 { break }
 		}
 		if lossnum -= 1; lossnum == 0 { break }
