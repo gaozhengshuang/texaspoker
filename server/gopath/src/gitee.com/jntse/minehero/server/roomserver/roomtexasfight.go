@@ -58,18 +58,7 @@ func (tf *TexasFightRoom) TickAIBet(now int64) {
 	}
 
 	for _, p := range tf.aiplayers {
-		if p.aibettime == 0 {
-			continue
-		}
-		if now < p.aibettime * 1000 {
-			continue
-		}
-		if tf.IsBankerCanAfford(p.aibetnum) == false {
-			p.StopAIBetTrigger()
-			continue
-		}
-		tf.RequestBet(p.owner, p.aibetpos, p.aibetnum)
-		p.StopAIBetTrigger()
+		p.TickTrigger(now, tf)
 	}
 }
 
@@ -127,7 +116,6 @@ func (tf *TexasFightRoom) PlayerBankerKeepCheck() {
 	}
 
 	p := tf.banker
-	tf.tconf.BankerRound = 2		// TODO: 测试代码
 	if p.BankerStat() == kPlayerBankerQuit {
 		log.Info("[百人大战] 房间[%d %d] 玩家[%s %d] 主动下庄", tf.Id(), tf.Round(), p.Name(), p.Id())
 	}else if p.Gold() < tf.tconf.BankerMinGold {
@@ -1159,7 +1147,8 @@ func (tf *TexasFightRoom) AIPlayerPlayWithAIBanker() {
 		}else {
 			betgold = int64(betgold / 1000) * 1000		// 抹去零头，1000整数倍
 		}
-		p.SetAIBetTrigger(betpos, betgold, betdelay)
+
+		p.AddAIBetTrigger(betpos, betgold, betdelay)
 	}
 }
 
@@ -1170,16 +1159,16 @@ func (tf *TexasFightRoom) AIPlayerPlayWithUserBanker() {
 	}
 
 	//TODO 测试代码
-	if tf.PlayerBankerWinGold() < tbl.TexasFight.AIPumpWaterLevel {
-		tf.AIPlayerPlayWithAIBanker()
-		return
-	}
+	//if tf.PlayerBankerWinGold() < tbl.TexasFight.AIPumpWaterLevel {
+	//	tf.AIPlayerPlayWithAIBanker()
+	//	return
+	//}
 
 	// 先随机抽水百分比和放水百分比
 	pumprate := util.RandBetweenInt64(tbl.TexasFight.AIPumpRandRate[0], tbl.TexasFight.AIPumpRandRate[1])
 	dumprate := util.RandBetweenInt64(tbl.TexasFight.AIDumpRandRate[0], tbl.TexasFight.AIDumpRandRate[1])
-	pumpgold := pumprate * tbl.TexasFight.AIPumpWaterLevel
-	dumpgold := dumprate * tbl.TexasFight.AIPumpWaterLevel
+	pumpgold := pumprate * tbl.TexasFight.AIPumpWaterLevel / 100
+	dumpgold := dumprate * tbl.TexasFight.AIPumpWaterLevel / 100
 
 	// 区分出赢的闲家牌和输的闲家牌，赢的用来抽水用，输的用来放水用
 	winpool, losspool := make([]*TexasFightBetPool, 0), make([]*TexasFightBetPool, 0)
@@ -1228,7 +1217,7 @@ func (tf *TexasFightRoom) AIBet(betpos int32, totalbet int64, aishuffle []*Texas
 		}else {
 			betgold = int64(betgold / 1000) * 1000		// 抹去零头，1000整数倍
 		}
-		p.SetAIBetTrigger(betpos, betgold, betdelay)
+		p.AddAIBetTrigger(betpos, betgold, betdelay)
 	}
 }
 
@@ -1280,3 +1269,5 @@ func (tf *TexasFightRoom) AIBetForDump (losspool []*TexasFightBetPool, dumpgold 
 		if lossnum -= 1; lossnum == 0 { break }
 	}
 }
+
+

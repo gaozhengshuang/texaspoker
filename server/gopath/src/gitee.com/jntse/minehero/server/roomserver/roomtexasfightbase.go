@@ -104,6 +104,12 @@ type AIPlayerBetTrigger struct {
 	aibettime int64
 }
 
+func (t *AIPlayerBetTrigger) Stop() {
+	t.aibetnum  = 0
+	t.aibetpos  = -1
+	t.aibettime = 0
+}
+
 type TexasFightPlayer struct {
 	sysflag bool		// 系统庄家
 	tmcreate int64		// 创建时间戳
@@ -117,7 +123,7 @@ type TexasFightPlayer struct {
 	bankerround int32	// 玩家坐庄轮数
 	bankerstat int32 	// 庄家标志 0默认状态，1主动退出，2条件不满足退出
 
-	AIPlayerBetTrigger	// AI闲家下注触发器，分散下注
+	aibettrigger []*AIPlayerBetTrigger	// AI闲家下注触发器，分散下注
 }
 
 func NewTexasFightPlayer(u *RoomUser, sysflag bool) *TexasFightPlayer {
@@ -197,17 +203,30 @@ func (p *TexasFightPlayer) Bet(pos int32, num int64) {
 	p.owner.RemoveGold(num, "百人大战下注", true)
 }
 
-func (p *TexasFightPlayer) SetAIBetTrigger(pos int32, num int64, delay int32) {
-	p.StopAIBetTrigger()
-	p.aibetnum 	= num
-	p.aibetpos 	= pos
-	p.aibettime = util.CURTIME() + int64(delay)
+func (p *TexasFightPlayer) AddAIBetTrigger(pos int32, num int64, delay int32) {
+	trigger := &AIPlayerBetTrigger{aibetnum : num, aibetpos: pos, aibettime: util.CURTIME() + int64(delay)}
+	p.aibettrigger = append(p.aibettrigger, trigger)
 }
 
-func (p *TexasFightPlayer) StopAIBetTrigger() {
-	p.aibetnum  = 0
-	p.aibetpos  = -1
-	p.aibettime = 0
+func (p *TexasFightPlayer) ClearAIBetTrigger() {
+	p.aibettrigger = make([]*AIPlayerBetTrigger, 0)
+}
+
+func (p *TexasFightPlayer) TickTrigger(now int64, tf *TexasFightRoom) {
+	for _, t := range p.aibettrigger {
+		if t.aibettime == 0 {
+			continue
+		}
+		if now < t.aibettime * 1000 {
+			continue
+		}
+		if tf.IsBankerCanAfford(t.aibetnum) == false {
+			t.Stop()
+			continue
+		}
+		tf.RequestBet(p.owner, t.aibetpos, t.aibetnum)
+		t.Stop()
+	}
 }
 
 
