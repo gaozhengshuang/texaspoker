@@ -20,8 +20,8 @@
     "//":"AI下注金额随机比例 %",
     "AIBetRandRate":[0, 100],
 
-    "//":"AI下注次数区间",
-    "AIBetRandNum":[10,20],
+    "//":"AI下注参与人数区间",
+    "AIJoinBetRandNum":[10,20],
 
     "//":"AI抽水阀值",
     "AIPumpWaterLevel":1000000,

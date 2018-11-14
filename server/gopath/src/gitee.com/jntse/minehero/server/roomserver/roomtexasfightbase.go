@@ -615,6 +615,13 @@ func (tf *TexasFightRoom) IncAIBankerWinGold(n int64) { tf.aibankerwingold += n 
 func (tf *TexasFightRoom) IncAIBankerLossGold(n int64) { tf.aibankerlossgold += n }
 func (tf *TexasFightRoom) PlayerBankerWinGold() int64 { return tf.playerbankerwingold }
 func (tf *TexasFightRoom) IncPlayerBankerWinGold(n int64) { tf.playerbankerwingold += n }
+func (tf *TexasFightRoom) DecPlayerBankerWinGold(n int64) { 
+	if tf.playerbankerwingold > n {
+		tf.playerbankerwingold -= n
+	}else {
+		tf.playerbankerwingold = 0
+	}
+}
 
 
 
