@@ -110,6 +110,14 @@ func (t *AIPlayerBetTrigger) Stop() {
 	t.aibettime = 0
 }
 
+func (t *AIPlayerBetTrigger) IsValid() bool {
+	return t.aibettime != 0 
+}
+
+func (t *AIPlayerBetTrigger) IsTimeOut(now int64) bool {
+	return now >= t.aibettime * 1000
+}
+
 type TexasFightPlayer struct {
 	sysflag bool		// 系统庄家
 	tmcreate int64		// 创建时间戳
@@ -143,6 +151,9 @@ func (p *TexasFightPlayer) Reset() {
 	p.betlist = [kBetPoolNum]*TFPlayerBet{}
 	p.totalbet = 0
 	p.totalprofit = 0
+	if p.IsAI() == true {
+		p.ClearAIBetTrigger()
+	}
 }
 
 func (p *TexasFightPlayer) TimeCreate() int64 { return p.tmcreate }
@@ -212,18 +223,17 @@ func (p *TexasFightPlayer) ClearAIBetTrigger() {
 	p.aibettrigger = make([]*AIPlayerBetTrigger, 0)
 }
 
-func (p *TexasFightPlayer) TickTrigger(now int64, tf *TexasFightRoom) {
+func (p *TexasFightPlayer) TickAIBetTrigger(now int64, tf *TexasFightRoom) {
 	for _, t := range p.aibettrigger {
-		if t.aibettime == 0 {
+		if t.IsValid() == false || t.IsTimeOut(now) == false {
 			continue
 		}
-		if now < t.aibettime * 1000 {
-			continue
-		}
+
 		if tf.IsBankerCanAfford(t.aibetnum) == false {
 			t.Stop()
 			continue
 		}
+
 		tf.RequestBet(p.owner, t.aibetpos, t.aibetnum)
 		t.Stop()
 	}
