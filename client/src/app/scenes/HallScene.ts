@@ -16,6 +16,7 @@ class HallScene extends BaseScene
 	{
 		UIManager.closePanel(UIModuleName.GameHallPanel);
 		UIManager.closePanel(UIModuleName.PlayingFieldPanel);
+		UIManager.closePanel(UIModuleName.CommonPatternPanel);
 		UIManager.closePanel(UIModuleName.ChampionshipPanel);
 		UIManager.closePanel(UIModuleName.HundredWarPanel);
 	}

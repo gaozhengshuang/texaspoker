@@ -16,7 +16,7 @@ project.ext {
     // The storeFile location can be a relative or absolute filename.
     // https://docs.gradle.org/current/userguide/working_with_files.html
 //    APP_ID = "com.giant.billingsample"
-    APP_ID = "com.jiantfuntexaspoker.main"
+    APP_ID = "com.jiantfuntexaspoker.running"
     TEST_APP_ID = APP_ID + ".test"
 
     KEYSTORE_STORE_FILE = rootProject.file(keystoreProperties['storeFile'])
@@ -32,8 +32,8 @@ project.ext {
     FEATURE_VERSION_CODE = 1
     FEATURE_VERSION_NAME = "1.01"
 
-    MOBILE_VERSION_CODE = 3
-    MOBILE_VERSION_NAME = "1.02"
+    MOBILE_VERSION_CODE = 4
+    MOBILE_VERSION_NAME = "2.02"
 
     WEAR_VERSION_CODE = 3
     WEAR_VERSION_NAME = "1.03"

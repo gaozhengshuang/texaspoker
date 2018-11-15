@@ -526,6 +526,7 @@ class UIModuleName
 	 * 兑奖面板
 	 */
 	public static AwardsPanel = "AwardsPanel";
+	
 	//---------------运营活动move todo------------------
 	/**
 	 * 高级破产
@@ -539,6 +540,12 @@ class UIModuleName
 	 * 幸运任务
 	 */
 	public static LuckyTaskPanel:string = "LuckyTaskPanel";
+
+	//--------------运营优化------------------------
+	/**
+	 * 普通场次选择面板
+	 */
+	public static CommonPatternPanel:string = "CommonPatternPanel";
 }
 /**
  * 选项卡按钮类型

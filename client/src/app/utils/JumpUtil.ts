@@ -29,7 +29,7 @@ class JumpUtil
      */
     public static JumpToPlayingField(index?: PlayingFieldType)
     {
-        UIManager.showPanel(UIModuleName.PlayingFieldPanel);
+        UIManager.showPanel(UIModuleName.CommonPatternPanel);
 
     }
     /**
@@ -210,7 +210,7 @@ class JumpUtil
             case AchieveShowPattern.PrimaryPattern:
             case AchieveShowPattern.MiddlePattern:
             case AchieveShowPattern.HighPattern:
-                UIManager.showPanel(UIModuleName.PlayingFieldPanel, { enterIndex: playMode - 1, prevPanelName: prePanel });
+                UIManager.showPanel(UIModuleName.CommonPatternPanel, { enterIndex: playMode - 1, prevPanelName: prePanel });
                 break;
             case AchieveShowPattern.Match:
                 UIManager.showPanel(UIModuleName.ChampionshipPanel, { enterIndex: 0, prevPanelName: prePanel });

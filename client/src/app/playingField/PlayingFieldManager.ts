@@ -127,6 +127,62 @@ class PlayingFieldManager
                 return false;
         }
     }
+    /**
+     * 快速加入游戏
+     */
+    public static quicklyEnterGame(blindInfo: RoomSelectBlindInfo)
+    {
+        if (PlayingFieldManager.roomList)
+        {
+            let nearest: number = Infinity;
+            let minbuy: number = Infinity;
+            let roomId: number;
+            let backupNearest: number = Infinity;
+            let backupRoomId: number;
+            for (let roomInfo of PlayingFieldManager.roomList)
+            {
+                if (roomInfo.definition.SBlind == blindInfo.sblind && roomInfo.definition.BBlind == blindInfo.bblind)
+                {
+                    if (roomInfo.definition.SBuyin < minbuy)
+                    {
+                        minbuy = game.longToNumber(roomInfo.definition.SBuyin);
+                    }
+                    if (roomInfo.definition.Seat > roomInfo.player && roomInfo.player > 0)
+                    {
+                        if (Math.abs(UserManager.userInfo.gold - game.longToNumber(roomInfo.definition.BBuyin)) < nearest)
+                        {
+                            nearest = Math.abs(UserManager.userInfo.gold - game.longToNumber(roomInfo.definition.BBuyin));
+                            roomId = roomInfo.id;
+                        }
+                    } else
+                    {
+                        if (Math.abs(UserManager.userInfo.gold - game.longToNumber(roomInfo.definition.BBuyin)) < backupNearest)
+                        {
+                            backupNearest = Math.abs(UserManager.userInfo.gold - game.longToNumber(roomInfo.definition.BBuyin));
+                            backupRoomId = roomInfo.id;
+                        }
+                    }
+                }
+            }
+            if (UserManager.userInfo.gold == 0)
+            {
+                UIManager.showPanel(UIModuleName.GoldShortagePanel, { goldShortage: minbuy, isBankruptcy: true });
+                return;
+            }
+            if (UserManager.userInfo.gold < minbuy)
+            {
+                AlertManager.showAlert("对不起，您的金币不足最小买入");
+                return;
+            }
+            if (roomId)
+            {
+                GamblingManager.reqEnterRoom(roomId, null, true);
+            } else
+            {
+                GamblingManager.reqEnterRoom(backupRoomId, null, true);
+            }
+        }
+    }
 
     /**
 	 * 请求房间列表事件
@@ -140,4 +196,8 @@ class PlayingFieldManager
      * 键盘关闭事件广播
     */
     public static onKeyBoardCloseEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
+    /**
+     * 模式选择事件
+     */
+    public static PatternSelectEvent: game.DelegateDispatcher = new game.DelegateDispatcher();
 }

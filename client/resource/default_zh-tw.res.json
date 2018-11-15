@@ -530,7 +530,7 @@
 			"url": "assets/sheet/common_1_4.json",
 			"type": "sheet",
 			"name": "assets/sheet/common_1_4_json",
-			"subkeys": "bg_4_png,faguang_png,guang_1_png,guang_2_png,hall_tx_2_png,item_401_png,jbs_jb_png,jbs_jb_yin_png,jiubei_1_png,jiubei_2_png,jiubei_3_png,jiubei_4_png,jiubei_5_png,jiubei_6_png,mall_bg_9_png,mall_zs_1_png,mall_zs_2_png,mall_zs_3_png,mall_zs_4_png,mall_zs_5_png,mall_zs_6_png,match_1_png,match_2_png,match_3_png,match_4_png,match_5_png,match_6_png,mrtx_bm_png,mrtx_nan_1_png,mrtx_nan_png,mrtx_png,new_baoxiang_png,tuijian_bg_png,vip_1_png,vip_2_png,vip_3_png,xiaolaba_1_png,xiaolaba_2_png,xttx_png"
+			"subkeys": "bg_4_png,button_half_png,faguang_png,guang_1_png,guang_2_png,hall_tx_2_png,icon_bigb_png,icon_smallb_png,item_401_png,jbs_jb_png,jbs_jb_yin_png,jiubei_1_png,jiubei_2_png,jiubei_3_png,jiubei_4_png,jiubei_5_png,jiubei_6_png,mall_bg_9_png,mall_zs_1_png,mall_zs_2_png,mall_zs_3_png,mall_zs_4_png,mall_zs_5_png,mall_zs_6_png,match_1_png,match_2_png,match_3_png,match_4_png,match_5_png,match_6_png,mrtx_bm_png,mrtx_nan_1_png,mrtx_nan_png,mrtx_png,new_baoxiang_png,tuijian_bg_png,vip_1_png,vip_2_png,vip_3_png,xiaolaba_1_png,xiaolaba_2_png,xttx_png"
 		},
 		{
 			"url": "assets/bundle/1/dealer.png",

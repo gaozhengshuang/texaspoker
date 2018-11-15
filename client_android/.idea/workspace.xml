@@ -70,11 +70,38 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/MainActivity.java">
+      <file leaf-file-name="InteractionJsVst.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/running/InteractionJsVst.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="56" lean-forward="true" selection-start-line="56" selection-end-line="56" />
+            <state relative-caret-position="160">
+              <caret line="166" column="9" selection-start-line="166" selection-start-column="9" selection-end-line="166" selection-end-column="9" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#894#1233#0" expanded="true" />
+                <element signature="e#1232#1233#0" expanded="true" />
+                <element signature="e#1495#2965#0" expanded="true" />
+                <element signature="e#1668#1684#0" expanded="true" />
+                <element signature="e#1731#1770#0" expanded="true" />
+                <element signature="e#1812#1848#0" expanded="true" />
+                <element signature="e#2964#2965#0" expanded="true" />
+                <element signature="e#3103#4502#0" expanded="true" />
+                <element signature="e#4501#4502#0" expanded="true" />
+                <element signature="method#addCheckLoginState#0;class#InteractionJsVst#0" />
+                <element signature="e#4662#5765#0" expanded="true" />
+                <element signature="e#5764#5765#0" expanded="true" />
+                <element signature="e#5899#6256#0" expanded="true" />
+                <element signature="e#6255#6256#0" expanded="true" />
+                <element signature="method#loginFailed#0;class#InteractionJsVst#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FaceBookLoginVst.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/running/FaceBookLoginVst.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="256">
+              <caret line="27" column="54" selection-start-line="27" selection-start-column="54" selection-end-line="27" selection-end-column="54" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -82,95 +109,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AcquireFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/billing/AcquireFragment.java">
+      <file leaf-file-name="google-services.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/google-services.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2565">
-              <caret line="88" column="46" selection-start-line="88" selection-start-column="20" selection-end-line="88" selection-end-column="46" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1424#1425#0" expanded="true" />
-                <element signature="e#1452#1453#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BillingManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/googlebilling/src/main/java/billing/BillingManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="246">
-              <caret line="82" selection-start-line="82" selection-end-line="82" />
-              <folding>
-                <element signature="class#BillingUpdatesListener#0;class#BillingManager#0" />
-                <element signature="class#ServiceConnectedListener#0;class#BillingManager#0" />
-                <element signature="method#BillingManager#0;class#BillingManager#0" />
-                <element signature="method#initiatePurchaseFlow#0;class#BillingManager#0" />
-                <element signature="method#initiatePurchaseFlow#1;class#BillingManager#0" />
-                <element signature="method#destroy#0;class#BillingManager#0" />
-                <element signature="method#querySkuDetailsAsync#0;class#BillingManager#0" />
-                <element signature="method#consumeAsync#0;class#BillingManager#0" />
-                <element signature="method#areSubscriptionsSupported#0;class#BillingManager#0" />
-                <element signature="method#startServiceConnection#0;class#BillingManager#0" />
-                <element signature="method#executeServiceRequest#0;class#BillingManager#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="18" column="41" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="41" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1035">
-              <caret line="23" column="55" selection-start-line="23" selection-start-column="36" selection-end-line="23" selection-end-column="55" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/customloadingview/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="5" column="15" selection-start-line="5" selection-start-column="15" selection-end-line="5" selection-end-column="15" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gamelib/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="6" column="5" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-          <provider editor-type-id="android-manifest">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="9" selection-start-line="9" selection-end-line="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BillingClient.java" pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.billingclient/billing/1.0/2974af04233d5eff78803927bf44e621fb1c8dfb/billing-1.0-sources.jar!/com/android/billingclient/api/BillingClient.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4680">
-              <caret line="113" column="31" selection-start-line="113" selection-start-column="31" selection-end-line="113" selection-end-column="31" />
+            <state relative-caret-position="315">
+              <caret line="13" column="9" selection-start-line="13" selection-start-column="9" selection-end-line="13" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -180,6 +123,66 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="225">
               <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GoogleLoginVst.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/running/GoogleLoginVst.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="341">
+              <caret line="67" column="14" selection-start-line="67" selection-start-column="14" selection-end-line="67" selection-end-column="14" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/build.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1595">
+              <caret line="17" column="40" selection-start-line="17" selection-start-column="40" selection-end-line="17" selection-end-column="40" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/build.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="588">
+              <caret line="60" column="56" selection-start-line="60" selection-start-column="48" selection-end-line="60" selection-end-column="56" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/gamelib/build.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-875">
+              <caret line="6" column="5" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/googlebilling/build.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="196">
+              <caret line="33" column="60" lean-forward="true" selection-start-line="33" selection-start-column="60" selection-end-line="33" selection-end-column="60" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GoogleBillingUtil.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/googlebilling/src/main/java/billing/GoogleBillingUtil.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="235">
+              <caret line="272" column="57" selection-start-line="272" selection-start-column="48" selection-end-line="272" selection-end-column="57" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -197,12 +200,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>传回</find>
-      <find>firebase</find>
-      <find>mBillingProvidermBillingProvider</find>
-      <find>getTankResId</find>
-      <find>show</find>
-      <find>mBillingManager</find>
       <find>compileSdkVersion</find>
       <find>MOBILE_VERSION_CODE</find>
       <find>googleLoginVst</find>
@@ -227,7 +224,16 @@
       <find>handlePurchase</find>
       <find>onQueryPurchasesFinished</find>
       <find>MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2GOuGJGAO6O6AftSzllxrTBz9lE6M9bt1gR2wCoifFpR2XWAJxBsewWOGo/4imUEAxgSZVh+zpnd5vRqBoLovQxwEdtRNwIqsRn8NnLJ/aNIFhHSbfcIjDUxcbJxBerq7OctB5rP4zhCdyeFhRXzWmZPJ/fOj2NjVKo/GyKGL6dmwszDXZ8JW2XepEtDwmU2KMUB2Df4loH+EcHSl9MU+Ij5fo6Bq7+QEO1Ui8zmmOz4Yv9AZj4Cfnd0eDu+U/di4jFPozaK2up7b+QVF/HFMQJLhxyfJALPOMT58rYMoEINJAJ/kLsMlu4bZ2e81f6mTZPywi2ckXVVc2px36bumQIDAQAB</find>
+      <find>bid</find>
+      <find>MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAk2gVLgF/ipQ4eGojBUWyLP5Nq22KLJgroRRKeMyDoBKH6Js0XKxltJbBDZj0SoIdDmu2uMgfNu3JZtVkA7f+E8wkaEm7xuTgyysFHLDnyUxZwpre1zuUR1sjrVAKoTQ8SvkYlgNhOKkyz9ByQefAPCBI6ajMSb17g1TwgXXiCzm2ObTHxSX1wIwGiRm/OXvPmpFjKXEVhjJjcll5TEmU9QvLwqyD6iDrhHvZUVqEj+KArb63TtAKj+k2VitaPq9SsbDBOJVEI/w1aElz1K1R6z23BDZgN+uV9UfAfky6W7Txjh7nlH00xeMv7nG1NK5eb35FIx+GDQQcHQDabg4z3wIDAQAB</find>
+      <find>main</find>
+      <find>runniing</find>
+      <find>services</find>
+      <find>ConnectionResult</find>
     </findStrings>
+    <replaceStrings>
+      <replace>running</replace>
+    </replaceStrings>
   </component>
   <component name="GenerateSignedApkSettings">
     <option name="KEY_STORE_PATH" value="H:\workspace\android\poker\dzpoker_1.jks" />
@@ -5408,25 +5414,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/customloadingview/src/main/res/values/attrs.xml" />
-        <option value="$PROJECT_DIR$/customloadingview/src/main/java/com/giant/customloadingview/UniversalLoadingView.java" />
-        <option value="$PROJECT_DIR$/customloadingview/src/main/java/com/giant/customloadingview/MaterialCircleView.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantpoker/MainActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/ExtFuncName.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/MainActivityVst.java" />
-        <option value="$PROJECT_DIR$/gamelib/src/main/java/com/giant/gamelib/ChannelLoginType.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/SplashVst.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/InteractionJsVst.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/MainActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/FaceBookLoginVst.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/SplashVst.java" />
         <option value="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
-        <option value="$PROJECT_DIR$/app/google-services.json" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/FaceBookLoginVst.java" />
         <option value="$PROJECT_DIR$/gamelib/src/main/java/CheckApkExist.java" />
         <option value="$PROJECT_DIR$/gamelib/src/main/java/com/giant/gamelib/CheckApkExist.java" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/googlebilling/src/main/java/billing/BillingConstants.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/billing/MainViewController.java" />
         <option value="$PROJECT_DIR$/gamelib/src/main/java/com/giant/gamelib/GameLib.java" />
@@ -5446,30 +5437,47 @@
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/customloadingview/build.gradle" />
         <option value="$PROJECT_DIR$/gamelib/build.gradle" />
-        <option value="$PROJECT_DIR$/googlebilling/build.gradle" />
         <option value="$PROJECT_DIR$/gamelib/src/main/java/com/giant/gamelib/ExtFuncName.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/InteractionJsVst.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/MainViewController.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/GoogleLoginVst.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/GoogleBillingVst.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/billing/AcquireFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/billing/row/SkuRowData.java" />
         <option value="$PROJECT_DIR$/keystore.properties" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/giant/billingsample/billing/AcquireFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/giant/main/MainActivity.java" />
         <option value="$PROJECT_DIR$/googlebilling/src/main/java/billing/BillingManager.java" />
-        <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/GoogleBillingVst.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/GoogleLoginVst.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/SplashVst.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/InteractionJsVst.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/FaceBookLoginVst.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/billing/row/SkuRowData.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/billing/AcquireFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/app/google-services.json" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/running/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/running/SplashVst.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/running/billing/row/SkuRowData.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/running/billing/AcquireFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/running/GoogleBillingVst.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/running/FaceBookLoginVst.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/running/InteractionJsVst.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/running/GoogleLoginVst.java" />
+        <option value="$PROJECT_DIR$/googlebilling/build.gradle" />
+        <option value="$PROJECT_DIR$/googlebilling/src/main/java/billing/GoogleBillingUtil.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="6" />
+    <option name="y" value="2" />
     <option name="width" value="1936" />
     <option name="height" value="1014" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
+      <flattenPackages AndroidView="false" />
+      <hideEmptyPackages AndroidView="false" ProjectPane="true" />
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
@@ -5493,6 +5501,10 @@
       <pane id="AndroidView">
         <subPane>
           <expand>
+            <path>
+              <item name="client_android" type="1abcf292:AndroidViewProjectNode" />
+              <item name="googlebilling" type="e9137016:NonAndroidModuleNode" />
+            </path>
             <path>
               <item name="client_android" type="1abcf292:AndroidViewProjectNode" />
               <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
@@ -5520,24 +5532,24 @@
     <property name="show.do.not.ask.upgrade.gradle.plugin" value="2.3.0" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="H:\workspace\texaspoker\client_android\googlebilling\src\main" />
-      <recent name="H:\workspace\texaspoker\client_android\customloadingview\src\main\java\com\giant\customloadingview" />
-    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.giant.gamelib" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="H:\workspace\texaspoker\client_android\googlebilling\src\main\java\billing" />
+      <recent name="H:\workspace\texaspoker\client_android" />
+      <recent name="H:\workspace\texaspoker\client_android\app\src\main\res" />
+      <recent name="H:\workspace\texaspoker\client_android\app\src\main\res\values" />
+      <recent name="H:\workspace\texaspoker\client_android\app\src\main\res\layout" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.jiantfuntexaspoker.main.billing.row" />
       <recent name="com.jiantfuntexaspoker.main" />
       <recent name="com.jiantfuntexaspoker.main.billing" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="H:\workspace\texaspoker\client_android" />
-      <recent name="H:\workspace\texaspoker\client_android\app\src\main\res" />
-      <recent name="H:\workspace\texaspoker\client_android\app\src\main\res\values" />
-      <recent name="H:\workspace\texaspoker\client_android\app\src\main\res\layout" />
-      <recent name="H:\workspace\texaspoker\client_android\app\src\main\java\com\jiantfuntexaspoker\main\billing\row" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="H:\workspace\texaspoker\client_android\googlebilling\src\main" />
+      <recent name="H:\workspace\texaspoker\client_android\customloadingview\src\main\java\com\giant\customloadingview" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -5733,31 +5745,32 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1014" extended-state="7" />
+    <frame x="6" y="2" width="1936" height="1014" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info anchor="bottom" id="Android Profiler" order="7" show_stripe_button="false" weight="0.3295325" />
+      <window_info anchor="bottom" id="Android Profiler" order="7" weight="0.3295325" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49840087" weight="0.21664767" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Build Variants" order="2" sideWeight="0.50070524" side_tool="true" weight="0.17857143" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.21428572" side_tool="true" visible="true" weight="0.22006841" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.21641791" side_tool="true" visible="true" weight="0.16761687" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.8512793" weight="0.3990878" />
-      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.5463753" weight="0.36031926" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.8496802" weight="0.26339796" />
+      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.54584223" weight="0.36031926" />
       <window_info anchor="bottom" id="Logcat" order="7" sideWeight="0.4989339" weight="0.62713796" />
       <window_info id="Captures" order="2" weight="0.25" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4992948" visible="true" weight="0.15245202" />
-      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.78571427" visible="true" weight="0.22006841" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4992948" visible="true" weight="0.23880596" />
+      <window_info active="true" anchor="bottom" id="Build" order="7" sideWeight="0.7835821" visible="true" weight="0.16761687" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4978678" weight="0.33295324" />
       <window_info anchor="right" id="Gradle" order="3" weight="0.1913646" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Device File Explorer" order="3" side_tool="true" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.79957354" weight="0.3990878" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.79744136" weight="0.2586027" />
       <window_info anchor="right" id="Assistant" order="3" weight="0.0858209" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Preview" order="4" />
@@ -5766,7 +5779,6 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49946696" weight="0.15279362" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -5774,55 +5786,27 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="34" />
+      <breakpoints>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/googlebilling/src/main/java/billing/BillingManager.java</url>
+          <line>206</line>
+          <properties />
+          <option name="timeStamp" value="43" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/running/FaceBookLoginVst.java</url>
+          <line>27</line>
+          <properties />
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+      </breakpoints>
+      <breakpoints-dialog>
+        <breakpoints-dialog />
+      </breakpoints-dialog>
+      <option name="time" value="47" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/build/generated/not_namespaced_r_class_sources/debug/processDebugResources/r/com/jiantfuntexaspoker/main/R.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="7" column="35" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/acquire_fragment.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="22" column="50" lean-forward="true" selection-start-line="22" selection-start-column="50" selection-end-line="22" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="15" column="38" selection-start-line="15" selection-start-column="38" selection-end-line="15" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/dimens.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/ids.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="8" column="13" lean-forward="true" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1073">
-          <caret line="49" column="57" selection-start-line="49" selection-start-column="57" selection-end-line="49" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values-v21/styles.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -5875,13 +5859,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/googlebilling/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="3" column="17" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/support-compat/27.0.2/80acc64f280831f05960ede2cd87237e8d097ed2/support-compat-27.0.2-sources.jar!/android/support/v4/app/SupportActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -5910,21 +5887,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/InteractionJsVst.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="156" column="56" selection-start-line="156" selection-start-column="56" selection-end-line="156" selection-end-column="56" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#addCheckLoginState#0;class#InteractionJsVst#0" />
-            <element signature="e#6099#6551#0" expanded="true" />
-            <element signature="e#6550#6551#0" expanded="true" />
-            <element signature="method#loginSucces#0;class#InteractionJsVst#0" />
-            <element signature="method#loginFailed#0;class#InteractionJsVst#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/billing/row/GasDelegate.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/billing/row/UiDelegatesFactory.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/billing/row/UiManager.java" />
@@ -5947,13 +5909,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/FaceBookLoginVst.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/googlebilling/src/main/java/billing/BillingProvider.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
@@ -5961,34 +5916,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="14" column="38" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/MainViewController.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/GoogleLoginVst.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="18" column="39" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/billing/row/SkuRowData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1080">
-          <caret line="45" column="52" selection-start-line="45" selection-start-column="52" selection-end-line="45" selection-end-column="52" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/googlebilling/src/main/java/billing/BillingConstants.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
@@ -6003,76 +5931,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/GoogleBillingVst.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3600">
-          <caret line="102" column="50" selection-start-line="102" selection-start-column="50" selection-end-line="102" selection-end-column="50" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/billing/AcquireFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2565">
-          <caret line="88" column="46" selection-start-line="88" selection-start-column="20" selection-end-line="88" selection-end-column="46" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1424#1425#0" expanded="true" />
-            <element signature="e#1452#1453#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.billingclient/billing/1.0/2974af04233d5eff78803927bf44e621fb1c8dfb/billing-1.0-sources.jar!/com/android/billingclient/api/BillingClient.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4680">
           <caret line="113" column="31" selection-start-line="113" selection-start-column="31" selection-end-line="113" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="9" selection-start-line="9" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/keystore.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/googlebilling/src/main/java/billing/BillingManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="82" selection-start-line="82" selection-end-line="82" />
-          <folding>
-            <element signature="class#BillingUpdatesListener#0;class#BillingManager#0" />
-            <element signature="class#ServiceConnectedListener#0;class#BillingManager#0" />
-            <element signature="method#BillingManager#0;class#BillingManager#0" />
-            <element signature="method#initiatePurchaseFlow#0;class#BillingManager#0" />
-            <element signature="method#initiatePurchaseFlow#1;class#BillingManager#0" />
-            <element signature="method#destroy#0;class#BillingManager#0" />
-            <element signature="method#querySkuDetailsAsync#0;class#BillingManager#0" />
-            <element signature="method#consumeAsync#0;class#BillingManager#0" />
-            <element signature="method#areSubscriptionsSupported#0;class#BillingManager#0" />
-            <element signature="method#startServiceConnection#0;class#BillingManager#0" />
-            <element signature="method#executeServiceRequest#0;class#BillingManager#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1035">
-          <caret line="23" column="55" selection-start-line="23" selection-start-column="36" selection-end-line="23" selection-end-column="55" />
         </state>
       </provider>
     </entry>
@@ -6083,24 +5945,201 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gamelib/build.gradle">
+    <entry file="file://$PROJECT_DIR$/googlebilling/src/main/java/billing/BillingManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="201" column="67" selection-start-line="201" selection-start-column="67" selection-end-line="201" selection-end-column="67" />
+          <folding>
+            <element signature="class#BillingUpdatesListener#0;class#BillingManager#0" />
+            <element signature="class#ServiceConnectedListener#0;class#BillingManager#0" />
+            <element signature="method#BillingManager#0;class#BillingManager#0" />
+            <element signature="method#initiatePurchaseFlow#0;class#BillingManager#0" />
+            <element signature="method#initiatePurchaseFlow#1;class#BillingManager#0" />
+            <element signature="method#destroy#0;class#BillingManager#0" />
+            <element signature="e#8244#9017#0" expanded="true" />
+            <element signature="e#9016#9017#0" expanded="true" />
+            <element signature="method#consumeAsync#0;class#BillingManager#0" />
+            <element signature="method#areSubscriptionsSupported#0;class#BillingManager#0" />
+            <element signature="method#startServiceConnection#0;class#BillingManager#0" />
+            <element signature="method#executeServiceRequest#0;class#BillingManager#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/AppData/Local/Android/Sdk/platforms/android-27/android.jar!/android/Manifest.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="83" column="35" selection-start-line="83" selection-start-column="35" selection-end-line="83" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="4" column="37" lean-forward="true" selection-start-line="4" selection-start-column="37" selection-end-line="4" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/running/SplashVst.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/running/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="742">
+          <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/running/billing/row/SkuRowData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-270">
+          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/running/billing/AcquireFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-556">
+          <caret line="18" column="24" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/loading_indicator.xml">
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/running/GoogleBillingVst.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="128" column="33" selection-start-line="128" selection-start-column="33" selection-end-line="128" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
-          <caret line="6" column="5" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="5" />
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/keystore.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/running/FaceBookLoginVst.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="27" column="54" selection-start-line="27" selection-start-column="54" selection-end-line="27" selection-end-column="54" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/google-services.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="13" column="9" selection-start-line="13" selection-start-column="9" selection-end-line="13" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/running/InteractionJsVst.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="166" column="9" selection-start-line="166" selection-start-column="9" selection-end-line="166" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#894#1233#0" expanded="true" />
+            <element signature="e#1232#1233#0" expanded="true" />
+            <element signature="e#1495#2965#0" expanded="true" />
+            <element signature="e#1668#1684#0" expanded="true" />
+            <element signature="e#1731#1770#0" expanded="true" />
+            <element signature="e#1812#1848#0" expanded="true" />
+            <element signature="e#2964#2965#0" expanded="true" />
+            <element signature="e#3103#4502#0" expanded="true" />
+            <element signature="e#4501#4502#0" expanded="true" />
+            <element signature="method#addCheckLoginState#0;class#InteractionJsVst#0" />
+            <element signature="e#4662#5765#0" expanded="true" />
+            <element signature="e#5764#5765#0" expanded="true" />
+            <element signature="e#5899#6256#0" expanded="true" />
+            <element signature="e#6255#6256#0" expanded="true" />
+            <element signature="method#loginFailed#0;class#InteractionJsVst#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/running/GoogleLoginVst.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="341">
+          <caret line="67" column="14" selection-start-line="67" selection-start-column="14" selection-end-line="67" selection-end-column="14" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="18" column="41" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="41" />
+        <state relative-caret-position="-1595">
+          <caret line="17" column="40" selection-start-line="17" selection-start-column="40" selection-end-line="17" selection-end-column="40" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jiantfuntexaspoker/main/MainActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="56" lean-forward="true" selection-start-line="56" selection-end-line="56" />
+        <state relative-caret-position="588">
+          <caret line="60" column="56" selection-start-line="60" selection-start-column="48" selection-end-line="60" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gamelib/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-875">
+          <caret line="6" column="5" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/googlebilling/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="33" column="60" lean-forward="true" selection-start-line="33" selection-start-column="60" selection-end-line="33" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/googlebilling/src/main/java/billing/GoogleBillingUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="272" column="57" selection-start-line="272" selection-start-column="48" selection-end-line="272" selection-end-column="57" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

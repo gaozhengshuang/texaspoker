@@ -1,43 +1,35 @@
 {
   "project_info": {
-    "project_number": "833679027611",
-    "firebase_url": "https://poker-834fc.firebaseio.com",
-    "project_id": "poker-834fc",
-    "storage_bucket": "poker-834fc.appspot.com"
+    "project_number": "261888055971",
+    "firebase_url": "https://poker-test-eb341.firebaseio.com",
+    "project_id": "poker-test-eb341",
+    "storage_bucket": "poker-test-eb341.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:833679027611:android:d55051bd75226662",
+        "mobilesdk_app_id": "1:261888055971:android:6fd1f2f9dd7352b1",
         "android_client_info": {
-          "package_name": "com.jiantfuntexaspoker.main"
+          "package_name": "com.jiantfuntexaspoker.running"
         }
       },
       "oauth_client": [
         {
-          "client_id": "833679027611-76s139qbu0keqhljl0f648f8981gjr9r.apps.googleusercontent.com",
+          "client_id": "261888055971-2uj4nuq5nr0mogukg0pqmpo66jjr80rh.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.jiantfuntexaspoker.main",
-            "certificate_hash": "7f21f25d659bebbbd9a5e6b56f0c72a2b1dc1017"
-          }
-        },
-        {
-          "client_id": "833679027611-9npua3k4vcjgp8g3q6g7094j1r48edef.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.jiantfuntexaspoker.main",
+            "package_name": "com.jiantfuntexaspoker.running",
             "certificate_hash": "d3fca7462efcf5163e37d6b4ee6ad8ef43d61f69"
           }
         },
         {
-          "client_id": "833679027611-a3m8gvpknba2e06pr8m4cdrprfh43vof.apps.googleusercontent.com",
+          "client_id": "261888055971-n5qsj79s5pe9bcv0v0orfqqbm014opde.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCum0O1qXd9_T8Azjhsic7ZBlxvdbjwAq0"
+          "current_key": "AIzaSyBqke_r9pQgzPwXSiqK3jtFmTPkfHRgFZk"
         }
       ],
       "services": {
@@ -48,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "833679027611-a3m8gvpknba2e06pr8m4cdrprfh43vof.apps.googleusercontent.com",
+              "client_id": "261888055971-n5qsj79s5pe9bcv0v0orfqqbm014opde.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
