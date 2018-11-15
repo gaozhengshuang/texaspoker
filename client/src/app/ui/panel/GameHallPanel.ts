@@ -291,7 +291,7 @@ class GameHallPanel extends BasePanel
 				break;
 			case this.pokerBtn:
 				SoundManager.playButtonEffect(event.target);
-				this._panelAnime.setOutAnime();
+				// this._panelAnime.setOutAnime();
 				JumpUtil.JumpToPlayingField();
 				break;
 			case this.matchBtn:

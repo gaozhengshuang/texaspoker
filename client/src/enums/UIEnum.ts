@@ -893,6 +893,10 @@ class UIRendererSkinName
 	 * 服务器选择项
 	 */
 	public static ServerSelectItemRenderer = UIRendererSkinName.ROOT_PATH + "ServerSelectItemRenderer.exml";
+	/**
+	 * 房间选择项
+	 */
+	public static RoomSelectPatternItemRenderer = UIRendererSkinName.ROOT_PATH + "RoomSelectPatternItemRenderer.exml";
 }
 
 /**

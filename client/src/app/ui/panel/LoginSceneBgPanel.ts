@@ -27,6 +27,7 @@ class LoginSceneBgPanel extends BasePanel
 			let dataList: Array<game.ServerInfo> = [];
 			dataList.push(
 				{ name: "毕强", $netIp: "ws://192.168.30.205:7002/ws_handler", $gameNetIp: "ws://192.168.30.205:{gamePort}/ws_handler" },
+				{ name: "台湾", $netIp: "ws://45.63.4.17:7002/ws_handler", $gameNetIp: "ws://45.63.4.17:{gamePort}/ws_handler" },
 				{ name: "双双", $netIp: "ws://192.168.30.202:7101/ws_handler", $gameNetIp: "ws://192.168.30.202:{gamePort}/ws_handler" },
 				{ name: "谢建", $netIp: "ws://192.168.30.203:27002/ws_handler", $gameNetIp: "ws://192.168.30.203:{gamePort}/ws_handler" },
 				{ name: "刘凯", $netIp: "ws://192.168.30.206:17002/ws_handler", $gameNetIp: "ws://192.168.30.206:{gamePort}/ws_handler" },

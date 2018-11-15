@@ -132,6 +132,11 @@ class PlayingFieldManager
      */
     public static quicklyEnterGame(blindInfo: RoomSelectBlindInfo)
     {
+        if (!blindInfo)
+        {
+            AlertManager.showAlert("没有高级场房间！");
+            return;
+        }
         if (PlayingFieldManager.roomList)
         {
             let nearest: number = Infinity;
@@ -163,6 +168,11 @@ class PlayingFieldManager
                         }
                     }
                 }
+            }
+            if (roomId == undefined && backupRoomId == undefined)
+            {
+                AlertManager.showAlert("没有合适的房间！");
+                return;
             }
             if (UserManager.userInfo.gold == 0)
             {

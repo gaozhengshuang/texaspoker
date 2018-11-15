@@ -36,7 +36,7 @@ module game
                     NotificationCenter.once(LoginManager, (data) =>
                     {
                         d.resolve(data);
-                    }, Command.C2L_ReqLoginFaceBook);
+                    }, Command.C2L_ReqLogin);
                 }, BaseSocket.SOCKET_CONNECT_SUCCESS);
                 return d.promise();
             };
@@ -64,7 +64,7 @@ module game
                     NotificationCenter.once(LoginManager, (data) =>
                     {
                         d.resolve(data);
-                    }, Command.C2L_ReqLoginGoogle);
+                    }, Command.C2L_ReqLogin);
                 }, BaseSocket.SOCKET_CONNECT_SUCCESS);
                 return d.promise();
             };
@@ -94,7 +94,7 @@ module game
                     NotificationCenter.once(LoginManager, (data) =>
                     {
                         d.resolve(data);
-                    }, Command.C2L_ReqLoginApple);
+                    }, Command.C2L_ReqLogin);
                 }, BaseSocket.SOCKET_CONNECT_SUCCESS);
                 return d.promise();
             };

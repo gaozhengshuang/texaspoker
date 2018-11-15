@@ -18728,6 +18728,204 @@ declare namespace msg {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a C2GW_ReqGooglePayCheck. */
+    interface IC2GW_ReqGooglePayCheck {
+
+        /** C2GW_ReqGooglePayCheck purchasetoken */
+        purchasetoken?: (string|null);
+
+        /** C2GW_ReqGooglePayCheck productid */
+        productid?: (string|null);
+    }
+
+    /** Represents a C2GW_ReqGooglePayCheck. */
+    class C2GW_ReqGooglePayCheck implements IC2GW_ReqGooglePayCheck {
+
+        /**
+         * Constructs a new C2GW_ReqGooglePayCheck.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IC2GW_ReqGooglePayCheck);
+
+        /** C2GW_ReqGooglePayCheck purchasetoken. */
+        public purchasetoken: string;
+
+        /** C2GW_ReqGooglePayCheck productid. */
+        public productid: string;
+
+        /**
+         * Creates a new C2GW_ReqGooglePayCheck instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns C2GW_ReqGooglePayCheck instance
+         */
+        public static create(properties?: msg.IC2GW_ReqGooglePayCheck): msg.C2GW_ReqGooglePayCheck;
+
+        /**
+         * Encodes the specified C2GW_ReqGooglePayCheck message. Does not implicitly {@link msg.C2GW_ReqGooglePayCheck.verify|verify} messages.
+         * @param message C2GW_ReqGooglePayCheck message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IC2GW_ReqGooglePayCheck, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified C2GW_ReqGooglePayCheck message, length delimited. Does not implicitly {@link msg.C2GW_ReqGooglePayCheck.verify|verify} messages.
+         * @param message C2GW_ReqGooglePayCheck message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IC2GW_ReqGooglePayCheck, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a C2GW_ReqGooglePayCheck message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns C2GW_ReqGooglePayCheck
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.C2GW_ReqGooglePayCheck;
+
+        /**
+         * Decodes a C2GW_ReqGooglePayCheck message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns C2GW_ReqGooglePayCheck
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.C2GW_ReqGooglePayCheck;
+
+        /**
+         * Verifies a C2GW_ReqGooglePayCheck message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a C2GW_ReqGooglePayCheck message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns C2GW_ReqGooglePayCheck
+         */
+        public static fromObject(object: { [k: string]: any }): msg.C2GW_ReqGooglePayCheck;
+
+        /**
+         * Creates a plain object from a C2GW_ReqGooglePayCheck message. Also converts values to other types if specified.
+         * @param message C2GW_ReqGooglePayCheck
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.C2GW_ReqGooglePayCheck, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this C2GW_ReqGooglePayCheck to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a GW2C_RetGooglePayCheck. */
+    interface IGW2C_RetGooglePayCheck {
+
+        /** GW2C_RetGooglePayCheck purchasetoken */
+        purchasetoken?: (string|null);
+
+        /** GW2C_RetGooglePayCheck productid */
+        productid?: (string|null);
+
+        /** GW2C_RetGooglePayCheck errorcode */
+        errorcode?: (string|null);
+    }
+
+    /** Represents a GW2C_RetGooglePayCheck. */
+    class GW2C_RetGooglePayCheck implements IGW2C_RetGooglePayCheck {
+
+        /**
+         * Constructs a new GW2C_RetGooglePayCheck.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: msg.IGW2C_RetGooglePayCheck);
+
+        /** GW2C_RetGooglePayCheck purchasetoken. */
+        public purchasetoken: string;
+
+        /** GW2C_RetGooglePayCheck productid. */
+        public productid: string;
+
+        /** GW2C_RetGooglePayCheck errorcode. */
+        public errorcode: string;
+
+        /**
+         * Creates a new GW2C_RetGooglePayCheck instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns GW2C_RetGooglePayCheck instance
+         */
+        public static create(properties?: msg.IGW2C_RetGooglePayCheck): msg.GW2C_RetGooglePayCheck;
+
+        /**
+         * Encodes the specified GW2C_RetGooglePayCheck message. Does not implicitly {@link msg.GW2C_RetGooglePayCheck.verify|verify} messages.
+         * @param message GW2C_RetGooglePayCheck message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: msg.IGW2C_RetGooglePayCheck, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Encodes the specified GW2C_RetGooglePayCheck message, length delimited. Does not implicitly {@link msg.GW2C_RetGooglePayCheck.verify|verify} messages.
+         * @param message GW2C_RetGooglePayCheck message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: msg.IGW2C_RetGooglePayCheck, writer?: protobuf.Writer): protobuf.Writer;
+
+        /**
+         * Decodes a GW2C_RetGooglePayCheck message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns GW2C_RetGooglePayCheck
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: (protobuf.Reader|Uint8Array), length?: number): msg.GW2C_RetGooglePayCheck;
+
+        /**
+         * Decodes a GW2C_RetGooglePayCheck message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns GW2C_RetGooglePayCheck
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: (protobuf.Reader|Uint8Array)): msg.GW2C_RetGooglePayCheck;
+
+        /**
+         * Verifies a GW2C_RetGooglePayCheck message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a GW2C_RetGooglePayCheck message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns GW2C_RetGooglePayCheck
+         */
+        public static fromObject(object: { [k: string]: any }): msg.GW2C_RetGooglePayCheck;
+
+        /**
+         * Creates a plain object from a GW2C_RetGooglePayCheck message. Also converts values to other types if specified.
+         * @param message GW2C_RetGooglePayCheck
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: msg.GW2C_RetGooglePayCheck, options?: protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this GW2C_RetGooglePayCheck to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a GW2C_PushMsgNotify. */
     interface IGW2C_PushMsgNotify {
 

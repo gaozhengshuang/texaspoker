@@ -178,8 +178,8 @@
       <file leaf-file-name="GoogleBillingUtil.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/googlebilling/src/main/java/billing/GoogleBillingUtil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="235">
-              <caret line="272" column="57" selection-start-line="272" selection-start-column="48" selection-end-line="272" selection-end-column="57" />
+            <state relative-caret-position="460">
+              <caret line="271" column="17" lean-forward="true" selection-start-line="271" selection-start-column="17" selection-end-line="271" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -5469,8 +5469,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="6" />
-    <option name="y" value="2" />
+    <option name="x" value="-20" />
+    <option name="y" value="5" />
     <option name="width" value="1936" />
     <option name="height" value="1014" />
   </component>
@@ -5504,10 +5504,6 @@
             <path>
               <item name="client_android" type="1abcf292:AndroidViewProjectNode" />
               <item name="googlebilling" type="e9137016:NonAndroidModuleNode" />
-            </path>
-            <path>
-              <item name="client_android" type="1abcf292:AndroidViewProjectNode" />
-              <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
             </path>
           </expand>
           <select />
@@ -5745,7 +5741,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="6" y="2" width="1936" height="1014" extended-state="0" />
+    <frame x="-20" y="5" width="1936" height="1014" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="Android Profiler" order="7" weight="0.3295325" />
@@ -5762,8 +5758,8 @@
       <window_info id="Captures" order="2" weight="0.25" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4992948" visible="true" weight="0.23880596" />
-      <window_info active="true" anchor="bottom" id="Build" order="7" sideWeight="0.7835821" visible="true" weight="0.16761687" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4992948" visible="true" weight="0.23880596" />
+      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.7835821" visible="true" weight="0.16761687" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4978678" weight="0.33295324" />
       <window_info anchor="right" id="Gradle" order="3" weight="0.1913646" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -6138,8 +6134,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/googlebilling/src/main/java/billing/GoogleBillingUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="272" column="57" selection-start-line="272" selection-start-column="48" selection-end-line="272" selection-end-column="57" />
+        <state relative-caret-position="460">
+          <caret line="271" column="17" lean-forward="true" selection-start-line="271" selection-start-column="17" selection-end-line="271" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
