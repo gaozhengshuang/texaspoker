@@ -36,6 +36,7 @@ message L2GW_ReqRegistUser {
     optional int32  sid = 4;     // 玩家在Login的Taskid
     optional int64  timestamp = 5;
     optional string verifykey = 6;
+	optional string logintype = 7;
 }
 
 // 注册返回
@@ -45,6 +46,7 @@ message GW2L_RegistUserRet {
     optional string errcode  = 3;
     optional int32  sid = 4;
     optional string verifykey = 5;
+	optional string logintype = 6;
 }
 
 

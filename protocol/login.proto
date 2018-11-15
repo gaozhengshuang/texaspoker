@@ -63,7 +63,8 @@ message C2L_ReqLoginApple {
 
 // google账户登录
 message C2L_ReqLoginGoogle {
-
+	optional string openid = 1;
+	optional string token = 2;
 }
 
 // facebook 账户登录

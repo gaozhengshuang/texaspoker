@@ -1,0 +1,35 @@
+<e:Skin class="SelectPlace" width="720" height="1280" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+    <e:Group id="selectGroup" horizontalCenter="0" verticalCenter="0">
+        <e:Image id="bgImg" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1"
+                  height="626" scale9Grid="12,98,644,22" width="505" source="pub_bg2_png" horizontalCenter="0" verticalCenter="0"/>
+			<e:Button id="CloseButton" label="Button" x="428" y="39" skinName="closeButtonSkin"/>
+			<e:Group id="SelectType" width="200" height="200" y="51" horizontalCenter="0">
+				<e:Image id="Button_SelectType" width="363" height="95" y="46" source="pub_button_66_png" scaleX="1" scaleY="1" horizontalCenter="0"/>
+				<e:Label id="Txt_Typename" text="初级场" y="68.95999999999998" size="43" scaleX="1" scaleY="1" horizontalCenter="0"/>
+			</e:Group>
+
+
+			<e:Group id="SelectRoom" width="368" height="200" y="158" horizontalCenter="0">
+				<e:Image id="Button_Left" width="150" height="90" source="button_half_png" y="50" scaleX="1.2" scaleY="1.2" left="0"/>
+				<e:Label text="小/大盲" x="33" y="50" size="30" fontFamily="Microsoft YaHei" width="150" height="50" verticalAlign="middle" textAlign="center"/>
+				<e:Label id="Blind_Room1" text="5/10" x="34" y="95" size="30" fontFamily="Microsoft YaHei" width="150" height="50" verticalAlign="middle" textAlign="center"/>
+				<e:Image id="Sb" width="75" height="62" y="95" source="icon_smallb_png" anchorOffsetX="0" anchorOffsetY="0" scaleX="1.2" scaleY="1.2" x="-37"/>
+				<e:Image id="Button_Right" width="150" height="90" source="button_half_png" y="50" scaleX="-1.2" scaleY="1.2" right="0"/>
+				<e:Label text="小/大盲" x="188" y="50" size="30" fontFamily="Microsoft YaHei" width="150" height="50" verticalAlign="middle" textAlign="center"/>
+				<e:Label id="Blind_Room2" text="10/20" x="188" y="95" size="30" fontFamily="Microsoft YaHei" width="150" height="50" verticalAlign="middle" textAlign="center"/>
+				<e:Image id="Bb" width="75" height="88" y="52.4" anchorOffsetX="0" anchorOffsetY="0" source="icon_bigb_png" scaleX="1.2" scaleY="1.2" x="324"/>
+			</e:Group>
+
+
+
+
+
+
+
+
+
+
+
+    </e:Group>
+</e:Skin>

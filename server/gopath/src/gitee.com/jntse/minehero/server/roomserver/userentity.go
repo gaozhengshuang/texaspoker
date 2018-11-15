@@ -67,8 +67,8 @@ func (u *UserEntity) SetVipLevel(viplevel int32) {
 	Redis().HSet(fmt.Sprintf("charbase_%d", u.Id()), "viplevel", viplevel)
 }
 func (u *UserEntity) VipExp() int32 {
-	u.exp = util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "vipexp").Val())
-	return u.exp
+	u.vipexp = util.Atoi(Redis().HGet(fmt.Sprintf("charbase_%d", u.Id()), "vipexp").Val())
+	return u.vipexp
 }
 func (u *UserEntity) SetVipExp(vipexp int32) {
 	u.vipexp = vipexp

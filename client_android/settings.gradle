@@ -1,1 +1,1 @@
-include ':app', ':gamelib', ':customloadingview'
+include ':app', ':gamelib', ':customloadingview', ':googlebilling'

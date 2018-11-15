@@ -73,6 +73,22 @@ class ChannelManager
 	{
 		return ChannelManager._hasWeixin;
 	}
+	private static _hasFaceBook: boolean = false;
+	/**
+	 * 是否安装有facebook
+	 */
+	public static get hasFaceBook(): boolean
+	{
+		return ChannelManager._hasFaceBook;
+	}
+	private static _hasGooglePlay: boolean = false;
+	/**
+	 * 是否安装有googleplay
+	 */
+	public static get hasGooglePlay(): boolean
+	{
+		return ChannelManager._hasGooglePlay;
+	}
 	private static _hasMicrophone: boolean = false
 	/**
 	 * 是否有麦克风或麦克风权限(需要执行requestMicrophone方法过后才有用)
@@ -202,7 +218,7 @@ class ChannelManager
 		{
 			ChannelManager._isInitComplete = true;
 			let data: any = JSON.parse(json);
-			console.log("Java传回数据：", data);
+			console.log("Java传回数据：", json);
 			ChannelManager._channelType = data['channelType'];
 			if (game.StringUtil.isNullOrEmpty(ChannelManager._channelType))
 			{
@@ -211,11 +227,13 @@ class ChannelManager
 			ChannelManager._appName = data['appName'];
 			ChannelManager._deviceId = data['deviceId'];
 			ChannelManager._bundleId = data['bundleId'];
-			console.log("ChannelManager._bundleId", ChannelManager._bundleId);
 			ChannelManager._clientVersion = data['clientVersion'];
 			ChannelManager._hasWeixin = game.StringUtil.toBoolean(data['hasWeixin']);
+			ChannelManager._hasFaceBook = game.StringUtil.toBoolean(data['hasfacebook']);
+			ChannelManager._hasGooglePlay = game.StringUtil.toBoolean(data['hasgoogleplay']);
 			ChannelManager.OnInitComplete.dispatch();
 		});
+		console.log("白鹭初始化：：：---------");
 		game.ExternalInterface.call(ExtFuncName.Initialize, '');
 	}
 	private static initWeb(): void

@@ -47,8 +47,8 @@ data-content-width="720" data-content-height="1280" data-show-paint-rect="true" 
 data-show-log="true" data-show-fps-style="x:0,y:0,size:12,textColor:0xffffff,bgAlpha:0.2">
 </div>
 <script>
-    window.web_config_serverVersion = '0.1.0';//因为入口html都是从服务器上实时加载的，所以这里配置服务器上的客户端版本号（安装包用）
-    window.web_config_clientVersion = '0.1.0'
+    window.web_config_serverVersion = '0.2.0';//因为入口html都是从服务器上实时加载的，所以这里配置服务器上的客户端版本号（安装包用）
+    window.web_config_clientVersion = '0.2.0'
     window.web_config_isSafe = false;//安全开关,提审时候用,仅ios包有效
     var resJsonUrl = "default.res.json";
     var langName = localStorage.getItem("giant_poker_lang");
@@ -57,6 +57,7 @@ data-show-log="true" data-show-fps-style="x:0,y:0,size:12,textColor:0xffffff,bgA
         localStorage.setItem("giant_poker_lang", langName);
     }
     langName = 'zh-cn'
+        langName = "zh-tw";
     console.log("langName", langName);
     var resJsonUrl = "default_" + langName + ".res.json";
     I18n.initSystem("", [langName]);

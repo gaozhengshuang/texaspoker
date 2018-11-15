@@ -172,3 +172,16 @@ message C2GW_PushVipTime {
 	optional int64 viptime = 1;
 	optional int64 yearviptime = 2;
 }
+
+//客户端发googlepay谷歌支付验证 
+message C2GW_ReqGooglePayCheck {
+	optional string purchasetoken = 1;
+	optional string productid = 2;
+}
+
+//返回googlepay谷歌支付验证结果
+message GW2C_RetGooglePayCheck {
+	optional string purchasetoken = 1;
+	optional string productid = 2;
+	optional string errorcode = 3;
+}

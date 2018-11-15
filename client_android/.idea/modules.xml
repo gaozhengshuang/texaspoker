@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/client_android.iml" filepath="$PROJECT_DIR$/client_android.iml" />
       <module fileurl="file://$PROJECT_DIR$/customloadingview/customloadingview.iml" filepath="$PROJECT_DIR$/customloadingview/customloadingview.iml" />
       <module fileurl="file://$PROJECT_DIR$/gamelib/gamelib.iml" filepath="$PROJECT_DIR$/gamelib/gamelib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/googlebilling/googlebilling.iml" filepath="$PROJECT_DIR$/googlebilling/googlebilling.iml" />
     </modules>
   </component>
 </project>

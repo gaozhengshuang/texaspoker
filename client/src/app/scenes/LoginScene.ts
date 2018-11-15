@@ -286,6 +286,7 @@ class LoginScene extends BaseScene
             case ChannelLoginType.GameCenter:
                 break;
             case ChannelLoginType.GooglePlay:
+                game.LoginManager.googlePlayLogin(data.token, data.openid)
                 break;
         }
         // game.LoginManager.TokenLogin(ChannelManager.getLoginChannel(), token);

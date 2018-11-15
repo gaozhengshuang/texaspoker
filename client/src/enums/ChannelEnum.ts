@@ -113,6 +113,7 @@ class ChannelLoginType
 		if (DEBUG || game.System.isLocalhost)
 		{
 			list.push(ChannelLoginType.FaceBook);
+			list.push(ChannelLoginType.GooglePlay);
 			list.push(ChannelLoginType.IntranetAccount);
 		}
 		else

@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/customloadingview" />
             <option value="$PROJECT_DIR$/gamelib" />
+            <option value="$PROJECT_DIR$/googlebilling" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
