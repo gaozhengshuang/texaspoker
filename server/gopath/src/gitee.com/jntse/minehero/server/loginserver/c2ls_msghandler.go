@@ -497,7 +497,7 @@ func HttpsGet(url, cacert, cert, certkey string) (*network.HttpResponse, error) 
 
 func on_C2L_ReqLoginGoogle(session network.IBaseNetSession, message interface{}) {
 	tm1 := util.CURTIMEUS()
-	tmsg := message.(*msg.C2L_ReqLoginFaceBook)
+	tmsg := message.(*msg.C2L_ReqLoginGoogle)
 	openid, token :=  tmsg.GetOpenid(), tmsg.GetToken()
 	log.Info("ReqLoginGoogle openid: %s   token: %s", openid, token)
 	account := fmt.Sprintf("google-%s",openid)
