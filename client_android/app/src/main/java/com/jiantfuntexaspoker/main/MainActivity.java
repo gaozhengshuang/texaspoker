@@ -22,7 +22,7 @@ import org.egret.egretnativeandroid.EgretNativeAndroid;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends Activity {
     public final String TAG = "MainActivity";
     public EgretNativeAndroid nativeAndroid;
 
@@ -56,8 +56,8 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
 
         try {
-//            String packageName = this.getApplicationContext().getPackageName();
-            String packageName = "com.jiantfuntexaspoker.main";
+            String packageName = this.getApplicationContext().getPackageName();
+//            String packageName = "com.jiantfuntexaspoker.main";
             Log.d("KeyHash:", packageName);
             PackageInfo info = getPackageManager().getPackageInfo(
                     packageName,

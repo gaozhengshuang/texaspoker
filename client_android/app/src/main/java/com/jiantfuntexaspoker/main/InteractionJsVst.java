@@ -154,14 +154,7 @@ public class InteractionJsVst {
             public void callback(String message) {
                 try {
                     JSONObject obj = new JSONObject(message);
-                    int awardId = obj.getInt("awardId");
-                    switch (awardId) {
-                        case 801:
-//                            _target.googleBillingVst.onPurchaseButtonClicked();
-                            break;
-                        case 802:
-                            break;
-                    }
+                    _target.googleBillingVst.onPurchaseButtonClicked(obj);
                 } catch (JSONException e) {
 
                 }

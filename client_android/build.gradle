@@ -15,8 +15,8 @@ project.ext {
     //
     // The storeFile location can be a relative or absolute filename.
     // https://docs.gradle.org/current/userguide/working_with_files.html
-    APP_ID = "com.giant.billingsample"
-//    APP_ID = "com.jiantfuntexaspoker.main"
+//    APP_ID = "com.giant.billingsample"
+    APP_ID = "com.jiantfuntexaspoker.main"
     TEST_APP_ID = APP_ID + ".test"
 
     KEYSTORE_STORE_FILE = rootProject.file(keystoreProperties['storeFile'])

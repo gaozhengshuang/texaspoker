@@ -18,7 +18,6 @@ public class GoogleLoginVst {
     private MainActivity _target;
     public GoogleSignInAccount account;
 
-
     public GoogleLoginVst(MainActivity tg) {
         _target = tg;
     }

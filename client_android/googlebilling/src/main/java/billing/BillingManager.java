@@ -85,6 +85,7 @@ public class BillingManager implements PurchasesUpdatedListener {
     /**
      * Listener to the updates that happen when purchases list was updated or consumption of the
      * item was finished
+     * 一个响应支付的，接口，由外部类实现
      */
     public interface BillingUpdatesListener {
         void onBillingClientSetupFinished();
@@ -124,6 +125,7 @@ public class BillingManager implements PurchasesUpdatedListener {
 
     /**
      * Handle a callback that purchases were updated from the Billing library
+     * 支付之后的回调 通知支付侦听
      */
     @Override
     public void onPurchasesUpdated(int resultCode, List<Purchase> purchases) {
@@ -141,6 +143,7 @@ public class BillingManager implements PurchasesUpdatedListener {
 
     /**
      * Start a purchase flow
+     * 开始一个支付
      */
     public void initiatePurchaseFlow(final String skuId, final @SkuType String billingType) {
         initiatePurchaseFlow(skuId, null, billingType);
@@ -148,6 +151,7 @@ public class BillingManager implements PurchasesUpdatedListener {
 
     /**
      * Start a purchase or subscription replace flow
+     * 开始一个支付
      */
     public void initiatePurchaseFlow(final String skuId, final ArrayList<String> oldSkus,
             final @SkuType String billingType) {
@@ -180,6 +184,12 @@ public class BillingManager implements PurchasesUpdatedListener {
         }
     }
 
+    /**
+     * 查询 当前在售的商品信息列表
+     * @param itemType
+     * @param skuList
+     * @param listener
+     */
     public void querySkuDetailsAsync(@SkuType final String itemType, final List<String> skuList,
                                      final SkuDetailsResponseListener listener) {
         // Creating a runnable from the request to use it inside our connection retry policy below
@@ -203,6 +213,10 @@ public class BillingManager implements PurchasesUpdatedListener {
         executeServiceRequest(queryRequest);
     }
 
+    /**
+     * 消耗购买的商品 类似与交易成功删除订单
+     * @param purchaseToken
+     */
     public void consumeAsync(final String purchaseToken) {
         // If we've already scheduled to consume this token - no action is needed (this could happen
         // if you received the token when querying purchases inside onReceive() and later from
@@ -252,6 +266,7 @@ public class BillingManager implements PurchasesUpdatedListener {
      * See {@link Security#verifyPurchase(String, String, String)}
      * </p>
      * @param purchase Purchase to be handled
+     * 客户端验证支付 在googleplay响应购买之后,验证成功，才能继续onPurchasesUpdated
      */
     private void handlePurchase(Purchase purchase) {
         if (!verifyValidSignature(purchase.getOriginalJson(), purchase.getSignature())) {
@@ -266,10 +281,12 @@ public class BillingManager implements PurchasesUpdatedListener {
 
     /**
      * Handle a result from querying of purchases and report an updated list to the listener
+     * 查询库存结束
      */
     private void onQueryPurchasesFinished(PurchasesResult result) {
         // Have we been disposed of in the meantime? If so, or bad result code, then quit
         if (mBillingClient == null || result.getResponseCode() != BillingResponse.OK) {
+            //可以处理库存已经存在的情况   BillingResponse.ITEM_ALREADY_OWNED
             Log.w(TAG, "Billing client was null or result code (" + result.getResponseCode()
                     + ") was bad - quitting");
             return;
@@ -279,6 +296,9 @@ public class BillingManager implements PurchasesUpdatedListener {
 
         // Update the UI and purchases inventory with new list of purchases
         mPurchases.clear();
+        //为什么OK的状态还能被，查到呢，我是这样理解的，有可能购买成功了，但是此时用户退出了客户端
+        //导致回调没回来，如果再去查询,有库存，且购买状态是OK的，此时在进行 处理购买成功的情况
+        //有可能不对
         onPurchasesUpdated(BillingResponse.OK, result.getPurchasesList());
     }
 
@@ -288,6 +308,7 @@ public class BillingManager implements PurchasesUpdatedListener {
      * It is only used in unit tests and after queryPurchases execution, which already has
      * a retry-mechanism implemented.
      * </p>
+     * 订阅是否支持
      */
     public boolean areSubscriptionsSupported() {
         int responseCode = mBillingClient.isFeatureSupported(FeatureType.SUBSCRIPTIONS);
@@ -300,6 +321,7 @@ public class BillingManager implements PurchasesUpdatedListener {
     /**
      * Query purchases across various use cases and deliver the result in a formalized way through
      * a listener
+     * 查询库存 1.库存存在用户购买的产品，先去消耗,2.库存不存在则可以购买
      */
     public void queryPurchases() {
         Runnable queryToExecute = new Runnable() {
@@ -338,6 +360,10 @@ public class BillingManager implements PurchasesUpdatedListener {
         executeServiceRequest(queryToExecute);
     }
 
+    /**
+     * 开始支付服务
+     * @param executeOnSuccess
+     */
     public void startServiceConnection(final Runnable executeOnSuccess) {
         mBillingClient.startConnection(new BillingClientStateListener() {
             @Override
@@ -360,6 +386,10 @@ public class BillingManager implements PurchasesUpdatedListener {
         });
     }
 
+    /**
+     * 执行开启支付服务
+     * @param runnable
+     */
     private void executeServiceRequest(Runnable runnable) {
         if (mIsServiceConnected) {
             runnable.run();
@@ -375,6 +405,7 @@ public class BillingManager implements PurchasesUpdatedListener {
      * <p>Note: It's strongly recommended to perform such check on your backend since hackers can
      * replace this method with "constant true" if they decompile/rebuild your app.
      * </p>
+     * 客户端验证签名
      */
     private boolean verifyValidSignature(String signedData, String signature) {
         // Some sanity checks to see if the developer (that's you!) really followed the

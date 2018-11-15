@@ -15,21 +15,30 @@
  */
 package com.jiantfuntexaspoker.main.billing.row;
 
+import android.support.annotation.IntDef;
+
 import com.android.billingclient.api.BillingClient.SkuType;
 import com.android.billingclient.api.SkuDetails;
-import com.jiantfuntexaspoker.main.billing.SkusAdapter;
+
+import java.lang.annotation.Retention;
+
+import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
  * A model for SkusAdapter's row
  */
 public class SkuRowData {
     private String sku, title, price, description;
-    private @SkusAdapter.RowTypeDef
-    int type;
+    @Retention(SOURCE)
+    @IntDef({TYPE_HEADER, TYPE_NORMAL})
+    public @interface RowTypeDef {}
+    public static final int TYPE_HEADER = 0;
+    public static final int TYPE_NORMAL = 1;
+    private @RowTypeDef int type;
     private @SkuType
     String billingType;
 
-    public SkuRowData(SkuDetails details, @SkusAdapter.RowTypeDef int rowType,
+    public SkuRowData(SkuDetails details, @RowTypeDef int rowType,
                       @SkuType String billingType) {
         this.sku = details.getSku();
         this.title = details.getTitle();
@@ -41,7 +50,7 @@ public class SkuRowData {
 
     public SkuRowData(String title) {
         this.title = title;
-        this.type = SkusAdapter.TYPE_HEADER;
+        this.type = TYPE_HEADER;
     }
 
     public String getSku() {
@@ -60,8 +69,7 @@ public class SkuRowData {
         return description;
     }
 
-    public @SkusAdapter.RowTypeDef
-    int getRowType() {
+    public @RowTypeDef int getRowType() {
         return type;
     }
 

@@ -12,7 +12,7 @@
 
     <string name="alert_no_gas">Oh, no! You are out of gas! Try buying some!</string>
     <string name="alert_drove">Vroooom, you drove a few miles.</string>
-    <string name="alert_fill_gas">You filled &#188; tank. Your tank is now %1$d/4 full!</string>
+    <string name="alert_fill_gas">消耗成功</string>
     <string name="alert_error_consuming">Error while consuming: %1$s</string>
     <string name="alert_already_purchased">Item is already purchased</string>
 
