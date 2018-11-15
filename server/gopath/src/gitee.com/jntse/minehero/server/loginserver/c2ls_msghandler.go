@@ -497,12 +497,12 @@ func HttpsGet(url, cacert, cert, certkey string) (*network.HttpResponse, error) 
 
 func on_C2L_ReqLoginGoogle(session network.IBaseNetSession, message interface{}) {
 	tm1 := util.CURTIMEUS()
-	tmsg := message.(*msg.C2L_ReqLoginFaceBook)
+	tmsg := message.(*msg.C2L_ReqLoginGoogle)
 	openid, token :=  tmsg.GetOpenid(), tmsg.GetToken()
 	log.Info("ReqLoginGoogle openid: %s   token: %s", openid, token)
 	account := fmt.Sprintf("google-%s",openid)
 	errcode := ""
-	appid := "833679027611-a3m8gvpknba2e06pr8m4cdrprfh43vof.apps.googleusercontent.com"  //应用id
+	appid := "261888055971-n5qsj79s5pe9bcv0v0orfqqbm014opde.apps.googleusercontent.com"  //应用id
 	//appsecret := "215495db0076b0778084d7b44d6655a1"         //应用秘钥
 	url := fmt.Sprintf("https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=%s", token)
 	caCert := "../cert/wechat/cacert.pem" //后续修正
