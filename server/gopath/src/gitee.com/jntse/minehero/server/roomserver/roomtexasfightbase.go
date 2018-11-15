@@ -599,6 +599,7 @@ type TexasFightRoom struct {
 	aibankerwingold int64				// AI banker 历史盈利值(不计亏损)
 	aibankerlossgold int64				// AI banker 历史亏损值(不计盈利)
 	playerbankerwingold int64			// 玩家banker 历史盈利值(不计亏损)
+	aiawardpool int64					// AI贡献奖池
 }
 
 func (tf *TexasFightRoom) Stat() int32 { return tf.stat }
@@ -613,16 +614,14 @@ func (tf *TexasFightRoom) AIBankerWinGold() int64 { return tf.aibankerwingold }
 func (tf *TexasFightRoom) AIBankerLossGold() int64 { return tf.aibankerlossgold }
 func (tf *TexasFightRoom) IncAIBankerWinGold(n int64) { tf.aibankerwingold += n }
 func (tf *TexasFightRoom) IncAIBankerLossGold(n int64) { tf.aibankerlossgold += n }
+
 func (tf *TexasFightRoom) PlayerBankerWinGold() int64 { return tf.playerbankerwingold }
 func (tf *TexasFightRoom) IncPlayerBankerWinGold(n int64) { tf.playerbankerwingold += n }
-func (tf *TexasFightRoom) DecPlayerBankerWinGold(n int64) { 
-	if tf.playerbankerwingold > n {
-		tf.playerbankerwingold -= n
-	}else {
-		tf.playerbankerwingold = 0
-	}
-}
+func (tf *TexasFightRoom) DecPlayerBankerWinGold(n int64) { util.MaxInt64(tf.playerbankerwingold, 0) }
 
+func (tf *TexasFightRoom) AIAwardPool() int64 { return tf.aiawardpool }
+func (tf *TexasFightRoom) IncAIAwardPool(n int64) { tf.aiawardpool += n }
+func (tf *TexasFightRoom) DecAIAwardPool(n int64) { util.MaxInt64(tf.aiawardpool - n, 0) }
 
 
 // --------------------------------------------------------------------------
