@@ -465,7 +465,7 @@ func on_C2RS_ReqTFBecomeBanker(session network.IBaseNetSession, message interfac
 		log.Error("[房间] 玩家[%s %d] 无效房间 房间[%d]", u.Name(), u.Id(), u.RoomId())
 		return
 	}
-	room.RequestBecomeBanker(u)
+	room.RequestEnterBankerQueue(u)
 }
 
 func on_C2RS_ReqTFQuitBanker(session network.IBaseNetSession, message interface{}, uid int64) {

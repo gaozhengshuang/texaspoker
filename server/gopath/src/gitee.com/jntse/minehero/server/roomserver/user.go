@@ -59,6 +59,7 @@ func (u *RoomUser) Exp() int32 { return u.entity.Exp() }
 func (u *RoomUser) MaxEnergy() int64 { return 0 }
 func (u *RoomUser) AgentId() int { return u.agentid }
 func (u *RoomUser) AgentName() string { return u.agentname }
+func (u *RoomUser) IsAI() bool { return u.aiflag == true }
 
 func (u *RoomUser) Init() {
 	u.ticker1s = util.NewGameTicker(1*time.Second, u.Handler1sTick)

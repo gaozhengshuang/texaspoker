@@ -19,6 +19,22 @@ import (
 	"gitee.com/jntse/minehero/server/tbl/excel"
 )
 
+// 百人大战重启数据恢复
+const (
+	TF_RedisTotalAwardPool 		= "TF_TotalAwardPool"		// 总奖池
+	TF_RedisAIBankerWinGold		= "TF_AIBankerWinGold"		// AI历史盈利值
+	TF_RedisAIBankerLossGold	= "TF_AIBankerLossGold"		// AI历史亏损值
+	TF_RedisAIAwardPool 		= "TF_AIAwardPool"			// AI贡献奖池
+	TF_RedisPlayerBankerWinGold	= "TF_PlayerBankerWinGold"	// 玩家闲奖池
+)
+
+// AI上庄抽水机制
+const (
+	TF_AIBankerDoNothing = 0	// 什么都不做
+	TF_AIBankerPump = 1			// 抽水
+	TF_AIBankerDump = 2			// 放水
+)
+
 const (
 	kBetPoolNum = 5		// 下注池数量，(0庄家，从左到右1-4)
 	kHandCardNum = 5	// 手牌数量
@@ -59,7 +75,7 @@ const (
 const (
 	kPlayerBankerNormal = 0		// 默认状态
 	kPlayerBankerQuit = 1			// 主动退出
-	kPlayerBankerNotSatisfied = 2	// 条件不满足
+	kPlayerBankerNotSatisfied = 2	// 条件不满足,钱不够/次数上限
 )
 
 // --------------------------------------------------------------------------
@@ -82,6 +98,12 @@ func (a SortFightPlayer) Len() int { return len(a) }
 func (a SortFightPlayer) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
 func (a SortFightPlayer) Less(i, j int) bool { return a[i].TimeCreate() < a[j].TimeCreate() }
 
+type AIPlayerBetTrigger struct {
+	aibetnum int64
+	aibetpos int32
+	aibettime int64
+}
+
 type TexasFightPlayer struct {
 	sysflag bool		// 系统庄家
 	tmcreate int64		// 创建时间戳
@@ -93,7 +115,9 @@ type TexasFightPlayer struct {
 	watchcount	int32	// 连续观战计数，大于一定次数踢出房间
 
 	bankerround int32	// 玩家坐庄轮数
-	bankerflag int32 	// 庄家标志 0默认状态，1主动退出，2条件不满足退出
+	bankerstat int32 	// 庄家标志 0默认状态，1主动退出，2条件不满足退出
+
+	AIPlayerBetTrigger	// AI闲家下注触发器，分散下注
 }
 
 func NewTexasFightPlayer(u *RoomUser, sysflag bool) *TexasFightPlayer {
@@ -105,7 +129,7 @@ func NewTexasFightPlayer(u *RoomUser, sysflag bool) *TexasFightPlayer {
 	p.watchcount = 0
 
 	p.bankerround = 0
-	p.bankerflag = kPlayerBankerNormal
+	p.bankerstat = kPlayerBankerNormal
 	return p
 }
 
@@ -128,9 +152,10 @@ func (p *TexasFightPlayer) TotalProfit() int64 { return p.totalprofit }
 func (p *TexasFightPlayer) IncTotalProfit(n int64) { p.totalprofit += n }
 func (p *TexasFightPlayer) WatchCount() int32 { return p.watchcount }
 func (p *TexasFightPlayer) SetWatchCount(n int32) { p.watchcount = n }
+func (p *TexasFightPlayer) SetBankerStat(f int32) { p.bankerstat = f }
+func (p *TexasFightPlayer) BankerStat() int32 { return p.bankerstat }
 func (p *TexasFightPlayer) IsBanker() bool { return p.seat == 0 }
-func (p *TexasFightPlayer) SetBankerFlag(f int32) { p.bankerflag = f }
-func (p *TexasFightPlayer) BankerFlag() int32 { return p.bankerflag }
+func (p *TexasFightPlayer) IsAI() bool { return p.owner.IsAI() }
 
 
 func (p *TexasFightPlayer) Id() int64 {
@@ -158,7 +183,6 @@ func (p *TexasFightPlayer) Gold() int64 {
 	return p.owner.GetGold()
 }
 
-
 func (p *TexasFightPlayer) Bet(pos int32, num int64) {
 	if pos >= int32(len(p.betlist)) || pos < 0  {
 		return
@@ -173,18 +197,44 @@ func (p *TexasFightPlayer) Bet(pos int32, num int64) {
 	p.owner.RemoveGold(num, "百人大战下注", true)
 }
 
+func (p *TexasFightPlayer) SetAIBetTrigger(pos int32, num int64, delay int32) {
+	p.StopAIBetTrigger()
+	p.aibetnum 	= num
+	p.aibetpos 	= pos
+	p.aibettime = util.CURTIME() + int64(delay)
+}
+
+func (p *TexasFightPlayer) StopAIBetTrigger() {
+	p.aibetnum  = 0
+	p.aibetpos  = -1
+	p.aibettime = 0
+}
+
+
 // 成为庄家
-func (p *TexasFightPlayer) BecomeBanker() {
+func (p *TexasFightPlayer) BecomeBanker(tf *TexasFightRoom) {
 	p.Sit(0)
 	p.ResetBankerRound()
-	p.SetBankerFlag(kPlayerBankerNormal)
+	p.SetBankerStat(kPlayerBankerNormal)
+	tf.banker = p
+	tf.sitplayers[0] = tf.banker
+	p.AddBankerRound(1)
+}
+
+// 离开庄家
+func (p *TexasFightPlayer) QuitBanker(tf *TexasFightRoom) {
+	p.Sit(-1)
+	p.ResetBankerRound()
+	if elem := tf.bankerqueue.Front(); elem != nil && !p.IsSystem() {
+		tf.bankerqueue.Remove(elem)
+	}
 }
 
 // 输赢结算
 func (p *TexasFightPlayer) Settle(tf *TexasFightRoom) {
 
 	// 玩家庄家在BankerSettle中结算
-	if p.Id() == tf.banker.Id() {
+	if p.IsBanker() {
 		return
 	}
 
@@ -200,15 +250,26 @@ func (p *TexasFightPlayer) Settle(tf *TexasFightRoom) {
 
 		// 赢钱要扣税
 		if profit != 0 {
-			tax := float64(profit) * float64(tf.tconf.TaxRate)
 			if pool.Result() == kBetResultLose {
 				bet.SetProfit(profit)
 				p.totalprofit -= profit
+				if tf.banker.IsAI() == true && p.IsAI() == false {
+					tf.IncAIBankerWinGold(profit)
+				}
 			}else {
-				tf.IncAwardPool(int64(tax))
-				profit -= int64(tax)
+				taxrate, pumprate := float64(tf.tconf.TaxRate), float64(tbl.TexasFight.SystemPumpRate) / 100.0
+				srcprofit := profit
+				deduct := float64(profit) * ( taxrate + pumprate)
+				if deduct != 0 {
+					tax := deduct * taxrate / (taxrate + pumprate)
+					tf.IncAwardPool(int64(tax))
+					profit -= int64(deduct)
+				}
 				bet.SetProfit(profit)
 				p.totalprofit += profit
+				if tf.banker.IsAI() == true && p.IsAI() == false {
+					tf.IncAIBankerLossGold(srcprofit)
+				}
 			}
 		}
 
@@ -303,6 +364,13 @@ func (t *TexasFightBetPool) Reset() {
 	t.hand.Init()
 }
 
+func (t *TexasFightBetPool) Cards() []*Card {
+	tmp := make([]*Card, len(t.cards))
+	for i, card := range t.cards {
+		tmp[i] = card
+	}
+	return tmp
+}
 
 func (t *TexasFightBetPool) InsertCards(cards []*Card) {
 	if len(cards) != len(t.cards) {
@@ -377,7 +445,7 @@ type BetPoolTempStat struct {
 	dirty bool
 }
 func (s *BetPoolTempStat) Dirty() bool { return s.dirty }
-func (s *BetPoolTempStat) MarkDirty() { s.dirty = true }
+func (s *BetPoolTempStat) Mark() { s.dirty = true }
 func (s *BetPoolTempStat) Init(maxseat int32) {
 	s.maxseat = maxseat
 	s.seats = make([]*SitPlayerBetInfo, s.maxseat)
@@ -394,7 +462,7 @@ func (s *BetPoolTempStat) Collect(p *TexasFightPlayer, betpos int32, num int64) 
 		return
 	}
 
-	s.dirty = true
+	s.Mark()
 	if s.poolroles[betpos] == nil { s.poolroles[betpos] = make(map[int64]int64) }
 	s.poolroles[betpos][p.Id()] = p.Id()
 
@@ -483,7 +551,8 @@ type TexasFightRoom struct {
 	round int64			// 回合计数
 
 	players map[int64]*TexasFightPlayer		// 所有玩家
-	sitplayers []*TexasFightPlayer		// 坐下玩家列表
+	sitplayers []*TexasFightPlayer			// 坐下玩家列表
+	aiplayers map[int64]*TexasFightPlayer	// ai玩家
 
 	//bankerqueue []*TexasFightPlayer	// 做庄排队列表
 	bankerqueue *list.List 				// 做庄排队列表
@@ -496,6 +565,11 @@ type TexasFightRoom struct {
 	betstat BetPoolTempStat				// 下注池临时统计
 	awardhit AwardPoolHitRecord			// 奖池命中记录
 	history *list.List					// 胜负历史记录列表
+
+	// AI 规则
+	aibankerwingold int64				// AI banker 历史盈利值(不计亏损)
+	aibankerlossgold int64				// AI banker 历史亏损值(不计盈利)
+	playerbankerwingold int64			// 玩家banker 历史盈利值(不计亏损)
 }
 
 func (tf *TexasFightRoom) Stat() int32 { return tf.stat }
@@ -505,6 +579,13 @@ func (tf *TexasFightRoom) IncAwardPool(n int64) { tf.totalawardpool += n }
 func (tf *TexasFightRoom) DecAwardPool(n int64) { tf.totalawardpool -= n }
 func (tf *TexasFightRoom) PlayersNum() int32 { return tf.MembersNum() }
 func (tf *TexasFightRoom) Round() int64 { return tf.round }
+
+func (tf *TexasFightRoom) AIBankerWinGold() int64 { return tf.aibankerwingold }
+func (tf *TexasFightRoom) AIBankerLossGold() int64 { return tf.aibankerlossgold }
+func (tf *TexasFightRoom) IncAIBankerWinGold(n int64) { tf.aibankerwingold += n }
+func (tf *TexasFightRoom) IncAIBankerLossGold(n int64) { tf.aibankerlossgold += n }
+func (tf *TexasFightRoom) PlayerBankerWinGold() int64 { return tf.playerbankerwingold }
+func (tf *TexasFightRoom) IncPlayerBankerWinGold(n int64) { tf.playerbankerwingold += n }
 
 
 
@@ -531,8 +612,9 @@ func (tf *TexasFightRoom) Init() string {
 	tf.ticker1s.Start()
 	tf.ticker100ms.Start()
 	
-	tf.sitplayers = make([]*TexasFightPlayer, tconf.Seat+1)	// +1 庄家位
-	tf.players = make(map[int64]*TexasFightPlayer)
+	tf.sitplayers 	= make([]*TexasFightPlayer, tconf.Seat+1)	// +1 庄家位
+	tf.players 		= make(map[int64]*TexasFightPlayer)
+	tf.aiplayers 	= make(map[int64]*TexasFightPlayer)
 
 
 	//tf.bankerqueue = make([]*TexasFightPlayer, 0)
@@ -567,11 +649,18 @@ func (tf *TexasFightRoom) Init() string {
 	}
 	tf.cards = cards
 
+	// AI 加入房间
+	tf.InitAIPlayers()
+
+	// AI 进入上庄列表
+	tf.SelectAIEnterBankerQueue()
+	tf.banker.QuitBanker(tf)
+	tf.PlayerBankerAppointCheck()
+
 	//
 	log.Info("[百人大战] 百人大战初始化成功 Id[%d] 子类型[%d] Tid[%d]", tf.Id(), tf.SubKind(), tf.Tid())
 	return ""
 }
-
 
 // 房间销毁
 func (tf *TexasFightRoom) OnDestory(now int64) {
@@ -594,7 +683,7 @@ func (tf *TexasFightRoom) OnGameOver() {
 func (tf *TexasFightRoom) UserEnter(u *RoomUser) {
 	player := tf.FindPlayer(u.Id())
 	if player == nil {
-		player = tf.AddPlayer(u)
+		player = tf.AddNewPlayer(u)
 		tf.members[u.Id()] = u
 	}
 
@@ -649,7 +738,7 @@ func (tf *TexasFightRoom) UserLeave(u *RoomUser) {
 	}
 
 	// 庄家
-	if player.Id() == tf.banker.Id() {
+	if player.IsBanker() {
 		log.Info("[百人大战] 玩家[%s %d] 请求离开房间[%d %d]，庄家先下庄才能离开", u.Name(), u.Id(), tf.Id(), tf.Round())
 		return
 	}
@@ -693,7 +782,7 @@ func (tf *TexasFightRoom) UserStandUp(u *RoomUser) {
 	}
 
 	if seat == 0 {
-		log.Error("[百人大战] 玩家[%s %d] 房间[%d %d] 庄家请先下庄 ", u.Name(), u.Id(), tf.Id(), tf.Round())
+		log.Error("[百人大战] 玩家[%s %d] 房间[%d %d] 庄家不能站起，只能下庄", u.Name(), u.Id(), tf.Id(), tf.Round())
 		return
 	}
 
@@ -739,15 +828,15 @@ func (tf *TexasFightRoom) UserSitDown(u *RoomUser, seat int32) {
 		return
 	}
 
-	if u.Id() == tf.banker.Id() {
-		log.Error("[百人大战] 玩家[%s %d] 房间[%d %d] 正在坐庄中", u.Name(), u.Id(), tf.Id(), tf.Round())
-		return
-	}
-
 	// player 指针
 	player := tf.FindPlayer(u.Id())
 	if player == nil {
 		log.Error("[百人大战] 玩家[%s %d] 房间[%d %d] 找不到玩家Player", u.Name(), u.Id(), tf.Id(), tf.Round())
+		return
+	}
+
+	if player.IsBanker() {
+		log.Error("[百人大战] 玩家[%s %d] 房间[%d %d] 正在坐庄中", u.Name(), u.Id(), tf.Id(), tf.Round())
 		return
 	}
 
