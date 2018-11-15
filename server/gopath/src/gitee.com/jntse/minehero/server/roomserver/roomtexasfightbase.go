@@ -292,6 +292,7 @@ func (p *TexasFightPlayer) Settle(tf *TexasFightRoom) {
 				if deduct != 0 {
 					tax := deduct * taxrate / (taxrate + pumprate)
 					tf.IncAwardPool(int64(tax))
+					if tf.banker.IsAI() == true { tf.IncAIAwardPool(int64(tax)) }
 					profit -= int64(deduct)
 				}
 				bet.SetProfit(profit)
@@ -360,6 +361,7 @@ type TexasFightBetPool struct {
 	cards [kHandCardNum]*Card	// 牌信息
 	hand Hand		// 手牌分析
 	total int64		// 总下注额
+	playerbet int64	// 玩家下注额，排除AI下注
 	pos int32		// 注池位置
 	result int32	// 胜负平结果
 	awardpool int64	// 本次获得奖池金额
@@ -367,6 +369,7 @@ type TexasFightBetPool struct {
 
 func (t *TexasFightBetPool) Init(pos int32) {
 	t.total = 0
+	t.playerbet = 0
 	t.pos = pos
 	t.cards = [kHandCardNum]*Card{}
 	//t.players = make(map[int64]*TexasFightPlayer)
@@ -375,7 +378,9 @@ func (t *TexasFightBetPool) Init(pos int32) {
 }
 
 func (t *TexasFightBetPool) IncBet(n int64) { t.total += n }
+func (t *TexasFightBetPool) IncPlayerBet(n int64) { t.playerbet += n }
 func (t *TexasFightBetPool) BetNum() int64 { return t.total }
+func (t *TexasFightBetPool) PlayerBetNum() int64 { return t.playerbet }
 func (t *TexasFightBetPool) Pos() int32 { return t.pos }
 func (t *TexasFightBetPool) Result() int32 { return t.result }
 func (t *TexasFightBetPool) SetResult(r int32) { t.result = r }
@@ -386,7 +391,8 @@ func (t *TexasFightBetPool) AwardPool() int64 { return t.awardpool }
 
 
 func (t *TexasFightBetPool) Reset() {
-	t.total  = 0
+	t.total = 0
+	t.playerbet = 0
 	t.result = 0
 	t.awardpool = 0
 	t.cards  = [kHandCardNum]*Card{}
@@ -563,6 +569,19 @@ func (w *WinLoseRecord) FillWinLoseTrend() *msg.TFWinLoseTrend {
 	return info
 }
 
+// AI奖池抽水
+type AIAwardPoolPump struct {
+	size int64				// AI贡献奖池
+	poolpos int32			// AI贡献奖池 本轮抽水位置
+	pumprate float64		// AI贡献奖池 本轮抽水比
+	usedgold int64			// AI本轮已经使用的玩家下注量
+}
+
+func (a *AIAwardPoolPump) Reset() {
+	a.poolpos = -1
+	a.pumprate = 0
+	a.usedgold = 0
+}
 
 // --------------------------------------------------------------------------
 /// @brief 百人大战核心逻辑
@@ -599,7 +618,7 @@ type TexasFightRoom struct {
 	aibankerwingold int64				// AI banker 历史盈利值(不计亏损)
 	aibankerlossgold int64				// AI banker 历史亏损值(不计盈利)
 	playerbankerwingold int64			// 玩家banker 历史盈利值(不计亏损)
-	aiawardpool int64					// AI贡献奖池
+	aiawardpool AIAwardPoolPump			// AI 贡献奖池
 }
 
 func (tf *TexasFightRoom) Stat() int32 { return tf.stat }
@@ -619,9 +638,9 @@ func (tf *TexasFightRoom) PlayerBankerWinGold() int64 { return tf.playerbankerwi
 func (tf *TexasFightRoom) IncPlayerBankerWinGold(n int64) { tf.playerbankerwingold += n }
 func (tf *TexasFightRoom) DecPlayerBankerWinGold(n int64) { util.MaxInt64(tf.playerbankerwingold, 0) }
 
-func (tf *TexasFightRoom) AIAwardPool() int64 { return tf.aiawardpool }
-func (tf *TexasFightRoom) IncAIAwardPool(n int64) { tf.aiawardpool += n }
-func (tf *TexasFightRoom) DecAIAwardPool(n int64) { util.MaxInt64(tf.aiawardpool - n, 0) }
+func (tf *TexasFightRoom) AIAwardPool() int64 { return tf.aiawardpool.size }
+func (tf *TexasFightRoom) IncAIAwardPool(n int64) { tf.aiawardpool.size += n }
+func (tf *TexasFightRoom) DecAIAwardPool(n int64) { util.MaxInt64(tf.aiawardpool.size - n, 0) }
 
 
 // --------------------------------------------------------------------------
@@ -686,6 +705,9 @@ func (tf *TexasFightRoom) Init() string {
 
 	// AI 加入房间
 	tf.InitAIPlayers()
+
+	// 加载持久化数据
+	//tf.DBLoad()
 
 	// AI 进入上庄列表
 	tf.SelectAIEnterBankerQueue()
