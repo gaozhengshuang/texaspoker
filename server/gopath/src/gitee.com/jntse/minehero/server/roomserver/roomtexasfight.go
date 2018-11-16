@@ -19,6 +19,9 @@ import (
 	"gitee.com/jntse/minehero/server/tbl/excel"
 )
 
+func (tf *TexasFightRoom) DBLoad() {
+}
+ 
 // AI 初始化
 func (tf *TexasFightRoom) InitAIPlayers() {
 	users := AIUserMgr().PickOutUser(int32(tbl.TexasFight.AIUserAmount))
@@ -119,6 +122,9 @@ func (tf *TexasFightRoom) BankerCheck() {
 
 	// 切换回系统庄家
 	tf.SystemBankerBackCheck()
+
+	//
+	log.Info("[百人大战] 房间[%d %d] 本轮庄家[%s %d]", tf.Id(), tf.Round(), tf.banker.Name(), tf.banker.Id())
 }
 
 // 检查玩家庄家是否还能继续坐庄
@@ -226,6 +232,7 @@ func (tf *TexasFightRoom) ChangeToWaitNextRoundStat(now int64) {
 	tf.stat = kStatWaitNextRound
 	tf.statstart = now / 1000
 	tf.stattimeout = tf.statstart + int64(tf.tconf.TimeOut)
+	tf.aibankerpumpflag = false
 
 	// 发牌
 	//tf.CardDeal()
@@ -651,7 +658,7 @@ func (tf *TexasFightRoom) CardDeal() {
 	}
 
 	// AI坐庄抽水机制
-	tf.AIBankerPumpCheck()
+	//tf.AIBankerPumpCheck()
 }
 
 
@@ -750,10 +757,10 @@ func (tf *TexasFightRoom) RequestBet(u *RoomUser, pos int32, num int64) {
 	// 下注池临时统计
 	tf.betstat.Collect(player, pos, num)
 
-	// AI奖池抽水
-	//if tf.banker.IsAI() == true && u.IsAI() == false {
-	//	tf.IncAIAwardPoolPlayerBet(num)
-	//}
+	// AI坐庄抽水机制
+	if tf.banker.IsAI() && !u.IsAI() && !tf.banker.IsSystem() && tf.aibankerpumpflag == false {
+		tf.AIBankerPumpCheck()
+	}
 
 	log.Trace("[百人大战] 玩家[%s %d] 房间[%d %d] 下注[%d]成功，金额[%d]", u.Name(), u.Id(), tf.Id(), tf.Round(), pos, num)
 }
@@ -1073,14 +1080,12 @@ func (tf *TexasFightRoom) AIBankerPumpAction() int32 {
 		return TF_AIBankerDoNothing
 	}
 
-	if tf.AIBankerWinGold() == 0 {	// 除0检查
+	if tf.AIBankerWinGold() == 0 || tf.AIBankerLossGold() == 0 {	// 除0检查
 		return TF_AIBankerDoNothing	// 抽水
 	}
 
 	diff := tf.AIBankerWinGold() - tf.AIBankerLossGold()
 	rate := float64(diff) / float64(tf.AIBankerWinGold())
-	log.Trace("[百人大战] 房间[%d %d] AI坐庄抽水机制 对玩家历史盈利[%d] 对玩家历史亏损[%d] 比率[%.5f]", tf.Id(), tf.Round(), 
-		tf.AIBankerWinGold(), tf.AIBankerLossGold(), rate)
 	if rate > float64(tbl.TexasFight.AIProfitLossHistoryRate.Max) / float64(100) {
 		return TF_AIBankerDump		// 放水
 	}
@@ -1090,8 +1095,9 @@ func (tf *TexasFightRoom) AIBankerPumpAction() int32 {
 	return TF_AIBankerDoNothing
 }
 
-// AI坐庄抽水机制
+// AI坐庄抽水机制，至少有一个玩家参与才触发
 func (tf *TexasFightRoom) AIBankerPumpCheck() {
+	tf.aibankerpumpflag = true
 	act := tf.AIBankerPumpAction()
 	if act == TF_AIBankerDoNothing {
 		return
@@ -1146,13 +1152,19 @@ func (tf *TexasFightRoom) AIBankerPumpCheck() {
 }
 
 func (tf *TexasFightRoom) AIPlayerBet() {
-	log.Info("[百人大战] 房间[%d %d] ===AI闲家押注机制检查===", tf.Id(), tf.Round())
-	log.Info("[百人大战] 房间[%d %d] 当前庄家[%s %d] 玩家庄家历史赢钱[%d]", tf.Id(), tf.Round(), 
-		tf.banker.Name(), tf.banker.Id(), tf.PlayerBankerWinGold())
 
+	if tf.AIBankerLossGold() != 0 && tf.AIBankerWinGold() != 0 {
+		diffgold := tf.AIBankerWinGold() - tf.AIBankerLossGold()
+		winrate := float64(diffgold) / float64(tf.AIBankerWinGold())
+		log.Trace("[百人大战] 房间[%d %d] AI庄家对玩家历史盈利[%d] AI庄家对玩家历史亏损[%d] 比率[%.4f] 玩家庄家历史赢钱[%d]", tf.Id(), tf.Round(), 
+			tf.AIBankerWinGold(), tf.AIBankerLossGold(), winrate, tf.PlayerBankerWinGold())
+	}
+
+
+	log.Info("[百人大战] 房间[%d %d] ===AI闲家押注机制检查===", tf.Id(), tf.Round())
 	if tf.banker.IsAI() == true {	// 庄家坐庄
-		tf.AIPlayerPlayWithAIBanker()
 		tf.CalcAIAwardPoolPumpRate()
+		tf.AIPlayerPlayWithAIBanker()
 	}else if tf.banker.IsAI() == false && tf.banker.IsSystem() == false {	// 玩家坐庄
 		tf.AIPlayerPlayWithUserBanker()
 	}
@@ -1194,14 +1206,13 @@ func (tf *TexasFightRoom) AIPlayerPlayWithAIBanker() {
 
 	// 随机下注次数(AI参与人数)
 	joinbet := util.RandBetweenInt64(tbl.TexasFight.AIJoinBetRandNum[0], tbl.TexasFight.AIJoinBetRandNum[1])
-	joinbet = 10
 	if joinbet == 0 {
 		log.Error("[百人大战] 房间[%d %d] AI下注次数为0", tf.Id(), tf.Round())
 		return
 	}
 
 	aishuffle := tf.SelectBetAI(joinbet)
-	realbet := tf.AIShuffleBet(aishuffle, bettotal, -1)
+	realbet := tf.AIShuffleBet(aishuffle, bettotal, -1, tf.aiawardpool.poolpos)	// 不要AI奖池抽水，会由单独机制下注
 	log.Info("[百人大战] 房间[%d %d] AI做庄 押注上限[%d] AI计划押注[%d] AI实际押注[%d] 参与AI[%d]", 
 		tf.Id(), tf.Round(), betlimit, bettotal, realbet, len(aishuffle))
 }
@@ -1252,7 +1263,6 @@ func (tf *TexasFightRoom) AIPlayerPlayWithUserBanker() {
 
 	// 随机抽水人数
 	joinbet := util.RandBetweenInt64(tbl.TexasFight.AIJoinBetRandNum[0], tbl.TexasFight.AIJoinBetRandNum[1])
-	joinbet = 10
 	aishuffle := tf.SelectBetAI(joinbet)
 	if joinbet == 0 || len(aishuffle) == 0 {
 		log.Error("[百人大战] 房间[%d %d] 没有可用的AI闲家下注抽水", tf.Id(), tf.Round())
@@ -1263,7 +1273,6 @@ func (tf *TexasFightRoom) AIPlayerPlayWithUserBanker() {
 
 	// 随机放水人数
 	joinbet = util.RandBetweenInt64(tbl.TexasFight.AIJoinBetRandNum[0], tbl.TexasFight.AIJoinBetRandNum[1])
-	joinbet = 10
 	aishuffle = tf.SelectBetAI(joinbet)
 	if joinbet == 0 || len(aishuffle) == 0 {
 		log.Error("[百人大战] 房间[%d %d] 没有可用的AI闲家下注抽水", tf.Id(), tf.Round())
@@ -1290,13 +1299,13 @@ func (tf *TexasFightRoom) AIBetForPump (winpool []*TexasFightBetPool, pumpgold i
 	log.Info("[百人大战] 房间[%d %d] 玩家做庄时AI押注机制，抽水总额[%d] 参与AI[%d]", tf.Id(), tf.Round(), pumpgold, len(aishuffle))
 	for _, pool := range winpool {
 		if winnum == 1 {
-			tf.AIShuffleBet(aishuffle, pumpgold, pool.Pos())
+			tf.AIShuffleBet(aishuffle, pumpgold, pool.Pos(), -1)
 		}else {
 			average := pumpgold / winnum
 			randaverage := util.RandBetweenInt64(0, 2*average)
 			if pool.WinOdds() != 0 {
 				betgold := randaverage / pool.WinOdds()	// 根据牌型可赢的倍率算出实际下注金额
-				tf.AIShuffleBet(aishuffle, betgold, pool.Pos())
+				tf.AIShuffleBet(aishuffle, betgold, pool.Pos(), -1)
 			}
 			pumpgold -= randaverage 
 			if pumpgold == 0 { break }
@@ -1315,13 +1324,13 @@ func (tf *TexasFightRoom) AIBetForDump (losspool []*TexasFightBetPool, dumpgold 
 	bankerpool := tf.betpool[0]
 	for _, pool := range losspool {
 		if lossnum == 1 {
-			tf.AIShuffleBet(aishuffle, dumpgold, pool.Pos())
+			tf.AIShuffleBet(aishuffle, dumpgold, pool.Pos(), -1)
 		}else {
 			average := dumpgold /lossnum 
 			randaverage := util.RandBetweenInt64(0, 2*average)
 			if bankerpool.WinOdds() != 0 {
 				betgold := randaverage / bankerpool.WinOdds()	// 根据牌型可赢的倍率算出实际下注金额
-				tf.AIShuffleBet(aishuffle, betgold, pool.Pos())
+				tf.AIShuffleBet(aishuffle, betgold, pool.Pos(), -1)
 			}
 			dumpgold -= randaverage 
 		}
@@ -1367,7 +1376,7 @@ func (tf *TexasFightRoom) CalcAIAwardPoolPumpRate() {
 	rate = util.Min(rate, float64(tbl.TexasFight.AIAwardPoolPumpRate)/100)	// 最大90%
 	tf.aiawardpool.pumprate = rate
 	tf.aiawardpool.poolpos = pool.Pos()
-	log.Info("[百人大战] 房间[%d %d] AI奖池抽水 抽水比例[%.4f] 抽水闲家位子[%d]", tf.Id(), tf.Round(), rate, pool.Pos())
+	log.Info("[百人大战] 房间[%d %d] AI奖池抽水检查 本轮AI抽水比例[%.4f] 抽水闲家位编号[%d]", tf.Id(), tf.Round(), rate, pool.Pos())
 }
 
 // AI坐庄时，AI贡献奖池抽水回收(现在改为最后时刻押注)
@@ -1384,6 +1393,7 @@ func (tf *TexasFightRoom) AIAwardPoolPumpRecycle() {
 	pool := tf.betpool[tf.aiawardpool.poolpos]
 	playerbet := pool.PlayerBetNum() - tf.aiawardpool.usedgold
 	if playerbet <= 0 {		// 没有新的下注投入
+		log.Info("[百人大战] 房间[%d %d] 没有玩家投注闲家位置[%d]，本轮AI奖池回收不触发", tf.Id(), tf.Round(), tf.aiawardpool.poolpos)
 		return
 	}
 	tf.aiawardpool.usedgold += playerbet
@@ -1401,20 +1411,19 @@ func (tf *TexasFightRoom) AIAwardPoolPumpRecycle() {
 
 	// 随机下注次数(AI参与人数)
 	joinbet := util.RandBetweenInt64(tbl.TexasFight.AIJoinBetRandNum[0], tbl.TexasFight.AIJoinBetRandNum[1])
-	joinbet = 10	// TODO:测试
 	if joinbet == 0 {
 		log.Error("[百人大战] 房间[%d %d] AI下注次数为0", tf.Id(), tf.Round())
 		return
 	}
 
 	aishuffle := tf.SelectBetAI(joinbet)
-	realbet := tf.AIShuffleBet(aishuffle, pumpgold, tf.aiawardpool.poolpos)
-	log.Info("[百人大战] 房间[%d %d] AI奖池抽水回收 玩家下注[%d] AI占比[%.4f] AI计划押注[%d] AI实际押注[%d] 参与AI[%d]", 
+	realbet := tf.AIShuffleBet(aishuffle, pumpgold, tf.aiawardpool.poolpos, -1)
+	log.Info("[百人大战] 房间[%d %d] AI奖池抽水回收执行 玩家下注[%d] AI期望占比[%.4f] AI计划押注[%d] AI实际押注[%d] 参与AI[%d]", 
 		tf.Id(), tf.Round(), playerbet, tf.aiawardpool.pumprate, pumpgold, realbet, len(aishuffle))
 }
 
 // AI下注采用抢红包方式
-func (tf *TexasFightRoom) AIShuffleBet(aishuffle []*TexasFightPlayer, totalbet int64, betpos int32) int64 {
+func (tf *TexasFightRoom) AIShuffleBet(aishuffle []*TexasFightPlayer, totalbet int64, betpos int32, exclude int32) int64 {
 	realbet, num, statleft, randpos := int64(0), len(aishuffle), tf.stattimeout - util.CURTIME(), false
 	if statleft < 0 {	statleft = 0 } 		// 下注状态剩余时间0秒
 	if betpos == -1 {	randpos = true }	// 每次随机下注位置
@@ -1423,10 +1432,19 @@ func (tf *TexasFightRoom) AIShuffleBet(aishuffle []*TexasFightPlayer, totalbet i
 		return 0 
 	}
 
+	availablepos := make([]int32, 0)
+	for i:=int32(1); i < kBetPoolNum; i++ {
+		if exclude == i { continue }
+		availablepos = append(availablepos, i)
+	}
+	len_availablepos := int32(len(availablepos))
+
+
 	for _, p := range aishuffle {
 		average, betgold, betdelay := totalbet / int64(num), int64(0), util.RandBetweenInt64(0, statleft)
 		if randpos == true {
-			betpos 	= util.RandBetween(1, kBetPoolNum-1)
+			index  := util.RandBetween(0, len_availablepos-1)
+			betpos = availablepos[index]
 		}
 		if num == 1 { 
 			betgold = totalbet
@@ -1439,7 +1457,7 @@ func (tf *TexasFightRoom) AIShuffleBet(aishuffle []*TexasFightPlayer, totalbet i
 			totalbet -= betgold
 			realbet  += betgold
 			p.AddAIBetTrigger(betpos, betgold, int32(betdelay))
-			log.Trace("[百人大战] 房间[%d %d] AI[%s %d]下注[%d] 时间[%d]", tf.Id(), tf.Round(), p.Name(), p.Id(), betgold, betdelay)
+			//log.Trace("[百人大战] 房间[%d %d] AI[%s %d]下注[%d] 时间[%d]", tf.Id(), tf.Round(), p.Name(), p.Id(), betgold, betdelay)
 		}
 		if num -= 1; num == 0 || totalbet == 0 {
 			break

@@ -634,6 +634,7 @@ type TexasFightRoom struct {
 	history *list.List					// 胜负历史记录列表
 
 	// AI 规则
+	aibankerpumpflag bool				// AI banker 抽水机制
 	aibankerwingold int64				// AI banker 历史盈利值(不计亏损)
 	aibankerlossgold int64				// AI banker 历史亏损值(不计盈利)
 	playerbankerwingold int64			// 玩家banker 历史盈利值(不计亏损)
@@ -724,9 +725,10 @@ func (tf *TexasFightRoom) Init() string {
 
 	// AI 加入房间
 	tf.InitAIPlayers()
+	tf.aibankerpumpflag = false
 
 	// 加载持久化数据
-	//tf.DBLoad()
+	tf.DBLoad()
 
 	// AI 进入上庄列表
 	tf.SelectAIEnterBankerQueue()
