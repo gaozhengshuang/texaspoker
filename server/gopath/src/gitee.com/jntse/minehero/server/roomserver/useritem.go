@@ -55,6 +55,12 @@ func (u *RoomUser) SetAIGold(gold int64) {
 	}
 }
 
+func (u *RoomUser) AddAIGold(n int64)  {
+	if u.IsAI() == true {
+		u.EntityBase().IncAIGold(n)
+	}
+}
+
 func (u *RoomUser) SendPropertyChange() {
 	send := &msg.RS2C_RolePushPropertyChange{}
 	send.Diamond = pb.Int64(u.GetDiamond())

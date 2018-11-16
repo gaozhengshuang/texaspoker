@@ -709,18 +709,20 @@ func (tf *TexasFightRoom) RequestBet(u *RoomUser, pos int32, num int64) {
 	//	return
 	//}
 
-	if num > u.GetGold() {
-		log.Error("[百人大战] 玩家[%s %d] 房间[%d %d] 请求下注失败，身上没有足够的钱下注", u.Name(), u.Id(), tf.Id(), tf.Round())
-		return
-	}
+	if u.IsAI() == false {
+		if num > u.GetGold() {
+			log.Error("[百人大战] 玩家[%s %d] 房间[%d %d] 请求下注失败，身上没有足够的钱下注", u.Name(), u.Id(), tf.Id(), tf.Round())
+			return
+		}
 
-	// 下注的总金额不得大于身上携带金额的七分之一
-	betlimit, bettotal := u.GetGold() / 7, player.TotalBet() + num
-	if bettotal > betlimit {
-		log.Warn("[百人大战] 玩家[%s %d] 房间[%d %d] 下注总额超过携带金额七分之一", u.Name(), u.Id(), tf.Id(), tf.Round())
-		resp := &msg.RS2C_RetTexasFightBet{Errcode:pb.String("下注总额超过携带金额七分之一")}
-		u.SendClientMsg(resp)
-		return
+		// 下注的总金额不得大于身上携带金额的七分之一
+		betlimit, bettotal := u.GetGold() / 7, player.TotalBet() + num
+		if bettotal > betlimit {
+			log.Warn("[百人大战] 玩家[%s %d] 房间[%d %d] 下注总额超过携带金额七分之一", u.Name(), u.Id(), tf.Id(), tf.Round())
+			resp := &msg.RS2C_RetTexasFightBet{Errcode:pb.String("下注总额超过携带金额七分之一")}
+			u.SendClientMsg(resp)
+			return
+		}
 	}
 
 	// 所有玩家下注不能超过庄家金额的七分之一，系统庄家例外
