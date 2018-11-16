@@ -96,7 +96,7 @@ func (u *GateUser) OnGooglePayCheck(purchasetoken, productid string) {
 		}
 		var statuscode int32 = int32(respinfo["purchaseState"].(int))
 		if statuscode != 1 {
-			log.Error("玩家[%d] GooglePayCheck 订单未支付成功 statuscode：%d", u.Id(), statuscode)
+			log.Error("玩家[%d] GooglePayCheck 订单验证失败 statuscode：%d", u.Id(), statuscode)
 			errorcode = fmt.Sprintf("GooglePayCheck Fail purchaseState:%d", statuscode)
 			break
 		}
