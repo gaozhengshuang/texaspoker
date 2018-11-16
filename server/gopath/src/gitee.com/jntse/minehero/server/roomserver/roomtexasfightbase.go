@@ -230,6 +230,24 @@ func (p *TexasFightPlayer) TickAIBetTrigger(now int64, tf *TexasFightRoom) {
 		}
 
 		if tf.IsBankerCanAfford(t.aibetnum) == false {
+			log.Trace("[百人大战] 房间[%d %d] AI[%s %d] 执行AIBetTrigger失败，庄家支付不起", tf.Id(), tf.Round(), p.Name(), p.Id())
+			t.Stop()
+			continue
+		}
+
+		tf.RequestBet(p.owner, t.aibetpos, t.aibetnum)
+		t.Stop()
+	}
+}
+
+func (p *TexasFightPlayer) ExecBetTrigger(tf *TexasFightRoom) {
+	for _, t := range p.aibettrigger {
+		if t.IsValid() == false {
+			continue
+		}
+
+		if tf.IsBankerCanAfford(t.aibetnum) == false {
+			//log.Trace("[百人大战] 房间[%d %d] AI[%s %d] 执行AIBetTrigger失败，庄家支付不起", tf.Id(), tf.Round(), p.Name(), p.Id())
 			t.Stop()
 			continue
 		}
@@ -381,6 +399,7 @@ func (t *TexasFightBetPool) IncBet(n int64) { t.total += n }
 func (t *TexasFightBetPool) IncPlayerBet(n int64) { t.playerbet += n }
 func (t *TexasFightBetPool) BetNum() int64 { return t.total }
 func (t *TexasFightBetPool) PlayerBetNum() int64 { return t.playerbet }
+func (t *TexasFightBetPool) AIBetNum() int64 { return t.total - t.playerbet }
 func (t *TexasFightBetPool) Pos() int32 { return t.pos }
 func (t *TexasFightBetPool) Result() int32 { return t.result }
 func (t *TexasFightBetPool) SetResult(r int32) { t.result = r }
@@ -636,11 +655,11 @@ func (tf *TexasFightRoom) IncAIBankerLossGold(n int64) { tf.aibankerlossgold += 
 
 func (tf *TexasFightRoom) PlayerBankerWinGold() int64 { return tf.playerbankerwingold }
 func (tf *TexasFightRoom) IncPlayerBankerWinGold(n int64) { tf.playerbankerwingold += n }
-func (tf *TexasFightRoom) DecPlayerBankerWinGold(n int64) { util.MaxInt64(tf.playerbankerwingold, 0) }
+func (tf *TexasFightRoom) DecPlayerBankerWinGold(n int64) { tf.playerbankerwingold = util.MaxInt64(tf.playerbankerwingold - n, 0) }
 
 func (tf *TexasFightRoom) AIAwardPool() int64 { return tf.aiawardpool.size }
 func (tf *TexasFightRoom) IncAIAwardPool(n int64) { tf.aiawardpool.size += n }
-func (tf *TexasFightRoom) DecAIAwardPool(n int64) { util.MaxInt64(tf.aiawardpool.size - n, 0) }
+func (tf *TexasFightRoom) DecAIAwardPool(n int64) { tf.aiawardpool.size = util.MaxInt64(tf.aiawardpool.size - n, 0) }
 
 
 // --------------------------------------------------------------------------
