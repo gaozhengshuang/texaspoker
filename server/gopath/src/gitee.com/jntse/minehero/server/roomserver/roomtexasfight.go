@@ -60,18 +60,21 @@ func (tf *TexasFightRoom) DBLoad() {
 	tf.aiawardpool.size = aiawardpool
 	tf.playerbankerwingold = pwingold
 
-	log.Info("[百人大战] 房间[%d %d] 子类型[%d] 读盘[%s]=%d", tf.Id(), tf.Round(), TF_RedisTotalAwardPool, 		tf.totalawardpool)
-	log.Info("[百人大战] 房间[%d %d] 子类型[%d] 读盘[%s]=%d", tf.Id(), tf.Round(), TF_RedisAIBankerWinGold, 	tf.aibankerwingold)
-	log.Info("[百人大战] 房间[%d %d] 子类型[%d] 读盘[%s]=%d", tf.Id(), tf.Round(), TF_RedisAIBankerLossGold, 	tf.aibankerlossgold)
-	log.Info("[百人大战] 房间[%d %d] 子类型[%d] 读盘[%s]=%d", tf.Id(), tf.Round(), TF_RedisAIAwardPool, 		tf.aiawardpool)
-	log.Info("[百人大战] 房间[%d %d] 子类型[%d] 读盘[%s]=%d", tf.Id(), tf.Round(), TF_RedisPlayerBankerWinGold,	tf.playerbankerwingold)
+	log.Info("[百人大战] 房间[%d %d] 子类型[%d] 读盘[%s]=%d", tf.Id(), tf.Round(), tf.SubKind(), TF_RedisTotalAwardPool, tf.totalawardpool)
+	log.Info("[百人大战] 房间[%d %d] 子类型[%d] 读盘[%s]=%d", tf.Id(), tf.Round(), tf.SubKind(), TF_RedisAIBankerWinGold, tf.aibankerwingold)
+	log.Info("[百人大战] 房间[%d %d] 子类型[%d] 读盘[%s]=%d", tf.Id(), tf.Round(), tf.SubKind(), TF_RedisAIBankerLossGold, tf.aibankerlossgold)
+	log.Info("[百人大战] 房间[%d %d] 子类型[%d] 读盘[%s]=%d", tf.Id(), tf.Round(), tf.SubKind(), TF_RedisAIAwardPool, tf.aiawardpool.size)
+	log.Info("[百人大战] 房间[%d %d] 子类型[%d] 读盘[%s]=%d", tf.Id(), tf.Round(), tf.SubKind(), TF_RedisPlayerBankerWinGold, tf.playerbankerwingold)
 }
 
 func (tf *TexasFightRoom) DBSave() {
+	pipe := Redis().Pipeline()
+	defer pipe.Close()
+
 	key := fmt.Sprintf("%s_%d",TF_RedisTotalAwardPool, tf.SubKind())
-	_, err := Redis().Set(key, tf.totalawardpool, 0).Result()
+	_, err := pipe.Set(key, tf.totalawardpool, 0).Result()
 	if err != nil {
-		log.Error("[百人大战] 房间[%d %d] 存储redis数据失败 Key[%s] RedisError[%s]", tf.Id(), tf.Round(), TF_RedisTotalAwardPool, err)
+		log.Error("[百人大战] 房间[%d %d] 存储redis数据失败 Key[%s] RedisError[%s]", tf.Id(), tf.Round(), TF_RedisAIBankerWinGold, err)
 	}
 
 
@@ -90,7 +93,7 @@ func (tf *TexasFightRoom) DBSave() {
 
 
 	key = fmt.Sprintf("%s_%d",TF_RedisAIAwardPool, tf.SubKind())
-	_, err = Redis().Set(key, tf.aiawardpool, 0).Result()
+	_, err = Redis().Set(key, tf.aiawardpool.size, 0).Result()
 	if err != nil {
 		log.Error("[百人大战] 房间[%d %d] 存储redis数据失败 Key[%s] RedisError[%s]", tf.Id(), tf.Round(), TF_RedisAIAwardPool, err)
 	}
@@ -102,11 +105,11 @@ func (tf *TexasFightRoom) DBSave() {
 		log.Error("[百人大战] 房间[%d %d] 存储redis数据失败 Key[%s] RedisError[%s]", tf.Id(), tf.Round(), TF_RedisPlayerBankerWinGold, err)
 	}
 
-	log.Info("[百人大战] 房间[%d %d] 子类型[%d] 存盘[%s]=%d", tf.Id(), tf.Round(), TF_RedisTotalAwardPool, 		tf.totalawardpool)
-	log.Info("[百人大战] 房间[%d %d] 子类型[%d] 存盘[%s]=%d", tf.Id(), tf.Round(), TF_RedisAIBankerWinGold, 	tf.aibankerwingold)
-	log.Info("[百人大战] 房间[%d %d] 子类型[%d] 存盘[%s]=%d", tf.Id(), tf.Round(), TF_RedisAIBankerLossGold, 	tf.aibankerlossgold)
-	log.Info("[百人大战] 房间[%d %d] 子类型[%d] 存盘[%s]=%d", tf.Id(), tf.Round(), TF_RedisAIAwardPool, 		tf.aiawardpool)
-	log.Info("[百人大战] 房间[%d %d] 子类型[%d] 存盘[%s]=%d", tf.Id(), tf.Round(), TF_RedisPlayerBankerWinGold,	tf.playerbankerwingold)
+	log.Info("[百人大战] 房间[%d %d] 子类型[%d] 存盘[%s]=%d", tf.Id(), tf.Round(), tf.SubKind(), TF_RedisTotalAwardPool, tf.totalawardpool)
+	log.Info("[百人大战] 房间[%d %d] 子类型[%d] 存盘[%s]=%d", tf.Id(), tf.Round(), tf.SubKind(), TF_RedisAIBankerWinGold, tf.aibankerwingold)
+	log.Info("[百人大战] 房间[%d %d] 子类型[%d] 存盘[%s]=%d", tf.Id(), tf.Round(), tf.SubKind(), TF_RedisAIBankerLossGold, tf.aibankerlossgold)
+	log.Info("[百人大战] 房间[%d %d] 子类型[%d] 存盘[%s]=%d", tf.Id(), tf.Round(), tf.SubKind(), TF_RedisAIAwardPool, tf.aiawardpool.size)
+	log.Info("[百人大战] 房间[%d %d] 子类型[%d] 存盘[%s]=%d", tf.Id(), tf.Round(), tf.SubKind(), TF_RedisPlayerBankerWinGold, tf.playerbankerwingold)
 }
  
 // AI 初始化
@@ -122,7 +125,6 @@ func (tf *TexasFightRoom) InitAIPlayers() {
 }
 
 func (tf *TexasFightRoom) Handler1sTick(now int64) {
-
 
 	switch tf.stat {
 	case kStatWaitNextRound:
