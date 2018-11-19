@@ -188,7 +188,7 @@ func (u *GateUser) HttpPostGetGooglePayToken() (errcode string, resp *network.Ht
 
 func (u *GateUser) CheckPurchaseToken(purchasetoken, productid, accesstoken string) (errcode string, resp *network.HttpResponse) {
 	packageName := "com.jiantfuntexaspoker.running"
-	url := fmt.Sprintf("https://www.googleapis.com/androidpublisher/v2/applications/%s/purchases/products/%s/purchaseToken/%s?access_token=%s",packageName, productid, purchasetoken, accesstoken)
+	url := fmt.Sprintf("https://www.googleapis.com/androidpublisher/v2/applications/%s/purchases/products/%s/tokens/%s?access_token=%s",packageName, productid, purchasetoken, accesstoken)
 	log.Info("CheckPurchaseToken url: %s", url)
 	resp, err := HttpsGet(url, "", "", "")
 	if err != nil {
