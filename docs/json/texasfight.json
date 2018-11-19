@@ -1,6 +1,6 @@
 {
     "//":"明抽水比例 %",
-    "SystemPumpRate" : 1,
+    "SystemPumpRate" : 95,
 
     "//":"房间AI数量",
     "AIUserAmount": 10,
