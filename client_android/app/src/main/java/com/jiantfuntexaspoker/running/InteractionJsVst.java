@@ -23,7 +23,7 @@ import java.util.HashMap;
  * JS 交互
  */
 public class InteractionJsVst {
-    public static  final String TAG = "InteractionJsVst";
+    public static final String TAG = "InteractionJsVst";
     private MainActivity _target;
     /**
      * 登录类型
@@ -48,6 +48,7 @@ public class InteractionJsVst {
         this.addLogin();
         this.addCheckLoginState();
         this.addPay();
+        this.addConsume();
     }
 
     /**
@@ -57,6 +58,13 @@ public class InteractionJsVst {
         _target.nativeAndroid.setExternalInterface(ExtFuncName.Initialize, new INativePlayer.INativeInterface() {
             @Override
             public void callback(String message) {
+                try {
+                    JSONObject obj = new JSONObject(message);
+                    _target.exitGameJsonObj = new JSONObject(obj.getString("exitgameinfo"));
+                    Log.d(TAG, "白鹭初始化 message:" + message);
+                } catch (JSONException e) {
+                    Log.w(TAG, "白鹭初始化 异常 message:" + message);
+                }
                 HashMap<String, String> initMap = new HashMap<String, String>();
                 initMap.put("channelType", _target.getString(R.string.channelType));
                 initMap.put("appName", _target.getString(R.string.app_name));

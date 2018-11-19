@@ -18,6 +18,8 @@ import com.giant.gamelib.ChannelLoginType;
 import com.giant.gamelib.GameLib;
 
 import org.egret.egretnativeandroid.EgretNativeAndroid;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -36,6 +38,8 @@ public class MainActivity extends Activity {
     public GoogleLoginVst googleLoginVst;
     public GoogleBillingVst googleBillingVst;
 
+    //退出游戏的文字描述，多语言的关系
+    public JSONObject exitGameJsonObj;
     //        private final String Game_Url = "http://jump.test.giantfun.cn/poker/2001.html?online_version=";
     public final String clientVersion = "0.2.0";
     //        private final String Game_Url = "http://192.168.30.17:8088/2001.html?online_version=";
@@ -134,7 +138,16 @@ public class MainActivity extends Activity {
     @Override
     public boolean onKeyDown(final int keyCode, final KeyEvent keyEvent) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            GameLib.showDialog(this, "提示", "确定退出游戏？", "确定", "取消", new ConfirmExitGame());
+            try {
+                GameLib.showDialog(this, exitGameJsonObj.getString("title"),
+                        exitGameJsonObj.getString("message"),
+                        exitGameJsonObj.getString("confirm"),
+                        exitGameJsonObj.getString("cancel"), new ConfirmExitGame());
+            }
+            catch (JSONException e)
+            {
+                Log.w(TAG, "退出游戏的文字描述 json 对象异常！");
+            }
             return true;
         } else {
             return super.onKeyDown(keyCode, keyEvent);
