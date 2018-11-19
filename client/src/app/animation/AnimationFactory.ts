@@ -84,80 +84,81 @@ class AnimationFactory
 	/**
 	 * 粒子特效缓存列表
 	 */
-	private static _particleList: game.Map<AnimationType, particle.GravityParticleSystem>;
+	// private static _particleList: game.Map<AnimationType, particle.GravityParticleSystem>;
 	/**
 	 * 粒子特效加载状态表
 	 */
-	private static _particleStateList: game.Map<AnimationType, boolean>;
+	// private static _particleStateList: game.Map<AnimationType, boolean>;
 	/**
 	 * 获取粒子特效
 	 */
 	public static getParticleEffect(type: AnimationType, parent: any, onComplete: Function)
 	{
-		if (!AnimationFactory._particleList)
-		{
-			AnimationFactory._particleList = new game.Map<AnimationType, particle.GravityParticleSystem>();
-		}
-		if (!AnimationFactory._particleStateList)
-		{
-			AnimationFactory._particleStateList = new game.Map<AnimationType, boolean>();
-		}
-		if (AnimationFactory._particleStateList.containsKey(type) && !AnimationFactory._particleStateList.getValue(type))
-		{
-			return;
-		}
-		let effect: particle.GravityParticleSystem = AnimationFactory._particleList.getValue(type);
+		// if (!AnimationFactory._particleList)
+		// {
+		// 	AnimationFactory._particleList = new game.Map<AnimationType, particle.GravityParticleSystem>();
+		// }
+		// if (!AnimationFactory._particleStateList)
+		// {
+		// 	AnimationFactory._particleStateList = new game.Map<AnimationType, boolean>();
+		// }
+		// if (AnimationFactory._particleStateList.containsKey(type) && !AnimationFactory._particleStateList.getValue(type))
+		// {
+		// 	return;
+		// }
+		// let effect: particle.GravityParticleSystem = AnimationFactory._particleList.getValue(type);
 		switch (type)
 		{
 			case AnimationType.GetCoin:
-				AnimationFactory.resParticle(effect, ResFixedFileName.GetCoin_Json, ResFixedFileName.GetCoin_Img, 1000, parent, 0, 0, type, onComplete);
+				AnimationFactory.resParticle(ResFixedFileName.GetCoin_Json, ResFixedFileName.GetCoin_Img, 1000, parent, 0, 0, type, onComplete);
 				break;
 			case AnimationType.WinCard:
-				AnimationFactory.resParticle(effect, ResFixedFileName.Win_Json, ResFixedFileName.Win_Img, 3000, parent, 25, -20, type, onComplete);
+				AnimationFactory.resParticle(ResFixedFileName.Win_Json, ResFixedFileName.Win_Img, 3000, parent, 25, -20, type, onComplete);
 				break;
 			case AnimationType.Allin0:
-				AnimationFactory.resParticle(effect, ResFixedFileName.Allin_Json, ResFixedFileName.Win_Img, 400, parent, 43, 30, type, onComplete);
+				AnimationFactory.resParticle(ResFixedFileName.Allin_Json, ResFixedFileName.Win_Img, 400, parent, 43, 30, type, onComplete);
 				break;
 			case AnimationType.Allin1:
-				AnimationFactory.resParticle(effect, ResFixedFileName.Allin_Json, ResFixedFileName.Win_Img, 400, parent, 136, 30, type, onComplete);
+				AnimationFactory.resParticle(ResFixedFileName.Allin_Json, ResFixedFileName.Win_Img, 400, parent, 136, 30, type, onComplete);
 				break;
 			case AnimationType.HundredWarPlayer:
-				AnimationFactory.resParticle(effect, ResFixedFileName.Win_Json, ResFixedFileName.Win_Img, 2000, parent, 0, -100, type, onComplete);
+				AnimationFactory.resParticle(ResFixedFileName.Win_Json, ResFixedFileName.Win_Img, 2000, parent, 0, -100, type, onComplete);
 				break;
 			case AnimationType.HundredWarBanker:
-				AnimationFactory.resParticle(effect, ResFixedFileName.Win_Json, ResFixedFileName.Win_Img, 1000, parent, 0, -70, type, onComplete);
+				AnimationFactory.resParticle(ResFixedFileName.Win_Json, ResFixedFileName.Win_Img, 1000, parent, 0, -70, type, onComplete);
 				break;
 			case AnimationType.HundredWarPool:
-				AnimationFactory.resParticle(effect, ResFixedFileName.Win_Json, ResFixedFileName.Win_Img, 2000, parent, 120, -100, type, onComplete);
+				AnimationFactory.resParticle(ResFixedFileName.Win_Json, ResFixedFileName.Win_Img, 2000, parent, 120, -100, type, onComplete);
 				break;
 			case AnimationType.HundredWarPoolDes:
-				AnimationFactory.resParticle(effect, ResFixedFileName.HundredWarPoolBoom_Json, ResFixedFileName.Win_Img, 400, parent, 150, 37, type, onComplete);
+				AnimationFactory.resParticle(ResFixedFileName.HundredWarPoolBoom_Json, ResFixedFileName.Win_Img, 400, parent, 150, 37, type, onComplete);
 				break;
 			case AnimationType.WinCard2:
-				AnimationFactory.resParticle(effect, ResFixedFileName.Win_2_Json, ResFixedFileName.Win_Img, 300, parent, 0, 0, type, onComplete);
+				AnimationFactory.resParticle(ResFixedFileName.Win_2_Json, ResFixedFileName.Win_Img, 300, parent, 0, 0, type, onComplete);
 				break;
 			case AnimationType.WinCard3:
-				AnimationFactory.resParticle(effect, ResFixedFileName.Win_2_Json, ResFixedFileName.Win_Img, 300, parent, 100, 0, type, onComplete);
+				AnimationFactory.resParticle(ResFixedFileName.Win_2_Json, ResFixedFileName.Win_Img, 300, parent, 100, 0, type, onComplete);
 				break;
 			case AnimationType.WinCard4:
-				AnimationFactory.resParticle(effect, ResFixedFileName.Win_2_Json, ResFixedFileName.Win_Img, 300, parent, 200, 0, type, onComplete);
+				AnimationFactory.resParticle(ResFixedFileName.Win_2_Json, ResFixedFileName.Win_Img, 300, parent, 200, 0, type, onComplete);
 				break;
 		}
 	}
 
-	private static async resParticle(effect: particle.GravityParticleSystem, json: string, img: string, time: number, parent: any, posX: number, posY: number, type: AnimationType, onComplete: Function)
+	private static async resParticle(json: string, img: string, time: number, parent: any, posX: number, posY: number, type: AnimationType, onComplete: Function)
 	{
-		if (effect)
-		{
-			if (parent.getChildIndex(effect) == -1)
-			{
-				parent.addChild(effect);
-			}
-			effect.start(time);
-		}
-		else
-		{
-			AnimationFactory._particleStateList.add(type, false);
+		// if (effect)
+		// {
+		// 	if (parent.getChildIndex(effect) == -1)
+		// 	{
+		// 		parent.addChild(effect);
+		// 	}
+		// 	effect.start(time);
+		// 	console.log("白鹭999", "effect", effect);
+		// }
+		// else
+		// {
+			// AnimationFactory._particleStateList.add(type, false);
 			let config = await RES.getResAsync(ResPrefixPathName.Particle + json);
 			let texture: egret.Texture = RES.getRes(img);
 			let part: particle.GravityParticleSystem = new particle.GravityParticleSystem(texture, config);
@@ -166,8 +167,8 @@ class AnimationFactory
 			part.y = posY;
 			part.start(time);
 			onComplete(part);
-			AnimationFactory._particleList.add(type, part);
-			AnimationFactory._particleStateList.add(type, true);
-		}
+			// AnimationFactory._particleList.add(type, part);
+			// AnimationFactory._particleStateList.add(type, true);
+		// }
 	}
 }
