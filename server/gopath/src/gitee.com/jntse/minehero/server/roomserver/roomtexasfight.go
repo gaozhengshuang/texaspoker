@@ -101,6 +101,11 @@ func (tf *TexasFightRoom) DBSave() {
 // AI 初始化
 func (tf *TexasFightRoom) InitAIPlayers() {
 	users := AIUserMgr().PickOutUser(int32(tbl.TexasFight.AIUserAmount))
+	if len(users) == 0 {
+		log.Error("[百人大战 房间[%d %d] 没有空闲的AI机器人加入")
+		return
+	}
+
 	for _, u := range users {
 		// AI携带的金币数量
 		//rand := util.RandBetweenInt64(tbl.TexasFight.AIBankerMoneyRate[0], tbl.TexasFight.AIBankerMoneyRate[1])
