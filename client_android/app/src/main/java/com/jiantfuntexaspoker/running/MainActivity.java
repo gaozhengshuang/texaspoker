@@ -35,9 +35,9 @@ public class MainActivity extends Activity {
     public GoogleLoginVst googleLoginVst;
     public GoogleBillingVst googleBillingVst;
 
-    //    private final String Game_Url = "http://jump.test.giantfun.cn/poker/2001.html?online_version=";
+//        private final String Game_Url = "http://jump.test.giantfun.cn/poker/2001.html?online_version=";
     public final String clientVersion = "0.2.0";
-    //    private final String Game_Url = "http://192.168.30.17:8088/2001.html?online_version=";
+//        private final String Game_Url = "http://192.168.30.17:8088/2001.html?online_version=";
     private final String Game_Url = "http://192.168.30.17:8087/index.html?online_version=";
 
     //    private final String clientVersion = "";
@@ -56,7 +56,6 @@ public class MainActivity extends Activity {
 
         try {
             String packageName = this.getApplicationContext().getPackageName();
-//            String packageName = "com.jiantfuntexaspoker.main";
             Log.d("KeyHash:", packageName);
             PackageInfo info = getPackageManager().getPackageInfo(
                     packageName,
@@ -100,11 +99,8 @@ public class MainActivity extends Activity {
         _splashVst.showSplashView();
         //fblogin
         fbLoginVst = new FaceBookLoginVst(this);
-
         //支付
-        googleBillingVst = new GoogleBillingVst();
-        googleBillingVst.setTarget(this);
-        googleBillingVst.onCreate(savedInstanceState);
+        googleBillingVst = new GoogleBillingVst(this);
         setContentView(nativeAndroid.getRootFrameLayout());
     }
 

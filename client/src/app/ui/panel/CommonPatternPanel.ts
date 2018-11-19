@@ -10,6 +10,13 @@ class CommonPatternPanel extends BasePanel
 
 	private _dataList: Array<RoomSelectInfo>;
 
+	private _lastSelectBtn: eui.Button;
+	private _isSameBtn: boolean;
+	private _childInfo: RoomSelectInfo;
+
+	private _isFirst: boolean;
+
+
 	public constructor()
 	{
 		super();
@@ -28,17 +35,18 @@ class CommonPatternPanel extends BasePanel
 			info.pattern = i + 1;
 			this._dataList.push(info);
 		}
-		info = new RoomSelectInfo();
-		info.pattern = -1;
-		this._dataList.push(info);
+		this._childInfo = new RoomSelectInfo();
+		this._childInfo.pattern = -1;
+		this._dataList.push(this._childInfo);
 
 		this.list.itemRenderer = RoomSelectPatternItemRenderer;
 	}
 	public init(appendData: any)
 	{
 		super.init(appendData);
+		this._isFirst = true;
 		//重置
-
+		this.removeDataChild();
 		if (this.panelData && this.panelData.enterIndex)
 		{
 			this._selectPattern = this.panelData.enterIndex + 1;
@@ -66,6 +74,7 @@ class CommonPatternPanel extends BasePanel
 		PlayingFieldManager.PatternSelectEvent.removeListener(this.changePattern, this);
 
 		GamblingManager.OnGetRoomInfoEvent.removeListener(this.onGetRoomInfoHandler, this);
+		this._isSameBtn = false;
 	}
 
 	/**
@@ -73,19 +82,44 @@ class CommonPatternPanel extends BasePanel
    */
 	private setRoomListInfo()
 	{
+		if (!this._isFirst)
+		{
+			if (this._isSameBtn)
+			{
+				if (this._dataList.indexOf(this._childInfo) != -1)
+				{
+					this.removeDataChild();
+				}
+				else
+				{
+					this._dataList.push(this._childInfo);
+				}
+			}
+			else
+			{
+				if (this._dataList.indexOf(this._childInfo) == -1)
+				{
+					this._dataList.push(this._childInfo);
+				}
+			}
+		}
+		this._isFirst = false;
 		this._dataList.sort((a: RoomSelectInfo, b: RoomSelectInfo) =>
 		{
 			return a.pattern - b.pattern;
 		});
 
-		let list = this.getTwoBlindPattern();
-
-		let childInfo = this._dataList[0];
-		childInfo.blindInfoList = list;
-
-		for (let i: number = 0; i < this._selectPattern; i++)
+		if (this._dataList.length == 4)
 		{
-			this.exch(i, i + 1);
+			let list = this.getTwoBlindPattern();
+
+			let childInfo = this._dataList[0];
+			childInfo.blindInfoList = list;
+
+			for (let i: number = 0; i < this._selectPattern; i++)
+			{
+				this.exch(i, i + 1);
+			}
 		}
 		this.list.dataProvider = new eui.ArrayCollection(this._dataList);
 	}
@@ -101,10 +135,15 @@ class CommonPatternPanel extends BasePanel
 	/**
 	 * 改变模式
 	 */
-	private changePattern(data: RoomSelectInfo)
+	private changePattern(data: any)
 	{
-		this._selectPattern = data.pattern;
-		PlayingFieldManager.reqRoomListInfo(data.pattern);
+		if (this._lastSelectBtn)
+		{
+			this._isSameBtn = this._lastSelectBtn.label == data.btn.label;
+		}
+		this._lastSelectBtn = data.btn;
+		this._selectPattern = data.data.pattern;
+		PlayingFieldManager.reqRoomListInfo(data.data.pattern);
 	}
 
 	private onGetRoomInfoHandler()
@@ -118,7 +157,9 @@ class CommonPatternPanel extends BasePanel
 		let list: RoomSelectBlindInfo[] = [];
 		for (let def of table.TexasRoom)
 		{
-			if (def.Pattern == this._selectPattern)
+
+			let isExistDef = list[0];
+			if (def.Type == this._selectPattern && (isExistDef == null || isExistDef.sblind != def.SBlind))
 			{
 				let info: RoomSelectBlindInfo = new RoomSelectBlindInfo();
 				info.sblind = game.longToNumber(def.SBlind);
@@ -131,5 +172,16 @@ class CommonPatternPanel extends BasePanel
 			}
 		}
 		return list;
+	}
+	private removeDataChild()
+	{
+		for (let info of this._dataList)
+		{
+			if (info.pattern == -1)
+			{
+				this._dataList.splice(this._dataList.indexOf(info), 1);
+				break;
+			}
+		}
 	}
 }

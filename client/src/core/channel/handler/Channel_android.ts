@@ -29,7 +29,7 @@ class Channel_android extends ChannelBase
 	}
 	public PaySend(payState: number, awardId: number, serverId: number, orderId: string, price: number, productName: string)
 	{
-		UIManager.showPanel(UIModuleName.PayMaskPanel);
+		// UIManager.showPanel(UIModuleName.PayMaskPanel);
 		let bagId = BundleManager.getBid();//数字包ID
 		let data = { "awardId": awardId, "passData": { "orderId": orderId, "bagId": bagId }, "price": price, "name": productName };
 		console.log("白鹭支付 data：", JSON.stringify(data));
