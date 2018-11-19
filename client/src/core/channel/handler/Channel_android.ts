@@ -29,7 +29,7 @@ class Channel_android extends ChannelBase
 	}
 	public PaySend(payState: number, awardId: number, serverId: number, orderId: string, price: number, productName: string)
 	{
-		UIManager.showPanel(UIModuleName.PayMaskPanel);
+		// UIManager.showPanel(UIModuleName.PayMaskPanel);
 		let bagId = BundleManager.getBid();//数字包ID
 		let data = { "awardId": awardId, "passData": { "orderId": orderId, "bagId": bagId }, "price": price, "name": productName };
 		console.log("白鹭支付 data：", JSON.stringify(data));
@@ -69,7 +69,7 @@ class Channel_android extends ChannelBase
 		//通过post发送数据给服务器
 		if (data)
 		{
-			let awardId: number = this.ParseAwardId(data.productId);
+			let awardId: number = this.ParseAwardId(data.orderId);
 			let def: table.IPayListDefine = ShopDefined.GetInstance().getDefinitionByAwardId(awardId);
 			if (def != null)
 			{
@@ -88,12 +88,12 @@ class Channel_android extends ChannelBase
 		/// <summary>
 	/// 将商品名转化为product id
 	/// </summary>
-	/// <param name="productId"></param>
+	/// <param name="orderId"></param>
 	/// <returns></returns>
-	private ParseAwardId(productId: string): number
+	private ParseAwardId(orderId: string): number
 	{
 		let reg: RegExp = new RegExp(/\d+$/);
-		let result: RegExpMatchArray = productId.match(reg);
+		let result: RegExpMatchArray = orderId.match(reg);
 		if (result && result.length > 0)
 		{
 			return parseInt(result[0]);

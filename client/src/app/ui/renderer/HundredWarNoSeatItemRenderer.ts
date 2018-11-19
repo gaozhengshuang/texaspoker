@@ -23,6 +23,7 @@ class HundredWarNoSeatItemRenderer extends BaseItemRenderer<SimpleUserInfo>
     }
     protected dataChanged()
     {
+        this.goldNumLabel.visible = false; //move todo 
         super.dataChanged();
         this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.gotoUserInfo, this);
         this.addEventListener(egret.Event.REMOVED_FROM_STAGE, this.onDisable, this);

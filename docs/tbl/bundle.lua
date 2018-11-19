@@ -7,7 +7,7 @@ export var Bundle : table.IBundleDefine[] = [
 		{ Id : 1002, BundleId : "org.istar9.i.xydp", Pay : 0, Owenr : "qin", Url : "https://itunes.apple.com/cn/app/id1351672193?l=zh&ls=1&mt=8", Ios : 0, Android : 0 	},
 		{ Id : 1003, BundleId : "org.poker.i.dp1839", Pay : 0, Owenr : "qin", Url : "https://itunes.apple.com/cn/app/id1357541730?l=zh&ls=1&mt=8", Ios : 0, Android : 0 	},
 		{ Id : 1004, BundleId : "org.qypoker.i.texas427", Pay : 0, Owenr : "qin", Url : "https://itunes.apple.com/cn/app/id1377541117?l=zh&ls=1&mt=8", Ios : 0, Android : 0 	},
-		{ Id : 2001, BundleId : "org.istar9.a.xydp", Pay : 0, Owenr : "qin", Url : "http://www.istar9.com/download/?type=android", Ios : 0, Android : 0 	}
+		{ Id : 2001, BundleId : "com.jiantfuntexaspoker.running", Pay : 0, Owenr : "qin", Url : "http://www.istar9.com/download/?type=android", Ios : 0, Android : 0 	}
 	]
 
 

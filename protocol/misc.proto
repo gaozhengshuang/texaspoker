@@ -183,5 +183,5 @@ message C2GW_ReqGooglePayCheck {
 message GW2C_RetGooglePayCheck {
 	optional string purchasetoken = 1;
 	optional string productid = 2;
-	optional string errorcode = 3;
+	optional string errcode = 3;
 }

@@ -2,5 +2,5 @@
 <e:Skin class="roomblindselectbtnskin" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Image width="150" height="90" source="button_half_png" y="0" scaleX="1.2" scaleY="1.2" left="0"/>
 	<e:Label id="blindNameLabel" text="小/大盲" x="33" y="0" size="30" fontFamily="Microsoft YaHei" width="150" height="50" verticalAlign="middle" textAlign="center"/>
-	<e:Label id="blindNumLabel" text="" x="0" y="45" size="30" fontFamily="Microsoft YaHei" width="180" height="50" verticalAlign="middle" textAlign="center"/>
+	<e:Label id="blindNumLabel" text="" x="34" y="45" size="25" fontFamily="Microsoft YaHei" width="146" height="50" verticalAlign="middle" textAlign="center" anchorOffsetX="0"/>
 </e:Skin>

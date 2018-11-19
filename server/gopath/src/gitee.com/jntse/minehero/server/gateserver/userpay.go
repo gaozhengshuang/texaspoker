@@ -9,7 +9,7 @@ import (
 	pb "github.com/gogo/protobuf/proto"
 	_"github.com/go-redis/redis"
 	_"strconv"
-	_"strings"
+	"strings"
 	"gitee.com/jntse/gotoolkit/net"
 	"net/http"
 	"encoding/json"
@@ -45,6 +45,48 @@ func HttpsGet(url, cacert, cert, certkey string) (*network.HttpResponse, error) 
 	*/
 	client := &http.Client{Transport: tr}
 	req, err := http.NewRequest("GET", url, nil)
+	if err != nil { return nil, err }
+
+	// "The client must close the response body when finished with it"
+	resp, err := client.Do(req)
+	if err != nil {  return nil, err }
+	defer resp.Body.Close()
+
+	rbody, err := ioutil.ReadAll(resp.Body)
+	if err != nil { return nil, err }
+	return &network.HttpResponse{Code:resp.StatusCode, Status: resp.Status, Body: rbody}, nil
+}
+
+func HttpsPost(url, cacert, cert, certkey, body string) (*network.HttpResponse, error) {
+	// 加载根证书
+	/*
+	pool := x509.NewCertPool()
+	caCrt, err := ioutil.ReadFile(cacert)
+	if err != nil {
+		return nil, fmt.Errorf("Read CA Cert File err:%s", err)
+	}
+	pool.AppendCertsFromPEM(caCrt)
+
+
+	cliCrt, err := tls.LoadX509KeyPair(cert, certkey)
+	if err != nil {
+		return nil, fmt.Errorf("Loadx509keypair err:%s", err)
+	}
+	*/
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	/*
+	tr := &http.Transport {
+		TLSClientConfig: &tls.Config {
+			RootCAs:      pool,	// 如不指定使用默认根证书
+			Certificates: []tls.Certificate{cliCrt},
+		},
+	}
+	*/
+
+	client := &http.Client{Transport: tr}
+	req, err := http.NewRequest("POST", url, strings.NewReader(body))
 	if err != nil { return nil, err }
 
 	// "The client must close the response body when finished with it"
@@ -106,15 +148,15 @@ func (u *GateUser) OnGooglePayCheck(purchasetoken, productid string) {
 		}
 		u.OnGooglePayCheckSuccess(productid, orderId)
 	}
-	send.Errorcode = pb.String(errorcode)
+	send.Errcode = pb.String(errorcode)
 	u.SendMsg(send)
 }
 
 
 func (u *GateUser) HttpPostGetGooglePayToken() (errcode string, resp *network.HttpResponse) {
-	client_id := "client_id"
-	client_secret := "client_secret"
-	refresh_token := "refresh_token"
+	client_id := "894411058463-lnhrmgu4nciseebinjao2emtjjro917q.apps.googleusercontent.com"
+	client_secret := "LYPTfBS4ULrhhcmw7WnqAhPv"
+	refresh_token := "1/4dNZXZrvUoplTizo57t4Gn0TTA8_yI-NCX6BPwYHa9lZCDUNWTcshxjfh3bCvfkz"
 	mapset := make(map[string]interface{})
 	urltoken := "https://accounts.google.com/o/oauth2/token" 
 	mapset["client_id"] = client_id
@@ -127,7 +169,10 @@ func (u *GateUser) HttpPostGetGooglePayToken() (errcode string, resp *network.Ht
 		log.Error("玩家[%d] json.Marshal err[%s]", u.Id(), jsonerr)
 		return "json.Marshal Fail", nil
 	}
-	resp, posterr := network.HttpPost(urltoken, util.BytesToString(postbody))
+	strbody := util.BytesToString(postbody)
+	log.Info("HttpPostGetGooglePayToken   postbody:%s", strbody)
+	//resp, posterr := network.HttpsPost(urltoken, strbody)
+	resp, posterr := HttpsPost(urltoken,"","","",strbody)
 	if posterr != nil {
 		log.Error("玩家[%d] GooglePayCheck post获取token失败 error[%s] resp[%#v]", u.Id(), posterr, resp)
 		return "token HttpPost Fail", nil
@@ -142,7 +187,7 @@ func (u *GateUser) HttpPostGetGooglePayToken() (errcode string, resp *network.Ht
 }
 
 func (u *GateUser) CheckPurchaseToken(purchasetoken, productid, accesstoken string) (errcode string, resp *network.HttpResponse) {
-	packageName := "833679027611-a3m8gvpknba2e06pr8m4cdrprfh43vof.apps.googleusercontent.com"
+	packageName := "com.jiantfuntexaspoker.running"
 	url := fmt.Sprintf("https://www.googleapis.com/androidpublisher/v2/applications/%s/purchases/products/%s/purchaseToken/%s?access_token=%s",packageName, productid, purchasetoken, accesstoken)
 	log.Info("CheckPurchaseToken url: %s", url)
 	resp, err := HttpsGet(url, "", "", "")
