@@ -8,9 +8,6 @@
     "//":"AI上庄列表最大数量",
     "BankerQueueMaxAINum": 1,
 
-    "//":"AI进房间携带区间",
-    "AIEnterRoomTakeGold":[10000, 1000000],
-
     "//":"AI上庄携带区间 %",
     "AIBankerMoneyRate":[110, 150],
 
