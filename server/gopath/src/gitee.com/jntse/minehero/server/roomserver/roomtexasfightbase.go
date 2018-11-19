@@ -172,7 +172,7 @@ func (p *TexasFightPlayer) SetWatchCount(n int32) { p.watchcount = n }
 func (p *TexasFightPlayer) SetBankerStat(f int32) { p.bankerstat = f }
 func (p *TexasFightPlayer) BankerStat() int32 { return p.bankerstat }
 func (p *TexasFightPlayer) IsBanker() bool { return p.seat == 0 }
-func (p *TexasFightPlayer) IsAI() bool { return p.owner.IsAI() }
+func (p *TexasFightPlayer) IsAI() bool { return p.owner != nil && p.owner.IsAI() }
 
 
 func (p *TexasFightPlayer) Id() int64 {

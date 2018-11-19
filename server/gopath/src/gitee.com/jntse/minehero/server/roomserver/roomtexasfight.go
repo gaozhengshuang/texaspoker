@@ -101,6 +101,11 @@ func (tf *TexasFightRoom) DBSave() {
 // AI 初始化
 func (tf *TexasFightRoom) InitAIPlayers() {
 	users := AIUserMgr().PickOutUser(int32(tbl.TexasFight.AIUserAmount))
+	if len(users) == 0 {
+		log.Error("[百人大战 房间[%d %d] 没有空闲的AI机器人加入")
+		return
+	}
+
 	for _, u := range users {
 		// AI携带的金币数量
 		//rand := util.RandBetweenInt64(tbl.TexasFight.AIBankerMoneyRate[0], tbl.TexasFight.AIBankerMoneyRate[1])
@@ -726,7 +731,7 @@ func (tf *TexasFightRoom) CardDeal() {
 		begin, end = begin+5, end+5
 
 		// TODO: 测试代码
-		if pool.Pos() == 1 && util.SelectPercent(30) {
+		if pool.Pos() == 1 && util.SelectPercent(50) {
 			cards = MakeFourKindCards()
 		}
 		//if pool.Pos() == 4 {
@@ -1331,8 +1336,7 @@ func (tf *TexasFightRoom) AIPlayerPlayWithUserBanker() {
 	}else if diffpump < 0 {
 		tf.IncPlayerBankerWinGold(diffpump)
 	}
-	log.Info("[百人大战] 房间[%d %d] 玩家做庄 AI抽水[%d] AI放水[%d] 玩家历史赢钱[%d]", tf.Id(), tf.Round(),
-		pumpgold, dumpgold, tf.PlayerBankerWinGold())
+	log.Info("[百人大战] 房间[%d %d] 玩家做庄 AI抽水[%d] AI放水[%d] 差额[%d]", tf.Id(), tf.Round(), pumpgold, dumpgold, diffpump)
 
 	// 区分出赢的闲家牌和输的闲家牌，赢的用来抽水用，输的用来放水用
 	winpool, losspool := make([]*TexasFightBetPool, 0), make([]*TexasFightBetPool, 0)
