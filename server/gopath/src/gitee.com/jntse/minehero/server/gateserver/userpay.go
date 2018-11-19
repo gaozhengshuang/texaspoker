@@ -148,7 +148,7 @@ func (u *GateUser) OnGooglePayCheck(purchasetoken, productid string) {
 		}
 		u.OnGooglePayCheckSuccess(productid, orderId)
 	}
-	send.Errorcode = pb.String(errorcode)
+	send.Errcode = pb.String(errorcode)
 	u.SendMsg(send)
 }
 
@@ -187,7 +187,7 @@ func (u *GateUser) HttpPostGetGooglePayToken() (errcode string, resp *network.Ht
 }
 
 func (u *GateUser) CheckPurchaseToken(purchasetoken, productid, accesstoken string) (errcode string, resp *network.HttpResponse) {
-	packageName := "833679027611-a3m8gvpknba2e06pr8m4cdrprfh43vof.apps.googleusercontent.com"
+	packageName := "com.jiantfuntexaspoker.running"
 	url := fmt.Sprintf("https://www.googleapis.com/androidpublisher/v2/applications/%s/purchases/products/%s/purchaseToken/%s?access_token=%s",packageName, productid, purchasetoken, accesstoken)
 	log.Info("CheckPurchaseToken url: %s", url)
 	resp, err := HttpsGet(url, "", "", "")
