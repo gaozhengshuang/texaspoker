@@ -80,7 +80,7 @@ func (tf *TexasFightRoom) DBSave() {
 	pipe.Set(key, tf.aibankerlossgold, 0)
 
 	key = fmt.Sprintf("%s_%d",TF_RedisAIAwardPool, tf.SubKind())
-	pipe.Set(key, tf.aiawardpool, 0)
+	pipe.Set(key, tf.aiawardpool.size, 0)
 
 	key = fmt.Sprintf("%s_%d",TF_RedisPlayerBankerWinGold, tf.SubKind())
 	pipe.Set(key, tf.playerbankerwingold, 0)
@@ -127,7 +127,6 @@ func (tf *TexasFightRoom) Handler1sTick(now int64) {
 }
 
 func (tf *TexasFightRoom) Handler5sTick(now int64) {
-	tf.DBSave()
 }
 
 func (tf *TexasFightRoom) Handler100msTick(now int64) {
@@ -326,6 +325,9 @@ func (tf *TexasFightRoom) ChangeToWaitNextRoundStat(now int64) {
 	if tf.PlayersNum() != 0 {
 		log.Info("[百人大战] 房间[%d %d] 切换到等待下一局状态", tf.Id(), tf.Round())
 	}
+
+	// 每轮结束，存盘一下
+	tf.DBSave()
 }
 
 
@@ -724,12 +726,12 @@ func (tf *TexasFightRoom) CardDeal() {
 		begin, end = begin+5, end+5
 
 		// TODO: 测试代码
-		if pool.Pos() == 1 {
+		if pool.Pos() == 1 && util.SelectPercent(30) {
 			cards = MakeFourKindCards()
 		}
-		if pool.Pos() == 4 {
-			cards = MakeRoyalFlushCards()
-		}
+		//if pool.Pos() == 4 {
+		//	cards = MakeRoyalFlushCards()
+		//}
 
 		pool.InsertCards(cards)
 
