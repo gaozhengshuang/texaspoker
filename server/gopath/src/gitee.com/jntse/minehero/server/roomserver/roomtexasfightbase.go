@@ -744,6 +744,30 @@ func (tf *TexasFightRoom) Init() string {
 func (tf *TexasFightRoom) OnDestory(now int64) {
 	tf.ticker1s.Stop()
 	tf.ticker100ms.Stop()
+
+	// 房间数据存盘
+	tf.DBSave()
+
+
+	// 更新房间数量
+	loadkey := def.RoomAgentLoadRedisKey(RoomSvr().Name())
+	Redis().SRem(loadkey, tf.Id())
+
+	// 回传玩家信息，通知网关房间销毁
+	for _, u := range tf.members {
+		if u.IsAI() == true {
+			continue
+		}
+		u.DelRoomId(tf.Id())
+		u.OnDestoryRoom()
+	}
+
+	// 删除缓存
+	tf.RmCache()
+
+	// 等待房间信息回传网关
+	time.Sleep(time.Millisecond*10)
+	log.Info("[房间] 销毁房间[%d] 子类型[%d]", tf.Id(), tf.SubKind())
 }
 
 

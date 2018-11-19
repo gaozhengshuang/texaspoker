@@ -20,6 +20,93 @@ import (
 )
 
 func (tf *TexasFightRoom) DBLoad() {
+	key := fmt.Sprintf("%s_%d",TF_RedisTotalAwardPool, tf.SubKind())
+	awardpool, err := Redis().Get(key).Int64()
+	if err != nil {
+		log.Error("[百人大战] 房间[%d %d] 加载redis数据失败 Key[%s] RedisError[%s]", tf.Id(), tf.Round(), TF_RedisTotalAwardPool, err)
+	}
+
+	key = fmt.Sprintf("%s_%d",TF_RedisAIBankerWinGold, tf.SubKind())
+	wingold, err := Redis().Get(key).Int64()
+	if err != nil {
+		log.Error("[百人大战] 房间[%d %d] 加载redis数据失败 Key[%s] RedisError[%s]", tf.Id(), tf.Round(), TF_RedisAIBankerWinGold, err)
+	}
+
+
+	key = fmt.Sprintf("%s_%d",TF_RedisAIBankerLossGold, tf.SubKind())
+	lossgold, err := Redis().Get(key).Int64()
+	if err != nil {
+		log.Error("[百人大战] 房间[%d %d] 加载redis数据失败 Key[%s] RedisError[%s]", tf.Id(), tf.Round(), TF_RedisAIBankerLossGold, err)
+	}
+
+
+	key = fmt.Sprintf("%s_%d",TF_RedisAIAwardPool, tf.SubKind())
+	aiawardpool, err := Redis().Get(key).Int64()
+	if err != nil {
+		log.Error("[百人大战] 房间[%d %d] 加载redis数据失败 Key[%s] RedisError[%s]", tf.Id(), tf.Round(), TF_RedisAIAwardPool, err)
+	}
+
+
+	key = fmt.Sprintf("%s_%d",TF_RedisPlayerBankerWinGold, tf.SubKind())
+	pwingold, err := Redis().Get(key).Int64()
+	if err != nil {
+		log.Error("[百人大战] 房间[%d %d] 加载redis数据失败 Key[%s] RedisError[%s]", tf.Id(), tf.Round(), TF_RedisPlayerBankerWinGold, err)
+	}
+
+	tf.totalawardpool = awardpool
+	tf.aibankerwingold = wingold
+	tf.aibankerlossgold = lossgold
+	tf.aiawardpool.Reset()
+	tf.aiawardpool.size = aiawardpool
+	tf.playerbankerwingold = pwingold
+
+	log.Info("[百人大战] 房间[%d %d] 子类型[%d] 读盘[%s]=%d", tf.Id(), tf.Round(), TF_RedisTotalAwardPool, 		tf.totalawardpool)
+	log.Info("[百人大战] 房间[%d %d] 子类型[%d] 读盘[%s]=%d", tf.Id(), tf.Round(), TF_RedisAIBankerWinGold, 	tf.aibankerwingold)
+	log.Info("[百人大战] 房间[%d %d] 子类型[%d] 读盘[%s]=%d", tf.Id(), tf.Round(), TF_RedisAIBankerLossGold, 	tf.aibankerlossgold)
+	log.Info("[百人大战] 房间[%d %d] 子类型[%d] 读盘[%s]=%d", tf.Id(), tf.Round(), TF_RedisAIAwardPool, 		tf.aiawardpool)
+	log.Info("[百人大战] 房间[%d %d] 子类型[%d] 读盘[%s]=%d", tf.Id(), tf.Round(), TF_RedisPlayerBankerWinGold,	tf.playerbankerwingold)
+}
+
+func (tf *TexasFightRoom) DBSave() {
+	key := fmt.Sprintf("%s_%d",TF_RedisTotalAwardPool, tf.SubKind())
+	_, err := Redis().Set(key, tf.totalawardpool, 0).Result()
+	if err != nil {
+		log.Error("[百人大战] 房间[%d %d] 存储redis数据失败 Key[%s] RedisError[%s]", tf.Id(), tf.Round(), TF_RedisTotalAwardPool, err)
+	}
+
+
+	key = fmt.Sprintf("%s_%d",TF_RedisAIBankerWinGold, tf.SubKind())
+	_, err = Redis().Set(key, tf.aibankerwingold, 0).Result()
+	if err != nil {
+		log.Error("[百人大战] 房间[%d %d] 存储redis数据失败 Key[%s] RedisError[%s]", tf.Id(), tf.Round(), TF_RedisAIBankerWinGold, err)
+	}
+
+
+	key = fmt.Sprintf("%s_%d",TF_RedisAIBankerLossGold, tf.SubKind())
+	_, err = Redis().Set(key, tf.aibankerlossgold, 0).Result()
+	if err != nil {
+		log.Error("[百人大战] 房间[%d %d] 存储redis数据失败 Key[%s] RedisError[%s]", tf.Id(), tf.Round(), TF_RedisAIBankerLossGold, err)
+	}
+
+
+	key = fmt.Sprintf("%s_%d",TF_RedisAIAwardPool, tf.SubKind())
+	_, err = Redis().Set(key, tf.aiawardpool, 0).Result()
+	if err != nil {
+		log.Error("[百人大战] 房间[%d %d] 存储redis数据失败 Key[%s] RedisError[%s]", tf.Id(), tf.Round(), TF_RedisAIAwardPool, err)
+	}
+
+
+	key = fmt.Sprintf("%s_%d",TF_RedisPlayerBankerWinGold, tf.SubKind())
+	_, err = Redis().Set(key, tf.playerbankerwingold, 0).Result()
+	if err != nil {
+		log.Error("[百人大战] 房间[%d %d] 存储redis数据失败 Key[%s] RedisError[%s]", tf.Id(), tf.Round(), TF_RedisPlayerBankerWinGold, err)
+	}
+
+	log.Info("[百人大战] 房间[%d %d] 子类型[%d] 存盘[%s]=%d", tf.Id(), tf.Round(), TF_RedisTotalAwardPool, 		tf.totalawardpool)
+	log.Info("[百人大战] 房间[%d %d] 子类型[%d] 存盘[%s]=%d", tf.Id(), tf.Round(), TF_RedisAIBankerWinGold, 	tf.aibankerwingold)
+	log.Info("[百人大战] 房间[%d %d] 子类型[%d] 存盘[%s]=%d", tf.Id(), tf.Round(), TF_RedisAIBankerLossGold, 	tf.aibankerlossgold)
+	log.Info("[百人大战] 房间[%d %d] 子类型[%d] 存盘[%s]=%d", tf.Id(), tf.Round(), TF_RedisAIAwardPool, 		tf.aiawardpool)
+	log.Info("[百人大战] 房间[%d %d] 子类型[%d] 存盘[%s]=%d", tf.Id(), tf.Round(), TF_RedisPlayerBankerWinGold,	tf.playerbankerwingold)
 }
  
 // AI 初始化
@@ -648,6 +735,9 @@ func (tf *TexasFightRoom) CardDeal() {
 		if pool.Pos() == 1 {
 			cards = MakeFourKindCards()
 		}
+		if pool.Pos() == 4 {
+			cards = MakeRoyalFlushCards()
+		}
 
 		pool.InsertCards(cards)
 
@@ -757,9 +847,14 @@ func (tf *TexasFightRoom) RequestBet(u *RoomUser, pos int32, num int64) {
 	// 下注池临时统计
 	tf.betstat.Collect(player, pos, num)
 
-	// AI坐庄抽水机制
+	// AI坐庄抽水机制和AI奖池回收
 	if tf.banker.IsAI() && !u.IsAI() && !tf.banker.IsSystem() && tf.aibankerpumpflag == false {
-		tf.AIBankerPumpCheck()
+
+		// AI坐庄抽水换牌，规则4
+		act := tf.AIBankerPumpCheck()
+
+		// AI坐庄抽水回收AI奖池，规则6
+		if act == TF_AIBankerDoNothing { tf.CalcAIAwardPoolPumpRate() }
 	}
 
 	log.Trace("[百人大战] 玩家[%s %d] 房间[%d %d] 下注[%d]成功，金额[%d]", u.Name(), u.Id(), tf.Id(), tf.Round(), pos, num)
@@ -1096,11 +1191,11 @@ func (tf *TexasFightRoom) AIBankerPumpAction() int32 {
 }
 
 // AI坐庄抽水机制，至少有一个玩家参与才触发
-func (tf *TexasFightRoom) AIBankerPumpCheck() {
+func (tf *TexasFightRoom) AIBankerPumpCheck() int32 {
 	tf.aibankerpumpflag = true
 	act := tf.AIBankerPumpAction()
 	if act == TF_AIBankerDoNothing {
-		return
+		return act
 	}
 
 	// 牌排序
@@ -1140,7 +1235,7 @@ func (tf *TexasFightRoom) AIBankerPumpCheck() {
 	bankerpool := tf.betpool[0]
 	cardpool := sortpool[0]
 	if bankerpool.Pos() == cardpool.Pos() {		// 不需要交换
-		return
+		return act
 	}
 
 	tmpcards := bankerpool.Cards()
@@ -1149,21 +1244,20 @@ func (tf *TexasFightRoom) AIBankerPumpCheck() {
 
 	cardpool.Reset()
 	cardpool.InsertCards(tmpcards)
+	return act
 }
 
 func (tf *TexasFightRoom) AIPlayerBet() {
 
+	var winrate float64 = 0
 	if tf.AIBankerLossGold() != 0 && tf.AIBankerWinGold() != 0 {
-		diffgold := tf.AIBankerWinGold() - tf.AIBankerLossGold()
-		winrate := float64(diffgold) / float64(tf.AIBankerWinGold())
-		log.Trace("[百人大战] 房间[%d %d] AI庄家对玩家历史盈利[%d] AI庄家对玩家历史亏损[%d] 比率[%.4f] 玩家庄家历史赢钱[%d]", tf.Id(), tf.Round(), 
-			tf.AIBankerWinGold(), tf.AIBankerLossGold(), winrate, tf.PlayerBankerWinGold())
+		winrate = float64(tf.AIBankerWinGold() - tf.AIBankerLossGold()) / float64(tf.AIBankerWinGold())
 	}
-
+	log.Trace("[百人大战] 房间[%d %d] AI庄家对玩家历史盈利[%d] AI庄家对玩家历史亏损[%d] 比率[%.4f] 玩家庄家历史赢钱[%d]", tf.Id(), tf.Round(), 
+		tf.AIBankerWinGold(), tf.AIBankerLossGold(), winrate, tf.PlayerBankerWinGold())
 
 	log.Info("[百人大战] 房间[%d %d] ===AI闲家押注机制检查===", tf.Id(), tf.Round())
 	if tf.banker.IsAI() == true {	// 庄家坐庄
-		tf.CalcAIAwardPoolPumpRate()
 		tf.AIPlayerPlayWithAIBanker()
 	}else if tf.banker.IsAI() == false && tf.banker.IsSystem() == false {	// 玩家坐庄
 		tf.AIPlayerPlayWithUserBanker()
@@ -1340,8 +1434,12 @@ func (tf *TexasFightRoom) AIBetForDump (losspool []*TexasFightBetPool, dumpgold 
 	}
 }
 
-// AI贡献奖池抽水
+// AI贡献奖池抽水，计算爆奖池位的押注权重(其实就是分奖池的权重)
 func (tf *TexasFightRoom) CalcAIAwardPoolPumpRate() {
+	if tf.banker.IsAI() == false {
+		return
+	}
+
 	tf.aiawardpool.Reset()
 
 	if tf.TotalAwardPool() == 0 {
@@ -1372,6 +1470,7 @@ func (tf *TexasFightRoom) CalcAIAwardPoolPumpRate() {
 		return
 	}
 
+	// 计算爆奖池位的押注权重(其实就是分奖池的权重)
 	rate := float64(tf.AIAwardPool()) / float64(tf.TotalAwardPool()) * float64(pool.tconf.PoolOdds)
 	rate = util.Min(rate, float64(tbl.TexasFight.AIAwardPoolPumpRate)/100)	// 最大90%
 	tf.aiawardpool.pumprate = rate
@@ -1381,7 +1480,13 @@ func (tf *TexasFightRoom) CalcAIAwardPoolPumpRate() {
 
 // AI坐庄时，AI贡献奖池抽水回收(现在改为最后时刻押注)
 func (tf *TexasFightRoom) AIAwardPoolPumpRecycle() {
+	if tf.banker.IsAI() == false {
+		log.Info("[百人大战] 房间[%d %d] 本轮不触发AI奖池抽水，非AI庄家", tf.Id(), tf.Round())
+		return
+	}
+
 	if tf.aiawardpool.pumprate <= 0 || tf.aiawardpool.poolpos <= 0 {
+		log.Info("[百人大战] 房间[%d %d] 本轮不触发AI奖池抽水 rate[%.4f] pos[%d]", tf.Id(), tf.Round(), tf.aiawardpool.pumprate, tf.aiawardpool.poolpos)
 		return
 	}
 
