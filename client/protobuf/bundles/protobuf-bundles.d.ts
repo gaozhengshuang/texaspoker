@@ -18833,8 +18833,8 @@ declare namespace msg {
         /** GW2C_RetGooglePayCheck productid */
         productid?: (string|null);
 
-        /** GW2C_RetGooglePayCheck errorcode */
-        errorcode?: (string|null);
+        /** GW2C_RetGooglePayCheck errcode */
+        errcode?: (string|null);
     }
 
     /** Represents a GW2C_RetGooglePayCheck. */
@@ -18852,8 +18852,8 @@ declare namespace msg {
         /** GW2C_RetGooglePayCheck productid. */
         public productid: string;
 
-        /** GW2C_RetGooglePayCheck errorcode. */
-        public errorcode: string;
+        /** GW2C_RetGooglePayCheck errcode. */
+        public errcode: string;
 
         /**
          * Creates a new GW2C_RetGooglePayCheck instance using the specified properties.
