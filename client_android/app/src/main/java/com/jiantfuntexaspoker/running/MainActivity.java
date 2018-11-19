@@ -80,7 +80,7 @@ public class MainActivity extends Activity {
         }
 
         nativeAndroid.config.showFPS = GameLib.isApkInDebug(this);
-        nativeAndroid.config.showFPS = false;
+//        nativeAndroid.config.showFPS = false;
         nativeAndroid.config.fpsLogTime = 30;
         nativeAndroid.config.disableNativeRender = false;
         nativeAndroid.config.clearCache = false;
