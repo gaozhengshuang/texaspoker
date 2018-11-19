@@ -146,6 +146,10 @@ func (u *GateUser) OnGooglePayCheck(purchasetoken, productid string) {
 		if _, ok := respinfo["orderId"]; ok {
 			orderId = respinfo["orderId"].(string)
 		}
+		errorcode = u.CheckAndTakeGooglePayOrderRecord(productid, orderId)
+		if errorcode != "" {
+			break
+		}
 		u.OnGooglePayCheckSuccess(productid, orderId)
 	}
 	send.Errcode = pb.String(errorcode)
@@ -203,13 +207,29 @@ func (u *GateUser) CheckPurchaseToken(purchasetoken, productid, accesstoken stri
 	return "", resp
 }
 
-//支付确认成功之后发奖与记录
+//服务器自己的支付订单记录 检查与创建 防止重复刷单
+func (u *GateUser) CheckAndTakeGooglePayOrderRecord(productid, orderid string) string {
+	strkey := fmt.Sprintf("googlepay_%s", orderid)
+	//检查是否重复订单
+	orderexist, _ := Redis().Exists(strkey).Result()
+	if orderexist == 1 {
+		log.Error("玩家[%d] googlepay fail has same orderid :%s", u.Id(), orderid)
+		return "Fail reduplicate orderid"
+	}
+	//订单记录
+	mfields := map[string]interface{}{"productid":productid, "uid":u.Id()}
+	Redis().HMSet(strkey, mfields)
+	log.Info("玩家[%d] google pay 支付成功创建订单记录 orderid:%s, productid%s", u.Id(), orderid, productid)
+	return ""
+}
+
+//支付确认成功之后发奖
 func (u *GateUser) OnGooglePayCheckSuccess (productid, orderid string) {
 	log.Info("玩家[%d] google 购买验证支付成功 productid:%s  orderid:%s", productid, orderid)
+	//以下加入 根据商品id 发奖
+	//...
+	//...
 
-	//以下加入 根据商品id 发奖 以及记录购买信息的代码
-	//...
-	//...
 }
 
 
