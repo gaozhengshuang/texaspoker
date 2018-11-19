@@ -74,11 +74,19 @@ func (u *RoomUser) Init() {
 }
 
 func (u *RoomUser) DBLoad() {
+	if u.IsAI() == true {
+		return
+	}
+
 	//u.bag.DBLoad()
 	u.entity.DBLoad()
 }
 
 func (u *RoomUser) DBSave() {
+	if u.IsAI() == true {
+		return
+	}
+
 	//u.bag.DBSave()
 	//u.entity.DBSave()
 	log.Info("玩家[%s %d] 存盘完毕", u.Name(), u.Id())

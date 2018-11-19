@@ -760,9 +760,6 @@ func (tf *TexasFightRoom) OnDestory(now int64) {
 
 	// 回传玩家信息，通知网关房间销毁
 	for _, u := range tf.members {
-		if u.IsAI() == true {
-			continue
-		}
 		u.DelRoomId(tf.Id())
 		u.OnDestoryRoom()
 	}
