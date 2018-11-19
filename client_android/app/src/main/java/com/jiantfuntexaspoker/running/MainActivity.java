@@ -36,9 +36,9 @@ public class MainActivity extends Activity {
     public GoogleLoginVst googleLoginVst;
     public GoogleBillingVst googleBillingVst;
 
-//        private final String Game_Url = "http://jump.test.giantfun.cn/poker/2001.html?online_version=";
+    //        private final String Game_Url = "http://jump.test.giantfun.cn/poker/2001.html?online_version=";
     public final String clientVersion = "0.2.0";
-//        private final String Game_Url = "http://192.168.30.17:8088/2001.html?online_version=";
+    //        private final String Game_Url = "http://192.168.30.17:8088/2001.html?online_version=";
     private final String Game_Url = "http://192.168.30.17:8087/index.html?online_version=";
 
     //    private final String clientVersion = "";
@@ -124,7 +124,7 @@ public class MainActivity extends Activity {
         /**
          * 设置为横屏
          */
-        if(getRequestedOrientation()!=ActivityInfo.SCREEN_ORIENTATION_PORTRAIT){
+        if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
         nativeAndroid.resume();
@@ -134,9 +134,19 @@ public class MainActivity extends Activity {
     @Override
     public boolean onKeyDown(final int keyCode, final KeyEvent keyEvent) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            nativeAndroid.exitGame();
+            GameLib.showDialog(this, "提示", "确定退出游戏？", "确定", "取消", new ConfirmExitGame());
+            return true;
+        } else {
+            return super.onKeyDown(keyCode, keyEvent);
         }
-        return super.onKeyDown(keyCode, keyEvent);
+    }
+
+    private class ConfirmExitGame implements GameLib.IMyCallBack {
+        @Override
+        public void run() {
+            nativeAndroid.exitGame();
+            onBackPressed();
+        }
     }
 
     @Override
