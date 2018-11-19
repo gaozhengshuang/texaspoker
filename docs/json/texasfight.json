@@ -21,7 +21,7 @@
     },
 
     "//":"AI下注金额随机比例 %",
-    "AIBetRandRate":[10, 100],
+    "AIBetRandRate":[5, 15],
 
     "//":"AI下注参与人数区间",
     "AIJoinBetRandNum":[10,20],
