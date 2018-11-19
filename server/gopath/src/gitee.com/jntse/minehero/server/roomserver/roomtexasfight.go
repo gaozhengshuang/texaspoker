@@ -1331,8 +1331,7 @@ func (tf *TexasFightRoom) AIPlayerPlayWithUserBanker() {
 	}else if diffpump < 0 {
 		tf.IncPlayerBankerWinGold(diffpump)
 	}
-	log.Info("[百人大战] 房间[%d %d] 玩家做庄 AI抽水[%d] AI放水[%d] 玩家历史赢钱[%d]", tf.Id(), tf.Round(),
-		pumpgold, dumpgold, tf.PlayerBankerWinGold())
+	log.Info("[百人大战] 房间[%d %d] 玩家做庄 AI抽水[%d] AI放水[%d] 差额[%d]", tf.Id(), tf.Round(), pumpgold, dumpgold, diffpump)
 
 	// 区分出赢的闲家牌和输的闲家牌，赢的用来抽水用，输的用来放水用
 	winpool, losspool := make([]*TexasFightBetPool, 0), make([]*TexasFightBetPool, 0)
