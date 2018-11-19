@@ -856,7 +856,9 @@ func (tf *TexasFightRoom) RequestBet(u *RoomUser, pos int32, num int64) {
 		if act == TF_AIBankerDoNothing { tf.CalcAIAwardPoolPumpRate() }
 	}
 
-	log.Trace("[百人大战] 玩家[%s %d] 房间[%d %d] 下注[%d]成功，金额[%d]", u.Name(), u.Id(), tf.Id(), tf.Round(), pos, num)
+	if player.IsAI() == false {
+		log.Trace("[百人大战] 玩家[%s %d] 房间[%d %d] 下注[%d]成功，金额[%d]", u.Name(), u.Id(), tf.Id(), tf.Round(), pos, num)
+	}
 }
 
 // 庄家最大赔付能力检查
