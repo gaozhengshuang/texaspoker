@@ -47,7 +47,7 @@ class RoomSelectPatternItemRenderer extends BaseItemRenderer<RoomSelectInfo>{
 		switch (event.target)
 		{
 			case this.patternBtn:
-				PlayingFieldManager.PatternSelectEvent.dispatch(this.bindData);
+				PlayingFieldManager.PatternSelectEvent.dispatch({data:this.bindData, btn:event.target});
 				break;
 			case this.blindBtn0:
 				SoundManager.playEffect(MusicAction.buttonClick);

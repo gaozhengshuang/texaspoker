@@ -177,7 +177,7 @@ class ChannelManager
 			let data: any = JSON.parse(json);
 			if (game.StringUtil.toBoolean(data.status))
 			{
-				ChannelManager._channel.sdkPaySucceed(JSON.parse(data.data));//不同平台可能有特殊处理
+				ChannelManager._channel.sdkPaySucceed(data);//不同平台可能有特殊处理
 			} else
 			{
 				UIManager.closePanel(UIModuleName.PayMaskPanel);

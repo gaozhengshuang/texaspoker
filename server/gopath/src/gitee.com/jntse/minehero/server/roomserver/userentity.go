@@ -114,6 +114,9 @@ func (u *UserEntity) IncAIGold(n int64) {
 func (u *UserEntity) DecAIGold(n int64) {
 	u.gold -= n
 }
+func (u *UserEntity) SetAIGold(n int64) {
+	u.gold = n
+}
 
 
 //

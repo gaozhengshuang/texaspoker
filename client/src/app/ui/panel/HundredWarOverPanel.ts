@@ -72,7 +72,9 @@ class HundredWarOverPanel extends BasePanel
     {
         if (list.length > 0)
         {
-            for (let i: number = 0; i < list.length; i++)
+            // list.length
+            let min:number = Math.min(5, list.length);
+            for (let i: number = 0; i < min; i++)
             {
                 let rankInfo: any = list[i];
                 this["winGold" + i].text = game.MathUtil.formatNum(rankInfo.num);

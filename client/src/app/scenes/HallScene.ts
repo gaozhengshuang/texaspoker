@@ -50,6 +50,7 @@ class HallScene extends BaseScene
 		{
 			if (this.sceneInfo.extendData.action == SceneSwitchAction.RepleacePanel)
 			{
+				UIManager.showPanel(UIModuleName.GameHallPanel);
 				UIManager.showPanel(this.sceneInfo.extendData.panel, this.sceneInfo.extendData.params);
 			}
 			else if (this.sceneInfo.extendData.action == SceneSwitchAction.OpenPanel)

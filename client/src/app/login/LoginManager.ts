@@ -2,7 +2,7 @@ module game
 {
     export class LoginManager
     {
-        private static loginUserInfo: msg.IC2L_ReqLogin;
+        public static loginUserInfo: msg.IC2L_ReqLogin;
         public static loginOs: string = egret.Capabilities.os;
         static LOGIN_STATE = "LoginManager_LOGIN_STATE";
 

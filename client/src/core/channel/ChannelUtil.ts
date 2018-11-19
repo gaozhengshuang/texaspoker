@@ -22,7 +22,7 @@ class ChannelUtil
 	{
 		let t: string = isTest ? "1" : "0";
 		let timeStr: string = TimeManager.GetServerUtcSecondstamp().toString();
-		let result: string ="";// LoginManager.loginInfo.userid + "-" + UserManager.userInfo.roleId + "-" + UserManager.serverInfo.id + "-" + productId + "-" + t + "-" + timeStr.substring(4);
+		let result: string = game.LoginManager.loginUserInfo.account + "-" + UserManager.userInfo.roleId + "-"  + productId + "-" + t + "-" + timeStr.substring(4);
 		if (result.length > 32)
 		{
 			result = result.substring(0, 32);//订单号不超过32个字符

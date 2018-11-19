@@ -128,15 +128,18 @@ class ChannelLoginType
 			}
 			else if (channelType == ChannelType.googleplay)
 			{
-				list.push(ChannelLoginType.FaceBook);
-				list.push(ChannelLoginType.GooglePlay);
+				if (DEBUG) //todo 临时发版本处理
+				{
+					list.push(ChannelLoginType.FaceBook);
+					list.push(ChannelLoginType.GooglePlay);
+				}
 			}
 			else if (channelType == ChannelType.giantfun)
 			{
 				list.push(ChannelLoginType.IntranetAccount);
 			}
 			//to do 测试
-			list.push(ChannelLoginType.IntranetAccount); 
+			list.push(ChannelLoginType.IntranetAccount);
 		}
 		if (list.length <= 0)
 		{
