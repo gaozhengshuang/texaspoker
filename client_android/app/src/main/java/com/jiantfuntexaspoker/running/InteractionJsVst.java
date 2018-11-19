@@ -171,6 +171,7 @@ public class InteractionJsVst {
         if (purchase != null) {
             map.put("token", purchase.getPurchaseToken());
             map.put("orderId", purchase.getOrderId());
+            map.put("productId", purchase.getSku());
             map.put("status", "1");
         } else {
             map.put("status", "0");

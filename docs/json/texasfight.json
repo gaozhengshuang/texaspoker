@@ -1,6 +1,6 @@
 {
     "//":"明抽水比例 %",
-    "SystemPumpRate" : 1,
+    "SystemPumpRate" : 95,
 
     "//":"房间AI数量",
     "AIUserAmount": 10,
@@ -16,8 +16,8 @@
 
     "//":"AI历史盈利比例上下限 %",
     "AIProfitLossHistoryRate": {
-        "Min":10,
-        "Max":110
+        "Min":100,
+        "Max":101
     },
 
     "//":"AI下注金额随机比例 %",
@@ -30,7 +30,7 @@
     "AIPumpWaterLevel":1000000,
 
     "//":"AI抽水百分比",
-    "AIPumpRandRate":[10, 200],
+    "AIPumpRandRate":[100, 200],
 
     "//":"AI放水百分比",
     "AIDumpRandRate":[10, 100],

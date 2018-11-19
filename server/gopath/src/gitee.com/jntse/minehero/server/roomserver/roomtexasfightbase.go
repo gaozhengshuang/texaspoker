@@ -611,6 +611,7 @@ type TexasFightRoom struct {
 	RoomBase
 	tconf *table.HundredWarDefine
 	ticker1s *util.GameTicker
+	ticker5s *util.GameTicker
 	ticker100ms *util.GameTicker
 	stat int32			// 状态
 	statstart int64		// 状态开始时间，秒
@@ -634,6 +635,7 @@ type TexasFightRoom struct {
 	history *list.List					// 胜负历史记录列表
 
 	// AI 规则
+	aibankerpumpflag bool				// AI banker 抽水机制
 	aibankerwingold int64				// AI banker 历史盈利值(不计亏损)
 	aibankerlossgold int64				// AI banker 历史亏损值(不计盈利)
 	playerbankerwingold int64			// 玩家banker 历史盈利值(不计亏损)
@@ -681,8 +683,11 @@ func (tf *TexasFightRoom) Init() string {
 	Redis().SAdd(def.RoomAgentLoadRedisKey(RoomSvr().Name()), tf.Id())
 
 	tf.ticker1s = util.NewGameTicker(1 * time.Second, tf.Handler1sTick)
+	tf.ticker5s = util.NewGameTicker(5 * time.Second, tf.Handler5sTick)
 	tf.ticker100ms = util.NewGameTicker(100 * time.Millisecond, tf.Handler100msTick)
+
 	tf.ticker1s.Start()
+	tf.ticker5s.Start()
 	tf.ticker100ms.Start()
 	
 	tf.sitplayers 	= make([]*TexasFightPlayer, tconf.Seat+1)	// +1 庄家位
@@ -724,9 +729,10 @@ func (tf *TexasFightRoom) Init() string {
 
 	// AI 加入房间
 	tf.InitAIPlayers()
+	tf.aibankerpumpflag = false
 
 	// 加载持久化数据
-	//tf.DBLoad()
+	tf.DBLoad()
 
 	// AI 进入上庄列表
 	tf.SelectAIEnterBankerQueue()
@@ -741,7 +747,29 @@ func (tf *TexasFightRoom) Init() string {
 // 房间销毁
 func (tf *TexasFightRoom) OnDestory(now int64) {
 	tf.ticker1s.Stop()
+	tf.ticker5s.Stop()
 	tf.ticker100ms.Stop()
+
+	// 房间数据存盘
+	tf.DBSave()
+
+
+	// 更新房间数量
+	loadkey := def.RoomAgentLoadRedisKey(RoomSvr().Name())
+	Redis().SRem(loadkey, tf.Id())
+
+	// 回传玩家信息，通知网关房间销毁
+	for _, u := range tf.members {
+		u.DelRoomId(tf.Id())
+		u.OnDestoryRoom()
+	}
+
+	// 删除缓存
+	tf.RmCache()
+
+	// 等待房间信息回传网关
+	time.Sleep(time.Millisecond*10)
+	log.Info("[房间] 销毁房间[%d] 子类型[%d]", tf.Id(), tf.SubKind())
 }
 
 
@@ -950,6 +978,8 @@ func (tf *TexasFightRoom) UserSitDown(u *RoomUser, seat int32) {
 
 func (tf *TexasFightRoom) Tick(now int64) {
 	tf.ticker1s.Run(now)
+	tf.ticker5s.Run(now)
+	tf.ticker100ms.Run(now)
 }
 
 

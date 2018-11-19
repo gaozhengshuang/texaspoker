@@ -23,7 +23,10 @@ func (u *RoomUser) OnDestoryRoom() {
 	msgdestory := &msg.RS2GW_PushRoomDestory{Roomid:pb.Int64(u.RoomId()), Userid:pb.Int64(u.Id())}
 	u.SendMsg(msgdestory)
 	u.SetRoomId(0)
-	log.Trace("[房间] 玩家[%s %d] 回传个人数据，房间销毁[%d]", u.Name(), u.Id(), u.RoomId())
+
+	if u.IsAI() == false {
+		log.Trace("[房间] 玩家[%s %d] 回传个人数据，房间销毁[%d]", u.Name(), u.Id(), u.RoomId())
+	}
 }
 
 // 离开房间

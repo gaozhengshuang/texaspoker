@@ -670,5 +670,10 @@ class Command
      * 接取任务
      */
     public static readonly C2GW_ReqTakeOtherTask = "msg.C2GW_ReqTakeOtherTask";
+    //--------------------google play billing-------------------------
+    /**
+     * google 支付验证
+     */
+    public static readonly C2GW_ReqGooglePayCheck = "msg.C2GW_ReqGooglePayCheck";
 }
 
