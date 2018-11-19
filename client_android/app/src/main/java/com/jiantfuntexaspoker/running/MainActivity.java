@@ -18,6 +18,8 @@ import com.giant.gamelib.ChannelLoginType;
 import com.giant.gamelib.GameLib;
 
 import org.egret.egretnativeandroid.EgretNativeAndroid;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -36,9 +38,11 @@ public class MainActivity extends Activity {
     public GoogleLoginVst googleLoginVst;
     public GoogleBillingVst googleBillingVst;
 
-//        private final String Game_Url = "http://jump.test.giantfun.cn/poker/2001.html?online_version=";
+    //退出游戏的文字描述，多语言的关系
+    public JSONObject exitGameJsonObj;
+    //        private final String Game_Url = "http://jump.test.giantfun.cn/poker/2001.html?online_version=";
     public final String clientVersion = "0.2.0";
-//        private final String Game_Url = "http://192.168.30.17:8088/2001.html?online_version=";
+    //        private final String Game_Url = "http://192.168.30.17:8088/2001.html?online_version=";
     private final String Game_Url = "http://192.168.30.17:8087/index.html?online_version=";
 
     //    private final String clientVersion = "";
@@ -124,7 +128,7 @@ public class MainActivity extends Activity {
         /**
          * 设置为横屏
          */
-        if(getRequestedOrientation()!=ActivityInfo.SCREEN_ORIENTATION_PORTRAIT){
+        if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
         nativeAndroid.resume();
@@ -134,9 +138,28 @@ public class MainActivity extends Activity {
     @Override
     public boolean onKeyDown(final int keyCode, final KeyEvent keyEvent) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            nativeAndroid.exitGame();
+            try {
+                GameLib.showDialog(this, exitGameJsonObj.getString("title"),
+                        exitGameJsonObj.getString("message"),
+                        exitGameJsonObj.getString("confirm"),
+                        exitGameJsonObj.getString("cancel"), new ConfirmExitGame());
+            }
+            catch (JSONException e)
+            {
+                Log.w(TAG, "退出游戏的文字描述 json 对象异常！");
+            }
+            return true;
+        } else {
+            return super.onKeyDown(keyCode, keyEvent);
         }
-        return super.onKeyDown(keyCode, keyEvent);
+    }
+
+    private class ConfirmExitGame implements GameLib.IMyCallBack {
+        @Override
+        public void run() {
+            nativeAndroid.exitGame();
+            onBackPressed();
+        }
     }
 
     @Override
