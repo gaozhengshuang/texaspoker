@@ -611,6 +611,7 @@ type TexasFightRoom struct {
 	RoomBase
 	tconf *table.HundredWarDefine
 	ticker1s *util.GameTicker
+	ticker5s *util.GameTicker
 	ticker100ms *util.GameTicker
 	stat int32			// 状态
 	statstart int64		// 状态开始时间，秒
@@ -682,8 +683,11 @@ func (tf *TexasFightRoom) Init() string {
 	Redis().SAdd(def.RoomAgentLoadRedisKey(RoomSvr().Name()), tf.Id())
 
 	tf.ticker1s = util.NewGameTicker(1 * time.Second, tf.Handler1sTick)
+	tf.ticker5s = util.NewGameTicker(5 * time.Second, tf.Handler5sTick)
 	tf.ticker100ms = util.NewGameTicker(100 * time.Millisecond, tf.Handler100msTick)
+
 	tf.ticker1s.Start()
+	tf.ticker5s.Start()
 	tf.ticker100ms.Start()
 	
 	tf.sitplayers 	= make([]*TexasFightPlayer, tconf.Seat+1)	// +1 庄家位
@@ -743,6 +747,7 @@ func (tf *TexasFightRoom) Init() string {
 // 房间销毁
 func (tf *TexasFightRoom) OnDestory(now int64) {
 	tf.ticker1s.Stop()
+	tf.ticker5s.Stop()
 	tf.ticker100ms.Stop()
 
 	// 房间数据存盘
@@ -976,6 +981,8 @@ func (tf *TexasFightRoom) UserSitDown(u *RoomUser, seat int32) {
 
 func (tf *TexasFightRoom) Tick(now int64) {
 	tf.ticker1s.Run(now)
+	tf.ticker5s.Run(now)
+	tf.ticker100ms.Run(now)
 }
 
 

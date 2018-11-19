@@ -8,6 +8,7 @@ import (
 	"math/rand"
 	"strconv"
 	pb "github.com/gogo/protobuf/proto"
+	"github.com/go-redis/redis"
 
 	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/gotoolkit/log"
@@ -69,41 +70,26 @@ func (tf *TexasFightRoom) DBLoad() {
 
 func (tf *TexasFightRoom) DBSave() {
 	pipe := Redis().Pipeline()
-	defer pipe.Close()
-
 	key := fmt.Sprintf("%s_%d",TF_RedisTotalAwardPool, tf.SubKind())
-	_, err := pipe.Set(key, tf.totalawardpool, 0).Result()
-	if err != nil {
-		log.Error("[百人大战] 房间[%d %d] 存储redis数据失败 Key[%s] RedisError[%s]", tf.Id(), tf.Round(), TF_RedisAIBankerWinGold, err)
-	}
-
+	pipe.Set(key, tf.totalawardpool, 0)
 
 	key = fmt.Sprintf("%s_%d",TF_RedisAIBankerWinGold, tf.SubKind())
-	_, err = Redis().Set(key, tf.aibankerwingold, 0).Result()
-	if err != nil {
-		log.Error("[百人大战] 房间[%d %d] 存储redis数据失败 Key[%s] RedisError[%s]", tf.Id(), tf.Round(), TF_RedisAIBankerWinGold, err)
-	}
-
+	pipe.Set(key, tf.aibankerwingold, 0)
 
 	key = fmt.Sprintf("%s_%d",TF_RedisAIBankerLossGold, tf.SubKind())
-	_, err = Redis().Set(key, tf.aibankerlossgold, 0).Result()
-	if err != nil {
-		log.Error("[百人大战] 房间[%d %d] 存储redis数据失败 Key[%s] RedisError[%s]", tf.Id(), tf.Round(), TF_RedisAIBankerLossGold, err)
-	}
-
+	pipe.Set(key, tf.aibankerlossgold, 0)
 
 	key = fmt.Sprintf("%s_%d",TF_RedisAIAwardPool, tf.SubKind())
-	_, err = Redis().Set(key, tf.aiawardpool.size, 0).Result()
-	if err != nil {
-		log.Error("[百人大战] 房间[%d %d] 存储redis数据失败 Key[%s] RedisError[%s]", tf.Id(), tf.Round(), TF_RedisAIAwardPool, err)
-	}
-
+	pipe.Set(key, tf.aiawardpool, 0)
 
 	key = fmt.Sprintf("%s_%d",TF_RedisPlayerBankerWinGold, tf.SubKind())
-	_, err = Redis().Set(key, tf.playerbankerwingold, 0).Result()
-	if err != nil {
-		log.Error("[百人大战] 房间[%d %d] 存储redis数据失败 Key[%s] RedisError[%s]", tf.Id(), tf.Round(), TF_RedisPlayerBankerWinGold, err)
+	pipe.Set(key, tf.playerbankerwingold, 0)
+
+	_, err := pipe.Exec()
+	if err != nil && err != redis.Nil {
+		log.Error("[百人大战] 房间[%d %d] 子类型[%d] 存盘失败 RedisError[%s]", tf.Id(), tf.Round(), tf.SubKind(), err)
 	}
+	pipe.Close()
 
 	log.Info("[百人大战] 房间[%d %d] 子类型[%d] 存盘[%s]=%d", tf.Id(), tf.Round(), tf.SubKind(), TF_RedisTotalAwardPool, tf.totalawardpool)
 	log.Info("[百人大战] 房间[%d %d] 子类型[%d] 存盘[%s]=%d", tf.Id(), tf.Round(), tf.SubKind(), TF_RedisAIBankerWinGold, tf.aibankerwingold)
@@ -138,6 +124,10 @@ func (tf *TexasFightRoom) Handler1sTick(now int64) {
 
 	// 下注池变更推送
 	tf.SynBetPoolChange()
+}
+
+func (tf *TexasFightRoom) Handler5sTick(now int64) {
+	tf.DBSave()
 }
 
 func (tf *TexasFightRoom) Handler100msTick(now int64) {
