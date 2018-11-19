@@ -138,6 +138,7 @@ public class GoogleBillingVst {
                     String skuType = googleBillingUtil.getSkuType(sku);
                     if (skuType != null) {
                         if (skuType.equals(BillingClient.SkuType.INAPP)) {
+                            _target.interactionJsVst.paySuccess(purchase);
                             googleBillingUtil.consumeAsync(purchase.getPurchaseToken());
                             GameLib.alert("购买成功，开始消耗商品" + purchase.getPurchaseToken(), _target);
                         }
@@ -164,14 +165,14 @@ public class GoogleBillingVst {
         @Override
         public void onConsumeResponse(int responseCode, String s) {
             if (responseCode == BillingClient.BillingResponse.OK) {
-                GameLib.alert("消耗商品成功", _target);
+                GameLib.alert("消耗商品成功" + s, _target);
             } else {
                 GameLib.alert("消耗商品失败 code" + responseCode, _target);
             }
         }
     }
 
-    public void onPurchaseButtonClicked(JSONObject data) {
+    public void onPurchase(JSONObject data) {
         try {
             int awardId = data.getInt("awardId");
             switch (awardId) {
@@ -183,8 +184,13 @@ public class GoogleBillingVst {
                     break;
             }
         } catch (JSONException e) {
-            Log.d(_target.TAG, "支付 json 异常 data:" + data.toString());
+            Log.d(TAG, "支付 json 异常 data:" + data.toString());
         }
+    }
+
+    public void consumeOrder(String token) {
+        GameLib.alert("购买成功，开始消耗商品" + token, _target);
+        googleBillingUtil.consumeAsync(token);
     }
 
     /**
@@ -193,12 +199,12 @@ public class GoogleBillingVst {
     public void onResume() {
         List<Purchase> list = googleBillingUtil.queryPurchasesInApp();
         if (list != null) {
-            mOnPurchaseFinishedListener.onPurchaseSuccess(list);
+//            mOnPurchaseFinishedListener.onPurchaseSuccess(list);
         }
     }
 
     public void onDestroy() {
         GoogleBillingUtil.endConnection();
-        Log.d(_target.TAG, "Destroying helper.");
+        Log.d(TAG, "Destroying helper.");
     }
 }

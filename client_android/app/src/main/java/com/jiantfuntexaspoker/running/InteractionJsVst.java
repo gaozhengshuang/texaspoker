@@ -3,6 +3,7 @@ package com.jiantfuntexaspoker.running;
 import android.util.Log;
 import android.widget.FrameLayout;
 
+import com.android.billingclient.api.Purchase;
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 import com.giant.gamelib.ChannelLoginType;
@@ -22,6 +23,7 @@ import java.util.HashMap;
  * JS 交互
  */
 public class InteractionJsVst {
+    public static  final String TAG = "InteractionJsVst";
     private MainActivity _target;
     /**
      * 登录类型
@@ -38,7 +40,7 @@ public class InteractionJsVst {
             public void callback(String message) {
                 String str = "Native get message: ";
                 str += message;
-                Log.d(_target.TAG, str);
+                Log.d(TAG, str);
                 _target.nativeAndroid.callExternalInterface("sendToJS", str);
             }
         });
@@ -74,7 +76,7 @@ public class InteractionJsVst {
                 if (_target.loadingView != null) {
                     ly.removeView(_target.loadingView);
                 }
-                Log.d(_target.TAG, "ExtFuncName.Initialize客户端初始化success！！！" + mapStr);
+                Log.d(TAG, "ExtFuncName.Initialize客户端初始化success！！！" + mapStr);
             }
         });
     }
@@ -86,7 +88,7 @@ public class InteractionJsVst {
         _target.nativeAndroid.setExternalInterface(ExtFuncName.Login, new INativePlayer.INativeInterface() {
             @Override
             public void callback(String message) {
-                Log.d(_target.TAG, "登录类型" + message);
+                Log.d(TAG, "登录类型" + message);
                 loginType = message;
                 switch (message) {
                     case ChannelLoginType.FaceBook:
@@ -107,7 +109,7 @@ public class InteractionJsVst {
                         }
                         break;
                     default:
-                        Log.d(_target.TAG, "未知的登录类型" + message);
+                        Log.d(TAG, "未知的登录类型" + message);
                         break;
                 }
             }
@@ -121,7 +123,7 @@ public class InteractionJsVst {
         _target.nativeAndroid.setExternalInterface(ExtFuncName.CheckLoginState, new INativePlayer.INativeInterface() {
             @Override
             public void callback(String message) {
-                Log.d(_target.TAG, "登录类型" + message);
+                Log.d(TAG, "登录类型" + message);
                 boolean isLoggedIn = false;
                 switch (message) {
                     case ChannelLoginType.FaceBook:
@@ -132,7 +134,7 @@ public class InteractionJsVst {
                         isLoggedIn = _target.googleLoginVst.account != null;
                         break;
                     default:
-                        Log.d(_target.TAG, "未知的登录类型" + message);
+                        Log.d(TAG, "未知的登录类型" + message);
                         break;
                 }
                 if (isLoggedIn) {
@@ -153,7 +155,37 @@ public class InteractionJsVst {
             public void callback(String message) {
                 try {
                     JSONObject obj = new JSONObject(message);
-                    _target.googleBillingVst.onPurchaseButtonClicked(obj);
+                    _target.googleBillingVst.onPurchase(obj);
+                } catch (JSONException e) {
+
+                }
+            }
+        });
+    }
+
+    /**
+     * 支付成功
+     */
+    public void paySuccess(Purchase purchase) {
+        HashMap<String, String> map = new HashMap<>();
+        if (purchase != null) {
+            map.put("token", purchase.getPurchaseToken());
+            map.put("orderId", purchase.getOrderId());
+            map.put("status", "1");
+        } else {
+            map.put("status", "0");
+        }
+        String tokenStr = new JSONObject(map).toString();
+        _target.nativeAndroid.callExternalInterface(ExtFuncName.Pay, tokenStr);
+    }
+
+    public void addConsume() {
+        _target.nativeAndroid.setExternalInterface(ExtFuncName.DeleteOrder, new INativePlayer.INativeInterface() {
+            @Override
+            public void callback(String message) {
+                try {
+                    JSONObject obj = new JSONObject(message);
+                    _target.googleBillingVst.consumeOrder(obj.getString("token"));
                 } catch (JSONException e) {
 
                 }
@@ -168,7 +200,7 @@ public class InteractionJsVst {
         if (openId == null) {
             openId = "";
         }
-        Log.d(_target.TAG, "android登录成功 token"  + token + "userid" + openId);
+        Log.d(TAG, "android登录成功 token" + token + "userid" + openId);
         HashMap<String, String> map = new HashMap<>();
         map.put("token", token);
         map.put("openid", openId);
@@ -179,10 +211,11 @@ public class InteractionJsVst {
     }
 
     public void loginFailed() {
-        Log.d(_target.TAG, "android登录失败");
+        Log.d(TAG, "android登录失败");
         HashMap<String, String> map = new HashMap<>();
         map.put("status", "");
         String tokenStr = new JSONObject(map).toString();
         _target.nativeAndroid.callExternalInterface(ExtFuncName.Login, tokenStr);
     }
+
 }

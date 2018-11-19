@@ -13,6 +13,7 @@ import com.facebook.login.LoginResult;
  * facebook loginSuccess
  */
 public class FaceBookLoginVst {
+    public static final String TAG = "FaceBookLoginVst";
     private MainActivity _target;
     public CallbackManager callbackManager;
 
@@ -31,14 +32,14 @@ public class FaceBookLoginVst {
                     @Override
                     public void onCancel() {
                         // App code
-                        Log.d(_target.TAG, "android facebook 取消登录");
+                        Log.d(TAG, "android facebook 取消登录");
                         _target.interactionJsVst.loginFailed();
                     }
 
                     @Override
                     public void onError(FacebookException exception) {
                         // App code
-                        Log.d(_target.TAG, "android facebook 登录失败");
+                        Log.d(TAG, "android facebook 登录失败");
                         _target.interactionJsVst.loginFailed();
                     }
                 });
