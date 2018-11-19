@@ -183,7 +183,7 @@ public class GoogleBillingVst {
                     break;
             }
         } catch (JSONException e) {
-            Log.d(_target.TAG, "支付 json 异常");
+            Log.d(_target.TAG, "支付 json 异常 data:" + data.toString());
         }
     }
 
