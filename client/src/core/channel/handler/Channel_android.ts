@@ -58,7 +58,7 @@ class Channel_android extends ChannelBase
 	{
 		egret.ExternalInterface.call(ExtFuncName.CopyToPastboard, data);
 	}
-		/// <summary>
+	/// <summary>
 	/// 支付成功（sdk -> unity）
 	/// </summary>
 	/// <param name="data"></param>
@@ -69,23 +69,24 @@ class Channel_android extends ChannelBase
 		//通过post发送数据给服务器
 		if (data)
 		{
-			let awardId: number = this.ParseAwardId(data.orderId);
-			let def: table.IPayListDefine = ShopDefined.GetInstance().getDefinitionByAwardId(awardId);
-			if (def != null)
-			{
-				this.PostDataToServer(data.passData, data.receipt, awardId);
-			}
-			else
-			{
-				UIManager.closePanel(UIModuleName.PayMaskPanel);
-			}
+			this.reqGooglePlayBilling(data);
+			// let awardId: number = this.ParseAwardId(data.orderId);
+			// let def: table.IPayListDefine = ShopDefined.GetInstance().getDefinitionByAwardId(awardId);
+			// if (def != null)
+			// {
+			// 	 this.PostDataToServer(data.passData, data.receipt, awardId);
+			// }
+			// else
+			// {
+			// 	UIManager.closePanel(UIModuleName.PayMaskPanel);
+			// }
 		}
 		else
 		{
 			UIManager.closePanel(UIModuleName.PayMaskPanel);
 		}
 	}
-		/// <summary>
+	/// <summary>
 	/// 将商品名转化为product id
 	/// </summary>
 	/// <param name="orderId"></param>
@@ -100,7 +101,26 @@ class Channel_android extends ChannelBase
 		}
 		return 0;
 	}
-		/// <summary>
+	/**
+	 * 请求google play 支付验证
+	 */
+	private reqGooglePlayBilling(data: any)
+	{
+		let callBack: Function = function (result: game.SpRpcResult)
+		{
+			game.Console.log("googleplay服务器验证支付成功" + JSON.stringify(data));
+			game.ExternalInterface.call(ExtFuncName.DeleteOrder, data.token);
+		};
+		let errorCallBack: Function = function (result: game.SpRpcResult)
+		{
+			game.Console.log("googleplay服务器验证支付失败");
+		};
+		let checkData = new msg.C2GW_ReqGooglePayCheck();
+		checkData.productid = data.productId;
+		checkData.purchasetoken = data.token;
+		SocketManager.call(Command.C2GW_ReqGooglePayCheck, checkData, callBack, errorCallBack, this);
+	}
+	/// <summary>
 	/// 发送服务器给数据
 	/// receipt
 	//  orderid 订单号
