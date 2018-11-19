@@ -30,10 +30,10 @@
     "AIPumpWaterLevel":1000000,
 
     "//":"AI抽水百分比",
-    "AIPumpRandRate":[100, 200],
+    "AIPumpRandRate":[150, 150],
 
     "//":"AI放水百分比",
-    "AIDumpRandRate":[10, 100],
+    "AIDumpRandRate":[50, 50],
 
     "//":"AI奖池抽水上限 %",
     "AIAwardPoolPumpRate": 90
