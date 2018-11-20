@@ -234,7 +234,9 @@ class ChannelManager
 			ChannelManager.OnInitComplete.dispatch();
 		});
 		console.log("白鹭初始化：：：---------");
-		game.ExternalInterface.call(ExtFuncName.Initialize, '');
+		let initObj: any = {};
+		initObj.exitgameinfo = { title: "提示", message: "确定要退出游戏吗?", confirm: "确定", cancel: "取消" };
+		game.ExternalInterface.call(ExtFuncName.Initialize, JSON.stringify(initObj));
 	}
 	private static initWeb(): void
 	{
@@ -251,13 +253,13 @@ class ChannelManager
 	/**
 	 * 检测登录状态，自动登录，且登录状态返回值为true，才能自动登录
 	 */
-	public static checkLoginState(loginType:string)
+	public static checkLoginState(loginType: string)
 	{
 		if (game.System.isMicro)
 		{
 			game.ExternalInterface.call(ExtFuncName.CheckLoginState, JSON.stringify(loginType));
 		}
-		else if(game.System.isWeb)
+		else if (game.System.isWeb)
 		{
 			ChannelManager.LoginStateCheckEvent.dispatch("1");
 		}

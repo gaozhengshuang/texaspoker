@@ -3,7 +3,7 @@
     "SystemPumpRate" : 95,
 
     "//":"房间AI数量",
-    "AIUserAmount": 10,
+    "AIUserAmount": 20,
 
     "//":"AI上庄列表最大数量",
     "BankerQueueMaxAINum": 1,
