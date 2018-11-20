@@ -143,7 +143,7 @@ func on_C2L_ReqLogin(session network.IBaseNetSession, message interface{}) {
 		}
 
 		// 目前暂时先免注册，客户端直接账户密码登陆
-		if errcode = DirectRegistAccount(account, passwd); errcode != "" {
+		if errcode = DirectRegistAccount(account, passwd,"", ""); errcode != "" {
 			break
 		}
 
@@ -277,7 +277,7 @@ func on_C2L_ReqLoginWechat(session network.IBaseNetSession, message interface{})
 func on_C2L_ReqLoginApple(session network.IBaseNetSession, message interface{}) {
 	tm1 := util.CURTIMEUS()
 	tmsg := message.(*msg.C2L_ReqLoginApple)
-	openid, keyurl, signature, timestamp, salt :=  tmsg.GetOpenid(), tmsg.GetKeyurl(), tmsg.GetSignature(), tmsg.GetTimestamp(), tmsg.GetSalt()
+	openid, keyurl, signature, timestamp, salt, nickname, face :=  tmsg.GetOpenid(), tmsg.GetKeyurl(), tmsg.GetSignature(), tmsg.GetTimestamp(), tmsg.GetSalt(), tmsg.GetNickname(), tmsg.GetFace()
 	bundleid := "com.abcedf.wasd"
 	errcode := ""
 	account := fmt.Sprintf("apple-%s",openid)
@@ -304,7 +304,7 @@ func on_C2L_ReqLoginApple(session network.IBaseNetSession, message interface{}) 
 		}
 		log.Info("apple verify Success")
 
-		if errcode = DirectRegistAccount(account, ""); errcode != "" {
+		if errcode = DirectRegistAccount(account, "", nickname, face); errcode != "" {
 			break
 		}
 		
@@ -395,7 +395,7 @@ func VerifyRsa(key, sig, content []byte) error {
 func on_C2L_ReqLoginFaceBook(session network.IBaseNetSession, message interface{}) {
 	tm1 := util.CURTIMEUS()
 	tmsg := message.(*msg.C2L_ReqLoginFaceBook)
-	openid, token :=  tmsg.GetOpenid(), tmsg.GetToken()
+	openid, token, nickname, face :=  tmsg.GetOpenid(), tmsg.GetToken(), tmsg.GetNickname(), tmsg.GetFace()
 	log.Info("ReqLoginFaceBook openid: %s   token: %s", openid, token)
 	account := fmt.Sprintf("facebook-%s",openid)
 	errcode := ""
@@ -440,7 +440,7 @@ func on_C2L_ReqLoginFaceBook(session network.IBaseNetSession, message interface{
 			break 
 		}
 		
-		if errcode = DirectRegistAccount(account, ""); errcode != "" {
+		if errcode = DirectRegistAccount(account, "", nickname, face); errcode != "" {
 			break
 		}
 		
@@ -535,12 +535,11 @@ func HttpsGet(url, cacert, cert, certkey string) (*network.HttpResponse, error) 
 func on_C2L_ReqLoginGoogle(session network.IBaseNetSession, message interface{}) {
 	tm1 := util.CURTIMEUS()
 	tmsg := message.(*msg.C2L_ReqLoginGoogle)
-	openid, token :=  tmsg.GetOpenid(), tmsg.GetToken()
+	openid, token, nickname, face :=  tmsg.GetOpenid(), tmsg.GetToken(), tmsg.GetNickname(), tmsg.GetFace()
 	log.Info("ReqLoginGoogle openid: %s   token: %s", openid, token)
 	account := fmt.Sprintf("google-%s",openid)
 	errcode := ""
 	appid := "261888055971-n5qsj79s5pe9bcv0v0orfqqbm014opde.apps.googleusercontent.com"  //应用id
-	//appsecret := "215495db0076b0778084d7b44d6655a1"         //应用秘钥
 	url := fmt.Sprintf("https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=%s", token)
 	caCert := "../cert/wechat/cacert.pem" //后续修正
 	certFile := "../cert/wechat/apiclient_cert.pem" //后续修正
@@ -579,7 +578,7 @@ func on_C2L_ReqLoginGoogle(session network.IBaseNetSession, message interface{})
 			errcode = "google验证未通过"
 			break 
 		}
-		if errcode = DirectRegistAccount(account, ""); errcode != "" {
+		if errcode = DirectRegistAccount(account, "", nickname, face); errcode != "" {
 			break
 		}
 		

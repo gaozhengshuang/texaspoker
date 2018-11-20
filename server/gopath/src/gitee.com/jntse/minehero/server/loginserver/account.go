@@ -433,7 +433,7 @@ func RegistAccount(account, passwd, invitationcode, nickname, face, openid strin
 }
 
 // 直接注册，无视验证码
-func DirectRegistAccount(account, passwd string) (errcode string) {
+func DirectRegistAccount(account, passwd, nickname, face  string) (errcode string) {
 
 	// 账户检查重复
 	keyaccount := fmt.Sprintf("accounts_%s", account)
@@ -441,8 +441,10 @@ func DirectRegistAccount(account, passwd string) (errcode string) {
 	if bexist == 1 {
 		return ""
 	}
-
-	return RegistAccount(account, passwd, "", account, "", "")
+	if nickname == "" {
+		nickname = account
+	}
+	return RegistAccount(account, passwd, "", nickname, face, "")
 }
 
 // 缓存玩家简单信息
