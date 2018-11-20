@@ -14,7 +14,6 @@ import (
 	"gitee.com/jntse/minehero/pbmsg"
 	"io/ioutil"
 	"net/http"
-	"errors"
 	"crypto"
 	"crypto/x509"
 	"crypto/rsa"
@@ -276,48 +275,86 @@ func on_C2L_ReqLoginWechat(session network.IBaseNetSession, message interface{})
 
 //苹果账号登录
 func on_C2L_ReqLoginApple(session network.IBaseNetSession, message interface{}) {
+	tm1 := util.CURTIMEUS()
 	tmsg := message.(*msg.C2L_ReqLoginApple)
 	openid, keyurl, signature, timestamp, salt :=  tmsg.GetOpenid(), tmsg.GetKeyurl(), tmsg.GetSignature(), tmsg.GetTimestamp(), tmsg.GetSalt()
 	bundleid := "com.abcedf.wasd"
-	cert := DownloadCert(keyurl)
-	if cert == nil {
-		log.Error("DownloadCert error")
+	errcode := ""
+	account := fmt.Sprintf("apple-%s",openid)
+	switch{
+		default:
+		resp, err := HttpsGet(keyurl, "", "", "")
+		if err != nil {
+			log.Error("ReqLoginApple HttpsGet Error :%s", err)
+			errcode = "apple验证获取key出错"
+			break
+		}
+		if resp.Code != http.StatusOK {
+			log.Error("ReqLoginApple CheckResponseError errcode:[%d] status:[%s]", resp.Code, resp.Status)
+			errcode = "apple验证获取key出错"
+			break
+		}
+		cert := resp.Body
+
+		err = VerifySig(signature, openid, bundleid, salt, timestamp, cert)
+		if err != nil {
+			log.Error("apple login error VerifySig fail err:%s", err)
+			errcode = "apple验证失败"
+			break
+		}
+		log.Info("apple verify Success")
+
+		if errcode = DirectRegistAccount(account, ""); errcode != "" {
+			break
+		}
+		
+		if Login().CheckInSetFind(account) == true {
+			errcode = "同时登陆多个账户"
+			break
+		}
+
+		// TODO: 从Redis获取账户缓存Gate信息，实现快速登陆
+		log.Info("账户[%s]登陆Login ", account)
+		if ok := QuickLogin(session, account, "GameCenter"); ok == true {
+			return
+		}
+		// 挑选一个负载较低的agent
+		agent := GateMgr().FindLowLoadGate()
+		if agent == nil {
+			errcode = "没有可用Gate"
+			break
+		}
+
+		// 生成校验key，玩家简单信息发送到对应Gate,用于验证玩家登陆Gate合法
+		now := util.CURTIMEMS()
+		signbytes := []byte(fmt.Sprintf("<%d-%s>", now, account))
+		md5array := md5.Sum(signbytes)
+		md5bytes := []byte(md5array[:])
+		md5string := fmt.Sprintf("%s_%x", account, md5bytes)
+
+		sendmsg := &msg.L2GW_ReqRegistUser{
+			Account : pb.String(account),
+			Expire : pb.Int64(now+10000),	// 10秒
+			Gatehost : pb.String(agent.Host()),
+			Sid : pb.Int(session.Id()),
+			Timestamp: pb.Int64(now),
+			Verifykey : pb.String(md5string),
+			Logintype : pb.String("GameCenter"),
+		}
+		agent.SendMsg(sendmsg)
+		Login().CheckInSetAdd(account, session)		// 避免同时登陆
+		tm5 := util.CURTIMEUS()
+		log.Info("登陆验证通过，请求注册玩家到Gate sid[%d] account[%s] host[%s] 登陆耗时%dus", session.Id(), account, agent.Host(), tm5-tm1)
 		return
 	}
-	err := VerifySig(signature, openid, bundleid, salt, timestamp, cert)
-	if err != nil {
-		log.Error("apple login error VerifySig fail err:%s", err)
-		return
-	}
-	log.Info("apple verify Success")
 
-	//以下继续写苹果登录
-	//...
-	//...
+	if errcode != "" {
+		log.Info("账户:[%s] sid[%d] 登陆失败[%s]", account, session.Id(), errcode)
+		session.SendCmd(newL2C_RetLogin(errcode, "", 0, "", "GameCenter"))
+		session.Close()
+	}
 }
 
-//获取证书
-func DownloadCert(url string) []byte {
-	resp, err := http.Get(url)
-	if err != nil {
-		log.Error("url can not be reached %s,%s", url, err)
-		return nil
-	}
-
-	if resp.StatusCode != http.StatusOK {
-		log.Error("DownloadCert Error:%s",errors.New("ERROR_STATUS_NOT_OK"))
-		return nil
-	}
-	body := resp.Body
-	defer body.Close()
-	content, err2 := ioutil.ReadAll(body)
-	if err2 != nil {
-		log.Error("url read error %s, %s", url, err2)
-		return nil
-	}
-	return content
-
-}
 
 func VerifySig(sSig, sGcId, sBundleId, sSalt string, timestamp uint64, cert []byte) (err error) {
 	sig, err := base64.StdEncoding.DecodeString(sSig)
