@@ -1,0 +1,38 @@
+{
+	"initial": [
+		"js/egret.js",
+		"js/egret.web.js",
+		"js/eui.js",
+		"js/assetsmanager.js",
+		"js/tween.js",
+		"js/game.js",
+		"js/socket.js",
+		"js/dragonBones.js",
+		"js/promise.js",
+		"js/particle.js",
+		"js/md5.js",
+		"js/jszip.js",
+		"js/i18n.js",
+		"js/egret.min.js",
+		"js/egret.web.min.js",
+		"js/eui.min.js",
+		"js/assetsmanager.min.js",
+		"js/tween.min.js",
+		"js/game.min.js",
+		"js/socket.min.js",
+		"js/dragonBones.min.js",
+		"js/promise.min.js",
+		"js/particle.min.js",
+		"js/md5.min.js",
+		"js/jszip.min.js",
+		"js/i18n.min.js"
+	],
+	"game": [
+		"js/protobuf-library.js",
+		"js/protobuf-bundles.js",
+		"js/default.thm.js",
+		"js/protobuf-library.min.js",
+		"js/protobuf-bundles.min.js",
+		"js/main.min.js"
+	]
+}
