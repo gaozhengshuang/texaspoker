@@ -85,6 +85,14 @@
     "android": {
       "appname": "gttexaspoker",
       "packagename": "com.jiantpoker"
+    },
+    "ios": {
+      "appname": "德州扑克",
+      "packagename": "com.giantfun.texaspoker",
+      "hybrid": false
     }
+  },
+  "target": {
+    "current": "ios"
   }
 }
