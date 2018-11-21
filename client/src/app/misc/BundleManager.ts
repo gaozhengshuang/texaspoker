@@ -21,6 +21,7 @@ class BundleManager
 			{
 				BundleManager._definition = BundleDefined.GetInstance().getDefinitionByBundleId(ChannelManager.bundleId);
 			}
+			console.log("ChannelManager.bundleId", ChannelManager.bundleId);
 			if (BundleManager._definition == null)
 			{
 				AlertManager.showAlertByString('没有配置包ID');
