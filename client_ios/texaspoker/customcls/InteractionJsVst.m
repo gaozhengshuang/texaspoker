@@ -77,7 +77,7 @@
         BOOL isLoggedIn;
         if([message isEqual:ChannelLoginType_GameCenter])
         {
-            
+            isLoggedIn = [target.gcsdkCtl.isAuthenticated];
         }
         else if([message isEqual: ChannelLoginType_FaceBook])
         {
