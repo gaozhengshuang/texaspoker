@@ -539,7 +539,7 @@ func on_C2L_ReqLoginGoogle(session network.IBaseNetSession, message interface{})
 	log.Info("ReqLoginGoogle openid: %s   token: %s", openid, token)
 	account := fmt.Sprintf("google-%s",openid)
 	errcode := ""
-	appid := "261888055971-n5qsj79s5pe9bcv0v0orfqqbm014opde.apps.googleusercontent.com"  //应用id
+	appid := "101076164035-tn8cllnmdhdhjro70scvedt9gj0kc1l9.apps.googleusercontent.com"  //应用id
 	url := fmt.Sprintf("https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=%s", token)
 	caCert := "../cert/wechat/cacert.pem" //后续修正
 	certFile := "../cert/wechat/apiclient_cert.pem" //后续修正
