@@ -7,15 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AppDelegate.h"
 
 @interface InteractionJsVst:NSObject
 {
 
 }
 @property (nonatomic, nullable) NSString* loginType;
--(void)initialize:(AppDelegate*) ctx;
+-(void)initialize:(AppDelegate *) ctx;
 -(void)setExternalInterfaces;
--(void)gameCenterInit:(NSNumber* )code;
+-(void)gameCenterInit:(NSNumber*)code;
 -(void)loginSuccess:(NSString *)token openId:(NSString*) oId extraData:(NSString *)extData;
 -(void)loginFailed:(NSNumber*)code;
 -(void)loginout;
