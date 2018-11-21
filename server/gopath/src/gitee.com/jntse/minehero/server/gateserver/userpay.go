@@ -109,11 +109,12 @@ func (u *GateUser) OnGooglePayCheck(purchasetoken, productid string) {
 	switch{
 		default:
 		var resp *network.HttpResponse
+		var respinfo map[string]interface{}
+
 		errorcode, resp = u.HttpPostGetGooglePayToken()
 		if errorcode != "" || resp == nil {
 			break
 		}
-		var respinfo map[string]interface{}
 		unerr := json.Unmarshal(resp.Body, &respinfo)
 		if unerr != nil {
 			log.Error("玩家[%d] GooglePayCheck 获取access_token json.Unmarshal 'status' Fail[%s] ", u.Id(), unerr)
@@ -192,7 +193,7 @@ func (u *GateUser) HttpPostGetGooglePayToken() (errcode string, resp *network.Ht
 
 func (u *GateUser) CheckPurchaseToken(purchasetoken, productid, accesstoken string) (errcode string, resp *network.HttpResponse) {
 	packageName := "com.giantfun.texaspoker"
-	url := fmt.Sprintf("https://www.googleapis.com/androidpublisher/v2/applications/%s/purchases/products/%s/tokens/%s?access_token=%s",packageName, productid, purchasetoken, accesstoken)
+	url := fmt.Sprintf("https://www.googleapis.com/androidpublisher/v3/applications/%s/purchases/products/%s/tokens/%s?access_token=%s",packageName, productid, purchasetoken, accesstoken)
 	log.Info("CheckPurchaseToken url: %s", url)
 	resp, err := HttpsGet(url, "", "", "")
 	if err != nil {
