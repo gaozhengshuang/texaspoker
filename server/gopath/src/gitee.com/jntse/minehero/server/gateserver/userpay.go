@@ -9,7 +9,7 @@ import (
 	pb "github.com/gogo/protobuf/proto"
 	_"github.com/go-redis/redis"
 	_"strconv"
-	_"strings"
+	"strings"
 	"gitee.com/jntse/gotoolkit/net"
 	"net/http"
 	"encoding/json"
@@ -35,6 +35,29 @@ func HttpsGetSkipVerify(url  string) (*network.HttpResponse, error) {
 	if err != nil { return nil, err }
 	return &network.HttpResponse{Code:resp.StatusCode, Status: resp.Status, Body: rbody}, nil
 }
+
+
+func HttpsPostSkipVerifyByJson(url, body string) (*network.HttpResponse, error) {
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+
+	client := &http.Client{Transport: tr}
+	req, err := http.NewRequest("POST", url, strings.NewReader(body))
+	if err != nil { return nil, err }
+	req.Header.Set("Content-Type", "application/json")
+
+
+	// "The client must close the response body when finished with it"
+	resp, err := client.Do(req)
+	if err != nil {  return nil, err }
+	defer resp.Body.Close()
+
+	rbody, err := ioutil.ReadAll(resp.Body)
+	if err != nil { return nil, err }
+	return &network.HttpResponse{Code:resp.StatusCode, Status: resp.Status, Body: rbody}, nil
+}
+
 
 //谷歌支付验证
 func (u *GateUser) OnGooglePayCheck(purchasetoken, productid string) {

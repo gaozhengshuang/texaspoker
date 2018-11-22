@@ -185,3 +185,16 @@ message GW2C_RetGooglePayCheck {
 	optional string productid = 2;
 	optional string errcode = 3;
 }
+
+//客户端发apple支付验证
+message C2GW_ReqApplePayCheck {
+	optional string productIdentifier = 1;
+	optional string state = 2;
+	optional string receipt = 3;
+	optional string transactionIdentifier = 4;
+}
+
+//返回apple支付验证结果 
+message GW2C_RetApplePayCheck {
+	optional string errcode = 1;
+} 
