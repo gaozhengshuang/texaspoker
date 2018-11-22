@@ -281,12 +281,12 @@ class LoginScene extends BaseScene
         switch (data.loginType)
         {
             case ChannelLoginType.FaceBook:
-                game.LoginManager.faceBookLogin(data.token, data.openid)
+                game.LoginManager.faceBookLogin(data.token, data.openid, data.nickname, data.face);
                 break;
             case ChannelLoginType.GameCenter:
                 break;
             case ChannelLoginType.GooglePlay:
-                game.LoginManager.googlePlayLogin(data.token, data.openid)
+                game.LoginManager.googlePlayLogin(data.token, data.openid, data.nickname, data.face);
                 break;
         }
         // game.LoginManager.TokenLogin(ChannelManager.getLoginChannel(), token);

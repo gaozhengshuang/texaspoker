@@ -5,6 +5,7 @@ import android.widget.FrameLayout;
 
 import com.android.billingclient.api.Purchase;
 import com.facebook.AccessToken;
+import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.giant.gamelib.ChannelLoginType;
 import com.giant.gamelib.CheckApkExist;
@@ -103,18 +104,19 @@ public class InteractionJsVst {
                         AccessToken accessToken = AccessToken.getCurrentAccessToken();
                         boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
                         if (isLoggedIn) {
-                            loginSucces(accessToken.getToken(), accessToken.getUserId());
+                            loginSucces(accessToken.getToken(), accessToken.getUserId(),"","");
                         } else {
                             LoginManager.getInstance().logInWithReadPermissions(_target, Arrays.asList("public_profile"));
                         }
                         break;
                     case ChannelLoginType.GooglePlay:
                         GoogleSignInAccount account = _target.googleLoginVst.account;
-                        if (account != null) {
-                            loginSucces(account.getIdToken(), account.getId());
-                        } else {
-                            _target.googleLoginVst.login();
-                        }
+//                        if (account != null) {
+//                            loginSucces(account.getIdToken(), account.getId(), "", "", "");
+//                        } else {
+//                            _target.googleLoginVst.login();
+//                        }
+                        _target.googleLoginVst.login();
                         break;
                     default:
                         Log.d(TAG, "未知的登录类型" + message);
@@ -202,7 +204,7 @@ public class InteractionJsVst {
         });
     }
 
-    public void loginSucces(String token, String openId) {
+    public void loginSucces(String token, String openId, String nickName, String face) {
         if (token == null) {
             token = "";
         }
@@ -214,6 +216,9 @@ public class InteractionJsVst {
         map.put("token", token);
         map.put("openid", openId);
         map.put("loginType", loginType);
+        map.put("nickname", nickName);
+        map.put("face", face);
+//        map.put("gender", gender);
         map.put("status", "1");
         String tokenStr = new JSONObject(map).toString();
         _target.nativeAndroid.callExternalInterface(ExtFuncName.Login, tokenStr);
