@@ -7,6 +7,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -25,7 +26,7 @@ import org.json.JSONObject;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
     public final String TAG = "MainActivity";
     public EgretNativeAndroid nativeAndroid;
 
@@ -141,10 +142,13 @@ public class MainActivity extends Activity {
     public boolean onKeyDown(final int keyCode, final KeyEvent keyEvent) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             try {
-                GameLib.showDialog(this, exitGameJsonObj.getString("title"),
-                        exitGameJsonObj.getString("message"),
-                        exitGameJsonObj.getString("confirm"),
-                        exitGameJsonObj.getString("cancel"), new ConfirmExitGame());
+                if(exitGameJsonObj != null)
+                {
+                    GameLib.showDialog(this, exitGameJsonObj.getString("title"),
+                            exitGameJsonObj.getString("message"),
+                            exitGameJsonObj.getString("confirm"),
+                            exitGameJsonObj.getString("cancel"), new ConfirmExitGame());
+                }
             }
             catch (JSONException e)
             {
@@ -183,5 +187,14 @@ public class MainActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         googleBillingVst.onDestroy();
+        if (interactionJsVst != null) {
+            switch (interactionJsVst.loginType) {
+                case ChannelLoginType.FaceBook:
+                    this.fbLoginVst.onDestory();
+                    break;
+                case ChannelLoginType.GooglePlay:
+                    break;
+            }
+        }
     }
 }

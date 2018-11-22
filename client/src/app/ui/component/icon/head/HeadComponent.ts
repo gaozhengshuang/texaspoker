@@ -45,9 +45,9 @@ class HeadComponent extends BaseComponent<IBaseHead>
             return;
         }
         //本地开发加载默认头像，不从网络上载
-        head = SheetSubName.getdefaultHead(this.bindData.sex); //move todo 头像没有暂时用默认头像
-        if (game.System.isLocalhost)
+        if (game.System.isLocalhost && !head)
         {
+            head = SheetSubName.getdefaultHead(this.bindData.sex); //move todo 头像没有暂时用默认头像
         }
         //默认头像
         if (UploadHeadManager.isDefaultHead(head))

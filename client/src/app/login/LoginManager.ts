@@ -20,7 +20,7 @@ module game
         /**
          * facebook登录
          */
-        public static async faceBookLogin(token: string, openId: string)
+        public static async faceBookLogin(token: string, openId: string, nickName: string, face: string)
         {
             let cb = () =>
             {
@@ -28,10 +28,12 @@ module game
                 SocketManager.pollingConnect(game.serverInfo.$netIp);
                 NotificationCenter.once(LoginManager, () =>
                 {
-                    LoginManager.loginUserInfo = { account: "facebook-" + openId};
+                    LoginManager.loginUserInfo = { account: "facebook-" + openId };
                     let data = new msg.C2L_ReqLoginFaceBook();
                     data.openid = openId;
                     data.token = token;
+                    data.nickname = nickName;
+                    data.face = face;
                     SocketManager.Send(Command.C2L_ReqLoginFaceBook, data);
                     NotificationCenter.once(LoginManager, (data) =>
                     {
@@ -48,7 +50,7 @@ module game
         /**
          * google 登录
          */
-        public static async googlePlayLogin(token: string, openId: string)
+        public static async googlePlayLogin(token: string, openId: string, nickName: string, face: string)
         {
             let cb = () =>
             {
@@ -56,10 +58,12 @@ module game
                 SocketManager.pollingConnect(game.serverInfo.$netIp);
                 NotificationCenter.once(LoginManager, () =>
                 {
-                    LoginManager.loginUserInfo = { account: "google-" + openId};
+                    LoginManager.loginUserInfo = { account: "google-" + openId };
                     let data = new msg.C2L_ReqLoginGoogle();
                     data.openid = openId;
                     data.token = token;
+                    data.nickname = nickName;
+                    data.face = face;
                     SocketManager.Send(Command.C2L_ReqLoginGoogle, data);
                     NotificationCenter.once(LoginManager, (data) =>
                     {
@@ -76,7 +80,7 @@ module game
         /**
          * 苹果游戏中心登录
          */
-        public static async gameCenterLogin(openid: string, keyurl: string, signature: string, timestamp: number, salt: string)
+        public static async gameCenterLogin(openid: string, keyurl: string, signature: string, timestamp: number, salt: string, nickName: string, face: string)
         {
             let cb = () =>
             {
@@ -90,6 +94,8 @@ module game
                     data.signature = signature;
                     data.timestamp = timestamp;
                     data.salt = salt;
+                    data.nickname = nickName;
+                    data.face = face;
                     SocketManager.Send(Command.C2L_ReqLoginApple, data);
                     NotificationCenter.once(LoginManager, (data) =>
                     {

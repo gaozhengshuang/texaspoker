@@ -18,6 +18,8 @@ public class GoogleLoginVst {
     private MainActivity _target;
     public GoogleSignInAccount account;
 
+    GoogleSignInClient mGoogleSignInClient;
+
     public GoogleLoginVst(MainActivity tg) {
         _target = tg;
     }
@@ -32,8 +34,7 @@ public class GoogleLoginVst {
         GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
         int resultCode = googleApiAvailability.isGooglePlayServicesAvailable(_target);
         if (resultCode != ConnectionResult.SUCCESS) {
-            if(googleApiAvailability.isUserResolvableError(resultCode))
-            {
+            if (googleApiAvailability.isUserResolvableError(resultCode)) {
                 googleApiAvailability.getErrorDialog(_target, resultCode, 2404).show();
             }
             googleserviceFlag = false;
@@ -42,8 +43,8 @@ public class GoogleLoginVst {
     }
 
     public void login() {
-       boolean isAvaliable = isGoogleServiceAvaliable();
-        if(isAvaliable == false) //不支持google service
+        boolean isAvaliable = isGoogleServiceAvaliable();
+        if (isAvaliable == false) //不支持google service
         {
             return;
         }
@@ -51,20 +52,20 @@ public class GoogleLoginVst {
                 .requestIdToken(_target.getString(R.string.google_web_client_id))
                 .requestEmail()
                 .build();
-        GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(_target, gso);
+        if (mGoogleSignInClient == null) {
+            mGoogleSignInClient = GoogleSignIn.getClient(_target, gso);
+        }
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         _target.startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
-            // The Task returned from this call is always completed, no need to attach
-            // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                _target.interactionJsVst.loginSucces(account.getIdToken(), account.getId());
+                _target.interactionJsVst.loginSucces(account.getIdToken(), account.getId(), account.getDisplayName(), account.getPhotoUrl().toString());
                 // Signed in successfully, show authenticated UI.
             } catch (ApiException e) {
                 // The ApiException status code indicates the detailed failure reason.

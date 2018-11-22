@@ -3,6 +3,6 @@
     <string name="splashTxt">Starting...</string>
     <string name="channelType">googleplay</string>
     <string name="google_web_client_id">101076164035-tn8cllnmdhdhjro70scvedt9gj0kc1l9.apps.googleusercontent.com</string>
-    <string name="facebook_app_id">509788029497020</string>
-    <string name="fb_login_protocol_scheme">fb509788029497020</string>
+    <string name="facebook_app_id">363730244187851</string>
+    <string name="fb_login_protocol_scheme">fb363730244187851</string>
 </resources>

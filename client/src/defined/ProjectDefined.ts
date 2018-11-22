@@ -83,7 +83,8 @@ class ProjectDefined
 	public static login_in_port = 8000;
 	public static login_test_port = 8004;
 	public static login_port = 8000;
-	public static storage_host = "http://g.xydp.cn.istar8.com=81021111";
+	public static storage_host = "";
+	// public static storage_host = "http://g.xydp.cn.istar8.com=81021111";
 	public static sdk_url = "http://g.xydp.cn.istar9.com=81011111";
 	public static sdk_url_test = "http://g.xydp.cn.istar9.com=809711111";
 	public static webpay_url = "https://pay.istar8.com";
