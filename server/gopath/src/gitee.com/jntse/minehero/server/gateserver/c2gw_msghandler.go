@@ -771,10 +771,10 @@ func on_C2GW_ReqApplePayCheck(session network.IBaseNetSession, message interface
 		return
 	}
 	tmsg := message.(*msg.C2GW_ReqApplePayCheck)
-	productIdentifier := tmsg.GetProductIdentifier()
+	productIdentifier := tmsg.GetProductidentifier()
 	state := tmsg.GetState()
 	receipt := tmsg.GetReceipt()
-	transactionIdentifier := tmsg.GetTransactionIdentifier()
+	transactionIdentifier := tmsg.GetTransactionidentifier()
 	issandbox := tmsg.GetIssandbox()
 	u.OnApplePayCheck(productIdentifier, state, receipt, transactionIdentifier, issandbox)
 }
