@@ -399,15 +399,12 @@ func on_C2L_ReqLoginFaceBook(session network.IBaseNetSession, message interface{
 	log.Info("ReqLoginFaceBook openid: %s   token: %s", openid, token)
 	account := fmt.Sprintf("facebook-%s",openid)
 	errcode := ""
-	appid := "509788029497020"  //应用id
-	appsecret := "215495db0076b0778084d7b44d6655a1"         //应用秘钥
+	appid := tbl.Global.FaceBookLogin.Appid //"363730244187851"  //应用id
+	appsecret := tbl.Global.FaceBookLogin.Appsecret //"238d2b5c659c0c16441b697ee2c6e01a"         //应用秘钥
 	url := fmt.Sprintf("https://graph.facebook.com/debug_token?access_token=%s|%s&input_token=%s", appid, appsecret, token)
-	caCert := "../cert/wechat/cacert.pem" //后续修正
-	certFile := "../cert/wechat/apiclient_cert.pem" //后续修正
-	certKey := "../cert/wechat/apiclient_key.pem" //后续修正
 	switch {
 		default:
-		resp, err := HttpsGet(url, caCert, certFile, certKey)
+		resp, err := HttpsGet(url, "", "", "")
 		if err != nil {
 			log.Error("ReqLoginFaceBook HttpsGet Error :%s", err)
 			errcode = "facebook验证出错"
@@ -539,14 +536,11 @@ func on_C2L_ReqLoginGoogle(session network.IBaseNetSession, message interface{})
 	log.Info("ReqLoginGoogle openid: %s   token: %s", openid, token)
 	account := fmt.Sprintf("google-%s",openid)
 	errcode := ""
-	appid := "101076164035-tn8cllnmdhdhjro70scvedt9gj0kc1l9.apps.googleusercontent.com"  //应用id
+	appid := tbl.Global.GoogleLogin.Appid   //"101076164035-tn8cllnmdhdhjro70scvedt9gj0kc1l9.apps.googleusercontent.com"  //应用id
 	url := fmt.Sprintf("https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=%s", token)
-	caCert := "../cert/wechat/cacert.pem" //后续修正
-	certFile := "../cert/wechat/apiclient_cert.pem" //后续修正
-	certKey := "../cert/wechat/apiclient_key.pem" //后续修正
 	switch {
 		default:
-		resp, err := HttpsGet(url, caCert, certFile, certKey)
+		resp, err := HttpsGet(url, "", "", "")
 		if err != nil {
 			log.Error("ReqLoginGoogle HttpsGet Error :%s", err)
 			errcode = "google验证出错"
