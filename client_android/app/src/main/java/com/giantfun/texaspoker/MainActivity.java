@@ -1,6 +1,5 @@
 package com.giantfun.texaspoker;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
@@ -187,14 +186,5 @@ public class MainActivity extends FragmentActivity {
     protected void onDestroy() {
         super.onDestroy();
         googleBillingVst.onDestroy();
-        if (interactionJsVst != null) {
-            switch (interactionJsVst.loginType) {
-                case ChannelLoginType.FaceBook:
-                    this.fbLoginVst.onDestory();
-                    break;
-                case ChannelLoginType.GooglePlay:
-                    break;
-            }
-        }
     }
 }
