@@ -9,7 +9,7 @@ import (
 	pb "github.com/gogo/protobuf/proto"
 	_"github.com/go-redis/redis"
 	_"strconv"
-	"strings"
+	_"strings"
 	"gitee.com/jntse/gotoolkit/net"
 	"net/http"
 	"encoding/json"
@@ -45,48 +45,6 @@ func HttpsGet(url, cacert, cert, certkey string) (*network.HttpResponse, error) 
 	*/
 	client := &http.Client{Transport: tr}
 	req, err := http.NewRequest("GET", url, nil)
-	if err != nil { return nil, err }
-
-	// "The client must close the response body when finished with it"
-	resp, err := client.Do(req)
-	if err != nil {  return nil, err }
-	defer resp.Body.Close()
-
-	rbody, err := ioutil.ReadAll(resp.Body)
-	if err != nil { return nil, err }
-	return &network.HttpResponse{Code:resp.StatusCode, Status: resp.Status, Body: rbody}, nil
-}
-
-func HttpsPost(url, cacert, cert, certkey, body string) (*network.HttpResponse, error) {
-	// 加载根证书
-	/*
-	pool := x509.NewCertPool()
-	caCrt, err := ioutil.ReadFile(cacert)
-	if err != nil {
-		return nil, fmt.Errorf("Read CA Cert File err:%s", err)
-	}
-	pool.AppendCertsFromPEM(caCrt)
-
-
-	cliCrt, err := tls.LoadX509KeyPair(cert, certkey)
-	if err != nil {
-		return nil, fmt.Errorf("Loadx509keypair err:%s", err)
-	}
-	*/
-	tr := &http.Transport{
-		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-	}
-	/*
-	tr := &http.Transport {
-		TLSClientConfig: &tls.Config {
-			RootCAs:      pool,	// 如不指定使用默认根证书
-			Certificates: []tls.Certificate{cliCrt},
-		},
-	}
-	*/
-
-	client := &http.Client{Transport: tr}
-	req, err := http.NewRequest("POST", url, strings.NewReader(body))
 	if err != nil { return nil, err }
 
 	// "The client must close the response body when finished with it"
@@ -177,8 +135,6 @@ func (u *GateUser) HttpPostGetGooglePayToken() (errcode string, resp *network.Ht
 	}
 	strbody := util.BytesToString(postbody)
 	log.Info("HttpPostGetGooglePayToken   postbody:%s", strbody)
-	//resp, posterr := network.HttpsPost(urltoken, strbody)
-	//resp, posterr := HttpsPost(urltoken,"","","",strbody)
 	resp, posterr := network.HttpsPostSkipVerify(urltoken, strbody)
 	if posterr != nil {
 		log.Error("玩家[%d] GooglePayCheck post获取token失败 error[%s] resp[%#v]", u.Id(), posterr, resp)
