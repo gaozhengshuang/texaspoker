@@ -1,35 +1,35 @@
 {
   "project_info": {
-    "project_number": "261888055971",
-    "firebase_url": "https://poker-test-eb341.firebaseio.com",
-    "project_id": "poker-test-eb341",
-    "storage_bucket": "poker-test-eb341.appspot.com"
+    "project_number": "101076164035",
+    "firebase_url": "https://lucky-poker.firebaseio.com",
+    "project_id": "lucky-poker",
+    "storage_bucket": "lucky-poker.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:261888055971:android:6fd1f2f9dd7352b1",
+        "mobilesdk_app_id": "1:101076164035:android:d8d334b8500b82f5",
         "android_client_info": {
-          "package_name": "com.jiantfuntexaspoker.running"
+          "package_name": "com.giantfun.texaspoker"
         }
       },
       "oauth_client": [
         {
-          "client_id": "261888055971-2uj4nuq5nr0mogukg0pqmpo66jjr80rh.apps.googleusercontent.com",
+          "client_id": "101076164035-dtjr3t28ijpbhlbmllnq8hpihqnphrai.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.jiantfuntexaspoker.running",
-            "certificate_hash": "d3fca7462efcf5163e37d6b4ee6ad8ef43d61f69"
+            "package_name": "com.giantfun.texaspoker",
+            "certificate_hash": "dad40c28b3feec2dc8202a5fceb23837de9c1ca9"
           }
         },
         {
-          "client_id": "261888055971-n5qsj79s5pe9bcv0v0orfqqbm014opde.apps.googleusercontent.com",
+          "client_id": "101076164035-tn8cllnmdhdhjro70scvedt9gj0kc1l9.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBqke_r9pQgzPwXSiqK3jtFmTPkfHRgFZk"
+          "current_key": "AIzaSyDehT-L9I2YuxBsBy10RKCOom6UbAxgako"
         }
       ],
       "services": {
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "261888055971-n5qsj79s5pe9bcv0v0orfqqbm014opde.apps.googleusercontent.com",
+              "client_id": "101076164035-tn8cllnmdhdhjro70scvedt9gj0kc1l9.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

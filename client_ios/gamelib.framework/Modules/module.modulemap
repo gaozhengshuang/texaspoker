@@ -1,0 +1,6 @@
+framework module gamelib {
+  umbrella header "gamelib.h"
+
+  export *
+  module * { export * }
+}
