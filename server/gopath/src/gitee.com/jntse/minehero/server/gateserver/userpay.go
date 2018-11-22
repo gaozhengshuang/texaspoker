@@ -17,32 +17,11 @@ import (
 	"io/ioutil"
 )
 
-func HttpsGet(url, cacert, cert, certkey string) (*network.HttpResponse, error) {
-	// 加载根证书
-	/*
-	pool := x509.NewCertPool()
-	caCrt, err := ioutil.ReadFile(cacert)
-	if err != nil {
-		return nil, fmt.Errorf("Read CA Cert File err:%s", err)
-	}
-	pool.AppendCertsFromPEM(caCrt)
-
-	cliCrt, err := tls.LoadX509KeyPair(cert, certkey)
-	if err != nil {
-		return nil, fmt.Errorf("Loadx509keypair err:%s", err)
-	}
-	*/
+func HttpsGetSkipVerify(url  string) (*network.HttpResponse, error) {
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
-	/*
-	tr := &http.Transport {
-		TLSClientConfig: &tls.Config {
-			RootCAs:      pool,	// 如不指定使用默认根证书
-			Certificates: []tls.Certificate{cliCrt},
-		},
-	}
-	*/
+
 	client := &http.Client{Transport: tr}
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil { return nil, err }
@@ -153,10 +132,10 @@ func (u *GateUser) CheckPurchaseToken(purchasetoken, productid, accesstoken stri
 	packageName := tbl.Global.GooglePay.Packagename //"com.giantfun.texaspoker"
 	url := fmt.Sprintf("https://www.googleapis.com/androidpublisher/v3/applications/%s/purchases/products/%s/tokens/%s?access_token=%s",packageName, productid, purchasetoken, accesstoken)
 	log.Info("CheckPurchaseToken url: %s", url)
-	resp, err := HttpsGet(url, "", "", "")
+	resp, err := HttpsGetSkipVerify(url)
 	if err != nil {
-		log.Error("CheckPurchaseToken HttpsGet Error :%s", err)
-		return "CheckPurchaseToken HttpsGet Error", nil
+		log.Error("CheckPurchaseToken HttpsGetSkipVerify Error :%s", err)
+		return "CheckPurchaseToken HttpsGetSkipVerify Error", nil
 	}
 	if resp.Code != http.StatusOK {
 		log.Error("ReqLoginGoogle CheckResponseError errcode:[%d] status:[%s]", resp.Code, resp.Status)
