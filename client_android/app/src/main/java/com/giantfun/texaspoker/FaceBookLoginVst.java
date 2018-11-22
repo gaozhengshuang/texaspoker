@@ -19,26 +19,16 @@ public class FaceBookLoginVst {
     public static final String TAG = "FaceBookLoginVst";
     private MainActivity _target;
     public CallbackManager callbackManager;
-    private ProfileTracker _profileTracker;
 
     public FaceBookLoginVst(MainActivity tg) {
         _target = tg;
 
-//        _profileTracker = new ProfileTracker() {
-//            @Override
-//            protected void onCurrentProfileChanged(
-//                    Profile oldProfile,
-//                    Profile currentProfile) {
-//                // App code
-//            }
-//        };
         callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         // App code
-//                        setFacebookData(loginResult);
                         Profile profile = Profile.getCurrentProfile();
                         AccessToken token = loginResult.getAccessToken();
                         if (Profile.getCurrentProfile() != null) {
@@ -49,7 +39,6 @@ public class FaceBookLoginVst {
                         } else {
                             _target.interactionJsVst.loginSucces(token.getToken(), token.getUserId(), "", "");
                         }
-
                     }
 
                     @Override
@@ -66,9 +55,5 @@ public class FaceBookLoginVst {
                         _target.interactionJsVst.loginFailed();
                     }
                 });
-    }
-
-    public void onDestory() {
-//        _profileTracker.stopTracking();
     }
 }
