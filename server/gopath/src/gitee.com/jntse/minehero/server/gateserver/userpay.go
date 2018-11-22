@@ -5,7 +5,7 @@ import (
 	"gitee.com/jntse/gotoolkit/log"
 	"gitee.com/jntse/gotoolkit/util"
 	"gitee.com/jntse/minehero/pbmsg"
-	_"gitee.com/jntse/minehero/server/tbl"
+	"gitee.com/jntse/minehero/server/tbl"
 	pb "github.com/gogo/protobuf/proto"
 	_"github.com/go-redis/redis"
 	_"strconv"
@@ -159,9 +159,10 @@ func (u *GateUser) OnGooglePayCheck(purchasetoken, productid string) {
 
 
 func (u *GateUser) HttpPostGetGooglePayToken() (errcode string, resp *network.HttpResponse) {
-	client_id := "894411058463-lnhrmgu4nciseebinjao2emtjjro917q.apps.googleusercontent.com"
-	client_secret := "LYPTfBS4ULrhhcmw7WnqAhPv"
-	refresh_token := "1/4dNZXZrvUoplTizo57t4Gn0TTA8_yI-NCX6BPwYHa9lZCDUNWTcshxjfh3bCvfkz"
+	client_id := tbl.Global.GooglePay.Clientid //"965099845816-mstu690p5nqe71us91k225iou7ghuk8s.apps.googleusercontent.com"
+	client_secret := tbl.Global.GooglePay.Clientsecret //"DxXIJHSVZwo2eH9soS5M5XYO"
+	refresh_token := tbl.Global.GooglePay.Refreshtoken //"1/wKz0Z5H1MiRnSHrvb4FhD0FI0x9rhRPGjA7UhL7dYgs"
+
 	mapset := make(map[string]interface{})
 	urltoken := "https://accounts.google.com/o/oauth2/token" 
 	mapset["client_id"] = client_id
@@ -177,7 +178,8 @@ func (u *GateUser) HttpPostGetGooglePayToken() (errcode string, resp *network.Ht
 	strbody := util.BytesToString(postbody)
 	log.Info("HttpPostGetGooglePayToken   postbody:%s", strbody)
 	//resp, posterr := network.HttpsPost(urltoken, strbody)
-	resp, posterr := HttpsPost(urltoken,"","","",strbody)
+	//resp, posterr := HttpsPost(urltoken,"","","",strbody)
+	resp, posterr := http.HttpsPostSkipVerify(urltoken, strbody)
 	if posterr != nil {
 		log.Error("玩家[%d] GooglePayCheck post获取token失败 error[%s] resp[%#v]", u.Id(), posterr, resp)
 		return "token HttpPost Fail", nil
@@ -192,7 +194,7 @@ func (u *GateUser) HttpPostGetGooglePayToken() (errcode string, resp *network.Ht
 }
 
 func (u *GateUser) CheckPurchaseToken(purchasetoken, productid, accesstoken string) (errcode string, resp *network.HttpResponse) {
-	packageName := "com.giantfun.texaspoker"
+	packageName := tbl.Global.GooglePay.Packagename //"com.giantfun.texaspoker"
 	url := fmt.Sprintf("https://www.googleapis.com/androidpublisher/v3/applications/%s/purchases/products/%s/tokens/%s?access_token=%s",packageName, productid, purchasetoken, accesstoken)
 	log.Info("CheckPurchaseToken url: %s", url)
 	resp, err := HttpsGet(url, "", "", "")
