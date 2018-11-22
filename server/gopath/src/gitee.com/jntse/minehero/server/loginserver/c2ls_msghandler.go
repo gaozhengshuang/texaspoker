@@ -283,9 +283,9 @@ func on_C2L_ReqLoginApple(session network.IBaseNetSession, message interface{}) 
 	account := fmt.Sprintf("apple-%s",openid)
 	switch{
 		default:
-		resp, err := HttpsGet(keyurl, "", "", "")
+		resp, err := HttpsGetSkipVerify(keyurl)
 		if err != nil {
-			log.Error("ReqLoginApple HttpsGet Error :%s", err)
+			log.Error("ReqLoginApple HttpsGetSkipVerify Error :%s", err)
 			errcode = "apple验证获取key出错"
 			break
 		}
@@ -404,9 +404,9 @@ func on_C2L_ReqLoginFaceBook(session network.IBaseNetSession, message interface{
 	url := fmt.Sprintf("https://graph.facebook.com/debug_token?access_token=%s|%s&input_token=%s", appid, appsecret, token)
 	switch {
 		default:
-		resp, err := HttpsGet(url, "", "", "")
+		resp, err := HttpsGetSkipVerify(url)
 		if err != nil {
-			log.Error("ReqLoginFaceBook HttpsGet Error :%s", err)
+			log.Error("ReqLoginFaceBook HttpsGetSkipVerify Error :%s", err)
 			errcode = "facebook验证出错"
 			break
 		}
@@ -489,32 +489,11 @@ func on_C2L_ReqLoginFaceBook(session network.IBaseNetSession, message interface{
 
 }
 
-func HttpsGet(url, cacert, cert, certkey string) (*network.HttpResponse, error) {
-	// 加载根证书
-	/*
-	pool := x509.NewCertPool()
-	caCrt, err := ioutil.ReadFile(cacert)
-	if err != nil {
-		return nil, fmt.Errorf("Read CA Cert File err:%s", err)
-	}
-	pool.AppendCertsFromPEM(caCrt)
-
-	cliCrt, err := tls.LoadX509KeyPair(cert, certkey)
-	if err != nil {
-		return nil, fmt.Errorf("Loadx509keypair err:%s", err)
-	}
-	*/
+func HttpsGetSkipVerify(url string) (*network.HttpResponse, error) {
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
-	/*
-	tr := &http.Transport {
-		TLSClientConfig: &tls.Config {
-			RootCAs:      pool,	// 如不指定使用默认根证书
-			Certificates: []tls.Certificate{cliCrt},
-		},
-	}
-	*/
+
 	client := &http.Client{Transport: tr}
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil { return nil, err }
@@ -540,9 +519,9 @@ func on_C2L_ReqLoginGoogle(session network.IBaseNetSession, message interface{})
 	url := fmt.Sprintf("https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=%s", token)
 	switch {
 		default:
-		resp, err := HttpsGet(url, "", "", "")
+		resp, err := HttpsGetSkipVerify(url)
 		if err != nil {
-			log.Error("ReqLoginGoogle HttpsGet Error :%s", err)
+			log.Error("ReqLoginGoogle HttpsGetSkipVerify Error :%s", err)
 			errcode = "google验证出错"
 			break
 		}
