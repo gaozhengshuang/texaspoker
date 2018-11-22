@@ -179,7 +179,7 @@ func (u *GateUser) HttpPostGetGooglePayToken() (errcode string, resp *network.Ht
 	log.Info("HttpPostGetGooglePayToken   postbody:%s", strbody)
 	//resp, posterr := network.HttpsPost(urltoken, strbody)
 	//resp, posterr := HttpsPost(urltoken,"","","",strbody)
-	resp, posterr := http.HttpsPostSkipVerify(urltoken, strbody)
+	resp, posterr := network.HttpsPostSkipVerify(urltoken, strbody)
 	if posterr != nil {
 		log.Error("玩家[%d] GooglePayCheck post获取token失败 error[%s] resp[%#v]", u.Id(), posterr, resp)
 		return "token HttpPost Fail", nil
