@@ -14527,6 +14527,12 @@ declare namespace msg {
 
         /** C2L_ReqLoginApple salt */
         salt?: (string|null);
+
+        /** C2L_ReqLoginApple nickname */
+        nickname?: (string|null);
+
+        /** C2L_ReqLoginApple face */
+        face?: (string|null);
     }
 
     /** Represents a C2L_ReqLoginApple. */
@@ -14552,6 +14558,12 @@ declare namespace msg {
 
         /** C2L_ReqLoginApple salt. */
         public salt: string;
+
+        /** C2L_ReqLoginApple nickname. */
+        public nickname: string;
+
+        /** C2L_ReqLoginApple face. */
+        public face: string;
 
         /**
          * Creates a new C2L_ReqLoginApple instance using the specified properties.
@@ -14632,6 +14644,12 @@ declare namespace msg {
 
         /** C2L_ReqLoginGoogle token */
         token?: (string|null);
+
+        /** C2L_ReqLoginGoogle nickname */
+        nickname?: (string|null);
+
+        /** C2L_ReqLoginGoogle face */
+        face?: (string|null);
     }
 
     /** Represents a C2L_ReqLoginGoogle. */
@@ -14648,6 +14666,12 @@ declare namespace msg {
 
         /** C2L_ReqLoginGoogle token. */
         public token: string;
+
+        /** C2L_ReqLoginGoogle nickname. */
+        public nickname: string;
+
+        /** C2L_ReqLoginGoogle face. */
+        public face: string;
 
         /**
          * Creates a new C2L_ReqLoginGoogle instance using the specified properties.
@@ -14728,6 +14752,12 @@ declare namespace msg {
 
         /** C2L_ReqLoginFaceBook token */
         token?: (string|null);
+
+        /** C2L_ReqLoginFaceBook nickname */
+        nickname?: (string|null);
+
+        /** C2L_ReqLoginFaceBook face */
+        face?: (string|null);
     }
 
     /** Represents a C2L_ReqLoginFaceBook. */
@@ -14744,6 +14774,12 @@ declare namespace msg {
 
         /** C2L_ReqLoginFaceBook token. */
         public token: string;
+
+        /** C2L_ReqLoginFaceBook nickname. */
+        public nickname: string;
+
+        /** C2L_ReqLoginFaceBook face. */
+        public face: string;
 
         /**
          * Creates a new C2L_ReqLoginFaceBook instance using the specified properties.

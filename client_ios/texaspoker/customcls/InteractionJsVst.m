@@ -81,7 +81,11 @@
         }
         else if([message isEqual: ChannelLoginType_FaceBook])
         {
-            
+            if ([FBSDKAccessToken currentAccessToken]) {
+                isLoggedIn = true;
+                //FBSDKAccessToken 包含 userID，您可以使用此编号识别用户。
+                    // User is logged in, do work such as go to next view controller.
+            }
         }
         if (isLoggedIn) {
             [support callExternalInterface:Egret_CheckLoginState Value:@"1"];
