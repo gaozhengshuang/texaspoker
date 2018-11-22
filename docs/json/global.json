@@ -82,5 +82,12 @@
     "FaceBookLogin" : {
         "appid":"363730244187851",
 		"appsecret":"238d2b5c659c0c16441b697ee2c6e01a"
-    }
+    },
+
+	"//":"apple 相关参数",
+	"Apple" : {
+		"bundleid":"com.xxxxxx.yyyyyyy",
+		"paycheckurl":"https://buy.itunes.apple.com/verifyReceipt",
+		"paycheckurlsandbox":"https://sandbox.itunes.apple.com/verifyReceipt"
+	}
 }

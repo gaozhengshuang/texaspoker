@@ -192,6 +192,7 @@ message C2GW_ReqApplePayCheck {
 	optional string state = 2;
 	optional string receipt = 3;
 	optional string transactionIdentifier = 4;
+	optional int32 	issandbox = 5; //0正式 1沙箱测试
 }
 
 //返回apple支付验证结果 

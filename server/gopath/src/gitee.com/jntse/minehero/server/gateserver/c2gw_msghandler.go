@@ -106,6 +106,8 @@ func (mh *C2GWMsgHandler) Init() {
 
 	//验证google支付
 	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqGooglePayCheck{}, on_C2GW_ReqGooglePayCheck)
+	//验证apple支付
+	mh.msgparser.RegistProtoMsg(msg.C2GW_ReqApplePayCheck{}, on_C2GW_ReqApplePayCheck)
 }
 
 // 客户端心跳
@@ -759,4 +761,20 @@ func on_C2GW_ReqGooglePayCheck(session network.IBaseNetSession, message interfac
 	purchasetoken := tmsg.GetPurchasetoken()
 	productid := tmsg.GetProductid()
 	u.OnGooglePayCheck(purchasetoken, productid)
+}
+
+func on_C2GW_ReqApplePayCheck(session network.IBaseNetSession, message interface{}) {
+	u := ExtractSessionUser(session)
+	if u == nil {
+		log.Fatal(fmt.Sprintf("sid:%d 没有绑定用户", session.Id()))
+		session.Close()
+		return
+	}
+	tmsg := message.(*msg.C2GW_ReqApplePayCheck)
+	productIdentifier := tmsg.GetProductIdentifier()
+	state := tmsg.GetState()
+	receipt := tmsg.GetReceipt()
+	transactionIdentifier := tmsg.GetTransactionIdentifier()
+	issandbox := tmsg.GetIssandbox()
+	u.OnApplePayCheck(productIdentifier, state, receipt, transactionIdentifier, issandbox)
 }
