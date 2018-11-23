@@ -6,15 +6,25 @@
 //  Copyright © 2018年 egret. All rights reserved.
 //
 
-#import "NSObject+GameLib.h"
+#import "GameLib.h"
 #import <AdSupport/AdSupport.h>
+#import "KeychainItemWrapper.h"
 
 @implementation GameLib
 
 +(NSString*)getUUId
 {
-    NSString *adId = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-    return  adId;
+    KeychainItemWrapper *keyChainItemQin=[[KeychainItemWrapper alloc]initWithIdentifier:@"com.qingame.warlord.chinaappstore" accessGroup:nil];
+    
+    NSString *strUUID = [keyChainItemQin objectForKey:(id)kSecAttrAccount];
+    NSLog(@"strUUID:++++++%@",strUUID);
+    if (strUUID==nil||[strUUID isEqualToString:@""])
+    {
+        NSLog(@"new value:++++++%@__%@",kSecAttrAccount,kSecAttrAccount);
+        strUUID = [[[NSUUID UUID] UUIDString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
+        [keyChainItemQin setObject:strUUID forKey:(id)kSecAttrAccount];
+    }
+    return strUUID;
 }
 
 /*!
@@ -57,7 +67,7 @@
     return dic;
     
 }
-
+//字典转json
 + (NSString*)dictionaryToJson:(NSDictionary *)dic
 
 {
@@ -69,4 +79,12 @@
     return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     
 }
+//获取配置
++(NSString*)getConfigString:(NSString *)key
+{
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"giantconfig" ofType:@"plist"];
+    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
+    return [data objectForKey:key];
+}
+
 @end
