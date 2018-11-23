@@ -120,7 +120,7 @@ BOOL iosCanLoadTempTransactions = NO;
         {
             passData = @"";
         }
-        NSDictionary *dict = @{@"productId":productIdentifier,@"passData":passData,@"receipt":receipt};
+        NSDictionary *dict = @{@"productIdentifier":productIdentifier, @"passData":passData,@"receipt":receipt,@"transactionIdentifier":transaction.transactionIdentifier};
         
         BOOL isYes = [NSJSONSerialization isValidJSONObject:dict];
         if (isYes)
