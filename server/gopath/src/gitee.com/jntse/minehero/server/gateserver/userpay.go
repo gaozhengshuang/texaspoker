@@ -191,10 +191,22 @@ func (u *GateUser) CheckAndTakeGooglePayOrderRecord(productid, orderid string) s
 
 //支付确认成功之后发奖
 func (u *GateUser) OnGooglePayCheckSuccess (productid, orderid string) {
-	log.Info("玩家[%d] google 购买验证支付成功 productid:%s  orderid:%s", productid, orderid)
-	//以下加入 根据商品id 发奖
-	//...
-	//...
+	awardid := int32(0)
+	for _, v := range tbl.PayListBase.PayListById {
+		if v.GoogleProductId == productid {
+			awardid = v.AwardId		
+			break
+		}
+	}
+	if awardid != 0 {
+		if u.GetActivityAwardByAwardId(awardid, "GooglePay付费购买") == true{
+			log.Info("玩家[%d] google 支付购买商品发奖成功 productid:%s, awardid:%d, orderid:%s ", productid, awardid, orderid)
+		} else {
+			log.Error("玩家[%d] google 支付购买商品发奖失败 productid:%s, awardid:%d, orderid:%s ", productid, awardid, orderid)
+		}
+	}else {
+		log.Error("玩家[%d] google 支付购买商品发奖失败 没找到对应的award productid:%s, awardid:%d, orderid:%s ", productid, awardid, orderid)
+	}
 
 }
 
@@ -302,9 +314,20 @@ func (u *GateUser) CheckAndTakeApplePayOrderRecord(productid, transactionid stri
 
 //支付确认成功之后发奖
 func (u *GateUser) OnApplePayCheckSuccess (productid, transactionid string) {
-	log.Info("玩家[%d] Apple 购买验证支付成功 productid:%s  transactionid:%s", productid, transactionid)
-	//以下加入 根据商品id 发奖
-	//...
-	//...
-
+	awardid := int32(0)
+	for _, v := range tbl.PayListBase.PayListById {
+		if v.AppleProductId == productid {
+			awardid = v.AwardId		
+			break
+		}
+	}
+	if awardid != 0 {
+		if u.GetActivityAwardByAwardId(awardid, "ApplePay付费购买") == true{
+			log.Info("玩家[%d] apple 支付购买商品发奖成功 productid:%s, awardid:%d, transactionid:%s ", productid, awardid, transactionid)
+		} else {
+			log.Error("玩家[%d] apple 支付购买商品发奖失败 productid:%s, awardid:%d, transactionid:%s ", productid, awardid, transactionid)
+		}
+	}else {
+		log.Error("玩家[%d] apple 支付购买商品发奖失败 没找到对应的award productid:%s, awardid:%d, transactionid:%s ", productid, awardid, transactionid)
+	}
 }
