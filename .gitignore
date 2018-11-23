@@ -40,4 +40,4 @@ git
 /client_android/build
 /client_android/app/build
 /client_android/.gradle
-/client_android/.idea/workspace.xml
+/client_android/.idea/

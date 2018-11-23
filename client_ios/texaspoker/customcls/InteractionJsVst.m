@@ -29,6 +29,8 @@
     [self addInitialize];
     [self addLogin];
     [self addCheckLoginState];
+    [self addCheckUnFinishedList];
+    [self addDeleteOrder];
 }
 //初始化
 -(void)addInitialize
@@ -93,6 +95,24 @@
             [support callExternalInterface:Egret_CheckLoginState Value:@""];
         }
         NSLog(@"白鹭login数据：%@", message);
+    }];
+}
+//检测未完成的订单
+-(void)addCheckUnFinishedList
+{
+    __block AppDelegate* tmp = target;
+    [_native setExternalInterface:Egret_CheckLoginState Callback:^(NSString* message) {
+        [tmp.purchaseMgr checkUnFinishedPayList];
+        NSLog(@"白鹭Egret_CheckLoginState");
+    }];
+}
+//添加删除订单侦听
+-(void)addDeleteOrder
+{
+    __block AppDelegate* tmp = target;
+    [_native setExternalInterface:Egret_DeleteOrder Callback:^(NSString* message) {
+        [tmp.purchaseMgr deleteOrder:message];
+         NSLog(@"白鹭Egret_DeleteOrder");
     }];
 }
 //登录

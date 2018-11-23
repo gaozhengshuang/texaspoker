@@ -3,6 +3,7 @@
 #import <EgretNativeIOS.h>
 #import "InteractionJsVst.h"
 #import "GameCenterSdkController.h"
+#import "InAppPurchaseManager.h"
 
 @implementation AppDelegate {
     EgretNativeIOS* _native;
@@ -12,12 +13,14 @@
     
     InteractionJsVst* _interactionJsVst;
     GameCenterSdkController* _gcsdkCtl;
+    InAppPurchaseManager* _purchaseMgr;
 }
 @synthesize clientVersion = _clientVersion;
 @synthesize exitGameJsonObj = _exitGameJsonObj;
 
 @synthesize interactionJsVst = _interactionJsVst;
 @synthesize gcsdkCtl = _gcsdkCtl;
+@synthesize purchaseMgr = _purchaseMgr;
 
 
 - (BOOL)application:(UIApplication *)application
@@ -54,7 +57,9 @@
     if (![_native initWithViewController:viewController]) {
         return false;
     }
-    
+    //支付
+    _purchaseMgr = [[InAppPurchaseManager alloc] init];
+    [_purchaseMgr initBuy:self];
     //侦听交互接口
     _interactionJsVst = [[InteractionJsVst alloc] init];
     [_interactionJsVst initialize:self];
