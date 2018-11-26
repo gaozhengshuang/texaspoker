@@ -134,7 +134,6 @@ public class MainActivity extends FragmentActivity {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
         nativeAndroid.resume();
-        googleBillingVst.onResume();
     }
 
     @Override
