@@ -675,5 +675,9 @@ class Command
      * google 支付验证
      */
     public static readonly C2GW_ReqGooglePayCheck = "msg.C2GW_ReqGooglePayCheck";
+    /**
+     * apple 支付验证
+     */
+    public static readonly C2GW_ReqApplePayCheck = "msg.C2GW_ReqApplePayCheck";
 }
 

@@ -195,15 +195,12 @@ public class GoogleBillingVst {
     }
 
     /**
-     * 恢复 的时候，查询 内购缓存库，有则尝试消耗
+     * 查询库存看看是否有缓存的列表 有则尝试消耗
      */
-    public void onResume() {
-        List<Purchase> list = googleBillingUtil.queryPurchasesInApp();
-        if (list != null) {
-//            mOnPurchaseFinishedListener.onPurchaseSuccess(list);
-        }
+    public void queryInventoryList()
+    {
+        googleBillingUtil.getBillingCacheList();
     }
-
     public void onDestroy() {
         GoogleBillingUtil.endConnection();
         Log.d(TAG, "Destroying helper.");

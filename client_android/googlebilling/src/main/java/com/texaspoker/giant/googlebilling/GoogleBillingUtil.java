@@ -139,14 +139,20 @@ public class GoogleBillingUtil {
         {
             if(mGoogleBillingUtil.startConnection())
             {
-                mGoogleBillingUtil.queryInventoryInApp();
-                mGoogleBillingUtil.queryInventorySubs();
-                mGoogleBillingUtil.queryPurchasesInApp();
+            //
             }
         }
         return mGoogleBillingUtil;
     }
-
+    public void getBillingCacheList()
+    {
+        if(mBillingClient.isReady())
+        {
+//            mGoogleBillingUtil.queryInventoryInApp();
+//            mGoogleBillingUtil.queryInventorySubs();
+            mGoogleBillingUtil.queryPurchasesInApp();
+        }
+    }
     public boolean startConnection()
     {
         if(mBillingClient==null)
@@ -160,9 +166,9 @@ public class GoogleBillingUtil {
                 @Override
                 public void onBillingSetupFinished(@BillingClient.BillingResponse int billingResponseCode) {
                     if (billingResponseCode == BillingClient.BillingResponse.OK) {
-                        queryInventoryInApp();
-                        queryInventorySubs();
-                        queryPurchasesInApp();
+//                        queryInventoryInApp();
+//                        queryInventorySubs();
+//                        queryPurchasesInApp();
                         if(mOnStartSetupFinishedListener!=null)
                         {
                             mOnStartSetupFinishedListener.onSetupSuccess();
@@ -415,6 +421,7 @@ public class GoogleBillingUtil {
                 if(purchasesResult.getResponseCode()== BillingClient.BillingResponse.OK)
                 {
                     List<Purchase> purchaseList =  purchasesResult.getPurchasesList();
+                    mOnPurchaseFinishedListener.onPurchaseSuccess(purchaseList);
                     if(isAutoConsumeAsync)
                     {
                         if(purchaseList!=null)

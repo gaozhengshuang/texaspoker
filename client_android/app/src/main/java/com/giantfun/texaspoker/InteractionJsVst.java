@@ -5,7 +5,6 @@ import android.widget.FrameLayout;
 
 import com.android.billingclient.api.Purchase;
 import com.facebook.AccessToken;
-import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.giant.gamelib.ChannelLoginType;
 import com.giant.gamelib.CheckApkExist;
@@ -49,7 +48,8 @@ public class InteractionJsVst {
         this.addLogin();
         this.addCheckLoginState();
         this.addPay();
-        this.addConsume();
+        this.addCheckUnFinishedList();
+        this.deleteOrder();
     }
 
     /**
@@ -172,7 +172,16 @@ public class InteractionJsVst {
             }
         });
     }
-
+    //检测google支付库存
+    private void addCheckUnFinishedList()
+    {
+        _target.nativeAndroid.setExternalInterface(ExtFuncName.CheckUnFinishedPayList, new INativePlayer.INativeInterface() {
+            @Override
+            public void callback(String message) {
+                _target.googleBillingVst.queryInventoryList();
+            }
+        });
+    }
     /**
      * 支付成功
      */
@@ -190,7 +199,7 @@ public class InteractionJsVst {
         _target.nativeAndroid.callExternalInterface(ExtFuncName.Pay, tokenStr);
     }
 
-    public void addConsume() {
+    public void deleteOrder() {
         _target.nativeAndroid.setExternalInterface(ExtFuncName.DeleteOrder, new INativePlayer.INativeInterface() {
             @Override
             public void callback(String message) {
