@@ -224,11 +224,13 @@ func (u *GateUser) OnApplePayCheck (productIdentifier, state, receipt, transacti
 	}
 	switch{
 		default:
+		/*
 		if state != "Purchased" {
 			log.Error("玩家[%d] OnApplePayCheck state error state:%s", u.Id(), state)
 			errcode = "state not Purchased"
 			break
 		}
+		*/
 		mapset := make(map[string]interface{})
 		mapset["receipt-data"] = receipt
 		postbody, jsonerr := json.Marshal(mapset)
