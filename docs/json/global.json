@@ -72,9 +72,9 @@
 
 	"//":"googlepay 支付验证 相关参数",
 	"GooglePay" : {
-		"clientid":"965099845816-mstu690p5nqe71us91k225iou7ghuk8s.apps.googleusercontent.com",
-		"clientsecret":"DxXIJHSVZwo2eH9soS5M5XYO",
-		"refreshtoken":"1/wKz0Z5H1MiRnSHrvb4FhD0FI0x9rhRPGjA7UhL7dYgs",
+		"clientid":"101076164035-tn8cllnmdhdhjro70scvedt9gj0kc1l9.apps.googleusercontent.com",
+		"clientsecret":"pEA-Dk3AbOkd41Fo9pffWwVc",
+		"refreshtoken":"1/PCGsl2_fu6EH4jcy447nmGh9_sH5ybdQgSZ36fky47I",
 		"packagename":"com.giantfun.texaspoker"
 	},
 

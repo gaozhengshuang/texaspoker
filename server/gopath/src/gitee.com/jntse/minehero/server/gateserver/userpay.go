@@ -15,6 +15,7 @@ import (
 	"encoding/json"
 	"crypto/tls"
 	"io/ioutil"
+	"time"
 )
 
 type HttpArguApplePayBase struct {
@@ -75,7 +76,7 @@ func (u *GateUser) OnGooglePayCheck(purchasetoken, productid string) {
 		default:
 		var resp *network.HttpResponse
 		var respinfo map[string]interface{}
-
+		/*
 		errorcode, resp = u.HttpPostGetGooglePayToken()
 		if errorcode != "" || resp == nil {
 			break
@@ -88,7 +89,9 @@ func (u *GateUser) OnGooglePayCheck(purchasetoken, productid string) {
 		}
 		access_token := respinfo["access_token"].(string)
 		log.Info("GooglePayCheck access_token:%s", access_token)
-		errorcode, resp = u.CheckPurchaseToken(purchasetoken, productid, access_token)
+		*/
+
+		errorcode, resp = u.CheckPurchaseToken(purchasetoken, productid)
 		if errorcode != "" || resp == nil {
 			break
 		}
@@ -96,14 +99,17 @@ func (u *GateUser) OnGooglePayCheck(purchasetoken, productid string) {
 		log.Info("CheckPurchaseToken body:\n%s", strBody)
 		
 		respinfo = make(map[string]interface{})
-		unerr = json.Unmarshal(resp.Body, &respinfo)
+		unerr := json.Unmarshal(resp.Body, &respinfo)
 		if unerr != nil {
 			log.Error("玩家[%d] GooglePayCheck 验证支付 json.Unmarshal 'status' Fail[%s] ", u.Id(), unerr)
 			errorcode = "json.Unmarshal Fail"
 			break
 		}
-		var statuscode int32 = int32(respinfo["purchaseState"].(int))
-		if statuscode != 1 {
+		for k,_ := range respinfo {
+			log.Error("key:%s",k)
+		}
+		var statuscode int32 = int32(respinfo["purchaseState"].(float64))
+		if statuscode != 0 {
 			log.Error("玩家[%d] GooglePayCheck 订单验证失败 statuscode：%d", u.Id(), statuscode)
 			errorcode = fmt.Sprintf("GooglePayCheck Fail purchaseState:%d", statuscode)
 			break
@@ -156,9 +162,27 @@ func (u *GateUser) HttpPostGetGooglePayToken() (errcode string, resp *network.Ht
 
 }
 
-func (u *GateUser) CheckPurchaseToken(purchasetoken, productid, accesstoken string) (errcode string, resp *network.HttpResponse) {
+func (u *GateUser) CheckPurchaseToken(purchasetoken, productid string) (errcode string, resp *network.HttpResponse) {
 	packageName := tbl.Global.GooglePay.Packagename //"com.giantfun.texaspoker"
-	url := fmt.Sprintf("https://www.googleapis.com/androidpublisher/v3/applications/%s/purchases/products/%s/tokens/%s?access_token=%s",packageName, productid, purchasetoken, accesstoken)
+	access_token, _err := Redis().Get(fmt.Sprintf("googlepay_access_token_%s", packageName)).Result()
+	if _err != nil || access_token == "" {
+		var respinfo map[string]interface{}
+		errorcode, _resp := u.HttpPostGetGooglePayToken()
+		if errorcode != "" || _resp == nil {
+			return errorcode, nil
+		}
+		unerr := json.Unmarshal(_resp.Body, &respinfo)
+		if unerr != nil {
+			log.Error("玩家[%d] GooglePayCheck 获取access_token json.Unmarshal 'status' Fail[%s] ", u.Id(), unerr)
+			errorcode = "json.Unmarshal Fail"
+			return errorcode, nil
+		}
+		access_token = respinfo["access_token"].(string)
+		log.Info("GooglePayCheck refresh token get new access_token:%s", access_token)
+		Redis().Set(fmt.Sprintf("googlepay_access_token_%s", packageName), access_token, 3600*time.Second)
+	} 
+
+	url := fmt.Sprintf("https://www.googleapis.com/androidpublisher/v3/applications/%s/purchases/products/%s/tokens/%s?access_token=%s",packageName, productid, purchasetoken, access_token)
 	log.Info("CheckPurchaseToken url: %s", url)
 	resp, err := HttpsGetSkipVerify(url)
 	if err != nil {
@@ -167,6 +191,8 @@ func (u *GateUser) CheckPurchaseToken(purchasetoken, productid, accesstoken stri
 	}
 	if resp.Code != http.StatusOK {
 		log.Error("ReqLoginGoogle CheckResponseError errcode:[%d] status:[%s]", resp.Code, resp.Status)
+		strBody := util.BytesToString(resp.Body)
+		log.Error("body:%s", strBody)
 		return "CheckPurchaseToken Fail", nil
 	}
 
@@ -200,12 +226,12 @@ func (u *GateUser) OnGooglePayCheckSuccess (productid, orderid string) {
 	}
 	if awardid != 0 {
 		if u.GetActivityAwardByAwardId(awardid, "GooglePay付费购买") == true{
-			log.Info("玩家[%d] google 支付购买商品发奖成功 productid:%s, awardid:%d, orderid:%s ", productid, awardid, orderid)
+			log.Info("玩家[%d] google 支付购买商品发奖成功 productid:%s, awardid:%d, orderid:%s ", u.Id(), productid, awardid, orderid)
 		} else {
-			log.Error("玩家[%d] google 支付购买商品发奖失败 productid:%s, awardid:%d, orderid:%s ", productid, awardid, orderid)
+			log.Error("玩家[%d] google 支付购买商品发奖失败 productid:%s, awardid:%d, orderid:%s ", u.Id(), productid, awardid, orderid)
 		}
 	}else {
-		log.Error("玩家[%d] google 支付购买商品发奖失败 没找到对应的award productid:%s, awardid:%d, orderid:%s ", productid, awardid, orderid)
+		log.Error("玩家[%d] google 支付购买商品发奖失败 没找到对应的award productid:%s, awardid:%d, orderid:%s ", u.Id(), productid, awardid, orderid)
 	}
 
 }
