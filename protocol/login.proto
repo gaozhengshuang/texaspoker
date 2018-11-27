@@ -70,7 +70,7 @@ message C2L_ReqLoginGoogle {
 	optional string token = 2;
 	optional string nickname = 3;
 	optional string face = 4;
-	optional string appid = 5;
+	optional string clientid = 5;
 }
 
 // facebook 账户登录

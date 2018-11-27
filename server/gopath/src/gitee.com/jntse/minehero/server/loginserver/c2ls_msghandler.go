@@ -522,7 +522,7 @@ func HttpsGetSkipVerify(url string) (*network.HttpResponse, error) {
 func on_C2L_ReqLoginGoogle(session network.IBaseNetSession, message interface{}) {
 	tm1 := util.CURTIMEUS()
 	tmsg := message.(*msg.C2L_ReqLoginGoogle)
-	openid, token, nickname, face, appid := tmsg.GetOpenid(), tmsg.GetToken(), tmsg.GetNickname(), tmsg.GetFace(), tmsg.GetAppid()
+	openid, token, nickname, face, appid := tmsg.GetOpenid(), tmsg.GetToken(), tmsg.GetNickname(), tmsg.GetFace(), tmsg.GetClientid()
 	log.Info("ReqLoginGoogle openid: %s   token: %s", openid, token)
 	account := fmt.Sprintf("google-%s",openid)
 	errcode := ""
