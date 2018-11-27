@@ -18965,8 +18965,8 @@ declare namespace msg {
     /** Properties of a C2GW_ReqApplePayCheck. */
     interface IC2GW_ReqApplePayCheck {
 
-        /** C2GW_ReqApplePayCheck productIdentifier */
-        productIdentifier?: (string|null);
+        /** C2GW_ReqApplePayCheck productidentifier */
+        productidentifier?: (string|null);
 
         /** C2GW_ReqApplePayCheck state */
         state?: (string|null);
@@ -18974,8 +18974,8 @@ declare namespace msg {
         /** C2GW_ReqApplePayCheck receipt */
         receipt?: (string|null);
 
-        /** C2GW_ReqApplePayCheck transactionIdentifier */
-        transactionIdentifier?: (string|null);
+        /** C2GW_ReqApplePayCheck transactionidentifier */
+        transactionidentifier?: (string|null);
 
         /** C2GW_ReqApplePayCheck issandbox */
         issandbox?: (number|null);
@@ -18990,8 +18990,8 @@ declare namespace msg {
          */
         constructor(properties?: msg.IC2GW_ReqApplePayCheck);
 
-        /** C2GW_ReqApplePayCheck productIdentifier. */
-        public productIdentifier: string;
+        /** C2GW_ReqApplePayCheck productidentifier. */
+        public productidentifier: string;
 
         /** C2GW_ReqApplePayCheck state. */
         public state: string;
@@ -18999,8 +18999,8 @@ declare namespace msg {
         /** C2GW_ReqApplePayCheck receipt. */
         public receipt: string;
 
-        /** C2GW_ReqApplePayCheck transactionIdentifier. */
-        public transactionIdentifier: string;
+        /** C2GW_ReqApplePayCheck transactionidentifier. */
+        public transactionidentifier: string;
 
         /** C2GW_ReqApplePayCheck issandbox. */
         public issandbox: number;
@@ -41282,6 +41282,12 @@ declare namespace table {
         /** PayListDefine AwardId */
         AwardId?: (number|null);
 
+        /** PayListDefine AppleProductId */
+        AppleProductId?: (string|null);
+
+        /** PayListDefine GoogleProductId */
+        GoogleProductId?: (string|null);
+
         /** PayListDefine Type */
         Type?: (number|null);
 
@@ -41309,6 +41315,12 @@ declare namespace table {
 
         /** PayListDefine AwardId. */
         public AwardId: number;
+
+        /** PayListDefine AppleProductId. */
+        public AppleProductId: string;
+
+        /** PayListDefine GoogleProductId. */
+        public GoogleProductId: string;
 
         /** PayListDefine Type. */
         public Type: number;
