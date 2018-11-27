@@ -760,7 +760,8 @@ func on_C2GW_ReqGooglePayCheck(session network.IBaseNetSession, message interfac
 	tmsg := message.(*msg.C2GW_ReqGooglePayCheck)
 	purchasetoken := tmsg.GetPurchasetoken()
 	productid := tmsg.GetProductid()
-	u.OnGooglePayCheck(purchasetoken, productid)
+	pakagename := tmsg.GetPakagename()
+	u.OnGooglePayCheck(purchasetoken, productid, pakagename)
 }
 
 func on_C2GW_ReqApplePayCheck(session network.IBaseNetSession, message interface{}) {
@@ -776,5 +777,6 @@ func on_C2GW_ReqApplePayCheck(session network.IBaseNetSession, message interface
 	receipt := tmsg.GetReceipt()
 	transactionIdentifier := tmsg.GetTransactionidentifier()
 	issandbox := tmsg.GetIssandbox()
-	u.OnApplePayCheck(productIdentifier, state, receipt, transactionIdentifier, issandbox)
+	bundleid := tmsg.GetBundleid()
+	u.OnApplePayCheck(productIdentifier, state, receipt, transactionIdentifier, bundleid, issandbox)
 }

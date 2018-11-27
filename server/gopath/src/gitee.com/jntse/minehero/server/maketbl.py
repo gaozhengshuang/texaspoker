@@ -257,6 +257,9 @@ gen.maketbl_json('table', 'TexasFight', 'texasfight.json')
 gen.maketbl_json('table', 'Delivery', 'delivery.json')
 gen.maketbl_json('table', 'HongBaoAPI', 'hongbao.json')
 gen.maketbl_json('table', 'Wechat', 'wechat.json')
+gen.maketbl_json('table', 'Google', 'google.json')
+gen.maketbl_json('table', 'FaceBook', 'facebook.json')
+gen.maketbl_json('table', 'Apple', 'apple.json')
 
 #// --------------------------------------------------------------------------
 #/// @brief 生成自动加载代码

@@ -1,0 +1,11 @@
+{
+	"//":"Apple登录",
+	"AppleLoginBundleidArray" : [
+		"com.xxxxxx.yyyyyyy"
+	],
+	"//":"Apple支付验证地址",
+	"ApplePayCheckUrl" : {
+		"paycheckurl":"https://buy.itunes.apple.com/verifyReceipt",
+		"paycheckurlsandbox":"https://sandbox.itunes.apple.com/verifyReceipt"
+	}
+}

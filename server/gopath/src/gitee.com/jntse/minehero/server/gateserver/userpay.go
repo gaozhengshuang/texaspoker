@@ -66,74 +66,71 @@ func HttpsPostSkipVerifyByJson(url, body string) (*network.HttpResponse, error) 
 
 
 //谷歌支付验证
-func (u *GateUser) OnGooglePayCheck(purchasetoken, productid string) {
-	log.Info("OnGooglePayCheck uid:%d, productid:%s, purchasetoken:%s", u.Id(), productid, purchasetoken)
+func (u *GateUser) OnGooglePayCheck(purchasetoken, productid, packageName string) {
+	log.Info("OnGooglePayCheck uid:%d, productid:%s, purchasetoken:%s, packageName:%s ", u.Id(), productid, purchasetoken, packageName)
 	send := &msg.GW2C_RetGooglePayCheck{}
 	send.Purchasetoken = pb.String(purchasetoken)
 	send.Productid = pb.String(productid)
 	errorcode := ""
-	switch{
-		default:
-		var resp *network.HttpResponse
-		var respinfo map[string]interface{}
-		/*
-		errorcode, resp = u.HttpPostGetGooglePayToken()
-		if errorcode != "" || resp == nil {
+	bfind := false
+	client_id := ""
+	client_secret := ""
+	refresh_token := ""
+	for _, v := range tbl.Google.GooglePayConfig {
+		if v.Packagename == packageName {
+			bfind = true
+			client_id = v.Clientid
+			client_secret = v.Clientsecret
+			refresh_token = v.Refreshtoken
 			break
 		}
-		unerr := json.Unmarshal(resp.Body, &respinfo)
-		if unerr != nil {
-			log.Error("玩家[%d] GooglePayCheck 获取access_token json.Unmarshal 'status' Fail[%s] ", u.Id(), unerr)
-			errorcode = "json.Unmarshal Fail"
-			break
+	}
+	if bfind == false {
+		errorcode = "packageName not find"
+		log.Error("GooglePayCheck packageName not find packageName:%s ",packageName)
+	} else {
+		switch{
+			default:
+			var resp *network.HttpResponse
+			var respinfo map[string]interface{}
+	
+			errorcode, resp = u.CheckPurchaseToken(purchasetoken, productid, packageName, client_id, client_secret, refresh_token)
+			if errorcode != "" || resp == nil {
+				break
+			}
+			strBody := util.BytesToString(resp.Body)
+			log.Info("CheckPurchaseToken body:\n%s", strBody)
+			
+			respinfo = make(map[string]interface{})
+			unerr := json.Unmarshal(resp.Body, &respinfo)
+			if unerr != nil {
+				log.Error("玩家[%d] GooglePayCheck 验证支付 json.Unmarshal 'status' Fail[%s] ", u.Id(), unerr)
+				errorcode = "json.Unmarshal Fail"
+				break
+			}
+			var statuscode int32 = int32(respinfo["purchaseState"].(float64))
+			if statuscode != 0 {
+				log.Error("玩家[%d] GooglePayCheck 订单验证失败 statuscode：%d", u.Id(), statuscode)
+				errorcode = fmt.Sprintf("GooglePayCheck Fail purchaseState:%d", statuscode)
+				break
+			}
+			orderId := ""
+			if _, ok := respinfo["orderId"]; ok {
+				orderId = respinfo["orderId"].(string)
+			}
+			errorcode = u.CheckAndTakeGooglePayOrderRecord(productid, orderId)
+			if errorcode != "" {
+				break
+			}
+			u.OnGooglePayCheckSuccess(productid, orderId)
 		}
-		access_token := respinfo["access_token"].(string)
-		log.Info("GooglePayCheck access_token:%s", access_token)
-		*/
-
-		errorcode, resp = u.CheckPurchaseToken(purchasetoken, productid)
-		if errorcode != "" || resp == nil {
-			break
-		}
-		strBody := util.BytesToString(resp.Body)
-		log.Info("CheckPurchaseToken body:\n%s", strBody)
-		
-		respinfo = make(map[string]interface{})
-		unerr := json.Unmarshal(resp.Body, &respinfo)
-		if unerr != nil {
-			log.Error("玩家[%d] GooglePayCheck 验证支付 json.Unmarshal 'status' Fail[%s] ", u.Id(), unerr)
-			errorcode = "json.Unmarshal Fail"
-			break
-		}
-		for k,_ := range respinfo {
-			log.Error("key:%s",k)
-		}
-		var statuscode int32 = int32(respinfo["purchaseState"].(float64))
-		if statuscode != 0 {
-			log.Error("玩家[%d] GooglePayCheck 订单验证失败 statuscode：%d", u.Id(), statuscode)
-			errorcode = fmt.Sprintf("GooglePayCheck Fail purchaseState:%d", statuscode)
-			break
-		}
-		orderId := ""
-		if _, ok := respinfo["orderId"]; ok {
-			orderId = respinfo["orderId"].(string)
-		}
-		errorcode = u.CheckAndTakeGooglePayOrderRecord(productid, orderId)
-		if errorcode != "" {
-			break
-		}
-		u.OnGooglePayCheckSuccess(productid, orderId)
 	}
 	send.Errcode = pb.String(errorcode)
 	u.SendMsg(send)
 }
 
 
-func (u *GateUser) HttpPostGetGooglePayToken() (errcode string, resp *network.HttpResponse) {
-	client_id := tbl.Global.GooglePay.Clientid //"965099845816-mstu690p5nqe71us91k225iou7ghuk8s.apps.googleusercontent.com"
-	client_secret := tbl.Global.GooglePay.Clientsecret //"DxXIJHSVZwo2eH9soS5M5XYO"
-	refresh_token := tbl.Global.GooglePay.Refreshtoken //"1/wKz0Z5H1MiRnSHrvb4FhD0FI0x9rhRPGjA7UhL7dYgs"
-
+func (u *GateUser) HttpPostGetGooglePayToken(client_id, client_secret, refresh_token string) (errcode string, resp *network.HttpResponse) {
 	mapset := make(map[string]interface{})
 	urltoken := "https://accounts.google.com/o/oauth2/token" 
 	mapset["client_id"] = client_id
@@ -162,12 +159,11 @@ func (u *GateUser) HttpPostGetGooglePayToken() (errcode string, resp *network.Ht
 
 }
 
-func (u *GateUser) CheckPurchaseToken(purchasetoken, productid string) (errcode string, resp *network.HttpResponse) {
-	packageName := tbl.Global.GooglePay.Packagename //"com.giantfun.texaspoker"
+func (u *GateUser) CheckPurchaseToken(purchasetoken, productid, packageName, client_id, client_secret, refresh_token string) (errcode string, resp *network.HttpResponse) {
 	access_token, _err := Redis().Get(fmt.Sprintf("googlepay_access_token_%s", packageName)).Result()
 	if _err != nil || access_token == "" {
 		var respinfo map[string]interface{}
-		errorcode, _resp := u.HttpPostGetGooglePayToken()
+		errorcode, _resp := u.HttpPostGetGooglePayToken(client_id, client_secret, refresh_token)
 		if errorcode != "" || _resp == nil {
 			return errorcode, nil
 		}
@@ -237,26 +233,33 @@ func (u *GateUser) OnGooglePayCheckSuccess (productid, orderid string) {
 }
 
 //apple支付验证 
-func (u *GateUser) OnApplePayCheck (productIdentifier, state, receipt, transactionIdentifier string, issandbox int32) {
+func (u *GateUser) OnApplePayCheck (productIdentifier, state, receipt, transactionIdentifier, bundleid string, issandbox int32) {
 	send := &msg.GW2C_RetApplePayCheck{}
 	errcode := ""
+	bfind := false
+	for _, v := range tbl.Apple.AppleLoginBundleidArray {
+		if v == bundleid {
+			bfind = true
+			break
+		}
+	}
+	if bfind == false {
+		errcode = "bundleid not find"
+		send.Errcode = pb.String(errcode)
+		u.SendMsg(send)
+		return	
+	}
+
 	url := ""
 	if issandbox == 0 {
 		//正式地址
-		url = tbl.Global.Apple.Paycheckurl
+		url = tbl.Apple.ApplePayCheckURL.Paycheckurl
 	} else {
 		//沙箱地址
-		url = tbl.Global.Apple.Paycheckurlsandbox
+		url = tbl.Apple.ApplePayCheckURL.Paycheckurlsandbox
 	}
 	switch{
 		default:
-		/*
-		if state != "Purchased" {
-			log.Error("玩家[%d] OnApplePayCheck state error state:%s", u.Id(), state)
-			errcode = "state not Purchased"
-			break
-		}
-		*/
 		mapset := make(map[string]interface{})
 		mapset["receipt-data"] = receipt
 		postbody, jsonerr := json.Marshal(mapset)
@@ -297,8 +300,8 @@ func (u *GateUser) OnApplePayCheck (productIdentifier, state, receipt, transacti
 			errcode = fmt.Sprintf("apple check fail status %d", objcmd.Status)
 			break
 		}
-		if objcmd.Receipt["bundle_id"].(string) != tbl.Global.Apple.Bundleid {
-			log.Error("玩家[%d] OnApplePayCheck bundle_id 不一致 bundle_id:%s  need:%s", objcmd.Receipt["bundle_id"], tbl.Global.Apple.Bundleid)
+		if objcmd.Receipt["bundle_id"].(string) != bundleid {
+			log.Error("玩家[%d] OnApplePayCheck bundle_id 不一致 bundle_id:%s  need:%s", objcmd.Receipt["bundle_id"], bundleid)
 			errcode = "apple check bundle_id not same"
 			break
 		}

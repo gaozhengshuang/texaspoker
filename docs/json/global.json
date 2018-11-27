@@ -63,31 +63,5 @@
         "speed2":15,
 		"maxexp":6000,
 		"subspeed":10
-    },
-
-    "//":"google 登录相关参数",
-    "GoogleLogin" : {
-        "appid":"101076164035-tn8cllnmdhdhjro70scvedt9gj0kc1l9.apps.googleusercontent.com"
-    },
-
-	"//":"googlepay 支付验证 相关参数",
-	"GooglePay" : {
-		"clientid":"101076164035-tn8cllnmdhdhjro70scvedt9gj0kc1l9.apps.googleusercontent.com",
-		"clientsecret":"pEA-Dk3AbOkd41Fo9pffWwVc",
-		"refreshtoken":"1/PCGsl2_fu6EH4jcy447nmGh9_sH5ybdQgSZ36fky47I",
-		"packagename":"com.giantfun.texaspoker"
-	},
-
-    "//":"facebook 登录相关参数",
-    "FaceBookLogin" : {
-        "appid":"363730244187851",
-		"appsecret":"238d2b5c659c0c16441b697ee2c6e01a"
-    },
-
-	"//":"apple 相关参数",
-	"Apple" : {
-		"bundleid":"com.xxxxxx.yyyyyyy",
-		"paycheckurl":"https://buy.itunes.apple.com/verifyReceipt",
-		"paycheckurlsandbox":"https://sandbox.itunes.apple.com/verifyReceipt"
-	}
+    }
 }

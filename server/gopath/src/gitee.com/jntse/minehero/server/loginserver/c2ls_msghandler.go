@@ -277,9 +277,9 @@ func on_C2L_ReqLoginWechat(session network.IBaseNetSession, message interface{})
 func on_C2L_ReqLoginApple(session network.IBaseNetSession, message interface{}) {
 	tm1 := util.CURTIMEUS()
 	tmsg := message.(*msg.C2L_ReqLoginApple)
-	openid, keyurl, signature, timestamp, salt, nickname, face :=  tmsg.GetOpenid(), tmsg.GetKeyurl(), tmsg.GetSignature(), tmsg.GetTimestamp(), tmsg.GetSalt(), tmsg.GetNickname(), tmsg.GetFace()
-	bundleid := "com.abcedf.wasd"
+	openid, keyurl, signature, timestamp, salt, nickname, face, bundleid :=  tmsg.GetOpenid(), tmsg.GetKeyurl(), tmsg.GetSignature(), tmsg.GetTimestamp(), tmsg.GetSalt(), tmsg.GetNickname(), tmsg.GetFace(), tmsg.GetBundleid()
 	errcode := ""
+
 	account := fmt.Sprintf("apple-%s",openid)
 	switch{
 		default:
@@ -395,12 +395,23 @@ func VerifyRsa(key, sig, content []byte) error {
 func on_C2L_ReqLoginFaceBook(session network.IBaseNetSession, message interface{}) {
 	tm1 := util.CURTIMEUS()
 	tmsg := message.(*msg.C2L_ReqLoginFaceBook)
-	openid, token, nickname, face :=  tmsg.GetOpenid(), tmsg.GetToken(), tmsg.GetNickname(), tmsg.GetFace()
-	log.Info("ReqLoginFaceBook openid: %s   token: %s", openid, token)
+	openid, token, nickname, face, appid :=  tmsg.GetOpenid(), tmsg.GetToken(), tmsg.GetNickname(), tmsg.GetFace(), tmsg.GetAppid()
+	log.Info("ReqLoginFaceBook openid: %s,  token: %s,  appid:%s", openid, token, appid)
 	account := fmt.Sprintf("facebook-%s",openid)
 	errcode := ""
-	appid := tbl.Global.FaceBookLogin.Appid //"363730244187851"  //应用id
-	appsecret := tbl.Global.FaceBookLogin.Appsecret //"238d2b5c659c0c16441b697ee2c6e01a"         //应用秘钥
+	appsecret := ""
+	for _, v := range tbl.FaceBook.FaceBookLogin {
+		if v.Appid == appid {
+			appsecret = v.Appsecret
+			break
+		}
+	}
+	if appsecret == "" {
+		errcode = "appid not find"
+		log.Info("账户:[%s] sid[%d] 登陆失败[%s]", account, session.Id(), errcode)
+		session.SendCmd(newL2C_RetLogin(errcode, "", 0, "", "FaceBook"))
+		session.Close()
+	}
 	url := fmt.Sprintf("https://graph.facebook.com/debug_token?access_token=%s|%s&input_token=%s", appid, appsecret, token)
 	switch {
 		default:
@@ -511,11 +522,23 @@ func HttpsGetSkipVerify(url string) (*network.HttpResponse, error) {
 func on_C2L_ReqLoginGoogle(session network.IBaseNetSession, message interface{}) {
 	tm1 := util.CURTIMEUS()
 	tmsg := message.(*msg.C2L_ReqLoginGoogle)
-	openid, token, nickname, face :=  tmsg.GetOpenid(), tmsg.GetToken(), tmsg.GetNickname(), tmsg.GetFace()
+	openid, token, nickname, face, appid := tmsg.GetOpenid(), tmsg.GetToken(), tmsg.GetNickname(), tmsg.GetFace(), tmsg.GetAppid()
 	log.Info("ReqLoginGoogle openid: %s   token: %s", openid, token)
 	account := fmt.Sprintf("google-%s",openid)
 	errcode := ""
-	appid := tbl.Global.GoogleLogin.Appid   //"101076164035-tn8cllnmdhdhjro70scvedt9gj0kc1l9.apps.googleusercontent.com"  //应用id
+	//appid := tbl.Global.GoogleLogin.Appid
+	bfind := false
+	for _, v := range tbl.Google.GoogleLoginAppIDArray {
+		if appid == v {
+			bfind = true
+			break
+		}
+	}
+	if bfind == false {
+		log.Error("ReqLoginGoogle 非法的 appid")
+		session.SendCmd(newL2C_RetLogin("appid not find", "", 0, "", "GooglePlay"))
+		return
+	}
 	url := fmt.Sprintf("https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=%s", token)
 	switch {
 		default:

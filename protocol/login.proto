@@ -61,6 +61,7 @@ message C2L_ReqLoginApple {
 	optional string salt = 6;
 	optional string nickname = 7;
 	optional string face = 8;
+	optional string bundleid = 9;
 }
 
 // google账户登录
@@ -69,6 +70,7 @@ message C2L_ReqLoginGoogle {
 	optional string token = 2;
 	optional string nickname = 3;
 	optional string face = 4;
+	optional string appid = 5;
 }
 
 // facebook 账户登录
@@ -77,6 +79,7 @@ message C2L_ReqLoginFaceBook {
 	optional string token = 2;
 	optional string nickname = 3;
 	optional string face = 4;
+	optional string appid = 5;
 }
 
 // --------------------------------------------------------------------------
