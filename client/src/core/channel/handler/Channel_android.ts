@@ -109,12 +109,14 @@ class Channel_android extends ChannelBase
 		let callBack: Function = function (result: game.SpRpcResult)
 		{
 			game.Console.log("googleplay服务器验证支付成功" + JSON.stringify(data));
+			PropertyManager.ShowItemList();
 			game.ExternalInterface.call(ExtFuncName.DeleteOrder, data.token);
 		};
 		let errorCallBack: Function = function (result: game.SpRpcResult)
 		{
 			game.Console.log("googleplay服务器验证支付失败");
 		};
+		PropertyManager.OpenGet();
 		let checkData = new msg.C2GW_ReqGooglePayCheck();
 		checkData.productid = data.productId;
 		checkData.purchasetoken = data.token;

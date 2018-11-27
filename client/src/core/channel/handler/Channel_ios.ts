@@ -107,9 +107,9 @@ class Channel_ios extends ChannelBase
 		// checkData.productIdentifier = data.productIdentifier;
 		let callBack: Function = function (result: game.SpRpcResult)
 		{
-
 			game.Console.log("服务器验证支付成功" + data.receipt);
 			game.ExternalInterface.call(ExtFuncName.DeleteOrder, data.receipt);
+			PropertyManager.ShowItemList();
 		};
 		let errorCallBack: Function = function (result: game.SpRpcResult)
 		{
@@ -117,6 +117,7 @@ class Channel_ios extends ChannelBase
 			AlertManager.showAlert(message, null, null, null, null, data);
 			game.Console.log("apple服务器验证支付失败");
 		};
+		PropertyManager.OpenGet();
 		SocketManager.call(Command.C2GW_ReqApplePayCheck, checkData, callBack, errorCallBack, this);
 	}
 	/// <summary>

@@ -95,6 +95,7 @@ class ShoppingPanel extends BasePanel
         this.shoppingTab.tabChangeEvent.addListener(this.onTabTap, this);
         AwardManager.OnExchanged.addListener(ShopManager.onExchangeVipHandler, this);
         AwardManager.OnAwardValueChanged.addListener(this.onRefreshProperty, this);
+        UserManager.propertyChangeEvent.addListener(this.refreshUI, this);
     }
     protected onDisable(event: eui.UIEvent): void
     {
@@ -107,6 +108,7 @@ class ShoppingPanel extends BasePanel
         this.shoppingTab.tabChangeEvent.removeListener(this.onTabTap, this);
         AwardManager.OnExchanged.removeListener(ShopManager.onExchangeVipHandler, this);
         AwardManager.OnAwardValueChanged.removeListener(this.onRefreshProperty, this);
+        UserManager.propertyChangeEvent.removeListener(this.refreshUI, this);
         PropertyManager.Clear();
     }
     /**
