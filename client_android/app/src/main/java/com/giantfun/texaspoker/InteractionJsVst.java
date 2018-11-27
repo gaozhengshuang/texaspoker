@@ -227,6 +227,8 @@ public class InteractionJsVst {
         map.put("openid", openId);
         map.put("loginType", loginType);
         map.put("nickname", nickName);
+        map.put("clientid", _target.getString(R.string.google_web_client_id));
+        map.put("facebook_appid", _target.getString(R.string.facebook_app_id));
         map.put("face", face);
 //        map.put("gender", gender);
         map.put("status", "1");

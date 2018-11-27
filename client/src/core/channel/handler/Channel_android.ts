@@ -120,6 +120,7 @@ class Channel_android extends ChannelBase
 		let checkData = new msg.C2GW_ReqGooglePayCheck();
 		checkData.productid = data.productId;
 		checkData.purchasetoken = data.token;
+		checkData.pakagename = ChannelManager.bundleId;
 		SocketManager.call(Command.C2GW_ReqGooglePayCheck, checkData, callBack, errorCallBack, this);
 	}
 	/// <summary>

@@ -34,6 +34,7 @@ module game
                     data.token = token;
                     data.nickname = nickName;
                     data.face = face;
+                    data.appid = ChannelManager.facebook_appid;
                     SocketManager.Send(Command.C2L_ReqLoginFaceBook, data);
                     NotificationCenter.once(LoginManager, (data) =>
                     {
@@ -64,6 +65,7 @@ module game
                     data.token = token;
                     data.nickname = nickName;
                     data.face = face;
+                    data.clientid = ChannelManager.clientid;
                     SocketManager.Send(Command.C2L_ReqLoginGoogle, data);
                     NotificationCenter.once(LoginManager, (data) =>
                     {
@@ -96,6 +98,7 @@ module game
                     data.salt = salt;
                     data.nickname = nickName;
                     data.face = face;
+                    data.bundleid = ChannelManager.bundleId;
                     SocketManager.Send(Command.C2L_ReqLoginApple, data);
                     NotificationCenter.once(LoginManager, (data) =>
                     {

@@ -30,7 +30,6 @@ public class GoogleLoginVst {
 
     //初始化您的 Activity 时，请检查用户当前是否已登录：
     public void onStart() {
-        account = GoogleSignIn.getLastSignedInAccount(_target);
 // Android 4.0 之后不能在主线程中请求HTTP请求
         new Thread(new Runnable() {
             @Override
@@ -40,6 +39,10 @@ public class GoogleLoginVst {
                     JSONObject obj = new JSONObject(result);
                     if (obj != null && obj.getString("error_description") != "") {
                         account = null;
+                    }
+                    else
+                    {
+                        account = GoogleSignIn.getLastSignedInAccount(_target);
                     }
                 } catch (JSONException e) {
 

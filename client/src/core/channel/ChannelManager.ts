@@ -105,7 +105,22 @@ class ChannelManager
 	{
 		return ChannelManager._clientVersion;
 	}
-
+	private static _clientid:string = game.StringConstants.Empty;
+	/**
+	 * google 登录的web_client_id
+	 */
+	public static get clientid():string
+	{
+		return ChannelManager._clientid;
+	}
+	private static _facebook_appid :string = game.StringConstants.Empty;
+	/**
+	 * facebook的包ID
+	 */
+	public static get facebook_appid():string
+	{
+		return ChannelManager._facebook_appid;
+	}
 	//------------------------------------------------------------------
 	// 
 	//------------------------------------------------------------------
@@ -228,6 +243,8 @@ class ChannelManager
 			ChannelManager._deviceId = data['deviceId'];
 			ChannelManager._bundleId = data['bundleId'];
 			ChannelManager._clientVersion = data['clientVersion'];
+			ChannelManager._clientid = data["clientid"];
+			ChannelManager._facebook_appid = data["facebook_appid"];
 			ChannelManager._hasWeixin = game.StringUtil.toBoolean(data['hasWeixin']);
 			ChannelManager._hasFaceBook = game.StringUtil.toBoolean(data['hasfacebook']);
 			ChannelManager._hasGooglePlay = game.StringUtil.toBoolean(data['hasgoogleplay']);
