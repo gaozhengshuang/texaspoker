@@ -2,7 +2,7 @@
 	"Tool": "github.com/davyxu/tabtoy",
 	"Version": "2.8.10",
 	"PayList":[
-		{ "Id": 1, "AwardId": 801, "Type": 1, "IgnoreInPanel": 0, "IconName": "jiubei_1", "IsWhiteView": 0 },
+		{ "Id": 1, "AwardId": 801, "GoogleProductId": "a_poker_test", "Type": 1, "IgnoreInPanel": 0, "IconName": "jiubei_1", "IsWhiteView": 0 },
 		{ "Id": 2, "AwardId": 802, "Type": 1, "IgnoreInPanel": 0, "IconName": "jiubei_2", "IsWhiteView": 0 },
 		{ "Id": 3, "AwardId": 803, "Type": 1, "IgnoreInPanel": 0, "IconName": "jiubei_3", "IsWhiteView": 0 },
 		{ "Id": 4, "AwardId": 804, "Type": 1, "IgnoreInPanel": 0, "IconName": "jiubei_4", "IsWhiteView": 0 },
