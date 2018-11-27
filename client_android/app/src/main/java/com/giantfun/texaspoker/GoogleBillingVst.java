@@ -177,11 +177,11 @@ public class GoogleBillingVst {
             int awardId = data.getInt("awardId");
             switch (awardId) {
                 case 801:
-//                    googleBillingUtil.purchaseInApp(_target, "android.test.purchased");
-                    googleBillingUtil.purchaseInApp(_target, "a_poker_099");
+                    googleBillingUtil.purchaseInApp(_target, "android.test.purchased");
+//                    googleBillingUtil.purchaseInApp(_target, "a_poker_test");
                     break;
                 case 802:
-                    googleBillingUtil.purchaseInApp(_target, "a_poker_599");
+                    googleBillingUtil.purchaseInApp(_target, "a_poker_test");
                     break;
             }
         } catch (JSONException e) {

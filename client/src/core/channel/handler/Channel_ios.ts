@@ -103,8 +103,8 @@ class Channel_ios extends ChannelBase
 		checkData.issandbox = arr[3];
 		checkData.receipt = data.receipt;
 		// checkData.state = data.state;
-		checkData.transactionIdentifier = data.transactionIdentifier;
-		checkData.productIdentifier = data.productIdentifier;
+		// checkData.transactionIdentifier = data.transactionIdentifier;
+		// checkData.productIdentifier = data.productIdentifier;
 		let callBack: Function = function (result: game.SpRpcResult)
 		{
 

@@ -111,12 +111,12 @@ public class InteractionJsVst {
                         break;
                     case ChannelLoginType.GooglePlay:
                         GoogleSignInAccount account = _target.googleLoginVst.account;
-//                        if (account != null) {
-//                            loginSucces(account.getIdToken(), account.getId(), "", "", "");
-//                        } else {
-//                            _target.googleLoginVst.login();
-//                        }
-                        _target.googleLoginVst.login();
+                        if (account != null) {
+                            loginSucces(account.getIdToken(), account.getId(), "", "");
+                        } else {
+                            _target.googleLoginVst.login();
+                        }
+//                        _target.googleLoginVst.login();
                         break;
                     default:
                         Log.d(TAG, "未知的登录类型" + message);

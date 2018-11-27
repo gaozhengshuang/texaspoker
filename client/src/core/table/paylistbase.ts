@@ -3,7 +3,7 @@
 
 module table {
 export var PayList : table.IPayListDefine[] = [
-		{ Id : 1, AwardId : 801, AppleProductId : "", GoogleProductId : "", Type : 1, IgnoreInPanel : 0, IconName : "jiubei_1", IsWhiteView : 0 	},
+		{ Id : 1, AwardId : 801, AppleProductId : "", GoogleProductId : "a_poker_test", Type : 1, IgnoreInPanel : 0, IconName : "jiubei_1", IsWhiteView : 0 	},
 		{ Id : 2, AwardId : 802, AppleProductId : "", GoogleProductId : "", Type : 1, IgnoreInPanel : 0, IconName : "jiubei_2", IsWhiteView : 0 	},
 		{ Id : 3, AwardId : 803, AppleProductId : "", GoogleProductId : "", Type : 1, IgnoreInPanel : 0, IconName : "jiubei_3", IsWhiteView : 0 	},
 		{ Id : 4, AwardId : 804, AppleProductId : "", GoogleProductId : "", Type : 1, IgnoreInPanel : 0, IconName : "jiubei_4", IsWhiteView : 0 	},
