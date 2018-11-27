@@ -183,4 +183,11 @@ class Channel_android extends ChannelBase
 				UIManager.closePanel(UIModuleName.PayMaskPanel);
 			}, params, 1);
 	}
+	/**
+ 	* 检查支付订单
+ 	*/
+	public checkUnFinishedPayList()
+	{
+		game.ExternalInterface.call(ExtFuncName.CheckUnFinishedPayList, game.StringConstants.Empty);
+	}
 }

@@ -41,29 +41,11 @@ class Channel_ios extends ChannelBase
 	{
 		let bagId: number;
 		let data: any;
-		if (payState == PayState.Normal || VersionManager.isSafe)
-		{
-			UIManager.showPanel(UIModuleName.PayMaskPanel);
-			bagId = BundleManager.getBid();//数字包ID
+		UIManager.showPanel(UIModuleName.PayMaskPanel);
+		bagId = BundleManager.getBid();//数字包ID
 
-			data = { "awardId": awardId, "passData": { "orderId": orderId, "bagId": bagId }, "price": price, "name": productName };
-			game.ExternalInterface.call(ExtFuncName.Pay, JSON.stringify(data));
-		}
-		else if (payState == PayState.Mixed)
-		{
-			bagId = BundleManager.getBid();//数字包ID
-			ChannelManager.OnPayModelSelectEvent.addListener(this.onSelectPayModelHandler, this);
-			data = { "awardId": awardId, "passData": { "orderId": orderId, "bagId": bagId }, "price": price, "name": productName };
-			UIManager.showPanel(UIModuleName.PayModePanel, data);
-		}
-		else if (payState == PayState.Third)
-		{
-			ChannelUtil.openWebPay(serverId, orderId, price, productName, awardId);
-		}
-		else
-		{
-			AlertManager.showAlertByString('支付状态错误');
-		}
+		data = { "awardId": awardId, "passData": { "orderId": orderId, "bagId": bagId }, "price": price, "name": productName };
+		game.ExternalInterface.call(ExtFuncName.Pay, JSON.stringify(data));
 	}
 	private onSelectPayModelHandler(data: any)
 	{
@@ -97,21 +79,45 @@ class Channel_ios extends ChannelBase
 		//通过post发送数据给服务器
 		if (data)
 		{
-			let awardId: number = this.ParseAwardId(data.productId);
-			let def: table.IPayListDefine = ShopDefined.GetInstance().getDefinitionByAwardId(awardId);
-			if (def != null)
-			{
-				this.PostDataToServer(data.passData, data.receipt, awardId);
-			}
-			else
-			{
-				UIManager.closePanel(UIModuleName.PayMaskPanel);
-			}
+			this.reqApppayPurches(data);
 		}
 		else
 		{
 			UIManager.closePanel(UIModuleName.PayMaskPanel);
+			game.Console.log("sdkPaySucceed apple服务器验证支付失败 data:null");
 		}
+	}
+	/**
+     * 请求 apple 支付验证
+     */
+	private reqApppayPurches(data: any)
+	{
+		let checkData = new msg.C2GW_ReqApplePayCheck();
+		let passdata = JSON.parse(data.passData);
+		if (passdata.orderId.indexOf(game.LoginManager.loginUserInfo.account) == -1 || passdata.orderId.indexOf(UserManager.userInfo.roleId) == -1)
+		{
+			game.Console.log("非法支付passdata", data.passData);
+			return;
+		}
+		let arr = data.passData.split("-");
+		checkData.issandbox = arr[3];
+		checkData.receipt = data.receipt;
+		// checkData.state = data.state;
+		checkData.transactionIdentifier = data.transactionIdentifier;
+		checkData.productIdentifier = data.productIdentifier;
+		let callBack: Function = function (result: game.SpRpcResult)
+		{
+
+			game.Console.log("服务器验证支付成功" + data.receipt);
+			game.ExternalInterface.call(ExtFuncName.DeleteOrder, data.receipt);
+		};
+		let errorCallBack: Function = function (result: game.SpRpcResult)
+		{
+			let message: string = (data == '-1') ? '非法支付' : '支付失败';
+			AlertManager.showAlert(message, null, null, null, null, data);
+			game.Console.log("apple服务器验证支付失败");
+		};
+		SocketManager.call(Command.C2GW_ReqApplePayCheck, checkData, callBack, errorCallBack, this);
 	}
 	/// <summary>
 	/// 将商品名转化为product id
