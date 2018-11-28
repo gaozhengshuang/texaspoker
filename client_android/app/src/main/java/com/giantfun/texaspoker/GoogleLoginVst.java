@@ -14,8 +14,6 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class GoogleLoginVst {
     private static final int RC_SIGN_IN = 56855;
@@ -30,22 +28,24 @@ public class GoogleLoginVst {
 
     //初始化您的 Activity 时，请检查用户当前是否已登录：
     public void onStart() {
-        account = GoogleSignIn.getLastSignedInAccount(_target);
 // Android 4.0 之后不能在主线程中请求HTTP请求
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                String result = HttpClient.doGet("https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=" + _target.googleLoginVst.account.getIdToken());
-                try {
-                    JSONObject obj = new JSONObject(result);
-                    if (obj != null && obj.getString("error_description") != "") {
-                        account = null;
+        final GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(_target);
+        if (acct != null) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    String result = HttpClient.doGet("https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=" + acct.getIdToken());
+                    if(result!=null && result.indexOf("error_description") == -1)
+                    {
+                        account = acct;
                     }
-                } catch (JSONException e) {
-
+                    else
+                    {
+                        Log.d("GoogleLoginVst", "google idtoken 过期了");
+                    }
                 }
-            }
-        }).start();
+            }).start();
+        }
     }
 
     public boolean isGoogleServiceAvaliable() {

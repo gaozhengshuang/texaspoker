@@ -177,6 +177,7 @@ message C2GW_PushVipTime {
 message C2GW_ReqGooglePayCheck {
 	optional string purchasetoken = 1;
 	optional string productid = 2;
+	optional string pakagename = 3;
 }
 
 //返回googlepay谷歌支付验证结果
@@ -193,6 +194,7 @@ message C2GW_ReqApplePayCheck {
 	optional string receipt = 3;
 	optional string transactionidentifier = 4;
 	optional int32 	issandbox = 5; //0正式 1沙箱测试
+	optional string bundleid = 6;
 }
 
 //返回apple支付验证结果 

@@ -102,6 +102,8 @@ class Channel_ios extends ChannelBase
 		let arr = data.passData.split("-");
 		checkData.issandbox = arr[3];
 		checkData.receipt = data.receipt;
+		checkData.bundleid = ChannelManager.bundleId;
+
 		// checkData.state = data.state;
 		// checkData.transactionIdentifier = data.transactionIdentifier;
 		// checkData.productIdentifier = data.productIdentifier;

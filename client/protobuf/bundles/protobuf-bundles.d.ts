@@ -14533,6 +14533,9 @@ declare namespace msg {
 
         /** C2L_ReqLoginApple face */
         face?: (string|null);
+
+        /** C2L_ReqLoginApple bundleid */
+        bundleid?: (string|null);
     }
 
     /** Represents a C2L_ReqLoginApple. */
@@ -14564,6 +14567,9 @@ declare namespace msg {
 
         /** C2L_ReqLoginApple face. */
         public face: string;
+
+        /** C2L_ReqLoginApple bundleid. */
+        public bundleid: string;
 
         /**
          * Creates a new C2L_ReqLoginApple instance using the specified properties.
@@ -14650,6 +14656,9 @@ declare namespace msg {
 
         /** C2L_ReqLoginGoogle face */
         face?: (string|null);
+
+        /** C2L_ReqLoginGoogle clientid */
+        clientid?: (string|null);
     }
 
     /** Represents a C2L_ReqLoginGoogle. */
@@ -14672,6 +14681,9 @@ declare namespace msg {
 
         /** C2L_ReqLoginGoogle face. */
         public face: string;
+
+        /** C2L_ReqLoginGoogle clientid. */
+        public clientid: string;
 
         /**
          * Creates a new C2L_ReqLoginGoogle instance using the specified properties.
@@ -14758,6 +14770,9 @@ declare namespace msg {
 
         /** C2L_ReqLoginFaceBook face */
         face?: (string|null);
+
+        /** C2L_ReqLoginFaceBook appid */
+        appid?: (string|null);
     }
 
     /** Represents a C2L_ReqLoginFaceBook. */
@@ -14780,6 +14795,9 @@ declare namespace msg {
 
         /** C2L_ReqLoginFaceBook face. */
         public face: string;
+
+        /** C2L_ReqLoginFaceBook appid. */
+        public appid: string;
 
         /**
          * Creates a new C2L_ReqLoginFaceBook instance using the specified properties.
@@ -18772,6 +18790,9 @@ declare namespace msg {
 
         /** C2GW_ReqGooglePayCheck productid */
         productid?: (string|null);
+
+        /** C2GW_ReqGooglePayCheck pakagename */
+        pakagename?: (string|null);
     }
 
     /** Represents a C2GW_ReqGooglePayCheck. */
@@ -18788,6 +18809,9 @@ declare namespace msg {
 
         /** C2GW_ReqGooglePayCheck productid. */
         public productid: string;
+
+        /** C2GW_ReqGooglePayCheck pakagename. */
+        public pakagename: string;
 
         /**
          * Creates a new C2GW_ReqGooglePayCheck instance using the specified properties.
@@ -18979,6 +19003,9 @@ declare namespace msg {
 
         /** C2GW_ReqApplePayCheck issandbox */
         issandbox?: (number|null);
+
+        /** C2GW_ReqApplePayCheck bundleid */
+        bundleid?: (string|null);
     }
 
     /** Represents a C2GW_ReqApplePayCheck. */
@@ -19004,6 +19031,9 @@ declare namespace msg {
 
         /** C2GW_ReqApplePayCheck issandbox. */
         public issandbox: number;
+
+        /** C2GW_ReqApplePayCheck bundleid. */
+        public bundleid: string;
 
         /**
          * Creates a new C2GW_ReqApplePayCheck instance using the specified properties.

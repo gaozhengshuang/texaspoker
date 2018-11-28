@@ -77,6 +77,8 @@ public class InteractionJsVst {
                 initMap.put("hasfacebook", hasfb);
                 String hasGp = CheckApkExist.checkGooglePlayExist(_target) ? "true" : "false";
                 initMap.put("hasgoogleplay", hasGp);
+                initMap.put("clientid", _target.getString(R.string.google_web_client_id));
+                initMap.put("facebook_appid", _target.getString(R.string.facebook_app_id));
                 String mapStr = new JSONObject(initMap).toString();
                 _target.nativeAndroid.callExternalInterface(ExtFuncName.Initialize, mapStr);
                 FrameLayout ly = _target.nativeAndroid.getRootFrameLayout();
