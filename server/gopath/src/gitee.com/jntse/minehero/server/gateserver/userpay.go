@@ -67,7 +67,7 @@ func HttpsPostSkipVerifyByJson(url, body string) (*network.HttpResponse, error) 
 
 //谷歌支付验证
 func (u *GateUser) OnGooglePayCheck(purchasetoken, productid, packageName, orderid string) {
-	log.Info("OnGooglePayCheck uid:%d, productid:%s, purchasetoken:%s, packageName:%s ", u.Id(), productid, purchasetoken, packageName)
+	log.Info("OnGooglePayCheck uid:%d, productid:%s, purchasetoken:%s, packageName:%s, orderid:%s", u.Id(), productid, purchasetoken, packageName, orderid)
 	send := &msg.GW2C_RetGooglePayCheck{}
 	send.Purchasetoken = pb.String(purchasetoken)
 	send.Productid = pb.String(productid)
@@ -129,12 +129,18 @@ func (u *GateUser) OnGooglePayCheck(purchasetoken, productid, packageName, order
 				u.IncrPayCheckFailCount()
 				break
 			}
-			orderId := ""
+			_orderId := ""
 			if _, ok := respinfo["orderId"]; ok {
-				orderId = respinfo["orderId"].(string)
+				_orderId = respinfo["orderId"].(string)
 			}
-			u.TakeGooglePayOrderRecord(productid, orderId)
-			if u.OnGooglePayCheckSuccess(productid, orderId) == false {
+			if _orderId != orderid {
+				log.Error("玩家[%d] GooglePayCheck 订单验证失败 orderid不匹配 orderid:%s,  _orderId:%s", u.Id(), orderid, _orderId)
+				errorcode = "orderid not same"
+				u.IncrPayCheckFailCount()
+				break
+			}
+			u.TakeGooglePayOrderRecord(productid, _orderId)
+			if u.OnGooglePayCheckSuccess(productid, _orderId) == false {
 				errorcode = fmt.Sprintf("take award fail productid:%s", productid)
 				break
 			}
