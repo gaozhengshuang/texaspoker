@@ -761,7 +761,8 @@ func on_C2GW_ReqGooglePayCheck(session network.IBaseNetSession, message interfac
 	purchasetoken := tmsg.GetPurchasetoken()
 	productid := tmsg.GetProductid()
 	pakagename := tmsg.GetPakagename()
-	u.OnGooglePayCheck(purchasetoken, productid, pakagename)
+	orderid := tmsg.GetOrderid()
+	u.OnGooglePayCheck(purchasetoken, productid, pakagename, orderid)
 }
 
 func on_C2GW_ReqApplePayCheck(session network.IBaseNetSession, message interface{}) {

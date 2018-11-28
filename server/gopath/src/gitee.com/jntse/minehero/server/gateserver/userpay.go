@@ -66,12 +66,26 @@ func HttpsPostSkipVerifyByJson(url, body string) (*network.HttpResponse, error) 
 
 
 //谷歌支付验证
-func (u *GateUser) OnGooglePayCheck(purchasetoken, productid, packageName string) {
+func (u *GateUser) OnGooglePayCheck(purchasetoken, productid, packageName, orderid string) {
 	log.Info("OnGooglePayCheck uid:%d, productid:%s, purchasetoken:%s, packageName:%s ", u.Id(), productid, purchasetoken, packageName)
 	send := &msg.GW2C_RetGooglePayCheck{}
 	send.Purchasetoken = pb.String(purchasetoken)
 	send.Productid = pb.String(productid)
 	errorcode := ""
+	if u.IsPayCheckForbidenUser() == true {
+		log.Error("GooglePayCheck 玩家[%d] 恶意刷单", u.Id())
+		errorcode = "check failed too much!"
+		send.Errcode = pb.String(errorcode)
+		u.SendMsg(send)
+		return
+	}
+	errorcode = u.CheckGooglePayOrderRecord(orderid)
+	if errorcode != "" {
+		send.Errcode = pb.String(errorcode)
+		u.SendMsg(send)
+		return 
+	}
+
 	bfind := false
 	client_id := ""
 	client_secret := ""
@@ -112,16 +126,14 @@ func (u *GateUser) OnGooglePayCheck(purchasetoken, productid, packageName string
 			if statuscode != 0 {
 				log.Error("玩家[%d] GooglePayCheck 订单验证失败 statuscode：%d", u.Id(), statuscode)
 				errorcode = fmt.Sprintf("GooglePayCheck Fail purchaseState:%d", statuscode)
+				u.IncrPayCheckFailCount()
 				break
 			}
 			orderId := ""
 			if _, ok := respinfo["orderId"]; ok {
 				orderId = respinfo["orderId"].(string)
 			}
-			errorcode = u.CheckAndTakeGooglePayOrderRecord(productid, orderId)
-			if errorcode != "" {
-				break
-			}
+			u.TakeGooglePayOrderRecord(productid, orderId)
 			if u.OnGooglePayCheckSuccess(productid, orderId) == false {
 				errorcode = fmt.Sprintf("take award fail productid:%s", productid)
 				break
@@ -198,8 +210,8 @@ func (u *GateUser) CheckPurchaseToken(purchasetoken, productid, packageName, cli
 	return "", resp
 }
 
-//服务器自己的支付订单记录 检查与创建 防止重复刷单
-func (u *GateUser) CheckAndTakeGooglePayOrderRecord(productid, orderid string) string {
+//服务器自己的支付订单记录 检查重复订单
+func (u *GateUser) CheckGooglePayOrderRecord(orderid string) string {
 	strkey := fmt.Sprintf("googlepay_%s", orderid)
 	//检查是否重复订单
 	orderexist, _ := Redis().Exists(strkey).Result()
@@ -207,11 +219,16 @@ func (u *GateUser) CheckAndTakeGooglePayOrderRecord(productid, orderid string) s
 		log.Error("玩家[%d] googlepay fail has same orderid :%s", u.Id(), orderid)
 		return "Fail reduplicate orderid"
 	}
+	return ""
+}
+
+//服务器自己的支付订单记录
+func (u *GateUser) TakeGooglePayOrderRecord(productid, orderid string) {
+	strkey := fmt.Sprintf("googlepay_%s", orderid)
 	//订单记录
 	mfields := map[string]interface{}{"productid":productid, "uid":u.Id()}
 	Redis().HMSet(strkey, mfields)
 	log.Info("玩家[%d] google pay 支付成功创建订单记录 orderid:%s, productid%s", u.Id(), orderid, productid)
-	return ""
 }
 
 //支付确认成功之后发奖
@@ -366,4 +383,21 @@ func (u *GateUser) OnApplePayCheckSuccess (productid, transactionid string) bool
 		log.Error("玩家[%d] apple 支付购买商品发奖失败 没找到对应的award productid:%s, awardid:%d, transactionid:%s ", productid, awardid, transactionid)
 		return false
 	}
+}
+
+//订单验证失败玩家验证限速 防止恶意刷单
+func (u *GateUser) IncrPayCheckFailCount() {
+	strkey := fmt.Sprintf("paycheckfail_%d", u.Id())
+	Redis().Incr(strkey)
+	Redis().Expire(strkey, 300*time.Second)
+}
+
+//检查是否是处在限制中 的玩家验证 如果判定5分钟内发起订单验证失败次数达到10次 则认为存在恶意刷单行为 返回true则5分钟内不许再发起验证
+func (u *GateUser) IsPayCheckForbidenUser() bool {
+	strkey := fmt.Sprintf("paycheckfail_%d", u.Id())
+	failper300s, _ := Redis().Get(strkey).Int64()
+	if failper300s >= 10 {
+		return true
+	}
+	return false
 }
