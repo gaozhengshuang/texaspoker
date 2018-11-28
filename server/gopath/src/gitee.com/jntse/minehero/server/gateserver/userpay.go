@@ -122,7 +122,10 @@ func (u *GateUser) OnGooglePayCheck(purchasetoken, productid, packageName string
 			if errorcode != "" {
 				break
 			}
-			u.OnGooglePayCheckSuccess(productid, orderId)
+			if u.OnGooglePayCheckSuccess(productid, orderId) == false {
+				errorcode = fmt.Sprintf("take award fail productid:%s", productid)
+				break
+			}
 		}
 	}
 	send.Errcode = pb.String(errorcode)
@@ -212,24 +215,23 @@ func (u *GateUser) CheckAndTakeGooglePayOrderRecord(productid, orderid string) s
 }
 
 //支付确认成功之后发奖
-func (u *GateUser) OnGooglePayCheckSuccess (productid, orderid string) {
-	awardid := int32(0)
-	for _, v := range tbl.PayListBase.PayListById {
-		if v.GoogleProductId == productid {
-			awardid = v.AwardId		
-			break
-		}
-	}
+func (u *GateUser) OnGooglePayCheckSuccess (productid, orderid string) bool {
+	ss := strings.Split(productid,".")
+	awardid := int32(util.Atoi(ss[len(ss) - 1]))
+	log.Info("玩家[%d] google 支付购买商品 productid:%s, awardid:%d",u.Id(),  productid, awardid)
+
 	if awardid != 0 {
 		if u.GetActivityAwardByAwardId(awardid, "GooglePay付费购买") == true{
 			log.Info("玩家[%d] google 支付购买商品发奖成功 productid:%s, awardid:%d, orderid:%s ", u.Id(), productid, awardid, orderid)
+			return true
 		} else {
 			log.Error("玩家[%d] google 支付购买商品发奖失败 productid:%s, awardid:%d, orderid:%s ", u.Id(), productid, awardid, orderid)
+			return false
 		}
 	}else {
 		log.Error("玩家[%d] google 支付购买商品发奖失败 没找到对应的award productid:%s, awardid:%d, orderid:%s ", u.Id(), productid, awardid, orderid)
+		return false
 	}
-
 }
 
 //apple支付验证 
@@ -320,7 +322,10 @@ func (u *GateUser) OnApplePayCheck (productIdentifier, state, receipt, transacti
 		if errcode != "" {
 			break
 		}
-		u.OnApplePayCheckSuccess(productIdentifier, transactionIdentifier)
+		if u.OnApplePayCheckSuccess(productIdentifier, transactionIdentifier) == false {
+			errcode = fmt.Sprintf("take award fail productid:%s", productIdentifier)
+			break
+		}
 	}
 	send.Errcode = pb.String(errcode)
 	u.SendMsg(send)
@@ -344,21 +349,21 @@ func (u *GateUser) CheckAndTakeApplePayOrderRecord(productid, transactionid stri
 }
 
 //支付确认成功之后发奖
-func (u *GateUser) OnApplePayCheckSuccess (productid, transactionid string) {
-	awardid := int32(0)
-	for _, v := range tbl.PayListBase.PayListById {
-		if v.AppleProductId == productid {
-			awardid = v.AwardId		
-			break
-		}
-	}
+func (u *GateUser) OnApplePayCheckSuccess (productid, transactionid string) bool {
+	ss := strings.Split(productid,".")
+	awardid := int32(util.Atoi(ss[len(ss) - 1]))
+	log.Info("玩家[%d] apple 支付购买商品 productid:%s, awardid:%d",u.Id(),  productid, awardid)
+	
 	if awardid != 0 {
 		if u.GetActivityAwardByAwardId(awardid, "ApplePay付费购买") == true{
 			log.Info("玩家[%d] apple 支付购买商品发奖成功 productid:%s, awardid:%d, transactionid:%s ", productid, awardid, transactionid)
+			return true
 		} else {
 			log.Error("玩家[%d] apple 支付购买商品发奖失败 productid:%s, awardid:%d, transactionid:%s ", productid, awardid, transactionid)
+			return false
 		}
 	}else {
 		log.Error("玩家[%d] apple 支付购买商品发奖失败 没找到对应的award productid:%s, awardid:%d, transactionid:%s ", productid, awardid, transactionid)
+		return false
 	}
 }
