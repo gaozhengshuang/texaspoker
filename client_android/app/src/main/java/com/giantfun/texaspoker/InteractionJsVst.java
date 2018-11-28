@@ -10,7 +10,6 @@ import com.giant.gamelib.ChannelLoginType;
 import com.giant.gamelib.CheckApkExist;
 import com.giant.gamelib.ExtFuncName;
 import com.giant.gamelib.GameLib;
-import com.giant.gamelib.HttpClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import org.egret.runtime.launcherInterface.INativePlayer;
