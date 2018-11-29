@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.util.Log;
 
 
+import com.giant.gamelib.GameLib;
 import com.giant.gamelib.HttpClient;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -30,6 +31,7 @@ public class GoogleLoginVst {
     public void onStart() {
 // Android 4.0 之后不能在主线程中请求HTTP请求
         final GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(_target);
+//        account = acct;
         if (acct != null) {
             new Thread(new Runnable() {
                 @Override

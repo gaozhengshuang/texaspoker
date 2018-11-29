@@ -198,7 +198,7 @@ class SocketManager
 	private static OnLoadingTimeout()
 	{
 		SocketManager.Close();
-		AlertManager.showAlertObj({ confirmLabel: "网络超时", message: "网络连接超时，请检查您的网络是否正常并重试！", OnConfirm: SocketManager.OnClickReconnect, isSingle: true });
+		AlertManager.showAlertObj({ confirmLabel: "重新登录", message: "网络连接超时，请检查您的网络是否正常并重试！", OnConfirm: SocketManager.OnClickReLogin, isSingle: true }); //move todo OnClickReconnect 重连原来
 	}
 	//------------------------------------------------------------------
 	// Send 可重复连续发送
