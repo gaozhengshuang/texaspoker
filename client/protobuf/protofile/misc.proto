@@ -178,6 +178,7 @@ message C2GW_ReqGooglePayCheck {
 	optional string purchasetoken = 1;
 	optional string productid = 2;
 	optional string pakagename = 3;
+	optional string orderid = 4;
 }
 
 //返回googlepay谷歌支付验证结果

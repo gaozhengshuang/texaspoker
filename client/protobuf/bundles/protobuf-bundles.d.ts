@@ -18793,6 +18793,9 @@ declare namespace msg {
 
         /** C2GW_ReqGooglePayCheck pakagename */
         pakagename?: (string|null);
+
+        /** C2GW_ReqGooglePayCheck orderid */
+        orderid?: (string|null);
     }
 
     /** Represents a C2GW_ReqGooglePayCheck. */
@@ -18812,6 +18815,9 @@ declare namespace msg {
 
         /** C2GW_ReqGooglePayCheck pakagename. */
         public pakagename: string;
+
+        /** C2GW_ReqGooglePayCheck orderid. */
+        public orderid: string;
 
         /**
          * Creates a new C2GW_ReqGooglePayCheck instance using the specified properties.
@@ -41312,12 +41318,6 @@ declare namespace table {
         /** PayListDefine AwardId */
         AwardId?: (number|null);
 
-        /** PayListDefine AppleProductId */
-        AppleProductId?: (string|null);
-
-        /** PayListDefine GoogleProductId */
-        GoogleProductId?: (string|null);
-
         /** PayListDefine Type */
         Type?: (number|null);
 
@@ -41345,12 +41345,6 @@ declare namespace table {
 
         /** PayListDefine AwardId. */
         public AwardId: number;
-
-        /** PayListDefine AppleProductId. */
-        public AppleProductId: string;
-
-        /** PayListDefine GoogleProductId. */
-        public GoogleProductId: string;
 
         /** PayListDefine Type. */
         public Type: number;
