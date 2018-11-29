@@ -8,6 +8,7 @@ import (
 	"time"
 )
 
+//每日新增一条的统计数据
 type BiData_daily struct {
 	user_incr 	int32 //日新增用户数量
 	user_pay  	int32 //日付费用户数量
