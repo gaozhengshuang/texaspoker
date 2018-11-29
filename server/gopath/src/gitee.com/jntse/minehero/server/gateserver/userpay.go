@@ -246,6 +246,9 @@ func (u *GateUser) OnGooglePayCheckSuccess (productid, orderid string) bool {
 	if awardid != 0 {
 		if u.GetActivityAwardByAwardId(awardid, "GooglePay付费购买") == true{
 			log.Info("玩家[%d] google 支付购买商品发奖成功 productid:%s, awardid:%d, orderid:%s ", u.Id(), productid, awardid, orderid)
+			config, _ := tbl.AwardBase.AwardById[awardid]
+			amount := int32(config.CostNum[0])
+			BiMgr().OnUserPay(u.Id(),amount)
 			return true
 		} else {
 			log.Error("玩家[%d] google 支付购买商品发奖失败 productid:%s, awardid:%d, orderid:%s ", u.Id(), productid, awardid, orderid)
@@ -380,6 +383,9 @@ func (u *GateUser) OnApplePayCheckSuccess (productid, transactionid string) bool
 	if awardid != 0 {
 		if u.GetActivityAwardByAwardId(awardid, "ApplePay付费购买") == true{
 			log.Info("玩家[%d] apple 支付购买商品发奖成功 productid:%s, awardid:%d, transactionid:%s ", productid, awardid, transactionid)
+			config, _ := tbl.AwardBase.AwardById[awardid]
+			amount := int32(config.CostNum[0])
+		BiMgr().OnUserPay(u.Id(),amount)
 			return true
 		} else {
 			log.Error("玩家[%d] apple 支付购买商品发奖失败 productid:%s, awardid:%d, transactionid:%s ", productid, awardid, transactionid)

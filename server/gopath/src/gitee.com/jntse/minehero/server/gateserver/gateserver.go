@@ -87,6 +87,7 @@ type GateServer struct {
 	dbsql      		*mysql.MysqlDriver
 	rankmgr      	RankManager
 	statisticsmgr 	StatisticsManager
+	bimgr 			BiDataManager
 }
 
 var g_GateServer *GateServer = nil
@@ -128,6 +129,10 @@ func RoomSvrMgr() *RoomSvrManager {
 
 func StatisticsMgr() *StatisticsManager {
 	return &GateSvr().statisticsmgr
+}
+
+func BiMgr() *BiDataManager {
+	return &GateSvr().bimgr
 }
 
 func RCounter() *util.RedisCounter {
@@ -287,6 +292,7 @@ func (g *GateServer) Init(fileconf string) bool {
 	g.roomsvrmgr.Init()
 	g.statisticsmgr.Init()
 	g.InitMySql()
+	g.bimgr.Init()
 	//g.countmgr.Init()
 	//g.gamemgr.Init()
 	g.tickers = append(g.tickers, util.NewGameTicker(60*time.Second, g.Handler1mTick))
@@ -323,6 +329,7 @@ func (g *GateServer) InitMySql() {
 
 func (g *GateServer) Handler1mTick(now int64) {
 	g.rcounter.BatchSave(20)
+	g.bimgr.OnTick1m()
 
 }
 

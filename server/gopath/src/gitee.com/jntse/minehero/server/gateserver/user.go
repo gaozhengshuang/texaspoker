@@ -489,7 +489,7 @@ func (u *GateUser) AsynSaveFeedback() {
 func (u *GateUser) OnCreateNew() {
 	//玩家创建时间
 	u.statistics.createdtime = util.CURTIME()
-	//u.TestItem()
+	BiMgr().OnNewUserCreate()
 }
 
 // 上线回调，玩家数据在LoginOk中发送
@@ -521,7 +521,7 @@ func (u *GateUser) Online(session network.IBaseNetSession, way string) bool {
 	// 上线任务检查
 	u.OnlineTaskCheck()
 	u.friends.Online()
-
+	BiMgr().OnUserLogin(u.Id())
 	// 同步数据到客户端
 	u.Syn()
 	// 同步midas平台充值金额
@@ -697,6 +697,8 @@ func (u *GateUser) UserDailyReset() {
 	}
 	log.Info("玩家[%s]跨天重置 uid:%d",u.Name() ,u.Id())
 	Redis().HSet(fmt.Sprintf("charstate_%d", u.Id()), "dailyresetstamp", todaysec)
+	Redis().HDel(fmt.Sprintf("charstate_%d", u.Id()), "dailylogin")
+	Redis().HDel(fmt.Sprintf("charstate_%d", u.Id()), "dailypay")
 	u.ActivityResetByDay()
 	u.DailyResetAchieve()
 	u.VipDailyCheck(laststamp, todaysec)

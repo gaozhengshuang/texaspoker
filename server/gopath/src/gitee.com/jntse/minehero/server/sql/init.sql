@@ -23,4 +23,15 @@ CREATE TABLE `charbase` (
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
-
+DROP TABLE IF EXISTS `bidata_daily`;
+CREATE TABLE `bidata_daily` (
+	`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+	`date` datetime NOT NULL COMMENT '创建时间',
+	`user_incr` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '日增用户数量',
+	`user_pay` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '本日付费用户数量',
+	`user_login` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '本日登录用户数量',
+	`pay_amount` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '本日的充值总额',
+	`pay_orders` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '充值单数',
+	`timestamp` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '更新的时间戳',
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
