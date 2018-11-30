@@ -286,12 +286,16 @@ func (g *GateServer) Init(fileconf string) bool {
 	}
 	g.hourmonitor = hourmonitor
 
+	if g.InitMySql() == false {
+		log.Error("初始化mysql失败")
+		return false
+	}
+
 	//
 	g.usermgr.Init()
 	g.waitpool.Init()
 	g.roomsvrmgr.Init()
 	g.statisticsmgr.Init()
-	g.InitMySql()
 	g.bimgr.Init()
 	//g.countmgr.Init()
 	//g.gamemgr.Init()
@@ -307,24 +311,24 @@ func (g *GateServer) Init(fileconf string) bool {
 	return true
 }
 
-func (g *GateServer) InitMySql() {
-	g.dbsql	= &mysql.MysqlDriver{}
-	opt := &mysql.MysqlInitOption{}
-	opt.User 	= tbl.Mysql.User
-	opt.Passwd 	= tbl.Mysql.Passwd
-	opt.Addr 	= tbl.Mysql.Address
-	opt.Port 	= int32(tbl.Mysql.Port)
-	opt.Database = tbl.Mysql.Database
-	opt.MaxIdleConn = int32(tbl.Mysql.Connectnum)
-	g.dbsql.Init(opt)
+func (g *GateServer) InitMySql() bool {
+	mysqlconf := &mysql.MysqlConf{}
+	jsonerr := util.JsonConfParser("../conf/mysql.json", mysqlconf)
+	if jsonerr != nil || mysqlconf == nil {
+		log.Error("解析Mysql配置失败[%s]", jsonerr)
+		return false
+	}
+	log.Info("加载mysql配置ok...")
 
+	g.dbsql = &mysql.MysqlDriver{}
+	g.dbsql.Init(mysqlconf)
 	if err := g.dbsql.Open(); err != nil {
-		log.Info("连接Mysql数据库失败[%#v] 原因[%s]", opt, err)
-		return
+		log.Info("连接Mysql数据库失败[%#v] 原因[%s]", mysqlconf, err)
+		return false
 	}
 
-	log.Info("连接Mysql数据库成功[%v]", opt)
-	return
+	log.Info("连接Mysql数据库成功[%#v]", mysqlconf)
+	return true
 }
 
 func (g *GateServer) Handler1mTick(now int64) {
