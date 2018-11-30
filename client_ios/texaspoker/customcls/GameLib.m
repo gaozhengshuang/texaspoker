@@ -8,23 +8,25 @@
 
 #import "GameLib.h"
 #import <AdSupport/AdSupport.h>
-#import "KeychainItemWrapper.h"
+#import <UIKit/UIKit.h>
+//#import "KeychainItemWrapper.h"
 
 @implementation GameLib
 
 +(NSString*)getUUId
 {
-    KeychainItemWrapper *keyChainItemQin=[[KeychainItemWrapper alloc]initWithIdentifier:@"com.qingame.warlord.chinaappstore" accessGroup:nil];
-    
-    NSString *strUUID = [keyChainItemQin objectForKey:(id)kSecAttrAccount];
-    NSLog(@"strUUID:++++++%@",strUUID);
-    if (strUUID==nil||[strUUID isEqualToString:@""])
-    {
-        NSLog(@"new value:++++++%@__%@",kSecAttrAccount,kSecAttrAccount);
-        strUUID = [[[NSUUID UUID] UUIDString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
-        [keyChainItemQin setObject:strUUID forKey:(id)kSecAttrAccount];
-    }
-    return strUUID;
+//    KeychainItemWrapper *keyChainItemQin=[[KeychainItemWrapper alloc]initWithIdentifier:@"com.qingame.warlord.chinaappstore" accessGroup:nil];
+//
+//    NSString *strUUID = [keyChainItemQin objectForKey:(id)kSecAttrAccount];
+//    NSLog(@"strUUID:++++++%@",strUUID);
+//    if (strUUID==nil||[strUUID isEqualToString:@""])
+//    {
+//        NSLog(@"new value:++++++%@__%@",kSecAttrAccount,kSecAttrAccount);
+//        strUUID = [[[NSUUID UUID] UUIDString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
+//        [keyChainItemQin setObject:strUUID forKey:(id)kSecAttrAccount];
+//    }
+    NSString *identifierForVendor = [[UIDevice currentDevice].identifierForVendor UUIDString];
+    return identifierForVendor;
 }
 
 /*!
@@ -86,5 +88,11 @@
     NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
     return [data objectForKey:key];
 }
-
+//fb 是否安装
++(BOOL) isFacebookInstalled
+{
+    BOOL isInstalled = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"fb://"]];
+    
+    return isInstalled;
+}
 @end

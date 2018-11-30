@@ -7,11 +7,9 @@
 //
 
 #import "InAppPurchaseManager.h"
-#import "AppDelegate.h"
 
 NSString *productId;
 NSString *appusername;
-AppDelegate *target;
 
 //是否可以处理程序
 BOOL iosCanLoadTempTransactions = NO;
@@ -19,9 +17,8 @@ BOOL iosCanLoadTempTransactions = NO;
 @implementation InAppPurchaseManager
 
 //viewDidLoad 初始化调用
-- (void)initBuy:(AppDelegate *)tgt
+- (void)initBuy
 {
-    target = tgt;
     iosCanLoadTempTransactions = true;
     [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
 }
@@ -127,7 +124,7 @@ BOOL iosCanLoadTempTransactions = NO;
         {
             NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:0 error:NULL];
             NSString* message = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-            UnitySendMessage("ChannelGameObject","PaySucceed",[message UTF8String]);
+//            UnitySendMessage("ChannelGameObject","PaySucceed",[message UTF8String]);
         }
         else
         {
@@ -165,7 +162,7 @@ BOOL iosCanLoadTempTransactions = NO;
 // 当交易失败
 - (void)failedTransaction:(SKPaymentTransaction *)transaction
 {
-    UnitySendMessage("ChannelGameObject","PayFailed",[transaction.payment.applicationUsername UTF8String]);
+//    UnitySendMessage("ChannelGameObject","PayFailed",[transaction.payment.applicationUsername UTF8String]);
     if (transaction.error.code != SKErrorPaymentCancelled)
     {
         //UnitySendMessage("ChannelGameObject","PayError",[[NSString stringWithFormat:@"支付失败:%ld",transaction.error.code] UTF8String]);
@@ -174,7 +171,7 @@ BOOL iosCanLoadTempTransactions = NO;
     }
     else
     {
-        UnitySendMessage("ChannelGameObject","PayCancel","");
+//        UnitySendMessage("ChannelGameObject","PayCancel","");
         // this is fine, the user just cancelled, so don’t notify
         [self finishTransaction:transaction];
     }

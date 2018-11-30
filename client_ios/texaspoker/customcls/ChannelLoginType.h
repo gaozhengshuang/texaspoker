@@ -10,8 +10,8 @@
 #define ChannelType_h
 
 //game center login
-extern NSString * const  ChannelLoginType_GameCenter = "GameCenter";
+extern NSString * const  ChannelLoginType_GameCenter = @"GameCenter";
 //face book login
-extern NSString * const ChannelLoginType_FaceBook = "FaceBook";
+extern NSString * const ChannelLoginType_FaceBook = @"FaceBook";
 
 #endif /* ChannelType_h */
