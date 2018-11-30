@@ -3,25 +3,25 @@
 
 module table {
 export var PayList : table.IPayListDefine[] = [
-		{ Id : 1, AwardId : 801, AppleProductId : "", GoogleProductId : "a_poker_test", Type : 1, IgnoreInPanel : 0, IconName : "jiubei_1", IsWhiteView : 0 	},
-		{ Id : 2, AwardId : 802, AppleProductId : "", GoogleProductId : "", Type : 1, IgnoreInPanel : 0, IconName : "jiubei_2", IsWhiteView : 0 	},
-		{ Id : 3, AwardId : 803, AppleProductId : "", GoogleProductId : "", Type : 1, IgnoreInPanel : 0, IconName : "jiubei_3", IsWhiteView : 0 	},
-		{ Id : 4, AwardId : 804, AppleProductId : "", GoogleProductId : "", Type : 1, IgnoreInPanel : 0, IconName : "jiubei_4", IsWhiteView : 0 	},
-		{ Id : 5, AwardId : 805, AppleProductId : "", GoogleProductId : "", Type : 1, IgnoreInPanel : 0, IconName : "jiubei_5", IsWhiteView : 0 	},
-		{ Id : 6, AwardId : 806, AppleProductId : "", GoogleProductId : "", Type : 1, IgnoreInPanel : 0, IconName : "jiubei_6", IsWhiteView : 0 	},
-		{ Id : 7, AwardId : 821, AppleProductId : "", GoogleProductId : "", Type : 2, IgnoreInPanel : 0, IconName : "mall_zs_1", IsWhiteView : 0 	},
-		{ Id : 8, AwardId : 822, AppleProductId : "", GoogleProductId : "", Type : 2, IgnoreInPanel : 0, IconName : "mall_zs_2", IsWhiteView : 0 	},
-		{ Id : 9, AwardId : 823, AppleProductId : "", GoogleProductId : "", Type : 2, IgnoreInPanel : 0, IconName : "mall_zs_3", IsWhiteView : 0 	},
-		{ Id : 10, AwardId : 824, AppleProductId : "", GoogleProductId : "", Type : 2, IgnoreInPanel : 0, IconName : "mall_zs_4", IsWhiteView : 0 	},
-		{ Id : 11, AwardId : 825, AppleProductId : "", GoogleProductId : "", Type : 2, IgnoreInPanel : 0, IconName : "mall_zs_5", IsWhiteView : 0 	},
-		{ Id : 12, AwardId : 826, AppleProductId : "", GoogleProductId : "", Type : 2, IgnoreInPanel : 0, IconName : "mall_zs_6", IsWhiteView : 0 	},
-		{ Id : 13, AwardId : 101, AppleProductId : "", GoogleProductId : "", Type : 3, IgnoreInPanel : 0, IconName : "vip_3", IsWhiteView : 0 	},
-		{ Id : 14, AwardId : 102, AppleProductId : "", GoogleProductId : "", Type : 3, IgnoreInPanel : 0, IconName : "vip_2", IsWhiteView : 0 	},
-		{ Id : 15, AwardId : 103, AppleProductId : "", GoogleProductId : "", Type : 3, IgnoreInPanel : 0, IconName : "vip_1", IsWhiteView : 0 	},
-		{ Id : 16, AwardId : 827, AppleProductId : "", GoogleProductId : "", Type : 4, IgnoreInPanel : 1, IconName : "monthCard1", IsWhiteView : 0 	},
-		{ Id : 17, AwardId : 828, AppleProductId : "", GoogleProductId : "", Type : 4, IgnoreInPanel : 1, IconName : "monthCard2", IsWhiteView : 0 	},
-		{ Id : 18, AwardId : 104, AppleProductId : "", GoogleProductId : "", Type : 5, IgnoreInPanel : 0, IconName : "xiaolaba_1", IsWhiteView : 0 	},
-		{ Id : 19, AwardId : 105, AppleProductId : "", GoogleProductId : "", Type : 5, IgnoreInPanel : 0, IconName : "xiaolaba_2", IsWhiteView : 0 	}
+		{ Id : 1, AwardId : 801, Type : 1, IgnoreInPanel : 0, IconName : "jiubei_1", IsWhiteView : 0 	},
+		{ Id : 2, AwardId : 802, Type : 1, IgnoreInPanel : 0, IconName : "jiubei_2", IsWhiteView : 0 	},
+		{ Id : 3, AwardId : 803, Type : 1, IgnoreInPanel : 0, IconName : "jiubei_3", IsWhiteView : 0 	},
+		{ Id : 4, AwardId : 804, Type : 1, IgnoreInPanel : 0, IconName : "jiubei_4", IsWhiteView : 0 	},
+		{ Id : 5, AwardId : 805, Type : 1, IgnoreInPanel : 0, IconName : "jiubei_5", IsWhiteView : 0 	},
+		{ Id : 6, AwardId : 806, Type : 1, IgnoreInPanel : 0, IconName : "jiubei_6", IsWhiteView : 0 	},
+		{ Id : 7, AwardId : 821, Type : 2, IgnoreInPanel : 0, IconName : "mall_zs_1", IsWhiteView : 0 	},
+		{ Id : 8, AwardId : 822, Type : 2, IgnoreInPanel : 0, IconName : "mall_zs_2", IsWhiteView : 0 	},
+		{ Id : 9, AwardId : 823, Type : 2, IgnoreInPanel : 0, IconName : "mall_zs_3", IsWhiteView : 0 	},
+		{ Id : 10, AwardId : 824, Type : 2, IgnoreInPanel : 0, IconName : "mall_zs_4", IsWhiteView : 0 	},
+		{ Id : 11, AwardId : 825, Type : 2, IgnoreInPanel : 0, IconName : "mall_zs_5", IsWhiteView : 0 	},
+		{ Id : 12, AwardId : 826, Type : 2, IgnoreInPanel : 0, IconName : "mall_zs_6", IsWhiteView : 0 	},
+		{ Id : 13, AwardId : 101, Type : 3, IgnoreInPanel : 0, IconName : "vip_3", IsWhiteView : 0 	},
+		{ Id : 14, AwardId : 102, Type : 3, IgnoreInPanel : 0, IconName : "vip_2", IsWhiteView : 0 	},
+		{ Id : 15, AwardId : 103, Type : 3, IgnoreInPanel : 0, IconName : "vip_1", IsWhiteView : 0 	},
+		{ Id : 16, AwardId : 827, Type : 4, IgnoreInPanel : 1, IconName : "monthCard1", IsWhiteView : 0 	},
+		{ Id : 17, AwardId : 828, Type : 4, IgnoreInPanel : 1, IconName : "monthCard2", IsWhiteView : 0 	},
+		{ Id : 18, AwardId : 104, Type : 5, IgnoreInPanel : 0, IconName : "xiaolaba_1", IsWhiteView : 0 	},
+		{ Id : 19, AwardId : 105, Type : 5, IgnoreInPanel : 0, IconName : "xiaolaba_2", IsWhiteView : 0 	}
 	]
 
 
