@@ -15,6 +15,7 @@ type BiData_daily struct {
 	user_login 	int32 //日登录用户数量
 	pay_amount 	int32 //日充值总额度
 	pay_orders 	int32 //日充值订单数
+	online_max 	int32 //日最高在线人数
 
 	lasttick 	int64 
 }
@@ -25,16 +26,17 @@ func (this *BiData_daily) Init(now int64) {
 	bInsertNew := false
 	//查找最新的一条记录
 	sqlstr := "SELECT  timestamp FROM bidata_daily ORDER BY id DESC LIMIT 1"
-	rows, err := db.Query(sqlstr)
-	if err != nil{
-		log.Error("bidata_daily init query err: %v\n", err)
+	rows1, err1 := db.Query(sqlstr)
+	defer rows1.Close()
+	if err1 != nil{
+		log.Error("bidata_daily init query err: %v\n", err1)
 		return
 	}
-	if rows.Next() {
+	if rows1.Next() {
 		timestamp := int64(0)
-		err = rows.Scan(&timestamp)
-		if err != nil {
-			log.Error("bidata_daily init scan err: %v\n", err)
+		err1 = rows1.Scan(&timestamp)
+		if err1 != nil {
+			log.Error("bidata_daily init scan err: %v\n", err1)
 			return
 		}
 		if util.IsSameDay(timestamp, now) == false {
@@ -47,14 +49,15 @@ func (this *BiData_daily) Init(now int64) {
 	if bInsertNew {
 		this.InsertNewDailyData(now)
 	} else {
-		sqlstr := "SELECT user_incr, user_pay, user_login, pay_amount, pay_orders FROM bidata_daily ORDER BY id DESC LIMIT 1"
+		sqlstr := "SELECT user_incr, user_pay, user_login, pay_amount, pay_orders, online_max FROM bidata_daily ORDER BY id DESC LIMIT 1"
 		rows, err := db.Query(sqlstr)
+		defer rows.Close()
 		if err != nil{
 			log.Error("bidata_daily init query err: %v\n", err)
 			return
 		}
 		if rows.Next() {
-			err = rows.Scan(&this.user_incr, &this.user_pay, &this.user_login, &this.pay_amount, &this.pay_orders)
+			err = rows.Scan(&this.user_incr, &this.user_pay, &this.user_login, &this.pay_amount, &this.pay_orders, &this.online_max)
 			if err != nil {
 				log.Error("bidata_daily init scan err: %v\n", err)
 				return
@@ -78,10 +81,11 @@ func (this *BiData_daily) InsertNewDailyData(now int64) {
 	this.user_login = 0
 	this.pay_amount = 0
 	this.pay_orders = 0
+	this.online_max = 0
 }
 
 func (this *BiData_daily) Update(now int64) {
-	sqlstr := fmt.Sprintf("UPDATE bidata_daily set user_incr='%d', user_pay='%d', user_login='%d', pay_amount='%d', pay_orders='%d' WHERE 1 ORDER BY id DESC LIMIT 1", this.user_incr, this.user_pay, this.user_login, this.pay_amount, this.pay_orders)
+	sqlstr := fmt.Sprintf("UPDATE bidata_daily set user_incr='%d', user_pay='%d', user_login='%d', pay_amount='%d', pay_orders='%d', online_max='%d' WHERE 1 ORDER BY id DESC LIMIT 1", this.user_incr, this.user_pay, this.user_login, this.pay_amount, this.pay_orders, this.online_max)
 	db := DB()
 	_, err := db.Exec(sqlstr)
 	if err != nil {
@@ -99,6 +103,10 @@ func (this *BiData_daily) OnNewUserCreate() {
 }
 
 func (this *BiData_daily) OnUserLogin(uid int64) {
+	onlines := int32(len(UserMgr().accounts))
+	if onlines > this.online_max {
+		this.online_max = onlines
+	}
 	//判断是否是本日第一次登录 若是则login + 1
 	dailylogin := Redis().HGet(fmt.Sprintf("charstate_%d", uid), "dailylogin").Val()
 	if dailylogin == "" {

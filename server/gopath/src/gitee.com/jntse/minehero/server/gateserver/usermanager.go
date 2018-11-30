@@ -108,6 +108,7 @@ func (m *UserManager) CreateNewUser(session network.IBaseNetSession, account, ke
 
 	WaitPool().Remove(account)
 	m.AddUser(user)
+	BiMgr().OnUserLogin(user.Id())
 	log.Info("当前在线人数:%d", m.AmountOnline())
 	return user, ""
 }
@@ -117,6 +118,7 @@ func (m *UserManager) LoginByCache(session network.IBaseNetSession, user *GateUs
 	if user.Online(session, "使用缓存登陆") == false {
 		return "Online失败"
 	}
+	BiMgr().OnUserLogin(user.Id())
 	log.Info("当前在线人数:%d", m.AmountOnline())
 	return ""
 }
