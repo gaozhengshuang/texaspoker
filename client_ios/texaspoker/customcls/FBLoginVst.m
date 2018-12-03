@@ -17,6 +17,7 @@
 }
 -(void)initialize_fb:(UIViewController*) view
 {
+    [FBSDKProfile enableUpdatesOnAccessTokenChange:YES];
     viewCtrl = view;
     //侦听登录变更的事件
     [[NSNotificationCenter defaultCenter] addObserverForName:FBSDKAccessTokenDidChangeNotification
@@ -44,27 +45,28 @@
          } else {
              NSLog(@"Logged in");
              
-             NSMutableDictionary *userdict = [[NSMutableDictionary alloc] init];
-             
-             [userdict setObject:result.token.tokenString forKey:@"token"];
-             [userdict setObject:result.token.userID forKey:@"openId"];
-             FBSDKProfile *proFile = [FBSDKProfile currentProfile];
-             if(proFile != nil)
-             {
-                 [userdict setObject:proFile.linkURL forKey:@"face"];
-                 [userdict setObject:proFile.name forKey:@"nickname"];
-             }
-             else
-             {
-                 [userdict setObject:@"" forKey:@"face"];
-                 [userdict setObject:@"" forKey:@"nickname"];
-             }
-             
-             NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-             [nc postNotificationName: @"interactionJsVst-loginSuccess"   // 消息名（字符串）
-                               object:self                                // 消息源
-                             userInfo:userdict];
-//             [self getUserInfoWithResult:result token:result.token.tokenString openId:result.token.userID];
+//             NSMutableDictionary *userdict = [[NSMutableDictionary alloc] init];
+//
+//             [userdict setObject:result.token.tokenString forKey:@"token"];
+//             [userdict setObject:result.token.userID forKey:@"openId"];
+//             FBSDKProfile *proFile = [FBSDKProfile currentProfile];
+//             if(proFile != nil)
+//             {
+//                 NSLog(@"fb头像路径%@,host%@, query%@", [proFile.linkURL path] ,[proFile.linkURL host], [proFile.linkURL query]   );
+//                 [userdict setObject:[proFile.linkURL absoluteString] forKey:@"face"];
+//                 [userdict setObject:proFile.name forKey:@"nickname"];
+//             }
+//             else
+//             {
+//                 [userdict setObject:@"" forKey:@"face"];
+//                 [userdict setObject:@"" forKey:@"nickname"];
+//             }
+//
+//             NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+//             [nc postNotificationName: @"interactionJsVst-loginSuccess"   // 消息名（字符串）
+//                               object:self                                // 消息源
+//                             userInfo:userdict];
+             [self getUserInfoWithResult:result token:result.token.tokenString openId:result.token.userID];
          }
      }];
 }
@@ -80,18 +82,36 @@
                                   HTTPMethod:@"GET"];
     [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
         NSLog(@"%@",result);
-        NSMutableDictionary *userdict = [[NSMutableDictionary alloc] init];
-        
-        
-        [userdict setObject:tk forKey:@"token"];
-        [userdict setObject:oid forKey:@"openId"];
-        [userdict setObject:@"" forKey:@"face"];
-        [userdict setObject:@"" forKey:@"nickName"];
-        
-        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-        [nc postNotificationName: @"interactionJsVst-loginSuccess"   // 消息名（字符串）
-                          object:self                                // 消息源
-                        userInfo:userdict];
+        @try
+        {
+            NSString* resStr = [GameLib jsonClassConvertToJosnStringWithJsonClass:result];
+            NSDictionary *rDict = [GameLib dictionaryWithJsonString:resStr];
+            NSMutableDictionary *userdict = [[NSMutableDictionary alloc] init];
+            
+            [userdict setObject:tk forKey:@"token"];
+            [userdict setObject:oid forKey:@"openId"];
+            [userdict setObject:[[[rDict objectForKey:@"picture"] objectForKey:@"data"] objectForKey:@"url"] forKey:@"face"];
+            [userdict setObject:[rDict objectForKey:@"name"] forKey:@"nickname"];
+            
+            NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+            [nc postNotificationName: @"interactionJsVst-loginSuccess"   // 消息名（字符串）
+                              object:self                                // 消息源
+                            userInfo:userdict];
+        }
+        @catch (NSException * e) {
+            NSMutableDictionary *userdict = [[NSMutableDictionary alloc] init];
+            
+            [userdict setObject:tk forKey:@"token"];
+            [userdict setObject:oid forKey:@"openId"];
+            [userdict setObject:@"" forKey:@"face"];
+            [userdict setObject:@"" forKey:@"nickname"];
+            
+            NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+            [nc postNotificationName: @"interactionJsVst-loginSuccess"   // 消息名（字符串）
+                              object:self                                // 消息源
+                            userInfo:userdict];
+            
+        }
         
         /*
          {

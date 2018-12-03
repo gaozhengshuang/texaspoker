@@ -122,7 +122,16 @@
         }
         else if([message isEqual: ChannelLoginType_FaceBook])
         {
-            [_fbLoginVst login];
+            FBSDKAccessToken *token = [FBSDKAccessToken currentAccessToken];
+            if (token != nil) {
+                [self loginSuccess:[token tokenString] openId:[token userID] nickName:@"" face:@""];
+                //FBSDKAccessToken 包含 userID，您可以使用此编号识别用户。
+                // User is logged in, do work such as go to next view controller.
+            }
+            else
+            {
+                [_fbLoginVst login];
+            }
         }
         NSLog(@"白鹭login数据：%@", message);
     }];

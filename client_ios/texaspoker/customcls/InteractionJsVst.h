@@ -14,7 +14,6 @@
 @property (nonatomic, nullable) NSString* loginType;
 -(void)initialize_inter:(EgretNativeIOS*)ntv viewController:(UIViewController *) view;
 -(void)gameCenterInit:(NSNumber*)code;
--(void)loginSuccess:(NSString *)token openId:(NSString*) oId extraData:(NSString *)extData;
 -(void)loginFailed:(NSNumber*)code;
 -(void)loginout;
 @end
