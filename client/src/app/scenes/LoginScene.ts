@@ -284,6 +284,7 @@ class LoginScene extends BaseScene
                 game.LoginManager.faceBookLogin(data.token, data.openid, data.nickname, data.face);
                 break;
             case ChannelLoginType.GameCenter:
+                game.LoginManager.gameCenterLogin(data.openid, data.keyurl,data.signature, data.timestamp, data.salt, data.nickname, data.face);
                 break;
             case ChannelLoginType.GooglePlay:
                 game.LoginManager.googlePlayLogin(data.token, data.openid, data.nickname, data.face);
