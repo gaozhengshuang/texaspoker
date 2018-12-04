@@ -56,12 +56,12 @@ NSString *QingShopItemName;
 //viewDidLoad 初始化调用
 - (void)initBuy
 {
-    iosCanLoadTempTransactions = true;
     [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
 }
 //检测未完成的支付
 - (void)checkUnFinishedPayList
 {
+    iosCanLoadTempTransactions = true;
     NSArray* transactions = [SKPaymentQueue defaultQueue].transactions;
     if (transactions.count > 0)
     {
