@@ -91,6 +91,7 @@ module game
                 NotificationCenter.once(LoginManager, () =>
                 {
                     let data = new msg.C2L_ReqLoginApple();
+                    LoginManager.loginUserInfo = { account: "apple-" + openid };
                     data.openid = openid;
                     data.keyurl = keyurl;
                     data.signature = signature;
