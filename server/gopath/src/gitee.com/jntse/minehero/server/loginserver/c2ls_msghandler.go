@@ -278,6 +278,7 @@ func on_C2L_ReqLoginApple(session network.IBaseNetSession, message interface{}) 
 	tm1 := util.CURTIMEUS()
 	tmsg := message.(*msg.C2L_ReqLoginApple)
 	openid, keyurl, signature, timestamp, salt, nickname, face, bundleid :=  tmsg.GetOpenid(), tmsg.GetKeyurl(), tmsg.GetSignature(), tmsg.GetTimestamp(), tmsg.GetSalt(), tmsg.GetNickname(), tmsg.GetFace(), tmsg.GetBundleid()
+	//log.Info("ReqLoginApple openid:%s, keyurl:%s, signature:%s, timestamp:%s, salt:%s, nickname:%s, face:%s, bundleid:%s", openid,keyurl,signature,timestamp,salt,nickname,face,bundleid)
 	errcode := ""
 
 	account := fmt.Sprintf("apple-%s",openid)
