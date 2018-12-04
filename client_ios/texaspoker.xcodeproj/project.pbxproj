@@ -26,19 +26,17 @@
 		3077067A20215DF600548664 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3077067920215DF600548664 /* libsqlite3.tbd */; };
 		307B49CF2059046B003D64E0 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 307B49CE2059046B003D64E0 /* AdSupport.framework */; };
 		30CE267B2063AC44000F4D0D /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 30CE267A2063AC44000F4D0D /* icon.png */; };
-		30E559EA200F1DE2001C0B78 /* libEgretNativeIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 30E559E9200F1DE2001C0B78 /* libEgretNativeIOS.a */; };
-		69264C0021A7B68A00A23FE5 /* InAppPurchaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69264BFE21A7B68A00A23FE5 /* InAppPurchaseManager.m */; };
 		69264C0221A7E36100A23FE5 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69264C0121A7E36100A23FE5 /* StoreKit.framework */; };
-		69264C0521A7E6FF00A23FE5 /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 69264C0421A7E6FE00A23FE5 /* KeychainItemWrapper.m */; };
 		69264C0721A7E78500A23FE5 /* giantconfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 69264C0621A7E78500A23FE5 /* giantconfig.plist */; };
-		6939A67F21A53C7500FB0A8D /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6939A67E21A53C7500FB0A8D /* Bolts.framework */; };
-		6939A68121A53C8B00FB0A8D /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6939A68021A53C8B00FB0A8D /* FBSDKCoreKit.framework */; };
-		6939A68321A53C9800FB0A8D /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6939A68221A53C9800FB0A8D /* FBSDKLoginKit.framework */; };
-		6939A68621A544E000FB0A8D /* FBLoginVst.m in Sources */ = {isa = PBXBuildFile; fileRef = 6939A68521A544E000FB0A8D /* FBLoginVst.m */; };
-		699B109F21A3F7A100B7F0C6 /* GameCenterSdkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699B109E21A3F7A100B7F0C6 /* GameCenterSdkController.m */; };
-		699B10D421A3FE7500B7F0C6 /* InteractionJsVst.m in Sources */ = {isa = PBXBuildFile; fileRef = 699B10D321A3FE7500B7F0C6 /* InteractionJsVst.m */; };
-		699B10E021A405FC00B7F0C6 /* gamelib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 699B10DE21A4055900B7F0C6 /* gamelib.framework */; };
-		699B10FD21A40BCC00B7F0C6 /* GameLib.m in Sources */ = {isa = PBXBuildFile; fileRef = 699B10FC21A40BCC00B7F0C6 /* GameLib.m */; };
+		696C504E21B11D7100F7A26B /* libEgretNativeIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 696C504C21B11CF200F7A26B /* libEgretNativeIOS.a */; };
+		696C505C21B11F1A00F7A26B /* InteractionJsVst.m in Sources */ = {isa = PBXBuildFile; fileRef = 696C505021B11F1A00F7A26B /* InteractionJsVst.m */; };
+		696C505D21B11F1A00F7A26B /* FBLoginVst.m in Sources */ = {isa = PBXBuildFile; fileRef = 696C505221B11F1A00F7A26B /* FBLoginVst.m */; };
+		696C505F21B11F1A00F7A26B /* InAppPurchaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 696C505421B11F1A00F7A26B /* InAppPurchaseManager.m */; };
+		696C506021B11F1A00F7A26B /* GameLib.m in Sources */ = {isa = PBXBuildFile; fileRef = 696C505721B11F1A00F7A26B /* GameLib.m */; };
+		696C506821B1210200F7A26B /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696C506721B1210200F7A26B /* Bolts.framework */; };
+		696C506B21B1212A00F7A26B /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696C506921B1212900F7A26B /* FBSDKLoginKit.framework */; };
+		696C506C21B1212A00F7A26B /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696C506A21B1212A00F7A26B /* FBSDKCoreKit.framework */; };
+		696C507421B123FD00F7A26B /* GameCenterSdkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696C507321B123FD00F7A26B /* GameCenterSdkController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,27 +66,24 @@
 		3077067920215DF600548664 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		307B49CE2059046B003D64E0 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		30CE267A2063AC44000F4D0D /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
-		30E559E9200F1DE2001C0B78 /* libEgretNativeIOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libEgretNativeIOS.a; path = "egret-libs/libEgretNativeIOS.a"; sourceTree = "<group>"; };
-		69264BFE21A7B68A00A23FE5 /* InAppPurchaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InAppPurchaseManager.m; sourceTree = "<group>"; };
-		69264BFF21A7B68A00A23FE5 /* InAppPurchaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InAppPurchaseManager.h; sourceTree = "<group>"; };
 		69264C0121A7E36100A23FE5 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		69264C0321A7E6FE00A23FE5 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
-		69264C0421A7E6FE00A23FE5 /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
 		69264C0621A7E78500A23FE5 /* giantconfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = giantconfig.plist; sourceTree = "<group>"; };
-		6939A67E21A53C7500FB0A8D /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
-		6939A68021A53C8B00FB0A8D /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
-		6939A68221A53C9800FB0A8D /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
-		6939A68421A544E000FB0A8D /* FBLoginVst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBLoginVst.h; sourceTree = "<group>"; };
-		6939A68521A544E000FB0A8D /* FBLoginVst.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBLoginVst.m; sourceTree = "<group>"; };
-		699B109E21A3F7A100B7F0C6 /* GameCenterSdkController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameCenterSdkController.m; sourceTree = "<group>"; };
-		699B10A121A3F82200B7F0C6 /* GameCenterSdkController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameCenterSdkController.h; sourceTree = "<group>"; };
-		699B10D221A3FE7500B7F0C6 /* InteractionJsVst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InteractionJsVst.h; sourceTree = "<group>"; };
-		699B10D321A3FE7500B7F0C6 /* InteractionJsVst.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InteractionJsVst.m; sourceTree = "<group>"; };
-		699B10DE21A4055900B7F0C6 /* gamelib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = gamelib.framework; sourceTree = "<group>"; };
-		699B10FA21A408D500B7F0C6 /* ExtFuncName.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtFuncName.h; sourceTree = "<group>"; };
-		699B10FB21A40BCC00B7F0C6 /* GameLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameLib.h; sourceTree = "<group>"; };
-		699B10FC21A40BCC00B7F0C6 /* GameLib.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameLib.m; sourceTree = "<group>"; };
-		699B10FE21A429F500B7F0C6 /* ChannelLoginType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChannelLoginType.h; sourceTree = "<group>"; };
+		696C504C21B11CF200F7A26B /* libEgretNativeIOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libEgretNativeIOS.a; sourceTree = "<group>"; };
+		696C505021B11F1A00F7A26B /* InteractionJsVst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InteractionJsVst.m; sourceTree = "<group>"; };
+		696C505121B11F1A00F7A26B /* GameLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLib.h; sourceTree = "<group>"; };
+		696C505221B11F1A00F7A26B /* FBLoginVst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBLoginVst.m; sourceTree = "<group>"; };
+		696C505421B11F1A00F7A26B /* InAppPurchaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InAppPurchaseManager.m; sourceTree = "<group>"; };
+		696C505521B11F1A00F7A26B /* ChannelLoginType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelLoginType.h; sourceTree = "<group>"; };
+		696C505621B11F1A00F7A26B /* InteractionJsVst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InteractionJsVst.h; sourceTree = "<group>"; };
+		696C505721B11F1A00F7A26B /* GameLib.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameLib.m; sourceTree = "<group>"; };
+		696C505821B11F1A00F7A26B /* InAppPurchaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InAppPurchaseManager.h; sourceTree = "<group>"; };
+		696C505A21B11F1A00F7A26B /* FBLoginVst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBLoginVst.h; sourceTree = "<group>"; };
+		696C505B21B11F1A00F7A26B /* ExtFuncName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtFuncName.h; sourceTree = "<group>"; };
+		696C506721B1210200F7A26B /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		696C506921B1212900F7A26B /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		696C506A21B1212A00F7A26B /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		696C507221B123FD00F7A26B /* GameCenterSdkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenterSdkController.h; sourceTree = "<group>"; };
+		696C507321B123FD00F7A26B /* GameCenterSdkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCenterSdkController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,15 +91,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				696C506B21B1212A00F7A26B /* FBSDKLoginKit.framework in Frameworks */,
+				696C504E21B11D7100F7A26B /* libEgretNativeIOS.a in Frameworks */,
 				69264C0221A7E36100A23FE5 /* StoreKit.framework in Frameworks */,
-				699B10E021A405FC00B7F0C6 /* gamelib.framework in Frameworks */,
 				307B49CF2059046B003D64E0 /* AdSupport.framework in Frameworks */,
-				6939A68321A53C9800FB0A8D /* FBSDKLoginKit.framework in Frameworks */,
-				6939A68121A53C8B00FB0A8D /* FBSDKCoreKit.framework in Frameworks */,
-				30E559EA200F1DE2001C0B78 /* libEgretNativeIOS.a in Frameworks */,
 				3077067A20215DF600548664 /* libsqlite3.tbd in Frameworks */,
 				3077067820215DF200548664 /* MediaPlayer.framework in Frameworks */,
 				306A7ABF200C89C000E1EBB6 /* OpenGLES.framework in Frameworks */,
+				696C506C21B1212A00F7A26B /* FBSDKCoreKit.framework in Frameworks */,
 				306A7ABD200C89B900E1EBB6 /* JavaScriptCore.framework in Frameworks */,
 				306A7ABB200C898400E1EBB6 /* libicucore.tbd in Frameworks */,
 				306A7AB7200C892500E1EBB6 /* libiconv.tbd in Frameworks */,
@@ -114,7 +108,7 @@
 				306A7AB1200C890300E1EBB6 /* OpenAL.framework in Frameworks */,
 				306A7AAD200C88EA00E1EBB6 /* AudioToolbox.framework in Frameworks */,
 				306A7AAB200C88E500E1EBB6 /* AVFoundation.framework in Frameworks */,
-				6939A67F21A53C7500FB0A8D /* Bolts.framework in Frameworks */,
+				696C506821B1210200F7A26B /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,7 +151,7 @@
 				306A7A97200C83F500E1EBB6 /* ViewController.mm */,
 				306A7A9C200C83F500E1EBB6 /* Assets.xcassets */,
 				306A7AA1200C83F500E1EBB6 /* Info.plist */,
-				699B10D021A3FDBC00B7F0C6 /* customcls */,
+				696C504F21B11F1A00F7A26B /* customcls */,
 				306A7A90200C83F500E1EBB6 /* Supporting Files */,
 				69264C0621A7E78500A23FE5 /* giantconfig.plist */,
 			);
@@ -175,15 +169,14 @@
 		306A7AA7200C88C500E1EBB6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				696C506A21B1212A00F7A26B /* FBSDKCoreKit.framework */,
+				696C506921B1212900F7A26B /* FBSDKLoginKit.framework */,
+				696C506721B1210200F7A26B /* Bolts.framework */,
+				696C504C21B11CF200F7A26B /* libEgretNativeIOS.a */,
 				69264C0121A7E36100A23FE5 /* StoreKit.framework */,
-				6939A68221A53C9800FB0A8D /* FBSDKLoginKit.framework */,
-				6939A68021A53C8B00FB0A8D /* FBSDKCoreKit.framework */,
-				6939A67E21A53C7500FB0A8D /* Bolts.framework */,
-				699B10DE21A4055900B7F0C6 /* gamelib.framework */,
 				307B49CE2059046B003D64E0 /* AdSupport.framework */,
 				3077067920215DF600548664 /* libsqlite3.tbd */,
 				3077067720215DF200548664 /* MediaPlayer.framework */,
-				30E559E9200F1DE2001C0B78 /* libEgretNativeIOS.a */,
 				305DF7D2200DB603008022B6 /* libSupport.a */,
 				306A7ABE200C89C000E1EBB6 /* OpenGLES.framework */,
 				306A7ABC200C89B900E1EBB6 /* JavaScriptCore.framework */,
@@ -201,23 +194,21 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		699B10D021A3FDBC00B7F0C6 /* customcls */ = {
+		696C504F21B11F1A00F7A26B /* customcls */ = {
 			isa = PBXGroup;
 			children = (
-				69264C0321A7E6FE00A23FE5 /* KeychainItemWrapper.h */,
-				69264C0421A7E6FE00A23FE5 /* KeychainItemWrapper.m */,
-				69264BFF21A7B68A00A23FE5 /* InAppPurchaseManager.h */,
-				69264BFE21A7B68A00A23FE5 /* InAppPurchaseManager.m */,
-				699B10A121A3F82200B7F0C6 /* GameCenterSdkController.h */,
-				699B109E21A3F7A100B7F0C6 /* GameCenterSdkController.m */,
-				699B10D221A3FE7500B7F0C6 /* InteractionJsVst.h */,
-				699B10D321A3FE7500B7F0C6 /* InteractionJsVst.m */,
-				699B10FA21A408D500B7F0C6 /* ExtFuncName.h */,
-				699B10FB21A40BCC00B7F0C6 /* GameLib.h */,
-				699B10FC21A40BCC00B7F0C6 /* GameLib.m */,
-				699B10FE21A429F500B7F0C6 /* ChannelLoginType.h */,
-				6939A68421A544E000FB0A8D /* FBLoginVst.h */,
-				6939A68521A544E000FB0A8D /* FBLoginVst.m */,
+				696C505621B11F1A00F7A26B /* InteractionJsVst.h */,
+				696C505021B11F1A00F7A26B /* InteractionJsVst.m */,
+				696C507221B123FD00F7A26B /* GameCenterSdkController.h */,
+				696C507321B123FD00F7A26B /* GameCenterSdkController.m */,
+				696C505A21B11F1A00F7A26B /* FBLoginVst.h */,
+				696C505221B11F1A00F7A26B /* FBLoginVst.m */,
+				696C505821B11F1A00F7A26B /* InAppPurchaseManager.h */,
+				696C505421B11F1A00F7A26B /* InAppPurchaseManager.m */,
+				696C505521B11F1A00F7A26B /* ChannelLoginType.h */,
+				696C505121B11F1A00F7A26B /* GameLib.h */,
+				696C505721B11F1A00F7A26B /* GameLib.m */,
+				696C505B21B11F1A00F7A26B /* ExtFuncName.h */,
 			);
 			path = customcls;
 			sourceTree = "<group>";
@@ -253,7 +244,7 @@
 				TargetAttributes = {
 					306A7A8C200C83F500E1EBB6 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 76XQVDD32N;
+						DevelopmentTeam = 9HS9JLRARF;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -295,15 +286,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				69264C0021A7B68A00A23FE5 /* InAppPurchaseManager.m in Sources */,
 				306A7A98200C83F500E1EBB6 /* ViewController.mm in Sources */,
-				699B10D421A3FE7500B7F0C6 /* InteractionJsVst.m in Sources */,
-				699B109F21A3F7A100B7F0C6 /* GameCenterSdkController.m in Sources */,
-				699B10FD21A40BCC00B7F0C6 /* GameLib.m in Sources */,
+				696C505D21B11F1A00F7A26B /* FBLoginVst.m in Sources */,
+				696C507421B123FD00F7A26B /* GameCenterSdkController.m in Sources */,
 				306A7A95200C83F500E1EBB6 /* AppDelegate.mm in Sources */,
-				6939A68621A544E000FB0A8D /* FBLoginVst.m in Sources */,
 				306A7A92200C83F500E1EBB6 /* main.m in Sources */,
-				69264C0521A7E6FF00A23FE5 /* KeychainItemWrapper.m in Sources */,
+				696C505F21B11F1A00F7A26B /* InAppPurchaseManager.m in Sources */,
+				696C506021B11F1A00F7A26B /* GameLib.m in Sources */,
+				696C505C21B11F1A00F7A26B /* InteractionJsVst.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,7 +396,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 76XQVDD32N;
+				DEVELOPMENT_TEAM = 9HS9JLRARF;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -416,10 +406,15 @@
 				INFOPLIST_FILE = texaspoker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/egret-libs";
-				OTHER_LDFLAGS = "-ObjC";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/egret-libs",
+					"$(PROJECT_DIR)",
+				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.giantfun.texaspoker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -427,7 +422,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 76XQVDD32N;
+				DEVELOPMENT_TEAM = 9HS9JLRARF;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -437,10 +432,15 @@
 				INFOPLIST_FILE = texaspoker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/egret-libs";
-				OTHER_LDFLAGS = "-ObjC";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/egret-libs",
+					"$(PROJECT_DIR)",
+				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.giantfun.texaspoker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
