@@ -33,7 +33,7 @@
     gameUrl = [gameUrl stringByAppendingString:version];
     
     _native = [[EgretNativeIOS alloc] init];
-    _native.config.showFPS = true;
+    _native.config.showFPS = false;
     _native.config.fpsLogTime = 30;
     _native.config.disableNativeRender = false;
     _native.config.clearCache = false;

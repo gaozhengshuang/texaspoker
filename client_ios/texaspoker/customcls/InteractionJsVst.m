@@ -31,7 +31,7 @@
     _native = ntv;
     //game center login
     _gcsdkCtl = [[GameCenterSdkController alloc] init];
-    [_gcsdkCtl initialize];
+    [_gcsdkCtl initialize:view];
     //支付
     _purchaseMgr = [[InAppPurchaseManager alloc] init];
     [_purchaseMgr initBuy];
@@ -48,12 +48,19 @@
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginFaildHandler:) name:@"interactionJsVst-loginFailed" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginsuccessHandler:) name:@"interactionJsVst-loginSuccess" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginOutHandler:) name:@"interactionJsVst-loginout" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gameCenterInitHandler:) name:@"interactionJsVst-gameCenterInit" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(payResultHandler:) name:@"interactionJsVst-payResult" object:nil];
 }
  - (void) loginFaildHandler:(NSNotification *)note
 {
     if([note.object isEqual:_gcsdkCtl])
     {
         NSLog(@"%@", @"gc 登录失败 failed");
+        //code 3:玩家还没有登录GameCenter，切到后台再切回来登陆，或者去Game Center登陆。
+        //code 2:gc login error
         [self loginFailed:[note.userInfo objectForKey:@"code"]];
     }
     else if([note.object isEqual:_fbLoginVst])
@@ -67,12 +74,30 @@
     if([note.object isEqual:_gcsdkCtl])
     {
          NSLog(@"%@", @"gc 登录成功 success");
+        [self loginSuccess:@"" openId:@"" nickName:@"" face:@"" gameCenterData:note.userInfo];
     }
     else if([note.object isEqual:_fbLoginVst])
     {
         NSLog(@"fb 登录成功 success %@", [GameLib dictionaryToJson:note.userInfo]);
-        [self loginSuccess:[note.userInfo objectForKey:@"token"] openId:[note.userInfo objectForKey:@"openId"] nickName:[note.userInfo objectForKey:@"nickname"] face:[note.userInfo objectForKey:@"face"]];
+        [self loginSuccess:[note.userInfo objectForKey:@"token"] openId:[note.userInfo objectForKey:@"openId"] nickName:[note.userInfo objectForKey:@"nickname"] face:[note.userInfo objectForKey:@"face"] gameCenterData:nil];
     }
+}
+-(void)loginOutHandler:(NSNotification *)note
+{
+    
+}
+-(void)gameCenterInitHandler:(NSNotification *)note
+{
+    //code:0 成功
+    //1:重复初始化
+    //2:初始化error
+    //3:Game Center登出了或者未知错误
+    [self gameCenterInit:[note.userInfo objectForKey:@"code"]];
+}
+
+-(void)payResultHandler:(NSNotification *)note
+{
+    [self payResult:note.userInfo];
 }
 //设置侦听接口
 -(void)setExternalInterfaces
@@ -81,6 +106,7 @@
     [self addLogin];
     [self addCheckLoginState];
     [self addCheckUnFinishedList];
+    [self addPay];
     [self addDeleteOrder];
 }
 
@@ -114,17 +140,18 @@
 //登录
 -(void)addLogin
 {
+    __block InteractionJsVst *sf = self;
     [_native setExternalInterface:Egret_Login Callback:^(NSString* message) {
         _loginType = message;
         if([message isEqual:ChannelLoginType_GameCenter])
         {
-            
+            [_gcsdkCtl login];
         }
         else if([message isEqual: ChannelLoginType_FaceBook])
         {
             FBSDKAccessToken *token = [FBSDKAccessToken currentAccessToken];
             if (token != nil) {
-                [self loginSuccess:[token tokenString] openId:[token userID] nickName:@"" face:@""];
+                [sf loginSuccess:[token tokenString] openId:[token userID] nickName:@"" face:@"" gameCenterData:nil];
                 //FBSDKAccessToken 包含 userID，您可以使用此编号识别用户。
                 // User is logged in, do work such as go to next view controller.
             }
@@ -168,9 +195,23 @@
 -(void)addCheckUnFinishedList
 {
     __block InAppPurchaseManager *phsMgr = _purchaseMgr;
-    [_native setExternalInterface:Egret_CheckLoginState Callback:^(NSString* message) {
+    [_native setExternalInterface:Egret_CheckUnFinishedPayList Callback:^(NSString* message) {
         [phsMgr checkUnFinishedPayList];
         NSLog(@"白鹭Egret_CheckLoginState");
+    }];
+}
+//充值
+-(void) addPay
+{
+    __block InAppPurchaseManager *phsMgr = _purchaseMgr;
+    [_native setExternalInterface:Egret_Pay Callback:^(NSString* message) {
+        NSDictionary *dict = [GameLib dictionaryWithJsonString:message];
+        NSString *productId = [[[NSBundle mainBundle]infoDictionary] objectForKey:@"CFBundleIdentifier"];
+        productId = [productId stringByAppendingString:@"."];
+        productId = [productId stringByAppendingString:  [[dict objectForKey:@"awardId"] stringValue]];
+        NSString *passData = [dict objectForKey:@"passData"];
+        NSLog(@"白鹭Egret_Pay productId:%@ passData:%@", productId, passData);
+        [phsMgr purchaseRequest:productId passData:passData];
     }];
 }
 //添加删除订单侦听
@@ -183,16 +224,24 @@
     }];
 }
 //登录
--(void)loginSuccess:(NSString *)token openId:(NSString*) oId nickName:(NSString *)nickname face:(NSString *)fc
+-(void)loginSuccess:(NSString *)token openId:(NSString*) oId nickName:(NSString *)nickname face:(NSString *)fc gameCenterData:(NSMutableDictionary *)gcData
 {
-    NSMutableDictionary *loginDict = [[NSMutableDictionary alloc] init];
-    [loginDict setObject:token forKey:@"token"];
-    [loginDict setObject:oId forKey:@"openid"];
-    [loginDict setObject:_loginType forKey:@"loginType"];
-    [loginDict setObject:nickname forKey:@"nickname"];
-    [loginDict setObject:fc forKey:@"face"];
-    [loginDict setObject:@"1" forKey:@"status"];
-    [_native callExternalInterface:Egret_Login Value:[GameLib dictionaryToJson:loginDict]];
+    if(gcData == nil)
+    {
+        NSMutableDictionary *loginDict = [[NSMutableDictionary alloc] init];
+        [loginDict setObject:token forKey:@"token"];
+        [loginDict setObject:oId forKey:@"openid"];
+        [loginDict setObject:_loginType forKey:@"loginType"];
+        [loginDict setObject:nickname forKey:@"nickname"];
+        [loginDict setObject:fc forKey:@"face"];
+        [loginDict setObject:@"1" forKey:@"status"];
+        [_native callExternalInterface:Egret_Login Value:[GameLib dictionaryToJson:loginDict]];
+    }
+    else
+    {
+        [gcData setObject:@"1" forKey:@"status"];
+        [_native callExternalInterface:Egret_Login Value:[GameLib dictionaryToJson:gcData]];
+    }
 }
 //登录失败
 -(void)loginFailed:(NSNumber*)code
@@ -216,5 +265,10 @@
     NSMutableDictionary *loginDict = [[NSMutableDictionary alloc] init];
     [loginDict setObject:_loginType forKey:@"loginType"];
     [_native callExternalInterface:Egret_Loginout Value:[GameLib dictionaryToJson:loginDict]];
+}
+//支付结果
+-(void)payResult:(NSDictionary *)dict
+{
+    [_native callExternalInterface:Egret_Pay Value:[GameLib dictionaryToJson:dict]];
 }
 @end

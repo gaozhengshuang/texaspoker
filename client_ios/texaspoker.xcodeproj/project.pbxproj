@@ -37,6 +37,7 @@
 		696C506B21B1212A00F7A26B /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696C506921B1212900F7A26B /* FBSDKLoginKit.framework */; };
 		696C506C21B1212A00F7A26B /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696C506A21B1212A00F7A26B /* FBSDKCoreKit.framework */; };
 		696C507421B123FD00F7A26B /* GameCenterSdkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696C507321B123FD00F7A26B /* GameCenterSdkController.m */; };
+		69A0DA2121B4E5C400EDDC33 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A0DA2021B4E5C400EDDC33 /* GameKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +85,7 @@
 		696C506A21B1212A00F7A26B /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		696C507221B123FD00F7A26B /* GameCenterSdkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenterSdkController.h; sourceTree = "<group>"; };
 		696C507321B123FD00F7A26B /* GameCenterSdkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCenterSdkController.m; sourceTree = "<group>"; };
+		69A0DA2021B4E5C400EDDC33 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 				306A7AB7200C892500E1EBB6 /* libiconv.tbd in Frameworks */,
 				306A7AB5200C891B00E1EBB6 /* libz.tbd in Frameworks */,
 				306A7AB3200C890E00E1EBB6 /* SystemConfiguration.framework in Frameworks */,
+				69A0DA2121B4E5C400EDDC33 /* GameKit.framework in Frameworks */,
 				306A7AAF200C88F600E1EBB6 /* Foundation.framework in Frameworks */,
 				306A7AB1200C890300E1EBB6 /* OpenAL.framework in Frameworks */,
 				306A7AAD200C88EA00E1EBB6 /* AudioToolbox.framework in Frameworks */,
@@ -169,6 +172,7 @@
 		306A7AA7200C88C500E1EBB6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				69A0DA2021B4E5C400EDDC33 /* GameKit.framework */,
 				696C506A21B1212A00F7A26B /* FBSDKCoreKit.framework */,
 				696C506921B1212900F7A26B /* FBSDKLoginKit.framework */,
 				696C506721B1210200F7A26B /* Bolts.framework */,
@@ -246,6 +250,11 @@
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = 9HS9JLRARF;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.GameCenter.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
