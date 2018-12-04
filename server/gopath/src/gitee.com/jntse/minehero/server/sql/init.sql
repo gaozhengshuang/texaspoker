@@ -33,5 +33,6 @@ CREATE TABLE `bidata_daily` (
 	`pay_amount` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '本日的充值总额',
 	`pay_orders` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '充值单数',
 	`timestamp` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '更新的时间戳',
+	`online_max` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '最高在线人数',
 	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

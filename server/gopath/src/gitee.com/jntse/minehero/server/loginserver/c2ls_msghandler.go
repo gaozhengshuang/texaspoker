@@ -12,13 +12,13 @@ import (
 	_"gitee.com/jntse/gotoolkit/eventqueue"
 	"gitee.com/jntse/minehero/server/tbl"
 	"gitee.com/jntse/minehero/pbmsg"
-	"io/ioutil"
+	_"io/ioutil"
 	"net/http"
 	"crypto"
 	"crypto/x509"
 	"crypto/rsa"
 	"crypto/sha256"
-	"crypto/tls"
+	_"crypto/tls"
 	"encoding/base64"
 	"encoding/binary"
 	"bytes"
@@ -283,9 +283,9 @@ func on_C2L_ReqLoginApple(session network.IBaseNetSession, message interface{}) 
 	account := fmt.Sprintf("apple-%s",openid)
 	switch{
 		default:
-		resp, err := HttpsGetSkipVerify(keyurl)
+		resp, err := network.HttpsGetSkipVerify(keyurl)
 		if err != nil {
-			log.Error("ReqLoginApple HttpsGetSkipVerify Error :%s", err)
+			log.Error("ReqLoginApple network.HttpsGetSkipVerify Error :%s", err)
 			errcode = "apple验证获取key出错"
 			break
 		}
@@ -415,9 +415,9 @@ func on_C2L_ReqLoginFaceBook(session network.IBaseNetSession, message interface{
 	url := fmt.Sprintf("https://graph.facebook.com/debug_token?access_token=%s|%s&input_token=%s", appid, appsecret, token)
 	switch {
 		default:
-		resp, err := HttpsGetSkipVerify(url)
+		resp, err := network.HttpsGetSkipVerify(url)
 		if err != nil {
-			log.Error("ReqLoginFaceBook HttpsGetSkipVerify Error :%s", err)
+			log.Error("ReqLoginFaceBook network.HttpsGetSkipVerify Error :%s", err)
 			errcode = "facebook验证出错"
 			break
 		}
@@ -500,24 +500,24 @@ func on_C2L_ReqLoginFaceBook(session network.IBaseNetSession, message interface{
 
 }
 
-func HttpsGetSkipVerify(url string) (*network.HttpResponse, error) {
-	tr := &http.Transport{
-		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-	}
-
-	client := &http.Client{Transport: tr}
-	req, err := http.NewRequest("GET", url, nil)
-	if err != nil { return nil, err }
-
-	// "The client must close the response body when finished with it"
-	resp, err := client.Do(req)
-	if err != nil {  return nil, err }
-	defer resp.Body.Close()
-
-	rbody, err := ioutil.ReadAll(resp.Body)
-	if err != nil { return nil, err }
-	return &network.HttpResponse{Code:resp.StatusCode, Status: resp.Status, Body: rbody}, nil
-}
+//func HttpsGetSkipVerify(url string) (*network.HttpResponse, error) {
+//	tr := &http.Transport{
+//		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+//	}
+//
+//	client := &http.Client{Transport: tr}
+//	req, err := http.NewRequest("GET", url, nil)
+//	if err != nil { return nil, err }
+//
+//	// "The client must close the response body when finished with it"
+//	resp, err := client.Do(req)
+//	if err != nil {  return nil, err }
+//	defer resp.Body.Close()
+//
+//	rbody, err := ioutil.ReadAll(resp.Body)
+//	if err != nil { return nil, err }
+//	return &network.HttpResponse{Code:resp.StatusCode, Status: resp.Status, Body: rbody}, nil
+//}
 
 func on_C2L_ReqLoginGoogle(session network.IBaseNetSession, message interface{}) {
 	tm1 := util.CURTIMEUS()
@@ -542,9 +542,9 @@ func on_C2L_ReqLoginGoogle(session network.IBaseNetSession, message interface{})
 	url := fmt.Sprintf("https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=%s", token)
 	switch {
 		default:
-		resp, err := HttpsGetSkipVerify(url)
+		resp, err := network.HttpsGetSkipVerify(url)
 		if err != nil {
-			log.Error("ReqLoginGoogle HttpsGetSkipVerify Error :%s", err)
+			log.Error("ReqLoginGoogle network.HttpsGetSkipVerify Error :%s", err)
 			errcode = "google验证出错"
 			break
 		}

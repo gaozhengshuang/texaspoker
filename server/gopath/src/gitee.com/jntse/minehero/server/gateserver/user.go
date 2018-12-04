@@ -521,7 +521,6 @@ func (u *GateUser) Online(session network.IBaseNetSession, way string) bool {
 	// 上线任务检查
 	u.OnlineTaskCheck()
 	u.friends.Online()
-	BiMgr().OnUserLogin(u.Id())
 	// 同步数据到客户端
 	u.Syn()
 	// 同步midas平台充值金额

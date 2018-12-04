@@ -7,21 +7,55 @@
 //
 
 #import "InAppPurchaseManager.h"
-#import "AppDelegate.h"
 
 NSString *productId;
 NSString *appusername;
-AppDelegate *target;
 
 //是否可以处理程序
 BOOL iosCanLoadTempTransactions = NO;
 
+//NSString *AppleStoreGuidTemp;//生成guid作为订单号
+int QingShopItemPrice;
+NSString *QingShopItemName;
+
 @implementation InAppPurchaseManager
 
-//viewDidLoad 初始化调用
-- (void)initBuy:(AppDelegate *)tgt
+#pragma mark - SKProductsRequestDelegate
+//接收到产品的返回信息，然后用返回的商品信息进行发起购买请求
+- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response NS_AVAILABLE_IOS(3_0)
 {
-    target = tgt;
+    NSArray *product = response.products;
+    
+    //如果服务器没有产品
+    if([product count] == 0){
+        NSLog(@"没有该商品%@", productId);
+        return;
+    }
+    
+    SKProduct *requestProduct = nil;
+    for (SKProduct *pro in product) {
+        
+        NSLog(@"%@", [pro description]);
+        NSLog(@"%@", [pro localizedTitle]);
+        NSLog(@"%@", [pro localizedDescription]);
+        NSLog(@"%@", [pro price]);
+        NSLog(@"%@", [pro productIdentifier]);
+        
+        //如果后台消费条目的ID与我这里需要请求的一样（用于确保订单的正确性）
+        if([pro.productIdentifier isEqualToString:productId]){
+            requestProduct = pro;
+        }
+    }
+    
+    //发送购买请求
+    SKMutablePayment *payment = [SKMutablePayment paymentWithProduct:requestProduct];
+    payment.applicationUsername = appusername;//可以是userId，也可以是订单id，跟你自己需要而定
+    [[SKPaymentQueue defaultQueue] addPayment:payment];
+}
+
+//viewDidLoad 初始化调用
+- (void)initBuy
+{
     iosCanLoadTempTransactions = true;
     [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
 }
@@ -50,13 +84,37 @@ BOOL iosCanLoadTempTransactions = NO;
     appusername = [[NSString alloc] initWithString:passdata];
     //是否允许内购
     if ([SKPaymentQueue canMakePayments]) {
-        SKMutablePayment *payment = [SKMutablePayment paymentWithProductIdentifier:productid];
-        payment.applicationUsername = appusername;//透传数据
-        [[SKPaymentQueue defaultQueue] addPayment:payment];
+        NSLog(@"用户允许内购");
+        
+        //bundleid+xxx 就是你添加内购条目设置的产品ID
+        NSArray *product = [[NSArray alloc] initWithObjects:productid,nil];
+        NSSet *nsset = [NSSet setWithArray:product];
+        
+        //初始化请求
+        SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:nsset];
+        request.delegate = self;
+        
+        //开始请求
+        [request start];
         
     }else{
         NSLog(@"用户不允许内购");
     }
+    
+//    productId = [[NSString alloc] initWithString:productid];
+//    NSLog(@"发起购买%@",productid);
+//    productid = @"com.giantfun.texaspoker.801";
+//    appusername = [[NSString alloc] initWithString:passdata];
+//    //是否允许内购
+//    if ([SKPaymentQueue canMakePayments]) {
+//        SKMutablePayment *payment = [SKMutablePayment paymentWithProductIdentifier:productid];
+//        payment.applicationUsername = appusername;//透传数据
+//        [[SKPaymentQueue defaultQueue] addPayment:payment];
+//
+//    }else{
+//        NSLog(@"用户不允许内购");
+//    }
+
 }
 
 
@@ -114,20 +172,21 @@ BOOL iosCanLoadTempTransactions = NO;
     NSLog(@"id:%@" , productIdentifier);
     @try
     {
-        NSString *receipt = [self getPurcheReceiptData];
+        NSString *receipt = [transaction.transactionReceipt base64EncodedStringWithOptions:0];
         NSString* passData = transaction.payment.applicationUsername;
         if (transaction.payment.applicationUsername == nil)
         {
             passData = @"";
         }
-        NSDictionary *dict = @{@"productIdentifier":productIdentifier, @"passData":passData,@"receipt":receipt,@"transactionIdentifier":transaction.transactionIdentifier};
+        NSDictionary *dict = @{@"status":@"1", @"productIdentifier":productIdentifier, @"passData":passData,@"receipt":receipt,@"transactionIdentifier":transaction.transactionIdentifier};
         
         BOOL isYes = [NSJSONSerialization isValidJSONObject:dict];
         if (isYes)
         {
-            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:0 error:NULL];
-            NSString* message = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-            UnitySendMessage("ChannelGameObject","PaySucceed",[message UTF8String]);
+//            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:0 error:NULL];
+//            NSString* message = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+            [self postPaySuccess:dict];
+//            UnitySendMessage("ChannelGameObject","PaySucceed",[message UTF8String]);
         }
         else
         {
@@ -165,22 +224,37 @@ BOOL iosCanLoadTempTransactions = NO;
 // 当交易失败
 - (void)failedTransaction:(SKPaymentTransaction *)transaction
 {
-    UnitySendMessage("ChannelGameObject","PayFailed",[transaction.payment.applicationUsername UTF8String]);
+//    UnitySendMessage("ChannelGameObject","PayFailed",[transaction.payment.applicationUsername UTF8String]);
     if (transaction.error.code != SKErrorPaymentCancelled)
     {
         //UnitySendMessage("ChannelGameObject","PayError",[[NSString stringWithFormat:@"支付失败:%ld",transaction.error.code] UTF8String]);
+        [self postPayFailed:@"1"];
         // error!
         [self finishTransaction:transaction];
     }
     else
     {
-        UnitySendMessage("ChannelGameObject","PayCancel","");
+//        UnitySendMessage("ChannelGameObject","PayCancel","");
         // this is fine, the user just cancelled, so don’t notify
+        [self postPayFailed:@"2"];
         [self finishTransaction:transaction];
     }
     NSLog(@"交易错误：%@",transaction.error);
 }
 
+-(void)postPayFailed:(NSString *)code
+{
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:code forKey:@"errcode"];
+    [dict setObject:@"0" forKey:@"status"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"interactionJsVst-payResult" object:self userInfo:dict];
+}
+-(void)postPaySuccess:(NSDictionary *)note
+{
+//    [note setValue:@"1" forKey:@"status"];
+//    [note set];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"interactionJsVst-payResult" object:self userInfo:note];
+}
 //服务器验证成功 删除订单
 - (void)deleteOrder:(NSString*)message
 {

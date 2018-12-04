@@ -2,32 +2,19 @@
 #import "ViewController.h"
 #import <EgretNativeIOS.h>
 #import "InteractionJsVst.h"
-#import "GameCenterSdkController.h"
-#import "InAppPurchaseManager.h"
+#import "GameLib.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 @implementation AppDelegate {
     EgretNativeIOS* _native;
-    NSString* _clientVersion;
-    //退出游戏的二次确认文字描述
-    NSDictionary* _exitGameJsonObj;
-    
     InteractionJsVst* _interactionJsVst;
-    GameCenterSdkController* _gcsdkCtl;
-    InAppPurchaseManager* _purchaseMgr;
 }
-@synthesize clientVersion = _clientVersion;
-@synthesize exitGameJsonObj = _exitGameJsonObj;
-
-@synthesize interactionJsVst = _interactionJsVst;
-@synthesize gcsdkCtl = _gcsdkCtl;
-@synthesize purchaseMgr = _purchaseMgr;
-
 
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
-    
+
     BOOL handled = [[FBSDKApplicationDelegate sharedInstance] application:application
                                                                   openURL:url
                                                         sourceApplication:sourceApplication
@@ -40,13 +27,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    NSString* gameUrl = @"http://192.168.30.17:8087/index.html?online_version=";
-    self->_clientVersion = @"0.2.0";
     
-    gameUrl = [gameUrl stringByAppendingString:self->_clientVersion];
+    NSString* gameUrl = @"http://192.168.30.17:8087/index.html?online_version=";
+    NSString *version = [[[NSBundle mainBundle]infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    gameUrl = [gameUrl stringByAppendingString:version];
     
     _native = [[EgretNativeIOS alloc] init];
-    _native.config.showFPS = true;
+    _native.config.showFPS = false;
     _native.config.fpsLogTime = 30;
     _native.config.disableNativeRender = false;
     _native.config.clearCache = false;
@@ -57,17 +44,9 @@
     if (![_native initWithViewController:viewController]) {
         return false;
     }
-    //支付
-    _purchaseMgr = [[InAppPurchaseManager alloc] init];
-    [_purchaseMgr initBuy:self];
     //侦听交互接口
     _interactionJsVst = [[InteractionJsVst alloc] init];
-    [_interactionJsVst initialize:self];
-    [_interactionJsVst setExternalInterfaces];
-    
-    //game center login
-    _gcsdkCtl = [[GameCenterSdkController alloc] init];
-    [_gcsdkCtl initialize:self];
+    [_interactionJsVst initialize_inter:_native viewController:viewController];
     
     NSString* networkState = [_native getNetworkState];
     if ([networkState isEqualToString:@"NotReachable"]) {

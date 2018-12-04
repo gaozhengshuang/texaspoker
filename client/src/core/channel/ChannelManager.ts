@@ -179,7 +179,6 @@ class ChannelManager
 		game.ExternalInterface.addCallback(ExtFuncName.Login, (json: string) =>
 		{
 			let data: any = JSON.parse(json);
-			console.log("sdk登录成功",json);
 			if (game.StringUtil.toBoolean(data.status))
 			{
 				ChannelManager.OnTokenLoginSucceed.dispatch(data);
