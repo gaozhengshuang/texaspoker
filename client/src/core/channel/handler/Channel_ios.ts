@@ -4,16 +4,28 @@ class Channel_ios extends ChannelBase
 	{
 		if (loginType == ChannelLoginType.GameCenter) // move todo
 		{
-			//微信登录
-			if (isAutoLogin)
-			{
-				let token: string = PrefsManager.getLoginToken();
-				if (token)
-				{
-					ChannelManager.OnTokenLoginSucceed.dispatch(WxAuthorizeType.App + '###2###' + token);
-					return;
-				}
-			}
+			// if (isAutoLogin)
+			// {
+			// 	let token: string = PrefsManager.getLoginToken();
+			// 	if (token)
+			// 	{
+			// 		ChannelManager.OnTokenLoginSucceed.dispatch(WxAuthorizeType.App + '###2###' + token);
+			// 		return;
+			// 	}
+			// }
+			game.ExternalInterface.call(ExtFuncName.Login, loginType);
+		}
+		else if (ChannelManager.loginType == ChannelLoginType.FaceBook)
+		{
+			// if (isAutoLogin)
+			// {
+			// 	let token: string = PrefsManager.getLoginToken();
+			// 	if (token)
+			// 	{
+			// 		ChannelManager.OnTokenLoginSucceed.dispatch(WxAuthorizeType.App + '###2###' + token);
+			// 		return;
+			// 	}
+			// }
 			game.ExternalInterface.call(ExtFuncName.Login, loginType);
 		}
 		else if (ChannelManager.loginType == ChannelLoginType.IntranetAccount) //微端测试使用 //loginType == ChannelLoginType.Account || //move todo
@@ -41,10 +53,12 @@ class Channel_ios extends ChannelBase
 	{
 		let bagId: number;
 		let data: any;
-		UIManager.showPanel(UIModuleName.PayMaskPanel);
+		UIManager.showPanel(UIModuleName.PayMaskPanel); //move todo
 		bagId = BundleManager.getBid();//数字包ID
 
-		data = { "awardId": awardId, "passData": { "orderId": orderId, "bagId": bagId }, "price": price, "name": productName };
+		let pdata = JSON.stringify({ "orderId": orderId, "bagId": bagId });
+
+		data = { "awardId": awardId, "passData": pdata, "price": price, "name": productName };
 		game.ExternalInterface.call(ExtFuncName.Pay, JSON.stringify(data));
 	}
 	private onSelectPayModelHandler(data: any)
@@ -96,6 +110,7 @@ class Channel_ios extends ChannelBase
 		let passdata = JSON.parse(data.passData);
 		if (passdata.orderId.indexOf(game.LoginManager.loginUserInfo.account) == -1 || passdata.orderId.indexOf(UserManager.userInfo.roleId) == -1)
 		{
+			UIManager.closePanel(UIModuleName.PayMaskPanel);
 			game.Console.log("非法支付passdata", data.passData);
 			return;
 		}
@@ -104,20 +119,26 @@ class Channel_ios extends ChannelBase
 		checkData.receipt = data.receipt;
 		checkData.bundleid = ChannelManager.bundleId;
 
-		// checkData.state = data.state;
-		// checkData.transactionIdentifier = data.transactionIdentifier;
-		// checkData.productIdentifier = data.productIdentifier;
+		checkData.state = "0";
+		checkData.transactionidentifier = data.transactionIdentifier;
+		checkData.productidentifier = data.productIdentifier;
 		let callBack: Function = function (result: game.SpRpcResult)
 		{
 			game.Console.log("服务器验证支付成功" + data.receipt);
 			game.ExternalInterface.call(ExtFuncName.DeleteOrder, data.receipt);
 			PropertyManager.ShowItemList();
+			UIManager.closePanel(UIModuleName.PayMaskPanel);
 		};
 		let errorCallBack: Function = function (result: game.SpRpcResult)
 		{
 			let message: string = (data == '-1') ? '非法支付' : '支付失败';
 			AlertManager.showAlert(message, null, null, null, null, data);
-			game.Console.log("apple服务器验证支付失败");
+			if (DEBUG)
+			{
+				game.ExternalInterface.call(ExtFuncName.DeleteOrder, data.receipt); //move todo
+			}
+			game.Console.log("apple服务器验证支付失败", data.receipt);
+			UIManager.closePanel(UIModuleName.PayMaskPanel);
 		};
 		PropertyManager.OpenGet();
 		SocketManager.call(Command.C2GW_ReqApplePayCheck, checkData, callBack, errorCallBack, this);

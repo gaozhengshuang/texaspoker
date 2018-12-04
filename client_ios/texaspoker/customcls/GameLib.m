@@ -8,23 +8,25 @@
 
 #import "GameLib.h"
 #import <AdSupport/AdSupport.h>
-#import "KeychainItemWrapper.h"
+#import <UIKit/UIKit.h>
+//#import "KeychainItemWrapper.h"
 
 @implementation GameLib
 
 +(NSString*)getUUId
 {
-    KeychainItemWrapper *keyChainItemQin=[[KeychainItemWrapper alloc]initWithIdentifier:@"com.qingame.warlord.chinaappstore" accessGroup:nil];
-    
-    NSString *strUUID = [keyChainItemQin objectForKey:(id)kSecAttrAccount];
-    NSLog(@"strUUID:++++++%@",strUUID);
-    if (strUUID==nil||[strUUID isEqualToString:@""])
-    {
-        NSLog(@"new value:++++++%@__%@",kSecAttrAccount,kSecAttrAccount);
-        strUUID = [[[NSUUID UUID] UUIDString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
-        [keyChainItemQin setObject:strUUID forKey:(id)kSecAttrAccount];
-    }
-    return strUUID;
+//    KeychainItemWrapper *keyChainItemQin=[[KeychainItemWrapper alloc]initWithIdentifier:@"com.qingame.warlord.chinaappstore" accessGroup:nil];
+//
+//    NSString *strUUID = [keyChainItemQin objectForKey:(id)kSecAttrAccount];
+//    NSLog(@"strUUID:++++++%@",strUUID);
+//    if (strUUID==nil||[strUUID isEqualToString:@""])
+//    {
+//        NSLog(@"new value:++++++%@__%@",kSecAttrAccount,kSecAttrAccount);
+//        strUUID = [[[NSUUID UUID] UUIDString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
+//        [keyChainItemQin setObject:strUUID forKey:(id)kSecAttrAccount];
+//    }
+    NSString *identifierForVendor = [[UIDevice currentDevice].identifierForVendor UUIDString];
+    return identifierForVendor;
 }
 
 /*!
@@ -86,5 +88,43 @@
     NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
     return [data objectForKey:key];
 }
-
+//fb 是否安装
++(BOOL) isFacebookInstalled
+{
+    BOOL isInstalled = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"fb://"]];
+    
+    return isInstalled;
+}
+/**
+ Json对象转换成Json字符串
+ 
+ @param jsonClass Json对象
+ @return Json字符串
+ */
++ (NSString *)jsonClassConvertToJosnStringWithJsonClass:(id)jsonClass
+{
+    NSString *resultString;
+    
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonClass options:NSJSONWritingPrettyPrinted error:&error];
+    if (error == nil)
+    {
+        resultString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    }
+    
+    return resultString;
+}
+/**
+ Json对象转换成Data对象
+ 
+ @param jsonClass Json对象
+ @return Data对象
+ */
++ (NSData *)jsonClassConvertToJosnDataWithJsonClass:(id)jsonClass
+{
+    NSError *error;
+    NSData *dataJson = [NSJSONSerialization dataWithJSONObject:jsonClass options:NSJSONWritingPrettyPrinted error:&error];
+    
+    return dataJson;
+}
 @end

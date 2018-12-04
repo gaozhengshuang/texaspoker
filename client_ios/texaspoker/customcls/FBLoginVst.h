@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-@interface FBLoginVst
-
+@interface FBLoginVst:NSObject
+-(void)initialize_fb:(UIViewController*) view;
+-(void)login;
 @end

@@ -731,9 +731,9 @@ func (tf *TexasFightRoom) CardDeal() {
 		begin, end = begin+5, end+5
 
 		// TODO: 测试代码
-		if pool.Pos() == 1 && util.SelectPercent(50) {
-			cards = MakeFourKindCards()
-		}
+		//if pool.Pos() == 1 && util.SelectPercent(50) {
+		//	cards = MakeFourKindCards()
+		//}
 		//if pool.Pos() == 4 {
 		//	cards = MakeRoyalFlushCards()
 		//}
