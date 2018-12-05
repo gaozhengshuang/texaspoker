@@ -133,7 +133,10 @@ class Channel_ios extends ChannelBase
 		{
 			let message: string = (data == '-1') ? '非法支付' : '支付失败';
 			AlertManager.showAlert(message, null, null, null, null, data);
-			// game.ExternalInterface.call(ExtFuncName.DeleteOrder, data.receipt); //move todo
+			if (DEBUG)
+			{
+				game.ExternalInterface.call(ExtFuncName.DeleteOrder, data.receipt); //move todo
+			}
 			game.Console.log("apple服务器验证支付失败", data.receipt);
 			UIManager.closePanel(UIModuleName.PayMaskPanel);
 		};
