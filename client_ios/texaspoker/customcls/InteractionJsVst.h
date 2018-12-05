@@ -7,11 +7,13 @@
 //
 #import <Foundation/Foundation.h>
 #import <EgretNativeIOS.h>
-@interface InteractionJsVst:NSObject
+#import "JWProgressView.h"
+@interface InteractionJsVst:NSObject<JWProgressViewDelegate>
 {
 
 }
 @property (nonatomic, nullable) NSString* loginType;
+- (void)viewDidAppear;
 -(void)initialize_inter:(EgretNativeIOS*)ntv viewController:(UIViewController *) view;
 -(void)gameCenterInit:(NSNumber*)code;
 -(void)loginFailed:(NSNumber*)code;

@@ -10,7 +10,7 @@
 #import "GameCenterSdkController.h"
 #import "GameLib.h"
 
-@implementation GameCenterSdkController :NSObject
+@implementation GameCenterSdkController
 {
     // 记录上次的账号，用于确认是否有登出操作
     NSString* _lastPlayerId;
@@ -18,21 +18,19 @@
     BOOL _hasInit;
     // 判断是否登陆过一次了
     BOOL _hasLoginOnce;
+    UIViewController *_view;
 }
 
 //初始化
--(void)initialize
+-(void)initialize :(UIViewController *) view
 {
-    
-
-    
-    
+    _view = view;
     NSLog(@"初始化 init");
     //一般要在这里增加回调监听
     
     if (self->_hasInit)
     {
-        [self postGameCenterInit:1];
+        [self postGameCenterInit:1]; //重复初始化
 //        [target.interactionJsVst gameCenterInit:[NSNumber numberWithInt:1]];
 //        [self sendMessageToUnity:"init" code:1 data:@"想要再次验证Game Center，请切到后台再切回来，或者重启游戏。"];
 
@@ -41,7 +39,6 @@
     self->_hasInit = true;
     
     [self registerForAuthenticationNotification];
-    [self setAuthenticateLocalPlayer];
 }
 //抛送gcdinit事件
 -(void)postGameCenterInit:(int)code
@@ -81,8 +78,15 @@
 {
     NSLog(@"登陆 login");
     
-    [self getSignature];
-    
+//    [self getSignature];
+    if ([self isAuthenticated])
+    {
+        [self getSignature];
+    }
+    else
+    {
+        [self setAuthenticateLocalPlayer];
+    }
 }
 
 -(BOOL) isAuthenticated
@@ -123,7 +127,7 @@
     {
         NSLog(@"打开Game Center验证界面。");
         
-//        [self.rootViewController  presentViewController:viewcontroller animated:YES completion:nil]; //move todo
+        [_view  presentViewController:viewcontroller animated:YES completion:nil];
     }
     else
     {
@@ -140,12 +144,15 @@
             
 //            [self sendMessageToUnity:"init" code:0 data:@""];
             [self postGameCenterInit:0];
+            
+            [self getSignature];
 //            [target.interactionJsVst gameCenterInit:[NSNumber numberWithInt:0]];
         }
         else
         {
             if (error)
             {
+                NSLog(@"gc init error %@", [NSString stringWithFormat:@"code=%ld description=%@", (long)error.code, error.description]);
                 [self postGameCenterInit:2];
 //                [target.interactionJsVst gameCenterInit:[NSNumber numberWithInt:2]];
 //                [self sendMessageToUnity:"init" code:1 data:[NSString stringWithFormat:@"code=%ld description=%@", (long)error.code, error.description]];
@@ -180,18 +187,20 @@
          {
 //             [self sendMessageToUnity:"login" code:2 data:[NSString stringWithFormat:@"code=%ld description=%@", (long)error.code, error.description]];
 //             [target.interactionJsVst loginFailed:[NSNumber numberWithInt:2]];
+             NSLog(@"gc login error%@", [NSString stringWithFormat:@"code=%ld description=%@", (long)error.code, error.description]);
              [self postLoginFailed:2];
              return;
          }
          
-         
          NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
-         [dict setObject:[publicKeyUrl absoluteString] forKey:@"url"];
-          [dict setObject:[NSString stringWithFormat:@"%@", [signature base64EncodedStringWithOptions: 0]] forKey:@"sig"];
-          [dict setObject:[NSString stringWithFormat:@"%@", [salt base64EncodedStringWithOptions: 0]] forKey:@"slt"];
-          [dict setObject:[NSString stringWithFormat:@"%llu", timestamp] forKey:@"stamp"];
-          [dict setObject:[GKLocalPlayer localPlayer].playerID forKey:@"playerId"];
-          [dict setObject:[NSBundle mainBundle].bundleIdentifier forKey:@"bundleId"];
+         [dict setObject:[publicKeyUrl absoluteString] forKey:@"keyurl"];
+         [dict setObject:[NSString stringWithFormat:@"%@", [signature base64EncodedStringWithOptions: 0]] forKey:@"signature"];
+         [dict setObject:[NSString stringWithFormat:@"%@", [salt base64EncodedStringWithOptions: 0]] forKey:@"salt"];
+         [dict setObject:[NSString stringWithFormat:@"%llu", timestamp] forKey:@"timestamp"];
+         [dict setObject:[GKLocalPlayer localPlayer].playerID forKey:@"openid"];
+         [dict setObject:[GKLocalPlayer localPlayer].alias forKey:@"nickname"];
+         [dict setObject:@"GameCenter" forKey:@"loginType"];
+         [dict setObject:@"" forKey:@"face"];
          
 //         NSString* url = [publicKeyUrl absoluteString];
 //         NSString* sig = [NSString stringWithFormat:@"%@", [signature base64EncodedStringWithOptions: 0]];
@@ -204,14 +213,10 @@
 //         NSLog(@"%@", data);
 //         [target.interactionJsVst loginSuccess:@"" openId:@"" extraData:[GameLib dictionaryToJson:dict]];
          
-         NSMutableDictionary *userdict = [[NSMutableDictionary alloc] init];
-         [userdict setObject:@"" forKey:@"token"];
-         [userdict setObject:@"" forKey:@"openId"];
-         [userdict setObject:[GameLib dictionaryToJson:dict] forKey:@"extraData"];
          NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
          [nc postNotificationName: @"interactionJsVst-loginSuccess"   // 消息名（字符串）
                            object:self                                // 消息源
-                         userInfo:userdict];
+                         userInfo:dict];
          
 //         [self postLoginSuccess:<#(int)#>:2];
 //         [self sendMessageToUnity:"login" code:0 data:data];

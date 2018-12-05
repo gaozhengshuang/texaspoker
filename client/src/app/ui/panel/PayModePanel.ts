@@ -29,9 +29,9 @@ class PayModePanel extends BasePanel
 			this.goldLabel.text = awardDef.Name;
 			for (let i: number = 0; i < awardDef.CostType.length; i++)
 			{
-				if (awardDef.CostType[i] == CostType.RMB)
+				if (awardDef.CostType[i] == CostType.NT$)
 				{
-					this.moneyLabel.text = game.longToNumber(awardDef.CostNum[i]) / 100 + "元";
+					this.moneyLabel.text = "NT$" + game.longToNumber(awardDef.CostNum[i]) / 100;
 				}
 			}
 		}

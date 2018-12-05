@@ -382,10 +382,10 @@ class AwardManager
             }
             for (let i: number = 0; i < awardDef.CostType.length; i++) //特殊处理元
             {
-                if (awardDef.CostType[i] == CostType.RMB)
+                if (awardDef.CostType[i] == CostType.NT$)
                 {
                     awardStr += game.MathUtil.formatNum( game.longToNumber(awardDef.CostNum[i]) / 100) + splitSymbol;
-                    awardStr += "元" + "、";
+                    awardStr += "NT$" + "、";
                 }
             }
             awardStr = awardStr.replace(/、$/g, "");
@@ -413,10 +413,10 @@ class AwardManager
             }
             for (let i: number = 0; i < awardDef.CostType.length; i++) //特殊处理元
             {
-                if (awardDef.CostType[i] == CostType.RMB)
+                if (awardDef.CostType[i] == CostType.NT$)
                 {
                     awardStr += game.MathUtil.formatNum( game.longToNumber(awardDef.CostNum[i]) / 100) + splitSymbol;
-                    awardStr += "元" + "、";
+                    awardStr += "NT$" + "、";
                 }
             }
             awardStr = awardStr.replace(/、$/g, "");

@@ -32,9 +32,9 @@ class DiamondItemComponent extends BaseComponent<ShopInfo>{
                 this.diamondNum.text = this._awardDef.Name;
                 for (let i: number = 0; i < this._awardDef.CostType.length; i++)
                 {
-                    if (this._awardDef.CostType[i] == CostType.RMB)
+                    if (this._awardDef.CostType[i] == CostType.NT$)
                     {
-                        this.diamondBtn.label = game.longToNumber(this._awardDef.CostNum[i]) / 100 + "元";
+                        this.diamondBtn.label = "NT$" + game.longToNumber(this._awardDef.CostNum[i]) / 100 ;
                         break;
                     }
                 }

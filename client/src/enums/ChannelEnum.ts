@@ -114,6 +114,7 @@ class ChannelLoginType
 		{
 			list.push(ChannelLoginType.FaceBook);
 			list.push(ChannelLoginType.GooglePlay);
+			list.push(ChannelLoginType.GameCenter);
 			list.push(ChannelLoginType.IntranetAccount);
 		}
 		else

@@ -20,5 +20,9 @@
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskPortrait|UIInterfaceOrientationMaskLandscape;
 }
-
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"MainView-viewDidAppear" object:self userInfo:nil];
+}
 @end

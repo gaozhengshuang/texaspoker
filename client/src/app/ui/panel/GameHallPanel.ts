@@ -108,7 +108,11 @@ class GameHallPanel extends BasePanel
 		this._rankListInfo = RankManager.getRankListInfo(RankType.FriendGold);
 		VersionManager.setComponentVisibleBySafe(this.firstpayBtn, this.activityBtn, this.matchBtn, this.ranking, this.safeBoxBtn, this.bindBtn, this.vipGroup, this.awardsBtn);
 
+		this.safeBoxBtn.parent.removeChild(this.safeBoxBtn); //隐藏 move todo
 		this.morePlayBtn.visible = false; //隐藏 move todo
+		this.inviteBtn.visible = false; //隐藏 move todo
+		this.firstpayBtn.visible = false; //隐藏 move todo
+		this.bindPhoneAwardBtn.visible = false; //隐藏 move todo
 		if (this.bindBtn.parent)
 		{
 			this.bindBtn.parent.removeChild(this.bindBtn);

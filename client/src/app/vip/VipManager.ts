@@ -64,7 +64,8 @@ class VipManager
             {
                 UIManager.showPanel(UIModuleName.BindPhonePanel, { isShowCreatePwd: true });
             }
-            AlertManager.showConfirm("您开通了VIP，保险箱已为您免费开放，请尽快设定您的保险箱密码!", goSavePanel, null, null, null, null, "前往设定");
+            //move todo 屏蔽保险箱
+            // AlertManager.showConfirm("您开通了VIP，保险箱已为您免费开放，请尽快设定您的保险箱密码!", goSavePanel, null, null, null, null, "前往设定");
         }
         VipManager.vipUpgradeEvent.dispatch();
     }

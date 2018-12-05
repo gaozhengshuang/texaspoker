@@ -20,7 +20,16 @@ import (
 
 type HttpArguApplePayBase struct {
 	Status int32
-	Receipt map[string]interface{}
+	//Receipt map[string]interface{}
+	Receipt HttpArguApplePayReceipt
+}
+
+type HttpArguApplePayReceipt struct {
+	Bundle_id string
+	Bid string
+	Product_id string
+	Transaction_id string
+	In_app []map[string]interface{}
 }
 
 func HttpsGetSkipVerify(url  string) (*network.HttpResponse, error) {
@@ -249,6 +258,8 @@ func (u *GateUser) OnGooglePayCheckSuccess (productid, orderid string) bool {
 			config, _ := tbl.AwardBase.AwardById[awardid]
 			amount := int32(config.CostNum[0])
 			BiMgr().OnUserPay(u.Id(),amount)
+			googletotalpay := Redis().IncrBy("googletotalpay", int64(amount)).Val()
+			log.Info("玩家[%d] google 支付购买商品发奖成功 productid:%s, awardid:%d, orderid:%s, googletotalpay:%d ", u.Id(), productid, awardid, orderid, googletotalpay)
 			return true
 		} else {
 			log.Error("玩家[%d] google 支付购买商品发奖失败 productid:%s, awardid:%d, orderid:%s ", u.Id(), productid, awardid, orderid)
@@ -313,36 +324,62 @@ func (u *GateUser) OnApplePayCheck (productIdentifier, state, receipt, transacti
 		log.Info("玩家[%d] OnApplePayCheck post 返回Body [%s]", u.Id(), util.BytesToString(resp.Body))
 		
 		objcmd := &HttpArguApplePayBase{} 
-		objcmd.Receipt = make(map[string]interface{})
-		objcmd.Receipt["bundle_id"] = ""
-		objcmd.Receipt["product_id"] = ""
-		objcmd.Receipt["transaction_id"] = ""
+		objcmd.Receipt.Bundle_id = ""
+		objcmd.Receipt.In_app = make([]map[string]interface{},0)
 		objerror := json.Unmarshal(resp.Body, objcmd)
 		if objerror != nil {
 			log.Error("json.Unmarshal to HttpArguApplePayBase err[%s]", objerror)
 			errcode = "json.Unmarshal error"
 			break
 		}
+		
 		if objcmd.Status != 0 {
-			log.Error("玩家[%d] OnApplePayCheck 验证失败 status:%d", objcmd.Status)
+			log.Error("玩家[%d] OnApplePayCheck 验证失败 status:%d",u.Id(), objcmd.Status)
 			errcode = fmt.Sprintf("apple check fail status %d", objcmd.Status)
 			break
 		}
-		if objcmd.Receipt["bundle_id"].(string) != bundleid {
-			log.Error("玩家[%d] OnApplePayCheck bundle_id 不一致 bundle_id:%s  need:%s", objcmd.Receipt["bundle_id"], bundleid)
-			errcode = "apple check bundle_id not same"
-			break
+		if len(objcmd.Receipt.In_app) == 0 {
+			//log.Info("OnApplePayCheck none In_app")
+			product_id := objcmd.Receipt.Product_id
+			bid := objcmd.Receipt.Bid
+			transaction_id := objcmd.Receipt.Transaction_id
+			if bid != bundleid {
+				log.Error("玩家[%d] OnApplePayCheck bundle_id 不一致 bundle_id:%s  need:%s", u.Id(), bid, bundleid)
+				errcode = "apple check bundle_id not same"
+				break
+			}
+			if transaction_id != transactionIdentifier {
+				log.Error("玩家[%d] OnApplePayCheck transaction_id 不一致 transaction_id:%s  need:%s", u.Id(), transaction_id, transactionIdentifier)
+				errcode = "apple check transaction_id not same"
+				break
+			}
+			if product_id != productIdentifier {
+				log.Error("玩家[%d] OnApplePayCheck product_id 不一致 product_id:%s  productIdentifier:%s", u.Id(), product_id, productIdentifier)	
+				errcode = "apple check product_id not same"
+				break
+			}
+
+		} else {
+			//log.Info("OnApplePayCheck In_app len:%d", len(objcmd.Receipt.In_app))
+			if objcmd.Receipt.Bundle_id != bundleid {
+				log.Error("玩家[%d] OnApplePayCheck bundle_id 不一致 bundle_id:%s  need:%s", u.Id(), objcmd.Receipt.Bundle_id, bundleid)
+				errcode = "apple check bundle_id not same"
+				break
+			}
+			product_id := ""
+			for _, v := range objcmd.Receipt.In_app {
+				if v["transaction_id"].(string) == transactionIdentifier {
+					product_id = v["product_id"].(string)
+					break
+				}
+			}
+			if product_id == "" || product_id != productIdentifier {
+				log.Error("玩家[%d] OnApplePayCheck product_id 不一致 product_id:%s  productIdentifier:%s", u.Id(), product_id, productIdentifier)
+				errcode = "apple check product_id not same"
+				break
+			}
 		}
-		if objcmd.Receipt["product_id"].(string) != productIdentifier {
-			log.Error("玩家[%d] OnApplePayCheck product_id 不一致 product_id:%s  productIdentifier:%s", objcmd.Receipt["product_id"], productIdentifier)
-			errcode = "apple check product_id not same"
-			break
-		}
-		if objcmd.Receipt["transaction_id"].(string) != transactionIdentifier {
-			log.Error("玩家[%d] OnApplePayCheck transaction_id 不一致 transaction_id:%s  transactionIdentifier:%s", objcmd.Receipt["transaction_id"], transactionIdentifier)
-			errcode = "apple check transaction_id not same"
-			break
-		}
+
 		//校验自己的订单是否有重复的
 		errcode = u.CheckAndTakeApplePayOrderRecord(productIdentifier, transactionIdentifier)
 		if errcode != "" {
@@ -382,17 +419,18 @@ func (u *GateUser) OnApplePayCheckSuccess (productid, transactionid string) bool
 	
 	if awardid != 0 {
 		if u.GetActivityAwardByAwardId(awardid, "ApplePay付费购买") == true{
-			log.Info("玩家[%d] apple 支付购买商品发奖成功 productid:%s, awardid:%d, transactionid:%s ", productid, awardid, transactionid)
 			config, _ := tbl.AwardBase.AwardById[awardid]
 			amount := int32(config.CostNum[0])
-		BiMgr().OnUserPay(u.Id(),amount)
+			BiMgr().OnUserPay(u.Id(),amount)
+			appletotalpay := Redis().IncrBy("appletotalpay", int64(amount)).Val()
+			log.Info("玩家[%d] apple 支付购买商品发奖成功 productid:%s, awardid:%d, transactionid:%s appletotalpay:%d", u.Id(), productid, awardid, transactionid, appletotalpay)
 			return true
 		} else {
-			log.Error("玩家[%d] apple 支付购买商品发奖失败 productid:%s, awardid:%d, transactionid:%s ", productid, awardid, transactionid)
+			log.Error("玩家[%d] apple 支付购买商品发奖失败 productid:%s, awardid:%d, transactionid:%s ", u.Id(), productid, awardid, transactionid)
 			return false
 		}
 	}else {
-		log.Error("玩家[%d] apple 支付购买商品发奖失败 没找到对应的award productid:%s, awardid:%d, transactionid:%s ", productid, awardid, transactionid)
+		log.Error("玩家[%d] apple 支付购买商品发奖失败 没找到对应的award productid:%s, awardid:%d, transactionid:%s ", u.Id(), productid, awardid, transactionid)
 		return false
 	}
 }

@@ -16,7 +16,7 @@ class AwardStatistics
 			{
 				for (let costDef of costList)
 				{
-					if (costDef.type == CostType.RMB)
+					if (costDef.type == CostType.NT$)
 					{
 						isCostCurrency = true;
 						break;

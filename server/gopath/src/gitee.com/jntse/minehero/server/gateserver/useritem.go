@@ -63,7 +63,7 @@ func (u *GateUser) RemoveItem(item int32, num int64, reason string) bool {
 	} else if item == int32(msg.ItemId_Diamond) {
 		return u.RemoveDiamond(num, reason, true)
 	} else {
-		if u.CheckEnoughItem(item, num) {
+		if u.CheckEnoughItem(item, num) == false {
 			return false
 		}
 		sumnum := Redis().HIncrBy(fmt.Sprintf("useritem_%d_%d", u.Id(), item), "num", -num).Val()

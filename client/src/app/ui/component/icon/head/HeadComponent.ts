@@ -37,6 +37,7 @@ class HeadComponent extends BaseComponent<IBaseHead>
     }
     protected loadHead(head: string)
     {
+        // head = "https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=129298548074635&height=50&width=50&ext=1546399201&hash=AeTYst5Y-EVb3V3T";
         if (head != game.StringConstants.Empty && !head) //move todo
         {
             game.Console.log("头像为空");

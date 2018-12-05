@@ -6,7 +6,7 @@
 //  Copyright © 2018年 egret. All rights reserved.
 //
 @interface GameCenterSdkController:NSObject
--(void)initialize;
+-(void)initialize :(UIViewController *) view;
 -(void)login;
 -(BOOL) isAuthenticated;
 -(NSString*) getLocalPlayerId;

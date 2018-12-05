@@ -69,7 +69,14 @@ class ChatItemRenderer extends BaseItemRenderer<ChatInfo>
                     break;
                 default:
                     this.setShow(this.textGroup);
-                    this.textLabel.text = this.bindData.name + "：" + this.bindData.txt;
+                    if (this.bindData.name)
+                    {
+                        this.textLabel.text = this.bindData.name + "：" + this.bindData.txt;
+                    }
+                    else
+                    {
+                        this.textLabel.text = this.bindData.txt;
+                    }
                     this.textLabel.textColor = ColorEnum.White;
                     break;
             }
