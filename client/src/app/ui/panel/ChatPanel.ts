@@ -256,7 +256,7 @@ class ChatPanel extends BasePanel
     {
         if (!AwardManager.IsToLimitClient(this._hornAwardId) || true)  //判断是否达到当天喇叭喊话次数上限   //move todo暂时不做限制
         {
-            if (this.getHornNum() > 0 || true)  //判断是否有小喇叭道具
+            if (this.getHornNum() > 0)  //判断是否有小喇叭道具
             {
                 ChatManager.SendChatMessage(this.writeLabel.text.trim(), ChatMessageType.Maquee); //move todo 原来走的道具接口
                 // ItemManager.reqUseItem(this._hornItemId, 1, this.writeLabel.text.trim());

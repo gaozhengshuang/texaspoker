@@ -95,7 +95,7 @@ class GamblingHeadChatSupport
     private setChatContext(msg: any)
     {
         this.context.chatGroup.visible = true;
-        this.context.chatLabel.text = msg.message;
+        this.context.chatLabel.text = msg.txt;
 
         egret.Tween.removeTweens(this.context.chatScroller.viewport);
         game.Tick.RemoveTimeoutInvoke(this.countDownToCloseChat, this);

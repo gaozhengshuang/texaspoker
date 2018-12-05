@@ -98,13 +98,15 @@ public class GoogleBillingVst {
         @Override
         public void onQueryFail(int responseCode) {
             //查询失败
-            GameLib.alert("查询失败 code:" + responseCode, _target);
+//            GameLib.alert("查询失败 code:" + responseCode, _target);
+            Log.w("GoolgeBillingVst", "查询失败 code:" + responseCode);
         }
 
         @Override
         public void onQueryError() {
             //查询错误
-            GameLib.alert("查询错误", _target);
+//            GameLib.alert("查询错误", _target);.
+            Log.w("GoolgeBillingVst", "查询错误");
         }
     }
 
@@ -140,7 +142,8 @@ public class GoogleBillingVst {
                         if (skuType.equals(BillingClient.SkuType.INAPP)) {
                             _target.interactionJsVst.paySuccess(purchase);
                             googleBillingUtil.consumeAsync(purchase.getPurchaseToken());
-                            GameLib.alert("购买成功，开始消耗商品" + purchase.getPurchaseToken(), _target);
+//                            GameLib.alert("购买成功，开始消耗商品" + purchase.getPurchaseToken(), _target);
+                            Log.d("GoolgeBillingVst", "购买成功，开始消耗商品" + purchase.getPurchaseToken());
                         }
                     }
                 }
@@ -149,12 +152,15 @@ public class GoogleBillingVst {
 
         @Override
         public void onPurchaseFail(int responseCode) {
-            GameLib.alert("购买失败 code:" + responseCode, _target);
+//            GameLib.alert("购买失败 code:" + responseCode, _target);
+            Log.w("GoolgeBillingVst", "购买失败 code:" + responseCode);
+
         }
 
         @Override
         public void onPurchaseError() {
-            GameLib.alert("购买错误mBillingClient is null or startConnection fault", _target);
+            Log.w("GoolgeBillingVst", "购买错误mBillingClient is null or startConnection fault");
+//            GameLib.alert("购买错误mBillingClient is null or startConnection fault", _target);
         }
     }
 
@@ -165,32 +171,37 @@ public class GoogleBillingVst {
         @Override
         public void onConsumeResponse(int responseCode, String s) {
             if (responseCode == BillingClient.BillingResponse.OK) {
-                GameLib.alert("消耗商品成功" + s, _target);
+//                GameLib.alert("消耗商品成功" + s, _target);
+                Log.d("GoolgeBillingVst", "消耗商品成功" + s);
             } else {
-                GameLib.alert("消耗商品失败 code" + responseCode, _target);
+//                GameLib.alert("消耗商品失败 code" + responseCode, _target);
+                Log.w("GoolgeBillingVst", "消耗商品失败 code" + responseCode);
             }
         }
     }
 
     public void onPurchase(JSONObject data) {
         try {
+
             int awardId = data.getInt("awardId");
-            switch (awardId) {
-                case 801:
-                    googleBillingUtil.purchaseInApp(_target, "android.test.purchased");
+            googleBillingUtil.purchaseInApp(_target, _target.getPackageName() + "." + awardId);
+//            switch (awardId) {
+//                case 801:
+//                    googleBillingUtil.purchaseInApp(_target, "android.test.purchased");
+////                    googleBillingUtil.purchaseInApp(_target, "a_poker_test");
+//                    break;
+//                case 802:
 //                    googleBillingUtil.purchaseInApp(_target, "a_poker_test");
-                    break;
-                case 802:
-                    googleBillingUtil.purchaseInApp(_target, "a_poker_test");
-                    break;
-            }
+//                    break;
+//            }
         } catch (JSONException e) {
             Log.d(TAG, "支付 json 异常 data:" + data.toString());
         }
     }
 
     public void consumeOrder(String token) {
-        GameLib.alert("购买成功，开始消耗商品" + token, _target);
+//        GameLib.alert("购买成功，开始消耗商品" + token, _target);
+        Log.d("GoolgeBillingVst", "购买成功，开始消耗商品" + token);
         googleBillingUtil.consumeAsync(token);
     }
 

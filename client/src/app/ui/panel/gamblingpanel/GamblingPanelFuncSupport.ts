@@ -15,6 +15,10 @@ class GamblingPanelFuncSupport extends BaseGamblingPanelSupport
 	public initialize()
 	{
 		super.initialize();
+		if(this.target.safeBtn.parent) //move todo 屏蔽保险箱
+		{
+			this.target.safeBtn.parent.removeChild(this.target.safeBtn);
+		}
 		let type = GamblingType.Common;
 		if (GamblingManager.roomInfo)
 		{

@@ -141,9 +141,9 @@ enum CostType
 	*/
 	Diamond = 3,
 	/**
-	 * 消耗类型为人民币
+	 * 消耗类型为台币
 	*/
-	RMB = 10
+	NT$ = 10
 }
 
 enum SafeBoxOperateType

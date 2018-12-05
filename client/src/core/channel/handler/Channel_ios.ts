@@ -126,8 +126,8 @@ class Channel_ios extends ChannelBase
 		{
 			game.Console.log("服务器验证支付成功" + data.receipt);
 			game.ExternalInterface.call(ExtFuncName.DeleteOrder, data.receipt);
-			PropertyManager.ShowItemList();
 			UIManager.closePanel(UIModuleName.PayMaskPanel);
+			PropertyManager.ShowItemList();
 		};
 		let errorCallBack: Function = function (result: game.SpRpcResult)
 		{

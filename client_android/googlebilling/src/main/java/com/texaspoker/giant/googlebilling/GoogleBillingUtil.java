@@ -72,7 +72,7 @@ public class GoogleBillingUtil {
 
     private static final String TAG = "GoogleBillingUtil";
     private static final boolean IS_DEBUG = false;
-    private String[] inAppSKUS = new String[]{"a_poker_test", "a_poker_099","a_poker_599", "android.test.purchased"};//内购ID,必填
+//    private String[] inAppSKUS = new String[]{"a_poker_test", "a_poker_099","a_poker_599", "android.test.purchased"};//内购ID,必填
     private String[] subsSKUS = new String[]{"gold_yearly","gold_monthly"};//订阅ID,必填
 
     public static final String BILLING_TYPE_INAPP = BillingClient.SkuType.INAPP;//内购
@@ -277,7 +277,7 @@ public class GoogleBillingUtil {
                 ArrayList<String> skuList = new ArrayList<>();
                 if(skuType.equals(BillingClient.SkuType.INAPP))
                 {
-                    Collections.addAll(skuList, inAppSKUS);
+//                    Collections.addAll(skuList, inAppSKUS);
                 }
                 else if(skuType.equals(BillingClient.SkuType.SUBS))
                 {
@@ -482,15 +482,16 @@ public class GoogleBillingUtil {
 
         if(skuType.equals(BillingClient.SkuType.INAPP))
         {
-            int i = 0;
-            for(String s:inAppSKUS)
-            {
-                if(s.equals(sku))
-                {
-                    return i;
-                }
-                i++;
-            }
+//            int i = 0;
+            return 0;
+//            for(String s:inAppSKUS)
+//            {
+//                if(s.equals(sku))
+//                {
+//                    return i;
+//                }
+//                i++;
+//            }
         }
         else if(skuType.equals(BillingClient.SkuType.SUBS))
         {
@@ -538,9 +539,10 @@ public class GoogleBillingUtil {
      */
     public String getInAppSkuByPosition(int position)
     {
-        if(position>=0&&position<inAppSKUS.length)
+        if(position>=0) //&&position<inAppSKUS.length
         {
-            return inAppSKUS[position];
+//            return inAppSKUS[position];
+            return "";
         }
         else
         {
@@ -555,15 +557,16 @@ public class GoogleBillingUtil {
      */
     public String getSkuType(String sku)
     {
-        if(Arrays.asList(inAppSKUS).contains(sku))
-        {
-            return BillingClient.SkuType.INAPP;
-        }
-        else if(Arrays.asList(subsSKUS).contains(sku))
-        {
-            return BillingClient.SkuType.SUBS;
-        }
-        return null;
+        return  BillingClient.SkuType.INAPP;
+//        if(Arrays.asList(inAppSKUS).contains(sku))
+//        {
+//            return BillingClient.SkuType.INAPP;
+//        }
+//        else if(Arrays.asList(subsSKUS).contains(sku))
+//        {
+//            return BillingClient.SkuType.SUBS;
+//        }
+//        return null;
     }
 
     /**

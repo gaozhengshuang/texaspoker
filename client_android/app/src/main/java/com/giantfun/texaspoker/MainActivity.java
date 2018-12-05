@@ -61,22 +61,22 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         //屏幕常亮
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        try {
-            String packageName = this.getApplicationContext().getPackageName();
-            Log.d("KeyHash:", packageName);
-            PackageInfo info = getPackageManager().getPackageInfo(
-                    packageName,
-                    PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT) + "键值");
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            Log.d("KeyHash:", "NameNotFoundException error");
-        } catch (NoSuchAlgorithmException e) {
-            Log.d("KeyHash:", "NoSuchAlgorithmException error");
-        }
+//        try {
+//            String packageName = this.getApplicationContext().getPackageName();
+//            Log.d("KeyHash:", packageName);
+//            PackageInfo info = getPackageManager().getPackageInfo(
+//                    packageName,
+//                    PackageManager.GET_SIGNATURES);
+//            for (Signature signature : info.signatures) {
+//                MessageDigest md = MessageDigest.getInstance("SHA");
+//                md.update(signature.toByteArray());
+//                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT) + "键值");
+//            }
+//        } catch (PackageManager.NameNotFoundException e) {
+//            Log.d("KeyHash:", "NameNotFoundException error");
+//        } catch (NoSuchAlgorithmException e) {
+//            Log.d("KeyHash:", "NoSuchAlgorithmException error");
+//        }
 
         nativeAndroid = new EgretNativeAndroid(this);
         if (!nativeAndroid.checkGlEsVersion()) {

@@ -214,8 +214,8 @@ class MonthCardItemRenderer extends BaseItemRenderer<ShopInfo>
             case CostType.Diamond:
                 str = "钻石";
                 break;
-            case CostType.RMB:
-                str = "元";
+            case CostType.NT$:
+                str = "NT$";
                 break;
         }
         return str;
