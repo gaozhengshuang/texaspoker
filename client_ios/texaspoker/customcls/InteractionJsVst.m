@@ -15,6 +15,7 @@
 #import "GameCenterSdkController.h"
 #import "InAppPurchaseManager.h"
 #import "FBLoginVst.h"
+#import "MMMaterialDesignSpinner.h"
 
 @implementation InteractionJsVst
 {
@@ -23,11 +24,18 @@
     GameCenterSdkController* _gcsdkCtl;
     InAppPurchaseManager* _purchaseMgr;
     FBLoginVst *_fbLoginVst;
+    UIImageView *splashScreen;
+    MMMaterialDesignSpinner *spinnerView;
+    UILabel *_contentLabel;              //中间的label
 }
 @synthesize loginType = _loginType;
 
 -(void)initialize_inter:(EgretNativeIOS*)ntv viewController:(UIViewController *) view
 {
+    [self splashImg:view];
+    [self circleProgressBar:view];
+    [self loadLabel:view];
+    
     _native = ntv;
     //game center login
     _gcsdkCtl = [[GameCenterSdkController alloc] init];
@@ -43,6 +51,40 @@
     //添加白鹭调用
     [self setExternalInterfaces];
 }
+-(void)splashImg:(UIViewController *)view
+{
+    splashScreen = [[UIImageView alloc] initWithFrame:view.view.bounds];
+    splashScreen.image = [UIImage imageNamed:@"splash.jpg"];
+    [view.view addSubview:splashScreen];
+}
+-(void)circleProgressBar:(UIViewController *)view
+{
+    spinnerView = [[MMMaterialDesignSpinner alloc] initWithFrame:CGRectZero];
+    spinnerView.bounds = CGRectMake(0, 0, 65, 65);
+    spinnerView.tintColor = [UIColor colorWithRed:51.f/255 green:181.f/255 blue:229.f/255 alpha:1];
+    
+    spinnerView.center = CGPointMake(CGRectGetMidX(view.view.bounds), CGRectGetMaxY(view.view.bounds) - 100);
+    spinnerView.lineWidth = 4;
+    spinnerView.translatesAutoresizingMaskIntoConstraints = NO;
+    [view.view addSubview:spinnerView];
+}
+-(void)loadLabel:(UIViewController *)view
+{
+    _contentLabel = [[UILabel alloc]init];
+    _contentLabel.textAlignment = NSTextAlignmentCenter;
+    _contentLabel.text = @"loading...";
+    _contentLabel.font = [UIFont systemFontOfSize:15];
+    _contentLabel.backgroundColor = [UIColor clearColor];
+    _contentLabel.textColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0];
+    
+    _contentLabel.frame = CGRectMake(0, 0, 100, 20);
+    _contentLabel.center = CGPointMake(CGRectGetMidX(view.view.bounds), CGRectGetMaxY(view.view.bounds) - 50);
+    [view.view addSubview:_contentLabel];
+}
+- (void)viewDidAppear {
+    [spinnerView startAnimating];
+}
+
 //添加交互侦听
 -(void) addInterObserver
 {
@@ -114,6 +156,7 @@
 -(void)addInitialize
 {
     __block EgretNativeIOS* support = _native;
+//    __block UIImageView *imgView = splashScreen;
     [_native setExternalInterface:Egret_Initialize Callback:^(NSString* message) {
 //        tgt.exitGameJsonObj = [GameLib dictionaryWithJsonString:message]; //apple 退出没有二次确认
         
@@ -134,6 +177,9 @@
         
         NSString* initDataStr = [GameLib dictionaryToJson:initDict];
         NSLog(@"白鹭initialize数据：%@", initDataStr);
+        [splashScreen removeFromSuperview];
+        [spinnerView removeFromSuperview];
+        [_contentLabel removeFromSuperview];
         [support callExternalInterface:Egret_Initialize Value:initDataStr];
     }];
 }

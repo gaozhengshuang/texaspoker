@@ -25,7 +25,9 @@
 		3077067820215DF200548664 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3077067720215DF200548664 /* MediaPlayer.framework */; };
 		3077067A20215DF600548664 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3077067920215DF600548664 /* libsqlite3.tbd */; };
 		307B49CF2059046B003D64E0 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 307B49CE2059046B003D64E0 /* AdSupport.framework */; };
-		30CE267B2063AC44000F4D0D /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 30CE267A2063AC44000F4D0D /* icon.png */; };
+		6923B91B21B6A2850061847E /* splash.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6923B91A21B6A2850061847E /* splash.jpg */; };
+		6923B91E21B6A47F0061847E /* JWProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6923B91D21B6A47F0061847E /* JWProgressView.m */; };
+		6923B92121B6AF520061847E /* MMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6923B92021B6AF520061847E /* MMViewController.m */; };
 		69264C0221A7E36100A23FE5 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69264C0121A7E36100A23FE5 /* StoreKit.framework */; };
 		69264C0721A7E78500A23FE5 /* giantconfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 69264C0621A7E78500A23FE5 /* giantconfig.plist */; };
 		696C504E21B11D7100F7A26B /* libEgretNativeIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 696C504C21B11CF200F7A26B /* libEgretNativeIOS.a */; };
@@ -37,6 +39,7 @@
 		696C506B21B1212A00F7A26B /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696C506921B1212900F7A26B /* FBSDKLoginKit.framework */; };
 		696C506C21B1212A00F7A26B /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696C506A21B1212A00F7A26B /* FBSDKCoreKit.framework */; };
 		696C507421B123FD00F7A26B /* GameCenterSdkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696C507321B123FD00F7A26B /* GameCenterSdkController.m */; };
+		6980E51A21B76DE400D24813 /* MMMaterialDesignSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = 6980E51921B76DE400D24813 /* MMMaterialDesignSpinner.m */; };
 		69A0DA2121B4E5C400EDDC33 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A0DA2021B4E5C400EDDC33 /* GameKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -66,7 +69,11 @@
 		3077067720215DF200548664 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		3077067920215DF600548664 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		307B49CE2059046B003D64E0 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
-		30CE267A2063AC44000F4D0D /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		6923B91A21B6A2850061847E /* splash.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = splash.jpg; sourceTree = "<group>"; };
+		6923B91C21B6A47F0061847E /* JWProgressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JWProgressView.h; sourceTree = "<group>"; };
+		6923B91D21B6A47F0061847E /* JWProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JWProgressView.m; sourceTree = "<group>"; };
+		6923B91F21B6AF510061847E /* MMViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMViewController.h; sourceTree = "<group>"; };
+		6923B92021B6AF520061847E /* MMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMViewController.m; sourceTree = "<group>"; };
 		69264C0121A7E36100A23FE5 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		69264C0621A7E78500A23FE5 /* giantconfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = giantconfig.plist; sourceTree = "<group>"; };
 		696C504C21B11CF200F7A26B /* libEgretNativeIOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libEgretNativeIOS.a; sourceTree = "<group>"; };
@@ -85,6 +92,8 @@
 		696C506A21B1212A00F7A26B /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		696C507221B123FD00F7A26B /* GameCenterSdkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenterSdkController.h; sourceTree = "<group>"; };
 		696C507321B123FD00F7A26B /* GameCenterSdkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCenterSdkController.m; sourceTree = "<group>"; };
+		6980E51821B76DE400D24813 /* MMMaterialDesignSpinner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMaterialDesignSpinner.h; sourceTree = "<group>"; };
+		6980E51921B76DE400D24813 /* MMMaterialDesignSpinner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMaterialDesignSpinner.m; sourceTree = "<group>"; };
 		69A0DA2021B4E5C400EDDC33 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -147,7 +156,7 @@
 		306A7A8F200C83F500E1EBB6 /* texaspoker */ = {
 			isa = PBXGroup;
 			children = (
-				30CE267A2063AC44000F4D0D /* icon.png */,
+				6923B91A21B6A2850061847E /* splash.jpg */,
 				306A7A93200C83F500E1EBB6 /* AppDelegate.h */,
 				306A7A94200C83F500E1EBB6 /* AppDelegate.mm */,
 				306A7A96200C83F500E1EBB6 /* ViewController.h */,
@@ -201,6 +210,7 @@
 		696C504F21B11F1A00F7A26B /* customcls */ = {
 			isa = PBXGroup;
 			children = (
+				6980E51721B76DA900D24813 /* MMMaterialDesignSpinner-master */,
 				696C505621B11F1A00F7A26B /* InteractionJsVst.h */,
 				696C505021B11F1A00F7A26B /* InteractionJsVst.m */,
 				696C507221B123FD00F7A26B /* GameCenterSdkController.h */,
@@ -213,8 +223,21 @@
 				696C505121B11F1A00F7A26B /* GameLib.h */,
 				696C505721B11F1A00F7A26B /* GameLib.m */,
 				696C505B21B11F1A00F7A26B /* ExtFuncName.h */,
+				6923B91C21B6A47F0061847E /* JWProgressView.h */,
+				6923B91D21B6A47F0061847E /* JWProgressView.m */,
+				6923B91F21B6AF510061847E /* MMViewController.h */,
+				6923B92021B6AF520061847E /* MMViewController.m */,
 			);
 			path = customcls;
+			sourceTree = "<group>";
+		};
+		6980E51721B76DA900D24813 /* MMMaterialDesignSpinner-master */ = {
+			isa = PBXGroup;
+			children = (
+				6980E51821B76DE400D24813 /* MMMaterialDesignSpinner.h */,
+				6980E51921B76DE400D24813 /* MMMaterialDesignSpinner.m */,
+			);
+			path = "MMMaterialDesignSpinner-master";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -281,10 +304,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6923B91B21B6A2850061847E /* splash.jpg in Resources */,
 				69264C0721A7E78500A23FE5 /* giantconfig.plist in Resources */,
 				305DF7A3200D95C5008022B6 /* game in Resources */,
 				306A7A9D200C83F500E1EBB6 /* Assets.xcassets in Resources */,
-				30CE267B2063AC44000F4D0D /* icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,14 +318,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6923B92121B6AF520061847E /* MMViewController.m in Sources */,
 				306A7A98200C83F500E1EBB6 /* ViewController.mm in Sources */,
 				696C505D21B11F1A00F7A26B /* FBLoginVst.m in Sources */,
 				696C507421B123FD00F7A26B /* GameCenterSdkController.m in Sources */,
 				306A7A95200C83F500E1EBB6 /* AppDelegate.mm in Sources */,
 				306A7A92200C83F500E1EBB6 /* main.m in Sources */,
 				696C505F21B11F1A00F7A26B /* InAppPurchaseManager.m in Sources */,
+				6980E51A21B76DE400D24813 /* MMMaterialDesignSpinner.m in Sources */,
 				696C506021B11F1A00F7A26B /* GameLib.m in Sources */,
 				696C505C21B11F1A00F7A26B /* InteractionJsVst.m in Sources */,
+				6923B91E21B6A47F0061847E /* JWProgressView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,6 +431,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				DEVELOPMENT_TEAM = 9HS9JLRARF;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -431,6 +458,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				DEVELOPMENT_TEAM = 9HS9JLRARF;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
