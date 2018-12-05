@@ -28,6 +28,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    
+    
     NSString* gameUrl = @"http://192.168.30.17:8087/index.html?online_version=";
     NSString *version = [[[NSBundle mainBundle]infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     gameUrl = [gameUrl stringByAppendingString:version];
@@ -39,15 +41,28 @@
     _native.config.clearCache = false;
     
     
+   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewDidAppeared:) name:@"MainView-viewDidAppear" object:nil];
     
     UIViewController* viewController = [[ViewController alloc] initWithEAGLView:[_native createEAGLView]];
     if (![_native initWithViewController:viewController]) {
         return false;
     }
+    
+    
+//
+//    [UIView animateWithDuration:3.0 animations:^{
+//        CATransform3D transform = CATransform3DMakeScale(1.5, 1.5, 1.0);
+//        splashScreen.layer.transform = transform;
+//        splashScreen.alpha = 0.0;
+//    } completion:^(BOOL finished) {
+//        [splashScreen removeFromSuperview];
+//    }];
+    
+    
+    
     //侦听交互接口
     _interactionJsVst = [[InteractionJsVst alloc] init];
     [_interactionJsVst initialize_inter:_native viewController:viewController];
-    
     NSString* networkState = [_native getNetworkState];
     if ([networkState isEqualToString:@"NotReachable"]) {
         __block EgretNativeIOS* native = _native;
@@ -106,5 +121,8 @@
 - (void)dealloc {
     [_native destroy];
 }
-
+-(void)viewDidAppeared:(NSNotification *)notification
+{
+    [_interactionJsVst viewDidAppear];
+}
 @end
