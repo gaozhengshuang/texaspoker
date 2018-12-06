@@ -41,10 +41,10 @@ public class MainActivity extends FragmentActivity {
 
     //退出游戏的文字描述，多语言的关系
     public JSONObject exitGameJsonObj;
-    //        private final String Game_Url = "http://jump.test.giantfun.cn/poker/2001.html?online_version=";
+    private final String Game_Url = "http://jump.test.giantfun.cn/poker/tw/2001.html?online_version=";
     public final String clientVersion = "0.2.0";
-    //        private final String Game_Url = "http://192.168.30.17:8088/2001.html?online_version=";
-    private final String Game_Url = "http://192.168.30.17:8087/index.html?online_version=";
+    //private final String Game_Url = "http://192.168.30.17:8088/2001.html?online_version=";
+    //private final String Game_Url = "http://192.168.30.17:8087/index.html?online_version=";
 
     //    private final String clientVersion = "";
 

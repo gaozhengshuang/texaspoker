@@ -141,7 +141,6 @@ public class GoogleBillingVst {
                     if (skuType != null) {
                         if (skuType.equals(BillingClient.SkuType.INAPP)) {
                             _target.interactionJsVst.paySuccess(purchase);
-                            googleBillingUtil.consumeAsync(purchase.getPurchaseToken());
 //                            GameLib.alert("购买成功，开始消耗商品" + purchase.getPurchaseToken(), _target);
                             Log.d("GoolgeBillingVst", "购买成功，开始消耗商品" + purchase.getPurchaseToken());
                         }
@@ -182,7 +181,6 @@ public class GoogleBillingVst {
 
     public void onPurchase(JSONObject data) {
         try {
-
             int awardId = data.getInt("awardId");
             googleBillingUtil.purchaseInApp(_target, _target.getPackageName() + "." + awardId);
 //            switch (awardId) {

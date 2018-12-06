@@ -332,6 +332,7 @@ public class GoogleBillingUtil {
      */
     public void purchaseInApp(Activity activity,String skuId)
     {
+//        skuId = "android.test.purchased";
         purchase(activity,skuId, BillingClient.SkuType.INAPP);
     }
 

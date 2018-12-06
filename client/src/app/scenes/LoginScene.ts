@@ -99,7 +99,7 @@ class LoginScene extends BaseScene
         let channelLoginType: string = PrefsManager.getValue(PrefsManager.Login_LoginType);
         if (this._channelLoginList.length > 1)
         {
-            if (!RELEASE && channelLoginType) //发布版本有本地缓存的登录类型，则自动登录
+            if (RELEASE && channelLoginType) //发布版本有本地缓存的登录类型，则自动登录
             {
                 if (channelLoginType == ChannelLoginType.GameCenter) //苹果 gc 特殊处理，苹果gc没有注销一说
                 {

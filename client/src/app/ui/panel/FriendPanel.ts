@@ -131,6 +131,7 @@ class FriendPanel extends BasePanel
             this.friendTabCompontent.init(0);
         }
         this.inviteGroup.visible = (game.System.isWeChat || game.System.isMicro) && !VersionManager.isSafe;
+        this.inviteGroup.visible = false; //move todo
         this.setFriendRequestList();
         this.setGiftListInfo();
     }
