@@ -103,12 +103,26 @@
         NSLog(@"%@", @"gc 登录失败 failed");
         //code 3:玩家还没有登录GameCenter，切到后台再切回来登陆，或者去Game Center登陆。
         //code 2:gc login error
-        [self loginFailed:[note.userInfo objectForKey:@"code"]];
+        if(note.userInfo != nil)
+        {
+            [self loginFailed:[note.userInfo objectForKey:@"code"]];
+        }
+        else
+        {
+            [self loginFailed:@""];
+        }
     }
     else if([note.object isEqual:_fbLoginVst])
     {
          NSLog(@"%@", @"fb 登录失败 failed");
-        [self loginFailed:[note.userInfo objectForKey:@"code"]];
+        if(note.userInfo != nil)
+        {
+            [self loginFailed:[note.userInfo objectForKey:@"code"]];
+        }
+        else
+        {
+            [self loginFailed:@""];
+        }
     }
 }
 -(void)loginsuccessHandler:(NSNotification *)note
@@ -126,7 +140,7 @@
 }
 -(void)loginOutHandler:(NSNotification *)note
 {
-    
+    [self loginout];
 }
 -(void)gameCenterInitHandler:(NSNotification *)note
 {
@@ -146,6 +160,7 @@
 {
     [self addInitialize];
     [self addLogin];
+    [self addLoginOut];
     [self addCheckLoginState];
     [self addCheckUnFinishedList];
     [self addPay];
@@ -205,6 +220,25 @@
             {
                 [_fbLoginVst login];
             }
+        }
+        NSLog(@"白鹭login数据：%@", message);
+    }];
+}
+
+//登出
+-(void)addLoginOut
+{
+    __block InteractionJsVst *sf = self;
+    [_native setExternalInterface:Egret_Loginout Callback:^(NSString* message) {
+        _loginType = message;
+        if([message isEqual:ChannelLoginType_GameCenter])
+        {
+            [sf loginout];
+        }
+        else if([message isEqual: ChannelLoginType_FaceBook])
+        {
+           [_fbLoginVst loginOut];
+           [sf loginout];
         }
         NSLog(@"白鹭login数据：%@", message);
     }];
@@ -308,9 +342,7 @@
 //登出
 -(void)loginout
 {
-    NSMutableDictionary *loginDict = [[NSMutableDictionary alloc] init];
-    [loginDict setObject:_loginType forKey:@"loginType"];
-    [_native callExternalInterface:Egret_Loginout Value:[GameLib dictionaryToJson:loginDict]];
+    [_native callExternalInterface:Egret_Loginout Value:@""];
 }
 //支付结果
 -(void)payResult:(NSDictionary *)dict

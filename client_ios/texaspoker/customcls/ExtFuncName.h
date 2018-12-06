@@ -36,7 +36,7 @@ extern NSString * const Egret_DeleteOrder = @"DeleteOrder";
 /**
  * 登出
  */
-extern NSString * const Egret_Loginout = @"Loginout";
+extern NSString * const Egret_Loginout = @"Logout";
 /**
  * game cneter init
  */

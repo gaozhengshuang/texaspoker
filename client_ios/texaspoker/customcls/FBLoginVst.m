@@ -14,6 +14,7 @@
 @implementation FBLoginVst
 {
     UIViewController *viewCtrl;
+    FBSDKLoginManager *login;
 }
 -(void)initialize_fb:(UIViewController*) view
 {
@@ -31,9 +32,16 @@
          }
      }];
 }
+-(void)buildLoginInstance
+{
+    if(login == nil)
+    {
+        login =[[FBSDKLoginManager alloc] init];
+    }
+}
 -(void)login
 {
-    FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
+    [self buildLoginInstance];
     [login logInWithReadPermissions: @[@"public_profile",@"email"]  fromViewController:viewCtrl handler:^(FBSDKLoginManagerLoginResult *result, NSError *error)
     {
          if (error) {
@@ -69,6 +77,12 @@
              [self getUserInfoWithResult:result token:result.token.tokenString openId:result.token.userID];
          }
      }];
+}
+
+-(void)loginOut
+{
+    [self buildLoginInstance];
+    [login logOut];
 }
 
 //获取用户信息 picture用户头像

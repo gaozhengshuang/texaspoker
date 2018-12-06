@@ -12,4 +12,5 @@
 @interface FBLoginVst:NSObject
 -(void)initialize_fb:(UIViewController*) view;
 -(void)login;
+-(void)loginOut;
 @end
