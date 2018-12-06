@@ -1,21 +1,21 @@
 class Channel_android extends ChannelBase
 {
-	public Login(loginType: string, isAutoLogin: boolean)
+	public Login(loginType: string)
 	{
 		if (ChannelManager.loginType == ChannelLoginType.IntranetAccount) //微端测试使用 //loginType == ChannelLoginType.Account ||  // move todo
 		{
-			this.accountLogin(isAutoLogin);
+			this.accountLogin();
 		}
 		else
 		{
 			egret.ExternalInterface.call(ExtFuncName.Login, loginType);
 		}
 	}
-	private accountLogin(isAutoLogin: boolean): void
+	private accountLogin(): void
 	{
 		let account: string = PrefsManager.getValue(PrefsManager.Login_Account);
 		let password: string = PrefsManager.getValue(PrefsManager.Login_Password);
-		if (isAutoLogin && account && password)
+		if (account && password)
 		{
 			ChannelManager.DispatchAccountLoginSucceed(account, password);
 		}

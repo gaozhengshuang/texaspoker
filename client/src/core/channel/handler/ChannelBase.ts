@@ -3,7 +3,7 @@ class ChannelBase
 	/**
 	 * 登录
 	 */
-	public Login(loginType: string, isAutoLogin: boolean)
+	public Login(loginType: string)
 	{
 
 	}

@@ -76,7 +76,7 @@ class LoginScene extends BaseScene
             let debugLoginType: string = URLOption.getString(URLOption.DebugLoginType);
             if (game.StringUtil.isNullOrEmpty(debugLoginType))
             {
-                this.EnterLoginStart(true);
+                this.EnterLoginStart();
             }
             else
             {
@@ -85,10 +85,10 @@ class LoginScene extends BaseScene
         }
         else
         {
-            this.EnterLoginStart(true);
+            this.EnterLoginStart();
         }
     }
-    private EnterLoginStart(isAutoLogin: boolean)
+    private EnterLoginStart()
     {
         this._channelLoginList = ChannelLoginType.GetChannelLoginList(OperatePlatform.getCurrent(), ChannelManager.channelType, VersionManager.isServerTest, VersionManager.isSafe);
         // if (isAutoLogin && this._channelLoginList.indexOf(ChannelLoginType.Weixin) >= 0 && WebConfig.isWxWebAuthorize) // move todo
@@ -99,9 +99,16 @@ class LoginScene extends BaseScene
         let channelLoginType: string = PrefsManager.getValue(PrefsManager.Login_LoginType);
         if (this._channelLoginList.length > 1)
         {
-            if (isAutoLogin && channelLoginType)
+            if (!RELEASE && channelLoginType) //发布版本有本地缓存的登录类型，则自动登录
             {
-                this.checkLoginState(channelLoginType, isAutoLogin);
+                if (channelLoginType == ChannelLoginType.GameCenter) //苹果 gc 特殊处理，苹果gc没有注销一说
+                {
+                    this.ChannelLoginStart(channelLoginType);
+                }
+                else
+                {
+                    this.checkLoginState(channelLoginType);
+                }
             }
             else
             {
@@ -110,9 +117,9 @@ class LoginScene extends BaseScene
         }
         else
         {
-            if (isAutoLogin && (!this._channelLoginList[0] || channelLoginType))
+            if (!this._channelLoginList[0] || channelLoginType)
             {
-                this.checkLoginState(this._channelLoginList[0], isAutoLogin);
+                this.checkLoginState(channelLoginType);
             }
             else
             {
@@ -120,14 +127,14 @@ class LoginScene extends BaseScene
             }
         }
     }
-    private checkLoginState(type: string, isAutoLogin: boolean)
+    private checkLoginState(type: string)
     {
         let callBack: Function = function (state: string)
         {
             ChannelManager.LoginStateCheckEvent.removeListener(callBack, this);
             if (state == "1")
             {
-                this.ChannelLoginStart(type, isAutoLogin);
+                this.ChannelLoginStart(type);
             }
             else
             {
@@ -137,11 +144,12 @@ class LoginScene extends BaseScene
         ChannelManager.LoginStateCheckEvent.addListener(callBack, this);
         ChannelManager.checkLoginState(type);
     }
-    private ChannelLoginStart(loginType: string, isAutoLogin: boolean)
+    private ChannelLoginStart(loginType: string)
     {
         ChannelManager.OnLogout.addListener(this.OnChannelLogout, this);
         //
         ChannelManager.loginType = loginType;
+        PrefsManager.setValue(PrefsManager.Login_LoginType, loginType);
         // if (loginType == ChannelLoginType.Guest || loginType == ChannelLoginType.IntranetGuest) // move todo
         // {
         //     //游客登录
@@ -151,7 +159,7 @@ class LoginScene extends BaseScene
         // {
         //渠道登录
         this.AddChannelEvents();
-        ChannelManager.login(loginType, isAutoLogin);
+        ChannelManager.login(loginType);
         // }
     }
     private ShowEnterLoginPanel()
@@ -168,7 +176,7 @@ class LoginScene extends BaseScene
     private OnEnterLoginSelect(data: string)
     {
         this.HideEnterLoginPanel();
-        this.ChannelLoginStart(data, false);
+        this.ChannelLoginStart(data);
     }
     private GameGuestLogin()
     {
@@ -263,7 +271,7 @@ class LoginScene extends BaseScene
     {
         this.RemoveChannelEvents();
         ChannelManager.OnLogout.removeListener(this.OnChannelLogout, this);
-        this.EnterLoginStart(false);
+        this.EnterLoginStart();
     }
     private GameAccountRegister(account: string, password: string)
     {
@@ -284,7 +292,7 @@ class LoginScene extends BaseScene
                 game.LoginManager.faceBookLogin(data.token, data.openid, data.nickname, data.face);
                 break;
             case ChannelLoginType.GameCenter:
-                game.LoginManager.gameCenterLogin(data.openid, data.keyurl,data.signature, data.timestamp, data.salt, data.nickname, data.face);
+                game.LoginManager.gameCenterLogin(data.openid, data.keyurl, data.signature, data.timestamp, data.salt, data.nickname, data.face);
                 break;
             case ChannelLoginType.GooglePlay:
                 game.LoginManager.googlePlayLogin(data.token, data.openid, data.nickname, data.face);

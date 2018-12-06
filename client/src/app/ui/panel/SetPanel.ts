@@ -60,6 +60,14 @@ class SetPanel extends BasePanel
 				this.shockGroup.parent.removeChild(this.shockGroup);
 			}
 		}
+		if (this.shockGroup.parent) //move todo
+		{
+			this.shockGroup.parent.removeChild(this.shockGroup);
+		}
+		if (this.autoVoiceGroup.parent) //move todo
+			{
+				this.autoVoiceGroup.parent.removeChild(this.autoVoiceGroup);
+			}
 		this.resizeScroller.viewport = this.verticalGroup;
 		UIManager.pushResizeScroller(this.resizeScroller, 1130);
 		UIManager.pushResizeGroup(this.resizeGroup);

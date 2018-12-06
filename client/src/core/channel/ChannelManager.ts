@@ -274,7 +274,7 @@ class ChannelManager
 	{
 		if (game.System.isMicro)
 		{
-			game.ExternalInterface.call(ExtFuncName.CheckLoginState, JSON.stringify(loginType));
+			game.ExternalInterface.call(ExtFuncName.CheckLoginState, loginType);
 		}
 		else if (game.System.isWeb)
 		{
@@ -284,7 +284,7 @@ class ChannelManager
 	/**
 	 * 登录
 	 */
-	public static login(loginType: string, isAutoLogin: boolean = false)
+	public static login(loginType: string)
 	{
 		// if (loginType == ChannelLoginType.IntranetAccount) // move todo
 		// {
@@ -292,7 +292,7 @@ class ChannelManager
 		// }
 		// else
 		// {
-		ChannelManager._channel.Login(loginType, isAutoLogin);
+		ChannelManager._channel.Login(loginType);
 		// }
 	}
 	/**
@@ -308,7 +308,7 @@ class ChannelManager
 		{
 			if (game.System.isMicro)
 			{
-				game.ExternalInterface.call(ExtFuncName.Logout, '');
+				game.ExternalInterface.call(ExtFuncName.Logout, ChannelManager.loginType);
 			}
 			else
 			{

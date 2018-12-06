@@ -49,7 +49,8 @@ public class InteractionJsVst {
         this.addCheckLoginState();
         this.addPay();
         this.addCheckUnFinishedList();
-        this.deleteOrder();
+        this.addDeleteOrder();
+        this.addLoginOut();
     }
 
     /**
@@ -106,18 +107,19 @@ public class InteractionJsVst {
                         AccessToken accessToken = AccessToken.getCurrentAccessToken();
                         boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
                         if (isLoggedIn) {
-                            loginSucces(accessToken.getToken(), accessToken.getUserId(),"","");
+                            loginSucces(accessToken.getToken(), accessToken.getUserId(), "", "");
                         } else {
                             LoginManager.getInstance().logInWithReadPermissions(_target, Arrays.asList("public_profile"));
                         }
                         break;
                     case ChannelLoginType.GooglePlay:
-                        GoogleSignInAccount account = _target.googleLoginVst.account;
-                        if (account != null) {
-                            loginSucces(account.getIdToken(), account.getId(), "", "");
-                        } else {
-                            _target.googleLoginVst.login();
-                        }
+                        _target.googleLoginVst.login();
+//                        GoogleSignInAccount account = _target.googleLoginVst.account;
+//                        if (account != null) { //为了注销功能，就不用这种方式了，每次都要拉起窗口
+//                            loginSucces(account.getIdToken(), account.getId(), "", "");
+//                        } else {
+//                        _target.googleLoginVst.login();
+//                        }
 //                        _target.googleLoginVst.login();
                         break;
                     default:
@@ -174,9 +176,9 @@ public class InteractionJsVst {
             }
         });
     }
+
     //检测google支付库存
-    private void addCheckUnFinishedList()
-    {
+    private void addCheckUnFinishedList() {
         _target.nativeAndroid.setExternalInterface(ExtFuncName.CheckUnFinishedPayList, new INativePlayer.INativeInterface() {
             @Override
             public void callback(String message) {
@@ -184,6 +186,7 @@ public class InteractionJsVst {
             }
         });
     }
+
     /**
      * 支付成功
      */
@@ -201,7 +204,7 @@ public class InteractionJsVst {
         _target.nativeAndroid.callExternalInterface(ExtFuncName.Pay, tokenStr);
     }
 
-    public void deleteOrder() {
+    public void addDeleteOrder() {
         _target.nativeAndroid.setExternalInterface(ExtFuncName.DeleteOrder, new INativePlayer.INativeInterface() {
             @Override
             public void callback(String message) {
@@ -210,6 +213,30 @@ public class InteractionJsVst {
                     _target.googleBillingVst.consumeOrder(obj.getString("token"));
                 } catch (JSONException e) {
 
+                }
+            }
+        });
+    }
+
+    /**
+     * 登出
+     */
+    public void addLoginOut() {
+        _target.nativeAndroid.setExternalInterface(ExtFuncName.LoginOut, new INativePlayer.INativeInterface() {
+            @Override
+            public void callback(String message) {
+                Log.d(TAG, "登出类型" + message);
+                switch (message) {
+                    case ChannelLoginType.FaceBook:
+                        LoginManager.getInstance().logOut();
+                        loginOut();
+                        break;
+                    case ChannelLoginType.GooglePlay:
+                        _target.googleLoginVst.signOut(); //由谷歌调回来
+                        break;
+                    default:
+                        Log.d(TAG, "未知的登出类型" + message);
+                        break;
                 }
             }
         });
@@ -242,5 +269,8 @@ public class InteractionJsVst {
         String tokenStr = new JSONObject(map).toString();
         _target.nativeAndroid.callExternalInterface(ExtFuncName.Login, tokenStr);
     }
-
+    public void loginOut()
+    {
+        _target.nativeAndroid.callExternalInterface(ExtFuncName.LoginOut, "");
+    }
 }

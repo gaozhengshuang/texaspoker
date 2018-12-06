@@ -1,6 +1,7 @@
 package com.giantfun.texaspoker;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 
@@ -13,6 +14,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 
@@ -69,6 +71,12 @@ public class GoogleLoginVst {
         {
             return;
         }
+        createSignInclient();
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        _target.startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+    private void createSignInclient()
+    {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(_target.getString(R.string.google_web_client_id))
                 .requestEmail()
@@ -76,10 +84,28 @@ public class GoogleLoginVst {
         if (mGoogleSignInClient == null) {
             mGoogleSignInClient = GoogleSignIn.getClient(_target, gso);
         }
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        _target.startActivityForResult(signInIntent, RC_SIGN_IN);
     }
-
+    public void signOut() {
+        if(mGoogleSignInClient == null)
+        {
+            createSignInclient();
+        }
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(_target, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        _target.interactionJsVst.loginOut();
+                    }
+                });
+//        mGoogleSignInClient.revokeAccess()
+//                .addOnCompleteListener(_target, new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        // ...
+//                                                _target.interactionJsVst.loginOut();
+//                    }
+//                });
+    }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == RC_SIGN_IN) {

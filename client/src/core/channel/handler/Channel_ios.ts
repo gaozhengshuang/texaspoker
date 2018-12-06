@@ -1,6 +1,6 @@
 class Channel_ios extends ChannelBase
 {
-	public Login(loginType: string, isAutoLogin: boolean)
+	public Login(loginType: string)
 	{
 		if (loginType == ChannelLoginType.GameCenter) // move todo
 		{
@@ -30,14 +30,14 @@ class Channel_ios extends ChannelBase
 		}
 		else if (ChannelManager.loginType == ChannelLoginType.IntranetAccount) //微端测试使用 //loginType == ChannelLoginType.Account || //move todo
 		{
-			this.accountLogin(isAutoLogin);
+			this.accountLogin();
 		}
 	}
-	private accountLogin(isAutoLogin: boolean): void
+	private accountLogin(): void
 	{
 		let account: string = PrefsManager.getValue(PrefsManager.Login_Account);
 		let password: string = PrefsManager.getValue(PrefsManager.Login_Password);
-		if (isAutoLogin && account && password)
+		if (account && password)
 		{
 			ChannelManager.DispatchAccountLoginSucceed(account, password);
 		}

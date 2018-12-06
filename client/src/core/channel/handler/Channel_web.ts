@@ -50,11 +50,11 @@ class Channel_web extends ChannelBase
 			AlertManager.showAlertByString('微信支付接口不存在');
 		}
 	}
-	public Login(loginType: string, isAutoLogin: boolean)
+	public Login(loginType: string)
 	{
 		if ( ChannelManager.loginType == ChannelLoginType.IntranetAccount) //loginType == ChannelLoginType.Account || //move todo
 		{
-			this.accountLogin(isAutoLogin);
+			this.accountLogin();
 		}
 		// else if (loginType == ChannelLoginType.Weixin)
 		// {
@@ -67,11 +67,11 @@ class Channel_web extends ChannelBase
 			ChannelManager.OnLoginFailed.dispatch();
 		}
 	}
-	private accountLogin(isAutoLogin: boolean): void
+	private accountLogin(): void
 	{
 		let account: string = PrefsManager.getValue(PrefsManager.Login_Account);
 		let password: string = PrefsManager.getValue(PrefsManager.Login_Password);
-		if (isAutoLogin && account && password)
+		if (account && password)
 		{
 			ChannelManager.DispatchAccountLoginSucceed(account, password);
 		}

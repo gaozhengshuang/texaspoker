@@ -6,11 +6,11 @@ class PrefsManager
 	/**
 	 * 第三方登录返回的token，如果有直接使用登录
 	 */
-	private static Login_Token: string = "login_token";
+	// private static Login_Token: string = "login_token";
 	/**
 	 * 第三方登录返回的token的有效期
 	 */
-	private static Login_Token_Expire: string = "login_token_expire";
+	// private static Login_Token_Expire: string = "login_token_expire";
 	//
 	/**
 	 * 游戏内置的帐号系统登录帐号(不对用户使用)
@@ -142,25 +142,25 @@ class PrefsManager
 	public static clearLoginInfo(): void
 	{
 		PrefsManager.setValue(PrefsManager.Login_LoginType, game.StringConstants.Empty);
-		PrefsManager.setValue(PrefsManager.Login_Token, game.StringConstants.Empty);
-		PrefsManager.setNumber(PrefsManager.Login_Token_Expire, 0);
+		// PrefsManager.setValue(PrefsManager.Login_Token, game.StringConstants.Empty);
+		// PrefsManager.setNumber(PrefsManager.Login_Token_Expire, 0);
 	}
-	public static getLoginToken(): string
-	{
-		let token: string = PrefsManager.getValue(PrefsManager.Login_Token);
-		if (token)
-		{
-			let expire: number = PrefsManager.getNumber(PrefsManager.Login_Token_Expire);
-			if (expire == 0 || expire > Math.floor(Date.now() / 1000))
-			{
-				return token;
-			}
-		}
-		return game.StringConstants.Empty;
-	}
-	public static setLoginToken(token: string, expire: number = 0): void
-	{
-		PrefsManager.setValue(PrefsManager.Login_Token, token);
-		PrefsManager.setNumber(PrefsManager.Login_Token_Expire, expire + Math.floor(Date.now() / 1000));
-	}
+	// public static getLoginToken(): string
+	// {
+	// 	let token: string = PrefsManager.getValue(PrefsManager.Login_Token);
+	// 	if (token)
+	// 	{
+	// 		let expire: number = PrefsManager.getNumber(PrefsManager.Login_Token_Expire);
+	// 		if (expire == 0 || expire > Math.floor(Date.now() / 1000))
+	// 		{
+	// 			return token;
+	// 		}
+	// 	}
+	// 	return game.StringConstants.Empty;
+	// }
+	// public static setLoginToken(token: string, expire: number = 0): void
+	// {
+	// 	PrefsManager.setValue(PrefsManager.Login_Token, token);
+	// 	PrefsManager.setNumber(PrefsManager.Login_Token_Expire, expire + Math.floor(Date.now() / 1000));
+	// }
 }
