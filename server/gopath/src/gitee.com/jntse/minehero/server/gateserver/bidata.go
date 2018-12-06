@@ -23,6 +23,11 @@ type BiData_daily struct {
 func (this *BiData_daily) Init(now int64) {
 	this.lasttick = now
 	db := DB()
+	if db == nil {
+		panic("mysql should init")
+		return
+	}
+
 	bInsertNew := false
 	//查找最新的一条记录
 	sqlstr := "SELECT  timestamp FROM bidata_daily ORDER BY id DESC LIMIT 1"
@@ -69,6 +74,11 @@ func (this *BiData_daily) Init(now int64) {
 
 func (this *BiData_daily) InsertNewDailyData(now int64) {
 	db := DB()
+	if db == nil {
+		panic("mysql should init")
+		return
+	}
+
 	datetime := time.Now().Format("2006-01-02")
 	sqlstr := fmt.Sprintf("INSERT INTO bidata_daily (date, timestamp) VALUES ('%v','%d')", datetime, now)
 	log.Info(sqlstr)
@@ -87,6 +97,10 @@ func (this *BiData_daily) InsertNewDailyData(now int64) {
 func (this *BiData_daily) Update(now int64) {
 	sqlstr := fmt.Sprintf("UPDATE bidata_daily set user_incr='%d', user_pay='%d', user_login='%d', pay_amount='%d', pay_orders='%d', online_max='%d' WHERE 1 ORDER BY id DESC LIMIT 1", this.user_incr, this.user_pay, this.user_login, this.pay_amount, this.pay_orders, this.online_max)
 	db := DB()
+	if db == nil {
+		panic("mysql should init")
+		return
+	}
 	_, err := db.Exec(sqlstr)
 	if err != nil {
 		log.Error("bidata_daily UPDATE err: %v\n", err)
