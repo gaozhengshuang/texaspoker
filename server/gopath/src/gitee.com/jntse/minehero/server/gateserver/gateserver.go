@@ -312,13 +312,19 @@ func (g *GateServer) Init(fileconf string) bool {
 }
 
 func (g *GateServer) InitMySql() bool {
-	mysqlconf := &mysql.MysqlConf{}
-	jsonerr := util.JsonConfParser("../conf/mysql.json", mysqlconf)
-	if jsonerr != nil || mysqlconf == nil {
-		log.Error("解析Mysql配置失败[%s]", jsonerr)
-		return false
+	//mysqlconf := &mysql.MysqlConf{}
+	//jsonerr := util.JsonConfParser("../conf/mysql.json", mysqlconf)
+	//if jsonerr != nil || mysqlconf == nil {
+	//	log.Error("解析Mysql配置失败[%s]", jsonerr)
+	//	return false
+	//}
+	//log.Info("加载mysql配置ok...")
+
+	mysqlconf := g.netconf.Mysql
+	if g.netconf.Mysql.Enable == false {
+		log.Info("mysql未启用")
+		return true
 	}
-	log.Info("加载mysql配置ok...")
 
 	g.dbsql = &mysql.MysqlDriver{}
 	g.dbsql.Init(mysqlconf)
