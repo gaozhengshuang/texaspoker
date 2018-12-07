@@ -545,7 +545,8 @@ class ChampionshipItemRenderer extends BaseItemRenderer<MatchRoomInfo>
         this.ticketImg.visible = false;
         if (this.bindData.definition.SignCost == 0 || this.bindData.definition.SignCost == undefined)
         {
-            this.priceLabel.text = "免费" + "+" + game.MathUtil.formatNum(game.longToNumber(this.bindData.definition.ServeCost));
+            let freeStr = "免费"
+            this.priceLabel.text = freeStr + "+" + game.MathUtil.formatNum(game.longToNumber(this.bindData.definition.ServeCost));
         } else
         {
             this.priceLabel.text = game.MathUtil.formatNum(game.longToNumber(this.bindData.definition.SignCost)) + "+" + game.MathUtil.formatNum(game.longToNumber(this.bindData.definition.ServeCost));

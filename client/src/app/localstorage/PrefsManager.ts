@@ -142,6 +142,8 @@ class PrefsManager
 	public static clearLoginInfo(): void
 	{
 		PrefsManager.setValue(PrefsManager.Login_LoginType, game.StringConstants.Empty);
+		PrefsManager.setValue(PrefsManager.Login_Account, "");
+		PrefsManager.setValue(PrefsManager.Login_Password, "");
 		// PrefsManager.setValue(PrefsManager.Login_Token, game.StringConstants.Empty);
 		// PrefsManager.setNumber(PrefsManager.Login_Token_Expire, 0);
 	}

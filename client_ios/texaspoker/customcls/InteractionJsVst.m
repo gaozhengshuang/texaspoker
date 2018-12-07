@@ -25,6 +25,7 @@
     InAppPurchaseManager* _purchaseMgr;
     FBLoginVst *_fbLoginVst;
     UIImageView *splashScreen;
+    UIImageView *logoImg;
     MMMaterialDesignSpinner *spinnerView;
     UILabel *_contentLabel;              //中间的label
 }
@@ -56,6 +57,13 @@
     splashScreen = [[UIImageView alloc] initWithFrame:view.view.bounds];
     splashScreen.image = [UIImage imageNamed:@"splash.jpg"];
     [view.view addSubview:splashScreen];
+    
+    logoImg = [[UIImageView alloc] init];
+    logoImg.image = [UIImage imageNamed:@"logo.png"];
+    int height = view.view.bounds.size.height / 1280 * 269;
+    logoImg.bounds = CGRectMake(0, 0, view.view.bounds.size.width, height);
+    logoImg.center = CGPointMake(CGRectGetMidX(view.view.bounds), height / 2);
+    [view.view addSubview:logoImg];
 }
 -(void)circleProgressBar:(UIViewController *)view
 {
@@ -193,6 +201,7 @@
         NSString* initDataStr = [GameLib dictionaryToJson:initDict];
         NSLog(@"白鹭initialize数据：%@", initDataStr);
         [splashScreen removeFromSuperview];
+        [logoImg removeFromSuperview];
         [spinnerView removeFromSuperview];
         [_contentLabel removeFromSuperview];
         [support callExternalInterface:Egret_Initialize Value:initDataStr];

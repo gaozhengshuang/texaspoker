@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">德州扑克</string>
+    <string name="app_name">金鑽德州撲克</string>
     <string name="splashTxt">Starting...</string>
     <string name="channelType">googleplay</string>
     <string name="google_web_client_id">101076164035-tn8cllnmdhdhjro70scvedt9gj0kc1l9.apps.googleusercontent.com</string>

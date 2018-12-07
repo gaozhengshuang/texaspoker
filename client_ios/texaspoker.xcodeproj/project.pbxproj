@@ -40,6 +40,7 @@
 		696C506C21B1212A00F7A26B /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696C506A21B1212A00F7A26B /* FBSDKCoreKit.framework */; };
 		696C507421B123FD00F7A26B /* GameCenterSdkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696C507321B123FD00F7A26B /* GameCenterSdkController.m */; };
 		6980E51A21B76DE400D24813 /* MMMaterialDesignSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = 6980E51921B76DE400D24813 /* MMMaterialDesignSpinner.m */; };
+		6980E51C21BA433600D24813 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 6980E51B21BA433600D24813 /* logo.png */; };
 		69A0DA2121B4E5C400EDDC33 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A0DA2021B4E5C400EDDC33 /* GameKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -94,6 +95,7 @@
 		696C507321B123FD00F7A26B /* GameCenterSdkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCenterSdkController.m; sourceTree = "<group>"; };
 		6980E51821B76DE400D24813 /* MMMaterialDesignSpinner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMaterialDesignSpinner.h; sourceTree = "<group>"; };
 		6980E51921B76DE400D24813 /* MMMaterialDesignSpinner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMaterialDesignSpinner.m; sourceTree = "<group>"; };
+		6980E51B21BA433600D24813 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		69A0DA2021B4E5C400EDDC33 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -157,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				6923B91A21B6A2850061847E /* splash.jpg */,
+				6980E51B21BA433600D24813 /* logo.png */,
 				306A7A93200C83F500E1EBB6 /* AppDelegate.h */,
 				306A7A94200C83F500E1EBB6 /* AppDelegate.mm */,
 				306A7A96200C83F500E1EBB6 /* ViewController.h */,
@@ -305,6 +308,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6923B91B21B6A2850061847E /* splash.jpg in Resources */,
+				6980E51C21BA433600D24813 /* logo.png in Resources */,
 				69264C0721A7E78500A23FE5 /* giantconfig.plist in Resources */,
 				305DF7A3200D95C5008022B6 /* game in Resources */,
 				306A7A9D200C83F500E1EBB6 /* Assets.xcassets in Resources */,
