@@ -76,8 +76,8 @@ func HttpsPostSkipVerifyByJson(url, body string) (*network.HttpResponse, error) 
 
 //------------------------------------------------------------
 //google 充值事件
-type GooglePayEventHandle func(string, string, string, string, string, string, int64) (*network.HttpResponse, string)
-type GooglePayFeedback func(string, string, string, int64, *network.HttpResponse, string)
+type GooglePayEventHandle func(string, string, string, string, string, string, *GateUser) (*network.HttpResponse, string)
+type GooglePayFeedback func(string, string, string, *GateUser, *network.HttpResponse, string)
 type GooglePayEvent struct {
 	purchasetoken string
 	productid string
@@ -86,45 +86,35 @@ type GooglePayEvent struct {
 	client_secret string
 	refresh_token string
 	orderid string
-	uid int64
+	u *GateUser
 	resp *network.HttpResponse
 	errcode string
 	handler GooglePayEventHandle
 	feedback GooglePayFeedback
 }
 
-func NewGooglePayEvent(purchasetoken,productid,packageName,client_id,client_secret,refresh_token,orderid string, uid int64, h GooglePayEventHandle, fb GooglePayFeedback) *GooglePayEvent {
-	return &GooglePayEvent{purchasetoken:purchasetoken, productid:productid, packageName:packageName, client_id:client_id, client_secret:client_secret, refresh_token:refresh_token,orderid:orderid, uid:uid,  handler:h, feedback:fb}
+func NewGooglePayEvent(purchasetoken,productid,packageName,client_id,client_secret,refresh_token,orderid string, u *GateUser, h GooglePayEventHandle, fb GooglePayFeedback) *GooglePayEvent {
+	return &GooglePayEvent{purchasetoken:purchasetoken, productid:productid, packageName:packageName, client_id:client_id, client_secret:client_secret, refresh_token:refresh_token,orderid:orderid, u:u,  handler:h, feedback:fb}
 }
 
 func (ev *GooglePayEvent) Process(ch_fback chan eventque.IEvent) {
 	tm1 := util.CURTIMEMS()
-	ev.resp, ev.errcode = ev.handler(ev.purchasetoken, ev.productid, ev.packageName, ev.client_id, ev.client_secret, ev.refresh_token, ev.uid)
+	ev.resp, ev.errcode = ev.handler(ev.purchasetoken, ev.productid, ev.packageName, ev.client_id, ev.client_secret, ev.refresh_token, ev.u)
 	ch_fback <- ev
 	log.Trace("[异步事件] GooglePayEvent 本次消耗 %dms", util.CURTIMEMS() - tm1)
 }
 
 func (ev *GooglePayEvent) Feedback() {
-	if ev.feedback != nil { ev.feedback(ev.purchasetoken, ev.productid, ev.orderid, ev.uid, ev.resp, ev.errcode) }
+	if ev.feedback != nil { ev.feedback(ev.purchasetoken, ev.productid, ev.orderid, ev.u, ev.resp, ev.errcode) }
 }
 
 
-func DoGooglePayEventHandle(purchasetoken, productid, packageName, client_id, client_secret, refresh_token string, uid int64) (*network.HttpResponse, string) {
-	u := UserMgr().FindById(uid)
-	if u == nil {
-		log.Error("DoGooglePayEventHandle 玩家已不在 等客户端重新发起验证")
-		return nil, "not find user"
-	}
+func DoGooglePayEventHandle(purchasetoken, productid, packageName, client_id, client_secret, refresh_token string, u *GateUser) (*network.HttpResponse, string) {
 	errcode, resp := u.CheckPurchaseToken(purchasetoken, productid, packageName, client_id, client_secret, refresh_token)
 	return resp, errcode
 }
 
-func DoGooglePayFeedback (purchasetoken, productid, orderid string, uid int64, resp *network.HttpResponse, errorcode string) {
-	u := UserMgr().FindById(uid)
-	if u == nil {
-		log.Error("DoGooglePayFeedback 玩家已不在 等客户端重新发起验证")
-		return
-	}
+func DoGooglePayFeedback (purchasetoken, productid, orderid string, u *GateUser, resp *network.HttpResponse, errorcode string) {
 	send := &msg.GW2C_RetGooglePayCheck{}
 	send.Purchasetoken = pb.String(purchasetoken)
 	send.Productid = pb.String(productid)
@@ -209,7 +199,7 @@ func (u *GateUser) OnGooglePayCheck(purchasetoken, productid, packageName, order
 		errorcode = "packageName not find"
 		log.Error("GooglePayCheck packageName not find packageName:%s ",packageName)
 	} else {
-		event := NewGooglePayEvent(purchasetoken, productid, packageName, client_id, client_secret, refresh_token, orderid, u.Id(), DoGooglePayEventHandle, DoGooglePayFeedback)
+		event := NewGooglePayEvent(purchasetoken, productid, packageName, client_id, client_secret, refresh_token, orderid, u, DoGooglePayEventHandle, DoGooglePayFeedback)
 		u.AsynEventInsert(event)
 	}
 	send.Errcode = pb.String(errorcode)
@@ -415,22 +405,22 @@ func (u *GateUser) OnGooglePayCheckSuccess (productid, orderid string) bool {
 //------------------------------------------------------------
 //apple 充值事件
 type ApplePayEventHandle func(string, string) (*network.HttpResponse, error)
-type ApplePayFeedback func(string, string, string, int64, *network.HttpResponse, error)
+type ApplePayFeedback func(string, string, string, *GateUser, *network.HttpResponse, error)
 type ApplePayEvent struct {
 	productIdentifier string
 	strbody string
 	transactionIdentifier string
 	bundleid string
 	url string
-	uid int64
+	u *GateUser
 	resp *network.HttpResponse
 	posterr error
 	handler ApplePayEventHandle
 	feedback ApplePayFeedback
 }
 
-func NewApplePayEvent(productIdentifier, strbody, transactionIdentifier, bundleid, url string, uid int64, h ApplePayEventHandle, fb ApplePayFeedback) *ApplePayEvent {
-		return &ApplePayEvent{productIdentifier:productIdentifier, strbody:strbody, transactionIdentifier:transactionIdentifier, bundleid:bundleid, url:url, uid:uid,  handler:h, feedback:fb}
+func NewApplePayEvent(productIdentifier, strbody, transactionIdentifier, bundleid, url string, u *GateUser, h ApplePayEventHandle, fb ApplePayFeedback) *ApplePayEvent {
+		return &ApplePayEvent{productIdentifier:productIdentifier, strbody:strbody, transactionIdentifier:transactionIdentifier, bundleid:bundleid, url:url, u:u,  handler:h, feedback:fb}
 }
 
 func (ev *ApplePayEvent) Process(ch_fback chan eventque.IEvent) {
@@ -441,20 +431,14 @@ func (ev *ApplePayEvent) Process(ch_fback chan eventque.IEvent) {
 }
 
 func (ev *ApplePayEvent) Feedback() {
-	if ev.feedback != nil { ev.feedback(ev.productIdentifier, ev.transactionIdentifier, ev.bundleid, ev.uid, ev.resp, ev.posterr) }
+	if ev.feedback != nil { ev.feedback(ev.productIdentifier, ev.transactionIdentifier, ev.bundleid, ev.u, ev.resp, ev.posterr) }
 }
 
 func DoApplePayEventHandle(url, strbody string) (*network.HttpResponse, error) {
 	return HttpsPostSkipVerifyByJson(url, strbody)
 }
 
-func DoApplePayFeedback(productIdentifier, transactionIdentifier, bundleid string, uid int64 ,resp *network.HttpResponse, posterr error) {
-	u := UserMgr().FindById(uid)
-	if u == nil {
-		log.Error("DoApplePayFeedback 玩家已不在 等客户端重新发起验证")
-		return
-	}
-
+func DoApplePayFeedback(productIdentifier, transactionIdentifier, bundleid string, u *GateUser ,resp *network.HttpResponse, posterr error) {
 	send := &msg.GW2C_RetApplePayCheck{}
 	errcode := ""
 	switch{
@@ -582,7 +566,7 @@ func (u *GateUser) OnApplePayCheck (productIdentifier, state, receipt, transacti
 	}
 	strbody := util.BytesToString(postbody)
 	log.Info("OnApplePayCheck postbody:%s", strbody)
-	event := NewApplePayEvent(productIdentifier, strbody, transactionIdentifier,bundleid, url, u.Id(), DoApplePayEventHandle, DoApplePayFeedback)
+	event := NewApplePayEvent(productIdentifier, strbody, transactionIdentifier,bundleid, url, u, DoApplePayEventHandle, DoApplePayFeedback)
 	u.AsynEventInsert(event)
 }
 
