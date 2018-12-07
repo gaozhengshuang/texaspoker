@@ -5,33 +5,33 @@ class GamblingCdComponent extends BaseComponent<number>
 {
 	public cdLabel: eui.Label;
 
-	private _shape: egret.Shape;
-	private _angle: number = 0;
 	private _phase: number = 0;
 	private _maxPhase: number = 0;
 	private _cdTime: number;
-	private _angleStep: number;
+
 	private _timePhase1: number;
 	private _timePhase2: number;
 
-	private _color: number = 0x00ff00;
-	private _colorStep1: number;
-	private _colorChangeStep1: number;
-	private _colorStep2: number;
-	private _colorChangeStep2: number;
-
-	private _totalAngle: number = 359;
-
 	private _isShock: boolean;
 
-	private static _cdImgList: Array<egret.Shape> = new Array<egret.Shape>();
+	private _armatureDisplay: dragonBones.EgretArmatureDisplay;
 
 	protected onAwake(event: eui.UIEvent)
 	{
 		super.onAwake(event);
-		this._shape = new egret.Shape();
-		this.addChild(this._shape);
+
+		let dragonbonesData = RES.getRes(ResFixedFileName.CD_ske);
+		let textureData = RES.getRes(ResFixedFileName.CD_texturedata);
+		let texture = RES.getRes(ResFixedFileName.CD_png);
+		let egretFactory: dragonBones.EgretFactory = dragonBones.EgretFactory.factory;
+		egretFactory.parseDragonBonesData(dragonbonesData);
+		egretFactory.parseTextureAtlasData(textureData, texture);
+
+		this._armatureDisplay = egretFactory.buildArmatureDisplay("cd");
+		this._armatureDisplay.x = this._armatureDisplay.y = 45;
+		this.addChild(this._armatureDisplay);
 	}
+
 	protected onEnable(event: eui.UIEvent): void
 	{
 		super.onEnable(event);
@@ -43,7 +43,7 @@ class GamblingCdComponent extends BaseComponent<number>
 	{
 		super.onDisable(event);
 		game.Tick.removeFrameInvoke(this.tick, this);
-		this._shape.graphics.clear();
+		this.clearCdAnim();
 	}
 	public init(data: number)
 	{
@@ -56,9 +56,10 @@ class GamblingCdComponent extends BaseComponent<number>
 			this._cdTime = 15;
 		}
 	}
+	private _ratioTime: number;
 	public start(startTime: number, isPush: boolean)
 	{
-		this._shape.graphics.clear();
+		this._lastCdNum = 0;
 		let nowTime: number = TimeManager.GetServerUtcSecondstamp();
 		if (isPush) //推送过来的时间改变则相等
 		{
@@ -76,85 +77,22 @@ class GamblingCdComponent extends BaseComponent<number>
 			remainTime = 0;
 		}
 		this._phase = Math.floor(remainTime * GameManager.stage.frameRate);
-		this._shape.rotation = -90;
 		this._maxPhase = GameManager.stage.frameRate * this._cdTime;
-		this._angleStep = 360 / this._maxPhase;
-		this._angle = this._angleStep * this._phase;
+
 		this._timePhase1 = this._maxPhase / 3;
 		this._timePhase2 = this._timePhase1 * 1.5;
-
-		this.setColorData();
+		// this._armatureDisplay.animation.play();  //"Sprite", Math.floor(this._phase / 6)
+		this._ratioTime = this._cdTime / 2;
 		this._isShock = false;
 		game.Tick.addFrameInvoke(this.tick, this);
 		this.tick();
 	}
-	private setColorData()
-	{
-		this._color = 0x00ff00;
-		this._colorChangeStep1 = Math.floor((this._timePhase2 - this._timePhase1) / 0xff);
-		this._colorChangeStep2 = Math.floor((this._maxPhase - this._timePhase2) / 0xff);
-		if (this._colorChangeStep1 < 1)
-		{ //CD过慢，要步长几次变一次色
-			this._colorChangeStep1 = 1;
-		}
-		if (this._colorChangeStep2 < 1)
-		{
-			this._colorChangeStep2 = 1;
-		}
 
-		this._colorStep1 = Math.ceil(0xff / (this._timePhase2 - this._timePhase1));
-		this._colorStep2 = Math.ceil(0xff / (this._maxPhase - this._timePhase2));
-		if (this._colorStep1 < 1) //变一次色的步长值
-		{
-			this._colorStep1 = 1;
-		}
-		if (this._colorStep2 < 1)
-		{
-			this._colorStep2 = 1;
-		}
-
-		if (this._phase >= this._timePhase1 && this._phase < this._timePhase2)
-		{
-			this.calculateColor(0, Math.ceil(Math.min(this._phase / this._timePhase2) * 0xff)); //立即设置颜色
-		}
-		else if (this._phase >= this._timePhase2)
-		{
-			this.calculateColor(0, 0xff); //绿到黄
-			this.calculateColor(1, Math.ceil(Math.min(1, this._phase / this._maxPhase) * 0xff)); //立即设置颜色
-		}
-	}
-	protected rendererStart(event: egret.Event)
-	{
-		super.rendererStart(event);
-		egret.callLater(() =>
-		{
-			this._shape.x = this.width / 2 + 2;
-			this._shape.y = this.height / 2 + 2;
-		}, this);
-	}
 	private tick()
 	{
 		this.showCdLabel();
-		this._angle = this._angleStep * this._phase;
-		if (this._angle >= this._totalAngle)
+		if (this._phase >= this._timePhase2 && this._phase < this._maxPhase)
 		{
-			this._angle = this._totalAngle;
-		}
-		this.mgraphics(this._angle);
-
-		if (this._phase >= this._timePhase1 && this._phase < this._timePhase2)
-		{
-			if (this._phase % this._colorChangeStep1 == 0)
-			{
-				this.calculateColor(0, this._colorStep1); //绿到黄
-			}
-		}
-		else if (this._phase >= this._timePhase2 && this._phase < this._maxPhase)
-		{
-			if (this._phase % this._colorChangeStep2 == 0)
-			{
-				this.calculateColor(1, this._colorStep2); //黄到红
-			}
 			if (GameSetting.shakeEnabled && GamblingUtil.getIsOnAction(GamblingManager.self) && !this._isShock)
 			{
 				ChannelManager.shake();
@@ -162,91 +100,45 @@ class GamblingCdComponent extends BaseComponent<number>
 			}
 		}
 		this._phase += 1;
-		if (this._phase > this._maxPhase)
+		if (this._phase > this._maxPhase)  //超时操作
 		{
-			//超时操作
 			game.Tick.removeFrameInvoke(this.tick, this);
-			this.mgraphics(this._totalAngle);
 			GamblingManager.TimeOutEvent.dispatch();
+			this.clearCdAnim();
+			this._armatureDisplay.animation.gotoAndStopByFrame("idle", 119);
+		}
+		else
+		{
+			let frame = Math.floor(this._phase / this._ratioTime);
+			frame = Math.min(119, frame);
+			this._armatureDisplay.animation.gotoAndStopByFrame("idle", frame);
 		}
 	}
+	private clearCdAnim()
+	{
+		if (this._armatureDisplay)
+		{
+			this._armatureDisplay.animation.stop();
+		}
+	}
+	private _lastCdNum;
 	/**
 	 * 显示CD改变
 	 */
 	private showCdLabel()
 	{
 		let num: number = Math.ceil((this._maxPhase - this._phase) / GameManager.stage.frameRate);
-		if (num <= 0)
+		if (this._lastCdNum != num)
 		{
-			this.cdLabel.text = "0";
-		}
-		else
-		{
-			this.cdLabel.text = game.DateTimeUtil.formatCountdown(num);
-		}
-	}
-	private _lastShape: egret.Shape;
-	private mgraphics(angle: number): void
-	{
-		this._shape.graphics.clear();
-		this._shape.graphics.lineStyle(5, this._color, 1);
-		this._shape.graphics.drawArc(0, 0, 43, 0, angle * Math.PI / 180, true);
-		this._shape.graphics.endFill();
-
-
-
-		// console.log("angle-----:" + angle);
-		// let shape: egret.Shape = new egret.Shape();
-		// shape.rotation = -90;
-		// shape.x = this.width / 2 + 2;
-		// shape.y = this.height / 2 + 2;
-		// shape.graphics.clear();
-		// shape.graphics.lineStyle(5, this._color, 1);
-		// shape.graphics.drawArc(0, 0, 43, 0, angle * Math.PI / 180, true);
-		// shape.graphics.endFill();
-		// shape.cacheAsBitmap = true;
-		// shape.name = "shape" + angle;
-		// if (this._lastShape != null && this._lastShape.parent)
-		// {
-		// 	this._lastShape.parent.removeChild(this._lastShape);
-		// }
-		// this._lastShape = shape;
-		// this.addChild(shape);
-		// if (angle == this._totalAngle)
-		// {
-		// 	GamblingCdComponent._cdImgList.push(shape);
-		// }
-		// else
-		// {
-		// 	GamblingCdComponent._cdImgList.push(shape);
-		// }
-
-	}
-	private calculateColor(phase: number, step: number)
-	{
-		let tmp: number;
-		let tmp2: number;
-		if (phase == 0)
-		{
-			tmp = this._color >> 16 & 0xff;
-			tmp += step;
-			if (tmp > 0xff)
+			this._lastCdNum = num;
+			if (num <= 0)
 			{
-				tmp = 0xff;
+				this.cdLabel.text = "0";
 			}
-			tmp2 = this._color >> 8 & 0xff;
-			this._color = tmp << 16 | tmp2 << 8;
-		}
-		else if (phase == 1)
-		{
-			tmp = this._color >> 8 & 0xff;
-			tmp -= step;
-			if (tmp < 0)
+			else
 			{
-				tmp = 0;
+				this.cdLabel.text = game.DateTimeUtil.formatCountdown(num);
 			}
-			tmp2 = this._color >> 16 & 0xff;
-			this._color = tmp2 << 16 | tmp << 8;
 		}
 	}
 }

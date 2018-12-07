@@ -36,7 +36,7 @@ class SheetSubName
  	*/
 	public static getdefaultHead(sex: Sex): string
 	{
-		if(sex == undefined)
+		if (sex == undefined)
 		{
 			sex = Sex.Male;
 		}
@@ -284,7 +284,7 @@ class ResGroupName
 	/**
 	 * 登录的文字图集
 	 */
-	public static Login_Text:string = "login_text";
+	public static Login_Text: string = "login_text";
 	/**
 	 * 通用资源
 	 */
@@ -462,14 +462,29 @@ class ResFixedFileName
 	 * 大厅荷官龙骨动画png
 	 */
 	public static Dealer_db_png = "poker_ani_tex_png";
-		/**
-	 * 大厅荷官龙骨动画 纹理配置文件
-	 */
+	/**
+ * 大厅荷官龙骨动画 纹理配置文件
+ */
 	public static Dealer_db_texturedata = "poker_ani_tex_json";
-		/**
-	 * 大厅荷官龙骨动画 数据配置文件
-	 */
+	/**
+ * 大厅荷官龙骨动画 数据配置文件
+ */
 	public static Dealer_db_ske = "poker_ani_ske_dbbin";
+
+	/**
+ * cd 动画png
+ */
+	public static CD_png = "cd_tex_png";
+	/**
+ * cd 动画 纹理配置文件
+ */
+	public static CD_texturedata = "cd_tex_json";
+	/**
+ * cd 动画 数据配置文件
+ */
+	public static CD_ske = "cd_ske_dbbin";
+
+
 	/**
 	 * 文本图集
 	 */
