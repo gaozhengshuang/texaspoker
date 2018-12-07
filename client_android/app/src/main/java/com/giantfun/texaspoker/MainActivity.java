@@ -32,6 +32,7 @@ public class MainActivity extends FragmentActivity {
     //custom property
     public ImageView splashImg;
     public UniversalLoadingView loadingView;
+    public ImageView logoImg;
 
     private SplashVst _splashVst;
     public InteractionJsVst interactionJsVst;

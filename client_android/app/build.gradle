@@ -1,7 +1,10 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
-
+def releaseTime() {
+    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
+}
 android {
+
     lintOptions {
         checkReleaseBuilds false
         abortOnError false
@@ -39,6 +42,11 @@ android {
         main {
             assets.srcDirs = ['../assets']
             jniLibs.srcDirs = ['libs']
+        }
+    }
+    android.applicationVariants.all {
+        variant ->variant.outputs.all {
+            outputFileName = "${defaultConfig.applicationId }_"+ buildType.name + "_v${defaultConfig.versionName}-${releaseTime()}.apk"
         }
     }
 //    compileOptions {

@@ -85,6 +85,10 @@ public class InteractionJsVst {
                 if (_target.splashImg != null) {
                     ly.removeView(_target.splashImg);
                 }
+                if(_target.logoImg != null)
+                {
+                    ly.removeView(_target.logoImg);
+                }
                 if (_target.loadingView != null) {
                     ly.removeView(_target.loadingView);
                 }

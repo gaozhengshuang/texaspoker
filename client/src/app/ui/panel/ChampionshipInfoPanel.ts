@@ -513,12 +513,17 @@ class ChampionshipInfoPanel extends BasePanel
         if (champDef)
         {
             this.nameLabel.text = champDef.Name;
+            let l1 = "免费";
+            let l2 = "服务费 ";
+            let l3 = "金币";
+            let l4 = "或 "
+            let l5 = "门票1张";
             if (champDef.SignCost == 0)
             {
-                this.applicationFeeLabel.text = "免费" + "+" + champDef.ServeCost + "服务费 ";
+                this.applicationFeeLabel.text = l1 + "+" + champDef.ServeCost + l2;
             } else
             {
-                this.applicationFeeLabel.text = champDef.SignCost + "金币" + "+" + champDef.ServeCost + "服务费 " + "或 " + champDef.Name + "门票1张";
+                this.applicationFeeLabel.text = champDef.SignCost + l3 + "+" + champDef.ServeCost + l2 + l4 + champDef.Name + l5;
             }
 
             this.initChipLabel.text = champDef.InitialChips.toString();
