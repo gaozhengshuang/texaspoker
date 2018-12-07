@@ -50,5 +50,27 @@
         "host": {
             "ip": "192.168.30.203", "port": 6377
         }
+    },
+    "mysql" : {
+        "enable": true,
+        "user":"xiejian",
+        "passwd":"123456",
+        "database":"texaspoker",
+        "host": {
+            "ip": "127.0.0.1", "port": 3306
+        },
+        "maxidleconn":30
+    },
+    "mysql" : {
+        "enable": true,
+        "user":"xiejian",
+        "passwd":"123456",
+        "database":"texaspoker",
+        "host": {
+            "ip": "127.0.0.1", "port": 3306
+        },
+        "maxidleconn":30
     }
+
+
 }

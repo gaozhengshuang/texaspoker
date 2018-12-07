@@ -9,7 +9,7 @@ import (
 	"gitee.com/jntse/gotoolkit/log"
 	"gitee.com/jntse/gotoolkit/net"
 	"gitee.com/jntse/gotoolkit/util"
-	_"gitee.com/jntse/gotoolkit/eventqueue"
+	"gitee.com/jntse/gotoolkit/eventqueue"
 	"gitee.com/jntse/minehero/server/tbl"
 	"gitee.com/jntse/minehero/pbmsg"
 	_"io/ioutil"
@@ -273,18 +273,47 @@ func on_C2L_ReqLoginWechat(session network.IBaseNetSession, message interface{})
 	}
 }
 
-//苹果账号登录
-func on_C2L_ReqLoginApple(session network.IBaseNetSession, message interface{}) {
-	tm1 := util.CURTIMEUS()
-	tmsg := message.(*msg.C2L_ReqLoginApple)
-	openid, keyurl, signature, timestamp, salt, nickname, face, bundleid :=  tmsg.GetOpenid(), tmsg.GetKeyurl(), tmsg.GetSignature(), tmsg.GetTimestamp(), tmsg.GetSalt(), tmsg.GetNickname(), tmsg.GetFace(), tmsg.GetBundleid()
-	//log.Info("ReqLoginApple openid:%s, keyurl:%s, signature:%s, timestamp:%s, salt:%s, nickname:%s, face:%s, bundleid:%s", openid,keyurl,signature,timestamp,salt,nickname,face,bundleid)
-	errcode := ""
+//------------------------------------------------------------
+//苹果账号事件
+type AppleLoginEventHandle func(string) (*network.HttpResponse, error)
+type AppleLoginFeedback func(network.IBaseNetSession, *msg.C2L_ReqLoginApple, *network.HttpResponse, error, int64)
+type AppleLoginEvent struct {
+	session network.IBaseNetSession
+	tmsg *msg.C2L_ReqLoginApple
+	resp *network.HttpResponse
+	err error
+	tm1 int64
+	handler AppleLoginEventHandle
+	feedback AppleLoginFeedback
+}
 
+func NewAppleLoginEvent(session network.IBaseNetSession, tmsg *msg.C2L_ReqLoginApple, h AppleLoginEventHandle, fb AppleLoginFeedback) *AppleLoginEvent {
+	return &AppleLoginEvent{session:session, tmsg:tmsg, handler:h, feedback:fb, tm1:util.CURTIMEUS()}
+}
+
+func (ev *AppleLoginEvent) Process(ch_fback chan eventque.IEvent) {
+	tm1 := util.CURTIMEMS()
+	keyurl := ev.tmsg.GetKeyurl()
+	ev.resp, ev.err = ev.handler(keyurl)
+	ch_fback <- ev
+	log.Trace("[异步事件] AppleLoginEvent 本次消耗 %dms", util.CURTIMEMS() - tm1)
+}
+
+func (ev *AppleLoginEvent) Feedback() {
+	if ev.feedback != nil { ev.feedback(ev.session, ev.tmsg, ev.resp, ev.err, ev.tm1) }
+}
+//--------------------------------------------------------------
+
+func DoAppleLoginEventHandle(keyurl string) (*network.HttpResponse, error) {
+	return network.HttpsGetSkipVerify(keyurl)
+}
+
+func DoAppleLoginFeedback(session network.IBaseNetSession, tmsg *msg.C2L_ReqLoginApple, resp *network.HttpResponse, err error, tm1 int64) {
+	openid, signature, timestamp, salt, nickname, face, bundleid :=  tmsg.GetOpenid(), tmsg.GetSignature(), tmsg.GetTimestamp(), tmsg.GetSalt(), tmsg.GetNickname(), tmsg.GetFace(), tmsg.GetBundleid()
+	errcode := ""
 	account := fmt.Sprintf("apple-%s",openid)
 	switch{
 		default:
-		resp, err := network.HttpsGetSkipVerify(keyurl)
 		if err != nil {
 			log.Error("ReqLoginApple network.HttpsGetSkipVerify Error :%s", err)
 			errcode = "apple验证获取key出错"
@@ -356,6 +385,13 @@ func on_C2L_ReqLoginApple(session network.IBaseNetSession, message interface{}) 
 	}
 }
 
+//苹果账号登录
+func on_C2L_ReqLoginApple(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2L_ReqLoginApple)
+	event := NewAppleLoginEvent(session, tmsg, DoAppleLoginEventHandle, DoAppleLoginFeedback)
+	Login().AsynEventInsert(event)
+}
+
 
 func VerifySig(sSig, sGcId, sBundleId, sSalt string, timestamp uint64, cert []byte) (err error) {
 	sig, err := base64.StdEncoding.DecodeString(sSig)
@@ -392,31 +428,48 @@ func VerifyRsa(key, sig, content []byte) error {
 	return err
 }
 
-//Facebook 用户登录
-func on_C2L_ReqLoginFaceBook(session network.IBaseNetSession, message interface{}) {
-	tm1 := util.CURTIMEUS()
-	tmsg := message.(*msg.C2L_ReqLoginFaceBook)
-	openid, token, nickname, face, appid :=  tmsg.GetOpenid(), tmsg.GetToken(), tmsg.GetNickname(), tmsg.GetFace(), tmsg.GetAppid()
-	log.Info("ReqLoginFaceBook openid: %s,  token: %s,  appid:%s", openid, token, appid)
+
+//------------------------------------------------------------
+//facebook 账号登录事件
+type FaceBookLoginEventHandle func(string) (*network.HttpResponse, error)
+type FaceBookLoginFeedback func(network.IBaseNetSession, *msg.C2L_ReqLoginFaceBook, *network.HttpResponse, error, int64)
+type FaceBookLoginEvent struct {
+	session network.IBaseNetSession
+	tmsg *msg.C2L_ReqLoginFaceBook
+	url string
+	resp *network.HttpResponse
+	err error
+	tm1 int64
+	handler FaceBookLoginEventHandle
+	feedback FaceBookLoginFeedback
+}
+
+func NewFaceBookLoginEvent(session network.IBaseNetSession, tmsg *msg.C2L_ReqLoginFaceBook, url string, h FaceBookLoginEventHandle, fb FaceBookLoginFeedback) *FaceBookLoginEvent {
+	return &FaceBookLoginEvent{session:session, tmsg:tmsg, url:url, handler:h, feedback:fb, tm1:util.CURTIMEUS()}
+}
+
+func (ev *FaceBookLoginEvent) Process(ch_fback chan eventque.IEvent) {
+	tm1 := util.CURTIMEMS()
+	ev.resp, ev.err = ev.handler(ev.url)
+	ch_fback <- ev
+	log.Trace("[异步事件] FaceBookLoginEvent 本次消耗 %dms", util.CURTIMEMS() - tm1)
+}
+
+func (ev *FaceBookLoginEvent) Feedback() {
+	if ev.feedback != nil { ev.feedback(ev.session, ev.tmsg, ev.resp, ev.err, ev.tm1) }
+}
+//--------------------------------------------------------------
+
+func DoFaceBookLoginEventHandle(url string) (*network.HttpResponse, error) {
+	return network.HttpsGetSkipVerify(url)
+}
+
+func DoFaceBookLoginFeedback(session network.IBaseNetSession, tmsg *msg.C2L_ReqLoginFaceBook, resp *network.HttpResponse, err error, tm1 int64) {
+	openid, nickname, face :=  tmsg.GetOpenid(), tmsg.GetNickname(), tmsg.GetFace()
 	account := fmt.Sprintf("facebook-%s",openid)
 	errcode := ""
-	appsecret := ""
-	for _, v := range tbl.FaceBook.FaceBookLogin {
-		if v.Appid == appid {
-			appsecret = v.Appsecret
-			break
-		}
-	}
-	if appsecret == "" {
-		errcode = "appid not find"
-		log.Info("账户:[%s] sid[%d] 登陆失败[%s]", account, session.Id(), errcode)
-		session.SendCmd(newL2C_RetLogin(errcode, "", 0, "", "FaceBook"))
-		session.Close()
-	}
-	url := fmt.Sprintf("https://graph.facebook.com/debug_token?access_token=%s|%s&input_token=%s", appid, appsecret, token)
 	switch {
 		default:
-		resp, err := network.HttpsGetSkipVerify(url)
 		if err != nil {
 			log.Error("ReqLoginFaceBook network.HttpsGetSkipVerify Error :%s", err)
 			errcode = "facebook验证出错"
@@ -498,7 +551,31 @@ func on_C2L_ReqLoginFaceBook(session network.IBaseNetSession, message interface{
 		session.SendCmd(newL2C_RetLogin(errcode, "", 0, "", "FaceBook"))
 		session.Close()
 	}
+}
 
+//Facebook 用户登录
+func on_C2L_ReqLoginFaceBook(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2L_ReqLoginFaceBook)
+	openid, token, appid :=  tmsg.GetOpenid(), tmsg.GetToken(), tmsg.GetAppid()
+	log.Info("ReqLoginFaceBook openid: %s,  token: %s,  appid:%s", openid, token, appid)
+	account := fmt.Sprintf("facebook-%s",openid)
+	errcode := ""
+	appsecret := ""
+	for _, v := range tbl.FaceBook.FaceBookLogin {
+		if v.Appid == appid {
+			appsecret = v.Appsecret
+			break
+		}
+	}
+	if appsecret == "" {
+		errcode = "appid not find"
+		log.Info("账户:[%s] sid[%d] 登陆失败[%s]", account, session.Id(), errcode)
+		session.SendCmd(newL2C_RetLogin(errcode, "", 0, "", "FaceBook"))
+		session.Close()
+	}
+	url := fmt.Sprintf("https://graph.facebook.com/debug_token?access_token=%s|%s&input_token=%s", appid, appsecret, token)
+	event := NewFaceBookLoginEvent(session, tmsg, url, DoFaceBookLoginEventHandle, DoFaceBookLoginFeedback)
+	Login().AsynEventInsert(event)
 }
 
 //func HttpsGetSkipVerify(url string) (*network.HttpResponse, error) {
@@ -520,30 +597,48 @@ func on_C2L_ReqLoginFaceBook(session network.IBaseNetSession, message interface{
 //	return &network.HttpResponse{Code:resp.StatusCode, Status: resp.Status, Body: rbody}, nil
 //}
 
-func on_C2L_ReqLoginGoogle(session network.IBaseNetSession, message interface{}) {
-	tm1 := util.CURTIMEUS()
-	tmsg := message.(*msg.C2L_ReqLoginGoogle)
-	openid, token, nickname, face, appid := tmsg.GetOpenid(), tmsg.GetToken(), tmsg.GetNickname(), tmsg.GetFace(), tmsg.GetClientid()
-	log.Info("ReqLoginGoogle openid: %s   token: %s", openid, token)
+
+//------------------------------------------------------------
+//google 账号登录事件
+type GoogleLoginEventHandle func(string) (*network.HttpResponse, error)
+type GoogleLoginFeedback func(network.IBaseNetSession, *msg.C2L_ReqLoginGoogle, *network.HttpResponse, error, int64)
+type GoogleLoginEvent struct {
+	session network.IBaseNetSession
+	tmsg *msg.C2L_ReqLoginGoogle
+	url string
+	resp *network.HttpResponse
+	err error
+	tm1 int64
+	handler GoogleLoginEventHandle
+	feedback GoogleLoginFeedback
+}
+
+func NewGoogleLoginEvent(session network.IBaseNetSession, tmsg *msg.C2L_ReqLoginGoogle, url string, h GoogleLoginEventHandle, fb GoogleLoginFeedback) *GoogleLoginEvent {
+	return &GoogleLoginEvent{session:session, tmsg:tmsg, url:url, handler:h, feedback:fb, tm1:util.CURTIMEUS()}
+}
+
+func (ev *GoogleLoginEvent) Process(ch_fback chan eventque.IEvent) {
+	tm1 := util.CURTIMEMS()
+	ev.resp, ev.err = ev.handler(ev.url)
+	ch_fback <- ev
+	log.Trace("[异步事件] GoogleLoginEvent 本次消耗 %dms", util.CURTIMEMS() - tm1)
+}
+
+func (ev *GoogleLoginEvent) Feedback() {
+	if ev.feedback != nil { ev.feedback(ev.session, ev.tmsg, ev.resp, ev.err, ev.tm1) }
+}
+//--------------------------------------------------------------
+
+func DoGoogleLoginEventHandle(url string) (*network.HttpResponse, error) {
+	return network.HttpsGetSkipVerify(url)
+}
+
+func DoGoogleLoginFeedback(session network.IBaseNetSession, tmsg *msg.C2L_ReqLoginGoogle, resp *network.HttpResponse, err error, tm1 int64) {
+	openid, nickname, face, appid := tmsg.GetOpenid(), tmsg.GetNickname(), tmsg.GetFace(), tmsg.GetClientid()
 	account := fmt.Sprintf("google-%s",openid)
 	errcode := ""
-	//appid := tbl.Global.GoogleLogin.Appid
-	bfind := false
-	for _, v := range tbl.Google.GoogleLoginAppIDArray {
-		if appid == v {
-			bfind = true
-			break
-		}
-	}
-	if bfind == false {
-		log.Error("ReqLoginGoogle 非法的 appid")
-		session.SendCmd(newL2C_RetLogin("appid not find", "", 0, "", "GooglePlay"))
-		return
-	}
-	url := fmt.Sprintf("https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=%s", token)
 	switch {
 		default:
-		resp, err := network.HttpsGetSkipVerify(url)
 		if err != nil {
 			log.Error("ReqLoginGoogle network.HttpsGetSkipVerify Error :%s", err)
 			errcode = "google验证出错"
@@ -624,4 +719,25 @@ func on_C2L_ReqLoginGoogle(session network.IBaseNetSession, message interface{})
 		session.SendCmd(newL2C_RetLogin(errcode, "", 0, "", "GooglePlay"))
 		session.Close()
 	}
+}
+func on_C2L_ReqLoginGoogle(session network.IBaseNetSession, message interface{}) {
+	tmsg := message.(*msg.C2L_ReqLoginGoogle)
+	openid, token, appid := tmsg.GetOpenid(), tmsg.GetToken(), tmsg.GetClientid()
+	log.Info("ReqLoginGoogle openid:%s, token:%s, appid:%s", openid, token, appid)
+	bfind := false
+	for _, v := range tbl.Google.GoogleLoginAppIDArray {
+		if appid == v {
+			bfind = true
+			break
+		}
+	}
+	if bfind == false {
+		log.Error("ReqLoginGoogle 非法的 appid:%s", appid)
+		session.SendCmd(newL2C_RetLogin("appid not find", "", 0, "", "GooglePlay"))
+		return
+	}
+	url := fmt.Sprintf("https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=%s", token)
+	event := NewGoogleLoginEvent(session, tmsg, url, DoGoogleLoginEventHandle, DoGoogleLoginFeedback)
+	Login().AsynEventInsert(event)
+
 }
