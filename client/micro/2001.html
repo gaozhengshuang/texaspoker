@@ -308,25 +308,6 @@ data-show-log="false" data-show-fps-style="x:0,y:0,size:12,textColor:0xffffff,bg
             document.body.removeChild(script);
         }
     }
-    //处理微信平台打开
-    (function () {
-        function onBridgeReady() {
-            WeixinJSBridge.invoke('setFontSizeCallback', { 'fontSize': 0 });
-            WeixinJSBridge.on('menu:setfont', function () {
-                WeixinJSBridge.invoke('setFontSizeCallback', { 'fontSize': 0 });
-            });
-        }
-        if (typeof WeixinJSBridge == "undefined") {
-            if (document.addEventListener) {
-                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-            } else if (document.attachEvent) {
-                document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
-                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
-            }
-        } else {
-            onBridgeReady();
-        }
-    })();
 </script>
 </body>
 
