@@ -523,7 +523,7 @@ func (this *TexasPlayer) ReqTimeAwardInfo(rev *msg.C2RS_ReqTimeAwardInfo) {
 func (this *TexasPlayer) ReqTimeAwardGet() {
 	send := &msg.RS2C_RetTimeAwardGet{}
 	endtime := RoomMgr().GetRewardTime(this.rewardround+1)
-	if endtime > this.rewardtime-10 || endtime == 0 {
+	if endtime > this.rewardtime+10 || endtime == 0 {
 		send.Errcode = pb.String("还不能领奖")
 		this.owner.SendClientMsg(send)
 		//log.Info("房间%d 玩家%d 计时奖励轮数%d end%d now%d", this.room.Id(), this.owner.Id(), this.rewardround, endtime,this.rewardtime)
