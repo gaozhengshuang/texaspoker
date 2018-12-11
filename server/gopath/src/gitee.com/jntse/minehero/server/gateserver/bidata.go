@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"gitee.com/jntse/gotoolkit/log"
 	"gitee.com/jntse/gotoolkit/util"
-	_"gitee.com/jntse/gotoolkit/mysql"
+	"gitee.com/jntse/gotoolkit/mysql"
 	"time"
 )
 
@@ -27,46 +27,45 @@ func (this *BiData_daily) Init(now int64) {
 		panic("mysql should init")
 		return
 	}
-
 	bInsertNew := false
-	//查找最新的一条记录
-	sqlstr := "SELECT  timestamp FROM bidata_daily ORDER BY id DESC LIMIT 1"
-	rows1, err1 := db.Query(sqlstr)
-	defer rows1.Close()
-	if err1 != nil{
-		log.Error("bidata_daily init query err: %v\n", err1)
+	colname := make([]string,0)
+	colname = append(colname,"`timestamp`")
+	cond := "1 ORDER BY `id` DESC"
+	rows, err := db.Select("bidata_daily",colname,cond,1)
+ 	if db.CheckErr(err) == true {
 		return
 	}
-	if rows1.Next() {
-		timestamp := int64(0)
-		err1 = rows1.Scan(&timestamp)
-		if err1 != nil {
-			log.Error("bidata_daily init scan err: %v\n", err1)
-			return
-		}
+	if len(rows) > 0 {
+		timestamp := rows[0][0].Int64()
 		if util.IsSameDay(timestamp, now) == false {
 			bInsertNew = true
 		}
 	} else {
 		bInsertNew = true
 	}
-
+	
 	if bInsertNew {
 		this.InsertNewDailyData(now)
 	} else {
-		sqlstr := "SELECT user_incr, user_pay, user_login, pay_amount, pay_orders, online_max FROM bidata_daily ORDER BY id DESC LIMIT 1"
-		rows, err := db.Query(sqlstr)
-		defer rows.Close()
-		if err != nil{
-			log.Error("bidata_daily init query err: %v\n", err)
+		colname = make([]string,0)
+		colname = append(colname,"user_incr")
+		colname = append(colname,"user_pay")
+		colname = append(colname,"user_login")
+		colname = append(colname,"pay_amount")
+		colname = append(colname,"pay_orders")
+		colname = append(colname,"online_max")
+		cond = "1 ORDER BY id DESC"
+		rows, err = db.Select("bidata_daily",colname,cond,1)
+		if db.CheckErr(err) == true {
 			return
 		}
-		if rows.Next() {
-			err = rows.Scan(&this.user_incr, &this.user_pay, &this.user_login, &this.pay_amount, &this.pay_orders, &this.online_max)
-			if err != nil {
-				log.Error("bidata_daily init scan err: %v\n", err)
-				return
-			}
+		if len(rows) > 0 {
+			this.user_incr = rows[0][0].Int32()
+			this.user_pay = rows[0][1].Int32()
+			this.user_login = rows[0][2].Int32()
+			this.pay_amount = rows[0][3].Int32()
+			this.pay_orders = rows[0][4].Int32()
+			this.online_max = rows[0][5].Int32()
 		}
 	}
 	log.Info("bidata_daily init user_incr:%d, user_pay:%d, user_login:%d, pay_amount:%d, pay_orders:%d", this.user_incr, this.user_pay, this.user_login, this.pay_amount, this.pay_orders)
@@ -80,12 +79,13 @@ func (this *BiData_daily) InsertNewDailyData(now int64) {
 	}
 
 	datetime := time.Now().Format("2006-01-02")
-	sqlstr := fmt.Sprintf("INSERT INTO bidata_daily (date, timestamp) VALUES ('%v','%d')", datetime, now)
-	log.Info(sqlstr)
-	_, inserr := db.Exec(sqlstr)
-	if inserr != nil {
-		log.Error("bidata_daily insert err: %v\n", inserr)
-	}
+
+	args := make([]*mysql.MysqlField, 0)
+	args = append(args, &mysql.MysqlField{Name:"date", Value:datetime})
+	args = append(args, &mysql.MysqlField{Name:"timestamp", Value:now})
+	_, err := db.Insert("bidata_daily", args...)
+	db.CheckErr(err)
+
 	this.user_incr = 0
 	this.user_pay = 0
 	this.user_login = 0
@@ -95,16 +95,23 @@ func (this *BiData_daily) InsertNewDailyData(now int64) {
 }
 
 func (this *BiData_daily) Update(now int64) {
-	sqlstr := fmt.Sprintf("UPDATE bidata_daily set user_incr='%d', user_pay='%d', user_login='%d', pay_amount='%d', pay_orders='%d', online_max='%d' WHERE 1 ORDER BY id DESC LIMIT 1", this.user_incr, this.user_pay, this.user_login, this.pay_amount, this.pay_orders, this.online_max)
 	db := DB()
 	if db == nil {
 		panic("mysql should init")
 		return
 	}
-	_, err := db.Exec(sqlstr)
-	if err != nil {
-		log.Error("bidata_daily UPDATE err: %v\n", err)
-	}
+
+	args := make([]*mysql.MysqlField, 0)
+	args = append(args, &mysql.MysqlField{Name:"user_incr", Value:this.user_incr})
+	args = append(args, &mysql.MysqlField{Name:"user_pay", Value:this.user_pay})
+	args = append(args, &mysql.MysqlField{Name:"user_login", Value:this.user_login})
+	args = append(args, &mysql.MysqlField{Name:"pay_amount", Value:this.pay_amount})
+	args = append(args, &mysql.MysqlField{Name:"pay_orders", Value:this.pay_orders})
+	args = append(args, &mysql.MysqlField{Name:"online_max", Value:this.online_max})
+	
+	cond := "1 ORDER BY `id` DESC LIMIT 1"
+	_, err := db.Update("bidata_daily", cond, args...)
+	db.CheckErr(err)
 
 	if util.IsSameDay(this.lasttick, now) == false {
 		this.InsertNewDailyData(now)
