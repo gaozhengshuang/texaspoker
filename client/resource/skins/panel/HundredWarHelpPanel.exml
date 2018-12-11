@@ -10,7 +10,7 @@
 		<e:Group id="playHelpGroup" width="630" height="660" y="200" scaleX="1" scaleY="1" name="VIP介绍" horizontalCenter="0">
 			<e:Group id="imgLabelGroup" y="0" width="100%" horizontalCenter="0">
 				<e:Label id="playwayLabel"
-				         text=""
+				         
 				         x="397" y="-138" scaleX="1" scaleY="1" width="606" multiline="true"  lineSpacing="6"/>
 				<e:Group width="606" x="314" y="-51" scaleX="1" scaleY="1">
 					<e:Group width="606" x="316" y="-60" scaleX="1" scaleY="1">
@@ -240,7 +240,7 @@
 		<e:Group id="prizeHelpGroup" width="606" height="660" y="200" scaleX="1" scaleY="1" name="VIP介绍" horizontalCenter="0">
 			<e:Group id="labelGroup" width="606" height="660" x="0" y="0">
 				<e:Label id="prizeLabel"
-				         text=""
+				         
 				         scaleX="1" scaleY="1" width="100%" multiline="true" horizontalCenter="0" top="0"  lineSpacing="6"/>
 			</e:Group>
 		</e:Group>

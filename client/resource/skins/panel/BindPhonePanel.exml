@@ -12,10 +12,10 @@
 
 		<e:Label text="手机号" x="91" textAlign="right" size="26" bold="false" fontFamily="Microsoft YaHei" textColor="0xFFFFFF" y="240"/>
 		<e:Image width="340" height="56" anchorOffsetX="0" anchorOffsetY="0" source="pub_lines_png" scale9Grid="13,10,4,7" x="223.69999999999996" y="225"/>
-		<e:Label id="phoneLabel" text="" wordWrap="false" size="24" anchorOffsetX="0" width="310" height="40" x="238.69999999999996" verticalAlign="middle" y="233"/>
+		<e:Label id="phoneLabel"  wordWrap="false" size="24" anchorOffsetX="0" width="310" height="40" x="238.69999999999996" verticalAlign="middle" y="233"/>
 		<e:Label text="验证码" x="91" textAlign="right" size="26" bold="false" fontFamily="Microsoft YaHei" textColor="0xFFFFFF" y="321.29"/>
 		<e:Image width="170" height="56" anchorOffsetX="0" anchorOffsetY="0" x="223.69999999999996" y="306" source="pub_lines_png" scale9Grid="13,10,4,7"/>
-		<e:Label id="codeLabel" text="" wordWrap="false" size="24" anchorOffsetX="0" width="140" height="40" x="238.69999999999996" verticalAlign="middle" y="314.29" maxChars="6"/>
+		<e:Label id="codeLabel"  wordWrap="false" size="24" anchorOffsetX="0" width="140" height="40" x="238.69999999999996" verticalAlign="middle" y="314.29" maxChars="6"/>
 		<ns1:GreenShadowButton id="sendCodeBtn" label="发送验证码" x="405" skinName="commonButtonGSkin" height="56" width="160" y="306"/>
 
 
@@ -24,7 +24,7 @@
 
 
 
-		<e:Label id="telErrorLabel" text="" x="224" y="365.97" size="24" textColor="0xEA0B0B"/>
+		<e:Label id="telErrorLabel"  x="224" y="365.97" size="24" textColor="0xEA0B0B"/>
 		<e:Label text="1.输入有效手机号" y="398.67" anchorOffsetX="0" width="485" size="24" lineSpacing="7" horizontalCenter="0.5" textColor="0xffffff" alpha="0.8"/>
 		<e:Label text="2.点击“发送验证码”，系统将发送验证码至您的手机" y="428.67" anchorOffsetX="0" width="485" size="24" lineSpacing="7" horizontalCenter="0.5" textColor="0xFFFFFF" alpha="0.8"/>
 		<e:Label text="3.输入您收到的验证码，点击“下一步”。" y="488.67" anchorOffsetX="0" width="485" size="24" lineSpacing="7" horizontalCenter="0.5" textColor="0xFFFFFF" alpha="0.8"/>

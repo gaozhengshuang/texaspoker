@@ -47,7 +47,7 @@
 			<ns1:GameButton id="moreBtn" label="更多" x="600" y="65" skinName="more_buttonSkin"/>
 			<e:Group id="freeGoldGroup" scaleX="1" scaleY="1" horizontalCenter="0" touchChildren="false" y="10">
 			<ns1:GameButton id="freeGoldBtn" label="任务" skinName="freeGold_buttonSkin"/>
-			<e:Label id="freeGoldTimeLabel" text="" size="30" height="30" width="100" scaleX="1" scaleY="1" textAlign="center" verticalAlign="middle" horizontalCenter="0" y="80"/>
+			<e:Label id="freeGoldTimeLabel"  size="30" height="30" width="100" scaleX="1" scaleY="1" textAlign="center" verticalAlign="middle" horizontalCenter="0" y="80"/>
 			</e:Group>
 		</e:Group>
 		<e:Group id="gameButton" width="720" height="250" x="0" y="0" scaleX="1" scaleY="1" touchEnabled="false">

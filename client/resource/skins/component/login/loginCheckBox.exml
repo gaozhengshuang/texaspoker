@@ -4,7 +4,7 @@
 	<e:Group x="0" y="0">
 		<e:Image fillMode="scale" alpha="1" source="login_bg_1_png" x="0" y="0" width="22" height="22"/>
 		<e:Image fillMode="scale" alpha="1" alpha.disabled="0.5" alpha.down="0.7" source.upAndSelected="login_icon_1_png" source.downAndSelected="login_icon_1_png" source.disabledAndSelected="login_icon_1_png"  x="3" verticalCenter="0" />
-		<e:Label id="labelDisplay" size="22" textAlign="left" verticalAlign="middle" fontFamily="Microsoft YaHei" text="" x="25" bold="false" textColor="0xffffff" alpha="0.8"/>
+		<e:Label id="labelDisplay" size="22" textAlign="left" verticalAlign="middle" fontFamily="Microsoft YaHei"  x="25" bold="false" textColor="0xffffff" alpha="0.8"/>
 	</e:Group>
 
 </e:Skin>

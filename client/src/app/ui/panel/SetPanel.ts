@@ -80,17 +80,17 @@ class SetPanel extends BasePanel
 		this.shakeTog.selected = GameSetting.shakeEnabled;
 		this.autoVocieTog.selected = GameSetting.autoVoiceEnabled;
 		let def: table.ITextDefine;
-		def = table.TextById[TextFixedId.Forum];
+		// def = table.TextById[TextFixedId.Forum];
 		if (def)
 		{
-			this.forum.text = TextDefined.GetInstance().getText(def);
-			this.forumTitle.text = TextDefined.GetInstance().getTitle(def);
+			// this.forum.text = TextDefined.GetInstance().getText(def);
+			// this.forumTitle.text = TextDefined.GetInstance().getTitle(def);
 		}
-		def = table.TextById[TextFixedId.QQ];
+		// def = table.TextById[TextFixedId.QQ];
 		if (def)
 		{
-			this.QQ.text = TextDefined.GetInstance().getText(def);
-			this.QQTitle.text = TextDefined.GetInstance().getTitle(def);
+			// this.QQ.text = TextDefined.GetInstance().getText(def);
+			// this.QQTitle.text = TextDefined.GetInstance().getTitle(def);
 		}
 		def = table.TextById[TextFixedId.CustomerService];
 		if (def)

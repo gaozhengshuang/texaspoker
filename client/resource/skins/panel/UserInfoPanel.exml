@@ -50,14 +50,14 @@
 					<e:Image width="600" height="50" y="0" anchorOffsetX="0" scaleX="1" scaleY="1" x="0" source="pub_lines_png" scale9Grid="13,13,4,1"/>
 					<e:Label text="Lv." x="15" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" verticalCenter="0" textColor="0xffffff"/>
 					<e:Label id="levelLabel" text="99" x="50" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" verticalCenter="0" textColor="0xffffff"/>
-					<e:Label id="titleLabel" text="" x="90" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" verticalCenter="0" textColor="0xffffff"/>
+					<e:Label id="titleLabel"  x="90" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" verticalCenter="0" textColor="0xffffff"/>
 					<e:Image scaleY="1" x="250" scaleX="1" width="340" verticalCenter="0" scale9Grid="6,5,7,4" source="jindutiao_1_png" height="14"/>
 					<e:Image id="levelProgressImg" x="250" scaleY="1" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" fillMode="clip" width="200" source="jindutiao_2_png" scale9Grid="6,6,11,2" verticalCenter="0"/>
 					<e:Label id="expLabel" text="0/0" x="345" size="20" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" verticalCenter="0" textColor="0xFFFFFF" width="150" textAlign="center" verticalAlign="middle"/>
 				</e:Group>
 				<e:Group x="0" y="186">
 					<e:Image width="600" height="55" y="0" anchorOffsetX="0" scaleX="1" scaleY="1" x="0" source="pub_lines_png" scale9Grid="13,13,4,1"/>
-					<e:Label id="stateLabel" text="" x="15" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0xffffff" verticalCenter="0"/>
+					<e:Label id="stateLabel"  x="15" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0xffffff" verticalCenter="0"/>
 				</e:Group>
 			</e:Group>
 			<ns1:ShadowButton id="buyUserGiftBtn" label="购买礼物" skinName="buyGiftButtonSkin" scaleY="0.9" scaleX="0.9" visible="false"/>

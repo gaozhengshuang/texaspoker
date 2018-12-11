@@ -7,7 +7,7 @@
 		<e:Image y="15" source="login_yhxy_png" horizontalCenter="0"/>
 		<ns1:GameButton id="closeButton" label="Button" x="572.35" y="40.19"  skinName="closeButtonSkin"/>
 		<e:Group id="txtGroup" horizontalCenter="1" anchorOffsetY="0" y="130">
-			<e:Label id="infoTxt" text="" x="0" y="0" width="600"  size="24" textColor="0xffffff" lineSpacing="7" alpha="0.8"/>
+			<e:Label id="infoTxt"  x="0" y="0" width="600"  size="24" textColor="0xffffff" lineSpacing="7" alpha="0.8"/>
 		</e:Group>
 		<e:TextInput id="textInput" text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa//				ssssssssssssssssssss   " width="600"
 		             height="600" y="130" anchorOffsetX="0" anchorOffsetY="0" enabled="true"  horizontalCenter="0"/>

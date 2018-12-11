@@ -39,27 +39,27 @@
 		<e:Group id="receiveAwardInfoGroup" x="0" y="200" anchorOffsetY="0" height="670" width="666" name="领奖信息">
 			<e:Label text="收件人" x="0" y="15" height="50" verticalAlign="middle" width="150" textAlign="right"  size="26" textColor="0xdfe5e5"/>
 			<e:Image width="450" height="50" x="160" y="15" source="pub_lines_png" scale9Grid="13,10,4,7"/>
-			<e:Label id="nameLabel" text="" x="165" y="15" anchorOffsetX="0" width="440" anchorOffsetY="0" height="50"
+			<e:Label id="nameLabel"  x="165" y="15" anchorOffsetX="0" width="440" anchorOffsetY="0" height="50"
 			         verticalAlign="middle" border="false" borderColor="0x827f7f"  size="26" maxChars="10"/>
 
 			<e:Label text="手机号码" x="0" y="80" height="50" verticalAlign="middle" width="150" textAlign="right"  size="26" textColor="0xdfe5e5"/>
 			<e:Image width="450" height="50" x="160" y="80" source="pub_lines_png" scale9Grid="13,10,4,7"/>
-			<e:Label id="telLabel" text="" x="165" y="80" anchorOffsetX="0" width="440" anchorOffsetY="0" height="50"
+			<e:Label id="telLabel"  x="165" y="80" anchorOffsetX="0" width="440" anchorOffsetY="0" height="50"
 			         verticalAlign="middle" border="false" borderColor="0x827F7F"  size="26" maxChars="11" restrict="0-9"/>
 
 			<e:Label text="QQ号码" x="0" y="145" height="50" verticalAlign="middle" width="150" textAlign="right"  size="26" textColor="0xdfe5e5"/>
 			<e:Image width="450" height="50" x="160" y="145" source="pub_lines_png" scale9Grid="13,10,4,7"/>
-			<e:Label id="qqLabel" text="" x="165" y="145" anchorOffsetX="0" width="440" anchorOffsetY="0" height="50"
+			<e:Label id="qqLabel"  x="165" y="145" anchorOffsetX="0" width="440" anchorOffsetY="0" height="50"
 			         verticalAlign="middle" border="false" borderColor="0x827F7F"  size="26" maxChars="15"/>
 
 			<e:Label text="邮箱地址" x="0" y="210" height="50" verticalAlign="middle" width="150" textAlign="right"  size="26" textColor="0xdfe5e5"/>
 			<e:Image width="450" height="50" x="160" y="210" source="pub_lines_png" scale9Grid="13,10,4,7"/>
-			<e:Label id="emailLabel" text="" x="165" y="210" anchorOffsetX="0" width="440" anchorOffsetY="0" height="50"
+			<e:Label id="emailLabel"  x="165" y="210" anchorOffsetX="0" width="440" anchorOffsetY="0" height="50"
 			         verticalAlign="middle" border="false" borderColor="0x827F7F"  size="26" maxChars="40"/>
 
 			<e:Label text="详细地址" x="0" y="275" height="50" verticalAlign="middle" width="150" textAlign="right"  size="26" textColor="0xdfe5e5"/>
 			<e:Image width="450" height="110" x="160" y="275" source="pub_lines_png" scale9Grid="13,10,4,7"/>
-			<e:Label id="addressLabel" text="" x="165" y="285" anchorOffsetX="0" width="440" verticalAlign="top" border="false" lineSpacing="10" multiline="true" scaleX="1" scaleY="1" height="90" borderColor="0xf7efef" size="26" maxChars="35"/>
+			<e:Label id="addressLabel"  x="165" y="285" anchorOffsetX="0" width="440" verticalAlign="top" border="false" lineSpacing="10" multiline="true" scaleX="1" scaleY="1" height="90" borderColor="0xf7efef" size="26" maxChars="35"/>
 
 			<e:Label text="请务必认真填写所有领奖信息，以便成功领取您的奖品。" y="412.82" anchorOffsetX="0" width="445" textAlign="left"
 			          textColor="0xdfe5e5" size="24" x="165" lineSpacing="5" alpha="0.8"/>

@@ -4,5 +4,5 @@
 	<e:Image id="btnImg" source="button_genzhu_png" source.up="button_genzhu_png" source.down="button_genzhu_1_png"/>
 	<e:Image horizontalCenter="0" verticalCenter="-1" alpha.down="0.8" source="text_rangpai_png"/>
     <e:Label id="labelDisplay" size="24" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei"
-             textColor="0xffffff" text="" verticalCenter="0" horizontalCenter="0"/>
+             textColor="0xffffff"  verticalCenter="0" horizontalCenter="0"/>
 </e:Skin>

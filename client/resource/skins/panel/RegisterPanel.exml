@@ -6,10 +6,10 @@
 		<e:Image y="15" source="login_zc_png" horizontalCenter="0"/>
 		<e:Label text="账号" x="130" textAlign="right" size="26" bold="false" fontFamily="Microsoft YaHei" textColor="0xffffff" y="125"/>
 		<e:Image width="340" height="56" anchorOffsetX="0" anchorOffsetY="0" source="pub_lines_png" scale9Grid="13,10,4,7" x="216" y="110"/>
-		<e:Label id="accountLabel" text="" wordWrap="false" size="24" anchorOffsetX="0" width="310" height="40" x="231" verticalAlign="middle" y="118"/>
+		<e:Label id="accountLabel"  wordWrap="false" size="24" anchorOffsetX="0" width="310" height="40" x="231" verticalAlign="middle" y="118"/>
 		<e:Label text="密码" x="130" textAlign="right" size="26" bold="false" fontFamily="Microsoft YaHei" textColor="0xffffff" y="211"/>
 		<e:Image width="340" height="56" anchorOffsetX="0" anchorOffsetY="0" x="216" y="196" source="pub_lines_png" scale9Grid="13,10,4,7"/>
-		<e:Label id="pwdLabel" text="" wordWrap="false" size="24" anchorOffsetX="0" width="310" height="40" x="231" verticalAlign="middle" y="204" displayAsPassword="true"/>
+		<e:Label id="pwdLabel"  wordWrap="false" size="24" anchorOffsetX="0" width="310" height="40" x="231" verticalAlign="middle" y="204" displayAsPassword="true"/>
 		<e:Group y="285" horizontalCenter="0">
 			<ns1:ShadowButton id="registerBtn" label="注册" x="0" y="0" skinName="commonButtonY2Skin"/>
 			<ns1:ShadowButton id="backBtn" label="返回" x="260.6" y="0" skinName="commonButtonY2Skin"/>

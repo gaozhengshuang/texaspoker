@@ -12,8 +12,8 @@
 		<e:Image height="69" width="179" x="243" y="20" source="text_pochan_png"/>
 		<e:Image scaleX="1" scaleY="1" y="110" source="assets/bg/pochan_bg_2_png" horizontalCenter="0"/>
 		<e:Group x="280" y="230">
-			<e:Label text="领取条件：金币不足" y="0" x="0" size="26" textColor="0xca0001"/>
-			<e:Label id="goldLimitLabel" text="1000" x="270" y="0" size="26" textColor="0xca0001"/>
+			<e:Label text="领取条件：金币不足" y="0" x="0" size="26" textColor="0xffebc3"/>
+			<e:Label id="goldLimitLabel" text="1000" x="270" y="0" size="26" textColor="0xffebc3"/>
 			<e:layout>
 			<e:HorizontalLayout/>
 			</e:layout>

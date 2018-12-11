@@ -2,6 +2,6 @@
 <e:Skin class="gambling_call_btn" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
     <e:Image id="btnImg"  source="button_genzhu_png"/>
     	<e:Label id="labelDisplay" size="24"
-	         fontFamily="Microsoft YaHei" anchorOffsetX="0" anchorOffsetY="0"  textColor="0xffffff" text="" textAlign="center" verticalAlign="middle" horizontalCenter="0" verticalCenter="-18"/>
+	         fontFamily="Microsoft YaHei" anchorOffsetX="0" anchorOffsetY="0"  textColor="0xffffff"  textAlign="center" verticalAlign="middle" horizontalCenter="0" verticalCenter="-18"/>
 	<e:Image horizontalCenter="0" verticalCenter="12" source="text_genzhu_png"/>
 </e:Skin>

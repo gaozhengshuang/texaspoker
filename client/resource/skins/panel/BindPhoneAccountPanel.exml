@@ -11,7 +11,7 @@
 				         scale9Grid="13,10,47,54" />
 				<e:Image width="78" height="78" source="zuce_2_png" scale9Grid="10,9,60,60" x="0" y="0" />
 				<e:Image source="login_icon_3_png" x="26" y="23" />
-				<e:EditableText id="accountLabel" text="" wordWrap="false" size="30" anchorOffsetX="0" width="500" height="60"
+				<e:EditableText id="accountLabel"  wordWrap="false" size="30" anchorOffsetX="0" width="500" height="60"
 				                x="85" verticalAlign="middle" y="9" prompt="请输入您的手机号码" promptColor="0x63aca8"
 				                 fontFamily="Microsoft YaHei" textColor="0x92e6df"/>
 			</e:Group>
@@ -20,19 +20,19 @@
 				         scale9Grid="13,10,48,55" y="0" />
 				<e:Image width="78" height="78" source="zuce_2_png" scale9Grid="10,9,60,60" x="0" y="0" />
 				<e:Image source="login_icon_4_png" x="26" y="25" />
-				<e:EditableText id="codeLabel" text="" wordWrap="false" size="30" anchorOffsetX="0" width="323" height="60" x="85"
+				<e:EditableText id="codeLabel"  wordWrap="false" size="30" anchorOffsetX="0" width="323" height="60" x="85"
 				                verticalAlign="middle" maxChars="8" y="10" prompt="手机短信验证码" promptColor="0x63aca8"
 				                 fontFamily="Microsoft YaHei" textColor="0x92e6df"/>
 				<e:Button id="sendCodeBtn" label="发送验证码" height="76" width="180" skinName="retrieveCode_buttonSkin"
 				                       x="414" y="1" />
 			</e:Group>
-			<e:Label id="telErrorLabel" text="" x="80" y="194.68" size="22" textColor="0xea0b0b" />
+			<e:Label id="telErrorLabel"  x="80" y="194.68" size="22" textColor="0xea0b0b" />
 			<e:Group y="224" horizontalCenter="0">
 				<e:Image width="594" height="78" anchorOffsetX="0" anchorOffsetY="0" x="0" y="0" source="zuce_1_png"
 				         scale9Grid="13,10,46,53" />
 				<e:Image width="78" height="78" source="zuce_2_png" scale9Grid="10,9,60,60" x="0" y="0" />
 				<e:Image source="login_icon_5_png" x="25" y="23" />
-				<e:EditableText id="pwdLabel" text="" wordWrap="false" size="30" anchorOffsetX="0" width="500" height="60" x="85"
+				<e:EditableText id="pwdLabel"  wordWrap="false" size="30" anchorOffsetX="0" width="500" height="60" x="85"
 				                verticalAlign="middle" maxChars="20" promptColor="0x63aca8" prompt="请输入密码" y="9"
 				                 fontFamily="Microsoft YaHei" displayAsPassword="true" textColor="0x92e6df"/>
 			</e:Group>
@@ -41,11 +41,11 @@
 				         scale9Grid="13,10,46,56" />
 				<e:Image width="78" height="78" source="zuce_2_png" scale9Grid="10,9,60,60" x="0" y="0" />
 				<e:Image source="login_icon_5_png" x="25" y="23" />
-				<e:EditableText id="pwdLabel1" text="" wordWrap="false" size="30" anchorOffsetX="0" width="500" height="60" x="85"
+				<e:EditableText id="pwdLabel1"  wordWrap="false" size="30" anchorOffsetX="0" width="500" height="60" x="85"
 				                verticalAlign="middle" maxChars="20" y="9" promptColor="0x63aca8" prompt="请再次输入密码"
 				                 fontFamily="Microsoft YaHei" displayAsPassword="true" textColor="0x92e6df"/>
 			</e:Group>
-			<e:Label id="pwdErrorLabel" text="" x="80" y="419.37" size="22" textColor="0xEA0B0B" />
+			<e:Label id="pwdErrorLabel"  x="80" y="419.37" size="22" textColor="0xEA0B0B" />
 			<ns1:ShadowButton id="registerBtn" label="" y="490" skinName="retrievelPwdConfirm_buttonSkin" x="55" />
 			<e:Image touchEnabled="false" x="322" y="518"  source="text_bangding_png"/>
 		</e:Group>
@@ -55,7 +55,7 @@
 				         width="556" />
 				<e:Image source="dl_1_png" y="8" x="8" />
 				<e:Image source="login_icon_6_png" x="34" y="26" />
-				<e:EditableText id="accountText" width="430" text="" x="95" size="30" prompt="请输入您的手机号" height="60"
+				<e:EditableText id="accountText" width="430"  x="95" size="30" prompt="请输入您的手机号" height="60"
 				                promptColor="0x969191" verticalAlign="middle" anchorOffsetX="0" verticalCenter="0"
 				                textColor="0x2B3833"  fontFamily="Microsoft YaHei"/>
 			</e:Group>
@@ -64,7 +64,7 @@
 				         scale9Grid="19,20,37,55" />
 				<e:Image source="dl_1_png" y="8" x="8" />
 				<e:Image x="34" y="26" source="login_icon_2_png" />
-				<e:EditableText id="pwdText" width="430" text="" x="95" size="30" height="60" prompt="请输入密码" promptColor="0x969191"
+				<e:EditableText id="pwdText" width="430"  x="95" size="30" height="60" prompt="请输入密码" promptColor="0x969191"
 				                verticalAlign="middle" maxChars="20" verticalCenter="0" textColor="0x2B3833"  fontFamily="Microsoft YaHei" displayAsPassword="true"/>
 			</e:Group>
 			<ns1:ShadowButton id="loginBtn" label="" y="254" scaleY="1" skinName="loginTel_buttonSkin" scaleX="1"

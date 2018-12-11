@@ -54,7 +54,7 @@
 		<e:Group id="addTabGroup" y="110" anchorOffsetY="0" height="1070" name="添加">
 			<e:Group anchorOffsetY="0" horizontalCenter="1" height="90" y="5">
 				<e:Image source="bg_sousuo_png" width="720" y="0" scale9Grid="2,3,54,88"/>
-				<e:EditableText id="searchText" width="416" height="60" text="" x="104" anchorOffsetX="0" border="false" borderColor="0x6b6464" verticalAlign="middle" anchorOffsetY="0" prompt="请输入对方用户名或ID！" size="32" textColor="0x53bae4" promptColor="0x53bae4" verticalCenter="0" fontFamily="Microsoft YaHei"/>
+				<e:EditableText id="searchText" width="416" height="60" x="104" anchorOffsetX="0" border="false" borderColor="0x6b6464" verticalAlign="middle" anchorOffsetY="0" prompt="请输入对方用户名或ID！" size="32" textColor="0x53bae4" promptColor="0x53bae4" verticalCenter="0" fontFamily="Microsoft YaHei"/>
 				<e:Image anchorOffsetX="0" anchorOffsetY="0" verticalCenter="0.5" x="32" source="icon_sousuo_png"/>
 				<ns1:GreenShadowButton id="searchBtn" label="搜索" x="530" verticalCenter="0" width="158" height="56" skinName="commonButtonGSkin"/>
 			</e:Group>

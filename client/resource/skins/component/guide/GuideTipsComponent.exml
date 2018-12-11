@@ -2,7 +2,7 @@
 <e:Skin class="GuideTipsComponentSkin" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Image id="bg" horizontalCenter="0" verticalCenter="0" source="game_bg_1_png" scale9Grid="19,14,19,37"/>
 	<e:Image id="arrowImg" anchorOffsetX="15.5" anchorOffsetY="11.5" source="game_bg_2_png" width="31" height="23" x="22" y="26"/>
-	<e:Label id="textLabel" text="" size="26" horizontalCenter="0" lineSpacing="5" textAlign="center" textColor="0xf9cb55" verticalCenter="-2"/>
+	<e:Label id="textLabel"  size="26" horizontalCenter="0" lineSpacing="5" textAlign="center" textColor="0xf9cb55" verticalCenter="-2"/>
 	<e:Group id="numGroup" left="25" top="25">
 		<e:Image id="circleBg" scaleX="1" scaleY="1" width="30" anchorOffsetY="0" height="30" horizontalCenter="0" verticalCenter="0" source="xinshou_6_png"/>
 		<e:Label id="numLabel" text="111" size="16" horizontalCenter="0" lineSpacing="5" textAlign="center" verticalCenter="0" textColor="0x000000"/>

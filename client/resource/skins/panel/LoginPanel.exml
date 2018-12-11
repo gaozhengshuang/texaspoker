@@ -4,7 +4,7 @@
 	<e:Group id="tweenGroup" height="100%">
 		<e:Image id="bg" width="100%" height="100%" x="0" y="0" scale9Grid="6,5,36,37"  source="assets/bg/login_background_1_jpg"/>
 		<e:Image y="28" id="logoImg" horizontalCenter="0" />
-		<e:Label id="versionLabel" size="22" verticalAlign="middle" fontFamily="Microsoft YaHei" text="" anchorOffsetX="0" bold="false" textColor="0xffffff" alpha="0.8" y="273" textAlign="center" x="478"/>
+		<e:Label id="versionLabel" size="22" verticalAlign="middle" fontFamily="Microsoft YaHei"  anchorOffsetX="0" bold="false" textColor="0xffffff" alpha="0.8" y="273" textAlign="center" x="478"/>
 		<e:Group horizontalCenter="0" bottom="0" height="450" x="115" y="0" width="650">
 			<e:Group id="btnGroup" height="105" y="280" horizontalCenter="0" width="420" anchorOffsetY="0">
 				<e:layout>

@@ -40,24 +40,24 @@
 				<e:Label text="自动播放语音" x="30" size="25" scaleX="1" scaleY="1" verticalCenter="0"/>
 				<e:ToggleSwitch id="autoVocieTog" label="ToggleButton" skinName="toggleSwitchSkin" scaleX="1" scaleY="1" x="580" verticalCenter="0"/>
 			</e:Group>
-			<e:Group width="720" height="100" y="535" scaleX="1" scaleY="1" horizontalCenter="0">
+			<!--<e:Group width="720" height="100" y="535" scaleX="1" scaleY="1" horizontalCenter="0">
 			<e:Image anchorOffsetX="0" scaleX="1" scaleY="1" source="setting_bg_png" width="720" scale9Grid="4,12,26,73" anchorOffsetY="0" height="100"/>
 			<e:Label text="游戏反馈" x="30" size="25" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" verticalCenter="0" textColor="0xffffff"/>
 			<e:Image width="720" y="99" anchorOffsetX="0" scaleX="1" scaleY="1" horizontalCenter="0.5" x="43" source="line_png" scale9Grid="1,0,16,1"/>
-			</e:Group>
+			</e:Group>-->
 			<e:Group width="720" height="100" y="635" scaleX="1" scaleY="1" horizontalCenter="0">
-			<e:Label id="forumTitle" text="" x="30" size="25" scaleX="1" scaleY="1" verticalCenter="0"/>
-			<e:Label id="forum" text="" size="25" scaleX="1" scaleY="1" verticalCenter="0" right="40" textAlign="center"/>
+			<e:Label id="forumTitle"  x="30" size="25" scaleX="1" scaleY="1" verticalCenter="0"/>
+			<e:Label id="forum"  size="25" scaleX="1" scaleY="1" verticalCenter="0" right="40" textAlign="center"/>
 			<e:Image width="720" y="99" anchorOffsetX="0" scaleX="1" scaleY="1" horizontalCenter="0.5" x="43" source="line_png" scale9Grid="1,0,16,1"/>
 			</e:Group>
 			<e:Group width="720" height="100" y="735" scaleX="1" scaleY="1" horizontalCenter="0">
-			<e:Label id="QQTitle" text="" x="30" size="25" scaleX="1" scaleY="1" verticalCenter="0"/>
-			<e:Label id="QQ" text="" size="25" scaleX="1" scaleY="1" verticalCenter="0" right="40" textAlign="center"/>
+			<e:Label id="QQTitle"  x="30" size="25" scaleX="1" scaleY="1" verticalCenter="0"/>
+			<e:Label id="QQ"  size="25" scaleX="1" scaleY="1" verticalCenter="0" right="40" textAlign="center"/>
 			<e:Image width="720" y="99" anchorOffsetX="0" scaleX="1" scaleY="1" horizontalCenter="0.5" x="43" source="line_png" scale9Grid="1,0,16,1"/>
 			</e:Group>
 			<e:Group width="720" height="100" y="835" scaleX="1" scaleY="1" horizontalCenter="0">
-			<e:Label id="customerServiceTitle" text="" x="30" size="25" scaleX="1" scaleY="1" verticalCenter="0"/>
-			<e:Label id="customerService" text="" size="25" verticalCenter="0" right="40" textAlign="center"/>
+			<e:Label id="customerServiceTitle"  x="30" size="25" scaleX="1" scaleY="1" verticalCenter="0"/>
+			<e:Label id="customerService"  size="25" verticalCenter="0" right="40" textAlign="center"/>
 			<e:Image width="720" y="99" anchorOffsetX="0" scaleX="1" scaleY="1" horizontalCenter="0.5" x="43" source="line_png" scale9Grid="1,0,16,1"/>
 			</e:Group>
 			<e:layout>
@@ -69,7 +69,7 @@
 		<e:Group id="resizeGroup" y="-100" touchEnabled="false" scaleX="1" scaleY="1">
 			<e:Group width="720" height="50" scaleX="1" scaleY="1" bottom="0" y="1050">
 				<e:Label id="aboutTitle" text="版本：" x="30" size="25" scaleX="1" scaleY="1" verticalCenter="0"/>
-				<e:Label id="aboutLabel" text="" size="25" scaleX="1" scaleY="1" verticalCenter="0" textAlign="center" x="110"/>
+				<e:Label id="aboutLabel"  size="25" scaleX="1" scaleY="1" verticalCenter="0" textAlign="center" x="110"/>
 			</e:Group>
 
 		</e:Group>

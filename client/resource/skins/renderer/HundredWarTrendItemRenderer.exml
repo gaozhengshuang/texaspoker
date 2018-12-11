@@ -6,19 +6,19 @@
 		</e:layout>
 		<e:Group x="96" y="21">
 			<e:Image id="bg0" scaleX="1" scaleY="1" source=""/>
-			<e:Label id="text0" text="" horizontalCenter="0" verticalCenter="0"/>
+			<e:Label id="text0"  horizontalCenter="0" verticalCenter="0"/>
 		</e:Group>
 		<e:Group x="106" y="31">
 			<e:Image id="bg1" scaleX="1" scaleY="1" source=""/>
-			<e:Label text="" id="text1" horizontalCenter="0" verticalCenter="0"/>
+			<e:Label  id="text1" horizontalCenter="0" verticalCenter="0"/>
 		</e:Group>
 		<e:Group x="116" y="41">
 			<e:Image id="bg2" scaleX="1" scaleY="1" source=""/>
-			<e:Label text="" id="text2" horizontalCenter="0" verticalCenter="0"/>
+			<e:Label  id="text2" horizontalCenter="0" verticalCenter="0"/>
 		</e:Group>
 		<e:Group x="126" y="51">
 			<e:Image id="bg3" scaleX="1" scaleY="1" source=""/>
-			<e:Label text="" id="text3" horizontalCenter="0" verticalCenter="0"/>
+			<e:Label  id="text3" horizontalCenter="0" verticalCenter="0"/>
 		</e:Group>
 	</e:Group>
 	<e:Image x="50" verticalCenter="0" width="20" height="20" source="br_zoushi_1_png"/>

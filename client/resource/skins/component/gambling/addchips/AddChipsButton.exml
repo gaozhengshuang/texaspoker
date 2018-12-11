@@ -2,6 +2,6 @@
 <e:Skin class="AddChipsButtonSkin" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Image id="btnImg" source="button_jiazhu_png"/>
     	<e:Label id="labelDisplay" size="22" verticalAlign="middle" textAlign="center"
-	         fontFamily="Microsoft YaHei" anchorOffsetX="0" anchorOffsetY="0"  textColor="0xffffff" text="" verticalCenter="0" horizontalCenter="0"/>
+	         fontFamily="Microsoft YaHei" anchorOffsetX="0" anchorOffsetY="0"  textColor="0xffffff"  verticalCenter="0" horizontalCenter="0"/>
 	<e:Image id="allInImg" anchorOffsetX="0" scaleX="1" scaleY="1" anchorOffsetY="0" horizontalCenter="0" source="text_queding_png" verticalCenter="0"/>
 </e:Skin>

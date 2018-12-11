@@ -13,6 +13,6 @@
 
 		</e:Scroller>
 
-		<e:Label id="titleLabel" text="" top="103" left="65"/>
+		<e:Label id="titleLabel"  top="103" left="65"/>
 	</e:Group>
 </e:Skin>

@@ -4,5 +4,5 @@
 	<e:Image id="btnImg" source.up="button_qipai_png" source.down="button_qipai_1_png" source="button_qipai_png"/>
 	<e:Image horizontalCenter="0" verticalCenter="-2" source="text_qipai_1_png" alpha.down="0.8"/>
     <e:Label id="labelDisplay" size="24" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei"
-             textColor="0xffffff" text="" verticalCenter="0" horizontalCenter="0"/>
+             textColor="0xffffff"  verticalCenter="0" horizontalCenter="0"/>
 </e:Skin>

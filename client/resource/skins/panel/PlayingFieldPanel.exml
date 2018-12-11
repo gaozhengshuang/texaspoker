@@ -21,7 +21,7 @@
 				<e:Image id="searchImg" x="0" y="0" source="game_icon_png" />
 				<e:Label text="搜索房间" x="37.35" y="0" size="26" textColor="0xa9a9a9" />
 			</e:Group>
-			<e:EditableText id="searchLable" text="" y="15" anchorOffsetX="0" width="694" anchorOffsetY="0" height="54"
+			<e:EditableText id="searchLable"  y="15" anchorOffsetX="0" width="694" anchorOffsetY="0" height="54"
 			                verticalAlign="middle" border="false" borderColor="0xEA1717" horizontalCenter="0" textAlign="center"
 			                size="34" promptColor="0x484858" textColor="0x484848"  fontFamily="Microsoft YaHei"/>
 

@@ -17,7 +17,7 @@
 
 					<e:Group id="writeGroup" x="83.73" y="15">
 						<e:Image x="0" source="bg_liaotian_1_png" width="388" height="70" scale9Grid="8,9,17,51" y="0"/>
-						<e:EditableText id="writeLabel" width="380" height="70" text="" x="4.27" anchorOffsetX="0" anchorOffsetY="0" verticalAlign="middle" textColor="0x0c0c0c" bold="false" border="false" borderColor="0x3d3a3a" maxChars="25" fontFamily="Microsoft YaHei" y="0"/>
+						<e:EditableText id="writeLabel" width="380" height="70"  x="4.27" anchorOffsetX="0" anchorOffsetY="0" verticalAlign="middle" textColor="0x0c0c0c" bold="false" border="false" borderColor="0x3d3a3a" maxChars="25" fontFamily="Microsoft YaHei" y="0"/>
 					</e:Group>
 					<e:ToggleButton id="fastEnterTB" label="快捷输入" x="635.6" skinName="chatFastSkin" verticalCenter="0" />
 					<e:ToggleButton id="faceTB" label="表情" x="558.48" skinName="chatBQJPSkin" verticalCenter="0" />

@@ -3,5 +3,5 @@
         xmlns:e="http://ns.egret.com/eui">
     <e:Image id="btnImg" alpha.disabled="0.5" y="0" x="0" anchorOffsetX="0" anchorOffsetY="0"  scale9Grid="20,18,27,57" width="610" source="button_tj_1_png"/>
     <e:Label id="labelDisplay" size="30" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei"
-             anchorOffsetX="0" anchorOffsetY="0" textColor="0xffffff" x="0" text="" width="610" height="94" />
+             anchorOffsetX="0" anchorOffsetY="0" textColor="0xffffff" x="0"  width="610" height="94" />
 </e:Skin>

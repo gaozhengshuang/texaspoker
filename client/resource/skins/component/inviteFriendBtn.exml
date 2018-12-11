@@ -4,6 +4,6 @@
 	          source="sc_button_png" source.disabled="sc_button_png"/>
 	<e:Image horizontalCenter="0" verticalCenter="-3" source="text_yaoqing_1_png" source.enabled="text_yaoqing_1_png"/>
 	<e:Label id="labelDisplay" size="30" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei"
-	         anchorOffsetX="0" anchorOffsetY="0" textColor="0xFFFFFF" text="" width="171" height="62.42" name="label"
+	         anchorOffsetX="0" anchorOffsetY="0" textColor="0xFFFFFF"  width="171" height="62.42" name="label"
 	         verticalCenter="-2.5" horizontalCenter="0" />
 </e:Skin>

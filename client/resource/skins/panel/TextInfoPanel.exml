@@ -7,10 +7,10 @@
 		<e:Scroller id="txtGroupScroller" width="666" height="880" anchorOffsetX="0" y="150"  anchorOffsetY="0" x="0"/>
 		<e:List id="txtList" anchorOffsetX="0" width="640" anchorOffsetY="0" height="880" y="150" horizontalCenter="0" />
 		<e:Group id="txtGroup" anchorOffsetY="0" height="880" anchorOffsetX="0" width="640" y="150" horizontalCenter="0">
-			<e:Label id="txtLabel" text="" width="620" textColor="0x308a95" fontFamily="Microsoft YaHei" size="30" multiline="true"
+			<e:Label id="txtLabel"  width="620" textColor="0x308a95" fontFamily="Microsoft YaHei" size="30" multiline="true"
 			         textAlign="left" verticalAlign="justify" y="0" horizontalCenter="0"  lineSpacing="3"/>
 		</e:Group>
 		<ns1:GameButton id="closeButton" label="Button" x="574.68" y="38.63" scaleX="1.1" scaleY="1.1"  skinName="closeButtonSkin"/>
-		<e:Label id="titleLabel" text="" y="103.99"  horizontalCenter="0"/>
+		<e:Label id="titleLabel"  y="103.99"  horizontalCenter="0"/>
 	</e:Group>
 </e:Skin>

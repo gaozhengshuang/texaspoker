@@ -24,7 +24,7 @@
 					<e:RadioButton id="sexFemaleButton" label="女" x="0" y="144" scaleX="1" scaleY="1" name="女" skinName="xialaMenuButtonSkin"/>
 				</e:Group>
 				<e:Image width="320" height="56" y="40" anchorOffsetX="0" anchorOffsetY="0" source="pub_lines_png" scale9Grid="13,13,4,1" x="280"/>
-				<e:EditableText id="ageLabel" width="237" height="40" text="" x="300" y="47" verticalAlign="middle" textAlign="left" prompt="年龄" promptColor="0xcccccc" fontFamily="Microsoft YaHei" size="26" textColor="0xffffff" anchorOffsetX="0"/>
+				<e:EditableText id="ageLabel" width="237" height="40"  x="300" y="47" verticalAlign="middle" textAlign="left" prompt="年龄" promptColor="0xcccccc" fontFamily="Microsoft YaHei" size="26" textColor="0xffffff" anchorOffsetX="0"/>
 			</e:Group>
 		</e:Group>
 		<ns1:ShadowButton id="closeButton" label="Button" x="600" y="65" anchorOffsetY="27" anchorOffsetX="27" skinName="closeButtonSkin"/>

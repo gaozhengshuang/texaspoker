@@ -9,6 +9,6 @@
                  source.upAndSelected="game_zdmr_png" source.downAndSelected="game_zdmr_png"
                  source.disabledAndSelected="game_zdmr_png"  source="game_srmm_png" scale9Grid="6,6,38,38" width="44" height="44"/>
         <e:Label id="labelDisplay" size="22" textAlign="left" verticalAlign="middle"
-                 fontFamily="Microsoft YaHei"  text="" anchorOffsetX="0" x="31" bold="true" textColor="0xffffff"/>
+                 fontFamily="Microsoft YaHei"   anchorOffsetX="0" x="31" bold="true" textColor="0xffffff"/>
     </e:Group>
 </e:Skin>

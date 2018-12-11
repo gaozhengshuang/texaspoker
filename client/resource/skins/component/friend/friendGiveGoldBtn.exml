@@ -3,5 +3,5 @@
     <e:Image id="btnImg" y="0" x="0" anchorOffsetX="0" anchorOffsetY="0" source="gold2_png"
              source.disabled="gold2_1_png"  width="50" height="50"/>
     <e:Label id="labelDisplay" size="28" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei"
-             anchorOffsetX="0" anchorOffsetY="0" textColor="0xffffff" text="" name="label" />
+             anchorOffsetX="0" anchorOffsetY="0" textColor="0xffffff"  name="label" />
 </e:Skin>

@@ -11,7 +11,7 @@
 			         width="556" />
 			<e:Image source="dl_1_png" y="8" x="8" />
 			<e:Image source="login_icon_6_png" x="34" y="26" />
-			<e:EditableText id="accountText" width="430" text="" x="95" size="30" prompt="请输入您的手机号" height="60"
+			<e:EditableText id="accountText" width="430"  x="95" size="30" prompt="请输入您的手机号" height="60"
 			                promptColor="0x969191" verticalAlign="middle" anchorOffsetX="0" verticalCenter="0"
 			                textColor="0x2b3833"  fontFamily="Microsoft YaHei"/>
 		</e:Group>
@@ -20,7 +20,7 @@
 				<e:Image width="556" height="94" anchorOffsetX="0" anchorOffsetY="0" y="0" source="dl_2_png" scale9Grid="19,20,37,55"/>
 				<e:Image source="dl_1_png" y="8" x="8"/>
 				<e:Image x="34" y="26" source="login_icon_2_png"/>
-				<e:EditableText id="pwdText" width="430" text="" x="95" size="30" height="60" prompt="请输入密码" promptColor="0x969191" verticalAlign="middle" maxChars="20" verticalCenter="0" textColor="0x2b3833" fontFamily="Microsoft YaHei" displayAsPassword="true"/>
+				<e:EditableText id="pwdText" width="430"  x="95" size="30" height="60" prompt="请输入密码" promptColor="0x969191" verticalAlign="middle" maxChars="20" verticalCenter="0" textColor="0x2b3833" fontFamily="Microsoft YaHei" displayAsPassword="true"/>
 			</e:Group>
 			<e:Group y="235.27" anchorOffsetX="0" width="382" x="87">
 				<e:Label id="findPwdBtn" text="忘记密码" y="2" size="30" textColor="0x4bc6a5"/>
@@ -28,12 +28,12 @@
 			</e:Group>
 		</e:Group>
 		<e:Group id="codeLoginGroup" x="59" y="265.02">
-			<e:Label id="telErrorLabel" text="" x="13" y="-22.32" size="22" textColor="0xEA0B0B"/>
+			<e:Label id="telErrorLabel"  x="13" y="-22.32" size="22" textColor="0xEA0B0B"/>
 			<e:Group y="0" x="0">
 			<e:Image width="556" height="94" anchorOffsetX="0" anchorOffsetY="0" y="0" source="dl_2_png" scale9Grid="19,20,37,55"/>
 			<e:Image source="dl_1_png" y="8" x="8"/>
 			<e:Image x="34" y="26" source="login_icon_2_png"/>
-			<e:EditableText id="codeLabel" width="267" text="" x="95" size="30" height="60" prompt="手机短信验证码" promptColor="0x969191" verticalAlign="middle" maxChars="20" verticalCenter="0" textColor="0x2B3833" fontFamily="Microsoft YaHei" displayAsPassword="true" anchorOffsetX="0"/>
+			<e:EditableText id="codeLabel" width="267"  x="95" size="30" height="60" prompt="手机短信验证码" promptColor="0x969191" verticalAlign="middle" maxChars="20" verticalCenter="0" textColor="0x2B3833" fontFamily="Microsoft YaHei" displayAsPassword="true" anchorOffsetX="0"/>
 				<e:Button id="sendCodeBtn" label="发送验证码" height="76" width="180" skinName="retrieveCode_buttonSkin" x="367" scaleX="1" scaleY="1" verticalCenter="0"/>
 			</e:Group>
 		</e:Group>

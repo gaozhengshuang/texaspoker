@@ -3,7 +3,7 @@
         xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
 
     <e:Label id="labelDisplay" top="5" bottom="11" left="45" right="8" size="20" textColor="0xFFFFFF"
-             verticalAlign="middle" textAlign="center" text=""  anchorOffsetX="0" visible="false"/>
+             verticalAlign="middle" textAlign="center"   anchorOffsetX="0" visible="false"/>
     <ns1:ShadowButton id="desBT" label="" verticalCenter="0"  skinName="guessSelBtnSkin"/>
 	<e:Image source="game_srmm_png" source.upAndSelected="game_zdmr_png" verticalCenter="-0.5" width="35" height="35" x="20"/>
 </e:Skin>

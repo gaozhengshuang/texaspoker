@@ -3,5 +3,5 @@
         xmlns:e="http://ns.egret.com/eui">
     <e:Image source="game_icon_1_png" source.upAndSelected="game_icon_2_png"  verticalCenter="0"/>
     <e:Label id="labelDisplay" size="20"
-             verticalAlign="middle" textAlign="center" text=""  x="20" verticalCenter="0" textColor="0xa6e583"/>
+             verticalAlign="middle" textAlign="center"   x="20" verticalCenter="0" textColor="0xa6e583"/>
 </e:Skin>

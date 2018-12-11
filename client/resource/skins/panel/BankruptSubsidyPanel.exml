@@ -9,8 +9,8 @@
 		<e:Group id="resizeGroup" y="-20" horizontalCenter="0" width="720" height="1200">
 			<e:Image width="720" height="1200" x="1" y="0" anchorOffsetY="0" source="assets/bg/pochan_bg_1_png" scaleX="1" scaleY="1"/>
 			<e:Group y="140" horizontalCenter="0">
-				<e:Label text="领取条件：金币不足" y="0" x="0" size="36" textColor="0xa02a01"/>
-				<e:Label id="goldLimitLabel" text="1000" x="270" y="0" size="36" textColor="0xa02a01"/>
+				<e:Label text="领取条件：金币不足" y="0" x="0" size="36" textColor="0xffebc3"/>
+				<e:Label id="goldLimitLabel" text="1000" x="270" y="0" size="36" textColor="0xffebc3"/>
 				<e:layout>
 					<e:HorizontalLayout/>
 				</e:layout>

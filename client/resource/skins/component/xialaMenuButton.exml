@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="xialaMenuButtonSkin" states="up,down,disabled,upAndSelected,downAndSelected,disabledAndSelected" width="253" height="44" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Image id="btnImg" source.down="infor_xiala_png" width="253" height="44" x="0" y="0" source="pub_bg_png" alpha="0" scale9Grid="13,13,12,7"/>
-	<e:Label id="labelDisplay" verticalCenter="0" text="" x="20" fontFamily="Microsoft YaHei" size="26" textColor="0xffffff"/>
+	<e:Label id="labelDisplay" verticalCenter="0"  x="20" fontFamily="Microsoft YaHei" size="26" textColor="0xffffff"/>
 </e:Skin>

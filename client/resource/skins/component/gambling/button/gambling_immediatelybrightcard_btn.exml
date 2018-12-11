@@ -3,5 +3,5 @@
 	<e:Image id="btnImg" source="button_jiazhu_png" source.up="button_jiazhu_png"/>
 	<e:Image horizontalCenter="0" verticalCenter="0" source="text_liangpai_1_png"/>
     <e:Label id="labelDisplay" size="24" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei"
-             textColor="0xffffff" text="" verticalCenter="0" horizontalCenter="0"/>
+             textColor="0xffffff"  verticalCenter="0" horizontalCenter="0"/>
 </e:Skin>

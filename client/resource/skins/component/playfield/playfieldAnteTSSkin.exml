@@ -3,6 +3,6 @@
         states="up,down,disabled,upAndSelected,downAndSelected,disabledAndSelected" xmlns:e="http://ns.egret.com/eui">
     <e:Image source="game_bg_qz_png" width="110" height="54" />
     <e:Image source.upAndSelected="game_cjsrf_png" width="110" scale9Grid="5,5,37,32"  height.upAndSelected="54"/>
-    <e:Label id="labelDisplay" size="26" textColor="0xFFFFFF" verticalAlign="middle" textAlign="center" text=""
+    <e:Label id="labelDisplay" size="26" textColor="0xFFFFFF" verticalAlign="middle" textAlign="center" 
              width="110" height="54" horizontalCenter="0" verticalCenter="0" />
 </e:Skin>
