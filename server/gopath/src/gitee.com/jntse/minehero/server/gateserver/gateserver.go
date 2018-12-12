@@ -469,7 +469,7 @@ func (g *GateServer) Run() {
 	now := util.CURTIMEMS() // 毫秒
 	lastrun := now - g.runtimestamp
 	g.sf.Record(now)
-	dispatched := g.net.Dispatch(network.KFrameDispatchNum)
+	dispatched := g.net.Dispatch(network.KFrameDispatchNum, 500)
 	g.sdispatch.Inc(int32(dispatched))
 	g.sf.Record(util.CURTIMEMS())
 
