@@ -359,7 +359,7 @@ func (rs *RoomServer) Run() {
 	// TODO:每帧处理2000条
 	now := util.CURTIMEMS()
 	lastrun := now - rs.runtimestamp
-	rs.net.Dispatch(network.KFrameDispatchNum * 2)
+	rs.net.Dispatch(network.KFrameDispatchNum * 2, 500)
 	tm_dispath := util.CURTIMEMS()
 
 	// 测试日志

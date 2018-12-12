@@ -290,7 +290,7 @@ func (ma *MatchServer) Run() {
 	// TODO:每帧处理2000条
 	now := util.CURTIMEMS()
 	lastrun := now - ma.runtimestamp
-	ma.net.Dispatch(network.KFrameDispatchNum * 2)
+	ma.net.Dispatch(network.KFrameDispatchNum * 2, 1000)
 	tm_dispath := util.CURTIMEMS()
 
 	//
