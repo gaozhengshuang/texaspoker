@@ -1039,7 +1039,7 @@ func (this *TexasPokerRoom) RestartGame() int32{
 
 //赢牌通知
 func (this *TexasPokerRoom) WinNotify(name string, level int32, reward int64) {
-	if level < 5 {
+	if level < 5 || reward <= 0{
 		return
 	}
 	if this.IsChampionShip() {
