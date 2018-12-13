@@ -235,7 +235,7 @@ func (u *User) Run() {
 		}
 
 		// 每帧处理1000条
-		u.net.Dispatch(1000)
+		u.net.Dispatch(1000, 500)
 
 		now := util.CURTIMEMS()
 		u.ticker100ms.Run(now)
