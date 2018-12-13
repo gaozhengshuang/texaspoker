@@ -141,6 +141,7 @@ abstract class BasePanel extends eui.Component
 			this.isTweenOver = false;
 			this.onTween();
 		}
+		this.isFirstTween = false; //初始化了就相当于缓动过了
 		if (appendData && appendData.prevPanelName)
 		{
 			this.prevPanelName = appendData.prevPanelName;
@@ -228,7 +229,6 @@ abstract class BasePanel extends eui.Component
 	}
 	protected onTweenOver()
 	{
-		this.isFirstTween = false;
 		this.tweenObj = null;
 		this.isTweenOver = true;
 	}

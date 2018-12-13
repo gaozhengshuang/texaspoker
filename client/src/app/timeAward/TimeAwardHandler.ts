@@ -140,11 +140,12 @@ class TimeAwardHandler
                     this.initialize(round, timeawardDef.Time - sectime);
                 } else
                 {
-                    this.initialize(round, timeawardDef.Time - (Math.round(TimeManager.GetServerUtcSecondstamp()) - startTime + sectime));
+                    let offsetTime = Math.round(TimeManager.GetServerUtcSecondstamp()) - startTime;
+                    this.initialize(round, timeawardDef.Time - (offsetTime + sectime));
                 }
             } else
             {
-                this.initialize(round);
+                this.initialize(round); 
             }
         }
     }
