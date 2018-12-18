@@ -266,7 +266,7 @@ func (this *TexasPokerRoom) AllInBrightCard() {
 	if this.hasbright == true {
 		return
 	}
-	if this.allin + 1 >= this.remain{
+	if this.allin + 1 >= this.remain && this.remain > 1{
 		for _, p := range this.players {
 			if p != nil && (p.IsAllIn() || p.IsCall() || p.IsRaise()) {
 				send := &msg.RS2C_PushBrightCard{}
@@ -275,7 +275,7 @@ func (this *TexasPokerRoom) AllInBrightCard() {
 				send.Allin = pb.Bool(true)
 				this.BroadCastRoomMsg(send)
 				p.isallinshow = true
-				//log.Info("房间%d 玩家%d allin亮牌", this.Id(), p.owner.Id())
+				//log.Info("房间%d 玩家%d allin亮牌  allin:%d  remain:%d", this.Id(), p.owner.Id(), this.allin, this.remain)
 			}
 		}
 		this.hasbright = true

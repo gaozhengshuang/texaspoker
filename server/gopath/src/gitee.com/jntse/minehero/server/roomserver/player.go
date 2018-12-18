@@ -829,7 +829,8 @@ func (this *TexasPlayer) ChangeState(state int32) {
 	send.Num = pb.Int64(this.curbet)
 	this.room.BroadCastRoomMsg(send)
 	if state == GSAllIn {
-		this.isshowcard = true
+		//allin 不一定要显示手牌
+		//this.isshowcard = true
 		this.room.allin++
 	}
 	//log.Info("房间%d 玩家%d 改变状态%d", this.room.Id(), this.owner.Id(), this.gamestate)
