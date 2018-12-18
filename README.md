@@ -3,9 +3,15 @@
 
 ### 服务器
 
-1. 安装redis 
+1. 安装redis golang protobuf python
 
     `sudo yum install redis`
+
+	yum -y install python
+	yum -y install golong
+	yum -y install protobuf
+	yum -y install protobuf-devel
+	
 
 2. 安装dlv调试工具 
 
