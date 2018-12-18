@@ -56,12 +56,12 @@ class ActivityPanelJumpManager
      */
     public static async JumpToPanel(activityInfo: ActivityInfo)
     {
-        switch(activityInfo.definition.Type) //move todo
+        switch (activityInfo.definition.Type) //move todo
         {
             case ActivityType.PayPrize:
             case ActivityType.BindChannel:
-            AlertManager.showAlertByString("暂未开启");
-            return;
+                AlertManager.showAlertByString("暂未开启");
+                return;
         }
         if (ActivityPanelJumpManager._isLoading)
         {
@@ -112,7 +112,6 @@ class ActivityPanelJumpManager
             game.Console.log("资源加载地址groupName：" + event.groupName);
         }
     }
-
     private static jumpToActivity(info: ActivityInfo)
     {
         if (ActivityManager.showList.indexOf(info) != -1)

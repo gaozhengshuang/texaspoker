@@ -315,7 +315,10 @@ module game
 		private onSocketClose(event: egret.Event): void
 		{
 			Console.log("WebSocket Close");
-			this.DispatchMessage(new SocketMessage(SocketMessageType.Failing, "close", "Server Close"));
+			egret.setTimeout(() =>
+			{
+				this.DispatchMessage(new SocketMessage(SocketMessageType.Failing, "close", "Server Close"));
+			}, this, 3000);
 		}
 
 		private onSocketError(event: egret.IOErrorEvent): void
