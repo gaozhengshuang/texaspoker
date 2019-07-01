@@ -27,16 +27,13 @@ git
 /client/resource_Publish
 /client/bin-release
 /client/libs/exml.e.d.ts
-/client/resource/default.thm.json
 /client/manifest.json
 /client/node_modules
 /client/bin-debug
 /client/bin-publish
 /client/bin-release
-/client/src/libs/qin/net/NetManager.ts
 /client/libs/exml.e.d.ts
 /client/libs/exml.e.d.ts
-/client/resource/default.thm.json
 /client_android/build
 /client_android/app/build
 /client_android/.gradle
