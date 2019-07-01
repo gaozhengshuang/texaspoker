@@ -255,8 +255,7 @@ func (ma *MatchServer) StartNetWork() bool {
 	if ma.net == nil {
 		return false
 	}
-	ma.net.Init(ma.netconf, ma)
-	ma.net.SetHttpResponseHandler(HttpServerResponseCallBack) // Http监听,需要设置处理回调
+	ma.net.Init(ma.netconf, ma, HttpServerResponseCallBack)
 	if ma.net.Start() == false {
 		log.Info("初始化网络error...")
 		return false
