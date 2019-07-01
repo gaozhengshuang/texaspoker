@@ -16,7 +16,7 @@
     <meta http-equiv="Expires" content="0" />
     <style>
         html, body {
-            -ms-touch-action: none;
+            touch-action: auto;
             background: #e5e5e5;
             padding: 0;
             border: 0;
@@ -67,6 +67,7 @@ data-show-log="true" data-show-fps-style="x:0,y:0,size:12,textColor:0xffffff,bgA
     window.web_config_defaultThmJson = 'resource/default.thm.json';
 
     loadZip(langUrl, langName + ".json", jszipParse);
+	console.log("resJsonUrl", resJsonUrl);
     //加载单个zip文件，成功后进行回调
     function loadZip(url, filename, callBack) {
         var xhrZip = new XMLHttpRequest();
