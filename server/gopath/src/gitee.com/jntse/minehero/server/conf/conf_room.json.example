@@ -11,7 +11,7 @@
 			"name": "MatchConnector",
 			"parser": "MS2RS_MsgParser",
 			"host": {
-				"ip": "192.168.30.203", "port": 8002
+				"ip": "211.159.201.35", "port": 8002
 			},
             "interval": 3,
             "svrchannel":true,
@@ -32,10 +32,11 @@
 		}
 	],
     "redis": {
+	"enable": true,
         "passwd": "",
         "db": 0,
         "host": {
-            "ip": "192.168.30.203", "port": 6377
+            "ip": "127.0.0.1", "port": 6379
         }
     }
 }

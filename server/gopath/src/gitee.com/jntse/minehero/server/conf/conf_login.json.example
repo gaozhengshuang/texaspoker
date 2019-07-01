@@ -11,7 +11,7 @@
 			"name": "GateListener",
 			"parser": "GW2LS_MsgParser",
 			"host": {
-				"ip": "192.168.30.203", "port": 7001
+				"ip": "211.159.201.35", "port": 7001
 			},
             "verify": 0,
             "svrchannel":true,
@@ -23,7 +23,7 @@
 			"name": "ClientListener",
 			"parser": "C2LS_MsgParser",
 			"host": {
-				"ip": "192.168.30.203", "port": 7002
+				"ip": "211.159.201.35", "port": 7002
 			},
             "verify": 1,
             "svrchannel":false,
@@ -37,7 +37,7 @@
 		{
 			"name": "TestHttpListener1",
 			"host": {
-				"ip": "192.168.30.203", "port": 7003
+				"ip": "211.159.201.35", "port": 7003
 			},
             "https": false,
             "cert":"../cert/https/https-server-214801457430415.pem",
@@ -46,14 +46,17 @@
 		}
     ],
     "redis": {
+	"enable": true,
         "passwd": "",
         "db": 0,
         "host": {
-            "ip": "192.168.30.203", "port": 6377
+            "ip": "127.0.0.1", "port": 6379
         }
     },
-    "mysql" : {
-        "enable": true,
+    "mysql" : [
+	    {
+	"name":"alldata",
+        "enable": false,
         "user":"xiejian",
         "passwd":"123456",
         "database":"texaspoker",
@@ -62,5 +65,6 @@
         },
         "maxidleconn":30
     }
+    ]
 
 }

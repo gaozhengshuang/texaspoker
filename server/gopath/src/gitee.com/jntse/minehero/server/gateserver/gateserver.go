@@ -432,8 +432,8 @@ func (g *GateServer) OnStop() {
 		g.hredis.Close()
 	}
 
-	if g.dbsql != nil {
-		g.dbsql.Close()
+	if g.dbpool != nil {
+		g.dbpool.Stop()
 	}
 }
 
