@@ -303,8 +303,7 @@ func (rs *RoomServer) StartNetWork() bool {
 	if rs.net == nil {
 		return false
 	}
-	rs.net.Init(rs.netconf, rs)
-	rs.net.SetHttpResponseHandler(HttpServerResponseCallBack) // Http监听,需要设置处理回调
+	rs.net.Init(rs.netconf, rs, HttpServerResponseCallBack)
 	if rs.net.Start() == false {
 		log.Info("初始化网络error...")
 		return false

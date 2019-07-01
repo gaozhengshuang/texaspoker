@@ -229,8 +229,7 @@ func (l* LoginServer) StartNetWork() bool {
 	if l.net == nil {
 		return false
 	}
-	l.net.Init(l.netconf, l)
-	l.net.SetHttpResponseHandler(HttpServerResponseCallBack)	// Http监听,需要设置处理回调
+	l.net.Init(l.netconf, l, HttpServerResponseCallBack)
 	if l.net.Start() == false {
 		log.Info("初始化网络error...")
 		return false

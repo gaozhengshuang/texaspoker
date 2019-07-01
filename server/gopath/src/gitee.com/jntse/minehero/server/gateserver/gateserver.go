@@ -85,6 +85,7 @@ type GateServer struct {
 	sf				util.StatFunctionTimeConsume
 	sdispatch		StatDispatch
 	dbsql      		*mysql.MysqlDriver
+	dbpool                  *mysql.MysqlDriverPool
 	rankmgr      	RankManager
 	statisticsmgr 	StatisticsManager
 	bimgr 			BiDataManager
@@ -116,7 +117,11 @@ func RankMge() *RankManager {
 }
 
 func DB() *mysql.MysqlDriver {
-	return GateSvr().dbsql
+	dbpool := GateSvr().dbpool;
+	if dbpool != nil {
+		return dbpool.DB("alldata")
+	}
+	return nil
 }
 
 func WaitPool() *LoginWaitPool {
@@ -312,29 +317,8 @@ func (g *GateServer) Init(fileconf string) bool {
 }
 
 func (g *GateServer) InitMySql() bool {
-	//mysqlconf := &mysql.MysqlConf{}
-	//jsonerr := util.JsonConfParser("../conf/mysql.json", mysqlconf)
-	//if jsonerr != nil || mysqlconf == nil {
-	//	log.Error("解析Mysql配置失败[%s]", jsonerr)
-	//	return false
-	//}
-	//log.Info("加载mysql配置ok...")
-
-	mysqlconf := g.netconf.Mysql
-	if g.netconf.Mysql.Enable == false {
-		log.Info("mysql未启用")
-		return true
-	}
-
-	g.dbsql = &mysql.MysqlDriver{}
-	g.dbsql.Init(mysqlconf)
-	if err := g.dbsql.Open(); err != nil {
-		log.Info("连接Mysql数据库失败[%#v] 原因[%s]", mysqlconf, err)
-		return false
-	}
-
-	log.Info("连接Mysql数据库成功[%#v]", mysqlconf)
-	return true
+	g.dbpool = &mysql.MysqlDriverPool{}
+	return g.dbpool.Init(g.netconf.Mysql)
 }
 
 func (g *GateServer) Handler1mTick(now int64) {
@@ -394,8 +378,7 @@ func (g *GateServer) StartNetWork() bool {
 	if g.net == nil {
 		return false
 	}
-	g.net.Init(g.netconf, g)
-	g.net.SetHttpResponseHandler(HttpServerResponseCallBack) // Http监听,需要设置处理回调
+	g.net.Init(g.netconf, g, HttpServerResponseCallBack)
 	if g.net.Start() == false {
 		log.Info("初始化网络error...")
 		return false
@@ -468,26 +451,26 @@ func (g *GateServer) Run() {
 	// TODO:每帧处理1000条
 	now := util.CURTIMEMS() // 毫秒
 	lastrun := now - g.runtimestamp
-	g.sf.Record(now)
+	g.sf.Write(now)
 	dispatched := g.net.Dispatch(network.KFrameDispatchNum, 500)
 	g.sdispatch.Inc(int32(dispatched))
-	g.sf.Record(util.CURTIMEMS())
+	g.sf.Write(util.CURTIMEMS())
 
 	//
 	g.usermgr.Tick(now)
-	g.sf.Record(util.CURTIMEMS())
+	g.sf.Write(util.CURTIMEMS())
 
 	//
 	g.hourmonitor.Run(now / 1000) // 秒
 	for _, t := range g.tickers {
 		t.Run(now)
 	}
-	g.sf.Record(util.CURTIMEMS())
+	g.sf.Write(util.CURTIMEMS())
 
 	// 每帧统计耗时
 	if delay := g.sf.Total(); lastrun + delay > 20 { // 40毫秒
 		log.Warn("统计帧耗时 lastrun[%d] total[%d] dispatch[%d] userticker[%d] svrticker[%d]",
-			lastrun, delay, g.sf.Diff(0, 1), g.sf.Diff(1,2), g.sf.Diff(2,3))
+			lastrun, delay, g.sf.Read(), g.sf.Read(), g.sf.Read())
 	}
 
 	//
